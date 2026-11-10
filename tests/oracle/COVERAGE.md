@@ -46,8 +46,8 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Haskell | `haskell` | 191 of 192 | 99.5% | 280 of 287 | 97.6% | 8 | 0 | yes |
 | HCL | `hcl` | 80 of 80 | 100.0% | 53 of 55 | 96.4% | 2 | 0 | yes |
 | HLSL | `hlsl` | 53 of 53 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
-| HTML | `html` | 146 of 227 | 64.3% | 183 of 368 | 49.7% | 0 | 4 |  |
-| HTML | `html-derivative` | 2 of 3 | 66.7% | 3 of 3 | 100.0% | 0 | 1 |  |
+| HTML | `html` | 227 of 227 | 100.0% | 359 of 368 | 97.6% | 9 | 0 | yes |
+| HTML | `html-derivative` | 3 of 3 | 100.0% | 3 of 3 | 100.0% | 0 | 0 | yes |
 | INI | `ini` | 15 of 15 | 100.0% | 10 of 12 | 83.3% | 2 | 0 | yes |
 | Java | `java` | 214 of 214 | 100.0% | 133 of 134 | 99.3% | 1 | 0 | yes |
 | TypeScript | `javascript` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
@@ -1339,121 +1339,24 @@ patterns[17].end  groups 1
 ### `html`
 
 ```text
-#attribute.patterns[1].patterns[0].patterns[0].patterns[2].begin  '
-#attribute.patterns[1].patterns[0].patterns[0].patterns[2].end  (')
-#attribute.patterns[1].patterns[0].patterns[1].match  =
-#attribute.patterns[2].patterns[0].patterns[0].patterns[0].match  (([^"'/<=>`\s]|/(?!>))+)
-#attribute.patterns[2].patterns[0].patterns[0].patterns[1].patterns[1].begin  //
-#attribute.patterns[2].patterns[0].patterns[0].patterns[1].patterns[1].end  (?=")|\n
-#attribute.patterns[2].patterns[0].patterns[0].patterns[1].patterns[2].begin  /\*
-#attribute.patterns[2].patterns[0].patterns[0].patterns[1].patterns[2].end  (?=")|\*/
-#attribute.patterns[2].patterns[0].patterns[0].patterns[2].begin  '
-#attribute.patterns[2].patterns[0].patterns[0].patterns[2].end  (')
-#attribute.patterns[2].patterns[0].patterns[0].patterns[2].patterns[0].match  ([^\n'/]|/(?![*/]))+
-#attribute.patterns[2].patterns[0].patterns[0].patterns[2].patterns[1].begin  //
-#attribute.patterns[2].patterns[0].patterns[0].patterns[2].patterns[1].end  (?=')|\n
-#attribute.patterns[2].patterns[0].patterns[0].patterns[2].patterns[2].begin  /\*
-#attribute.patterns[2].patterns[0].patterns[0].patterns[2].patterns[2].end  (?=')|\*/
-#attribute.patterns[2].patterns[0].patterns[1].match  =
-#cdata.begin  <!\[CDATA\[
-#cdata.end  ]]>
-#comment.patterns[0].match  \G-?>
-#comment.patterns[1].match  <!-(?:-(?!>)|(?=-->))
-#comment.patterns[2].match  --!>
-#entities.patterns[1].match  (&)#[0-9]+(;)  fuzz
+#entities.patterns[1].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
 #entities.patterns[2].match  groups 3
-#math.patterns[0].patterns[0].begin  (?<!>)\G
-#math.patterns[0].patterns[0].end  >
-#math.repository.#attribute.patterns[2].match  [^>\s]+  fuzz
-#math.repository.#tags.patterns[2].match
-  (?i)(<)(annotation|annotation-xml|semantics|menclose|merror…
-#math.repository.#tags.patterns[3].end  groups 4
-#math.repository.#tags.patterns[3].patterns[0].begin  (?<!>)\G
-#math.repository.#tags.patterns[3].patterns[0].end  (?=/>)|>
-#math.repository.#tags.patterns[4].match
-  (?i)(<)(m(?:[inos]|space|text|aligngroup|alignmark))(?=\s|/…
-#math.repository.#tags.patterns[5].end  groups 4
-#math.repository.#tags.patterns[5].patterns[0].begin  (?<!>)\G
-#math.repository.#tags.patterns[5].patterns[0].end  (?=/>)|>
-#math.repository.#tags.patterns[6].match  (?i)(<)(mglyph)(?=\s|/?>)(([^"'>]|"[^"]*"|'[^']*')*)(/>)
-#math.repository.#tags.patterns[7].begin
-  (?i)(<)(mglyph)(?=\s|/?>)(?:(([^"'>]|"[^"]*"|'[^']*')*)(>))?
-#math.repository.#tags.patterns[7].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
-#math.repository.#tags.patterns[7].patterns[0].begin  (?<!>)\G
-#math.repository.#tags.patterns[7].patterns[0].end  (?=/>)|>
-#math.repository.#tags.patterns[8].match  (?i)(<)(([:\w]+))(?=\s|/?>)(([^"'>]|"[^"]*"|'[^']*')*)(/>)
-#math.repository.#tags.patterns[9].begin
-  (?i)(<)((\w[^>\s]*))(?=\s|/?>)(?:(([^"'>]|"[^"]*"|'[^']*')*…
-#math.repository.#tags.patterns[9].end  (?i)(</)((\2))\s*(>)|(/>)|(?=</\w+)
-#math.repository.#tags.patterns[9].patterns[0].begin  (?<!>)\G
-#math.repository.#tags.patterns[9].patterns[0].end  (?=/>)|>
-#svg.repository.#tags.patterns[2].match
-  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
-#svg.repository.#tags.patterns[3].begin
-  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
-#svg.repository.#tags.patterns[3].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
-#svg.repository.#tags.patterns[3].patterns[0].begin  (?<!>)\G
-#svg.repository.#tags.patterns[3].patterns[0].end  (?=/>)|>
-#svg.repository.#tags.patterns[4].match
-  (?i)(<)(animateMotion|clipPath|defs|feComponentTransfer|feD…
-#svg.repository.#tags.patterns[5].end  groups 4
-#svg.repository.#tags.patterns[6].match
-  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
-#svg.repository.#tags.patterns[7].begin
-  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
-#svg.repository.#tags.patterns[7].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
-#svg.repository.#tags.patterns[7].patterns[0].begin  (?<!>)\G
-#svg.repository.#tags.patterns[7].patterns[0].end  (?=/>)|>
-#svg.repository.#tags.patterns[9].begin  groups 3, 5
-#svg.repository.#tags.patterns[9].end  groups 1, 2, 3
-#svg.repository.#tags.patterns[9].patterns[0].end  groups 0
-#svg.repository.#tags.patterns[10].match
-  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
-#svg.repository.#tags.patterns[11].begin
-  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
-#svg.repository.#tags.patterns[11].end  (?i)(</)((\2))\s*(>)|(/>)|(?=</\w+)
-#svg.repository.#tags.patterns[11].patterns[0].begin  (?<!>)\G
-#svg.repository.#tags.patterns[11].patterns[0].end  (?=/>)|>
-#svg.repository.#tags.patterns[12].match  (?i)(<)(([:\w]+))(?=\s|/?>)(([^"'>]|"[^"]*"|'[^']*')*)(/>)
-#svg.repository.#tags.patterns[13].end  groups 5
-#svg.repository.#tags.patterns[13].patterns[0].begin  (?<!>)\G
-#svg.repository.#tags.patterns[13].patterns[0].end  (?=/>)|>
+  group 3: waived: the grammar names the group, but the expression has two groups
 #tags-valid.patterns[0].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 #tags-valid.patterns[0].end  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 #tags-valid.patterns[0].patterns[0].patterns[0].begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
 #tags-valid.patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 #tags-valid.patterns[1].end  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 #tags-valid.patterns[1].patterns[0].patterns[0].patterns[0].patterns[0].patterns[0].begin  groups 1
-#tags-valid.patterns[1].patterns[0].patterns[0].patterns[0].patterns[0].patterns[1].begin  /\*
-#tags-valid.patterns[1].patterns[0].patterns[0].patterns[0].patterns[0].patterns[1].end
-  \*/|(?=</script)
-#tags-valid.patterns[14].begin  (?i)(<)((basefont|isindex))(?=\s|/?>)
-#tags-valid.patterns[14].end  /?>
-#tags-valid.patterns[15].begin  (?i)(<)((center|frameset|noembed|noframes))(?=\s|/?>)
-#tags-valid.patterns[15].end  >
-#tags-valid.patterns[16].begin  (?i)(</)((center|frameset|noembed|noframes))(?=\s|/?>)
-#tags-valid.patterns[16].end  >
-#tags-valid.patterns[17].begin  (?i)(<)((acronym|big|blink|font|strike|tt|xmp))(?=\s|/?>)
-#tags-valid.patterns[17].end  >
-#tags-valid.patterns[18].begin  (?i)(</)((acronym|big|blink|font|strike|tt|xmp))(?=\s|/?>)
-#tags-valid.patterns[18].end  >
-#tags-valid.patterns[19].begin  (?i)(<)((frame))(?=\s|/?>)
-#tags-valid.patterns[19].end  /?>
-#tags-valid.patterns[20].begin  (?i)(<)((applet))(?=\s|/?>)
-#tags-valid.patterns[20].end  >
-#tags-valid.patterns[21].begin  (?i)(</)((applet))(?=\s|/?>)
-#tags-valid.patterns[21].end  >
-#xml-processing.begin  (<\?)(xml)
-#xml-processing.end  (\?>)
-injections[R:text.html - (comment.block, text.html meta.embedded, meta.tag.*.*.html, meta.tag.*.*.*.html, meta.tag.*.*.*.*.html)].patterns[0].match
-  <  fuzz
-```
-
-### `html-derivative`
-
-```text
-injections[R:text.html - (comment.block, text.html meta.embedded, meta.tag.*.*.html, meta.tag.*.*.*.html, meta.tag.*.*.*.*.html)].patterns[0].match
-  <  fuzz
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#xml-processing.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
 ```
 
 ### `ini`

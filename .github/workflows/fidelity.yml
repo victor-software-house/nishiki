@@ -32,7 +32,7 @@ env:
   MISE_ENV: ci
   # The nishiki-sources commit the oracle reads. A pull request that adds an
   # input fills the mirror first, then raises this commit.
-  NISHIKI_SOURCES_COMMIT: e16b69b0ef25ea649db5a0dda35ebdb4cdc55982
+  NISHIKI_SOURCES_COMMIT: 261573177a50b66ac3a36f02ac1f24ff4eac0c66
   NISHIKI_SOURCES: ${{ github.workspace }}/target/sources
 
 jobs:

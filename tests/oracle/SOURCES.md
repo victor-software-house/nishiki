@@ -274,6 +274,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `hlsl/dxsdk-tutorial13` | [`Direct3D11TutorialsFX11/Tutorial13/Tutorial13.fx`][dxsdk-tutorial13] in walbourn/directx-sdk-samples | [MIT][directx-sdk-samples-licence] |
 | `hlsl/sample` | [`samples/hlsl.sample`][hlsl-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `html/bootstrap3-visual-modal` | [`js/tests/visual/modal.html`][bootstrap3-visual-modal] in twbs/bootstrap | [MIT][bootstrap3-licence] |
+| `html/coverage` | `oracle/inputs/html-coverage.html`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `html/h5bp-404` | [`src/404.html`][h5bp-404] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
 | `html/h5bp-index` | [`src/index.html`][h5bp-index] in h5bp/html5-boilerplate | [MIT][h5bp-licence] |
 | `html/invalid-tags` | `oracle/inputs/html-invalid-tags.html`, written for nishiki | MIT or Apache-2.0, as nishiki |
@@ -291,6 +292,18 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `html/todomvc-knockoutjs` | [`examples/knockoutjs/index.html`][todomvc-knockoutjs] in tastejs/todomvc | [MIT][todomvc-licence] |
 | `html/todomvc-lit` | [`examples/lit/index.html`][todomvc-lit] in tastejs/todomvc | [MIT][todomvc-licence] |
 | `html/todomvc-polymer` | [`examples/polymer/index.html`][todomvc-polymer] in tastejs/todomvc | [BSD-3-Clause][todomvc-polymer-licence] |
+| `html/wpt-document-foreign-01` | [`html/syntax/parsing/Document.getElementsByTagName-foreign-01.html`][wpt-document-foreign-01] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-document-foreign-02` | [`html/syntax/parsing/Document.getElementsByTagName-foreign-02.html`][wpt-document-foreign-02] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-element-foreign-02` | [`html/syntax/parsing/Element.getElementsByTagName-foreign-02.html`][wpt-element-foreign-02] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-html-integration-point` | [`html/syntax/parsing/html-integration-point.html`][wpt-html-integration-point] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-inline-event-handler` | [`html/semantics/scripting-1/the-script-element/module/dynamic-import/inline-event-handler.html`][wpt-inline-event-handler] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-math-parse01` | [`html/syntax/parsing/math-parse01.html`][wpt-math-parse01] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-script-noembed-noframes` | [`html/semantics/scripting-1/the-script-element/script-noembed-noframes-iframe.xhtml`][wpt-script-noembed-noframes] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-script-type-language-xhtml` | [`html/semantics/scripting-1/the-script-element/script-type-and-language-js-xhtml.xhtml`][wpt-script-type-language-xhtml] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-svg-scripted-element` | [`svg/struct/scripted/element.html`][wpt-svg-scripted-element] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-text-clip-path-transform` | [`svg/painting/text-clip-path-transform.html`][wpt-text-clip-path-transform] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html/wpt-unclosed-svg-script` | [`html/syntax/parsing/unclosed-svg-script.html`][wpt-unclosed-svg-script] in web-platform-tests/wpt | [BSD-3-Clause][wpt-licence] |
+| `html-derivative/coverage` | `oracle/inputs/html-derivative-coverage.html`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `html-derivative/vue-classic-grid` | [`packages/vue/examples/classic/grid.html`][derivative-vue-classic-grid] in vuejs/core | [MIT][vue-licence] |
 | `html-derivative/vue-classic-todomvc` | [`packages/vue/examples/classic/todomvc.html`][derivative-vue-classic-todomvc] in vuejs/core | [MIT][vue-licence] |
 | `html-derivative/vue-commits` | [`packages/vue/examples/composition/commits.html`][derivative-vue-commits] in vuejs/core | [MIT][vue-licence] |
@@ -1051,6 +1064,9 @@ None of them has an `R` string macro, whose contents Shiki lexes as R and nishik
 `html/todomvc-polymer`, `html/h5bp-404`, `html/todomvc-lit`, `html/three-geometry-colors`, `html/mathjax-tex-mml`, `html/three-loader-gltf`, `html/bootstrap3-visual-modal`, `html/jquery-delegatetest`, `html/todomvc-knockoutjs` and `html/todomvc-jquery` are held out.
 The held-out ones cover `<style>` CSS, classic and module `<script>` JavaScript, a Polymer `<template>`, and character entities; the MathML of `html/mathjax-mml-chtml` is a development input.
 TodoMVC's `license.md` puts the repository under MIT unless a file says otherwise, and its Polymer example carries its own BSD-3-Clause `LICENSE`.
+`html/coverage`, `html-derivative/coverage` and the eleven `html/wpt-*` inputs are held out too.
+They were added to exercise the rest of the two grammars, as [`COVERAGE.md`](COVERAGE.md) counts them.
+The `wpt-*` inputs are HTML parsing, SVG and script tests from web-platform-tests, which the repository's `LICENSE.md` puts under BSD-3-Clause.
 `mermaid/sample`, `mermaid/flowchart-code-flow` and `mermaid/coverage` are its development inputs, and `mermaid/api-sequence` and `mermaid/mindmap-sequence` are held out.
 Shiki's Markdown grammar has no Mermaid fence, so no Markdown input embeds Mermaid.
 `haskell/sample` and `haskell/aeson-github` are Haskell's development inputs, and `haskell/aeson-builder` and `haskell/aeson-decoding-text` are held out.
@@ -2100,6 +2116,18 @@ Its scopes are written to `target/fidelity/` on each run and never committed.
 [woo-licence]: https://github.com/fukamachi/woo/blob/51b8cb2653116cd05f6a8d0029719ce6ce106711/LICENSE.txt
 [woo-main]: https://github.com/fukamachi/woo/blob/51b8cb2653116cd05f6a8d0029719ce6ce106711/src/woo.lisp
 [woo-response]: https://github.com/fukamachi/woo/blob/51b8cb2653116cd05f6a8d0029719ce6ce106711/src/response.lisp
+[wpt-document-foreign-01]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/syntax/parsing/Document.getElementsByTagName-foreign-01.html
+[wpt-document-foreign-02]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/syntax/parsing/Document.getElementsByTagName-foreign-02.html
+[wpt-element-foreign-02]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/syntax/parsing/Element.getElementsByTagName-foreign-02.html
+[wpt-html-integration-point]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/syntax/parsing/html-integration-point.html
+[wpt-inline-event-handler]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/semantics/scripting-1/the-script-element/module/dynamic-import/inline-event-handler.html
+[wpt-licence]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/LICENSE.md
+[wpt-math-parse01]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/syntax/parsing/math-parse01.html
+[wpt-script-noembed-noframes]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/semantics/scripting-1/the-script-element/script-noembed-noframes-iframe.xhtml
+[wpt-script-type-language-xhtml]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/semantics/scripting-1/the-script-element/script-type-and-language-js-xhtml.xhtml
+[wpt-svg-scripted-element]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/svg/struct/scripted/element.html
+[wpt-text-clip-path-transform]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/svg/painting/text-clip-path-transform.html
+[wpt-unclosed-svg-script]: https://github.com/web-platform-tests/wpt/blob/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0/html/syntax/parsing/unclosed-svg-script.html
 [xerces-design]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/design.xml
 [xerces-licence]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/LICENSE
 [xerces-schedule]: https://github.com/apache/xerces2-j/blob/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2/design/xml/schedule.xml

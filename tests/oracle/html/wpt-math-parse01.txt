@@ -1,0 +1,689 @@
+L <!DOCTYPE html>
+T 2 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.metadata.doctype.html entity.name.tag.html
+T 10 text.html.basic meta.tag.metadata.doctype.html
+T 14 text.html.basic meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 15 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L <html>
+T 1 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.html.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.html.start.html punctuation.definition.tag.end.html
+L <head>
+T 1 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.head.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.head.start.html punctuation.definition.tag.end.html
+L <title>math in html: parsing</title>
+T 1 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.metadata.title.start.html entity.name.tag.html
+T 7 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 28 text.html.basic
+T 30 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 35 text.html.basic meta.tag.metadata.title.end.html entity.name.tag.html
+T 36 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+L <script src="/resources/testharness.js"></script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 11 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 12 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 13 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 39 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 41 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 42 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 49 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L <script src="/resources/testharnessreport.js"></script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 11 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 12 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 13 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 47 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 54 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 55 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L </head>
+T 2 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.structure.head.end.html entity.name.tag.html
+T 7 text.html.basic meta.tag.structure.head.end.html punctuation.definition.tag.end.html
+L <body>
+T 1 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.body.start.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.body.start.html punctuation.definition.tag.end.html
+L <h1>math in html: parsing</h1>
+T 1 text.html.basic meta.tag.structure.h1.start.html punctuation.definition.tag.begin.html
+T 3 text.html.basic meta.tag.structure.h1.start.html entity.name.tag.html
+T 4 text.html.basic meta.tag.structure.h1.start.html punctuation.definition.tag.end.html
+T 25 text.html.basic
+T 27 text.html.basic meta.tag.structure.h1.end.html punctuation.definition.tag.begin.html
+T 29 text.html.basic meta.tag.structure.h1.end.html entity.name.tag.html
+T 30 text.html.basic meta.tag.structure.h1.end.html punctuation.definition.tag.end.html
+L 
+L <div id="log" style="display:block"></div>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 13 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 14 text.html.basic meta.tag.structure.div.start.html
+T 19 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html entity.other.attribute-name.html
+T 20 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html punctuation.separator.key-value.html
+T 21 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.begin.html
+T 34 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
+T 35 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.end.html source.css
+T 36 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 38 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 41 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 42 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L <div style="display:none">
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 10 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html entity.other.attribute-name.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html punctuation.separator.key-value.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.begin.html
+T 24 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html source.css
+T 25 text.html.basic meta.tag.structure.div.start.html meta.attribute.style.html meta.embedded.line.css string.quoted.double.html punctuation.definition.string.end.html source.css
+T 26 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L <div><math id="m1"><mtext/></math></div>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 6 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.begin.html
+T 10 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html entity.name.tag.html
+T 11 text.html.basic meta.element.structure.math.html
+T 13 text.html.basic meta.element.structure.math.html meta.attribute.id.html entity.other.attribute-name.html
+T 14 text.html.basic meta.element.structure.math.html meta.attribute.id.html punctuation.separator.key-value.html
+T 15 text.html.basic meta.element.structure.math.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.basic meta.element.structure.math.html meta.attribute.id.html string.quoted.double.html
+T 18 text.html.basic meta.element.structure.math.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic meta.element.structure.math.html meta.element.inline.math.mtext.html meta.tag.inline.math.mtext.void.html punctuation.definition.tag.begin.html
+T 25 text.html.basic meta.element.structure.math.html meta.element.inline.math.mtext.html meta.tag.inline.math.mtext.void.html entity.name.tag.html
+T 27 text.html.basic meta.element.structure.math.html meta.element.inline.math.mtext.html meta.tag.inline.math.mtext.void.html punctuation.definition.tag.end.html
+T 29 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.begin.html
+T 33 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html entity.name.tag.html
+T 34 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.end.html
+T 36 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 39 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 40 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L <div id="d1"><math><mrow/><mi/></math></div>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 13 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 14 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.begin.html
+T 18 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html entity.name.tag.html
+T 19 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.void.html punctuation.definition.tag.begin.html
+T 24 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.void.html entity.name.tag.html
+T 26 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.void.html punctuation.definition.tag.end.html
+T 27 text.html.basic meta.element.structure.math.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.void.html punctuation.definition.tag.begin.html
+T 29 text.html.basic meta.element.structure.math.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.void.html entity.name.tag.html
+T 31 text.html.basic meta.element.structure.math.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.void.html punctuation.definition.tag.end.html
+T 33 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.begin.html
+T 37 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html entity.name.tag.html
+T 38 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.end.html
+T 40 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 43 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 44 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L <div id="d2"><math><mrow><mrow><mn>1</mn></mrow><mi>a</mi></mrow></math></div>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 13 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 14 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.begin.html
+T 18 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html entity.name.tag.html
+T 19 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.start.html punctuation.definition.tag.begin.html
+T 24 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.start.html entity.name.tag.html
+T 25 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.start.html punctuation.definition.tag.end.html
+T 26 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.start.html punctuation.definition.tag.begin.html
+T 30 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.start.html entity.name.tag.html
+T 31 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.start.html punctuation.definition.tag.end.html
+T 32 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.start.html punctuation.definition.tag.begin.html
+T 34 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.start.html entity.name.tag.html
+T 35 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.start.html punctuation.definition.tag.end.html
+T 36 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.element.inline.math.mn.html
+T 38 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.end.html punctuation.definition.tag.begin.html
+T 40 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.end.html entity.name.tag.html
+T 41 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.end.html punctuation.definition.tag.end.html
+T 43 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.end.html punctuation.definition.tag.begin.html
+T 47 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.end.html entity.name.tag.html
+T 48 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.end.html punctuation.definition.tag.end.html
+T 49 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html punctuation.definition.tag.begin.html
+T 51 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html entity.name.tag.html
+T 52 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html punctuation.definition.tag.end.html
+T 53 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.inline.math.mi.html
+T 55 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html punctuation.definition.tag.begin.html
+T 57 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html entity.name.tag.html
+T 58 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html punctuation.definition.tag.end.html
+T 60 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.end.html punctuation.definition.tag.begin.html
+T 64 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.end.html entity.name.tag.html
+T 65 text.html.basic meta.element.structure.math.html meta.element.structure.math.mrow.html meta.tag.structure.math.mrow.end.html punctuation.definition.tag.end.html
+T 67 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.begin.html
+T 71 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html entity.name.tag.html
+T 72 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.end.html
+T 74 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 77 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 78 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L <div id="d3">&lang;&rang;</div>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 13 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 14 text.html.basic constant.character.entity.named.lang.html punctuation.definition.entity.html
+T 18 text.html.basic constant.character.entity.named.lang.html
+T 19 text.html.basic constant.character.entity.named.lang.html punctuation.definition.entity.html
+T 20 text.html.basic constant.character.entity.named.rang.html punctuation.definition.entity.html
+T 24 text.html.basic constant.character.entity.named.rang.html
+T 25 text.html.basic constant.character.entity.named.rang.html punctuation.definition.entity.html
+T 27 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 30 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 31 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L <div id="d4">&Kopf;</div>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 13 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 14 text.html.basic constant.character.entity.named.Kopf.html punctuation.definition.entity.html
+T 18 text.html.basic constant.character.entity.named.Kopf.html
+T 19 text.html.basic constant.character.entity.named.Kopf.html punctuation.definition.entity.html
+T 21 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 24 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 25 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L <div id="d5"><math><semantics><mi>a</mi><annotation-xml><foo/><bar/></annotation-xml></semantics></math></div>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 13 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 14 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.begin.html
+T 18 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html entity.name.tag.html
+T 19 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.start.html punctuation.definition.tag.begin.html
+T 29 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.start.html entity.name.tag.html
+T 30 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.start.html punctuation.definition.tag.end.html
+T 31 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html punctuation.definition.tag.begin.html
+T 33 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html entity.name.tag.html
+T 34 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html punctuation.definition.tag.end.html
+T 35 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html
+T 37 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html punctuation.definition.tag.begin.html
+T 39 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html entity.name.tag.html
+T 40 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html punctuation.definition.tag.end.html
+T 41 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.start.html punctuation.definition.tag.begin.html
+T 55 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.start.html entity.name.tag.html
+T 56 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.start.html punctuation.definition.tag.end.html
+T 57 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.void.html punctuation.definition.tag.begin.html
+T 60 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.void.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 62 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.void.html punctuation.definition.tag.end.html
+T 63 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.void.html punctuation.definition.tag.begin.html
+T 66 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.void.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 68 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.void.html punctuation.definition.tag.end.html
+T 70 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.end.html punctuation.definition.tag.begin.html
+T 84 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.end.html entity.name.tag.html
+T 85 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.end.html punctuation.definition.tag.end.html
+T 87 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.end.html punctuation.definition.tag.begin.html
+T 96 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.end.html entity.name.tag.html
+T 97 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.end.html punctuation.definition.tag.end.html
+T 99 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.begin.html
+T 103 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html entity.name.tag.html
+T 104 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.end.html
+T 106 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 109 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 110 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L <div id="d6"><math><semantics><mi>a</mi><annotation-xml encoding="text/html"><div></div></annotation-xml></semantics><mn/></math>
+T 1 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.basic meta.tag.structure.div.start.html
+T 7 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html entity.other.attribute-name.html
+T 8 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html punctuation.separator.key-value.html
+T 9 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.begin.html
+T 11 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html
+T 12 text.html.basic meta.tag.structure.div.start.html meta.attribute.id.html string.quoted.double.html punctuation.definition.string.end.html
+T 13 text.html.basic meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+T 14 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.begin.html
+T 18 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html entity.name.tag.html
+T 19 text.html.basic meta.element.structure.math.html meta.tag.structure.math.start.html punctuation.definition.tag.end.html
+T 20 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.start.html punctuation.definition.tag.begin.html
+T 29 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.start.html entity.name.tag.html
+T 30 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.start.html punctuation.definition.tag.end.html
+T 31 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html punctuation.definition.tag.begin.html
+T 33 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html entity.name.tag.html
+T 34 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.start.html punctuation.definition.tag.end.html
+T 35 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html
+T 37 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html punctuation.definition.tag.begin.html
+T 39 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html entity.name.tag.html
+T 40 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.inline.math.mi.html meta.tag.inline.math.mi.end.html punctuation.definition.tag.end.html
+T 41 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.start.html punctuation.definition.tag.begin.html
+T 55 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.start.html entity.name.tag.html
+T 56 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html
+T 64 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.attribute.unrecognized.encoding.html entity.other.attribute-name.html
+T 65 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.attribute.unrecognized.encoding.html punctuation.separator.key-value.html
+T 66 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.attribute.unrecognized.encoding.html string.quoted.double.html punctuation.definition.string.begin.html
+T 75 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.attribute.unrecognized.encoding.html string.quoted.double.html
+T 76 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.attribute.unrecognized.encoding.html string.quoted.double.html punctuation.definition.string.end.html
+T 77 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.start.html punctuation.definition.tag.end.html
+T 78 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.start.html punctuation.definition.tag.begin.html
+T 81 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.start.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 82 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.start.html punctuation.definition.tag.end.html
+T 84 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.end.html punctuation.definition.tag.begin.html
+T 87 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.end.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 88 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.element.other.invalid.html meta.tag.other.invalid.end.html punctuation.definition.tag.end.html
+T 90 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.end.html punctuation.definition.tag.begin.html
+T 104 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.end.html entity.name.tag.html
+T 105 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.element.structure.math.annotation-xml.html meta.tag.structure.math.annotation-xml.end.html punctuation.definition.tag.end.html
+T 107 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.end.html punctuation.definition.tag.begin.html
+T 116 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.end.html entity.name.tag.html
+T 117 text.html.basic meta.element.structure.math.html meta.element.structure.math.semantics.html meta.tag.structure.math.semantics.end.html punctuation.definition.tag.end.html
+T 118 text.html.basic meta.element.structure.math.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.void.html punctuation.definition.tag.begin.html
+T 120 text.html.basic meta.element.structure.math.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.void.html entity.name.tag.html
+T 122 text.html.basic meta.element.structure.math.html meta.element.inline.math.mn.html meta.tag.inline.math.mn.void.html punctuation.definition.tag.end.html
+T 124 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.begin.html
+T 128 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html entity.name.tag.html
+T 129 text.html.basic meta.element.structure.math.html meta.tag.structure.math.end.html punctuation.definition.tag.end.html
+L </div>
+T 2 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.basic meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
+L 
+L <script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("m1"),document.getElementsByTagName("math")[0]);
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 79 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 80 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 81 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 82 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 83 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 84 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 85 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 86 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.terminator.statement.js
+L },"The id attribute should be recognised on math elements");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 57 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 58 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 59 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 60 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d1").firstChild.nodeName,"math")
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 63 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.property.js
+T 64 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 70 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 71 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"The node name should be math");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 31 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 32 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 34 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d1").firstChild.namespaceURI ,"http://www.w3.org/1998/Math/MathML")
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.property.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 70 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 104 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 105 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 106 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"math should be in MathML Namespace");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 37 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 38 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 40 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d1").firstChild.childNodes.length ,2)
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 72 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js support.variable.property.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js constant.numeric.decimal.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"Math has 2 children (empty tag syntax)");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d2").firstChild.childNodes.length ,1)
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 72 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js support.variable.property.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js constant.numeric.decimal.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"Nested mrow elements should be parsed correctly");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 50 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 51 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 53 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d3").firstChild.nodeValue ,"\u27E8\u27E9")
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 64 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.property.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js constant.character.escape.js
+T 79 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js constant.character.escape.js
+T 80 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 81 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"Testing rang and lang entity code points");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 43 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 44 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 46 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d4").firstChild.nodeValue ,"\uD835\uDD42")
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 64 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.property.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js constant.character.escape.js
+T 79 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js constant.character.escape.js
+T 80 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 81 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"Testing Kopf (Plane 1) entity code point");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 43 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 44 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 46 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d5").firstChild.firstChild.childNodes[1].childNodes.length ,2)
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.property.js
+T 77 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 78 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.array.literal.js constant.numeric.decimal.js
+T 79 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.array.literal.js meta.brace.square.js
+T 80 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 90 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 91 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 97 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js support.variable.property.js
+T 98 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js
+T 99 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 100 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js constant.numeric.decimal.js
+T 101 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"Empty element tags in annotation-xml parsed as per XML.");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 58 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 59 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 60 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 61 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(function() {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js storage.type.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.function.expression.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L assert_equals(document.getElementById("d6").firstChild.childNodes.length ,2)
+T 13 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 65 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js variable.other.object.property.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.accessor.js
+T 72 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js support.variable.property.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.separator.comma.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js constant.numeric.decimal.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js meta.brace.round.js
+L },"html tags allowed in annotation-xml/@encoding='text/html'.");
+T 1 text.html.basic meta.embedded.block.html source.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 61 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 62 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 63 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 64 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L </script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 2 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 

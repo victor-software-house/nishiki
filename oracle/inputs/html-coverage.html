@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Written for nishiki: the HTML grammar's rules that the other inputs leave unexercised. -->
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    p { color: red; }
+  </style>
+  <script>
+    // a comment that starts the line
+    let a = 1; /* a block comment */
+  </script>
+  <basefont size="3">
+  <isindex prompt="Search">
+</head>
+<body>
+<!-->
+<!--->
+<!-- one <!-- two -->
+<!-- one <!--->
+<!-- one --!> two -->
+<p>&#169; &#xA9; &#Xa9;</p>
+<![CDATA[ x < y ]]>
+<p style='color: blue'>single-quoted style</p>
+<p style==color:red>doubled equals</p>
+<p style= =color:red>spaced equals</p>
+<button onclick=go()>unquoted</button>
+<button onclick=="go()">doubled equals</button>
+<button onclick="go() // a line comment">double-quoted</button>
+<button onclick="go() /* a block comment */ ; stop()">double-quoted</button>
+<button onclick="go() /* an unclosed comment">double-quoted</button>
+<button onclick='go() // a line comment'>single-quoted</button>
+<button onclick='go() /* a block comment */ ; stop()'>single-quoted</button>
+<button onclick='go() /* an unclosed comment'>single-quoted</button>
+<frameset cols="50%,50%">
+  <frame src="a.html">
+  <frame src="b.html" />
+</frameset>
+<applet code="A.class" width="10" height="10">
+</applet>
+<math
+  display="block">
+  <mrow/>
+  <mrow id="r"/>
+  <mrow
+    id="s"/>
+  <mrow><mi>x</mi></mrow>
+  <mfrac
+    linethickness="2"><mn>1</mn><mn>2</mn></mfrac>
+  <mi "bad">y</mi>
+  <mi
+    mathvariant="bold">w</mi>
+  <mi id="v"/>
+  <mi
+    id="u"/>
+  <mtext>text</mtext>
+  <mglyph src="a.png" alt="a"/>
+  <mglyph src="b.png">
+  </mglyph>
+  <mglyph
+    src="c.png">
+  </mglyph>
+  <mglyph src="d.png"></mi>
+  <mglyph
+    src="e.png"/>
+  <foo/>
+  <foo id="f"/>
+  <foo>bar</foo>
+  <foo id="g">bar</foo>
+  <foo
+    id="h">bar</foo>
+  <foo
+    id="i"/>
+  <bar-baz>qux</bar-baz>
+</math>
+<svg>
+  <desc>a description</desc>
+  <title
+    id="t">a title</title>
+  <metadata/>
+  <desc
+    id="d"/>
+  <g/>
+  <g id="g1"/>
+  <g
+    id="g2"/>
+  <g><rect width="1" height="1"/></g>
+  <defs>
+  </defs>
+  <tspan/>
+  <tspan id="s1"/>
+  <tspan
+    id="s2"/>
+  <tspan>text</tspan>
+  <tspan
+    x="1">text</tspan>
+  <path
+    d="M0 0"></path>
+  <stop offset="0"/>
+  <font/>
+  <font id="f1"/>
+  <font
+    id="f2"/>
+  <font horiz-adv-x="1">text</font>
+  <altGlyph
+    href="#a">text</altGlyph>
+  <foo/>
+  <foo id="x"/>
+  <foo>bar</foo>
+  <foo
+    bar="baz">qux</foo>
+  <foo
+    id="y"/>
+</svg>
+</body>
+</html>
