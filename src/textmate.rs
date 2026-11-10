@@ -166,8 +166,7 @@ pub(crate) fn lex_handing(
     not(all(test, feature = "lang-haml", feature = "lang-objective-c")),
     expect(
         dead_code,
-        reason = "no language embeds an engine grammar now; only the hand-off tests do, \
-                  with HAML and Objective-C on"
+        reason = "only the hand-off tests embed an engine grammar, with HAML and Objective-C on"
     )
 )]
 pub(crate) fn lex_handing_embedded(
