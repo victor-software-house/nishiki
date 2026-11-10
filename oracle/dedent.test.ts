@@ -91,6 +91,44 @@ test("a value whose first line is empty leaves no blanks on its line", () => {
   expect(lineFirst).toBe(["a", "", "  x", "b"].join("\n"));
 });
 
+test("an empty value before text on its line keeps the line's indentation", () => {
+  const prefix = "";
+  const code = dedent`
+    impl A {
+        ${prefix}fn x() {}
+    }`;
+  expect(code).toBe(["impl A {", "    fn x() {}", "}"].join("\n"));
+});
+
+test("an empty value before another value on its line keeps the line's indentation", () => {
+  const name = dedent`
+    impl A {
+        ${""}${"fn x() {}"}
+    }`;
+  const prefixes = dedent`
+    impl A {
+        ${""}${""}fn x() {}
+    }`;
+  expect(name).toBe(["impl A {", "    fn x() {}", "}"].join("\n"));
+  expect(prefixes).toBe(["impl A {", "    fn x() {}", "}"].join("\n"));
+});
+
+test("empty values alone on their line leave it empty", () => {
+  const code = dedent`
+    a
+      ${""}${""}
+    b`;
+  expect(code).toBe(["a", "", "b"].join("\n"));
+});
+
+test("a value whose first line is empty leaves that line empty, whatever follows it", () => {
+  const code = dedent`
+    a
+        ${["", "x"].join("\n")}y
+    b`;
+  expect(code).toBe(["a", "", "    xy", "b"].join("\n"));
+});
+
 test("a value that starts a line has its later lines indented as that line", () => {
   const body = ["fn a() {}", "", "  fn b() {}"].join("\n");
   const text = dedent`

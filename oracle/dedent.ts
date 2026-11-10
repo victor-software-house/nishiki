@@ -20,7 +20,13 @@
  * - An interpolated value goes in as it is.
  *   A value that starts a line counts that line's blanks as indentation.
  *   Each later non-empty line of the value gets the same indentation, once the margin is removed.
- *   A value whose first line is empty leaves its line empty, without blanks.
+ *   It drops that indentation when it puts nothing on the line:
+ *   - its first line is empty, and it holds a line break;
+ *   - or it is empty, and only blanks or other empty values follow it on the line.
+ *
+ *   The line then holds only the blanks written after the value.
+ *   Text after an empty value on its line, written or interpolated, keeps the indentation.
+ *   An empty prefix such as `${""}fn` therefore leaves `fn` where it is.
  * - It throws when one line's indentation does not start with the shortest one,
  *   such as a tab against spaces.
  *
@@ -55,12 +61,26 @@ export function dedentPieces(pieces: readonly string[], values: Values): string 
     texts[fragment.piece]!.push(text);
     if (fragment.beforeValue) valueIndents[fragment.piece] = startsValueLine(fragment) ? text : "";
   }
-  return texts.map((lines) => lines.join("\n")).reduce((text, piece, index) => {
+  const joined = texts.map((lines) => lines.join("\n"));
+  return joined.reduce((text, piece, index) => {
     const value = String(values[index - 1]);
     const indent = valueIndents[index - 1]!;
-    const before = value.split("\n")[0] === "" ? text.slice(0, text.length - indent.length) : text;
+    const blank = blankToLineEnd(value, restOfLine(joined, values, index));
+    const before = blank ? text.slice(0, text.length - indent.length) : text;
     return before + indented(value, indent) + piece;
   });
+}
+
+/**
+ * The text after a value, up to the end of its line: piece `from`,
+ * and the values and pieces after it until a line break.
+ */
+function restOfLine(pieces: readonly string[], values: Values, from: number): string {
+  let rest = pieces[from]!;
+  for (let next = from + 1; next < pieces.length && !rest.includes("\n"); next++) {
+    rest += String(values[next - 1]) + pieces[next]!;
+  }
+  return rest.split("\n")[0]!;
 }
 
 /** One fragment of a template piece, between line breaks or values. */
@@ -129,6 +149,15 @@ function commonMargin(indents: readonly string[]): string {
     throw new Error("dedent: the lines mix tabs and spaces in their indentation");
   }
   return shortest;
+}
+
+/**
+ * Whether only blanks follow a value's start to the end of its line.
+ * The value's first line is empty, and the value holds a line break or `rest` is blank.
+ */
+function blankToLineEnd(value: string, rest: string): boolean {
+  const [first, ...later] = value.split("\n");
+  return first === "" && (later.length > 0 || isBlank(rest));
 }
 
 /** A value with every later non-empty line indented by `indent`. */
