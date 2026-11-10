@@ -18,12 +18,16 @@ export type Waiver = {
   reason: string;
   /** The oracle/onig.ts expression id whose probe cases check the matcher,
    * required where oracle/fuzz/<grammar>.ts has probe support, unless the
-   * waiver is for a rule vscode-textmate drops. */
+   * waiver is `dropped` or `unprobed`. */
   probe?: string;
   /** Set for a rule that vscode-textmate drops, such as one whose only
    * patterns include a grammar or a rule that is never loaded.
    * No matcher answers for such a unit, so the waiver names no probe. */
   dropped?: true;
+  /** Set for a rule that a hand matcher answers outside the generated table.
+   * The grammar script's dump gives the rule no id, so no probe can name it.
+   * Only Blade's own rules use it, until they get ids and probe cases. */
+  unprobed?: true;
 };
 
 /** The TypeScript family's grammars. They share their units' paths. */
@@ -44,6 +48,12 @@ const lookahead = "the group is a lookahead, so it never holds text";
 const missing = (groups: number) =>
   `the grammar names the group, but the expression has ` +
   `${["no groups", "one group", "two groups", "three groups"][groups]}`;
+
+/** The path of Blade's one injection, which holds its `<?php` rules. */
+const bladeInjection =
+  "injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), " +
+  "L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), " +
+  "L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))]";
 
 /** Markdown's fences whose only pattern includes a grammar the oracle does
  * not load, because nishiki does not lex its language, with that grammar's
@@ -2293,6 +2303,91 @@ export const waivers: Waiver[] = [
     group: 0,
     reason: "the end is `$`, which holds no text",
   })),
+  ...[0, 1, 2, 3, 4, 5, 6, 7, 8].flatMap((n): Waiver[] => {
+    const id = n === 4 ? "At4Js" : `At${n}`;
+    return [
+      {
+        grammar: "blade",
+        path: `#heredoc_interior.patterns[${n}].begin`,
+        group: 5,
+        reason: blanks,
+        probe: `HeredocInterior${id}`,
+      },
+      {
+        grammar: "blade",
+        path: `#nowdoc_interior.patterns[${n}].begin`,
+        group: 3,
+        reason: blanks,
+        probe: `NowdocInterior${id}`,
+      },
+    ];
+  }),
+  ...[2, 3].map((n): Waiver => ({
+    grammar: "blade",
+    path: `#comments.patterns[${n}].begin`,
+    group: 1,
+    reason: blanks,
+    probe: `CommentsAt${n}`,
+  })),
+  ...[
+    "#heredoc_interior.patterns[7].patterns[5].end",
+    "#nowdoc_interior.patterns[7].patterns[4].end",
+  ].map((path): Waiver => ({
+    grammar: "blade",
+    path,
+    group: 0,
+    reason: "the end is `$`, which holds no text",
+    probe: "HeredocInteriorAt7At5End",
+  })),
+  {
+    grammar: "blade",
+    path: "#language.patterns[6].patterns[1].patterns[2].captures[2].patterns[0].match",
+    reason:
+      "the capture always follows `as`, and its patterns match at its place in the line, " +
+      "so the expression's `^` never holds",
+    probe: "Nested12At0",
+  },
+  {
+    grammar: "blade",
+    path: "#support.patterns[105].match",
+    reason:
+      "its words, `is_int` and `is_integer`, are in `patterns[98]`, " +
+      "which comes first and takes them",
+    probe: "SupportTailAt0",
+  },
+  ...["#blade.patterns[0].patterns[0].begin", `${bladeInjection}.patterns[1].begin`].map(
+    (path): Waiver => ({ grammar: "blade", path, group: 0, reason: blanks, unprobed: true }),
+  ),
+  ...["#blade.patterns[0].patterns[0].end", `${bladeInjection}.patterns[1].end`].map(
+    (path): Waiver => ({
+      grammar: "blade",
+      path,
+      group: 0,
+      reason:
+        "the group matches only blanks and the line feed that ends the line, " +
+        "and the oracle compares no blank",
+      unprobed: true,
+    }),
+  ),
+  ...[
+    "#blade.patterns[0].patterns[2].patterns[0].match",
+    `${bladeInjection}.patterns[3].patterns[0].match`,
+  ].map((path): Waiver => ({ grammar: "blade", path, group: 1, reason: blanks, unprobed: true })),
+  ...[1, 2, 3, 4].map((n): Waiver => ({
+    grammar: "blade",
+    path: `#blade.patterns[${n}].end`,
+    group: 1,
+    reason: missing(0),
+    unprobed: true,
+  })),
+  { grammar: "blade", path: "#blade.patterns[9].end", group: 0, reason: lookahead, unprobed: true },
+  {
+    grammar: "blade",
+    path: "#blade.patterns[14].begin",
+    group: 4,
+    reason: missing(3),
+    unprobed: true,
+  },
   {
     grammar: "hack",
     path: "#comments.patterns[2].begin",
@@ -2563,6 +2658,7 @@ export const complete: string[] = [
   "asm",
   "astro",
   "bat",
+  "blade",
   "c",
   "cmake",
   "coffee",

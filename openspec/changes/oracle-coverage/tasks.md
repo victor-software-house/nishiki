@@ -138,7 +138,17 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     The four grammars are complete with 1, 8, 2 and 4 waived units.
     On `3de20c2f` the [oracle test][run-320-ci] and the [coverage check][run-320-cov] passed.
 - [x] 3.22 Vue and its Markdown injection: `vue`, `markdown-vue`
+  - 2026-11-10 UTC, [PR 735][pr735] and [PR 736][pr736]: four written inputs added.
+    `vue` and `markdown-vue` are complete with 13 and no waived units.
+    On `a24a3823` the [coverage check][run-735-cov] passed.
+    Its build failed on an inherited line width before the tests ran.
+    On `46ef3042`, which holds both, the [oracle test][run-739-ci] passed.
 - [ ] 3.23 Blade: `blade`
+- [ ] 3.24 Probe Blade's own rules
+  - `oracle/blade-grammar.ts` gives ids only to Blade's copy of PHP.
+    The hand engine answers the `#blade` rules and the injection rules outside `Pattern::ALL`.
+  - Give those rules dump ids and probe cases, then name each probe in its waiver.
+  - Verify: no waiver sets `unprobed`, and the field is gone from `Waiver` and `coverage.ts`.
 
 [checks]: ../../research/2026-11-10-oracle-coverage-gate-checks.md
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
@@ -220,3 +230,7 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr340]: https://github.com/victor-software-house/nishiki-archive/pull/340
 [run-340-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41805706593
 [run-340-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41805706070
+[pr735]: https://github.com/victor-software-house/nishiki-archive/pull/735
+[pr736]: https://github.com/victor-software-house/nishiki-archive/pull/736
+[run-735-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42898172630
+[run-739-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42907168855

@@ -11,6 +11,7 @@ import asmCoverage from "./inputs/asm-coverage.asm" with { type: "text" };
 import astroCoverage from "./inputs/astro-coverage.astro" with { type: "text" };
 import batCoverage from "./inputs/bat-coverage.bat" with { type: "text" };
 import bladeCoverage from "./inputs/blade-coverage.blade.php" with { type: "text" };
+import bladeCoveragePhp from "./inputs/blade-coverage-php.blade.php" with { type: "text" };
 import cCoverage from "./inputs/c-coverage.c" with { type: "text" };
 import cmakeCoverage from "./inputs/cmake-coverage.cmake" with { type: "text" };
 import coffeeCoverage from "./inputs/coffee-coverage.coffee" with { type: "text" };
@@ -642,6 +643,7 @@ export const inputs: Input[] = [
   // Shiki's Markdown grammar has no Blade fence, so no Markdown input embeds
   // Blade.
   { lang: "blade", name: "coverage", text: bladeCoverage },
+  { lang: "blade", name: "coverage-php", text: bladeCoveragePhp },
   {
     lang: "blade",
     name: "laravel-exception-query",
