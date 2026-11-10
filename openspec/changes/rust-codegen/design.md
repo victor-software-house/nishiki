@@ -255,7 +255,7 @@ The matcher spends in its loops, not at each byte it reads (lead, 2026-11-10):
 - A repeat inside a lookahead, or nested in another repeat, is a loop of its own and follows the same rules.
 
 Spending at each byte read kept the `\b` test out of line and cost Zig and Lua about 16% more instructions.
-Spending in loops costs Protocol Buffers 1.3% and Zig and Lua about 3% (section 12.1).
+Spending in loops costs Protocol Buffers 1.5% and Zig and Lua about 3% over step 1 (section 12.1).
 
 The steps bound the work of each try of a pattern:
 
@@ -285,15 +285,18 @@ A differential test guards every generated language:
 - It fails at the first differing end or group.
 - It runs in CI for every language `codegen/` writes.
 
-Two kinds of hostile line run in CI beside it, in the language's `tests/it/limits/` file (lead, 2026-11-10):
+Three kinds of hostile line run in CI beside it, in the language's `tests/it/limits/` file (lead, 2026-11-10):
 
 | Line | Length | Drives | Must |
 |:--|:--|:--|:--|
-| bound line | about 12,000 bytes, past every fixture line | a give-back loop or a stack, such as a long run of a repeat's body with no continuation | finish within the default limits, with tokens that cover it |
+| bound line | about 12,000 bytes, past every fixture line | a give-back loop or a stack, such as a long run of a repeat's body with no continuation | finish under the default work limit, with tokens that cover it |
 | retry line | the language's longest oracle fixture line | a repeat that takes a long run and fails, so the scanner tries it again at each later start | end without reaching the work limit |
 | limit line | about 12,000 bytes | a pattern whose work grows faster than the line, found by the other two | end at the work limit, with tokens that cover it |
 
-A bound line's work is linear, so it ends under the budget.
+A bound line drives linear work, so it ends under the budget.
+A bound line that reaches the limit shows a pattern whose work grows faster: a finding.
+The prototype's tests still accept `Limit::Work` on a bound line, and task 3.1's tests do not.
+
 Each pattern whose work grows faster than the line gets a limit line of its own.
 That line shows the limit cuts real superlinear work, such as the Protocol Buffers field line below.
 
@@ -324,7 +327,7 @@ Under the default limits, on a box:
 
 | Line | Hand matcher, at base | Generated matcher, step 2b |
 |:--|:--|:--|
-| 101 bytes, the fixture length | uncut | ends at `Limit::Work` |
+| 101 bytes, one short of the longest fixture line (102) | uncut | ends at `Limit::Work` |
 | 12,001 bytes | ends at `Limit::Work` | ends at `Limit::Work` |
 
 So the generated matcher cuts a line of fixture length that the hand matcher lexes whole.

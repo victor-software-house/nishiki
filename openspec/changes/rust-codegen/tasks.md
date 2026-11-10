@@ -18,7 +18,7 @@
     The steps go on until each language reaches 1.000.
   - 2026-11-10: the retry lines at fixture length, on 2b, in release and debug builds:
     - Zig and Lua pass.
-    - Protocol Buffers' field line reaches the work limit at 101 bytes.
+    - Protocol Buffers' field line reaches the work limit at 101 bytes, one short of its longest fixture line.
       It is a finding with two fixes (design, section 5.6).
   - Still to come: the first-byte test, the groups recorded, the `\b` test and a flat dispatch (lead, 2026-11-10).
 
