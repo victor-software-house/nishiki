@@ -43,6 +43,7 @@ depends = [
   "check:toolchain",
   "format",
   "format:ts",
+  "check:line-width",
   "lint",
   "check:features",
   "check:size",
