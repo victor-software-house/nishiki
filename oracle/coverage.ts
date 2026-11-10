@@ -466,7 +466,10 @@ async function fuzz(highlighter: Highlighter, lang: string): Promise<void> {
 
 const differing: string[] = [];
 const inputLangs = [...new Set(inputs.map((input) => input.lang))].sort();
+// Each language prints a line to stderr when it is done, with its time.
+// The check discards stdout, so a run that stalls shows where on stderr.
 for (const lang of inputLangs) {
+  const started = performance.now();
   const highlighter = await newHighlighter();
   counting = fixtures;
   const dir = `${root}tests/oracle/${lang}`;
@@ -483,6 +486,7 @@ for (const lang of inputLangs) {
   }
   highlighter.dispose();
   Bun.gc(true);
+  console.error(`✔ ${lang}: ${((performance.now() - started) / 1000).toFixed(1)} s`);
 }
 rmSync(corpus, { recursive: true });
 
