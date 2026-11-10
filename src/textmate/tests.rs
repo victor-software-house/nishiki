@@ -8,60 +8,66 @@ use std::collections::{BTreeSet, HashMap};
 use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::sync::{Mutex, PoisonError};
 
+use serde_json::Value;
+
+use super::compile::link::link;
+use super::compile::{UnlinkedGrammar, compile};
 use super::grammar::{Folding, Grammar, Matching, NONE};
 use super::regex::{self, Context, Programs, Regex, Sketch};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::highlighter::{Sealed, lex_line};
+use crate::language::Language;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Highlighter, Stack, State, Syntax, Token};
 
-#[path = "../../tests/engine/asm.rs"]
-mod asm_tables;
-#[path = "../../tests/engine/common-lisp.rs"]
-mod common_lisp_tables;
-#[cfg(feature = "lang-html")]
-#[path = "../../tests/engine/elixir.rs"]
-mod elixir_tables;
-#[path = "../../tests/engine/gdscript.rs"]
-mod gdscript_tables;
-#[cfg(feature = "lang-haml")]
-#[path = "../../tests/engine/haml.rs"]
-mod haml_tables;
-#[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
-#[path = "../../tests/engine/html.rs"]
-mod html_tables;
-#[path = "../../tests/engine/javascript.rs"]
-mod javascript_tables;
-#[path = "../../tests/engine/jinja.rs"]
-mod jinja_tables;
-#[path = "../../tests/engine/make.rs"]
-mod make_tables;
-#[path = "../../tests/engine/markdown.rs"]
-mod markdown_tables;
-#[path = "../../tests/engine/matlab.rs"]
-mod matlab_tables;
-#[path = "../../tests/engine/objective-c.rs"]
-mod objective_c_tables;
-#[path = "../../tests/engine/objective-cpp.rs"]
-mod objective_cpp_tables;
-#[path = "../../tests/engine/python.rs"]
-mod python_tables;
-#[path = "../../tests/engine/rust.rs"]
-mod rust_tables;
-#[path = "../../tests/engine/shellscript.rs"]
-mod shell_tables;
-#[path = "../../tests/engine/tex.rs"]
-mod tex_tables;
-#[path = "../../tests/engine/toml.rs"]
-mod toml_tables;
-#[path = "../../tests/engine/typescript.rs"]
-mod typescript_tables;
-#[path = "../../tests/engine/vb.rs"]
-mod vb_tables;
-#[path = "../../tests/engine/yaml.rs"]
-mod yaml_tables;
+/// The tables the engine's tests run, linked once a process.
+static LINKED_TABLES: Mutex<Vec<(&str, &Grammar)>> = Mutex::new(Vec::new());
+
+/// The test table named `name`, as `tests/engine/grammars/tables.json` lists
+/// it.
+///
+/// The Rust compiler links it from the Shiki grammars in that directory, which
+/// `oracle/engine-grammars.ts` writes.
+/// The table names the languages it hands regions to.
+/// So an include of any other language's whole grammar matches nothing.
+fn table(name: &'static str) -> &'static Grammar {
+    let mut linked = LINKED_TABLES.lock().unwrap_or_else(PoisonError::into_inner);
+    if let Some(&(_, grammar)) = linked.iter().find(|&&(held, _)| held == name) {
+        return grammar;
+    }
+    let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/grammars");
+    let read = |file: &str| fs::read_to_string(dir.join(file)).unwrap();
+    let tables: Value = serde_json::from_str(&read("tables.json")).unwrap();
+    let entry = tables
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|entry| entry["name"] == name)
+        .unwrap();
+    let grammars: Vec<UnlinkedGrammar> = entry["grammars"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|grammar| compile(&read(&format!("{}.json", grammar.as_str().unwrap()))).unwrap())
+        .collect();
+    let root = grammars
+        .iter()
+        .find(|grammar| entry["root"] == grammar.scope.as_str())
+        .unwrap();
+    let set: Vec<&UnlinkedGrammar> = grammars.iter().collect();
+    let hand_offs: Vec<Language> = entry["handOffs"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|id| Language::from_name(id.as_str().unwrap()).unwrap())
+        .collect();
+    let grammar = link(root, &set, Some(&hand_offs)).unwrap();
+    linked.push((name, grammar));
+    grammar
+}
 
 /// Whether the engine finds where rules start with its scanners, or searches
 /// every rule alone, to check that both give one output.
@@ -401,7 +407,7 @@ fn check(grammar: &'static Grammar, language: &str, scanners: Scanners) {
 
 #[test]
 fn rust_grammar_matches_shiki() {
-    check(&rust_tables::GRAMMAR, "rust", Scanners::On);
+    check(table("rust"), "rust", Scanners::On);
 }
 
 /// Elixir has a hand lexer.
@@ -410,56 +416,58 @@ fn rust_grammar_matches_shiki() {
 #[cfg(feature = "lang-html")]
 #[test]
 fn elixir_grammar_matches_shiki() {
-    check(&elixir_tables::GRAMMAR, "elixir", Scanners::On);
+    check(table("elixir"), "elixir", Scanners::On);
 }
 
 /// Assembly has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn asm_grammar_matches_shiki() {
-    check(&asm_tables::GRAMMAR, "asm", Scanners::On);
+    check(table("asm"), "asm", Scanners::On);
 }
 
 /// Common Lisp has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn common_lisp_grammar_matches_shiki() {
-    check(&common_lisp_tables::GRAMMAR, "common-lisp", Scanners::On);
+    check(table("common-lisp"), "common-lisp", Scanners::On);
 }
 
 /// GDScript has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn gdscript_grammar_matches_shiki() {
-    check(&gdscript_tables::GRAMMAR, "gdscript", Scanners::On);
+    check(table("gdscript"), "gdscript", Scanners::On);
 }
 
 /// MATLAB has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn matlab_grammar_matches_shiki() {
-    check(&matlab_tables::GRAMMAR, "matlab", Scanners::On);
+    check(table("matlab"), "matlab", Scanners::On);
 }
 
 /// Visual Basic has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn vb_grammar_matches_shiki() {
-    check(&vb_tables::GRAMMAR, "vb", Scanners::On);
+    check(table("vb"), "vb", Scanners::On);
 }
 
 /// Jinja has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn jinja_grammar_matches_shiki() {
-    check(&jinja_tables::GRAMMAR, "jinja", Scanners::On);
+    check(table("jinja"), "jinja", Scanners::On);
 }
 
 /// TeX has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
+/// The table hands R's regions to R's lexer.
+#[cfg(feature = "lang-r")]
 #[test]
 fn tex_grammar_matches_shiki() {
-    check(&tex_tables::GRAMMAR, "tex", Scanners::On);
+    check(table("tex"), "tex", Scanners::On);
 }
 
 /// HAML has a hand lexer.
@@ -468,40 +476,36 @@ fn tex_grammar_matches_shiki() {
 #[cfg(feature = "lang-haml")]
 #[test]
 fn haml_grammar_matches_shiki() {
-    check(&haml_tables::GRAMMAR, "haml", Scanners::On);
+    check(table("haml"), "haml", Scanners::On);
 }
 
 /// Objective-C has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn objective_c_grammar_matches_shiki() {
-    check(&objective_c_tables::GRAMMAR, "objective-c", Scanners::On);
+    check(table("objective-c"), "objective-c", Scanners::On);
 }
 
 /// Objective-C++ has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
 fn objective_cpp_grammar_matches_shiki() {
-    check(
-        &objective_cpp_tables::GRAMMAR,
-        "objective-cpp",
-        Scanners::On,
-    );
+    check(table("objective-cpp"), "objective-cpp", Scanners::On);
 }
 
 #[test]
 fn shell_grammar_matches_shiki() {
-    check(&shell_tables::GRAMMAR, "shellscript", Scanners::On);
+    check(table("shellscript"), "shellscript", Scanners::On);
 }
 
 #[test]
 fn typescript_grammar_matches_shiki() {
-    check(&typescript_tables::GRAMMAR, "typescript", Scanners::On);
+    check(table("typescript"), "typescript", Scanners::On);
 }
 
 #[test]
 fn markdown_grammar_matches_shiki() {
-    check(&markdown_tables::GRAMMAR, "markdown", Scanners::On);
+    check(table("markdown"), "markdown", Scanners::On);
 }
 
 /// Shiki's lines for a `less` fence whose body `)` pops at once.
@@ -531,7 +535,7 @@ T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.
 fn a_fence_of_a_dropped_language_is_left_out_without_an_embedded_scope() {
     let lines = parse_text(POPPED_LESS_FENCE, "a popped less fence");
     assert_eq!(
-        unknown_fences(&markdown_tables::GRAMMAR, &lines),
+        unknown_fences(table("markdown"), &lines),
         [true, true, true]
     );
 }
@@ -541,48 +545,45 @@ fn a_fence_of_a_dropped_language_is_left_out_without_an_embedded_scope() {
 #[test]
 fn an_empty_fence_of_a_kept_language_is_compared() {
     let lines = parse_text(EMPTY_CSS_FENCE, "an empty css fence");
-    assert_eq!(
-        unknown_fences(&markdown_tables::GRAMMAR, &lines),
-        [false, false]
-    );
+    assert_eq!(unknown_fences(table("markdown"), &lines), [false, false]);
 }
 
 #[test]
 fn python_grammar_matches_shiki() {
-    check(&python_tables::GRAMMAR, "python", Scanners::On);
+    check(table("python"), "python", Scanners::On);
 }
 
 #[test]
 fn yaml_grammar_matches_shiki() {
-    check(&yaml_tables::GRAMMAR, "yaml", Scanners::On);
+    check(table("yaml"), "yaml", Scanners::On);
 }
 
 #[test]
 fn make_grammar_matches_shiki() {
-    check(&make_tables::GRAMMAR, "make", Scanners::On);
+    check(table("make"), "make", Scanners::On);
 }
 
 #[test]
 fn toml_grammar_matches_shiki() {
-    check(&toml_tables::GRAMMAR, "toml", Scanners::On);
+    check(table("toml"), "toml", Scanners::On);
 }
 
 #[test]
 fn javascript_grammar_matches_shiki() {
-    check(&javascript_tables::GRAMMAR, "javascript", Scanners::On);
+    check(table("javascript"), "javascript", Scanners::On);
 }
 
 #[test]
 fn every_grammar_matches_shiki_without_the_scanners() {
-    check(&rust_tables::GRAMMAR, "rust", Scanners::Off);
-    check(&shell_tables::GRAMMAR, "shellscript", Scanners::Off);
-    check(&typescript_tables::GRAMMAR, "typescript", Scanners::Off);
-    check(&markdown_tables::GRAMMAR, "markdown", Scanners::Off);
-    check(&python_tables::GRAMMAR, "python", Scanners::Off);
-    check(&yaml_tables::GRAMMAR, "yaml", Scanners::Off);
-    check(&make_tables::GRAMMAR, "make", Scanners::Off);
-    check(&toml_tables::GRAMMAR, "toml", Scanners::Off);
-    check(&javascript_tables::GRAMMAR, "javascript", Scanners::Off);
+    check(table("rust"), "rust", Scanners::Off);
+    check(table("shellscript"), "shellscript", Scanners::Off);
+    check(table("typescript"), "typescript", Scanners::Off);
+    check(table("markdown"), "markdown", Scanners::Off);
+    check(table("python"), "python", Scanners::Off);
+    check(table("yaml"), "yaml", Scanners::Off);
+    check(table("make"), "make", Scanners::Off);
+    check(table("toml"), "toml", Scanners::Off);
+    check(table("javascript"), "javascript", Scanners::Off);
 }
 
 /// Where a line's frames come from.
@@ -601,10 +602,10 @@ fn scoped_tokens(
     lines: &[Line],
     frames: Frames,
 ) -> Vec<Vec<(usize, String)>> {
-    let other: &'static Grammar = if grammar.scope == toml_tables::GRAMMAR.scope {
-        &yaml_tables::GRAMMAR
+    let other: &'static Grammar = if grammar.scope == table("toml").scope {
+        table("yaml")
     } else {
-        &toml_tables::GRAMMAR
+        table("toml")
     };
     let mut arena = Arena::new(None);
     let limits = Limits::unlimited();
@@ -667,18 +668,18 @@ fn scoped_tokens(
 #[test]
 fn kept_frames_lex_as_rebuilt_ones() {
     let tables: [(&'static Grammar, &str); 12] = [
-        (&rust_tables::GRAMMAR, "rust"),
-        (&matlab_tables::GRAMMAR, "matlab"),
-        (&objective_c_tables::GRAMMAR, "objective-c"),
-        (&objective_cpp_tables::GRAMMAR, "objective-cpp"),
-        (&shell_tables::GRAMMAR, "shellscript"),
-        (&typescript_tables::GRAMMAR, "typescript"),
-        (&markdown_tables::GRAMMAR, "markdown"),
-        (&python_tables::GRAMMAR, "python"),
-        (&yaml_tables::GRAMMAR, "yaml"),
-        (&make_tables::GRAMMAR, "make"),
-        (&toml_tables::GRAMMAR, "toml"),
-        (&javascript_tables::GRAMMAR, "javascript"),
+        (table("rust"), "rust"),
+        (table("matlab"), "matlab"),
+        (table("objective-c"), "objective-c"),
+        (table("objective-cpp"), "objective-cpp"),
+        (table("shellscript"), "shellscript"),
+        (table("typescript"), "typescript"),
+        (table("markdown"), "markdown"),
+        (table("python"), "python"),
+        (table("yaml"), "yaml"),
+        (table("make"), "make"),
+        (table("toml"), "toml"),
+        (table("javascript"), "javascript"),
     ];
     for (grammar, language) in tables.into_iter().chain(SHIPPED.iter().copied()) {
         for path in fixtures(language) {
@@ -914,15 +915,15 @@ fn lean_programs_match_as_full_ones_on_lean_lines() {
 #[test]
 fn the_folding_table_matches_the_patterns() {
     let tested: [&Grammar; 9] = [
-        &javascript_tables::GRAMMAR,
-        &make_tables::GRAMMAR,
-        &markdown_tables::GRAMMAR,
-        &python_tables::GRAMMAR,
-        &rust_tables::GRAMMAR,
-        &shell_tables::GRAMMAR,
-        &toml_tables::GRAMMAR,
-        &typescript_tables::GRAMMAR,
-        &yaml_tables::GRAMMAR,
+        table("javascript"),
+        table("make"),
+        table("markdown"),
+        table("python"),
+        table("rust"),
+        table("shellscript"),
+        table("toml"),
+        table("typescript"),
+        table("yaml"),
     ];
     let mut wrong = Vec::new();
     for grammar in SHIPPED.iter().map(|&(grammar, _)| grammar).chain(tested) {
@@ -951,18 +952,18 @@ fn the_folding_table_matches_the_patterns() {
 fn every_table() -> Vec<&'static Grammar> {
     let mut grammars: Vec<&'static Grammar> = SHIPPED.iter().map(|&(grammar, _)| grammar).collect();
     grammars.extend([
-        &javascript_tables::GRAMMAR,
-        &make_tables::GRAMMAR,
-        &markdown_tables::GRAMMAR,
-        &python_tables::GRAMMAR,
-        &rust_tables::GRAMMAR,
-        &shell_tables::GRAMMAR,
-        &toml_tables::GRAMMAR,
-        &typescript_tables::GRAMMAR,
-        &yaml_tables::GRAMMAR,
+        table("javascript"),
+        table("make"),
+        table("markdown"),
+        table("python"),
+        table("rust"),
+        table("shellscript"),
+        table("toml"),
+        table("typescript"),
+        table("yaml"),
     ]);
     #[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
-    grammars.push(&html_tables::GRAMMAR);
+    grammars.push(table("html"));
     grammars
 }
 
@@ -1121,7 +1122,7 @@ fn no_hand_off_halts_where_the_last_match_ended() {
 #[test]
 fn haml_hands_its_filters_over_whole() {
     use crate::language::Language;
-    let grammar = &haml_tables::GRAMMAR;
+    let grammar = table("haml");
     let hand_offs: Vec<(Language, usize, usize)> = grammar
         .hand_offs
         .iter()
@@ -1245,18 +1246,18 @@ fn engine_speed() {
                 "on"
             }
         );
-        speed(&rust_tables::GRAMMAR, "rust", &limits, scanners);
-        speed(&shell_tables::GRAMMAR, "shellscript", &limits, scanners);
-        speed(&typescript_tables::GRAMMAR, "typescript", &limits, scanners);
-        speed(&markdown_tables::GRAMMAR, "markdown", &limits, scanners);
-        speed(&python_tables::GRAMMAR, "python", &limits, scanners);
-        speed(&yaml_tables::GRAMMAR, "yaml", &limits, scanners);
+        speed(table("rust"), "rust", &limits, scanners);
+        speed(table("shellscript"), "shellscript", &limits, scanners);
+        speed(table("typescript"), "typescript", &limits, scanners);
+        speed(table("markdown"), "markdown", &limits, scanners);
+        speed(table("python"), "python", &limits, scanners);
+        speed(table("yaml"), "yaml", &limits, scanners);
     }
 }
 
 #[test]
 fn an_embedded_line_is_lexed_from_its_start_with_absolute_ends() {
-    let grammar: &'static Grammar = &rust_tables::GRAMMAR;
+    let grammar: &'static Grammar = table("rust");
     let mut arena = Arena::new(None);
     let mut scratch = Scratch::default();
     let state = tokenizer::start_embedded(&mut arena, grammar, crate::arena::ROOT);
@@ -1297,12 +1298,12 @@ fn an_embedded_line_is_lexed_from_its_start_with_absolute_ends() {
 )]
 fn work_per_line() {
     let grammars: [(&str, &'static Grammar); 6] = [
-        ("rust", &rust_tables::GRAMMAR),
-        ("shellscript", &shell_tables::GRAMMAR),
-        ("typescript", &typescript_tables::GRAMMAR),
-        ("markdown", &markdown_tables::GRAMMAR),
-        ("python", &python_tables::GRAMMAR),
-        ("yaml", &yaml_tables::GRAMMAR),
+        ("rust", table("rust")),
+        ("shellscript", table("shellscript")),
+        ("typescript", table("typescript")),
+        ("markdown", table("markdown")),
+        ("python", table("python")),
+        ("yaml", table("yaml")),
     ];
     for (language, grammar) in grammars {
         let mut worst = 0.0_f64;
@@ -1862,7 +1863,7 @@ fn a_tab_in_a_filled_name_stays_in_its_scope() {
             stacks: Vec::new(),
         })
         .collect();
-    let lexed = scoped_tokens(&shell_tables::GRAMMAR, &lines, Frames::Kept);
+    let lexed = scoped_tokens(table("shellscript"), &lines, Frames::Kept);
     let end = lexed.last().expect("the delimiter's line");
     assert!(
         end.iter()
@@ -1875,7 +1876,7 @@ fn a_tab_in_a_filled_name_stays_in_its_scope() {
 /// The halts the tests below pass, as an embedding language's would be.
 mod halts {
     use super::super::tokenizer::{self, Embedded, Scratch, Text};
-    use super::rust_tables;
+    use super::table;
     use crate::arena::{Arena, ROOT};
     use crate::language::{Context, Halt, Line};
     use crate::limits::{Limit, Limits, LineReport, Steps, Work};
@@ -1910,7 +1911,7 @@ mod halts {
         end: &dyn Halt,
         after: Option<&dyn Halt>,
     ) -> Vec<(Option<usize>, Vec<usize>)> {
-        let grammar = &rust_tables::GRAMMAR;
+        let grammar = table("rust");
         let mut arena = Arena::new(None);
         let mut scratch = Scratch::default();
         let mut state = tokenizer::start_embedded(&mut arena, grammar, ROOT);
@@ -2012,7 +2013,7 @@ mod halts {
     /// 2. what the engine spent, in steps of the work limit;
     /// 3. whether the line ran out of work.
     fn counted(line: &str, host: &Limits) -> (u64, u64, bool) {
-        let grammar = &rust_tables::GRAMMAR;
+        let grammar = table("rust");
         let mut arena = Arena::new(None);
         let mut scratch = crate::scratch::Scratch::default();
         let state = tokenizer::start_embedded(&mut arena, grammar, ROOT);
@@ -2119,8 +2120,7 @@ mod hand_offs {
 
     use super::super::grammar::Grammar;
     use super::super::tokenizer;
-    use super::haml_tables::GRAMMAR as HAML;
-    use super::html_tables;
+    use super::table;
     use crate::Token;
     use crate::arena::{Arena, ROOT};
     use crate::language::{Context, Line};
@@ -2214,7 +2214,7 @@ mod hand_offs {
 
     #[test]
     fn a_ruby_filter_hands_its_lines_to_ruby_and_takes_the_line_back_after() {
-        let rows = Document::new(&HAML).lex(indoc! {"
+        let rows = Document::new(table("haml")).lex(indoc! {"
             :ruby
               total = 1 + 2
             %p done
@@ -2244,7 +2244,7 @@ mod hand_offs {
     /// lexer. Its backticks hand on to JavaScript, three levels down.
     #[test]
     fn a_coffee_filter_lexes_coffeescript_and_a_sass_filter_ends_at_its_line() {
-        let rows = Document::new(&HAML).lex(indoc! {"
+        let rows = Document::new(table("haml")).lex(indoc! {"
             :sass
               .a
                 color: red
@@ -2275,7 +2275,7 @@ mod hand_offs {
 
     #[test]
     fn a_markdown_filter_lexes_an_objective_c_fence_with_the_engine() {
-        let rows = Document::new(&HAML).lex(indoc! {"
+        let rows = Document::new(table("haml")).lex(indoc! {"
             :markdown
               ```objc
               a = 1
@@ -2299,7 +2299,7 @@ mod hand_offs {
               ```
             %p done
         "};
-        let mut document = Document::new(&HAML);
+        let mut document = Document::new(table("haml"));
         let first = document.lex(text);
         let mut again = Vec::with_capacity(first.len());
         let allocations = nishiki_alloc_count::count(|| {
@@ -2326,7 +2326,7 @@ mod hand_offs {
               HAML
             %p done
         "};
-        let mut document = Document::new(&HAML);
+        let mut document = Document::new(table("haml"));
         let first = document.lex(text);
         assert!(
             in_language(scope_of(&first[4], "1"), "objc"),
@@ -2343,8 +2343,7 @@ mod hand_offs {
 
     #[test]
     fn a_script_hands_javascript_its_text_up_to_the_end_tag() {
-        let rows =
-            Document::new(&html_tables::GRAMMAR).lex("<script>let a = 1;</script><b>x</b>\n");
+        let rows = Document::new(table("html")).lex("<script>let a = 1;</script><b>x</b>\n");
         assert!(
             in_language(scope_of(&rows[0], "let"), "js"),
             "{:?}",
@@ -2369,7 +2368,7 @@ mod hand_offs {
 
     #[test]
     fn a_style_hands_css_its_lines_across_the_document() {
-        let rows = Document::new(&html_tables::GRAMMAR).lex(indoc! {"
+        let rows = Document::new(table("html")).lex(indoc! {"
             <style>
             a { color: red; }
             </style>
@@ -2393,7 +2392,7 @@ mod hand_offs {
     /// that lexer sees ends at the capture's end, so the tag closes in HTML.
     #[test]
     fn an_event_attribute_hands_its_value_to_javascript() {
-        let rows = Document::new(&html_tables::GRAMMAR).lex("<div onclick=\"var a = 1\">\n");
+        let rows = Document::new(table("html")).lex("<div onclick=\"var a = 1\">\n");
         assert_eq!(
             scope_of(&rows[0], "var"),
             "storage.type.js",
@@ -2422,7 +2421,7 @@ mod hand_offs {
     fn budgeted(lines: &[&str], last: &Limits) -> (u64, bool, bool) {
         let mut arena = Arena::new(None);
         let mut scratch = Scratch::default();
-        let mut state = tokenizer::start_embedded(&mut arena, &HAML, ROOT);
+        let mut state = tokenizer::start_embedded(&mut arena, table("haml"), ROOT);
         let mut out = Vec::new();
         let mut result = (0, false, false);
         for (index, &line) in lines.iter().enumerate() {
@@ -2449,7 +2448,8 @@ mod hand_offs {
                 start: 0,
                 embedded: false,
             };
-            let finished = crate::textmate::lex_handing_embedded(&mut cx, &HAML, text, state);
+            let finished =
+                crate::textmate::lex_handing_embedded(&mut cx, table("haml"), text, state);
             state = steps.take_back(finished);
             result = (
                 steps.into_spent(),

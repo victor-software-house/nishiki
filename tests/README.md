@@ -30,6 +30,8 @@ It reads the fixtures below in place, and its archive leaves them out.
 
 ## `engine/`: TextMate engine data
 
-- `<language>.rs`: engine tables for grammars that hand lexers cover, which the engine's survey test runs as a second oracle.
+- `grammars/`: the Shiki grammars the engine's tests link into tables, as a second oracle for the hand lexers.
+  `tables.json` lists what each table links, and [`SOURCES.md`](engine/grammars/SOURCES.md) each grammar's source, commit and licence.
+  [`oracle/engine-grammars.ts`](../oracle/engine-grammars.ts) writes them; nobody edits them by hand.
 - `absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which the engine's regex tests read.
 - `case-folds/`: Oniguruma's case-fold answers, which the engine's fold tests read.

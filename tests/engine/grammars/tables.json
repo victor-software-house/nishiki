@@ -1,0 +1,213 @@
+[
+  {
+    "name": "asm",
+    "root": "source.asm.x86_64",
+    "grammars": [
+      "asm"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "common-lisp",
+    "root": "source.commonlisp",
+    "grammars": [
+      "common-lisp"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "elixir",
+    "root": "source.elixir",
+    "grammars": [
+      "javascript",
+      "css",
+      "elixir",
+      "html"
+    ],
+    "handOffs": [
+      "html"
+    ]
+  },
+  {
+    "name": "gdscript",
+    "root": "source.gdscript",
+    "grammars": [
+      "gdscript"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "haml",
+    "root": "text.haml",
+    "grammars": [
+      "haml",
+      "ruby",
+      "javascript",
+      "css",
+      "markdown",
+      "sass",
+      "coffee"
+    ],
+    "handOffs": [
+      "ruby",
+      "javascript",
+      "css",
+      "markdown",
+      "sass",
+      "coffee"
+    ]
+  },
+  {
+    "name": "html",
+    "root": "text.html.basic",
+    "grammars": [
+      "html",
+      "javascript",
+      "css"
+    ],
+    "handOffs": [
+      "javascript",
+      "css"
+    ]
+  },
+  {
+    "name": "javascript",
+    "root": "source.js",
+    "grammars": [
+      "javascript"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "jinja",
+    "root": "source.jinja",
+    "grammars": [
+      "javascript",
+      "css",
+      "html",
+      "jinja-html",
+      "jinja"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "make",
+    "root": "source.makefile",
+    "grammars": [
+      "make"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "markdown",
+    "root": "text.html.markdown",
+    "grammars": [
+      "markdown",
+      "typescript",
+      "tsx",
+      "javascript",
+      "shellscript",
+      "python",
+      "rust",
+      "yaml",
+      "json",
+      "jsonc",
+      "jsonl",
+      "make",
+      "css",
+      "html",
+      "html-derivative"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "matlab",
+    "root": "source.matlab",
+    "grammars": [
+      "matlab"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "objective-c",
+    "root": "source.objc",
+    "grammars": [
+      "objective-c"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "objective-cpp",
+    "root": "source.objcpp",
+    "grammars": [
+      "objective-cpp"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "python",
+    "root": "source.python",
+    "grammars": [
+      "python"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "rust",
+    "root": "source.rust",
+    "grammars": [
+      "rust"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "shellscript",
+    "root": "source.shell",
+    "grammars": [
+      "shellscript"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "tex",
+    "root": "text.tex",
+    "grammars": [
+      "tex"
+    ],
+    "handOffs": [
+      "r"
+    ]
+  },
+  {
+    "name": "toml",
+    "root": "source.toml",
+    "grammars": [
+      "toml"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "typescript",
+    "root": "source.ts",
+    "grammars": [
+      "typescript"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "vb",
+    "root": "source.asp.vb.net",
+    "grammars": [
+      "vb"
+    ],
+    "handOffs": []
+  },
+  {
+    "name": "yaml",
+    "root": "source.yaml",
+    "grammars": [
+      "yaml"
+    ],
+    "handOffs": []
+  }
+]

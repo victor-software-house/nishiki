@@ -130,6 +130,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  "jinja-html": {
+    bundled: "samuelcolvin/jinjahtml-vscode@be729c88f723602e7b5df2e9dc5e8c016c31c38f",
+    origin: "samuelcolvin/jinjahtml-vscode",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   json: {
     bundled: "microsoft/vscode@d6af4893ed9a3545163a4cb748fa5548bd1e51a5",
     origin: "microsoft/vscode-JSON.tmLanguage",
