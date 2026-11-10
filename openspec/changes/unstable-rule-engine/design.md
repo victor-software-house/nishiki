@@ -11,7 +11,7 @@ The rule engine becomes public under a cfg, as tokio does with `tokio_unstable`:
   In [tokio's docs][tokio-unstable-docs], the flag is how a caller opts in to APIs that may break semver.
 - `nishiki::unstable` compiles only with `--cfg nishiki_unstable`.
   It holds the rule engine's `Grammar` trait and every type its signatures name, such as `Act`, `CarriedState` and `Lexer`.
-  `RuleSyntax<G>`, for `Highlighter<S: Syntax>`, follows in task 1.2.
+  `RuleSyntax<G>` runs such a grammar in a `Highlighter` (section 2).
   `unstable::codegen` is part of `rule-table-codegen` task 1.1, not of this change.
 - Its module docs state that it is exempt from semver and may change in any patch release.
   `AGENTS.md` "Releases" gains the rule: items under `nishiki::unstable` never force a minor.
@@ -50,6 +50,36 @@ Making `Lexer` public has two more effects under the cfg:
   The bound and the methods stay crate-private.
 - A public item's docs may not link to a crate-private item (`rustdoc::private_intra_doc_links`).
   The docs of the exported items name such items in plain code spans instead.
+
+## 2. `RuleSyntax<G>`
+
+`RuleSyntax<G>` is the `Syntax` of a highlighter that runs grammar `G` on the rule engine.
+`Highlighter::<RuleSyntax<G>>::for_rules` makes one.
+
+The rule engine keeps per-line buffers, `rules::Scratch<G>`, for each grammar.
+A language finds its buffers in a field of the highlighter's scratch, through a function that picks the field.
+A caller's grammar has no field there, so its buffers need another home:
+
+- `Sealed` gains an associated type, `Buffers`, and `Highlighter<S>` holds one beside its store.
+  - `RuleSyntax<G>` sets it to `rules::Scratch<G>`.
+  - `Language` and `Grammar` set it to `()`, so their highlighters keep their size.
+- `lex_line` hands the buffers to the syntax's lexer, beside the context.
+- `rules::lex_with` takes the buffers directly, and leaves `rules::lex` and the hand lexers' path unchanged.
+
+Two other homes were rejected:
+
+- A `Box<dyn Any>` slot in the scratch needs a downcast on every line.
+  A failed downcast needs a fallback that the crate's no-panic rule leaves no good form for.
+- A store generic over the syntax would compile its methods once per syntax.
+  The store's methods stay compiled once.
+
+`RuleSyntax<G>`'s lexer is generic over `G`, so it compiles in the caller's crate.
+That fits a grammar the caller brings.
+A `Language`'s lexer stays compiled in nishiki.
+
+A crate outside nishiki cannot write a `Grammar` yet, because it cannot make a `Scope`.
+`unstable::codegen`, in `rule-table-codegen` task 1.1, brings that with the tables a grammar needs.
+Until then, the crate's own test defines a grammar and runs it through `RuleSyntax`.
 
 [proposal]: proposal.md
 [tokio-cfg-macro]: https://github.com/tokio-rs/tokio/blob/d6102c7e0a97b939c23d056122490faf777d2875/tokio/src/macros/cfg.rs#L278-L286

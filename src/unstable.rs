@@ -49,7 +49,7 @@ pub use crate::arena::Arena;
 #[cfg(feature = "_embedding")]
 pub use crate::rules::Deferrals;
 pub use crate::rules::{
-    Act, BlankRuns, Captures, CarriedState, Grammar, Lexer, NameCase, ScopeName,
+    Act, BlankRuns, Captures, CarriedState, Grammar, Lexer, NameCase, RuleSyntax, ScopeName,
 };
 pub use crate::scope::Scope;
 #[cfg(feature = "_language")]

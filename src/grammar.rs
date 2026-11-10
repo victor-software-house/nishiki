@@ -398,6 +398,7 @@ impl Syntax for Grammar {}
 
 impl Sealed for Grammar {
     type Lexer = GrammarLexer;
+    type Buffers = ();
 
     fn start(lexer: GrammarLexer, arena: &mut crate::arena::Arena, base: u32) -> u32 {
         textmate::start(arena, lexer.table, base)
@@ -409,9 +410,13 @@ impl Sealed for Grammar {
         state: &mut State,
         out: &mut Vec<Token>,
     ) -> LineReport {
-        lex_line(highlighter, line, state, out, |lexer, cx, text, from| {
-            textmate::lex_linked(cx, lexer.table, text, from)
-        })
+        lex_line(
+            highlighter,
+            line,
+            state,
+            out,
+            |lexer, (), cx, text, from| textmate::lex_linked(cx, lexer.table, text, from),
+        )
     }
 }
 

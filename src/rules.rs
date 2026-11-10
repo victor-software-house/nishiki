@@ -13,6 +13,7 @@ mod chars;
 mod lexer;
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 mod runs;
+mod syntax;
 mod tables;
 
 use std::fmt::Debug;
@@ -83,6 +84,8 @@ pub(crate) use lexer::Scratch;
 use lexer::with_carried;
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 pub(crate) use runs::{CachedRuns, HasRuns, Runs};
+#[cfg(nishiki_unstable)]
+pub use syntax::RuleSyntax;
 #[cfg(feature = "_rule-tables")]
 pub(crate) use tables::{Place, table_scan};
 pub(crate) use tables::{PlaceSet, Tables};
@@ -438,6 +441,38 @@ pub(crate) fn lex<G: Grammar>(
     };
     let (parts, buffers) = cx.parts();
     Lexer::new(parts, text, state, scratch(buffers)).run()
+}
+
+/// Lexes `line` like [`lex`], with buffers the caller keeps.
+///
+/// A grammar that [`RuleSyntax`](syntax::RuleSyntax) runs has no field in the
+/// highlighter's scratch.
+/// Its buffers sit in the highlighter's slot for its syntax instead.
+#[inline]
+#[cfg_attr(
+    all(not(nishiki_unstable), not(all(test, feature = "lang-toml"))),
+    expect(
+        dead_code,
+        reason = "used only through nishiki::unstable and the tests"
+    )
+)]
+pub(crate) fn lex_with<G: Grammar>(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    scratch: &mut Scratch<G>,
+) -> Finished {
+    if line.text.is_empty() {
+        return Finished::unspent(state);
+    }
+    let text = Text {
+        bytes: line.text.as_bytes(),
+        start: line.start,
+        anchored: line.embedded,
+        anchored_at_root: line.anchored_at_root,
+    };
+    let (parts, _) = cx.parts();
+    Lexer::new(parts, text, state, scratch).run()
 }
 
 /// Lexes `line` like [`lex`], for grammar `G` that another grammar embeds up
