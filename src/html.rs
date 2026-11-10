@@ -67,13 +67,22 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// The outermost scope of `base` names the document's grammar.
 /// When it is one of [`DERIVATIVE_FIRST`], the root frame records it with
 /// [`ROOT_DERIVATIVE_FIRST`], or with [`ROOT_SVELTE`] for Svelte.
+/// The scopes are compared by name.
+/// A grammar loaded at run time has scopes the arena made, and its
+/// `text.html.markdown` counts as Markdown's.
 /// The scopes are read once each time another grammar opens HTML.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    let outermost = arena.outermost(base);
+    let outermost = arena.outermost(base).map(|root| arena.scope_name(root));
     let payload = match outermost {
         #[cfg(feature = "lang-svelte")]
-        Some(root) if root == crate::svelte::DOCUMENT => ROOT_SVELTE,
-        Some(root) if DERIVATIVE_FIRST.contains(&root) => ROOT_DERIVATIVE_FIRST,
+        Some(root) if root == crate::svelte::DOCUMENT.name() => ROOT_SVELTE,
+        Some(root)
+            if DERIVATIVE_FIRST
+                .iter()
+                .any(|document| document.name() == root) =>
+        {
+            ROOT_DERIVATIVE_FIRST
+        }
         Some(_) | None => ROOT_EMBEDDED,
     };
     arena

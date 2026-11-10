@@ -127,7 +127,9 @@ The engine's logic does not change when they do.
   - [x] 5.6.2 The hand-off goes on past a lexer that pops its host, as Less does at a `)`: `markdown/less-pop` and `vue/less-pop`.
     - The hand-off now ends the region where its language pops it, as vscode-textmate does.
     - Both fixtures left the gap lists, and the loaded tests pass.
-  - [ ] 5.6.3 Attribute names in an HTML fence differ from Shiki's: `markdown/invalid-tags` and both `markdown/perl-heredoc-tags-*`.
+  - [x] 5.6.3 Attribute names in an HTML fence differ from Shiki's: `markdown/invalid-tags` and both `markdown/perl-heredoc-tags-*`.
+    - HTML told Markdown's document from its scope's number, which a loaded grammar's scope never has.
+    - It now compares the scope's name.
   - [x] 5.6.4 `markdown/vitepress-runtime-api` holds a `vue` fence from markdown-vue's injection, which a Markdown-only set lacks.
     Its block should be left out, as other fences of missing languages are.
     - A blank line in the fence's body ended the block early, so the rest of the body was compared.
