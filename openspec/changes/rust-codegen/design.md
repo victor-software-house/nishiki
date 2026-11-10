@@ -417,6 +417,7 @@ Swift's script breaks both today:
 3. When no enclosing key differs, each takes its place in its pattern list as a suffix, such as `_2`.
 4. A name stays within 40 characters, so a line that calls it fits in 100 columns.
    A longer name is an error (section 9), and the language's `RuleTables` gives that pattern a name in `names`.
+   A `names` entry for a pattern the grammar lacks is an error too, as is one that breaks rule 3.9 or passes 40 characters.
 5. Every name is unique within the language.
    After rules 1 to 4, and after `names`, a check compares all of them.
    Two equal names are an error that names both pattern ids (section 9).
@@ -446,7 +447,8 @@ The readability exemption for Swift's generated names ends with that pull reques
 - an end repeats more than one group of its begin;
 - a hand matcher names a pattern the grammar lacks;
 - a derived name passes 40 characters, and `names` gives none (section 8.4);
-- two patterns take the same name, derived or from `names`, and the error names both pattern ids (section 8.4).
+- two patterns take the same name, derived or from `names`, and the error names both pattern ids (section 8.4);
+- a `names` entry names a pattern the grammar lacks, breaks rule 3.9, or passes 40 characters (section 8.4).
 
 Each variant names the pattern id or include that failed.
 `codegen/` has its own error enum for a fact file it cannot read.
