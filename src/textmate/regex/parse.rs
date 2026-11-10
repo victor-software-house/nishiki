@@ -20,6 +20,10 @@ fn err<T>(message: impl Into<String>) -> Result<T> {
     Err(Error(message.into()))
 }
 
+/// The error for a group that opens with `(*`: Oniguruma reads it as a
+/// callout, such as `(*FAIL)` or `(*COUNT)`, and the engine has none.
+pub(super) const CALLOUTS: &str = "callouts are not supported";
+
 /// A parsed pattern.
 #[derive(Debug)]
 pub(crate) struct Parsed {
@@ -310,6 +314,7 @@ impl Parser {
         };
         self.at += 1;
         Ok(Some(match c {
+            '(' if self.peek() == Some('*') => return err(CALLOUTS),
             '(' => return Ok(self.group()?.map(Atom::Node)),
             '[' => {
                 let class = self.class()?;

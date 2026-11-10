@@ -12,6 +12,15 @@
 //! - inline flags;
 //! - the anchors `\A`, `\G`, `^` and `$`.
 //!
+//! The parser refuses these parts of Oniguruma's syntax:
+//!
+//! - callouts, such as `(*FAIL)` and `(*COUNT)`;
+//! - the absent operator's forms that start `(?~|`;
+//! - the absent operator inside a lookbehind or inside another's body.
+//!
+//! A grammar's pattern the parser refuses never matches.
+//! The grammar still loads.
+//!
 //! Unicode properties are the character sets Oniguruma applies, measured into
 //! [`unicode`].
 //! Under `(?i)`, a character matches every character its simple case folds

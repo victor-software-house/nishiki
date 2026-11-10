@@ -366,6 +366,20 @@ fn absent_operator_refuses_what_it_does_not_read() {
     }
 }
 
+/// Oniguruma's callouts do not compile, with their own error.
+/// Shiki 4.6.0 runs each of these patterns as a callout.
+/// Read as a group of literals, `(*COUNT)a` would match all of `*COUNTa`.
+#[test]
+fn callouts_are_refused() {
+    for pattern in ["(*COUNT)a", "(*FAIL)|a", "a(*MAX{1})", "(*)"] {
+        assert_eq!(
+            Regex::new(pattern).err(),
+            Some(parse::Error(parse::CALLOUTS.to_owned())),
+            "{pattern}"
+        );
+    }
+}
+
 /// The guards on a fold's branches never turn a fold string away.
 ///
 /// The test takes every fold of more than one character, such as `ß` and
