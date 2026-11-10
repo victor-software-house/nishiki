@@ -87,7 +87,7 @@ function tokenPieces(text: string): string[] {
 }
 
 function header(fields: [string, string][]): string {
-  return fields.map(([key, value]) => `${key} ${value}\n`).join("");
+  return [...fields.map(([key, value]) => `${key} ${value}`), ""].join("\n");
 }
 
 /** An append trace of one corpus file. */
