@@ -499,7 +499,8 @@ impl GrammarCaches {
     /// the states their automata built.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a line"
+        reason = "measured at one codegen unit: with `line_until` a second caller, \
+                  it stopped being inlined, at a call once a line"
     )]
     #[inline(always)]
     fn line_cells(&mut self, grammar: &'static Grammar, line: &[u8]) -> &'static Cells {
@@ -1273,7 +1274,8 @@ impl Tokenizer<'_> {
     /// when the grammar's own serves.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+        reason = "measured at one codegen unit: with `line_until` a second caller, \
+                  it stopped being inlined, at a call once a step"
     )]
     #[inline(always)]
     fn built_end(&mut self, pattern: usize, caps: &GroupSpans) -> u32 {
@@ -1360,7 +1362,8 @@ impl Tokenizer<'_> {
     /// a tie.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+        reason = "measured at one codegen unit: with `line_until` a second caller, \
+                  it stopped being inlined, at a call once a step"
     )]
     #[inline(always)]
     fn scan_injections(
@@ -1674,7 +1677,8 @@ impl Tokenizer<'_> {
     ///   it has no text to halt in, so a match applies at once.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+        reason = "measured at one codegen unit: with `line_until` a second caller, \
+                  it stopped being inlined, at a call once a step"
     )]
     #[inline(always)]
     fn scan_next<H: Halting>(
@@ -2055,7 +2059,8 @@ impl Tokenizer<'_> {
     /// the `end` of `rule`); true when the line is done.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+        reason = "measured at one codegen unit: with `line_until` a second caller, \
+                  it stopped being inlined, at a call once a step"
     )]
     #[inline(always)]
     fn apply(
@@ -2108,7 +2113,8 @@ impl Tokenizer<'_> {
     )]
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
+        reason = "measured at one codegen unit: with `line_until` a second caller, \
+                  it stopped being inlined, at a call once a step"
     )]
     #[inline(always)]
     fn enter(
