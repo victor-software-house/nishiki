@@ -2,6 +2,7 @@
 
 Bun scripts that run Shiki, the reference nishiki matches, and write what the tests and the generated tables compare against.
 They need Bun and the network, so they run by hand or in their own workflows, never in the offline `mise run verify`.
+[`package.json`](package.json) and [`bun.lock`](bun.lock) pin the npm packages they import, down to every dependency.
 The rules for working here are in [AGENTS.md](AGENTS.md).
 
 ## The fixtures
