@@ -20,6 +20,9 @@ Each file sits at `<language>/<tier>/<file>`, so the benchmarks read the languag
 | medium | 16 to 64 KiB | a typical source file |
 | large | 200 KiB to 1 MiB | a big real file, for the languages the comparison covers |
 | reply | 4 to 40 KiB | a Markdown reply with code blocks in several languages |
+| grammar | 1 KiB to 1 MiB | a TextMate grammar in Shiki's JSON form, which the cold-start program loads |
+
+The lexing benchmarks skip the grammar tier.
 
 CSS has no large file: every CSS file found in that range was generated or vendored.
 

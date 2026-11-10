@@ -64,6 +64,7 @@ while IFS=$'\t' read -r path tier bytes sha source licence; do
     medium) low=16384 high=65536 ;;
     large) low=204800 high=1048576 ;;
     reply) low=4096 high=40960 ;;
+    grammar) low=1024 high=1048576 ;;
     *) low=1 high=0 ;;
   esac
   if [ "$size" -lt "$low" ] || [ "$size" -gt "$high" ]; then

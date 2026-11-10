@@ -3,8 +3,10 @@
 # `mise run check:corpus` fails when a file and its row disagree.
 #
 # - tier: small (1 to 4 KiB), medium (16 to 64 KiB), large (200 KiB to
-#   1 MiB, for the languages the comparison covers), or reply (a Markdown
-#   reply with code blocks in several languages).
+#   1 MiB, for the languages the comparison covers), reply (a Markdown
+#   reply with code blocks in several languages), or grammar (a TextMate
+#   grammar in Shiki's JSON form, 1 KiB to 1 MiB, which the cold-start
+#   program loads).
 # - origin: neutral (no measured engine was tuned on it), oracle (nishiki's
 #   oracle uses it too), or shared (another engine's benchmark uses it).
 # - source is the file at a pinned commit; licence is read at
@@ -16,8 +18,8 @@
 # by path; `mise run check:corpus` prints the new value.
 # Two pull requests that raise version to the same number write different
 # digests, so their merge conflicts here instead of passing silently.
-version = 26
-digest = "2a2ec701172e0633746d351ba2eb573f4b13b1035ef5b7838197a33a537a4914"
+version = 27
+digest = "b4be8bde914c59d20b32e2c2859d3fdc9e028b5c5511a47e171e0ecb3b336e56"
 
 [[file]]
 language = "asm"
@@ -1693,6 +1695,17 @@ licence = "Apache-2.0"
 licence_source = "https://github.com/microsoft/TypeScript/blob/c63de15a992d37f0d6cec03ac7631872838602cb/LICENSE.txt"
 bytes = 539588
 sha256 = "dcddb577aa14f455193ca98c7c069217a0c523466fc777b985a7aefbd8dafc8e"
+
+[[file]]
+language = "typescript"
+tier = "grammar"
+origin = "oracle"
+path = "typescript/grammar/typescript.json"
+source = "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/20a9c41e6546f48023c1000080a1e2aa673139b3/packages/tm-grammars/grammars/typescript.json"
+licence = "MIT"
+licence_source = "https://github.com/microsoft/TypeScript-TmLanguage/blob/eeeb0dc4daa8793b8227bb3b34ddfc267c85fd81/LICENSE.txt"
+bytes = 230231
+sha256 = "e86e45f551919f50ac5e5cf89990c3520877305b35708294de5ae83c9b6ca559"
 
 [[file]]
 language = "vb"

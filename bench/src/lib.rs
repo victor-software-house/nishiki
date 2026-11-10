@@ -85,7 +85,9 @@ impl Document {
     }
 }
 
-/// Every file of the corpus whose language is built in, sorted by path.
+/// Every document of the corpus whose language is built in, sorted by path.
+///
+/// The grammar tier holds no document, so it is left out.
 ///
 /// # Errors
 ///
@@ -123,6 +125,23 @@ pub fn corpus() -> std::io::Result<Vec<Document>> {
         }
     }
     Ok(documents)
+}
+
+/// The grammar of `language` in the corpus's grammar tier, as Shiki's JSON.
+///
+/// The lexing benchmarks skip that tier, because a grammar is no document.
+///
+/// # Errors
+///
+/// When the file cannot be read, or is not UTF-8.
+pub fn grammar(language: Language) -> std::io::Result<String> {
+    let id = language.id();
+    let path = Path::new(env!("CARGO_MANIFEST_DIR"))
+        .join("corpus")
+        .join(id)
+        .join("grammar")
+        .join(format!("{id}.json"));
+    fs::read_to_string(path)
 }
 
 fn sorted_dirs(dir: &Path) -> std::io::Result<Vec<std::path::PathBuf>> {

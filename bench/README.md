@@ -15,6 +15,7 @@ The reasons are in the `bench-methodology` change under `openspec/changes/`.
 | What does one streamed line cost? | µs per line: steady p50, p99 and maximum, and the first-contact maximum | `mise run bench:latency` |
 | What does one streamed delta cost? | µs per delta on the stream traces: setup, first delta, steady p50, p99 and maximum, and a whole file in one delta | `mise run bench:stream` |
 | How soon is the first line coloured? | µs in a fresh process to create a highlighter, lex the first line and the whole file; theme loading | `mise run bench:cold` |
+| What does loading a grammar a caller brings cost? | µs in a fresh process for `Grammar::from_json`, `Grammar::from_bytes` and the first `Highlighter::for_grammar`, on TypeScript's grammar | `mise run bench:cold` |
 | Did a change make lexing, the first document or colouring slower? | instructions, head over base | `mise run callgrind`, in CI on a pull request labelled `bench` |
 | How much memory does a document take? | allocations, bytes and peak | printed below the callgrind table |
 
