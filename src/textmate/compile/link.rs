@@ -676,35 +676,47 @@ impl<'a> Builder<'a> {
     }
 
     /// Interns the names and lists, and writes the tables.
+    ///
+    /// Nothing is leaked until no step can fail, so a refused grammar keeps
+    /// no memory.
     fn finish(
         self,
         root: usize,
         injections: &[(&str, usize)],
     ) -> Result<&'static Grammar, LinkError> {
         let mut tables = Tables::default();
-        let mut rules = Vec::with_capacity(self.rules.len());
+        let mut parts = Vec::with_capacity(self.rules.len());
         for draft in &self.rules {
-            let name = tables.names_of(draft.name)?;
-            let content_name = tables.names_of(draft.content_name)?;
-            let captures = tables.caps(&draft.captures)?;
-            let end_captures = tables.caps(&draft.end_captures)?;
-            let list = tables.list_of(&self, draft)?;
-            rules.push(Rule {
-                kind: draft.kind,
-                name,
-                content_name,
-                begin: draft.begin,
-                end: draft.end,
-                until: draft.until,
-                captures,
-                end_captures,
-                list,
-                apply_end_last: draft.apply_end_last,
-            });
+            parts.push((
+                tables.names_of(draft.name)?,
+                tables.names_of(draft.content_name)?,
+                tables.caps(&draft.captures)?,
+                tables.caps(&draft.end_captures)?,
+                tables.list_of(&self, draft)?,
+            ));
         }
         if tables.hand_offs.len() > MAX_HAND_OFFS {
             return Err(LinkError::TooManyHandOffs);
         }
+        let rules = self
+            .rules
+            .iter()
+            .zip(parts)
+            .map(
+                |(draft, (name, content_name, captures, end_captures, list))| Rule {
+                    kind: draft.kind,
+                    name: leak(name),
+                    content_name: leak(content_name),
+                    begin: draft.begin,
+                    end: draft.end,
+                    until: draft.until,
+                    captures: leak_captures(captures),
+                    end_captures: leak_captures(end_captures),
+                    list,
+                    apply_end_last: draft.apply_end_last,
+                },
+            )
+            .collect();
         let list_hand_offs = tables.list_hand_offs();
         let handing = self.handing_captures();
         let folding = if self.patterns.iter().any(|p| Regex::lean_differs(p)) {
@@ -822,7 +834,7 @@ struct Tables {
 impl Tables {
     /// The references of `names`. The top bit marks a name built from a
     /// match's groups.
-    fn names_of(&mut self, names: &[String]) -> Result<&'static [u16], LinkError> {
+    fn names_of(&mut self, names: &[String]) -> Result<Vec<u16>, LinkError> {
         let mut out = Vec::with_capacity(names.len());
         for name in names {
             let next = self.names.len();
@@ -840,7 +852,7 @@ impl Tables {
                 id
             });
         }
-        Ok(leak(out))
+        Ok(out)
     }
 
     /// For each list, the index of the hand-off whose include stood in it.
@@ -857,18 +869,18 @@ impl Tables {
             .collect()
     }
 
-    /// The groups of `captures` as the engine reads them.
-    fn caps(&mut self, captures: &[CapDraft<'_>]) -> Result<&'static [Cap], LinkError> {
+    /// The groups of `captures`, with their names interned.
+    fn caps(&mut self, captures: &[CapDraft<'_>]) -> Result<Vec<OwnedCapture>, LinkError> {
         let mut out = Vec::with_capacity(captures.len());
         for capture in captures {
-            out.push(Cap {
+            out.push(OwnedCapture {
                 index: capture.index,
                 name: self.names_of(capture.name)?,
                 content_name: self.names_of(capture.content_name)?,
                 retokenize: capture.retokenize,
             });
         }
-        Ok(leak(out))
+        Ok(out)
     }
 
     /// The number of the list of `rules`, apart from any list with a
@@ -976,6 +988,34 @@ fn uses_last_match_end(source: &str) -> bool {
         i += 1;
     }
     false
+}
+
+/// A capture group with its names interned, before it is leaked.
+struct OwnedCapture {
+    /// The group's number, or [`NONE`].
+    index: usize,
+    /// The references of the scopes of its text.
+    name: Vec<u16>,
+    /// The references of the scopes of the rules inside it.
+    content_name: Vec<u16>,
+    /// The rule that lexes its text again, or [`NONE`].
+    retokenize: usize,
+}
+
+/// The groups of `captures` as the engine reads them, on the heap for the
+/// rest of the process.
+fn leak_captures(captures: Vec<OwnedCapture>) -> &'static [Cap] {
+    leak(
+        captures
+            .into_iter()
+            .map(|capture| Cap {
+                index: capture.index,
+                name: leak(capture.name),
+                content_name: leak(capture.content_name),
+                retokenize: capture.retokenize,
+            })
+            .collect(),
+    )
 }
 
 /// `items` on the heap for the rest of the process.
