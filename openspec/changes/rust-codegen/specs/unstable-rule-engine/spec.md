@@ -64,21 +64,29 @@ It SHALL run with no work limit.
 For every language whose matchers `codegen/` writes, CI SHALL run a hostile-line test under the default limits.
 
 Its bound lines SHALL be about 12,000 bytes long and drive each give-back loop and stack.
+A bound line SHALL finish under the default work limit.
 Its retry lines SHALL be as long as the language's longest oracle fixture line.
 In a retry line, a failing repeat is tried again at each later start.
 
-Each pattern whose work grows faster than the line SHALL have a limit line of about 12,000 bytes.
-A limit line SHALL end at the work limit.
+#### Scenario: A hostile line overruns the budget
 
-#### Scenario: A generated matcher overruns the budget
-
-- **WHEN** a bound line runs past the default work limit without ending there
+- **WHEN** any hostile line runs past the default work limit without ending there
 - **THEN** the hostile-line test fails
+
+#### Scenario: A bound line reaches the work limit
+
+- **WHEN** a bound line ends at the default work limit
+- **THEN** the hostile-line test fails, and its pattern gets a recorded finding and a limit line
 
 #### Scenario: A retry line reaches the work limit
 
 - **WHEN** a retry line of fixture length reaches the default work limit
 - **THEN** the hostile-line test fails, and the finding is recorded with the pattern, the line and a plan to fix it
+
+### Requirement: CI shows the work limit cutting superlinear work
+
+For every language whose matchers `codegen/` writes, each pattern whose work grows faster than the line SHALL have a limit line of about 12,000 bytes.
+CI SHALL run each limit line under the default limits, and it SHALL end at the work limit.
 
 #### Scenario: A limit line runs to the end
 
