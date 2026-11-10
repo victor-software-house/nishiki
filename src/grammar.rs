@@ -10,7 +10,7 @@ mod bytes;
 
 use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
-use std::sync::{LazyLock, Mutex, MutexGuard, PoisonError};
+use std::sync::{Arc, LazyLock, Mutex, MutexGuard, PoisonError};
 use std::{error, fmt};
 
 use crate::highlighter::{Sealed, Syntax, lex_line};
@@ -273,15 +273,25 @@ struct LinkKey {
     handed: Option<Vec<Language>>,
 }
 
+/// One key's linked table, empty until a link of that key succeeds.
+///
+/// A thread holds its lock while it links.
+/// Another thread that links the same key waits for that table.
+type LinkedTable = Arc<Mutex<Option<&'static textmate::Grammar>>>;
+
 /// Every table this process linked, by what the link read.
-static LINKED_TABLES: LazyLock<Mutex<HashMap<LinkKey, &'static textmate::Grammar>>> =
+static LINKED_TABLES: LazyLock<Mutex<HashMap<LinkKey, LinkedTable>>> =
     LazyLock::new(Mutex::default);
 
 /// The engine's table for `root` linked with `grammars`, linked once per
 /// process for each [`LinkKey`].
 ///
-/// It links while it holds the lock, so two threads never leak two tables
-/// for one key.
+/// The lock on every key is held only to find or add the key's
+/// [`LinkedTable`].
+/// The link runs under that key's own lock.
+/// Links of other keys then never wait for it.
+/// Two links of one key end with one table, so no second table leaks.
+/// A link that fails leaves the key empty, and the next one tries again.
 fn linked_table(
     root: Grammar,
     grammars: &Grammars,
@@ -291,15 +301,22 @@ fn linked_table(
         set: grammars.grammars.clone(),
         handed: grammars.handed.clone(),
     };
-    let mut cache = LINKED_TABLES.lock().unwrap_or_else(PoisonError::into_inner);
-    if let Some(&table) = cache.get(&key) {
-        return Ok(table);
+    let slot = Arc::clone(
+        LINKED_TABLES
+            .lock()
+            .unwrap_or_else(PoisonError::into_inner)
+            .entry(key)
+            .or_default(),
+    );
+    let mut table = slot.lock().unwrap_or_else(PoisonError::into_inner);
+    if let Some(linked) = *table {
+        return Ok(linked);
     }
-    let set: Vec<&Compiled> = key.set.iter().map(|grammar| grammar.0).collect();
-    let table = link(root.0, &set, key.handed.as_deref())
+    let set: Vec<&Compiled> = grammars.grammars.iter().map(|grammar| grammar.0).collect();
+    let linked = link(root.0, &set, grammars.handed.as_deref())
         .map_err(|error| GrammarError(Reason::Link(error)))?;
-    cache.insert(key, table);
-    Ok(table)
+    *table = Some(linked);
+    Ok(linked)
 }
 
 /// What a grammar highlighter lexes with: its grammar, and the table linked
