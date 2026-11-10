@@ -3,7 +3,7 @@
 The repository's tasks that are longer than one command, as scripts that [mise](https://mise.jdx.dev) runs.
 A script's path is its task name: `check/features.sh` runs as `mise run check:features`.
 Each script's `#MISE description=` line describes what it does.
-`lib/` holds shell functions that tasks source.
+`lib/` holds shell functions that tasks source, and Bun modules that Bun tasks import.
 Its files are not executable.
 mise runs only executable files as tasks.
 
