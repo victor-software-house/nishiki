@@ -18,12 +18,16 @@ export type Waiver = {
   reason: string;
   /** The oracle/onig.ts expression id whose probe cases check the matcher,
    * required where oracle/fuzz/<grammar>.ts has probe support, unless the
-   * waiver is for a rule vscode-textmate drops. */
+   * waiver is `dropped` or `unprobed`. */
   probe?: string;
   /** Set for a rule that vscode-textmate drops, such as one whose only
    * patterns include a grammar or a rule that is never loaded.
    * No matcher answers for such a unit, so the waiver names no probe. */
   dropped?: true;
+  /** Set for a rule that a hand matcher answers outside the generated table.
+   * The grammar script's dump gives the rule no id, so no probe can name it.
+   * Only Blade's own rules use it, until they get ids and probe cases. */
+  unprobed?: true;
 };
 
 /** The TypeScript family's grammars. They share their units' paths. */

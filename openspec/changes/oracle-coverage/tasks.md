@@ -144,6 +144,11 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     Its build failed on an inherited line width before the tests ran.
     On `46ef3042`, which holds both, the [oracle test][run-739-ci] passed.
 - [ ] 3.23 Blade: `blade`
+- [ ] 3.24 Probe Blade's own rules
+  - `oracle/blade-grammar.ts` gives ids only to Blade's copy of PHP.
+    The hand engine answers the `#blade` rules and the injection rules outside `Pattern::ALL`.
+  - Give those rules dump ids and probe cases, then name each probe in its waiver.
+  - Verify: no waiver sets `unprobed`, and the field is gone from `Waiver` and `coverage.ts`.
 
 [checks]: ../../research/2026-11-10-oracle-coverage-gate-checks.md
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
