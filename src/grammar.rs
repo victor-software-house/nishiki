@@ -106,6 +106,13 @@ pub const FORMAT_1: () = ();
 
 /// The handle to a grammar the tokens of `Grammar`'s `ToTokens` hold in a
 /// `static`.
+///
+/// It checks nothing, unlike [`Grammar::from_bytes`].
+/// A model the compiler did not write still links without a panic:
+///
+/// - the linker looks every rule up by index with `get`, so an index past the
+///   last rule gives a rule that matches nothing;
+/// - its depth bound turns a rule that names itself into a link error.
 #[must_use]
 pub const fn static_grammar(unlinked: &'static UnlinkedGrammar) -> Grammar {
     Grammar(unlinked)
