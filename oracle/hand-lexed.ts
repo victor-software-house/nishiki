@@ -26,7 +26,7 @@ type HandLexed = {
 };
 
 const rows = readFileSync(fileURLToPath(new URL("../src/language.rs", import.meta.url)), "utf8");
-const table = rows.slice(rows.indexOf("\nlanguages! {"));
+const table = rows.slice(rows.search(/^languages! \{/m));
 const row = new RegExp(
   [
     String.raw`\n {4}([A-Z][A-Za-z0-9]*) \{`,
