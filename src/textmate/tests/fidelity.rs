@@ -2,11 +2,13 @@
 //!
 //! Every language Shiki 4.6.0 bundles runs on its input: Shiki's sample for
 //! it, or a stand-in where Shiki has none.
+//! A few languages run on extra inputs too, which reach rules their samples
+//! miss.
 //! Each non-whitespace byte must get the scope stack Shiki gives it.
 //! Every line is compared, with no block left out.
 //!
 //! `oracle/fidelity.ts` writes the directory that `NISHIKI_FIDELITY` names.
-//! The check writes `report.md` there, one row per language.
+//! The check writes `report.md` there, one row per input.
 
 use std::fmt::Write as _;
 use std::path::Path;
@@ -68,19 +70,20 @@ fn refused(grammar: &Grammar) -> Vec<(&'static str, String)> {
         .collect()
 }
 
-/// Loads language `id` and compares its input on a thread of its own.
+/// Loads language `id` and compares its input `sample` on a thread of its own.
 /// A panic then ends only that language's check.
 /// A stall leaves the thread running, so the caller stops the run.
-fn outcome(dir: &Path, id: &str) -> (Outcome, Vec<(&'static str, String)>) {
+fn outcome(dir: &Path, id: &str, sample: &str) -> (Outcome, Vec<(&'static str, String)>) {
     let (send, receive) = mpsc::channel();
     let dir = dir.to_owned();
     let id = id.to_owned();
+    let sample = sample.to_owned();
     std::thread::Builder::new()
         .stack_size(STACK)
         .spawn(move || {
             let found = std::panic::catch_unwind(|| {
                 let loaded = grammar(&dir, &id);
-                let lines = parse(&dir.join("samples").join(format!("{id}.txt")));
+                let lines = parse(&dir.join("samples").join(format!("{sample}.txt")));
                 (compare(loaded, &lines, Scanners::On, &[]), refused(loaded))
             });
             let _ = send.send(found);
@@ -105,10 +108,10 @@ fn cell(text: &str) -> String {
     text.replace('|', "\\|")
 }
 
-/// The report's row cells after the language: result, bytes, first
+/// The report's row cells after the input: result, bytes, first
 /// difference, Shiki's stack and nishiki's stack.
 /// A difference adds its lines to `details`.
-fn result(id: &str, found: &Outcome, details: &mut String) -> String {
+fn result(sample: &str, found: &Outcome, details: &mut String) -> String {
     match found {
         Outcome::NoGrammar(reason) => format!("no grammar: {} | | | |", cell(reason)),
         Outcome::Panicked(text) => format!("panic: {} | | | |", cell(text)),
@@ -118,7 +121,7 @@ fn result(id: &str, found: &Outcome, details: &mut String) -> String {
             Some(first) => {
                 let _ = writeln!(
                     details,
-                    "{id}: {} of {} bytes differ{}\n",
+                    "{sample}: {} of {} bytes differ{}\n",
                     comparison.missed, comparison.checked, comparison.message
                 );
                 format!(
@@ -142,7 +145,7 @@ fn write_report(dir: &Path, summary: &str, rows: &str) {
 
         {summary}
 
-        | Language | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
+        | Input | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
         |:--|:--|--:|:--|:--|:--|:--|:--|
         {rows}"};
     std::fs::write(dir.join("report.md"), page).unwrap();
@@ -171,13 +174,14 @@ fn every_shiki_grammar_matches_shiki() {
     let mut seen: Vec<(&str, &str)> = Vec::new();
     for language in languages.as_array().unwrap() {
         let id = language["id"].as_str().unwrap();
+        let sample = language["sample"].as_str().unwrap();
         let (found, refusals) = if let Some(reason) = language["tables"].as_str() {
             (Outcome::NoGrammar(reason.to_owned()), Vec::new())
         } else {
-            outcome(&dir, id)
+            outcome(&dir, id, sample)
         };
         measured += 1;
-        let row = result(id, &found, &mut details);
+        let row = result(sample, &found, &mut details);
         if matches!(found, Outcome::Compared(Comparison { first: None, .. })) {
             equal += 1;
         }
@@ -201,10 +205,10 @@ fn every_shiki_grammar_matches_shiki() {
                 .join(", "),
             Outcome::NoGrammar(_) | Outcome::Panicked(_) | Outcome::Stalled => String::new(),
         };
-        let _ = writeln!(rows, "| {id} | {row} | {refusal} | {limits} |");
+        let _ = writeln!(rows, "| {sample} | {row} | {refusal} | {limits} |");
         if matches!(found, Outcome::Stalled) {
             let summary = format!(
-                "The run stopped at {id}, which stalled past {} s.",
+                "The run stopped at {sample}, which stalled past {} s.",
                 STALL.as_secs()
             );
             write_report(&dir, &summary, &rows);
@@ -217,7 +221,7 @@ fn every_shiki_grammar_matches_shiki() {
         .map(|(id, pattern)| format!("{id}: {pattern}"))
         .collect();
     let summary = format!(
-        "{equal} of {measured} languages match Shiki on every non-whitespace byte of their input.\n\
+        "{equal} of {measured} inputs match Shiki on every non-whitespace byte.\n\
          {} patterns are refused outside the known list, and {} known refusals no longer occur.",
         unknown.len(),
         stale.len()
