@@ -200,7 +200,7 @@ pub(crate) enum Element {
     Style,
 }
 
-/// A directive rule's kind, which names its scope.
+/// The directive rule that matched, which names its scope.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Directive {
     /// `v-for`, `v-if`, `v-else-if` or `v-else`.
@@ -212,7 +212,7 @@ pub(crate) enum Directive {
 /// A match of one of Vue's patterns.
 ///
 /// It holds no data, so `Pat` keeps a plain tag byte.
-/// The block, language or template tag of a match is in its `Hit::info`.
+/// The block, language or template tag of a match is in its `Hit::bits`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum VuePat {
     /// `<!-- @name`: a comment that holds JSON.
@@ -223,16 +223,15 @@ pub(crate) enum VuePat {
     SelfClosing,
     /// `<` of a block.
     Block,
-    /// A block's tag name; its info holds the `Block`'s bits.
+    /// A block's tag name; its bits are the `Block`'s.
     Element,
-    /// The `lang` attribute of a block whose start tag spans lines; its info
-    /// holds the `Lang`'s bits.
+    /// The `lang` attribute of a block whose start tag spans lines; its bits
+    /// are the `Lang`'s.
     LangGroup,
-    /// `<template` of a nested template; its info holds the `TemplateTag`'s
-    /// bits.
+    /// `<template` of a nested template; its bits are the `TemplateTag`'s.
     TemplateTag,
-    /// The inside of a nested template, from its start tag; its info holds
-    /// the `TemplateTag`'s bits.
+    /// The inside of a nested template, from its start tag; its bits are
+    /// the `TemplateTag`'s.
     TemplateTagEnd,
     /// `<Name` of a tag whose name starts with a capital.
     Capitalized,
@@ -897,7 +896,7 @@ impl Lexer<'_> {
         };
         let tag_stuff_first = match rule {
             VueRule::Element => {
-                let block = Block::from_bits(super::state::info(self.top().payload));
+                let block = Block::from_bits(super::state::payload_bits(self.top().payload));
                 if block != Block::Lang(Lang::Html) {
                     return Template::Done(self.vue_element_patterns(p, block));
                 }
@@ -1110,7 +1109,7 @@ fn lexed(lang: Lang) -> Option<Lexed> {
 /// The language of the body that `parent`, a rule with `payload`, opened.
 pub(super) fn body_lang(parent: Rule, payload: u32) -> Option<Lang> {
     if parent == Rule::VueElement {
-        return match Block::from_bits(super::state::info(payload)) {
+        return match Block::from_bits(super::state::payload_bits(payload)) {
             Block::Lang(lang) => Some(lang),
             Block::Template | Block::Script | Block::Style | Block::Other => None,
         };

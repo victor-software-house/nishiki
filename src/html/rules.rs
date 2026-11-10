@@ -6,7 +6,8 @@ use super::engine::{Hit, Lexer, Part, Pat, packed};
 use super::erb::Erb;
 use super::scope::S;
 use super::state::{
-    AttributeKind, Category, ElementInfo, Flavor, Namespace, Rule, TagInfo, TagKind, info, name,
+    AttributeRule, Category, ElementClass, Flavor, Namespace, Rule, TagClass, TagRule, name,
+    payload_bits,
 };
 use super::vue::{self, TemplateTag, VuePat, VueRule};
 
@@ -18,7 +19,7 @@ impl Lexer<'_> {
         reason = "one arm per rule, in the order of the grammar"
     )]
     pub(super) fn name_stack(&mut self, base: u32, rule: Rule, payload: u32) -> u32 {
-        let bits = info(payload);
+        let bits = payload_bits(payload);
         let word = name(payload);
         match rule {
             Rule::Root
@@ -62,15 +63,15 @@ impl Lexer<'_> {
             Rule::DoctypeString => self.path(base, &[S::StringDouble]),
             Rule::Processing => self.path(base, &[S::TagProcessing]),
             Rule::Tag => {
-                let tag = TagInfo::from_bits(bits);
-                let kind = match tag.kind {
-                    TagKind::Start => ".start.html",
-                    TagKind::End => ".end.html",
-                    TagKind::Void => ".void.html",
-                    TagKind::CustomStart => return self.path(base, &[S::TagCustomStart]),
-                    TagKind::CustomEnd => return self.path(base, &[S::TagCustomEnd]),
-                    TagKind::Derivative => return self.path(base, &[S::TagDerivative]),
-                    TagKind::Unrecognized => {
+                let tag = TagClass::from_bits(bits);
+                let suffix = match tag.rule {
+                    TagRule::Start => ".start.html",
+                    TagRule::End => ".end.html",
+                    TagRule::Void => ".void.html",
+                    TagRule::CustomStart => return self.path(base, &[S::TagCustomStart]),
+                    TagRule::CustomEnd => return self.path(base, &[S::TagCustomEnd]),
+                    TagRule::Derivative => return self.path(base, &[S::TagDerivative]),
+                    TagRule::Unrecognized => {
                         return self.dynamic(
                             base,
                             &[
@@ -88,12 +89,12 @@ impl Lexer<'_> {
                         Part::Lit(tag.category.word()),
                         Part::Lit("."),
                         Part::Name(word),
-                        Part::Lit(kind),
+                        Part::Lit(suffix),
                     ],
                 )
             }
             Rule::Element => {
-                let element = ElementInfo::from_bits(bits);
+                let element = ElementClass::from_bits(bits);
                 if element.flavor == Flavor::Invalid {
                     return self.path(base, &[S::ElementOtherInvalid]);
                 }
@@ -123,7 +124,7 @@ impl Lexer<'_> {
                 )
             }
             Rule::ElementStart => {
-                let element = ElementInfo::from_bits(bits);
+                let element = ElementClass::from_bits(bits);
                 let scope = if element.root {
                     S::TagStartStructure
                 } else if element.flavor == Flavor::Invalid {
@@ -148,12 +149,12 @@ impl Lexer<'_> {
             Rule::BodyTemplate => self.path(base, &[S::TextHtmlBasic]),
             Rule::BodyOther => self.path(base, &[S::SourceUnknown]),
             Rule::Attribute => {
-                let prefix = match AttributeKind::from_bits(bits) {
-                    AttributeKind::Style => return self.path(base, &[S::AttributeStyle]),
-                    AttributeKind::Known | AttributeKind::Deprecated => "meta.attribute.",
-                    AttributeKind::Event => "meta.attribute.event-handler.",
-                    AttributeKind::Data => "meta.attribute.data-x.",
-                    AttributeKind::Unrecognized => "meta.attribute.unrecognized.",
+                let prefix = match AttributeRule::from_bits(bits) {
+                    AttributeRule::Style => return self.path(base, &[S::AttributeStyle]),
+                    AttributeRule::Known | AttributeRule::Deprecated => "meta.attribute.",
+                    AttributeRule::Event => "meta.attribute.event-handler.",
+                    AttributeRule::Data => "meta.attribute.data-x.",
+                    AttributeRule::Unrecognized => "meta.attribute.unrecognized.",
                 };
                 self.dynamic(
                     base,
@@ -288,7 +289,9 @@ impl Lexer<'_> {
     pub(super) fn opens(&mut self, hit: &Hit, top: &super::engine::Frame) -> Option<(Rule, u32)> {
         let [from, to, ..] = hit.at;
         Some(match hit.pat {
-            Pat::Zero(Rule::ElementStart) => (Rule::ElementStart, packed(info(top.payload), 0)),
+            Pat::Zero(Rule::ElementStart) => {
+                (Rule::ElementStart, packed(payload_bits(top.payload), 0))
+            }
             Pat::Zero(rule) => (rule, 0),
             Pat::Processing => (Rule::Processing, 0),
             Pat::Comment => (Rule::Comment, 0),
@@ -299,19 +302,19 @@ impl Lexer<'_> {
             Pat::Tag => self.tag_opens(hit, from, to),
             Pat::Element => {
                 let word = self.intern(from, to);
-                (Rule::Element, packed(hit.info, word))
+                (Rule::Element, packed(hit.bits, word))
             }
             Pat::StyleTag => (Rule::StyleTag, 0),
             Pat::ScriptTag => (Rule::ScriptTag, 0),
             Pat::ScriptJs => (Rule::ScriptJsOuter, 0),
             Pat::Attribute => self.attribute_opens(hit, from, to),
-            Pat::Equals => (value_rule(info(top.payload)), 0),
-            Pat::Quote => (string_rule(top.rule), hit.info),
+            Pat::Equals => (value_rule(payload_bits(top.payload)), 0),
+            Pat::Quote => (string_rule(top.rule), hit.bits),
             Pat::DoctypeQuote => (Rule::DoctypeString, 0),
             Pat::JsLine => (Rule::JsLineComment, top.payload),
             Pat::JsBlock => (Rule::JsBlockComment, top.payload),
-            Pat::Erb(kind) => (erb_rule(kind), 0),
-            Pat::Blade(kind) => (Self::blade_opens(kind)?, 0),
+            Pat::Erb(erb) => (erb_rule(erb), 0),
+            Pat::Blade(blade) => (Self::blade_opens(blade)?, 0),
             Pat::Vue(pat) => return self.vue_opens(pat, hit),
             Pat::End
             | Pat::Inject
@@ -334,32 +337,32 @@ impl Lexer<'_> {
         })
     }
 
-    /// The tag rule a `Pat::Tag` match opens, carrying its `TagKind` and,
+    /// The tag rule a `Pat::Tag` match opens, carrying its `TagRule` and,
     /// unless it is a custom element, its interned name.
     fn tag_opens(&mut self, hit: &Hit, from: usize, to: usize) -> (Rule, u32) {
-        let tag = TagInfo::from_bits(hit.info & 0x3f);
-        let word = match tag.kind {
-            TagKind::CustomStart | TagKind::CustomEnd => 0,
-            TagKind::Start
-            | TagKind::End
-            | TagKind::Void
-            | TagKind::Unrecognized
-            | TagKind::Derivative => self.intern(from, to),
+        let tag = TagClass::from_bits(hit.bits & 0x3f);
+        let word = match tag.rule {
+            TagRule::CustomStart | TagRule::CustomEnd => 0,
+            TagRule::Start
+            | TagRule::End
+            | TagRule::Void
+            | TagRule::Unrecognized
+            | TagRule::Derivative => self.intern(from, to),
         };
-        (Rule::Tag, packed(hit.info & 0x3f, word))
+        (Rule::Tag, packed(hit.bits & 0x3f, word))
     }
 
     /// The attribute rule a `Pat::Attribute` match opens, carrying its
-    /// `AttributeKind` and, unless it is `style`, its interned name without
+    /// `AttributeRule` and, unless it is `style`, its interned name without
     /// leading dots.
     fn attribute_opens(&mut self, hit: &Hit, from: usize, to: usize) -> (Rule, u32) {
         let from = from + self.s[from..to].iter().take_while(|&&b| b == b'.').count();
-        let word = if hit.info == AttributeKind::Style.bits() {
+        let word = if hit.bits == AttributeRule::Style.bits() {
             0
         } else {
             self.intern(from, to)
         };
-        (Rule::Attribute, packed(hit.info, word))
+        (Rule::Attribute, packed(hit.bits, word))
     }
 
     /// Emits the capture groups of a begin match, on the rule's name stack
@@ -385,9 +388,9 @@ impl Lexer<'_> {
             }
             Pat::Tag => {
                 self.cap(base, start, from, &[S::TagBegin]);
-                let kind = TagInfo::from_bits(hit.info & 0x3f).kind;
-                let scopes: &[S] = match (kind, hit.info >> 8) {
-                    (TagKind::Unrecognized, _) => &[S::NameTag, S::UnrecognizedTag],
+                let rule = TagClass::from_bits(hit.bits & 0x3f).rule;
+                let scopes: &[S] = match (rule, hit.bits >> 8) {
+                    (TagRule::Unrecognized, _) => &[S::NameTag, S::UnrecognizedTag],
                     (_, 1) => &[S::NameTag, S::Deprecated],
                     (_, 2) => &[S::NameTag, S::NoLongerSupported],
                     _ => &[S::NameTag],
@@ -401,7 +404,7 @@ impl Lexer<'_> {
                 self.cap(base, start, end, &[S::TagScriptStart, S::TagEnd]);
             }
             Pat::Attribute => {
-                let scope = if AttributeKind::from_bits(hit.info) == AttributeKind::Deprecated {
+                let scope = if AttributeRule::from_bits(hit.bits) == AttributeRule::Deprecated {
                     S::AttributeNameDeprecated
                 } else {
                     S::AttributeName
@@ -412,8 +415,8 @@ impl Lexer<'_> {
             Pat::Quote => self.cap(base, start, end, &[S::StringBegin]),
             Pat::JsLine => self.cap(base, start, end, &[S::CommentPunctuationJs]),
             Pat::JsBlock => self.cap(base, start, end, &[S::CommentBeginJs]),
-            Pat::Erb(kind) => {
-                let scope = match kind {
+            Pat::Erb(erb) => {
+                let scope = match erb {
                     Erb::CommentWrap => S::ErbCommentLeading,
                     Erb::TagWrap => S::ErbEmbeddedLeading,
                     Erb::Comment => S::ErbCommentBegin,
@@ -421,7 +424,7 @@ impl Lexer<'_> {
                 };
                 self.cap(base, start, end, &[scope]);
             }
-            Pat::Blade(kind) => self.blade_begin_captures(base, kind, start, end),
+            Pat::Blade(blade) => self.blade_begin_captures(base, blade, start, end),
             Pat::Vue(pat) => self.vue_begin_captures(hit, pat, frame),
             Pat::End
             | Pat::Inject
@@ -503,7 +506,7 @@ impl Lexer<'_> {
     #[inline(never)]
     fn vue_content_stack(&mut self, name: u32, rule: Rule, payload: u32) -> u32 {
         if rule.vue() == Some(VueRule::Element)
-            && vue::Block::from_bits(info(payload)) == vue::Block::Lang(vue::Lang::Html)
+            && vue::Block::from_bits(payload_bits(payload)) == vue::Block::Lang(vue::Lang::Html)
         {
             return self.path(name, &[S::TextHtmlDerivative]);
         }
@@ -573,15 +576,15 @@ impl Lexer<'_> {
             VuePat::Block => (Rule::VueBlock, 0),
             VuePat::Element => {
                 let word = self.intern(from, to);
-                (Rule::VueElement, packed(hit.info, word))
+                (Rule::VueElement, packed(hit.bits, word))
             }
-            VuePat::LangGroup => (Rule::VueLangGroup, hit.info),
-            VuePat::TemplateTag => (Rule::VueTemplateTag, hit.info),
-            VuePat::TemplateTagEnd => (Rule::VueTemplateTagEnd, hit.info),
+            VuePat::LangGroup => (Rule::VueLangGroup, hit.bits),
+            VuePat::TemplateTag => (Rule::VueTemplateTag, hit.bits),
+            VuePat::TemplateTagEnd => (Rule::VueTemplateTagEnd, hit.bits),
             VuePat::Capitalized => (Rule::VueCapitalized, self.intern(from, to)),
             VuePat::DirectiveControl => (Rule::VueDirective, 1),
             VuePat::DirectiveOriginal => (Rule::VueDirective, 0),
-            VuePat::ExprString => (Rule::VueExprString, hit.info),
+            VuePat::ExprString => (Rule::VueExprString, hit.bits),
             VuePat::ExprBare => (Rule::VueExprBare, 0),
             VuePat::Modifier => return None,
         })
@@ -631,7 +634,7 @@ impl Lexer<'_> {
                 self.cap_stack(base, start, end, stack);
             }
             VuePat::TemplateTag => {
-                let tag = TemplateTag::from_bits(hit.info);
+                let tag = TemplateTag::from_bits(hit.bits);
                 self.cap(base, start, start + 1, &[S::VueTagBegin]);
                 let stack = self.dynamic(base, &[Part::Lit("entity.name.tag.template.html.vue")]);
                 self.cap_stack(base, start + 1, start + 9, stack);
@@ -644,7 +647,7 @@ impl Lexer<'_> {
                 self.cap(base, at[0], at[1], &[S::VueNameTag]);
             }
             VuePat::DirectiveControl => {
-                let scope = if hit.info == 1 {
+                let scope = if hit.bits == 1 {
                     S::LoopVue
                 } else {
                     S::ConditionalVue
@@ -653,7 +656,7 @@ impl Lexer<'_> {
             }
             VuePat::DirectiveOriginal => {
                 let [name_end, colon_end, argument_start, argument_end, argument] = at;
-                match u8::try_from(hit.info).unwrap_or(b'v') {
+                match u8::try_from(hit.bits).unwrap_or(b'v') {
                     b'.' | b':' => self.cap(base, start, name_end, &[S::ShorthandBind]),
                     b'@' => self.cap(base, start, name_end, &[S::ShorthandEvent]),
                     b'#' => self.cap(base, start, name_end, &[S::ShorthandSlot]),
@@ -746,9 +749,9 @@ impl Lexer<'_> {
                 self.cap_stack(base, start, start + 1, punctuation);
                 self.cap_stack(base, start + 1, end, stack);
             }
-            Pat::BladeMatch(kind) => {
+            Pat::BladeMatch(blade) => {
                 let base = self.blade_base(top.rule, top.state, top.content);
-                self.blade_match_captures(base, kind, start, end);
+                self.blade_match_captures(base, blade, start, end);
             }
             Pat::Vue(VuePat::Modifier) => {
                 self.cap(base, start, start + 1, &[S::VueKeyValue]);
@@ -931,17 +934,17 @@ impl Lexer<'_> {
     }
 
     /// The scopes of an element's tag text on `base`: `meta.tag.…` for the
-    /// kind of tag (`start`, `end`, `void`).
-    fn element_tag(&mut self, base: u32, element: ElementInfo, word: u32, kind: &str) -> u32 {
+    /// `tag` (`start`, `end` or `void`).
+    fn element_tag(&mut self, base: u32, element: ElementClass, word: u32, tag: &str) -> u32 {
         if element.flavor == Flavor::Invalid {
-            let scope = match kind {
+            let scope = match tag {
                 "start" => S::TagOtherInvalidStart,
                 "end" => S::TagOtherInvalidEnd,
                 _ => S::TagOtherInvalidVoid,
             };
             return self.path(base, &[scope]);
         }
-        let kind = match kind {
+        let suffix = match tag {
             "start" => ".start.html",
             "end" => ".end.html",
             _ => ".void.html",
@@ -954,7 +957,7 @@ impl Lexer<'_> {
                     Part::Lit(element.category.word()),
                     Part::Lit("."),
                     Part::Name(word),
-                    Part::Lit(kind),
+                    Part::Lit(suffix),
                 ],
             );
         }
@@ -967,13 +970,13 @@ impl Lexer<'_> {
                 Part::Lit(element.namespace.word()),
                 Part::Lit("."),
                 Part::Name(word),
-                Part::Lit(kind),
+                Part::Lit(suffix),
             ],
         )
     }
 
     /// The scopes of an element's tag name on the tag's stack.
-    fn element_name(&mut self, tag: u32, element: ElementInfo) -> u32 {
+    fn element_name(&mut self, tag: u32, element: ElementClass) -> u32 {
         match element.flavor {
             Flavor::Known => self.path(tag, &[S::NameTag]),
             Flavor::Deprecated => self.path(tag, &[S::NameTag, S::Deprecated]),
@@ -982,7 +985,7 @@ impl Lexer<'_> {
     }
 
     /// The code of the attribute rules a [`Rule::Region`] runs.
-    fn region_payload(element: ElementInfo) -> u32 {
+    fn region_payload(element: ElementClass) -> u32 {
         match element.namespace {
             Namespace::Svg => 1,
             Namespace::Math => 2,
@@ -993,7 +996,7 @@ impl Lexer<'_> {
     /// attributes of a start tag the line holds whole.
     fn element_begin_captures(&mut self, hit: &Hit, frame: &super::engine::Frame) {
         let base = frame.name;
-        let element = ElementInfo::from_bits(hit.info);
+        let element = ElementClass::from_bits(hit.bits);
         let [name_start, name_end, attrs_start, attrs_end, _] = hit.at;
         let word = name(frame.payload);
         let tag = self.element_tag(base, element, word, "start");
@@ -1013,10 +1016,10 @@ impl Lexer<'_> {
     pub(super) fn element_void(&mut self, hit: &Hit) -> bool {
         let top = *self.top();
         self.tok(top.content, hit.start);
-        let element = ElementInfo::from_bits(hit.info);
+        let element = ElementClass::from_bits(hit.bits);
         let [name_start, name_end, attrs_start, attrs_end, _] = hit.at;
         let word = self.intern(name_start, name_end);
-        let base = self.name_stack(top.content, Rule::Element, packed(hit.info, word));
+        let base = self.name_stack(top.content, Rule::Element, packed(hit.bits, word));
         let tag = self.element_tag(base, element, word, "void");
         let bracket = self.path(tag, &[S::TagBegin]);
         self.cap_stack(base, hit.start, name_start, bracket);
@@ -1036,9 +1039,9 @@ impl Lexer<'_> {
     /// For `(/>)` group 2 did not match, so `$2` is empty.
     fn element_end_captures(&mut self, top: &super::engine::Frame, hit: &Hit) {
         let base = top.name;
-        let element = ElementInfo::from_bits(info(top.payload));
+        let element = ElementClass::from_bits(payload_bits(top.payload));
         let [name_start, name_end, gt, ..] = hit.at;
-        match hit.info {
+        match hit.bits {
             0 => {
                 let word = self.intern(name_start, name_end);
                 let tag = self.element_tag(base, element, word, "end");
@@ -1060,15 +1063,15 @@ impl Lexer<'_> {
     }
 }
 
-/// The value rule that the `=` of an attribute of kind `bits` opens.
+/// The value rule that the `=` of an attribute with the rule `bits` opens.
 fn value_rule(bits: u32) -> Rule {
-    match AttributeKind::from_bits(bits) {
-        AttributeKind::Style => Rule::ValueCss,
-        AttributeKind::Event => Rule::ValueJs,
-        AttributeKind::Known
-        | AttributeKind::Data
-        | AttributeKind::Deprecated
-        | AttributeKind::Unrecognized => Rule::Value,
+    match AttributeRule::from_bits(bits) {
+        AttributeRule::Style => Rule::ValueCss,
+        AttributeRule::Event => Rule::ValueJs,
+        AttributeRule::Known
+        | AttributeRule::Data
+        | AttributeRule::Deprecated
+        | AttributeRule::Unrecognized => Rule::Value,
     }
 }
 
@@ -1160,8 +1163,8 @@ fn string_rule(rule: Rule) -> Rule {
 }
 
 /// The rule that a pattern of ERB's injection opens.
-fn erb_rule(kind: Erb) -> Rule {
-    match kind {
+fn erb_rule(erb: Erb) -> Rule {
+    match erb {
         Erb::CommentWrap => Rule::ErbCommentWrap,
         Erb::TagWrap => Rule::ErbTagWrap,
         Erb::Comment => Rule::ErbComment,

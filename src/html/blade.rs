@@ -706,15 +706,15 @@ impl Halt for PhpHalt {
 }
 
 impl Pat {
-    /// The pattern of a Blade match of `kind`: [`Pat::Blade`] where it opens
+    /// The pattern of a match of `blade`: [`Pat::Blade`] where it opens
     /// a rule, [`Pat::BladeMatch`] where it opens none.
     /// The two join the arms of the other patterns that open a rule or not,
     /// so the HTML engine calls each step from one place.
-    pub(super) fn blade(kind: Blade) -> Self {
-        if Lexer::blade_opens(kind).is_some() {
-            Pat::Blade(kind)
+    pub(super) fn blade(blade: Blade) -> Self {
+        if Lexer::blade_opens(blade).is_some() {
+            Pat::Blade(blade)
         } else {
-            Pat::BladeMatch(kind)
+            Pat::BladeMatch(blade)
         }
     }
 }
@@ -870,7 +870,7 @@ impl Lexer<'_> {
     pub(super) fn blade_patterns_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let rule = rule.blade()?;
         let text = &self.s[..self.lim];
-        let hit = |(kind, end): (Blade, usize)| Hit::new(Pat::blade(kind), p, end);
+        let hit = |(blade, end): (Blade, usize)| Hit::new(Pat::blade(blade), p, end);
         match rule {
             BladeRule::Comment => comment_php(text, p).map(hit),
             BladeRule::CommentPhpWrap | BladeRule::PhpWrap => {
@@ -906,8 +906,8 @@ impl Lexer<'_> {
     }
 
     /// The rule that a pattern of Blade's opens, or `None` for a match rule.
-    pub(super) fn blade_opens(kind: Blade) -> Option<Rule> {
-        Some(match kind {
+    pub(super) fn blade_opens(blade: Blade) -> Option<Rule> {
+        Some(match blade {
             Blade::Comment => Rule::BladeComment,
             Blade::EchoTriple => Rule::BladeEchoTriple,
             Blade::Echo => Rule::BladeEcho,
@@ -941,11 +941,11 @@ impl Lexer<'_> {
     pub(super) fn blade_begin_captures(
         &mut self,
         base: u32,
-        kind: Blade,
+        blade: Blade,
         start: usize,
         end: usize,
     ) {
-        match kind {
+        match blade {
             Blade::Comment => self.cap(base, start, end, &[S::BladeCommentBegin]),
             Blade::EchoTriple | Blade::Echo | Blade::EchoRaw => {
                 self.cap(base, start, end, &[S::BladeConstructBegin]);
@@ -1015,11 +1015,11 @@ impl Lexer<'_> {
     pub(super) fn blade_match_captures(
         &mut self,
         base: u32,
-        kind: Blade,
+        blade: Blade,
         start: usize,
         end: usize,
     ) {
-        match kind {
+        match blade {
             Blade::Keyword => self.cap(base, start, end, &[S::BladeKeyword]),
             Blade::EndPhp => self.cap(base, start, end, &[S::PhpEnd]),
             Blade::Function => self.cap(base, start, end, &[S::BladeFunction]),
@@ -1093,7 +1093,8 @@ impl Lexer<'_> {
 /// The rules are the injection's patterns without the PHP tags, as a Blade
 /// heredoc includes them (see [`super::state::ROOT_BLADE_HEREDOC`]).
 pub(super) fn rules_at(s: &[u8], p: usize) -> Option<(Blade, usize)> {
-    at(s, p).filter(|&(kind, _)| !matches!(kind, Blade::PhpWrap | Blade::PhpBlock | Blade::PhpLine))
+    at(s, p)
+        .filter(|&(blade, _)| !matches!(blade, Blade::PhpWrap | Blade::PhpBlock | Blade::PhpLine))
 }
 
 /// The first place at or after `from` where one of Blade's own rules

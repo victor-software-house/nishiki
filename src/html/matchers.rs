@@ -7,7 +7,7 @@ use memchr::{memchr, memchr2, memchr3};
 
 use super::engine::{Document, Hit, Lexer, Pat};
 use super::state::{
-    AttributeKind, Category, ElementInfo, Flavor, Namespace, Rule, TagInfo, TagKind,
+    AttributeRule, Category, ElementClass, Flavor, Namespace, Rule, TagClass, TagRule,
 };
 #[cfg(feature = "lang-vue")]
 use super::vue;
@@ -266,8 +266,8 @@ impl Lexer<'_> {
             Rule::Tag => {
                 let mut q = p;
                 if matches!(
-                    TagInfo::from_bits(super::state::info(self.top().payload)).kind,
-                    TagKind::Unrecognized | TagKind::Derivative
+                    TagClass::from_bits(super::state::payload_bits(self.top().payload)).rule,
+                    TagRule::Unrecognized | TagRule::Derivative
                 ) {
                     while q < self.lim
                         && crate::classes::is_ascii_space(self.s[q])
@@ -403,19 +403,19 @@ impl Lexer<'_> {
             Rule::DoctypeString => (b == b'"').then(|| one(1)),
             Rule::Processing => self.starts(p, b"?>").then(|| one(2)),
             Rule::Tag => {
-                let kind = TagInfo::from_bits(super::state::info(self.top().payload)).kind;
-                match kind {
-                    TagKind::Start | TagKind::End | TagKind::CustomEnd => {
+                let rule = TagClass::from_bits(super::state::payload_bits(self.top().payload)).rule;
+                match rule {
+                    TagRule::Start | TagRule::End | TagRule::CustomEnd => {
                         (b == b'>').then(|| one(1))
                     }
-                    TagKind::Void | TagKind::CustomStart => {
+                    TagRule::Void | TagRule::CustomStart => {
                         if b == b'>' {
                             Some(one(1))
                         } else {
                             self.starts(p, b"/>").then(|| one(2))
                         }
                     }
-                    TagKind::Unrecognized | TagKind::Derivative => {
+                    TagRule::Unrecognized | TagRule::Derivative => {
                         if b == b'>' {
                             Some(one(1))
                         } else if self.starts(p, b"/>") {
@@ -428,7 +428,8 @@ impl Lexer<'_> {
             }
             Rule::Element => self.element_end(p),
             Rule::ElementStart => {
-                let root = ElementInfo::from_bits(super::state::info(self.top().payload)).root;
+                let root =
+                    ElementClass::from_bits(super::state::payload_bits(self.top().payload)).root;
                 if b == b'>' {
                     Some(one(1))
                 } else if !root && self.starts(p, b"/>") {
@@ -572,7 +573,7 @@ impl Lexer<'_> {
     /// `(?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)`: the end of an element.
     fn element_end(&self, p: usize) -> Option<Hit> {
         let top = self.top();
-        let element = ElementInfo::from_bits(super::state::info(top.payload));
+        let element = ElementClass::from_bits(super::state::payload_bits(top.payload));
         if self.at(p) == b'/' {
             return (!element.root && self.starts(p, b"/>"))
                 .then(|| Hit::new(Pat::End, p, p + 2).with([0; 5], 1));
@@ -651,23 +652,23 @@ impl Lexer<'_> {
                 self.attribute_patterns(p, Attributes::Html)
             }
             Rule::Tag => {
-                let kind = TagInfo::from_bits(super::state::info(self.top().payload)).kind;
-                let which = match (kind, self.document) {
-                    (TagKind::Unrecognized, Document::Html | Document::Erb) => Attributes::Math,
+                let rule = TagClass::from_bits(super::state::payload_bits(self.top().payload)).rule;
+                let which = match (rule, self.document) {
+                    (TagRule::Unrecognized, Document::Html | Document::Erb) => Attributes::Math,
                     (
-                        TagKind::Unrecognized,
+                        TagRule::Unrecognized,
                         Document::DerivativeFirst
                         | Document::Derivative
                         | Document::Blade
                         | Document::Vue,
                     )
                     | (
-                        TagKind::Start
-                        | TagKind::End
-                        | TagKind::Void
-                        | TagKind::CustomStart
-                        | TagKind::CustomEnd
-                        | TagKind::Derivative,
+                        TagRule::Start
+                        | TagRule::End
+                        | TagRule::Void
+                        | TagRule::CustomStart
+                        | TagRule::CustomEnd
+                        | TagRule::Derivative,
                         Document::Html
                         | Document::DerivativeFirst
                         | Document::Derivative
@@ -686,7 +687,8 @@ impl Lexer<'_> {
                 self.attribute_patterns(p, which)
             }
             Rule::ElementStart => {
-                let element = ElementInfo::from_bits(super::state::info(self.top().payload));
+                let element =
+                    ElementClass::from_bits(super::state::payload_bits(self.top().payload));
                 let which = match element.namespace {
                     Namespace::Svg => Attributes::Svg,
                     Namespace::Math => Attributes::Math,
@@ -798,7 +800,7 @@ impl Lexer<'_> {
             Rule::ErbCommentWrap => super::erb::comment_begin(&self.s[..self.lim], p)
                 .map(|end| Hit::new(Pat::Erb(super::erb::Erb::Comment), p, end)),
             Rule::ErbTagWrap => super::erb::code_begin(&self.s[..self.lim], p)
-                .map(|(kind, end)| Hit::new(Pat::Erb(kind), p, end)),
+                .map(|(erb, end)| Hit::new(Pat::Erb(erb), p, end)),
             Rule::BladeComment
             | Rule::BladeCommentPhpWrap
             | Rule::BladeCommentPhpBlock
@@ -1050,7 +1052,7 @@ impl Lexer<'_> {
             .or_else(|| self.element_root(p, Namespace::Svg))
             .or_else(|| self.custom_tag(p))
             .or_else(|| self.derivative_tag(p))
-            .or_else(|| self.invalid_tag(p, TagKind::Unrecognized))
+            .or_else(|| self.invalid_tag(p, TagRule::Unrecognized))
     }
 
     /// The name of a tag at `p` that the lists could hold, and where it ends:
@@ -1207,23 +1209,23 @@ impl Lexer<'_> {
                 true,
             ),
         ];
-        let tag = |category, deprecation: Deprecation, kind| {
-            let info = TagInfo { category, kind }.bits() | deprecation.bits() << 8;
-            Hit::new(Pat::Tag, p, end).with([start, end, 0, 0, 0], info)
+        let tag = |category, deprecation: Deprecation, rule| {
+            let bits = TagClass { category, rule }.bits() | deprecation.bits() << 8;
+            Hit::new(Pat::Tag, p, end).with([start, end, 0, 0, 0], bits)
         };
         if side == Side::Close {
             return lists
                 .iter()
                 .find(|(list, ..)| contains(list, name))
-                .map(|&(_, category, deprecation, _)| tag(category, deprecation, TagKind::End));
+                .map(|&(_, category, deprecation, _)| tag(category, deprecation, TagRule::End));
         }
         voids
             .iter()
             .find(|(list, ..)| contains(list, name))
-            .map(|&(_, category, deprecation, _)| tag(category, deprecation, TagKind::Void))
+            .map(|&(_, category, deprecation, _)| tag(category, deprecation, TagRule::Void))
             .or_else(|| {
                 lists.iter().find(|(list, ..)| contains(list, name)).map(
-                    |&(_, category, deprecation, _)| tag(category, deprecation, TagKind::Start),
+                    |&(_, category, deprecation, _)| tag(category, deprecation, TagRule::Start),
                 )
             })
     }
@@ -1262,17 +1264,17 @@ impl Lexer<'_> {
         if !hyphen || !follows {
             return None;
         }
-        let kind = if closing {
-            TagKind::CustomEnd
+        let rule = if closing {
+            TagRule::CustomEnd
         } else {
-            TagKind::CustomStart
+            TagRule::CustomStart
         };
-        let info = TagInfo {
+        let bits = TagClass {
             category: Category::Other,
-            kind,
+            rule,
         }
         .bits();
-        Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], info))
+        Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], bits))
     }
 
     /// `(</?)(\w[^<>\s]*)(?<!/)`: html-derivative's rule for a tag that no
@@ -1292,18 +1294,18 @@ impl Lexer<'_> {
         if !applies {
             return None;
         }
-        self.invalid_tag(p, TagKind::Derivative)
+        self.invalid_tag(p, TagRule::Derivative)
     }
 
     /// `(</?)((\w[^>\s]*))(?<!/)`: a tag the grammar does not know, as a tag
-    /// of `kind`. html-derivative's rule, of kind [`TagKind::Derivative`],
+    /// of `rule`. html-derivative's rule, [`TagRule::Derivative`],
     /// stops the name at a `<` as well.
-    fn invalid_tag(&self, p: usize, kind: TagKind) -> Option<Hit> {
+    fn invalid_tag(&self, p: usize, rule: TagRule) -> Option<Hit> {
         let closing = self.at(p + 1) == b'/';
         let start = p + 1 + usize::from(closing);
         let first = self.word_len(start)?;
         let mut q = start + first;
-        let derivative = kind == TagKind::Derivative;
+        let derivative = rule == TagRule::Derivative;
         while q < self.lim
             && self.ws_len(q) == 0
             && self.s[q] != b'>'
@@ -1316,12 +1318,12 @@ impl Lexer<'_> {
         while q > start + first && self.s[q - 1] == b'/' {
             q -= 1;
         }
-        let info = TagInfo {
+        let bits = TagClass {
             category: Category::Other,
-            kind,
+            rule,
         }
         .bits();
-        Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], info))
+        Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], bits))
     }
 
     // Elements of an SVG or MathML tree.
@@ -1347,15 +1349,21 @@ impl Lexer<'_> {
 
     /// An element's tag at `p` that opens a rule, with the attributes of
     /// the start tag when the line holds it whole: `(?:(attrs)(>))?`.
-    fn element_open(&self, p: usize, name_start: usize, name_end: usize, info: ElementInfo) -> Hit {
+    fn element_open(
+        &self,
+        p: usize,
+        name_start: usize,
+        name_end: usize,
+        class: ElementClass,
+    ) -> Hit {
         let run = self.attribute_run(name_end);
         let hit = Hit::new(Pat::Element, p, name_end);
         if run < self.lim && self.s[run] == b'>' {
-            let mut hit = hit.with([name_start, name_end, name_end, run, 0], info.bits());
+            let mut hit = hit.with([name_start, name_end, name_end, run, 0], class.bits());
             hit.end = run + 1;
             return hit;
         }
-        hit.with([name_start, name_end, usize::MAX, 0, 0], info.bits())
+        hit.with([name_start, name_end, usize::MAX, 0, 0], class.bits())
     }
 
     /// An element's tag at `p` that is one match: `(attrs)(/>)`.
@@ -1364,13 +1372,13 @@ impl Lexer<'_> {
         p: usize,
         name_start: usize,
         name_end: usize,
-        info: ElementInfo,
+        class: ElementClass,
     ) -> Option<Hit> {
         let run = self.attribute_run(name_end);
         if run < self.lim && self.s[run] == b'>' && run > name_end && self.s[run - 1] == b'/' {
             let mut hit = Hit::new(Pat::ElementVoid, p, run + 1);
             hit.at = [name_start, name_end, name_end, run - 1, 0];
-            hit.info = info.bits();
+            hit.bits = class.bits();
             return Some(hit);
         }
         None
@@ -1395,20 +1403,20 @@ impl Lexer<'_> {
                 (start, end)
             }
         };
-        let info = ElementInfo {
+        let class = ElementClass {
             namespace,
             category: Category::Structure,
             flavor: Flavor::Known,
             root: true,
         };
-        Some(self.element_open(p, start, end, info))
+        Some(self.element_open(p, start, end, class))
     }
 
     /// The patterns of an element's content: its start tag, comments and
     /// the namespace's tags.
     fn element_patterns(&self, p: usize) -> Option<Hit> {
         let top = self.top();
-        let element = ElementInfo::from_bits(super::state::info(top.payload));
+        let element = ElementClass::from_bits(super::state::payload_bits(top.payload));
         if self.g(p) && self.char_before(p) != Some('>') {
             return Some(Hit::new(Pat::Zero(Rule::ElementStart), p, p));
         }
@@ -1422,7 +1430,7 @@ impl Lexer<'_> {
             return Some(Hit::new(Pat::Cdata, p, p + 9));
         }
         self.child_element(p, element.namespace)
-            .or_else(|| self.invalid_tag(p, TagKind::Unrecognized))
+            .or_else(|| self.invalid_tag(p, TagRule::Unrecognized))
     }
 
     /// An element inside an `svg` or `math` element, from the namespace's
@@ -1449,23 +1457,23 @@ impl Lexer<'_> {
                 Namespace::Math => MATH_LISTS,
             };
             for &(category, void_list, open_list, flavor) in categories {
-                let info = ElementInfo {
+                let class = ElementClass {
                     namespace,
                     category,
                     flavor,
                     root: false,
                 };
                 if contains(void_list, name)
-                    && let Some(hit) = self.element_whole(p, start, end, info)
+                    && let Some(hit) = self.element_whole(p, start, end, class)
                 {
                     return Some(hit);
                 }
                 if contains(open_list, name) {
-                    return Some(self.element_open(p, start, end, info));
+                    return Some(self.element_open(p, start, end, class));
                 }
             }
         }
-        let info = ElementInfo {
+        let class = ElementClass {
             namespace,
             category: Category::Other,
             flavor: Flavor::Invalid,
@@ -1487,7 +1495,7 @@ impl Lexer<'_> {
         };
         if q > start
             && follows(q)
-            && let Some(hit) = self.element_whole(p, start, q, info)
+            && let Some(hit) = self.element_whole(p, start, q, class)
         {
             return Some(hit);
         }
@@ -1497,7 +1505,7 @@ impl Lexer<'_> {
             q += crate::utf8::char_len(self.s[q]);
         }
         let q = q.min(self.lim);
-        (follows(q) && (q < self.lim || self.lf)).then(|| self.element_open(p, start, q, info))
+        (follows(q) && (q < self.lim || self.lf)).then(|| self.element_open(p, start, q, class))
     }
 
     // Attributes.
@@ -1520,8 +1528,8 @@ impl Lexer<'_> {
         }
         self.spend((run - p) / 8);
         let word = self.text.get(p..run).unwrap_or("");
-        let attribute = |kind: AttributeKind, from: usize, to: usize| {
-            Hit::new(Pat::Attribute, p, run).with([from, to, 0, 0, 0], kind.bits())
+        let attribute = |rule: AttributeRule, from: usize, to: usize| {
+            Hit::new(Pat::Attribute, p, run).with([from, to, 0, 0, 0], rule.bits())
         };
         let list = match which {
             Attributes::Html => words::HTML_ATTRIBUTES,
@@ -1530,25 +1538,25 @@ impl Lexer<'_> {
         };
         if run > p {
             if contains(list, word) {
-                return Some(attribute(AttributeKind::Known, p, run));
+                return Some(attribute(AttributeRule::Known, p, run));
             }
             if which == Attributes::Html {
                 if word == "style" {
-                    return Some(attribute(AttributeKind::Style, p, run));
+                    return Some(attribute(AttributeRule::Style, p, run));
                 }
                 if let Some(rest) = word.strip_prefix("on")
                     && contains(html_words::EVENT_HANDLERS, rest)
                 {
-                    return Some(attribute(AttributeKind::Event, p + 2, run));
+                    return Some(attribute(AttributeRule::Event, p + 2, run));
                 }
                 if let Some(rest) = word.strip_prefix("data-")
                     && !rest.is_empty()
                     && rest.bytes().all(|b| b == b'-' || b.is_ascii_lowercase())
                 {
-                    return Some(attribute(AttributeKind::Data, p, run));
+                    return Some(attribute(AttributeRule::Data, p, run));
                 }
                 if matches!(word, "align" | "bgcolor" | "border") {
-                    return Some(attribute(AttributeKind::Deprecated, p, run));
+                    return Some(attribute(AttributeRule::Deprecated, p, run));
                 }
             }
         }
@@ -1564,7 +1572,7 @@ impl Lexer<'_> {
         if q > p {
             return Some(
                 Hit::new(Pat::Attribute, p, q)
-                    .with([p, q, 0, 0, 0], AttributeKind::Unrecognized.bits()),
+                    .with([p, q, 0, 0, 0], AttributeRule::Unrecognized.bits()),
             );
         }
         let mut q = p;

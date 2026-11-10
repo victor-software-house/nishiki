@@ -69,7 +69,7 @@ pub(super) enum Pat {
     StyleWrap,
     /// The blanks before a `<script>` element and the lookahead for it.
     ScriptWrap,
-    /// A tag: `<`, the name, and the rule's kind in `info`.
+    /// A tag: `<`, the name, and the tag's class in `bits`.
     Tag,
     /// An element of an `svg` or `math` tree that opens a rule.
     Element,
@@ -229,8 +229,8 @@ pub(super) struct Hit {
     pub(super) pat: Pat,
     /// Positions inside the match, by pattern.
     pub(super) at: [usize; 5],
-    /// Bits of the pattern's kind.
-    pub(super) info: u32,
+    /// The bits the match carries, such as a tag's class.
+    pub(super) bits: u32,
 }
 
 impl Hit {
@@ -240,13 +240,13 @@ impl Hit {
             end,
             pat,
             at: [0; 5],
-            info: 0,
+            bits: 0,
         }
     }
 
-    pub(super) fn with(mut self, at: [usize; 5], info: u32) -> Hit {
+    pub(super) fn with(mut self, at: [usize; 5], bits: u32) -> Hit {
         self.at = at;
-        self.info = info;
+        self.bits = bits;
         self
     }
 }
@@ -585,7 +585,7 @@ impl<'a> Lexer<'a> {
 
     /// The match of ERB's injection at `at`, which [`Lexer::find_erb`] found.
     fn erb_hit(&self, at: usize) -> Option<Hit> {
-        erb::at(&self.s[..self.lim], at).map(|(kind, end)| Hit::new(Pat::Erb(kind), at, end))
+        erb::at(&self.s[..self.lim], at).map(|(erb, end)| Hit::new(Pat::Erb(erb), at, end))
     }
 
     /// The first place at or after the position where Blade's injection
@@ -620,7 +620,7 @@ impl<'a> Lexer<'a> {
         } else {
             blade::at(text, at)
         };
-        found.map(|(kind, end)| Hit::new(Pat::blade(kind), at, end))
+        found.map(|(blade, end)| Hit::new(Pat::blade(blade), at, end))
     }
 
     /// Whether only the root of a Blade heredoc is open
@@ -1377,10 +1377,10 @@ impl<'a> Lexer<'a> {
         };
         let text = &self.s[..self.lim];
         if top.injection != Injection::ShutOut
-            && let Some((kind, end)) = blade::at(text, at)
+            && let Some((blade, end)) = blade::at(text, at)
         {
             self.keep_inner(next);
-            return Some(Hit::new(Pat::blade(kind), at, end));
+            return Some(Hit::new(Pat::blade(blade), at, end));
         }
         rule.php_end(text, at)
             .map(|end| Hit::new(Pat::End, at, end))
@@ -1876,6 +1876,6 @@ fn folded_end_tag_at(s: &[u8], p: usize, tag: &[u8]) -> bool {
 }
 
 /// Packs a name's interned id with the bits that say how to spell it.
-pub(super) fn packed(info: u32, name: u32) -> u32 {
-    state::pack(info, name)
+pub(super) fn packed(bits: u32, name: u32) -> u32 {
+    state::pack(bits, name)
 }
