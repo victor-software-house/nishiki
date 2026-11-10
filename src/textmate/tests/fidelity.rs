@@ -45,23 +45,45 @@ enum Outcome {
     Compared(Comparison),
 }
 
-/// The patterns of `grammar` the regex compiler refuses, and its reason for the
-/// first.
-fn refused(grammar: &Grammar) -> (usize, Option<String>) {
-    let mut count = 0;
-    let mut first = None;
-    for pattern in grammar.patterns {
-        if let Err(error) = Sketch::for_grammar(pattern.source) {
-            count += 1;
-            first.get_or_insert_with(|| format!("{error:?} in {}", pattern.source));
-        }
-    }
-    (count, first)
+/// The patterns the regex compiler refused on 2026-11-10, by language.
+/// Each is a gap in task 3.2 of `openspec/changes/grammar-api`, even where the
+/// input still matches.
+///
+/// All eight need Oniguruma's absent operator, `(?~…)`.
+/// They come from the rule for `/** */` documentation comments in C#'s grammar,
+/// which Org, Razor and Typst embed.
+///
+/// The list only shrinks.
+/// The check fails on a refusal the list lacks, and on an entry no grammar
+/// refuses any more.
+const KNOWN_REFUSALS: &[(&str, &str)] = &[
+    ("csharp", r"\G(?=(?~\*/)$)"),
+    ("csharp", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
+    ("org", r"\G(?=(?~\*/)$)"),
+    ("org", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
+    ("razor", r"\G(?=(?~\*/)$)"),
+    ("razor", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
+    ("typst", r"\G(?=(?~\*/)$)"),
+    ("typst", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
+];
+
+/// Each pattern of `grammar` the regex compiler refuses, with its reason.
+fn refused(grammar: &Grammar) -> Vec<(&'static str, String)> {
+    grammar
+        .patterns
+        .iter()
+        .filter_map(|pattern| {
+            Sketch::for_grammar(pattern.source)
+                .err()
+                .map(|error| (pattern.source, format!("{error:?}")))
+        })
+        .collect()
 }
 
 /// Loads language `id` and compares its input on a thread of its own.
-/// A panic or a stall then ends only that language's check.
-fn outcome(dir: &Path, id: &str) -> (Outcome, (usize, Option<String>)) {
+/// A panic then ends only that language's check.
+/// A stall leaves the thread running, so the caller stops the run.
+fn outcome(dir: &Path, id: &str) -> (Outcome, Vec<(&'static str, String)>) {
     let (send, receive) = mpsc::channel();
     let dir = dir.to_owned();
     let id = id.to_owned();
@@ -84,9 +106,9 @@ fn outcome(dir: &Path, id: &str) -> (Outcome, (usize, Option<String>)) {
                 .cloned()
                 .or_else(|| panic.downcast_ref::<&str>().map(|text| (*text).to_owned()))
                 .unwrap_or_default();
-            (Outcome::Panicked(text), (0, None))
+            (Outcome::Panicked(text), Vec::new())
         }
-        Err(_) => (Outcome::Stalled, (0, None)),
+        Err(_) => (Outcome::Stalled, Vec::new()),
     }
 }
 
@@ -95,6 +117,55 @@ fn cell(text: &str) -> String {
     text.replace('|', "\\|")
 }
 
+/// The report's row cells after the language: result, bytes, first
+/// difference, Shiki's stack and nishiki's stack.
+/// A difference adds its lines to `details`.
+fn result(id: &str, found: &Outcome, details: &mut String) -> String {
+    match found {
+        Outcome::NoGrammar(reason) => format!("no grammar: {} | | | |", cell(reason)),
+        Outcome::Panicked(text) => format!("panic: {} | | | |", cell(text)),
+        Outcome::Stalled => format!("stalled past {} s | | | |", STALL.as_secs()),
+        Outcome::Compared(comparison) => match &comparison.first {
+            None => format!("equal | 0 of {} | | |", comparison.checked),
+            Some(first) => {
+                let _ = writeln!(
+                    details,
+                    "{id}: {} of {} bytes differ{}\n",
+                    comparison.missed, comparison.checked, comparison.message
+                );
+                format!(
+                    "differs | {} of {} | {}:{} | `{}` | `{}`",
+                    comparison.missed,
+                    comparison.checked,
+                    first.line,
+                    first.column,
+                    cell(&first.expected),
+                    cell(&first.actual)
+                )
+            }
+        },
+    }
+}
+
+/// Writes `report.md` in `dir`: `summary`, then the table's `rows`.
+fn write_report(dir: &Path, summary: &str, rows: &str) {
+    let page = formatdoc! {"
+        # Shiki fidelity
+
+        {summary}
+
+        | Language | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
+        |:--|:--|--:|:--|:--|:--|:--|:--|
+        {rows}"};
+    std::fs::write(dir.join("report.md"), page).unwrap();
+}
+
+/// Fails on a difference, a panic, a grammar that does not load, or a
+/// refusal outside [`KNOWN_REFUSALS`].
+/// It also fails on an entry of that list no grammar refuses any more, so the
+/// list only shrinks.
+/// A stall stops the run at once: its thread still runs, and would slow every
+/// language after it.
 #[test]
 #[ignore = "needs the directory oracle/fidelity.ts writes"]
 fn every_shiki_grammar_matches_shiki() {
@@ -105,16 +176,34 @@ fn every_shiki_grammar_matches_shiki() {
     let languages: Value =
         serde_json::from_str(&std::fs::read_to_string(dir.join("languages.json")).unwrap())
             .unwrap();
-    let mut report = String::new();
+    let mut rows = String::new();
     let mut details = String::new();
     let (mut equal, mut measured) = (0, 0);
+    let mut unknown: Vec<String> = Vec::new();
+    let mut seen: Vec<(&str, &str)> = Vec::new();
     for language in languages.as_array().unwrap() {
         let id = language["id"].as_str().unwrap();
-        let (found, (refusals, first_refusal)) = if let Some(reason) = language["tables"].as_str() {
-            (Outcome::NoGrammar(reason.to_owned()), (0, None))
+        let (found, refusals) = if let Some(reason) = language["tables"].as_str() {
+            (Outcome::NoGrammar(reason.to_owned()), Vec::new())
         } else {
             outcome(&dir, id)
         };
+        measured += 1;
+        let row = result(id, &found, &mut details);
+        if matches!(found, Outcome::Compared(Comparison { first: None, .. })) {
+            equal += 1;
+        }
+        for &(pattern, ref reason) in &refusals {
+            match KNOWN_REFUSALS.iter().find(|&&known| known == (id, pattern)) {
+                Some(&known) => seen.push(known),
+                None => unknown.push(format!("{id}: {reason} in {pattern}")),
+            }
+        }
+        let refusal = refusals
+            .first()
+            .map_or_else(String::new, |(pattern, reason)| {
+                format!("{}: {reason} in {}", refusals.len(), cell(pattern))
+            });
         let limits = match &found {
             Outcome::Compared(comparison) => comparison
                 .reached
@@ -124,54 +213,38 @@ fn every_shiki_grammar_matches_shiki() {
                 .join(", "),
             Outcome::NoGrammar(_) | Outcome::Panicked(_) | Outcome::Stalled => String::new(),
         };
-        let row = match &found {
-            Outcome::NoGrammar(reason) => format!("no grammar: {} | | | |", cell(reason)),
-            Outcome::Panicked(text) => format!("panic: {} | | | |", cell(text)),
-            Outcome::Stalled => format!("stalled past {} s | | | |", STALL.as_secs()),
-            Outcome::Compared(comparison) => match &comparison.first {
-                None => {
-                    equal += 1;
-                    format!("equal | 0 of {} | | |", comparison.checked)
-                }
-                Some(first) => {
-                    let _ = writeln!(
-                        details,
-                        "{id}: {} of {} bytes differ{}\n",
-                        comparison.missed, comparison.checked, comparison.message
-                    );
-                    format!(
-                        "differs | {} of {} | {}:{} | `{}` | `{}`",
-                        comparison.missed,
-                        comparison.checked,
-                        first.line,
-                        first.column,
-                        cell(&first.expected),
-                        cell(&first.actual)
-                    )
-                }
-            },
-        };
-        measured += 1;
-        let refusal = first_refusal.map_or_else(String::new, |first| {
-            format!(
-                "{refusals}: {}",
-                cell(&first.chars().take(120).collect::<String>())
-            )
-        });
-        let _ = writeln!(report, "| {id} | {row} | {refusal} | {limits} |");
+        let _ = writeln!(rows, "| {id} | {row} | {refusal} | {limits} |");
+        if matches!(found, Outcome::Stalled) {
+            let summary = format!(
+                "The run stopped at {id}, which stalled past {} s.",
+                STALL.as_secs()
+            );
+            write_report(&dir, &summary, &rows);
+            panic!("{summary} See report.md.");
+        }
     }
+    let stale: Vec<String> = KNOWN_REFUSALS
+        .iter()
+        .filter(|&&known| !seen.contains(&known))
+        .map(|(id, pattern)| format!("{id}: {pattern}"))
+        .collect();
     let summary = format!(
-        "{equal} of {measured} languages match Shiki on every non-whitespace byte of their input."
+        "{equal} of {measured} languages match Shiki on every non-whitespace byte of their input.\n\
+         {} patterns are refused outside the known list, and {} known refusals no longer occur.",
+        unknown.len(),
+        stale.len()
     );
-    let page = formatdoc! {"
-        # Shiki fidelity
-
-        {summary}
-
-        | Language | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
-        |:--|:--|--:|:--|:--|:--|:--|:--|
-        {report}"};
-    std::fs::write(dir.join("report.md"), page).unwrap();
+    write_report(&dir, &summary, &rows);
     eprintln!("{details}{summary}");
     assert_eq!(equal, measured, "{summary} See report.md.");
+    assert!(
+        unknown.is_empty(),
+        "refusals outside KNOWN_REFUSALS:\n{}",
+        unknown.join("\n")
+    );
+    assert!(
+        stale.is_empty(),
+        "remove these from KNOWN_REFUSALS, which no grammar refuses any more:\n{}",
+        stale.join("\n")
+    );
 }

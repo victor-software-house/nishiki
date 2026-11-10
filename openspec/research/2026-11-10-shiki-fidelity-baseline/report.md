@@ -1,6 +1,7 @@
 # Shiki fidelity
 
 242 of 242 languages match Shiki on every non-whitespace byte of their input.
+2 patterns are refused outside the known list, and 0 known refusals no longer occur.
 
 | Language | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
 |:--|:--|--:|:--|:--|:--|:--|:--|

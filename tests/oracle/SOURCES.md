@@ -1120,10 +1120,10 @@ Its scopes are written to `target/fidelity/` on each run and never committed.
 
 | Language | Source | Licence |
 |:--|:--|:--|
-| `git-commit` | [`COMMIT_EDITMSG`][vscode-colorize-commit] in microsoft/vscode | [MIT][vscode-colorize-licence] |
-| `git-rebase` | [`git-rebase-todo`][vscode-colorize-rebase] in microsoft/vscode | [MIT][vscode-colorize-licence] |
-| `html-derivative` | the input of `html/h5bp-index` | [MIT][h5bp-licence] |
-| `nextflow-groovy` | [`test.groovy`][vscode-colorize-groovy] in microsoft/vscode | [MIT][vscode-colorize-licence] |
+| git-commit | [`COMMIT_EDITMSG`][vscode-colorize-commit] in microsoft/vscode | [MIT][vscode-colorize-licence] |
+| git-rebase | [`git-rebase-todo`][vscode-colorize-rebase] in microsoft/vscode | [MIT][vscode-colorize-licence] |
+| html-derivative | the input of `html/h5bp-index` | [MIT][h5bp-licence] |
+| nextflow-groovy | [`test.groovy`][vscode-colorize-groovy] in microsoft/vscode | [MIT][vscode-colorize-licence] |
 
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h

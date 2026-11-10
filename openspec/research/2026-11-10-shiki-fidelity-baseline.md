@@ -7,15 +7,16 @@ The grammars that fail become task 3.2's work.
 
 ## Answer
 
-Yes.
+Yes on the inputs, with four grammars that still have a gap.
 All 242 languages Shiki 4.6.0 bundles match Shiki on every non-whitespace byte of their input.
 
 - No grammar failed to load.
-- The regex compiler refused no pattern.
+- The regex compiler refused two patterns in each of four languages: C#, Org, Razor and Typst.
+  Their inputs still match, because no input reaches the rule.
 - No line reached a limit.
 - No language panicked or stalled.
 
-So task 3.2 has no grammar to fix on these inputs.
+So task 3.2 has four gaps, all from one regex feature.
 
 ## Method
 
@@ -62,9 +63,32 @@ Every row is equal.
 | Languages | 242 |
 | Equal on every non-whitespace byte | 242 |
 | Tables that failed to build | 0 |
-| Patterns the regex compiler refused | 0 |
+| Languages with a refused pattern | 4 |
 | Languages that reached a limit | 0 |
 | Panics or stalls | 0 |
+
+## Refused patterns
+
+The regex compiler refuses two patterns in each of four languages.
+The report's "Refused patterns" column shows the count and the first.
+
+| Language | Refused patterns |
+|:--|:--|
+| csharp | `\G(?=(?~\*/)$)` and `^(\s*+)(\*(?!/))?(?=(?~\*/)$)` |
+| org | the same two |
+| razor | the same two |
+| typst | the same two |
+
+- Both need Oniguruma's absent operator, `(?~…)`.
+  The compiler gives "unsupported group syntax" for it.
+- Both sit in C#'s grammar, at `repository.comment.patterns[1].patterns[0]`, as the `begin` and the `while`.
+  That rule lexes the lines inside a `/** */` documentation comment.
+  Org, Razor and Typst embed C#'s grammar, so they hold the same rule.
+- A refused pattern never matches.
+  None of the four inputs holds `/**`, so every input still matches.
+- Each language is a gap in task 3.2.
+  `KNOWN_REFUSALS` in `fidelity.rs` lists the eight patterns.
+  The check fails on any other refusal, and on an entry that no grammar refuses any more, so the list only shrinks.
 
 ## Gate through the public API
 
