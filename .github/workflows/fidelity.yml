@@ -22,7 +22,10 @@ permissions:
 
 concurrency:
   # A draft run gets a group of its own, so it never cancels the ready run.
-  group: fidelity-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref_name }}${{ github.event.pull_request.draft && '-draft' || '' }}
+  group: >-
+    fidelity-${{ github.event_name }}-${{
+    github.event.pull_request.number || github.ref_name }}${{
+    github.event.pull_request.draft && '-draft' || '' }}
   cancel-in-progress: true
 
 env:
@@ -37,7 +40,11 @@ jobs:
     name: Shiki fidelity
     if: ${{ !github.event.pull_request.draft }}
     # The build runner's cache volume, read only. This job never commits it.
-    runs-on: ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x8-with-cache
+      - nscloud-cache-tag-rust-nishiki
+      - nscloud-cache-size-50gb
+      - nscloud-cache-exp-do-not-commit
     timeout-minutes: 20
     steps:
       - name: Check out repository

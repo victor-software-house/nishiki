@@ -995,7 +995,8 @@ impl Lexer<'_> {
         self.keyword(p, b"Never")
     }
 
-    /// `\b(?:ImplicitlyUnwrappedOptional|Representation|MemoryLayout|FloatingPointClassification|SetIndexRepresentation|SetIteratorRepresentation|FloatingPointRoundingRule|UnicodeDecodingResult|Optional|DictionaryIndexRepresentation|AncestorRepresentation|DisplayStyle|PlaygroundQuickLook|Never|FloatingPointSign|Bit|DictionaryIteratorRepresentation)\b`, for `BuiltinTypesBuiltinEnumTypeAt2`.
+    /// `\b(?:ImplicitlyUnwrappedOptional|Representation|MemoryLayout|FloatingPointClassification|SetIndexRepresentation|SetIteratorRepresentation|FloatingPointRoundingRule|UnicodeDecodingResult|Optional|DictionaryIndexRepresentation|AncestorRepresentation|DisplayStyle|PlaygroundQuickLook|Never|FloatingPointSign|Bit|DictionaryIteratorRepresentation)\b`,
+    /// for `BuiltinTypesBuiltinEnumTypeAt2`.
     pub(in crate::swift) fn rx_builtin_types_builtin_enum_type_at_2(
         &mut self,
         p: usize,
@@ -1653,7 +1654,8 @@ impl Lexer<'_> {
         self.listed(p, KEYWORDS_AT21)
     }
 
-    /// `(?:\B#(?:file|filePath|fileID|line|column|function|dsohandle|isolation)|\b__(?:FILE|LINE|COLUMN|FUNCTION|DSO_HANDLE)__)\b`, for `KeywordsAt22`.
+    /// `(?:\B#(?:file|filePath|fileID|line|column|function|dsohandle|isolation)|\b__(?:FILE|LINE|COLUMN|FUNCTION|DSO_HANDLE)__)\b`,
+    /// for `KeywordsAt22`.
     pub(in crate::swift) fn rx_keywords_at_22(&mut self, p: usize) -> Option<usize> {
         const HASHED: &[&[u8]] = &[
             b"column",

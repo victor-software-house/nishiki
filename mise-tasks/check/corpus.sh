@@ -23,7 +23,27 @@ set -euo pipefail
 root=bench/corpus
 manifest=bench/corpus.toml
 # Permissive licences only, as SPDX expressions (AGENTS.md, invariant 2).
-allowed='^(MIT|Apache-2\.0|BSD-2-Clause|BSD-3-Clause|ISC|Zlib|CC0-1\.0|Unlicense|PSF-2\.0|MIT OR Apache-2\.0|Unlicense OR MIT)$'
+licences=(
+  MIT
+  Apache-2.0
+  BSD-2-Clause
+  BSD-3-Clause
+  ISC
+  Zlib
+  CC0-1.0
+  Unlicense
+  PSF-2.0
+  "MIT OR Apache-2.0"
+  "Unlicense OR MIT"
+)
+# Whether the expression is one of the licences above.
+allowed() {
+  local licence
+  for licence in "${licences[@]}"; do
+    [ "$licence" = "$1" ] && return 0
+  done
+  return 1
+}
 
 if command -v sha256sum >/dev/null; then
   sum() { sha256sum "$1" | cut -d' ' -f1; }
@@ -74,7 +94,7 @@ while IFS=$'\t' read -r path tier bytes sha source licence; do
     problems+=("$path: $size bytes is outside the $tier tier")
   fi
   grep -qE '/[0-9a-f]{40}/' <<<"$source" || problems+=("$path: source is not pinned to a commit")
-  grep -qE "$allowed" <<<"$licence" ||
+  allowed "$licence" ||
     problems+=("$path: licence $licence is not on the allowed list")
 done < <(
   taplo get -f "$manifest" -o json |

@@ -16,7 +16,9 @@ permissions:
   pull-requests: read
 
 concurrency:
-  group: identity-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref_name }}
+  group: >-
+    identity-${{ github.event_name }}-${{
+    github.event.pull_request.number || github.ref_name }}
   cancel-in-progress: true
 
 env:
@@ -27,7 +29,11 @@ jobs:
     name: Identity
     if: ${{ !github.event.pull_request.draft }}
     # The build runner's cache volume, read only: this job never commits it.
-    runs-on: ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x8-with-cache
+      - nscloud-cache-tag-rust-nishiki
+      - nscloud-cache-size-50gb
+      - nscloud-cache-exp-do-not-commit
     timeout-minutes: 12
     steps:
       - name: Check out repository
@@ -66,6 +72,7 @@ jobs:
             number=$(printf '%s\n' "$QUEUE_REF" | sed -n 's|.*/pr-\([0-9]*\)-.*|\1|p')
             BODY=$(gh pr view "$number" --repo "$GITHUB_REPOSITORY" --json body --jq .body)
           fi
-          IDENTITY_CHANGES=$(printf '%s\n' "$BODY" | tr -d '\r' | sed -n 's/^identity: changes //p' | tr ',' ' ')
+          IDENTITY_CHANGES=$(printf '%s\n' "$BODY" | tr -d '\r' |
+            sed -n 's/^identity: changes //p' | tr ',' ' ')
           export IDENTITY_CHANGES
           mise run identity "$BASE"

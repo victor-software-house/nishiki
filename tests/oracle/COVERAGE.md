@@ -99,42 +99,70 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 
 ## Units no fixture exercises
 
-Each line is an expression's path in its grammar, then the start of its regex,
-`fuzz` when the fuzz corpus exercises it, and the reason when a waiver covers it.
-An expression the fixtures do exercise is listed with the groups they do not,
-each marked `fuzz` and the waiver's reason likewise.
+Each entry is an expression's path in its grammar, then the start of its regex,
+and `fuzz` when the fuzz corpus exercises it.
+The reason follows on indented lines when a waiver covers it.
+An expression the fixtures do exercise is listed with the groups they do not.
+A group the fuzz corpus exercises, or a waiver covers, follows on an indented line.
 The groups of an unexercised expression count as unexercised and are not listed.
 
 ### `asm`
 
 ```text
-#mnemonics-sgx.patterns[2].match  (?i)\be(add|block|create|dbg(rd|wr)|extend|init|ld[bu]|pa|r…  waived: every word it lists, such as `eadd`, an earlier mnemonic list holds too, and the first list that holds a word wins
-#preprocessor.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor.patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor.patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor-functions.patterns[0].end  groups 3 (waived: the grammar names the group, but the expression has one group)
-#strings.patterns[0].begin  "  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
-#strings.patterns[0].end  "  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
-#strings.patterns[1].begin  '  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
-#strings.patterns[1].end  '  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
-#strings.patterns[2].begin  `  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
-#strings.patterns[2].end  `  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines
+#mnemonics-sgx.patterns[2].match  (?i)\be(add|block|create|dbg(rd|wr)|extend|init|ld[bu]|pa|r…
+  waived: every word it lists, such as `eadd`, an earlier mnemonic list holds too, and the first
+    list that holds a word wins
+#preprocessor.patterns[0].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#preprocessor.patterns[1].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#preprocessor.patterns[2].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#preprocessor.patterns[3].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#preprocessor-functions.patterns[0].end  groups 3
+  group 3: waived: the grammar names the group, but the expression has one group
+#strings.patterns[0].begin  "
+  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char`
+    and `#string_placeholder`, which the grammar never defines
+#strings.patterns[0].end  "
+  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char`
+    and `#string_placeholder`, which the grammar never defines
+#strings.patterns[1].begin  '
+  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char`
+    and `#string_placeholder`, which the grammar never defines
+#strings.patterns[1].end  '
+  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char`
+    and `#string_placeholder`, which the grammar never defines
+#strings.patterns[2].begin  `
+  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char`
+    and `#string_placeholder`, which the grammar never defines
+#strings.patterns[2].end  `
+  waived: vscode-textmate drops the string rule: its only patterns include `#string_escaped_char`
+    and `#string_placeholder`, which the grammar never defines
 ```
 
 ### `astro`
 
 ```text
-#entities.patterns[1].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#entities.patterns[2].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].begin  (?<=>)(?!</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
-injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end  (?=</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
+#entities.patterns[1].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#entities.patterns[2].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].begin  (?<=>)(?!</)
+  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so
+    vscode-textmate drops the rule
+injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end  (?=</)
+  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so
+    vscode-textmate drops the rule
 ```
 
 ### `bat`
 
 ```text
-#strings.patterns[0].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#strings.patterns[0].end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
 ```
 
 ### `blade`
@@ -169,7 +197,8 @@ injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end 
 #heredoc_interior.patterns[7].patterns[4].match  [$*+^]
 #heredoc_interior.patterns[7].patterns[5].end  groups 0
 #heredoc_interior.patterns[8].begin  groups 5
-#language.patterns[6].patterns[1].patterns[2].captures[2].patterns[0].match  ^(?:final|abstract|public|private|protected|static)$
+#language.patterns[6].patterns[1].patterns[2].captures[2].patterns[0].match
+  ^(?:final|abstract|public|private|protected|static)$
 #language.patterns[7].begin  groups 1
 #namespace.begin  groups 1
 #nowdoc_interior.patterns[0].begin  groups 3
@@ -185,368 +214,1126 @@ injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end 
 #single_quote_regex_escape.match  \\(?:\\(?:\\['\\]?|[^'])|.)
 #support.patterns[105].match  (?i)\bis_int(eger)?\b
 #var_language.match  (\$)this\b
-injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].begin  groups 0
-injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].end  groups 0
-injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].begin  <\?(?i:php|=)?(?![^?]*\?>)  fuzz
-injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].end  (\?)>  fuzz
-injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[3].patterns[0].match  groups 1
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].begin
+  groups 0
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].end
+  groups 0
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].begin
+  <\?(?i:php|=)?(?![^?]*\?>)  fuzz
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].end
+  (\?)>  fuzz
+injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[3].patterns[0].match
+  groups 1
 ```
 
 ### `c`
 
 ```text
-#anon_pattern_10.match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it
-#anon_pattern_8.match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it
-#anon_pattern_9.match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it
-#anon_pattern_range_1.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#anon_pattern_range_1.beginCaptures[4].patterns[0].match  \*/  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#anon_pattern_range_1.beginCaptures[4].patterns[1].match  \*  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#block_comment.patterns[1].begin  \s*+(/\*)  waived: it repeats `patterns[0]`, which comes first in the same list
-#block_comment.patterns[1].end  \*/  waived: its begin never matches
-#comments.patterns[0].patterns[0].patterns[6].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#inline_comment.patterns[0].patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))  waived: it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of atomic groups, so it matches the same text, and that pattern comes first
-#inline_comment.patterns[0].patterns[1].captures[3].patterns[0].match  \*/  waived: it scans a group of an expression that never matches
-#inline_comment.patterns[0].patterns[1].captures[3].patterns[1].match  \*  waived: it scans a group of an expression that never matches
-#inline_comment.patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))  waived: it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of atomic groups, so it matches the same text, and that pattern comes first
-#inline_comment.patterns[1].captures[3].patterns[0].match  \*/  waived: it scans a group of an expression that never matches
-#inline_comment.patterns[1].captures[3].patterns[1].match  \*  waived: it scans a group of an expression that never matches
-#line_comment.patterns[1].begin  \s*+(//)  waived: it repeats `patterns[0]`, which comes first in the same list
-#line_comment.patterns[1].end  (?<=\n)(?<!\\\n)  waived: its begin never matches
-#preprocessor-rule-enabled.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#storage_types.patterns[3].patterns[2].begin  groups 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 5 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[0].match  \*/  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[1].match  \*  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#switch_statement.begin  groups 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 5 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)[\n\s]*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#switch_statement.patterns[2].end  [\n\s]*(?=;)  waived: its begin never matches
-#switch_statement.beginCaptures[5].patterns[0].match  \*/  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#switch_statement.beginCaptures[5].patterns[1].match  \*  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#anon_pattern_10.match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…
+  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place
+    and comes earlier in the only list that includes it
+#anon_pattern_8.match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…
+  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place
+    and comes earlier in the only list that includes it
+#anon_pattern_9.match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…
+  waived: every word of it is in `#storage_types.patterns[1]`, which matches it at the same place
+    and comes earlier in the only list that includes it
+#anon_pattern_range_1.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#anon_pattern_range_1.beginCaptures[4].patterns[0].match  \*/
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#anon_pattern_range_1.beginCaptures[4].patterns[1].match  \*
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#block_comment.patterns[1].begin  \s*+(/\*)
+  waived: it repeats `patterns[0]`, which comes first in the same list
+#block_comment.patterns[1].end  \*/
+  waived: its begin never matches
+#comments.patterns[0].patterns[0].patterns[6].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#inline_comment.patterns[0].patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))
+  waived: it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of
+    atomic groups, so it matches the same text, and that pattern comes first
+#inline_comment.patterns[0].patterns[1].captures[3].patterns[0].match  \*/
+  waived: it scans a group of an expression that never matches
+#inline_comment.patterns[0].patterns[1].captures[3].patterns[1].match  \*
+  waived: it scans a group of an expression that never matches
+#inline_comment.patterns[1].match  (/\*)((?:[^*]|\*++[^/])*+(\*++/))
+  waived: it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of
+    atomic groups, so it matches the same text, and that pattern comes first
+#inline_comment.patterns[1].captures[3].patterns[0].match  \*/
+  waived: it scans a group of an expression that never matches
+#inline_comment.patterns[1].captures[3].patterns[1].match  \*
+  waived: it scans a group of an expression that never matches
+#line_comment.patterns[1].begin  \s*+(//)
+  waived: it repeats `patterns[0]`, which comes first in the same list
+#line_comment.patterns[1].end  (?<=\n)(?<!\\\n)
+  waived: its begin never matches
+#preprocessor-rule-enabled.patterns[0].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#storage_types.patterns[3].patterns[2].begin  groups 2, 3, 4, 5
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 5: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[0].match  \*/
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#storage_types.patterns[3].patterns[2].beginCaptures[5].patterns[1].match  \*
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#switch_statement.begin  groups 2, 3, 4, 5
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 5: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)[\n\s]*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#switch_statement.patterns[2].end  [\n\s]*(?=;)
+  waived: its begin never matches
+#switch_statement.beginCaptures[5].patterns[0].match  \*/
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#switch_statement.beginCaptures[5].patterns[1].match  \*
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
 ```
 
 ### `coffee`
 
 ```text
-patterns[8].begin  (?<![$\w])(/)(?=(?![*+/?])(.+)(/)[gimuy]*(?!\s*[$(/\w]))  waived: the regular expression rule includes only `source.js.regexp`, which no grammar provides, so vscode-textmate skips it
-patterns[8].end  (/)[gimuy]*(?!\s*[$(/\w])  waived: the regular expression rule includes only `source.js.regexp`, which no grammar provides, so vscode-textmate skips it
-patterns[27].match  ((?<=console\.)(debug|warn|info|log|error|time|timeEnd|asse…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
-patterns[29].match  ((?<=Array\.)(isArray))\b  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
-patterns[30].match  ((?<=Object\.)(create|definePropert(ies|y)|freeze|getOwnPro…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
-patterns[31].match  ((?<=Math\.)(abs|acosh??|asinh??|atan2??|atanh|ceil|cosh??|…  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
-patterns[32].match  ((?<=Number\.)(is(Finite|Integer|NaN)|toInteger))\b  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it
+patterns[8].begin  (?<![$\w])(/)(?=(?![*+/?])(.+)(/)[gimuy]*(?!\s*[$(/\w]))
+  waived: the regular expression rule includes only `source.js.regexp`, which no grammar provides,
+    so vscode-textmate skips it
+patterns[8].end  (/)[gimuy]*(?!\s*[$(/\w])
+  waived: the regular expression rule includes only `source.js.regexp`, which no grammar provides,
+    so vscode-textmate skips it
+patterns[27].match  ((?<=console\.)(debug|warn|info|log|error|time|timeEnd|asse…
+  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a
+    property or call match takes that `.` first, since no match ends at it
+patterns[29].match  ((?<=Array\.)(isArray))\b
+  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a
+    property or call match takes that `.` first, since no match ends at it
+patterns[30].match  ((?<=Object\.)(create|definePropert(ies|y)|freeze|getOwnPro…
+  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a
+    property or call match takes that `.` first, since no match ends at it
+patterns[31].match  ((?<=Math\.)(abs|acosh??|asinh??|atan2??|atanh|ceil|cosh??|…
+  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a
+    property or call match takes that `.` first, since no match ends at it
+patterns[32].match  ((?<=Number\.)(is(Finite|Integer|NaN)|toInteger))\b
+  waived: the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a
+    property or call match takes that `.` first, since no match ends at it
 ```
 
 ### `common-lisp`
 
 ```text
-#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#punctuation.patterns[10].match  (?i)(?<=^|[(\s]|,@|,\.?)(#)(:)(?=\S)  waived: `#package`, before it in the root, matches the same `#` before a `:` after the same lookbehind
-#punctuation.patterns[11].match  groups 2 (waived: `#punctuation`'s first pattern, before this one, matches every backquote before a `\S`, after a lookbehind that holds wherever this one's does), 3 (waived: `#punctuation`'s first pattern, before this one, matches every backquote before a `\S`, after a lookbehind that holds wherever this one's does), 4 (waived: `#punctuation`'s first pattern, before this one, matches every backquote before a `\S`, after a lookbehind that holds wherever this one's does)
-#variable.patterns[0].match  (?i)(?<=^|[(\s]|,@|,\.?)\*(?:trace-output|terminal-io|stand…  waived: `#style-guide`'s `(\*[^*\s]+\*)`, before it in the root, matches every `*name*` it does, after a lookbehind that holds wherever its own does
+#comment.begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#punctuation.patterns[10].match  (?i)(?<=^|[(\s]|,@|,\.?)(#)(:)(?=\S)
+  waived: `#package`, before it in the root, matches the same `#` before a `:` after the same
+    lookbehind
+#punctuation.patterns[11].match  groups 2, 3, 4
+  group 2: waived: `#punctuation`'s first pattern, before this one, matches every backquote before a
+    `\S`, after a lookbehind that holds wherever this one's does
+  group 3: waived: `#punctuation`'s first pattern, before this one, matches every backquote before a
+    `\S`, after a lookbehind that holds wherever this one's does
+  group 4: waived: `#punctuation`'s first pattern, before this one, matches every backquote before a
+    `\S`, after a lookbehind that holds wherever this one's does
+#variable.patterns[0].match  (?i)(?<=^|[(\s]|,@|,\.?)\*(?:trace-output|terminal-io|stand…
+  waived: `#style-guide`'s `(\*[^*\s]+\*)`, before it in the root, matches every `*name*` it does,
+    after a lookbehind that holds wherever its own does
 ```
 
 ### `cpp`
 
 ```text
-#access_control_keywords.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#access_control_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#assembly.patterns[2].begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#class_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#constructor_inline.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#constructor_root.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#control_flow_keywords.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#control_flow_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#destructor_inline.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#destructor_root.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#destructor_root.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#exception_keywords.match  (((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|(?…  waived: `#control_flow_keywords` has the same gap, lists `throw`, `catch` and `try` too, and comes before it in every list that holds it
-#exception_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#extern_block.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#function_definition.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#function_pointer.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
-#function_pointer_parameter.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
-#goto_statement.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#goto_statement.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#label.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#label.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#lambdas.begin  groups 5 (waived: the group sits inside a negative lookahead, so it never holds text), 6 (waived: the group sits inside a negative lookahead, so it never holds text), 7 (waived: the group sits inside a negative lookahead, so it never holds text), 8 (waived: the group sits inside a negative lookahead, so it never holds text)
-#member_access.match  groups 1 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 2 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment)
-#member_access.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#member_access.captures[11].patterns[0].match  groups 1 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 2 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 3 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 4 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment)
-#member_access.captures[11].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first
-#memory_operators.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#memory_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#method_access.begin  groups 1 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 2 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 3 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 4 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment)
-#method_access.beginCaptures[13].patterns[0].match  groups 1 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 2 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 3 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 4 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment)
-#method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first
-#misc_keywords.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#misc_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#namespace_block.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#operator_overload.begin  groups 41 (waived: the gap just before it, with nothing between them, takes every comment first), 42 (waived: the gap just before it, with nothing between them, takes every comment first), 43 (waived: the gap just before it, with nothing between them, takes every comment first), 44 (waived: the gap just before it, with nothing between them, takes every comment first)
-#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#operator_overload.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#operators.patterns[12].match  groups 2 (waived: `patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters of each of its alternatives at the same place, earlier in the same list)
-#over_qualified_types.patterns[0].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
-#over_qualified_types.patterns[0].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
-#over_qualified_types.patterns[1].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
-#over_qualified_types.patterns[1].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
-#over_qualified_types.patterns[2].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
-#over_qualified_types.patterns[2].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
-#over_qualified_types.patterns[3].match  groups 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first)
-#over_qualified_types.patterns[3].captures[9].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
-#parameter.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter.patterns[5].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
-#parameter.patterns[11].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter.patterns[16].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter_or_maybe_value.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter_or_maybe_value.patterns[7].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
-#parameter_or_maybe_value.patterns[13].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter_or_maybe_value.patterns[18].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#simple_constructor_call.captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans group 16, which sits in a lookahead past the end of the match, and vscode-textmate applies no capture that starts after the match ends
-#string_escaped_char.match  \\(["'?\\abefnprtv]|[0-3][0-7]{0,2}|[4-7]\d?|x\h{0,2}|u\h{0…  waived: it is the same expression as `#backslash_escapes`, which comes before it in its only list
-#struct_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#switch_statement.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#switch_statement.patterns[2].end  \s*(?=;)  waived: its begin never matches
-#type_casting_operators.match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#type_casting_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#typedef_class.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#typedef_struct.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#typedef_union.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#typename.match  groups 2 (waived: the gap opens the expression; a comment rule comes before it in every list but those of type captures, where names and scopes exclude `typename` and template arguments go to `#template_call_range`, which starts at the `<` and lists a comment rule first), 3 (waived: the gap opens the expression; a comment rule comes before it in every list but those of type captures, where names and scopes exclude `typename` and template arguments go to `#template_call_range`, which starts at the `<` and lists a comment rule first)
-#typename.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
-#union_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#access_control_keywords.match  groups 1, 2
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#access_control_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#assembly.patterns[2].begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#class_block.begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#constructor_inline.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#constructor_root.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#control_flow_keywords.match  groups 1, 2
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#control_flow_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#destructor_inline.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#destructor_root.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#destructor_root.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#exception_keywords.match  (((?:\s*+/\*(?:[^*]++|\*+(?!/))*+\*/\s*+)+)|\s++|(?<=\W)|(?…
+  waived: `#control_flow_keywords` has the same gap, lists `throw`, `catch` and `try` too, and comes
+    before it in every list that holds it
+#exception_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#extern_block.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#function_definition.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#function_pointer.end  groups 11, 12, 13, 14
+  group 11: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 12: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 13: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 14: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+#function_pointer_parameter.end  groups 11, 12, 13, 14
+  group 11: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 12: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 13: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 14: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+#goto_statement.match  groups 1, 2
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#goto_statement.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#label.match  groups 1, 2
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#label.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#lambdas.begin  groups 5, 6, 7, 8
+  group 5: waived: the group sits inside a negative lookahead, so it never holds text
+  group 6: waived: the group sits inside a negative lookahead, so it never holds text
+  group 7: waived: the group sits inside a negative lookahead, so it never holds text
+  group 8: waived: the group sits inside a negative lookahead, so it never holds text
+#member_access.match  groups 1, 2
+  group 1: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+  group 2: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+#member_access.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#member_access.captures[11].patterns[0].match  groups 1, 2, 3, 4
+  group 1: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 2: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 3: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 4: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+#member_access.captures[11].patterns[1].match
+  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
+  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at
+    the start of every element of the chain, so it starts at the same place and comes first
+#memory_operators.match  groups 1, 2
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#memory_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#method_access.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+  group 2: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+  group 3: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+  group 4: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+#method_access.beginCaptures[13].patterns[0].match  groups 1, 2, 3, 4
+  group 1: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 2: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 3: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 4: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+#method_access.beginCaptures[13].patterns[1].match
+  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
+  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at
+    the start of every element of the chain, so it starts at the same place and comes first
+#misc_keywords.match  groups 1, 2
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#misc_keywords.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#namespace_block.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#operator_overload.begin  groups 41, 42, 43, 44
+  group 41: waived: the gap just before it, with nothing between them, takes every comment first
+  group 42: waived: the gap just before it, with nothing between them, takes every comment first
+  group 43: waived: the gap just before it, with nothing between them, takes every comment first
+  group 44: waived: the gap just before it, with nothing between them, takes every comment first
+#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#operator_overload.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#operators.patterns[12].match  groups 2
+  group 2: waived: `patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters
+    of each of its alternatives at the same place, earlier in the same list
+#over_qualified_types.patterns[0].match  groups 8, 9
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+#over_qualified_types.patterns[0].captures[9].patterns[0].match
+  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#over_qualified_types.patterns[1].match  groups 8, 9
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+#over_qualified_types.patterns[1].captures[9].patterns[0].match
+  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#over_qualified_types.patterns[2].match  groups 8, 9
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+#over_qualified_types.patterns[2].captures[9].patterns[0].match
+  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#over_qualified_types.patterns[3].match  groups 8, 9
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+#over_qualified_types.patterns[3].captures[9].patterns[0].match
+  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only group 9, a gap that the gap just before it leaves without a comment
+#parameter.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter.patterns[5].match  groups 7, 8, 9, 10
+  group 7: waived: the gap just before it, with nothing between them, takes every comment first
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+  group 10: waived: the gap just before it, with nothing between them, takes every comment first
+#parameter.patterns[11].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter.patterns[16].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter_or_maybe_value.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter_or_maybe_value.patterns[7].match  groups 7, 8, 9, 10
+  group 7: waived: the gap just before it, with nothing between them, takes every comment first
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+  group 10: waived: the gap just before it, with nothing between them, takes every comment first
+#parameter_or_maybe_value.patterns[13].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter_or_maybe_value.patterns[18].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#simple_constructor_call.captures[16].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans group 16, which sits in a lookahead past the end of the match, and
+    vscode-textmate applies no capture that starts after the match ends
+#string_escaped_char.match  \\(["'?\\abefnprtv]|[0-3][0-7]{0,2}|[4-7]\d?|x\h{0,2}|u\h{0…
+  waived: it is the same expression as `#backslash_escapes`, which comes before it in its only list
+#struct_block.begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#switch_statement.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#switch_statement.patterns[2].end  \s*(?=;)
+  waived: its begin never matches
+#type_casting_operators.match  groups 1, 2
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#type_casting_operators.captures[2].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#typedef_class.patterns[0].begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#typedef_struct.patterns[0].begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#typedef_union.patterns[0].begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#typename.match  groups 2, 3
+  group 2: waived: the gap opens the expression; a comment rule comes before it in every list but
+    those of type captures, where names and scopes exclude `typename` and template arguments go to
+    `#template_call_range`, which starts at the `<` and lists a comment rule first
+  group 3: waived: the gap opens the expression; a comment rule comes before it in every list but
+    those of type captures, where names and scopes exclude `typename` and template arguments go to
+    `#template_call_range`, which starts at the `<` and lists a comment rule first
+#typename.captures[3].patterns[0].match  \s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+
+  waived: it scans only a gap that opens its owner's expression, and that gap never holds a comment
+#union_block.begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
 ```
 
 ### `cpp-macro`
 
 ```text
-#assembly.patterns[0].match  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…  waived: in a macro body a `\` or the macro's end follows `asm`, so the begin never reaches the line end, the next line starts without `\G`, and `(?!\G)` ends the rule before this `^` pattern
-#assembly.patterns[2].begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#class_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#constructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#constructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#destructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#destructor_root.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#destructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#extern_block.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#function_definition.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#function_pointer.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
-#function_pointer_parameter.end  groups 11 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 12 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 13 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment), 14 (waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment)
-#lambdas.begin  groups 5 (waived: the group sits inside a negative lookahead, so it never holds text), 6 (waived: the group sits inside a negative lookahead, so it never holds text), 7 (waived: the group sits inside a negative lookahead, so it never holds text), 8 (waived: the group sits inside a negative lookahead, so it never holds text)
-#method_access.begin  groups 1 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 2 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 3 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment), 4 (waived: the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment)
-#method_access.beginCaptures[13].patterns[0].match  groups 1 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 2 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 3 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment), 4 (waived: the chain group it scans holds only names, dots, arrows and blanks, never a comment)
-#method_access.beginCaptures[13].patterns[1].match  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first
-#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#namespace_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#operator_overload.begin  groups 41 (waived: the gap just before it, with nothing between them, takes every comment first), 42 (waived: the gap just before it, with nothing between them, takes every comment first), 43 (waived: the gap just before it, with nothing between them, takes every comment first), 44 (waived: the gap just before it, with nothing between them, takes every comment first)
-#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#operator_overload.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#operators.patterns[12].match  groups 2 (waived: `patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters of each of its alternatives at the same place, earlier in the same list)
-#parameter.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter.patterns[5].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
-#parameter.patterns[11].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter.patterns[16].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter_or_maybe_value.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter_or_maybe_value.patterns[7].match  groups 7 (waived: the gap just before it, with nothing between them, takes every comment first), 8 (waived: the gap just before it, with nothing between them, takes every comment first), 9 (waived: the gap just before it, with nothing between them, takes every comment first), 10 (waived: the gap just before it, with nothing between them, takes every comment first)
-#parameter_or_maybe_value.patterns[13].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#parameter_or_maybe_value.patterns[18].match  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#struct_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#switch_statement.begin  groups 1 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 2 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 3 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it), 4 (waived: the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it)
-#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns
-#switch_statement.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)  waived: its begin never matches
-#typedef_class.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#typedef_struct.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#typedef_union.patterns[0].begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
-#union_block.begin  groups 16 (waived: the gap just before it, with nothing between them, takes every comment first), 17 (waived: the gap just before it, with nothing between them, takes every comment first), 18 (waived: the gap just before it, with nothing between them, takes every comment first), 19 (waived: the gap just before it, with nothing between them, takes every comment first)
+#assembly.patterns[0].match  ^((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\…
+  waived: in a macro body a `\` or the macro's end follows `asm`, so the begin never reaches the
+    line end, the next line starts without `\G`, and `(?!\G)` ends the rule before this `^` pattern
+#assembly.patterns[2].begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#class_block.begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#constructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#constructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#constructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#constructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#destructor_inline.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#destructor_inline.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#destructor_root.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#destructor_root.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#destructor_root.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#extern_block.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#function_definition.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#function_definition.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#function_pointer.end  groups 11, 12, 13, 14
+  group 11: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 12: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 13: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 14: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+#function_pointer_parameter.end  groups 11, 12, 13, 14
+  group 11: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 12: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 13: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+  group 14: waived: the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end,
+    so the gap never holds a comment
+#lambdas.begin  groups 5, 6, 7, 8
+  group 5: waived: the group sits inside a negative lookahead, so it never holds text
+  group 6: waived: the group sits inside a negative lookahead, so it never holds text
+  group 7: waived: the group sits inside a negative lookahead, so it never holds text
+  group 8: waived: the group sits inside a negative lookahead, so it never holds text
+#method_access.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+  group 2: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+  group 3: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+  group 4: waived: the gap opens the expression, and a comment rule comes before it in every list
+    but the chain captures of `#member_access` and `#method_access`, whose text holds no comment
+#method_access.beginCaptures[13].patterns[0].match  groups 1, 2, 3, 4
+  group 1: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 2: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 3: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+  group 4: waived: the chain group it scans holds only names, dots, arrows and blanks, never a
+    comment
+#method_access.beginCaptures[13].patterns[1].match
+  (?:((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<…
+  waived: `patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at
+    the start of every element of the chain, so it starts at the same place and comes first
+#namespace_block.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#namespace_block.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#operator_overload.begin  groups 41, 42, 43, 44
+  group 41: waived: the gap just before it, with nothing between them, takes every comment first
+  group 42: waived: the gap just before it, with nothing between them, takes every comment first
+  group 43: waived: the gap just before it, with nothing between them, takes every comment first
+  group 44: waived: the gap just before it, with nothing between them, takes every comment first
+#operator_overload.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#operator_overload.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#operators.patterns[12].match  groups 2
+  group 2: waived: `patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters
+    of each of its alternatives at the same place, earlier in the same list
+#parameter.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter.patterns[5].match  groups 7, 8, 9, 10
+  group 7: waived: the gap just before it, with nothing between them, takes every comment first
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+  group 10: waived: the gap just before it, with nothing between them, takes every comment first
+#parameter.patterns[11].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter.patterns[16].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter_or_maybe_value.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter_or_maybe_value.patterns[7].match  groups 7, 8, 9, 10
+  group 7: waived: the gap just before it, with nothing between them, takes every comment first
+  group 8: waived: the gap just before it, with nothing between them, takes every comment first
+  group 9: waived: the gap just before it, with nothing between them, takes every comment first
+  group 10: waived: the gap just before it, with nothing between them, takes every comment first
+#parameter_or_maybe_value.patterns[13].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#parameter_or_maybe_value.patterns[18].match  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#struct_block.begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#switch_statement.begin  groups 1, 2, 3, 4
+  group 1: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 2: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 3: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+  group 4: waived: the gap opens the expression, so a comment there starts a comment rule at the
+    same place, and such a rule comes before the expression in every list that holds it
+#switch_statement.patterns[2].begin  (?<=}|%>|\?\?>)\s*
+  waived: the rule's own end, `(?<=}|%>|\?\?>)`, matches at the same place wherever this begin's
+    lookbehind holds, and an end is tried before the patterns
+#switch_statement.patterns[2].end  \s*(?=;)|(?=(?<!\\)\n)
+  waived: its begin never matches
+#typedef_class.patterns[0].begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#typedef_struct.patterns[0].begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#typedef_union.patterns[0].begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
+#union_block.begin  groups 16, 17, 18, 19
+  group 16: waived: the gap just before it, with nothing between them, takes every comment first
+  group 17: waived: the gap just before it, with nothing between them, takes every comment first
+  group 18: waived: the gap just before it, with nothing between them, takes every comment first
+  group 19: waived: the gap just before it, with nothing between them, takes every comment first
 ```
 
 ### `csharp`
 
 ```text
-#comment.patterns[0].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#comment.patterns[0].while  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#comment.patterns[1].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#comment.patterns[1].end  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#comment.patterns[1].patterns[0].while  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#comment.patterns[2].while  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#numeric-literal.captures[0].patterns[0].patterns[1].match  groups 3 (waived: `[01_]`, the first alternative of the repetition, takes every `_`, so the separator group never takes part)
-#preprocessor-line.patterns[0].match  groups 2 (waived: the regex `\\b(default|hidden)` has one group, so group 2 never exists)
-#relational-pattern.begin  <=?|>=?  waived: `#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, whose `<=|>=|[<>]` and `\\.\\.` match first at every position this does
-#relational-pattern.end  (?=[]\&),:;=?^|}]|!=|\b(and|or|when)\b)  waived: its begin never matches
-#slice-pattern.match  \.\.  waived: `#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, whose `<=|>=|[<>]` and `\\.\\.` match first at every position this does
+#comment.patterns[0].begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#comment.patterns[0].while  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#comment.patterns[1].begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#comment.patterns[1].end  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#comment.patterns[1].patterns[0].while  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#comment.patterns[2].begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#comment.patterns[2].while  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#numeric-literal.captures[0].patterns[0].patterns[1].match  groups 3
+  group 3: waived: `[01_]`, the first alternative of the repetition, takes every `_`, so the
+    separator group never takes part
+#preprocessor-line.patterns[0].match  groups 2
+  group 2: waived: the regex `\\b(default|hidden)` has one group, so group 2 never exists
+#relational-pattern.begin  <=?|>=?
+  waived: `#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, whose
+    `<=|>=|[<>]` and `\\.\\.` match first at every position this does
+#relational-pattern.end  (?=[]\&),:;=?^|}]|!=|\b(and|or|when)\b)
+  waived: its begin never matches
+#slice-pattern.match  \.\.
+  waived: `#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, whose
+    `<=|>=|[<>]` and `\\.\\.` match first at every position this does
 ```
 
 ### `css`
 
 ```text
-#at-rules.patterns[0].patterns[0].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank), 4 (waived: the group matches only blanks, and the oracle compares no blank)
-#at-rules.patterns[0].patterns[2].patterns[0].begin  (?:\G|^)(?=[^"]+$)  waived: group 6 of `#at-rules.patterns[0].patterns[0]`, earlier in the `@charset` rule, takes an unclosed string from the same `"`, and a closed one fails the lookahead
-#at-rules.patterns[0].patterns[2].patterns[0].end  $  waived: its begin never matches
-#at-rules.patterns[3].end  groups 0 (waived: the expression is a lookahead, so the match holds no text)
-#escapes.patterns[1].end  ^(?<!\G)  waived: the begin, `\\$\s*`, takes the line feed, so `\G` stands at the start of the next line and `^(?<!\G)` never holds
+#at-rules.patterns[0].patterns[0].match  groups 2, 4
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+  group 4: waived: the group matches only blanks, and the oracle compares no blank
+#at-rules.patterns[0].patterns[2].patterns[0].begin  (?:\G|^)(?=[^"]+$)
+  waived: group 6 of `#at-rules.patterns[0].patterns[0]`, earlier in the `@charset` rule, takes an
+    unclosed string from the same `"`, and a closed one fails the lookahead
+#at-rules.patterns[0].patterns[2].patterns[0].end  $
+  waived: its begin never matches
+#at-rules.patterns[3].end  groups 0
+  group 0: waived: the expression is a lookahead, so the match holds no text
+#escapes.patterns[1].end  ^(?<!\G)
+  waived: the begin, `\\$\s*`, takes the line feed, so `\G` stands at the start of the next line and
+    `^(?<!\G)` never holds
 ```
 
 ### `dart`
 
 ```text
-#operators.patterns[3].match  (([\&^|]|<<|>>>?)=)  waived: `#operators.patterns[2]`, `(<<|>>>?|[\&^|~])`, before it, matches at the start of every one of its operators
+#operators.patterns[3].match  (([\&^|]|<<|>>>?)=)
+  waived: `#operators.patterns[2]`, `(<<|>>>?|[\&^|~])`, before it, matches at the start of every
+    one of its operators
 ```
 
 ### `diff`
 
 ```text
-patterns[11].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[11].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
 ```
 
 ### `docker`
 
 ```text
-patterns[2].match  ^\s*(?i:(ONBUILD)\s+)?(?i:(CMD|ENTRYPOINT))\s  waived: `patterns[1]`, before it, lists `CMD` and `ENTRYPOINT` after the same optional `ONBUILD`, so it matches wherever this does
-patterns[4].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[5].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[5].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[6].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[2].match  ^\s*(?i:(ONBUILD)\s+)?(?i:(CMD|ENTRYPOINT))\s
+  waived: `patterns[1]`, before it, lists `CMD` and `ENTRYPOINT` after the same optional `ONBUILD`,
+    so it matches wherever this does
+patterns[4].begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[5].begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[5].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[6].match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 ```
 
 ### `elixir`
 
 ```text
-patterns[7].begin  groups 1 (waived: the group is a lookahead, so it never holds text)
-#core_syntax.patterns[21].match  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#core_syntax.patterns[47].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#core_syntax.patterns[48].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[7].begin  groups 1
+  group 1: waived: the group is a lookahead, so it never holds text
+#core_syntax.patterns[21].match  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#core_syntax.patterns[47].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#core_syntax.patterns[48].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 ```
 
 ### `erb`
 
 ```text
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].begin  groups 0 (waived: the match is only the blanks that lead the line, before the lookahead, and the oracle compares no blank)
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].end  groups 0 (waived: the match is only blanks and the line feed that end the line, and the oracle compares no blank)
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].begin  groups 0 (waived: the match is only the blanks that lead the line, before the lookahead, and the oracle compares no blank)
-injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].end  groups 0 (waived: the match is only blanks and the line feed that end the line, and the oracle compares no blank)
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].begin
+  groups 0
+  group 0: waived: the match is only the blanks that lead the line, before the lookahead, and the
+    oracle compares no blank
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[0].end
+  groups 0
+  group 0: waived: the match is only blanks and the line feed that end the line, and the oracle
+    compares no blank
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].begin
+  groups 0
+  group 0: waived: the match is only the blanks that lead the line, before the lookahead, and the
+    oracle compares no blank
+injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[1].end
+  groups 0
+  group 0: waived: the match is only blanks and the line feed that end the line, and the oracle
+    compares no blank
 ```
 
 ### `gdscript`
 
 ```text
-#annotated_parameter.patterns[1].match  =(?!=)  waived: `#expression`, before it in its only list, holds `#assignment_operator`, whose `=` matches at every `=` this does
-#any_method.match  \b([A-Z_a-z]\w*)\b(?=\s*\()  waived: `#function_call` has the same test, `(?=\b[A-Z_a-z]\w*\b\s*\()`, and `#base_expression` holds it before it in `#expression`, its only list
-#builtin_get_node_shorthand_bare.match  groups 4 (waived: the grammar names the group, but the expression has three groups)
-#class_declaration.match  groups 2 (waived: the grammar names the group, but the expression has one group)
-#class_new.match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#in_keyword.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#lambda_declaration.begin  groups 2 (waived: the grammar names the group, but the expression has one group)
-#statement_keyword.patterns[1].match  \b(?<!\.)(class)\b  waived: `#keywords`, before it in `#base_expression`, its only list, matches `class` with the same `\b` on each side
+#annotated_parameter.patterns[1].match  =(?!=)
+  waived: `#expression`, before it in its only list, holds `#assignment_operator`, whose `=` matches
+    at every `=` this does
+#any_method.match  \b([A-Z_a-z]\w*)\b(?=\s*\()
+  waived: `#function_call` has the same test, `(?=\b[A-Z_a-z]\w*\b\s*\()`, and `#base_expression`
+    holds it before it in `#expression`, its only list
+#builtin_get_node_shorthand_bare.match  groups 4
+  group 4: waived: the grammar names the group, but the expression has three groups
+#class_declaration.match  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#class_new.match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#in_keyword.patterns[0].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#lambda_declaration.begin  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#statement_keyword.patterns[1].match  \b(?<!\.)(class)\b
+  waived: `#keywords`, before it in `#base_expression`, its only list, matches `class` with the same
+    `\b` on each side
 ```
 
 ### `go`
 
 ```text
-#generic_param_types.patterns[5].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#generic_param_types.patterns[5].captures[3].patterns[1].match  \w+  waived: it scans group 3, which the expression lacks
-#map_types.patterns[3].match  \[  waived: `#parameter-variable-types`, before it in its only list, opens `([*.\w]+)?(\[)` at every `[`
-#map_types.patterns[4].match  ]  waived: the rule's end, `(])`, matches at every `]` the rules inside it leave, and an end is tried before the patterns
-#map_types.patterns[5].match  \{  waived: `#parameter-variable-types`, before it in its only list, has the same expression
-#map_types.patterns[6].match  }  waived: `#parameter-variable-types`, before it in its only list, has the same expression
-#map_types.patterns[7].match  \(  waived: `#parameter-variable-types`, before it in its only list, has the same expression
-#numeric_literals.captures[0].patterns[0].patterns[0].match  groups 18 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 19 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 20 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 21 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 22 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 23 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 24 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow), 25 (waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow)
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[19].patterns[0].match  (?<=\h)_(?=\h)  waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow
-#numeric_literals.captures[0].patterns[0].patterns[0].captures[24].patterns[0].match  (?<=\h)_(?=\h)  waived: the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow
-#single_type.patterns[1].patterns[3].match  \[  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
-#single_type.patterns[1].patterns[4].match  ]  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
-#single_type.patterns[1].patterns[5].match  \{  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
-#single_type.patterns[1].patterns[6].match  }  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
-#single_type.patterns[1].patterns[7].match  \(  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
-#single_type.patterns[1].patterns[8].match  \)  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
-#single_type.patterns[1].patterns[9].match  \w+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
-#support_functions.captures[2].patterns[1].match  \d\w*  waived: `#type-declarations`, before it in the list, holds `#numeric_literals`, whose `(?<!\w)\.?\d` matches at every digit that starts the group
-#switch_types.beginCaptures[3].patterns[2].match  \btype\b  waived: group 3 is `.(type)`, and `#brackets`, before it in the list, opens `\(` at its `(` and closes after `type`
-#syntax_errors.patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#type_assertion_inline.captures[2].patterns[1].match  \(  waived: group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(` or `)`
-#type_assertion_inline.captures[2].patterns[2].match  \)  waived: group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(` or `)`
+#generic_param_types.patterns[5].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#generic_param_types.patterns[5].captures[3].patterns[1].match  \w+
+  waived: it scans group 3, which the expression lacks
+#map_types.patterns[3].match  \[
+  waived: `#parameter-variable-types`, before it in its only list, opens `([*.\w]+)?(\[)` at every
+    `[`
+#map_types.patterns[4].match  ]
+  waived: the rule's end, `(])`, matches at every `]` the rules inside it leave, and an end is tried
+    before the patterns
+#map_types.patterns[5].match  \{
+  waived: `#parameter-variable-types`, before it in its only list, has the same expression
+#map_types.patterns[6].match  }
+  waived: `#parameter-variable-types`, before it in its only list, has the same expression
+#map_types.patterns[7].match  \(
+  waived: `#parameter-variable-types`, before it in its only list, has the same expression
+#numeric_literals.captures[0].patterns[0].patterns[0].match  groups 18, 19, 20, 21, 22, 23, 24, 25
+  group 18: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+  group 19: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+  group 20: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+  group 21: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+  group 22: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+  group 23: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+  group 24: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+  group 25: waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+#numeric_literals.captures[0].patterns[0].patterns[0].captures[19].patterns[0].match  (?<=\h)_(?=\h)
+  waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+#numeric_literals.captures[0].patterns[0].patterns[0].captures[24].patterns[0].match  (?<=\h)_(?=\h)
+  waived: the alternative starts at a `.` before a digit, where `#delimiters`, before
+    `#numeric_literals` in every list that holds it, matches `\.(?!\.\.)` first, and the ellipsis
+    rule of `#operators`, also earlier, takes a `.` that two more follow
+#single_type.patterns[1].patterns[3].match  \[
+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`,
+    earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the
+    end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[4].match  ]
+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`,
+    earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the
+    end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[5].match  \{
+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`,
+    earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the
+    end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[6].match  }
+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`,
+    earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the
+    end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[7].match  \(
+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`,
+    earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the
+    end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[8].match  \)
+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`,
+    earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the
+    end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#single_type.patterns[1].patterns[9].match  \w+
+  waived: the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`,
+    earlier in the list, opens `([*.\w]+)?(\[)` and runs to the matching `]`; right after it the
+    end, `(?<=])` with an optional group, matches, and an end is tried before the patterns
+#support_functions.captures[2].patterns[1].match  \d\w*
+  waived: `#type-declarations`, before it in the list, holds `#numeric_literals`, whose
+    `(?<!\w)\.?\d` matches at every digit that starts the group
+#switch_types.beginCaptures[3].patterns[2].match  \btype\b
+  waived: group 3 is `.(type)`, and `#brackets`, before it in the list, opens `\(` at its `(` and
+    closes after `type`
+#syntax_errors.patterns[0].match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#type_assertion_inline.captures[2].patterns[1].match  \(
+  waived: group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(`
+    or `)`
+#type_assertion_inline.captures[2].patterns[2].match  \)
+  waived: group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(`
+    or `)`
 ```
 
 ### `graphql`
 
 ```text
-#graphql-comment.patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#graphql-description-docstring.begin  """  waived: `#graphql-comment`, before it in every list that holds it, opens `(""")` at every `"""`
-#graphql-description-docstring.end  """  waived: its begin never matches
-#graphql-description-singleline.match  #(?=([^"]*"[^"]*")*[^"]*$).*$  waived: `#graphql-comment`, before it in every list that holds it, matches `(\s*)(#).*` at or before every `#`
-#graphql-directive-definition.begin  groups 3 (waived: `beginCaptures` name the groups of the `on` rule inside it, and the grammar names the group, but the expression has two groups), 4 (waived: `beginCaptures` name the groups of the `on` rule inside it, and the grammar names the group, but the expression has two groups)
-#graphql-fragment-definition.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 3 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 4 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
-#graphql-fragment-spread.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
-#graphql-inline-fragment.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 3 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
-#graphql-input-types.patterns[2].begin  groups 2 (waived: the rule's `captures` name its end's `!` group for its begin too, and the grammar names the group, but the expression has one group)
-#graphql-string-value.end  groups 3 (waived: the possessive `\s*+` before it takes the line feed, so `(\n)` never matches)
-#graphql-type-interface.end  (?=.)  waived: the rule's last pattern, `#graphql-ignore-spaces`, matches `\s*` at every place, and the rule tries its end after its patterns
-#graphql-union.end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
-#graphql-union.patterns[0].end  groups 1 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups), 2 (waived: the rule's `captures` name the begin's groups for its end too, and the grammar names the group, but the expression has no groups)
+#graphql-comment.patterns[0].match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#graphql-description-docstring.begin  """
+  waived: `#graphql-comment`, before it in every list that holds it, opens `(""")` at every `"""`
+#graphql-description-docstring.end  """
+  waived: its begin never matches
+#graphql-description-singleline.match  #(?=([^"]*"[^"]*")*[^"]*$).*$
+  waived: `#graphql-comment`, before it in every list that holds it, matches `(\s*)(#).*` at or
+    before every `#`
+#graphql-directive-definition.begin  groups 3, 4
+  group 3: waived: `beginCaptures` name the groups of the `on` rule inside it, and the grammar names
+    the group, but the expression has two groups
+  group 4: waived: `beginCaptures` name the groups of the `on` rule inside it, and the grammar names
+    the group, but the expression has two groups
+#graphql-fragment-definition.end  groups 1, 2, 3, 4
+  group 1: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 2: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 3: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 4: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+#graphql-fragment-spread.end  groups 1, 2
+  group 1: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 2: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+#graphql-inline-fragment.end  groups 1, 2, 3
+  group 1: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 2: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 3: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+#graphql-input-types.patterns[2].begin  groups 2
+  group 2: waived: the rule's `captures` name its end's `!` group for its begin too, and the grammar
+    names the group, but the expression has one group
+#graphql-string-value.end  groups 3
+  group 3: waived: the possessive `\s*+` before it takes the line feed, so `(\n)` never matches
+#graphql-type-interface.end  (?=.)
+  waived: the rule's last pattern, `#graphql-ignore-spaces`, matches `\s*` at every place, and the
+    rule tries its end after its patterns
+#graphql-union.end  groups 1, 2
+  group 1: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 2: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+#graphql-union.patterns[0].end  groups 1, 2
+  group 1: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
+  group 2: waived: the rule's `captures` name the begin's groups for its end too, and the grammar
+    names the group, but the expression has no groups
 ```
 
 ### `hack`
 
 ```text
-#comments.patterns[2].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#language.patterns[19].begin  groups 5 (waived: the expression has four groups, so no match holds a fifth)
-#support.patterns[101].match  (?i)\bis_int(eger)?\b  waived: its words, `is_int` and `is_integer`, are in `patterns[93]`, which comes first and takes them
+#comments.patterns[2].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#language.patterns[19].begin  groups 5
+  group 5: waived: the expression has four groups, so no match holds a fifth
+#support.patterns[101].match  (?i)\bis_int(eger)?\b
+  waived: its words, `is_int` and `is_integer`, are in `patterns[93]`, which comes first and takes
+    them
 ```
 
 ### `haml`
 
 ```text
-patterns[5].begin  ^(\s*):ruby$  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
-patterns[5].end  ^(?!\1\s+|$\n*)  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
-patterns[6].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[8].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
-patterns[10].begin  ^(\s*):ruby$  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
-patterns[10].end  ^(?!\1\s+|$\n*)  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
-patterns[13].begin  ^(\s*):plain$  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-patterns[13].end  ^(?=\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-patterns[14].begin  ^(\s*)(:ruby)  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
-patterns[14].end  (?m:(?<=\n)(?!\1\s+|$\n*))  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always matches first
-patterns[17].begin  ^(\s*):plain$  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-patterns[17].end  ^(?=\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-patterns[18].match  ^\s*(\.)  waived: the tag rule before it, `^\s*(?:((%)([-:\w]+))|(?=[#.]))`, opens at the same `.` first
-patterns[20].begin  ^(\s*)(:php)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-patterns[20].end  ^(?!\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-patterns[21].end  groups 2 (waived: the grammar names the group, but the expression has no groups)
-patterns[22].end  groups 2 (waived: the grammar names the group, but the expression has no groups)
-patterns[23].begin  ^(\s*)(:sass)$  waived: the `:sass` filter before it, `^(\s*):(s(?:tyle|ass))$`, matches the same lines first
-patterns[23].end  ^(?!\1\s+|$\n*)  waived: the `:sass` filter before it, `^(\s*):(s(?:tyle|ass))$`, matches the same lines first
-patterns[24].begin  ^(\s*)(:scss)$  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-patterns[24].end  ^(?!\1\s+|$\n*)  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule
-#continuation.match  (\|)\s*\n  waived: every rule that lists it lists `source.ruby` or the block opener `([,<|]|do|\{)\s*(#.*)?$\n*` first, and those take the `|`
-#rubyline.patterns[4].match  \s+(use\s*)((?=\())  waived: the keyword pattern before it, `\s+((elseif|foreach|switch|declare|default|use))(?=[(\s])`, takes `use` before `(` or a blank first
+patterns[5].begin  ^(\s*):ruby$
+  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always
+    matches first
+patterns[5].end  ^(?!\1\s+|$\n*)
+  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always
+    matches first
+patterns[6].match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+patterns[8].end  groups 1, 2, 3
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+  group 3: waived: the grammar names the group, but the expression has no groups
+patterns[10].begin  ^(\s*):ruby$
+  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always
+    matches first
+patterns[10].end  ^(?!\1\s+|$\n*)
+  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always
+    matches first
+patterns[13].begin  ^(\s*):plain$
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+patterns[13].end  ^(?=\1\s+|$\n*)
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+patterns[14].begin  ^(\s*)(:ruby)
+  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always
+    matches first
+patterns[14].end  (?m:(?<=\n)(?!\1\s+|$\n*))
+  waived: the first `:ruby` filter, `^(\s*):ruby`, needs nothing after the name, so it always
+    matches first
+patterns[17].begin  ^(\s*):plain$
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+patterns[17].end  ^(?=\1\s+|$\n*)
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+patterns[18].match  ^\s*(\.)
+  waived: the tag rule before it, `^\s*(?:((%)([-:\w]+))|(?=[#.]))`, opens at the same `.` first
+patterns[20].begin  ^(\s*)(:php)
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+patterns[20].end  ^(?!\1\s+|$\n*)
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+patterns[21].end  groups 2
+  group 2: waived: the grammar names the group, but the expression has no groups
+patterns[22].end  groups 2
+  group 2: waived: the grammar names the group, but the expression has no groups
+patterns[23].begin  ^(\s*)(:sass)$
+  waived: the `:sass` filter before it, `^(\s*):(s(?:tyle|ass))$`, matches the same lines first
+patterns[23].end  ^(?!\1\s+|$\n*)
+  waived: the `:sass` filter before it, `^(\s*):(s(?:tyle|ass))$`, matches the same lines first
+patterns[24].begin  ^(\s*)(:scss)$
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+patterns[24].end  ^(?!\1\s+|$\n*)
+  waived: the rule's only pattern includes a grammar that Shiki's `haml` does not load, so
+    vscode-textmate drops the rule
+#continuation.match  (\|)\s*\n
+  waived: every rule that lists it lists `source.ruby` or the block opener
+    `([,<|]|do|\{)\s*(#.*)?$\n*` first, and those take the `|`
+#rubyline.patterns[4].match  \s+(use\s*)((?=\())
+  waived: the keyword pattern before it,
+    `\s+((elseif|foreach|switch|declare|default|use))(?=[(\s])`, takes `use` before `(` or a blank
+    first
 ```
 
 ### `haskell`
 
 ```text
-patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group for its end too, and the end's expression has no group)
-#comments.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#type_signature.patterns[4].match  (\()(#)\s*(#)(\))  waived: it repeats `patterns[2]`, which comes earlier in the same list
+patterns[17].end  groups 1
+  group 1: waived: the rule's `captures` name the begin's group for its end too, and the end's
+    expression has no group
+#comments.patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#comments.patterns[3].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#type_signature.patterns[4].match  (\()(#)\s*(#)(\))
+  waived: it repeats `patterns[2]`, which comes earlier in the same list
 ```
 
 ### `hcl`
 
 ```text
-#double_slash_line_comments.end  groups 0 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#hash_line_comments.end  groups 0 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#double_slash_line_comments.end  groups 0
+  group 0: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#hash_line_comments.end  groups 0
+  group 0: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
 ```
 
 ### `html`
@@ -578,41 +1365,52 @@ patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group
 #math.patterns[0].patterns[0].begin  (?<!>)\G
 #math.patterns[0].patterns[0].end  >
 #math.repository.#attribute.patterns[2].match  [^>\s]+  fuzz
-#math.repository.#tags.patterns[2].match  (?i)(<)(annotation|annotation-xml|semantics|menclose|merror…
+#math.repository.#tags.patterns[2].match
+  (?i)(<)(annotation|annotation-xml|semantics|menclose|merror…
 #math.repository.#tags.patterns[3].end  groups 4
 #math.repository.#tags.patterns[3].patterns[0].begin  (?<!>)\G
 #math.repository.#tags.patterns[3].patterns[0].end  (?=/>)|>
-#math.repository.#tags.patterns[4].match  (?i)(<)(m(?:[inos]|space|text|aligngroup|alignmark))(?=\s|/…
+#math.repository.#tags.patterns[4].match
+  (?i)(<)(m(?:[inos]|space|text|aligngroup|alignmark))(?=\s|/…
 #math.repository.#tags.patterns[5].end  groups 4
 #math.repository.#tags.patterns[5].patterns[0].begin  (?<!>)\G
 #math.repository.#tags.patterns[5].patterns[0].end  (?=/>)|>
 #math.repository.#tags.patterns[6].match  (?i)(<)(mglyph)(?=\s|/?>)(([^"'>]|"[^"]*"|'[^']*')*)(/>)
-#math.repository.#tags.patterns[7].begin  (?i)(<)(mglyph)(?=\s|/?>)(?:(([^"'>]|"[^"]*"|'[^']*')*)(>))?
+#math.repository.#tags.patterns[7].begin
+  (?i)(<)(mglyph)(?=\s|/?>)(?:(([^"'>]|"[^"]*"|'[^']*')*)(>))?
 #math.repository.#tags.patterns[7].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
 #math.repository.#tags.patterns[7].patterns[0].begin  (?<!>)\G
 #math.repository.#tags.patterns[7].patterns[0].end  (?=/>)|>
 #math.repository.#tags.patterns[8].match  (?i)(<)(([:\w]+))(?=\s|/?>)(([^"'>]|"[^"]*"|'[^']*')*)(/>)
-#math.repository.#tags.patterns[9].begin  (?i)(<)((\w[^>\s]*))(?=\s|/?>)(?:(([^"'>]|"[^"]*"|'[^']*')*…
+#math.repository.#tags.patterns[9].begin
+  (?i)(<)((\w[^>\s]*))(?=\s|/?>)(?:(([^"'>]|"[^"]*"|'[^']*')*…
 #math.repository.#tags.patterns[9].end  (?i)(</)((\2))\s*(>)|(/>)|(?=</\w+)
 #math.repository.#tags.patterns[9].patterns[0].begin  (?<!>)\G
 #math.repository.#tags.patterns[9].patterns[0].end  (?=/>)|>
-#svg.repository.#tags.patterns[2].match  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
-#svg.repository.#tags.patterns[3].begin  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
+#svg.repository.#tags.patterns[2].match
+  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
+#svg.repository.#tags.patterns[3].begin
+  (?i)(<)(color-profile|desc|metadata|script|style|title)(?=\…
 #svg.repository.#tags.patterns[3].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
 #svg.repository.#tags.patterns[3].patterns[0].begin  (?<!>)\G
 #svg.repository.#tags.patterns[3].patterns[0].end  (?=/>)|>
-#svg.repository.#tags.patterns[4].match  (?i)(<)(animateMotion|clipPath|defs|feComponentTransfer|feD…
+#svg.repository.#tags.patterns[4].match
+  (?i)(<)(animateMotion|clipPath|defs|feComponentTransfer|feD…
 #svg.repository.#tags.patterns[5].end  groups 4
-#svg.repository.#tags.patterns[6].match  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
-#svg.repository.#tags.patterns[7].begin  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
+#svg.repository.#tags.patterns[6].match
+  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
+#svg.repository.#tags.patterns[7].begin
+  (?i)(<)(a|animate|discard|feBlend|feColorMatrix|feComposite…
 #svg.repository.#tags.patterns[7].end  (?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)
 #svg.repository.#tags.patterns[7].patterns[0].begin  (?<!>)\G
 #svg.repository.#tags.patterns[7].patterns[0].end  (?=/>)|>
 #svg.repository.#tags.patterns[9].begin  groups 3, 5
 #svg.repository.#tags.patterns[9].end  groups 1, 2, 3
 #svg.repository.#tags.patterns[9].patterns[0].end  groups 0
-#svg.repository.#tags.patterns[10].match  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
-#svg.repository.#tags.patterns[11].begin  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
+#svg.repository.#tags.patterns[10].match
+  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
+#svg.repository.#tags.patterns[11].begin
+  (?i)(<)((altGlyph|altGlyphDef|altGlyphItem|animateColor|ani…
 #svg.repository.#tags.patterns[11].end  (?i)(</)((\2))\s*(>)|(/>)|(?=</\w+)
 #svg.repository.#tags.patterns[11].patterns[0].begin  (?<!>)\G
 #svg.repository.#tags.patterns[11].patterns[0].end  (?=/>)|>
@@ -627,7 +1425,8 @@ patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group
 #tags-valid.patterns[1].end  groups 1
 #tags-valid.patterns[1].patterns[0].patterns[0].patterns[0].patterns[0].patterns[0].begin  groups 1
 #tags-valid.patterns[1].patterns[0].patterns[0].patterns[0].patterns[0].patterns[1].begin  /\*
-#tags-valid.patterns[1].patterns[0].patterns[0].patterns[0].patterns[0].patterns[1].end  \*/|(?=</script)
+#tags-valid.patterns[1].patterns[0].patterns[0].patterns[0].patterns[0].patterns[1].end
+  \*/|(?=</script)
 #tags-valid.patterns[14].begin  (?i)(<)((basefont|isindex))(?=\s|/?>)
 #tags-valid.patterns[14].end  /?>
 #tags-valid.patterns[15].begin  (?i)(<)((center|frameset|noembed|noframes))(?=\s|/?>)
@@ -646,244 +1445,570 @@ patterns[17].end  groups 1 (waived: the rule's `captures` name the begin's group
 #tags-valid.patterns[21].end  >
 #xml-processing.begin  (<\?)(xml)
 #xml-processing.end  (\?>)
-injections[R:text.html - (comment.block, text.html meta.embedded, meta.tag.*.*.html, meta.tag.*.*.*.html, meta.tag.*.*.*.*.html)].patterns[0].match  <  fuzz
+injections[R:text.html - (comment.block, text.html meta.embedded, meta.tag.*.*.html, meta.tag.*.*.*.html, meta.tag.*.*.*.*.html)].patterns[0].match
+  <  fuzz
 ```
 
 ### `html-derivative`
 
 ```text
-injections[R:text.html - (comment.block, text.html meta.embedded, meta.tag.*.*.html, meta.tag.*.*.*.html, meta.tag.*.*.*.*.html)].patterns[0].match  <  fuzz
+injections[R:text.html - (comment.block, text.html meta.embedded, meta.tag.*.*.html, meta.tag.*.*.*.html, meta.tag.*.*.*.*.html)].patterns[0].match
+  <  fuzz
 ```
 
 ### `ini`
 
 ```text
-patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+patterns[0].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 ```
 
 ### `java`
 
 ```text
-#comments-inline.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#comments-inline.patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 ```
 
 ### `javascript`
 
 ```text
-#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
-#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
-#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#comment.patterns[2].begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#expression-operators.patterns[6].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
+  waived: `#instanceof-expr` begins with the same expression and comes before
+    `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
+  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in
+    `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#support-objects.patterns[4].match  groups 4
+  group 4: waived: the group sits inside the negative lookahead after the property names, so it
+    never holds text; the constant names are group 53
+#template.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
+#template-type.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
 ```
 
 ### `jsx`
 
 ```text
-#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
-#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
-#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#comment.patterns[2].begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#expression-operators.patterns[6].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
+  waived: `#instanceof-expr` begins with the same expression and comes before
+    `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
+  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in
+    `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#support-objects.patterns[4].match  groups 4
+  group 4: waived: the group sits inside the negative lookahead after the property names, so it
+    never holds text; the constant names are group 53
+#template.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
+#template-type.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
 ```
 
 ### `julia`
 
 ```text
-#operator.patterns[12].match  ∘  waived: `#operator.patterns[11]`, before it, holds `∘` in its class `[…∗-∜…]`
+#operator.patterns[12].match  ∘
+  waived: `#operator.patterns[11]`, before it, holds `∘` in its class `[…∗-∜…]`
 ```
 
 ### `kotlin`
 
 ```text
-#operators.patterns[5].match  (--|\+\+)  waived: `#operators.patterns[3]`, `([-%*+/])`, before it, takes the first character of every `--` and `++`
-#type-parameter.patterns[1].match  \b(in|out)\b  waived: `#type-parameter.patterns[0]`, `\b\w+\b`, before it, matches every word this does
+#operators.patterns[5].match  (--|\+\+)
+  waived: `#operators.patterns[3]`, `([-%*+/])`, before it, takes the first character of every `--`
+    and `++`
+#type-parameter.patterns[1].match  \b(in|out)\b
+  waived: `#type-parameter.patterns[0]`, `\b\w+\b`, before it, matches every word this does
 ```
 
 ### `latex`
 
 ```text
-#all-balanced-env.patterns[7].begin  (\s*\\begin\{markdown})  waived: the rule's only pattern includes `text.tex.markdown_latex_combined`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#all-balanced-env.patterns[7].end  (\\end\{markdown})  waived: the rule's only pattern includes `text.tex.markdown_latex_combined`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#documentclass-usepackage-macro.end  groups 0 (waived: the end is the lookbehind `(?<=})`, so its match holds no text)
-#embedded-code-env.patterns[0].patterns[1].begin  (?:\G|(?<=]))(\{)(asy(?:|mptote))(})  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[0].patterns[1].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[0].patterns[3].begin  (?:\G|(?<=]))(\{)(c(?:|pp))(})  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[0].patterns[3].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[0].patterns[5].begin  (?:\G|(?<=]))(\{)(gnuplot)(})  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[0].patterns[5].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[1].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.asymptote`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[1].patterns[2].end  ^\s*(?=\\end\{asy(?:|code)\*?})  waived: the rule's only pattern includes `source.asymptote`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[2].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[2].patterns[2].end  ^\s*(?=\\end\{cppcode\*?})  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[3].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.dot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[3].patterns[2].end  ^\s*(?=\\end\{dot(?:2tex|code)\*?})  waived: the rule's only pattern includes `source.dot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[4].patterns[2].begin  ^(?=\s*)  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[4].patterns[2].end  ^\s*(?=\\end\{gnuplot\*?})  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[16].patterns[0].patterns[1].begin  ^(\s*)  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[16].patterns[0].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[16].patterns[2].patterns[1].begin  ^(\s*)  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[16].patterns[2].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[16].patterns[3].begin  \G(\{)(?:__|[a-z\s]*)(?i:css)  waived: `c(?:|pp)`, earlier in the same list, matches the `c` that starts every `css`, so this begin never wins
-#embedded-code-env.patterns[16].patterns[3].end  (?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode…  waived: its rule, the `css` one, never opens, so it is never tried
-#embedded-code-env.patterns[16].patterns[3].patterns[0].begin  \G  waived: its rule, the `css` one, never opens, so it is never tried
-#embedded-code-env.patterns[16].patterns[3].patterns[0].end  (})\s*$  waived: its rule, the `css` one, never opens, so it is never tried
-#embedded-code-env.patterns[16].patterns[3].patterns[1].begin  ^(\s*)  waived: its rule, the `css` one, never opens, so it is never tried
-#embedded-code-env.patterns[16].patterns[3].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: its rule, the `css` one, never opens, so it is never tried
-#embedded-code-env.patterns[16].patterns[4].patterns[1].begin  ^(\s*)  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#embedded-code-env.patterns[16].patterns[4].patterns[1].end  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#hyperref-macro.patterns[0].patterns[2].begin  groups 1 (waived: the pattern before it matches wherever this optional group can, so the group never takes part), 2 (waived: the pattern before it matches wherever this optional group can, so the group never takes part)
-#inline-code-macro.patterns[0].end  groups 2 (waived: the grammar names the group, but the expression has one group), 3 (waived: the grammar names the group, but the expression has one group), 4 (waived: the grammar names the group, but the expression has one group), 5 (waived: the grammar names the group, but the expression has one group), 6 (waived: the grammar names the group, but the expression has one group)
-#inline-code-macro.patterns[6].patterns[1].begin  (?<=])(\{)  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#inline-code-macro.patterns[6].patterns[1].end  }  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#inline-code-macro.patterns[8].patterns[1].begin  (?<=])(\{)  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#inline-code-macro.patterns[8].patterns[1].end  }  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#inline-code-macro.patterns[10].patterns[1].begin  (?<=])(\{)  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#inline-code-macro.patterns[10].patterns[1].end  }  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX, so vscode-textmate drops the rule
-#songs-env.patterns[1].begin  groups 3 (waived: the grammar names the group, but the expression has two groups), 4 (waived: the grammar names the group, but the expression has two groups)
-#songs-env.patterns[1].end  groups 3 (waived: the grammar names the group, but the expression has two groups), 4 (waived: the grammar names the group, but the expression has two groups)
+#all-balanced-env.patterns[7].begin  (\s*\\begin\{markdown})
+  waived: the rule's only pattern includes `text.tex.markdown_latex_combined`, which Shiki does not
+    load with LaTeX, so vscode-textmate drops the rule
+#all-balanced-env.patterns[7].end  (\\end\{markdown})
+  waived: the rule's only pattern includes `text.tex.markdown_latex_combined`, which Shiki does not
+    load with LaTeX, so vscode-textmate drops the rule
+#documentclass-usepackage-macro.end  groups 0
+  group 0: waived: the end is the lookbehind `(?<=})`, so its match holds no text
+#embedded-code-env.patterns[0].patterns[1].begin  (?:\G|(?<=]))(\{)(asy(?:|mptote))(})
+  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[1].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})
+  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[3].begin  (?:\G|(?<=]))(\{)(c(?:|pp))(})
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[3].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[5].begin  (?:\G|(?<=]))(\{)(gnuplot)(})
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#embedded-code-env.patterns[0].patterns[5].end  ^\s*(?=\\end\{(?:minted|lstlisting|pyglist)})
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#embedded-code-env.patterns[1].patterns[2].begin  ^(?=\s*)
+  waived: the rule's only pattern includes `source.asymptote`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#embedded-code-env.patterns[1].patterns[2].end  ^\s*(?=\\end\{asy(?:|code)\*?})
+  waived: the rule's only pattern includes `source.asymptote`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#embedded-code-env.patterns[2].patterns[2].begin  ^(?=\s*)
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[2].patterns[2].end  ^\s*(?=\\end\{cppcode\*?})
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[3].patterns[2].begin  ^(?=\s*)
+  waived: the rule's only pattern includes `source.dot`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#embedded-code-env.patterns[3].patterns[2].end  ^\s*(?=\\end\{dot(?:2tex|code)\*?})
+  waived: the rule's only pattern includes `source.dot`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#embedded-code-env.patterns[4].patterns[2].begin  ^(?=\s*)
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#embedded-code-env.patterns[4].patterns[2].end  ^\s*(?=\\end\{gnuplot\*?})
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[0].patterns[1].begin  ^(\s*)
+  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[0].patterns[1].end
+  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…
+  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[2].patterns[1].begin  ^(\s*)
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[2].patterns[1].end
+  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[3].begin  \G(\{)(?:__|[a-z\s]*)(?i:css)
+  waived: `c(?:|pp)`, earlier in the same list, matches the `c` that starts every `css`, so this
+    begin never wins
+#embedded-code-env.patterns[16].patterns[3].end
+  (?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode…
+  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[0].begin  \G
+  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[0].end  (})\s*$
+  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[1].begin  ^(\s*)
+  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[3].patterns[1].end
+  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…
+  waived: its rule, the `css` one, never opens, so it is never tried
+#embedded-code-env.patterns[16].patterns[4].patterns[1].begin  ^(\s*)
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#embedded-code-env.patterns[16].patterns[4].patterns[1].end
+  ^\s*(?=\\end\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFrom…
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#hyperref-macro.patterns[0].patterns[2].begin  groups 1, 2
+  group 1: waived: the pattern before it matches wherever this optional group can, so the group
+    never takes part
+  group 2: waived: the pattern before it matches wherever this optional group can, so the group
+    never takes part
+#inline-code-macro.patterns[0].end  groups 2, 3, 4, 5, 6
+  group 2: waived: the grammar names the group, but the expression has one group
+  group 3: waived: the grammar names the group, but the expression has one group
+  group 4: waived: the grammar names the group, but the expression has one group
+  group 5: waived: the grammar names the group, but the expression has one group
+  group 6: waived: the grammar names the group, but the expression has one group
+#inline-code-macro.patterns[6].patterns[1].begin  (?<=])(\{)
+  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#inline-code-macro.patterns[6].patterns[1].end  }
+  waived: the rule's only pattern includes `source.asy`, which Shiki does not load with LaTeX, so
+    vscode-textmate drops the rule
+#inline-code-macro.patterns[8].patterns[1].begin  (?<=])(\{)
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#inline-code-macro.patterns[8].patterns[1].end  }
+  waived: the rule's only pattern includes `source.cpp.embedded.latex`, which Shiki does not load
+    with LaTeX, so vscode-textmate drops the rule
+#inline-code-macro.patterns[10].patterns[1].begin  (?<=])(\{)
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#inline-code-macro.patterns[10].patterns[1].end  }
+  waived: the rule's only pattern includes `source.gnuplot`, which Shiki does not load with LaTeX,
+    so vscode-textmate drops the rule
+#songs-env.patterns[1].begin  groups 3, 4
+  group 3: waived: the grammar names the group, but the expression has two groups
+  group 4: waived: the grammar names the group, but the expression has two groups
+#songs-env.patterns[1].end  groups 3, 4
+  group 3: waived: the grammar names the group, but the expression has two groups
+  group 4: waived: the grammar names the group, but the expression has two groups
 ```
 
 ### `less`
 
 ```text
-#at-container.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#at-container.patterns[0].patterns[0].patterns[1].patterns[5].match  /  waived: `(([<>])=?)|[/=]`, earlier in the same list, matches every `/`
-#at-custom-media.patterns[0].match  \s*;  waived: the rule's end, `\s*(?=;)`, matches at the same position first
-#at-custom-media.patterns[1].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#at-keyframes.begin  groups 4 (waived: the grammar names the group, but the expression has two groups)
-#at-media.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#at-supports.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#less-namespace-accessors.patterns[0].patterns[0].match  groups 2 (waived: the grammar names the group, but the expression has one group)
-#less-namespace-accessors.patterns[0].patterns[3].begin  \s*(\{)  waived: the rule's end, `\s*(?:(,)|(?=[;{]))`, matches at the same position first
-#less-namespace-accessors.patterns[0].patterns[3].end  (?=})  waived: its begin never matches
-#less-namespace-accessors.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#less-strings.patterns[0].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#less-variable-assignment.patterns[0].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
-#less-variable-comparison.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#less-variable-comparison.patterns[0].patterns[5].match  ,  waived: `#unquoted-string`, earlier in the same list, matches every `,`
-#literal-string.patterns[0].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#literal-string.patterns[1].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#media-query.patterns[2].patterns[1].match  \b(portrait|landscape|progressive|interlace)  waived: the media-feature name, the begin before it in the same list, matches every word this does
-#rule-list-body.patterns[5].patterns[5].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
-#rule-list-body.patterns[5].patterns[5].patterns[3].match  ,  waived: `#property-values`, earlier in the same list, takes every `,` through `#comma-delimiter`
-#rule-list-body.patterns[5].patterns[9].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
-#rule-list-body.patterns[5].patterns[10].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
-#rule-list-body.patterns[5].patterns[11].patterns[0].match  groups 4 (waived: the group matches only blanks, and the oracle compares no blank)
-#rule-list-body.patterns[5].patterns[11].patterns[3].match  unset|initial|inherit|auto  waived: the name pattern, earlier in the same list, matches every word this does
-#rule-list-body.patterns[6].begin  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
-#selectors.patterns[10].patterns[3].patterns[3].match  groups 1 (waived: the enclosing rule's end, `(?=([]\s]))`, matches at the blank before the flag first)
-#selectors.patterns[10].patterns[3].patterns[4].match  ]  waived: the enclosing rule's end, `(?=([]\s]))`, matches at every `]` first
+#at-container.patterns[0].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#at-container.patterns[0].patterns[0].patterns[1].patterns[5].match  /
+  waived: `(([<>])=?)|[/=]`, earlier in the same list, matches every `/`
+#at-custom-media.patterns[0].match  \s*;
+  waived: the rule's end, `\s*(?=;)`, matches at the same position first
+#at-custom-media.patterns[1].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#at-keyframes.begin  groups 4
+  group 4: waived: the grammar names the group, but the expression has two groups
+#at-media.patterns[0].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#at-supports.patterns[0].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#less-namespace-accessors.patterns[0].patterns[0].match  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#less-namespace-accessors.patterns[0].patterns[3].begin  \s*(\{)
+  waived: the rule's end, `\s*(?:(,)|(?=[;{]))`, matches at the same position first
+#less-namespace-accessors.patterns[0].patterns[3].end  (?=})
+  waived: its begin never matches
+#less-namespace-accessors.patterns[1].end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#less-strings.patterns[0].end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#less-variable-assignment.patterns[0].patterns[0].match  groups 4
+  group 4: waived: the group matches only blanks, and the oracle compares no blank
+#less-variable-comparison.patterns[0].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#less-variable-comparison.patterns[0].patterns[5].match  ,
+  waived: `#unquoted-string`, earlier in the same list, matches every `,`
+#literal-string.patterns[0].end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#literal-string.patterns[1].end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#media-query.patterns[2].patterns[1].match  \b(portrait|landscape|progressive|interlace)
+  waived: the media-feature name, the begin before it in the same list, matches every word this does
+#rule-list-body.patterns[5].patterns[5].patterns[0].match  groups 4
+  group 4: waived: the group matches only blanks, and the oracle compares no blank
+#rule-list-body.patterns[5].patterns[5].patterns[3].match  ,
+  waived: `#property-values`, earlier in the same list, takes every `,` through `#comma-delimiter`
+#rule-list-body.patterns[5].patterns[9].patterns[0].match  groups 4
+  group 4: waived: the group matches only blanks, and the oracle compares no blank
+#rule-list-body.patterns[5].patterns[10].patterns[0].match  groups 4
+  group 4: waived: the group matches only blanks, and the oracle compares no blank
+#rule-list-body.patterns[5].patterns[11].patterns[0].match  groups 4
+  group 4: waived: the group matches only blanks, and the oracle compares no blank
+#rule-list-body.patterns[5].patterns[11].patterns[3].match  unset|initial|inherit|auto
+  waived: the name pattern, earlier in the same list, matches every word this does
+#rule-list-body.patterns[6].begin  groups 2
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+#selectors.patterns[10].patterns[3].patterns[3].match  groups 1
+  group 1: waived: the enclosing rule's end, `(?=([]\s]))`, matches at the blank before the flag
+    first
+#selectors.patterns[10].patterns[3].patterns[4].match  ]
+  waived: the enclosing rule's end, `(?=([]\s]))`, matches at every `]` first
 ```
 
 ### `lua`
 
 ```text
-patterns[3].match  (?<![.\w\d])0[Xx]\h+(?![.0-9EPep])  waived: `patterns[1]`, the hexadecimal float before it, matches every hexadecimal integer this does
-patterns[6].match  (?<![.\w\d])\d+(?![.0-9EPep])  waived: `patterns[4]`, the decimal float before it, matches every integer this does
-patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function rule before it, begins with `(function)` under the same lookahead, so it matches wherever this does
-#comment.patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#comment.patterns[0].end  groups 1 (waived: the group holds only blanks and the line feed, and the oracle compares no blank)
-#emmydoc.patterns[18].patterns[1].match  #  waived: the `@see` rule's end, `(?=[\n#@])`, matches at every `#` and is tried first
-#emmydoc.type.patterns[4].patterns[1].match  (\.\.\.)[\t ]*  waived: `[-\]*,.0-9<>A-\[_a-z]+`, the pattern before it, takes every `.` of a `...`
+patterns[3].match  (?<![.\w\d])0[Xx]\h+(?![.0-9EPep])
+  waived: `patterns[1]`, the hexadecimal float before it, matches every hexadecimal integer this
+    does
+patterns[6].match  (?<![.\w\d])\d+(?![.0-9EPep])
+  waived: `patterns[4]`, the decimal float before it, matches every integer this does
+patterns[17].match  \b(function)\b(?![,:])
+  waived: `patterns[0]`, the function rule before it, begins with `(function)` under the same
+    lookahead, so it matches wherever this does
+#comment.patterns[0].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#comment.patterns[0].end  groups 1
+  group 1: waived: the group holds only blanks and the line feed, and the oracle compares no blank
+#emmydoc.patterns[18].patterns[1].match  #
+  waived: the `@see` rule's end, `(?=[\n#@])`, matches at every `#` and is tried first
+#emmydoc.type.patterns[4].patterns[1].match  (\.\.\.)[\t ]*
+  waived: `[-\]*,.0-9<>A-\[_a-z]+`, the pattern before it, takes every `.` of a `...`
 ```
 
 ### `make`
 
 ```text
-#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#directives.patterns[2].end  groups 2 (waived: the grammar names the group, but the expression has one group), 3 (waived: the grammar names the group, but the expression has one group), 4 (waived: the grammar names the group, but the expression has one group)
+#comment.begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#directives.patterns[2].end  groups 2, 3, 4
+  group 2: waived: the grammar names the group, but the expression has one group
+  group 3: waived: the grammar names the group, but the expression has one group
+  group 4: waived: the grammar names the group, but the expression has one group
 ```
 
 ### `markdown`
 
 ```text
-#fenced_code_block_abap.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(abap)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_abap.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_abap.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_abap.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_bibtex.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(bibtex)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_bibtex.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_bibtex.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_bibtex.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_clojure.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(cl(?:js??|ojure))((\s+|[,:?…  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_clojure.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_clojure.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_clojure.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_erlang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(erlang)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_erlang.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_erlang.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_erlang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_fsharp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(f(?:s|sharp|#))((\s+|[,:?{]…  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_fsharp.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_fsharp.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_fsharp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_commit.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:COMMIT_EDIT|MERGE_)MSG)(…  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_commit.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_commit.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_commit.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_rebase.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(git-rebase-todo)((\s+|[,:?{…  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_rebase.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_rebase.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_git_rebase.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_groovy.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(g(?:roovy|vy))((\s+|[,:?{])…  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_groovy.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_groovy.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_groovy.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_handlebars.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(h(?:andlebars|bs))((\s+|[,:…  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_handlebars.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_handlebars.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_handlebars.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_ignore.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:git|)ignore)((\s+|[,:?{]…  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_ignore.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_ignore.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_ignore.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_js_regexp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(regexp)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_js_regexp.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_js_regexp.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_js_regexp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_log.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(log)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_log.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_log.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_log.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_perl6.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(perl6|p6|pl6|pm6|nqp)((\s+|…  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_perl6.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_perl6.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_perl6.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_pug.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(jade|pug)((\s+|[,:?{])[^`]*…  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_pug.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_pug.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_pug.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_regexp_python.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(re)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_regexp_python.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_regexp_python.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_regexp_python.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_restructuredtext.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(r(?:estructuredtext|st))((\…  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_restructuredtext.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_restructuredtext.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_restructuredtext.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_twig.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(twig)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_twig.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_twig.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_twig.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_xsl.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(xslt??)((\s+|[,:?{])[^`]*)?…  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_xsl.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_xsl.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_xsl.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_yang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(yang)((\s+|[,:?{])[^`]*)?$)  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_yang.end  (^|\G)(\2|\s{0,3})(\3)\s*$  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_yang.patterns[0].begin  (^|\G)(\s*)(.*)  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
-#fenced_code_block_yang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so vscode-textmate drops the rule
-#html.patterns[0].begin  groups 1 (waived: the group matches only the empty start of a line, so it never holds text)
-#html.patterns[0].end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#link-email.match  groups 4 (waived: the grammar names the group, but the expression has three groups)
-#list_paragraph.begin  (^|\G)(?=\S)(?![*->]\s|[0-9]+\.\s)  waived: `#paragraph`, which `#block` includes before it in both list rules, begins at every position this does
-#list_paragraph.while  (^|\G)(?!\s*$|#| {0,3}([-*>_] {2,}){3,}[\t ]*$\n?| {0,3}[*-…  waived: its begin never matches
+#fenced_code_block_abap.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(abap)((\s+|[,:?{])[^`]*)?$)
+  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_abap.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_abap.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_abap.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.abap`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_bibtex.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(bibtex)((\s+|[,:?{])[^`]*)?…
+  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_bibtex.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_bibtex.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_bibtex.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `text.bibtex`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_clojure.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(cl(?:js??|ojure))((\s+|[,:?…
+  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_clojure.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_clojure.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_clojure.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.clojure`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_erlang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(erlang)((\s+|[,:?{])[^`]*)?…
+  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_erlang.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_erlang.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_erlang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.erlang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_fsharp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(f(?:s|sharp|#))((\s+|[,:?{]…
+  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_fsharp.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_fsharp.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_fsharp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.fsharp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_commit.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:COMMIT_EDIT|MERGE_)MSG)(…
+  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_commit.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_commit.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_commit.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `text.git-commit`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_rebase.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(git-rebase-todo)((\s+|[,:?{…
+  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_rebase.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_rebase.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_git_rebase.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `text.git-rebase`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_groovy.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(g(?:roovy|vy))((\s+|[,:?{])…
+  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_groovy.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_groovy.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_groovy.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.groovy`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_handlebars.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(h(?:andlebars|bs))((\s+|[,:…
+  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_handlebars.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_handlebars.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_handlebars.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `text.html.handlebars`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_ignore.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:((?:git|)ignore)((\s+|[,:?{]…
+  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_ignore.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_ignore.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_ignore.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.ignore`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_js_regexp.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(regexp)((\s+|[,:?{])[^`]*)?…
+  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_js_regexp.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_js_regexp.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_js_regexp.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.js.regexp`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_log.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(log)((\s+|[,:?{])[^`]*)?$)
+  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_log.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_log.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_log.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `text.log`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_perl6.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(perl6|p6|pl6|pm6|nqp)((\s+|…
+  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_perl6.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_perl6.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_perl6.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.perl.6`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_pug.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(jade|pug)((\s+|[,:?{])[^`]*…
+  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_pug.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_pug.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_pug.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `text.pug`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_regexp_python.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(re)((\s+|[,:?{])[^`]*)?$)
+  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_regexp_python.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_regexp_python.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_regexp_python.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.regexp.python`, which the oracle does not load,
+    so vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.begin
+  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(r(?:estructuredtext|st))((\…
+  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_restructuredtext.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.rst`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_twig.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(twig)((\s+|[,:?{])[^`]*)?$)
+  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_twig.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_twig.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_twig.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.twig`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_xsl.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(xslt??)((\s+|[,:?{])[^`]*)?…
+  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_xsl.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_xsl.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_xsl.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `text.xml.xsl`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_yang.begin  (^|\G)(\s*)(`{3,}|~{3,})\s*(?i:(yang)((\s+|[,:?{])[^`]*)?$)
+  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_yang.end  (^|\G)(\2|\s{0,3})(\3)\s*$
+  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_yang.patterns[0].begin  (^|\G)(\s*)(.*)
+  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#fenced_code_block_yang.patterns[0].while  (^|\G)(?!\s*([`~]{3,})\s*$)
+  waived: the fence's only pattern includes `source.yang`, which the oracle does not load, so
+    vscode-textmate drops the rule
+#html.patterns[0].begin  groups 1
+  group 1: waived: the group matches only the empty start of a line, so it never holds text
+#html.patterns[0].end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#link-email.match  groups 4
+  group 4: waived: the grammar names the group, but the expression has three groups
+#list_paragraph.begin  (^|\G)(?=\S)(?![*->]\s|[0-9]+\.\s)
+  waived: `#paragraph`, which `#block` includes before it in both list rules, begins at every
+    position this does
+#list_paragraph.while  (^|\G)(?!\s*$|#| {0,3}([-*>_] {2,}){3,}[\t ]*$\n?| {0,3}[*-…
+  waived: its begin never matches
 ```
 
 ### `markdown-vue`
@@ -895,501 +2020,1093 @@ patterns[17].match  \b(function)\b(?![,:])  waived: `patterns[0]`, the function 
 ### `matlab`
 
 ```text
-#blocks.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#blocks.patterns[1].patterns[0].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
-#blocks.patterns[1].patterns[1].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
-#blocks.patterns[4].patterns[0].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
-#blocks.patterns[4].patterns[1].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
-#blocks.patterns[5].patterns[0].end  ^  waived: the rule has a `match`, so vscode-textmate never reads its `end`
-#comment_block.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#comments.patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#comments.patterns[2].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
+#blocks.patterns[1].end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#blocks.patterns[1].patterns[0].end  ^
+  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[1].patterns[1].end  ^
+  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[4].patterns[0].end  ^
+  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[4].patterns[1].end  ^
+  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#blocks.patterns[5].patterns[0].end  ^
+  waived: the rule has a `match`, so vscode-textmate never reads its `end`
+#comment_block.begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#comments.patterns[0].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#comments.patterns[2].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 ```
 
 ### `mermaid`
 
 ```text
-#mermaid.patterns[1].patterns[9].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
-#mermaid.patterns[1].patterns[15].match  (?i)^\s*(Component(?:|Db|Queue|_Ext|Db_Ext|Queue_Ext))\b(\(…  waived: it is the same expression as `patterns[14]`, the pattern before it, which matches first
-#mermaid.patterns[2].patterns[11].match  (?i)^\s*((?:|Enterprise_|System_|Container_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
-#mermaid.patterns[3].patterns[9].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
-#mermaid.patterns[4].patterns[11].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b  waived: the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does
-#mermaid.patterns[9].patterns[5].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#mermaid.patterns[9].patterns[5].patterns[0].patterns[0].patterns[0].match  groups 1 (waived: the rule's begin `([^"]*)` takes the text up to the quote, where its end `(?=")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty)
-#mermaid.patterns[9].patterns[6].patterns[0].patterns[0].patterns[0].match  groups 1 (waived: the rule's begin `([^"]*)` takes the text up to the quote, where its end `(?=")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty)
+#mermaid.patterns[1].patterns[9].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b
+  waived: the boundary's long form, the pattern before it, makes every part after the word optional,
+    so it matches wherever this one does
+#mermaid.patterns[1].patterns[15].match
+  (?i)^\s*(Component(?:|Db|Queue|_Ext|Db_Ext|Queue_Ext))\b(\(…
+  waived: it is the same expression as `patterns[14]`, the pattern before it, which matches first
+#mermaid.patterns[2].patterns[11].match  (?i)^\s*((?:|Enterprise_|System_|Container_)Boundary)\b
+  waived: the boundary's long form, the pattern before it, makes every part after the word optional,
+    so it matches wherever this one does
+#mermaid.patterns[3].patterns[9].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b
+  waived: the boundary's long form, the pattern before it, makes every part after the word optional,
+    so it matches wherever this one does
+#mermaid.patterns[4].patterns[11].match  (?i)^\s*((?:|Enterprise_|System_)Boundary)\b
+  waived: the boundary's long form, the pattern before it, makes every part after the word optional,
+    so it matches wherever this one does
+#mermaid.patterns[9].patterns[5].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#mermaid.patterns[9].patterns[5].patterns[0].patterns[0].patterns[0].match  groups 1
+  group 1: waived: the rule's begin `([^"]*)` takes the text up to the quote, where its end `(?=")`
+    holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only
+    matches empty
+#mermaid.patterns[9].patterns[6].patterns[0].patterns[0].patterns[0].match  groups 1
+  group 1: waived: the rule's begin `([^"]*)` takes the text up to the quote, where its end `(?=")`
+    holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only
+    matches empty
 ```
 
 ### `nix`
 
 ```text
-#attrset-or-function.patterns[3].patterns[3].patterns[1].begin  ,  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and an end is tried before the patterns
-#attrset-or-function.patterns[3].patterns[3].patterns[1].end  (?=([]),;}]|\b(else|then)\b))  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and an end is tried before the patterns
-#if.patterns[2].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+#attrset-or-function.patterns[3].patterns[3].patterns[1].begin  ,
+  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and
+    an end is tried before the patterns
+#attrset-or-function.patterns[3].patterns[3].patterns[1].end  (?=([]),;}]|\b(else|then)\b))
+  waived: the enclosing rule's end, `(?=([]),;}]|\b(else|then)\b))`, matches before every `,`, and
+    an end is tried before the patterns
+#if.patterns[2].end  groups 0
+  group 0: waived: the group is a lookahead, so it never holds text
 ```
 
 ### `objective-c`
 
 ```text
-#anonymous_pattern_1.begin  groups 8 (waived: the group matches only blanks, and the oracle compares no blank), 9 (waived: the grammar names the group, but the expression has eight groups)
-#anonymous_pattern_1.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 6 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 7 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 8 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 9 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
-#anonymous_pattern_14.patterns[0].match  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#anonymous_pattern_18.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#anonymous_pattern_19.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#anonymous_pattern_2.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 5 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
-#bracketed_content.patterns[0].begin  groups 2 (waived: the grammar names the group, but the expression has one group)
-#c_functions.patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#c_functions.patterns[1].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 3 (waived: the group sits inside a negative lookahead, so it never holds text)
-#c_lang.patterns[25].match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
-#c_lang.patterns[26].match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
-#c_lang.patterns[27].match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
-#c_lang.patterns[36].match  \[\s*]  waived: the root tries `#bracketed_content`, whose begin is `\[`, before `#c_lang`, so it takes every `[` first
-#c_lang.repository.#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#c_lang.repository.#preprocessor-rule-enabled.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#c_lang.repository.#switch_statement.patterns[2].begin  (?<=})[\n\s]*  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
-#c_lang.repository.#switch_statement.patterns[2].end  [\n\s]*(?=;)  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
-#comment.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#preprocessor-rule-disabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-disabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor-rule-disabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-disabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor-rule-enabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-enabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor-rule-enabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-enabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#anonymous_pattern_1.begin  groups 8, 9
+  group 8: waived: the group matches only blanks, and the oracle compares no blank
+  group 9: waived: the grammar names the group, but the expression has eight groups
+#anonymous_pattern_1.end  groups 4, 6, 7, 8, 9
+  group 4: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 6: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 7: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 8: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 9: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+#anonymous_pattern_14.patterns[0].match  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#anonymous_pattern_18.match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#anonymous_pattern_19.match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#anonymous_pattern_2.end  groups 4, 5
+  group 4: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 5: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+#bracketed_content.patterns[0].begin  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#c_functions.patterns[0].match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#c_functions.patterns[1].match  groups 1, 3
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+  group 3: waived: the group sits inside a negative lookahead, so it never holds text
+#c_lang.patterns[25].match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…
+  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[26].match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…
+  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[27].match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…
+  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[36].match  \[\s*]
+  waived: the root tries `#bracketed_content`, whose begin is `\[`, before `#c_lang`, so it takes
+    every `[` first
+#c_lang.repository.#comments.patterns[3].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#c_lang.repository.#preprocessor-rule-enabled.patterns[0].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#c_lang.repository.#switch_statement.patterns[2].begin  (?<=})[\n\s]*
+  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its
+    patterns
+#c_lang.repository.#switch_statement.patterns[2].end  [\n\s]*(?=;)
+  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its
+    patterns
+#comment.patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#preprocessor-rule-disabled-implementation.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-disabled-implementation.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#preprocessor-rule-disabled-interface.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-disabled-interface.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#preprocessor-rule-enabled-implementation.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-enabled-implementation.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#preprocessor-rule-enabled-interface.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-enabled-interface.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
 ```
 
 ### `objective-cpp`
 
 ```text
-#anonymous_pattern_1.begin  groups 8 (waived: the group matches only blanks, and the oracle compares no blank), 9 (waived: the grammar names the group, but the expression has eight groups)
-#anonymous_pattern_1.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 6 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 7 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 8 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 9 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
-#anonymous_pattern_14.patterns[0].match  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#anonymous_pattern_18.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#anonymous_pattern_19.match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#anonymous_pattern_2.end  groups 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups), 5 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups)
-#apple_foundation_functional_macros.begin  \b(API_AVAILABLE|API_DEPRECATED|API_UNAVAILABLE|NS_AVAILABL…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
-#apple_foundation_functional_macros.end  \)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
-#bracketed_content.begin  \[  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.end  ]  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].begin  (?=predicateWithFormat:)(?<=NSPredicate )(predicateWithForm…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].end  (?=])  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[0].match  \bargument(Array|s)(:)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[1].match  \b\w+(:)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].begin  @"  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].end  "  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[0].match  \b(AND|OR|NOT|IN)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[1].match  \b(ALL|ANY|SOME|NONE)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[2].match  \b(NULL|NIL|SELF|TRUE|YES|FALSE|NO|FIRST|LAST|SIZE)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[3].match  \b(MATCHES|CONTAINS|BEGINSWITH|ENDSWITH|BETWEEN)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[4].match  \bC(ASEINSENSITIVE|I)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[5].match  \b(ANYKEY|SUBQUERY|CAST|TRUEPREDICATE|FALSEPREDICATE)\b  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[6].match  \\(["'?\\abefnrtv]|[0-3]\d{0,2}|[4-7]\d?|x[0-9A-Za-z]+)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[0].patterns[2].patterns[7].match  \\.  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[1].begin  (?=\w)(?<=[]")\w] )(\w+(?:(:)|(?=])))  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[1].end  (?=])  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#bracketed_content.patterns[1].patterns[0].match  \b\w+(:)  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`
-#c_functions.patterns[0].match  (\s*)\b(hypot([fl])?|s(scanf|ystem|nprintf|ca(nf|lb(n([fl])…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
-#c_functions.patterns[1].match  (?:(?=\s)(?:(?<=else|new|return)|(?<!\w))(\s+))?\b((?!(whil…  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
-#c_lang.patterns[25].match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
-#c_lang.patterns[26].match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
-#c_lang.patterns[27].match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
-#c_lang.repository.#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#c_lang.repository.#preprocessor-rule-enabled.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#c_lang.repository.#switch_statement.patterns[2].begin  (?<=})[\n\s]*  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
-#c_lang.repository.#switch_statement.patterns[2].end  [\n\s]*(?=;)  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns
-#comment.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#cpp_lang.patterns[17].begin  (?:^|(?<!else|new|=))((?:[A-Z_a-z][0-9A-Z_a-z]*::)*+~[A-Z_a…  waived: it repeats `patterns[16]`, which comes earlier in the same list
-#cpp_lang.patterns[17].end  \)  waived: it repeats `patterns[16]`, which comes earlier in the same list
-#cpp_lang.repository.#constructor.patterns[0].begin  ^\s*((?!while|for|do|if|else|switch|catch|enumerate|r?itera…  waived: vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and `function-innards`, which no repository in its reach defines
-#cpp_lang.repository.#constructor.patterns[0].end  \)  waived: vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and `function-innards`, which no repository in its reach defines
-#cpp_lang.repository.#special_block.patterns[2].patterns[1].end  groups 2 (waived: the group matches only blanks and the line feed that ends the line, and the oracle compares no blank)
-#preprocessor-rule-disabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-disabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor-rule-disabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-disabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor-rule-enabled-implementation.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-enabled-implementation.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#preprocessor-rule-enabled-interface.end  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#preprocessor-rule-enabled-interface.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
+#anonymous_pattern_1.begin  groups 8, 9
+  group 8: waived: the group matches only blanks, and the oracle compares no blank
+  group 9: waived: the grammar names the group, but the expression has eight groups
+#anonymous_pattern_1.end  groups 4, 6, 7, 8, 9
+  group 4: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 6: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 7: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 8: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 9: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+#anonymous_pattern_14.patterns[0].match  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#anonymous_pattern_18.match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#anonymous_pattern_19.match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#anonymous_pattern_2.end  groups 4, 5
+  group 4: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+  group 5: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has two groups
+#apple_foundation_functional_macros.begin
+  \b(API_AVAILABLE|API_DEPRECATED|API_UNAVAILABLE|NS_AVAILABL…
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule
+    `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#apple_foundation_functional_macros.end  \)
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule
+    `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#bracketed_content.begin  \[
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.end  ]
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].begin  (?=predicateWithFormat:)(?<=NSPredicate )(predicateWithForm…
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].end  (?=])
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[0].match  \bargument(Array|s)(:)
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[1].match  \b\w+(:)
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].begin  @"
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].end  "
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[0].match  \b(AND|OR|NOT|IN)\b
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[1].match  \b(ALL|ANY|SOME|NONE)\b
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[2].match
+  \b(NULL|NIL|SELF|TRUE|YES|FALSE|NO|FIRST|LAST|SIZE)\b
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[3].match
+  \b(MATCHES|CONTAINS|BEGINSWITH|ENDSWITH|BETWEEN)\b
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[4].match  \bC(ASEINSENSITIVE|I)\b
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[5].match
+  \b(ANYKEY|SUBQUERY|CAST|TRUEPREDICATE|FALSEPREDICATE)\b
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[6].match
+  \\(["'?\\abefnrtv]|[0-3]\d{0,2}|[4-7]\d?|x[0-9A-Za-z]+)
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[0].patterns[2].patterns[7].match  \\.
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[1].begin  (?=\w)(?<=[]")\w] )(\w+(?:(:)|(?=])))
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[1].end  (?=])
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#bracketed_content.patterns[1].patterns[0].match  \b\w+(:)
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and
+    `patterns[36]` take every `[` before `#bracketed_content`
+#c_functions.patterns[0].match  (\s*)\b(hypot([fl])?|s(scanf|ystem|nprintf|ca(nf|lb(n([fl])…
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule
+    `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#c_functions.patterns[1].match  (?:(?=\s)(?:(?<=else|new|return)|(?<!\w))(\s+))?\b((?!(whil…
+  waived: the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule
+    `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`
+#c_lang.patterns[25].match  \b(u_char|u_short|u_int|u_long|ushort|uint|u_quad_t|quad_t|…
+  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[26].match  \b(pthread_(?:attr_|cond_|condattr_|mutex_|mutexattr_|once_…
+  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.patterns[27].match  \b((?:int8|int16|int32|int64|uint8|uint16|uint32|uint64|int…
+  waived: `#storage_types`, earlier in the same list, takes every word of this alternation first
+#c_lang.repository.#comments.patterns[3].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#c_lang.repository.#preprocessor-rule-enabled.patterns[0].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#c_lang.repository.#switch_statement.patterns[2].begin  (?<=})[\n\s]*
+  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its
+    patterns
+#c_lang.repository.#switch_statement.patterns[2].end  [\n\s]*(?=;)
+  waived: the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its
+    patterns
+#comment.patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#cpp_lang.patterns[17].begin  (?:^|(?<!else|new|=))((?:[A-Z_a-z][0-9A-Z_a-z]*::)*+~[A-Z_a…
+  waived: it repeats `patterns[16]`, which comes earlier in the same list
+#cpp_lang.patterns[17].end  \)
+  waived: it repeats `patterns[16]`, which comes earlier in the same list
+#cpp_lang.repository.#constructor.patterns[0].begin
+  ^\s*((?!while|for|do|if|else|switch|catch|enumerate|r?itera…
+  waived: vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and
+    `function-innards`, which no repository in its reach defines
+#cpp_lang.repository.#constructor.patterns[0].end  \)
+  waived: vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and
+    `function-innards`, which no repository in its reach defines
+#cpp_lang.repository.#special_block.patterns[2].patterns[1].end  groups 2
+  group 2: waived: the group matches only blanks and the line feed that ends the line, and the
+    oracle compares no blank
+#preprocessor-rule-disabled-implementation.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-disabled-implementation.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#preprocessor-rule-disabled-interface.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-disabled-interface.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#preprocessor-rule-enabled-implementation.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-enabled-implementation.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#preprocessor-rule-enabled-interface.end  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#preprocessor-rule-enabled-interface.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
 ```
 
 ### `pascal`
 
 ```text
-patterns[12].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[15].patterns[0].match  ''  waived: the string's end `'` is tried before its patterns at every quote, so `''` ends the string and the next quote starts another
+patterns[12].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+patterns[15].patterns[0].match  ''
+  waived: the string's end `'` is tried before its patterns at every quote, so `''` ends the string
+    and the next quote starts another
 ```
 
 ### `perl`
 
 ```text
-patterns[3].patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[3].patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[3].patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[3].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[3].patterns[4].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[3].patterns[5].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[4].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[5].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[5].patterns[3].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[4].patterns[5].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[5].patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[5].patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[5].patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[5].patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[6].patterns[0].end  groups 0 (waived: the end is a lookahead, which holds no text), 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[7].patterns[0].end  groups 0 (waived: the end is a lookahead, which holds no text), 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[12].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-patterns[13].match  groups 2 (waived: the grammar names the group, but the expression has one group), 3 (waived: the grammar names the group, but the expression has one group)
-patterns[14].patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 2 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[17].end  \z  fuzz  waived: vscode-textmate rewrites `\z` so that it never matches a line, so the data section runs to the document's end
-patterns[43].end  groups 0 (waived: the end is `$`, which holds no text)
-#heredoc.patterns[5].begin  ((((<<(~)?) *')(POSTSCRIPT)(')))(.*)\n?  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
-#heredoc.patterns[5].end  ^((?!\5)\s+)?((\6))$  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
-#heredoc.patterns[5].patterns[0].begin  ^  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
-#heredoc.patterns[5].patterns[0].end  \n  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label
-#heredoc.patterns[7].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[15].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[16].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[17].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[18].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[19].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[20].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[21].begin  groups 7 (waived: the group is `()`, the closing quote of a label that has none, so it never holds text)
-#heredoc.patterns[22].begin  ((((<<(~)?) *`)([^`]*)(`)))(.*)\n?  waived: the bare heredoc before it matches first at `<<`, with an empty label, since a bare label stops at the backtick
-#heredoc.patterns[22].end  ^((?!\5)\s+)?((\6))$  waived: the bare heredoc before it matches first at `<<`, with an empty label, since a bare label stops at the backtick
-#line_comment.patterns[0].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_braces.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_braces.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_braces_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_braces_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_brackets.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_brackets.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_brackets_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_brackets_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_ltgt.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_ltgt.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_ltgt_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_ltgt_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_parens.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_parens.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_parens_interpolated.begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#nested_parens_interpolated.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
+patterns[3].patterns[0].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[3].patterns[1].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[3].patterns[2].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[3].patterns[3].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[3].patterns[4].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[3].patterns[5].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[0].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[1].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[2].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[3].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[4].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[5].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[5].patterns[3].begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[4].patterns[5].patterns[3].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[5].patterns[0].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[5].patterns[1].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[5].patterns[2].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[5].patterns[3].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[6].patterns[0].end  groups 0, 1
+  group 0: waived: the end is a lookahead, which holds no text
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[7].patterns[0].end  groups 0, 1
+  group 0: waived: the end is a lookahead, which holds no text
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[12].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+patterns[13].match  groups 2, 3
+  group 2: waived: the grammar names the group, but the expression has one group
+  group 3: waived: the grammar names the group, but the expression has one group
+patterns[14].patterns[0].match  groups 1, 2
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+patterns[17].end  \z  fuzz
+  waived: vscode-textmate rewrites `\z` so that it never matches a line, so the data section runs to
+    the document's end
+patterns[43].end  groups 0
+  group 0: waived: the end is `$`, which holds no text
+#heredoc.patterns[5].begin  ((((<<(~)?) *')(POSTSCRIPT)(')))(.*)\n?
+  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so
+    vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[5].end  ^((?!\5)\s+)?((\6))$
+  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so
+    vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[5].patterns[0].begin  ^
+  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so
+    vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[5].patterns[0].end  \n
+  waived: the rule's only pattern includes `source.postscript`, which Shiki lacks, so
+    vscode-textmate drops it, and the quoted heredoc after it takes the label
+#heredoc.patterns[7].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[15].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[16].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[17].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[18].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[19].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[20].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[21].begin  groups 7
+  group 7: waived: the group is `()`, the closing quote of a label that has none, so it never holds
+    text
+#heredoc.patterns[22].begin  ((((<<(~)?) *`)([^`]*)(`)))(.*)\n?
+  waived: the bare heredoc before it matches first at `<<`, with an empty label, since a bare label
+    stops at the backtick
+#heredoc.patterns[22].end  ^((?!\5)\s+)?((\6))$
+  waived: the bare heredoc before it matches first at `<<`, with an empty label, since a bare label
+    stops at the backtick
+#line_comment.patterns[0].begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_braces.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_braces.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_braces_interpolated.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_braces_interpolated.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_brackets.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_brackets.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_brackets_interpolated.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_brackets_interpolated.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_ltgt.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_ltgt.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_ltgt_interpolated.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_ltgt_interpolated.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_parens.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_parens.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_parens_interpolated.begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#nested_parens_interpolated.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
 ```
 
 ### `php`
 
 ```text
-#comments.patterns[2].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#comments.patterns[3].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[0].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[1].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[2].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[3].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[4].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[5].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[6].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[6].patterns[5].end  groups 0 (waived: the end is `$`, which holds no text)
-#heredoc_interior.patterns[7].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#heredoc_interior.patterns[8].begin  groups 5 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[0].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[1].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[2].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[3].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[4].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[5].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[6].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[6].patterns[4].end  groups 0 (waived: the end is `$`, which holds no text)
-#nowdoc_interior.patterns[7].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
-#nowdoc_interior.patterns[8].begin  groups 3 (waived: the group matches only blanks, and the oracle compares no blank)
+#comments.patterns[2].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#comments.patterns[3].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[0].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[1].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[2].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[3].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[4].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[5].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[6].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[6].patterns[5].end  groups 0
+  group 0: waived: the end is `$`, which holds no text
+#heredoc_interior.patterns[7].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#heredoc_interior.patterns[8].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[0].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[1].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[2].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[3].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[4].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[5].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[6].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[6].patterns[4].end  groups 0
+  group 0: waived: the end is `$`, which holds no text
+#nowdoc_interior.patterns[7].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
+#nowdoc_interior.patterns[8].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 ```
 
 ### `postcss`
 
 ```text
-patterns[12].end  groups 0 (waived: the group is a lookahead, so it never holds text)
-patterns[13].end  groups 0 (waived: the end matches only the line feed or a lookahead, and the oracle compares no blank)
+patterns[12].end  groups 0
+  group 0: waived: the group is a lookahead, so it never holds text
+patterns[13].end  groups 0
+  group 0: waived: the end matches only the line feed or a lookahead, and the oracle compares no
+    blank
 ```
 
 ### `powershell`
 
 ```text
-#commentLine.end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#variableNoProperty.patterns[1].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#variableNoProperty.patterns[2].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#variableNoProperty.patterns[3].match  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#variableNoProperty.patterns[4].match  groups 4 (waived: the grammar names the group, but the expression has three groups)
-#variableNoProperty.patterns[6].match  groups 4 (waived: the grammar names the group, but the expression has three groups)
+#commentLine.end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#variableNoProperty.patterns[1].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#variableNoProperty.patterns[2].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#variableNoProperty.patterns[3].match  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#variableNoProperty.patterns[4].match  groups 4
+  group 4: waived: the grammar names the group, but the expression has three groups
+#variableNoProperty.patterns[6].match  groups 4
+  group 4: waived: the grammar names the group, but the expression has three groups
 ```
 
 ### `python`
 
 ```text
-#docstring.patterns[2].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#docstring.patterns[3].end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#double-one-regexp-character-set.patterns[1].end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-comments.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-conditional.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-lookahead.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-lookahead-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-lookbehind.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-lookbehind-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-named-group.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-parentheses.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-one-regexp-parentheses-non-capturing.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#double-three-regexp-character-set.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-comments.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-conditional.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-lookahead.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-lookahead-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-lookbehind.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-lookbehind-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-named-group.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-parentheses.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#double-three-regexp-parentheses-non-capturing.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#fstring-fnorm-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#fstring-fnorm-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#fstring-formatting-braces.patterns[0].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
-#fstring-normf-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#fstring-normf-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#fstring-raw-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#fstring-raw-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#impossible.match  $.^  waived: `$.^` needs a character between the end of a line and the start of one, and `.` takes no line feed
-#regexp-double-one-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#regexp-double-three-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#regexp-single-one-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#regexp-single-three-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-one-regexp-character-set.patterns[1].end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-comments.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-conditional.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-lookahead.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-lookahead-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-lookbehind.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-lookbehind-negative.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-named-group.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-parentheses.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-one-regexp-parentheses-non-capturing.end  groups 2 (waived: the group is a lookahead, so it never holds text)
-#single-three-regexp-character-set.patterns[1].end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-comments.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-conditional.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-lookahead.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-lookahead-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-lookbehind.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-lookbehind-negative.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-named-group.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-parentheses.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#single-three-regexp-parentheses-non-capturing.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#string-bin-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#string-bin-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#string-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#string-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#string-raw-bin-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#string-raw-bin-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#string-raw-quoted-multi-line.end  groups 2 (waived: the grammar names the group, but the expression has one group)
-#string-raw-quoted-single-line.end  groups 2 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+#docstring.patterns[2].end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#docstring.patterns[3].end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#double-one-regexp-character-set.patterns[1].end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-comments.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-conditional.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-lookahead.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-lookahead-negative.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-lookbehind.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-lookbehind-negative.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-named-group.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-parentheses.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-one-regexp-parentheses-non-capturing.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#double-three-regexp-character-set.patterns[1].end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-comments.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-conditional.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-lookahead.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-lookahead-negative.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-lookbehind.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-lookbehind-negative.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-named-group.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-parentheses.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#double-three-regexp-parentheses-non-capturing.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#fstring-fnorm-quoted-multi-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#fstring-fnorm-quoted-single-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#fstring-formatting-braces.patterns[0].match  groups 2
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+#fstring-normf-quoted-multi-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#fstring-normf-quoted-single-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#fstring-raw-quoted-multi-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#fstring-raw-quoted-single-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#impossible.match  $.^
+  waived: `$.^` needs a character between the end of a line and the start of one, and `.` takes no
+    line feed
+#regexp-double-one-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#regexp-double-three-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#regexp-single-one-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#regexp-single-three-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-one-regexp-character-set.patterns[1].end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-comments.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-conditional.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-lookahead.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-lookahead-negative.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-lookbehind.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-lookbehind-negative.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-named-group.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-parentheses.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-one-regexp-parentheses-non-capturing.end  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
+#single-three-regexp-character-set.patterns[1].end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-comments.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-conditional.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-lookahead.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-lookahead-negative.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-lookbehind.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-lookbehind-negative.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-named-group.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-parentheses.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#single-three-regexp-parentheses-non-capturing.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#string-bin-quoted-multi-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#string-bin-quoted-single-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#string-quoted-multi-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#string-quoted-single-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#string-raw-bin-quoted-multi-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#string-raw-bin-quoted-single-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#string-raw-quoted-multi-line.end  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#string-raw-quoted-single-line.end  groups 2
+  group 2: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
 ```
 
 ### `r`
 
 ```text
-#basic-roxygen-example.patterns[0].match  ^\s*#+'  waived: `#roxygen-example.patterns[0]`, the same expression, comes before it in the one list that holds it
+#basic-roxygen-example.patterns[0].match  ^\s*#+'
+  waived: `#roxygen-example.patterns[0]`, the same expression, comes before it in the one list that
+    holds it
 ```
 
 ### `ruby`
 
 ```text
-patterns[21].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-patterns[86].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[88].begin  ^__END__\n  waived: `patterns[29]` (`\b[A-Z_]\w*\b`), earlier in the same list, takes `__END__` as a constant at the same place
-patterns[88].end  (?=not)impossible  waived: its begin never matches
-patterns[88].patterns[0].begin  (?=<?xml|<(?i:html\b)|!DOCTYPE (?i:html\b))  waived: the rule that holds it never opens
-patterns[88].patterns[0].end  (?=not)impossible  waived: the rule that holds it never opens
-#nest_brackets_r.begin  \[  waived: `#regex_sub`, before it in every list that holds it, opens a character class at every `[`
-#nest_brackets_r.end  ]  waived: its begin never matches
-#nest_parens_r.begin  \(  waived: `#regex_sub`, before it in every list that holds it, opens a group at every `(`
-#nest_parens_r.end  \)  waived: its begin never matches
-#regex_sub.patterns[6].end  groups 0 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
+patterns[21].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+patterns[86].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+patterns[88].begin  ^__END__\n
+  waived: `patterns[29]` (`\b[A-Z_]\w*\b`), earlier in the same list, takes `__END__` as a constant
+    at the same place
+patterns[88].end  (?=not)impossible
+  waived: its begin never matches
+patterns[88].patterns[0].begin  (?=<?xml|<(?i:html\b)|!DOCTYPE (?i:html\b))
+  waived: the rule that holds it never opens
+patterns[88].patterns[0].end  (?=not)impossible
+  waived: the rule that holds it never opens
+#nest_brackets_r.begin  \[
+  waived: `#regex_sub`, before it in every list that holds it, opens a character class at every `[`
+#nest_brackets_r.end  ]
+  waived: its begin never matches
+#nest_parens_r.begin  \(
+  waived: `#regex_sub`, before it in every list that holds it, opens a group at every `(`
+#nest_parens_r.end  \)
+  waived: its begin never matches
+#regex_sub.patterns[6].end  groups 0
+  group 0: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
 ```
 
 ### `rust`
 
 ```text
-#functions.patterns[1].match  \b(pub)(\()  waived: `\b(pub)\b`, the pattern before it, matches wherever `\b(pub)(\()` does
+#functions.patterns[1].match  \b(pub)(\()
+  waived: `\b(pub)\b`, the pattern before it, matches wherever `\b(pub)(\()` does
 ```
 
 ### `sass`
 
 ```text
-patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
-patterns[9].end  groups 0 (waived: the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank)
-patterns[17].end  groups 0 (waived: the group is a lookahead, so it never holds text)
-patterns[18].end  groups 0 (waived: the group is a lookahead, so it never holds text)
-patterns[19].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-patterns[20].end  groups 0 (waived: the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank)
+patterns[2].end  groups 1, 2, 3
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+  group 3: waived: the grammar names the group, but the expression has no groups
+patterns[9].end  groups 0
+  group 0: waived: the end matches only the line feed, or nothing before a lookahead, and the oracle
+    compares no blank
+patterns[17].end  groups 0
+  group 0: waived: the group is a lookahead, so it never holds text
+patterns[18].end  groups 0
+  group 0: waived: the group is a lookahead, so it never holds text
+patterns[19].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+patterns[20].end  groups 0
+  group 0: waived: the end matches only the line feed, or nothing before a lookahead, and the oracle
+    compares no blank
 ```
 
 ### `scala`
 
 ```text
-#comments.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#exports.patterns[5].patterns[2].match  groups 1 (waived: `\b(given)\b`, before it in the same list, matches at every `given` that would start the group)
-#imports.patterns[6].patterns[2].match  groups 1 (waived: `\b(given)\b`, before it in the same list, matches at every `given` that would start the group)
-#meta-bounds.match  <%|=:=|<:<|<%<|>:|<:  waived: `#keywords`, before it in `#code`, takes every run of two or more operator characters, and each bound is such a run
-#meta-brackets.patterns[0].match  \{  waived: `#curly-braces`, before it in `#code`, opens at every `{`
-#xml-literal.patterns[1].end  groups 2 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group), 4 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group), 5 (waived: the rule's `captures` name the begin's groups for its end too, and the end's expression has one group)
+#comments.patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#exports.patterns[5].patterns[2].match  groups 1
+  group 1: waived: `\b(given)\b`, before it in the same list, matches at every `given` that would
+    start the group
+#imports.patterns[6].patterns[2].match  groups 1
+  group 1: waived: `\b(given)\b`, before it in the same list, matches at every `given` that would
+    start the group
+#meta-bounds.match  <%|=:=|<:<|<%<|>:|<:
+  waived: `#keywords`, before it in `#code`, takes every run of two or more operator characters, and
+    each bound is such a run
+#meta-brackets.patterns[0].match  \{
+  waived: `#curly-braces`, before it in `#code`, opens at every `{`
+#xml-literal.patterns[1].end  groups 2, 3, 4, 5
+  group 2: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has one group
+  group 3: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has one group
+  group 4: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has one group
+  group 5: waived: the rule's `captures` name the begin's groups for its end too, and the end's
+    expression has one group
 ```
 
 ### `scss`
 
 ```text
-#at_rule_charset.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
-#at_rule_content.end  groups 1 (waived: the group is a lookahead, so it never holds text)
-#at_rule_each.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
-#at_rule_else.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_extend.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_for.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_forward.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_function.patterns[0].begin  groups 3 (waived: the grammar names the group, but the expression has two groups)
-#at_rule_function.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_function.patterns[1].match  \s*((@)function)\b\s*  waived: `#at_rule_function.patterns[0]`, before it, begins with the same expression
-#at_rule_if.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_import.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
-#at_rule_namespace.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_page.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_return.end  groups 1 (waived: the group is a lookahead, so it never holds text), 2 (waived: the grammar names the group, but the expression has one group)
-#at_rule_supports.end  groups 0 (waived: the expression is a lookahead or the end of the line, so the match holds no text), 1 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_use.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_warn.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#at_rule_while.end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#comment_docblock.begin  ///  waived: the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule
-#comment_docblock.end  (?=$)  waived: the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule
-#constant_sass_functions.begin  (headings|stylesheet-url|rgba?|hsla?|ie-hex-str|red|green|b…  waived: `#constant_functions`, before it in `#property_values`, the only rule that includes it, matches every `name(` this does
-#constant_sass_functions.end  (\))  waived: its begin never matches
-#parent_selector_suffix.match  groups 2 (waived: the grammar names the group, but the expression has one group)
-#parent_selector_suffix.captures[2].patterns[1].match  \\(\h{1,6}|.)  waived: it applies to group 2, which the expression does not have
-#parent_selector_suffix.captures[2].patterns[2].match  [$}]  waived: it applies to group 2, which the expression does not have
+#at_rule_charset.end  groups 1, 2
+  group 1: waived: the group is a lookahead, so it never holds text
+  group 2: waived: the grammar names the group, but the expression has one group
+#at_rule_content.end  groups 1
+  group 1: waived: the group is a lookahead, so it never holds text
+#at_rule_each.end  groups 1, 2
+  group 1: waived: the group is a lookahead, so it never holds text
+  group 2: waived: the grammar names the group, but the expression has one group
+#at_rule_else.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#at_rule_extend.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#at_rule_for.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#at_rule_forward.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#at_rule_function.patterns[0].begin  groups 3
+  group 3: waived: the grammar names the group, but the expression has two groups
+#at_rule_function.patterns[0].end  groups 1, 2, 3
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+  group 3: waived: the grammar names the group, but the expression has no groups
+#at_rule_function.patterns[1].match  \s*((@)function)\b\s*
+  waived: `#at_rule_function.patterns[0]`, before it, begins with the same expression
+#at_rule_if.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#at_rule_import.end  groups 1, 2
+  group 1: waived: the group is a lookahead, so it never holds text
+  group 2: waived: the grammar names the group, but the expression has one group
+#at_rule_namespace.patterns[1].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#at_rule_page.patterns[0].end  groups 1, 2, 3
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+  group 3: waived: the grammar names the group, but the expression has no groups
+#at_rule_return.end  groups 1, 2
+  group 1: waived: the group is a lookahead, so it never holds text
+  group 2: waived: the grammar names the group, but the expression has one group
+#at_rule_supports.end  groups 0, 1
+  group 0: waived: the expression is a lookahead or the end of the line, so the match holds no text
+  group 1: waived: the grammar names the group, but the expression has no groups
+#at_rule_use.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#at_rule_warn.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#at_rule_while.end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#comment_docblock.begin  ///
+  waived: the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so
+    vscode-textmate drops the rule
+#comment_docblock.end  (?=$)
+  waived: the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so
+    vscode-textmate drops the rule
+#constant_sass_functions.begin  (headings|stylesheet-url|rgba?|hsla?|ie-hex-str|red|green|b…
+  waived: `#constant_functions`, before it in `#property_values`, the only rule that includes it,
+    matches every `name(` this does
+#constant_sass_functions.end  (\))
+  waived: its begin never matches
+#parent_selector_suffix.match  groups 2
+  group 2: waived: the grammar names the group, but the expression has one group
+#parent_selector_suffix.captures[2].patterns[1].match  \\(\h{1,6}|.)
+  waived: it applies to group 2, which the expression does not have
+#parent_selector_suffix.captures[2].patterns[2].match  [$}]
+  waived: it applies to group 2, which the expression does not have
 ```
 
 ### `shellscript`
 
 ```text
-#alias_statement.begin  groups 7 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
-#array_value.begin  groups 4 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
-#interpolation.patterns[2].patterns[1].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#loop.patterns[0].begin  (?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)  waived: `#for_statement`, before `#loop` in `#initial_context`, matches `\bfor\b` wherever this does
-#loop.patterns[0].end  (?<=^|[\&;\s])done(?=[\&;\s]|$|\))  waived: its begin never matches, since `#for_statement`, before `#loop` in `#initial_context`, takes every `for`
-#modified_assignment_statement.patterns[2].match  groups 4 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
-#normal_assignment_statement.begin  groups 4 (waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches every text this group's `-?\d+` can)
-#normal_statement_seperator.match  groups 3 (waived: `#pipeline`, before it in every context that includes both, takes the first `|` of every `||` with `[!|]`)
-#option.begin  groups 2 (waived: the group is a lookahead, so it never holds text)
+#alias_statement.begin  groups 7
+  group 7: waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches
+    every text this group's `-?\d+` can
+#array_value.begin  groups 4
+  group 4: waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches
+    every text this group's `-?\d+` can
+#interpolation.patterns[2].patterns[1].begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#loop.patterns[0].begin  (?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)
+  waived: `#for_statement`, before `#loop` in `#initial_context`, matches `\bfor\b` wherever this
+    does
+#loop.patterns[0].end  (?<=^|[\&;\s])done(?=[\&;\s]|$|\))
+  waived: its begin never matches, since `#for_statement`, before `#loop` in `#initial_context`,
+    takes every `for`
+#modified_assignment_statement.patterns[2].match  groups 4
+  group 4: waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches
+    every text this group's `-?\d+` can
+#normal_assignment_statement.begin  groups 4
+  group 4: waived: the alternative before it in the index, `\$?(?<!\w)[-0-9A-Z_a-z]+(?!\w)`, matches
+    every text this group's `-?\d+` can
+#normal_statement_seperator.match  groups 3
+  group 3: waived: `#pipeline`, before it in every context that includes both, takes the first `|`
+    of every `||` with `[!|]`
+#option.begin  groups 2
+  group 2: waived: the group is a lookahead, so it never holds text
 ```
 
 ### `sql`
 
 ```text
-#comments.patterns[0].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#comments.patterns[1].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#regexps.patterns[0].begin  /(?=\S.*/)  waived: `patterns[21]`, `[-+/]`, before `#regexps` in the only list that holds it, matches every `/`
-#regexps.patterns[0].end  /  waived: its begin never matches
-#regexps.patterns[0].patterns[1].match  \\/  waived: its rule's begin never matches
+#comments.patterns[0].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#comments.patterns[1].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#regexps.patterns[0].begin  /(?=\S.*/)
+  waived: `patterns[21]`, `[-+/]`, before `#regexps` in the only list that holds it, matches every
+    `/`
+#regexps.patterns[0].end  /
+  waived: its begin never matches
+#regexps.patterns[0].patterns[1].match  \\/
+  waived: its rule's begin never matches
 ```
 
 ### `svelte`
 
 ```text
-injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].begin  (?<=>)(?!</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
-injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].end  (?=</)  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule
-injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].begin  (?<=>)(?!</)  waived: the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule
-injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].end  (?=</)  waived: the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule
+injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].begin  (?<=>)(?!</)
+  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so
+    vscode-textmate drops the rule
+injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].end  (?=</)
+  waived: the rule's only pattern includes `source.stylus`, which Shiki does not load, so
+    vscode-textmate drops the rule
+injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].begin  (?<=>)(?!</)
+  waived: the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate
+    drops the rule
+injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].end  (?=</)
+  waived: the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate
+    drops the rule
 ```
 
 ### `swift`
 
 ```text
-#comments.patterns[5].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#compiler-control.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#declarations-import.patterns[0].patterns[2].captures[1].patterns[0].match  \.  waived: group 1 is a run of operator heads and combining marks, none of them `.`, so the pattern never finds one in it
-#keywords.patterns[5].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
-#keywords.patterns[10].match  groups 2 (waived: the group matches only blanks, and the oracle compares no blank)
-#literals-regular-expression-literal.patterns[2].match  groups 5 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#literals-regular-expression-literal-quote.end  groups 1 (waived: the group matches only the line feed at the end of the line, and the oracle compares no blank)
-#literals-string-raw-string-guts.patterns[2].patterns[1].begin  \(  waived: `$self`, before it in the same list, holds `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\(` matches every `(`
-#literals-string-raw-string-guts.patterns[2].patterns[1].end  \)  waived: its begin never matches
-#literals-string-string-guts.patterns[2].patterns[1].begin  \(  waived: `$self`, before it in the same list, holds `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\(` matches every `(`
-#literals-string-string-guts.patterns[2].patterns[1].end  \)  waived: its begin never matches
-#operators.patterns[1].patterns[0].captures[0].patterns[0].match  \G(\+\+|--)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[0].captures[0].patterns[1].match  \G([-+])$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[0].captures[0].patterns[2].match  \G!$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[0].captures[0].patterns[3].match  \G~$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[1].captures[0].patterns[0].match  \G(\+\+|--)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[1].captures[0].patterns[1].match  \G!$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[0].match  \G=$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[1].match  \G([-%*+/]|<<|>>|[\&^|]|&&|\|\|)=$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[2].match  \G([-*+/])$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[3].match  \G&([-*+])$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[4].match  \G%$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[5].match  \G(==|!=|[<>]|>=|<=|~=)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[6].match  \G\?\?$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[7].match  \G(&&|\|\|)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[8].match  \G([\&^|]|<<|>>)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[9].match  \G([!=]==)$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[2].captures[0].patterns[10].match  \G\?$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
-#operators.patterns[1].patterns[5].captures[0].patterns[0].match  \G\.\.[.<]$  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there and the operator falls to the `.+` pattern after it
+#comments.patterns[5].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#compiler-control.patterns[1].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#declarations-import.patterns[0].patterns[2].captures[1].patterns[0].match  \.
+  waived: group 1 is a run of operator heads and combining marks, none of them `.`, so the pattern
+    never finds one in it
+#keywords.patterns[5].match  groups 2
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+#keywords.patterns[10].match  groups 2
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+#literals-regular-expression-literal.patterns[2].match  groups 5
+  group 5: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#literals-regular-expression-literal-quote.end  groups 1
+  group 1: waived: the group matches only the line feed at the end of the line, and the oracle
+    compares no blank
+#literals-string-raw-string-guts.patterns[2].patterns[1].begin  \(
+  waived: `$self`, before it in the same list, holds
+    `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose
+    begin `\(` matches every `(`
+#literals-string-raw-string-guts.patterns[2].patterns[1].end  \)
+  waived: its begin never matches
+#literals-string-string-guts.patterns[2].patterns[1].begin  \(
+  waived: `$self`, before it in the same list, holds
+    `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose
+    begin `\(` matches every `(`
+#literals-string-string-guts.patterns[2].patterns[1].end  \)
+  waived: its begin never matches
+#operators.patterns[1].patterns[0].captures[0].patterns[0].match  \G(\+\+|--)$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[0].captures[0].patterns[1].match  \G([-+])$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[0].captures[0].patterns[2].match  \G!$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[0].captures[0].patterns[3].match  \G~$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[1].captures[0].patterns[0].match  \G(\+\+|--)$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[1].captures[0].patterns[1].match  \G!$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[0].match  \G=$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[1].match  \G([-%*+/]|<<|>>|[\&^|]|&&|\|\|)=$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[2].match  \G([-*+/])$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[3].match  \G&([-*+])$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[4].match  \G%$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[5].match  \G(==|!=|[<>]|>=|<=|~=)$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[6].match  \G\?\?$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[7].match  \G(&&|\|\|)$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[8].match  \G([\&^|]|<<|>>)$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[9].match  \G([!=]==)$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[2].captures[0].patterns[10].match  \G\?$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
+#operators.patterns[1].patterns[5].captures[0].patterns[0].match  \G\.\.[.<]$
+  waived: vscode-textmate tokenizes a capture's patterns with no anchor, so `\G` never matches there
+    and the operator falls to the `.+` pattern after it
 ```
 
 ### `tex`
 
 ```text
-#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#comment.patterns[1].begin  ^(%!TEX) (\S*) =  waived: `%:?`, earlier in the same list, matches at the same `%`, so this begin never wins
-#comment.patterns[1].end  $\n?  waived: its rule never opens, so its end is never tried
+#comment.begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#comment.patterns[1].begin  ^(%!TEX) (\S*) =
+  waived: `%:?`, earlier in the same list, matches at the same `%`, so this begin never wins
+#comment.patterns[1].end  $\n?
+  waived: its rule never opens, so its end is never tried
 ```
 
 ### `toml`
 
 ```text
-#comments.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#key_pair.patterns[0].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups)
-#key_pair.patterns[1].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups), 4 (waived: the grammar names the group, but the expression has no groups), 5 (waived: the grammar names the group, but the expression has no groups)
-#key_pair.patterns[2].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 2 (waived: the grammar names the group, but the expression has no groups), 4 (waived: the grammar names the group, but the expression has no groups), 5 (waived: the grammar names the group, but the expression has no groups)
-#key_pair.patterns[3].end  groups 1 (waived: the grammar names the group, but the expression has no groups), 3 (waived: the grammar names the group, but the expression has no groups)
+#comments.begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#key_pair.patterns[0].end  groups 1, 2
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+#key_pair.patterns[1].end  groups 1, 2, 3, 4, 5
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+  group 3: waived: the grammar names the group, but the expression has no groups
+  group 4: waived: the grammar names the group, but the expression has no groups
+  group 5: waived: the grammar names the group, but the expression has no groups
+#key_pair.patterns[2].end  groups 1, 2, 4, 5
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 2: waived: the grammar names the group, but the expression has no groups
+  group 4: waived: the grammar names the group, but the expression has no groups
+  group 5: waived: the grammar names the group, but the expression has no groups
+#key_pair.patterns[3].end  groups 1, 3
+  group 1: waived: the grammar names the group, but the expression has no groups
+  group 3: waived: the grammar names the group, but the expression has no groups
 ```
 
 ### `tsx`
 
 ```text
-#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
-#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
-#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#comment.patterns[2].begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#expression-operators.patterns[6].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
+  waived: `#instanceof-expr` begins with the same expression and comes before
+    `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
+  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in
+    `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#support-objects.patterns[4].match  groups 4
+  group 4: waived: the group sits inside the negative lookahead after the property names, so it
+    never holds text; the constant names are group 53
+#template.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
+#template-type.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
 ```
 
 ### `typescript`
 
 ```text
-#comment.patterns[2].begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#expression-operators.patterns[6].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…  waived: `#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#expression-operators.patterns[7].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
-#single-line-comment-consuming-line-ending.begin  groups 1 (waived: the group matches only the blanks that lead the line, and the oracle compares no blank)
-#support-objects.patterns[4].match  groups 4 (waived: the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53)
-#template.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
-#template-type.patterns[1].begin  groups 1 (waived: `#template-call`, the pattern before it, starts at the same name wherever this group would match one)
+#comment.patterns[2].begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#expression-operators.patterns[6].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))instanceof(?![$_[:…
+  waived: `#instanceof-expr` begins with the same expression and comes before
+    `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it
+#expression-operators.patterns[7].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))new(?![$_[:alnum:]…
+  waived: `#new-expr` begins with the same expression and comes before `#expression-operators` in
+    `#expressionWithoutIdentifiers`, the only rule that includes it
+#single-line-comment-consuming-line-ending.begin  groups 1
+  group 1: waived: the group matches only the blanks that lead the line, and the oracle compares no
+    blank
+#support-objects.patterns[4].match  groups 4
+  group 4: waived: the group sits inside the negative lookahead after the property names, so it
+    never holds text; the constant names are group 53
+#template.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
+#template-type.patterns[1].begin  groups 1
+  group 1: waived: `#template-call`, the pattern before it, starts at the same name wherever this
+    group would match one
 ```
 
 ### `vb`
 
 ```text
-patterns[2].patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 2 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[3].patterns[0].match  groups 1 (waived: the group matches only blanks, and the oracle compares no blank), 2 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[5].begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-patterns[12].patterns[0].match  ""  waived: the string's end `"` is tried before its patterns at every quote, so `""` ends the string and the next quote starts another
+patterns[2].patterns[0].match  groups 1, 2
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+patterns[3].patterns[0].match  groups 1, 2
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+  group 2: waived: the group matches only blanks, and the oracle compares no blank
+patterns[5].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+patterns[12].patterns[0].match  ""
+  waived: the string's end `"` is tried before its patterns at every quote, so `""` ends the string
+    and the next quote starts another
 ```
 
 ### `vue`
@@ -1449,7 +3166,8 @@ patterns[2].patterns[20].patterns[1].end  (?=</)
 #vue-directives-generic-attr.end  (?<=["'])
 #vue-directives-generic-attr.patterns[0].begin  (["'])
 #vue-directives-generic-attr.patterns[0].end  (\1)
-#vue-directives-generic-attr.patterns[0].patterns[1].match  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(extends|in|out)(?…
+#vue-directives-generic-attr.patterns[0].patterns[1].match
+  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(extends|in|out)(?…
 #vue-directives-generic-attr.patterns[0].patterns[4].match  (=)(?!>)
 #vue-directives-original.begin  groups 6, 7, 8
 #vue-directives-original.patterns[0].match  (\.)([-\w]*)
@@ -1457,7 +3175,8 @@ patterns[2].patterns[20].patterns[1].end  (?=</)
 #vue-directives-style-attr.end  (?<=["'])
 #vue-directives-style-attr.patterns[0].begin  (["'])
 #vue-directives-style-attr.patterns[0].end  (\1)
-#vue-directives-style-attr.patterns[0].patterns[3].match  (?<![-\w])--[-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7…
+#vue-directives-style-attr.patterns[0].patterns[3].match
+  (?<![-\w])--[-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7…
 #vue-directives-style-attr.patterns[0].patterns[4].begin  (?<![-A-Za-z])(?=[-A-Za-z])
 #vue-directives-style-attr.patterns[0].patterns[4].end  $|(?![-A-Za-z])
 #vue-directives-style-attr.patterns[0].patterns[5].begin  (:)\s*
@@ -1468,27 +3187,59 @@ patterns[2].patterns[20].patterns[1].end  (?=</)
 ### `xml`
 
 ```text
-patterns[0].end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
-patterns[1].end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
-patterns[4].end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 4 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 5 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
-#EntityDecl.end  groups 2 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 3 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 4 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group), 5 (waived: the rule's `captures` name the group for its end too, and the end's expression has one group)
+patterns[0].end  groups 2
+  group 2: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+patterns[1].end  groups 2, 3
+  group 2: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+  group 3: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+patterns[4].end  groups 2, 3, 4, 5
+  group 2: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+  group 3: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+  group 4: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+  group 5: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+#EntityDecl.end  groups 2, 3, 4, 5
+  group 2: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+  group 3: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+  group 4: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
+  group 5: waived: the rule's `captures` name the group for its end too, and the end's expression
+    has one group
 ```
 
 ### `yaml`
 
 ```text
-#block-pair.patterns[0].begin  groups 1 (waived: the grammar names the group, but the expression has no groups)
-#comment.begin  groups 1 (waived: the group matches only blanks, and the oracle compares no blank)
-#flow-pair.patterns[0].patterns[3].begin  :(?=\s|$|[],\[{}])  waived: `#flow-pair`, earlier in the same list, includes `#flow-pair.patterns[3]`, whose begin is the same expression
-#flow-pair.patterns[0].patterns[3].end  (?=[],}])  waived: its begin never matches
-#flow-pair.patterns[3].end  groups 0 (waived: the group is a lookahead, so it never holds text)
+#block-pair.patterns[0].begin  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
+#comment.begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
+#flow-pair.patterns[0].patterns[3].begin  :(?=\s|$|[],\[{}])
+  waived: `#flow-pair`, earlier in the same list, includes `#flow-pair.patterns[3]`, whose begin is
+    the same expression
+#flow-pair.patterns[0].patterns[3].end  (?=[],}])
+  waived: its begin never matches
+#flow-pair.patterns[3].end  groups 0
+  group 0: waived: the group is a lookahead, so it never holds text
 ```
 
 ### `zig`
 
 ```text
-#numbers.patterns[2].match  \b[0-9][0-9_]*\b  waived: `#numbers.patterns[1]`, before it, matches every one of its matches, since its fraction and exponent are optional
-#operators.patterns[4].match  (==|\+\+|\*\*|->)  waived: the comparison and arithmetic rules before it match the first byte of `==`, `++`, `**` and `->`
+#numbers.patterns[2].match  \b[0-9][0-9_]*\b
+  waived: `#numbers.patterns[1]`, before it, matches every one of its matches, since its fraction
+    and exponent are optional
+#operators.patterns[4].match  (==|\+\+|\*\*|->)
+  waived: the comparison and arithmetic rules before it match the first byte of `==`, `++`, `**` and
+    `->`
 ```
 
 ## Units no root reaches

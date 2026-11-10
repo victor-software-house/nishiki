@@ -43,6 +43,7 @@ depends = [
   "check:toolchain",
   "format",
   "format:ts",
+  "check:line-width",
   "lint",
   "check:features",
   "check:size",
@@ -81,12 +82,12 @@ env = { CARGO_BUILD_JOBS = "2" }
 [tasks."test:doc"]
 wait_for = ["check:size"]
 
-# The tests of the Bun scripts under oracle/ and bench/.
+# The tests of the Bun scripts under oracle/, bench/ and mise-tasks/.
 # They need no network, unlike the oracle runs.
 [tasks."test:scripts"]
 description = "The tests of the Bun scripts"
 tools = { bun = "1.4.4" }
-run = "bun test ./oracle/ ./bench/"
+run = "bun test ./oracle/ ./bench/ ./mise-tasks/"
 
 # Bun's auto-install takes the whole npm tree of every script in this
 # repository from bun.lock: the oracle, bench/compare and the research probes.

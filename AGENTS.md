@@ -110,7 +110,7 @@ The decisions that created nishiki live in a private planning repository:
 5. Nobody runs the full suite before a push; CI does.
    - Work CI cannot do runs locally: a lexer's build-and-probe loop, its oracle fixtures, the Shiki differential and the bench.
    - The pre-commit hook runs the cheapest checks: `mise run format` (rustfmt) and `mise run check:literals` when a commit touches a Rust file, and `mise run lint:md` when it touches Markdown.
-   - Before a push, run the other cheap checks: `mise run lint:typos`, `mise run format:toml` (taplo) and `mise run format:ts` (oxfmt).
+   - Before a push, run the other cheap checks: `mise run lint:typos`, `mise run format:toml` (taplo), `mise run format:ts` (oxfmt) and `mise run check:line-width`.
    - `mise run format:ts:apply` formats the TypeScript files, with the settings in `.oxfmtrc.json`.
    - When CI fails, fix forward.
 6. Formatting uses rustfmt on the nightly pinned in `mise.toml`.
@@ -119,7 +119,7 @@ The decisions that created nishiki live in a private planning repository:
 7. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
    It also runs these checks:
    - `check:layout`: every browsable directory has its README and guide.
-   - `check:literals`.
+   - `check:literals`: no multiline text as escaped line feeds ([CODING_STANDARDS.md](CODING_STANDARDS.md) 3.10).
    - `check:tiers`.
      It fails when a README row's Tier differs from the `all` or `textmate` list in `Cargo.toml`.
      It also fails when a row of the crate docs' tier table in `src/lib.rs` names other languages than its tier's list in `Cargo.toml`.

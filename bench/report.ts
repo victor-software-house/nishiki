@@ -316,7 +316,7 @@ function overLanguages(entries: Entry[], worst: "max" | "min"): string {
 /** The README's summary of the newest record, markers included: one short
  * table over the languages, linking the full record. */
 export function renderSummary(newest: { path: string; record: BenchRecord } | undefined): string {
-  if (!newest) return `${BEGIN}\n\n${NO_RECORD}\n\n${END}`;
+  if (!newest) return [BEGIN, NO_RECORD, END].join("\n\n");
   const { path, record } = newest;
   const page = join(basename(dirname(path)), `${basename(path, ".json")}.md`);
   const medium = record.latency.filter((f) => f.tier === "medium");
@@ -470,7 +470,7 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
 export function renderCompareSummary(
   newest: { path: string; record: CompareRecord } | undefined,
 ): string {
-  if (!newest) return `${BEGIN}\n\n${NO_RECORD}\n\n${END}`;
+  if (!newest) return [BEGIN, NO_RECORD, END].join("\n\n");
   const { path, record } = newest;
   const page = join(basename(dirname(path)), `${basename(path, ".json")}.md`);
   const out = [
