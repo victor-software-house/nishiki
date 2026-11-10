@@ -483,7 +483,7 @@ const docs = (s: string) => {
 for (const p of patternList) {
   g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pattern {\n    /// Svelte's \`$\` prefixes, which its grammar injects into the CoffeeScript it\n    /// embeds, in the grammar's order.\n    #[cfg(feature = "lang-svelte")]\n    pub(crate) const SVELTE: [Pattern; ${svelteIds.length}] = [${svelteIds.map((id) => `Pattern::${id}`).join(", ")}];\n\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
+g += `}\n\nimpl Pattern {\n    /// Svelte's \`$\` prefixes, which its grammar injects into the CoffeeScript it\n    /// embeds, in the grammar's order.\n    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]\n    pub(crate) const SVELTE: [Pattern; ${svelteIds.length}] = [${svelteIds.map((id) => `Pattern::${id}`).join(", ")}];\n\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
   patternList.map((p): [string, string] => {
     const act =
