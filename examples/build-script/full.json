@@ -1,0 +1,43 @@
+{
+  "name": "Full",
+  "scopeName": "source.full",
+  "injectionSelector": "L:source.demo",
+  "injectTo": ["source.demo"],
+  "patterns": [{ "include": "#block" }, { "include": "#quote" }, { "include": "#number" }],
+  "injections": {
+    "L:comment": {
+      "patterns": [{ "match": "TODO", "name": "keyword.todo.full" }]
+    }
+  },
+  "repository": {
+    "block": {
+      "begin": "(\\{)",
+      "end": "(\\})",
+      "name": "meta.block.full",
+      "contentName": "meta.body.full",
+      "beginCaptures": { "1": { "name": "punctuation.open.full" } },
+      "endCaptures": { "1": { "name": "punctuation.close.full" } },
+      "applyEndPatternLast": true,
+      "patterns": [{ "include": "#word" }, { "include": "$self" }],
+      "repository": {
+        "word": { "match": "\\w+", "name": "variable.full" }
+      }
+    },
+    "quote": {
+      "begin": "^>",
+      "while": "^>",
+      "name": "markup.quote.full",
+      "whileCaptures": { "0": { "name": "punctuation.quote.full" } },
+      "patterns": [{ "include": "#number" }]
+    },
+    "number": {
+      "match": "(\\d+)(x)?",
+      "name": "constant.numeric.full",
+      "captures": {
+        "1": { "name": "constant.digits.full" },
+        "2": { "name": "keyword.suffix.full" },
+        "-1": { "name": "invalid.full" }
+      }
+    }
+  }
+}

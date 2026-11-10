@@ -201,6 +201,13 @@
 //! Bytes from another version fail to load with a [`GrammarError`], as do
 //! bytes that are cut short or crafted.
 //!
+//! With the `format` feature, the build script can instead write
+//! `Grammar::to_rust`, a Rust file that holds the grammar in a `static`.
+//! The crate includes it in a module with `include!` and uses its `GRAMMAR`.
+//! Loading it takes no work at run time.
+//! A nishiki with another token format fails to compile the file.
+//! [Cargo features](#cargo-features) lists what each feature adds.
+//!
 //! ```
 //! # #[cfg(feature = "textmate")]
 //! # fn main() -> Result<(), nishiki::GrammarError> {
@@ -313,6 +320,17 @@
 //! It turns on `json`.
 //! No bundled language uses the engine now.
 //! It is off by default and not in `all`.
+//!
+//! Two more features serve a build script that writes a grammar as Rust.
+//! Both are off by default and not in `all`.
+//!
+//! | Feature | Gives | Turns on | Adds |
+//! |:--|:--|:--|:--|
+//! | `codegen` | `impl ToTokens for Grammar` | `textmate` | `proc-macro2`, `quote` |
+//! | `format` | [`Grammar::to_rust`] | `codegen` | `prettyplease`, `syn` |
+//!
+//! A build script lists `format` under `[build-dependencies]` only.
+//! The program that includes the Rust needs `textmate` alone.
 //!
 //! # Markdown fences
 //!
@@ -557,6 +575,20 @@ pub use limits::{Budget, Limit, Limits, LineReport, Work};
 #[cfg(feature = "json")]
 pub use theme::ThemeError;
 pub use theme::{Color, ColorScheme, FontStyle, RuleScope, Style, Theme, ThemeRule, ThemeSource};
+
+/// The names that the tokens of `Grammar`'s `ToTokens` write.
+///
+/// A program that holds such tokens in a `static` compiles them against
+/// these names, without the `codegen` feature.
+/// They are not part of the API and change in any release.
+#[cfg(feature = "textmate")]
+#[doc(hidden)]
+pub mod __private {
+    pub use crate::grammar::{FORMAT_1, static_grammar};
+    pub use crate::textmate::compile::{
+        List, Repository, RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule,
+    };
+}
 
 /// The README's example, compiled and run as a doctest.
 #[cfg(doctest)]

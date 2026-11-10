@@ -7,6 +7,8 @@
 //!   tables, interned for the process too.
 
 mod bytes;
+#[cfg(feature = "codegen")]
+mod tokens;
 
 use std::collections::HashMap;
 use std::hash::{Hash, Hasher};
@@ -94,6 +96,19 @@ impl Grammar {
     pub fn scope(self) -> &'static str {
         &self.0.scope
     }
+}
+
+/// The format of the tokens that `Grammar`'s `ToTokens` writes.
+///
+/// The tokens name it, so tokens from a nishiki with another format fail to
+/// compile, and no program runs with tables it cannot read.
+pub const FORMAT_1: () = ();
+
+/// The handle to a grammar the tokens of `Grammar`'s `ToTokens` hold in a
+/// `static`.
+#[must_use]
+pub const fn static_grammar(unlinked: &'static UnlinkedGrammar) -> Grammar {
+    Grammar(unlinked)
 }
 
 impl PartialEq for Grammar {

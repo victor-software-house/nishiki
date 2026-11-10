@@ -20,8 +20,10 @@ The operator chose these dependencies on 2026-11-10.
 - `impl quote::ToTokens for Grammar`, with `codegen`.
   The tokens are an expression of type `Grammar`, built in a `static` with no work at run time.
   A build script writes them to `OUT_DIR`, and the program reads them with `include!`, as the [Cargo book][cargo-build-scripts] shows.
-- `Grammar::to_rust(&self) -> String`, with `format`.
-  It borrows, as the API guidelines' `to_` prefix does ([C-CONV][c-conv]), so a caller can keep using the grammar.
+- `Grammar::to_rust(self) -> String`, with `format`.
+  `Grammar` is `Copy`, so it takes `self`, as `to_bytes` does.
+  The API guidelines' `to_` prefix takes `self` by value on a `Copy` type ([C-CONV][c-conv]).
+  A caller keeps the grammar, since the call copies it.
   It returns a file that holds `pub static GRAMMAR: nishiki::Grammar = …;`, laid out by prettyplease.
   The build script sets `DEMO_RUST` to the file's path.
   The program writes `mod demo { include!(env!("DEMO_RUST")); }` and uses `demo::GRAMMAR`, since `clippy.toml` bans `concat!`.
@@ -84,7 +86,9 @@ On a box, from a clean target:
 - `codegen` adds `proc-macro2`, `quote` and `unicode-ident`, about 3 s on the critical path.
 - `format` adds `syn` and `prettyplease`, about 20 s more.
 - Neither is a default feature, so a caller who asks for neither builds as before.
-- The program size of `examples/build-script` is measured when task 2.2 adds the example.
+- The build-script example's programs, in bytes, as `check:size` counts them on a box:
+  - `nishiki-build-script`, which loads the bytes: 8,186,659 of text and 2,549,244 of data;
+  - `nishiki-build-script-rust`, which includes the Rust: 8,162,339 of text and 2,550,644 of data.
 
 [c-conv]: https://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv
 [cargo-build-scripts]: https://doc.rust-lang.org/cargo/reference/build-scripts.html

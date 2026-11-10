@@ -225,6 +225,10 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
   `json` adds `serde_json`.
   The engine's hidden `_textmate` feature adds `regex-automata` and `regex-syntax`.
   `regex-automata` already depends on `regex-syntax`.
+- A feature for build scripts may add the crates that write Rust.
+  `codegen` adds `proc-macro2` and `quote`, and `format` adds `prettyplease` and `syn`.
+  Each takes `default-features = false` and only the features it uses.
+  A program that includes the generated Rust needs none of them.
 - A dependency is pure Rust.
   One that builds C or carries unsafe code needs a recorded reason.
 
