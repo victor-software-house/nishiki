@@ -4,13 +4,13 @@
 
 ### 1.1 The rule-engine scripts
 
-On main at 851351f0, the 48 per-language scripts hold 16,298 lines.
+On main at 851351f0, the 48 per-language scripts hold 16,250 lines, as `wc -l` counts them.
 Each line was put in one class.
 The class came from its top-level statement and from how many scripts hold the same line once the language name is masked.
 
 | Class | Lines | What it is |
 |:--|--:|:--|
-| Comments and blank lines | 3,677 | file docs, section comments |
+| Comments and blank lines | 3,629 | file docs, section comments |
 | Imports and types | 1,301 | `Node`, `Pattern` and `Rule` types, copied |
 | Shared emitter copies | 7,857 | `scopeIdent`, the scope registry, `register`, `flatten`, `expand`, the `grammar.rs` template |
 | Emitter variants | 1,164 | output only some languages write, such as C#'s `How` table and Swift's `dispatch.rs` |
@@ -73,15 +73,24 @@ The [codegen research][research] read how mature crates generate committed Rust.
   [unicode-ident][unicode-ident-write] writes `src/tables.rs` with `generate/`.
   [rust-analyzer][ra-codegen] runs `cargo codegen --check` in CI.
   Each CI job regenerates the files and fails on `git diff --exit-code`.
-- nishiki follows syn: a workspace crate, `codegen/`, named `nishiki-codegen`, with `publish = false`.
+- nishiki follows syn: `codegen/` is a crate named `nishiki-codegen`, with `publish = false`, in a workspace of its own.
+  - Its manifest has its own `[workspace]`, its own `Cargo.lock` and its own `target/`.
+    The root manifest lists `codegen` under `exclude`, beside `bench`.
   - It keeps its own dependencies, such as `serde_json` for the facts, out of nishiki's manifest.
   - `mise run codegen` runs it, and `mise run codegen -- --check` fails when a file would change.
   - CI runs the check in `verify`, offline, from `tests/engine/grammars/` and `oracle/facts/`.
     Its error names the command that regenerates the files.
   - It writes a file only when its bytes change, as syn and unicode-ident do.
-- The crate builds with `RUSTFLAGS="--cfg nishiki_unstable"` and nishiki's `codegen` and `format` features.
+- The crate builds with `--cfg nishiki_unstable` and nishiki's `codegen` and `format` features.
   It writes the rule-engine tables through `nishiki::unstable`, the surface a caller has.
   So the internal generator and the public one are one code path.
+- A workspace of its own keeps both settings away from the root workspace:
+  - A member's features unify across a workspace build.
+    As a member, `codegen/` would turn `codegen` and `format` on for every root build, `check:size` included.
+  - The cfg sits in `codegen/.cargo/config.toml`.
+    Cargo reads that file from the directory it runs in, and the mise task runs in `codegen/`.
+    Its builds then use `codegen/target/`, so they never rebuild the root's target directory.
+  - `cargo deny` runs on its manifest too, in `verify`.
 
 ## 4. The `codegen/` crate
 
@@ -132,11 +141,16 @@ The operator chose these dependencies on 2026-11-10.
 
 The tokens name the unlinked model's types.
 They sit in a `#[doc(hidden)] pub mod __private`, outside the documented API.
-The tokens open with `const _: () = ::nishiki::__private::FORMAT_1;`.
+The tokens are a block expression, `{ const _: () = ::nishiki::__private::FORMAT_1; <the Grammar value> }`.
+A `static` initializer accepts a block that holds an item.
 A program built with tokens from another nishiki version then fails to compile.
 The missing name shows the cause, and no program runs with wrong tables.
 
 The build-script example writes the tokens on every build, so its tables always match the nishiki it links.
+
+Its build-dependency on nishiki takes `format`, and its normal dependency does not.
+Cargo's version 2 feature resolver, which resolver 3 keeps, does not unify a build-dependency's features with a normal dependency's ([Cargo reference][cargo-resolver]).
+So the example program, and `check:size`, build nishiki without them.
 
 ### 5.3 The unlinked model in a `static`
 
@@ -250,7 +264,7 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
 
 - prettyplease's output depends only on its version.
   rustfmt's output depends on the toolchain, so the system rustfmt never lays out a committed file.
-  ICU4X's CI notes that generated Rust is not stable across Rust versions ([research][research], section 3).
+  ICU4X's CI notes that generated Rust is not stable across Rust versions ([research][research], "Where code generation runs").
 - prettyplease breaks at its own margin, 89 columns, and writes one entry per line past it.
   The lines rustfmt gave up on today, up to 4,380 columns in C++, C# and Swift, are laid out by it.
 
@@ -321,7 +335,9 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
 - The tree folds `(?i)` characters into classes of their orbits, which the TypeScript reader does not.
   A set can then gain the first byte of a character such as the Kelvin sign.
   Such a set is still sound, but it differs.
-- A pull request that finds a differing set lists it, and Identity and Callgrind check it.
+- `codegen --compare` reports a differing set by its pattern.
+  The pull request lists it, and Identity and Callgrind check it.
+  The `generated-rust` spec allows such a set and no other token change.
 - `oracle/rule-grammar.test.ts`'s 24 cases become unit tests with typed inputs.
 
 ## 9. Errors
@@ -350,7 +366,7 @@ The stable surface of section 5.2 cannot fail.
 | `prettyplease` | `format` | 0.3.0 | lays out tokens as a file |
 
 - `codegen` adds 3 crates: `proc-macro2`, `quote` and `unicode-ident`.
-  `format` adds 2 more ([research][research], section 5).
+  `format` adds 2 more ([research][research], "Dependency cost").
 - Default builds and `all` gain none.
 - `codegen/` adds `serde_json` and `serde` with `derive`, for the facts, in its own manifest only.
   nishiki's own JSON reader is `pub(crate)` and built for grammars, so the facts use serde_json in `codegen/` alone.
@@ -394,6 +410,8 @@ The numbers go here when they land.
 2. `compile::UnlinkedGrammar` holds `Cow` data, and the regex parser becomes `pub(crate)`: no behaviour change.
 3. The `codegen` and `format` features, `ToTokens` and `to_rust`, with their doctests and the example.
 4. `nishiki::unstable` and its cfg setup, then `unstable::codegen` with default matchers, and `codegen/` writing Protocol Buffers' tables.
+   The same pull request first adds Protocol Buffers' grammar to `tests/engine/grammars/` through `oracle/engine-grammars.ts`, with its licence in `oracle/licences.ts`.
+   Every later move does the same for its own languages before `codegen/` reads them.
    `oracle/AGENTS.md` describes how to move one language.
    `AGENTS.md` and `CODING_STANDARDS.md` gain the rules of the proposal.
 5. Unicode sets, case folds and classes, once readable-sources-c9's fact files land.
@@ -401,6 +419,7 @@ The numbers go here when they land.
 7. The last family deletes `oracle/rule-generator.ts`, `oracle/rule-grammar.ts`, `oracle/php-family-grammar.ts` and `check:rule-grammars`.
 8. The 7 word scripts and `fence-stops.ts` move into `codegen/`.
 
+[cargo-resolver]: https://doc.rust-lang.org/cargo/reference/resolver.html#feature-resolver-version-2
 [c-conv]: https://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv
 [cargo-build-scripts]: https://doc.rust-lang.org/cargo/reference/build-scripts.html
 [prettyplease-array]: https://github.com/dtolnay/prettyplease/blob/49e50897b580a5b7591ead6ef73f3fe09e76d896/src/expr.rs
