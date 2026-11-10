@@ -67,11 +67,6 @@ fn matches_shiki(names: &[&str], root: &str, language: &str, gaps: &[Gap]) {
     assert!(failures.is_empty(), "{}", failures.join("\n\n"));
 }
 
-/// The gap of a Less body that Less pops at its first character, `)`.
-/// Shiki ends the embedded block there.
-/// The hand-off ignores the pop and goes on with Less.
-const POPPED_HOST: &str = "the hand-off goes on past a lexer that pops its host, as Less does";
-
 /// Markdown's fences embed most languages, so the test needs them all.
 /// Its `php` fence includes both HTML and PHP, and PHP's lexer takes it.
 #[cfg(feature = "all")]
@@ -82,10 +77,6 @@ fn markdown_alone_matches_shiki() {
         Gap {
             fixture: "invalid-tags",
             cause: attributes,
-        },
-        Gap {
-            fixture: "less-pop",
-            cause: POPPED_HOST,
         },
         Gap {
             fixture: "perl-heredoc-tags-1",
@@ -126,7 +117,7 @@ fn vue_with_html_matches_shiki() {
         "vue-sfc-style-variable-injection",
     ];
     let directives = "vue-directives' injection misses the tags html-derivative's lexer reads";
-    let mut gaps: Vec<Gap> = [
+    let gaps = [
         "coverage",
         "playground-app",
         "playground-header",
@@ -137,11 +128,6 @@ fn vue_with_html_matches_shiki() {
     .map(|fixture| Gap {
         fixture,
         cause: directives,
-    })
-    .into();
-    gaps.push(Gap {
-        fixture: "less-pop",
-        cause: POPPED_HOST,
     });
     matches_shiki(&names, "text.html.vue", "vue", &gaps);
 }

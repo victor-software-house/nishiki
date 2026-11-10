@@ -1633,21 +1633,25 @@ impl Language {
         })
     }
 
-    /// Whether a Markdown fence in the language can end its embedded body
-    /// within a line.
+    /// Whether the language can end the rule that embeds it within a line.
     /// The language's grammar has a root `match` that can match an empty text
     /// without advancing.
-    /// vscode-textmate then pops the innermost rule, the fence's body
-    /// ([`StopReason::PopHost`]).
+    /// vscode-textmate then pops the innermost rule, the one that embeds the
+    /// language ([`StopReason::PopHost`]).
     /// Less is the one: `(;)|(?=[)}])`.
+    ///
+    /// Markdown asks it of a fence's language.
+    /// The engine for loaded grammars asks it of a hand-off's language.
+    /// Both then lex through [`Language::lex_until`], so the language can
+    /// report the pop.
     ///
     /// `oracle/fence-stops.ts`, a step of `mise run check:rule-grammars`,
     /// recomputes the list from the grammars that Shiki's Markdown fences
     /// include, and fails when it differs, which keeps it true.
     /// It is one comparison, not a `match`, so no row's flag reaches the
     /// lowering of Markdown's `step`.
-    #[cfg(feature = "lang-markdown")]
-    pub(crate) const fn pops_fence(self) -> bool {
+    #[cfg(any(feature = "lang-markdown", feature = "_textmate"))]
+    pub(crate) const fn pops_host(self) -> bool {
         #[cfg(feature = "lang-less")]
         {
             matches!(self, Language::Less)
@@ -1750,6 +1754,7 @@ pub(crate) enum StopReason {
 /// starts, so only the line's own tokens are searched.
 #[cfg(any(
     feature = "_embedding",
+    feature = "_textmate",
     feature = "lang-vue",
     feature = "lang-markdown"
 ))]
