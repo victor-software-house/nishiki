@@ -43,7 +43,8 @@ pub(crate) struct Scanner {
     /// cache per list.
     #[expect(
         clippy::vec_box,
-        reason = "a cache moves between this pool and a highlighter's slots as a box, without a copy or an allocation"
+        reason = "a cache moves between this pool and a highlighter's slots as a box, \
+                  without a copy or an allocation"
     )]
     spare: Mutex<Vec<Box<Cache>>>,
 }

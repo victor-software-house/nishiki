@@ -12,7 +12,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// The keyword is not followed by `(?!(\$)|(\s*:))`.
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
+                  `j` and `k` for the cursor"
     )]
     pub(crate) fn export_declaration(&mut self, p: usize) -> Option<usize> {
         if !self.starts(p, "export") || !self.keyword_before(p) {

@@ -324,7 +324,8 @@ impl<'a> Lexer<'a> {
     /// down.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
+                  rustc stopped inlining it, and shell rose 0.8% (1.0081)"
     )]
     #[inline(always)]
     pub(crate) fn new(
@@ -461,7 +462,8 @@ impl<'a> Lexer<'a> {
     /// A node limit can deny a rule its own state.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and shell rose 0.8% (1.0081)"
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
+                  rustc stopped inlining it, and shell rose 0.8% (1.0081)"
     )]
     #[inline(always)]
     pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (Finished, Option<usize>) {

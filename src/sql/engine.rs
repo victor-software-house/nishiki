@@ -142,7 +142,8 @@ impl Lexer<'_> {
     /// end pattern.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: called from both instances of the scan, the halting one and the plain one, it stopped being inlined, at a call per place"
+        reason = "measured at one codegen unit: called from both instances of the scan, \
+                  the halting one and the plain one, it stopped being inlined, at a call per place"
     )]
     #[inline(always)]
     fn first_at(&mut self, rule: Rule, p: usize) -> Option<(Pattern, usize)> {

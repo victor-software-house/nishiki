@@ -189,7 +189,8 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     /// Go, Swift, Java and Kotlin also run fewer instructions with it inlined.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one and sixteen codegen units: inside C#'s large try_match, keyword stopped being inlined, at a call per word pattern"
+        reason = "measured at one and sixteen codegen units: inside C#'s large try_match, \
+                  keyword stopped being inlined, at a call per word pattern"
     )]
     #[inline(always)]
     fn keyword(&self, i: usize, text: &[u8]) -> Option<usize> {

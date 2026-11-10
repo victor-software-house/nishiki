@@ -205,7 +205,8 @@ impl Lexer<'_> {
     /// A search that starts inside a word can therefore match there.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: called from both instances of the root skip, the halting one and the plain one, it stopped being inlined, at a call per place"
+        reason = "measured at one codegen unit: called from both instances of the root skip, \
+                  the halting one and the plain one, it stopped being inlined, at a call per place"
     )]
     #[inline(always)]
     fn root_start(&self, p: usize) -> bool {

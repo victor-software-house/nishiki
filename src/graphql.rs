@@ -70,7 +70,8 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// ([`crate::rules::lex_embedding`]).
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: inlined by hint, it stayed a call from Language::lex once that dispatch inlined"
+    reason = "measured at one codegen unit: inlined by hint, \
+              it stayed a call from Language::lex once that dispatch inlined"
 )]
 #[inline(always)]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {

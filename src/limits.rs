@@ -100,7 +100,8 @@ pub(crate) struct Steps {
         all(not(feature = "_hand-lexers"), not(test)),
         expect(
             dead_code,
-            reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+            reason = "only hand-written lexers and the engine tests use it, \
+                      and the TextMate engine alone turns no lexer on"
         )
     )]
     limit: u64,
@@ -172,7 +173,8 @@ impl Steps {
         all(not(feature = "_hand-lexers"), not(test)),
         expect(
             dead_code,
-            reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+            reason = "only hand-written lexers and the engine tests use it, \
+                      and the TextMate engine alone turns no lexer on"
         )
     )]
     pub(crate) fn lend(&self, limits: &Limits) -> Limits {

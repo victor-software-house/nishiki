@@ -167,7 +167,8 @@ impl<'a> Lexer<'a> {
 
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and YAML rose 3% (1.0315)"
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
+                  rustc stopped inlining it, and YAML rose 3% (1.0315)"
     )]
     #[inline(always)]
     pub(crate) fn run(&mut self) {
@@ -798,7 +799,8 @@ impl<'a> Lexer<'a> {
     /// A `:` that starts the line is the value indicator.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `run` inlined into both callers, rustc stopped inlining it, and YAML rose 5% (1.0542)"
+        reason = "measured at one codegen unit: with `run` inlined into both callers, \
+                  rustc stopped inlining it, and YAML rose 5% (1.0542)"
     )]
     #[inline(always)]
     fn block_step(&mut self, p: usize) -> usize {

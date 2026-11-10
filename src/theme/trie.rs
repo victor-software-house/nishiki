@@ -309,7 +309,9 @@ impl Trie {
     /// The child of `node` for `part`, if the trie has one.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once Highlighter::style instantiated Theme::style in the crate, this stopped being inlined into apply, and colouring ran 4% more instructions"
+        reason = "measured at one codegen unit: \
+                  once Highlighter::style instantiated Theme::style in the crate, \
+                  this stopped being inlined into apply, and colouring ran 4% more instructions"
     )]
     #[inline(always)]
     fn find(&self, node: usize, part: &str) -> Option<usize> {
