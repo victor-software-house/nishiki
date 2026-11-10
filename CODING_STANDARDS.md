@@ -280,6 +280,23 @@ The release rules in `AGENTS.md` decide its version.
   It moves in the pull request that needs it, and is never copied.
 - Lexers are written in parallel, so this is how duplication stays out.
 
+### 3.9 Names are prose
+
+The prose rules in `AGENTS.md` cover identifiers too (operator, 2026-11-10).
+This holds for types, variants, fields, functions, locals, modules, files and tests.
+
+- A name is the plainest word a reader of the domain would use for its value.
+- A name never uses a word that fits anything:
+  `Kind`, `Type`, `Info`, `Data`, `Item`, `Value`, `Helper`, `Util` or `Manager`.
+- A name never uses a coined word, or a rare word where a common one does.
+- To name a set of variants or fields, ask what they have in common, and name that.
+  - `LineKind` became `Freshness`: its variants say whether a line's tokens are final or may still change.
+  - `TagInfo` became `TagClass`: it holds the category and the rule the HTML grammar gives a tag.
+- One concept keeps one word across languages.
+  Every language's frame enum is its `Rule`, and a frame's field is `rule`.
+- Names other crates and Shiki spell stay as they are, such as `HirKind` or a scope name.
+- A scope id abbreviates the scope string in its `scope_table!` row, and the row is its definition.
+
 ## 4. Tests
 
 ### 4.1 Shiki is the test
