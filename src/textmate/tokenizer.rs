@@ -240,6 +240,76 @@ impl Halt for Starts<'_> {
     }
 }
 
+/// Lexes `line` from `state` with `language`, which the grammar handed the
+/// line to.
+/// It halts at the first of the starts the step found, `before` and `after`.
+/// Without starts, a language that cannot pop its host lexes to the line's
+/// end.
+#[cfg_attr(
+    not(any(feature = "lang-typescript", feature = "lang-javascript")),
+    expect(
+        unused_variables,
+        reason = "only TypeScript and JavaScript read the grammar, for Svelte's dialect"
+    )
+)]
+fn lex_handed(
+    cx: &mut Lexing<'_>,
+    grammar: &Grammar,
+    language: crate::Language,
+    line: Line<'_>,
+    state: u32,
+    (before, after): (&[usize], &[usize]),
+) -> (crate::limits::Finished, Option<Stopped>) {
+    #[cfg(any(feature = "lang-typescript", feature = "lang-javascript"))]
+    if let Some(dialect) = svelte_dialect(grammar, language) {
+        return crate::typescript::lex_until_svelte(
+            cx,
+            dialect,
+            line,
+            state,
+            &Starts(before),
+            Some(&Starts(after)),
+        );
+    }
+    let halting = if before.is_empty() && after.is_empty() && !language.pops_host() {
+        None
+    } else {
+        language.lex_until(cx, line, state, &Starts(before), Some(&Starts(after)))
+    };
+    halting.unwrap_or_else(|| (language.lex_embedded(cx, line, state), None))
+}
+
+/// The dialect that lexes a region Svelte's grammar hands to `language`,
+/// with Svelte's `$` prefixes.
+/// `None` for another grammar, or a language other than TypeScript and
+/// JavaScript.
+///
+/// Svelte's grammar injects the prefixes into `source.ts` and `source.js`,
+/// with the selector `L:(source.ts, source.js, source.coffee)`.
+/// The rules of a handed region never run, so the language applies them.
+/// vscode-textmate applies the injections of the grammar it lexes with.
+/// So they hold only while Svelte's grammar is the root, which its name
+/// marks.
+#[cfg(any(feature = "lang-typescript", feature = "lang-javascript"))]
+#[cold]
+fn svelte_dialect(
+    grammar: &Grammar,
+    language: crate::Language,
+) -> Option<crate::typescript::Dialect> {
+    if grammar.scope != "source.svelte" {
+        return None;
+    }
+    #[cfg(feature = "lang-typescript")]
+    if matches!(language, crate::Language::TypeScript) {
+        return Some(crate::typescript::Dialect::TypeScript);
+    }
+    #[cfg(feature = "lang-javascript")]
+    if matches!(language, crate::Language::JavaScript) {
+        return Some(crate::typescript::Dialect::JavaScript);
+    }
+    None
+}
+
 /// What one step of the loop leaves.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Flow {
@@ -1923,18 +1993,14 @@ impl Tokenizer<'_> {
                 report: &mut *self.report,
                 first_token,
             };
-            let halting = if before.is_empty() && after.is_empty() && !language.pops_host() {
-                None
-            } else {
-                language.lex_until(
-                    &mut cx,
-                    part,
-                    state,
-                    &Starts(&before),
-                    Some(&Starts(&after)),
-                )
-            };
-            halting.unwrap_or_else(|| (language.lex_embedded(&mut cx, part, state), None))
+            lex_handed(
+                &mut cx,
+                self.grammar,
+                language,
+                part,
+                state,
+                (&before, &after),
+            )
         };
         let (halted, popped) = match halted {
             Some(Stopped {

@@ -310,6 +310,48 @@ fn an_end_at_the_anchor_matches_only_there() {
     }));
 }
 
+/// JavaScript that a loaded Svelte grammar hands off takes Svelte's `$`
+/// prefixes, with or without nishiki's own Svelte lexer.
+/// The grammar has Svelte's name and the injection that adds them.
+/// The handed region's rules never run, so the JavaScript lexer applies it.
+#[cfg(feature = "lang-javascript")]
+#[test]
+fn javascript_in_a_loaded_svelte_grammar_takes_the_dollar_prefixes() {
+    let grammar = Grammar::from_json(indoc! {r#"
+        {
+          "scopeName": "source.svelte",
+          "patterns": [
+            {
+              "begin": "<script>",
+              "end": "</script>",
+              "contentName": "source.js",
+              "patterns": [{ "include": "source.js" }]
+            }
+          ],
+          "injections": {
+            "L:(source.ts, source.js)": {
+              "patterns": [
+                {
+                  "match": "\\$(?=[_[:alpha:]])",
+                  "name": "punctuation.definition.variable.svelte"
+                }
+              ]
+            }
+          }
+        }
+    "#})
+    .unwrap();
+    let mut highlighter = highlighter(grammar);
+    let found = tokens(&mut highlighter, "<script>let a = $count;</script>");
+    let dollar = found.iter().find(|(text, _)| text == "$");
+    assert_eq!(
+        dollar
+            .and_then(|(_, scopes)| scopes.first())
+            .map(String::as_str),
+        Some("punctuation.definition.variable.svelte")
+    );
+}
+
 /// Less pops the rule that embeds it at a `)` at its root.
 /// The rest of the line takes the scope below, as in Shiki.
 #[cfg(feature = "lang-less")]

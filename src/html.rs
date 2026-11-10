@@ -40,7 +40,7 @@ pub(crate) use engine::GiveBack;
 pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 use state::ROOT_SVELTE;
 use state::{ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, Rule};
 
@@ -68,13 +68,14 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// [`ROOT_DERIVATIVE_FIRST`], or with [`ROOT_SVELTE`] for Svelte.
 /// The scopes are compared by name.
 /// A grammar loaded at run time has scopes the arena made, and its
-/// `text.html.markdown` counts as Markdown's.
+/// `text.html.markdown` counts as Markdown's, and its `source.svelte` as
+/// Svelte's.
 /// The scopes are read once each time another grammar opens HTML.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     let outermost = arena.outermost(base).map(|root| arena.scope_name(root));
     let payload = match outermost {
-        #[cfg(feature = "lang-svelte")]
-        Some(root) if root == crate::svelte::DOCUMENT.name() => ROOT_SVELTE,
+        #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
+        Some("source.svelte") => ROOT_SVELTE,
         Some(root) if DERIVATIVE_FIRST.contains(&root) => ROOT_DERIVATIVE_FIRST,
         Some(_) | None => ROOT_EMBEDDED,
     };

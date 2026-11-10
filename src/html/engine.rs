@@ -1252,11 +1252,11 @@ impl<'a> Lexer<'a> {
                 &script_end,
                 Some(&erb::begins),
             ),
-            #[cfg(feature = "lang-svelte")]
+            #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
             Script::Svelte => {
                 crate::typescript::lex_until_svelte(cx, dialect, line, state, &script_end, None)
             }
-            #[cfg(not(feature = "lang-svelte"))]
+            #[cfg(not(any(feature = "lang-svelte", feature = "_textmate")))]
             Script::Svelte => {
                 crate::typescript::lex_until(cx, dialect, line, state, &script_end, None)
             }

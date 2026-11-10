@@ -425,6 +425,18 @@ fn html_in_a_loaded_markdown_grammar_reads_derivative_first() {
     );
 }
 
+/// HTML in a Svelte grammar loaded at run time reads Svelte's order and
+/// Svelte's `$` prefixes, with or without nishiki's own Svelte lexer.
+#[cfg(feature = "_textmate")]
+#[test]
+fn html_in_a_loaded_svelte_grammar_reads_svelte() {
+    let mut arena = crate::arena::Arena::new(None);
+    let svelte = arena.named_scope("source.svelte").unwrap();
+    let base = arena.child(crate::arena::ROOT, svelte).unwrap();
+    let state = super::start_embedded(&mut arena, base);
+    assert_eq!(arena.frame(state).payload, super::state::ROOT_SVELTE);
+}
+
 /// The names in `DERIVATIVE_FIRST` are the document scopes of nishiki's own
 /// Markdown and Svelte lexers.
 #[cfg(all(feature = "lang-markdown", feature = "lang-svelte"))]
