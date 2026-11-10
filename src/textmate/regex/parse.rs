@@ -18,8 +18,16 @@ use super::ast::{
 )]
 pub struct Error(
     /// What is wrong with the pattern.
-    pub String,
+    pub(crate) String,
 );
+
+impl std::fmt::Display for Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.0)
+    }
+}
+
+impl std::error::Error for Error {}
 
 type Result<T> = std::result::Result<T, Error>;
 
