@@ -30,44 +30,55 @@ const themes = ["github-dark", "one-light", "catppuccin-mocha"] as const;
 // `ORACLE_LANG=<id>` writes the fixtures of one language only.
 const only = Bun.env["ORACLE_LANG"];
 const selected = only === undefined ? inputs : inputs.filter((input) => input.lang === only);
-// Every input language is loaded, also under `ORACLE_LANG`, so one
-// language's fixtures come out as a full run writes them.
-const highlighter = await createHighlighter({
-  langs: grammars,
-  themes: [...themes],
-});
+/** A highlighter on every input language, also under `ORACLE_LANG`, so
+ * one language's fixtures come out as a full run writes them. The run makes
+ * one per input language and disposes it after that language. Disposing it
+ * frees the scanners the language compiled in Oniguruma's memory. One
+ * highlighter for every language kept all of them. Once the process held
+ * about 2.3 GB, Shiki gave each later line one token with only the root
+ * scope. */
+const newHighlighter = () => createHighlighter({ langs: grammars, themes: [...themes] });
 const encoder = new TextEncoder();
 
+// Loading a theme adds its default colours as its first rule. Shiki adds
+// the rule to the bundled theme object itself. The theme files hold each
+// theme as a highlighter loads it, so one loads them before they are
+// written.
+(await newHighlighter()).dispose();
 for (const theme of themes) {
   const raw = (await bundledThemes[theme]()).default;
   await Bun.write(`${root}tests/oracle/themes/${theme}.json`, `${JSON.stringify(raw, null, 2)}\n`);
 }
 
-for (const input of selected) {
-  const text = await inputText(input);
-  const scopes = fixture(highlighter, text, input.lang);
-  const path = `${root}tests/oracle/${input.lang}/${input.name}.txt`;
-  await Bun.write(path, scopes);
-  for (const theme of themes) {
-    const coloured = highlighter.codeToTokens(text, {
-      lang: input.lang,
-      theme,
-      tokenizeMaxLineLength: 0,
-      tokenizeTimeLimit: 0,
-    }).tokens;
-    const rows = coloured.map((tokens) => {
-      let end = 0;
-      return tokens
-        .map((token) => {
-          end += encoder.encode(token.content).length;
-          return `${end}:${token.color}:${token.fontStyle ?? 0}`;
-        })
-        .join(" ");
-    });
-    await Bun.write(
-      `${root}tests/oracle/${input.lang}/${input.name}.${theme}.colors`,
-      `${rows.join("\n")}\n`,
-    );
+for (const group of Map.groupBy(selected, (input) => input.lang).values()) {
+  const highlighter = await newHighlighter();
+  for (const input of group) {
+    const text = await inputText(input);
+    const scopes = fixture(highlighter, text, input.lang);
+    const path = `${root}tests/oracle/${input.lang}/${input.name}.txt`;
+    await Bun.write(path, scopes);
+    for (const theme of themes) {
+      const coloured = highlighter.codeToTokens(text, {
+        lang: input.lang,
+        theme,
+        tokenizeMaxLineLength: 0,
+        tokenizeTimeLimit: 0,
+      }).tokens;
+      const rows = coloured.map((tokens) => {
+        let end = 0;
+        return tokens
+          .map((token) => {
+            end += encoder.encode(token.content).length;
+            return `${end}:${token.color}:${token.fontStyle ?? 0}`;
+          })
+          .join(" ");
+      });
+      await Bun.write(
+        `${root}tests/oracle/${input.lang}/${input.name}.${theme}.colors`,
+        `${rows.join("\n")}\n`,
+      );
+    }
+    console.log(`✔ ${input.lang}/${input.name}: ${text.split("\n").length} lines`);
   }
-  console.log(`✔ ${input.lang}/${input.name}: ${text.split("\n").length} lines`);
+  highlighter.dispose();
 }
