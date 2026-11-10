@@ -1984,13 +1984,15 @@ impl Tokenizer<'_> {
     ///   tokens are cut back to `at`. The line's tokens start at `first_token`
     ///   in `out`, as the language saw them ([`Lexing::first_token`]).
     /// - The hand-off frame and the rule that embeds the language close.
+    /// - The grammar's root never closes, as in vscode-textmate. When the root
+    ///   embeds the language, only the hand-off frame closes.
     /// - The rest of the line, up to `end`, takes the scope of the rule below.
     #[cold]
     #[inline(never)]
     fn pop_host(&mut self, frames: &mut Vec<Frame>, first_token: usize, at: usize, end: usize) {
         crate::language::cut_tokens(self.out, first_token, at);
         self.last = at;
-        frames.truncate(frames.len().saturating_sub(2));
+        frames.truncate(frames.len().saturating_sub(2).max(1));
         let content = frames.last().map_or(ROOT, |frame| frame.content);
         self.produce(content, end);
     }
