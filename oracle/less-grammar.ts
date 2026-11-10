@@ -91,7 +91,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
   /** Capture groups that the grammar tokenizes with patterns of their own,
    * as the \`Nested\` value that does. */
@@ -150,7 +150,7 @@ function register(node: Node, id: string): string[] {
       pats.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
         nested: nestedList(node.captures),
       });
@@ -162,14 +162,14 @@ function register(node: Node, id: string): string[] {
       pats.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
         nested: nestedList(node.beginCaptures ?? node.captures),
       });
       pats.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
         nested: nestedList(node.endCaptures ?? node.captures),
       });
@@ -270,16 +270,16 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
@@ -300,5 +300,5 @@ await writeRust(`${root_dir}src/less/grammar.rs`, g);
 
 const s = scopeFile("less-grammar.ts", "LESS", scopes);
 await writeRust(`${root_dir}src/less/scope.rs`, s);
-if (Bun.env.LESS_DUMP) await Bun.write(Bun.env.LESS_DUMP, JSON.stringify(patList.map((p) => ({ id: p.id, kind: p.act.kind, regex: p.regex, captures: p.captures, nested: p.nested })), null, 0));
+if (Bun.env.LESS_DUMP) await Bun.write(Bun.env.LESS_DUMP, JSON.stringify(patList.map((p) => ({ id: p.id, role: p.act.role, regex: p.regex, captures: p.captures, nested: p.nested })), null, 0));
 console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes; missing: ${[...missing].join(" ")}`);

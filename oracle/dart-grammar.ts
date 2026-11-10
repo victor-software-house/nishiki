@@ -84,7 +84,7 @@ const rootNames: Record<string, string> = { RootAt0: "Shebang", RootAt1: "Direct
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
   /** Capture groups that the grammar tokenizes with patterns of their own. */
   nested: [number, string][];
@@ -100,8 +100,9 @@ type Rule = {
 const pats = new Map<string, Pat>();
 const rules = new Map<string, Rule>();
 
-/** The capture groups whose text the grammar tokenizes with patterns, by kind.
- * Each kind lexes the group with a rule of its own, `<kind>Group`. */
+/** The capture groups whose text the grammar tokenizes with patterns,
+ * each with the name of its nested list.
+ * Each nested list lexes the group with a rule of its own, `<name>Group`. */
 function nestedList(captures: Captures | undefined): [number, string][] {
   if (!captures) return [];
   const out: [number, string][] = [];
@@ -109,13 +110,13 @@ function nestedList(captures: Captures | undefined): [number, string][] {
     if (!value.patterns) continue;
     const only = value.patterns.length === 1 ? value.patterns[0]!.include : undefined;
     if (only !== "#type-args") throw new Error(`capture ${group}: unknown nested patterns`);
-    const kind = "TypeArgs";
-    if (!rules.has(`${kind}Group`)) {
-      const rule: Rule = { id: `${kind}Group`, name: [], content: [], end: "", patterns: [] };
+    const name = "TypeArgs";
+    if (!rules.has(`${name}Group`)) {
+      const rule: Rule = { id: `${name}Group`, name: [], content: [], end: "", patterns: [] };
       rules.set(rule.id, rule);
       rule.patterns = flatten(value.patterns, rule.id);
     }
-    out.push([Number(group), kind]);
+    out.push([Number(group), name]);
   }
   return out.sort((a, b) => a[0] - b[0]);
 }
@@ -137,7 +138,7 @@ function register(node: Node, id: string): string {
     pats.set(id, {
       id,
       regex: node.match,
-      act: { kind: "match", name: scopeList(node.name) },
+      act: { role: "match", name: scopeList(node.name) },
       captures: captureList(node.captures),
       nested: nestedList(node.captures),
     });
@@ -147,14 +148,14 @@ function register(node: Node, id: string): string {
     pats.set(id, {
       id,
       regex: node.begin,
-      act: { kind: "begin", rule: id },
+      act: { role: "begin", rule: id },
       captures: captureList(node.beginCaptures ?? node.captures),
       nested: nestedList(node.beginCaptures ?? node.captures),
     });
     pats.set(`${id}End`, {
       id: `${id}End`,
       regex: node.end,
-      act: { kind: "end" },
+      act: { role: "end" },
       captures: captureList(node.endCaptures ?? node.captures),
       nested: nestedList(node.endCaptures ?? node.captures),
     });
@@ -260,20 +261,20 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    const nested = p.nested.map(([n, kind]) => `(${n}, Nested::${kind})`).join(", ");
+    const nested = p.nested.map(([n, name]) => `(${n}, Nested::${name})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pat",

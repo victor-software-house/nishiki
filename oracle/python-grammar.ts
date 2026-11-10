@@ -89,7 +89,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
   /** The key of the repository entry it comes from, for flavours. */
   key: string;
@@ -124,7 +124,7 @@ function register(node: Node, id: string, key: string): string {
       pats.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
         key,
       });
@@ -136,14 +136,14 @@ function register(node: Node, id: string, key: string): string {
       pats.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
         key,
       });
       pats.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
         key,
       });
@@ -263,16 +263,16 @@ const docs = (s: string) => {
   return one.length > 90 ? `${one.slice(0, 90)}…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
@@ -282,14 +282,14 @@ g += arms(
 );
 /** Which matchers decide each pattern: one of four families, or, for a
  * regular-expression pattern the grammar writes out once for each quote
- * style, its style and kind. */
-const reKinds = new Set<string>();
+ * style, its quote style and pattern. */
+const rePatterns = new Set<string>();
 const families: Record<string, string[]> = { Code: [], String: [], Fstring: [], Regexp: [] };
 const splitArms: string[] = [];
 for (const p of patList) {
   const m = /^(Single|Double)(One|Three)Regexp(.+)$/.exec(p.id);
   if (m) {
-    reKinds.add(m[3]!);
+    rePatterns.add(m[3]!);
     splitArms.push(`            Pat::${p.id} => Split::Flavoured(Flavour::${m[1]}${m[2]}, Re::${m[3]}),\n`);
     continue;
   }
@@ -318,7 +318,7 @@ for (const f of ["Code", "String", "Fstring", "Regexp"]) {
   g += `}\n`;
 }
 g += `\n/// The kinds of pattern a regular-expression string has for each quote style.\n#[derive(Clone, Copy, Debug, PartialEq, Eq)]\npub(crate) enum Re {\n`;
-for (const k of reKinds) g += `    ${k},\n`;
+for (const pattern of rePatterns) g += `    ${pattern},\n`;
 g += `}\n`;
 
 

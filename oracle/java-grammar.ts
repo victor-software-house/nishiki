@@ -94,7 +94,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
   /** Capture groups that the grammar tokenizes with patterns of their own. */
   nested: [number, string][];
@@ -113,14 +113,15 @@ type Rule = {
 const pats = new Map<string, Pat>();
 const rules = new Map<string, Rule>();
 
-/** The capture groups whose text the grammar tokenizes with patterns, by kind. */
+/** The capture groups whose text the grammar tokenizes with patterns,
+ * each with the name of its nested list. */
 function nestedList(captures: Captures | undefined): [number, string][] {
   if (!captures) return [];
   const out: [number, string][] = [];
   for (const [group, value] of Object.entries(captures)) {
     const first = (value.patterns?.[0] ?? null) as { match?: string; include?: string } | null;
     if (first === null) continue;
-    const kind =
+    const name =
       first.match === "[A-Z_a-z]\\w*"
         ? "TypeChain"
         : first.include === "#storage-modifiers"
@@ -128,8 +129,8 @@ function nestedList(captures: Captures | undefined): [number, string][] {
           : first.include === "#generics"
             ? "Generics"
             : null;
-    if (kind === null) throw new Error(`capture ${group}: unknown nested patterns`);
-    out.push([Number(group), kind]);
+    if (name === null) throw new Error(`capture ${group}: unknown nested patterns`);
+    out.push([Number(group), name]);
   }
   return out.sort((a, b) => a[0] - b[0]);
 }
@@ -151,7 +152,7 @@ function register(node: Node, id: string, key: string): string {
       pats.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
         nested: nestedList(node.captures),
         key,
@@ -164,7 +165,7 @@ function register(node: Node, id: string, key: string): string {
       pats.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
         nested: nestedList(node.beginCaptures ?? node.captures),
         key,
@@ -172,7 +173,7 @@ function register(node: Node, id: string, key: string): string {
       pats.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
         nested: nestedList(node.endCaptures ?? node.captures),
         key,
@@ -287,20 +288,20 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    const nested = p.nested.map(([n, kind]) => `(${n}, Nested::${kind})`).join(", ");
+    const nested = p.nested.map(([n, name]) => `(${n}, Nested::${name})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pat",

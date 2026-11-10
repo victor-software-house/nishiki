@@ -134,7 +134,7 @@ type Cap = { group: number; scopes: Sc[]; nested: string | null };
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: Sc[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: Sc[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: Cap[];
 };
 type Rule = {
@@ -196,15 +196,15 @@ function register(g: Grammar, node: Node, id: string): string {
     pats.set(id, {
       id,
       regex: node.match,
-      act: { kind: "match", name: scopeList(node.name, node.match) },
+      act: { role: "match", name: scopeList(node.name, node.match) },
       captures: [],
     });
     pats.get(id)!.captures = captureList(g, node.captures, id, node.match);
     return id;
   }
   if (node.begin !== undefined && node.end !== undefined) {
-    pats.set(id, { id, regex: node.begin, act: { kind: "begin", rule: id }, captures: [] });
-    pats.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { kind: "end" }, captures: [] });
+    pats.set(id, { id, regex: node.begin, act: { role: "begin", rule: id }, captures: [] });
+    pats.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { role: "end" }, captures: [] });
     const rule: Rule = {
       id,
       name: scopeList(node.name, node.begin),
@@ -410,16 +410,16 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${scText(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures

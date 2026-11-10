@@ -192,7 +192,7 @@ function references(node: Node): Set<number> {
 
 // 2 and 3. Rules and patterns.
 
-type Act = { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" } | { kind: "while" };
+type Act = { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" } | { role: "while" };
 type Pat = {
   id: string;
   regex: string;
@@ -216,8 +216,8 @@ type Rule = {
 
 const pats = new Map<string, Pat>();
 const rules = new Map<string, Rule>();
-/** Nested pattern lists by their JSON, with the name of the kind they get. */
-const nestedKinds = new Map<string, string>();
+/** Nested pattern lists by their JSON, with the name each gets. */
+const nestedNames = new Map<string, string>();
 
 const pascal = (key: string) =>
   key
@@ -225,19 +225,19 @@ const pascal = (key: string) =>
     .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
     .join("");
 
-/** The kind of the nested pattern list `patterns`; registers it as a rule with no end. */
-function nestedKind(patterns: Node[]): string {
+/** The name of the nested pattern list `patterns`; registers it as a rule with no end. */
+function nestedName(patterns: Node[]): string {
   const json = JSON.stringify(patterns);
-  const known = nestedKinds.get(json);
+  const known = nestedNames.get(json);
   if (known !== undefined) return known;
   const includes = patterns.map((p) => p.include?.slice(1) ?? (p.match !== undefined ? "Pattern" : "Begin"));
-  let kind = includes.map(pascal).join("And");
-  if (nestedKinds.size > 0 && [...nestedKinds.values()].includes(kind)) kind += nestedKinds.size;
-  nestedKinds.set(json, kind);
-  const id = `Nested${kind}`;
+  let name = includes.map(pascal).join("And");
+  if (nestedNames.size > 0 && [...nestedNames.values()].includes(name)) name += nestedNames.size;
+  nestedNames.set(json, name);
+  const id = `Nested${name}`;
   rules.set(id, { id, name: [], content: [], end: "", while: "", patterns: [] });
   rules.get(id)!.patterns = flatten(patterns, id);
-  return kind;
+  return name;
 }
 
 function captureList(captures: Captures | undefined, word: string | null): [number, string[]][] {
@@ -257,7 +257,7 @@ function nestedList(captures: Captures | undefined): [number, string][] {
   if (!captures) return [];
   return Object.entries(captures)
     .filter(([, value]) => value.patterns !== undefined)
-    .map(([group, value]): [number, string] => [Number(group), nestedKind(value.patterns!)])
+    .map(([group, value]): [number, string] => [Number(group), nestedName(value.patterns!)])
     .sort((a, b) => a[0] - b[0]);
 }
 
@@ -303,7 +303,7 @@ function register(node: Node, id: string): string[] {
           regex,
           source: node.match!,
           word,
-          act: { kind: "match", name: scopeList(node.name === undefined ? undefined : substitute(node.name, word)) },
+          act: { role: "match", name: scopeList(node.name === undefined ? undefined : substitute(node.name, word)) },
           captures: captureList(node.captures, word),
           nested: nestedList(node.captures),
         });
@@ -320,7 +320,7 @@ function register(node: Node, id: string): string[] {
           regex,
           source: node.begin!,
           word,
-          act: { kind: "begin", rule: id },
+          act: { role: "begin", rule: id },
           captures: captureList(node.beginCaptures ?? node.captures, word),
           nested: nestedList(node.beginCaptures ?? node.captures),
         });
@@ -334,7 +334,7 @@ function register(node: Node, id: string): string[] {
           regex: node.end,
           source: node.end,
           word: null,
-          act: { kind: "end" },
+          act: { role: "end" },
           captures: captureList(node.endCaptures ?? node.captures, null),
           nested: nestedList(node.endCaptures ?? node.captures),
         });
@@ -347,7 +347,7 @@ function register(node: Node, id: string): string[] {
           regex: node.while!,
           source: node.while!,
           word: null,
-          act: { kind: "while" },
+          act: { role: "while" },
           captures: captureList(node.whileCaptures ?? node.captures, null),
           nested: nestedList(node.whileCaptures ?? node.captures),
         });
@@ -398,11 +398,11 @@ rules.get("Root")!.patterns = flatten(root.patterns!, "Root");
 
 type Atom = { behind: boolean; bytes: number[] };
 type How =
-  | { kind: "lit"; bytes: number[] }
-  | { kind: "group"; bytes: number[] }
-  | { kind: "word"; word: string; dot: boolean; group: boolean }
-  | { kind: "assert"; atoms: Atom[] }
-  | { kind: "hand" };
+  | { method: "lit"; bytes: number[] }
+  | { method: "group"; bytes: number[] }
+  | { method: "word"; word: string; dot: boolean; group: boolean }
+  | { method: "assert"; atoms: Atom[] }
+  | { method: "hand" };
 
 /** The bytes of a simple class such as `[]),;}]`, or null. */
 function simpleClass(source: string): number[] | null {
@@ -460,14 +460,14 @@ function alternatives(regex: string): string[] {
 function howOf(regex: string): How {
   const literal = /^(?:[^\\^$.|?*+()[{]|\\[^A-Za-z0-9])+$/;
   const decode = (text: string) => [...new TextEncoder().encode(text.replace(/\\(.)/g, "$1"))];
-  if (literal.test(regex)) return { kind: "lit", bytes: decode(regex) };
+  if (literal.test(regex)) return { method: "lit", bytes: decode(regex) };
   const grouped = /^\((.+)\)$/.exec(regex);
-  if (grouped && literal.test(grouped[1]!)) return { kind: "group", bytes: decode(grouped[1]!) };
+  if (grouped && literal.test(grouped[1]!)) return { method: "group", bytes: decode(grouped[1]!) };
   const m = /^(\(\?<!\\\.\))?\\b(?:\(([a-z]+)\)|([a-z]+))\\b$/.exec(regex);
-  if (m) return { kind: "word", word: (m[2] ?? m[3])!, dot: m[1] !== undefined, group: m[2] !== undefined };
+  if (m) return { method: "word", word: (m[2] ?? m[3])!, dot: m[1] !== undefined, group: m[2] !== undefined };
   const atoms = alternatives(regex).map(atomOf);
-  if (atoms.every((a): a is Atom => a !== null)) return { kind: "assert", atoms };
-  return { kind: "hand" };
+  if (atoms.every((a): a is Atom => a !== null)) return { method: "assert", atoms };
+  return { method: "hand" };
 }
 
 // Output.
@@ -481,7 +481,7 @@ if (ruleList.length > 256) throw new Error(`${ruleList.length} rules do not fit 
 // The hand matchers: one for each distinct source expression.
 const hand = new Map<string, string>();
 for (const p of patList) {
-  if (howOf(p.regex).kind === "hand" && !hand.has(p.source)) hand.set(p.source, p.id);
+  if (howOf(p.regex).method === "hand" && !hand.has(p.source)) hand.set(p.source, p.id);
 }
 const handOf = (p: Pat) => hand.get(p.source)!;
 
@@ -510,9 +510,9 @@ pub(crate) use crate::rules::Start;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Nested {
 `;
-for (const kind of nestedKinds.values()) g += `    ${kind},\n`;
+for (const name of nestedNames.values()) g += `    ${name},\n`;
 g += `}\n\nimpl Nested {\n    /// The rule whose patterns tokenize the group.\n    pub(crate) const fn rule(self) -> Rule {\n        match self {\n`;
-for (const kind of nestedKinds.values()) g += `            Nested::${kind} => Rule::Nested${kind},\n`;
+for (const name of nestedNames.values()) g += `            Nested::${name} => Rule::Nested${name},\n`;
 g += `        }\n    }\n}\n\n`;
 
 g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u8)]\npub(crate) enum Rule {\n`;
@@ -540,22 +540,22 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind;
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role;
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the probe test.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
-          : p.act.kind === "end"
+          : p.act.role === "end"
             ? "Act::End"
             : "Act::Match(S::NO_SCOPES)";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    const nested = p.nested.map(([n, kind]) => `(${n}, Nested::${kind})`).join(", ");
+    const nested = p.nested.map(([n, name]) => `(${n}, Nested::${name})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pat",
@@ -569,7 +569,7 @@ g += `        }\n    }\n\n    /// How the pattern is matched.\n    ///\n    /// 
 g += arms(
   patList.map((p): [string, string] => {
     const how = howOf(p.regex);
-    switch (how.kind) {
+    switch (how.method) {
       case "lit":
         return [p.id, `How::Lit(&[${how.bytes.join(", ")}])`];
       case "group":
@@ -642,5 +642,5 @@ if (Bun.env["RX_DUMP"]) {
   );
 }
 console.log(
-  `${ruleList.length} rules, ${patList.length} patterns, ${hand.size} hand matchers, ${scopes.size} scopes, ${nestedKinds.size} nested kinds`,
+  `${ruleList.length} rules, ${patList.length} patterns, ${hand.size} hand matchers, ${scopes.size} scopes, ${nestedNames.size} nested lists`,
 );

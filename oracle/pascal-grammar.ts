@@ -97,7 +97,7 @@ if (names.length !== grammar.patterns.length) throw new Error("the grammar's roo
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = { id: string; name: string[]; end: string; patterns: string[] };
@@ -115,13 +115,13 @@ function captureList(captures: Node["captures"]): [number, string[]][] {
 /** Registers `node` under `id` and returns the id of the pattern it adds. */
 function register(node: Node, id: string): string {
   if (node.match !== undefined) {
-    pats.push({ id, regex: node.match, act: { kind: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    pats.push({ id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
     return id;
   }
   if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
   if (/\\[1-9]/.test(node.end)) throw new Error(`${id}: the end repeats a group`);
-  pats.push({ id, regex: node.begin, act: { kind: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
-  pats.push({ id: `${id}End`, regex: node.end, act: { kind: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
+  pats.push({ id, regex: node.begin, act: { role: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
+  pats.push({ id: `${id}End`, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
   const rule: Rule = { id, name: scopeList(node.name), end: `${id}End`, patterns: [] };
   rules.push(rule);
   rule.patterns = (node.patterns ?? []).map((inner, index) => register(inner, `${id}At${index}`));
@@ -214,13 +214,13 @@ g += `        }\n    }\n}\n\n`;
 g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
 const docs = (s: string) => (s.length > 56 ? "…" : s);
 for (const p of pats) {
-  g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${pats.length}] = [\n${pats.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   pats.map((p): [string, string] => {
     const act =
-      p.act.kind === "match" ? `Act::Match(${list(p.act.name)})` : p.act.kind === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
     const caps = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
   }),

@@ -82,7 +82,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = {
@@ -116,7 +116,7 @@ function register(node: Node, id: string): string {
       pats.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
       });
     }
@@ -127,13 +127,13 @@ function register(node: Node, id: string): string {
       pats.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
       });
       pats.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
       });
       const rule: Rule = {
@@ -201,17 +201,17 @@ while (stack.length > 0) {
   reach.add(id);
   for (const p of rules.get(id)!.patterns) {
     const act = pats.get(p)!.act;
-    if (act.kind === "begin") stack.push(act.rule);
+    if (act.role === "begin") stack.push(act.rule);
   }
 }
 const inFor = (id: string) => (id === forRule ? id : `${id}InFor`);
 const opensCopy = (p: string) => {
   const act = pats.get(p)!.act;
-  return act.kind === "begin" && act.rule !== forRule && reach.has(act.rule);
+  return act.role === "begin" && act.rule !== forRule && reach.has(act.rule);
 };
 for (const p of [...pats.values()]) {
-  if (opensCopy(p.id) && p.act.kind === "begin") {
-    pats.set(`${p.id}InFor`, { ...p, id: `${p.id}InFor`, act: { kind: "begin", rule: inFor(p.act.rule) } });
+  if (opensCopy(p.id) && p.act.role === "begin") {
+    pats.set(`${p.id}InFor`, { ...p, id: `${p.id}InFor`, act: { role: "begin", rule: inFor(p.act.rule) } });
   }
 }
 for (const id of reach) {
@@ -236,7 +236,7 @@ while (open.length > 0) {
   live.add(id);
   for (const p of rules.get(id)!.patterns) {
     const act = pats.get(p)!.act;
-    if (act.kind === "begin") open.push(act.rule);
+    if (act.role === "begin") open.push(act.rule);
   }
 }
 for (const id of [...rules.keys()]) if (!live.has(id)) rules.delete(id);
@@ -294,16 +294,16 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");

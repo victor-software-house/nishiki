@@ -1801,12 +1801,12 @@ export const waivers: Waiver[] = [
     ["patterns[6].patterns[0].end", "RootAt6At0End"],
     ["patterns[7].patterns[0].end", "RootAt7At0End"],
     ["#line_comment.patterns[0].begin", "LineCommentAt0"],
-    ...["braces", "brackets", "ltgt", "parens"].flatMap((kind) =>
+    ...["braces", "brackets", "ltgt", "parens"].flatMap((bracket) =>
       ["", "_interpolated"].flatMap((tail) => {
-        const id = `Nested${kind.charAt(0).toUpperCase()}${kind.slice(1)}${tail ? "Interpolated" : ""}`;
+        const id = `Nested${bracket.charAt(0).toUpperCase()}${bracket.slice(1)}${tail ? "Interpolated" : ""}`;
         return [
-          [`#nested_${kind}${tail}.begin`, id],
-          [`#nested_${kind}${tail}.end`, `${id}End`],
+          [`#nested_${bracket}${tail}.begin`, id],
+          [`#nested_${bracket}${tail}.end`, `${id}End`],
         ];
       }),
     ),

@@ -211,7 +211,7 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   type Pat = {
     id: string;
     regex: string;
-    act: { kind: "match"; name: Sc[] } | { kind: "begin"; rule: string } | { kind: "end" };
+    act: { role: "match"; name: Sc[] } | { role: "begin"; rule: string } | { role: "end" };
     captures: Cap[];
   };
   type Rule = {
@@ -270,7 +270,7 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
     if (clash) return id;
     if (node.match !== undefined) {
-      pats.set(id, { id, regex: node.match, act: { kind: "match", name: scopeList(node.name, node.match) }, captures: [] });
+      pats.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name, node.match) }, captures: [] });
       pats.get(id)!.captures = captureList(sc, node.captures, id, node.match);
       return id;
     }
@@ -286,8 +286,8 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
           requireGroup(node.end, backref, node.begin);
         }
       }
-      pats.set(id, { id, regex: node.begin, act: { kind: "begin", rule: id }, captures: [] });
-      pats.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { kind: "end" }, captures: [] });
+      pats.set(id, { id, regex: node.begin, act: { role: "begin", rule: id }, captures: [] });
+      pats.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { role: "end" }, captures: [] });
       const rule: Rule = {
         id,
         name: scopeList(node.name, node.begin),
@@ -579,14 +579,14 @@ pub(crate) struct Nested {
   };
   /** An expression as a doc comment shows it; the empty one has no code span. */
   const shown = (s: string) => (s === "" ? "the empty expression" : `\`${docs(s).replaceAll("`", "'")}\``);
-  for (const p of patList) g += `    /// The ${p.act.kind}: ${shown(p.regex)}.\n    ${p.id},\n`;
+  for (const p of patList) g += `    /// The ${p.act.role}: ${shown(p.regex)}.\n    ${p.id},\n`;
   g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
   g += arms(
     patList.map((p): [string, string] => {
       const act =
-        p.act.kind === "match"
+        p.act.role === "match"
           ? `Act::Match(${scText(p.act.name)})`
-          : p.act.kind === "begin"
+          : p.act.role === "begin"
             ? `Act::Begin(Rule::${p.act.rule})`
             : "Act::End";
       const caps = p.captures
@@ -678,8 +678,8 @@ pub(crate) struct Nested {
             .filter((p) => p.regex === regex)
             .flatMap((p) => [
               ...p.captures.flatMap((c) => [c.group, ...dollar(c.scopes)]),
-              ...(p.act.kind === "match" ? dollar(p.act.name) : []),
-              ...(p.act.kind === "begin" ? [...dollar(rules.get(p.act.rule)!.name), ...dollar(rules.get(p.act.rule)!.content)] : []),
+              ...(p.act.role === "match" ? dollar(p.act.name) : []),
+              ...(p.act.role === "begin" ? [...dollar(rules.get(p.act.rule)!.name), ...dollar(rules.get(p.act.rule)!.content)] : []),
             ]);
           return JSON.stringify({ id, regex, groups: [...new Set(groups)].sort((a, b) => a - b) });
         })

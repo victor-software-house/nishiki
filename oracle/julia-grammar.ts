@@ -189,7 +189,7 @@ const empty = new Set(["source.cpp#root_context"]);
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = {
@@ -225,7 +225,7 @@ function register(node: Node, id: string): string {
     pats.set(id, {
       id,
       regex: node.match,
-      act: { kind: "match", name: scopeList(node.name) },
+      act: { role: "match", name: scopeList(node.name) },
       captures: captureList(node.captures),
     });
     return id;
@@ -234,13 +234,13 @@ function register(node: Node, id: string): string {
     pats.set(id, {
       id,
       regex: node.begin,
-      act: { kind: "begin", rule: id },
+      act: { role: "begin", rule: id },
       captures: captureList(node.beginCaptures ?? node.captures),
     });
     pats.set(`${id}End`, {
       id: `${id}End`,
       regex: node.end,
-      act: { kind: "end" },
+      act: { role: "end" },
       captures: captureList(node.endCaptures ?? node.captures),
     });
     const rule: Rule = {
@@ -357,15 +357,15 @@ const docs = (s: string) => {
   return one.length > 56 || /[^\x20-\x7e]/.test(one) ? `…` : one;
 };
 for (const p of patList) {
-  g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");

@@ -134,7 +134,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = { id: string; name: string[]; content: string[]; end: string; patterns: string[] };
@@ -158,7 +158,7 @@ function register(node: Node, id: string): string {
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (pats.has(id)) return id;
   if (node.match !== undefined) {
-    pats.set(id, { id, regex: node.match, act: { kind: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    pats.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
     return id;
   }
   if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
@@ -166,13 +166,13 @@ function register(node: Node, id: string): string {
   pats.set(id, {
     id,
     regex: node.begin,
-    act: { kind: "begin", rule: id },
+    act: { role: "begin", rule: id },
     captures: captureList(node.beginCaptures ?? node.captures),
   });
   pats.set(`${id}End`, {
     id: `${id}End`,
     regex: node.end,
-    act: { kind: "end" },
+    act: { role: "end" },
     captures: captureList(node.endCaptures ?? node.captures),
   });
   const rule: Rule = { id, name: scopeList(node.name), content: scopeList(node.contentName), end: `${id}End`, patterns: [] };
@@ -257,7 +257,7 @@ const merged = flatten([registers, mnemonics], "Root");
 merged.forEach((id, index) => {
   if (rootRule.patterns[index] !== id) throw new Error(`${id}: the word patterns are not contiguous from the root's start`);
   const pat = pats.get(id)!;
-  if (pat.act.kind !== "match" || pat.captures.length > 0) throw new Error(`${id}: not a plain match`);
+  if (pat.act.role !== "match" || pat.captures.length > 0) throw new Error(`${id}: not a plain match`);
   if (pureWords(pat.regex) === undefined) throw new Error(`${id}: not (?i)\\b(…)\\b over ASCII \\w words`);
 });
 if (pureWords(pats.get(rootRule.patterns[merged.length]!)!.regex) !== undefined) {
@@ -283,7 +283,7 @@ const sortedWords = [...owners.keys()].sort();
 const mergedRegex = `(?i)\\b(?:${merged.map((id) => /^\(\?i\)\\b(.*)\\b$/.exec(pats.get(id)!.regex)![1]).join("|")})\\b`;
 const mergedPats = merged.map((id) => pats.get(id)!);
 for (const id of merged) pats.delete(id);
-pats.set("Word", { id: "Word", regex: mergedRegex, act: { kind: "match", name: [] }, captures: [] });
+pats.set("Word", { id: "Word", regex: mergedRegex, act: { role: "match", name: [] }, captures: [] });
 rootRule.patterns = ["Word", ...rootRule.patterns.slice(merged.length)];
 
 // Blank runs.
@@ -342,14 +342,14 @@ const docs = (s: string) => {
 };
 g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
 for (const p of patList) {
-  const what = p.id === "Word" ? "The registers and mnemonics, merged" : `The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\``;
+  const what = p.id === "Word" ? "The registers and mnemonics, merged" : `The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\``;
   g += `    /// ${what}.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match" ? `Act::Match(${scText(p.act.name)})` : p.act.kind === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match" ? `Act::Match(${scText(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
     const caps = p.captures.map(([n, list]) => `(${n}, ${scText(list)})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
   }),
@@ -504,7 +504,7 @@ pub(super) const OWNERS: [u8; ${ends.length}] = [${sortedWords.map((word) => own
 
 /// The scopes each merged pattern names, by its index.
 pub(super) const NAMES: [Scopes<S>; ${mergedPats.length}] = [
-${mergedPats.map((p) => `    ${p.act.kind === "match" ? scText(p.act.name) : "S::NO_SCOPES"},\n`).join("")}];
+${mergedPats.map((p) => `    ${p.act.role === "match" ? scText(p.act.name) : "S::NO_SCOPES"},\n`).join("")}];
 
 /// The words that a later merged pattern lists too, with its index, for the
 /// probe that checks each pattern alone.
@@ -536,24 +536,24 @@ pub(super) const SPELLINGS_ALSO_IN: &[(&[u8], u8)] = &[${sortedSpellings.flatMap
  * Between two `\b`, no word of a list may be a prefix of another that a
  * character other than `\w` follows there: both could then match, and the
  * alternation's order, which the list does not keep, would decide. */
-function supportList(regex: string): { kind: string; words: string[] } | undefined {
+function supportList(regex: string): { form: string; words: string[] } | undefined {
   const forms: [string, RegExp][] = [
     ["word", /^(\(\?i\))?\\b((?:[\w|()?:\[\]-]|\\\?)*)\\b$/],
     ["dots", /^()\\\.\\\.\(\?:([\w|()?:]*)\)\\b$/],
     ["brace", /^()\\\{\(([\w|()?:\[\]-]*)\)\}$/],
   ];
-  for (const [kind, form] of forms) {
-    const m = form.exec(regex);
+  for (const [form, pattern] of forms) {
+    const m = pattern.exec(regex);
     if (!m) continue;
     const words = [...new Set(expand(m[2]!).map((word) => (m[1] ? word.toLowerCase() : word)))].sort();
-    if (kind === "word") {
+    if (form === "word") {
       for (const a of words) {
         for (const b of words) {
           if (b.length > a.length && b.startsWith(a) && !/\w/.test(b[a.length]!)) throw new Error(`${regex}: ${a} and ${b} both end at a boundary`);
         }
       }
     }
-    return { kind, words };
+    return { form, words };
   }
   return undefined;
 }
@@ -561,9 +561,9 @@ const supportIds = patList.map((p) => p.id).filter((id) => id.startsWith("Suppor
 for (const id of supportIds) {
   const list = supportList(pats.get(id)!.regex);
   if (list === undefined) continue;
-  w += `\n/// The words of the \`${id}\` pattern, read ${list.kind === "word" ? "between two `\\b`" : list.kind === "dots" ? "after `..`" : "inside `{…}`"}.\npub(super) const ${constName(id)}: &[&[u8]] = &[${list.words.map(bytes).join(", ")}];\n`;
+  w += `\n/// The words of the \`${id}\` pattern, read ${list.form === "word" ? "between two `\\b`" : list.form === "dots" ? "after `..`" : "inside `{…}`"}.\npub(super) const ${constName(id)}: &[&[u8]] = &[${list.words.map(bytes).join(", ")}];\n`;
   const regex = pats.get(id)!.regex;
-  if (list.kind === "word" && regex.startsWith("(?i)")) {
+  if (list.form === "word" && regex.startsWith("(?i)")) {
     const accepted = acceptedSpellings(regex, list.words).sort((a, b) => Buffer.compare(Buffer.from(a), Buffer.from(b)));
     w += `\n/// The spellings of the \`${id}\` pattern's words with \`ß\` or a Latin ligature that Oniguruma accepts, as [\`SPELLINGS\`] keeps them.\npub(super) const ${constName(id)}_SPELLINGS: &[&[u8]] = &[${accepted.map(utf8).join(", ")}];\n`;
   }

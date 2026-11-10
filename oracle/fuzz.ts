@@ -42,7 +42,7 @@ const random = () => {
   return state / 4294967296;
 };
 const int = (n: number) => Math.floor(random() * n);
-const pick = <T>(items: T[]): T => items[int(items.length)] as T;
+const pick = <T>(choices: T[]): T => choices[int(choices.length)] as T;
 
 /** Texts that break most grammars somewhere: brackets, quotes, comment
  * markers, escapes, a line continuation, and characters outside ASCII. */

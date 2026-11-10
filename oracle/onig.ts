@@ -70,7 +70,7 @@ const random = () => {
   state >>>= 0;
   return state / 4294967296;
 };
-const pick = <T>(items: T[]): T => items[Math.floor(random() * items.length)] as T;
+const pick = <T>(choices: T[]): T => choices[Math.floor(random() * choices.length)] as T;
 const snippets = probe.snippets ?? [];
 const mutate = (text: string) => {
   let out = text;

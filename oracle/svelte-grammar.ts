@@ -15,7 +15,7 @@
 //    The rule carries the group as its payload.
 //    The name is built from a prefix, the payload and a suffix, and the static
 //    scopes after it.
-// 3. A capture group with patterns of its own is a nested kind.
+// 3. A capture group with patterns of its own is a nested list.
 //    src/svelte/engine.rs tokenizes it by hand.
 // 4. The grammar's injections add the bodies of `<script>`, `<style>` and
 //    `<template>`.
@@ -193,7 +193,7 @@ const pascal = (key: string) =>
     .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
     .join("");
 
-type Act = { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" } | { kind: "while" };
+type Act = { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" } | { role: "while" };
 type Pat = {
   id: string;
   regex: string;
@@ -228,34 +228,34 @@ type Rule = {
 const pats = new Map<string, Pat>();
 const rules = new Map<string, Rule>();
 
-/** The nested kinds, by the include or the inline patterns they stand for.
+/** The nested lists, by the include or the inline patterns they stand for.
  * Each is a rule with patterns only, which `retokenise` runs over the group. */
-const nestedKinds = new Map<string, string>();
+const nestedNames = new Map<string, string>();
 
-/** The kinds of a group that another language lexes again, by the grammar
+/** The nested lists of a group that another language lexes again, by the grammar
  * its one pattern includes. The engine defers such a group to that
  * language (`Embeds::lex_nested`), so its rule has no patterns. */
-const deferredKinds: Record<string, string> = {
+const deferredNames: Record<string, string> = {
   "source.ts": "NestedTypeScript",
   "text.html.markdown": "NestedMarkdown",
 };
 
-function nestedKind(group: string, patterns: Node[], context: string): string | null {
+function nestedName(group: string, patterns: Node[], context: string): string | null {
   const only = patterns.length === 1 ? patterns[0]! : null;
   const key =
     only?.include !== undefined
       ? only.include
       : patterns.map((p) => p.match ?? p.include ?? "?").join(" | ");
-  const known = nestedKinds.get(key);
+  const known = nestedNames.get(key);
   if (known !== undefined) return known;
-  const deferred = only?.include === undefined ? undefined : deferredKinds[only.include];
-  const kind =
+  const deferred = only?.include === undefined ? undefined : deferredNames[only.include];
+  const name =
     only?.include?.startsWith("#") === true
       ? `Nested${pascal(only.include.slice(1))}`
       : (deferred ?? `Nested${context}Group${group}`);
-  nestedKinds.set(key, kind);
+  nestedNames.set(key, name);
   const rule: Rule = {
-    id: kind,
+    id: name,
     name: [],
     dynamic: null,
     content: [],
@@ -268,12 +268,12 @@ function nestedKind(group: string, patterns: Node[], context: string): string | 
     before: 0,
     injected: 0,
   };
-  rules.set(kind, rule);
-  if (deferred !== undefined) return kind;
-  const items = flatten(patterns, kind);
-  if (items.some((item) => "embed" in item)) throw new Error(`${kind}: a nested kind embeds a grammar`);
-  rule.patterns = items.map((item) => (item as { pat: string }).pat);
-  return kind;
+  rules.set(name, rule);
+  if (deferred !== undefined) return name;
+  const members = flatten(patterns, name);
+  if (members.some((member) => "embed" in member)) throw new Error(`${name}: a nested list embeds a grammar`);
+  rule.patterns = members.map((member) => (member as { pat: string }).pat);
+  return name;
 }
 
 function captureList(captures: Captures | undefined): [number, string[]][] {
@@ -289,15 +289,15 @@ function nestedList(captures: Captures | undefined, context: string): [number, s
   const out: [number, string][] = [];
   for (const [group, value] of Object.entries(captures)) {
     if (value.patterns === undefined) continue;
-    const kind = nestedKind(group, value.patterns, context);
-    if (kind !== null) out.push([Number(group), kind]);
+    const name = nestedName(group, value.patterns, context);
+    if (name !== null) out.push([Number(group), name]);
   }
   return out.sort((a, b) => a[0] - b[0]);
 }
 
-/** One item of a flattened pattern list: a pattern id, or the embedded
+/** One member of a flattened pattern list: a pattern id, or the embedded
  * grammar of an include of another one. */
-type Item = { pat: string } | { embed: Embed };
+type Member = { pat: string } | { embed: Embed };
 
 /** Registers a match or begin rule under `id`; returns the pattern id. */
 function register(node: Node, id: string): string {
@@ -309,7 +309,7 @@ function register(node: Node, id: string): string {
     pats.set(id, {
       id,
       regex: node.match,
-      act: { kind: "match", name: scopeList(node.name) },
+      act: { role: "match", name: scopeList(node.name) },
       captures: captureList(node.captures),
       nested: nestedList(node.captures, id),
     });
@@ -321,7 +321,7 @@ function register(node: Node, id: string): string {
   pats.set(id, {
     id,
     regex: node.begin,
-    act: { kind: "begin", rule: id },
+    act: { role: "begin", rule: id },
     captures: captureList(node.beginCaptures ?? node.captures),
     nested: nestedList(node.beginCaptures ?? node.captures, id),
   });
@@ -331,7 +331,7 @@ function register(node: Node, id: string): string {
   pats.set(closeId, {
     id: closeId,
     regex: closing,
-    act: node.end !== undefined ? { kind: "end" } : { kind: "while" },
+    act: node.end !== undefined ? { role: "end" } : { role: "while" },
     captures: captureList(closeCaptures),
     nested: nestedList(closeCaptures, closeId),
   });
@@ -355,21 +355,21 @@ function register(node: Node, id: string): string {
     injected: 0,
   };
   rules.set(id, rule);
-  const items = flatten(node.patterns ?? [], id);
-  const embeds = items.filter((item) => "embed" in item);
+  const members = flatten(node.patterns ?? [], id);
+  const embeds = members.filter((member) => "embed" in member);
   if (embeds.length > 1) throw new Error(`${id}: embeds two grammars`);
   if (embeds.length === 1) {
     if (rule.backref !== null) throw new Error(`${id}: embeds and repeats a group`);
     rule.embed = (embeds[0] as { embed: Embed }).embed;
-    rule.before = items.findIndex((item) => "embed" in item);
+    rule.before = members.findIndex((member) => "embed" in member);
   }
-  rule.patterns = items.flatMap((item) => ("pat" in item ? [item.pat] : []));
+  rule.patterns = members.flatMap((member) => ("pat" in member ? [member.pat] : []));
   return id;
 }
 
-/** The items a pattern list expands to, `include`s flattened. */
-function flatten(list: Node[], context: string): Item[] {
-  const out: Item[] = [];
+/** The members a pattern list expands to, `include`s flattened. */
+function flatten(list: Node[], context: string): Member[] {
+  const out: Member[] = [];
   list.forEach((node, index) => {
     if (node.include === undefined) {
       out.push(...expand(node, `${context}At${index}`));
@@ -393,7 +393,7 @@ function flatten(list: Node[], context: string): Item[] {
   return out;
 }
 
-function expand(node: Node, id: string): Item[] {
+function expand(node: Node, id: string): Member[] {
   if (node.match !== undefined || node.begin !== undefined) return [{ pat: register(node, renames[id] ?? id) }];
   if (node.patterns) return flatten(node.patterns, id);
   throw new Error(`${id}: empty rule`);
@@ -422,8 +422,8 @@ for (const [selector, injection] of Object.entries(grammar.injections)) {
   }
 }
 
-const rootItems = flatten(grammar.patterns, "Root");
-if (rootItems.some((item) => "embed" in item)) throw new Error("the root embeds a grammar");
+const rootMembers = flatten(grammar.patterns, "Root");
+if (rootMembers.some((member) => "embed" in member)) throw new Error("the root embeds a grammar");
 rules.set("Root", {
   id: "Root",
   name: [],
@@ -434,7 +434,7 @@ rules.set("Root", {
   endBackref: null,
   backref: null,
   embed: null,
-  patterns: rootItems.map((item) => (item as { pat: string }).pat),
+  patterns: rootMembers.map((member) => (member as { pat: string }).pat),
   before: 0,
   injected: 0,
 });
@@ -452,7 +452,7 @@ for (const id of ["TagsLang", "TagsLangAt0"]) {
 // `source` or a `meta.lang` scope.
 // Every other rule tries the template body first; its matcher walks the
 // open rules to the template.
-// The root, the embedding rules and the deferred kinds run no such patterns.
+// The root, the embedding rules and the deferred lists run no such patterns.
 
 /** Whether one of the rule's own scopes hides the template body's selector. */
 function hidesTemplate(rule: Rule): boolean {
@@ -461,7 +461,7 @@ function hidesTemplate(rule: Rule): boolean {
   return names.some((name) => name.startsWith("source.") || name.startsWith("meta.lang"));
 }
 for (const rule of rules.values()) {
-  const deferred = Object.values(deferredKinds).includes(rule.id);
+  const deferred = Object.values(deferredNames).includes(rule.id);
   if (rule.id === "Root" || rule.embed !== null || deferred || rule.patterns.includes("BodyTemplate") || hidesTemplate(rule)) continue;
   rule.patterns = ["BodyTemplate", ...rule.patterns];
   rule.injected += 1;
@@ -592,21 +592,21 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
-          : p.act.kind === "end"
+          : p.act.role === "end"
             ? "Act::End"
             : "Act::Match(S::NO_SCOPES)";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    const nested = p.nested.map(([n, kind]) => `(${n}, Rule::${kind})`).join(", ");
+    const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pat",
@@ -629,7 +629,7 @@ if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
     patList
-      .filter((p) => !(p.act.kind === "end" && /\\[1-9]/.test(p.regex)))
+      .filter((p) => !(p.act.role === "end" && /\\[1-9]/.test(p.regex)))
       .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
       .join("\n") + "\n",
   );

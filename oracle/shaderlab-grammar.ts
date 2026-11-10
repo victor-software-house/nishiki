@@ -130,7 +130,7 @@ const unityNames = [
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = { id: string; name: string[]; end: string; patterns: string[]; embeds: boolean };
@@ -156,18 +156,18 @@ if (embedded[0]?.include !== "source.hlsl" || embedded.length !== unityNames.len
 function register(node: Node, id: string): string[] {
   if (node.include === "#numbers") {
     if (!pats.some((p) => p.id === "Number")) {
-      pats.push({ id: "Number", regex: numbers![0]!.match!, act: { kind: "match", name: scopeList(numbers![0]!.name) }, captures: [] });
+      pats.push({ id: "Number", regex: numbers![0]!.match!, act: { role: "match", name: scopeList(numbers![0]!.name) }, captures: [] });
     }
     return ["Number"];
   }
   if (node.match !== undefined) {
-    pats.push({ id, regex: node.match, act: { kind: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    pats.push({ id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
     return [id];
   }
   if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
   if (/\\[1-9]/.test(node.end)) throw new Error(`${id}: the end repeats a group`);
-  pats.push({ id, regex: node.begin, act: { kind: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
-  pats.push({ id: `${id}End`, regex: node.end, act: { kind: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
+  pats.push({ id, regex: node.begin, act: { role: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
+  pats.push({ id: `${id}End`, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
   const rule: Rule = { id, name: scopeList(node.name), end: `${id}End`, patterns: [], embeds: false };
   rules.push(rule);
   const inner = node.patterns ?? [];
@@ -198,7 +198,7 @@ for (const p of pats) {
 type WordPat = { id: string; folded: boolean; words: string[] };
 const wordPats: WordPat[] = [];
 for (const p of pats) {
-  if (p.act.kind !== "match" || ["Number", "Reference", "Declaration"].includes(p.id)) continue;
+  if (p.act.role !== "match" || ["Number", "Reference", "Declaration"].includes(p.id)) continue;
   const word = /^\\b\((\?i:)?(.*)\)\\b$/s.exec(p.regex);
   if (word === null) continue;
   const folded = word[1] !== undefined;
@@ -280,13 +280,13 @@ g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after 
 g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
 const docs = (s: string) => (s.length > 56 ? "…" : s);
 for (const p of pats) {
-  g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${pats.length}] = [\n${pats.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   pats.map((p): [string, string] => {
     const act =
-      p.act.kind === "match" ? `Act::Match(${list(p.act.name)})` : p.act.kind === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
     const caps = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
   }),

@@ -91,7 +91,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = {
@@ -127,7 +127,7 @@ function register(node: Node, id: string): string {
       pats.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
       });
     }
@@ -138,13 +138,13 @@ function register(node: Node, id: string): string {
       pats.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
       });
       pats.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
       });
       const backrefs = [...new Set([...node.end.matchAll(/\\([1-9])/g)].map((m) => Number(m[1])))];
@@ -253,15 +253,15 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patList) {
-  g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
@@ -288,7 +288,7 @@ if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
     patList
-      .filter((p) => !(p.act.kind === "end" && /\\[1-9]/.test(p.regex)))
+      .filter((p) => !(p.act.role === "end" && /\\[1-9]/.test(p.regex)))
       .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
       .join("\n") + "\n",
   );

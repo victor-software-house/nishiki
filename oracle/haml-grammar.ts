@@ -142,7 +142,7 @@ if (names.length !== grammar.patterns.length) throw new Error("the grammar's roo
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
   /** Whether the generator made it: a filter body's begin or end. */
   made: boolean;
@@ -210,19 +210,19 @@ function register(node: Node, id: string): string | null {
   if (node.applyEndPatternLast) throw new Error(`${id}: applyEndPatternLast`);
   if (node.while !== undefined) throw new Error(`${id}: while`);
   if (node.match !== undefined) {
-    pats.set(id, { id, regex: node.match, act: { kind: "match", name: scopeList(node.name) }, captures: captureList(node.captures), made: false });
+    pats.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures), made: false });
     return id;
   }
   if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
   pats.set(id, {
     id,
     regex: node.begin,
-    act: { kind: "begin", rule: id },
+    act: { role: "begin", rule: id },
     captures: captureList(node.beginCaptures ?? node.captures),
     made: false,
   });
   const end = `${id}End`;
-  pats.set(end, { id: end, regex: node.end, act: { kind: "end" }, captures: captureList(node.endCaptures ?? node.captures), made: false });
+  pats.set(end, { id: end, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures), made: false });
   const backrefs = [...new Set([...node.end.matchAll(/\\([1-9])/g)].map((m) => Number(m[1])))];
   if (backrefs.length > 1) throw new Error(`${id}: the end repeats more than one group`);
   const rule: Rule = {
@@ -256,8 +256,8 @@ function register(node: Node, id: string): string | null {
 function body(filter: Rule, end: string): void {
   if (filter.patterns.length > 0) throw new Error(`${filter.id}: patterns beside the grammar it embeds`);
   const id = `${filter.id}Body`;
-  pats.set(id, { id, regex: "\\G", act: { kind: "begin", rule: id }, captures: [], made: true });
-  pats.set(`${id}End`, { id: `${id}End`, regex: `(?=${end})`, act: { kind: "end" }, captures: [], made: true });
+  pats.set(id, { id, regex: "\\G", act: { role: "begin", rule: id }, captures: [], made: true });
+  pats.set(`${id}End`, { id: `${id}End`, regex: `(?=${end})`, act: { role: "end" }, captures: [], made: true });
   rules.set(id, { id, name: [], content: [], end: `${id}End`, backref: null, embed: filter.embed, ownAfter: false, patterns: [] });
   filter.embed = null;
   filter.patterns = [id];
@@ -338,16 +338,16 @@ function endHalt(r: Rule): string {
     if (end === "(?=(?m:(?<=\\n)(?!\\1\\s+|$\\n*)))") return "End::Filter(Filter::AfterLineFeed)";
     throw new Error(`${r.id}: a filter end of no known kind: ${end}`);
   }
-  const kinds: Record<string, string> = {
+  const ends: Record<string, string> = {
     Rubyline: "End::RubyLine",
     TagAt3: "End::Attributes",
     TagAt5: "End::Object",
     InterpolatedRubyAt1: "End::Interpolation",
     NestCurlyAndSelf: "End::Curly",
   };
-  const kind = kinds[r.id];
-  if (kind === undefined) throw new Error(`${r.id}: an embedding rule of no known kind`);
-  return kind;
+  const end = ends[r.id];
+  if (end === undefined) throw new Error(`${r.id}: an embedding rule of no known kind`);
+  return end;
 }
 
 // Output.
@@ -416,16 +416,16 @@ const docs = (s: string) => {
   return one.length > 56 || /[^\x20-\x7e]/.test(one) ? `…` : one;
 };
 for (const p of patList) {
-  const what = p.made ? (p.act.kind === "begin" ? "made begin" : "made end") : p.act.kind;
+  const what = p.made ? (p.act.role === "begin" ? "made begin" : "made end") : p.act.role;
   g += `    /// The ${what} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
@@ -450,7 +450,7 @@ await writeRust(`${root_dir}src/haml/grammar.rs`, g);
 const used = new Set<string>(["Text"]);
 for (const rule of rules.values()) for (const ident of [...rule.name, ...rule.content]) used.add(ident);
 for (const pat of pats.values()) {
-  if (pat.act.kind === "match") for (const ident of pat.act.name) used.add(ident);
+  if (pat.act.role === "match") for (const ident of pat.act.name) used.add(ident);
   for (const [, list] of pat.captures) for (const ident of list) used.add(ident);
 }
 const emitted = new Map([...scopes].filter(([ident]) => used.has(ident)));
@@ -467,7 +467,7 @@ await writeRust(`${root_dir}src/haml/scope.rs`, scopeFile("haml-grammar.ts", "HA
 // `\n*` is gone.
 const probeRegex: Record<string, string> = { RubylineAt5: "([,<|]|do|\\{)(?:(?!\\n)\\s)*(#.*)?$" };
 if (Bun.env["RX_DUMP"]) {
-  const probed = patList.filter((p) => !p.made && !(p.act.kind === "end" && /\\[1-9]/.test(p.regex)));
+  const probed = patList.filter((p) => !p.made && !(p.act.role === "end" && /\\[1-9]/.test(p.regex)));
   await Bun.write(
     Bun.env["RX_DUMP"],
     probed

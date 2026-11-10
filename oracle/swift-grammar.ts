@@ -86,7 +86,7 @@ const pascal = (key: string) =>
 type Pat = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
   /** Capture groups that the grammar tokenizes with patterns of their own. */
   nested: [number, string][];
@@ -244,7 +244,7 @@ function register(node: Node, id: string, key: string): string[] {
       pats.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
         nested: nestedList(node.captures),
         key,
@@ -257,7 +257,7 @@ function register(node: Node, id: string, key: string): string[] {
       pats.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
         nested: nestedList(node.beginCaptures ?? node.captures),
         key,
@@ -265,7 +265,7 @@ function register(node: Node, id: string, key: string): string[] {
       pats.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
         nested: nestedList(node.endCaptures ?? node.captures),
         key,
@@ -390,20 +390,20 @@ const docs = (s: string) => {
   return one.length > 56 || one.includes("r" + "operty") || one.includes("introduc") ? `…` : one;
 };
 for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    const nested = p.nested.map(([n, kind]) => `(${n}, Rule::${kind})`).join(", ");
+    const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
     return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pat",
@@ -485,12 +485,12 @@ if (process.env.RX_DUMP) {
   // its begin is left out: its text comes from the line that opened the rule.
   const groupsOf = (p: Pat) => {
     const used = new Set<number>([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]);
-    const rule = p.act.kind === "begin" ? rules.get(p.act.rule) : null;
+    const rule = p.act.role === "begin" ? rules.get(p.act.rule) : null;
     if (rule?.backref) used.add(rule.backref);
     return used;
   };
   const rows = [...functionOf]
-    .filter(([regex, { ids }]) => !(pats.get(ids[0]!)!.act.kind === "end" && /\\[1-9k]/.test(regex)))
+    .filter(([regex, { ids }]) => !(pats.get(ids[0]!)!.act.role === "end" && /\\[1-9k]/.test(regex)))
     .map(([regex, { ids }]) => {
       const used = new Set<number>();
       for (const id of ids) for (const g of groupsOf(pats.get(id)!)) used.add(g);
