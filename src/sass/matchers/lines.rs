@@ -51,7 +51,7 @@ impl Lexer<'_> {
             return None;
         }
         let blank = self.space_at(p);
-        let indent = self.payload_text().as_bytes();
+        let indent = self.begin_text().as_bytes();
         let indented = blank > 0 && (indent.is_empty() || self.starts(blank, indent));
         (!indented).then_some(p)
     }

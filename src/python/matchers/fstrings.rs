@@ -99,14 +99,14 @@ impl Lexer<'_> {
 
     /// The end `(\3)` of a triple-quoted f-string.
     fn string_end_multi(&mut self, p: usize) -> Option<usize> {
-        let width = self.payload_at(p)?;
+        let width = self.begin_text_at(p)?;
         self.capture(1, p, p + width);
         Some(p + width)
     }
 
     /// The end `(\3)|((?<!\\)\n)` of a single-line f-string.
     fn string_end_single(&mut self, p: usize) -> Option<usize> {
-        if let Some(width) = self.payload_at(p) {
+        if let Some(width) = self.begin_text_at(p) {
             self.capture(1, p, p + width);
             return Some(p + width);
         }

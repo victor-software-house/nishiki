@@ -8,7 +8,7 @@
 // The body of `ffi.cdef[[...]]` includes `source.c`.
 // The cdef rule's end repeats the `=` level its begin read.
 // The C it embeds keeps a state.
-// A frame carries only one payload.
+// A frame carries only one value.
 // The include therefore becomes a rule of its own inside the cdef rule.
 // That rule adds no scope and embeds C (`CarriedState::Embed`).
 // Its end, `(?=]\2])`, reads the level from the cdef rule's frame.
@@ -270,7 +270,7 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that includes another language's grammar carries that language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that includes another language's grammar carries that language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn carried_state(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,

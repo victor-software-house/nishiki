@@ -1,5 +1,5 @@
 //! The rules the lexer opens, which are frames of the interned state, and
-//! what a frame's payload carries.
+//! what a frame carries.
 
 /// The high byte that marks a frame as one of the HTML lexer's.
 const TAG: u16 = crate::tag::HTML;
@@ -9,8 +9,8 @@ const TAG: u16 = crate::tag::HTML;
 #[repr(u8)]
 pub(crate) enum Rule {
     /// Outside every rule.
-    /// The payload is [`ROOT_EMBEDDED`] or [`ROOT_DERIVATIVE_FIRST`] where
-    /// another grammar embeds HTML.
+    /// The carried value is [`ROOT_EMBEDDED`] or [`ROOT_DERIVATIVE_FIRST`]
+    /// where another grammar embeds HTML.
     Root,
     /// `<!--` up to `-->`.
     Comment,
@@ -23,9 +23,9 @@ pub(crate) enum Rule {
     /// `<?xml` up to `?>`.
     Processing,
     /// A tag of the grammar's own list, a custom element or an unrecognized
-    /// tag, up to its `>`. The payload is a [`TagClass`].
+    /// tag, up to its `>`. The carried value is a [`TagClass`].
     Tag,
-    /// An `svg` or `math` element, up to its end tag. The payload is an
+    /// An `svg` or `math` element, up to its end tag. The carried value is an
     /// [`ElementClass`].
     Element,
     /// The start tag of an element whose attributes the line did not hold.
@@ -36,7 +36,8 @@ pub(crate) enum Rule {
     StyleTag,
     /// The start tag of a `<style>` element, up to `>`.
     OpenStyle,
-    /// The CSS of a `<style>` element. The payload is the CSS lexer's state.
+    /// The CSS of a `<style>` element. The carried value is the CSS lexer's
+    /// state.
     BodyCss,
     /// The leading blanks and line around a `<script>` element.
     ScriptWrap,
@@ -49,7 +50,7 @@ pub(crate) enum Rule {
     ScriptAttributes,
     /// A `>` up to the `<` of the end tag, around JavaScript.
     ScriptJsOuter,
-    /// The JavaScript of a `<script>` element. The payload is the lexer's
+    /// The JavaScript of a `<script>` element. The carried value is the lexer's
     /// state.
     BodyJs,
     /// A `<script>` whose `type` is an HTML template.
@@ -62,7 +63,8 @@ pub(crate) enum Rule {
     ScriptOtherOuter,
     /// The text of such a `<script>`.
     BodyOther,
-    /// An attribute, up to the next one. The payload is an [`AttributeInfo`].
+    /// An attribute, up to the next one. The carried value is an
+    /// [`AttributeInfo`].
     Attribute,
     /// `=` and the value after it.
     AttributeValue,
@@ -74,15 +76,15 @@ pub(crate) enum Rule {
     WrapCss,
     /// The first value of an event handler.
     WrapJs,
-    /// A quoted value. The payload is the quote.
+    /// A quoted value. The carried value is the quote.
     StringPlain,
     /// A quoted value of a `style` attribute.
     StringCss,
     /// A quoted value of an event handler.
     StringJs,
-    /// A `//` comment in an event handler. The payload is the quote.
+    /// A `//` comment in an event handler. The carried value is the quote.
     JsLineComment,
-    /// A `/* */` comment in an event handler. The payload is the quote.
+    /// A `/* */` comment in an event handler. The carried value is the quote.
     JsBlockComment,
     /// The text of a capture group that the grammar tokenizes with the
     /// attribute rules. It never outlives the line.
@@ -95,10 +97,10 @@ pub(crate) enum Rule {
     ErbTagWrap,
     /// ERB: `<%#` up to `%>`.
     ErbComment,
-    /// ERB: code that its line does not close, up to `%>`. The payload is the
-    /// Ruby lexer's state.
+    /// ERB: code that its line does not close, up to `%>`. The carried value is
+    /// the Ruby lexer's state.
     ErbBlock,
-    /// ERB: code, up to `%>`. The payload is the Ruby lexer's state.
+    /// ERB: code, up to `%>`. The carried value is the Ruby lexer's state.
     ErbLine,
     /// Vue: `<!--` up to `-->`.
     VueComment,
@@ -108,7 +110,7 @@ pub(crate) enum Rule {
     VueSelfClosing,
     /// Vue: the `<` of a block up to its `>`.
     VueBlock,
-    /// Vue: a block from its tag name to its end tag. The payload packs a
+    /// Vue: a block from its tag name to its end tag. The carried value packs a
     /// [`Block`](super::vue::Block) and the interned name.
     VueElement,
     /// Vue: `meta.tag-stuff`, a start tag's attributes up to `>`.
@@ -123,37 +125,37 @@ pub(crate) enum Rule {
     VueScriptStuff,
     /// Vue: a `<style>` block's rules after its tag name.
     VueStyleStuff,
-    /// Vue: the rule that a `lang` opens in a multi-line block. The payload is
-    /// the [`Lang`](super::vue::Lang).
+    /// Vue: the rule that a `lang` opens in a multi-line block. The carried
+    /// value is the [`Lang`](super::vue::Lang).
     VueLangGroup,
-    /// Vue: a block's body, which its language's lexer reads. The payload is
-    /// that lexer's state.
+    /// Vue: a block's body, which its language's lexer reads. The carried value
+    /// is that lexer's state.
     VueBody,
     /// Vue: a TypeScript body that runs while no line starts with `</script`.
-    /// The payload is the lexer's state.
+    /// The carried value is the lexer's state.
     VueBodyWhile,
     /// Vue: a template's HTML.
     VueTemplateBody,
-    /// Vue: a nested `<template>` up to its start tag's end. The payload is
-    /// its [`TemplateTag`](super::vue::TemplateTag).
+    /// Vue: a nested `<template>` up to its start tag's end. The carried value
+    /// is its [`TemplateTag`](super::vue::TemplateTag).
     VueTemplateTag,
-    /// Vue: a nested template's inside up to `</template`. The payload is its
-    /// [`TemplateTag`](super::vue::TemplateTag).
+    /// Vue: a nested template's inside up to `</template`. The carried value is
+    /// its [`TemplateTag`](super::vue::TemplateTag).
     VueTemplateTagEnd,
-    /// Vue: a tag whose name starts with a capital, up to `/?>`. The payload
-    /// is the interned name.
+    /// Vue: a tag whose name starts with a capital, up to `/?>`. The carried
+    /// value is the interned name.
     VueCapitalized,
     /// Vue: the attributes of such a tag.
     VueCapitalizedAttributes,
-    /// Vue: a directive and its value. The payload is 1 for a control
+    /// Vue: a directive and its value. The carried value is 1 for a control
     /// directive.
     VueDirective,
-    /// Vue: a directive's quoted value. The payload is the quote.
+    /// Vue: a directive's quoted value. The carried value is the quote.
     VueExpressionString,
     /// Vue: a directive's value that no quote opened.
     VueExpressionBare,
-    /// Vue: the TypeScript of a directive's value. The payload is the lexer's
-    /// state.
+    /// Vue: the TypeScript of a directive's value. The carried value is the
+    /// lexer's state.
     VueExpression,
     /// Blade: `{{--` up to `--}}`.
     BladeComment,
@@ -161,44 +163,45 @@ pub(crate) enum Rule {
     /// the tag, up to the tag's end.
     BladeCommentPhpWrap,
     /// Blade: `<?php` in a comment that the line does not close, up to `?>`.
-    /// The payload is the PHP lexer's state.
+    /// The carried value is the PHP lexer's state.
     BladeCommentPhpBlock,
     /// Blade: `<?php` in a comment, up to `>`.
     BladeCommentPhpLine,
     /// Blade: the blanks before `<?` that the line does not close, up to the
     /// tag's end.
     BladePhpWrap,
-    /// Blade: `<?php` that the line does not close, up to `?>`. The payload is
-    /// the PHP lexer's state.
+    /// Blade: `<?php` that the line does not close, up to `?>`. The carried
+    /// value is the PHP lexer's state.
     BladePhpBlock,
     /// Blade: `<?php` up to `>`.
     BladePhpLine,
-    /// Blade: the code of such a tag, up to `?` before `>`. The payload is the
-    /// PHP lexer's state.
+    /// Blade: the code of such a tag, up to `?` before `>`. The carried value
+    /// is the PHP lexer's state.
     BladePhpLineCode,
-    /// Blade: `{{{` up to `}}}`. The payload is the PHP lexer's state.
+    /// Blade: `{{{` up to `}}}`. The carried value is the PHP lexer's state.
     BladeEchoTriple,
-    /// Blade: `{{` up to `}}`. The payload is the PHP lexer's state.
+    /// Blade: `{{` up to `}}`. The carried value is the PHP lexer's state.
     BladeEcho,
-    /// Blade: `{!!` up to `!!}`. The payload is the PHP lexer's state.
+    /// Blade: `{!!` up to `!!}`. The carried value is the PHP lexer's state.
     BladeEchoRaw,
-    /// Blade: `@{{` up to `}}`. The payload is the PHP lexer's state.
+    /// Blade: `@{{` up to `}}`. The carried value is the PHP lexer's state.
     BladeEchoEscaped,
     /// Blade: a directive of the grammar's list and its `(`, up to `)`. The
-    /// payload is the PHP lexer's state.
+    /// carried value is the PHP lexer's state.
     BladeDirective,
-    /// Blade: any other directive and its `(`, up to `)`. The payload is the
-    /// PHP lexer's state.
+    /// Blade: any other directive and its `(`, up to `)`. The carried value is
+    /// the PHP lexer's state.
     BladeDirectiveCustom,
     /// Blade: the arguments of a closing directive, such as `@endif(`, up to
     /// `)`, as `comment.blade`.
     BladeArgumentsComment,
     /// Blade: a `(` in those arguments, up to its `)`.
     BladeBalance,
-    /// Blade: `@php` up to `@endphp`. The payload is the PHP lexer's state.
-    BladePhpSection,
-    /// Blade: a `:name="` binding up to its `"`. The payload is the PHP lexer's
+    /// Blade: `@php` up to `@endphp`. The carried value is the PHP lexer's
     /// state.
+    BladePhpSection,
+    /// Blade: a `:name="` binding up to its `"`. The carried value is the PHP
+    /// lexer's state.
     BladeAttribute,
 }
 
@@ -572,12 +575,12 @@ impl Injection {
     }
 }
 
-/// The payload of the root frame of a Markdown fence.
+/// The carried value of the root frame of a Markdown fence.
 /// The injection of the grammar does not apply there, as it does not when
 /// another grammar embeds this one.
 pub(crate) const ROOT_EMBEDDED: u32 = 1;
 
-/// The payload of the root frame of HTML embedded in a document whose
+/// The carried value of the root frame of HTML embedded in a document whose
 /// grammar compiles html-derivative's rules first.
 /// Such HTML sits in a Markdown fence, or in PHP or Perl inside one, also in
 /// a Svelte `@component` comment.
@@ -587,14 +590,14 @@ pub(crate) const ROOT_EMBEDDED: u32 = 1;
 /// [`Document::DerivativeFirst`]: super::engine::Document::DerivativeFirst
 pub(crate) const ROOT_DERIVATIVE_FIRST: u32 = 2;
 
-/// The payload of the root frame of HTML in a Svelte document: the HTML of
-/// an `@component` comment's Markdown.
+/// The carried value of the root frame of HTML in a Svelte document: the HTML
+/// of an `@component` comment's Markdown.
 /// It is [`ROOT_DERIVATIVE_FIRST`] in every way but one.
 /// Svelte's grammar injects its `$` prefixes into the document's every
 /// `source.js`, so a `<script>`'s JavaScript takes them.
 pub(crate) const ROOT_SVELTE: u32 = 3;
 
-/// The payload of the root frame of the HTML of a Blade heredoc,
+/// The carried value of the root frame of the HTML of a Blade heredoc,
 /// `<<<BLADE`, in Blade's PHP.
 /// The heredoc's patterns are `text.html.basic` and then Blade's own rules,
 /// without the PHP tags that only Blade's injection holds.
@@ -605,8 +608,8 @@ pub(crate) const ROOT_SVELTE: u32 = 3;
 /// [`Document::Blade`]: super::engine::Document::Blade
 pub(crate) const ROOT_BLADE_HEREDOC: u32 = 4;
 
-/// The payload of the root frame of a Blade heredoc's HTML under an `@php`
-/// section or a Blade comment.
+/// The carried value of the root frame of a Blade heredoc's HTML under an
+/// `@php` section or a Blade comment.
 /// Their scopes shut Blade's injection out of the tags too.
 /// It is [`ROOT_BLADE_HEREDOC`] in every other way.
 pub(crate) const ROOT_BLADE_HEREDOC_SEALED: u32 = 5;
@@ -836,12 +839,12 @@ pub(crate) const fn pack(bits: u32, name: u32) -> u32 {
     bits | name << 8
 }
 
-/// The bits of a payload made by [`pack`].
-pub(crate) const fn payload_bits(payload: u32) -> u32 {
-    payload & 0xff
+/// The bits of a carried value made by [`pack`].
+pub(crate) const fn carried_bits(carried: u32) -> u32 {
+    carried & 0xff
 }
 
-/// The interned name of a payload made by [`pack`].
-pub(crate) const fn name(payload: u32) -> u32 {
-    payload >> 8
+/// The interned name of a carried value made by [`pack`].
+pub(crate) const fn name(carried: u32) -> u32 {
+    carried >> 8
 }

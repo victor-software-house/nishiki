@@ -247,7 +247,7 @@ impl Rule {
     /// feature is on.
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::CarriedState {
+    pub(crate) fn carried_state(self) -> rules::CarriedState {
         match self {
             Rule::IffalseBlock
             | Rule::Comment

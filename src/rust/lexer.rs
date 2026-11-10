@@ -256,8 +256,8 @@ impl<'a> Lexer<'a> {
     }
 
     /// The data the innermost context carries.
-    pub(crate) fn payload(&self) -> u32 {
-        self.frame.payload
+    pub(crate) fn carried(&self) -> u32 {
+        self.frame.carried
     }
 
     /// Opens a context.
@@ -267,8 +267,8 @@ impl<'a> Lexer<'a> {
         self.push_with(rule, 0)
     }
 
-    /// Opens a context that carries `payload`.
-    pub(crate) fn push_with(&mut self, rule: Rule, payload: u32) -> bool {
+    /// Opens a context that carries `carried`.
+    pub(crate) fn push_with(&mut self, rule: Rule, carried: u32) -> bool {
         let open = usize::try_from(self.frame.depth.saturating_sub(1)).unwrap_or(usize::MAX);
         if self.limits.depth_reached(open) {
             self.report.record(Limit::Depth);
@@ -279,7 +279,7 @@ impl<'a> Lexer<'a> {
             None => Some(self.frame.stack),
         };
         let Some(state) =
-            stack.and_then(|stack| self.arena.push(self.state, rule.code(), payload, stack))
+            stack.and_then(|stack| self.arena.push(self.state, rule.code(), carried, stack))
         else {
             self.report.record(Limit::Nodes);
             return false;
@@ -288,15 +288,15 @@ impl<'a> Lexer<'a> {
         true
     }
 
-    /// Replaces the innermost context's payload.
-    pub(crate) fn set_payload(&mut self, payload: u32) {
+    /// Replaces the innermost context's carried value.
+    pub(crate) fn set_carried(&mut self, carried: u32) {
         let Frame {
             parent,
             rule,
             stack,
             ..
         } = self.frame;
-        match self.arena.push(parent, rule, payload, stack) {
+        match self.arena.push(parent, rule, carried, stack) {
             Some(state) => self.enter(state),
             None => self.report.record(Limit::Nodes),
         }

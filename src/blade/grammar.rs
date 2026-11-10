@@ -2903,7 +2903,7 @@ impl Rule {
     /// A rule whose end repeats a begin capture group carries that group.
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     #[inline]
-    pub(crate) fn payload(self) -> rules::CarriedState {
+    pub(crate) fn carried_state(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::CommentsAt0

@@ -179,7 +179,7 @@ impl Lexer<'_> {
         if p != 0 {
             return None;
         }
-        let indent = self.payload_text().as_bytes();
+        let indent = self.begin_text().as_bytes();
         let continues = self.s.starts_with(indent) && {
             let dashes = self.skip(indent.len(), |b| b == b'-');
             dashes - indent.len() >= 2 && !self.here_is(dashes, is_op)

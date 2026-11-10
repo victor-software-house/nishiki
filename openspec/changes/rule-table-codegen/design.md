@@ -52,7 +52,7 @@ The shared files are [`oracle/rule-grammar.ts`][rule-grammar] (994 lines), [`ora
 
 - An act is `Match`, `Begin`, `End` or `While`, each with its own data, and every match on it is exhaustive.
 - `CarriedState` is what a rule carries from line to line: nothing, the text of a begin group its end repeats, or an embedded language's state.
-  The rule engine calls it `Payload` today, and [unstable-rule-engine][unstable-rule-engine] task 1.1 renames it when it becomes public.
+  [unstable-rule-engine][unstable-rule-engine] task 1.1 renamed it from `Payload` when it became public.
 
 ### 2.2 Per-language values
 

@@ -199,7 +199,7 @@ impl Lexer<'_> {
         if self.at(p) != b'/' {
             return None;
         }
-        self.payload_at(p + 1).map(|width| p + 1 + width)
+        self.begin_text_at(p + 1).map(|width| p + 1 + width)
     }
 
     /// `\\Q`, for `LiteralsRegularExpressionLiteralQuote`.

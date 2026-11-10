@@ -98,7 +98,7 @@ impl Lexer<'_> {
     /// `^((?!~)\s+)?((LABEL))$` or `^((?!)\s+)?((LABEL))$`: the line that
     /// closes a heredoc, the label alone.
     /// With the `~`, blanks may come first; `(?!)` allows none without it.
-    /// A label that the pattern does not name is the rule's payload.
+    /// A label that the pattern does not name is the rule's begin text.
     ///
     /// The blanks give characters back from the longest run, since a quoted
     /// label can start with a blank.
@@ -113,7 +113,7 @@ impl Lexer<'_> {
         }
         let label: &[u8] = match label {
             Some(text) => text,
-            None => self.payload_text().as_bytes(),
+            None => self.begin_text().as_bytes(),
         };
         let mut blanks = match tilde {
             Tilde::Yes => self.space_end(0),

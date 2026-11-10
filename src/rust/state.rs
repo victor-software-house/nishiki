@@ -31,7 +31,7 @@ pub(crate) enum Rule {
     /// `"` or `b"` up to `"`.
     String,
     /// `r#"` up to `"#`.
-    /// The hash count is the frame's payload.
+    /// The hash count is the frame's carried value.
     Raw,
     /// `'` or `b'` up to `'`.
     Char,

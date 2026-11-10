@@ -90,7 +90,7 @@ impl Grammar for Elixir {
     const EMBEDS_ON_DEMAND: bool = true;
 
     fn rule_carried_state(rule: Rule) -> CarriedState {
-        rule.payload()
+        rule.carried_state()
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {

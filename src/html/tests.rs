@@ -420,7 +420,7 @@ fn html_in_a_loaded_markdown_grammar_reads_derivative_first() {
     let base = arena.child(crate::arena::ROOT, markdown).unwrap();
     let state = super::start_embedded(&mut arena, base);
     assert_eq!(
-        arena.frame(state).payload,
+        arena.frame(state).carried,
         super::state::ROOT_DERIVATIVE_FIRST
     );
 }
@@ -434,7 +434,7 @@ fn html_in_a_loaded_svelte_grammar_reads_svelte() {
     let svelte = arena.named_scope("source.svelte").unwrap();
     let base = arena.child(crate::arena::ROOT, svelte).unwrap();
     let state = super::start_embedded(&mut arena, base);
-    assert_eq!(arena.frame(state).payload, super::state::ROOT_SVELTE);
+    assert_eq!(arena.frame(state).carried, super::state::ROOT_SVELTE);
 }
 
 /// The names in `DERIVATIVE_FIRST` are the document scopes of nishiki's own

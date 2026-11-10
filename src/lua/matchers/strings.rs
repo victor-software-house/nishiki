@@ -27,7 +27,7 @@ impl Lexer<'_> {
     /// `\N` is the `=` signs the rule opened with.
     /// There may be none.
     pub(super) fn long_bracket_close(&self, p: usize) -> Option<usize> {
-        self.bracket_close(p, self.payload_text().as_bytes())
+        self.bracket_close(p, self.begin_text().as_bytes())
     }
 
     /// `]` at `p`, then `equals`, then `]`.
@@ -56,7 +56,7 @@ impl Lexer<'_> {
     /// `(?=]\2])`, the end of the rule inside the cdef rule.
     /// `\2` is the `=` signs the cdef rule opened with.
     pub(super) fn cdef_body_end(&self, p: usize) -> Option<usize> {
-        self.bracket_close(p, self.parent_payload_text().as_bytes())?;
+        self.bracket_close(p, self.parent_begin_text().as_bytes())?;
         Some(p)
     }
 

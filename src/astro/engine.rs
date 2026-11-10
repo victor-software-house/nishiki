@@ -76,7 +76,7 @@ impl Grammar for Astro {
     }
 
     fn rule_carried_state(rule: Rule) -> CarriedState {
-        rule.payload()
+        rule.carried_state()
     }
 
     fn rule_name_delimiter(rule: Rule) -> Option<&'static str> {

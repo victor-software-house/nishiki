@@ -2,7 +2,7 @@
 //! `qx`, with any delimiter, and the bare `/regex/`.
 //!
 //! A rule whose begin takes a delimiter character repeats it in its end
-//! (`\1` or `\2`), which the payload holds.
+//! (`\1` or `\2`), which the begin text holds.
 //! The flags after a closing delimiter, `[acdegil-prsux]*`, are followed by
 //! a lookahead that a flag letter cannot satisfy.
 //! So only the longest run of flags can match, and the matchers take it
@@ -320,12 +320,12 @@ impl Lexer<'_> {
 
     /// `\1` or `\2`: the delimiter that the rule's begin took.
     pub(super) fn repeat(&self, p: usize) -> Option<usize> {
-        self.lit(p, self.payload_text().as_bytes())
+        self.lit(p, self.begin_text().as_bytes())
     }
 
     /// `(?=\2)`: before the delimiter that the rule's begin took.
     pub(super) fn repeat_ahead(&self, p: usize) -> Option<usize> {
-        self.lit(p, self.payload_text().as_bytes()).map(|_| p)
+        self.lit(p, self.begin_text().as_bytes()).map(|_| p)
     }
 
     /// The flags after a closing delimiter, `((([acdegil-prsux]*)))`, and

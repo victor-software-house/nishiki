@@ -731,7 +731,7 @@ impl Lexer<'_> {
     /// `"""\1(#*)`, for `LiteralsStringAt2End`.
     pub(in crate::swift) fn rx_literals_string_at_2_end(&mut self, p: usize) -> Option<usize> {
         let quotes = self.lit(p, b"\"\"\"")?;
-        let hashes = quotes + self.payload_at(quotes)?;
+        let hashes = quotes + self.begin_text_at(quotes)?;
         let end = self.skip(hashes, |b| b == b'#');
         self.capture(0, p, end);
         self.capture(1, hashes, end);
@@ -787,7 +787,7 @@ impl Lexer<'_> {
     /// `"\1(#*)`, for `LiteralsStringAt4End`.
     pub(in crate::swift) fn rx_literals_string_at_4_end(&mut self, p: usize) -> Option<usize> {
         let quote = self.lit(p, b"\"")?;
-        let hashes = quote + self.payload_at(quote)?;
+        let hashes = quote + self.begin_text_at(quote)?;
         let end = self.skip(hashes, |b| b == b'#');
         self.capture(0, p, end);
         self.capture(1, hashes, end);

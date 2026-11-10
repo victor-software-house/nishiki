@@ -73,15 +73,15 @@ and lets one language embed another on the same arena.
 ### 1.2 State lives in the arena
 
 - A lexer's open contexts are frames of the shared arena (`src/arena.rs`).
-  They are pushed and popped through the lexer's `push`, `push_with`, `pop`, `set_payload` and `payload`.
+  They are pushed and popped through the lexer's `push`, `push_with`, `pop`, `set_carried` and `carried`.
 - A frame's `rule` names the open context, as a variant of the language's enum tagged with its own high byte.
 - Every tag is a constant in `src/tag.rs`.
   A compile-time check fails when two ranges overlap,
   including a lexer that claims a wider range for flag bits.
 - A lexer takes its constant there, never the next free byte, because lexers are written in parallel.
-- Data a context carries is the frame's payload:
+- Data a context carries is the frame's `carried` value:
   a raw string's `#` count, a fence's delimiter, an embedded language's state.
-  Text is interned first, so the payload is an id.
+  Text is interned first, so the value is an id.
 
 Equal states then have equal ids.
 That is what lets an editor stop re-lexing as soon as a line's state matches the old one.
@@ -125,7 +125,7 @@ No lexer has a hidden limit that changes output.
 A language embedded in another, such as Rust in a Markdown fence, runs on the embedding lexer's arena.
 
 - It starts through `start_embedded`, on the fence's stack, without a root scope of its own, as Shiki embeds it.
-- Its state is the payload of the fence's frame.
+- Its state is the carried value of the fence's frame.
 - It spends the embedding line's work budget.
   - Each lexer counts in a `Steps` field of its own, against the limit its `Limits` give it.
   - The embedding lexer passes it limits whose work is what the line has left (`Steps::lend`).

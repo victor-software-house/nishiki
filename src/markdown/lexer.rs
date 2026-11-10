@@ -62,7 +62,7 @@ struct Frame {
     /// What the frame carries: a fence's [`Fence`], or the state of the
     /// embedded Rust lexer. It changes only with `state`, so the frames kept
     /// for the next line match the frames rebuilt from the arena.
-    payload: u32,
+    carried: u32,
     /// The interned state with this frame on top, for a container that stays
     /// open between lines; none for the text of a capture group.
     state: Option<u32>,
@@ -213,7 +213,7 @@ pub(crate) struct Lexer<'a> {
     /// What the highlighter keeps from line to line.
     scratch: &'a mut crate::scratch::Scratch,
     /// Whether this is the first line of the document, where `\A` matches.
-    /// The document's own state is its root with a payload of 1.
+    /// The document's own state is its root with a carried value of 1.
     /// After the first line the root has none, so `\A` matches on one line
     /// only.
     first_line: bool,
@@ -289,7 +289,7 @@ impl<'a> Lexer<'a> {
                     name,
                     content: frame.stack,
                     saved_anchor: None,
-                    payload: frame.payload,
+                    carried: frame.carried,
                     state: Some(at),
                 });
                 at = frame.parent;
@@ -297,7 +297,7 @@ impl<'a> Lexer<'a> {
             frames.reverse();
         }
         let first_line = frames.first().is_some_and(|root| {
-            matches!(root.rule, Rule::Open(Container::Base)) && root.payload == 1
+            matches!(root.rule, Rule::Open(Container::Base)) && root.carried == 1
         });
         Lexer {
             arena,
@@ -466,7 +466,7 @@ impl<'a> Lexer<'a> {
                     let dashes = index
                         .checked_sub(1)
                         .and_then(|outer| self.frames.get(outer))
-                        .map_or(3, |outer| usize::try_from(outer.payload).unwrap_or(3));
+                        .map_or(3, |outer| usize::try_from(outer.carried).unwrap_or(3));
                     let mut captures = Captures::new();
                     block::front_matter_close(&cx, pos, dashes, &mut captures)
                         .is_none()
@@ -649,15 +649,15 @@ impl<'a> Lexer<'a> {
         let cx = cx!(self);
         let end_pos = match end {
             End::Fence => {
-                let payload = self.frames.last().map_or(0, |frame| frame.payload);
-                block::fence_close(&cx, start, Fence::from_payload(payload), captures)
+                let carried = self.frames.last().map_or(0, |frame| frame.carried);
+                block::fence_close(&cx, start, Fence::from_carried(carried), captures)
             }
             End::FrontMatter => {
                 if self.first_line {
                     return None;
                 }
-                let payload = self.frames.last().map_or(3, |frame| frame.payload);
-                let dashes = usize::try_from(payload).unwrap_or(3);
+                let carried = self.frames.last().map_or(3, |frame| frame.carried);
+                let dashes = usize::try_from(carried).unwrap_or(3);
                 block::front_matter_close(&cx, start, dashes, captures)
             }
             End::Comment => block::comment_close(&cx, start, captures),
@@ -939,19 +939,19 @@ impl<'a> Lexer<'a> {
             }
             _ => None,
         };
-        let (name, content, payload, state) = if let Some((stack, state)) = cached {
+        let (name, content, carried, state) = if let Some((stack, state)) = cached {
             (stack, stack, 0, Some(state))
         } else {
             let name = self.path(parent, rules::names(container));
             let content = self.path(name, rules::content_name(container));
-            let payload = self.payload(container, opened, content);
+            let carried = self.carried(container, opened, content);
             let state = if in_capture {
                 None
             } else {
                 let Some(state) = self.arena.push(
                     parent_state.unwrap_or(ROOT),
                     container.code(),
-                    payload,
+                    carried,
                     content,
                 ) else {
                     self.report.record(Limit::Nodes);
@@ -963,7 +963,7 @@ impl<'a> Lexer<'a> {
                 }
                 Some(state)
             };
-            (name, content, payload, state)
+            (name, content, carried, state)
         };
         self.anchored = self.anchored.min(self.frames.len());
         self.frames.push(Frame {
@@ -971,7 +971,7 @@ impl<'a> Lexer<'a> {
             name,
             content: name,
             saved_anchor: self.anchor,
-            payload,
+            carried,
             state,
         });
         self.captures(name, hit.end, captures, |group| rules::capture(rule, group));
@@ -983,13 +983,13 @@ impl<'a> Lexer<'a> {
         self.pos = self.pos.max(hit.end);
     }
 
-    /// The payload of a frame that opens `container`, whose content scopes are
-    /// `content`.
+    /// The carried value of a frame that opens `container`, whose content
+    /// scopes are `content`.
     ///
     /// A fence keeps what its opening line held in `opened`.
     /// A body that another language lexes keeps that language's first state.
     /// Front matter keeps the number of its dashes.
-    fn payload(
+    fn carried(
         &mut self,
         container: Container,
         opened: Option<block::FenceOpen>,
@@ -997,13 +997,13 @@ impl<'a> Lexer<'a> {
     ) -> u32 {
         match container {
             Container::Fence(_) | Container::FencePlain => {
-                opened.map_or(0, |open| open.fence.payload())
+                opened.map_or(0, |open| open.fence.carried())
             }
             Container::Body(lang) if lang != Language::Markdown => {
                 lang.start_embedded(self.arena, content)
             }
             #[cfg(feature = "lang-html")]
-            Container::FencePhp => opened.map_or(0, |open| open.fence.payload()),
+            Container::FencePhp => opened.map_or(0, |open| open.fence.carried()),
             #[cfg(feature = "lang-html")]
             Container::BodyPhp => Language::Html.start_embedded(self.arena, content),
             #[cfg(feature = "lang-yaml")]
@@ -1149,7 +1149,7 @@ impl<'a> Lexer<'a> {
             name: node,
             content: node,
             saved_anchor: None,
-            payload: 0,
+            carried: 0,
             state: None,
         });
         let floor = self.frames.len();
@@ -1326,7 +1326,7 @@ impl<'a> Lexer<'a> {
             return false;
         }
         self.frames[body].content =
-            crate::vue::innermost_stack(self.arena, self.frames[body].payload);
+            crate::vue::innermost_stack(self.arena, self.frames[body].carried);
         true
     }
 
@@ -1357,7 +1357,7 @@ impl<'a> Lexer<'a> {
         let Some(&Frame {
             rule,
             content,
-            payload,
+            carried,
             state: kept,
             ..
         }) = self.frames.last()
@@ -1406,13 +1406,13 @@ impl<'a> Lexer<'a> {
                 let (state, back) = crate::html::lex_derivative_until(
                     &mut cx,
                     line,
-                    payload,
+                    carried,
                     span,
                     Some(give_back),
                 );
                 ((state, None), back)
             }
-            None => (lex_fence(&mut cx, lang, line, payload), None),
+            None => (lex_fence(&mut cx, lang, line, carried), None),
         };
         #[cfg(feature = "lang-html-derivative")]
         let state = self.facts.steps.take_back(state);
@@ -1422,7 +1422,7 @@ impl<'a> Lexer<'a> {
             return;
         }
         #[cfg(not(feature = "lang-html-derivative"))]
-        let (state, popped) = lex_fence(&mut cx, lang, line, payload);
+        let (state, popped) = lex_fence(&mut cx, lang, line, carried);
         #[cfg(not(feature = "lang-html-derivative"))]
         let state = self.facts.steps.take_back(state);
         if let Some(at) = popped {
@@ -1431,13 +1431,13 @@ impl<'a> Lexer<'a> {
         }
         self.last = end;
         self.pos = self.limit;
-        self.keep_body_state(container, content, payload, kept, state);
+        self.keep_body_state(container, content, carried, kept, state);
     }
 
     /// Keeps `state`, the state the body of `container` reached, in the body's
     /// frame.
-    /// It goes in the frame's payload, and in a state of its own where the
-    /// frame keeps one (`kept`).
+    /// It goes in the frame's carried value, and in a state of its own where
+    /// the frame keeps one (`kept`).
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: with `#[inline]`, it stayed out of `step` \
@@ -1448,16 +1448,16 @@ impl<'a> Lexer<'a> {
         &mut self,
         container: Container,
         content: u32,
-        payload: u32,
+        carried: u32,
         kept: Option<u32>,
         state: u32,
     ) {
-        if state == payload {
+        if state == carried {
             return;
         }
         if kept.is_none() {
             if let Some(top) = self.frames.last_mut() {
-                top.payload = state;
+                top.carried = state;
             }
             return;
         }
@@ -1475,7 +1475,7 @@ impl<'a> Lexer<'a> {
             return;
         };
         if let Some(top) = self.frames.last_mut() {
-            top.payload = state;
+            top.carried = state;
             top.state = Some(pushed);
         }
     }
@@ -1670,29 +1670,29 @@ fn vue_body_line(
         return true;
     };
     body.content = body.name;
-    let payload = body.payload;
+    let carried = body.carried;
     let anchored = frames.last().is_some_and(|top| {
         matches!(top.rule, Rule::Open(Container::Body(Language::Vue)))
-            && crate::vue::at_root(arena, top.payload)
+            && crate::vue::at_root(arena, top.carried)
     });
     if anchored && anchor.is_none() {
         *anchor = Some(pos);
     }
     if index + 1 < frames.len() {
-        if !crate::vue::while_holds(arena, payload, cx.line, pos) {
+        if !crate::vue::while_holds(arena, carried, cx.line, pos) {
             frames.truncate(index + 1);
         }
         return true;
     }
-    if !crate::vue::at_root(arena, payload) {
+    if !crate::vue::at_root(arena, carried) {
         return true;
     }
     let fence = index
         .checked_sub(1)
         .and_then(|outer| frames.get(outer))
-        .map_or(0, |outer| outer.payload);
+        .map_or(0, |outer| outer.carried);
     let mut captures = Captures::new();
-    block::fence_close(cx, pos, Fence::from_payload(fence), &mut captures).is_none()
+    block::fence_close(cx, pos, Fence::from_carried(fence), &mut captures).is_none()
 }
 
 /// `(^|\G)(\s*)(.*)`, the rule that starts the lines of an embedded
@@ -1726,7 +1726,7 @@ fn after_first_line(arena: &mut Arena, chain: &mut Vec<ArenaFrame>, state: u32) 
     let root = chain.pop()?;
     let mut rebuilt = arena.push(ROOT, root.rule, 0, root.stack)?;
     while let Some(frame) = chain.pop() {
-        rebuilt = arena.push(rebuilt, frame.rule, frame.payload, frame.stack)?;
+        rebuilt = arena.push(rebuilt, frame.rule, frame.carried, frame.stack)?;
     }
     Some(rebuilt)
 }

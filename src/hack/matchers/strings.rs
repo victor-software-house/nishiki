@@ -277,7 +277,7 @@ impl Lexer<'_> {
         if p != 0 {
             return None;
         }
-        let end = self.payload_at(0)?;
+        let end = self.begin_text_at(0)?;
         let closes = self.at_eol(end) || self.at(end) == b';' && self.at_eol(end + 1);
         if !closes {
             return None;

@@ -934,7 +934,7 @@ impl Lexer<'_> {
     /// `i`: where the text starts, where it ends, and the end.
     fn backref_end(&self, i: usize, keyword: &[u8]) -> Option<(usize, usize, usize)> {
         let start = self.lit(i, keyword)?;
-        let close = start + self.payload_at(start)?;
+        let close = start + self.begin_text_at(start)?;
         let end = self.lit(close, b"}")?;
         Some((start, close, end))
     }

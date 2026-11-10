@@ -67,7 +67,7 @@ impl Grammar for Haml {
     const EMBEDS: bool = true;
 
     fn rule_carried_state(rule: Rule) -> CarriedState {
-        rule.payload()
+        rule.carried_state()
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {
@@ -149,7 +149,7 @@ impl End {
 }
 
 /// The engine calls [`rules::Embeds::end_holds`] instead, with the filter's
-/// indent ([`rules::EndText::ParentPayload`]).
+/// indent ([`rules::EndText::ParentBeginText`]).
 /// Asked directly, the end reads an empty indent.
 impl crate::language::Halt for End {
     fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize> {
@@ -179,7 +179,7 @@ impl rules::Embeds for Haml {
 
     /// A filter's end repeats the indent its begin captured, which the
     /// filter's frame, the parent of the body that embeds, carries.
-    const END_TEXT: rules::EndText = rules::EndText::ParentPayload;
+    const END_TEXT: rules::EndText = rules::EndText::ParentBeginText;
 
     fn end_holds(end: &End, parent_text: &[u8], s: &[u8], p: usize) -> bool {
         end.holds_at(parent_text, s, p)

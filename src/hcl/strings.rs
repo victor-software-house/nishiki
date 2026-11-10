@@ -114,7 +114,7 @@ impl Lexer<'_> {
         if p == 0 {
             let label = self.skip_space(0);
             let ends = {
-                let text = self.em.arena.string(self.em.frame.payload).as_bytes();
+                let text = self.em.arena.string(self.em.frame.carried).as_bytes();
                 !text.is_empty()
                     && self.s[label..].starts_with(text)
                     && self.skip_space(label + text.len()) == len

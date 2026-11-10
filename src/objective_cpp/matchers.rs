@@ -18,7 +18,7 @@ const RAW_DELIMITER_MAX: usize = 16;
 
 /// The capture group, past the groups of the raw string's begin, that holds
 /// its delimiter, whichever of groups 2 and 3 took it.
-/// The rule's payload repeats it for the end `\)\2(\3)"`.
+/// The rule's begin text repeats it for the end `\)\2(\3)"`.
 pub(super) const RAW_DELIMITER: usize = 4;
 
 /// The access words of a base class list: `public`, `protected` and `private`.
@@ -386,7 +386,7 @@ impl Lexer<'_> {
         Some(end + 1)
     }
 
-    /// `CppStringsAt1End`: `\)\2(\3)"`, where the rule's payload is the
+    /// `CppStringsAt1End`: `\)\2(\3)"`, where the rule's begin text is the
     /// delimiter its begin took.
     /// A delimiter past [`RAW_DELIMITER_MAX`] characters was group 3, which
     /// group 1 repeats.
@@ -394,7 +394,7 @@ impl Lexer<'_> {
         if self.at(p) != b')' || p >= self.lim() {
             return None;
         }
-        let delimiter = self.payload_text();
+        let delimiter = self.begin_text();
         let long = delimiter.chars().count() > RAW_DELIMITER_MAX;
         let stop = self.lit(p + 1, delimiter.as_bytes())?;
         if self.at(stop) != b'"' || stop >= self.lim() {

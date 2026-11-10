@@ -99,8 +99,8 @@ impl Lexer<'_> {
     /// Group 3 holds the `#` with the blanks after it, though the grammar's
     /// group holds only the blanks.
     /// The end repeats it as `#\3`.
-    /// A payload that is never empty can then show whether the line repeats
-    /// it.
+    /// A begin text that is never empty can then show whether the line
+    /// repeats it.
     fn yard_head(&mut self, p: usize, mark: Mark) -> Option<usize> {
         if p != 0 {
             return None;

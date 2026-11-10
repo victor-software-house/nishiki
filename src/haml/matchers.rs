@@ -64,10 +64,10 @@ impl Lexer<'_> {
             | Pattern::MarkdownFilterEnd
             | Pattern::CssFilterEnd
             | Pattern::SassFilterAloneEnd => {
-                self.filter_end(p, Filter::Unindented, self.payload_text())
+                self.filter_end(p, Filter::Unindented, self.begin_text())
             }
             Pattern::SassStyleFilterEnd | Pattern::SassStylesFilterEnd => {
-                self.filter_end(p, Filter::Indented, self.payload_text())
+                self.filter_end(p, Filter::Indented, self.begin_text())
             }
             Pattern::RubyFilterKeywordEnd | Pattern::RubyFilterKeywordBodyEnd => None,
             Pattern::RubyFilterBody
@@ -93,10 +93,10 @@ impl Lexer<'_> {
             | Pattern::MarkdownFilterBodyEnd
             | Pattern::CssFilterBodyEnd
             | Pattern::SassFilterAloneBodyEnd => {
-                self.filter_end(p, Filter::Unindented, self.parent_payload_text())
+                self.filter_end(p, Filter::Unindented, self.parent_begin_text())
             }
             Pattern::SassStyleFilterBodyEnd | Pattern::SassStylesFilterBodyEnd => {
-                self.filter_end(p, Filter::Indented, self.parent_payload_text())
+                self.filter_end(p, Filter::Indented, self.parent_begin_text())
             }
             Pattern::Prolog => self.prolog(p),
             Pattern::ConditionalComment => self.conditional_comment(p),
@@ -335,7 +335,7 @@ impl Lexer<'_> {
         if p != 0 || self.at(0) == b'\n' {
             return None;
         }
-        let indent = self.payload_text().as_bytes();
+        let indent = self.begin_text().as_bytes();
         let repeats = indent.is_empty() || self.lit(0, indent).is_some();
         (!(repeats && self.space_at(indent.len()) > 0)).then_some(0)
     }

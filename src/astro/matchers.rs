@@ -166,7 +166,7 @@ impl Lexer<'_> {
                 self.lit(p, b"<style")
             }
             Pattern::TagsRaw => self.raw_tag(p),
-            Pattern::TagsRawEnd => self.payload_tag_end(p),
+            Pattern::TagsRawEnd => self.matching_tag_end(p),
             Pattern::TagsLangScript => self.lang_tag(p, b"script"),
             Pattern::TagsLangStyle => self.lang_tag(p, b"style"),
             Pattern::TagsLangScriptEnd => self.lang_tag_end(p, b"script"),
@@ -258,7 +258,7 @@ impl Lexer<'_> {
             Pattern::EventScriptSingle => self.lit_capture1(p, b"'"),
             Pattern::EventScriptDoubleEnd
             | Pattern::EventScriptSingleEnd
-            | Pattern::ValueQuotedEnd => self.payload_at(p).map(|width| p + width),
+            | Pattern::ValueQuotedEnd => self.begin_text_at(p).map(|width| p + width),
             Pattern::EventScriptDoubleRun => self.script_run(p, b'"'),
             Pattern::EventScriptSingleRun => self.script_run(p, b'\''),
             Pattern::EventScriptDoubleLineComment | Pattern::EventScriptSingleLineComment => {
@@ -367,7 +367,7 @@ impl Lexer<'_> {
                 } else if rule == Rule::LangModule {
                     Some("javascript")
                 } else if rule == Rule::LangNamed {
-                    Some(self.payload_text_of(index))
+                    Some(self.begin_text_of(index))
                 } else {
                     None
                 };
@@ -491,10 +491,10 @@ impl Lexer<'_> {
         })
     }
 
-    /// `</\1\s*>|/>`, with `\1` the tag's name, the rule's payload.
-    fn payload_tag_end(&self, p: usize) -> Option<usize> {
+    /// `</\1\s*>|/>`, with `\1` the tag's name, the rule's begin text.
+    fn matching_tag_end(&self, p: usize) -> Option<usize> {
         if let Some(name) = self.lit(p, b"</")
-            && let Some(width) = self.payload_at(name)
+            && let Some(width) = self.begin_text_at(name)
             && let Some(end) = self.lit(self.space_end(name + width), b">")
         {
             return Some(end);

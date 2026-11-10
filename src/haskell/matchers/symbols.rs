@@ -354,7 +354,7 @@ impl Lexer<'_> {
 
     /// `\3]` or `\5]`: the bars that opened the quasi-quote, then `]`.
     pub(super) fn quasi_quote_end(&self, p: usize) -> Option<usize> {
-        let bars = self.payload_at(p)?;
+        let bars = self.begin_text_at(p)?;
         self.lit(p + bars, b"]")
     }
 }

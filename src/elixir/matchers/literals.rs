@@ -127,13 +127,13 @@ impl Lexer<'_> {
 
     /// `\1[a-z]*`: the end of a sigil that repeats its delimiter.
     /// A delimiter that was the line feed lies outside the line's text.
-    /// Its payload is therefore empty, and the next line feed closes the
+    /// Its begin text is therefore empty, and the next line feed closes the
     /// sigil.
     pub(super) fn sigil_any_close(&self, p: usize) -> Option<usize> {
-        if self.payload_text().is_empty() {
+        if self.begin_text().is_empty() {
             return (p == self.lim() && self.at(p) == b'\n').then_some(p + 1);
         }
-        let width = self.payload_at(p)?;
+        let width = self.begin_text_at(p)?;
         Some(self.skip(p + width, |b| b.is_ascii_lowercase()))
     }
 

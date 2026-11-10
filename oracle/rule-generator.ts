@@ -850,7 +850,7 @@ const longTable = (armText: string) => (armText.split("\n").length > 100 ? tooLo
 // Embedded languages.
 
 /**
- * `Rule::payload`, `Rule::deferred` and `Rule::embeds_after_own`,
+ * `Rule::carried`, `Rule::deferred` and `Rule::embeds_after_own`,
  * for a grammar that embeds languages.
  * Each is written only when some rule needs it.
  */
@@ -864,7 +864,7 @@ function embedTables(
     `rules::embedded!(${embed.lang}, ${JSON.stringify(embed.feature)})`;
   let g = "impl Rule {\n";
   if (embeds.size) {
-    const payloadArms = arms(
+    const carriedStateArms = arms(
       ruleList.map((r): [string, string] => {
         const embed = embeds.get(r.id);
         if (embed)
@@ -881,7 +881,7 @@ function embedTables(
       }),
       "Rule",
     );
-    g += `    /// What the rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n${longTable(payloadArms)}    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n${payloadArms}`;
+    g += `    /// What the rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n${longTable(carriedStateArms)}    pub(crate) fn carried_state(self) -> rules::CarriedState {\n        match self {\n${carriedStateArms}`;
     g += "        }\n    }\n";
   }
   if (deferred.size) {

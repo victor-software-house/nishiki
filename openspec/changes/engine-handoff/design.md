@@ -202,7 +202,7 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 
 ## 5. State and limits
 
-1. The hand-off frame is the [`halt-contract` design][contract]'s section 8: `kind` `tag::TEXTMATE | 1`, `payload` the target's state, `stack` the embedding rule's content stack, `parent` the embedding rule's frame.
+1. The hand-off frame is the [`halt-contract` design][contract]'s section 8: `kind` `tag::TEXTMATE | 1`, `carried` the target's state, `stack` the embedding rule's content stack, `parent` the embedding rule's frame.
    The target is the one `HandOff` in the parent rule's list, so the frame stores no index.
 2. Work: the engine lends what its line has left, in steps of the work limit, and charges what the target returns in `Finished`, times `STEP`.
 3. Depth stays per language, and the target's limits go to the same `cx.report` (the [`halt-contract` design][contract], sections 9.1 and 9.3).

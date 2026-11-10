@@ -538,7 +538,7 @@ impl Lexer<'_> {
         } else {
             0
         };
-        let e = self.string_end(start, self.top_payload())?;
+        let e = self.string_end(start, self.top_carried())?;
         if !self.before_separator(e) {
             return None;
         }

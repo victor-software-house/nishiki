@@ -36,7 +36,7 @@ crate::tag::frame_rules! {
         /// `"` up to `"`.
         String,
         /// `<<LABEL` up to a line that holds only the label.
-        /// The payload is the label's interned string.
+        /// The carried value is the label's interned string.
         Heredoc,
         /// `${` or `%{` up to `}`.
         Interpolation,

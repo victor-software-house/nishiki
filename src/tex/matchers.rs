@@ -101,7 +101,7 @@ impl<G: Grammar> Lexer<'_, G> {
                 Some(end)
             }
             Rx::DollarMathEnd => {
-                let end = p + self.payload_at(p)?;
+                let end = p + self.begin_text_at(p)?;
                 self.capture(1, p, end);
                 Some(end)
             }

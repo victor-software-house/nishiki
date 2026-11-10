@@ -12,7 +12,7 @@ crate::tag::frame_rules! {
         /// Outside every context.
         Top,
         /// A block scalar's lines.
-        /// The payload is their indentation, 0 until the first line fixes it.
+        /// The carried value is their indentation, 0 until the first line fixes it.
         Block,
         /// A double-quoted scalar that continues on the next line.
         Double,

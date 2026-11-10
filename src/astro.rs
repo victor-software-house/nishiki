@@ -17,7 +17,7 @@
 //! - `<script>` bodies go to the JavaScript, TypeScript or JSON lexer;
 //! - `<style>` bodies go to the CSS, PostCSS, SCSS, Less or Sass lexer.
 //!
-//! The embedded language's state is the payload of its rule's frame.
+//! The embedded language's state is the carried value of its rule's frame.
 //! Each embedding rule sets where it takes the line back
 //! (`engine::End`).
 mod engine;

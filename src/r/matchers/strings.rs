@@ -26,7 +26,7 @@ impl Lexer<'_> {
         if self.at(p) != close {
             return None;
         }
-        let dashes = self.lit(p + 1, self.payload_text().as_bytes())?;
+        let dashes = self.lit(p + 1, self.begin_text().as_bytes())?;
         (self.at(dashes) == quote).then_some(dashes + 1)
     }
 

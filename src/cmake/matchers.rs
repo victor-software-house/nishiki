@@ -165,7 +165,7 @@ impl Lexer<'_> {
     /// `]\1]`: the `]`, the `=` run of the opening bracket and the `]`.
     fn bracket_close(&self, p: usize) -> Option<usize> {
         let run = self.lit(p, b"]")?;
-        let close = self.lit(run, self.payload_text().as_bytes())?;
+        let close = self.lit(run, self.begin_text().as_bytes())?;
         self.lit(close, b"]")
     }
 

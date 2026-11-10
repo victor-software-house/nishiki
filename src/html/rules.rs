@@ -6,8 +6,8 @@ use super::engine::{Hit, Lexer, Part, Pattern, packed};
 use super::erb::Erb;
 use super::scope::S;
 use super::state::{
-    AttributeRule, Category, ElementClass, Flavor, Namespace, Rule, TagClass, TagRule, name,
-    payload_bits,
+    AttributeRule, Category, ElementClass, Flavor, Namespace, Rule, TagClass, TagRule,
+    carried_bits, name,
 };
 use super::vue::{self, TemplateTag, VuePattern, VueRule};
 
@@ -18,9 +18,9 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm per rule, in the order of the grammar"
     )]
-    pub(super) fn name_stack(&mut self, base: u32, rule: Rule, payload: u32) -> u32 {
-        let bits = payload_bits(payload);
-        let word = name(payload);
+    pub(super) fn name_stack(&mut self, base: u32, rule: Rule, carried: u32) -> u32 {
+        let bits = carried_bits(carried);
+        let word = name(carried);
         match rule {
             Rule::Root
             | Rule::StyleWrap
@@ -164,7 +164,7 @@ impl Lexer<'_> {
             Rule::WrapCss => self.path(base, &[S::EmbeddedLineCss]),
             Rule::WrapJs => self.path(base, &[S::EmbeddedLineJs]),
             Rule::StringPlain | Rule::StringCss | Rule::StringJs => {
-                let quote = if payload == u32::from(b'"') {
+                let quote = if carried == u32::from(b'"') {
                     S::StringDouble
                 } else {
                     S::StringSingle
@@ -194,12 +194,12 @@ impl Lexer<'_> {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => self.vue_name_stack(base, rule, payload),
+            | Rule::VueExpression => self.vue_name_stack(base, rule, carried),
         }
     }
 
     /// The scopes of a rule's content only, on its name's stack.
-    pub(super) fn content_stack(&mut self, name: u32, rule: Rule, payload: u32) -> u32 {
+    pub(super) fn content_stack(&mut self, name: u32, rule: Rule, carried: u32) -> u32 {
         match rule {
             Rule::VueComment
             | Rule::VueCommentKeyValue
@@ -222,7 +222,7 @@ impl Lexer<'_> {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => self.vue_content_stack(name, rule, payload),
+            | Rule::VueExpression => self.vue_content_stack(name, rule, carried),
             Rule::Cdata => self.path(name, &[S::InlineData]),
             Rule::StringCss => self.path(name, &[S::SourceCss]),
             Rule::StringJs => self.path(name, &[S::SourceJs]),
@@ -290,7 +290,7 @@ impl Lexer<'_> {
         let [from, to, ..] = hit.at;
         Some(match hit.pattern {
             Pattern::Zero(Rule::ElementStart) => {
-                (Rule::ElementStart, packed(payload_bits(top.payload), 0))
+                (Rule::ElementStart, packed(carried_bits(top.carried), 0))
             }
             Pattern::Zero(rule) => (rule, 0),
             Pattern::Processing => (Rule::Processing, 0),
@@ -308,11 +308,11 @@ impl Lexer<'_> {
             Pattern::ScriptTag => (Rule::ScriptTag, 0),
             Pattern::ScriptJs => (Rule::ScriptJsOuter, 0),
             Pattern::Attribute => self.attribute_opens(hit, from, to),
-            Pattern::Equals => (value_rule(payload_bits(top.payload)), 0),
+            Pattern::Equals => (value_rule(carried_bits(top.carried)), 0),
             Pattern::Quote => (string_rule(top.rule), hit.bits),
             Pattern::DoctypeQuote => (Rule::DoctypeString, 0),
-            Pattern::JsLine => (Rule::JsLineComment, top.payload),
-            Pattern::JsBlock => (Rule::JsBlockComment, top.payload),
+            Pattern::JsLine => (Rule::JsLineComment, top.carried),
+            Pattern::JsBlock => (Rule::JsBlockComment, top.carried),
             Pattern::Erb(erb) => (erb_rule(erb), 0),
             Pattern::Blade(blade) => (Self::blade_opens(blade)?, 0),
             Pattern::Vue(pattern) => return self.vue_opens(pattern, hit),
@@ -453,7 +453,7 @@ impl Lexer<'_> {
     /// them.
     #[cold]
     #[inline(never)]
-    fn vue_name_stack(&mut self, base: u32, rule: Rule, payload: u32) -> u32 {
+    fn vue_name_stack(&mut self, base: u32, rule: Rule, carried: u32) -> u32 {
         let Some(rule) = rule.vue() else {
             return base;
         };
@@ -474,7 +474,7 @@ impl Lexer<'_> {
             VueRule::Body | VueRule::BodyWhile => {
                 let parent = *self.top();
                 let scope =
-                    vue::body_lang(parent.rule, parent.payload).map_or(S::Text, vue::lang_scope);
+                    vue::body_lang(parent.rule, parent.carried).map_or(S::Text, vue::lang_scope);
                 self.path(base, &[scope])
             }
             VueRule::TemplateBody => self.path(base, &[S::TextHtmlDerivative]),
@@ -484,12 +484,12 @@ impl Lexer<'_> {
                 base,
                 &[
                     Part::Lit("meta.tag.structure."),
-                    Part::Name(payload),
+                    Part::Name(carried),
                     Part::Lit(".start.html.vue"),
                 ],
             ),
             VueRule::Directive => {
-                let scope = if payload == 1 {
+                let scope = if carried == 1 {
                     S::DirectiveControl
                 } else {
                     S::DirectiveVue
@@ -504,9 +504,9 @@ impl Lexer<'_> {
     /// html-derivative.
     #[cold]
     #[inline(never)]
-    fn vue_content_stack(&mut self, name: u32, rule: Rule, payload: u32) -> u32 {
+    fn vue_content_stack(&mut self, name: u32, rule: Rule, carried: u32) -> u32 {
         if rule.vue() == Some(VueRule::Element)
-            && vue::Block::from_bits(payload_bits(payload)) == vue::Block::Lang(vue::Lang::Html)
+            && vue::Block::from_bits(carried_bits(carried)) == vue::Block::Lang(vue::Lang::Html)
         {
             return self.path(name, &[S::TextHtmlDerivative]);
         }
@@ -536,7 +536,7 @@ impl Lexer<'_> {
             VueRule::Element => {
                 let [name_start, name_end, ..] = hit.at;
                 self.capture(base, start, start + 2, &[S::VueTagBegin]);
-                let stack = self.vue_tag_name(base, name(top.payload));
+                let stack = self.vue_tag_name(base, name(top.carried));
                 self.capture_stack(base, name_start, name_end, stack);
             }
             VueRule::TemplateTagEnd if end > start => {
@@ -630,7 +630,7 @@ impl Lexer<'_> {
             }
             VuePattern::Block => self.capture(base, start, end, &[S::VueTagBegin]),
             VuePattern::Element => {
-                let stack = self.vue_tag_name(base, name(frame.payload));
+                let stack = self.vue_tag_name(base, name(frame.carried));
                 self.capture_stack(base, start, end, stack);
             }
             VuePattern::TemplateTag => {
@@ -985,7 +985,7 @@ impl Lexer<'_> {
     }
 
     /// The code of the attribute rules a [`Rule::Region`] runs.
-    fn region_payload(element: ElementClass) -> u32 {
+    fn region_carried(element: ElementClass) -> u32 {
         match element.namespace {
             Namespace::Svg => 1,
             Namespace::Math => 2,
@@ -998,7 +998,7 @@ impl Lexer<'_> {
         let base = frame.name;
         let element = ElementClass::from_bits(hit.bits);
         let [name_start, name_end, attributes_start, attributes_end, _] = hit.at;
-        let word = name(frame.payload);
+        let word = name(frame.carried);
         let tag = self.element_tag(base, element, word, "start");
         let bracket = self.path(tag, &[S::TagBegin]);
         self.capture_stack(base, hit.start, name_start, bracket);
@@ -1009,7 +1009,7 @@ impl Lexer<'_> {
                 attributes_start,
                 attributes_end,
                 base,
-                Self::region_payload(element),
+                Self::region_carried(element),
             );
             let close = self.path(tag, &[S::TagEnd]);
             self.capture_stack(base, attributes_end, hit.end, close);
@@ -1034,7 +1034,7 @@ impl Lexer<'_> {
             attributes_start,
             attributes_end,
             base,
-            Self::region_payload(element),
+            Self::region_carried(element),
         );
         let close = self.path(tag, &[S::TagEnd]);
         self.capture_stack(base, attributes_end, hit.end, close);
@@ -1049,7 +1049,7 @@ impl Lexer<'_> {
     /// For `(/>)` group 2 did not match, so `$2` is empty.
     fn element_end_captures(&mut self, top: &super::engine::Frame, hit: &Hit) {
         let base = top.name;
-        let element = ElementClass::from_bits(payload_bits(top.payload));
+        let element = ElementClass::from_bits(carried_bits(top.carried));
         let [name_start, name_end, gt, ..] = hit.at;
         match hit.bits {
             0 => {

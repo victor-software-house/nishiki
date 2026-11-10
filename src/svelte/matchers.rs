@@ -416,7 +416,7 @@ impl Lexer<'_> {
                 self.capture(1, p, p + 1);
                 Some(p + 1)
             }
-            Pattern::AttributesValueAt3End => self.payload_at(p).map(|width| p + width),
+            Pattern::AttributesValueAt3End => self.begin_text_at(p).map(|width| p + width),
             Pattern::NestedAttributesKeyvalueGroup0At0 => self.lit(p, b"--").map(|_| self.lim()),
             Pattern::NestedAttributesKeyvalueGroup0At1 => Some(self.lim()).filter(|&end| end > p),
             Pattern::AttributesKeyvalue => {
@@ -491,9 +491,9 @@ impl Lexer<'_> {
     fn body(&self) -> Body {
         let top = self.top_rule();
         let (tag, lang) = if top == Rule::TagsLang {
-            (self.payload_text(), None)
+            (self.begin_text(), None)
         } else if top == Rule::TagsLangAt0 {
-            (self.parent_payload_text(), Some(self.payload_text()))
+            (self.parent_begin_text(), Some(self.begin_text()))
         } else {
             return Body::Plain;
         };
@@ -521,7 +521,7 @@ impl Lexer<'_> {
         self.open_rules()
             .find_map(|(index, rule)| {
                 if rule == Rule::TagsLang {
-                    Some(self.payload_text_of(index) == "template")
+                    Some(self.begin_text_of(index) == "template")
                 } else {
                     rule.hides_template().then_some(false)
                 }
@@ -709,10 +709,10 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `</\1\s*>|/>`, with `\1` the tag's name, the rule's payload.
+    /// `</\1\s*>|/>`, with `\1` the tag's name, the rule's begin text.
     fn tag_lang_end(&mut self, p: usize) -> Option<usize> {
         if let Some(name) = self.lit(p, b"</")
-            && let Some(width) = self.payload_at(name)
+            && let Some(width) = self.begin_text_at(name)
         {
             let close = self.space_end(name + width);
             if let Some(end) = self.lit(close, b">") {
