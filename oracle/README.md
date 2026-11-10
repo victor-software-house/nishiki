@@ -30,7 +30,7 @@ The rules for working here are in [AGENTS.md](AGENTS.md).
 - [`engine-tables.ts`](engine-tables.ts): writes the engine's tables for Shiki's grammars as JSON, the oracle for the Rust compiler.
   `link_survey` in `src/textmate/compile/tests.rs` checks that the compiler writes the same tables.
   [`hand-lexed.ts`](hand-lexed.ts) lists the hand-lexed languages a table can hand a region to.
-- [`fence-stops.ts`](fence-stops.ts): checks that `Language::pops_fence` names every Markdown fence grammar whose root can stop without advancing.
+- [`fence-stops.ts`](fence-stops.ts): checks that `Language::pops_host` names every Markdown fence grammar whose root can stop without advancing.
   `mise run check:rule-grammars` runs it.
 
 ## Generated tables

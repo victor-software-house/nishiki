@@ -1474,7 +1474,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Pops the fence's body where its language stopped at `at`, at its root,
-    /// without advancing ([`Language::pops_fence`]).
+    /// without advancing ([`Language::pops_host`]).
     /// vscode-textmate pops the innermost rule there, the body.
     /// The rest of the line, up to `end`, sits on the fence in place of the
     /// tokens the language gave it.
@@ -1496,7 +1496,7 @@ impl<'a> Lexer<'a> {
 
 /// Lexes a fence's line in `lang` from `state`, and returns where the
 /// language popped the fence's body, if it did.
-/// Only a language that [`Language::pops_fence`] names can.
+/// Only a language that [`Language::pops_host`] names can.
 #[expect(
     clippy::inline_always,
     reason = "measured at one codegen unit: out of line, the call it adds on every fence line cost Markdown 0.4%"
@@ -1508,7 +1508,7 @@ fn lex_fence(
     line: Line<'_>,
     state: u32,
 ) -> (Finished, Option<usize>) {
-    if lang.pops_fence() {
+    if lang.pops_host() {
         lex_popping(cx, lang, line, state)
     } else {
         (lang.lex_embedded(cx, line, state), None)

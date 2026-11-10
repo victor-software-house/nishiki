@@ -5,7 +5,7 @@
 # oracle/rule-grammar.ts is the library they share, not a generator.
 # oracle/php-family-grammar.ts is the one PHP's and Hack's generators share.
 # Its tests in oracle/rule-grammar.test.ts run first.
-# oracle/fence-stops.ts then checks Language::pops_fence against the grammars.
+# oracle/fence-stops.ts then checks Language::pops_host against the grammars.
 # Each generator regenerates its language's tables under src/ in place.
 # It formats them as `mise run format` does.
 # The check fails when a file under src/ then differs from the committed one.

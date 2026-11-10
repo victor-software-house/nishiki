@@ -1819,7 +1819,7 @@ impl Tokenizer<'_> {
         end: usize,
         (pos, anchor, allow_a): (&mut usize, &mut usize, &mut DocStart),
         content: u32,
-        frames: &mut [Frame],
+        frames: &mut Vec<Frame>,
     ) -> Flow {
         let rule: &'static Rule = &self.grammar.rules[part.rule];
         let end_pat =
@@ -1875,9 +1875,18 @@ impl Tokenizer<'_> {
     /// The language may run the engine again, as Markdown does for a fence.
     /// That engine line uses the spare scratch, which sits in the whole
     /// scratch while the line runs.
+    ///
+    /// A language can stop at its root without advancing, as Less does at a
+    /// `)` ([`Language::pops_host`]).
+    /// Then the rule that embeds it ends, as [`Tokenizer::pop_host`] says.
     #[cold]
     #[inline(never)]
-    fn run_language(&mut self, frames: &mut [Frame], from: Resume, end: usize) -> Option<Resume> {
+    fn run_language(
+        &mut self,
+        frames: &mut Vec<Frame>,
+        from: Resume,
+        end: usize,
+    ) -> Option<Resume> {
         let depth = frames.len();
         let top = depth.checked_sub(1)?;
         let embedding = frames.get(depth.checked_sub(2)?)?.rule;
@@ -1910,7 +1919,7 @@ impl Tokenizer<'_> {
                 report: &mut *self.report,
                 first_token,
             };
-            let halting = if before.is_empty() && after.is_empty() {
+            let halting = if before.is_empty() && after.is_empty() && !language.pops_host() {
                 None
             } else {
                 language.lex_until(
@@ -1923,16 +1932,16 @@ impl Tokenizer<'_> {
             };
             halting.unwrap_or_else(|| (language.lex_embedded(&mut cx, part, state), None))
         };
-        let halted = match halted {
+        let (halted, popped) = match halted {
             Some(Stopped {
                 at,
                 reason: StopReason::Halt,
-            }) => Some(at),
+            }) => (Some(at), None),
             Some(Stopped {
+                at,
                 reason: StopReason::PopHost,
-                ..
-            })
-            | None => None,
+            }) => (None, Some(at)),
+            None => (None, None),
         };
         let counter = Steps::new(&lent, text.len());
         frames[top].end = counter.take_back(finished);
@@ -1945,6 +1954,9 @@ impl Tokenizer<'_> {
             self.report.record(Limit::Work);
         }
         self.last = halted.unwrap_or(cut);
+        if let Some(at) = popped {
+            self.pop_host(frames, first_token, at, end);
+        }
         let next = halted.map(|at| Resume {
             at,
             anchor: from.anchor,
@@ -1962,6 +1974,25 @@ impl Tokenizer<'_> {
         self.s.starts_before = before;
         self.s.starts_after = after;
         next
+    }
+
+    /// Ends the rule that embeds the hand-off's language, where the language
+    /// stopped at its root at `at` without advancing.
+    /// vscode-textmate pops the innermost rule there, and ends the line.
+    ///
+    /// - The language lexed the rest of the line from `at` as its own, so its
+    ///   tokens are cut back to `at`. The line's tokens start at `first_token`
+    ///   in `out`, as the language saw them ([`Lexing::first_token`]).
+    /// - The hand-off frame and the rule that embeds the language close.
+    /// - The rest of the line, up to `end`, takes the scope of the rule below.
+    #[cold]
+    #[inline(never)]
+    fn pop_host(&mut self, frames: &mut Vec<Frame>, first_token: usize, at: usize, end: usize) {
+        crate::language::cut_tokens(self.out, first_token, at);
+        self.last = at;
+        frames.truncate(frames.len().saturating_sub(2));
+        let content = frames.last().map_or(ROOT, |frame| frame.content);
+        self.produce(content, end);
     }
 
     /// The hand-off of the list of `rule`, if it has one.

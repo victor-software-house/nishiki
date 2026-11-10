@@ -1,14 +1,14 @@
-// Checks `Language::pops_fence` in src/language.rs against Shiki's grammars.
+// Checks `Language::pops_host` in src/language.rs against Shiki's grammars.
 //
 // A grammar whose root holds a `match` that can match the empty text can stop
 // there without advancing.
 // vscode-textmate then pops the innermost rule, which in a Markdown fence is
 // the fence's body.
-// Markdown lexes the fences of the languages `pops_fence` names so that they
+// Markdown lexes the fences of the languages `pops_host` names so that they
 // can report it.
 // This script lists the grammars that Shiki's Markdown fences include and
 // that can stop at their root, and fails when the list differs from the
-// languages `pops_fence` names.
+// languages `pops_host` names.
 //
 //   bun run oracle/fence-stops.ts
 //
@@ -71,7 +71,7 @@ const stopping = [...fenced]
   .sort();
 
 const source = await Bun.file(new URL("../src/language.rs", import.meta.url)).text();
-const start = source.indexOf("fn pops_fence");
+const start = source.indexOf("fn pops_host");
 /** The line that closes a method of the `impl Language` block. */
 const methodEnd = ["", "    }", ""].join("\n");
 const body = source.slice(start, source.indexOf(methodEnd, start));
@@ -85,7 +85,7 @@ const named = [
 
 if (stopping.join() !== named.join()) {
   console.error(`fence grammars that can stop at their root: ${stopping.join(", ") || "none"}`);
-  console.error(`languages Language::pops_fence names: ${named.join(", ") || "none"}`);
+  console.error(`languages Language::pops_host names: ${named.join(", ") || "none"}`);
   process.exit(1);
 }
 console.log(`✔ fence grammars that can stop at their root: ${stopping.join(", ")}`);
