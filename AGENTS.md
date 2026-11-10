@@ -69,6 +69,8 @@ The decisions that created nishiki live in a private planning repository:
      so later breaks ride on the pending or recent minor as patches.
    - `0.1.0` (2026-11-02) was the one exception,
      published by an automation slip after an almost empty `0.0.1`.
+   - Items under `nishiki::unstable` are exempt from semver and never force a minor.
+     They compile only with `--cfg nishiki_unstable`, and the semver check runs without it.
    - No AI attribution in commits, pull requests or comments.
 7. **One guide file.**
    `AGENTS.md` is the only guide file; add no `CLAUDE.md`.
