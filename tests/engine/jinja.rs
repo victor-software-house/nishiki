@@ -4,7 +4,9 @@
 
 use std::sync::OnceLock;
 
-use crate::textmate::grammar::{Cap, Folding, Grammar, Injection, List, Pattern, Rule, RuleKind};
+use crate::textmate::grammar::{
+    Capture, Folding, Grammar, Injection, List, Matching, Pattern, Rule,
+};
 
 static NAMES: &[&str] = &[
     "comment.block.jinja.raw",
@@ -105,7 +107,7 @@ static INJECTIONS: &[Injection] = &[];
 
 static RULES: &[Rule] = &[
     Rule {
-        kind: RuleKind::Container,
+        matching: Matching::Container,
         name: &[],
         content_name: &[],
         begin: usize::MAX,
@@ -117,26 +119,26 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[0],
         content_name: &[],
         begin: 0,
         end: 1,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[1],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[2],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 3,
                 name: &[1],
                 content_name: &[],
@@ -144,19 +146,19 @@ static RULES: &[Rule] = &[
             },
         ],
         end_captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[1],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[2],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 3,
                 name: &[1],
                 content_name: &[],
@@ -167,19 +169,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[3],
         content_name: &[],
         begin: 2,
         end: 3,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[4],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[4],
             content_name: &[],
@@ -189,19 +191,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[5],
         content_name: &[],
         begin: 4,
         end: 5,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[6],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[6],
             content_name: &[],
@@ -211,7 +213,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Container,
+        matching: Matching::Container,
         name: &[],
         content_name: &[],
         begin: usize::MAX,
@@ -223,20 +225,20 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 6,
         end: usize::MAX,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[2],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[7],
                 content_name: &[],
@@ -248,20 +250,20 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 7,
         end: usize::MAX,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[2],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[8],
                 content_name: &[],
@@ -273,20 +275,20 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 8,
         end: usize::MAX,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[2],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[9],
                 content_name: &[],
@@ -298,13 +300,13 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 9,
         end: usize::MAX,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 1,
             name: &[2],
             content_name: &[],
@@ -315,7 +317,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[2],
         content_name: &[],
         begin: 10,
@@ -327,7 +329,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[10],
         content_name: &[],
         begin: 11,
@@ -339,7 +341,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[11],
         content_name: &[],
         begin: 12,
@@ -351,7 +353,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[12],
         content_name: &[],
         begin: 13,
@@ -363,7 +365,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[13],
         content_name: &[],
         begin: 14,
@@ -375,20 +377,20 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 15,
         end: usize::MAX,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[14],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[8],
                 content_name: &[],
@@ -400,20 +402,20 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 16,
         end: usize::MAX,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[14],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[15],
                 content_name: &[],
@@ -425,19 +427,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[],
         content_name: &[],
         begin: 17,
         end: 18,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[14],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[14],
             content_name: &[],
@@ -447,19 +449,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[],
         content_name: &[],
         begin: 19,
         end: 20,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[14],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[14],
             content_name: &[],
@@ -469,19 +471,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[],
         content_name: &[],
         begin: 21,
         end: 22,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[14],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[14],
             content_name: &[],
@@ -491,7 +493,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[14],
         content_name: &[],
         begin: 23,
@@ -503,7 +505,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[16],
         content_name: &[],
         begin: 24,
@@ -515,7 +517,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[17],
         content_name: &[],
         begin: 25,
@@ -527,19 +529,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[18],
         content_name: &[],
         begin: 26,
         end: 26,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[19],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[20],
             content_name: &[],
@@ -549,7 +551,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Container,
+        matching: Matching::Container,
         name: &[],
         content_name: &[],
         begin: usize::MAX,
@@ -561,74 +563,74 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 27,
         end: usize::MAX,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[21],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[22],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 3,
                 name: &[23],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 4,
                 name: &[24],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 5,
                 name: &[25],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 6,
                 name: &[26],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 7,
                 name: &[27],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 8,
                 name: &[28],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 9,
                 name: &[29],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 10,
                 name: &[30],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 11,
                 name: &[31],
                 content_name: &[],
@@ -640,7 +642,7 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[32],
         content_name: &[],
         begin: 28,
@@ -652,26 +654,26 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::Match,
+        matching: Matching::Match,
         name: &[],
         content_name: &[],
         begin: 29,
         end: usize::MAX,
         until: usize::MAX,
         captures: &[
-            Cap {
+            Capture {
                 index: 1,
                 name: &[33],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 2,
                 name: &[34],
                 content_name: &[],
                 retokenize: usize::MAX,
             },
-            Cap {
+            Capture {
                 index: 3,
                 name: &[35],
                 content_name: &[],
@@ -683,19 +685,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[36],
         content_name: &[],
         begin: 30,
         end: 30,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[19],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[20],
             content_name: &[],
@@ -705,19 +707,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[37],
         content_name: &[],
         begin: 31,
         end: 32,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[38],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[39],
             content_name: &[],
@@ -727,19 +729,19 @@ static RULES: &[Rule] = &[
         apply_end_last: false,
     },
     Rule {
-        kind: RuleKind::BeginEnd,
+        matching: Matching::BeginEnd,
         name: &[40],
         content_name: &[],
         begin: 33,
         end: 34,
         until: usize::MAX,
-        captures: &[Cap {
+        captures: &[Capture {
             index: 0,
             name: &[1],
             content_name: &[],
             retokenize: usize::MAX,
         }],
-        end_captures: &[Cap {
+        end_captures: &[Capture {
             index: 0,
             name: &[1],
             content_name: &[],

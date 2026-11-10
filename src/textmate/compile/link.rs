@@ -28,10 +28,11 @@
 use std::collections::{HashMap, HashSet};
 use std::sync::OnceLock;
 
-use super::{Compiled, RawCapture, Repository, RuleId, hand_lexed};
+use super::{Repository, RuleId, UnlinkedCapture, UnlinkedGrammar, hand_lexed};
 use crate::language::Language;
 use crate::textmate::grammar::{
-    Cap, DYNAMIC_NAME, Folding, Grammar, HandOff, Injection, List, NONE, Pattern, Rule, RuleKind,
+    Capture, DYNAMIC_NAME, Folding, Grammar, HandOff, Injection, List, Matching, NONE, Pattern,
+    Rule,
 };
 use crate::textmate::regex::Regex;
 
@@ -131,8 +132,8 @@ impl std::error::Error for LinkError {}
 /// With `None`, it is every such language whose grammar neither `root` nor
 /// `set` holds.
 pub(crate) fn link(
-    root: &Compiled,
-    set: &[&Compiled],
+    root: &UnlinkedGrammar,
+    set: &[&UnlinkedGrammar],
     handed: Option<&[Language]>,
 ) -> Result<&'static Grammar, LinkError> {
     let handed: Vec<(&str, Language)> = match handed {
@@ -253,9 +254,9 @@ enum Entry {
 
 /// A rule while the link runs.
 #[derive(Debug)]
-struct Draft<'a> {
-    /// What the rule does.
-    kind: RuleKind,
+struct PendingRule<'a> {
+    /// How the rule matches text.
+    matching: Matching,
     /// The scopes of its text.
     name: &'a [String],
     /// The scopes of the rules inside it.
@@ -267,9 +268,9 @@ struct Draft<'a> {
     /// Its `while` pattern, or [`NONE`].
     until: usize,
     /// The groups of its `begin` or `match` pattern.
-    captures: Vec<CapDraft<'a>>,
+    captures: Vec<PendingCapture<'a>>,
     /// The groups of its `end` or `while` pattern.
-    end_captures: Vec<CapDraft<'a>>,
+    end_captures: Vec<PendingCapture<'a>>,
     /// Its list: includes followed once [`Builder::flatten`] has run.
     patterns: Vec<Entry>,
     /// Whether it applies its end after its patterns.
@@ -280,7 +281,7 @@ struct Draft<'a> {
 
 /// A capture group while the link runs.
 #[derive(Debug)]
-struct CapDraft<'a> {
+struct PendingCapture<'a> {
     /// The group's number, or [`NONE`].
     index: usize,
     /// The scopes of its text.
@@ -293,7 +294,7 @@ struct CapDraft<'a> {
 
 /// A hand-off while its tables are written.
 #[derive(Debug)]
-struct HandOffRow {
+struct PendingHandOff {
     /// The list that held the include.
     list: usize,
     /// The language that lexes the region.
@@ -307,9 +308,9 @@ struct HandOffRow {
 /// The state of one link.
 struct Builder<'a> {
     /// The grammar being linked.
-    root: &'a Compiled,
+    root: &'a UnlinkedGrammar,
     /// The grammars an include can name.
-    set: &'a [&'a Compiled],
+    set: &'a [&'a UnlinkedGrammar],
     /// The grammars whose whole rules an include can reach, by scope, in the
     /// order of the set.
     docs: Vec<(&'a str, Source)>,
@@ -318,7 +319,7 @@ struct Builder<'a> {
     /// The scopes whose include is a hand-off, with the language.
     handed: Vec<(&'a str, Language)>,
     /// The rules, by number.
-    rules: Vec<Draft<'a>>,
+    rules: Vec<PendingRule<'a>>,
     /// The patterns, by number.
     patterns: Vec<&'a str>,
     /// The number of each pattern's text.
@@ -337,11 +338,11 @@ struct Builder<'a> {
 }
 
 /// The repositories an include can name, innermost last.
-type Env<'a> = [&'a Repository];
+type Repositories<'a> = [&'a Repository];
 
 impl<'a> Builder<'a> {
     /// The grammar of `source`.
-    fn grammar(&self, source: Source) -> &'a Compiled {
+    fn grammar(&self, source: Source) -> &'a UnlinkedGrammar {
         match source {
             Source::Root => self.root,
             Source::Set(index) => self.set.get(index).copied().unwrap_or(self.root),
@@ -367,10 +368,10 @@ impl<'a> Builder<'a> {
         id
     }
 
-    /// A new rule of `kind` with nothing in it.
-    fn reserve(&mut self, kind: RuleKind) -> usize {
-        self.rules.push(Draft {
-            kind,
+    /// A new rule that matches as `matching`, with nothing in it.
+    fn reserve(&mut self, matching: Matching) -> usize {
+        self.rules.push(PendingRule {
+            matching,
             name: &[],
             content_name: &[],
             begin: NONE,
@@ -396,7 +397,7 @@ impl<'a> Builder<'a> {
             return None;
         }
         let grammar = self.grammar(source);
-        let id = self.reserve(RuleKind::Container);
+        let id = self.reserve(Matching::Container);
         self.roots.insert(grammar.scope.as_str(), id);
         let env = [&grammar.repository];
         let (patterns, missing) = self.list(source, &grammar.patterns, &env);
@@ -410,11 +411,11 @@ impl<'a> Builder<'a> {
 
     /// The number of the rule object `rule` of `source`, compiled on first
     /// use with the repositories of `env`.
-    fn entry(&mut self, source: Source, rule: RuleId, env: &Env<'a>) -> usize {
+    fn entry(&mut self, source: Source, rule: RuleId, env: &Repositories<'a>) -> usize {
         if let Some(&id) = self.compiled.get(&(source, rule)) {
             return id;
         }
-        let id = self.reserve(RuleKind::Container);
+        let id = self.reserve(Matching::Container);
         self.compiled.insert((source, rule), id);
         self.rule(source, rule, Some(id), env, false);
         id
@@ -422,7 +423,12 @@ impl<'a> Builder<'a> {
 
     /// What an include of `target` from a rule of `source` stands for, or
     /// `None` when it resolves to nothing.
-    fn include(&mut self, source: Source, target: &'a str, env: &Env<'a>) -> Option<Entry> {
+    fn include(
+        &mut self,
+        source: Source,
+        target: &'a str,
+        env: &Repositories<'a>,
+    ) -> Option<Entry> {
         if let Some(&(_, language)) = self.handed.iter().find(|&&(s, _)| s == target) {
             return Some(self.hand_off(language));
         }
@@ -460,7 +466,12 @@ impl<'a> Builder<'a> {
     /// An include that resolves to nothing leaves the list.
     /// A rule other than a match then leaves its own list too, when nothing
     /// is left in it, as vscode-textmate reads it.
-    fn list(&mut self, source: Source, rules: &'a [RuleId], env: &Env<'a>) -> (Vec<Entry>, bool) {
+    fn list(
+        &mut self,
+        source: Source,
+        rules: &'a [RuleId],
+        env: &Repositories<'a>,
+    ) -> (Vec<Entry>, bool) {
         let grammar = self.grammar(source);
         let mut out = Vec::new();
         for &rule in rules {
@@ -478,11 +489,9 @@ impl<'a> Builder<'a> {
                 },
                 None => self.rule(source, rule, None, env, false),
             };
-            if self
-                .rules
-                .get(id)
-                .is_some_and(|r| r.kind != RuleKind::Match && r.missing && r.patterns.is_empty())
-            {
+            if self.rules.get(id).is_some_and(|r| {
+                r.matching != Matching::Match && r.missing && r.patterns.is_empty()
+            }) {
                 continue;
             }
             out.push(Entry::Rule(id));
@@ -496,9 +505,9 @@ impl<'a> Builder<'a> {
     fn captures(
         &mut self,
         source: Source,
-        captures: Option<&'a Vec<RawCapture>>,
-        env: &Env<'a>,
-    ) -> Vec<CapDraft<'a>> {
+        captures: Option<&'a Vec<UnlinkedCapture>>,
+        env: &Repositories<'a>,
+    ) -> Vec<PendingCapture<'a>> {
         let grammar = self.grammar(source);
         let mut out = Vec::new();
         for capture in captures.map(Vec::as_slice).unwrap_or_default() {
@@ -510,7 +519,7 @@ impl<'a> Builder<'a> {
             } else {
                 NONE
             };
-            out.push(CapDraft {
+            out.push(PendingCapture {
                 index: capture.index.unwrap_or(NONE),
                 name: &raw.name,
                 content_name: &raw.content_name,
@@ -542,11 +551,11 @@ impl<'a> Builder<'a> {
         source: Source,
         rule: RuleId,
         into: Option<usize>,
-        outer: &Env<'a>,
+        outer: &Repositories<'a>,
         container: bool,
     ) -> usize {
         if !self.descend() {
-            return into.unwrap_or_else(|| self.reserve(RuleKind::Container));
+            return into.unwrap_or_else(|| self.reserve(Matching::Container));
         }
         let id = self.rule_inside(source, rule, into, outer, container);
         self.depth -= 1;
@@ -559,47 +568,47 @@ impl<'a> Builder<'a> {
         source: Source,
         rule: RuleId,
         into: Option<usize>,
-        outer: &Env<'a>,
+        outer: &Repositories<'a>,
         container: bool,
     ) -> usize {
         let grammar = self.grammar(source);
         let Some(raw) = grammar.rules.get(rule) else {
-            return into.unwrap_or_else(|| self.reserve(RuleKind::Container));
+            return into.unwrap_or_else(|| self.reserve(Matching::Container));
         };
-        let kind = if container {
-            RuleKind::Container
+        let matching = if container {
+            Matching::Container
         } else if raw.matched.is_some() {
-            RuleKind::Match
+            Matching::Match
         } else if raw.begin.is_some() {
             if raw.until.is_some() {
-                RuleKind::BeginWhile
+                Matching::BeginWhile
             } else {
-                RuleKind::BeginEnd
+                Matching::BeginEnd
             }
         } else {
-            RuleKind::Container
+            Matching::Container
         };
         let mut env = outer.to_vec();
-        if kind == RuleKind::Container
+        if matching == Matching::Container
             && let Some(repository) = &raw.repository
         {
             env.push(repository);
         }
-        let id = into.unwrap_or_else(|| self.reserve(kind));
-        if let Some(draft) = self.rules.get_mut(id) {
-            draft.kind = kind;
-            draft.name = &raw.name;
-            draft.content_name = &raw.content_name;
-            draft.apply_end_last = raw.apply_end_last;
+        let id = into.unwrap_or_else(|| self.reserve(matching));
+        if let Some(pending) = self.rules.get_mut(id) {
+            pending.matching = matching;
+            pending.name = &raw.name;
+            pending.content_name = &raw.content_name;
+            pending.apply_end_last = raw.apply_end_last;
         }
         let (mut begin, mut end, mut until) = (NONE, NONE, NONE);
         let (mut captures, mut end_captures) = (Vec::new(), Vec::new());
-        match kind {
-            RuleKind::Match => {
+        match matching {
+            Matching::Match => {
                 begin = self.pattern(raw.matched.as_deref().unwrap_or_default());
                 captures = self.captures(source, raw.captures.as_ref(), &env);
             }
-            RuleKind::BeginEnd => {
+            Matching::BeginEnd => {
                 begin = self.pattern(raw.begin.as_deref().unwrap_or_default());
                 let opening = raw.begin_captures.as_ref().or(raw.captures.as_ref());
                 captures = self.captures(source, opening, &env);
@@ -607,7 +616,7 @@ impl<'a> Builder<'a> {
                 let closing = raw.end_captures.as_ref().or(raw.captures.as_ref());
                 end_captures = self.captures(source, closing, &env);
             }
-            RuleKind::BeginWhile => {
+            Matching::BeginWhile => {
                 begin = self.pattern(raw.begin.as_deref().unwrap_or_default());
                 let opening = raw.begin_captures.as_ref().or(raw.captures.as_ref());
                 captures = self.captures(source, opening, &env);
@@ -615,22 +624,22 @@ impl<'a> Builder<'a> {
                 let closing = raw.while_captures.as_ref().or(raw.captures.as_ref());
                 end_captures = self.captures(source, closing, &env);
             }
-            RuleKind::Container => {}
+            Matching::Container => {}
         }
-        let (patterns, missing) = if kind == RuleKind::Match {
+        let (patterns, missing) = if matching == Matching::Match {
             (Vec::new(), false)
         } else {
             self.list(source, &raw.patterns, &env)
         };
-        if let Some(draft) = self.rules.get_mut(id) {
-            draft.begin = begin;
-            draft.end = end;
-            draft.until = until;
-            draft.captures = captures;
-            draft.end_captures = end_captures;
-            if kind != RuleKind::Match {
-                draft.patterns = patterns;
-                draft.missing = missing;
+        if let Some(pending) = self.rules.get_mut(id) {
+            pending.begin = begin;
+            pending.end = end;
+            pending.until = until;
+            pending.captures = captures;
+            pending.end_captures = end_captures;
+            if matching != Matching::Match {
+                pending.patterns = patterns;
+                pending.missing = missing;
             }
         }
         id
@@ -690,8 +699,8 @@ impl<'a> Builder<'a> {
     fn handing_captures(&self) -> Vec<usize> {
         let mut handing = Vec::new();
         let mut seen = HashSet::new();
-        for draft in &self.rules {
-            for capture in draft.captures.iter().chain(&draft.end_captures) {
+        for pending in &self.rules {
+            for capture in pending.captures.iter().chain(&pending.end_captures) {
                 if capture.retokenize != NONE && seen.insert(capture.retokenize) {
                     handing.push(capture.retokenize);
                 }
@@ -713,13 +722,13 @@ impl<'a> Builder<'a> {
     ) -> Result<&'static Grammar, LinkError> {
         let mut tables = Tables::default();
         let mut parts = Vec::with_capacity(self.rules.len());
-        for draft in &self.rules {
+        for pending in &self.rules {
             parts.push((
-                tables.names_of(draft.name)?,
-                tables.names_of(draft.content_name)?,
-                tables.caps(&draft.captures)?,
-                tables.caps(&draft.end_captures)?,
-                tables.list_of(&self, draft)?,
+                tables.names_of(pending.name)?,
+                tables.names_of(pending.content_name)?,
+                tables.captures(&pending.captures)?,
+                tables.captures(&pending.end_captures)?,
+                tables.list_of(&self, pending)?,
             ));
         }
         if tables.hand_offs.len() > MAX_HAND_OFFS {
@@ -730,17 +739,17 @@ impl<'a> Builder<'a> {
             .iter()
             .zip(parts)
             .map(
-                |(draft, (name, content_name, captures, end_captures, list))| Rule {
-                    kind: draft.kind,
+                |(pending, (name, content_name, captures, end_captures, list))| Rule {
+                    matching: pending.matching,
                     name: leak(name),
                     content_name: leak(content_name),
-                    begin: draft.begin,
-                    end: draft.end,
-                    until: draft.until,
+                    begin: pending.begin,
+                    end: pending.end,
+                    until: pending.until,
                     captures: leak_captures(captures),
                     end_captures: leak_captures(end_captures),
                     list,
-                    apply_end_last: draft.apply_end_last,
+                    apply_end_last: pending.apply_end_last,
                 },
             )
             .collect();
@@ -812,7 +821,7 @@ impl<'a> Builder<'a> {
 /// A chain whose entries are compiled from the far end stays shallow while
 /// it compiles.
 fn expand(
-    rules: &[Draft<'_>],
+    rules: &[PendingRule<'_>],
     list: &[Entry],
     out: &mut Vec<Entry>,
     seen: &mut HashSet<usize>,
@@ -831,7 +840,7 @@ fn expand(
             Entry::Rule(id)
                 if rules
                     .get(id)
-                    .is_some_and(|rule| rule.kind == RuleKind::Container) =>
+                    .is_some_and(|rule| rule.matching == Matching::Container) =>
             {
                 if seen.insert(id)
                     && let Some(rule) = rules.get(id)
@@ -866,7 +875,7 @@ struct Tables {
     /// The number of each list, by its hand-off and its rules.
     list_ids: HashMap<(Option<usize>, Vec<usize>), usize>,
     /// The hand-offs.
-    hand_offs: Vec<HandOffRow>,
+    hand_offs: Vec<PendingHandOff>,
 }
 
 impl Tables {
@@ -908,7 +917,10 @@ impl Tables {
     }
 
     /// The groups of `captures`, with their names interned.
-    fn caps(&mut self, captures: &[CapDraft<'_>]) -> Result<Vec<OwnedCapture>, LinkError> {
+    fn captures(
+        &mut self,
+        captures: &[PendingCapture<'_>],
+    ) -> Result<Vec<OwnedCapture>, LinkError> {
         let mut out = Vec::with_capacity(captures.len());
         for capture in captures {
             out.push(OwnedCapture {
@@ -940,7 +952,11 @@ impl Tables {
     /// rules after it.
     /// It stays apart from a plain list with the same rules.
     /// The hand-off names the list and its two parts.
-    fn list_of(&mut self, builder: &Builder<'_>, owner: &Draft<'_>) -> Result<usize, LinkError> {
+    fn list_of(
+        &mut self,
+        builder: &Builder<'_>,
+        owner: &PendingRule<'_>,
+    ) -> Result<usize, LinkError> {
         let rules_of = |entries: &[Entry]| -> Vec<usize> {
             entries
                 .iter()
@@ -973,7 +989,7 @@ impl Tables {
             .chain(&after)
             .filter_map(|&id| builder.rules.get(id).map(|rule| rule.begin))
             .collect();
-        if owner.kind == RuleKind::BeginEnd {
+        if owner.matching == Matching::BeginEnd {
             halts.push(owner.end);
         }
         if let Some(anchored) = halts
@@ -995,7 +1011,7 @@ impl Tables {
         });
         let row = found.unwrap_or(self.hand_offs.len());
         if found.is_none() {
-            self.hand_offs.push(HandOffRow {
+            self.hand_offs.push(PendingHandOff {
                 list: NONE,
                 language,
                 before: before_list,
@@ -1042,11 +1058,11 @@ struct OwnedCapture {
 
 /// The groups of `captures` as the engine reads them, on the heap for the
 /// rest of the process.
-fn leak_captures(captures: Vec<OwnedCapture>) -> &'static [Cap] {
+fn leak_captures(captures: Vec<OwnedCapture>) -> &'static [Capture] {
     leak(
         captures
             .into_iter()
-            .map(|capture| Cap {
+            .map(|capture| Capture {
                 index: capture.index,
                 name: leak(capture.name),
                 content_name: leak(capture.content_name),

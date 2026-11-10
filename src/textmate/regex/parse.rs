@@ -3,8 +3,8 @@
 use std::collections::HashMap;
 
 use super::ast::{
-    Anchor, Case, Class, Item, Kind, Node, Polarity, Prop, builtin, insensitive_run, prop_named,
-    prune_repeated_folds,
+    Anchor, Case, Class, Greediness, Member, Node, Polarity, Property, builtin, insensitive_run,
+    property_named, prune_repeated_folds,
 };
 
 /// A pattern that does not compile: what is wrong with it.
@@ -214,19 +214,19 @@ impl Parser {
                 },
                 _ => return Ok(atom),
             };
-            let kind = if self.eat('?') {
-                Kind::Lazy
+            let greediness = if self.eat('?') {
+                Greediness::Lazy
             } else if self.peek() == Some('+') && self.chars[self.at - 1] != '}' {
                 self.at += 1;
-                Kind::Possessive
+                Greediness::Possessive
             } else {
-                Kind::Greedy
+                Greediness::Greedy
             };
             atom = Node::Repeat {
                 node: Box::new(atom),
                 min,
                 max,
-                kind,
+                greediness,
             };
         }
     }
@@ -493,10 +493,10 @@ impl Parser {
         };
         self.at += 1;
         let case = self.flags.case;
-        let prop_class = |prop: Prop, polarity: Polarity| {
+        let prop_class = |prop: Property, polarity: Polarity| {
             Node::Class(Box::new(Class {
                 negated: false,
-                parts: vec![vec![Item::Prop(prop, polarity)]],
+                parts: vec![vec![Member::Property(prop, polarity)]],
             }))
         };
         Ok(Atom::Node(match c {
@@ -517,7 +517,7 @@ impl Parser {
                     node: Box::new(prop_class(builtin("m"), Polarity::Positive)),
                     min: 0,
                     max: None,
-                    kind: Kind::Greedy,
+                    greediness: Greediness::Greedy,
                 },
             ]))),
             'b' => Node::Anchor(Anchor::WordBoundary),
@@ -611,7 +611,7 @@ impl Parser {
             .map_or_else(|| err("bad hex escape"), Ok)
     }
 
-    fn property(&mut self, polarity: Polarity) -> Result<(Prop, Polarity)> {
+    fn property(&mut self, polarity: Polarity) -> Result<(Property, Polarity)> {
         if !self.eat('{') {
             return err("bad \\p");
         }
@@ -621,7 +621,7 @@ impl Parser {
             polarity
         };
         let name = self.name_until('}')?;
-        match prop_named(&name) {
+        match property_named(&name) {
             Some(prop) => Ok((prop, polarity)),
             None => err(format!("unknown property {name}")),
         }
@@ -660,11 +660,11 @@ impl Parser {
                     }
                     let name: String = self.chars[start..self.at].iter().collect();
                     if self.starts(":]")
-                        && let Some(prop) = prop_named(&name)
+                        && let Some(prop) = property_named(&name)
                     {
                         self.at += 2;
                         if let Some(part) = parts.last_mut() {
-                            part.push(Item::Prop(prop, polarity));
+                            part.push(Member::Property(prop, polarity));
                         }
                         continue;
                     }
@@ -673,7 +673,7 @@ impl Parser {
                 self.at += 1;
                 let nested = self.class()?;
                 if let Some(part) = parts.last_mut() {
-                    part.push(Item::Nested(nested));
+                    part.push(Member::Nested(nested));
                 }
                 continue;
             }
@@ -684,23 +684,23 @@ impl Parser {
                 };
                 self.at += 1;
                 match e {
-                    'd' => Item::Prop(builtin("digit"), Polarity::Positive),
-                    'D' => Item::Prop(builtin("digit"), Polarity::Negated),
-                    'w' => Item::Prop(builtin("word"), Polarity::Positive),
-                    'W' => Item::Prop(builtin("word"), Polarity::Negated),
-                    's' => Item::Prop(builtin("space"), Polarity::Positive),
-                    'S' => Item::Prop(builtin("space"), Polarity::Negated),
-                    'h' => Item::Prop(builtin("xdigit"), Polarity::Positive),
-                    'H' => Item::Prop(builtin("xdigit"), Polarity::Negated),
+                    'd' => Member::Property(builtin("digit"), Polarity::Positive),
+                    'D' => Member::Property(builtin("digit"), Polarity::Negated),
+                    'w' => Member::Property(builtin("word"), Polarity::Positive),
+                    'W' => Member::Property(builtin("word"), Polarity::Negated),
+                    's' => Member::Property(builtin("space"), Polarity::Positive),
+                    'S' => Member::Property(builtin("space"), Polarity::Negated),
+                    'h' => Member::Property(builtin("xdigit"), Polarity::Positive),
+                    'H' => Member::Property(builtin("xdigit"), Polarity::Negated),
                     'p' | 'P' => {
                         let (prop, polarity) = self.property(if e == 'P' {
                             Polarity::Negated
                         } else {
                             Polarity::Positive
                         })?;
-                        Item::Prop(prop, polarity)
+                        Member::Property(prop, polarity)
                     }
-                    'b' => Item::Range('\u{8}', '\u{8}'),
+                    'b' => Member::Range('\u{8}', '\u{8}'),
                     other => {
                         let ch = self.simple_escape(other)?;
                         self.range_from(ch)?
@@ -717,7 +717,7 @@ impl Parser {
     }
 
     /// `lo` alone, or `lo-hi` when a range follows.
-    fn range_from(&mut self, lo: char) -> Result<Item> {
+    fn range_from(&mut self, lo: char) -> Result<Member> {
         if self.peek() == Some('-')
             && self
                 .chars
@@ -734,9 +734,9 @@ impl Parser {
             } else {
                 hi
             };
-            return Ok(Item::Range(lo, hi));
+            return Ok(Member::Range(lo, hi));
         }
-        Ok(Item::Range(lo, lo))
+        Ok(Member::Range(lo, lo))
     }
 }
 
@@ -767,7 +767,7 @@ fn absent(body: Node) -> Node {
         ])),
         min: 0,
         max: None,
-        kind: Kind::Greedy,
+        greediness: Greediness::Greedy,
     }
 }
 
@@ -779,9 +779,9 @@ fn line_break() -> Node {
         Node::Class(Box::new(Class {
             negated: false,
             parts: vec![vec![
-                Item::Range('\n', '\r'),
-                Item::Range(separator(0x85), separator(0x85)),
-                Item::Range(separator(0x2028), separator(0x2029)),
+                Member::Range('\n', '\r'),
+                Member::Range(separator(0x85), separator(0x85)),
+                Member::Range(separator(0x2028), separator(0x2029)),
             ]],
         })),
     ])))

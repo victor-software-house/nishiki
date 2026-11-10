@@ -14,7 +14,7 @@
 
 use regex_syntax::hir::{self, ClassUnicode, ClassUnicodeRange, Dot, Hir, Look, Repetition};
 
-use super::ast::{Anchor, Class, Item, Kind, Node};
+use super::ast::{Anchor, Class, Greediness, Member, Node};
 
 /// The pattern as an expression for `regex-automata`, in one walk of its tree.
 ///
@@ -84,13 +84,13 @@ fn hir(node: &Node) -> Hir {
             node,
             min,
             max,
-            kind,
+            greediness,
         } => Hir::repetition(Repetition {
             min: *min,
             max: *max,
-            greedy: match kind {
-                Kind::Greedy | Kind::Possessive => true,
-                Kind::Lazy => false,
+            greedy: match greediness {
+                Greediness::Greedy | Greediness::Possessive => true,
+                Greediness::Lazy => false,
             },
             sub: Box::new(hir(node)),
         }),
@@ -113,9 +113,9 @@ fn hir(node: &Node) -> Hir {
 fn reaches_beyond_ascii(class: &Class) -> bool {
     class.negated
         || class.parts.iter().flatten().any(|item| match item {
-            Item::Range(_, hi) => !hi.is_ascii(),
-            Item::Prop(..) => true,
-            Item::Nested(nested) => reaches_beyond_ascii(nested),
+            Member::Range(_, hi) => !hi.is_ascii(),
+            Member::Property(..) => true,
+            Member::Nested(nested) => reaches_beyond_ascii(nested),
         })
 }
 
@@ -144,7 +144,7 @@ fn class_hir(class: &Class) -> Hir {
     }
     if let Some(items) = class.ranges() {
         for item in items {
-            if let Item::Range(lo, hi) = item
+            if let Member::Range(lo, hi) = item
                 && !hi.is_ascii()
             {
                 ranges.push(ClassUnicodeRange::new((*lo).max('\u{80}'), *hi));

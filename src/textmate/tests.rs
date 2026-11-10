@@ -9,8 +9,8 @@ use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-use super::grammar::{Folding, Grammar, NONE, RuleKind};
-use super::regex::{self, Context, LineKind, Regex, Sketch};
+use super::grammar::{Folding, Grammar, Matching, NONE};
+use super::regex::{self, Context, Programs, Regex, Sketch};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
 use crate::highlighter::{Sealed, lex_line};
@@ -220,7 +220,7 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
                     .any(|cap| fence_language.is_some_and(|name| cap.name.contains(&name)))
         })
         .filter_map(|(rule, _)| {
-            Regex::for_grammar(grammar.patterns[rule.begin].source, LineKind::Full).ok()
+            Regex::for_grammar(grammar.patterns[rule.begin].source, Programs::Full).ok()
         })
         .collect();
     let opens_known_fence = |line: &Line| {
@@ -879,7 +879,7 @@ fn lean_programs_match_as_full_ones_on_lean_lines() {
                     .map(|line| line.text)
                     .collect::<Vec<_>>()
             })
-            .filter(|text| LineKind::of(text.as_bytes()) == LineKind::Lean)
+            .filter(|text| Programs::of(text.as_bytes()) == Programs::Lean)
             .collect();
         let stride = read.len().div_ceil(LEAN_LINES).max(1);
         let mut lines = Vec::new();
@@ -888,8 +888,8 @@ fn lean_programs_match_as_full_ones_on_lean_lines() {
             lines.push(text.clone());
         }
         for source in patterns {
-            let lean = Regex::for_grammar(source, LineKind::Lean);
-            let full = Regex::for_grammar(source, LineKind::Full);
+            let lean = Regex::for_grammar(source, Programs::Lean);
+            let full = Regex::for_grammar(source, Programs::Full);
             let (Ok(lean), Ok(full)) = (lean, full) else {
                 failures.push(format!("{language}: {source:?} compiles for one kind only"));
                 continue;
@@ -1096,7 +1096,7 @@ fn no_hand_off_halts_where_the_last_match_ended() {
             let ends = grammar
                 .rules
                 .iter()
-                .filter(|rule| rule.list == list && rule.kind == RuleKind::BeginEnd)
+                .filter(|rule| rule.list == list && rule.matching == Matching::BeginEnd)
                 .map(|rule| rule.end);
             for pattern in parts.chain(ends) {
                 if let Some(pattern) = grammar.patterns.get(pattern)
@@ -1356,7 +1356,7 @@ mod survey {
     use serde_json::Value;
 
     use super::{Folding, Grammar, Regex, Scanners, fixtures_in, parse, run};
-    use crate::textmate::grammar::{Cap, Injection, List, Pattern, Rule, RuleKind};
+    use crate::textmate::grammar::{Capture, Injection, List, Matching, Pattern, Rule};
 
     fn leak<T>(items: Vec<T>) -> &'static [T] {
         Box::leak(items.into_boxed_slice())
@@ -1381,14 +1381,14 @@ mod survey {
             .unwrap_or_default()
     }
 
-    fn caps(value: &Value) -> &'static [Cap] {
+    fn caps(value: &Value) -> &'static [Capture] {
         leak(
             value
                 .as_array()
                 .map(|items| {
                     items
                         .iter()
-                        .map(|c| Cap {
+                        .map(|c| Capture {
                             index: index(&c["index"]),
                             name: leak(numbers(&c["name"])),
                             content_name: leak(numbers(&c["contentName"])),
@@ -1417,11 +1417,11 @@ mod survey {
             .unwrap()
             .iter()
             .map(|r| Rule {
-                kind: match r["kind"].as_str().unwrap() {
-                    "Match" => RuleKind::Match,
-                    "BeginEnd" => RuleKind::BeginEnd,
-                    "BeginWhile" => RuleKind::BeginWhile,
-                    _ => RuleKind::Container,
+                matching: match r["matching"].as_str().unwrap() {
+                    "Match" => Matching::Match,
+                    "BeginEnd" => Matching::BeginEnd,
+                    "BeginWhile" => Matching::BeginWhile,
+                    _ => Matching::Container,
                 },
                 name: leak(numbers(&r["name"])),
                 content_name: leak(numbers(&r["contentName"])),
@@ -1558,7 +1558,7 @@ fn fixtures_in(dir: &Path) -> Vec<PathBuf> {
 mod many_groups {
     use std::sync::OnceLock;
 
-    use super::super::grammar::{Cap, Folding, Grammar, List, Pattern, Rule, RuleKind};
+    use super::super::grammar::{Capture, Folding, Grammar, List, Matching, Pattern, Rule};
 
     static PATTERNS: [Pattern; 1] = [Pattern::new(
         "()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()(x)",
@@ -1566,7 +1566,7 @@ mod many_groups {
     static LISTS: [List; 2] = [List::new(&[1]), List::new(&[])];
     static RULES: [Rule; 2] = [
         Rule {
-            kind: RuleKind::Container,
+            matching: Matching::Container,
             name: &[],
             content_name: &[],
             begin: usize::MAX,
@@ -1578,13 +1578,13 @@ mod many_groups {
             apply_end_last: false,
         },
         Rule {
-            kind: RuleKind::Match,
+            matching: Matching::Match,
             name: &[],
             content_name: &[],
             begin: 0,
             end: usize::MAX,
             until: usize::MAX,
-            captures: &[Cap {
+            captures: &[Capture {
                 index: 41,
                 name: &[0],
                 content_name: &[],
@@ -1649,13 +1649,13 @@ fn a_group_far_into_a_pattern_is_named() {
 mod nested_captures {
     use std::sync::OnceLock;
 
-    use super::super::grammar::{Cap, Folding, Grammar, List, NONE, Pattern, Rule, RuleKind};
+    use super::super::grammar::{Capture, Folding, Grammar, List, Matching, NONE, Pattern, Rule};
 
     static PATTERNS: [Pattern; 1] = [Pattern::new("(<)(.*)")];
     static LISTS: [List; 2] = [List::new(&[1]), List::new(&[])];
     static RULES: [Rule; 2] = [
         Rule {
-            kind: RuleKind::Container,
+            matching: Matching::Container,
             name: &[],
             content_name: &[],
             begin: NONE,
@@ -1667,20 +1667,20 @@ mod nested_captures {
             apply_end_last: false,
         },
         Rule {
-            kind: RuleKind::Match,
+            matching: Matching::Match,
             name: &[],
             content_name: &[],
             begin: 0,
             end: NONE,
             until: NONE,
             captures: &[
-                Cap {
+                Capture {
                     index: 1,
                     name: &[0],
                     content_name: &[],
                     retokenize: NONE,
                 },
-                Cap {
+                Capture {
                     index: 2,
                     name: &[],
                     content_name: &[],
@@ -1750,18 +1750,18 @@ fn nested_captures_stop_at_their_bound() {
 mod injected {
     use std::sync::OnceLock;
 
-    use super::super::grammar::{Folding, Grammar, Injection, List, NONE, Pattern, Rule, RuleKind};
+    use super::super::grammar::{Folding, Grammar, Injection, List, Matching, NONE, Pattern, Rule};
 
-    /// A rule of the given `RuleKind`, with no captures.
+    /// A rule that matches as `matching`, with no captures.
     const fn rule(
-        kind: RuleKind,
+        matching: Matching,
         name: &'static [u16],
         begin: usize,
         end: usize,
         list: usize,
     ) -> Rule {
         Rule {
-            kind,
+            matching,
             name,
             content_name: &[],
             begin,
@@ -1782,11 +1782,11 @@ mod injected {
         List::new(&[4]),
     ];
     static RULES: [Rule; 5] = [
-        rule(RuleKind::Container, &[], NONE, NONE, 0),
-        rule(RuleKind::BeginEnd, &[0], 0, 1, 1),
-        rule(RuleKind::Match, &[1], 2, NONE, 2),
-        rule(RuleKind::Container, &[], NONE, NONE, 3),
-        rule(RuleKind::Match, &[2], 2, NONE, 2),
+        rule(Matching::Container, &[], NONE, NONE, 0),
+        rule(Matching::BeginEnd, &[0], 0, 1, 1),
+        rule(Matching::Match, &[1], 2, NONE, 2),
+        rule(Matching::Container, &[], NONE, NONE, 3),
+        rule(Matching::Match, &[2], 2, NONE, 2),
     ];
     static INJECTIONS: [Injection; 1] = [Injection {
         selector: "L:meta.block.test",
@@ -2097,10 +2097,10 @@ fn every_listed_pattern_that_parses_compiles() {
             if Sketch::for_grammar(pattern.source).is_err() {
                 continue;
             }
-            for kind in [LineKind::Lean, LineKind::Full] {
-                if let Err(error) = Regex::for_grammar(pattern.source, kind) {
+            for programs in [Programs::Lean, Programs::Full] {
+                if let Err(error) = Regex::for_grammar(pattern.source, programs) {
                     failures.push(format!(
-                        "{language} {kind:?} {:?}: {error:?}",
+                        "{language} {programs:?} {:?}: {error:?}",
                         pattern.source
                     ));
                 }

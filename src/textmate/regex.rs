@@ -72,7 +72,7 @@ enum Prefilter {
 /// those alternatives.
 /// They match the same on that line.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
-pub(crate) enum LineKind {
+pub(crate) enum Programs {
     /// The line holds none of those characters.
     #[default]
     Lean,
@@ -80,8 +80,8 @@ pub(crate) enum LineKind {
     Full,
 }
 
-impl LineKind {
-    /// The kind of `line`, found without decoding.
+impl Programs {
+    /// The programs `line` runs, found without decoding.
     /// One pass checks that the line is ASCII.
     /// A second pass runs only for a line that is not.
     /// It looks up each byte in a table of the first bytes of those
@@ -92,17 +92,17 @@ impl LineKind {
     /// The lookup starts at the first block with a byte beyond ASCII.
     /// No character crosses into it from the ASCII blocks before it.
     #[inline]
-    pub(crate) fn of(line: &[u8]) -> LineKind {
+    pub(crate) fn of(line: &[u8]) -> Programs {
         let (blocks, tail) = line.as_chunks::<64>();
         let start = match blocks.iter().position(|block| !is_ascii(block)) {
             Some(block) => block * 64,
-            None if is_ascii(tail) => return LineKind::Lean,
+            None if is_ascii(tail) => return Programs::Lean,
             None => blocks.len() * 64,
         };
-        LineKind::beyond_ascii(line.get(start..).unwrap_or_default())
+        Programs::beyond_ascii(line.get(start..).unwrap_or_default())
     }
 
-    /// The kind of `line`, which holds a byte beyond ASCII.
+    /// The programs `line` runs, when it holds a byte beyond ASCII.
     ///
     /// Only a lead byte, one with its top two bits set, can start such a
     /// character.
@@ -118,7 +118,7 @@ impl LineKind {
     /// looks up.
     /// The rest therefore shrinks by at least a byte every turn.
     #[inline(never)]
-    fn beyond_ascii(line: &[u8]) -> LineKind {
+    fn beyond_ascii(line: &[u8]) -> Programs {
         let mut rest = line;
         while let Some((&lead, after)) = next_lead(rest)
             .and_then(|start| rest.get(start..))
@@ -138,7 +138,7 @@ impl LineKind {
                 continue;
             }
             if lead < 0xe0 {
-                return LineKind::Full;
+                return Programs::Full;
             }
             let found = rest
                 .get(..2)
@@ -147,10 +147,10 @@ impl LineKind {
                 .zip(folds::WIDE_TAILS.get(group))
                 .is_some_and(|(tail, tails)| tails.binary_search(&tail).is_ok());
             if found {
-                return LineKind::Full;
+                return Programs::Full;
             }
         }
-        LineKind::Lean
+        Programs::Lean
     }
 }
 
@@ -263,23 +263,23 @@ impl Regex {
     /// Compiles `pattern` as Oniguruma reads it.
     #[cfg(test)]
     pub(crate) fn new(pattern: &str) -> Result<Regex, Error> {
-        Regex::compile(parse::parse(pattern, Dialect::Oniguruma)?, LineKind::Full)
+        Regex::compile(parse::parse(pattern, Dialect::Oniguruma)?, Programs::Full)
     }
 
-    /// Compiles `pattern` as Oniguruma reads it, for a [`LineKind::Lean`]
+    /// Compiles `pattern` as Oniguruma reads it, for a [`Programs::Lean`]
     /// line.
     #[cfg(test)]
     pub(crate) fn lean(pattern: &str) -> Result<Regex, Error> {
-        Regex::compile(parse::parse(pattern, Dialect::Oniguruma)?, LineKind::Lean)
+        Regex::compile(parse::parse(pattern, Dialect::Oniguruma)?, Programs::Lean)
     }
 
-    /// Compiles `pattern` of a grammar, where `\z` never matches, for lines
-    /// of `kind`.
-    pub(crate) fn for_grammar(pattern: &str, kind: LineKind) -> Result<Regex, Error> {
-        Regex::compile(parse::parse(pattern, Dialect::Grammar)?, kind)
+    /// Compiles `pattern` of a grammar, where `\z` never matches, as one of
+    /// `programs`.
+    pub(crate) fn for_grammar(pattern: &str, programs: Programs) -> Result<Regex, Error> {
+        Regex::compile(parse::parse(pattern, Dialect::Grammar)?, programs)
     }
 
-    /// Compiles the pattern of `sketch` for lines of `kind`, from the tree
+    /// Compiles the pattern of `sketch` as one of `programs`, from the tree
     /// the sketch kept.
     ///
     /// The tree is taken, so the sketch no longer holds it.
@@ -289,24 +289,24 @@ impl Regex {
     pub(crate) fn from_sketch(
         sketch: &Sketch,
         pattern: &str,
-        kind: LineKind,
+        programs: Programs,
     ) -> Result<Regex, Error> {
         let tree = sketch.tree.lock().ok().and_then(|mut tree| tree.take());
         let parsed = match tree {
             Some(tree) => *tree,
             None => parse::parse(pattern, Dialect::Grammar)?,
         };
-        Regex::compile(parsed, kind)
+        Regex::compile(parsed, programs)
     }
 
-    fn compile(mut parsed: Parsed, kind: LineKind) -> Result<Regex, Error> {
-        match kind {
-            LineKind::Lean => {
+    fn compile(mut parsed: Parsed, programs: Programs) -> Result<Regex, Error> {
+        match programs {
+            Programs::Lean => {
                 if let Some(root) = ast::lean(&parsed.root) {
                     parsed.root = root;
                 }
             }
-            LineKind::Full => {}
+            Programs::Full => {}
         }
         let program = compile(&parsed)?;
         let anchored = anchors(&parsed.root);
@@ -365,7 +365,7 @@ impl Regex {
     }
 
     /// Whether `pattern` of a grammar compiles to another program for a
-    /// [`LineKind::Lean`] line than for a [`LineKind::Full`] one.
+    /// [`Programs::Lean`] line than for a [`Programs::Full`] one.
     #[cfg(any(test, feature = "json"))]
     pub(crate) fn lean_differs(pattern: &str) -> bool {
         parse::parse(pattern, Dialect::Grammar)

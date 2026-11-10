@@ -24,8 +24,10 @@ use std::sync::OnceLock;
 
 use regex_automata::meta::Cache;
 
-use super::grammar::{Cap, Cells, DYNAMIC_NAME, Folding, Grammar, HandOff, NONE, Rule, RuleKind};
-use super::regex::{self, Context, LineKind, Regex};
+use super::grammar::{
+    Capture, Cells, DYNAMIC_NAME, Folding, Grammar, HandOff, Matching, NONE, Rule,
+};
+use super::regex::{self, Context, Programs, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
 use crate::arena::{Arena, IdMap, ROOT};
@@ -38,11 +40,11 @@ use crate::{Stack, Token};
 mod tests;
 
 /// The frame kind of the engine's states, tagged as the engine's.
-const KIND: u16 = crate::tag::TEXTMATE;
+const TAG: u16 = crate::tag::TEXTMATE;
 /// The frame kind of a hand-off region. The frame sits on top of the frame of
 /// the rule that opened the region. Its payload is the state of the language
 /// lexed by hand.
-const HAND_OFF_KIND: u16 = KIND | 1;
+const HAND_OFF_TAG: u16 = TAG | 1;
 /// The rule of a hand-off frame. No rule of a grammar has this index.
 const HANDED: usize = usize::MAX;
 /// The payload bit that says the rule opened at the end of its line.
@@ -78,7 +80,7 @@ const STEP: u64 = 32;
 const MAX_NESTED_CAPTURES: usize = 256;
 
 /// The span of each group of a match.
-type Caps = [Option<(usize, usize)>];
+type GroupSpans = [Option<(usize, usize)>];
 
 /// Whether `\A` can still match: the cursor has not left the start of the
 /// document.
@@ -281,14 +283,14 @@ struct Best {
     /// then the list, or last with `applyEndPatternLast`.
     tier: u8,
     order: usize,
-    pat: Pat,
+    pat: SearchPattern,
     /// Whether its groups are in the `best` scratch.
     groups_kept: bool,
 }
 
 /// What a search runs.
 #[derive(Clone, Copy)]
-enum Pat {
+enum SearchPattern {
     /// A pattern of the grammar.
     Table(usize),
     /// A pattern built from a match, in [`Scratch::dynamic`].
@@ -398,10 +400,10 @@ struct GrammarCaches {
     /// starts and which rule of the list it opens.
     list_found: Vec<(u32, u32, u32)>,
     /// The automata caches of the lists' scanners for lines of
-    /// `caches_kind`, boxed so that a slot costs a pointer.
+    /// `caches_programs`, boxed so that a slot costs a pointer.
     meta_caches: Vec<Option<Box<Cache>>>,
     /// The kind of line whose scanners `meta_caches` belong to.
-    caches_kind: LineKind,
+    caches_programs: Programs,
     /// The automata caches of the other kind of line, kept for its next
     /// line.
     idle_caches: Vec<Option<Box<Cache>>>,
@@ -453,7 +455,7 @@ impl GrammarCaches {
             .resize(grammar.lists.len(), (0, NO_MATCH, 0));
         self.meta_caches.clear();
         self.meta_caches.resize_with(grammar.lists.len(), || None);
-        self.caches_kind = LineKind::Lean;
+        self.caches_programs = Programs::Lean;
         self.idle_caches.clear();
         self.folding = grammar.folding();
         self.lean = None;
@@ -482,18 +484,18 @@ impl GrammarCaches {
 
     /// Hands the automaton caches back to their scanners.
     fn give_back(&mut self) {
-        let (active, idle) = match self.caches_kind {
-            LineKind::Lean => (self.lean, self.full),
-            LineKind::Full => (self.full, self.lean),
+        let (active, idle) = match self.caches_programs {
+            Programs::Lean => (self.lean, self.full),
+            Programs::Full => (self.full, self.lean),
         };
         give_back(&mut self.meta_caches, active);
         give_back(&mut self.idle_caches, idle);
     }
 
-    /// The `LineKind` of `line`, and the grammar's cells for it.
+    /// The [`Programs`] `line` runs, and the grammar's cells for them.
     ///
-    /// It makes the automata caches those of that `LineKind`. The caches of
-    /// the other `LineKind` are kept. Lines of the two kinds in turn then keep
+    /// It makes the automata caches those of these programs. The caches of
+    /// the other programs are kept. Lines of the two kinds in turn then keep
     /// the states their automata built.
     #[expect(
         clippy::inline_always,
@@ -501,23 +503,23 @@ impl GrammarCaches {
     )]
     #[inline(always)]
     fn line_cells(&mut self, grammar: &'static Grammar, line: &[u8]) -> &'static Cells {
-        let kind = match self.folding {
-            Folding::Same => LineKind::Lean,
-            Folding::Differs => LineKind::of(line),
+        let programs = match self.folding {
+            Folding::Same => Programs::Lean,
+            Folding::Differs => Programs::of(line),
         };
-        if self.caches_kind != kind {
+        if self.caches_programs != programs {
             std::mem::swap(&mut self.meta_caches, &mut self.idle_caches);
-            self.caches_kind = kind;
+            self.caches_programs = programs;
             self.meta_caches.resize_with(grammar.lists.len(), || None);
         }
-        let slot = match kind {
-            LineKind::Lean => &mut self.lean,
-            LineKind::Full => &mut self.full,
+        let slot = match programs {
+            Programs::Lean => &mut self.lean,
+            Programs::Full => &mut self.full,
         };
         if let Some(cells) = *slot {
             return cells;
         }
-        let cells = grammar.cells(kind);
+        let cells = grammar.cells(programs);
         *slot = Some(cells);
         cells
     }
@@ -555,7 +557,7 @@ struct Injected {
 /// The frames a line left in [`Scratch::frames`], named by their grammar and
 /// the state they make.
 #[derive(Clone, Copy, Debug)]
-struct Kept {
+struct KeptFrames {
     grammar: &'static Grammar,
     state: u32,
 }
@@ -567,7 +569,7 @@ pub(crate) struct Scratch {
     frames: Vec<Frame>,
     /// The grammar and the state of the frames in `frames`, when the last
     /// line left them there. A line from that state reuses them.
-    kept: Option<Kept>,
+    kept: Option<KeptFrames>,
     /// The places in `frames` of the open `while` rules, from the bottom.
     whiles: Vec<usize>,
     locals: Vec<Vec<(u32, usize)>>,
@@ -638,7 +640,7 @@ pub(crate) fn start(arena: &mut Arena, grammar: &Grammar, base: u32) -> u32 {
         .and_then(|scope| arena.child(base, scope))
         .unwrap_or(base);
     arena
-        .push(ROOT, KIND, pack(grammar.root, FIRST), stack)
+        .push(ROOT, TAG, pack(grammar.root, FIRST), stack)
         .unwrap_or(ROOT)
 }
 
@@ -659,7 +661,7 @@ fn pack(rule: usize, end: u32) -> u32 {
 )]
 pub(crate) fn start_embedded(arena: &mut Arena, grammar: &Grammar, base: u32) -> u32 {
     arena
-        .push(ROOT, KIND, pack(grammar.root, 0), base)
+        .push(ROOT, TAG, pack(grammar.root, 0), base)
         .unwrap_or(ROOT)
 }
 
@@ -923,7 +925,7 @@ fn rebuild<H: Halting>(
     let mut at = state;
     while at != ROOT {
         let f = arena.frame(at);
-        if H::HANDS_OFF && f.kind == HAND_OFF_KIND {
+        if H::HANDS_OFF && f.kind == HAND_OFF_TAG {
             frames.push(Frame {
                 rule: HANDED,
                 state: at,
@@ -993,12 +995,12 @@ fn opens_while(grammar: &Grammar, frame: &Frame) -> bool {
     grammar
         .rules
         .get(frame.rule)
-        .is_some_and(|rule| rule.kind == RuleKind::BeginWhile)
+        .is_some_and(|rule| rule.matching == Matching::BeginWhile)
 }
 
 /// Writes `source` into `out` with `\1`..`\9` replaced by the escaped text
 /// of the groups, reusing `out`'s buffer.
-fn fill_backrefs(source: &str, text: &[u8], caps: &Caps, out: &mut String) {
+fn fill_backrefs(source: &str, text: &[u8], caps: &GroupSpans, out: &mut String) {
     out.clear();
     let mut chars = source.chars();
     while let Some(c) = chars.next() {
@@ -1043,7 +1045,7 @@ fn fill_backrefs(source: &str, text: &[u8], caps: &Caps, out: &mut String) {
 /// Leading dots of a group's text are dropped, since they would make an invalid
 /// scope name. Case is changed a character at a time, which differs from
 /// Shiki's only for a final capital sigma.
-fn dollar(rest: &str, text: &[u8], caps: &Caps, out: &mut String) -> Option<usize> {
+fn dollar(rest: &str, text: &[u8], caps: &GroupSpans, out: &mut String) -> Option<usize> {
     let group = |digits: &str| {
         let slot = caps.get(digits.parse::<usize>().ok()?)?;
         Some(slot.and_then(|(s, e)| text.get(s..e).map(String::from_utf8_lossy)))
@@ -1071,7 +1073,7 @@ fn dollar(rest: &str, text: &[u8], caps: &Caps, out: &mut String) -> Option<usiz
 
 /// Writes the scope name `name` into `out` with its `$` forms replaced by the
 /// text of the groups, reusing `out`'s buffer.
-fn fill_name(name: &str, text: &[u8], caps: &Caps, out: &mut String) {
+fn fill_name(name: &str, text: &[u8], caps: &GroupSpans, out: &mut String) {
     out.clear();
     let mut rest = name;
     while let Some(at) = rest.find('$') {
@@ -1165,7 +1167,7 @@ impl Tokenizer<'_> {
     /// A tab that a capture brings in stays inside its scope.
     /// The shell grammar's quoted `<<-` heredoc end names its tab-indented
     /// delimiter.
-    fn push_names(&mut self, base: u32, names: &[u16], caps: &Caps) -> u32 {
+    fn push_names(&mut self, base: u32, names: &[u16], caps: &GroupSpans) -> u32 {
         let mut stack = base;
         for &reference in names {
             let index = usize::from(reference & !DYNAMIC_NAME);
@@ -1197,20 +1199,20 @@ impl Tokenizer<'_> {
     /// of the line.
     fn probe(
         &mut self,
-        pat: Pat,
+        pat: SearchPattern,
         from: usize,
         end: usize,
         anchor: usize,
         allow_a: DocStart,
     ) -> (Option<usize>, bool) {
         let slot = match pat {
-            Pat::Table(index)
+            SearchPattern::Table(index)
                 if end == self.s.text.len()
                     && self.cells.regex(index).is_some_and(Regex::context_free) =>
             {
                 Some(index)
             }
-            Pat::Table(_) | Pat::Built(_) => None,
+            SearchPattern::Table(_) | SearchPattern::Built(_) => None,
         };
         if let Some(index) = slot
             && let Some(&(epoch, start)) = self.s.current.found.get(index)
@@ -1248,7 +1250,7 @@ impl Tokenizer<'_> {
         &mut self,
         (start, fresh): (Option<usize>, bool),
         rule: Option<usize>,
-        (pat, tier, order): (Pat, u8, usize),
+        (pat, tier, order): (SearchPattern, u8, usize),
         best: &mut Option<Best>,
     ) {
         let Some(start) = start else { return };
@@ -1274,7 +1276,7 @@ impl Tokenizer<'_> {
         reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
     )]
     #[inline(always)]
-    fn built_end(&mut self, pattern: usize, caps: &Caps) -> u32 {
+    fn built_end(&mut self, pattern: usize, caps: &GroupSpans) -> u32 {
         let Some(slot) = self.grammar.patterns.get(pattern) else {
             return 0;
         };
@@ -1297,15 +1299,15 @@ impl Tokenizer<'_> {
     /// The search of `pat` from `from` in the text up to `end`.
     fn search(
         &mut self,
-        pat: Pat,
+        pat: SearchPattern,
         from: usize,
         end: usize,
         anchor: usize,
         allow_a: DocStart,
     ) -> bool {
         let regex = match pat {
-            Pat::Table(index) => self.cells.regex(index),
-            Pat::Built(index) => self.s.dynamic.get(index).and_then(Option::as_ref),
+            SearchPattern::Table(index) => self.cells.regex(index),
+            SearchPattern::Built(index) => self.s.dynamic.get(index).and_then(Option::as_ref),
         };
         let Some(regex) = regex else { return false };
         let Some(text) = self.s.text.get(..end) else {
@@ -1328,14 +1330,14 @@ impl Tokenizer<'_> {
     /// Never inlined: measured at one codegen unit, inlining its map lookup
     /// into `tokenize_string` cost that loop registers on every step.
     #[inline(never)]
-    fn end_pat(&mut self, pattern: usize, end: u32) -> Pat {
+    fn end_pat(&mut self, pattern: usize, end: u32) -> SearchPattern {
         if end == 0 {
-            return Pat::Table(pattern);
+            return SearchPattern::Table(pattern);
         }
         if let Some(&index) = self.s.dynamic_ids.get(&end) {
-            return Pat::Built(index);
+            return SearchPattern::Built(index);
         }
-        Pat::Built(self.build_end(end))
+        SearchPattern::Built(self.build_end(end))
     }
 
     /// Compiles the `end` or `while` pattern built from a match, keeps it,
@@ -1345,7 +1347,7 @@ impl Tokenizer<'_> {
     #[cold]
     #[inline(never)]
     fn build_end(&mut self, end: u32) -> usize {
-        let regex = Regex::for_grammar(self.arena.string(end), LineKind::Full).ok();
+        let regex = Regex::for_grammar(self.arena.string(end), Programs::Full).ok();
         self.s.dynamic.push(regex);
         let index = self.s.dynamic.len() - 1;
         self.s.dynamic_ids.insert(end, index);
@@ -1416,7 +1418,7 @@ impl Tokenizer<'_> {
                 if self.stopped || decided(best, index + 1) {
                     return;
                 }
-                let pat = Pat::Table(self.grammar.rules[id].begin);
+                let pat = SearchPattern::Table(self.grammar.rules[id].begin);
                 let probed = self.probe(pat, pos, end, anchor, allow_a);
                 self.consider(probed, Some(id), (pat, tier, base + index + 1), best);
             }
@@ -1430,7 +1432,7 @@ impl Tokenizer<'_> {
                 break;
             }
             let id = scanner.rules[index];
-            let pat = Pat::Table(self.grammar.rules[id].begin);
+            let pat = SearchPattern::Table(self.grammar.rules[id].begin);
             let probed = self.probe(pat, pos, end, anchor, allow_a);
             self.consider(probed, Some(id), (pat, tier, base + index + 1), best);
         }
@@ -1440,7 +1442,7 @@ impl Tokenizer<'_> {
         let (found, fresh) = self.winner(list_id, scanner, pos, end);
         if let Some((start, index)) = found {
             let id = scanner.rules[index];
-            let pat = Pat::Table(self.grammar.rules[id].begin);
+            let pat = SearchPattern::Table(self.grammar.rules[id].begin);
             self.consider(
                 (Some(start), fresh),
                 Some(id),
@@ -1454,8 +1456,8 @@ impl Tokenizer<'_> {
     /// `from`.
     ///
     /// It gives where the rule starts and its place in the list, and whether
-    /// the search ran now, leaving its groups in `cur`. Kept for the rest of
-    /// the line like a pattern's match.
+    /// the search ran now, leaving its groups in `cur`. Kept for the rest
+    /// of the line like a pattern's match.
     fn winner(
         &mut self,
         list_id: usize,
@@ -1537,7 +1539,7 @@ impl Tokenizer<'_> {
                 break;
             };
             for index in scanner.starting_with(byte, first) {
-                let pat = Pat::Table(self.grammar.rules[scanner.rules[index]].begin);
+                let pat = SearchPattern::Table(self.grammar.rules[scanner.rules[index]].begin);
                 if self.match_at(pat, start, end) {
                     found = Some((start, index));
                     break;
@@ -1569,10 +1571,10 @@ impl Tokenizer<'_> {
 
     /// Whether `pat`, a pattern of the grammar that reads only the text,
     /// matches exactly at `at`, leaving its groups in `cur`.
-    fn match_at(&mut self, pat: Pat, at: usize, end: usize) -> bool {
+    fn match_at(&mut self, pat: SearchPattern, at: usize, end: usize) -> bool {
         let regex = match pat {
-            Pat::Table(index) => self.cells.regex(index),
-            Pat::Built(index) => self.s.dynamic.get(index).and_then(Option::as_ref),
+            SearchPattern::Table(index) => self.cells.regex(index),
+            SearchPattern::Built(index) => self.s.dynamic.get(index).and_then(Option::as_ref),
         };
         let Some(regex) = regex else { return false };
         let Some(text) = self.s.text.get(..end) else {
@@ -1684,8 +1686,9 @@ impl Tokenizer<'_> {
         };
         let rule: &'static Rule = &self.grammar.rules[handing.map_or(top.rule, |part| part.rule)];
         let mut best: Option<Best> = None;
-        let end_pat = (rule.kind == RuleKind::BeginEnd && handing.is_none_or(|part| part.with_end))
-            .then(|| self.end_pat(rule.end, handing.map_or(top.end, |part| part.end)));
+        let end_pat = (rule.matching == Matching::BeginEnd
+            && handing.is_none_or(|part| part.with_end))
+        .then(|| self.end_pat(rule.end, handing.map_or(top.end, |part| part.end)));
         if !rule.apply_end_last
             && let Some(pat) = end_pat
         {
@@ -1808,7 +1811,8 @@ impl Tokenizer<'_> {
         frames: &mut [Frame],
     ) -> Flow {
         let rule: &'static Rule = &self.grammar.rules[part.rule];
-        let end_pat = (rule.kind == RuleKind::BeginEnd).then(|| self.end_pat(rule.end, part.end));
+        let end_pat =
+            (rule.matching == Matching::BeginEnd).then(|| self.end_pat(rule.end, part.end));
         let before_end = end_pat.filter(|_| !rule.apply_end_last);
         let after_end = end_pat.filter(|_| rule.apply_end_last);
         let mut before = std::mem::take(&mut self.s.starts_before);
@@ -1954,7 +1958,7 @@ impl Tokenizer<'_> {
     fn first_start(
         &mut self,
         list: usize,
-        end_pat: Option<Pat>,
+        end_pat: Option<SearchPattern>,
         (pos, end, anchor, allow_a): (usize, usize, usize, DocStart),
     ) -> Option<Best> {
         let mut best: Option<Best> = None;
@@ -1975,7 +1979,7 @@ impl Tokenizer<'_> {
         &mut self,
         into: &mut Vec<usize>,
         list: usize,
-        end_pat: Option<Pat>,
+        end_pat: Option<SearchPattern>,
         (from, end, anchor, allow_a): (usize, usize, usize, DocStart),
     ) {
         into.clear();
@@ -2007,7 +2011,7 @@ impl Tokenizer<'_> {
     fn apply(
         &mut self,
         matched: Option<usize>,
-        caps: &Caps,
+        caps: &GroupSpans,
         rule: &'static Rule,
         end: usize,
         (pos, anchor, allow_a): (&mut usize, &mut usize, &mut DocStart),
@@ -2063,7 +2067,7 @@ impl Tokenizer<'_> {
         frames: &mut Vec<Frame>,
         pos: usize,
         anchor: &mut usize,
-        caps: &Caps,
+        caps: &GroupSpans,
         (s, e): (usize, usize),
         end: usize,
     ) -> bool {
@@ -2071,7 +2075,7 @@ impl Tokenizer<'_> {
         let outer = frames.last().map_or(ROOT, |f| f.content);
         self.produce(outer, s);
         let name = self.push_names(outer, child.name, caps);
-        let opens = matches!(child.kind, RuleKind::BeginEnd | RuleKind::BeginWhile);
+        let opens = matches!(child.matching, Matching::BeginEnd | Matching::BeginWhile);
         if opens && self.limits.depth.is_some_and(|max| frames.len() >= max) {
             self.report.record(Limit::Depth);
             self.produce(name, e);
@@ -2082,7 +2086,7 @@ impl Tokenizer<'_> {
             return false;
         }
         let before = frames.len();
-        let pattern = if child.kind == RuleKind::BeginEnd {
+        let pattern = if child.matching == Matching::BeginEnd {
             child.end
         } else {
             child.until
@@ -2103,8 +2107,8 @@ impl Tokenizer<'_> {
             content: name,
         });
         let advanced = e > pos;
-        match child.kind {
-            RuleKind::BeginEnd | RuleKind::BeginWhile => {
+        match child.matching {
+            Matching::BeginEnd | Matching::BeginWhile => {
                 self.handle_captures(child.captures, caps, frames, before, end);
                 self.produce(name, e);
                 *anchor = e;
@@ -2119,7 +2123,7 @@ impl Tokenizer<'_> {
                     return true;
                 }
             }
-            RuleKind::Match => {
+            Matching::Match => {
                 self.handle_captures(child.captures, caps, frames, before, end);
                 self.produce(name, e);
                 frames.pop();
@@ -2132,7 +2136,7 @@ impl Tokenizer<'_> {
                     return true;
                 }
             }
-            RuleKind::Container => {}
+            Matching::Container => {}
         }
         false
     }
@@ -2154,8 +2158,8 @@ impl Tokenizer<'_> {
     /// runs the plain loop, which costs less per step.
     fn handle_captures(
         &mut self,
-        captures: &'static [Cap],
-        caps: &Caps,
+        captures: &'static [Capture],
+        caps: &GroupSpans,
         frames: &mut Vec<Frame>,
         index: usize,
         end: usize,
@@ -2265,17 +2269,17 @@ impl Tokenizer<'_> {
             .map_or(ROOT, |frame| frame.state);
         let mut kept = true;
         for (at, frame) in frames.iter_mut().enumerate().skip(low) {
-            let (kind, payload) = if H::HANDS_OFF && frame.rule == HANDED {
-                (HAND_OFF_KIND, frame.end)
+            let (tag, payload) = if H::HANDS_OFF && frame.rule == HANDED {
+                (HAND_OFF_TAG, frame.end)
             } else {
                 (
-                    KIND,
+                    TAG,
                     pack(frame.rule, frame.end) | if frame.eol { EOL } else { 0 },
                 )
             };
             frame.state = self
                 .arena
-                .push(parent, kind, payload, frame.content)
+                .push(parent, tag, payload, frame.content)
                 .unwrap_or_else(|| {
                     self.report.record(Limit::Nodes);
                     kept = false;
@@ -2288,13 +2292,13 @@ impl Tokenizer<'_> {
                 for _ in 0..rule.content_name.len() {
                     frame.name = self.arena.parent(frame.name);
                 }
-                if rule.kind == RuleKind::BeginWhile {
+                if rule.matching == Matching::BeginWhile {
                     self.s.whiles.push(at);
                 }
             }
             parent = frame.state;
         }
-        self.s.kept = kept.then_some(Kept {
+        self.s.kept = kept.then_some(KeptFrames {
             grammar: self.grammar,
             state: parent,
         });

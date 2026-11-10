@@ -5,7 +5,7 @@ use regex_syntax::hir::Hir;
 use super::ast::orbit;
 use super::folds::{MULTI, UNFOLD};
 use super::parse::{self, Dialect};
-use super::{Context, LineKind, Regex, Scratch, Sketch};
+use super::{Context, Programs, Regex, Scratch, Sketch};
 
 /// The whole match and the groups of the first match in `text`, from `from`,
 /// with `\G` at `search` and `\A` at the start.
@@ -318,7 +318,7 @@ fn differential_against_oniguruma() {
 /// The cases are in tests/engine/case-folds, written by
 /// `oracle/case-fold-probe.ts`.
 ///
-/// A line of [`LineKind::Lean`] is checked through both programs.
+/// A line of [`Programs::Lean`] is checked through both programs.
 /// One of them is the lean program the engine runs on that line.
 #[test]
 fn case_insensitive_matching_answers_as_oniguruma() {
@@ -435,12 +435,12 @@ fn differential(dir: &std::path::Path) -> Vec<String> {
         let from: usize = parts.next().unwrap().parse().unwrap();
         let source = &patterns[pattern];
         let text = format!("{}\n", lines[line]);
-        let programs = match LineKind::of(lines[line].as_bytes()) {
-            LineKind::Lean => [
+        let programs = match Programs::of(lines[line].as_bytes()) {
+            Programs::Lean => [
                 Some((&compiled[pattern], &relaxed[pattern], "full")),
                 Some((&lean[pattern], &relaxed[pattern], "lean")),
             ],
-            LineKind::Full => [Some((&compiled[pattern], &relaxed[pattern], "full")), None],
+            Programs::Full => [Some((&compiled[pattern], &relaxed[pattern], "full")), None],
         };
         for (program, relaxed, kind) in programs.into_iter().flatten() {
             let Some(regex) = program else {
@@ -557,11 +557,11 @@ fn every_lead_byte_classifies() {
     let wide = wide_characters();
     for line in crate::textmate::tests::lines_beyond_ascii() {
         let expected = if line.chars().any(|c| wide.contains(&c)) {
-            LineKind::Full
+            Programs::Full
         } else {
-            LineKind::Lean
+            Programs::Lean
         };
-        assert_eq!(LineKind::of(line.as_bytes()), expected, "{line:?}");
+        assert_eq!(Programs::of(line.as_bytes()), expected, "{line:?}");
     }
 }
 
@@ -581,21 +581,21 @@ fn a_line_is_full_exactly_when_it_holds_a_wide_fold_character() {
     let mut buffer = [0; 4];
     for c in (0x80..=0x10_ffff).filter_map(char::from_u32) {
         let expected = if wide.contains(&c) {
-            LineKind::Full
+            Programs::Full
         } else {
-            LineKind::Lean
+            Programs::Lean
         };
         assert_eq!(
-            LineKind::of(c.encode_utf8(&mut buffer).as_bytes()),
+            Programs::of(c.encode_utf8(&mut buffer).as_bytes()),
             expected,
             "{c:?}"
         );
     }
-    assert_eq!(LineKind::of("café".as_bytes()), LineKind::Lean);
-    assert_eq!(LineKind::of("class first".as_bytes()), LineKind::Lean);
-    assert_eq!(LineKind::of("straße".as_bytes()), LineKind::Full);
-    assert_eq!(LineKind::of("the ﬁle".as_bytes()), LineKind::Full);
-    assert_eq!(LineKind::of(b"x\xc3"), LineKind::Lean);
+    assert_eq!(Programs::of("café".as_bytes()), Programs::Lean);
+    assert_eq!(Programs::of("class first".as_bytes()), Programs::Lean);
+    assert_eq!(Programs::of("straße".as_bytes()), Programs::Full);
+    assert_eq!(Programs::of("the ﬁle".as_bytes()), Programs::Full);
+    assert_eq!(Programs::of(b"x\xc3"), Programs::Lean);
 }
 
 /// A lean program leaves out the alternatives that need a wide character, and

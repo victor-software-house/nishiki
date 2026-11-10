@@ -16,7 +16,7 @@ use std::{error, fmt};
 use crate::highlighter::{Sealed, Syntax, lex_line};
 use crate::language::Language;
 use crate::textmate::compile::link::{LinkError, link};
-use crate::textmate::compile::{CompileError, Compiled, compile};
+use crate::textmate::compile::{CompileError, UnlinkedGrammar, compile};
 use crate::{Highlighter, Limits, LineReport, State, Token, textmate};
 
 /// A compiled `TextMate` grammar.
@@ -32,7 +32,7 @@ use crate::{Highlighter, Limits, LineReport, State, Token, textmate};
 /// A service that loads grammars from untrusted input needs its own bound on
 /// how many it loads.
 #[derive(Clone, Copy)]
-pub struct Grammar(&'static Compiled);
+pub struct Grammar(&'static UnlinkedGrammar);
 
 impl Grammar {
     /// Compiles `json`, a grammar in the form Shiki and VS Code use.
@@ -244,8 +244,8 @@ impl error::Error for GrammarError {
 /// The grammars loaded in this process, by the text they were loaded from.
 #[derive(Default)]
 struct LoadedGrammars {
-    json: HashMap<Box<str>, &'static Compiled>,
-    bytes: HashMap<Box<[u8]>, &'static Compiled>,
+    json: HashMap<Box<str>, &'static UnlinkedGrammar>,
+    bytes: HashMap<Box<[u8]>, &'static UnlinkedGrammar>,
 }
 
 /// Every grammar this process loaded.
@@ -312,7 +312,7 @@ fn linked_table(
     if let Some(linked) = *table {
         return Ok(linked);
     }
-    let set: Vec<&Compiled> = grammars.grammars.iter().map(|grammar| grammar.0).collect();
+    let set: Vec<&UnlinkedGrammar> = grammars.grammars.iter().map(|grammar| grammar.0).collect();
     let linked = link(root.0, &set, grammars.handed.as_deref())
         .map_err(|error| GrammarError(Reason::Link(error)))?;
     *table = Some(linked);

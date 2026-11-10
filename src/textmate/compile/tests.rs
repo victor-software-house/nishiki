@@ -4,11 +4,11 @@
 use indoc::indoc;
 
 use super::link::{LinkError, link};
-use super::{Compiled, compile};
-use crate::textmate::grammar::{Grammar, NONE, RuleKind};
+use super::{UnlinkedGrammar, compile};
+use crate::textmate::grammar::{Grammar, Matching, NONE};
 
 /// The grammar of `json`, which must compile.
-fn grammar(json: &str) -> Compiled {
+fn grammar(json: &str) -> UnlinkedGrammar {
     compile(json).unwrap()
 }
 
@@ -129,8 +129,8 @@ fn captures_take_the_order_of_their_numbers() {
     assert_ne!(rule.captures[0].retokenize, NONE);
     assert_eq!(rule.captures[1].retokenize, NONE);
     assert_eq!(
-        tables.rules[rule.captures[0].retokenize].kind,
-        RuleKind::Container
+        tables.rules[rule.captures[0].retokenize].matching,
+        Matching::Container
     );
 }
 
@@ -228,7 +228,7 @@ mod hand_offs {
     use crate::textmate::compile::link::{LinkError, link};
 
     /// A grammar whose `style` region includes CSS whole, and one CSS rule.
-    fn styled() -> super::Compiled {
+    fn styled() -> super::UnlinkedGrammar {
         grammar(indoc! {r#"
             {
               "scopeName": "source.a",
@@ -240,7 +240,7 @@ mod hand_offs {
         "#})
     }
 
-    fn css() -> super::Compiled {
+    fn css() -> super::UnlinkedGrammar {
         grammar(indoc! {r#"
             {"scopeName": "source.css", "patterns": [{"match": "css"}], "repository": {"escapes": {"match": "\\\\."}}}
         "#})
@@ -332,15 +332,15 @@ mod survey {
 
     use crate::language::Language;
     use crate::textmate::compile::link::link;
-    use crate::textmate::compile::{Compiled, compile};
-    use crate::textmate::grammar::{Cap, Grammar, NONE, RuleKind};
+    use crate::textmate::compile::{UnlinkedGrammar, compile};
+    use crate::textmate::grammar::{Capture, Grammar, Matching, NONE};
 
     /// An index as the JSON tables write it: `-1` for none.
     fn index(n: usize) -> Value {
         if n == NONE { json!(-1) } else { json!(n) }
     }
 
-    fn caps(caps: &[Cap]) -> Value {
+    fn caps(caps: &[Capture]) -> Value {
         caps.iter()
             .map(|c| {
                 json!({
@@ -353,12 +353,12 @@ mod survey {
             .collect()
     }
 
-    fn kind(kind: RuleKind) -> &'static str {
-        match kind {
-            RuleKind::Match => "Match",
-            RuleKind::BeginEnd => "BeginEnd",
-            RuleKind::BeginWhile => "BeginWhile",
-            RuleKind::Container => "Container",
+    fn matching(matching: Matching) -> &'static str {
+        match matching {
+            Matching::Match => "Match",
+            Matching::BeginEnd => "BeginEnd",
+            Matching::BeginWhile => "BeginWhile",
+            Matching::Container => "Container",
         }
     }
 
@@ -372,7 +372,7 @@ mod survey {
             "lists": grammar.lists.iter().map(|l| l.rules).collect::<Vec<_>>(),
             "injections": grammar.injections.iter().map(|i| json!({"selector": i.selector, "rule": i.rule})).collect::<Vec<_>>(),
             "rules": grammar.rules.iter().map(|r| json!({
-                "kind": kind(r.kind),
+                "matching": matching(r.matching),
                 "name": r.name,
                 "contentName": r.content_name,
                 "begin": index(r.begin),
@@ -425,10 +425,10 @@ mod survey {
         let mut lines = sources.lines();
         let header: Value = serde_json::from_str(lines.next().unwrap()).unwrap();
         let started = Instant::now();
-        let grammars: Vec<Compiled> = lines.map(|line| compile(line).unwrap()).collect();
+        let grammars: Vec<UnlinkedGrammar> = lines.map(|line| compile(line).unwrap()).collect();
         let root_scope = header["root"].as_str().unwrap();
         let root = grammars.iter().find(|g| g.scope == root_scope).unwrap();
-        let set: Vec<&Compiled> = grammars.iter().collect();
+        let set: Vec<&UnlinkedGrammar> = grammars.iter().collect();
         let handed: Vec<Language> = header["handed"]
             .as_array()
             .unwrap()
