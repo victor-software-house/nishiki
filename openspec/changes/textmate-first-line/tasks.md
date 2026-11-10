@@ -40,6 +40,9 @@ Each side must repeat across its three builds.
 - [ ] 3.3 Measured, with the held trees' memory.
   → verify: first token falls, and steady state and memory are at or under main for every TextMate language
   - 2026-11-04: first token falls by 3% to 23%, and steady state is 1.0000 to 1.0015 ([measurements][measurements], section 3.3).
+    Memory is equal or lower for every TextMate language.
+    A regex cell went from 152 to 144 bytes.
+    LLVM indexes 144 bytes with `lea` and `shl`, one instruction more than the `imul` that 152 bytes took.
   - Lead, 2026-11-04: land it.
     The extra instruction is not extra time, since `imul` takes about three cycles.
 
