@@ -145,6 +145,36 @@ fn a_grammar_injects_itself_where_it_names_the_root() {
     assert_eq!(tables.injections.len(), 1);
 }
 
+/// A repository of `entries` rules, each including the next, and a root
+/// that includes the first.
+fn chain(entries: usize) -> String {
+    let repository: Vec<String> = (0..entries)
+        .map(|i| {
+            format!(
+                r##""r{i}": {{"patterns": [{{"include": "#r{}"}}, {{"match": "m{i}"}}]}}"##,
+                i + 1
+            )
+        })
+        .collect();
+    format!(
+        r##"{{"scopeName": "source.a", "patterns": [{{"include": "#r0"}}], "repository": {{{}}}}}"##,
+        repository.join(", ")
+    )
+}
+
+#[test]
+fn a_chain_of_includes_past_the_depth_bound_is_refused() {
+    let root = grammar(&chain(100_000));
+    assert_eq!(link(&root, &[], None).unwrap_err(), LinkError::TooDeep);
+}
+
+#[test]
+fn a_chain_of_includes_within_the_depth_bound_links() {
+    let root = grammar(&chain(200));
+    let tables = link(&root, &[], None).unwrap();
+    assert_eq!(list_patterns(tables, tables.root).len(), 200);
+}
+
 #[cfg(feature = "lang-css")]
 mod hand_offs {
     use indoc::indoc;

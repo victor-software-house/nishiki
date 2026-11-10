@@ -40,6 +40,16 @@ use crate::textmate::regex::Regex;
 /// It is the 4 MiB that `oracle/engine-tables.ts` writes by default.
 const DFA_CACHE: usize = 1 << 22;
 
+/// How deep rules may include each other while the link compiles them.
+///
+/// The link recurses once per level.
+/// A repository can chain any number of entries, each including the next,
+/// with no JSON nesting for the parser's own limit to stop.
+/// The bound keeps such a grammar from overflowing the stack of a 2 MiB
+/// thread.
+/// The deepest grammar Shiki 4.6.0 bundles, `typst`, reaches 63.
+const MAX_DEPTH: usize = 256;
+
 /// The most hand-offs a grammar can hold.
 /// The tokenizer looks a list's hand-off up as a `u8`, one load a step.
 const MAX_HAND_OFFS: usize = 256;
@@ -61,6 +71,9 @@ pub(crate) enum LinkError {
     TooManyHandOffs,
     /// The grammar names more scopes than a scope reference can number.
     TooManyNames,
+    /// Rules include each other more than [`MAX_DEPTH`] deep, as a
+    /// repository whose every entry includes the next does.
+    TooDeep,
 }
 
 impl std::fmt::Display for LinkError {
@@ -80,6 +93,9 @@ impl std::fmt::Display for LinkError {
                 write!(f, "the grammar holds more than {MAX_HAND_OFFS} hand-offs")
             }
             LinkError::TooManyNames => f.write_str("the grammar names too many scopes"),
+            LinkError::TooDeep => {
+                write!(f, "rules include each other more than {MAX_DEPTH} deep")
+            }
         }
     }
 }
@@ -138,6 +154,8 @@ pub(crate) fn link(
         roots: HashMap::new(),
         compiled: HashMap::new(),
         hand_offs: Vec::new(),
+        depth: 0,
+        too_deep: false,
     };
     let root_rule = builder.root(&root.scope).unwrap_or(NONE);
     let mut injections: Vec<(&str, usize)> = root
@@ -178,6 +196,9 @@ pub(crate) fn link(
         if let Some(rule) = builder.root(scope) {
             injections.push((selector.as_str(), rule));
         }
+    }
+    if builder.too_deep {
+        return Err(LinkError::TooDeep);
     }
     builder.flatten();
     builder.finish(root_rule, &injections)
@@ -288,6 +309,11 @@ struct Builder<'a> {
     compiled: HashMap<(Source, RuleId), usize>,
     /// The language of each hand-off.
     hand_offs: Vec<Language>,
+    /// How many rules and grammar roots are being compiled, one inside the
+    /// other.
+    depth: usize,
+    /// Whether the compilation went past [`MAX_DEPTH`].
+    too_deep: bool,
 }
 
 /// The repositories an include can name, innermost last.
@@ -346,6 +372,9 @@ impl<'a> Builder<'a> {
             return Some(id);
         }
         let source = self.docs.iter().find(|&&(s, _)| s == scope)?.1;
+        if !self.descend() {
+            return None;
+        }
         let grammar = self.grammar(source);
         let id = self.reserve(RuleKind::Container);
         self.roots.insert(grammar.scope.as_str(), id);
@@ -355,6 +384,7 @@ impl<'a> Builder<'a> {
             rule.patterns = patterns;
             rule.missing = missing;
         }
+        self.depth -= 1;
         Some(id)
     }
 
@@ -471,10 +501,40 @@ impl<'a> Builder<'a> {
         out
     }
 
+    /// Steps one rule deeper, or records that the link went too deep and
+    /// returns `false`.
+    fn descend(&mut self) -> bool {
+        if self.depth >= MAX_DEPTH {
+            self.too_deep = true;
+            return false;
+        }
+        self.depth += 1;
+        true
+    }
+
     /// Compiles the rule object `rule` of `source` into the rule `into`, or a
     /// new one, and returns its number.
     /// A capture's rule is compiled as a container of its patterns.
+    ///
+    /// Past [`MAX_DEPTH`], it compiles nothing and the link fails.
     fn rule(
+        &mut self,
+        source: Source,
+        rule: RuleId,
+        into: Option<usize>,
+        outer: &Env<'a>,
+        container: bool,
+    ) -> usize {
+        if !self.descend() {
+            return into.unwrap_or_else(|| self.reserve(RuleKind::Container));
+        }
+        let id = self.rule_inside(source, rule, into, outer, container);
+        self.depth -= 1;
+        id
+    }
+
+    /// [`Builder::rule`] one level deeper.
+    fn rule_inside(
         &mut self,
         source: Source,
         rule: RuleId,
@@ -703,8 +763,21 @@ impl<'a> Builder<'a> {
 
 /// Appends the rules of `list` to `out`, with each container's own rules in
 /// its place, unless `seen` already holds it.
+///
+/// It walks with a stack of its own.
+/// Containers can nest as deep as a repository chains entries.
+/// [`MAX_DEPTH`] does not bound that.
+/// A chain whose entries are compiled from the far end stays shallow while
+/// it compiles.
 fn expand(rules: &[Draft<'_>], list: &[Entry], out: &mut Vec<Entry>, seen: &mut HashSet<usize>) {
-    for &entry in list {
+    let mut stack: Vec<(&[Entry], usize)> = vec![(list, 0)];
+    while let Some(top) = stack.last_mut() {
+        let (entries, at) = *top;
+        let Some(&entry) = entries.get(at) else {
+            stack.pop();
+            continue;
+        };
+        top.1 += 1;
         match entry {
             Entry::Rule(id)
                 if rules
@@ -714,7 +787,7 @@ fn expand(rules: &[Draft<'_>], list: &[Entry], out: &mut Vec<Entry>, seen: &mut 
                 if seen.insert(id)
                     && let Some(rule) = rules.get(id)
                 {
-                    expand(rules, &rule.patterns, out, seen);
+                    stack.push((&rule.patterns, 0));
                 }
             }
             Entry::Rule(_) | Entry::HandOff(_) => out.push(entry),
