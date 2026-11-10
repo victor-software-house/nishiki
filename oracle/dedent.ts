@@ -19,6 +19,7 @@
  * - A line of blanks alone becomes empty and sets no indentation.
  * - An interpolated value goes in as it is.
  *   A value that starts a line counts that line's blanks as indentation.
+ *   So does a value that only blanks and empty values come before on its line.
  *   Each later non-empty line of the value gets the same indentation, once the margin is removed.
  *   It drops that indentation when it puts nothing on the line:
  *   - its first line is empty, and it holds a line break;
@@ -55,20 +56,51 @@ export function dedentPieces(pieces: readonly string[], values: Values): string 
     .map((fragment) => indentOf(fragment.text));
   const margin = commonMargin(indents);
   const texts = pieces.map(() => [] as string[]);
-  const valueIndents: string[] = [];
+  const places: Place[] = [];
   for (const fragment of fragments) {
     const text = dedented(fragment, margin);
     texts[fragment.piece]!.push(text);
-    if (fragment.beforeValue) valueIndents[fragment.piece] = startsValueLine(fragment) ? text : "";
+    if (fragment.beforeValue) {
+      const previous = places[fragment.piece - 1];
+      places[fragment.piece] = placeOf(fragment, text, previous, values[fragment.piece - 1]);
+    }
   }
   const joined = texts.map((lines) => lines.join("\n"));
   return joined.reduce((text, piece, index) => {
     const value = String(values[index - 1]);
-    const indent = valueIndents[index - 1]!;
+    const { indent, written } = places[index - 1]!;
     const blank = blankToLineEnd(value, restOfLine(joined, values, index));
-    const before = blank ? text.slice(0, text.length - indent.length) : text;
+    const before = blank ? text.slice(0, text.length - written.length) : text;
     return before + indented(value, indent) + piece;
   });
+}
+
+/** Where a value sits on its line. */
+type Place = {
+  /** The blanks that start each later non-empty line of the value. */
+  indent: string;
+  /** The blanks written just before the value, which a value that leaves its line empty drops. */
+  written: string;
+  /** Whether only blanks and empty values come before the value on its line. */
+  leadsLine: boolean;
+};
+
+/**
+ * The place of the value after `fragment`, whose dedented text is `text`.
+ * `previous` is the place of the value before `fragment`, and `previousValue` that value.
+ * A value after only blanks and empty values on its line takes the line's indentation.
+ */
+function placeOf(
+  fragment: Fragment,
+  text: string,
+  previous: Place | undefined,
+  previousValue: string | number | undefined,
+): Place {
+  if (startsValueLine(fragment)) return { indent: text, written: text, leadsLine: true };
+  if (previous?.leadsLine && String(previousValue) === "" && isBlank(text)) {
+    return { indent: previous.indent + text, written: text, leadsLine: true };
+  }
+  return { indent: "", written: "", leadsLine: false };
 }
 
 /**
