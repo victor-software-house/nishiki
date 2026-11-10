@@ -18,7 +18,7 @@ pub(crate) enum RegexForm {
 
 /// Which end of a character-class range an item is.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum RangeItem {
+enum RangeBound {
     /// The item before `-`.
     Low,
     /// The item after `-`.
@@ -456,8 +456,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// 2. a numeric escape;
     /// 3. a control escape;
     /// 4. any other escape.
-    fn range_items(&self, i: usize, item: RangeItem) -> [Option<(usize, Option<S>)>; 4] {
-        let any = item == RangeItem::Low;
+    fn range_items(&self, i: usize, bound: RangeBound) -> [Option<(usize, Option<S>)>; 4] {
+        let any = bound == RangeBound::Low;
         let plain = (i < self.len && (any || !matches!(self.byte(i), b']' | b'\\')))
             .then(|| (i + self.char_len(i), None));
         let numeric = self
@@ -479,12 +479,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// `ITEM-ITEM` inside a character class.
     fn regex_range(&mut self, p: usize) -> Option<usize> {
         let (a_end, a_scope, b_end, b_scope) = self
-            .range_items(p, RangeItem::Low)
+            .range_items(p, RangeBound::Low)
             .into_iter()
             .flatten()
             .filter(|&(a_end, _)| self.byte(a_end) == b'-')
             .find_map(|(a_end, a_scope)| {
-                self.range_items(a_end + 1, RangeItem::High)
+                self.range_items(a_end + 1, RangeBound::High)
                     .into_iter()
                     .flatten()
                     .next()
