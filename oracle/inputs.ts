@@ -38,6 +38,8 @@ import hamlInvalidTags from "./inputs/haml-invalid-tags.haml" with { type: "text
 import haskellCoverage from "./inputs/haskell-coverage.hs" with { type: "text" };
 import hclCoverage from "./inputs/hcl-coverage.hcl" with { type: "text" };
 import hlslCoverage from "./inputs/hlsl-coverage.hlsl" with { type: "text" };
+import htmlCoverage from "./inputs/html-coverage.html" with { type: "text" };
+import htmlDerivativeCoverage from "./inputs/html-derivative-coverage.html" with { type: "text" };
 import htmlInvalidTags from "./inputs/html-invalid-tags.html" with { type: "text" };
 import iniCoverage from "./inputs/ini-coverage.ini" with { type: "text" };
 import javaCoverage from "./inputs/java-coverage.java" with { type: "text" };
@@ -542,6 +544,8 @@ const vscodeColorizeFixtures =
 const vue = "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
 const woo =
   "https://raw.githubusercontent.com/fukamachi/woo/51b8cb2653116cd05f6a8d0029719ce6ce106711";
+const wpt =
+  "https://raw.githubusercontent.com/web-platform-tests/wpt/de15fbf9d7e83a7d0bc66e2b9231a7b059496ca0";
 const xerces =
   "https://raw.githubusercontent.com/apache/xerces2-j/cf0c517a41b31b0242b96ab1af9627a3ab07fcd2";
 const xv6 =
@@ -1307,6 +1311,7 @@ export const inputs: Input[] = [
     name: "bootstrap3-visual-modal",
     url: `${bootstrap3}/js/tests/visual/modal.html`,
   },
+  { lang: "html", name: "coverage", text: htmlCoverage },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
   { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },
   { lang: "html", name: "invalid-tags", text: htmlInvalidTags },
@@ -1336,6 +1341,58 @@ export const inputs: Input[] = [
   { lang: "html", name: "todomvc-knockoutjs", url: `${todomvc}/examples/knockoutjs/index.html` },
   { lang: "html", name: "todomvc-lit", url: `${todomvc}/examples/lit/index.html` },
   { lang: "html", name: "todomvc-polymer", url: `${todomvc}/examples/polymer/index.html` },
+  {
+    lang: "html",
+    name: "wpt-document-foreign-01",
+    url: `${wpt}/html/syntax/parsing/Document.getElementsByTagName-foreign-01.html`,
+  },
+  {
+    lang: "html",
+    name: "wpt-document-foreign-02",
+    url: `${wpt}/html/syntax/parsing/Document.getElementsByTagName-foreign-02.html`,
+  },
+  {
+    lang: "html",
+    name: "wpt-element-foreign-02",
+    url: `${wpt}/html/syntax/parsing/Element.getElementsByTagName-foreign-02.html`,
+  },
+  {
+    lang: "html",
+    name: "wpt-html-integration-point",
+    url: `${wpt}/html/syntax/parsing/html-integration-point.html`,
+  },
+  {
+    lang: "html",
+    name: "wpt-inline-event-handler",
+    url: `${wpt}/html/semantics/scripting-1/the-script-element/module/dynamic-import/inline-event-handler.html`,
+  },
+  { lang: "html", name: "wpt-math-parse01", url: `${wpt}/html/syntax/parsing/math-parse01.html` },
+  {
+    lang: "html",
+    name: "wpt-script-noembed-noframes",
+    url: `${wpt}/html/semantics/scripting-1/the-script-element/script-noembed-noframes-iframe.xhtml`,
+  },
+  {
+    lang: "html",
+    name: "wpt-script-type-language-xhtml",
+    url: `${wpt}/html/semantics/scripting-1/the-script-element/script-type-and-language-js-xhtml.xhtml`,
+  },
+  {
+    lang: "html",
+    name: "wpt-svg-scripted-element",
+    url: `${wpt}/svg/struct/scripted/element.html`,
+  },
+  {
+    lang: "html",
+    name: "wpt-text-clip-path-transform",
+    url: `${wpt}/svg/painting/text-clip-path-transform.html`,
+  },
+  {
+    lang: "html",
+    name: "wpt-unclosed-svg-script",
+    url: `${wpt}/html/syntax/parsing/unclosed-svg-script.html`,
+  },
+  { lang: "html-derivative", name: "coverage", text: htmlDerivativeCoverage },
   {
     lang: "html-derivative",
     name: "vue-classic-grid",

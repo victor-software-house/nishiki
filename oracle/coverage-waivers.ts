@@ -2497,6 +2497,31 @@ export const waivers: Waiver[] = [
       dropped: true,
     })),
   ),
+  { grammar: "html", path: "#entities.patterns[1].match", group: 3, reason: missing(2) },
+  { grammar: "html", path: "#entities.patterns[2].match", group: 3, reason: missing(2) },
+  ...[0, 1].flatMap((n): Waiver[] =>
+    ["begin", "end"].map((side) => ({
+      grammar: "html",
+      path: `#tags-valid.patterns[${n}].${side}`,
+      group: 1,
+      reason: blanks,
+    })),
+  ),
+  {
+    grammar: "html",
+    path: "#tags-valid.patterns[0].patterns[0].patterns[0].begin",
+    group: 1,
+    reason: missing(0),
+  },
+  {
+    grammar: "html",
+    path:
+      "#tags-valid.patterns[1].patterns[0].patterns[0]" +
+      ".patterns[0].patterns[0].patterns[0].begin",
+    group: 1,
+    reason: blanks,
+  },
+  { grammar: "html", path: "#xml-processing.end", group: 2, reason: missing(1) },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -2526,6 +2551,8 @@ export const complete: string[] = [
   "haskell",
   "hcl",
   "hlsl",
+  "html",
+  "html-derivative",
   "ini",
   "java",
   "javascript",

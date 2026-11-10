@@ -65,8 +65,10 @@ Items 2 to 4 landed on 2026-11-04 (UTC):
 
 ## 2. Follow-ups
 
-- [ ] 2.1 Julia's table without engine copies → verify: its compiled size before and after
-- [ ] 2.2 Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR
+- [x] 2.1 Julia's table without engine copies → verify: its compiled size before and after
+  - [#490][pr490] gave Julia a lexer that embeds the hand lexers; [the embeds note][embeds] has the evidence and the sizes.
+- [x] 2.2 Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR
+  - Each got a lexer of its own with no copied grammar; [the embeds note][embeds] lists each PR and its embeds.
 - [x] 2.3 A capture whose rule includes a hand-lexed grammar hands its text off, as CoffeeScript's backticks do → verify: the `coffee/coffeescript-javascript-literals` fixture matches Shiki
   - 2026-11-04: [#417][pr417] opened, and merged the same day.
   - 2026-11-10: `oracle::every_language_matches_shiki` compares the `coffee/coffeescript-javascript-literals` fixture.
@@ -153,6 +155,8 @@ Items 2 to 4 landed on 2026-11-04 (UTC):
 [pr381]: https://github.com/victor-software-house/nishiki-archive/pull/381
 [pr388]: https://github.com/victor-software-house/nishiki-archive/pull/388
 [pr417]: https://github.com/victor-software-house/nishiki-archive/pull/417
+[pr490]: https://github.com/victor-software-house/nishiki-archive/pull/490
+[embeds]: ../../research/2026-11-10-engine-handoff-embeds.md
 [run-main-oracle]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42855984002
 [ci365]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837615709
 [ci366]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837614919

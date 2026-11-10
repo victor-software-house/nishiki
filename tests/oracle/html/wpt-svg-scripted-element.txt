@@ -1,0 +1,935 @@
+L <!DOCTYPE HTML>
+T 2 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.begin.html
+T 9 text.html.basic meta.tag.metadata.doctype.html entity.name.tag.html
+T 10 text.html.basic meta.tag.metadata.doctype.html
+T 14 text.html.basic meta.tag.metadata.doctype.html entity.other.attribute-name.html
+T 15 text.html.basic meta.tag.metadata.doctype.html punctuation.definition.tag.end.html
+L <title>SVGSVGElement interface</title>
+T 1 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.begin.html
+T 6 text.html.basic meta.tag.metadata.title.start.html entity.name.tag.html
+T 7 text.html.basic meta.tag.metadata.title.start.html punctuation.definition.tag.end.html
+T 30 text.html.basic
+T 32 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.begin.html
+T 37 text.html.basic meta.tag.metadata.title.end.html entity.name.tag.html
+T 38 text.html.basic meta.tag.metadata.title.end.html punctuation.definition.tag.end.html
+L <link rel="author" title="Timothy Gu" href="mailto:timothygu99@gmail.com">
+T 1 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.metadata.link.void.html entity.name.tag.html
+T 6 text.html.basic meta.tag.metadata.link.void.html
+T 9 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 10 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 11 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 18 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.basic meta.tag.metadata.link.void.html
+T 24 text.html.basic meta.tag.metadata.link.void.html meta.attribute.title.html entity.other.attribute-name.html
+T 25 text.html.basic meta.tag.metadata.link.void.html meta.attribute.title.html punctuation.separator.key-value.html
+T 26 text.html.basic meta.tag.metadata.link.void.html meta.attribute.title.html string.quoted.double.html punctuation.definition.string.begin.html
+T 36 text.html.basic meta.tag.metadata.link.void.html meta.attribute.title.html string.quoted.double.html
+T 37 text.html.basic meta.tag.metadata.link.void.html meta.attribute.title.html string.quoted.double.html punctuation.definition.string.end.html
+T 38 text.html.basic meta.tag.metadata.link.void.html
+T 42 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 43 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 44 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 72 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 73 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 74 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L <link rel="help" href="https://svgwg.org/svg2-draft/struct.html#InterfaceSVGSVGElement">
+T 1 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.tag.metadata.link.void.html entity.name.tag.html
+T 6 text.html.basic meta.tag.metadata.link.void.html
+T 9 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html entity.other.attribute-name.html
+T 10 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html punctuation.separator.key-value.html
+T 11 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.begin.html
+T 15 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html
+T 16 text.html.basic meta.tag.metadata.link.void.html meta.attribute.rel.html string.quoted.double.html punctuation.definition.string.end.html
+T 17 text.html.basic meta.tag.metadata.link.void.html
+T 21 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html entity.other.attribute-name.html
+T 22 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html punctuation.separator.key-value.html
+T 23 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.begin.html
+T 86 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html
+T 87 text.html.basic meta.tag.metadata.link.void.html meta.attribute.href.html string.quoted.double.html punctuation.definition.string.end.html
+T 88 text.html.basic meta.tag.metadata.link.void.html punctuation.definition.tag.end.html
+L 
+L <script src="/resources/testharness.js"></script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 11 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 12 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 13 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 38 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 39 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 40 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 41 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 42 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 49 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L <script src="/resources/testharnessreport.js"></script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html
+T 11 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html entity.other.attribute-name.html
+T 12 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html punctuation.separator.key-value.html
+T 13 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.begin.html
+T 44 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html
+T 45 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.src.html string.quoted.double.html punctuation.definition.string.end.html
+T 46 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+T 47 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 48 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 54 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 55 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 
+L <svg style="font-size: 100px" onclick="onClickTestVar = 1">
+T 1 text.html.basic meta.element.structure.svg.html meta.tag.structure.svg.start.html punctuation.definition.tag.begin.html
+T 4 text.html.basic meta.element.structure.svg.html meta.tag.structure.svg.start.html entity.name.tag.html
+T 5 text.html.basic meta.element.structure.svg.html
+T 10 text.html.basic meta.element.structure.svg.html meta.attribute.style.html entity.other.attribute-name.html
+T 11 text.html.basic meta.element.structure.svg.html meta.attribute.style.html punctuation.separator.key-value.html
+T 12 text.html.basic meta.element.structure.svg.html meta.attribute.style.html string.quoted.double.html punctuation.definition.string.begin.html
+T 28 text.html.basic meta.element.structure.svg.html meta.attribute.style.html string.quoted.double.html
+T 29 text.html.basic meta.element.structure.svg.html meta.attribute.style.html string.quoted.double.html punctuation.definition.string.end.html
+T 30 text.html.basic meta.element.structure.svg.html
+T 37 text.html.basic meta.element.structure.svg.html meta.attribute.unrecognized.onclick.html entity.other.attribute-name.html
+T 38 text.html.basic meta.element.structure.svg.html meta.attribute.unrecognized.onclick.html punctuation.separator.key-value.html
+T 39 text.html.basic meta.element.structure.svg.html meta.attribute.unrecognized.onclick.html string.quoted.double.html punctuation.definition.string.begin.html
+T 57 text.html.basic meta.element.structure.svg.html meta.attribute.unrecognized.onclick.html string.quoted.double.html
+T 58 text.html.basic meta.element.structure.svg.html meta.attribute.unrecognized.onclick.html string.quoted.double.html punctuation.definition.string.end.html
+T 59 text.html.basic meta.element.structure.svg.html meta.tag.structure.svg.start.html punctuation.definition.tag.end.html
+L   <unknownElement />
+T 2 text.html.basic meta.element.structure.svg.html
+T 3 text.html.basic meta.element.structure.svg.html meta.element.other.invalid.html meta.tag.other.invalid.void.html punctuation.definition.tag.begin.html
+T 17 text.html.basic meta.element.structure.svg.html meta.element.other.invalid.html meta.tag.other.invalid.void.html entity.name.tag.html invalid.illegal.unrecognized-tag.html
+T 18 text.html.basic meta.element.structure.svg.html meta.element.other.invalid.html
+T 20 text.html.basic meta.element.structure.svg.html meta.element.other.invalid.html meta.tag.other.invalid.void.html punctuation.definition.tag.end.html
+L </svg>
+T 2 text.html.basic meta.element.structure.svg.html meta.tag.structure.svg.end.html punctuation.definition.tag.begin.html
+T 5 text.html.basic meta.element.structure.svg.html meta.tag.structure.svg.end.html entity.name.tag.html
+T 6 text.html.basic meta.element.structure.svg.html meta.tag.structure.svg.end.html punctuation.definition.tag.end.html
+L 
+L <script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L "use strict";
+T 1 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 11 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 12 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 13 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(() => {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js storage.type.function.arrow.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L   const svg = document.querySelector("svg");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(svg instanceof SVGSVGElement);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.instanceof.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js entity.name.type.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   const unknownElement = svg.children[0];
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js variable.other.object.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js variable.other.property.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.array.literal.js meta.brace.square.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.array.literal.js constant.numeric.decimal.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.array.literal.js meta.brace.square.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(unknownElement instanceof SVGElement);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.instanceof.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js entity.name.type.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(unknownElement.namespaceURI, "http://www.w3.org/2000/svg");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 72 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(unknownElement.localName, "unknownelement");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 57 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 59 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 60 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(unknownElement.ownerSVGElement, svg);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(unknownElement.viewportElement, svg);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L }, "Inheritance");
+T 1 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js
+T 4 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 15 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 16 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 18 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(() => {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js storage.type.function.arrow.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L   const svg = document.querySelector("svg");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(svg instanceof SVGSVGElement);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.instanceof.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js entity.name.type.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(svg.style instanceof CSSStyleDeclaration);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.instanceof.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js entity.name.type.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.getAttribute("style"), "font-size: 100px");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 60 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 61 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 62 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 63 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.style.fontSize, "100px");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   svg.setAttribute("style", "background-color: yellow;");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 57 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.getAttribute("style"), "background-color: yellow;");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 70 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 71 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 72 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.style.backgroundColor, "yellow");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.style.fontSize, "");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L }, "style data attribute");
+T 1 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js
+T 4 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 24 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 25 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 27 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(() => {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js storage.type.function.arrow.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js punctuation.separator.comma.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 70 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(svg.style instanceof CSSStyleDeclaration);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.instanceof.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js entity.name.type.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.style.backgroundColor, "");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   svg.style.backgroundColor = "black";
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.style.backgroundColor, "black");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 49 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.getAttribute("style"), "background-color: black;");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 70 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 71 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L }, "style IDL attribute");
+T 1 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js
+T 4 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 23 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 24 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 26 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(() => {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js storage.type.function.arrow.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L   const svg = document.querySelector("svg");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(svg instanceof SVGSVGElement);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.instanceof.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js entity.name.type.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(typeof svg.onclick === "function");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.typeof.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.comparison.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 48 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 49 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   window.onClickTestVar = 0;
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js constant.numeric.decimal.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   svg.onclick();
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(window.onClickTestVar, 1);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js constant.numeric.decimal.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L }, "event handler data attribute");
+T 1 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js
+T 4 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 32 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 33 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 35 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L test(() => {
+T 4 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js storage.type.function.arrow.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js punctuation.separator.comma.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 70 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_true(svg.dataset instanceof DOMStringMap);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 25 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.expression.instanceof.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 49 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js entity.name.type.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 51 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.dataset.foo, undefined);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js constant.language.undefined.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   svg.dataset.foo = "value";
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.dataset.foo, "value");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.property.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   assert_equals(svg.getAttribute("data-foo"), "value");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 20 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 43 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 44 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 45 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 46 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 47 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L }, "dataset attribute");
+T 1 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js
+T 4 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 21 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 22 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 24 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L async_test(t => {
+T 10 text.html.basic meta.embedded.block.html source.js meta.function-call.js entity.name.function.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js variable.parameter.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js storage.type.function.arrow.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L   const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js storage.type.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js keyword.operator.assignment.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js variable.other.object.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js punctuation.accessor.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.function-call.js entity.name.function.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 66 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 67 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 68 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js punctuation.separator.comma.js
+T 69 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js
+T 70 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.begin.js
+T 73 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js
+T 74 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js string.quoted.double.js punctuation.definition.string.end.js
+T 75 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.var.expr.js meta.brace.round.js
+T 76 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   document.body.appendChild(svg);
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   t.add_cleanup(() => {
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 3 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 4 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js
+T 21 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js storage.type.function.arrow.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L     document.body.removeChild(svg);
+T 4 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.property.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   });
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js
+T 3 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 4 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L 
+L   // Make element focusable.
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.whitespace.comment.leading.js
+T 4 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js comment.line.double-slash.js punctuation.definition.comment.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js comment.line.double-slash.js
+L   svg.tabIndex = 0;
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.accessor.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js variable.other.property.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js keyword.operator.assignment.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js constant.numeric.decimal.js
+T 19 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L 
+L   svg.addEventListener("focus", function focusCallback() {
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 22 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 23 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 24 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js storage.type.function.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.definition.function.js entity.name.function.js
+T 55 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 56 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.parameters.js punctuation.definition.parameters.end.js
+T 57 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js
+T 58 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+L     t.step(() => {
+T 4 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.function-call.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.function-call.js entity.name.function.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js storage.type.function.arrow.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js
+T 18 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L       svg.removeEventListener("focus", focusCallback);
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 29 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 30 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 31 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js string.quoted.double.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 39 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js
+T 52 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js variable.other.readwrite.js
+T 53 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 54 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L       svg.addEventListener("blur", () => {
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 26 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 27 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 28 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.begin.js
+T 32 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js string.quoted.double.js
+T 33 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js string.quoted.double.js punctuation.definition.string.end.js
+T 34 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js punctuation.separator.comma.js
+T 35 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js
+T 36 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.begin.js
+T 37 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.parameters.js punctuation.definition.parameters.end.js
+T 38 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js
+T 40 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js storage.type.function.arrow.js
+T 41 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js
+T 42 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js punctuation.definition.block.js
+L         t.done();
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L       });
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 8 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L       svg.blur();
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js
+T 9 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 10 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 15 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 16 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js meta.brace.round.js
+T 17 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L     });
+T 4 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js meta.brace.round.js
+T 7 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js punctuation.terminator.statement.js
+L   });
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js
+T 3 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function.expression.js meta.block.js punctuation.definition.block.js
+T 4 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L   svg.focus();
+T 2 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js
+T 5 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js variable.other.object.js
+T 6 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js punctuation.accessor.js
+T 11 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.function-call.js entity.name.function.js
+T 12 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 13 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js meta.brace.round.js
+T 14 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.terminator.statement.js
+L }, "blur()/focus()/tabIndex operations/attribute");
+T 1 text.html.basic meta.embedded.block.html source.js meta.arrow.js meta.block.js punctuation.definition.block.js
+T 2 text.html.basic meta.embedded.block.html source.js punctuation.separator.comma.js
+T 3 text.html.basic meta.embedded.block.html source.js
+T 4 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.begin.js
+T 48 text.html.basic meta.embedded.block.html source.js string.quoted.double.js
+T 49 text.html.basic meta.embedded.block.html source.js string.quoted.double.js punctuation.definition.string.end.js
+T 50 text.html.basic meta.embedded.block.html source.js meta.brace.round.js
+T 51 text.html.basic meta.embedded.block.html source.js punctuation.terminator.statement.js
+L 
+L </script>
+T 1 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 2 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 8 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 9 text.html.basic meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 

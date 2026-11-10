@@ -105,11 +105,13 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
   - 2026-11-04 UTC, [PR 287][pr287]: less.js, Angular Components and Bootstrap inputs and a written input per language added.
     The three grammars are complete with 6, 29 and 50 waived units.
     On `dd3a3df5` the [oracle test][run-287-ci] and the [coverage check][run-287-cov] passed.
-- [ ] 3.15 HTML, html-derivative and XML: `html`, `html-derivative`, `xml`
+- [x] 3.15 HTML, html-derivative and XML: `html`, `html-derivative`, `xml`
   - 2026-11-04 UTC, [PR 447][pr447]: two written inputs added for XML.
     `xml` is complete with 11 waived units.
     On `00603eab` the [oracle test][run-447-ci] and the [coverage check][run-447-cov] passed.
-    `html` and `html-derivative` stay open.
+  - 2026-11-10 UTC, [PR 723][pr723]: eleven web-platform-tests pages and a written input per grammar added.
+    `html` and `html-derivative` are complete with 9 and no waived units.
+    On `3f633239` the [oracle test][run-723-ci] and the [coverage check][run-723-cov] passed.
 - [x] 3.16 ERB: `erb`
   - 2026-11-04 UTC, [PR 444][pr444]: a written input added.
     ERB is complete with 4 waived units.
@@ -203,6 +205,9 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr447]: https://github.com/victor-software-house/nishiki-archive/pull/447
 [run-447-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41862419805
 [run-447-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41862419076
+[pr723]: https://github.com/victor-software-house/nishiki-archive/pull/723
+[run-723-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42870618032
+[run-723-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42870617656
 [pr450]: https://github.com/victor-software-house/nishiki-archive/pull/450
 [run-450-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41867949614
 [run-450-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41867948643

@@ -1,0 +1,44 @@
+L <!-- Written for nishiki: stray angle brackets, which html-derivative marks as invalid. -->
+T 4 text.html.derivative comment.block.html punctuation.definition.comment.html
+T 88 text.html.derivative comment.block.html
+T 91 text.html.derivative comment.block.html punctuation.definition.comment.html
+L <p>a < b</p>
+T 1 text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.derivative meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 5 text.html.derivative
+T 6 text.html.derivative invalid.illegal.bad-angle-bracket.html
+T 8 text.html.derivative
+T 10 text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 11 text.html.derivative meta.tag.structure.p.end.html entity.name.tag.html
+T 12 text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <p>1 <2 and 3 << 4</p>
+T 1 text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.derivative meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 5 text.html.derivative
+T 6 text.html.derivative meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 7 text.html.derivative meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 8 text.html.derivative meta.tag.other.unrecognized.html.derivative
+T 11 text.html.derivative meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.and.html entity.other.attribute-name.html
+T 12 text.html.derivative meta.tag.other.unrecognized.html.derivative
+T 13 text.html.derivative meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.3.html entity.other.attribute-name.html
+T 14 text.html.derivative meta.tag.other.unrecognized.html.derivative
+T 16 text.html.derivative meta.tag.other.unrecognized.html.derivative invalid.illegal.character-not-allowed-here.html
+T 17 text.html.derivative meta.tag.other.unrecognized.html.derivative
+T 18 text.html.derivative meta.tag.other.unrecognized.html.derivative meta.attribute.unrecognized.4.html entity.other.attribute-name.html
+T 21 text.html.derivative meta.tag.other.unrecognized.html.derivative invalid.illegal.character-not-allowed-here.html
+T 22 text.html.derivative meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L <div>
+T 1 text.html.derivative meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 4 text.html.derivative meta.tag.structure.div.start.html entity.name.tag.html
+T 5 text.html.derivative meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L   < not a tag
+T 2 text.html.derivative
+T 3 text.html.derivative invalid.illegal.bad-angle-bracket.html
+T 13 text.html.derivative
+L </div>
+T 2 text.html.derivative meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 5 text.html.derivative meta.tag.structure.div.end.html entity.name.tag.html
+T 6 text.html.derivative meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L 
