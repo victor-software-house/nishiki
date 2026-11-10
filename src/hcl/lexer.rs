@@ -2,7 +2,7 @@
 //! and the context stack.
 
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::emit::Emitter;
 use crate::language::Context;
 use crate::limits::{Finished, Limit, Steps};
@@ -89,26 +89,26 @@ impl<'a> Lexer<'a> {
             }
             let from = p;
             p = match self.top() {
-                Kind::Top => self.in_top(p),
-                Kind::Block => self.in_block(p),
-                Kind::Objects => self.in_objects(p),
-                Kind::ObjectKey => self.in_object_key(p),
-                Kind::Brackets => self.in_brackets(p),
-                Kind::TupleFor | Kind::ObjectFor | Kind::InlineFor => self.in_for(p),
-                Kind::Functions => self.in_call(p),
-                Kind::Parens => self.in_parens(p),
-                Kind::InlineIf => self.in_inline_if(p),
-                Kind::String => self.in_string(p),
-                Kind::Heredoc => self.in_heredoc(p),
-                Kind::Interpolation => self.in_interpolation(p),
-                Kind::BlockComment => self.in_block_comment(p),
+                Rule::Top => self.in_top(p),
+                Rule::Block => self.in_block(p),
+                Rule::Objects => self.in_objects(p),
+                Rule::ObjectKey => self.in_object_key(p),
+                Rule::Brackets => self.in_brackets(p),
+                Rule::TupleFor | Rule::ObjectFor | Rule::InlineFor => self.in_for(p),
+                Rule::Functions => self.in_call(p),
+                Rule::Parens => self.in_parens(p),
+                Rule::InlineIf => self.in_inline_if(p),
+                Rule::String => self.in_string(p),
+                Rule::Heredoc => self.in_heredoc(p),
+                Rule::Interpolation => self.in_interpolation(p),
+                Rule::BlockComment => self.in_block_comment(p),
             };
             debug_assert!(p > from, "the HCL lexer made no progress at byte {from}");
         }
         self.gap(len);
         match self.feed {
             Feed::Ahead => {
-                if self.top() == Kind::InlineIf {
+                if self.top() == Rule::InlineIf {
                     self.em.pop();
                 }
             }
@@ -134,23 +134,23 @@ impl<'a> Lexer<'a> {
         self.tok(to, leaf);
     }
 
-    pub(super) fn top(&self) -> Kind {
-        Kind::from_code(self.em.frame.rule)
+    pub(super) fn top(&self) -> Rule {
+        Rule::from_code(self.em.frame.rule)
     }
 
     /// Opens a context with `payload`.
     /// It returns false when a limit keeps the context closed.
-    pub(super) fn push(&mut self, kind: Kind, payload: u32) -> bool {
+    pub(super) fn push(&mut self, rule: Rule, payload: u32) -> bool {
         self.em
-            .push(kind.code(), payload, kind.scope().map(S::scope))
+            .push(rule.code(), payload, rule.scope().map(S::scope))
     }
 
-    /// Opens `kind` at `p`.
+    /// Opens `rule` at `p`.
     /// Its begin text ends at `end` and carries `leaf`.
     /// The text stays plain when a limit keeps the context closed.
-    pub(super) fn begin(&mut self, p: usize, end: usize, kind: Kind, leaf: S) -> usize {
+    pub(super) fn begin(&mut self, p: usize, end: usize, rule: Rule, leaf: S) -> usize {
         self.gap(p);
-        if self.push(kind, 0) {
+        if self.push(rule, 0) {
             self.tok(end, &[leaf]);
         }
         end

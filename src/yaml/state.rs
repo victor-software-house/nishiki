@@ -8,7 +8,7 @@ const TAG: u16 = crate::tag::YAML;
 
 crate::tag::frame_rules! {
     /// An open context.
-    pub(crate) enum Kind: TAG {
+    pub(crate) enum Rule: TAG {
         /// Outside every context.
         Top,
         /// A block scalar's lines.
@@ -31,19 +31,19 @@ crate::tag::frame_rules! {
     }
 }
 
-impl Kind {
+impl Rule {
     /// The scopes the context adds to every token inside it.
     pub(crate) fn scopes(self) -> &'static [S] {
         match self {
-            Kind::Top => &[],
-            Kind::Block => &[S::StrBlock],
-            Kind::Double => &[S::StrDouble],
-            Kind::Single => &[S::StrSingle],
-            Kind::FlowSeq => &[S::MetaFlowSeq],
-            Kind::FlowMap => &[S::MetaFlowMap],
-            Kind::Pair => &[S::MetaFlowPair, S::MetaFlowPairValue],
-            Kind::Complex => &[S::MetaBlockMap],
-            Kind::Explicit => &[S::MetaFlowPairExplicit],
+            Rule::Top => &[],
+            Rule::Block => &[S::StrBlock],
+            Rule::Double => &[S::StrDouble],
+            Rule::Single => &[S::StrSingle],
+            Rule::FlowSeq => &[S::MetaFlowSeq],
+            Rule::FlowMap => &[S::MetaFlowMap],
+            Rule::Pair => &[S::MetaFlowPair, S::MetaFlowPairValue],
+            Rule::Complex => &[S::MetaBlockMap],
+            Rule::Explicit => &[S::MetaFlowPairExplicit],
         }
     }
 }

@@ -8,7 +8,7 @@ const TAG: u16 = crate::tag::HCL;
 
 crate::tag::frame_rules! {
     /// An open context, one per begin/end rule of Shiki's grammar.
-    pub(crate) enum Kind: TAG {
+    pub(crate) enum Rule: TAG {
         /// Outside every context: the body of the file.
         Top,
         /// A block's body, from its header's `{` up to `}`.
@@ -45,26 +45,26 @@ crate::tag::frame_rules! {
     }
 }
 
-impl Kind {
+impl Rule {
     /// The scope the context adds to every token inside it, begin and end
     /// included.
     pub(crate) fn scope(self) -> Option<S> {
         match self {
-            Kind::Top
-            | Kind::Brackets
-            | Kind::TupleFor
-            | Kind::ObjectFor
-            | Kind::InlineFor
-            | Kind::Parens
-            | Kind::InlineIf => None,
-            Kind::Block => Some(S::MetaBlock),
-            Kind::Objects => Some(S::MetaBraces),
-            Kind::ObjectKey => Some(S::MetaMappingKey),
-            Kind::Functions => Some(S::MetaFunctionCall),
-            Kind::String => Some(S::StrDouble),
-            Kind::Heredoc => Some(S::Heredoc),
-            Kind::Interpolation => Some(S::MetaInterpolation),
-            Kind::BlockComment => Some(S::CommentBlock),
+            Rule::Top
+            | Rule::Brackets
+            | Rule::TupleFor
+            | Rule::ObjectFor
+            | Rule::InlineFor
+            | Rule::Parens
+            | Rule::InlineIf => None,
+            Rule::Block => Some(S::MetaBlock),
+            Rule::Objects => Some(S::MetaBraces),
+            Rule::ObjectKey => Some(S::MetaMappingKey),
+            Rule::Functions => Some(S::MetaFunctionCall),
+            Rule::String => Some(S::StrDouble),
+            Rule::Heredoc => Some(S::Heredoc),
+            Rule::Interpolation => Some(S::MetaInterpolation),
+            Rule::BlockComment => Some(S::CommentBlock),
         }
     }
 }

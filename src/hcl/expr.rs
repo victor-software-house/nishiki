@@ -3,7 +3,7 @@
 
 use super::lexer::Lexer;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::classes::word_before;
 
 impl Lexer<'_> {
@@ -16,7 +16,7 @@ impl Lexer<'_> {
             b'<' => self.heredoc(p).or_else(|| self.operator(p)),
             b'[' => Some(self.bracket(p)),
             b'{' => Some(self.brace(p)),
-            b'(' => Some(self.begin(p, p + 1, Kind::Parens, S::ParensBegin)),
+            b'(' => Some(self.begin(p, p + 1, Rule::Parens, S::ParensBegin)),
             b'.' => self.operator(p).or_else(|| Some(self.access(p))),
             _ if self.word_at(p) => self.word_value(p).or_else(|| self.function(p)),
             _ => self.operator(p),
@@ -33,7 +33,7 @@ impl Lexer<'_> {
             b'<' => self.heredoc(p).or_else(|| self.operator(p)),
             b'[' => {
                 let f = self.for_after(p + 1)?;
-                Some(self.begin_for(p, f, Kind::TupleFor, S::BracketsBegin))
+                Some(self.begin_for(p, f, Rule::TupleFor, S::BracketsBegin))
             }
             _ if self.word_at(p) => self.word_value(p).or_else(|| self.function(p)),
             _ => self.operator(p),
@@ -142,9 +142,9 @@ impl Lexer<'_> {
     }
 
     /// Opens a `for` context at `p`, whose `for` starts at `f`.
-    pub(super) fn begin_for(&mut self, p: usize, f: usize, kind: Kind, punct: S) -> usize {
+    pub(super) fn begin_for(&mut self, p: usize, f: usize, rule: Rule, punct: S) -> usize {
         self.gap(p);
-        if self.push(kind, 0) {
+        if self.push(rule, 0) {
             self.tok(p + 1, &[punct]);
             self.tok_at(f, f + 3, &[S::Control]);
         }
@@ -154,16 +154,16 @@ impl Lexer<'_> {
     /// `[for` or `[` at `p`.
     fn bracket(&mut self, p: usize) -> usize {
         match self.for_after(p + 1) {
-            Some(f) => self.begin_for(p, f, Kind::TupleFor, S::BracketsBegin),
-            None => self.begin(p, p + 1, Kind::Brackets, S::BracketsBegin),
+            Some(f) => self.begin_for(p, f, Rule::TupleFor, S::BracketsBegin),
+            None => self.begin(p, p + 1, Rule::Brackets, S::BracketsBegin),
         }
     }
 
     /// `{for` or `{` at `p`.
     fn brace(&mut self, p: usize) -> usize {
         match self.for_after(p + 1) {
-            Some(f) => self.begin_for(p, f, Kind::ObjectFor, S::BracesBegin),
-            None => self.begin(p, p + 1, Kind::Objects, S::BracesBegin),
+            Some(f) => self.begin_for(p, f, Rule::ObjectFor, S::BracesBegin),
+            None => self.begin(p, p + 1, Rule::Objects, S::BracesBegin),
         }
     }
 
@@ -208,7 +208,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push(Kind::Functions, 0) {
+        if !self.push(Rule::Functions, 0) {
             return Some(name_end + 1);
         }
         let mut q = p;

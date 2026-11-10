@@ -11,7 +11,7 @@
 
 use super::lexer::{Feed, Lexer, Tail};
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::classes::word_before;
 
 impl Lexer<'_> {
@@ -77,7 +77,7 @@ impl Lexer<'_> {
     pub(super) fn in_objects(&mut self, p: usize) -> usize {
         match self.s[p] {
             b'}' => return self.finish(p, p + 1, S::BracesEnd),
-            b'{' => return self.begin(p, p + 1, Kind::Objects, S::BracesBegin),
+            b'{' => return self.begin(p, p + 1, Rule::Objects, S::BracesBegin),
             _ => {}
         }
         if let Some(end) = self.comment(p) {
@@ -162,11 +162,11 @@ impl Lexer<'_> {
     /// The body of a `for`: the bracket's or brace's end, `=>` where a value
     /// follows a key, then the body's rules.
     pub(super) fn in_for(&mut self, p: usize) -> usize {
-        let kind = self.top();
-        match (kind, self.s[p]) {
-            (Kind::TupleFor, b']') => return self.finish(p, p + 1, S::BracketsEnd),
-            (Kind::ObjectFor, b'}') => return self.finish(p, p + 1, S::BracesEnd),
-            (Kind::ObjectFor | Kind::InlineFor, b'=') if self.at(p + 1) == b'>' => {
+        let rule = self.top();
+        match (rule, self.s[p]) {
+            (Rule::TupleFor, b']') => return self.finish(p, p + 1, S::BracketsEnd),
+            (Rule::ObjectFor, b'}') => return self.finish(p, p + 1, S::BracesEnd),
+            (Rule::ObjectFor | Rule::InlineFor, b'=') if self.at(p + 1) == b'>' => {
                 self.tok_at(p, p + 2, &[S::StorageFunction]);
                 return p + 2;
             }
@@ -248,7 +248,7 @@ impl Lexer<'_> {
     }
 
     /// `(for)\b(.*)\n` in an object or a bracket.
-    /// The rest of the line is lexed in an [`Kind::InlineFor`] context that
+    /// The rest of the line is lexed in a [`Rule::InlineFor`] context that
     /// the line's end closes.
     /// It needs the line feed, so it never matches inside another.
     pub(super) fn inline_for(&mut self, p: usize) -> Option<usize> {
@@ -257,7 +257,7 @@ impl Lexer<'_> {
         }
         self.tok_at(p, p + 3, &[S::Control]);
         let outer = self.em.state;
-        if self.push(Kind::InlineFor, 0) {
+        if self.push(Rule::InlineFor, 0) {
             self.feed = Feed::Capture { outer };
             return Some(p + 3);
         }
@@ -272,6 +272,6 @@ impl Lexer<'_> {
         if !self.word_is(p, b"if") {
             return None;
         }
-        Some(self.begin(p, p + 2, Kind::InlineIf, S::Conditional))
+        Some(self.begin(p, p + 2, Rule::InlineIf, S::Conditional))
     }
 }

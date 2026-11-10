@@ -13,7 +13,7 @@ mod state;
 use lexer::TextStart;
 pub(crate) use scope::NAMES;
 use scope::S;
-use state::Kind;
+use state::Rule;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, Stopped};
@@ -23,14 +23,14 @@ use crate::limits::Finished;
 /// `base`: one context with `source.yaml` on top.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
-    arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
 /// The state at the start of the YAML lines of a fenced code block.
 /// The block's text sits on the stack `base` with no `source.yaml` of its
 /// own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract

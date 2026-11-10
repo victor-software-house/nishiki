@@ -5,7 +5,7 @@ use std::cell::OnceCell;
 use memchr::memmem;
 
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::arena::{Arena, Frame};
 use crate::classes::{is_ascii_space, is_ascii_word};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
@@ -86,18 +86,18 @@ impl<'a> Lexer<'a> {
             }
             let from = p;
             p = match self.top() {
-                Kind::Str => self.in_string(p),
-                Kind::Raw => self.in_raw_string(p),
-                Kind::Char => self.in_char(p),
-                Kind::Block | Kind::Doc => self.in_block_comment(p),
-                Kind::Top
-                | Kind::FnDef
-                | Kind::Call
-                | Kind::Generic
-                | Kind::AngleSq
-                | Kind::Attr
-                | Kind::Use
-                | Kind::Import => self.in_code(p),
+                Rule::Str => self.in_string(p),
+                Rule::Raw => self.in_raw_string(p),
+                Rule::Char => self.in_char(p),
+                Rule::Block | Rule::Doc => self.in_block_comment(p),
+                Rule::Top
+                | Rule::FnDef
+                | Rule::Call
+                | Rule::Generic
+                | Rule::AngleSq
+                | Rule::Attr
+                | Rule::Use
+                | Rule::Import => self.in_code(p),
             };
             debug_assert!(p > from, "the Rust lexer made no progress at byte {from}");
         }
@@ -251,8 +251,8 @@ impl<'a> Lexer<'a> {
     // Contexts.
 
     /// The innermost open context.
-    pub(crate) fn top(&self) -> Kind {
-        Kind::from_code(self.frame.rule)
+    pub(crate) fn top(&self) -> Rule {
+        Rule::from_code(self.frame.rule)
     }
 
     /// The data the innermost context carries.
@@ -263,23 +263,23 @@ impl<'a> Lexer<'a> {
     /// Opens a context.
     /// It returns false when a limit keeps the context closed.
     /// Call [`Lexer::gap`] first.
-    pub(crate) fn push(&mut self, kind: Kind) -> bool {
-        self.push_with(kind, 0)
+    pub(crate) fn push(&mut self, rule: Rule) -> bool {
+        self.push_with(rule, 0)
     }
 
     /// Opens a context that carries `payload`.
-    pub(crate) fn push_with(&mut self, kind: Kind, payload: u32) -> bool {
+    pub(crate) fn push_with(&mut self, rule: Rule, payload: u32) -> bool {
         let open = usize::try_from(self.frame.depth.saturating_sub(1)).unwrap_or(usize::MAX);
         if self.limits.depth_reached(open) {
             self.report.record(Limit::Depth);
             return false;
         }
-        let stack = match kind.scope() {
+        let stack = match rule.scope() {
             Some(scope) => self.arena.child(self.frame.stack, scope.scope()),
             None => Some(self.frame.stack),
         };
         let Some(state) =
-            stack.and_then(|stack| self.arena.push(self.state, kind.code(), payload, stack))
+            stack.and_then(|stack| self.arena.push(self.state, rule.code(), payload, stack))
         else {
             self.report.record(Limit::Nodes);
             return false;
@@ -324,13 +324,13 @@ impl<'a> Lexer<'a> {
         if is_ascii_word(b) {
             self.scan_word(p);
         }
-        let kind = self.top();
-        if kind == Kind::Top
+        let rule = self.top();
+        if rule == Rule::Top
             && let Some(end) = self.top_rules(p, b)
         {
             return end;
         }
-        for &group in super::code::groups(kind) {
+        for &group in super::code::groups(rule) {
             if !group.can_start(b) {
                 continue;
             }
@@ -360,11 +360,11 @@ impl<'a> Lexer<'a> {
             return None;
         }
         let leaf = match (self.top(), b) {
-            (Kind::FnDef, b'{') => S::Curly,
-            (Kind::FnDef | Kind::Use | Kind::Import, b';') => S::Semi,
-            (Kind::Call, b')') => S::Round,
-            (Kind::Generic | Kind::AngleSq, b'>') => S::Angle,
-            (Kind::Attr, b']') => S::AttrBracket,
+            (Rule::FnDef, b'{') => S::Curly,
+            (Rule::FnDef | Rule::Use | Rule::Import, b';') => S::Semi,
+            (Rule::Call, b')') => S::Round,
+            (Rule::Generic | Rule::AngleSq, b'>') => S::Angle,
+            (Rule::Attr, b']') => S::AttrBracket,
             _ => return None,
         };
         self.gap(p);

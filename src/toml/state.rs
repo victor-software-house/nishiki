@@ -8,7 +8,7 @@ const TAG: u16 = crate::tag::TOML;
 
 crate::tag::frame_rules! {
     /// An open context.
-    pub(crate) enum Kind: TAG {
+    pub(crate) enum Rule: TAG {
         /// Outside every context: a table of key/value pairs.
         Top,
         /// `[` up to `]`.
@@ -28,18 +28,18 @@ crate::tag::frame_rules! {
     }
 }
 
-impl Kind {
+impl Rule {
     /// The scope the context adds to every token inside it, begin and end
     /// included.
     pub(crate) fn scope(self) -> Option<S> {
         match self {
-            Kind::Top => None,
-            Kind::Array => Some(S::MetaArray),
-            Kind::Inline => Some(S::MetaInline),
-            Kind::Basic => Some(S::StrDouble),
-            Kind::Literal => Some(S::StrSingle),
-            Kind::BasicMulti => Some(S::StrTripleDouble),
-            Kind::LiteralMulti => Some(S::StrTripleSingle),
+            Rule::Top => None,
+            Rule::Array => Some(S::MetaArray),
+            Rule::Inline => Some(S::MetaInline),
+            Rule::Basic => Some(S::StrDouble),
+            Rule::Literal => Some(S::StrSingle),
+            Rule::BasicMulti => Some(S::StrTripleDouble),
+            Rule::LiteralMulti => Some(S::StrTripleSingle),
         }
     }
 }

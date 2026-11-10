@@ -5,7 +5,7 @@ use memchr::{memchr2, memrchr};
 
 use super::lexer::Lexer;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::classes::word_before;
 
 impl Lexer<'_> {
@@ -83,7 +83,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push(Kind::Block, 0) {
+        if !self.push(Rule::Block, 0) {
             return Some(brace + 1);
         }
         self.block_type(p, type_end);
@@ -187,7 +187,7 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        if self.push(Kind::ObjectKey, 0) {
+        if self.push(Rule::ObjectKey, 0) {
             self.tok(open + 1, &[S::ParensBegin]);
         }
         Some(open + 1)

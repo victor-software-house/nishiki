@@ -2,7 +2,7 @@
 
 use super::lexer::{Feed, Lexer, Tail};
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::classes::space_width;
 
 impl Lexer<'_> {
@@ -14,7 +14,7 @@ impl Lexer<'_> {
         let (marker, leaf) = match (self.s[p], self.at(p + 1)) {
             (b'#', _) => (1, S::CommentHash),
             (b'/', b'/') => (2, S::CommentSlash),
-            (b'/', b'*') => return Some(self.begin(p, p + 2, Kind::BlockComment, S::PunctComment)),
+            (b'/', b'*') => return Some(self.begin(p, p + 2, Rule::BlockComment, S::PunctComment)),
             _ => return None,
         };
         let len = self.s.len();
@@ -38,7 +38,7 @@ impl Lexer<'_> {
 
     /// `"` at `p`.
     pub(super) fn string(&mut self, p: usize) -> usize {
-        self.begin(p, p + 1, Kind::String, S::StrBegin)
+        self.begin(p, p + 1, Rule::String, S::StrBegin)
     }
 
     /// Inside a quoted string: its `"`, interpolations and escapes.
@@ -80,7 +80,7 @@ impl Lexer<'_> {
         if self.at(p + 1) != b'{' || after_marker {
             return None;
         }
-        Some(self.begin(p, p + 2, Kind::Interpolation, S::InterpolationBegin))
+        Some(self.begin(p, p + 2, Rule::Interpolation, S::InterpolationBegin))
     }
 
     /// `(<<-?)\s*(\w+)\s*$` at `p`: a heredoc, whose label ends the line.
@@ -100,7 +100,7 @@ impl Lexer<'_> {
             return None;
         };
         self.gap(p);
-        if self.push(Kind::Heredoc, id) {
+        if self.push(Rule::Heredoc, id) {
             self.tok(operator_end, &[S::HeredocOperator]);
             self.tok_at(label, label_end, &[S::HeredocLabel]);
         }

@@ -4,7 +4,7 @@ use memchr::{memchr, memchr2};
 
 use super::lexer::Lexer;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 
 impl Lexer<'_> {
     /// Takes the text of a `"` or `"""` string up to its next escape or
@@ -13,7 +13,7 @@ impl Lexer<'_> {
     /// A backslash that ends a `"""` line takes the next line's.
     #[inline]
     pub(super) fn in_basic(&mut self, p: usize) -> usize {
-        let multi = self.top() == Kind::BasicMulti;
+        let multi = self.top() == Rule::BasicMulti;
         let Some(offset) = memchr2(b'"', b'\\', &self.s[p..]) else {
             self.steps.spend(self.s.len() - p);
             return self.s.len();
@@ -48,7 +48,7 @@ impl Lexer<'_> {
         };
         let q = p + offset;
         self.steps.spend(offset);
-        if self.top() == Kind::LiteralMulti {
+        if self.top() == Rule::LiteralMulti {
             self.multi_quote(q, b'\'')
         } else {
             self.finish(q, q + 1, S::PunctStrEnd)

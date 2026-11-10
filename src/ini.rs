@@ -39,7 +39,7 @@ const TAG: u16 = crate::tag::INI;
 
 crate::tag::frame_rules! {
     /// What a frame is.
-    enum Kind: TAG {
+    enum Rule: TAG {
         /// Outside a string.
         Top,
         /// Inside `'`.
@@ -53,14 +53,14 @@ crate::tag::frame_rules! {
 /// `base`: one context with `source.ini` on top.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
-    arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
 /// The state at the start of the INI lines of a Markdown fence.
 /// The fence's text sits on the stack `base` with no `source.ini` of its own,
 /// as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract
@@ -162,10 +162,10 @@ impl Lexer<'_> {
                 break;
             }
             let from = pos;
-            pos = match Kind::from_code(self.frame.rule) {
-                Kind::Top => self.top(&mut text, &mut slots, pos),
-                Kind::Single => self.string(pos, Quote::Single),
-                Kind::Double => self.string(pos, Quote::Double),
+            pos = match Rule::from_code(self.frame.rule) {
+                Rule::Top => self.top(&mut text, &mut slots, pos),
+                Rule::Single => self.string(pos, Quote::Single),
+                Rule::Double => self.string(pos, Quote::Double),
             };
             debug_assert!(pos > from, "the INI lexer made no progress at byte {from}");
         }
@@ -197,11 +197,11 @@ impl Lexer<'_> {
             return self.bytes.len();
         };
         match hit {
-            Hit::Comment { start, mark, kind } => {
-                let scope = kind.scope();
+            Hit::Comment { start, at, mark } => {
+                let scope = mark.scope();
                 self.tok(start, &[]);
-                self.tok(mark, &[S::LeadingSpace]);
-                self.tok(mark + 1, &[scope, S::PunctComment]);
+                self.tok(at, &[S::LeadingSpace]);
+                self.tok(at + 1, &[scope, S::PunctComment]);
                 self.tok(self.bytes.len(), &[scope]);
                 self.bytes.len()
             }
@@ -259,10 +259,10 @@ impl Lexer<'_> {
             self.report.record(Limit::Depth);
             return at + 1;
         }
-        let (kind, scope) = quote.kind();
+        let (rule, scope) = quote.opens();
         let stack = self.arena.child(self.frame.stack, scope.scope());
         let Some(state) =
-            stack.and_then(|stack| self.arena.push(self.state, kind.code(), 0, stack))
+            stack.and_then(|stack| self.arena.push(self.state, rule.code(), 0, stack))
         else {
             self.report.record(Limit::Nodes);
             return at + 1;

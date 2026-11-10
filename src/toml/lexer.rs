@@ -6,7 +6,7 @@ use std::cell::{Cell, OnceCell};
 use memchr::{memchr2, memrchr};
 
 use super::scope::S;
-use super::state::{ArrayNext, InlineComments, Kind};
+use super::state::{ArrayNext, InlineComments, Rule};
 use crate::classes::space_width;
 use crate::emit::Emitter;
 use crate::language::Context;
@@ -94,11 +94,11 @@ impl<'a> Lexer<'a> {
             }
             let from = p;
             p = match self.top() {
-                Kind::Basic | Kind::BasicMulti => self.in_basic(p),
-                Kind::Literal | Kind::LiteralMulti => self.in_literal(p),
-                Kind::Top => self.in_table(p),
-                Kind::Array => self.in_array(p),
-                Kind::Inline => self.in_inline(p),
+                Rule::Basic | Rule::BasicMulti => self.in_basic(p),
+                Rule::Literal | Rule::LiteralMulti => self.in_literal(p),
+                Rule::Top => self.in_table(p),
+                Rule::Array => self.in_array(p),
+                Rule::Inline => self.in_inline(p),
             };
             debug_assert!(p > from, "the TOML lexer made no progress at byte {from}");
         }
@@ -154,20 +154,20 @@ impl<'a> Lexer<'a> {
 
     // Contexts.
 
-    pub(super) fn top(&self) -> Kind {
-        Kind::from_code(self.em.frame.rule)
+    pub(super) fn top(&self) -> Rule {
+        Rule::from_code(self.em.frame.rule)
     }
 
     /// Opens a context.
     /// It returns false when a limit keeps the context closed.
-    fn push(&mut self, kind: Kind) -> bool {
-        let payload = if kind == Kind::Inline {
+    fn push(&mut self, rule: Rule) -> bool {
+        let payload = if rule == Rule::Inline {
             InlineComments::Allowed.payload()
         } else {
             ArrayNext::Value.payload()
         };
         self.em
-            .push(kind.code(), payload, kind.scope().map(S::scope))
+            .push(rule.code(), payload, rule.scope().map(S::scope))
     }
 
     /// What the array being read expects next.
@@ -200,18 +200,18 @@ impl<'a> Lexer<'a> {
     /// array or inline table around it.
     pub(super) fn value_starts(&mut self) {
         match self.top() {
-            Kind::Array => self.set_payload(ArrayNext::Comma.payload()),
-            Kind::Inline => self.set_payload(InlineComments::Barred.payload()),
-            Kind::Top | Kind::Basic | Kind::Literal | Kind::BasicMulti | Kind::LiteralMulti => {}
+            Rule::Array => self.set_payload(ArrayNext::Comma.payload()),
+            Rule::Inline => self.set_payload(InlineComments::Barred.payload()),
+            Rule::Top | Rule::Basic | Rule::Literal | Rule::BasicMulti | Rule::LiteralMulti => {}
         }
     }
 
-    /// Opens `kind` at `p`.
+    /// Opens `rule` at `p`.
     /// Its begin text ends at `end` and carries `leaf`.
     /// The text stays plain when a limit keeps the context closed.
-    pub(super) fn begin(&mut self, p: usize, end: usize, kind: Kind, leaf: S) -> usize {
+    pub(super) fn begin(&mut self, p: usize, end: usize, rule: Rule, leaf: S) -> usize {
         self.gap(p);
-        if self.push(kind) {
+        if self.push(rule) {
             self.tok(end, &[leaf]);
         }
         end
@@ -395,7 +395,7 @@ impl<'a> Lexer<'a> {
     fn leading_space(&mut self, p: usize) -> usize {
         let end = self.skip_space(p);
         let comments =
-            self.top() == Kind::Array || self.inline_comments() == InlineComments::Allowed;
+            self.top() == Rule::Array || self.inline_comments() == InlineComments::Allowed;
         if p == 0 && end == self.first && self.at(end) == b'#' && comments && self.blanks(end) {
             self.tok(end, &[S::CommentLeading]);
         }

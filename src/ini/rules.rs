@@ -11,7 +11,7 @@
 
 use memchr::memchr;
 
-use super::Kind;
+use super::Rule;
 use super::scope::S;
 use crate::classes::{space_width, word_before, word_width};
 use crate::limits::Steps;
@@ -19,14 +19,14 @@ use crate::limits::Steps;
 /// A rule's first match at or after a position.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Hit {
-    /// A comment that starts with `#` or `;`: where the match starts, and
-    /// where the mark is.
+    /// A comment that starts with `#` or `;`: where the match starts, where
+    /// the mark is, and which mark it is.
     /// The match starts at byte 0 when blanks lead the line.
     /// Otherwise it starts at the mark.
     Comment {
         start: usize,
-        mark: usize,
-        kind: CommentMark,
+        at: usize,
+        mark: CommentMark,
     },
     /// A key: its bounds, and the `=` that follows it after any blanks.
     Key {
@@ -90,11 +90,11 @@ impl Quote {
         }
     }
 
-    /// The frame kind and the scope of the string it opens.
-    pub(super) fn kind(self) -> (Kind, S) {
+    /// The frame rule and the scope of the string it opens.
+    pub(super) fn opens(self) -> (Rule, S) {
         match self {
-            Quote::Single => (Kind::Single, S::Single),
-            Quote::Double => (Kind::Double, S::Double),
+            Quote::Single => (Rule::Single, S::Single),
+            Quote::Double => (Rule::Double, S::Double),
         }
     }
 }
@@ -161,16 +161,16 @@ impl<'a> Line<'a> {
     /// The first match from `from` is at the first `mark` byte.
     /// It is at the line's start instead when only tabs and spaces lie before
     /// the mark and the search starts there.
-    pub(super) fn comment(&mut self, from: usize, kind: CommentMark) -> Option<Hit> {
+    pub(super) fn comment(&mut self, from: usize, mark: CommentMark) -> Option<Hit> {
         let rest = self.s.get(from..)?;
-        let at = from + memchr(kind.byte(), rest)?;
+        let at = from + memchr(mark.byte(), rest)?;
         self.steps.spend(at - from);
         let leading =
             from == 0 && at > 0 && self.s[..at].iter().all(|&b| matches!(b, b'\t' | b' '));
         Some(Hit::Comment {
             start: if leading { 0 } else { at },
-            mark: at,
-            kind,
+            at,
+            mark,
         })
     }
 

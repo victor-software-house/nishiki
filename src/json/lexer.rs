@@ -4,7 +4,7 @@ use memchr::{memchr2, memmem};
 
 use super::Dialect;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::classes::{digit_width, is_ascii_space, space_width, word_before, word_width};
 use crate::emit::Emitter;
 use crate::language::{Context, Halt};
@@ -147,13 +147,13 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
             }
             let from = p;
             p = match self.top() {
-                Kind::Str | Kind::Key => self.in_string(p),
-                Kind::Block | Kind::Doc => self.in_comment(p),
-                Kind::Top if H::HALTS => match self.at_top(p) {
+                Rule::Str | Rule::Key => self.in_string(p),
+                Rule::Block | Rule::Doc => self.in_comment(p),
+                Rule::Top if H::HALTS => match self.at_top(p) {
                     Some(next) => next,
                     None => break,
                 },
-                Kind::Top | Kind::Array | Kind::Object | Kind::Pair => self.in_code(p),
+                Rule::Top | Rule::Array | Rule::Object | Rule::Pair => self.in_code(p),
             };
             debug_assert!(p > from, "the JSON lexer made no progress at byte {from}");
         }
@@ -239,24 +239,24 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
 
     // Contexts.
 
-    fn top(&self) -> Kind {
-        Kind::from_code(self.em.frame.rule)
+    fn top(&self) -> Rule {
+        Rule::from_code(self.em.frame.rule)
     }
 
     /// Opens a context.
     /// It returns false when a limit keeps the context closed.
-    fn push(&mut self, kind: Kind) -> bool {
+    fn push(&mut self, rule: Rule) -> bool {
         let dialect = self.dialect;
-        let scopes = kind.scopes().iter().map(|scope| scope.scope(dialect));
-        self.em.push(kind.code(), 0, scopes)
+        let scopes = rule.scopes().iter().map(|scope| scope.scope(dialect));
+        self.em.push(rule.code(), 0, scopes)
     }
 
-    /// Opens `kind` at `p`.
+    /// Opens `rule` at `p`.
     /// Its begin text ends at `end` and carries `leaf`.
     /// The text stays plain when a limit keeps the context closed.
-    fn begin(&mut self, p: usize, end: usize, kind: Kind, leaf: S) -> usize {
+    fn begin(&mut self, p: usize, end: usize, rule: Rule, leaf: S) -> usize {
         self.gap(p);
-        if self.push(kind) {
+        if self.push(rule) {
             self.tok(end, &[leaf]);
         }
         end
@@ -289,10 +289,10 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
             }
         }
         match self.top() {
-            Kind::Top => self.value(p, b).unwrap_or(p + self.width_at(p)),
-            Kind::Array => self.in_array(p, b),
-            Kind::Object => self.in_object(p, b),
-            Kind::Pair | Kind::Key | Kind::Str | Kind::Block | Kind::Doc => self.in_pair(p, b),
+            Rule::Top => self.value(p, b).unwrap_or(p + self.width_at(p)),
+            Rule::Array => self.in_array(p, b),
+            Rule::Object => self.in_object(p, b),
+            Rule::Pair | Rule::Key | Rule::Str | Rule::Block | Rule::Doc => self.in_pair(p, b),
         }
     }
 
@@ -339,11 +339,11 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
     fn in_object(&mut self, p: usize, b: u8) -> usize {
         match b {
             b'}' => self.finish(p, p + 1, S::PunctDictEnd),
-            b'"' => self.begin(p, p + 1, Kind::Key, S::PunctKeyBegin),
+            b'"' => self.begin(p, p + 1, Rule::Key, S::PunctKeyBegin),
             b'/' => self
                 .comment(p)
                 .unwrap_or_else(|| self.invalid(p, S::InvalidDictSep)),
-            b':' => self.begin(p, p + 1, Kind::Pair, S::PunctKeyValue),
+            b':' => self.begin(p, p + 1, Rule::Pair, S::PunctKeyValue),
             _ => self.invalid(p, S::InvalidDictSep),
         }
     }
@@ -367,9 +367,9 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
     /// string, array, object or comment.
     fn value(&mut self, p: usize, b: u8) -> Option<usize> {
         match b {
-            b'"' => Some(self.begin(p, p + 1, Kind::Str, S::PunctStrBegin)),
-            b'[' => Some(self.begin(p, p + 1, Kind::Array, S::PunctArrayBegin)),
-            b'{' => Some(self.begin(p, p + 1, Kind::Object, S::PunctDictBegin)),
+            b'"' => Some(self.begin(p, p + 1, Rule::Str, S::PunctStrBegin)),
+            b'[' => Some(self.begin(p, p + 1, Rule::Array, S::PunctArrayBegin)),
+            b'{' => Some(self.begin(p, p + 1, Rule::Object, S::PunctDictBegin)),
             b'/' => self.comment(p),
             b'-' | b'0'..=b'9' => self.number(p),
             b't' | b'f' | b'n' => self.constant(p),
@@ -433,9 +433,9 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
     fn comment(&mut self, p: usize) -> Option<usize> {
         match (self.at(p + 1), self.at(p + 2)) {
             (b'*', b'*') if self.at(p + 3) != b'/' => {
-                Some(self.begin(p, p + 3, Kind::Doc, S::PunctComment))
+                Some(self.begin(p, p + 3, Rule::Doc, S::PunctComment))
             }
-            (b'*', _) => Some(self.begin(p, p + 2, Kind::Block, S::PunctComment)),
+            (b'*', _) => Some(self.begin(p, p + 2, Rule::Block, S::PunctComment)),
             (b'/', _) => {
                 let len = self.s.len();
                 self.gap(p);
@@ -462,7 +462,7 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
         let q = p + offset;
         self.steps.spend(offset);
         if self.s[q] == b'"' {
-            let leaf = if self.top() == Kind::Key {
+            let leaf = if self.top() == Rule::Key {
                 S::PunctKeyEnd
             } else {
                 S::PunctStrEnd
