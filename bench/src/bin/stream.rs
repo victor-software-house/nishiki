@@ -32,6 +32,7 @@ use std::time::{Duration, Instant};
 
 use nishiki::{Document, Highlighter, State, Theme, Until};
 use nishiki_bench::GITHUB_DARK;
+use nishiki_bench::report::{Align, table_head};
 use nishiki_bench::timing::{micros, rank, timer_overhead};
 use nishiki_bench::traces::{Origin, Step, Trace, traces};
 
@@ -267,9 +268,20 @@ fn print_head(options: &Options, overhead: Duration, resolution: Duration) {
     );
     println!();
     println!(
-        "| trace | deltas | setup µs | first delta µs | steady p50 µs | steady p99 µs | steady max µs | whole file µs | exact | fidelity |"
+        "{}",
+        table_head(&[
+            ("trace", Align::Left),
+            ("deltas", Align::Right),
+            ("setup µs", Align::Right),
+            ("first delta µs", Align::Right),
+            ("steady p50 µs", Align::Right),
+            ("steady p99 µs", Align::Right),
+            ("steady max µs", Align::Right),
+            ("whole file µs", Align::Right),
+            ("exact", Align::Left),
+            ("fidelity", Align::Right),
+        ])
     );
-    println!("|:--|--:|--:|--:|--:|--:|--:|--:|:--|--:|");
 }
 
 fn main() -> ExitCode {

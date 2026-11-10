@@ -10,6 +10,7 @@ use std::{fmt, fs};
 
 use nishiki::Language;
 
+pub mod report;
 pub mod timing;
 pub mod traces;
 

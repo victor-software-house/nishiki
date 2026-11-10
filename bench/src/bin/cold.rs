@@ -32,6 +32,7 @@ use std::process::{Command, ExitCode};
 use std::time::Instant;
 
 use nishiki::{Grammar, Grammars, Highlighter, Language, State, Theme};
+use nishiki_bench::report::{Align, table_head};
 use nishiki_bench::{GITHUB_DARK, Tier, corpus};
 
 /// Samples per file when `--processes` is not given.
@@ -303,9 +304,17 @@ fn print_table(options: &Options, timings: Timings) {
     );
     println!();
     println!(
-        "| file | new, median | new, p90 | first line, median | first line, p90 | document, median | document, p90 |"
+        "{}",
+        table_head(&[
+            ("file", Align::Left),
+            ("new, median", Align::Right),
+            ("new, p90", Align::Right),
+            ("first line, median", Align::Right),
+            ("first line, p90", Align::Right),
+            ("document, median", Align::Right),
+            ("document, p90", Align::Right),
+        ])
     );
-    println!("|:--|--:|--:|--:|--:|--:|--:|");
     for (name, [created, first, whole]) in names.iter().zip(&mut times) {
         println!(
             "| {name} | {:.1} | {:.1} | {:.1} | {:.1} | {:.1} | {:.1} |",

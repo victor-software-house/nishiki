@@ -22,6 +22,7 @@ use std::process::ExitCode;
 use std::time::{Duration, Instant};
 
 use nishiki::{Highlighter, Language, State};
+use nishiki_bench::report::{Align, table_head};
 use nishiki_bench::timing::{micros, rank, timer_overhead};
 use nishiki_bench::{Document, Tier, corpus};
 
@@ -112,9 +113,18 @@ fn print_head(options: &Options, overhead: Duration, resolution: Duration) {
         );
         println!();
         println!(
-            "| language | tier | lines | below resolution | steady p50 µs | steady p99 µs | steady max µs | first-contact max µs |"
+            "{}",
+            table_head(&[
+                ("language", Align::Left),
+                ("tier", Align::Left),
+                ("lines", Align::Right),
+                ("below resolution", Align::Right),
+                ("steady p50 µs", Align::Right),
+                ("steady p99 µs", Align::Right),
+                ("steady max µs", Align::Right),
+                ("first-contact max µs", Align::Right),
+            ])
         );
-        println!("|:--|:--|--:|--:|--:|--:|--:|--:|");
     }
 }
 

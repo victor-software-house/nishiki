@@ -28,6 +28,7 @@ use std::process::{Command, ExitCode};
 use std::time::{Duration, Instant};
 
 use nishiki::{Highlighter, Language, State};
+use nishiki_bench::report::{Align, table_head};
 use nishiki_bench::{Document, Tier, corpus};
 
 use crate::engines::{Colours, NAMES, lines, pierre_theme, setup};
@@ -273,9 +274,17 @@ fn print_head(options: &Options) {
             );
             println!();
             println!(
-                "| file | engine | setup ms | first document ms | warm MiB/s | tokens | fidelity % |"
+                "{}",
+                table_head(&[
+                    ("file", Align::Left),
+                    ("engine", Align::Left),
+                    ("setup ms", Align::Right),
+                    ("first document ms", Align::Right),
+                    ("warm MiB/s", Align::Right),
+                    ("tokens", Align::Right),
+                    ("fidelity %", Align::Right),
+                ])
             );
-            println!("|:--|:--|--:|--:|--:|--:|--:|");
         }
         Output::Tsv => println!("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity"),
     }
