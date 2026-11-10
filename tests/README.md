@@ -31,4 +31,5 @@ It reads the fixtures below in place, and its archive leaves them out.
 ## `engine/`: TextMate engine data
 
 - `<language>.rs`: engine tables for grammars that hand lexers cover, which the engine's survey test runs as a second oracle.
+- `absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which the engine's regex tests read.
 - `case-folds/`: Oniguruma's case-fold answers, which the engine's fold tests read.

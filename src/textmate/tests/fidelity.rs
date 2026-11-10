@@ -45,27 +45,15 @@ enum Outcome {
     Compared(Comparison),
 }
 
-/// The patterns the regex compiler refused on 2026-11-10, by language.
+/// The patterns the regex compiler refuses, by language.
 /// Each is a gap in task 3.2 of `openspec/changes/grammar-api`, even where the
 /// input still matches.
-///
-/// All eight need Oniguruma's absent operator, `(?~…)`.
-/// They come from the rule for `/** */` documentation comments in C#'s grammar,
-/// which Org, Razor and Typst embed.
+/// The list is empty.
 ///
 /// The list only shrinks.
 /// The check fails on a refusal the list lacks, and on an entry no grammar
 /// refuses any more.
-const KNOWN_REFUSALS: &[(&str, &str)] = &[
-    ("csharp", r"\G(?=(?~\*/)$)"),
-    ("csharp", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
-    ("org", r"\G(?=(?~\*/)$)"),
-    ("org", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
-    ("razor", r"\G(?=(?~\*/)$)"),
-    ("razor", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
-    ("typst", r"\G(?=(?~\*/)$)"),
-    ("typst", r"^(\s*+)(\*(?!/))?(?=(?~\*/)$)"),
-];
+const KNOWN_REFUSALS: &[(&str, &str)] = &[];
 
 /// Each pattern of `grammar` the regex compiler refuses, with its reason.
 fn refused(grammar: &Grammar) -> Vec<(&'static str, String)> {

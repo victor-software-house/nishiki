@@ -40,6 +40,7 @@ The file it writes marks itself as generated in its first line; edit the script,
 | [`engine-tables.ts`](engine-tables.ts) | The tables of a language on nishiki's TextMate engine, from the two lists below the table. |
 | [`classes.ts`](classes.ts) | `src/classes/table.rs`: Oniguruma's character classes. |
 | [`unicode-tables.ts`](unicode-tables.ts) | `src/textmate/regex/unicode.rs`: Oniguruma's Unicode sets. |
+| [`absent-probe.ts`](absent-probe.ts) | `tests/engine/absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which test how `src/textmate/regex/parse.rs` reads it. |
 | [`case-folds.ts`](case-folds.ts) | `src/textmate/regex/folds.rs`: Oniguruma's case folds. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
 
 `engine-tables.ts` reads two lists:
