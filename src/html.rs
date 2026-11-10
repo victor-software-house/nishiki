@@ -316,7 +316,7 @@ pub(crate) fn innermost_stack(arena: &Arena, state: u32) -> u32 {
     let frame = arena.frame(state);
     let embeds = matches!(
         Rule::from_code(frame.rule),
-        Rule::BodyCss | Rule::BodyJs | Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpr
+        Rule::BodyCss | Rule::BodyJs | Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpression
     );
     if embeds && frame.payload != 0 {
         arena.frame(frame.payload).stack

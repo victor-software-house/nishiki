@@ -3,7 +3,7 @@
 
 use super::engine::{Head, Lexer};
 use super::scope::S;
-use super::state::R;
+use super::state::Rule;
 use super::wordset;
 use crate::scope::{Scopes, scopes};
 
@@ -399,13 +399,13 @@ impl Lexer<'_> {
                 end = close + 1;
             }
         }
-        self.span_retok(p, q, S::NO_SCOPES, R::Inline);
+        self.span_retok(p, q, S::NO_SCOPES, Rule::Inline);
         self.span(q, keyword_end, scopes![S::DirectiveDefine]);
         self.span(q, q + 1, scopes![S::PunctDirective]);
         self.span(ws, name_end, scopes![S::EntityFunctionPre]);
         if let Some((open, close)) = params {
             self.span(open - 1, open, scopes![S::PunctParamsBegin]);
-            self.span_retok(open, close, S::NO_SCOPES, R::DefineParams);
+            self.span_retok(open, close, S::NO_SCOPES, Rule::DefineParameters);
             self.span(close, close + 1, scopes![S::PunctParamsEnd]);
         }
         self.begin(p, end)

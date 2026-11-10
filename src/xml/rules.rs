@@ -10,7 +10,7 @@ use super::state::Rule;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Pattern {
     /// `<?name`.
-    Pi,
+    Instruction,
     /// `<!DOCTYPE name`.
     Doctype,
     /// `<%--`.
@@ -26,7 +26,7 @@ pub(super) enum Pattern {
     /// An `&` that starts no entity.
     Ampersand,
     /// `<%@`.
-    JspProps,
+    JspDirective,
     /// `<%`, `<%!` and `<%=`.
     Jsp,
     /// `<![CDATA[`.
@@ -40,7 +40,7 @@ pub(super) enum Pattern {
     /// `[` of a doctype.
     Subset,
     /// `<!ENTITY name`.
-    EntityDecl,
+    EntityDeclaration,
     /// `%name;`.
     ParameterEntity,
     /// `--` in a comment that does not end it.
@@ -56,19 +56,19 @@ impl Pattern {
     /// It is `None` for a match.
     pub(super) fn opens(self) -> Option<Rule> {
         match self {
-            Pattern::Pi => Some(Rule::Pi),
+            Pattern::Instruction => Some(Rule::Instruction),
             Pattern::Doctype => Some(Rule::Doctype),
             Pattern::CommentJsp => Some(Rule::CommentJsp),
             Pattern::Comment => Some(Rule::Comment),
             Pattern::NoContent => Some(Rule::NoContent),
             Pattern::Tag => Some(Rule::Tag),
-            Pattern::JspProps => Some(Rule::JspProps),
+            Pattern::JspDirective => Some(Rule::JspDirective),
             Pattern::Jsp => Some(Rule::Jsp),
             Pattern::Cdata => Some(Rule::Cdata),
             Pattern::Double => Some(Rule::Double),
             Pattern::Single => Some(Rule::Single),
             Pattern::Subset => Some(Rule::Subset),
-            Pattern::EntityDecl => Some(Rule::EntityDecl),
+            Pattern::EntityDeclaration => Some(Rule::EntityDeclaration),
             Pattern::CommentBad => Some(Rule::CommentBad),
             Pattern::Entity
             | Pattern::Ampersand
@@ -88,19 +88,19 @@ impl Pattern {
             Pattern::ParameterEntity => Some(S::ConstantParameterEntity),
             Pattern::PageDirective => Some(S::PageProps),
             Pattern::Attribute
-            | Pattern::Pi
+            | Pattern::Instruction
             | Pattern::Doctype
             | Pattern::CommentJsp
             | Pattern::Comment
             | Pattern::NoContent
             | Pattern::Tag
-            | Pattern::JspProps
+            | Pattern::JspDirective
             | Pattern::Jsp
             | Pattern::Cdata
             | Pattern::Double
             | Pattern::Single
             | Pattern::Subset
-            | Pattern::EntityDecl
+            | Pattern::EntityDeclaration
             | Pattern::CommentBad => None,
         }
     }
@@ -110,7 +110,7 @@ impl Pattern {
 pub(super) fn patterns(rule: Rule) -> &'static [Pattern] {
     match rule {
         Rule::Root => &[
-            Pattern::Pi,
+            Pattern::Instruction,
             Pattern::Doctype,
             Pattern::CommentJsp,
             Pattern::Comment,
@@ -118,26 +118,26 @@ pub(super) fn patterns(rule: Rule) -> &'static [Pattern] {
             Pattern::Tag,
             Pattern::Entity,
             Pattern::Ampersand,
-            Pattern::JspProps,
+            Pattern::JspDirective,
             Pattern::Jsp,
             Pattern::Cdata,
         ],
-        Rule::Pi => &[
+        Rule::Instruction => &[
             Pattern::InstructionAttribute,
             Pattern::Double,
             Pattern::Single,
         ],
         Rule::Doctype => &[Pattern::Subset],
         Rule::Subset => &[
-            Pattern::EntityDecl,
+            Pattern::EntityDeclaration,
             Pattern::ParameterEntity,
             Pattern::CommentJsp,
             Pattern::Comment,
         ],
-        Rule::EntityDecl => &[Pattern::Double, Pattern::Single],
+        Rule::EntityDeclaration => &[Pattern::Double, Pattern::Single],
         Rule::Comment => &[Pattern::CommentBad],
         Rule::NoContent | Rule::Tag => &[Pattern::Attribute, Pattern::Double, Pattern::Single],
-        Rule::JspProps => &[Pattern::PageDirective],
+        Rule::JspDirective => &[Pattern::PageDirective],
         Rule::Double | Rule::Single => &[Pattern::Entity, Pattern::Ampersand],
         Rule::CommentBad | Rule::CommentJsp | Rule::Jsp | Rule::Cdata => &[],
     }
@@ -186,7 +186,7 @@ pub(super) fn next_start(rule: Rule, s: &[u8], from: usize) -> Option<usize> {
         Rule::Comment => memchr(b'-', rest),
         Rule::Cdata => memchr(b']', rest),
         Rule::Subset => memchr3(b'<', b'%', b']', rest),
-        Rule::EntityDecl => memchr3(b'>', b'"', b'\'', rest),
+        Rule::EntityDeclaration => memchr3(b'>', b'"', b'\'', rest),
         Rule::Tag | Rule::NoContent => {
             if from == 0 {
                 return Some(0);
@@ -194,8 +194,8 @@ pub(super) fn next_start(rule: Rule, s: &[u8], from: usize) -> Option<usize> {
             return rest.iter().position(|&b| in_tag(b)).map(|at| from + at);
         }
         Rule::Doctype => rest.iter().position(|&b| in_doctype(b)),
-        Rule::Pi => rest.iter().position(|&b| in_instruction(b)),
-        Rule::JspProps => rest.iter().position(|&b| in_directive(b)),
+        Rule::Instruction => rest.iter().position(|&b| in_instruction(b)),
+        Rule::JspDirective => rest.iter().position(|&b| in_directive(b)),
         Rule::CommentBad | Rule::CommentJsp | Rule::Jsp => None,
     };
     found.map(|at| from + at)

@@ -156,8 +156,13 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Rule::ObjLit, j, j + 1, &[S::PunctuationDefinitionBlock]);
-        self.push(Rule::ObjLit);
+        self.capture(
+            Rule::ObjectLiteral,
+            j,
+            j + 1,
+            &[S::PunctuationDefinitionBlock],
+        );
+        self.push(Rule::ObjectLiteral);
         Some(j + 1)
     }
 
@@ -241,13 +246,13 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         if self.var_keyword(p, VarKeyword::Let).is_some() {
-            return self.open_empty(Rule::VarLet, p);
+            return self.open_empty(Rule::VariableLet, p);
         }
         if self.var_keyword(p, VarKeyword::Const).is_some() {
-            return self.open_empty(Rule::VarConst, p);
+            return self.open_empty(Rule::VariableConst, p);
         }
         if self.var_keyword(p, VarKeyword::Using).is_some() {
-            return self.open_empty(Rule::VarUsing, p);
+            return self.open_empty(Rule::VariableUsing, p);
         }
         None
     }
@@ -302,11 +307,11 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Rule::VarKw, &pre);
-        self.capture(Rule::VarKw, pre.at, e, &[S::StorageType]);
+        self.prefix_tokens(Rule::VariableKeyword, &pre);
+        self.capture(Rule::VariableKeyword, pre.at, e, &[S::StorageType]);
         let j = self.ws(e);
-        self.finish(Rule::VarKw, j);
-        self.push(Rule::VarKw);
+        self.finish(Rule::VariableKeyword, j);
+        self.push(Rule::VariableKeyword);
         Some(j)
     }
 
@@ -409,16 +414,16 @@ impl<const D: u8> Lexer<'_, D> {
         scopes: &[S],
     ) -> usize {
         self.flush(p);
-        self.capture(Rule::VarSingle, p, e, scopes);
+        self.capture(Rule::VariableSingle, p, e, scopes);
         if let Some(b) = bang {
             self.capture(
-                Rule::VarSingle,
+                Rule::VariableSingle,
                 b,
                 b + 1,
                 &[S::KeywordOperatorDefiniteassignment],
             );
         }
-        self.push(Rule::VarSingle);
+        self.push(Rule::VariableSingle);
         end
     }
 
@@ -437,10 +442,10 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let rule = match (open, binding) {
-            (b'{', Binding::Variable) => Rule::ObjBindVar,
-            (b'{', Binding::Constant) => Rule::ObjBindVarConst,
-            (_, Binding::Variable) => Rule::ArrBindVar,
-            (_, Binding::Constant) => Rule::ArrBindVarConst,
+            (b'{', Binding::Variable) => Rule::ObjectBindingVariable,
+            (b'{', Binding::Constant) => Rule::ObjectBindingVariableConst,
+            (_, Binding::Variable) => Rule::ArrayBindingVariable,
+            (_, Binding::Constant) => Rule::ArrayBindingVariableConst,
         };
         self.flush(p);
         self.finish(rule, j);
@@ -469,18 +474,20 @@ impl<const D: u8> Lexer<'_, D> {
             self.capture(Rule::Top, a, b, &[S::KeywordOperatorRest]);
         }
         let (rule, scope) = match (pattern, binding) {
-            (Pattern::Object, Binding::Variable) => {
-                (Rule::ObjBind, S::PunctuationDefinitionBindingPatternObject)
-            }
-            (Pattern::Object, Binding::Constant) => (
-                Rule::ObjBindConst,
+            (Pattern::Object, Binding::Variable) => (
+                Rule::ObjectBinding,
                 S::PunctuationDefinitionBindingPatternObject,
             ),
-            (Pattern::Array, Binding::Variable) => {
-                (Rule::ArrBind, S::PunctuationDefinitionBindingPatternArray)
-            }
+            (Pattern::Object, Binding::Constant) => (
+                Rule::ObjectBindingConst,
+                S::PunctuationDefinitionBindingPatternObject,
+            ),
+            (Pattern::Array, Binding::Variable) => (
+                Rule::ArrayBinding,
+                S::PunctuationDefinitionBindingPatternArray,
+            ),
             (Pattern::Array, Binding::Constant) => (
-                Rule::ArrBindConst,
+                Rule::ArrayBindingConst,
                 S::PunctuationDefinitionBindingPatternArray,
             ),
         };
@@ -532,8 +539,8 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.key_colon_ahead(p) {
             let rule = match binding {
-                Binding::Constant => Rule::ObjBindElemConst,
-                Binding::Variable => Rule::ObjBindElem,
+                Binding::Constant => Rule::ObjectBindingElementConst,
+                Binding::Variable => Rule::ObjectBindingElement,
             };
             return self.open_empty(rule, p);
         }
@@ -606,9 +613,9 @@ impl<const D: u8> Lexer<'_, D> {
         let nonblank = !self.eol(j);
         let ends_with_arrow = self.arrow_ends_line_after(p + 1);
         let rule = if nonblank && !ends_with_arrow {
-            Rule::VarInit1
+            Rule::VariableInitializer1
         } else {
-            Rule::VarInit2
+            Rule::VariableInitializer2
         };
         self.open_token(rule, p, p + 1, &[S::KeywordOperatorAssignment])
     }

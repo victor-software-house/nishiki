@@ -31,13 +31,13 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let n = self.ident(j)?;
         self.flush(p);
-        self.prefix_tokens(Rule::EnumDecl, &pre);
+        self.prefix_tokens(Rule::EnumDeclaration, &pre);
         if let Some((a, b)) = const_capture {
-            self.capture(Rule::EnumDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::EnumDeclaration, a, b, &[S::StorageModifier]);
         }
-        self.capture(Rule::EnumDecl, k, e, &[S::StorageTypeEnum]);
-        self.capture(Rule::EnumDecl, j, n, &[S::EntityNameTypeEnum]);
-        self.push(Rule::EnumDecl);
+        self.capture(Rule::EnumDeclaration, k, e, &[S::StorageTypeEnum]);
+        self.capture(Rule::EnumDeclaration, j, n, &[S::EntityNameTypeEnum]);
+        self.push(Rule::EnumDeclaration);
         Some(n)
     }
 

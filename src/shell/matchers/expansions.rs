@@ -274,7 +274,7 @@ impl Lexer<'_> {
             return None;
         }
         self.span(p, p + 1, scopes![S::PunctuationSectionArray]);
-        self.span_retok(p + 1, e, S::NO_SCOPES, Rule::RetokArrayAccess);
+        self.span_retok(p + 1, e, S::NO_SCOPES, Rule::RetokenisedArrayAccess);
         self.span(e, e + 1, scopes![S::PunctuationSectionArray]);
         Some(e + 1)
     }
@@ -753,7 +753,7 @@ impl Lexer<'_> {
             w,
             e,
             scopes![S::StringUnquotedHerestring],
-            Rule::RetokInitial,
+            Rule::RetokenisedInitial,
         );
         Some(e)
     }

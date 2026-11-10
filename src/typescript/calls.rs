@@ -127,7 +127,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Rule::TypeArgs,
+            Rule::TypeArguments,
             p,
             p + 1,
             &[S::PunctuationDefinitionTypeparametersBegin],
@@ -275,7 +275,7 @@ impl<const D: u8> Lexer<'_, D> {
         if e > j {
             self.capture(Rule::Top, j, e, &[S::StorageModifierAsync]);
         }
-        self.push(Rule::PossArrow);
+        self.push(Rule::PossibleArrow);
         e
     }
 
@@ -309,7 +309,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.capture(
-            Rule::PossArrowRet,
+            Rule::PossibleArrowReturn,
             j,
             j + 1,
             &[
@@ -318,7 +318,7 @@ impl<const D: u8> Lexer<'_, D> {
                 S::KeywordOperatorTypeAnnotation,
             ],
         );
-        self.push(Rule::PossArrowRet);
+        self.push(Rule::PossibleArrowReturn);
         Some(j + 1)
     }
 
@@ -397,7 +397,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn new_expr(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "new")?;
-        self.open_token(Rule::NewExpr, p, e, &[S::KeywordOperatorNew])
+        self.open_token(Rule::NewExpression, p, e, &[S::KeywordOperatorNew])
     }
 
     pub(crate) fn instanceof_expr(&mut self, p: usize) -> Option<usize> {

@@ -2,7 +2,7 @@
 
 use super::engine::Lexer;
 use super::scope::S;
-use super::state::R;
+use super::state::Rule;
 use crate::scope::{Scopes, scopes};
 
 impl Lexer<'_> {
@@ -132,97 +132,101 @@ impl Lexer<'_> {
         reason = "the search tries it at every position, and a call there costs C 3% of its instructions"
     )]
     #[inline(always)]
-    pub(super) fn try_end(&mut self, r: R, p: usize) -> bool {
+    pub(super) fn try_end(&mut self, r: Rule, p: usize) -> bool {
         match r {
-            R::Top
-            | R::Doxy
-            | R::Inline
-            | R::InlineClose
-            | R::Access
-            | R::DefineParams
-            | R::ParamDir
-            | R::NumSep
-            | R::Number => false,
-            R::Block | R::BlockInner => self.end_brace(p, false),
-            R::Parens | R::ParensBlock | R::FuncParens | R::CallParens => {
+            Rule::Top
+            | Rule::Doxygen
+            | Rule::Inline
+            | Rule::InlineClose
+            | Rule::Access
+            | Rule::DefineParameters
+            | Rule::ParameterDirections
+            | Rule::NumberSeparator
+            | Rule::Number => false,
+            Rule::Block | Rule::BlockInner => self.end_brace(p, false),
+            Rule::Parens | Rule::ParensBlock | Rule::FunctionParens | Rule::CallParens => {
                 self.end_paren(p, scopes![S::PunctParensEnd], false)
             }
-            R::FuncParams => self.end_paren(p, scopes![S::PunctParamEnd], false),
-            R::CallArgs => self.end_paren(p, scopes![S::PunctArgsEnd], false),
-            R::Method => self.end_paren(p, scopes![S::PunctArgsEndMember], false),
-            R::Init => self.end_paren(p, scopes![S::PunctParensEndInit], false),
-            R::Bracket => self.end_byte(p, b']', scopes![S::PunctEndSquare]),
-            R::Ternary | R::CondTernary => self.end_byte(p, b':', scopes![S::OpTernary]),
-            R::FuncDef => !self.at_g(p) && self.end_after_paren(p, false),
-            R::FuncCall => self.end_after_paren(p, true),
-            R::DocLine | R::LineComment => self.end_after_line(p),
-            R::DocBlock => self.end_doc_block(p),
-            R::BlockComment => {
+            Rule::FunctionParameters => self.end_paren(p, scopes![S::PunctParamEnd], false),
+            Rule::CallArguments => self.end_paren(p, scopes![S::PunctArgsEnd], false),
+            Rule::Method => self.end_paren(p, scopes![S::PunctArgsEndMember], false),
+            Rule::Initialization => self.end_paren(p, scopes![S::PunctParensEndInit], false),
+            Rule::Bracket => self.end_byte(p, b']', scopes![S::PunctEndSquare]),
+            Rule::Ternary | Rule::ConditionalTernary => {
+                self.end_byte(p, b':', scopes![S::OpTernary])
+            }
+            Rule::FunctionDefinition => !self.at_g(p) && self.end_after_paren(p, false),
+            Rule::FunctionCall => self.end_after_paren(p, true),
+            Rule::DocLine | Rule::LineComment => self.end_after_line(p),
+            Rule::DocBlock => self.end_doc_block(p),
+            Rule::BlockComment => {
                 self.starts(p, b"*/") && self.end_at(p, p + 2, Some(scopes![S::PunctCommentEnd]))
             }
-            R::LineLeading | R::Asm => !self.at_g(p) && self.end_at(p, p, None),
-            R::LineSlash => self.nl && p == self.lim() && self.end_at(p, p, None),
-            R::DQuote | R::IncludeDQ => self.end_byte(p, b'"', scopes![S::PunctStringEnd]),
-            R::SQuote => self.end_byte(p, b'\'', scopes![S::PunctStringEnd]),
-            R::IncludeLt => self.end_byte(p, b'>', scopes![S::PunctStringEnd]),
-            R::DefineDQuote | R::DiagDQuote => {
+            Rule::LineLeading | Rule::Asm => !self.at_g(p) && self.end_at(p, p, None),
+            Rule::LineSlash => self.nl && p == self.lim() && self.end_at(p, p, None),
+            Rule::DoubleQuote | Rule::IncludeDoubleQuote => {
+                self.end_byte(p, b'"', scopes![S::PunctStringEnd])
+            }
+            Rule::SingleQuote => self.end_byte(p, b'\'', scopes![S::PunctStringEnd]),
+            Rule::IncludeAngle => self.end_byte(p, b'>', scopes![S::PunctStringEnd]),
+            Rule::DefineDoubleQuote | Rule::DiagnosticDoubleQuote => {
                 self.end_byte(p, b'"', scopes![S::PunctStringEnd]) || self.end_blank(p)
             }
-            R::DefineSQuote | R::DiagSQuote => {
+            Rule::DefineSingleQuote | Rule::DiagnosticSingleQuote => {
                 self.end_byte(p, b'\'', scopes![S::PunctStringEnd]) || self.end_blank(p)
             }
-            R::DiagText => self.end_blank(p),
-            R::AsmString => self.end_byte(p, b'"', scopes![S::PunctStringEndAsm]),
-            R::Define | R::Diag => self.end_line(p),
-            R::DefineBlock | R::DefineBlockInner => self.end_brace(p, true),
-            R::DefineFunc => self.end_after_paren(p, true) || self.end_blank(p),
-            R::DefineCall => self.end_paren(p, scopes![S::PunctArgsEnd], true),
-            R::DefineParens => self.end_paren(p, scopes![S::PunctParensEnd], true),
-            R::Include | R::LineDir | R::Undef | R::PragmaDir => {
+            Rule::DiagnosticText => self.end_blank(p),
+            Rule::AsmString => self.end_byte(p, b'"', scopes![S::PunctStringEndAsm]),
+            Rule::Define | Rule::Diagnostic => self.end_line(p),
+            Rule::DefineBlock | Rule::DefineBlockInner => self.end_brace(p, true),
+            Rule::DefineFunction => self.end_after_paren(p, true) || self.end_blank(p),
+            Rule::DefineCall => self.end_paren(p, scopes![S::PunctArgsEnd], true),
+            Rule::DefineParens => self.end_paren(p, scopes![S::PunctParensEnd], true),
+            Rule::Include | Rule::LineDirective | Rule::Undef | Rule::PragmaDirective => {
                 self.end_comment_ahead(p) || self.end_line(p)
             }
-            R::CondIf
-            | R::CondIfB
-            | R::EnabledIf
-            | R::EnabledIfB
-            | R::DisabledIf
-            | R::DisabledIfB => self.end_endif(p),
-            R::HeadCont | R::CondElif => self.head_end(p, true),
-            R::HeadPlain => self.head_end(p, false),
-            R::CondParens => {
+            Rule::ConditionalIf
+            | Rule::ConditionalIfBlock
+            | Rule::EnabledIf
+            | Rule::EnabledIfBlock
+            | Rule::DisabledIf
+            | Rule::DisabledIfBlock => self.end_endif(p),
+            Rule::HeadContinuation | Rule::ConditionalElif => self.head_end(p, true),
+            Rule::HeadPlain => self.head_end(p, false),
+            Rule::ConditionalParens => {
                 self.end_byte(p, b')', scopes![S::PunctParensEnd]) || self.head_end(p, true)
             }
-            R::LiveElif
-            | R::LiveElifB
-            | R::ElifTail
-            | R::ElifTailB
-            | R::ElifElse
-            | R::ElifElseB
-            | R::LiveElse
-            | R::LiveElseB
-            | R::ElseBranch
-            | R::ElseBranchB => self.end_look(p, &["endif"]),
-            R::ElifElif
-            | R::DisabledElif
-            | R::DisabledElifBody
-            | R::DisabledElifOther
-            | R::DisabledElifOtherB
-            | R::DisabledBody
-            | R::DisabledBodyB
-            | R::ElifBranch
-            | R::ElifBranchB
-            | R::EnabledBody
-            | R::EnabledBodyB => self.end_look(p, &["else", "elif", "endif"]),
-            R::Nest => self
+            Rule::LiveElif
+            | Rule::LiveElifBlock
+            | Rule::ElifTail
+            | Rule::ElifTailBlock
+            | Rule::ElifElse
+            | Rule::ElifElseBlock
+            | Rule::LiveElse
+            | Rule::LiveElseBlock
+            | Rule::ElseBranch
+            | Rule::ElseBranchBlock => self.end_look(p, &["endif"]),
+            Rule::ElifElif
+            | Rule::DisabledElif
+            | Rule::DisabledElifBody
+            | Rule::DisabledElifOther
+            | Rule::DisabledElifOtherBlock
+            | Rule::DisabledBody
+            | Rule::DisabledBodyBlock
+            | Rule::ElifBranch
+            | Rule::ElifBranchBlock
+            | Rule::EnabledBody
+            | Rule::EnabledBodyBlock => self.end_look(p, &["else", "elif", "endif"]),
+            Rule::Nest => self
                 .directive(p, &["endif"])
                 .is_some_and(|dir| self.end_at(0, dir.kw.1, None)),
-            R::Switch => {
+            Rule::Switch => {
                 (self.after_close(p)
                     || (matches!(self.b(p), b']' | b';' | b'=' | b'>' | b'[')
                         && p < self.len_all()))
                     && self.end_at(p, p, None)
             }
-            R::SwitchHead => {
+            Rule::SwitchHead => {
                 if self.b(p) == b'{' && p < self.len_all() {
                     return self.end_at(p, p + 1, Some(scopes![S::PunctBlockBeginSwitch]));
                 }
@@ -234,7 +238,7 @@ impl Lexer<'_> {
                 }
                 self.b(p) == b';' && p < self.len_all() && self.end_at(p, p, None)
             }
-            R::SwitchBody => {
+            Rule::SwitchBody => {
                 for lit in [&b"}"[..], b"%>", b"??>"] {
                     if self.starts(p, lit) {
                         return self.end_at(
@@ -246,15 +250,15 @@ impl Lexer<'_> {
                 }
                 false
             }
-            R::SwitchTail => {
+            Rule::SwitchTail => {
                 let end = self.skip_space(p);
                 self.b(end) == b';' && end < self.len_all() && self.end_at(p, end, None)
             }
-            R::SwitchParens => self.end_byte(p, b')', scopes![S::PunctParensEndSwitch]),
-            R::Case => self.end_byte(p, b':', scopes![S::PunctColonCase]),
-            R::Default => self.end_byte(p, b':', scopes![S::PunctColonDefault]),
-            R::AsmParens => self.end_byte(p, b')', scopes![S::PunctParensEndAsm]),
-            R::AsmInner => self.end_byte(p, b')', scopes![S::PunctParensEndAsmInner]),
+            Rule::SwitchParens => self.end_byte(p, b')', scopes![S::PunctParensEndSwitch]),
+            Rule::Case => self.end_byte(p, b':', scopes![S::PunctColonCase]),
+            Rule::Default => self.end_byte(p, b':', scopes![S::PunctColonDefault]),
+            Rule::AsmParens => self.end_byte(p, b')', scopes![S::PunctParensEndAsm]),
+            Rule::AsmInner => self.end_byte(p, b')', scopes![S::PunctParensEndAsmInner]),
         }
     }
 }

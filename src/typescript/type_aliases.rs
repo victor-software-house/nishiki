@@ -49,13 +49,18 @@ impl<const D: u8> Lexer<'_, D> {
                 intrinsic = Some((j, j + "intrinsic".len()));
             }
             self.flush(p);
-            self.capture(Rule::TypeAliasEq, p, p + 1, &[S::KeywordOperatorAssignment]);
+            self.capture(
+                Rule::TypeAliasEquals,
+                p,
+                p + 1,
+                &[S::KeywordOperatorAssignment],
+            );
             if let Some((a, b)) = intrinsic {
-                self.capture(Rule::TypeAliasEq, a, b, &[S::KeywordControlIntrinsic]);
+                self.capture(Rule::TypeAliasEquals, a, b, &[S::KeywordControlIntrinsic]);
             } else {
-                self.finish(Rule::TypeAliasEq, j);
+                self.finish(Rule::TypeAliasEquals, j);
             }
-            self.push(Rule::TypeAliasEq);
+            self.push(Rule::TypeAliasEquals);
             return Some(intrinsic.map_or(j, |(_, e)| e));
         }
         None

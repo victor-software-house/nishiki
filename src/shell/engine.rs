@@ -874,7 +874,7 @@ impl<'a> Lexer<'a> {
                 None => named,
             };
             match span.retok {
-                Some(Rule::RetokArgument) if is_plain_word(&self.s[span.start..span.end]) => {
+                Some(Rule::RetokenisedArgument) if is_plain_word(&self.s[span.start..span.end]) => {
                     self.emit(span.end, node);
                 }
                 Some(rule) => self.retokenise(rule, span.start, span.end, node),

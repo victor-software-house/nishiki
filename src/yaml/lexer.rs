@@ -177,8 +177,8 @@ impl<'a> Lexer<'a> {
             Rule::Double => self.double_body(0),
             Rule::Single => self.single_body(0),
             Rule::Top
-            | Rule::FlowSeq
-            | Rule::FlowMap
+            | Rule::FlowSequence
+            | Rule::FlowMapping
             | Rule::Pair
             | Rule::Complex
             | Rule::Explicit => 0,
@@ -197,7 +197,9 @@ impl<'a> Lexer<'a> {
             let from = p;
             p = match self.top() {
                 Rule::Top | Rule::Complex => self.block_step(p),
-                Rule::FlowSeq | Rule::FlowMap | Rule::Pair | Rule::Explicit => self.flow_step(p),
+                Rule::FlowSequence | Rule::FlowMapping | Rule::Pair | Rule::Explicit => {
+                    self.flow_step(p)
+                }
                 Rule::Double => self.double_body(p),
                 Rule::Single => self.single_body(p),
                 Rule::Block => self.block_line(),
@@ -518,7 +520,7 @@ impl<'a> Lexer<'a> {
     fn in_flow(&self) -> bool {
         matches!(
             self.top(),
-            Rule::FlowSeq | Rule::FlowMap | Rule::Pair | Rule::Explicit
+            Rule::FlowSequence | Rule::FlowMapping | Rule::Pair | Rule::Explicit
         )
     }
 
@@ -1042,7 +1044,11 @@ impl<'a> Lexer<'a> {
     fn open_flow(&mut self, p: usize) -> usize {
         let seq = self.s[p] == b'[';
         self.gap(p);
-        let rule = if seq { Rule::FlowSeq } else { Rule::FlowMap };
+        let rule = if seq {
+            Rule::FlowSequence
+        } else {
+            Rule::FlowMapping
+        };
         if !self.push(rule, 0) {
             return self.token(p, p + 1, &[]);
         }
@@ -1088,7 +1094,7 @@ impl<'a> Lexer<'a> {
             b',' => {
                 self.gap(p);
                 self.pop_pair_and_explicit();
-                let leaf = if self.top() == Rule::FlowMap {
+                let leaf = if self.top() == Rule::FlowMapping {
                     S::PunctMapSep
                 } else {
                     S::PunctSeqSep
@@ -1131,16 +1137,16 @@ impl<'a> Lexer<'a> {
     /// `]` or `}`: the end of the flow collection it matches.
     fn close_flow(&mut self, p: usize) -> usize {
         let want = if self.s[p] == b']' {
-            Rule::FlowSeq
+            Rule::FlowSequence
         } else {
-            Rule::FlowMap
+            Rule::FlowMapping
         };
         self.gap(p);
         self.pop_pair_and_explicit();
         if self.top() != want {
             return self.token(p, p + 1, &[]);
         }
-        let leaf = if want == Rule::FlowSeq {
+        let leaf = if want == Rule::FlowSequence {
             S::PunctSeqEnd
         } else {
             S::PunctMapEnd

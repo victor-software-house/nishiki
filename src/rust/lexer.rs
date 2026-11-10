@@ -86,15 +86,15 @@ impl<'a> Lexer<'a> {
             }
             let from = p;
             p = match self.top() {
-                Rule::Str => self.in_string(p),
+                Rule::String => self.in_string(p),
                 Rule::Raw => self.in_raw_string(p),
                 Rule::Char => self.in_char(p),
                 Rule::Block | Rule::Doc => self.in_block_comment(p),
                 Rule::Top
-                | Rule::FnDef
+                | Rule::FunctionDefinition
                 | Rule::Call
                 | Rule::Generic
-                | Rule::AngleSq
+                | Rule::AngleSquare
                 | Rule::Attribute
                 | Rule::Use
                 | Rule::Import => self.in_code(p),
@@ -360,10 +360,10 @@ impl<'a> Lexer<'a> {
             return None;
         }
         let leaf = match (self.top(), b) {
-            (Rule::FnDef, b'{') => S::Curly,
-            (Rule::FnDef | Rule::Use | Rule::Import, b';') => S::Semi,
+            (Rule::FunctionDefinition, b'{') => S::Curly,
+            (Rule::FunctionDefinition | Rule::Use | Rule::Import, b';') => S::Semi,
             (Rule::Call, b')') => S::Round,
-            (Rule::Generic | Rule::AngleSq, b'>') => S::Angle,
+            (Rule::Generic | Rule::AngleSquare, b'>') => S::Angle,
             (Rule::Attribute, b']') => S::AttrBracket,
             _ => return None,
         };

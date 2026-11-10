@@ -28,12 +28,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Rule::ClassDecl, &pre);
+        self.prefix_tokens(Rule::ClassDeclaration, &pre);
         if let Some((a, b)) = abstract_capture {
-            self.capture(Rule::ClassDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::ClassDeclaration, a, b, &[S::StorageModifier]);
         }
-        self.capture(Rule::ClassDecl, k, e, &[S::StorageTypeClass]);
-        self.push(Rule::ClassDecl);
+        self.capture(Rule::ClassDeclaration, k, e, &[S::StorageTypeClass]);
+        self.push(Rule::ClassDeclaration);
         Some(e)
     }
 
@@ -65,10 +65,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = abstract_capture {
-            self.capture(Rule::ClassDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::ClassDeclaration, a, b, &[S::StorageModifier]);
         }
-        self.capture(Rule::ClassDecl, k, e, &[S::StorageTypeClass]);
-        self.push(Rule::ClassDecl);
+        self.capture(Rule::ClassDeclaration, k, e, &[S::StorageTypeClass]);
+        self.push(Rule::ClassDeclaration);
         Some(e)
     }
 
@@ -107,12 +107,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Rule::InterfaceDecl, &pre);
+        self.prefix_tokens(Rule::InterfaceDeclaration, &pre);
         if let Some((a, b)) = abstract_capture {
-            self.capture(Rule::InterfaceDecl, a, b, &[S::StorageModifier]);
+            self.capture(Rule::InterfaceDeclaration, a, b, &[S::StorageModifier]);
         }
-        self.capture(Rule::InterfaceDecl, k, e, &[S::StorageTypeInterface]);
-        self.push(Rule::InterfaceDecl);
+        self.capture(Rule::InterfaceDeclaration, k, e, &[S::StorageTypeInterface]);
+        self.push(Rule::InterfaceDeclaration);
         Some(e)
     }
 

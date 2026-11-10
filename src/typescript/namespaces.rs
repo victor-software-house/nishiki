@@ -26,10 +26,10 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Rule::NamespaceDecl, &pre);
-        self.capture(Rule::NamespaceDecl, k, e, &[S::StorageTypeNamespace]);
-        self.finish(Rule::NamespaceDecl, j);
-        self.push(Rule::NamespaceDecl);
+        self.prefix_tokens(Rule::NamespaceDeclaration, &pre);
+        self.capture(Rule::NamespaceDeclaration, k, e, &[S::StorageTypeNamespace]);
+        self.finish(Rule::NamespaceDeclaration, j);
+        self.push(Rule::NamespaceDeclaration);
         Some(j)
     }
 

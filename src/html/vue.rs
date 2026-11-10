@@ -1030,7 +1030,7 @@ impl Lexer<'_> {
             }),
             VueRule::Capitalized => self
                 .g(p)
-                .then(|| Hit::new(Pattern::Zero(Rule::VueCapitalizedAttrs), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueCapitalizedAttributes), p, p)),
             VueRule::Directive => {
                 let directive = if self.top().payload == 1 {
                     Directive::Control
@@ -1041,9 +1041,9 @@ impl Lexer<'_> {
             }
             VueRule::ExprString => (p > 0
                 && matches!(self.s.get(p - 1), Some(b'"' | b'\'' | b'`')))
-            .then(|| Hit::new(Pattern::Zero(Rule::VueExpr), p, p)),
+            .then(|| Hit::new(Pattern::Zero(Rule::VueExpression), p, p)),
             VueRule::ExprBare => (p < self.lim && !matches!(b, b'"' | b'\'' | b'`'))
-                .then(|| Hit::new(Pattern::Zero(Rule::VueExpr), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueExpression), p, p)),
             VueRule::Comment
             | VueRule::CommentKv
             | VueRule::Element
@@ -1135,8 +1135,8 @@ pub(super) fn body_lang(parent: Rule, payload: u32) -> Option<Lang> {
 /// The halt is none for a body that runs to the end of each line.
 #[cfg(feature = "lang-vue")]
 pub(super) fn target(rule: Rule, parent: Rule, payload: u32) -> (Option<Lexed>, Option<VueHalt>) {
-    if rule == Rule::VueExpr {
-        let halt: VueHalt = if parent != Rule::VueExprString {
+    if rule == Rule::VueExpression {
+        let halt: VueHalt = if parent != Rule::VueExpressionString {
             bare_end
         } else if payload == u32::from(b'\'') {
             single_quote
@@ -1245,7 +1245,7 @@ impl Rule {
     pub(super) const fn vue(self) -> Option<VueRule> {
         Some(match self {
             Rule::VueComment => VueRule::Comment,
-            Rule::VueCommentKv => VueRule::CommentKv,
+            Rule::VueCommentKeyValue => VueRule::CommentKv,
             Rule::VueSelfClosing => VueRule::SelfClosing,
             Rule::VueBlock => VueRule::Block,
             Rule::VueElement => VueRule::Element,
@@ -1261,11 +1261,11 @@ impl Rule {
             Rule::VueTemplateTag => VueRule::TemplateTag,
             Rule::VueTemplateTagEnd => VueRule::TemplateTagEnd,
             Rule::VueCapitalized => VueRule::Capitalized,
-            Rule::VueCapitalizedAttrs => VueRule::CapitalizedAttrs,
+            Rule::VueCapitalizedAttributes => VueRule::CapitalizedAttrs,
             Rule::VueDirective => VueRule::Directive,
-            Rule::VueExprString => VueRule::ExprString,
-            Rule::VueExprBare => VueRule::ExprBare,
-            Rule::VueExpr => VueRule::Expr,
+            Rule::VueExpressionString => VueRule::ExprString,
+            Rule::VueExpressionBare => VueRule::ExprBare,
+            Rule::VueExpression => VueRule::Expr,
             Rule::Root
             | Rule::Comment
             | Rule::Cdata
@@ -1291,9 +1291,9 @@ impl Rule {
             | Rule::ScriptOtherOuter
             | Rule::BodyOther
             | Rule::Attribute
-            | Rule::Value
-            | Rule::ValueCss
-            | Rule::ValueJs
+            | Rule::AttributeValue
+            | Rule::AttributeValueCss
+            | Rule::AttributeValueJs
             | Rule::WrapCss
             | Rule::WrapJs
             | Rule::StringPlain
@@ -1321,7 +1321,7 @@ impl Rule {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => return None,

@@ -792,7 +792,7 @@ impl<'a> Lexer<'a> {
                 | Rule::BladeDirectiveCustom
                 | Rule::BladePhpSection
                 | Rule::BladeAttribute => self.blade_php(),
-                Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpr => self.vue_embedded(),
+                Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpression => self.vue_embedded(),
                 Rule::Root
                 | Rule::Comment
                 | Rule::Cdata
@@ -816,9 +816,9 @@ impl<'a> Lexer<'a> {
                 | Rule::ScriptOtherOuter
                 | Rule::BodyOther
                 | Rule::Attribute
-                | Rule::Value
-                | Rule::ValueCss
-                | Rule::ValueJs
+                | Rule::AttributeValue
+                | Rule::AttributeValueCss
+                | Rule::AttributeValueJs
                 | Rule::WrapCss
                 | Rule::WrapJs
                 | Rule::StringPlain
@@ -835,10 +835,10 @@ impl<'a> Lexer<'a> {
                 | Rule::BladeCommentPhpLine
                 | Rule::BladePhpWrap
                 | Rule::BladePhpLine
-                | Rule::BladeArgsComment
+                | Rule::BladeArgumentsComment
                 | Rule::BladeBalance
                 | Rule::VueComment
-                | Rule::VueCommentKv
+                | Rule::VueCommentKeyValue
                 | Rule::VueSelfClosing
                 | Rule::VueBlock
                 | Rule::VueElement
@@ -852,10 +852,10 @@ impl<'a> Lexer<'a> {
                 | Rule::VueTemplateTag
                 | Rule::VueTemplateTagEnd
                 | Rule::VueCapitalized
-                | Rule::VueCapitalizedAttrs
+                | Rule::VueCapitalizedAttributes
                 | Rule::VueDirective
-                | Rule::VueExprString
-                | Rule::VueExprBare => self.search(),
+                | Rule::VueExpressionString
+                | Rule::VueExpressionBare => self.search(),
             };
             if let Some(at) = self.give_back_at(found.as_ref()) {
                 let content = self.top().content;

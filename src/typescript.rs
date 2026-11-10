@@ -208,7 +208,7 @@ fn start_entry(arena: &mut Arena, base: u32, rule: Rule) -> u32 {
 /// includes, and of `source.tsx#object-literal`, which Astro's does.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
 pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Rule::EntryObjLit)
+    start_entry(arena, base, Rule::EntryObjectLiteral)
 }
 
 /// The start of a template string's body, without its `string.template`
@@ -226,28 +226,28 @@ pub(crate) fn start_template(arena: &mut Arena, base: u32) -> u32 {
 /// `{#each xs as {a, b}}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_object_binding(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Rule::EntryObjBind)
+    start_entry(arena, base, Rule::EntryObjectBinding)
 }
 
 /// The start of `source.ts#object-binding-pattern-const`, which Svelte's
 /// `{@const {a, b} = x}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_object_binding_const(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Rule::EntryObjBindConst)
+    start_entry(arena, base, Rule::EntryObjectBindingConst)
 }
 
 /// The start of `source.ts#array-binding-pattern`, which Svelte's
 /// `{#each xs as [a, b]}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_array_binding(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Rule::EntryArrBind)
+    start_entry(arena, base, Rule::EntryArrayBinding)
 }
 
 /// The start of `source.ts#array-binding-pattern-const`, which Svelte's
 /// `{@const [a, b] = x}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_array_binding_const(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Rule::EntryArrBindConst)
+    start_entry(arena, base, Rule::EntryArrayBindingConst)
 }
 
 /// The start of the body of `source.ts#type-parameters`, which Svelte's
@@ -255,7 +255,7 @@ pub(crate) fn start_array_binding_const(arena: &mut Arena, base: u32) -> u32 {
 /// and `=`, with no `<` or `>`.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_type_parameters(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Rule::EntryTypeParams)
+    start_entry(arena, base, Rule::EntryTypeParameters)
 }
 
 /// Lexes the text of `line` from byte `from` and `state`, appending its

@@ -249,9 +249,9 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(e) = self.tag_end(p, "example") {
             let j = self.ws(e);
             if j > e && !self.full() {
-                self.doc_tag_tokens_in(Rule::JsExample, p, e);
-                self.finish(Rule::JsExample, j);
-                self.push(Rule::JsExample);
+                self.doc_tag_tokens_in(Rule::JsDocExample, p, e);
+                self.finish(Rule::JsDocExample, j);
+                self.push(Rule::JsDocExample);
                 return Some(j);
             }
         }
@@ -478,7 +478,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(j) == b'{' && !self.full() {
             self.doc_tag_tokens(p, e);
             self.finish(Rule::Top, j);
-            self.push(Rule::JsTypeTag);
+            self.push(Rule::JsDocTypeTag);
             return Some(j);
         }
         None
@@ -550,7 +550,11 @@ impl<const D: u8> Lexer<'_, D> {
                 "yield",
             ],
         ];
-        let rules = [Rule::JsTypedefTag, Rule::JsParamTag, Rule::JsRetTag];
+        let rules = [
+            Rule::JsDocTypedefTag,
+            Rule::JsDocParamTag,
+            Rule::JsDocReturnTag,
+        ];
         for (words, rule) in sets.into_iter().zip(rules) {
             for word in words {
                 let Some(e) = self.tag_end(p, word) else {
@@ -639,7 +643,7 @@ impl<const D: u8> Lexer<'_, D> {
                     j + 1,
                     &[VARIABLE, S::PunctuationDefinitionStringBeginJsdoc],
                 );
-                self.push_with(Rule::JsDefaultQuote, u32::from(q));
+                self.push_with(Rule::JsDocDefaultQuote, u32::from(q));
                 return Some(j + 1);
             }
         }
@@ -725,20 +729,20 @@ impl<const D: u8> Lexer<'_, D> {
         let e = self.ws(name_end);
         self.flush(p);
         self.capture(
-            Rule::JsInlineLink,
+            Rule::JsDocInlineLink,
             p,
             p + 1,
             &[S::PunctuationDefinitionBracketCurlyBeginJsdoc],
         );
         self.capture(
-            Rule::JsInlineLink,
+            Rule::JsDocInlineLink,
             p + 1,
             p + 2,
             &[TAG, S::PunctuationDefinitionInlineTagJsdoc],
         );
-        self.capture(Rule::JsInlineLink, p + 2, name_end, &[TAG]);
-        self.finish(Rule::JsInlineLink, e);
-        self.push(Rule::JsInlineLink);
+        self.capture(Rule::JsDocInlineLink, p + 2, name_end, &[TAG]);
+        self.finish(Rule::JsDocInlineLink, e);
+        self.push(Rule::JsDocInlineLink);
         Some(e)
     }
 
@@ -814,7 +818,7 @@ impl<const D: u8> Lexer<'_, D> {
                 e,
                 &[tag, S::PunctuationDefinitionBracketAngleEndJsdoc],
             );
-            self.push(Rule::JsCaption);
+            self.push(Rule::JsDocCaption);
             return Some(e);
         }
         if !(matches!(self.byte(p), b'*' | b'@') || self.space_at(p)) && p <= self.len {
@@ -852,7 +856,7 @@ impl<const D: u8> Lexer<'_, D> {
                 p + 1,
                 &[INSTANCE, S::PunctuationDefinitionBracketCurlyBeginJsdoc],
             );
-            self.push(Rule::JsType);
+            self.push(Rule::JsDocType);
             return Some(p + 1);
         }
         None
@@ -867,8 +871,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// The `{`…`}` and `[`…`]` groups inside a doc type.
     pub(crate) fn doc_brackets(&mut self, p: usize) -> Option<usize> {
         match self.byte(p) {
-            b'{' => self.open_token(Rule::JsBraces, p, p + 1, &[]),
-            b'[' => self.open_token(Rule::JsBrackets, p, p + 1, &[]),
+            b'{' => self.open_token(Rule::JsDocBraces, p, p + 1, &[]),
+            b'[' => self.open_token(Rule::JsDocBrackets, p, p + 1, &[]),
             _ => None,
         }
     }

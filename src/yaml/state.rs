@@ -19,9 +19,9 @@ crate::tag::frame_rules! {
         /// A single-quoted scalar that continues on the next line.
         Single,
         /// `[` up to `]`.
-        FlowSeq,
+        FlowSequence,
         /// `{` up to `}`.
-        FlowMap,
+        FlowMapping,
         /// A flow pair from its `:` up to the `,` or closing bracket.
         Pair,
         /// `? ` in a block mapping.
@@ -39,8 +39,8 @@ impl Rule {
             Rule::Block => &[S::StrBlock],
             Rule::Double => &[S::StrDouble],
             Rule::Single => &[S::StrSingle],
-            Rule::FlowSeq => &[S::MetaFlowSeq],
-            Rule::FlowMap => &[S::MetaFlowMap],
+            Rule::FlowSequence => &[S::MetaFlowSeq],
+            Rule::FlowMapping => &[S::MetaFlowMap],
             Rule::Pair => &[S::MetaFlowPair, S::MetaFlowPairValue],
             Rule::Complex => &[S::MetaBlockMap],
             Rule::Explicit => &[S::MetaFlowPairExplicit],

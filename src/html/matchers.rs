@@ -259,7 +259,7 @@ impl Lexer<'_> {
             | Rule::VueTagStuff
             | Rule::VueScriptTagStuff
             | Rule::VueStyleTagStuff
-            | Rule::VueCapitalizedAttrs => {
+            | Rule::VueCapitalizedAttributes => {
                 let q = self.skip_ascii_ws(p);
                 (q <= self.end_pos()).then_some(q)
             }
@@ -281,7 +281,7 @@ impl Lexer<'_> {
                 (q <= self.end_pos()).then_some(q)
             }
             Rule::Attribute => (self.skip_ws(p) < self.lim).then_some(p),
-            Rule::Value | Rule::ValueCss | Rule::ValueJs => {
+            Rule::AttributeValue | Rule::AttributeValueCss | Rule::AttributeValueJs => {
                 let blank_before = self.char_before(p).is_some_and(is_space);
                 let q = if p > 0 && blank_before && self.ws_len(p) > 0 {
                     self.skip_ws(p)
@@ -308,8 +308,8 @@ impl Lexer<'_> {
             | Rule::VueLangGroup
             | Rule::VueBody
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare => Some(p),
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare => Some(p),
             Rule::ScriptTag | Rule::VueSelfClosing => earliest(find(memchr(b'/', rest))),
             Rule::ScriptJsOuter => earliest(find(memchr(b'<', rest))),
             Rule::Element => earliest(find(memchr2(b'<', b'/', rest))),
@@ -326,7 +326,7 @@ impl Lexer<'_> {
             Rule::JsBlockComment => find(memchr2(quote, b'*', rest)),
             Rule::ErbCommentWrap | Rule::ErbTagWrap => (p <= self.end_pos()).then_some(p),
             Rule::ErbComment => find(memchr(b'%', rest)),
-            Rule::ErbBlock | Rule::ErbLine | Rule::VueBodyWhile | Rule::VueExpr => None,
+            Rule::ErbBlock | Rule::ErbLine | Rule::VueBodyWhile | Rule::VueExpression => None,
             Rule::BladeComment
             | Rule::BladeCommentPhpWrap
             | Rule::BladeCommentPhpBlock
@@ -341,11 +341,11 @@ impl Lexer<'_> {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_candidate(rule, p, cut),
-            Rule::VueComment | Rule::VueCommentKv => {
+            Rule::VueComment | Rule::VueCommentKeyValue => {
                 if cfg!(feature = "lang-vue") {
                     find(memchr(b'-', rest))
                 } else {
@@ -477,7 +477,9 @@ impl Lexer<'_> {
                 let q = self.skip_ws(p);
                 (q < self.lim && self.at(q) != b'=').then(|| Self::zero(p))
             }
-            Rule::Value | Rule::ValueCss | Rule::ValueJs => self.value_end(p),
+            Rule::AttributeValue | Rule::AttributeValueCss | Rule::AttributeValueJs => {
+                self.value_end(p)
+            }
             Rule::WrapCss | Rule::WrapJs => (!self.g(p)).then(|| Self::zero(p)),
             Rule::StringPlain | Rule::StringCss | Rule::StringJs => {
                 (u32::from(b) == self.top().payload).then(|| one(1))
@@ -512,12 +514,12 @@ impl Lexer<'_> {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_end_at(rule, p),
             Rule::VueComment
-            | Rule::VueCommentKv
+            | Rule::VueCommentKeyValue
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueElement
@@ -531,13 +533,13 @@ impl Lexer<'_> {
             | Rule::VueTemplateTag
             | Rule::VueTemplateTagEnd
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
             | Rule::VueBody
             | Rule::VueBodyWhile
-            | Rule::VueExpr => self.vue_end_at(rule, p),
+            | Rule::VueExpression => self.vue_end_at(rule, p),
         }
     }
 
@@ -754,7 +756,7 @@ impl Lexer<'_> {
                 let q = self.skip_ws(p);
                 (q < self.lim && self.at(q) == b'=').then(|| Hit::new(Pattern::Equals, q, q + 1))
             }
-            Rule::Value => {
+            Rule::AttributeValue => {
                 if let Some(end) = self.unquoted_end(p) {
                     return Some(Hit::new(Pattern::Unquoted, p, end));
                 }
@@ -763,9 +765,9 @@ impl Lexer<'_> {
                 }
                 (b == b'=').then(|| Hit::new(Pattern::EqualsIllegal, p, p + 1))
             }
-            Rule::ValueCss | Rule::ValueJs => {
+            Rule::AttributeValueCss | Rule::AttributeValueJs => {
                 if self.value_starts(p) {
-                    let wrap = if rule == Rule::ValueCss {
+                    let wrap = if rule == Rule::AttributeValueCss {
                         Rule::WrapCss
                     } else {
                         Rule::WrapJs
@@ -817,12 +819,12 @@ impl Lexer<'_> {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_patterns_at(rule, p),
             Rule::VueComment
-            | Rule::VueCommentKv
+            | Rule::VueCommentKeyValue
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueTagStuff
@@ -835,11 +837,11 @@ impl Lexer<'_> {
             | Rule::VueBodyWhile
             | Rule::VueTemplateTag
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
-            | Rule::VueExpr => self.vue_patterns_at(rule, p),
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
+            | Rule::VueExpression => self.vue_patterns_at(rule, p),
         }
     }
 

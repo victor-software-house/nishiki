@@ -75,9 +75,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Rule::FuncDecl, &pre);
-        self.emit_function_head(Rule::FuncDecl, &head);
-        self.push(Rule::FuncDecl);
+        self.prefix_tokens(Rule::FunctionDeclaration, &pre);
+        self.emit_function_head(Rule::FunctionDeclaration, &head);
+        self.push(Rule::FunctionDeclaration);
         Some(head.end)
     }
 
@@ -90,8 +90,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.emit_function_head(Rule::FuncExpr, &head);
-        self.push(Rule::FuncExpr);
+        self.emit_function_head(Rule::FunctionExpression, &head);
+        self.push(Rule::FunctionExpression);
         Some(head.end)
     }
 
@@ -121,7 +121,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Rule::Params,
+            Rule::Parameters,
             p,
             p + 1,
             &[S::PunctuationDefinitionParametersBegin],
@@ -199,11 +199,11 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let (rule, scope) = match self.byte(j) {
             b'{' => (
-                Rule::ParamObjBind,
+                Rule::ParameterObjectBinding,
                 S::PunctuationDefinitionBindingPatternObject,
             ),
             b'[' => (
-                Rule::ParamArrBind,
+                Rule::ParameterArrayBinding,
                 S::PunctuationDefinitionBindingPatternArray,
             ),
             _ => return None,
@@ -365,11 +365,11 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let (rule, scope) = match pattern {
             Pattern::Object => (
-                Rule::ParamObjPattern,
+                Rule::ParameterObjectPattern,
                 S::PunctuationDefinitionBindingPatternObject,
             ),
             Pattern::Array => (
-                Rule::ParamArrPattern,
+                Rule::ParameterArrayPattern,
                 S::PunctuationDefinitionBindingPatternArray,
             ),
         };
@@ -399,7 +399,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if self.key_colon_ahead(p) {
-            return self.open_empty(Rule::ParamObjElem, p);
+            return self.open_empty(Rule::ParameterObjectElement, p);
         }
         self.parameter_pattern(p, Pattern::Object)
             .or_else(|| self.destructuring_parameter_rest(p))

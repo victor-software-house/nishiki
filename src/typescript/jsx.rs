@@ -175,7 +175,7 @@ impl<const D: u8> Lexer<'_, D> {
             return self.open_empty(Rule::JsxExpressionNoAttributes, q);
         }
         if !self.generic_head_at(q) && self.tag_start_at(q).is_some() {
-            return self.open_empty(Rule::JsxExprTag, q);
+            return self.open_empty(Rule::JsxExpressionTag, q);
         }
         None
     }
@@ -240,7 +240,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Rule::JsxEval,
+            Rule::JsxEmbeddedExpression,
             p,
             p + 1,
             &[S::PunctuationSectionEmbeddedBegin],
@@ -351,7 +351,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.byte(p) == b'"' && !self.full() {
             return self.open_token(
-                Rule::JsxStrDouble,
+                Rule::JsxStringDouble,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
@@ -359,7 +359,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.byte(p) == b'\'' && !self.full() {
             return self.open_token(
-                Rule::JsxStrSingle,
+                Rule::JsxStringSingle,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],

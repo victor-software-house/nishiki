@@ -94,11 +94,11 @@ impl<'a> Lexer<'a> {
             }
             let from = p;
             p = match self.top() {
-                Rule::Basic | Rule::BasicMulti => self.in_basic(p),
-                Rule::Literal | Rule::LiteralMulti => self.in_literal(p),
+                Rule::Basic | Rule::MultilineBasic => self.in_basic(p),
+                Rule::Literal | Rule::MultilineLiteral => self.in_literal(p),
                 Rule::Top => self.in_table(p),
                 Rule::Array => self.in_array(p),
-                Rule::Inline => self.in_inline(p),
+                Rule::InlineTable => self.in_inline(p),
             };
             debug_assert!(p > from, "the TOML lexer made no progress at byte {from}");
         }
@@ -161,7 +161,7 @@ impl<'a> Lexer<'a> {
     /// Opens a context.
     /// It returns false when a limit keeps the context closed.
     fn push(&mut self, rule: Rule) -> bool {
-        let payload = if rule == Rule::Inline {
+        let payload = if rule == Rule::InlineTable {
             InlineComments::Allowed.payload()
         } else {
             ArrayNext::Value.payload()
@@ -201,8 +201,12 @@ impl<'a> Lexer<'a> {
     pub(super) fn value_starts(&mut self) {
         match self.top() {
             Rule::Array => self.set_payload(ArrayNext::Comma.payload()),
-            Rule::Inline => self.set_payload(InlineComments::Barred.payload()),
-            Rule::Top | Rule::Basic | Rule::Literal | Rule::BasicMulti | Rule::LiteralMulti => {}
+            Rule::InlineTable => self.set_payload(InlineComments::Barred.payload()),
+            Rule::Top
+            | Rule::Basic
+            | Rule::Literal
+            | Rule::MultilineBasic
+            | Rule::MultilineLiteral => {}
         }
     }
 

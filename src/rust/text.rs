@@ -54,7 +54,7 @@ impl Lexer<'_> {
         match self.at(p + prefix) {
             b'"' => {
                 self.gap(p);
-                if !self.push(Rule::Str) {
+                if !self.push(Rule::String) {
                     return None;
                 }
                 self.tok(p + prefix, &[S::StrByteRaw]);

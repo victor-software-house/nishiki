@@ -7,7 +7,7 @@
 
 use super::engine::Lexer;
 use super::scope::S;
-use super::state::R;
+use super::state::Rule;
 use crate::scope::{Scopes, scopes};
 
 /// The suffixes an integer pattern takes: the grammar's alternation, spelled
@@ -84,7 +84,7 @@ impl Lexer<'_> {
             i += 1;
         }
         self.spend(i - p);
-        self.span_retok(p, i, S::NO_SCOPES, R::Number);
+        self.span_retok(p, i, S::NO_SCOPES, Rule::Number);
         self.plain(p, i)
     }
 
@@ -149,7 +149,7 @@ impl Lexer<'_> {
 
     /// Digits with their separators, lexed again for the separators.
     fn capture_digits(&mut self, start: usize, end: usize, scopes: Scopes<S>) {
-        self.span_retok(start, end, scopes, R::NumSep);
+        self.span_retok(start, end, scopes, Rule::NumberSeparator);
     }
 
     /// `(?<!')([Pp])(\+?)(-?)([0-9](?:[0-9]|(?<=\h)'(?=\h))*)` at `i`, with

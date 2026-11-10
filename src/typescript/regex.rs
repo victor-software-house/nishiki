@@ -256,7 +256,7 @@ impl<const D: u8> Lexer<'_, D> {
             let neg = b1 == b'^';
             self.flush(p);
             self.capture(
-                Rule::RxSet,
+                Rule::RegexSet,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionCharacterClassRegexp],
@@ -264,14 +264,14 @@ impl<const D: u8> Lexer<'_, D> {
             let mut e = p + 1;
             if neg {
                 self.capture(
-                    Rule::RxSet,
+                    Rule::RegexSet,
                     p + 1,
                     p + 2,
                     &[S::KeywordOperatorNegationRegexp],
                 );
                 e = p + 2;
             }
-            self.push(Rule::RxSet);
+            self.push(Rule::RegexSet);
             return Some(e);
         }
         self.regex_character_class(p)
@@ -322,29 +322,29 @@ impl<const D: u8> Lexer<'_, D> {
             };
             if let Some((len, scope)) = assertion {
                 self.capture(
-                    Rule::RxAssert,
+                    Rule::RegexAssert,
                     p,
                     p + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Rule::RxAssert,
+                    Rule::RegexAssert,
                     p + 1,
                     p + len,
                     &[S::PunctuationDefinitionGroupAssertionRegexp, scope],
                 );
-                self.push(Rule::RxAssert);
+                self.push(Rule::RegexAssert);
                 return Some(p + len);
             }
             if b2 == b':' {
                 self.capture(
-                    Rule::RxGroup,
+                    Rule::RegexGroup,
                     p,
                     p + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Rule::RxGroup,
+                    Rule::RegexGroup,
                     p + 1,
                     p + 3,
                     &[
@@ -352,7 +352,7 @@ impl<const D: u8> Lexer<'_, D> {
                         S::PunctuationDefinitionGroupNoCaptureRegexp,
                     ],
                 );
-                self.push(Rule::RxGroup);
+                self.push(Rule::RegexGroup);
                 return Some(p + 3);
             }
             if b2 == b'<'
@@ -360,40 +360,40 @@ impl<const D: u8> Lexer<'_, D> {
                 && self.byte(n) == b'>'
             {
                 self.capture(
-                    Rule::RxGroup,
+                    Rule::RegexGroup,
                     p,
                     p + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Rule::RxGroup,
+                    Rule::RegexGroup,
                     p + 1,
                     p + 3,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Rule::RxGroup,
+                    Rule::RegexGroup,
                     p + 3,
                     n,
                     &[S::PunctuationDefinitionGroupRegexp, S::VariableOtherRegexp],
                 );
                 self.capture(
-                    Rule::RxGroup,
+                    Rule::RegexGroup,
                     n,
                     n + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
-                self.push(Rule::RxGroup);
+                self.push(Rule::RegexGroup);
                 return Some(n + 1);
             }
         }
         self.capture(
-            Rule::RxGroup,
+            Rule::RegexGroup,
             p,
             p + 1,
             &[S::PunctuationDefinitionGroupRegexp],
         );
-        self.push(Rule::RxGroup);
+        self.push(Rule::RegexGroup);
         Some(p + 1)
     }
 

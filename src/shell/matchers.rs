@@ -100,10 +100,10 @@ impl Lexer<'_> {
             Pattern::PipeOp => self.m_pipe(p),
             Pattern::Sep => self.m_separator(p),
             Pattern::LineCont => self.m_line_continuation(p),
-            Pattern::VarAt => self.m_var_at(p),
-            Pattern::VarDigit => self.m_var_digit(p),
-            Pattern::VarSpecial => self.m_var_special(p),
-            Pattern::VarName => self.m_var_name(p),
+            Pattern::VariableAt => self.m_var_at(p),
+            Pattern::VariableDigit => self.m_var_digit(p),
+            Pattern::VariableSpecial => self.m_var_special(p),
+            Pattern::VariableName => self.m_var_name(p),
             Pattern::HerestringWord => self.m_herestring_word(p),
             Pattern::RedirectOp => self.m_redirect_op(p),
             Pattern::RedirectNum => self.m_redirect_number(p),
@@ -158,10 +158,10 @@ impl Lexer<'_> {
             Pattern::RedirectFix => self.m_redirect_fix(p),
             Pattern::AliasB => self.m_alias(p),
             Pattern::ArgB => self.m_argument_begin(p),
-            Pattern::ArithDoubleB => {
+            Pattern::ArithmeticDoubleB => {
                 self.m_text(p, b"((", scopes![S::PunctuationSectionArithmeticDouble])
             }
-            Pattern::ArithSingleB => {
+            Pattern::ArithmeticSingleB => {
                 self.m_single(p, b'(', scopes![S::PunctuationSectionArithmeticSingle])
             }
             Pattern::ArrayValueB => self.m_array_value(p),
@@ -254,14 +254,14 @@ impl Lexer<'_> {
             Pattern::SubshellB => {
                 self.m_text(p, b"$(", scopes![S::PunctuationDefinitionSubshellSingle])
             }
-            Pattern::VarPositionalB => self.m_var_positional_begin(p),
-            Pattern::VarBraceB => self.m_var_brace_begin(p),
+            Pattern::VariablePositionalB => self.m_var_positional_begin(p),
+            Pattern::VariableBraceB => self.m_var_brace_begin(p),
             Pattern::WhileB => self.m_keyword_word(p, b"while", scopes![S::KeywordControlWhile]),
             Pattern::EndStatement => self.m_end_statement(p),
             Pattern::EndOption => self.m_end_option(p),
             Pattern::EndArg => self.m_end_argument(p),
             Pattern::EndAlias => self.m_end_alias(p),
-            Pattern::EndArithDouble => self.m_end_arith_double(p),
+            Pattern::EndArithmeticDouble => self.m_end_arith_double(p),
             Pattern::EndCase => self.m_end_case(p),
             Pattern::EndCasePattern => self.m_end_case_pattern(p),
             Pattern::EndCaseBody => self.m_end_case_body(p),

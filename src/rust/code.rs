@@ -74,7 +74,7 @@ pub(crate) fn groups(rule: Rule) -> &'static [Group] {
             Strings,
             Variables,
         ],
-        Rule::FnDef => &[
+        Rule::FunctionDefinition => &[
             BlockComments,
             Comments,
             Keywords,
@@ -117,7 +117,7 @@ pub(crate) fn groups(rule: Rule) -> &'static [Group] {
             Types,
             Variables,
         ],
-        Rule::AngleSq => &[
+        Rule::AngleSquare => &[
             BlockComments,
             Comments,
             Gtypes,
@@ -146,7 +146,7 @@ pub(crate) fn groups(rule: Rule) -> &'static [Group] {
             Lvariables,
         ],
         Rule::Import => &[BlockComments, Comments, Keywords, Punctuation],
-        Rule::Str | Rule::Raw | Rule::Char | Rule::Block | Rule::Doc => &[],
+        Rule::String | Rule::Raw | Rule::Char | Rule::Block | Rule::Doc => &[],
     }
 }
 
@@ -195,7 +195,7 @@ impl Lexer<'_> {
         match b {
             b'<' if self.at(p + 1) == b'[' => {
                 self.gap(p);
-                if !self.push(Rule::AngleSq) {
+                if !self.push(Rule::AngleSquare) {
                     return None;
                 }
                 self.tok(p + 1, &[S::Angle]);
@@ -554,7 +554,7 @@ impl Lexer<'_> {
                 && matches!(self.at(end), b'(' | b'<')
             {
                 self.gap(p);
-                if self.push(Rule::FnDef) {
+                if self.push(Rule::FunctionDefinition) {
                     let open = if self.at(end) == b'(' {
                         S::Round
                     } else {

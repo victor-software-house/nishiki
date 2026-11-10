@@ -65,11 +65,11 @@ pub(crate) enum Rule {
     /// An attribute, up to the next one. The payload is an [`AttributeInfo`].
     Attribute,
     /// `=` and the value after it.
-    Value,
+    AttributeValue,
     /// `=` and the value of a `style` attribute.
-    ValueCss,
+    AttributeValueCss,
     /// `=` and the value of an event handler.
-    ValueJs,
+    AttributeValueJs,
     /// The first value of a `style` attribute.
     WrapCss,
     /// The first value of an event handler.
@@ -103,7 +103,7 @@ pub(crate) enum Rule {
     /// Vue: `<!--` up to `-->`.
     VueComment,
     /// Vue: `<!-- @name` up to `-->`.
-    VueCommentKv,
+    VueCommentKeyValue,
     /// Vue: a tag that its line closes with `/>`, up to `/>`.
     VueSelfClosing,
     /// Vue: the `<` of a block up to its `>`.
@@ -144,17 +144,17 @@ pub(crate) enum Rule {
     /// is the interned name.
     VueCapitalized,
     /// Vue: the attributes of such a tag.
-    VueCapitalizedAttrs,
+    VueCapitalizedAttributes,
     /// Vue: a directive and its value. The payload is 1 for a control
     /// directive.
     VueDirective,
     /// Vue: a directive's quoted value. The payload is the quote.
-    VueExprString,
+    VueExpressionString,
     /// Vue: a directive's value that no quote opened.
-    VueExprBare,
+    VueExpressionBare,
     /// Vue: the TypeScript of a directive's value. The payload is the lexer's
     /// state.
-    VueExpr,
+    VueExpression,
     /// Blade: `{{--` up to `--}}`.
     BladeComment,
     /// Blade: the blanks before `<?` in a comment, when the line does not close
@@ -192,7 +192,7 @@ pub(crate) enum Rule {
     BladeDirectiveCustom,
     /// Blade: the arguments of a closing directive, such as `@endif(`, up to
     /// `)`, as `comment.blade`.
-    BladeArgsComment,
+    BladeArgumentsComment,
     /// Blade: a `(` in those arguments, up to its `)`.
     BladeBalance,
     /// Blade: `@php` up to `@endphp`. The payload is the PHP lexer's state.
@@ -230,9 +230,9 @@ impl Rule {
         Rule::ScriptOtherOuter,
         Rule::BodyOther,
         Rule::Attribute,
-        Rule::Value,
-        Rule::ValueCss,
-        Rule::ValueJs,
+        Rule::AttributeValue,
+        Rule::AttributeValueCss,
+        Rule::AttributeValueJs,
         Rule::WrapCss,
         Rule::WrapJs,
         Rule::StringPlain,
@@ -247,7 +247,7 @@ impl Rule {
         Rule::ErbBlock,
         Rule::ErbLine,
         Rule::VueComment,
-        Rule::VueCommentKv,
+        Rule::VueCommentKeyValue,
         Rule::VueSelfClosing,
         Rule::VueBlock,
         Rule::VueElement,
@@ -263,11 +263,11 @@ impl Rule {
         Rule::VueTemplateTag,
         Rule::VueTemplateTagEnd,
         Rule::VueCapitalized,
-        Rule::VueCapitalizedAttrs,
+        Rule::VueCapitalizedAttributes,
         Rule::VueDirective,
-        Rule::VueExprString,
-        Rule::VueExprBare,
-        Rule::VueExpr,
+        Rule::VueExpressionString,
+        Rule::VueExpressionBare,
+        Rule::VueExpression,
         Rule::BladeComment,
         Rule::BladeCommentPhpWrap,
         Rule::BladeCommentPhpBlock,
@@ -282,7 +282,7 @@ impl Rule {
         Rule::BladeEchoEscaped,
         Rule::BladeDirective,
         Rule::BladeDirectiveCustom,
-        Rule::BladeArgsComment,
+        Rule::BladeArgumentsComment,
         Rule::BladeBalance,
         Rule::BladePhpSection,
         Rule::BladeAttribute,
@@ -321,7 +321,7 @@ impl Rule {
                 | Rule::WrapCss
                 | Rule::WrapJs
                 | Rule::VueComment
-                | Rule::VueCommentKv
+                | Rule::VueCommentKeyValue
         )
     }
 
@@ -345,7 +345,7 @@ impl Rule {
             | Rule::JsLineComment
             | Rule::JsBlockComment
             | Rule::VueComment
-            | Rule::VueCommentKv => true,
+            | Rule::VueCommentKeyValue => true,
             Rule::Root
             | Rule::Cdata
             | Rule::Doctype
@@ -370,9 +370,9 @@ impl Rule {
             | Rule::ScriptOtherOuter
             | Rule::BodyOther
             | Rule::Attribute
-            | Rule::Value
-            | Rule::ValueCss
-            | Rule::ValueJs
+            | Rule::AttributeValue
+            | Rule::AttributeValueCss
+            | Rule::AttributeValueJs
             | Rule::WrapCss
             | Rule::WrapJs
             | Rule::StringPlain
@@ -397,7 +397,7 @@ impl Rule {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute
@@ -416,11 +416,11 @@ impl Rule {
             | Rule::VueTemplateTag
             | Rule::VueTemplateTagEnd
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
-            | Rule::VueExpr => false,
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
+            | Rule::VueExpression => false,
         }
     }
 }
@@ -493,9 +493,9 @@ impl Rule {
             | Rule::ScriptOtherOuter
             | Rule::BodyOther
             | Rule::Attribute
-            | Rule::Value
-            | Rule::ValueCss
-            | Rule::ValueJs
+            | Rule::AttributeValue
+            | Rule::AttributeValueCss
+            | Rule::AttributeValueJs
             | Rule::StringPlain
             | Rule::StringCss
             | Rule::StringJs
@@ -515,11 +515,11 @@ impl Rule {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladeAttribute
             | Rule::VueComment
-            | Rule::VueCommentKv
+            | Rule::VueCommentKeyValue
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueElement
@@ -535,11 +535,11 @@ impl Rule {
             | Rule::VueTemplateTag
             | Rule::VueTemplateTagEnd
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
-            | Rule::VueExpr => parent,
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
+            | Rule::VueExpression => parent,
         }
     }
 }

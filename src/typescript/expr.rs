@@ -379,8 +379,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Rule::ArrLit, j, j + 1, &[S::MetaBraceSquare]);
-        self.push(Rule::ArrLit);
+        self.capture(Rule::ArrayLiteral, j, j + 1, &[S::MetaBraceSquare]);
+        self.push(Rule::ArrayLiteral);
         Some(j + 1)
     }
 
@@ -388,14 +388,19 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) != b'{' {
             return None;
         }
-        self.open_token(Rule::ObjLit, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(
+            Rule::ObjectLiteral,
+            p,
+            p + 1,
+            &[S::PunctuationDefinitionBlock],
+        )
     }
 
     pub(crate) fn paren_expression(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) != b'(' {
             return None;
         }
-        self.open_token(Rule::ParenExpr, p, p + 1, &[S::MetaBraceRound])
+        self.open_token(Rule::ParenExpression, p, p + 1, &[S::MetaBraceRound])
     }
 
     /// The built-in objects and their members, such as `arguments`, `Promise`

@@ -15,7 +15,7 @@ use std::cell::Cell;
 
 use super::lists::{EOT, P, Table, blank_run_live, place};
 use super::scope::S;
-use super::state::R;
+use super::state::Rule;
 use crate::language::{Halts, NO_HALTS};
 use crate::rules::{self, Act, Captures, Grammar, ScopeName};
 use crate::scope::Scopes;
@@ -153,7 +153,7 @@ pub(super) enum Head {
 impl Grammar for C {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
-    type Rule = R;
+    type Rule = Rule;
     type Pattern = P;
     type Nested = Nested;
     type Extra = Extra;
@@ -161,7 +161,7 @@ impl Grammar for C {
 
     const NAME: &'static str = "C";
     const SOURCE: crate::scope::Scope = S::Source.scope();
-    const ROOT: R = R::Top;
+    const ROOT: Rule = Rule::Top;
     const GROUPS: usize = 1;
     const CAPTURED_EOL: bool = true;
     const NESTED_SPANS: bool = true;
@@ -170,19 +170,19 @@ impl Grammar for C {
         ScopeName::Fixed(scope.scope())
     }
 
-    fn rule_code(rule: R) -> u16 {
+    fn rule_code(rule: Rule) -> u16 {
         rule.code()
     }
 
-    fn rule_from_code(code: u16) -> R {
-        R::from_code(code)
+    fn rule_from_code(code: u16) -> Rule {
+        Rule::from_code(code)
     }
 
-    fn rule_name(rule: R) -> Scopes<S> {
+    fn rule_name(rule: Rule) -> Scopes<S> {
         rule.name()
     }
 
-    fn rule_content(rule: R) -> Scopes<S> {
+    fn rule_content(rule: Rule) -> Scopes<S> {
         rule.content()
     }
 

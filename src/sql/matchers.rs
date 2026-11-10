@@ -165,10 +165,10 @@ impl Lexer<'_> {
         let text = &self.s[p.min(self.lim())..self.lim()];
         let found = match rule {
             Rule::LineComment => None,
-            Rule::StrSingle => memchr2(b'\'', b'\\', text),
-            Rule::StrBacktick => memchr2(b'`', b'\\', text),
-            Rule::StrDouble => memchr2(b'"', b'#', text),
-            Rule::StrBrace | Rule::StrModr => memchr2(b'}', b'#', text),
+            Rule::StringSingle => memchr2(b'\'', b'\\', text),
+            Rule::StringBacktick => memchr2(b'`', b'\\', text),
+            Rule::StringDouble => memchr2(b'"', b'#', text),
+            Rule::StringBrace | Rule::StringRegex => memchr2(b'}', b'#', text),
             Rule::Bracket => memchr2(b'[', b']', text),
             Rule::BlockComment => memchr2(b'/', b'*', text),
             Rule::Root => return self.root_skip::<false>(p, &NO_HALTS),
@@ -285,10 +285,10 @@ impl Lexer<'_> {
                 .get(p..self.lim())
                 .is_some_and(|rest| rest.starts_with(b"*/"))
                 .then(|| Hit::new(p, p + 2).capture(0, p, p + 2, S::PunctComment)),
-            Rule::StrSingle => one(b'\'', S::PunctStrEnd),
-            Rule::StrBacktick => one(b'`', S::PunctStrEnd),
-            Rule::StrDouble => one(b'"', S::PunctStrEnd),
-            Rule::StrBrace | Rule::StrModr => one(b'}', S::PunctStrEnd),
+            Rule::StringSingle => one(b'\'', S::PunctStrEnd),
+            Rule::StringBacktick => one(b'`', S::PunctStrEnd),
+            Rule::StringDouble => one(b'"', S::PunctStrEnd),
+            Rule::StringBrace | Rule::StringRegex => one(b'}', S::PunctStrEnd),
         }
     }
 
@@ -333,9 +333,9 @@ impl Lexer<'_> {
             Pattern::Concat => self.text_hit(p, b"||"),
             Pattern::Function => self.function(p),
             Pattern::DbTable => self.db_table(p),
-            Pattern::StrSingleFull => self.single_quoted(p),
-            Pattern::StrBacktickFull => self.closed(p, b'`', |b| b == b'`' || b == b'\\'),
-            Pattern::StrDoubleFull => self.closed(p, b'"', |b| b == b'"' || b == b'#'),
+            Pattern::StringSingleFull => self.single_quoted(p),
+            Pattern::StringBacktickFull => self.closed(p, b'`', |b| b == b'`' || b == b'\\'),
+            Pattern::StringDoubleFull => self.closed(p, b'"', |b| b == b'"' || b == b'#'),
             Pattern::Keyword => self.keyword(p),
             Pattern::Parens => self.parens(p),
             Pattern::Escape => self.escape(p),
@@ -345,11 +345,11 @@ impl Lexer<'_> {
             Pattern::CommentHashBegin => self.comment_begin(p, b"#"),
             Pattern::LineCommentBegin => self.begin(p, b"--", S::PunctComment),
             Pattern::BlockBegin => self.begin(p, b"/*", S::PunctComment),
-            Pattern::StrSingleBegin => self.begin(p, b"'", S::PunctStrBegin),
-            Pattern::StrBacktickBegin => self.begin(p, b"`", S::PunctStrBegin),
-            Pattern::StrDoubleBegin => self.begin(p, b"\"", S::PunctStrBegin),
-            Pattern::StrBraceBegin => self.begin(p, b"%{", S::PunctStrBegin),
-            Pattern::StrModrBegin => self.begin(p, b"%r{", S::PunctStrBegin),
+            Pattern::StringSingleBegin => self.begin(p, b"'", S::PunctStrBegin),
+            Pattern::StringBacktickBegin => self.begin(p, b"`", S::PunctStrBegin),
+            Pattern::StringDoubleBegin => self.begin(p, b"\"", S::PunctStrBegin),
+            Pattern::StringBraceBegin => self.begin(p, b"%{", S::PunctStrBegin),
+            Pattern::StringRegexBegin => self.begin(p, b"%r{", S::PunctStrBegin),
             Pattern::End => self.end_at(self.top_rule(), p),
         }
     }

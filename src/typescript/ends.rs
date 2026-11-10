@@ -39,74 +39,80 @@ impl<const D: u8> Lexer<'_, D> {
             | Rule::Started
             | Rule::Script
             | Rule::Expression
-            | Rule::ObjMember
-            | Rule::EntryObjLit
-            | Rule::EntryObjBind
-            | Rule::EntryObjBindConst
-            | Rule::EntryArrBind
-            | Rule::EntryArrBindConst
-            | Rule::EntryTypeParams
+            | Rule::ObjectMember
+            | Rule::EntryObjectLiteral
+            | Rule::EntryObjectBinding
+            | Rule::EntryObjectBindingConst
+            | Rule::EntryArrayBinding
+            | Rule::EntryArrayBindingConst
+            | Rule::EntryTypeParameters
             | Rule::EntryTemplate => None,
             Rule::JsxExpressionNoAttributes => {
                 self.end_zero(self.jsx_expression_no_attributes_ends(p), p)
             }
             Rule::JsxNoAttributes => self.jsx_no_attributes_end(p),
-            Rule::JsxExprTag => self.end_zero(self.jsx_expr_tag_ends(p), p),
+            Rule::JsxExpressionTag => self.end_zero(self.jsx_expr_tag_ends(p), p),
             Rule::JsxTag => self.jsx_tag_end(p),
             Rule::JsxTagOpen | Rule::JsxAttributes => self.end_zero(self.jsx_open_ends(p), p),
             Rule::JsxTagBody => self.end_zero(self.starts(p, "</"), p),
-            Rule::JsxEval => self.end_char(p, b'}', S::PunctuationSectionEmbeddedEnd),
-            Rule::JsxStrDouble => self.end_char(p, b'"', S::PunctuationDefinitionStringEnd),
-            Rule::JsxStrSingle => self.end_char(p, b'\'', S::PunctuationDefinitionStringEnd),
+            Rule::JsxEmbeddedExpression => self.end_char(p, b'}', S::PunctuationSectionEmbeddedEnd),
+            Rule::JsxStringDouble => self.end_char(p, b'"', S::PunctuationDefinitionStringEnd),
+            Rule::JsxStringSingle => self.end_char(p, b'\'', S::PunctuationDefinitionStringEnd),
             Rule::Block
-            | Rule::ObjLit
+            | Rule::ObjectLiteral
             | Rule::ClassBody
-            | Rule::SwitchStmt
+            | Rule::SwitchStatement
             | Rule::EnumBody
             | Rule::AssertClause
-            | Rule::TypeObj
+            | Rule::TypeObject
             | Rule::ImportBlock => self.end_char(p, b'}', BLOCK),
-            Rule::ArrLit | Rule::TypeTuple => self.end_char(p, b']', S::MetaBraceSquare),
-            Rule::ArrBind | Rule::ArrBindConst | Rule::ParamArrBind | Rule::ParamArrPattern => {
+            Rule::ArrayLiteral | Rule::TypeTuple => self.end_char(p, b']', S::MetaBraceSquare),
+            Rule::ArrayBinding
+            | Rule::ArrayBindingConst
+            | Rule::ParameterArrayBinding
+            | Rule::ParameterArrayPattern => {
                 self.end_char(p, b']', S::PunctuationDefinitionBindingPatternArray)
             }
-            Rule::ObjBind | Rule::ObjBindConst | Rule::ParamObjBind | Rule::ParamObjPattern => {
+            Rule::ObjectBinding
+            | Rule::ObjectBindingConst
+            | Rule::ParameterObjectBinding
+            | Rule::ParameterObjectPattern => {
                 self.end_char(p, b'}', S::PunctuationDefinitionBindingPatternObject)
             }
-            Rule::ParenExpr
+            Rule::ParenExpression
             | Rule::ForParen
-            | Rule::SwitchExpr
+            | Rule::SwitchExpression
             | Rule::IfParen
-            | Rule::ParenArrowParams
-            | Rule::ObjArrowParen
+            | Rule::ParenArrowParameters
+            | Rule::ObjectArrowParen
             | Rule::TypeParen
-            | Rule::ImportEqExt => self.end_char(p, b')', ROUND),
-            Rule::Params => self.end_char(p, b')', S::PunctuationDefinitionParametersEnd),
+            | Rule::ImportEqualsExternal => self.end_char(p, b')', ROUND),
+            Rule::Parameters => self.end_char(p, b')', S::PunctuationDefinitionParametersEnd),
             Rule::Cast => self.end_char(p, b'>', S::MetaBraceAngle),
-            Rule::ArrowHead | Rule::ArrowRet | Rule::PossArrowRet => {
+            Rule::ArrowHead | Rule::ArrowReturn | Rule::PossibleArrowReturn => {
                 self.end_zero(self.arrow_end_at(p), p)
             }
             Rule::ArrowBody => self.end_zero(self.arrow_body_end_at(p), p),
-            Rule::ArrowRetObj
-            | Rule::ClassDecl
-            | Rule::EnumDecl
-            | Rule::InterfaceDecl
+            Rule::ArrowReturnObject
+            | Rule::ClassDeclaration
+            | Rule::EnumDeclaration
+            | Rule::InterfaceDeclaration
             | Rule::LabelBlock
-            | Rule::TypeFnRetObj
-            | Rule::RetObj
-            | Rule::TypeOpObj
+            | Rule::TypeFunctionReturnObject
+            | Rule::ReturnObject
+            | Rule::TypeOperatorObject
             | Rule::ForLoop
-            | Rule::ObjArrowGeneric
-            | Rule::PossArrow
-            | Rule::TypeCtor
-            | Rule::TypeFn => {
+            | Rule::ObjectArrowGeneric
+            | Rule::PossibleArrow
+            | Rule::TypeConstructor
+            | Rule::TypeFunction => {
                 let want = if matches!(
                     rule,
                     Rule::ForLoop
-                        | Rule::ObjArrowGeneric
-                        | Rule::PossArrow
-                        | Rule::TypeCtor
-                        | Rule::TypeFn
+                        | Rule::ObjectArrowGeneric
+                        | Rule::PossibleArrow
+                        | Rule::TypeConstructor
+                        | Rule::TypeFunction
                 ) {
                     ')'
                 } else {
@@ -114,17 +120,17 @@ impl<const D: u8> Lexer<'_, D> {
                 };
                 self.end_zero(self.prev_char(p) == Some(want), p)
             }
-            Rule::ObjArrowOpen | Rule::TypeCtorTp => {
+            Rule::ObjectArrowOpen | Rule::TypeConstructorTypeParameters => {
                 self.end_zero(self.prev_char(p) == Some('>'), p)
             }
-            Rule::TypeCond => self.end_zero(self.prev_char(p) == Some(':'), p),
-            Rule::JsBraces => {
+            Rule::TypeConditional => self.end_zero(self.prev_char(p) == Some(':'), p),
+            Rule::JsDocBraces => {
                 if self.byte(p) == b'}' {
                     return Some(self.close(p, p + 1, &[]));
                 }
                 self.end_zero(self.starts(p, "*/"), p)
             }
-            Rule::JsBrackets => {
+            Rule::JsDocBrackets => {
                 if self.byte(p) == b']' {
                     return Some(self.close(p, p + 1, &[]));
                 }
@@ -151,7 +157,7 @@ impl<const D: u8> Lexer<'_, D> {
                 self.end_zero(self.starts(p, "</script"), p)
             }
             Rule::CommentLine | Rule::Directive => self.end_zero(self.eol(p), p),
-            Rule::CommentLineNl => self.end_zero(Self::bol(p), p),
+            Rule::CommentLineNewline => self.end_zero(Self::bol(p), p),
             Rule::Return => self.end_zero(self.statement_end(p), p),
             Rule::SwitchBlock => self.end_zero(self.byte(p) == b'}', p),
             Rule::CaseClause => self.end_zero(self.byte(p) == b':', p),
@@ -163,23 +169,24 @@ impl<const D: u8> Lexer<'_, D> {
             }
             Rule::IfOuter => self.end_zero(matches!(self.byte(p), b';' | b'}') || self.eol(p), p),
             Rule::Decorator => self.end_zero(self.space_at(p), p),
-            Rule::ObjBindVar | Rule::ArrBindVar | Rule::ObjBindVarConst | Rule::ArrBindVarConst => {
-                self.end_zero(
-                    self.eol(p)
-                        || Self::bol(p)
-                        || matches!(self.byte(p), b',' | b';' | b'=' | b'}')
-                        || self.of_in_ahead(p),
-                    p,
-                )
-            }
+            Rule::ObjectBindingVariable
+            | Rule::ArrayBindingVariable
+            | Rule::ObjectBindingVariableConst
+            | Rule::ArrayBindingVariableConst => self.end_zero(
+                self.eol(p)
+                    || Self::bol(p)
+                    || matches!(self.byte(p), b',' | b';' | b'=' | b'}')
+                    || self.of_in_ahead(p),
+                p,
+            ),
             Rule::DirectiveTag => {
                 if self.starts(p, "/>") {
                     return Some(self.close(p, p + 2, &[S::PunctuationDefinitionTagDirective]));
                 }
                 None
             }
-            Rule::JsExample => self.end_zero(self.byte(p) == b'@' || self.starts(p, "*/"), p),
-            Rule::JsCaption => {
+            Rule::JsDocExample => self.end_zero(self.byte(p) == b'@' || self.starts(p, "*/"), p),
+            Rule::JsDocCaption => {
                 if self.starts(p, "</caption>") {
                     let tag = S::EntityNameTagInlineJsdoc;
                     self.flush(p);
@@ -201,10 +208,11 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 self.end_zero(self.starts(p, "*/"), p)
             }
-            Rule::JsTypeTag | Rule::JsParamTag | Rule::JsTypedefTag | Rule::JsRetTag => {
-                self.end_zero(self.doc_type_tag_end(p), p)
-            }
-            Rule::JsDefaultQuote => {
+            Rule::JsDocTypeTag
+            | Rule::JsDocParamTag
+            | Rule::JsDocTypedefTag
+            | Rule::JsDocReturnTag => self.end_zero(self.doc_type_tag_end(p), p),
+            Rule::JsDocDefaultQuote => {
                 if u32::from(self.byte(p)) == self.payload() && p < self.len {
                     return Some(self.close(
                         p,
@@ -217,7 +225,7 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 self.end_zero(self.eol(p) || self.starts(p, "*/"), p)
             }
-            Rule::JsInlineLink => {
+            Rule::JsDocInlineLink => {
                 if self.byte(p) == b'}' {
                     return Some(self.close(
                         p,
@@ -227,7 +235,7 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 self.end_zero(self.starts(p, "*/"), p)
             }
-            Rule::JsType => {
+            Rule::JsDocType => {
                 if self.byte(p) == b'}' {
                     let e = self.close(
                         p,
@@ -257,14 +265,14 @@ impl<const D: u8> Lexer<'_, D> {
                 p,
             ),
             Rule::Call2Target => self.end_zero(self.open_generic_at(p), p),
-            Rule::FuncDecl => self.end_zero(
+            Rule::FunctionDeclaration => self.end_zero(
                 self.byte(p) == b';'
                     || self.blank_line_at(p)
                     || self.statement_start_at(p)
                     || self.prev_char(p) == Some('}'),
                 p,
             ),
-            Rule::FuncExpr => {
+            Rule::FunctionExpression => {
                 self.end_zero(self.byte(p) == b';' || self.prev_char(p) == Some('}'), p)
             }
             Rule::Import => self.end_zero(
@@ -278,12 +286,12 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 None
             }
-            Rule::ImportEqInt => {
+            Rule::ImportEqualsInternal => {
                 self.end_zero(self.byte(p) == b';' || self.eol(p) || Self::bol(p), p)
             }
             Rule::Indexer | Rule::IndexerMapped => self.end_indexer(rule, p),
             Rule::InstanceOf => self.end_zero(self.instanceof_end(p), p),
-            Rule::NewExpr => self.end_zero(self.new_end(p), p),
+            Rule::NewExpression => self.end_zero(self.new_end(p), p),
             Rule::Method => self.end_zero(
                 matches!(self.byte(p), b',' | b';' | b'}')
                     || self.eol(p)
@@ -291,38 +299,39 @@ impl<const D: u8> Lexer<'_, D> {
                 p,
             ),
             Rule::YieldComment => self.end_char(p, b'*', S::KeywordGeneratorAsterisk),
-            Rule::MethodName | Rule::ObjMethodNested => {
+            Rule::MethodName | Rule::ObjectMethodNested => {
                 self.end_zero(matches!(self.byte(p), b'(' | b'<'), p)
             }
-            Rule::ObjMethod | Rule::ObjMethodAfterKey => self.end_zero(
+            Rule::ObjectMethod | Rule::ObjectMethodAfterKey => self.end_zero(
                 matches!(self.byte(p), b',' | b';' | b'}') || self.prev_char(p) == Some('}'),
                 p,
             ),
-            Rule::NamespaceDecl => self.end_zero(
+            Rule::NamespaceDeclaration => self.end_zero(
                 self.prev_char(p) == Some('}')
                     || self.byte(p) == b';'
                     || self.blank_line_at(p)
                     || self.statement_start_at(p),
                 p,
             ),
-            Rule::ObjBindElem | Rule::ObjBindElemConst | Rule::ParamObjElem | Rule::ObjSpread => {
-                self.end_zero(matches!(self.byte(p), b',' | b'}'), p)
-            }
-            Rule::ObjValue => self.end_zero(matches!(self.byte(p), b',' | b'}'), p),
+            Rule::ObjectBindingElement
+            | Rule::ObjectBindingElementConst
+            | Rule::ParameterObjectElement
+            | Rule::ObjectSpread => self.end_zero(matches!(self.byte(p), b',' | b'}'), p),
+            Rule::ObjectPropertyValue => self.end_zero(matches!(self.byte(p), b',' | b'}'), p),
             Rule::ObjectBindingProperty => self.end_char(p, b':', S::PunctuationDestructuring),
-            Rule::ObjKeyBracket => self.end_zero(
+            Rule::ObjectKeyBracket => self.end_zero(
                 self.byte(p) == b':'
                     || (self.prev_char(p) == Some(']')
                         && matches!(self.byte(self.ws(p)), b'(' | b'<')),
                 p,
             ),
-            Rule::ObjKeyStr => self.end_zero(
+            Rule::ObjectKeyString => self.end_zero(
                 self.byte(p) == b':'
                     || (matches!(self.prev_char(p), Some('"' | '\'' | '`'))
                         && self.key_string_tail(p)),
                 p,
             ),
-            Rule::ObjKeyNum => {
+            Rule::ObjectKeyNumber => {
                 let j = self.ws(p);
                 let ok = self.byte(p) == b':'
                     || matches!(self.byte(j), b'(' | b',' | b'<' | b'}')
@@ -330,24 +339,24 @@ impl<const D: u8> Lexer<'_, D> {
                     || self.starts(p, "satisi\x66ies");
                 self.end_zero(ok, p)
             }
-            Rule::ObjAs | Rule::AsType => self.end_zero(self.as_type_end(rule, p), p),
-            Rule::ObjInit => self.end_zero(
+            Rule::ObjectAs | Rule::AsType => self.end_zero(self.as_type_end(rule, p), p),
+            Rule::ObjectInitializer => self.end_zero(
                 matches!(self.byte(p), b',' | b'}')
                     || self.eol(p)
                     || self.starts(p, "//")
                     || self.starts(p, "/*"),
                 p,
             ),
-            Rule::ParamTypeAnn => self.end_zero(
+            Rule::ParameterTypeAnnotation => self.end_zero(
                 matches!(self.byte(p), b')' | b',')
                     || (self.byte(p) == b'=' && self.byte(p + 1) != b'>'),
                 p,
             ),
             Rule::Regex => self.end_regex(p),
-            Rule::RxGroup | Rule::RxAssert => {
+            Rule::RegexGroup | Rule::RegexAssert => {
                 self.end_char(p, b')', S::PunctuationDefinitionGroupRegexp)
             }
-            Rule::RxSet => self.end_char(p, b']', S::PunctuationDefinitionCharacterClassRegexp),
+            Rule::RegexSet => self.end_char(p, b']', S::PunctuationDefinitionCharacterClassRegexp),
             Rule::ReturnType1 => self.end_zero(
                 !matches!(self.prev_char(p), Some('&' | ':' | '|'))
                     && (self.eol(p)
@@ -357,8 +366,8 @@ impl<const D: u8> Lexer<'_, D> {
                 p,
             ),
             Rule::ReturnType2 => self.end_zero(self.return_type2_end(p), p),
-            Rule::StrSingle => self.end_string(p, b'\''),
-            Rule::StrDouble => self.end_string(p, b'"'),
+            Rule::StringSingle => self.end_string(p, b'\''),
+            Rule::StringDouble => self.end_string(p, b'"'),
             Rule::Template | Rule::TemplateType => {
                 if self.byte(p) == b'`' {
                     return Some(self.close(
@@ -369,7 +378,7 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 None
             }
-            Rule::TemplateExpr | Rule::TemplateTypeExpr => {
+            Rule::TemplateExpression | Rule::TemplateTypeExpression => {
                 self.end_char(p, b'}', S::PunctuationDefinitionTemplateExpressionEnd)
             }
             Rule::TemplateCall | Rule::TemplateCall2 => self.end_zero(self.byte(p) == b'`', p),
@@ -381,12 +390,12 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 None
             }
-            Rule::TypeAnn1 => self.type_ann_close(p, TypeStart::SameLine),
-            Rule::TypeAnn2 => self.type_ann_close(p, TypeStart::NextLine),
-            Rule::TypeArgs | Rule::TypeParams => {
+            Rule::TypeAnnotation1 => self.type_ann_close(p, TypeStart::SameLine),
+            Rule::TypeAnnotation2 => self.type_ann_close(p, TypeStart::NextLine),
+            Rule::TypeArguments | Rule::TypeParameters => {
                 self.end_char(p, b'>', S::PunctuationDefinitionTypeparametersEnd)
             }
-            Rule::TypeNameArgs => (p < self.len && self.byte(p) == b'>').then(|| {
+            Rule::TypeNameArguments => (p < self.len && self.byte(p) == b'>').then(|| {
                 self.close(
                     p,
                     p + 1,
@@ -396,31 +405,39 @@ impl<const D: u8> Lexer<'_, D> {
                     ],
                 )
             }),
-            Rule::TypeAlias | Rule::TypeAliasEq => self.end_zero(
+            Rule::TypeAlias | Rule::TypeAliasEquals => self.end_zero(
                 matches!(self.byte(p), b';' | b'}')
                     || self.blank_line_at(p)
                     || self.statement_start_at(p),
                 p,
             ),
-            Rule::TypeCondQ => self.end_char(p, b':', S::KeywordOperatorTernary),
-            Rule::TypeFnRet1 => self.end_zero(self.type_fn_ret_end(p, TypeStart::SameLine), p),
-            Rule::TypeFnRet2 => self.end_zero(self.type_fn_ret_end(p, TypeStart::NextLine), p),
+            Rule::TypeConditionalQuestionMark => self.end_char(p, b':', S::KeywordOperatorTernary),
+            Rule::TypeFunctionReturn1 => {
+                self.end_zero(self.type_fn_ret_end(p, TypeStart::SameLine), p)
+            }
+            Rule::TypeFunctionReturn2 => {
+                self.end_zero(self.type_fn_ret_end(p, TypeStart::NextLine), p)
+            }
             Rule::TypeSpread => self.end_zero(
                 matches!(self.byte(p), b',' | b';' | b'}')
                     || self.eol(p)
                     || self.prev_char(p) == Some('}'),
                 p,
             ),
-            Rule::TypeOp => {
+            Rule::TypeOperator => {
                 self.end_zero(!self.space_at(p) && p <= self.len && self.byte(p) != 0, p)
             }
             Rule::Typeof => self.end_zero(self.typeof_end(p), p),
-            Rule::VarLet => self.end_var(p, VarKeyword::Let),
-            Rule::VarConst => self.end_var(p, VarKeyword::Const),
-            Rule::VarUsing => self.end_var(p, VarKeyword::Using),
-            Rule::VarKw => self.end_zero(self.byte(p) != 0 && !self.space_at(p) && p < self.len, p),
-            Rule::VarComma | Rule::VarCommaConst | Rule::VarCommaUsing => self.end_var_comma(p),
-            Rule::VarSingle => self.end_zero(
+            Rule::VariableLet => self.end_var(p, VarKeyword::Let),
+            Rule::VariableConst => self.end_var(p, VarKeyword::Const),
+            Rule::VariableUsing => self.end_var(p, VarKeyword::Using),
+            Rule::VariableKeyword => {
+                self.end_zero(self.byte(p) != 0 && !self.space_at(p) && p < self.len, p)
+            }
+            Rule::VariableComma | Rule::VariableCommaConst | Rule::VariableCommaUsing => {
+                self.end_var_comma(p)
+            }
+            Rule::VariableSingle => self.end_zero(
                 self.eol(p)
                     || Self::bol(p)
                     || matches!(self.byte(p), b',' | b';' | b'=' | b'}')
@@ -429,14 +446,14 @@ impl<const D: u8> Lexer<'_, D> {
                     || self.statement_start_at(p),
                 p,
             ),
-            Rule::VarInit1 => self.end_zero(
+            Rule::VariableInitializer1 => self.end_zero(
                 self.eol(p)
                     || Self::bol(p)
                     || matches!(self.byte(p), b']' | b')' | b',' | b';' | b'}')
                     || self.of_in_ahead(p),
                 p,
             ),
-            Rule::VarInit2 => self.end_zero(self.var_init2_end(p), p),
+            Rule::VariableInitializer2 => self.end_zero(self.var_init2_end(p), p),
         }
     }
 

@@ -92,13 +92,13 @@ impl<const D: u8> Lexer<'_, D> {
     fn type_string(&mut self, p: usize) -> Option<usize> {
         match self.byte(p) {
             b'\'' => self.open_token(
-                Rule::StrSingle,
+                Rule::StringSingle,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
             ),
             b'"' => self.open_token(
-                Rule::StrDouble,
+                Rule::StringDouble,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
@@ -129,7 +129,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Rule::TypeParams,
+            Rule::TypeParameters,
             p,
             p + 1,
             &[S::PunctuationDefinitionTypeparametersBegin],
@@ -147,7 +147,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) != b'{' {
             return None;
         }
-        self.open_token(Rule::TypeObj, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Rule::TypeObject, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     fn type_operators(&mut self, p: usize) -> Option<usize> {
@@ -161,9 +161,9 @@ impl<const D: u8> Lexer<'_, D> {
         if b == b'&' || b == b'|' {
             let j = self.ws(p + 1);
             let rule = if self.byte(j) == b'{' {
-                Rule::TypeOpObj
+                Rule::TypeOperatorObject
             } else {
-                Rule::TypeOp
+                Rule::TypeOperator
             };
             return self.open_token(rule, p, p + 1, &[S::KeywordOperatorType]);
         }
@@ -222,9 +222,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Rule::TypeCond, p, e, &[S::StorageModifier]);
-        self.finish(Rule::TypeCond, j);
-        self.push(Rule::TypeCond);
+        self.capture(Rule::TypeConditional, p, e, &[S::StorageModifier]);
+        self.finish(Rule::TypeConditional, j);
+        self.push(Rule::TypeConditional);
         Some(j)
     }
 
@@ -247,22 +247,22 @@ impl<const D: u8> Lexer<'_, D> {
                     self.capture(Rule::Top, p, a, &[meta, S::StorageModifier]);
                 }
                 self.capture(Rule::Top, start, e, &[meta, S::KeywordControlNew]);
-                self.push(Rule::TypeCtorTp);
+                self.push(Rule::TypeConstructorTypeParameters);
                 return Some(e);
             }
             if self.byte(after) == b'(' && !self.full() {
                 self.flush(p);
                 if let Some(a) = abstract_end {
-                    self.capture(Rule::TypeCtor, p, a, &[S::StorageModifier]);
+                    self.capture(Rule::TypeConstructor, p, a, &[S::StorageModifier]);
                 }
-                self.capture(Rule::TypeCtor, start, e, &[S::KeywordControlNew]);
-                self.finish(Rule::TypeCtor, after);
-                self.push(Rule::TypeCtor);
+                self.capture(Rule::TypeConstructor, start, e, &[S::KeywordControlNew]);
+                self.finish(Rule::TypeConstructor, after);
+                self.push(Rule::TypeConstructor);
                 return Some(after);
             }
         }
         if self.byte(p) == b'(' && self.type_function_ahead(p) {
-            return self.open_empty(Rule::TypeFn, p);
+            return self.open_empty(Rule::TypeFunction, p);
         }
         None
     }
@@ -298,9 +298,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let j = self.ws(p + 2);
         let rule = if self.eol(j) {
-            Rule::TypeFnRet2
+            Rule::TypeFunctionReturn2
         } else {
-            Rule::TypeFnRet1
+            Rule::TypeFunctionReturn1
         };
         self.open_token(rule, p, p + 2, &[S::StorageTypeFunctionArrow])
     }
@@ -332,7 +332,7 @@ impl<const D: u8> Lexer<'_, D> {
                         S::PunctuationDefinitionTypeparametersBegin,
                     ],
                 );
-                self.push(Rule::TypeNameArgs);
+                self.push(Rule::TypeNameArguments);
                 return Some(k + 1);
             }
             self.flush(p);
@@ -352,7 +352,7 @@ impl<const D: u8> Lexer<'_, D> {
                     S::PunctuationDefinitionTypeparametersBegin,
                 ],
             );
-            self.push(Rule::TypeNameArgs);
+            self.push(Rule::TypeNameArguments);
             return Some(j + 1);
         }
         self.token_rule(p, e, S::EntityNameType)
@@ -365,9 +365,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let j = self.ws(p + 1);
         let rule = if self.eol(j) {
-            Rule::TypeAnn2
+            Rule::TypeAnnotation2
         } else {
-            Rule::TypeAnn1
+            Rule::TypeAnnotation1
         };
         self.open_token(rule, p, p + 1, &[S::KeywordOperatorTypeAnnotation])
     }
@@ -378,7 +378,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Rule::ParamTypeAnn,
+            Rule::ParameterTypeAnnotation,
             p,
             p + 1,
             &[S::KeywordOperatorTypeAnnotation],
@@ -540,7 +540,7 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if matches!(self.prev_char(p), Some('&' | ':' | '|')) && self.byte(self.ws(p)) == b'{' {
-            return self.open_empty(Rule::RetObj, p);
+            return self.open_empty(Rule::ReturnObject, p);
         }
         self.type_predicate_operator(p).or_else(|| self.type_(p))
     }
@@ -551,14 +551,14 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.bytes.get(..p).is_some_and(|h| h.ends_with(b"=>")) && self.byte(self.ws(p)) == b'{'
         {
-            return self.open_empty(Rule::TypeFnRetObj, p);
+            return self.open_empty(Rule::TypeFunctionReturnObject, p);
         }
         self.type_predicate_operator(p).or_else(|| self.type_(p))
     }
 
     pub(crate) fn arrow_return_type_body(&mut self, p: usize) -> Option<usize> {
         if self.prev_char(p) == Some(':') && self.byte(self.ws(p)) == b'{' {
-            return self.open_empty(Rule::ArrowRetObj, p);
+            return self.open_empty(Rule::ArrowReturnObject, p);
         }
         self.type_predicate_operator(p).or_else(|| self.type_(p))
     }

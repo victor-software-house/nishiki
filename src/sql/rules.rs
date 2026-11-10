@@ -58,11 +58,11 @@ pub(crate) enum Pattern {
     /// `database.table`
     DbTable,
     /// `'...'` closed on the line.
-    StrSingleFull,
+    StringSingleFull,
     /// `` `...` `` closed on the line.
-    StrBacktickFull,
+    StringBacktickFull,
     /// `"..."` closed on the line.
-    StrDoubleFull,
+    StringDoubleFull,
     /// Every other word of the keyword rule.
     Keyword,
     /// `()`
@@ -79,11 +79,11 @@ pub(crate) enum Pattern {
     CommentHashBegin,
     LineCommentBegin,
     BlockBegin,
-    StrSingleBegin,
-    StrBacktickBegin,
-    StrDoubleBegin,
-    StrBraceBegin,
-    StrModrBegin,
+    StringSingleBegin,
+    StringBacktickBegin,
+    StringDoubleBegin,
+    StringBraceBegin,
+    StringRegexBegin,
 }
 
 impl Pattern {
@@ -96,11 +96,11 @@ impl Pattern {
             Pattern::CommentHashBegin => Some(Rule::CommentHash),
             Pattern::LineCommentBegin => Some(Rule::LineComment),
             Pattern::BlockBegin => Some(Rule::BlockComment),
-            Pattern::StrSingleBegin => Some(Rule::StrSingle),
-            Pattern::StrBacktickBegin => Some(Rule::StrBacktick),
-            Pattern::StrDoubleBegin => Some(Rule::StrDouble),
-            Pattern::StrBraceBegin => Some(Rule::StrBrace),
-            Pattern::StrModrBegin => Some(Rule::StrModr),
+            Pattern::StringSingleBegin => Some(Rule::StringSingle),
+            Pattern::StringBacktickBegin => Some(Rule::StringBacktick),
+            Pattern::StringDoubleBegin => Some(Rule::StringDouble),
+            Pattern::StringBraceBegin => Some(Rule::StringBrace),
+            Pattern::StringRegexBegin => Some(Rule::StringRegex),
             Pattern::Variable
             | Pattern::BracketChar
             | Pattern::Create
@@ -125,9 +125,9 @@ impl Pattern {
             | Pattern::Concat
             | Pattern::Function
             | Pattern::DbTable
-            | Pattern::StrSingleFull
-            | Pattern::StrBacktickFull
-            | Pattern::StrDoubleFull
+            | Pattern::StringSingleFull
+            | Pattern::StringBacktickFull
+            | Pattern::StringDoubleFull
             | Pattern::Keyword
             | Pattern::Parens
             | Pattern::Escape
@@ -159,9 +159,9 @@ impl Pattern {
             Pattern::Comparison => scopes![S::OpComparison],
             Pattern::Math => scopes![S::OpMath],
             Pattern::Concat => scopes![S::OpConcat],
-            Pattern::StrSingleFull => scopes![S::StrSingle],
-            Pattern::StrBacktickFull => scopes![S::StrBacktick],
-            Pattern::StrDoubleFull => scopes![S::StrDouble],
+            Pattern::StringSingleFull => scopes![S::StrSingle],
+            Pattern::StringBacktickFull => scopes![S::StrBacktick],
+            Pattern::StringDoubleFull => scopes![S::StrDouble],
             Pattern::Keyword => scopes![S::KwOther],
             Pattern::Parens => scopes![S::MetaBlock],
             Pattern::Escape => scopes![S::Escape],
@@ -174,11 +174,11 @@ impl Pattern {
             | Pattern::CommentHashBegin
             | Pattern::LineCommentBegin
             | Pattern::BlockBegin
-            | Pattern::StrSingleBegin
-            | Pattern::StrBacktickBegin
-            | Pattern::StrDoubleBegin
-            | Pattern::StrBraceBegin
-            | Pattern::StrModrBegin
+            | Pattern::StringSingleBegin
+            | Pattern::StringBacktickBegin
+            | Pattern::StringDoubleBegin
+            | Pattern::StringBraceBegin
+            | Pattern::StringRegexBegin
             | Pattern::End => S::NO_SCOPES,
         }
     }
@@ -215,22 +215,22 @@ pub(crate) fn patterns(rule: Rule) -> &'static [Pattern] {
             Pattern::Concat,
             Pattern::Function,
             Pattern::DbTable,
-            Pattern::StrSingleFull,
-            Pattern::StrSingleBegin,
-            Pattern::StrBacktickFull,
-            Pattern::StrBacktickBegin,
-            Pattern::StrDoubleFull,
-            Pattern::StrDoubleBegin,
-            Pattern::StrBraceBegin,
-            Pattern::StrModrBegin,
+            Pattern::StringSingleFull,
+            Pattern::StringSingleBegin,
+            Pattern::StringBacktickFull,
+            Pattern::StringBacktickBegin,
+            Pattern::StringDoubleFull,
+            Pattern::StringDoubleBegin,
+            Pattern::StringBraceBegin,
+            Pattern::StringRegexBegin,
             Pattern::Keyword,
             Pattern::Parens,
         ],
         Rule::Bracket => &[Pattern::BracketChar],
         Rule::CommentDash => &[Pattern::LineCommentBegin],
         Rule::BlockComment => &[Pattern::BlockBegin],
-        Rule::StrSingle | Rule::StrBacktick => &[Pattern::Escape],
-        Rule::StrDouble | Rule::StrBrace | Rule::StrModr => &[Pattern::Interpolation],
+        Rule::StringSingle | Rule::StringBacktick => &[Pattern::Escape],
+        Rule::StringDouble | Rule::StringBrace | Rule::StringRegex => &[Pattern::Interpolation],
         Rule::CommentHash | Rule::LineComment => &[],
     }
 }
