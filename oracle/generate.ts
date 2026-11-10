@@ -11,18 +11,15 @@ import { bundledThemes, createHighlighter } from "shiki@4.6.0";
 import { fixture } from "./fixture.ts";
 import { grammars } from "./grammars.ts";
 import { inputs, type Input } from "./inputs.ts";
+import { sourceText } from "./sources.ts";
 
 const root = new URL("..", import.meta.url).pathname;
 
-/** The input's text, fetched unless it was imported, with CRLF read as LF,
- * as Shiki splits lines. */
-async function fetchText(input: Input): Promise<string> {
-  if ("text" in input) return input.text.replaceAll("\r\n", "\n");
-  const response = await fetch(input.url);
-  if (!response.ok) {
-    throw new Error(`${input.url}: HTTP ${response.status}`);
-  }
-  return (await response.text()).replaceAll("\r\n", "\n");
+/** The input's text, read from the mirror unless it was imported, with CRLF
+ * read as LF, as Shiki splits lines. */
+async function inputText(input: Input): Promise<string> {
+  const text = "text" in input ? input.text : await sourceText(input.url);
+  return text.replaceAll("\r\n", "\n");
 }
 
 /** Themes that exercise every part of rule matching: github-dark, the
@@ -47,7 +44,7 @@ for (const theme of themes) {
 }
 
 for (const input of selected) {
-  const text = await fetchText(input);
+  const text = await inputText(input);
   const scopes = fixture(highlighter, text, input.lang);
   const path = `${root}tests/oracle/${input.lang}/${input.name}.txt`;
   await Bun.write(path, scopes);

@@ -11,9 +11,11 @@
 // - `languages.json`: per input, its language, its root scope, the grammars it
 //   loads, and where the input came from.
 //
-// A language's input is Shiki's sample for it. `standIns` names an input for
-// each language Shiki has no sample for. `extraInputs` adds inputs that reach
-// rules the samples miss.
+// A language's input is Shiki's sample for it.
+// `standIns` in inputs.ts names an input for each language Shiki has no
+// sample for.
+// `extraInputs` adds inputs that reach rules the samples miss.
+// Every third-party input is read from the mirror, through sources.ts.
 //
 // Each language gets a highlighter of its own, loaded with its grammar and
 // the grammars it embeds, as `createHighlighter({ langs: [id] })` loads them.
@@ -25,7 +27,8 @@ import { bundledLanguages, bundledLanguagesInfo, createHighlighter } from "shiki
 import { mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { fixture } from "./fixture.ts";
-import { inputs, samples } from "./inputs.ts";
+import { samples, standIns } from "./inputs.ts";
+import { sourceText } from "./sources.ts";
 
 /** One input's entry in `languages.json`. */
 type CheckedInput = {
@@ -36,20 +39,6 @@ type CheckedInput = {
   grammars: string[];
   /** The URL of its input, or its path in this repository. */
   input: string;
-};
-
-const vscodeFixtures =
-  "https://raw.githubusercontent.com/microsoft/vscode/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/extensions/vscode-colorize-tests/test/colorize-fixtures";
-const h5bpIndex = inputs.find((input) => input.lang === "html" && input.name === "h5bp-index");
-if (h5bpIndex === undefined || !("url" in h5bpIndex)) throw new Error("inputs.ts has no html/h5bp-index");
-
-/** The input of each language Shiki 4.6.0 has no sample for.
- * `tests/oracle/SOURCES.md` records their licences. */
-const standIns: Record<string, string> = {
-  "git-commit": `${vscodeFixtures}/COMMIT_EDITMSG`,
-  "git-rebase": `${vscodeFixtures}/git-rebase-todo`,
-  "html-derivative": h5bpIndex.url,
-  "nextflow-groovy": `${vscodeFixtures}/test.groovy`,
 };
 
 /** Inputs beyond each language's own, by language.
@@ -78,32 +67,16 @@ const checkedInputs = ids.flatMap((id) => [
   })),
 ]);
 
-/** The text at `input`, a URL or a path in this repository, with CRLF read as
- * LF, as Shiki splits lines. */
-async function fetchText(input: string): Promise<string> {
-  if (!input.startsWith("https://")) return (await Bun.file(`${repository}${input}`).text()).replaceAll("\r\n", "\n");
-  const response = await fetch(input);
-  if (!response.ok) throw new Error(`${input}: HTTP ${response.status}`);
-  return (await response.text()).replaceAll("\r\n", "\n");
+/** The text at `input`, a URL read from the mirror or a path in this
+ * repository, with CRLF read as LF, as Shiki splits lines. */
+async function inputText(input: string): Promise<string> {
+  const text = input.startsWith("https://") ? await sourceText(input) : await Bun.file(`${repository}${input}`).text();
+  return text.replaceAll("\r\n", "\n");
 }
 
-/** Runs `task` on every job, `width` at a time, and keeps the order. */
-async function pool<T, R>(jobs: T[], width: number, task: (job: T) => Promise<R>): Promise<R[]> {
-  const results: R[] = new Array(jobs.length);
-  let next = 0;
-  const worker = async () => {
-    while (next < jobs.length) {
-      const at = next++;
-      results[at] = await task(jobs[at]);
-    }
-  };
-  await Promise.all(Array.from({ length: width }, worker));
-  return results;
-}
-
-const texts = await pool(checkedInputs, 16, (checkedInput) => fetchText(checkedInput.input));
 const checked: CheckedInput[] = [];
-for (const [at, { id, sample, input }] of checkedInputs.entries()) {
+for (const { id, sample, input } of checkedInputs) {
+  const text = await inputText(input);
   const loader = bundledLanguages[id as keyof typeof bundledLanguages];
   if (!loader) throw new Error(`Shiki has no language ${id}`);
   const registrations = (await loader()).default;
@@ -111,7 +84,7 @@ for (const [at, { id, sample, input }] of checkedInputs.entries()) {
     await Bun.write(`${out}/grammars/${grammar.name}.json`, JSON.stringify(grammar));
   }
   const highlighter = await createHighlighter({ langs: [id], themes: ["github-dark"] });
-  await Bun.write(`${out}/samples/${sample}.txt`, fixture(highlighter, texts[at], id));
+  await Bun.write(`${out}/samples/${sample}.txt`, fixture(highlighter, text, id));
   highlighter.dispose();
   checked.push({
     id,

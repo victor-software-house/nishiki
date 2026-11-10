@@ -1,6 +1,7 @@
 # Oracle inputs
 
-`mise run oracle` fetches each input below at its pinned commit and writes Shiki's scopes for it to `<language>/<name>.txt`.
+`mise run oracle` reads each input below at its pinned commit and writes Shiki's scopes for it to `<language>/<name>.txt`.
+It reads third-party inputs from the public mirror [victor-software-house/nishiki-sources](https://github.com/victor-software-house/nishiki-sources), never from upstream.
 Each fixture repeats its input's text line by line.
 The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published crate.
 [`COVERAGE.md`](COVERAGE.md) shows how much of each hand-lexed grammar these inputs exercise; an input added to close a gap is listed here like any other.

@@ -9,6 +9,7 @@ The rules for working here are in [AGENTS.md](AGENTS.md).
 
 - [`inputs.ts`](inputs.ts): the inputs, each pinned to a commit.
   [`tests/oracle/SOURCES.md`](../tests/oracle/SOURCES.md) lists their licences.
+- [`sources.ts`](sources.ts): reads each third-party file from the public mirror [victor-software-house/nishiki-sources](https://github.com/victor-software-house/nishiki-sources), and fills and checks that mirror.
 - [`inputs/`](inputs): inputs written for nishiki, where no third-party file covers a case.
 - [`grammars.ts`](grammars.ts): the grammars every script loads into Shiki.
 - [`fixture.ts`](fixture.ts): the fixture format.

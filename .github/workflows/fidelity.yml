@@ -3,9 +3,11 @@ name: Shiki fidelity
 # Runs every grammar Shiki 4.6.0 bundles on its input (mise run
 # check:fidelity): Shiki's sample, or a stand-in for the four languages Shiki
 # has no sample for. It fails when any non-whitespace byte gets other scopes
-# than Shiki gives it. oracle/fidelity.ts fetches the grammars and the inputs
-# on each run, so nothing from them is committed. The job summary holds a row
-# per language, with its first differing byte.
+# than Shiki gives it. The grammars come from Shiki's npm packages, which
+# oracle/bun.lock pins. The inputs come from one pinned commit of the public
+# nishiki-sources mirror (oracle/AGENTS.md rule 9). Nothing from either is
+# committed here. The job summary holds a row per language, with its first
+# differing byte.
 # It is a required check, so it runs on every pull request and in the merge
 # queue: a path filter would leave it pending on the pull requests it skips.
 
@@ -25,6 +27,10 @@ concurrency:
 
 env:
   MISE_ENV: ci
+  # The nishiki-sources commit the oracle reads. A pull request that adds an
+  # input fills the mirror first, then raises this commit.
+  NISHIKI_SOURCES_COMMIT: e16b69b0ef25ea649db5a0dda35ebdb4cdc55982
+  NISHIKI_SOURCES: ${{ github.workspace }}/target/sources
 
 jobs:
   fidelity:
@@ -58,6 +64,14 @@ jobs:
       - name: Install bun
         timeout-minutes: 3
         run: mise install --locked bun@1.4.4
+      - name: Check out the pinned sources mirror
+        timeout-minutes: 3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: victor-software-house/nishiki-sources
+          ref: ${{ env.NISHIKI_SOURCES_COMMIT }}
+          path: target/sources
+          persist-credentials: false
       - name: Compare every Shiki grammar's input with Shiki
         timeout-minutes: 12
         run: mise run check:fidelity
