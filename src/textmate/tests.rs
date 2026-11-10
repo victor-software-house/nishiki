@@ -13,7 +13,9 @@ use super::grammar::{Folding, Grammar, NONE, RuleKind};
 use super::regex::{self, Context, LineKind, Regex, Sketch};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
+use crate::highlighter::{Sealed, lex_line};
 use crate::limits::{Limit, Limits, LineReport};
+use crate::{Highlighter, Stack, State, Syntax, Token};
 
 #[path = "../../tests/engine/asm.rs"]
 mod asm_tables;
@@ -67,6 +69,38 @@ mod yaml_tables;
 enum Scanners {
     On,
     Off,
+}
+
+/// A linked table as what a [`Highlighter`] lexes.
+/// The tests run the engine through the highlighter, as a caller does.
+#[derive(Clone, Copy, Debug)]
+struct Table(&'static Grammar);
+
+impl Syntax for Table {}
+
+impl Sealed for Table {
+    type Lexer = Table;
+
+    fn start(lexer: Table, arena: &mut Arena, base: u32) -> u32 {
+        tokenizer::start(arena, lexer.0, base)
+    }
+
+    /// A grammar that hands regions to languages lexed by hand runs with
+    /// the handing loop, as its language would.
+    fn line(
+        highlighter: &mut Highlighter<Table>,
+        line: &str,
+        state: &mut State,
+        out: &mut Vec<Token>,
+    ) -> LineReport {
+        lex_line(highlighter, line, state, out, |table, cx, text, from| {
+            if table.0.hand_offs.is_empty() {
+                super::lex(cx, table.0, text, from)
+            } else {
+                super::lex_handing(cx, table.0, text, from)
+            }
+        })
+    }
 }
 
 /// One source line of a fixture and Shiki's scope stack for each byte.
@@ -243,15 +277,10 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
 
 /// The bytes of `lines` whose stack differs from Shiki's, with a message for
 /// each of the first few.
-/// A grammar that hands regions to languages lexed by hand runs with the
-/// handing loop, as its language would.
 fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize, usize, String) {
-    let mut arena = Arena::new(None);
-    let limits = Limits::unlimited();
-    let mut scratch = Scratch::default();
-    scratch.no_scanner = scanners == Scanners::Off;
-    let mut whole = crate::scratch::Scratch::default();
-    let mut state = tokenizer::start(&mut arena, grammar, crate::arena::ROOT);
+    let mut highlighter = Highlighter::<Table>::with_lexer(Table(grammar), Limits::unlimited());
+    highlighter.scratch_mut().textmate.no_scanner = scanners == Scanners::Off;
+    let mut state = State::default();
     let mut names: HashMap<u32, String> = HashMap::new();
     let (mut checked, mut missed) = (0, 0);
     let mut message = String::new();
@@ -259,43 +288,7 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
     let skip = unknown_fences(grammar, lines);
     for (number, line) in lines.iter().enumerate() {
         let mut out = Vec::new();
-        let mut report = LineReport::default();
-        state = if grammar.hand_offs.is_empty() {
-            tokenizer::line(
-                &mut scratch,
-                &mut arena,
-                &limits,
-                Text {
-                    grammar,
-                    bytes: line.text.as_bytes(),
-                    start: 0,
-                    anchored: false,
-                },
-                state,
-                &mut out,
-                &mut report,
-            )
-        } else {
-            whole.textmate.no_scanner = scanners == Scanners::Off;
-            let text = crate::language::Line {
-                text: &line.text,
-                start: 0,
-                embedded: false,
-            };
-            tokenizer::line_handing(
-                &mut whole,
-                &mut arena,
-                &limits,
-                grammar,
-                text,
-                state,
-                &mut out,
-                &mut report,
-                0,
-                None,
-            )
-            .0
-        };
+        let _ = highlighter.line(&line.text, &mut state, &mut out);
         let mut actual: Vec<u32> = Vec::new();
         let mut start = 0;
         for token in &out {
@@ -314,7 +307,7 @@ fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize,
             let expected = line.stacks.get(column).map_or("", String::as_str);
             let got = match actual.get(column) {
                 Some(&stack) => names.entry(stack).or_insert_with(|| {
-                    let mut scopes: Vec<&str> = arena.scopes(stack).collect();
+                    let mut scopes: Vec<&str> = highlighter.scopes(Stack(stack)).collect();
                     scopes.reverse();
                     scopes.join(" ")
                 }),
