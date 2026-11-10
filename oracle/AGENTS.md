@@ -36,6 +36,8 @@ Rules for the Shiki oracle, beside the root guide's invariants.
      Bun's auto-install reads it for every script in the repository, with no `node_modules`.
    - A new import or a version change edits the imports and `package.json`, then runs `bun install --lockfile-only` at the root.
    - `mise run check:bun-lockfile` fails when the two differ; `oracle` and `oracle:fidelity` run it first.
+   - `mise run check:bun-imports` fails when a script imports a package that `package.json` does not pin at that version.
+     `verify` runs it, through `check:local`.
 8. [`grammars.ts`](grammars.ts) makes one edit to Shiki's grammars, and no other.
    - In C++'s `string_context`, a rule whose patterns include only grammars the oracle leaves out keeps its match with no patterns inside.
    - vscode-textmate skips such a rule.

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="This repository's own checks"
-#MISE depends=["check:bench-report", "check:corpus", "check:feature-lines", "check:layout", "check:literals", "check:tiers", "check:traces"]
+#MISE depends=["check:bench-report", "check:bun-imports", "check:corpus", "check:feature-lines", "check:layout", "check:literals", "check:tiers", "check:traces"]
 # The published crate is the only copy of nishiki's source its users can
 # read, so it must carry the licence texts and the third-party notices.
 set -euo pipefail
