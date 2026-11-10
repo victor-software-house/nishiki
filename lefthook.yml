@@ -17,7 +17,7 @@ pre-commit:
     # Seconds-cheap checks that CI's verify also runs, so they fail here
     # before a push instead of in a pull request.
     literals:
-      glob: "*.rs"
+      glob: "*.{rs,ts}"
       env: *hookenv
       run: mise run check:literals
     markdown:
