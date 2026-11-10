@@ -571,6 +571,32 @@ const excerpt = (source: string) => {
   const line = source.replace(/^\(\?#u\d+\)/, "").replaceAll("\n", "\\n");
   return line.length > 60 ? `${line.slice(0, 59)}…` : line;
 };
+/** The width a listing line keeps to, unless one word is longer. */
+const WIDTH = 100;
+/** A line's width in characters. */
+const width = (line: string) => [...line].length;
+/**
+ * A note under a listing entry, broken at spaces into lines of at most `WIDTH` characters.
+ * Its first line is indented two spaces, the rest four.
+ */
+function noteLines(note: string): string[] {
+  const lines: string[] = [];
+  let line = "  ";
+  for (const word of note.split(" ")) {
+    if (line.trim() !== "" && width(line) + 1 + width(word) > WIDTH) {
+      lines.push(line);
+      line = `    ${word}`;
+    } else {
+      line = line.trim() === "" ? `${line}${word}` : `${line} ${word}`;
+    }
+  }
+  return [...lines, line];
+}
+/** An entry's first line, a unit's path and what follows it, or two lines when that is too wide. */
+const headLines = (path: string, rest: string) => {
+  const head = `${path}  ${rest}`;
+  return width(head) <= WIDTH ? [head] : [path, `  ${rest}`];
+};
 const sourceOf = new Map<number, string>();
 for (const rule of places.keys()) {
   for (const role of roles) {
@@ -654,22 +680,25 @@ for (const name of [...handLexed.keys()].sort()) {
     const path = expressions[unit]?.path ?? "";
     if (!fixtures.expressions.has(unit)) {
       const fuzz = fuzzed.expressions.has(unit) ? "  fuzz" : "";
+      const regex = `${excerpt(sourceOf.get(unit) ?? "")}${fuzz}`;
       const reason = waived.get(String(unit));
-      const note = reason === undefined ? "" : `  waived: ${reason}`;
-      return [`${path}  ${excerpt(sourceOf.get(unit) ?? "")}${fuzz}${note}`];
+      return [
+        ...headLines(path, regex),
+        ...(reason === undefined ? [] : noteLines(`waived: ${reason}`)),
+      ];
     }
     const gaps = groups.filter((u) => u.unit === unit && !hitIn(fixtures, u));
     if (gaps.length === 0) return [];
-    const list = gaps.map((u) => {
+    const notes = gaps.flatMap((u) => {
       const reason = waived.get(keyOf(u));
       const marks = [
         hitIn(fuzzed, u) ? "fuzz" : "",
         reason === undefined ? "" : `waived: ${reason}`,
       ];
       const note = marks.filter((mark) => mark !== "").join("; ");
-      return `${u.group}${note === "" ? "" : ` (${note})`}`;
+      return note === "" ? [] : noteLines(`group ${u.group}: ${note}`);
     });
-    return [`${path}  groups ${list.join(", ")}`];
+    return [...headLines(path, `groups ${gaps.map((u) => u.group).join(", ")}`), ...notes];
   });
   if (lines.length > 0) {
     sections.push(dedent`
@@ -719,10 +748,11 @@ const report = dedent`
 
   ## Units no fixture exercises
 
-  Each line is an expression's path in its grammar, then the start of its regex,
-  \`fuzz\` when the fuzz corpus exercises it, and the reason when a waiver covers it.
-  An expression the fixtures do exercise is listed with the groups they do not,
-  each marked \`fuzz\` and the waiver's reason likewise.
+  Each entry is an expression's path in its grammar, then the start of its regex,
+  and \`fuzz\` when the fuzz corpus exercises it.
+  The reason follows on indented lines when a waiver covers it.
+  An expression the fixtures do exercise is listed with the groups they do not.
+  A group the fuzz corpus exercises, or a waiver covers, follows on an indented line.
   The groups of an unexercised expression count as unexercised and are not listed.
 
   ${sections.join("\n\n")}
