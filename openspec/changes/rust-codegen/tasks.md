@@ -2,10 +2,18 @@
 
 ## 1. Measurements
 
-- [ ] 1.1 Default matchers against hand matchers for Protocol Buffers, Zig and Lua (design, section 12.1).
+- [x] 1.1 Default matchers against hand matchers for Protocol Buffers, Zig and Lua (design, section 12.1).
   → verify: Callgrind's lexing counts for both, from a box, in design section 12.1
-- [ ] 1.2 The build time, crate count and program size of each feature (design, section 12.2).
+  - 2026-11-10: on a box, both defaults against base [851351f0][base], at one codegen unit.
+    The regex engine runs 2.56 to 4.54 times the hand matchers, and generated Rust 1.17 to 1.54 times.
+    The differential test found 0 differences in 343 million matches.
+    [The research note][default-matchers-note] has the method and every row.
+- [x] 1.2 The build time and crate count of each feature (design, section 12.2).
   → verify: the numbers from a box, in design section 12.2
+  - 2026-11-10: clean release builds on a box: 58 s and 2 crates with `all`, 78 s and 5 with `codegen`, 87 s and 7 with `format`.
+    The build-script example does not exist yet, so its program size moved to task 2.2, whose `check:size` covers it.
+- [ ] 1.3 The three changes of design section 12.1 to the generated matchers, one at a time.
+  → verify: each step's Callgrind rows and a clean differential test, in a research note
 
 ## 2. Groundwork
 
@@ -19,7 +27,7 @@
 ## 3. The writer
 
 - [ ] 3.1 Protocol Buffers' grammar in `tests/engine/grammars/`, then `unstable::codegen` with default matchers, and `codegen/` writing its tables; `oracle/proto-grammar.ts` is deleted.
-  → verify: `codegen --compare` shows equal tokens outside the start sets the pull request lists, `mise run codegen -- --check` passes in CI, and Identity shows no change
+  → verify: `codegen --compare` shows equal tokens outside the start sets the pull request lists. `mise run codegen -- --check` and the differential test of design section 5.6 pass in CI, and Identity shows no change
 - [ ] 3.2 `AGENTS.md`, `CODING_STANDARDS.md` and `oracle/AGENTS.md` gain the rules of the proposal and how to move one language.
   → verify: review
 - [ ] 3.3 Unicode sets, case folds and classes are written from `oracle/facts/`.
@@ -33,3 +41,6 @@
   → verify: no `oracle/*-grammar.ts` remains
 - [ ] 4.3 The word scripts and `fence-stops.ts` move into `codegen/`.
   → verify: each `words.rs` keeps its tokens, and the fence check fails on a wrong `pops_fence` list
+
+[default-matchers-note]: ../../research/2026-11-10-default-matchers.md
+[base]: https://github.com/victor-software-house/nishiki-archive/commit/851351f064d86c429f4652af2c59af138dcf6ba2

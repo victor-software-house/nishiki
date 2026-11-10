@@ -193,16 +193,59 @@ So a declarative macro gives each item `pub` with the cfg and `pub(crate)` witho
 Today every pattern of a rule-engine grammar has a matcher written by hand.
 A caller's grammar has none.
 
-- `unstable::codegen` gives every pattern a default matcher.
-  It runs the pattern's expression through the crate's TextMate regex engine, `src/textmate/regex`, compiled once on first use.
-  That engine is built on `regex-automata`, and it adds what Oniguruma has and `regex-automata` lacks: back-references and lookbehind.
+`unstable::codegen` gives every pattern a default matcher (lead, 2026-11-10):
+
+- The default is Rust code, written from the pattern's parsed tree (section 5.6).
+- A pattern the writer cannot express exactly falls back to the crate's TextMate regex engine, `src/textmate/regex`.
+  - The engine compiles the pattern once, on first use.
+  - It is built on `regex-automata`, and it adds what Oniguruma has and `regex-automata` lacks: back-references and lookbehind.
+  - A back-reference, or a lookbehind across the line, takes this path.
+  - So does a repeat whose turn the analysis of section 5.6 cannot prove unique.
+- The regex engine stays the fallback for a caller's grammar, for every pattern the writer refuses.
 - A language can name a hand-written matcher for any pattern.
   The generated `matcher` calls it for that pattern and the default for the rest.
-- nishiki's own languages name a hand matcher for every pattern, as today.
-  A language can drop hand matchers where the default measures as fast.
+- nishiki's own languages keep their hand matchers until the generated code measures as fast.
 
-How much slower the default is decides where it fits.
-Task 1.1 measures it before any other code lands (section 12).
+The aim is to replace the hand matchers.
+
+- The target is a lexing count at or below 1.000 of the hand matchers'.
+  It is counted at one codegen unit (`bench/AGENTS.md` rule 12).
+- A language that reaches it deletes its `matchers/` directory in its move pull request.
+- Today generated code runs 1.17 to 1.54 times the hand matchers (section 12.1).
+  The regex engine runs 2.56 to 4.54 times.
+
+### 5.6 Exact generated matchers
+
+Shiki-exact output gates the release, so a generated matcher matches exactly what Oniguruma matches.
+The code never recurses once per turn of a repeat: it loops, or keeps an explicit stack.
+
+| Repeat | Written as |
+|:--|:--|
+| one character a turn | a loop that gives back one character at a time |
+| at most one turn | the body, then the continuation, in the regex's order |
+| possessive | a loop that keeps each turn's first match |
+| greedy or lazy, with a turn proven unique | a loop that keeps each turn's first match |
+| the same, when what follows can start like the body | a loop, then turns given back from an explicit stack |
+
+Any other repeat sends the pattern to the regex engine.
+
+The analysis proves a node unique given what can follow it:
+
+- one character, an anchor, a lookaround or an atomic group has one match;
+- a sequence is unique when each part is, given what follows that part;
+- an alternation is unique when its arms are, and no two arms can start with the same character;
+- a repeat that can give back a turn is unique when what follows must read a character its body cannot start with.
+
+The sets hold code points, not UTF-8 lead bytes.
+`\w` and `\s` share every non-ASCII lead byte but no character.
+
+A differential test guards every generated language:
+
+- It runs each generated matcher and the regex engine on the same expression.
+- It tries every character of every oracle fixture line, with `\G` holding too where the expression holds it.
+- It adds fuzzed lines: random ones from the fixtures' characters, and fixture lines with ranges deleted, repeated or reversed.
+- It fails at the first differing end or group.
+- It runs in CI for every language `codegen/` writes.
 
 ## 6. Facts
 
@@ -220,7 +263,11 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
 ### 6.2 The format
 
 - `JSON.stringify(value, null, 2)` and a trailing newline, keys in a fixed order.
-- Every file has `"measured"`, such as `"Oniguruma, as shiki 4.6.0 bundles it"`, and `"script"`, the script that wrote it.
+- Every file has `"measured"`, then `"script"`, the script that wrote it, then the data.
+  `"measured"` takes the Shiki version from `package.json`:
+  - `"Oniguruma, as shiki 4.6.0 bundles it"` for `unicode-sets.json` and `case-folds.json`;
+  - `"shiki 4.6.0, tokenizing with its json, typescript and python grammars"` for `classes.json`.
+- `oracle/facts.ts` holds each file's type: `UnicodeSetsFacts`, `CaseFoldsFacts`, `ClassesFacts` and `SetFact`.
 - A code point is a hex string in Unicode's notation: at least four digits, upper case.
   A range is `"0041..005A"`, and one point is `"00AA"`.
 - `unicode-sets.json` and `classes.json`:
@@ -236,6 +283,10 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
   ```
 
   A `posix_<name>` key is the bracket set that `lookup` serves under `<name>`.
+- `classes.json` adds `points` before `sets`: the code points `oracle/classes.ts` probes.
+  They are `["0080..D7FF", "E000..33FFF", "E0000..E01FF"]`.
+  The writer limits each `unicode-sets.json` set to those points to build the other twelve tables of `src/classes/table.rs`.
+  readable-sources-c9's review rebuilt all twelve that way, byte for byte.
 - `case-folds.json`:
 
   ```json
@@ -363,8 +414,14 @@ Swift's script breaks both today:
 2. Two patterns with the same name are told apart by one rule.
    Each takes the nearest enclosing repository key where their paths differ.
    The whole path is never appended.
-3. A name stays within 40 characters, so a line that calls it fits in 100 columns.
+3. When no enclosing key differs, each takes its place in its pattern list as a suffix, such as `_2`.
+4. A name stays within 40 characters, so a line that calls it fits in 100 columns.
    A longer name is an error (section 9), and the language's `RuleTables` gives that pattern a name in `names`.
+5. Every name is unique within the language.
+   After rules 1 to 4, and after `names`, a check compares all of them.
+   Two equal names are an error that names both pattern ids (section 9).
+   It catches a name that rule 2 or 3 changed but that still equals another pattern's name.
+   It also catches a `names` entry that equals a derived name.
 
 The same rule names every generated identifier, such as a frame's `Rule` variant.
 A hand matcher takes the name of its pattern, so a move renames the hand-written function too.
@@ -388,7 +445,8 @@ The readability exemption for Swift's generated names ends with that pull reques
 - the rules do not fit a byte, or the patterns a `u16`;
 - an end repeats more than one group of its begin;
 - a hand matcher names a pattern the grammar lacks;
-- a derived name passes 40 characters, and `names` gives none (section 8.4).
+- a derived name passes 40 characters, and `names` gives none (section 8.4);
+- two patterns take the same name, derived or from `names`, and the error names both pattern ids (section 8.4).
 
 Each variant names the pattern id or include that failed.
 `codegen/` has its own error enum for a fact file it cannot read.
@@ -425,22 +483,53 @@ The stable surface of section 5.2 cannot fail.
 
 ### 12.1 Default matchers
 
-A prototype branch, `research/default-matchers`, swaps each hand matcher of Protocol Buffers, Zig and Lua for the default.
-It is pushed with no pull request, so no CI runs.
-A research note links it at a pinned commit (`openspec/AGENTS.md` rule 7).
+A prototype branch, `research/default-matchers`, swaps each hand matcher of Protocol Buffers, Zig and Lua for a default.
+[The research note][default-matchers-note] links it at a pinned commit and gives the method.
 
-Callgrind counts the lexing pass over each language's oracle fixtures, both ways, at one codegen unit (`bench/AGENTS.md` rule 12).
-The numbers go here when they land.
+Callgrind counts the lexing pass over each language's oracle fixtures at one codegen unit (`bench/AGENTS.md` rule 12), in millions of instructions:
+
+| Language | Hand | Regex engine | Ratio | Generated | Ratio |
+|:--|--:|--:|--:|--:|--:|
+| Protocol Buffers | 4.5 | 11.5 | 2.5644 | 5.8 | 1.2958 |
+| Zig | 25.0 | 86.5 | 3.4591 | 29.4 | 1.1746 |
+| Lua | 27.5 | 124.7 | 4.5401 | 42.2 | 1.5374 |
+
+- The generated rows are from the prototype before Protocol Buffers' `OptionStmt` was generated.
+  Task 1.3 brings the row with it.
+- Allocations do not change on either path.
+- 243 of the 245 patterns are generated.
+  Protocol Buffers' `String` has a back-reference.
+  Zig's `NumbersAt6` repeats a group whose arms both start with `e`.
+  Both run on the regex engine.
+
+The differential test of section 5.6 found no difference:
+
+| Language | Fixture lines | Fuzzed lines | Positions | Matches compared | Differences |
+|:--|--:|--:|--:|--:|--:|
+| Protocol Buffers | 3,374 | 2,000 | 207,300 | 8,084,700 | 0 |
+| Zig | 43,320 | 2,000 | 1,447,153 | 79,593,415 | 0 |
+| Lua | 40,717 | 2,000 | 1,680,199 | 255,390,248 | 0 |
+
+Three changes come next, one at a time, each backed by a profile per function and followed by the differential test:
+
+1. A character or class that holds only ASCII tests one byte, where the code decodes UTF-8 at every step today.
+2. A pattern tests its first byte before its code runs.
+3. A matcher records only the groups a scope or a back-reference reads, where it writes every group today.
 
 ### 12.2 Feature cost
 
 On a box, from a clean target:
 
-- the build time of nishiki with `all`, with `all,codegen` and with `all,codegen,format`;
-- `cargo tree -e normal` for each, to count the crates;
-- the size of `examples/build-script`'s program, which must not change.
+| Features | Crates | Wall seconds |
+|:--|--:|--:|
+| `all` | 2 | 58 |
+| `all,codegen` | 5 | 78 |
+| `all,codegen,format` | 7 | 87 |
 
-The numbers go here when they land.
+- `codegen` adds `proc-macro2`, `quote` and `unicode-ident`, about 3 s on the critical path.
+- `format` adds `syn` and `prettyplease`, about 20 s more.
+- Neither is a default feature, so a caller who asks for neither builds as before.
+- The program size of `examples/build-script` is measured when task 2.2 adds the example.
 
 ## 13. Order
 
@@ -461,6 +550,7 @@ The numbers go here when they land.
 [c-conv]: https://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv
 [cargo-build-scripts]: https://doc.rust-lang.org/cargo/reference/build-scripts.html
 [cargo-rustflags]: https://doc.rust-lang.org/cargo/reference/config.html#buildrustflags
+[default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [prettyplease-array]: https://github.com/dtolnay/prettyplease/blob/49e50897b580a5b7591ead6ef73f3fe09e76d896/src/expr.rs
 [prost-format]: https://github.com/tokio-rs/prost/blob/b3f73911a2dca69a798fff418d35ed07e30edbc3/prost-build/src/config.rs
 [ra-codegen]: https://github.com/rust-lang/rust-analyzer/blob/2a362a41a8eb6e090f1a12d9b712df85af6f0c33/xtask/src/codegen.rs
