@@ -49,7 +49,7 @@ A new language is wired in with:
 2. its scope table: one line in `src/scope.rs`;
 3. its frame tag in `src/tag.rs`;
 4. its fence names in `src/markdown/fence.rs`;
-5. its `lang-*` feature in `Cargo.toml`, which turns on `_language`, with a `cfg` on each of the above (5.2).
+5. its `lang-*` feature in `Cargo.toml`, which turns on `_hand-lexers`, with a `cfg` on each of the above (5.2).
 
 The scope tables, the frame tags and the `lang-*` features are sorted by language.
 So are the other lists a language adds to:
@@ -332,9 +332,12 @@ A new file is a module there, not a new binary.
 - `check:features` builds each language, each tier and the empty set alone.
   - It denies every warning except dead code.
     A language built without the ones that embed it leaves some embedding code unused, which no set avoids.
-  - The empty set and `json` alone deny every warning, dead code included.
+  - The empty set, `json` alone and `textmate` alone deny every warning, dead code included.
 - The code every lexer shares sits behind the private `_language` feature.
   Every `lang-*` feature and the TextMate engine turn it on.
+- Every `lang-*` feature turns on the private `_hand-lexers` feature, which turns on `_language`.
+  The TextMate engine alone leaves the code only hand-written lexers use unused.
+  That code carries `expect(dead_code)` under `not(feature = "_hand-lexers")`.
 - Unit tests that name another language require its feature.
 
 ### 5.3 What ships

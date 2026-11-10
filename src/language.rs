@@ -1520,6 +1520,13 @@ pub(crate) struct Context<'a> {
 /// A [`Context`] without its scratch, for a lexer that keeps its buffers in
 /// one field of the scratch and borrows that field beside these.
 #[cfg(feature = "_language")]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 pub(crate) struct Parts<'a> {
     pub(crate) arena: &'a mut Arena,
     pub(crate) limits: &'a Limits,
@@ -1548,6 +1555,13 @@ pub(crate) enum StopKind {
     /// that embeds the language, and ends the line.
     /// The language has lexed the rest of the line as its own, from the byte.
     #[cfg(feature = "_language")]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     PopHost,
 }
 
@@ -1611,6 +1625,13 @@ pub(crate) trait Halt {
     fn first(&self, s: &[u8], from: usize, to: usize) -> Option<usize>;
 
     /// Whether the halt holds at `p`.
+    #[cfg_attr(
+        all(not(feature = "_hand-lexers"), not(test)),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+        )
+    )]
     fn holds(&self, s: &[u8], p: usize) -> bool {
         self.first(s, p, p) == Some(p)
     }
@@ -1626,6 +1647,13 @@ pub(crate) trait Halt {
     /// `meta` scope, which the selector shuts out.
     /// Most halts have none, and a language that does not read it ignores it.
     #[cfg(feature = "_language")]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     fn deep(&self) -> Option<&dyn Halt> {
         None
     }
@@ -1634,6 +1662,13 @@ pub(crate) trait Halt {
     /// It then holds only where none of them matches, as an injection without
     /// `L:` does, such as Blade's between tags.
     #[cfg(feature = "_language")]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     fn deep_loses_ties(&self) -> bool {
         false
     }
@@ -1660,15 +1695,36 @@ impl Halt for Places<'_> {
 /// embedded grammar. A lexer tries it where none of the embedded patterns
 /// match. A lexer keeps one reference to the caller's pair.
 #[cfg(feature = "_language")]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 pub(crate) type Halts<'a> = (&'a dyn Halt, Option<&'a dyn Halt>);
 
 /// The halts of a scan compiled without halts.
 /// They never hold.
 #[cfg(feature = "_language")]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 pub(crate) const NO_HALTS: Halts<'static> = (&never, None);
 
 /// A halt that never holds.
 #[cfg(feature = "_language")]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 fn never(_: &[u8], _: usize) -> bool {
     false
 }
@@ -1770,6 +1826,13 @@ pub(crate) struct Line<'a> {
 impl Context<'_> {
     /// The context split into its scratch and the rest.
     #[inline]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn parts(&mut self) -> (Parts<'_>, &mut Scratch) {
         let parts = Parts {
             arena: &mut *self.arena,
@@ -1800,6 +1863,13 @@ impl Context<'_> {
         reason = "measured at one codegen unit: in Markdown's arm of the dispatch it stayed a call, at 1.0039 of main; forced, 0.9993"
     )]
     #[inline(always)]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn lex_from_start(
         &mut self,
         line: Line<'_>,
@@ -1825,6 +1895,13 @@ impl Context<'_> {
 #[cfg(feature = "_language")]
 #[cold]
 #[inline(never)]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 fn past_end() -> &'static str {
     ""
 }

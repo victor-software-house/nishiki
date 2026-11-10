@@ -96,6 +96,13 @@ pub(crate) struct Steps {
     spent: Cell<u64>,
     /// The line's allowance.
     /// It is `u64::MAX` for no limit.
+    #[cfg_attr(
+        all(not(feature = "_hand-lexers"), not(test)),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+        )
+    )]
     limit: u64,
 }
 
@@ -112,6 +119,13 @@ impl Steps {
 
     /// Counts `steps` more.
     #[inline]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn spend(&self, steps: usize) {
         let steps = u64::try_from(steps).unwrap_or(u64::MAX);
         self.spent.set(self.spent.get().saturating_add(steps));
@@ -120,6 +134,13 @@ impl Steps {
     /// Counts one turn of a lexer's main loop, and says whether the line
     /// has now spent more than it may.
     #[inline]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn step(&self) -> bool {
         let spent = self.spent.get().saturating_add(1);
         self.spent.set(spent);
@@ -128,6 +149,13 @@ impl Steps {
 
     /// Whether the line has spent more than it may.
     #[inline]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn exhausted(&self) -> bool {
         self.spent.get() > self.limit
     }
@@ -140,6 +168,13 @@ impl Steps {
     /// That is far above the default limits of the longest line they allow.
     /// The function is out of line, because few lines embed a language.
     #[cold]
+    #[cfg_attr(
+        all(not(feature = "_hand-lexers"), not(test)),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+        )
+    )]
     pub(crate) fn lend(&self, limits: &Limits) -> Limits {
         let left = self.limit.saturating_sub(self.spent.get());
         Limits {
@@ -213,12 +248,26 @@ impl Finished {
     /// nishiki's `TextMate` engine on the highlighter's own language is such a
     /// case.
     #[inline]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn unspent(state: u32) -> Self {
         Finished { state, spent: 0 }
     }
 
     /// The state after the line.
     #[inline]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn state(self) -> u32 {
         self.state
     }

@@ -163,6 +163,13 @@ impl Arena {
     /// `child`.
     #[cfg(feature = "_language")]
     #[inline(never)]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn child_or_insert(&mut self, parent: u32, scope: Scope) -> Option<u32> {
         match self.scope_ids.entry((parent, scope.id())) {
             Entry::Occupied(found) => Some(*found.get()),
@@ -178,6 +185,13 @@ impl Arena {
     /// The scope it stops is then left off with every scope after it.
     /// `report` records the limit.
     #[cfg(feature = "_language")]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn path(
         &mut self,
         base: u32,
@@ -300,6 +314,13 @@ impl Arena {
     /// One hash of the key serves the lookup and the insert.
     #[cfg(feature = "_language")]
     #[inline(never)]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn push_or_insert(
         &mut self,
         parent: u32,

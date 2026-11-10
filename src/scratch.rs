@@ -265,6 +265,13 @@ impl Scratch {
     /// An embedding language may lex many texts of one line. A lexer that
     /// keeps an answer for every text of one line keys it by this number.
     #[cfg(feature = "_language")]
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) fn line(&self) -> u64 {
         self.line
     }

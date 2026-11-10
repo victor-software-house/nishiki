@@ -32,6 +32,13 @@ const SLOTS: usize = 0x100;
     clippy::as_conversions,
     reason = "`usize::from` is not const, and a `u16` widens without loss"
 )]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 const fn slot(tag: u16) -> usize {
     (tag >> 8) as usize
 }
@@ -41,6 +48,13 @@ const fn slot(tag: u16) -> usize {
 #[expect(
     clippy::as_conversions,
     reason = "`u32::from` is not const, and a `u16` widens without loss"
+)]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
 )]
 const fn base(tag: u16) -> u32 {
     ((tag >> 8) as u32) << 16
@@ -305,6 +319,13 @@ impl Scope {
         clippy::as_conversions,
         reason = "`u32::from` is not const, and a `u16` widens without loss"
     )]
+    #[cfg_attr(
+        all(not(feature = "_hand-lexers"), not(test)),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+        )
+    )]
     pub(crate) const fn new(base: u32, index: u16) -> Scope {
         Scope(base + index as u32)
     }
@@ -379,6 +400,13 @@ mod tests {
 /// A `&Keyed<[S]>` is as wide as the `&[S]` it replaces.
 #[cfg(feature = "_language")]
 #[derive(Debug)]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 pub(crate) struct Keyed<T: ?Sized> {
     /// The codes of the scopes, folded as the digits of a number in base
     /// [`KEY_STEP`], each code plus one.
@@ -389,6 +417,13 @@ pub(crate) struct Keyed<T: ?Sized> {
 
 /// A static scope list with its key; [`scopes!`] makes one.
 #[cfg(feature = "_language")]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 pub(crate) type Scopes<S> = &'static Keyed<[S]>;
 
 /// The base of the fold that keys a list.
@@ -402,11 +437,25 @@ pub(crate) type Scopes<S> = &'static Keyed<[S]>;
 ///
 /// The plus one keeps a list apart from the same list after a code 0.
 #[cfg(feature = "_language")]
+#[cfg_attr(
+    not(feature = "_hand-lexers"),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+    )
+)]
 const KEY_STEP: u16 = 0x9e37;
 
 #[cfg(feature = "_language")]
 impl<S, const N: usize> Keyed<[S; N]> {
     /// The list `list`, keyed by `codes`, the codes of its scopes in order.
+    #[cfg_attr(
+        not(feature = "_hand-lexers"),
+        expect(
+            dead_code,
+            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
+        )
+    )]
     pub(crate) const fn new(list: [S; N], codes: [u16; N]) -> Self {
         let mut key: u16 = 0;
         let mut i = 0;
@@ -465,7 +514,7 @@ impl Scope {
     /// The low half of the scope's number.
     /// It keys the scope lists of the engine's test grammars, whose scopes are
     /// made at run time.
-    #[cfg(feature = "_language")]
+    #[cfg(feature = "_hand-lexers")]
     #[expect(
         clippy::as_conversions,
         clippy::cast_possible_truncation,
@@ -476,6 +525,6 @@ impl Scope {
     }
 
     /// The empty scope list.
-    #[cfg(feature = "_language")]
+    #[cfg(feature = "_hand-lexers")]
     pub(crate) const NO_SCOPES: Scopes<Scope> = &Keyed::new([], []);
 }
