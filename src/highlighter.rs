@@ -1,11 +1,69 @@
-//! The highlighter: one language, its interned stacks and states, and its
+//! The highlighter: what it lexes, its interned stacks and states, and its
 //! limits.
+
+use std::fmt::Debug;
 
 use crate::arena::{Arena, ROOT, Scopes};
 use crate::language::{Context, Line};
 use crate::limits::{Limit, Limits, LineReport};
 use crate::scratch::Scratch;
 use crate::{Language, Stack, State, Style, Theme, Token};
+
+/// What a [`Highlighter`] lexes, such as a [`Language`].
+///
+/// The trait is sealed: only nishiki implements it.
+#[expect(
+    private_bounds,
+    reason = "the crate-private supertrait seals the trait and holds what the highlighter calls"
+)]
+pub trait Syntax: Sealed {}
+
+/// What a [`Syntax`] gives the highlighter.
+///
+/// It is crate-private, so no caller can implement [`Syntax`].
+pub(crate) trait Sealed: Sized {
+    /// What the highlighter keeps to lex a line, such as the [`Language`]
+    /// itself.
+    type Lexer: Copy + Debug;
+
+    /// The state at the start of a document whose scopes sit on `base`.
+    fn start(lexer: Self::Lexer, arena: &mut Arena, base: u32) -> u32;
+
+    /// [`Highlighter::line`] for this syntax.
+    ///
+    /// Each syntax implements it without generics, so nishiki compiles it.
+    /// A generic body would be compiled in the caller's crate instead.
+    /// That changes what LLVM inlines on the hand lexers' path.
+    fn line(
+        highlighter: &mut Highlighter<Self>,
+        line: &str,
+        state: &mut State,
+        out: &mut Vec<Token>,
+    ) -> LineReport
+    where
+        Self: Syntax;
+}
+
+impl Syntax for Language {}
+
+impl Sealed for Language {
+    type Lexer = Language;
+
+    fn start(lexer: Language, arena: &mut Arena, base: u32) -> u32 {
+        lexer.start(arena, base)
+    }
+
+    fn line(
+        highlighter: &mut Highlighter<Language>,
+        line: &str,
+        state: &mut State,
+        out: &mut Vec<Token>,
+    ) -> LineReport {
+        lex_line(highlighter, line, state, out, |language, cx, text, from| {
+            language.lex(cx, text, from)
+        })
+    }
+}
 
 /// Highlights one language, a line at a time.
 ///
@@ -15,9 +73,22 @@ use crate::{Language, Stack, State, Style, Theme, Token};
 /// The state after one line is the input of the next.
 /// An editor can therefore keep each line's state and re-highlight from any
 /// line.
+///
+/// `S` is what it lexes, a [`Language`] unless named.
 #[derive(Debug)]
-pub struct Highlighter {
-    language: Language,
+pub struct Highlighter<S: Syntax = Language> {
+    /// What the highlighter lexes with.
+    lexer: S::Lexer,
+    /// Everything else the highlighter keeps.
+    core: Core,
+}
+
+/// The limits, stacks, states, buffers and styles of a highlighter.
+///
+/// They do not depend on its [`Syntax`].
+/// Their methods are therefore not generic, so nishiki compiles them once.
+#[derive(Debug)]
+struct Core {
     limits: Limits,
     arena: Arena,
     /// Buffers and caches of the lexers, one field per language.
@@ -86,36 +157,45 @@ impl Highlighter {
     /// A highlighter for `language` with `limits`.
     #[must_use]
     pub fn new_with_limits(language: Language, limits: Limits) -> Self {
-        let mut arena = Arena::new(limits.nodes);
-        let start = language.start(&mut arena, ROOT);
-        Highlighter {
-            language,
-            limits,
-            arena,
-            scratch: Scratch::default(),
-            start,
-            styles: Styles::default(),
-        }
+        Self::with_lexer(language, limits)
     }
 
     /// The language this highlighter lexes.
     #[must_use]
     pub fn language(&self) -> Language {
-        self.language
+        self.lexer
+    }
+}
+
+impl<S: Syntax> Highlighter<S> {
+    /// A highlighter that lexes with `lexer` under `limits`.
+    pub(crate) fn with_lexer(lexer: S::Lexer, limits: Limits) -> Self {
+        let mut arena = Arena::new(limits.nodes);
+        let start = S::start(lexer, &mut arena, ROOT);
+        Highlighter {
+            lexer,
+            core: Core {
+                limits,
+                arena,
+                scratch: Scratch::default(),
+                start,
+                styles: Styles::default(),
+            },
+        }
     }
 
     /// The limits this highlighter applies to every line.
     #[must_use]
     pub fn limits(&self) -> Limits {
-        self.limits
+        self.core.limits
     }
 
-    /// Forgets every interned state and stack, and keeps the language and
+    /// Forgets every interned state and stack, and keeps the syntax and
     /// limits.
     ///
     /// It resets the fields in place.
     /// With no language feature on, `Language` has no variants, and neither
-    /// has `Highlighter`.
+    /// has `Highlighter<Language>`.
     /// Code after a call that returns either is then unreachable, which
     /// `check:features` denies.
     ///
@@ -123,10 +203,11 @@ impl Highlighter {
     /// The new arena gives its ids to other stacks, so a style kept for an
     /// old id would colour an unrelated stack.
     pub(crate) fn renew(&mut self) {
-        self.arena = Arena::new(self.limits.nodes);
-        self.start = self.language.start(&mut self.arena, ROOT);
-        self.scratch = Scratch::default();
-        self.styles.forget();
+        let core = &mut self.core;
+        core.arena = Arena::new(core.limits.nodes);
+        core.start = S::start(self.lexer, &mut core.arena, ROOT);
+        core.scratch = Scratch::default();
+        core.styles.forget();
     }
 
     /// Lexes `line`, which excludes its line ending, starting from `state`.
@@ -136,35 +217,7 @@ impl Highlighter {
     /// It leaves in `state` the state for the next line.
     /// It reports the limits the line reached.
     pub fn line(&mut self, line: &str, state: &mut State, out: &mut Vec<Token>) -> LineReport {
-        let mut report = LineReport::default();
-        let from = if state.0 == ROOT { self.start } else { state.0 };
-        if self.limits.line_bytes.is_some_and(|max| line.len() > max) {
-            report.record(Limit::LineBytes);
-            let stack = Stack(self.arena.frame(from).stack);
-            out.push(Token {
-                end: line.len(),
-                stack,
-            });
-            return report;
-        }
-        self.scratch.start_line();
-        let first_token = out.len();
-        let mut cx = Context {
-            scratch: &mut self.scratch,
-            arena: &mut self.arena,
-            limits: &self.limits,
-            out,
-            report: &mut report,
-            first_token,
-        };
-        let text = Line {
-            text: line,
-            start: 0,
-            embedded: false,
-        };
-        let to = self.language.lex(&mut cx, text, from);
-        *state = State(if to == self.start { ROOT } else { to });
-        report
+        S::line(self, line, state, out)
     }
 
     /// The scope names of `stack`, innermost first, such as
@@ -175,7 +228,7 @@ impl Highlighter {
     /// nothing.
     #[must_use]
     pub fn scopes(&self, stack: Stack) -> Scopes<'_> {
-        self.arena.scopes(stack.0)
+        self.core.arena.scopes(stack.0)
     }
 
     /// The style `theme` gives `stack`: the style [`Theme::style`] gives the
@@ -188,13 +241,7 @@ impl Highlighter {
     /// It allocates only when a new stack first appears.
     #[must_use]
     pub fn style(&mut self, theme: &Theme, stack: Stack) -> Style {
-        if self.styles.current.theme != Some(theme.id()) {
-            return self.style_switch(theme, stack.0);
-        }
-        match self.styles.cached(stack.0) {
-            Some(style) => style,
-            None => self.style_miss(theme, stack.0),
-        }
+        self.core.style(theme, stack)
     }
 
     /// The style [`Highlighter::style`] keeps for `stack` under `theme`.
@@ -203,7 +250,7 @@ impl Highlighter {
     /// It is `None` for a stack not styled yet, and for a theme in neither
     /// slot, so no caller reads a style left from another theme.
     pub(crate) fn cached_style(&self, theme: &Theme, stack: Stack) -> Option<Style> {
-        let slot = [&self.styles.current, &self.styles.previous]
+        let slot = [&self.core.styles.current, &self.core.styles.previous]
             .into_iter()
             .find(|slot| slot.theme == Some(theme.id()))?;
         usize::try_from(stack.0)
@@ -211,6 +258,82 @@ impl Highlighter {
             .and_then(|index| slot.by_stack.get(index))
             .copied()
             .flatten()
+    }
+
+    /// The open context of `state`, for the lexers' tests.
+    #[cfg(test)]
+    #[cfg(feature = "_language")]
+    pub(crate) fn frame(&self, state: State) -> crate::arena::Frame {
+        self.core.arena.frame(if state.0 == ROOT {
+            self.core.start
+        } else {
+            state.0
+        })
+    }
+
+    /// The lexers' buffers, for the engine's tests.
+    #[cfg(test)]
+    #[cfg(feature = "_textmate")]
+    pub(crate) fn scratch_mut(&mut self) -> &mut Scratch {
+        &mut self.core.scratch
+    }
+}
+
+/// [`Highlighter::line`] with `lex` as the syntax's lexer.
+///
+/// Each [`Sealed::line`] calls it with its own `lex`, and is its one caller
+/// for that syntax, so LLVM inlines it there.
+pub(crate) fn lex_line<S: Syntax>(
+    highlighter: &mut Highlighter<S>,
+    line: &str,
+    state: &mut State,
+    out: &mut Vec<Token>,
+    lex: impl FnOnce(S::Lexer, &mut Context<'_>, Line<'_>, u32) -> u32,
+) -> LineReport {
+    let Highlighter { lexer, core } = highlighter;
+    let mut report = LineReport::default();
+    let from = if state.0 == ROOT { core.start } else { state.0 };
+    if core.limits.line_bytes.is_some_and(|max| line.len() > max) {
+        report.record(Limit::LineBytes);
+        let stack = Stack(core.arena.frame(from).stack);
+        out.push(Token {
+            end: line.len(),
+            stack,
+        });
+        return report;
+    }
+    core.scratch.start_line();
+    let first_token = out.len();
+    let mut cx = Context {
+        scratch: &mut core.scratch,
+        arena: &mut core.arena,
+        limits: &core.limits,
+        out,
+        report: &mut report,
+        first_token,
+    };
+    let text = Line {
+        text: line,
+        start: 0,
+        embedded: false,
+    };
+    let to = lex(*lexer, &mut cx, text, from);
+    *state = State(if to == core.start { ROOT } else { to });
+    report
+}
+
+impl Core {
+    /// [`Highlighter::style`].
+    ///
+    /// Not generic, so nishiki compiles it once, whatever the syntax.
+    fn style(&mut self, theme: &Theme, stack: Stack) -> Style {
+        if self.styles.current.theme != Some(theme.id()) {
+            return self.style_switch(theme, stack.0);
+        }
+        match self.styles.cached(stack.0) {
+            Some(style) => style,
+            None => self.style_miss(theme, stack.0),
+        }
     }
 
     /// [`Highlighter::style`] with a theme other than the current slot's:
@@ -251,14 +374,6 @@ impl Highlighter {
             }
         }
         style
-    }
-
-    /// The open context of `state`, for the lexers' tests.
-    #[cfg(test)]
-    #[cfg(feature = "_language")]
-    pub(crate) fn frame(&self, state: State) -> crate::arena::Frame {
-        self.arena
-            .frame(if state.0 == ROOT { self.start } else { state.0 })
     }
 }
 

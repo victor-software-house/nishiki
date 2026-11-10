@@ -27,7 +27,13 @@ use crate::limits::{Finished, Steps};
 /// Never inlined, as `lex_handing` is not. With the engine's scratch boxed,
 /// this function was inlined into `Highlighter::line` and `line_until` was
 /// not inlined into it. Batch then rose 0.2% at one codegen unit.
-#[expect(dead_code, reason = "no language runs on the TextMate engine now")]
+#[cfg_attr(
+    not(test),
+    expect(
+        dead_code,
+        reason = "no language runs on the TextMate engine now; its tests do"
+    )
+)]
 #[inline(never)]
 pub(crate) fn lex(
     cx: &mut Context<'_>,

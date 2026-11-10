@@ -460,7 +460,7 @@ mod zig;
 
 pub use arena::Scopes;
 pub use document::{Changes, Document, DocumentLine, EditError, LineKind, Tail, Until};
-pub use highlighter::Highlighter;
+pub use highlighter::{Highlighter, Syntax};
 pub use language::Language;
 pub use limits::{Budget, Limit, Limits, LineReport, Work};
 #[cfg(feature = "json")]
