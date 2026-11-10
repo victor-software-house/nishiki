@@ -225,7 +225,7 @@ mod tests {
         let trace = root.join("trace.deltas");
         fs::write(
             &trace,
-            format!("kind reply\nlanguage markdown\nsource src.md\ndeltas\n{deltas}\n"),
+            format!("origin reply\nlanguage markdown\nsource src.md\ndeltas\n{deltas}\n"),
         )?;
         Ok((root, trace))
     }

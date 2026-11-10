@@ -25,7 +25,7 @@
 //
 // `bun bench/compare/shiki.ts stream-reference` writes Shiki's colours for
 // the text each trace of bench/traces/ ends with, to
-// target/compare/shiki/traces/<kind>/<file>.colors.
+// target/compare/shiki/traces/<origin>/<file>.colors.
 // `bench:stream` scores nishiki against them.
 // `bun bench/compare/shiki.ts stream [--passes N]` replays every trace with
 // Shiki's `ShikiStreamTokenizer` and Pierre's `StreamTokenizer` and
@@ -302,7 +302,7 @@ async function time(options: TimeOptions): Promise<void> {
 }
 
 /** Where `stream-reference` writes Shiki's colours for each trace's final
- * text, as `<kind>/<file>.colors`. `bench:stream` reads them too. */
+ * text, as `<origin>/<file>.colors`. `bench:stream` reads them too. */
 const streamOut = join(out, "traces");
 
 /** Writes Shiki's colours for the text each trace ends with. */
@@ -432,7 +432,7 @@ async function stream(passes: number): Promise<void> {
   for (const trace of loadTraces()) {
     const reference = await coloursAt(join(streamOut, `${trace.name}.colors`));
     for (const [engine, { run, edits }] of Object.entries(streamEngines)) {
-      if (trace.kind === "edits" && !edits) continue;
+      if (trace.origin === "edits" && !edits) continue;
       const replays: Replay[] = [];
       for (let pass = 0; pass < passes; pass++) replays.push(await run(trace));
       const steady = replays[0]!.deltas

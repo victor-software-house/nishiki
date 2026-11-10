@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language go
 source bench/corpus/go/medium/caddy-parse.go
 url https://raw.githubusercontent.com/caddyserver/caddy/468154121df3c5e5cc56dae45edcf70037761894/caddyconfig/caddyfile/parse.go

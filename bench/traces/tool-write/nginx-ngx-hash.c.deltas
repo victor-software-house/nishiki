@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language c
 source bench/corpus/c/medium/nginx-ngx-hash.c
 url https://raw.githubusercontent.com/nginx/nginx/67290bfea61c81347464539f5e6d0a7cebec1fc8/src/core/ngx_hash.c

@@ -21,7 +21,7 @@ No trace comes from a recorded model transcript.
 
 Plain text, so the bench workspace reads it with the standard library alone.
 
-- Each header line is a key, a space and a value: `kind`, `language`, `source`, `url`, `licence`, `sha256`.
+- Each header line is a key, a space and a value: `origin`, `language`, `source`, `url`, `licence`, `sha256`.
   An edit trace adds `from` and `to`, the commits it replays.
 - An append trace ends its header with `deltas`.
   Then come the byte lengths of the deltas, 32 to a line.

@@ -1,4 +1,4 @@
-kind reply
+origin reply
 language markdown
 source bench/corpus/markdown/reply/hono-cloudflare-workers.md
 url https://raw.githubusercontent.com/honojs/website/6d4ba9115255b16a3a7388670787731ec49461ea/docs/getting-started/cloudflare-workers.md

@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language typescript
 source bench/corpus/typescript/medium/nest-injector.ts
 url https://raw.githubusercontent.com/nestjs/nest/206a5ccd302739a552ce000c1193c606c1ca58ad/packages/core/injector/injector.ts

@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language html
 source bench/corpus/html/medium/reveal-js-demo.html
 url https://raw.githubusercontent.com/hakimel/reveal.js/e240e175232fa2de660a02bc0d7bf5f655b159bb/demo.html

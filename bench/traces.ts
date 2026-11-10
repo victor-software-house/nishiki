@@ -9,7 +9,7 @@
 // Where the clone lacks that commit, as CI's shallow clone does, the check
 // says so and holds the trace to the `sha256` that `write` read from git.
 //
-// Three kinds of trace:
+// A trace has one of three origins:
 //
 // - reply: each reply-tier corpus file, cut into token-sized deltas;
 // - tool-write: the first medium-tier corpus file of each language below,
@@ -90,14 +90,14 @@ function header(fields: [string, string][]): string {
 }
 
 /** An append trace of one corpus file. */
-function appendTrace(kind: string, row: Row): string {
+function appendTrace(origin: string, row: Row): string {
   const bytes = readFileSync(join(corpus, row.path));
   const lengths = tokenPieces(decoder.decode(bytes)).map((piece) => encoder.encode(piece).length);
   const rows: string[] = [];
   for (let i = 0; i < lengths.length; i += 32) rows.push(lengths.slice(i, i + 32).join(" "));
   return (
     header([
-      ["kind", kind],
+      ["origin", origin],
       ["language", row.language],
       ["source", `bench/corpus/${row.path}`],
       ["url", row.source],
@@ -183,7 +183,7 @@ async function editTrace(path: string, language: string): Promise<string> {
   if (replayed !== last) throw new Error(`${path}: replaying the hunks does not give the file at ${commits[commits.length - 1]}`);
   return (
     header([
-      ["kind", "edits"],
+      ["origin", "edits"],
       ["language", language],
       ["source", path],
       ["url", `${REPOSITORY}/blob/${commits[0]}/${path}`],
@@ -302,9 +302,9 @@ async function check() {
     }
     if (found !== trace) problems.push(`${name}: differs from its source; run \`bun bench/traces.ts write\``);
   }
-  for (const kind of ["reply", "tool-write"]) {
-    for (const file of readdirSync(join(traces, kind))) {
-      if (!expected.has(`${kind}/${file}`)) problems.push(`${kind}/${file}: no source writes it`);
+  for (const origin of ["reply", "tool-write"]) {
+    for (const file of readdirSync(join(traces, origin))) {
+      if (!expected.has(`${origin}/${file}`)) problems.push(`${origin}/${file}: no source writes it`);
     }
   }
   const editFiles = readdirSync(join(traces, "edits")).sort();
@@ -312,7 +312,7 @@ async function check() {
   if (editFiles.join(" ") !== wanted.join(" ")) problems.push(`edits/: holds ${editFiles.join(", ")}, expected ${wanted.join(", ")}`);
   for (const file of editFiles) {
     const { fields, rest } = split(readFileSync(join(traces, "edits", file), "utf8"), /^base \d+$/);
-    for (const key of ["kind", "language", "source", "url", "licence", "from", "to", "sha256"]) {
+    for (const key of ["origin", "language", "source", "url", "licence", "from", "to", "sha256"]) {
       if (!fields.has(key)) problems.push(`edits/${file}: no ${key} line`);
     }
     if (fields.get("licence") !== NISHIKI_LICENCE) problems.push(`edits/${file}: licence is not ${NISHIKI_LICENCE}`);
@@ -344,7 +344,7 @@ export type Step = { push: string } | { replace: { start: number; end: number; t
 
 /** A trace as a replayer drives it: its first text (empty for an append
  * trace), its steps, and the text they end with. */
-export type Trace = { name: string; kind: string; language: string; initial: string; steps: Step[]; final: string };
+export type Trace = { name: string; origin: string; language: string; initial: string; steps: Step[]; final: string };
 
 /** The pushes that an append trace's body, `rest`, makes of its source's
  * `bytes`.
@@ -367,19 +367,19 @@ export function pushes(name: string, bytes: Uint8Array, rest: string): Step[] {
   return steps;
 }
 
-/** Every trace of bench/traces/, sorted by kind and name. */
+/** Every trace of bench/traces/, sorted by origin and name. */
 export function loadTraces(): Trace[] {
   const out: Trace[] = [];
-  for (const kind of ["reply", "tool-write", "edits"]) {
-    for (const file of readdirSync(join(traces, kind)).sort()) {
-      const name = `${kind}/${file}`;
+  for (const origin of ["reply", "tool-write", "edits"]) {
+    for (const file of readdirSync(join(traces, origin)).sort()) {
+      const name = `${origin}/${file}`;
       const trace = readFileSync(join(traces, name), "utf8");
-      if (kind === "edits") {
+      if (origin === "edits") {
         const { fields, rest } = split(trace, /^base \d+$/);
         const edits = parseEdits(rest);
         out.push({
           name,
-          kind,
+          origin,
           language: fields.get("language") ?? "",
           initial: decoder.decode(edits.base),
           steps: edits.replacements.map((r) => ({ replace: { start: r.start, end: r.end, text: decoder.decode(r.text) } })),
@@ -390,7 +390,7 @@ export function loadTraces(): Trace[] {
       const { fields, rest } = split(trace, /^deltas$/);
       const bytes = readFileSync(join(root, fields.get("source") ?? ""));
       const steps = pushes(name, bytes, rest);
-      out.push({ name, kind, language: fields.get("language") ?? "", initial: "", steps, final: decoder.decode(bytes) });
+      out.push({ name, origin, language: fields.get("language") ?? "", initial: "", steps, final: decoder.decode(bytes) });
     }
   }
   return out;

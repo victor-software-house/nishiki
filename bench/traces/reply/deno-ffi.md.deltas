@@ -1,4 +1,4 @@
-kind reply
+origin reply
 language markdown
 source bench/corpus/markdown/reply/deno-ffi.md
 url https://raw.githubusercontent.com/denoland/docs/74beb7585f7e798fe0bc8d867295bff23fc2e38e/runtime/fundamentals/ffi.md
