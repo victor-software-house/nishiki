@@ -273,7 +273,10 @@
 //! and name what you highlight:
 //!
 //! ```toml
-//! nishiki = { version = "0.1", default-features = false, features = ["lang-rust", "lang-markdown"] }
+//! [dependencies.nishiki]
+//! version = "0.1"
+//! default-features = false
+//! features = ["lang-rust", "lang-markdown"]
 //! ```
 //!
 //! - Each language is a `lang-*` feature, named on its [`Language`] variant.

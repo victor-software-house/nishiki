@@ -9,7 +9,8 @@
 //! The linker then keeps every lexer, its tables and the styling code.
 //!
 //! ```text
-//! cargo build --release --package nishiki-examples --example size --no-default-features --features nishiki/lang-json
+//! cargo build --release --package nishiki-examples --example size \
+//!   --no-default-features --features nishiki/lang-json
 //! ```
 
 use std::hint::black_box;
