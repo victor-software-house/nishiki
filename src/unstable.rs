@@ -38,6 +38,13 @@
 //! assert!(size_of::<CarriedState>() <= 2);
 //! ```
 
+// The items here carry the crate's internal features.
+// Those mean nothing to a reader of the docs.
+#![cfg_attr(
+    docsrs,
+    doc(auto_cfg(hide(feature, values("_embedding", "_language", "_rule-engine"))))
+)]
+
 pub use crate::arena::Arena;
 #[cfg(feature = "_embedding")]
 pub use crate::rules::Deferrals;
