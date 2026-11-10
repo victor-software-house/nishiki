@@ -65,7 +65,9 @@ impl Sealed for Language {
     }
 }
 
-/// Highlights one language, a line at a time.
+/// Highlights text in one [`Syntax`], `S`, a line at a time.
+///
+/// `S` is a [`Language`] unless named.
 ///
 /// It owns the scope stacks and states its tokens and [`State`]s name.
 /// Both therefore belong to the highlighter that made them.
@@ -73,8 +75,6 @@ impl Sealed for Language {
 /// The state after one line is the input of the next.
 /// An editor can therefore keep each line's state and re-highlight from any
 /// line.
-///
-/// `S` is what it lexes, a [`Language`] unless named.
 #[derive(Debug)]
 pub struct Highlighter<S: Syntax = Language> {
     /// What the highlighter lexes with.
