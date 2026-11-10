@@ -148,7 +148,10 @@ impl Lexer<'_> {
                 }
                 (slash == i
                     && slash + 1 < self.lim()
-                    && !matches!(self.at(slash + 1), b'\n' | b'\x0c' | b'\r' | b'0'..=b'9' | b'a'..=b'f'))
+                    && !matches!(
+                        self.at(slash + 1),
+                        b'\n' | b'\x0c' | b'\r' | b'0'..=b'9' | b'a'..=b'f'
+                    ))
                 .then(|| self.char_end(slash + 1))
             }
         }

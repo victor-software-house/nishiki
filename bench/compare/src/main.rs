@@ -267,7 +267,9 @@ fn print_head(options: &Options) {
     match options.output {
         Output::Table => {
             println!(
-                "{} rounds of {} ms per engine and file, the order rotating; {} fresh processes for setup and first document; colours against Shiki 4.6.0, github-dark",
+                "{} rounds of {} ms per engine and file, the order rotating; \
+                 {} fresh processes for setup and first document; \
+                 colours against Shiki 4.6.0, github-dark",
                 options.rounds,
                 ROUND.as_millis(),
                 options.cold

@@ -102,11 +102,24 @@ fn passes(document: &Document, passes: usize, overhead: Duration) -> Vec<Vec<Dur
 fn print_head(options: &Options, overhead: Duration, resolution: Duration) {
     if options.tsv {
         println!(
-            "language\ttier\tlines\tbelow_resolution\tsteady_p50_ns\tsteady_p99_ns\tsteady_max_ns\tfirst_contact_max_ns\tresolution_ns"
+            "{}",
+            [
+                "language",
+                "tier",
+                "lines",
+                "below_resolution",
+                "steady_p50_ns",
+                "steady_p99_ns",
+                "steady_max_ns",
+                "first_contact_max_ns",
+                "resolution_ns",
+            ]
+            .join("\t")
         );
     } else {
         println!(
-            "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; {} passes, the first apart",
+            "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; \
+             {} passes, the first apart",
             overhead.as_secs_f64() * 1e9,
             resolution.as_secs_f64() * 1e6,
             options.passes

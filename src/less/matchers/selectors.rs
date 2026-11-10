@@ -219,7 +219,11 @@ impl Lexer<'_> {
             return None;
         }
         let b = self.at(p);
-        let starts = matches!(b, b'#' | b'&' | b'*' | b'+' | b'.' | b'/' | b'>' | b'A'..=b'[' | b'a'..=b'z' | b'~')
+        let selector_byte = matches!(
+            b,
+            b'#' | b'&' | b'*' | b'+' | b'.' | b'/' | b'>' | b'A'..=b'[' | b'a'..=b'z' | b'~'
+        );
+        let starts = selector_byte
             || b == b':' && p + 1 < self.lim() && self.space_at(p + 1) == 0
             || self.starts(p, b"@{");
         starts.then_some(p)

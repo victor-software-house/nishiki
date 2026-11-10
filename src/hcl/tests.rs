@@ -258,7 +258,8 @@ fn a_heredoc_with_interpolations_and_trim_markers() {
     );
     assert_eq!(
         scopes(text, 1, " ~"),
-        "string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.operator.template.right.trim.hcl"
+        "string.unquoted.heredoc.hcl meta.interpolation.hcl \
+         keyword.operator.template.right.trim.hcl"
     );
     assert_eq!(
         scopes(text, 3, "  EOT"),

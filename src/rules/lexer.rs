@@ -2421,7 +2421,8 @@ mod tests {
         static ASKED: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
         /// The parent payload texts the engine gave [`Named`]'s end halt,
         /// on this test's thread.
-        static PARENT_TEXTS: std::cell::RefCell<Vec<Vec<u8>>> = const { std::cell::RefCell::new(Vec::new()) };
+        static PARENT_TEXTS: std::cell::RefCell<Vec<Vec<u8>>> =
+            const { std::cell::RefCell::new(Vec::new()) };
     }
 
     #[cfg(feature = "_embedding")]

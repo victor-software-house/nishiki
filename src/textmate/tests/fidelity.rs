@@ -177,13 +177,27 @@ fn result(sample: &str, found: &Outcome, details: &mut String) -> String {
 
 /// Writes `report.md` in `dir`: `summary`, then the table's `rows`.
 fn write_report(dir: &Path, summary: &str, rows: &str) {
+    let columns = [
+        ("Input", ":--"),
+        ("Result", ":--"),
+        ("Bytes that differ", "--:"),
+        ("First difference", ":--"),
+        ("Shiki", ":--"),
+        ("nishiki", ":--"),
+        ("Refused patterns", ":--"),
+        ("Limits reached", ":--"),
+    ];
+    let headings: Vec<&str> = columns.iter().map(|&(heading, _)| heading).collect();
+    let alignments: Vec<&str> = columns.iter().map(|&(_, alignment)| alignment).collect();
+    let headings = headings.join(" | ");
+    let alignments = alignments.join("|");
     let page = formatdoc! {"
         # Shiki fidelity
 
         {summary}
 
-        | Input | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
-        |:--|:--|--:|:--|:--|:--|:--|:--|
+        | {headings} |
+        |{alignments}|
         {rows}"};
     std::fs::write(dir.join("report.md"), page).unwrap();
 }

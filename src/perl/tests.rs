@@ -108,7 +108,8 @@ fn a_heredoc_tagged_html_hands_each_line_to_html() {
         rows[2],
         row(&[(
             "HTML",
-            "meta.embedded.block.html string.unquoted.heredoc.interpolated.perl punctuation.definition.string.end.perl"
+            "meta.embedded.block.html string.unquoted.heredoc.interpolated.perl \
+             punctuation.definition.string.end.perl"
         )])
     );
 }
