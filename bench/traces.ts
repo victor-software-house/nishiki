@@ -201,8 +201,8 @@ async function editTrace(path: string, language: string): Promise<string> {
     ${base}
     `;
   for (let c = 1; c < commits.length; c++) {
-    const diff =
-      await $`git -C ${root} diff --no-ext-diff -U0 ${commits[c - 1]} ${commits[c]} -- ${path}`.text();
+    const pair = commits.slice(c - 1, c + 1);
+    const diff = await $`git -C ${root} diff --no-ext-diff -U0 ${pair} -- ${path}`.text();
     let shift = 0;
     for (const h of hunks(diff)) {
       const first = h.start + shift;

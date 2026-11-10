@@ -129,7 +129,8 @@ export function summary(rounds: number[]): Summary {
 /** The executables a cargo build with `--message-format=json` produced. */
 async function executables(args: string[]): Promise<Map<string, string>> {
   const found = new Map<string, string>();
-  for await (const line of $`cargo ${args} --locked --manifest-path bench/Cargo.toml --message-format=json`.lines()) {
+  const flags = ["--locked", "--manifest-path", "bench/Cargo.toml", "--message-format=json"];
+  for await (const line of $`cargo ${args} ${flags}`.lines()) {
     if (!line.startsWith("{")) continue;
     const message = JSON.parse(line);
     if (message.reason === "compiler-artifact" && message.executable) {
@@ -201,8 +202,13 @@ export async function referenceHost(): Promise<BenchRecord["host"]> {
     found.memory_mib >= REFERENCE.memory_mib.min &&
     found.memory_mib <= REFERENCE.memory_mib.max;
   if (!matches) {
+    const marker = existsSync(REFERENCE.marker) ? "" : ` and no ${REFERENCE.marker}`;
     throw new Error(
-      `a record comes only from the reference host class, ${REFERENCE.class}: ${REFERENCE.cpus} CPUs, ${REFERENCE.threads_per_core} threads a core, about 16 GB and Namespace's ${REFERENCE.marker}; this host has ${found.cpus} CPUs, ${found.threads_per_core} threads a core, ${found.memory_mib} MiB${existsSync(REFERENCE.marker) ? "" : ` and no ${REFERENCE.marker}`}`,
+      `a record comes only from the reference host class, ${REFERENCE.class}: ` +
+        `${REFERENCE.cpus} CPUs, ${REFERENCE.threads_per_core} threads a core, ` +
+        `about 16 GB and Namespace's ${REFERENCE.marker}; ` +
+        `this host has ${found.cpus} CPUs, ${found.threads_per_core} threads a core, ` +
+        `${found.memory_mib} MiB${marker}`,
     );
   }
   return found;

@@ -521,6 +521,9 @@ const cFamily: [reason: string, rows: CRow[]][] = [
 
 /** A group of the alternative of Go's number pattern that starts with a
  * point, as `.5` does. Its first group is that point. */
+/** Go's number pattern, whose captures hold the parts of a number. */
+const goNumber = "#numeric_literals.captures[0].patterns[0].patterns[0]";
+
 const goLeadingPoint =
   "the alternative starts at a `.` before a digit, where `#delimiters`, " +
   "before `#numeric_literals` in every list that holds it, matches `\\.(?!\\.\\.)` first, " +
@@ -691,7 +694,8 @@ export const waivers: Waiver[] = [
     grammar: "css",
     path: "#at-rules.patterns[0].patterns[2].patterns[0].begin",
     reason:
-      'group 6 of `#at-rules.patterns[0].patterns[0]`, earlier in the `@charset` rule, takes an unclosed string from the same `"`, and a closed one fails the lookahead',
+      "group 6 of `#at-rules.patterns[0].patterns[0]`, earlier in the `@charset` rule, " +
+      'takes an unclosed string from the same `"`, and a closed one fails the lookahead',
   },
   {
     grammar: "css",
@@ -1374,7 +1378,8 @@ export const waivers: Waiver[] = [
       path: `#${rule}.patterns[2].patterns[1].begin`,
       reason:
         "`$self`, before it in the same list, holds " +
-        "`#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\\(` matches every `(`",
+        "`#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, " +
+        "whose begin `\\(` matches every `(`",
       probe,
     },
     {
@@ -1428,13 +1433,13 @@ export const waivers: Waiver[] = [
   })),
   ...[18, 19, 20, 21, 22, 23, 24, 25].map((group): Waiver => ({
     grammar: "go",
-    path: "#numeric_literals.captures[0].patterns[0].patterns[0].match",
+    path: `${goNumber}.match`,
     group,
     reason: goLeadingPoint,
   })),
   ...[19, 24].map((group): Waiver => ({
     grammar: "go",
-    path: `#numeric_literals.captures[0].patterns[0].patterns[0].captures[${group}].patterns[0].match`,
+    path: `${goNumber}.captures[${group}].patterns[0].match`,
     reason: goLeadingPoint,
   })),
   ...[3, 4, 5, 6, 7, 8, 9].map((pattern): Waiver => ({
@@ -1917,7 +1922,9 @@ export const waivers: Waiver[] = [
       path: `${rule}.patterns[0].patterns[0].patterns[0].match`,
       group: 1,
       reason:
-        'the rule\'s begin `([^"]*)` takes the text up to the quote, where its end `(?=")` holds, or the rest of the line; Shiki lexes the next line outside the rule, so this match only matches empty',
+        "the rule's begin `([^\"]*)` takes the text up to the quote, " +
+        'where its end `(?=")` holds, or the rest of the line; ' +
+        "Shiki lexes the next line outside the rule, so this match only matches empty",
     }),
   ),
   ...["patterns[8].begin", "patterns[8].end"].map((path): Waiver => ({
@@ -1992,7 +1999,8 @@ export const waivers: Waiver[] = [
     grammar: "vb",
     path: "patterns[12].patterns[0].match",
     reason:
-      'the string\'s end `"` is tried before its patterns at every quote, so `""` ends the string and the next quote starts another',
+      "the string's end `\"` is tried before its patterns at every quote, " +
+      'so `""` ends the string and the next quote starts another',
   },
   ...["patterns[5]", "patterns[10]", "patterns[14]"].flatMap((rule) =>
     ["begin", "end"].map((part): Waiver => ({
@@ -2360,7 +2368,8 @@ export const waivers: Waiver[] = [
     ["#line_comment.patterns[0].begin", "LineCommentAt0"],
     ...["braces", "brackets", "ltgt", "parens"].flatMap((bracket) =>
       ["", "_interpolated"].flatMap((tail) => {
-        const id = `Nested${bracket.charAt(0).toUpperCase()}${bracket.slice(1)}${tail ? "Interpolated" : ""}`;
+        const name = bracket.charAt(0).toUpperCase() + bracket.slice(1);
+        const id = `Nested${name}${tail ? "Interpolated" : ""}`;
         return [
           [`#nested_${bracket}${tail}.begin`, id],
           [`#nested_${bracket}${tail}.end`, `${id}End`],

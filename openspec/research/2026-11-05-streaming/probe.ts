@@ -179,7 +179,17 @@ function flicker(d: Doc, mode: Mode) {
 
 function runFlicker() {
   console.log(
-    "trace\tfile\tmode\tdeltas\tunits\tflicker_units\trenders_with_flicker\tflicker_per_kib\tpending_units_per_render",
+    [
+      "trace",
+      "file",
+      "mode",
+      "deltas",
+      "units",
+      "flicker_units",
+      "renders_with_flicker",
+      "flicker_per_kib",
+      "pending_units_per_render",
+    ].join("\t"),
   );
   const traces: [string, Doc[]][] = [
     ["reply", replies],

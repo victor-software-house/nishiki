@@ -620,7 +620,11 @@ async function main(): Promise<void> {
       const found = [...bench.found, ...compare.found];
       if (found.length > 0) {
         throw new Error(
-          `${found.join("\n")}\nRun \`mise run bench:report render\` and \`mise run bench:report summary\`; never edit them by hand.`,
+          [
+            ...found,
+            "Run `mise run bench:report render` and `mise run bench:report summary`; " +
+              "never edit them by hand.",
+          ].join("\n"),
         );
       }
       console.log(
