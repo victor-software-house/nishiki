@@ -153,6 +153,7 @@ fn write_report(dir: &Path, summary: &str, rows: &str) {
 
 /// Fails on a difference, a panic, a grammar that does not load, or a
 /// refusal outside [`KNOWN_REFUSALS`].
+/// A language with several inputs counts each of its refusals once.
 /// It also fails on an entry of that list no grammar refuses any more, so the
 /// list only shrinks.
 /// A stall stops the run at once: its thread still runs, and would slow every
@@ -186,9 +187,13 @@ fn every_shiki_grammar_matches_shiki() {
             equal += 1;
         }
         for &(pattern, ref reason) in &refusals {
-            match KNOWN_REFUSALS.iter().find(|&&known| known == (id, pattern)) {
-                Some(&known) => seen.push(known),
-                None => unknown.push(format!("{id}: {reason} in {pattern}")),
+            if let Some(&known) = KNOWN_REFUSALS.iter().find(|&&known| known == (id, pattern)) {
+                seen.push(known);
+            } else {
+                let refusal = format!("{id}: {reason} in {pattern}");
+                if !unknown.contains(&refusal) {
+                    unknown.push(refusal);
+                }
             }
         }
         let refusal = refusals
