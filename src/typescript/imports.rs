@@ -41,9 +41,9 @@ impl<const D: u8> Lexer<'_, D> {
         };
         self.flush(p);
         let rule = if external {
-            Rule::ImportEqExt
+            Rule::ImportEqualsExternal
         } else {
-            Rule::ImportEqInt
+            Rule::ImportEqualsInternal
         };
         if !external && self.starts(r0, "require") && self.boundary(r0 + "require".len()) {
             return None;

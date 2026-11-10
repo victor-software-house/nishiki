@@ -8,13 +8,13 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn string(&mut self, p: usize) -> Option<usize> {
         match self.byte(p) {
             b'\'' => self.open_token(
-                Rule::StrSingle,
+                Rule::StringSingle,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
             ),
             b'"' => self.open_token(
-                Rule::StrDouble,
+                Rule::StringDouble,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],

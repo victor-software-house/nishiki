@@ -184,7 +184,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(^[\t ]+)?((//)…)` that runs to the start of the next line.
     pub(crate) fn single_line_comment_consuming_line_ending(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) == b'/' && self.byte(p + 1) == b'/' {
-            return self.line_comment_begin(p, p, Rule::CommentLineNl);
+            return self.line_comment_begin(p, p, Rule::CommentLineNewline);
         }
         if Self::bol(p) && matches!(self.byte(p), b' ' | b'\t') {
             let mut j = p;
@@ -192,7 +192,7 @@ impl<const D: u8> Lexer<'_, D> {
                 j += 1;
             }
             if self.starts(j, "//") {
-                return self.line_comment_begin(p, j, Rule::CommentLineNl);
+                return self.line_comment_begin(p, j, Rule::CommentLineNewline);
             }
         }
         None

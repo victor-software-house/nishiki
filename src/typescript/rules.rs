@@ -9,11 +9,11 @@ use super::state::Rule;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Entry {
     /// `source.ts#object-literal`.
-    ObjLit,
+    ObjectLiteral,
     /// `source.ts#object-binding-pattern` and the other binding patterns.
     Binding(Pattern, Binding),
     /// `source.ts#type-parameters`.
-    TypeParams,
+    TypeParameters,
 }
 
 impl<const D: u8> Lexer<'_, D> {
@@ -47,128 +47,139 @@ impl<const D: u8> Lexer<'_, D> {
             Rule::Script => self.script_comment(p).or_else(|| self.top_rules(p)),
             Rule::JsxExpressionNoAttributes => self.jsx_tag_without_attributes(p),
             Rule::JsxNoAttributes | Rule::JsxTagBody => self.jsx_children(p),
-            Rule::JsxExprTag => self.jsx_tag(p),
+            Rule::JsxExpressionTag => self.jsx_tag(p),
             Rule::JsxTag => self.jsx_tag_rules(p),
             Rule::JsxTagOpen => self.jsx_tag_open_rules(p),
             Rule::JsxAttributes => self.jsx_attribute_rules(p),
-            Rule::JsxStrDouble | Rule::JsxStrSingle => self.jsx_string_rules(p),
+            Rule::JsxStringDouble | Rule::JsxStringSingle => self.jsx_string_rules(p),
             Rule::Block | Rule::CaseBlock => self.statements(p),
-            Rule::ObjLit => self.object_member(p),
-            Rule::EntryObjLit => self.entry(Entry::ObjLit, p),
-            Rule::EntryObjBind => self.entry(Entry::Binding(Pattern::Object, Binding::Variable), p),
-            Rule::EntryObjBindConst => {
+            Rule::ObjectLiteral => self.object_member(p),
+            Rule::EntryObjectLiteral => self.entry(Entry::ObjectLiteral, p),
+            Rule::EntryObjectBinding => {
+                self.entry(Entry::Binding(Pattern::Object, Binding::Variable), p)
+            }
+            Rule::EntryObjectBindingConst => {
                 self.entry(Entry::Binding(Pattern::Object, Binding::Constant), p)
             }
-            Rule::EntryArrBind => self.entry(Entry::Binding(Pattern::Array, Binding::Variable), p),
-            Rule::EntryArrBindConst => {
+            Rule::EntryArrayBinding => {
+                self.entry(Entry::Binding(Pattern::Array, Binding::Variable), p)
+            }
+            Rule::EntryArrayBindingConst => {
                 self.entry(Entry::Binding(Pattern::Array, Binding::Constant), p)
             }
-            Rule::EntryTypeParams => self.entry(Entry::TypeParams, p),
+            Rule::EntryTypeParameters => self.entry(Entry::TypeParameters, p),
             Rule::Expression
-            | Rule::JsxEval
-            | Rule::ArrLit
-            | Rule::ParenExpr
-            | Rule::SwitchExpr
+            | Rule::JsxEmbeddedExpression
+            | Rule::ArrayLiteral
+            | Rule::ParenExpression
+            | Rule::SwitchExpression
             | Rule::IfParen
             | Rule::Return
             | Rule::Decorator
-            | Rule::NewExpr
+            | Rule::NewExpression
             | Rule::Ternary
             | Rule::CaseClause
-            | Rule::TemplateExpr
+            | Rule::TemplateExpression
             | Rule::ClassColon
-            | Rule::VarInit1
-            | Rule::VarInit2
-            | Rule::ObjInit
-            | Rule::ObjSpread => self.expression(p),
-            Rule::ArrBind => self
+            | Rule::VariableInitializer1
+            | Rule::VariableInitializer2
+            | Rule::ObjectInitializer
+            | Rule::ObjectSpread => self.expression(p),
+            Rule::ArrayBinding => self
                 .binding_element(p, Binding::Variable)
                 .or_else(|| self.punctuation_comma(p)),
-            Rule::ArrBindConst => self
+            Rule::ArrayBindingConst => self
                 .binding_element(p, Binding::Constant)
                 .or_else(|| self.punctuation_comma(p)),
-            Rule::ObjBind => self.object_binding_element(p, Binding::Variable),
-            Rule::ObjBindConst => self.object_binding_element(p, Binding::Constant),
-            Rule::ObjBindElem => self
+            Rule::ObjectBinding => self.object_binding_element(p, Binding::Variable),
+            Rule::ObjectBindingConst => self.object_binding_element(p, Binding::Constant),
+            Rule::ObjectBindingElement => self
                 .object_binding_element_property_name(p)
                 .or_else(|| self.binding_element(p, Binding::Variable)),
-            Rule::ObjBindElemConst => self
+            Rule::ObjectBindingElementConst => self
                 .object_binding_element_property_name(p)
                 .or_else(|| self.binding_element(p, Binding::Constant)),
             Rule::ObjectBindingProperty => self.object_binding_property_rules(p),
-            Rule::ParamObjElem => self
+            Rule::ParameterObjectElement => self
                 .object_binding_element_property_name(p)
                 .or_else(|| self.parameter_binding_element(p))
                 .or_else(|| self.paren_expression(p)),
-            Rule::ArrowHead | Rule::PossArrow => self.arrow_head_rules(rule, p),
+            Rule::ArrowHead | Rule::PossibleArrow => self.arrow_head_rules(rule, p),
             Rule::ArrowBody => self
                 .single_line_comment_consuming_line_ending(p)
                 .or_else(|| self.decl_block(p))
                 .or_else(|| self.expression(p)),
-            Rule::ArrowRet | Rule::PossArrowRet => self.arrow_return_type_body(p),
-            Rule::ArrowRetObj | Rule::TypeFnRetObj | Rule::RetObj | Rule::TypeOpObj => {
-                self.type_object(p)
-            }
-            Rule::Params => self.function_parameters_body(p),
+            Rule::ArrowReturn | Rule::PossibleArrowReturn => self.arrow_return_type_body(p),
+            Rule::ArrowReturnObject
+            | Rule::TypeFunctionReturnObject
+            | Rule::ReturnObject
+            | Rule::TypeOperatorObject => self.type_object(p),
+            Rule::Parameters => self.function_parameters_body(p),
             Rule::Cast
             | Rule::AsType
             | Rule::InstanceOf
-            | Rule::TypeAnn1
-            | Rule::TypeAnn2
-            | Rule::TypeCondQ
-            | Rule::TypeAliasEq
+            | Rule::TypeAnnotation1
+            | Rule::TypeAnnotation2
+            | Rule::TypeConditionalQuestionMark
+            | Rule::TypeAliasEquals
             | Rule::TypeSpread
-            | Rule::ParamTypeAnn
-            | Rule::ObjAs
-            | Rule::TemplateTypeExpr => self.type_(p),
-            Rule::JsBraces | Rule::JsBrackets | Rule::JsType => self.doc_brackets(p),
-            Rule::ClassDecl => self.class_rules(p),
+            | Rule::ParameterTypeAnnotation
+            | Rule::ObjectAs
+            | Rule::TemplateTypeExpression => self.type_(p),
+            Rule::JsDocBraces | Rule::JsDocBrackets | Rule::JsDocType => self.doc_brackets(p),
+            Rule::ClassDeclaration => self.class_rules(p),
             Rule::ClassBody => self.class_body_rules(p),
             Rule::Heritage => self.heritage_rules(p),
             Rule::CommentDoc => self.docblock(p),
             Rule::CommentBlock
             | Rule::CommentLine
-            | Rule::CommentLineNl
+            | Rule::CommentLineNewline
             | Rule::ScriptBlockComment
             | Rule::ScriptLineComment
-            | Rule::ObjMember
-            | Rule::JsCaption
-            | Rule::JsDefaultQuote
-            | Rule::TypeOp
-            | Rule::VarKw => None,
+            | Rule::ObjectMember
+            | Rule::JsDocCaption
+            | Rule::JsDocDefaultQuote
+            | Rule::TypeOperator
+            | Rule::VariableKeyword => None,
             Rule::ForLoop => self.for_loop_rules(p),
             Rule::ForParen => self.for_paren_rules(p),
-            Rule::SwitchStmt => self.switch_statement_rules(p),
+            Rule::SwitchStatement => self.switch_statement_rules(p),
             Rule::SwitchBlock => self.switch_block_rules(p),
             Rule::IfOuter => self.if_outer_rules(p),
-            Rule::ObjBindVar => self.binding_variable_rules(p, Pattern::Object, Binding::Variable),
-            Rule::ObjBindVarConst => {
+            Rule::ObjectBindingVariable => {
+                self.binding_variable_rules(p, Pattern::Object, Binding::Variable)
+            }
+            Rule::ObjectBindingVariableConst => {
                 self.binding_variable_rules(p, Pattern::Object, Binding::Constant)
             }
-            Rule::ArrBindVar => self.binding_variable_rules(p, Pattern::Array, Binding::Variable),
-            Rule::ArrBindVarConst => {
+            Rule::ArrayBindingVariable => {
+                self.binding_variable_rules(p, Pattern::Array, Binding::Variable)
+            }
+            Rule::ArrayBindingVariableConst => {
                 self.binding_variable_rules(p, Pattern::Array, Binding::Constant)
             }
-            Rule::ParamObjBind | Rule::ParamObjPattern => self.parameter_object_binding_element(p),
-            Rule::ParamArrBind | Rule::ParamArrPattern => self
+            Rule::ParameterObjectBinding | Rule::ParameterObjectPattern => {
+                self.parameter_object_binding_element(p)
+            }
+            Rule::ParameterArrayBinding | Rule::ParameterArrayPattern => self
                 .parameter_binding_element(p)
                 .or_else(|| self.punctuation_comma(p)),
             Rule::Directive => self.directive_rules(p),
             Rule::DirectiveTag => self.directive_tag_rules(p),
-            Rule::JsExample => self.doc_example_rules(p),
-            Rule::JsTypeTag => self
+            Rule::JsDocExample => self.doc_example_rules(p),
+            Rule::JsDocTypeTag => self
                 .doc_type_tag_rules(p)
                 .or_else(|| self.doc_type_tag_names(p)),
-            Rule::JsParamTag => self
+            Rule::JsDocParamTag => self
                 .doc_type_tag_rules(p)
                 .or_else(|| self.doc_type_tag_names(p))
                 .or_else(|| self.doc_optional_param(p)),
-            Rule::JsTypedefTag => self
+            Rule::JsDocTypedefTag => self
                 .doc_type_tag_rules(p)
                 .or_else(|| self.doc_typedef_name(p)),
-            Rule::JsRetTag => self.doc_type_tag_rules(p),
-            Rule::JsInlineLink => self.doc_inline_link_rules(p),
-            Rule::EnumDecl => self.enum_rules(p),
+            Rule::JsDocReturnTag => self.doc_type_tag_rules(p),
+            Rule::JsDocInlineLink => self.doc_inline_link_rules(p),
+            Rule::EnumDeclaration => self.enum_rules(p),
             Rule::EnumBody => self.enum_body_rules(p),
             Rule::EnumMember => self.comment(p).or_else(|| self.variable_initializer(p)),
             Rule::EnumKey => self
@@ -188,68 +199,72 @@ impl<const D: u8> Lexer<'_, D> {
             Rule::CallOuter => self.call_outer_rules(p),
             Rule::CallTarget | Rule::Call2Target => self.call_target_rules(p),
             Rule::Call2Outer => self.call2_outer_rules(p),
-            Rule::FuncDecl => self.function_name(p).or_else(|| self.function_body(p)),
-            Rule::FuncExpr => self
+            Rule::FunctionDeclaration => self.function_name(p).or_else(|| self.function_body(p)),
+            Rule::FunctionExpression => self
                 .function_name(p)
                 .or_else(|| self.single_line_comment_consuming_line_ending(p))
                 .or_else(|| self.function_body(p)),
             Rule::Import => self.import_rules(p),
-            Rule::ImportEqExt => self.comment(p).or_else(|| self.string(p)),
-            Rule::ImportEqInt => self.import_eq_int_rules(p),
+            Rule::ImportEqualsExternal => self.comment(p).or_else(|| self.string(p)),
+            Rule::ImportEqualsInternal => self.import_eq_int_rules(p),
             Rule::AssertClause => self.assert_clause_rules(p),
             Rule::Indexer => self.type_annotation(p),
             Rule::IndexerMapped => self.indexer_mapped_rules(p),
-            Rule::InterfaceDecl => self.interface_rules(p),
+            Rule::InterfaceDeclaration => self.interface_rules(p),
             Rule::LabelBlock => self.decl_block(p),
             Rule::Method => self.method_rules(p),
-            Rule::ObjMethod => self
+            Rule::ObjectMethod => self
                 .method_rules(p)
-                .or_else(|| self.object_literal_method_declaration(p, Rule::ObjMethodNested)),
-            Rule::ObjMethodNested => self.method_declaration_name(p),
+                .or_else(|| self.object_literal_method_declaration(p, Rule::ObjectMethodNested)),
+            Rule::ObjectMethodNested => self.method_declaration_name(p),
             Rule::MethodName => self.method_name_rules(p),
-            Rule::NamespaceDecl => self.namespace_rules(p),
-            Rule::ObjKeyBracket => self.comment(p).or_else(|| self.array_literal(p)),
-            Rule::ObjKeyStr => self.comment(p).or_else(|| self.string(p)),
-            Rule::ObjKeyNum => self.comment(p).or_else(|| self.numeric_literal(p)),
-            Rule::ObjMethodAfterKey => self.function_body(p),
-            Rule::ObjValue => self.object_value_rules(p),
-            Rule::ObjArrowGeneric => self.object_arrow_generic_rules(p),
-            Rule::ObjArrowParen | Rule::ParenArrowParams => {
+            Rule::NamespaceDeclaration => self.namespace_rules(p),
+            Rule::ObjectKeyBracket => self.comment(p).or_else(|| self.array_literal(p)),
+            Rule::ObjectKeyString => self.comment(p).or_else(|| self.string(p)),
+            Rule::ObjectKeyNumber => self.comment(p).or_else(|| self.numeric_literal(p)),
+            Rule::ObjectMethodAfterKey => self.function_body(p),
+            Rule::ObjectPropertyValue => self.object_value_rules(p),
+            Rule::ObjectArrowGeneric => self.object_arrow_generic_rules(p),
+            Rule::ObjectArrowParen | Rule::ParenArrowParameters => {
                 self.expression_inside_possibly_arrow_parens(p)
             }
-            Rule::ObjArrowOpen => self.type_parameters(p),
+            Rule::ObjectArrowOpen => self.type_parameters(p),
             Rule::YieldComment => self.comment(p),
-            Rule::Regex | Rule::RxGroup | Rule::RxAssert => self.regexp(p),
-            Rule::RxSet => self.regex_set_rules(p),
+            Rule::Regex | Rule::RegexGroup | Rule::RegexAssert => self.regexp(p),
+            Rule::RegexSet => self.regex_set_rules(p),
             Rule::ReturnType1 | Rule::ReturnType2 => self.return_type_core(p),
-            Rule::StrSingle | Rule::StrDouble => self.string_character_escape(p),
+            Rule::StringSingle | Rule::StringDouble => self.string_character_escape(p),
             Rule::Template | Rule::EntryTemplate => self
-                .template_substitution(p, Rule::TemplateExpr)
+                .template_substitution(p, Rule::TemplateExpression)
                 .or_else(|| self.string_character_escape(p)),
             Rule::TemplateType => self
-                .template_substitution(p, Rule::TemplateTypeExpr)
+                .template_substitution(p, Rule::TemplateTypeExpression)
                 .or_else(|| self.string_character_escape(p)),
             Rule::TemplateCall => self.template_call_rules(p),
             Rule::TemplateCall2 => self.type_arguments(p),
             Rule::TemplateCallTarget => self.template_target_rules(p),
-            Rule::TypeArgs | Rule::TypeNameArgs => self.type_arguments_body(p),
+            Rule::TypeArguments | Rule::TypeNameArguments => self.type_arguments_body(p),
             Rule::TypeAlias => self.type_alias_rules(p),
-            Rule::TypeCond => self.type_conditional_rules(p),
-            Rule::TypeCtorTp => self.comment(p).or_else(|| self.type_parameters(p)),
-            Rule::TypeCtor | Rule::TypeFn => self.function_parameters(p),
-            Rule::TypeFnRet1 | Rule::TypeFnRet2 => self.type_function_return_type_core(p),
-            Rule::TypeObj => self.type_object_rules(p),
-            Rule::TypeParams => self.type_params_rules(p),
+            Rule::TypeConditional => self.type_conditional_rules(p),
+            Rule::TypeConstructorTypeParameters => {
+                self.comment(p).or_else(|| self.type_parameters(p))
+            }
+            Rule::TypeConstructor | Rule::TypeFunction => self.function_parameters(p),
+            Rule::TypeFunctionReturn1 | Rule::TypeFunctionReturn2 => {
+                self.type_function_return_type_core(p)
+            }
+            Rule::TypeObject => self.type_object_rules(p),
+            Rule::TypeParameters => self.type_params_rules(p),
             Rule::TypeParen => self.type_paren_rules(p),
             Rule::TypeTuple => self.type_tuple_rules(p),
             Rule::Typeof => self.type_arguments(p).or_else(|| self.expression(p)),
-            Rule::VarLet => self.var_rules(VarKeyword::Let, p),
-            Rule::VarConst => self.var_rules(VarKeyword::Const, p),
-            Rule::VarUsing => self.var_rules(VarKeyword::Using, p),
-            Rule::VarComma => self.var_comma_rules(VarKeyword::Let, p),
-            Rule::VarCommaConst => self.var_comma_rules(VarKeyword::Const, p),
-            Rule::VarCommaUsing => self.var_comma_rules(VarKeyword::Using, p),
-            Rule::VarSingle => self
+            Rule::VariableLet => self.var_rules(VarKeyword::Let, p),
+            Rule::VariableConst => self.var_rules(VarKeyword::Const, p),
+            Rule::VariableUsing => self.var_rules(VarKeyword::Using, p),
+            Rule::VariableComma => self.var_comma_rules(VarKeyword::Let, p),
+            Rule::VariableCommaConst => self.var_comma_rules(VarKeyword::Const, p),
+            Rule::VariableCommaUsing => self.var_comma_rules(VarKeyword::Using, p),
+            Rule::VariableSingle => self
                 .type_annotation(p)
                 .or_else(|| self.string(p))
                 .or_else(|| self.comment(p)),
@@ -272,9 +287,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         match entry {
-            Entry::ObjLit => self.object_literal(p),
+            Entry::ObjectLiteral => self.object_literal(p),
             Entry::Binding(pattern, binding) => self.binding_pattern(p, pattern, binding),
-            Entry::TypeParams => self.type_params_rules(p),
+            Entry::TypeParameters => self.type_params_rules(p),
         }
     }
 
@@ -300,10 +315,10 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn arrow_head_rules(&mut self, rule: Rule, p: usize) -> Option<usize> {
-        if rule == Rule::PossArrow {
+        if rule == Rule::PossibleArrow {
             return self.type_parameters(p).or_else(|| {
                 (self.byte(p) == b'(').then(|| {
-                    self.open_token(Rule::ParenArrowParams, p, p + 1, &[S::MetaBraceRound])
+                    self.open_token(Rule::ParenArrowParameters, p, p + 1, &[S::MetaBraceRound])
                 })?
             });
         }
@@ -325,12 +340,12 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.capture(
-            Rule::ArrowRet,
+            Rule::ArrowReturn,
             j,
             j + 1,
             &[S::KeywordOperatorTypeAnnotation],
         );
-        self.push(Rule::ArrowRet);
+        self.push(Rule::ArrowReturn);
         Some(j + 1)
     }
 
@@ -357,7 +372,12 @@ impl<const D: u8> Lexer<'_, D> {
 
     fn type_conditional_rules(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) == b'?' {
-            return self.open_token(Rule::TypeCondQ, p, p + 1, &[S::KeywordOperatorTernary]);
+            return self.open_token(
+                Rule::TypeConditionalQuestionMark,
+                p,
+                p + 1,
+                &[S::KeywordOperatorTernary],
+            );
         }
         self.type_(p)
     }
@@ -391,9 +411,9 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         let comma = match which {
-            VarKeyword::Let => Rule::VarComma,
-            VarKeyword::Const => Rule::VarCommaConst,
-            VarKeyword::Using => Rule::VarCommaUsing,
+            VarKeyword::Let => Rule::VariableComma,
+            VarKeyword::Const => Rule::VariableCommaConst,
+            VarKeyword::Using => Rule::VariableCommaUsing,
         };
         self.variable_initializer(p)
             .or_else(|| self.comment(p))

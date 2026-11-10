@@ -63,7 +63,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.boundary(p) || self.byte(self.ws(e)) != b'(' {
             return None;
         }
-        self.open_empty(Rule::SwitchStmt, p)
+        self.open_empty(Rule::SwitchStatement, p)
     }
 
     /// The rules of a `switch` statement before its braces.
@@ -76,9 +76,9 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(e);
             if self.byte(j) == b'(' && !self.full() {
                 self.flush(p);
-                self.capture(Rule::SwitchExpr, p, e, &[S::KeywordControlSwitch]);
-                self.capture(Rule::SwitchExpr, j, j + 1, &[S::MetaBraceRound]);
-                self.push(Rule::SwitchExpr);
+                self.capture(Rule::SwitchExpression, p, e, &[S::KeywordControlSwitch]);
+                self.capture(Rule::SwitchExpression, j, j + 1, &[S::MetaBraceRound]);
+                self.push(Rule::SwitchExpression);
                 return Some(j + 1);
             }
         }

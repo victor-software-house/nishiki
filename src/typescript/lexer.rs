@@ -293,12 +293,12 @@ impl<'a, const D: u8> Lexer<'a, D> {
                     | Rule::Started
                     | Rule::Script
                     | Rule::Expression
-                    | Rule::EntryObjLit
-                    | Rule::EntryObjBind
-                    | Rule::EntryObjBindConst
-                    | Rule::EntryArrBind
-                    | Rule::EntryArrBindConst
-                    | Rule::EntryTypeParams
+                    | Rule::EntryObjectLiteral
+                    | Rule::EntryObjectBinding
+                    | Rule::EntryObjectBindingConst
+                    | Rule::EntryArrayBinding
+                    | Rule::EntryArrayBindingConst
+                    | Rule::EntryTypeParameters
                     | Rule::EntryTemplate
             )
             || !test.holds(self.bytes, p)
@@ -381,7 +381,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         let rest = self.bytes.get(step..)?;
         let rule = self.top();
         let end = rest.len();
-        let found = if matches!(rule, Rule::CommentLine | Rule::CommentLineNl) {
+        let found = if matches!(rule, Rule::CommentLine | Rule::CommentLineNewline) {
             end
         } else if rule == Rule::CommentBlock {
             memchr::memchr(b'*', rest).unwrap_or(end)
@@ -392,9 +392,9 @@ impl<'a, const D: u8> Lexer<'a, D> {
         } else if rule == Rule::CommentDoc {
             let first = memchr::memchr3(b'*', b'@', b'[', rest).unwrap_or(end);
             memchr::memchr(b'{', &rest[..first]).unwrap_or(first)
-        } else if rule == Rule::StrSingle {
+        } else if rule == Rule::StringSingle {
             memchr::memchr2(b'\'', b'\\', rest).unwrap_or(end)
-        } else if rule == Rule::StrDouble {
+        } else if rule == Rule::StringDouble {
             memchr::memchr2(b'"', b'\\', rest).unwrap_or(end)
         } else if matches!(rule, Rule::Template | Rule::TemplateType) {
             memchr::memchr3(b'`', b'$', b'\\', rest).unwrap_or(end)
@@ -402,7 +402,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             return None;
         };
         let mut target = step + found;
-        if matches!(rule, Rule::StrSingle | Rule::StrDouble) {
+        if matches!(rule, Rule::StringSingle | Rule::StringDouble) {
             let last = self.src.char_indices().next_back().map_or(0, |(i, _)| i);
             target = target.min(last);
         }
