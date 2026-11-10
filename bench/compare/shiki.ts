@@ -50,7 +50,9 @@ const limitsOff = { tokenizeMaxLineLength: 0, tokenizeTimeLimit: 0 } as const;
 
 type File = { lang: string; path: string; name: string };
 
-/** Every corpus file whose language Shiki bundles, as `<language>/<tier>/<file>`. */
+/** Every corpus document whose language Shiki bundles, as `<language>/<tier>/<file>`.
+ * The grammar tier holds TextMate grammars, not documents, so it is skipped
+ * (bench/corpus/README.md). */
 function files(): File[] {
   const found: File[] = [];
   for (const lang of readdirSync(corpus).sort()) {
@@ -58,6 +60,7 @@ function files(): File[] {
     const langDir = join(corpus, lang);
     if (!statSync(langDir).isDirectory()) continue;
     for (const tier of readdirSync(langDir).sort()) {
+      if (tier === "grammar") continue;
       for (const file of readdirSync(join(langDir, tier)).sort()) {
         const name = `${lang}/${tier}/${file}`;
         found.push({ lang, path: join(corpus, name), name });

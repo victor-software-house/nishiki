@@ -22,7 +22,7 @@ Each file sits at `<language>/<tier>/<file>`, so the benchmarks read the languag
 | reply | 4 to 40 KiB | a Markdown reply with code blocks in several languages |
 | grammar | 1 KiB to 1 MiB | a TextMate grammar in Shiki's JSON form, which the cold-start program loads |
 
-The lexing benchmarks skip the grammar tier.
+Every reader of documents skips the grammar tier: the lexing benchmarks, the cold-start files and the comparison.
 
 CSS has no large file: every CSS file found in that range was generated or vendored.
 
