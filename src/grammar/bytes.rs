@@ -24,7 +24,7 @@
 
 use super::Reason;
 use crate::textmate::compile::{
-    Repository, RuleId, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule,
+    List, Repository, RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule,
 };
 
 /// The bytes a compiled grammar opens with.
@@ -115,7 +115,7 @@ impl Writer {
         } = grammar;
         self.string(scope);
         self.count(rules.len());
-        for rule in rules {
+        for rule in rules.iter() {
             self.rule(rule);
         }
         self.ids(patterns);
@@ -168,7 +168,7 @@ impl Writer {
 
     fn repository(&mut self, entries: &Repository) {
         self.count(entries.len());
-        for (name, rule) in entries {
+        for (name, rule) in entries.iter() {
             self.string(name);
             self.count(*rule);
         }
@@ -181,7 +181,7 @@ impl Writer {
         }
     }
 
-    fn strings(&mut self, texts: &[String]) {
+    fn strings(&mut self, texts: &[Text]) {
         self.count(texts.len());
         for text in texts {
             self.string(text);
@@ -228,7 +228,7 @@ impl Reader<'_> {
         }
         Ok(UnlinkedGrammar {
             scope,
-            rules,
+            rules: rules.into(),
             patterns: self.ids()?,
             repository: self.repository()?,
             injections: self.entries()?,
@@ -258,7 +258,7 @@ impl Reader<'_> {
     }
 
     /// A captures list: each capture takes at least a flag and a rule index.
-    fn captures(&mut self) -> Result<Vec<UnlinkedCapture>, Reason> {
+    fn captures(&mut self) -> Result<List<UnlinkedCapture>, Reason> {
         let count = self.count(1 + 4)?;
         let mut captures = Vec::with_capacity(count);
         for _ in 0..count {
@@ -267,7 +267,7 @@ impl Reader<'_> {
                 rule: self.length()?,
             });
         }
-        Ok(captures)
+        Ok(captures.into())
     }
 
     /// Named rules: each entry takes at least a string's length and a rule
@@ -278,7 +278,7 @@ impl Reader<'_> {
         for _ in 0..count {
             entries.push((self.string()?, self.length()?));
         }
-        Ok(entries)
+        Ok(entries.into())
     }
 
     /// A repository, which the linker searches by name.
@@ -295,21 +295,23 @@ impl Reader<'_> {
         Ok(entries)
     }
 
-    fn ids(&mut self) -> Result<Vec<RuleId>, Reason> {
+    fn ids(&mut self) -> Result<List<RuleId>, Reason> {
         let count = self.count(4)?;
         (0..count).map(|_| self.length()).collect()
     }
 
-    fn strings(&mut self) -> Result<Vec<String>, Reason> {
+    fn strings(&mut self) -> Result<List<Text>, Reason> {
         let count = self.count(4)?;
         (0..count).map(|_| self.string()).collect()
     }
 
-    fn string(&mut self) -> Result<String, Reason> {
+    fn string(&mut self) -> Result<Text, Reason> {
         let start = self.at;
         let length = self.count(1)?;
         let text = self.take(length)?;
-        String::from_utf8(text.to_vec()).map_err(|_not_utf8| Reason::Malformed { at: start })
+        String::from_utf8(text.to_vec())
+            .map(Text::Owned)
+            .map_err(|_not_utf8| Reason::Malformed { at: start })
     }
 
     fn option<T>(
@@ -429,10 +431,15 @@ fn children(rule: &UnlinkedRule) -> impl Iterator<Item = RuleId> + '_ {
         &rule.while_captures,
     ]
     .into_iter()
-    .flatten()
+    .filter_map(Option::as_deref)
     .flatten()
     .map(|capture| capture.rule);
-    let repository = rule.repository.iter().flatten().map(|&(_, id)| id);
+    let repository = rule
+        .repository
+        .as_deref()
+        .into_iter()
+        .flatten()
+        .map(|&(_, id)| id);
     rule.patterns
         .iter()
         .copied()

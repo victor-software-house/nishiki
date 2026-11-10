@@ -28,7 +28,7 @@
 use std::collections::{HashMap, HashSet};
 use std::sync::OnceLock;
 
-use super::{Repository, RuleId, UnlinkedCapture, UnlinkedGrammar};
+use super::{Repository, RuleId, Text, UnlinkedCapture, UnlinkedGrammar};
 use crate::language::Language;
 use crate::textmate::grammar::{
     Capture, DYNAMIC_NAME, Folding, Grammar, HandOff, Injection, List, Matching, NONE, Pattern,
@@ -155,7 +155,7 @@ pub(crate) fn link(
     let mut docs: Vec<(&str, Source)> = Vec::new();
     let mut fragments: Vec<(&str, Source)> = Vec::new();
     for (index, grammar) in set.iter().enumerate() {
-        let scope = grammar.scope.as_str();
+        let scope = &*grammar.scope;
         let into = if handed.iter().any(|&(s, _)| s == scope) {
             &mut fragments
         } else {
@@ -186,7 +186,7 @@ pub(crate) fn link(
         .iter()
         .map(|(selector, rule)| {
             let env = [&root.repository];
-            (selector.as_str(), builder.entry(Source::Root, *rule, &env))
+            (&**selector, builder.entry(Source::Root, *rule, &env))
         })
         .collect();
     let wrapped: Vec<&str> = root
@@ -212,12 +212,12 @@ pub(crate) fn link(
         let targeted = grammar
             .inject_to
             .iter()
-            .any(|target| *target == root.scope || wrapped.contains(&target.as_str()));
+            .any(|target| *target == root.scope || wrapped.contains(&&**target));
         if !targeted {
             continue;
         }
         if let Some(rule) = builder.root(scope) {
-            injections.push((selector.as_str(), rule));
+            injections.push((&**selector, rule));
         }
     }
     if builder.too_deep {
@@ -260,9 +260,9 @@ struct PendingRule<'a> {
     /// How the rule matches text.
     matching: Matching,
     /// The scopes of its text.
-    name: &'a [String],
+    name: &'a [Text],
     /// The scopes of the rules inside it.
-    content_name: &'a [String],
+    content_name: &'a [Text],
     /// Its `begin` or `match` pattern, or [`NONE`].
     begin: usize,
     /// Its `end` pattern, or [`NONE`].
@@ -287,9 +287,9 @@ struct PendingCapture<'a> {
     /// The group's number, or [`NONE`].
     index: usize,
     /// The scopes of its text.
-    name: &'a [String],
+    name: &'a [Text],
     /// The scopes of the rules inside it.
-    content_name: &'a [String],
+    content_name: &'a [Text],
     /// The rule that lexes its text again, or [`NONE`].
     retokenize: usize,
 }
@@ -403,7 +403,7 @@ impl<'a> Builder<'a> {
         }
         let grammar = self.grammar(source);
         let id = self.reserve(Matching::Container);
-        self.roots.insert(grammar.scope.as_str(), id);
+        self.roots.insert(&*grammar.scope, id);
         let env = [&grammar.repository];
         let (patterns, missing) = self.list(source, &grammar.patterns, &env);
         if let Some(rule) = self.rules.get_mut(id) {
@@ -438,11 +438,11 @@ impl<'a> Builder<'a> {
             return Some(self.hand_off(language));
         }
         if target == "$self" {
-            let scope = self.grammar(source).scope.as_str();
+            let scope = &*self.grammar(source).scope;
             return self.root(scope).map(Entry::Rule);
         }
         if target == "$base" {
-            let scope = self.root.scope.as_str();
+            let scope = &*self.root.scope;
             return self.root(scope).map(Entry::Rule);
         }
         if let Some(name) = target.strip_prefix('#') {
@@ -510,12 +510,12 @@ impl<'a> Builder<'a> {
     fn captures(
         &mut self,
         source: Source,
-        captures: Option<&'a Vec<UnlinkedCapture>>,
+        captures: Option<&'a [UnlinkedCapture]>,
         env: &Repositories<'a>,
     ) -> Vec<PendingCapture<'a>> {
         let grammar = self.grammar(source);
         let mut out = Vec::new();
-        for capture in captures.map(Vec::as_slice).unwrap_or_default() {
+        for capture in captures.unwrap_or_default() {
             let Some(raw) = grammar.rules.get(capture.rule) else {
                 continue;
             };
@@ -611,22 +611,22 @@ impl<'a> Builder<'a> {
         match matching {
             Matching::Match => {
                 begin = self.pattern(raw.matched.as_deref().unwrap_or_default());
-                captures = self.captures(source, raw.captures.as_ref(), &env);
+                captures = self.captures(source, raw.captures.as_deref(), &env);
             }
             Matching::BeginEnd => {
                 begin = self.pattern(raw.begin.as_deref().unwrap_or_default());
-                let opening = raw.begin_captures.as_ref().or(raw.captures.as_ref());
+                let opening = raw.begin_captures.as_deref().or(raw.captures.as_deref());
                 captures = self.captures(source, opening, &env);
                 end = raw.end.as_deref().map_or(NONE, |end| self.pattern(end));
-                let closing = raw.end_captures.as_ref().or(raw.captures.as_ref());
+                let closing = raw.end_captures.as_deref().or(raw.captures.as_deref());
                 end_captures = self.captures(source, closing, &env);
             }
             Matching::BeginWhile => {
                 begin = self.pattern(raw.begin.as_deref().unwrap_or_default());
-                let opening = raw.begin_captures.as_ref().or(raw.captures.as_ref());
+                let opening = raw.begin_captures.as_deref().or(raw.captures.as_deref());
                 captures = self.captures(source, opening, &env);
                 until = self.pattern(raw.until.as_deref().unwrap_or_default());
-                let closing = raw.while_captures.as_ref().or(raw.captures.as_ref());
+                let closing = raw.while_captures.as_deref().or(raw.captures.as_deref());
                 end_captures = self.captures(source, closing, &env);
             }
             Matching::Container => {}
@@ -862,7 +862,7 @@ fn expand(
 /// The rule named `name` in `repository`.
 fn lookup(repository: &Repository, name: &str) -> Option<RuleId> {
     let at = repository
-        .binary_search_by(|(key, _)| key.as_str().cmp(name))
+        .binary_search_by(|(key, _)| (**key).cmp(name))
         .ok()?;
     repository.get(at).map(|&(_, rule)| rule)
 }
@@ -886,13 +886,13 @@ struct Tables {
 impl Tables {
     /// The references of `names`. The top bit marks a name built from a
     /// match's groups.
-    fn names_of(&mut self, names: &[String]) -> Result<Vec<u16>, LinkError> {
+    fn names_of(&mut self, names: &[Text]) -> Result<Vec<u16>, LinkError> {
         let mut out = Vec::with_capacity(names.len());
         for name in names {
             let next = self.names.len();
-            let id = *self.name_ids.entry(name.clone()).or_insert(next);
+            let id = *self.name_ids.entry(name.to_string()).or_insert(next);
             if id == next {
-                self.names.push(name.clone());
+                self.names.push(name.to_string());
             }
             let id = u16::try_from(id)
                 .ok()

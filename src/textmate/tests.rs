@@ -70,7 +70,7 @@ fn link_table(name: &str) -> &'static Grammar {
         .collect();
     let root = grammars
         .iter()
-        .find(|grammar| entry["root"] == grammar.scope.as_str())
+        .find(|grammar| entry["root"] == *grammar.scope)
         .unwrap();
     let set: Vec<&UnlinkedGrammar> = grammars.iter().collect();
     let hand_offs: Vec<Language> = entry["handOffs"]
