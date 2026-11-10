@@ -16,13 +16,18 @@
   → verify: each step's Callgrind rows and a clean differential test, in a research note
   - 2026-11-10: steps 1, 2 and 2b measured on boxes, each with 0 differences.
     The steps go on until each language reaches 1.000.
-    The retry lines at fixture length have not run yet.
-    Still to come: the first-byte test, the groups recorded, the `\b` test and a flat dispatch (lead, 2026-11-10).
+  - 2026-11-10: the retry lines at fixture length, on 2b, in release and debug builds:
+    - Zig and Lua pass.
+    - Protocol Buffers' field line reaches the work limit at 101 bytes.
+      It is a finding with two fixes (design, section 5.6).
+  - Still to come: the first-byte test, the groups recorded, the `\b` test and a flat dispatch (lead, 2026-11-10).
 
 ## 2. Groundwork
 
 - [ ] 2.1 `compile::UnlinkedGrammar` holds `Cow` data, and the regex parser's entry and tree are `pub(crate)`.
   → verify: CI passes, and Identity shows no change
+  - 2026-11-10: [#688][pr-688], still open, gives `compile::UnlinkedGrammar` its `Cow` data.
+    Left for a code pull request after it: `regex::parse` is `pub(super)`, and the `parse` and `ast` modules are private.
 - [ ] 2.2 The `codegen` and `format` features, `ToTokens` for `Grammar` and `Grammar::to_rust`, with doctests and a build-script example.
   → verify: the doctests and the example run in CI, and `check:size` shows no change for any tier
 - [ ] 2.3 `nishiki::unstable` and its cfg setup, with the docs.rs settings and a CI build with the cfg; `Payload` becomes `CarriedState`.
@@ -36,6 +41,10 @@
   → verify: review
 - [ ] 3.3 Unicode sets, case folds and classes are written from `oracle/facts/`.
   → verify: `codegen --compare` shows equal tokens for the three files
+- [ ] 3.4 The regex engine path gives an end pattern's back-reference the groups its begin pattern took.
+  Then no pattern is left with hand code only.
+  It covers Lua's five long-string and long-comment ends (design, section 12.1).
+  → verify: the differential test covers those five patterns, and Lua's matcher has no hand path left
 
 ## 4. Families
 
@@ -48,3 +57,4 @@
 
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [base]: https://github.com/victor-software-house/nishiki-archive/commit/851351f064d86c429f4652af2c59af138dcf6ba2
+[pr-688]: https://github.com/victor-software-house/nishiki-archive/pull/688

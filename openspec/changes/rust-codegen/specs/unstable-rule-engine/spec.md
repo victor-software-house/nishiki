@@ -67,6 +67,9 @@ Its bound lines SHALL be about 12,000 bytes long and drive each give-back loop a
 Its retry lines SHALL be as long as the language's longest oracle fixture line.
 In a retry line, a failing repeat is tried again at each later start.
 
+Each pattern whose work grows faster than the line SHALL have a limit line of about 12,000 bytes.
+A limit line SHALL end at the work limit.
+
 #### Scenario: A generated matcher overruns the budget
 
 - **WHEN** a bound line runs past the default work limit without ending there
@@ -76,3 +79,8 @@ In a retry line, a failing repeat is tried again at each later start.
 
 - **WHEN** a retry line of fixture length reaches the default work limit
 - **THEN** the hostile-line test fails, and the finding is recorded with the pattern, the line and a plan to fix it
+
+#### Scenario: A limit line runs to the end
+
+- **WHEN** a limit line ends without reaching the default work limit
+- **THEN** the hostile-line test fails, because the line no longer shows the limit cutting superlinear work

@@ -137,7 +137,8 @@ The operator chose these dependencies on 2026-11-10.
 - `Grammar::to_rust(&self) -> String`, with `format`.
   It borrows, as the API guidelines' `to_` prefix does ([C-CONV][c-conv]), so a caller can keep using the grammar.
   It returns a file that holds `pub static GRAMMAR: nishiki::Grammar = …;`, laid out by prettyplease.
-  The program writes `mod demo { include!(concat!(env!("OUT_DIR"), "/demo.rs")); }` and uses `demo::GRAMMAR`.
+  The build script sets `DEMO_RUST` to the file's path.
+  The program writes `mod demo { include!(env!("DEMO_RUST")); }` and uses `demo::GRAMMAR`, since `clippy.toml` bans `concat!`.
 - Neither can fail, so neither has an `# Errors` section.
 - Both get a doctest, and `examples/build-script/` gains a second program that uses `to_rust`.
 - It saves the read of the bytes, which took 312 µs for TypeScript's grammar on a box (`bench:cold`).
@@ -145,6 +146,8 @@ The operator chose these dependencies on 2026-11-10.
 
 The tokens name the unlinked model's types.
 They sit in a `#[doc(hidden)] pub mod __private`, outside the documented API.
+That module needs only `textmate`, because the program's normal dependency builds without `codegen`.
+
 The tokens are a block expression, `{ const _: () = ::nishiki::__private::FORMAT_1; <the Grammar value> }`.
 A `static` initializer accepts a block that holds an item.
 A program built with tokens from another nishiki version then fails to compile.
@@ -288,8 +291,11 @@ Two kinds of hostile line run in CI beside it, in the language's `tests/it/limit
 |:--|:--|:--|:--|
 | bound line | about 12,000 bytes, past every fixture line | a give-back loop or a stack, such as a long run of a repeat's body with no continuation | finish within the default limits, with tokens that cover it |
 | retry line | the language's longest oracle fixture line | a repeat that takes a long run and fails, so the scanner tries it again at each later start | end without reaching the work limit |
+| limit line | about 12,000 bytes | a pattern whose work grows faster than the line, found by the other two | end at the work limit, with tokens that cover it |
 
-A bound line ends under the budget when its work is linear, and at the work limit when it is not.
+A bound line's work is linear, so it ends under the budget.
+Each pattern whose work grows faster than the line gets a limit line of its own.
+That line shows the limit cuts real superlinear work, such as the Protocol Buffers field line below.
 
 A retry line holds only at fixture length:
 
@@ -298,11 +304,55 @@ A retry line holds only at fixture length:
 - The longest oracle fixture lines are 102 bytes for Protocol Buffers, 242 for Zig and 974 for Lua.
 - So a retry line of fixture length passes only when the scan does not retry at every start.
   A `\b` fails at once inside a word, which the scanner skips, or another pattern takes the run first.
+- On step 2b, Zig's and Lua's retry lines pass at fixture length, and Protocol Buffers' does not (below).
 - This is a measured fact about the fixtures, not a bound.
   The hand lexers and Shiki have no linear scan either.
 
 A retry line that reaches the limit at fixture length is a finding, because Shiki would not cut that line.
 It is recorded with the pattern, the line and a plan to fix it.
+
+The first finding is Protocol Buffers' field pattern (lead, 2026-11-10):
+
+- The pattern is `\s*(optional|repeated|required)?\s*(\.?[.\w]+)\s+(\w+)\s*(=)\s*(0[Xx]\h+|[0-9]+)`.
+- The line is a type with no name after it: `a.` repeated and a space, inside a `message`.
+- At each start the pattern takes the rest of the `[.\w]` run, gives it back, finds no name, and fails.
+- At a start on a `.`, it does that twice: once with `\.?` taking the dot, once without.
+  So the line costs more than `L²` steps.
+- Shiki 4.6.0 lexes the line uncut, as one token, in under a millisecond at 101 and at 12,001 bytes.
+
+Under the default limits, on a box:
+
+| Line | Hand matcher, at base | Generated matcher, step 2b |
+|:--|:--|:--|
+| 101 bytes, the fixture length | uncut | ends at `Limit::Work` |
+| 12,001 bytes | ends at `Limit::Work` | ends at `Limit::Work` |
+
+So the generated matcher cuts a line of fixture length that the hand matcher lexes whole.
+The 12,001-byte line is the pattern's limit line.
+
+Two fixes, in order:
+
+1. `codegen/` drops a repeat's arm when the other arm gives the same match.
+   Both fixes keep the match exact (lead, 2026-11-10).
+   Before it drops an arm, `codegen/` checks that at every position:
+   - both arms give the same set of ends;
+   - each end has the same group spans in both;
+   - each end comes in the same order of preference, so leftmost-first picks the same one.
+
+   `\.?` before `[.\w]+` passes the check, because `.` is in `[.\w]`.
+   The arm that takes the dot and the arm that leaves it to `[.\w]+` give the same ends.
+   Both put the whole run in the one group around them.
+   Dropping the arm halves the work at a dot.
+2. A skip in the generated scan makes the line linear:
+   - the pattern fails after taking a run of `[.\w]`;
+   - every later start inside that run then fails too, since the run and what follows it stay the same;
+   - the scan then goes on from the run's end.
+
+   `codegen/` proves that skip from the expression, so it holds for any grammar.
+   With it, the 12,001-byte line no longer reaches the limit, and the pattern needs no limit line.
+
+Until both land, a caller that needs such lines uncut raises `Limits::work`.
+Protocol Buffers moves to generated matchers only after them, since Identity and the hostile-line tests must hold.
 
 ## 6. Facts
 
@@ -580,11 +630,13 @@ Lexing ratios against the hand matchers, at one codegen unit:
 | 2. steps spent at each byte read | 1.2556 | 1.2468 | 1.6277 |
 | 2b. steps spent in loops, replacing 2 | 1.2604 | 1.1062 | 1.4450 |
 | hand matchers out of line, on 2 | 1.2565 | 1.2500 | 1.6189 |
+| hand matchers out of line, on 2b | 1.2604 | 1.1094 | 1.4362 |
 
 - The first row for Protocol Buffers has `OptionStmt` generated.
 - Step 2 kept the `\b` test out of line.
   Step 2b brings it back in line and spends once per loop.
-- Moving the hand matchers out of line saves nothing.
+- Moving the hand matchers out of line saves little.
+  On 2b, Lua runs 0.6% fewer instructions, Zig 0.3% more and Protocol Buffers the same.
   The generated code covers nearly every pattern, so the hand path is cold.
 
 The profile names the costs left, and each becomes a step:
@@ -597,6 +649,7 @@ The profile names the costs left, and each becomes a step:
 
 Five Lua end patterns have neither generated code nor a regex engine path: the ends of long strings and long comments.
 Each reads a group of its begin pattern through a back-reference, such as `]\1]`.
+They keep their hand code, a coverage gap that task 3.4 closes.
 
 ### 12.2 Feature cost
 
