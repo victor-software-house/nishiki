@@ -91,7 +91,7 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
   Such a set is still sound, but it differs.
 - `codegen --compare` reports a differing set by its pattern.
   The pull request lists it, and Identity and Callgrind check it.
-  The `generated-rust` spec allows such a set and no other token change.
+  The `generated-rule-tables` spec allows such a set and no other token change.
 - `oracle/rule-grammar.test.ts`'s 24 cases become unit tests with typed inputs.
 
 ### 2.4 Generated names
