@@ -217,6 +217,7 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
   A comment that needs a second read is rewritten in review.
 - Inline prose inside a body is removed in review.
 - Multiline text in code and tests uses `indoc!` or `formatdoc!`.
+  In the Bun scripts it uses `dedent`, from `oracle/dedent.ts`.
   The pre-commit hook and `check:local` run `check:literals`.
   It fails on a string literal in `src/` or `tests/` that holds two or more escaped line feeds, outside comments and generated files.
   A literal of line feeds alone, such as a `"\n\n"` separator, passes.

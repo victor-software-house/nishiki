@@ -1,4 +1,5 @@
-// Tests of the generator library's pattern analysis, run by `mise run check:rule-grammars`.
+// Tests of the generator library's pattern analysis.
+// `mise run test:scripts` and `mise run check:rule-grammars` run them.
 import { expect, test } from "bun:test";
 
 import { canMatchEmpty, startOf, takesOneBlank } from "./rule-grammar.ts";

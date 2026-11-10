@@ -4,5 +4,4 @@
 # A trace means something only if it replays the bytes its source holds
 # (bench/traces/README.md).
 set -euo pipefail
-bun test bench/traces.test.ts
 bun bench/traces.ts check
