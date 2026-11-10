@@ -28,18 +28,11 @@
 - [x] 2.1 Add `oracle/coverage-waivers.ts`, with its complete list empty.
   Fail on a waiver whose unit a fixture exercises.
   → verify: a waiver on an exercised Swift unit fails the task with its path
-  - 2026-11-04 UTC: a waiver on Swift's exercised `#comments.patterns[5].begin` failed the run with "is exercised by a fixture: remove its waiver". A waiver on the unexercised `#comments.patterns[2].begin` failed without a `probe`, since Swift has probe support, and passed with one, the report reading `waived:` and the reason. A waiver on a path the grammar lacks failed with "names no unit the report counts".
+  - 2026-11-04 UTC: waivers on an exercised unit, an unprobed unit and a missing path each failed ([checks][checks], section 2.1).
 - [x] 2.2 Add `mise run check:oracle-coverage` and `.github/workflows/coverage.yml`, after `tables.yml`.
   → verify: on the pull request, the check passes.
   On a scratch branch, a stale report fails it, and so does a complete grammar with a gap
-  - 2026-11-04 UTC, locally:
-    - the check passed on the committed report;
-    - with a line added to the report, it failed and printed the difference;
-    - with `rust` listed complete, it failed and named Rust's unexercised paths.
-
-    The first run on [PR 252][pr252] failed.
-    `fuzz.ts` read the fixtures in `readdirSync` order, so CI's Linux runner drew another fuzz corpus.
-    With the fixtures sorted, [the run on `c4ca16d9`][run-252] passed.
+  - 2026-11-04 UTC: the check failed on a stale report and a gap, and passed in CI with sorted fixtures ([checks][checks], section 2.2).
 - [x] 2.3 Document the report, the waivers and the gate in `AGENTS.md` under "The Shiki oracle", and in `tests/oracle/SOURCES.md`'s note on inputs → verify: `mise run lint:md` passes
   - 2026-11-04 UTC: `AGENTS.md` item 6 under "The Shiki oracle" and a sentence in `tests/oracle/SOURCES.md`; `mise run lint:md` and `typos` pass.
 
@@ -143,9 +136,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     The four grammars are complete with 1, 8, 2 and 4 waived units.
     On `3de20c2f` the [oracle test][run-320-ci] and the [coverage check][run-320-cov] passed.
 
+[checks]: ../../research/2026-11-10-oracle-coverage-gate-checks.md
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
-[pr252]: https://github.com/victor-software-house/nishiki-archive/pull/252
-[run-252]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41756482197
 [pr259]: https://github.com/victor-software-house/nishiki-archive/pull/259
 [run-259-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41757301609
 [run-259-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41757301124
