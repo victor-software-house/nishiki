@@ -72,22 +72,7 @@ fn matches_shiki(names: &[&str], root: &str, language: &str, gaps: &[Gap]) {
 #[cfg(feature = "all")]
 #[test]
 fn markdown_alone_matches_shiki() {
-    let attributes = "attribute names in an HTML fence differ from Shiki's";
-    let gaps = [
-        Gap {
-            fixture: "invalid-tags",
-            cause: attributes,
-        },
-        Gap {
-            fixture: "perl-heredoc-tags-1",
-            cause: attributes,
-        },
-        Gap {
-            fixture: "perl-heredoc-tags-2",
-            cause: attributes,
-        },
-    ];
-    matches_shiki(&["markdown"], "text.html.markdown", "markdown", &gaps);
+    matches_shiki(&["markdown"], "text.html.markdown", "markdown", &[]);
 }
 
 /// HTML hands `<script>` to JavaScript and `<style>` to CSS.

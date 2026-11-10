@@ -260,6 +260,15 @@ impl Arena {
         Some(node.scope)
     }
 
+    /// The name of `scope`, whether a table or this arena made it.
+    #[inline]
+    pub(crate) fn scope_name(&self, scope: Scope) -> &str {
+        match scope.dynamic_index() {
+            Some(index) => self.strings.get(index).map_or("", |text| text),
+            None => scope.name(),
+        }
+    }
+
     /// How many stacks this arena made, the empty one included.
     /// Every stack id is below it.
     pub(crate) fn stack_count(&self) -> usize {
@@ -378,10 +387,7 @@ impl<'a> Iterator for Scopes<'a> {
         }
         let node = self.arena.scopes[usize::try_from(self.node).ok()?];
         self.node = node.parent;
-        Some(match node.scope.dynamic_index() {
-            Some(index) => self.arena.strings.get(index).map_or("", |text| text),
-            None => node.scope.name(),
-        })
+        Some(self.arena.scope_name(node.scope))
     }
 }
 
