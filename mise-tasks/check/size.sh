@@ -41,11 +41,15 @@ while IFS=$'\t' read -r tier features text_budget data_budget; do
       bytes=${data} budget=${data_budget}
     fi
     limit=$((budget + budget * tolerance / 100))
-    echo "check:size: ${tier} (${features}): ${section} ${bytes} bytes, budget ${budget}, limit ${limit}"
+    echo "check:size: ${tier} (${features}): ${section} ${bytes} bytes," \
+      "budget ${budget}, limit ${limit}"
     if ((bytes > limit)); then
       echo "check:size: ${tier} ${section} is ${bytes} bytes, over its limit of ${limit}" >&2
       status=1
     fi
   done
-done < <(jq -r '.tiers | to_entries[] | [.key, .value.features, .value.text, .value.data] | @tsv' <<<"${config}")
+done < <(
+  jq -r '.tiers | to_entries[] | [.key, .value.features, .value.text, .value.data] | @tsv' \
+    <<<"${config}"
+)
 exit "${status}"

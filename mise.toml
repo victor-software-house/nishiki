@@ -101,12 +101,18 @@ run = "bun install --lockfile-only --frozen-lockfile"
 [tasks."check:sources"]
 description = "NISHIKI_SOURCES holds every file the oracle pins, as the mirror's manifest says"
 tools = { bun = "1.4.4" }
-run = 'bun run oracle/sources.ts check "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"'
+run = '''
+bun run oracle/sources.ts check \
+  "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"
+'''
 
 [tasks."sources:fill"]
 description = "Fetch each file the oracle pins into the nishiki-sources checkout in NISHIKI_SOURCES"
 tools = { bun = "1.4.4" }
-run = 'bun run oracle/sources.ts fill "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"'
+run = '''
+bun run oracle/sources.ts fill \
+  "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"
+'''
 
 # mise-tasks/ holds this repository's task fragments and file tasks. An
 # includes list replaces the default task dirs, so mise-tasks comes first; add

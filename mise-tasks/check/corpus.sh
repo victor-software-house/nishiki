@@ -36,7 +36,10 @@ digest_of_files() {
   local file
   while IFS= read -r file; do
     printf '%s\t%s\n' "${file#"$root/"}" "$(sum "$file")"
-  done < <(find "$root" -type f ! -name README.md ! -name .ignore ! -name .gitattributes | LC_ALL=C sort) >"$tmp"
+  done < <(
+    find "$root" -type f ! -name README.md ! -name .ignore ! -name .gitattributes |
+      LC_ALL=C sort
+  ) >"$tmp"
   sum "$tmp"
 }
 tmp=$(mktemp)
@@ -71,8 +74,12 @@ while IFS=$'\t' read -r path tier bytes sha source licence; do
     problems+=("$path: $size bytes is outside the $tier tier")
   fi
   grep -qE '/[0-9a-f]{40}/' <<<"$source" || problems+=("$path: source is not pinned to a commit")
-  grep -qE "$allowed" <<<"$licence" || problems+=("$path: licence $licence is not on the allowed list")
-done < <(taplo get -f "$manifest" -o json | jq -r '.file[] | [.path, .tier, .bytes, .sha256, .source, .licence] | @tsv')
+  grep -qE "$allowed" <<<"$licence" ||
+    problems+=("$path: licence $licence is not on the allowed list")
+done < <(
+  taplo get -f "$manifest" -o json |
+    jq -r '.file[] | [.path, .tier, .bytes, .sha256, .source, .licence] | @tsv'
+)
 
 while IFS= read -r file; do
   path=${file#"$root/"}

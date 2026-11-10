@@ -69,12 +69,18 @@ while IFS='|' read -r _ tier languages _; do
     name=$(echo "$name" | xargs)
     case "$name" in
       \`*\`) echo "$name" | tr -d '`' ;;
-      *) awk -F'\t' -v name="$name" '$1 == name { print $2; found = 1 } END { if (!found) print "unknown:" name }' <<<"$names" ;;
+      *)
+        awk -F'\t' -v name="$name" '
+          $1 == name { print $2; found = 1 }
+          END { if (!found) print "unknown:" name }
+        ' <<<"$names"
+        ;;
     esac
   done | sort -u)
   if [ "$have" != "$want" ]; then
     echo "src/lib.rs: the $tier row differs from Cargo.toml's $tier list" >&2
-    diff <(echo "$want") <(echo "$have") | sed -n 's/^< /  missing from the row: /p; s/^> /  not in Cargo.toml: /p' >&2
+    diff <(echo "$want") <(echo "$have") |
+      sed -n 's/^< /  missing from the row: /p; s/^> /  not in Cargo.toml: /p' >&2
     status=1
   fi
 done <<<"$tiers"

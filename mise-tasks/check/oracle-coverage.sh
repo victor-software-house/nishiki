@@ -12,6 +12,7 @@ trap 'rm -f "$out"' EXIT
 bun run oracle/coverage.ts "$out" >/dev/null
 if ! cmp -s "$out" tests/oracle/COVERAGE.md; then
   diff -u tests/oracle/COVERAGE.md "$out" >&2 || true
-  echo "tests/oracle/COVERAGE.md differs from what oracle/coverage.ts writes; run mise run oracle:coverage" >&2
+  echo "tests/oracle/COVERAGE.md differs from what oracle/coverage.ts writes;" \
+    "run mise run oracle:coverage" >&2
   exit 1
 fi
