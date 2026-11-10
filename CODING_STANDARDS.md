@@ -321,7 +321,7 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
 - `bench/corpus/`, `oracle/inputs/` and `tests/oracle/` hold language text and the oracle's output, outside the bound.
 - Three exemptions are temporary, each until the change that removes it:
   - the Bun scripts that write Rust, and the files they write, until rust-codegen moves each writer to Rust;
-  - the Swift matcher names, until the Swift generator moves to `codegen/` (rust-codegen design 8.4);
+  - the Swift matcher names, until the Swift generator moves to `codegen/` (rule-table-codegen design 2.4);
   - the files the Copier template renders, until nishiki takes the template release that wraps them.
     `check:line-width` fails once `.copier-answers.yml` records that release, so the list goes then.
 - A list puts one entry per line.
