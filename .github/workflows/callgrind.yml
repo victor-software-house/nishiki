@@ -20,7 +20,9 @@ permissions:
 
 concurrency:
   # A draft run gets a group of its own, so it never cancels the ready run.
-  group: callgrind-${{ github.event.pull_request.number || github.ref_name }}${{ github.event.pull_request.draft && '-draft' || '' }}
+  group: >-
+    callgrind-${{ github.event.pull_request.number || github.ref_name }}${{
+    github.event.pull_request.draft && '-draft' || '' }}
   cancel-in-progress: true
 
 env:
@@ -29,9 +31,15 @@ env:
 jobs:
   callgrind:
     name: Callgrind
-    if: ${{ !github.event.pull_request.draft && contains(github.event.pull_request.labels.*.name, 'bench') }}
+    if: >-
+      ${{ !github.event.pull_request.draft
+      && contains(github.event.pull_request.labels.*.name, 'bench') }}
     # The build runner's cache volume, read only. This job never commits it.
-    runs-on: ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x8-with-cache
+      - nscloud-cache-tag-rust-nishiki
+      - nscloud-cache-size-50gb
+      - nscloud-cache-exp-do-not-commit
     timeout-minutes: 30
     steps:
       - name: Check out repository
@@ -73,9 +81,15 @@ jobs:
     # Each benchmark runs once, untimed.
     # The comparison workspace, bench/compare/, is formatted and linted only.
     # Wall time never gates (bench/AGENTS.md).
-    if: ${{ !github.event.pull_request.draft && contains(github.event.pull_request.labels.*.name, 'bench') }}
+    if: >-
+      ${{ !github.event.pull_request.draft
+      && contains(github.event.pull_request.labels.*.name, 'bench') }}
     # The build runner's cache volume, read only: this job never commits it.
-    runs-on: ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki", "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]
+    runs-on:
+      - nscloud-ubuntu-24.04-amd64-4x8-with-cache
+      - nscloud-cache-tag-rust-nishiki
+      - nscloud-cache-size-50gb
+      - nscloud-cache-exp-do-not-commit
     timeout-minutes: 20
     steps:
       - name: Check out repository
