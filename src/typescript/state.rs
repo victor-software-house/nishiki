@@ -217,9 +217,11 @@ rules! {
     JsxEmbeddedExpression [] [S::MetaEmbeddedExpression];
     JsxStringDouble [S::StringQuotedDouble] [];
     JsxStringSingle [S::StringQuotedSingle] [];
-    // Last, so that no other rule's code moves: placed among the entry
-    // rules, it made every dialect run up to 0.15% more instructions.
+    // The entry rules below come last, so that no other rule's code moves.
+    // Placed among the entry rules, `EntryTemplate` made every dialect run up
+    // to 0.15% more instructions.
     EntryTemplate [] [];
+    EntryGenericAttribute [] [];
 }
 
 impl Rule {

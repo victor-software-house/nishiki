@@ -1438,18 +1438,32 @@ languages! {
     /// - The HTML lexer runs Vue.
     ///   Its root holds Vue's comments, block tags, and tags that their line closes with `/>`.
     /// - A block's `lang` attribute picks the lexer of its body: CSS, SCSS, Less, JavaScript,
-    ///   TypeScript, JSX, TSX, YAML or GraphQL.
-    /// - A block in a language that nishiki does not lex, such as Pug, JSON or Markdown,
-    ///   is plain text under that language's scope.
+    ///   TypeScript, JSX, TSX, YAML, GraphQL, Markdown, JSON, JSONC, TOML or Vue.
+    /// - A block in `lang="vue"` holds a component of its own, under a second `text.html.vue`.
+    /// - A block in Pug, Stylus, `PostCSS` or JSON5 opens no body, and its text stays the block's.
+    ///   Shiki loads none of their grammars, so vscode-textmate drops the block's rule.
+    ///   The same holds for a language whose feature is off, such as Markdown without
+    ///   `lang-markdown`.
+    /// - A one-line `ts` or `tsx` script block whose code ends without `;` runs past
+    ///   `</script>`.
+    ///   TypeScript's expression is still open there, so the block's end is not tried.
+    /// - A comment that starts `<!-- @name` holds JSON, which the JSON lexer reads.
+    ///   It ends at a `-->` outside every JSON object, array and string.
+    ///   Without `lang-json` it is a plain comment.
     /// - A `<template>` holds html-derivative,
     ///   with Vue's rules for a nested `<template>` and for a tag whose name starts with a capital.
     /// - Directives such as `v-if`, `:prop` and `@event` count only in Vue's own tags.
     ///   On an HTML tag they read as HTML attributes, and `{{ x }}` is text,
     ///   because Shiki does not apply Vue's injection grammars.
     /// - A directive's value is a TypeScript expression, which the TypeScript lexer reads.
-    /// - A dynamic argument such as `:[key]` is `source.ts.embedded.html.vue` with no tokens inside
-    ///   it.
-    /// - In Vue's tags, `generic` and `style` read as HTML attributes.
+    /// - A dynamic argument such as `:[key]` holds a TypeScript expression.
+    ///   It is lexed as a line of its own that ends before the `]`.
+    /// - In Vue's tags, `generic` holds TypeScript type parameters.
+    ///   `extends`, `in` and `out` are modifiers there, and `const` is not.
+    /// - In Vue's tags, `style` holds CSS declarations.
+    ///   A property's value ends before a quote, not before `)` or `}`.
+    /// - `generic` and `style` end only right after a quote.
+    ///   An unquoted value runs on as plain text to the next quote, which opens the string.
     /// - A Markdown fence names the language `vue`,
     ///   through the `markdown-vue` grammar that Vue injects into Markdown.
     ///   Its info string may hold no tilde after `vue`.

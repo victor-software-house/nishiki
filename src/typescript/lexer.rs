@@ -299,6 +299,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
                     | Rule::EntryArrayBinding
                     | Rule::EntryArrayBindingConst
                     | Rule::EntryTypeParameters
+                    | Rule::EntryGenericAttribute
                     | Rule::EntryTemplate
             )
             || !test.holds(self.bytes, p)

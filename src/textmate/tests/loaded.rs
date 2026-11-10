@@ -73,6 +73,8 @@ fn html_alone_matches_shiki() {
 /// - CSS's and JSON's rules, in its style variables and its custom blocks.
 ///
 /// So their grammars stay in the set.
+/// TOML's lexer cannot halt, so its grammar stays in the set too, for the
+/// `lang="toml"` blocks.
 /// Without TypeScript's, the linker drops the directive rules, as
 /// vscode-textmate does for a missing grammar.
 #[cfg(feature = "all")]
@@ -84,6 +86,7 @@ fn vue_with_its_included_grammars_matches_shiki() {
         "typescript",
         "css",
         "json",
+        "toml",
         "vue-directives",
         "vue-interpolations",
         "markdown-vue",

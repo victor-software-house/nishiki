@@ -284,14 +284,15 @@ pub(crate) struct Scratch {
     /// Buffers of frames for HTML lexers that run while another holds
     /// `frames`, one for each level of nesting.
     /// One such lexer runs a heredoc's HTML inside a Blade document's PHP.
-    #[cfg(feature = "lang-blade")]
+    /// Another runs a Vue block in `lang="vue"` inside a component.
+    #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
     spare: Vec<Vec<Frame>>,
     chain: Vec<(u32, crate::arena::Frame)>,
     /// The text of a scope name being built.
     name: String,
 }
 
-#[cfg(feature = "lang-blade")]
+#[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
 impl Scratch {
     /// A spare buffer for an HTML lexer that starts while another holds
     /// `frames`.
@@ -385,7 +386,7 @@ impl<'a> Lexer<'a> {
         let s = line.text.as_bytes();
         let steps = Steps::new(cx.limits, s.len());
         let mut frames = std::mem::take(&mut cx.scratch.html.frames);
-        #[cfg(feature = "lang-blade")]
+        #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
         if frames.capacity() == 0 {
             frames = cx.scratch.html.spare_frames();
         }
@@ -510,7 +511,7 @@ impl<'a> Lexer<'a> {
     /// this one goes to the spares.
     fn keep_frames(&mut self) {
         let frames = std::mem::take(&mut self.frames);
-        #[cfg(feature = "lang-blade")]
+        #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
         if self.scratch.html.frames.capacity() != 0 {
             self.scratch.html.keep_spare(frames);
             return;
@@ -1164,6 +1165,51 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// Emits the dynamic argument `from..to` of a Vue directive, such as
+    /// `eventName` in `v-on:[eventName]`, as a TypeScript expression on
+    /// `base`.
+    ///
+    /// The grammar's capture holds `source.ts#expression`.
+    /// `TextMate` lexes such a capture as a line of its own that ends at `to`.
+    /// So the expression lexes the line cut at `to`, from a fresh state, and
+    /// whatever it leaves open closes there.
+    #[cfg(feature = "lang-vue")]
+    #[cold]
+    #[inline(never)]
+    pub(super) fn vue_argument(&mut self, base: u32, from: usize, to: usize) {
+        if from >= to {
+            return;
+        }
+        self.tok(base, from);
+        let stack = self.path(base, &[S::TsEmbedded]);
+        let state = crate::typescript::start_expression(self.arena, stack);
+        let lent = self.steps.lend(self.limits);
+        let mut cx = Context {
+            scratch: &mut *self.scratch,
+            arena: &mut *self.arena,
+            limits: &lent,
+            out: &mut *self.out,
+            report: &mut *self.report,
+            first_token: self.first_token,
+        };
+        let line = Line {
+            text: self.text.get(..to).unwrap_or(self.text),
+            start: from,
+            embedded: false,
+            anchored_at_root: false,
+        };
+        let (next, _) = crate::typescript::lex_until(
+            &mut cx,
+            crate::typescript::Dialect::TypeScript,
+            line,
+            state,
+            &vue_rules::never,
+            None,
+        );
+        self.steps.take_back(next);
+        self.last = to;
+    }
+
     /// Pops the Vue body on top, as vscode-textmate does where the language
     /// it embeds matched an empty text at its root without advancing
     /// ([`StopReason::PopHost`]).
@@ -1185,6 +1231,10 @@ impl<'a> Lexer<'a> {
     fn vue_embedded(&mut self) -> Option<Hit> {
         self.search()
     }
+
+    /// Without Vue, no directive matches, so it has no argument to emit.
+    #[cfg(not(feature = "lang-vue"))]
+    pub(super) fn vue_argument(&mut self, _base: u32, _from: usize, _to: usize) {}
 
     /// Moves past the text that an embedded lexer took from `pos`: up to its
     /// halt, or the end of the text.
@@ -1465,7 +1515,9 @@ impl<'a> Lexer<'a> {
                 | VuePattern::DirectiveControl
                 | VuePattern::DirectiveOriginal
                 | VuePattern::ExprString
-                | VuePattern::ExprBare,
+                | VuePattern::ExprBare
+                | VuePattern::AttributeDirective
+                | VuePattern::AttributeString,
             )
             | Pattern::Blade(_) => self.open(&hit),
         }
@@ -1774,7 +1826,16 @@ fn vue_start(arena: &mut Arena, lexed: vue_rules::Lexed, base: u32) -> u32 {
         Lexed::Sass => crate::Language::Sass.start_embedded(arena, base),
         #[cfg(feature = "lang-coffee")]
         Lexed::Coffee => crate::Language::CoffeeScript.start_embedded(arena, base),
+        #[cfg(feature = "lang-markdown")]
+        Lexed::Markdown => crate::markdown::start_embedded(arena, base),
+        #[cfg(feature = "lang-json")]
+        Lexed::Json(_) => crate::json::start_embedded(arena, base),
+        #[cfg(feature = "lang-toml")]
+        Lexed::Toml => crate::toml::start_embedded(arena, base),
+        Lexed::Vue => super::start_vue_block(arena, base),
         Lexed::Expression => crate::typescript::start_expression(arena, base),
+        Lexed::TypeParameters => crate::typescript::start_generic_attribute(arena, base),
+        Lexed::StyleAttribute => crate::css::start_vue_style_attribute(arena, base),
     }
 }
 
@@ -1810,6 +1871,22 @@ fn vue_lex(
         Lexed::Sass => engine_until(cx, crate::Language::Sass, line, state, &end),
         #[cfg(feature = "lang-coffee")]
         Lexed::Coffee => engine_until(cx, crate::Language::CoffeeScript, line, state, &end),
+        #[cfg(feature = "lang-markdown")]
+        Lexed::Markdown => crate::markdown::lex_until(cx, line, state, &end, None),
+        #[cfg(feature = "lang-json")]
+        Lexed::Json(dialect) => crate::json::lex_until(cx, dialect, line, state, &end, None),
+        #[cfg(feature = "lang-toml")]
+        Lexed::Toml => crate::toml::lex_until(cx, line, state, &end),
+        Lexed::Vue => super::lex_vue_until(cx, line, state, &end),
+        Lexed::TypeParameters => crate::typescript::lex_until(
+            cx,
+            crate::typescript::Dialect::TypeScript,
+            line,
+            state,
+            &end,
+            None,
+        ),
+        Lexed::StyleAttribute => crate::css::lex_until(cx, line, state, &end, None),
     }
 }
 

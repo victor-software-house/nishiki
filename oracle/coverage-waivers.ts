@@ -2522,6 +2522,39 @@ export const waivers: Waiver[] = [
     reason: blanks,
   },
   { grammar: "html", path: "#xml-processing.end", group: 2, reason: missing(1) },
+  ...(
+    [
+      ["patterns[2].patterns[2].patterns[1]", "`text.pug`, which the oracle does not load"],
+      ["patterns[2].patterns[3].patterns[1]", "`source.stylus`, which the oracle does not load"],
+      [
+        "#multi-line-style-tag-stuff.patterns[2].patterns[1]",
+        "`source.stylus`, which the oracle does not load",
+      ],
+      ["patterns[2].patterns[16].patterns[1]", "`source.json5`, which the oracle does not load"],
+      [
+        "patterns[2].patterns[4].patterns[1]",
+        "`source.postcss`, which no grammar provides: PostCSS's grammar is `source.css.postcss`",
+      ],
+      [
+        "#multi-line-style-tag-stuff.patterns[4].patterns[1]",
+        "`source.postcss`, which no grammar provides: PostCSS's grammar is `source.css.postcss`",
+      ],
+    ] as const
+  ).flatMap(([rule, included]) =>
+    ["begin", "end"].map((side): Waiver => ({
+      grammar: "vue",
+      path: `${rule}.${side}`,
+      reason: `the rule's only pattern includes ${included}, so vscode-textmate drops the rule`,
+      dropped: true,
+    })),
+  ),
+  {
+    grammar: "vue",
+    path: "#vue-directives-original.patterns[0].match",
+    reason:
+      "the directive's end `(?=\\s*[^=\\s])` holds before every `.`, and the end wins a tie, " +
+      "so a `.` after a directive starts the next directive instead",
+  },
 ];
 
 /** The grammars that are complete, by Shiki's name. A grammar joins in the
@@ -2568,6 +2601,7 @@ export const complete: string[] = [
   "lua",
   "make",
   "markdown",
+  "markdown-vue",
   "matlab",
   "mermaid",
   "nix",
@@ -2596,6 +2630,7 @@ export const complete: string[] = [
   "tsx",
   "typescript",
   "vb",
+  "vue",
   "xml",
   "yaml",
   "zig",

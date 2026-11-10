@@ -1,0 +1,92 @@
+L # Vue in a fence
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 16 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L A Markdown `vue` fence can carry attributes after the language, as VitePress's line highlights do.
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 98 text.html.markdown meta.paragraph.markdown
+L 
+L ```vue {2,4}
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 12 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L <template>
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 9 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <p :class="{ active }">{{ message }}</p>
+T 2 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 3 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html
+T 11 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html meta.attribute.unrecognized.:class.html entity.other.attribute-name.html
+T 12 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html meta.attribute.unrecognized.:class.html punctuation.separator.key-value.html
+T 13 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 23 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html
+T 24 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html meta.attribute.unrecognized.:class.html string.quoted.double.html punctuation.definition.string.end.html
+T 25 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 38 text.html.markdown markup.fenced_code.block.markdown text.html.derivative
+T 40 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 41 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.end.html entity.name.tag.html
+T 42 text.html.markdown markup.fenced_code.block.markdown text.html.derivative meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L </template>
+T 2 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 10 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.template.html.vue
+T 11 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L <script setup lang="ts">
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 7 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.script.html.vue
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff
+T 13 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+L const message = 'Hello';
+T 5 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts storage.type.ts
+T 6 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts
+T 13 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 14 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 15 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 16 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts
+T 17 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.begin.ts
+T 22 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts string.quoted.single.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown source.ts meta.var.expr.ts string.quoted.single.ts punctuation.definition.string.end.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown source.ts punctuation.terminator.statement.ts
+L </script>
+T 2 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 8 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.script.html.vue
+T 9 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 
+L ```vue:no-line-numbers
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+T 22 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown
+L <button @click="count++">{{ count }}</button>
+T 1 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 7 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.button.html.vue
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.directive.vue punctuation.attribute-shorthand.event.html.vue
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 21 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue keyword.operator.increment.ts
+T 24 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 36 text.html.markdown markup.fenced_code.block.markdown text
+T 38 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.begin.html.vue
+T 44 text.html.markdown markup.fenced_code.block.markdown entity.name.tag.button.html.vue
+T 45 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.tag.end.html.vue
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 

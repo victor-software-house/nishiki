@@ -130,6 +130,7 @@ pub(crate) enum Rule {
     VueLangGroup,
     /// Vue: a block's body, which its language's lexer reads. The carried value
     /// is that lexer's state.
+    /// Inside a key-value comment, it is the comment's JSON, with no scope.
     VueBody,
     /// Vue: a TypeScript body that runs while no line starts with `</script`.
     /// The carried value is the lexer's state.

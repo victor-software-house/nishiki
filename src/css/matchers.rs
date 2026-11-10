@@ -240,16 +240,27 @@ impl<G: CssLike> Lexer<'_, G> {
             Pattern::FontFeaturesAt3 => self.font_features_at3(p),
             Pattern::FontFeaturesAt4 => self.font_features_at4(p),
             Pattern::FontFeaturesAt5 => self.font_features_at5(p),
-            Pattern::RuleListInnardsAt3 => self.rule_list_innards_at3(p),
+            Pattern::RuleListInnardsAt3 | Pattern::VueStyleAttributeAt3 => {
+                self.rule_list_innards_at3(p)
+            }
             Pattern::SharedNamesAt0 => self.shared_names_at0(p),
             Pattern::SharedNamesAt0End | Pattern::SharedNamesAt1End => self.shared_names_at0_end(p),
             Pattern::SharedNamesAt1 => self.shared_names_at1(p),
             Pattern::PropertyNamesAt0 => self.property_names_at0(p),
-            Pattern::RuleListInnardsAt7 => self.rule_list_innards_at7(p),
-            Pattern::RuleListInnardsAt7End => self.rule_list_innards_at7_end(p),
-            Pattern::RuleListInnardsAt8 => self.rule_list_innards_at8(p),
+            Pattern::RuleListInnardsAt7 | Pattern::VueStyleAttributeAt4 => {
+                self.rule_list_innards_at7(p)
+            }
+            Pattern::RuleListInnardsAt7End | Pattern::VueStyleAttributeAt4End => {
+                self.rule_list_innards_at7_end(p)
+            }
+            Pattern::RuleListInnardsAt8 | Pattern::VueStyleAttributeAt5 => {
+                self.rule_list_innards_at8(p)
+            }
             Pattern::RuleListInnardsAt8End => self.rule_list_innards_at8_end(p),
-            Pattern::RuleListInnardsAt9 => self.rule_list_innards_at9(p),
+            Pattern::VueStyleAttributeAt5End => self.vue_style_attribute_at5_end(p),
+            Pattern::RuleListInnardsAt9 | Pattern::VueStyleAttributeAt6 => {
+                self.rule_list_innards_at9(p)
+            }
             Pattern::AtRulesAt3 => self.at_rules_at3(p),
             Pattern::AtRulesAt3End => self.at_rules_at3_end(p),
             Pattern::AtRulesAt4 => self.at_rules_at4(p),

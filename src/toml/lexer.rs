@@ -10,13 +10,18 @@ use super::state::{ArrayNext, InlineComments, Rule};
 use crate::classes::space_width;
 use crate::emit::Emitter;
 use crate::language::Context;
+#[cfg(feature = "lang-vue")]
+use crate::language::Halt;
 use crate::limits::{Finished, Limit, Steps};
 use crate::utf8::char_len;
 
 /// Lexes one line.
 /// `pos` is the end of the last token.
 /// The bytes between it and the cursor are plain text of the current context.
-pub(crate) struct Lexer<'a> {
+/// Its mode `H` says whether it stops where the halt of a language that
+/// embeds TOML holds (see [`super::lex_until`]).
+/// [`NoHalts`] has no size, and its test compiles out.
+pub(crate) struct Lexer<'a, H> {
     pub(super) s: &'a [u8],
     /// The tokens, the contexts and the end of the last token.
     pub(super) em: Emitter<'a>,
@@ -47,16 +52,59 @@ pub(crate) struct Lexer<'a> {
     /// failed.
     /// A key that starts at that name fails the same way.
     pub(super) failed_chain: Cell<(usize, usize)>,
+    /// Whether the lexer halts.
+    mode: H,
 }
 
-impl<'a> Lexer<'a> {
+/// Whether a lexer stops where the halt of a language that embeds TOML
+/// holds.
+pub(crate) trait Mode {
+    /// Whether the lexer tests the halt at the top of the document.
+    const HALTS: bool;
+
+    /// Whether the halt holds at `p`, from the start of the lexed text.
+    fn holds(&self, p: usize) -> bool;
+}
+
+/// The mode of a lexer for a TOML document, which never halts.
+pub(crate) struct NoHalts;
+
+impl Mode for NoHalts {
+    const HALTS: bool = false;
+
+    fn holds(&self, _: usize) -> bool {
+        false
+    }
+}
+
+/// The halt of a language that embeds TOML.
+#[cfg(feature = "lang-vue")]
+pub(crate) struct Halts<'a> {
+    /// The whole line, in which the halt reads its place.
+    pub(crate) line: &'a [u8],
+    /// Where the lexed text starts in the line.
+    pub(crate) start: usize,
+    /// The halt of the embedding rule's end.
+    pub(crate) end: &'a dyn Halt,
+}
+
+#[cfg(feature = "lang-vue")]
+impl Mode for Halts<'_> {
+    const HALTS: bool = true;
+
+    fn holds(&self, p: usize) -> bool {
+        self.end.holds(self.line, self.start + p)
+    }
+}
+
+impl<'a, H: Mode> Lexer<'a, H> {
     /// The lexer of one line, from `state`.
     ///
     /// It is `#[inline]`, as `run` is.
     /// `toml::lex`, in another module, calls both on every line.
     /// At the default sixteen codegen units they were called out of line.
     #[inline]
-    pub(crate) fn new(cx: &'a mut Context<'_>, s: &'a [u8], state: u32) -> Self {
+    pub(crate) fn new(cx: &'a mut Context<'_>, s: &'a [u8], state: u32, mode: H) -> Self {
         let steps = Steps::new(cx.limits, s.len());
         let mut lexer = Lexer {
             s,
@@ -68,6 +116,7 @@ impl<'a> Lexer<'a> {
             quote_eq: Cell::new((0, 0)),
             no_key_before: 0,
             failed_chain: Cell::new((usize::MAX, 0)),
+            mode,
         };
         lexer.first = lexer.skip_space(0);
         lexer
@@ -78,14 +127,21 @@ impl<'a> Lexer<'a> {
         self.steps.finish(self.em.state)
     }
 
-    /// Lexes the line.
+    /// Lexes the line, and returns where it halted.
     ///
     /// The `in_*` steps it calls are `#[inline]` too.
     /// Once `run` is inlined into `toml::lex`, that module calls them.
+    ///
+    /// A lexer that halts tests the halt where a step begins at the top of
+    /// the document.
+    /// Only there does Shiki try the embedding rule's end beside TOML's
+    /// patterns.
+    /// A key and its value are one rule there, which ends after the value.
     #[inline]
-    pub(crate) fn run(&mut self) {
+    pub(crate) fn run(&mut self) -> Option<usize> {
         let len = self.s.len();
         let mut p = 0;
+        let mut halted = None;
         while p < len {
             self.steps.spend(1);
             if self.steps.exhausted() {
@@ -96,13 +152,18 @@ impl<'a> Lexer<'a> {
             p = match self.top() {
                 Rule::Basic | Rule::MultilineBasic => self.in_basic(p),
                 Rule::Literal | Rule::MultilineLiteral => self.in_literal(p),
+                Rule::Top if H::HALTS && self.mode.holds(p) => {
+                    halted = Some(p);
+                    break;
+                }
                 Rule::Top => self.in_table(p),
                 Rule::Array => self.in_array(p),
                 Rule::InlineTable => self.in_inline(p),
             };
             debug_assert!(p > from, "the TOML lexer made no progress at byte {from}");
         }
-        self.gap(len);
+        self.gap(halted.unwrap_or(len));
+        halted
     }
 
     // Bytes.

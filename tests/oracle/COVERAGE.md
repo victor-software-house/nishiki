@@ -63,7 +63,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Lua | `lua` | 147 of 152 | 96.7% | 72 of 74 | 97.3% | 7 | 0 | yes |
 | Make | `make` | 75 of 75 | 100.0% | 28 of 32 | 87.5% | 4 | 0 | yes |
 | Markdown | `markdown` | 233 of 311 | 74.9% | 294 of 373 | 78.8% | 157 | 0 | yes |
-| Markdown | `markdown-vue` | 2 of 2 | 100.0% | 3 of 4 | 75.0% | 0 | 0 |  |
+| Markdown | `markdown-vue` | 2 of 2 | 100.0% | 4 of 4 | 100.0% | 0 | 0 | yes |
 | MATLAB | `matlab` | 127 of 132 | 96.2% | 77 of 91 | 84.6% | 19 | 0 | yes |
 | Mermaid | `mermaid` | 282 of 287 | 98.3% | 699 of 715 | 97.8% | 21 | 0 | yes |
 | Nix | `nix` | 155 of 157 | 98.7% | 47 of 49 | 95.9% | 4 | 0 | yes |
@@ -92,7 +92,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | TypeScript | `tsx` | 532 of 534 | 99.6% | 600 of 605 | 99.2% | 7 | 0 | yes |
 | TypeScript | `typescript` | 513 of 515 | 99.6% | 571 of 576 | 99.1% | 7 | 0 | yes |
 | Visual Basic | `vb` | 35 of 36 | 97.2% | 15 of 20 | 75.0% | 6 | 0 | yes |
-| Vue | `vue` | 130 of 197 | 66.0% | 88 of 128 | 68.8% | 0 | 0 |  |
+| Vue | `vue` | 184 of 197 | 93.4% | 128 of 128 | 100.0% | 13 | 0 | yes |
 | XML | `xml` | 32 of 32 | 100.0% | 55 of 66 | 83.3% | 11 | 0 | yes |
 | YAML | `yaml` | 60 of 62 | 96.8% | 51 of 55 | 92.7% | 6 | 0 | yes |
 | Zig | `zig` | 54 of 56 | 96.4% | 5 of 5 | 100.0% | 2 | 0 | yes |
@@ -1914,12 +1914,6 @@ patterns[17].match  \b(function)\b(?![,:])
   waived: its begin never matches
 ```
 
-### `markdown-vue`
-
-```text
-#vue-code-block.begin  groups 5
-```
-
 ### `matlab`
 
 ```text
@@ -3015,76 +3009,45 @@ patterns[12].patterns[0].match  ""
 ### `vue`
 
 ```text
-patterns[2].patterns[0].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)md\b\2)
-patterns[2].patterns[0].end  (</)(\1)\s*(?=>)
-patterns[2].patterns[0].patterns[1].begin  (?<=>)
-patterns[2].patterns[0].patterns[1].end  (?=</)
 patterns[2].patterns[2].patterns[1].begin  (?<=>)
+  waived: the rule's only pattern includes `text.pug`, which the oracle does not load, so
+    vscode-textmate drops the rule
 patterns[2].patterns[2].patterns[1].end  (?=</)
+  waived: the rule's only pattern includes `text.pug`, which the oracle does not load, so
+    vscode-textmate drops the rule
 patterns[2].patterns[3].patterns[1].begin  (?<=>)
+  waived: the rule's only pattern includes `source.stylus`, which the oracle does not load, so
+    vscode-textmate drops the rule
 patterns[2].patterns[3].patterns[1].end  (?=</)
+  waived: the rule's only pattern includes `source.stylus`, which the oracle does not load, so
+    vscode-textmate drops the rule
 patterns[2].patterns[4].patterns[1].begin  (?<=>)
+  waived: the rule's only pattern includes `source.postcss`, which no grammar provides: PostCSS's
+    grammar is `source.css.postcss`, so vscode-textmate drops the rule
 patterns[2].patterns[4].patterns[1].end  (?=</)
-patterns[2].patterns[12].end  (</)(\1)\s*(?=>)
-patterns[2].patterns[12].patterns[1].end  (?=</script[>\s])
-patterns[2].patterns[12].patterns[2].begin  (?<=>)
-patterns[2].patterns[12].patterns[2].while  ^(?!\s*</script[>\s])
-patterns[2].patterns[14].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)json\b\2)
-patterns[2].patterns[14].end  (</)(\1)\s*(?=>)
-patterns[2].patterns[14].patterns[1].begin  (?<=>)
-patterns[2].patterns[14].patterns[1].end  (?=</)
-patterns[2].patterns[15].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)jsonc\b\2)
-patterns[2].patterns[15].end  (</)(\1)\s*(?=>)
-patterns[2].patterns[15].patterns[1].begin  (?<=>)
-patterns[2].patterns[15].patterns[1].end  (?=</)
+  waived: the rule's only pattern includes `source.postcss`, which no grammar provides: PostCSS's
+    grammar is `source.css.postcss`, so vscode-textmate drops the rule
 patterns[2].patterns[16].patterns[1].begin  (?<=>)
+  waived: the rule's only pattern includes `source.json5`, which the oracle does not load, so
+    vscode-textmate drops the rule
 patterns[2].patterns[16].patterns[1].end  (?=</)
-patterns[2].patterns[18].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)toml\b\2)
-patterns[2].patterns[18].end  (</)(\1)\s*(?=>)
-patterns[2].patterns[18].patterns[1].begin  (?<=>)
-patterns[2].patterns[18].patterns[1].end  (?=</)
-patterns[2].patterns[20].begin  ([-0-:A-Za-z]+)\b(?=[^>]*\blang\s*=\s*(["']?)vue\b\2)
-patterns[2].patterns[20].end  (</)(\1)\s*(?=>)
-patterns[2].patterns[20].patterns[1].begin  (?<=>)
-patterns[2].patterns[20].patterns[1].end  (?=</)
-#multi-line-script-tag-stuff.patterns[1].patterns[1].begin  (?<=>)(?=[^\n]*</script[>\s])
-#multi-line-script-tag-stuff.patterns[1].patterns[1].end  (?=</script[>\s])
-#multi-line-script-tag-stuff.patterns[2].patterns[1].begin  (?<=>)(?=[^\n]*</script[>\s])
-#multi-line-script-tag-stuff.patterns[2].patterns[1].end  (?=</script[>\s])
-#multi-line-style-tag-stuff.patterns[1].begin  (?=\blang\s*=\s*["']?scss\b)
-#multi-line-style-tag-stuff.patterns[1].end  (?=</style[>\s])
-#multi-line-style-tag-stuff.patterns[1].patterns[1].begin  (?<=>)
-#multi-line-style-tag-stuff.patterns[1].patterns[1].end  (?=</style[>\s])
+  waived: the rule's only pattern includes `source.json5`, which the oracle does not load, so
+    vscode-textmate drops the rule
 #multi-line-style-tag-stuff.patterns[2].patterns[1].begin  (?<=>)
+  waived: the rule's only pattern includes `source.stylus`, which the oracle does not load, so
+    vscode-textmate drops the rule
 #multi-line-style-tag-stuff.patterns[2].patterns[1].end  (?=</style[>\s])
+  waived: the rule's only pattern includes `source.stylus`, which the oracle does not load, so
+    vscode-textmate drops the rule
 #multi-line-style-tag-stuff.patterns[4].patterns[1].begin  (?<=>)
+  waived: the rule's only pattern includes `source.postcss`, which no grammar provides: PostCSS's
+    grammar is `source.css.postcss`, so vscode-textmate drops the rule
 #multi-line-style-tag-stuff.patterns[4].patterns[1].end  (?=</style[>\s])
-#template-tag-1.begin  (<)(template)\b(>)
-#template-tag-1.end  (/?>)
-#template-tag-1.patterns[0].begin  \G
-#template-tag-1.patterns[0].end  (?=/>)|((</)(template)(?=[>\s]))
-#vue-comments-key-value.begin  (<!--)\s*(@)([$\w]+)(?=\s)
-#vue-comments-key-value.end  (-->)
-#vue-directives-generic-attr.begin  \b(generic)\s*(=)
-#vue-directives-generic-attr.end  (?<=["'])
-#vue-directives-generic-attr.patterns[0].begin  (["'])
-#vue-directives-generic-attr.patterns[0].end  (\1)
-#vue-directives-generic-attr.patterns[0].patterns[1].match
-  (?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))(extends|in|out)(?…
-#vue-directives-generic-attr.patterns[0].patterns[4].match  (=)(?!>)
-#vue-directives-original.begin  groups 6, 7, 8
+  waived: the rule's only pattern includes `source.postcss`, which no grammar provides: PostCSS's
+    grammar is `source.css.postcss`, so vscode-textmate drops the rule
 #vue-directives-original.patterns[0].match  (\.)([-\w]*)
-#vue-directives-style-attr.begin  \b(style)\s*(=)
-#vue-directives-style-attr.end  (?<=["'])
-#vue-directives-style-attr.patterns[0].begin  (["'])
-#vue-directives-style-attr.patterns[0].end  (\1)
-#vue-directives-style-attr.patterns[0].patterns[3].match
-  (?<![-\w])--[-A-Z_a-z[^\x00-\x7F]](?:[-0-9A-Z_a-z[^\x00-\x7…
-#vue-directives-style-attr.patterns[0].patterns[4].begin  (?<![-A-Za-z])(?=[-A-Za-z])
-#vue-directives-style-attr.patterns[0].patterns[4].end  $|(?![-A-Za-z])
-#vue-directives-style-attr.patterns[0].patterns[5].begin  (:)\s*
-#vue-directives-style-attr.patterns[0].patterns[5].end  \s*(;)|\s*(?=["'])
-#vue-directives-style-attr.patterns[0].patterns[6].match  ;
+  waived: the directive's end `(?=\s*[^=\s])` holds before every `.`, and the end wins a tie, so a
+    `.` after a directive starts the next directive instead
 ```
 
 ### `xml`

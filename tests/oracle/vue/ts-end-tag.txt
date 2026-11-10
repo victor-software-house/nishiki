@@ -1,0 +1,88 @@
+L <!-- In Shiki, a one-line script block with no `;` runs past its end tag. -->
+T 4 text.html.vue comment.block.vue punctuation.definition.comment.vue
+T 74 text.html.vue comment.block.vue
+T 77 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L <script
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+L   lang="ts">export const six: number = 6</script>
+T 2 text.html.vue meta.tag-stuff
+T 6 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 7 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 8 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 10 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 12 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 18 text.html.vue source.ts meta.var.expr.ts keyword.control.export.ts
+T 19 text.html.vue source.ts meta.var.expr.ts
+T 24 text.html.vue source.ts meta.var.expr.ts storage.type.ts
+T 25 text.html.vue source.ts meta.var.expr.ts
+T 28 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 29 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 30 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 36 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts support.type.primitive.ts
+T 37 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 38 text.html.vue source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 39 text.html.vue source.ts meta.var.expr.ts
+T 40 text.html.vue source.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 41 text.html.vue source.ts meta.var.expr.ts keyword.operator.relational.ts
+T 42 text.html.vue source.ts meta.var.expr.ts keyword.operator.arithmetic.ts
+T 48 text.html.vue source.ts meta.var.expr.ts variable.other.readwrite.ts
+T 49 text.html.vue source.ts meta.var.expr.ts keyword.operator.relational.ts
+L <script
+T 1 text.html.vue source.ts keyword.operator.relational.ts
+T 7 text.html.vue source.ts variable.other.readwrite.ts
+L   lang="tsx">export const seven = <u>7</u></script>
+T 2 text.html.vue source.ts
+T 6 text.html.vue source.ts variable.other.readwrite.ts
+T 7 text.html.vue source.ts keyword.operator.assignment.ts
+T 8 text.html.vue source.ts string.quoted.double.ts punctuation.definition.string.begin.ts
+T 11 text.html.vue source.ts string.quoted.double.ts
+T 12 text.html.vue source.ts string.quoted.double.ts punctuation.definition.string.end.ts
+T 13 text.html.vue source.ts keyword.operator.relational.ts
+T 19 text.html.vue source.ts meta.var.expr.ts keyword.control.export.ts
+T 20 text.html.vue source.ts meta.var.expr.ts
+T 25 text.html.vue source.ts meta.var.expr.ts storage.type.ts
+T 26 text.html.vue source.ts meta.var.expr.ts
+T 31 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 32 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts
+T 33 text.html.vue source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 34 text.html.vue source.ts meta.var.expr.ts cast.expr.ts
+T 35 text.html.vue source.ts meta.var.expr.ts cast.expr.ts meta.brace.angle.ts
+T 36 text.html.vue source.ts meta.var.expr.ts cast.expr.ts entity.name.type.ts
+T 37 text.html.vue source.ts meta.var.expr.ts cast.expr.ts meta.brace.angle.ts
+T 38 text.html.vue source.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 39 text.html.vue source.ts meta.var.expr.ts keyword.operator.relational.ts
+T 40 text.html.vue source.ts meta.var.expr.ts keyword.operator.arithmetic.ts
+T 41 text.html.vue source.ts meta.var.expr.ts variable.other.readwrite.ts
+T 42 text.html.vue source.ts meta.var.expr.ts keyword.operator.relational.ts
+T 43 text.html.vue source.ts meta.var.expr.ts cast.expr.ts meta.brace.angle.ts
+T 44 text.html.vue source.ts meta.var.expr.ts cast.expr.ts
+T 50 text.html.vue source.ts meta.var.expr.ts cast.expr.ts entity.name.type.ts
+T 51 text.html.vue source.ts meta.var.expr.ts cast.expr.ts meta.brace.angle.ts
+L <template>
+T 1 text.html.vue source.ts cast.expr.ts meta.brace.angle.ts
+T 9 text.html.vue source.ts cast.expr.ts entity.name.type.ts
+T 10 text.html.vue source.ts cast.expr.ts meta.brace.angle.ts
+L   <p>{{ six }}</p>
+T 2 text.html.vue source.ts cast.expr.ts
+T 3 text.html.vue source.ts cast.expr.ts meta.brace.angle.ts
+T 4 text.html.vue source.ts cast.expr.ts entity.name.type.ts
+T 5 text.html.vue source.ts cast.expr.ts meta.brace.angle.ts
+T 6 text.html.vue source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 7 text.html.vue source.ts meta.objectliteral.ts meta.block.ts punctuation.definition.block.ts
+T 8 text.html.vue source.ts meta.objectliteral.ts meta.block.ts
+T 11 text.html.vue source.ts meta.objectliteral.ts meta.block.ts variable.other.readwrite.ts
+T 12 text.html.vue source.ts meta.objectliteral.ts meta.block.ts
+T 13 text.html.vue source.ts meta.objectliteral.ts meta.block.ts punctuation.definition.block.ts
+T 14 text.html.vue source.ts meta.objectliteral.ts punctuation.definition.block.ts
+T 15 text.html.vue source.ts keyword.operator.relational.ts
+T 16 text.html.vue source.ts keyword.operator.arithmetic.ts
+T 17 text.html.vue source.ts variable.other.readwrite.ts
+T 18 text.html.vue source.ts keyword.operator.relational.ts
+L </template>
+T 1 text.html.vue source.ts keyword.operator.relational.ts
+T 2 text.html.vue source.ts keyword.operator.arithmetic.ts
+T 10 text.html.vue source.ts variable.other.readwrite.ts
+T 11 text.html.vue source.ts keyword.operator.relational.ts
+L 

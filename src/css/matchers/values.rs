@@ -524,6 +524,20 @@ impl<G: CssLike> Lexer<'_, G> {
         }
     }
 
+    /// `\s*(;)|\s*(?=["'])`: the end of a property value in the string of
+    /// Vue's `style` attribute.
+    pub(in crate::css) fn vue_style_attribute_at5_end(&mut self, p: usize) -> Option<usize> {
+        let at = self.spaces(p);
+        match self.s.get(at) {
+            Some(b';') => {
+                self.capture(1, at, at + 1);
+                Some(at + 1)
+            }
+            Some(b'"' | b'\'') => Some(at),
+            _ => None,
+        }
+    }
+
     /// The lookbehind `(?<=^|(^|[^:])\s|[{}]|\*/|\\(?:\h{1,6}|.))` of the
     /// shared names.
     fn shared_behind(&self, p: usize) -> bool {

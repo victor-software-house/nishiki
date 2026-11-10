@@ -1,7 +1,7 @@
 //! Values: numbers, dates and times, booleans, and the openers of strings,
 //! arrays and inline tables.
 
-use super::lexer::Lexer;
+use super::lexer::{Lexer, Mode};
 use super::scope::S;
 use super::state::Rule;
 use crate::classes::space_width;
@@ -29,7 +29,7 @@ fn is_binary(b: u8) -> bool {
     matches!(b, b'0' | b'1')
 }
 
-impl Lexer<'_> {
+impl<H: Mode> Lexer<'_, H> {
     /// The value that starts at `p`, if one does.
     pub(super) fn value(&mut self, p: usize) -> Option<usize> {
         match self.s[p] {

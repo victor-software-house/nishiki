@@ -464,12 +464,19 @@ impl Lexer<'_> {
             | VueRule::StyleStuff
             | VueRule::LangGroup
             | VueRule::CapitalizedAttrs
-            | VueRule::ExprString
             | VueRule::ExprBare => base,
             VueRule::Comment | VueRule::CommentKv => self.path(base, &[S::VueComment]),
             VueRule::SelfClosing => self.path(base, &[S::SelfClosingTag]),
             VueRule::TagStuff | VueRule::ScriptTagStuff | VueRule::StyleTagStuff => {
                 self.path(base, &[S::TagStuff])
+            }
+            VueRule::Body
+                if matches!(
+                    self.top().rule,
+                    Rule::VueCommentKeyValue | Rule::VueExpressionString
+                ) =>
+            {
+                base
             }
             VueRule::Body | VueRule::BodyWhile => {
                 let parent = *self.top();
@@ -489,13 +496,19 @@ impl Lexer<'_> {
                 ],
             ),
             VueRule::Directive => {
-                let scope = if carried == 1 {
-                    S::DirectiveControl
-                } else {
-                    S::DirectiveVue
+                let scope = match vue::Directive::from_carried(carried) {
+                    vue::Directive::Control => S::DirectiveControl,
+                    vue::Directive::Original => S::DirectiveVue,
+                    vue::Directive::Generic => S::GenericAttribute,
+                    vue::Directive::Style => S::StyleAttribute,
                 };
                 self.path(base, &[scope])
             }
+            VueRule::ExprString => match vue::StringOf::from_carried(carried) {
+                vue::StringOf::Directive => base,
+                vue::StringOf::Generic => self.path(base, &[S::TypeParameters]),
+                vue::StringOf::Style => self.path(base, &[S::CssEmbedded]),
+            },
             VueRule::Expr => self.path(base, &[S::TsEmbedded]),
         }
     }
@@ -584,8 +597,11 @@ impl Lexer<'_> {
             VuePattern::Capitalized => (Rule::VueCapitalized, self.intern(from, to)),
             VuePattern::DirectiveControl => (Rule::VueDirective, 1),
             VuePattern::DirectiveOriginal => (Rule::VueDirective, 0),
-            VuePattern::ExprString => (Rule::VueExpressionString, hit.bits),
+            VuePattern::ExprString | VuePattern::AttributeString => {
+                (Rule::VueExpressionString, hit.bits)
+            }
             VuePattern::ExprBare => (Rule::VueExpressionBare, 0),
+            VuePattern::AttributeDirective => (Rule::VueDirective, hit.bits),
             VuePattern::Modifier => return None,
         })
     }
@@ -668,7 +684,7 @@ impl Lexer<'_> {
                 match vue::Argument::from_code(argument) {
                     vue::Argument::Bracketed => {
                         self.capture(base, argument_start, argument_start + 1, &[S::VueKeyValue]);
-                        self.capture(base, argument_start + 1, argument_end, &[S::TsEmbedded]);
+                        self.vue_argument(base, argument_start + 1, argument_end);
                         self.capture(base, argument_end, argument_end + 1, &[S::VueKeyValue]);
                     }
                     vue::Argument::Plain => {
@@ -682,6 +698,12 @@ impl Lexer<'_> {
                 self.capture(base, at[0], end, &[S::VueStringBegin]);
             }
             VuePattern::ExprBare => self.capture(base, start, end, &[S::VueKeyValue]),
+            VuePattern::AttributeDirective => {
+                let [name_end, equals, ..] = at;
+                self.capture(base, start, name_end, &[S::VueAttributeName]);
+                self.capture(base, equals, end, &[S::VueKeyValue]);
+            }
+            VuePattern::AttributeString => self.capture(base, start, end, &[S::VueStringBegin]),
             VuePattern::LangGroup | VuePattern::TemplateTagEnd | VuePattern::Modifier => {}
         }
     }
@@ -793,7 +815,9 @@ impl Lexer<'_> {
                 | VuePattern::DirectiveControl
                 | VuePattern::DirectiveOriginal
                 | VuePattern::ExprString
-                | VuePattern::ExprBare,
+                | VuePattern::ExprBare
+                | VuePattern::AttributeDirective
+                | VuePattern::AttributeString,
             ) => {}
         }
     }

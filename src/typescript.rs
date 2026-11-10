@@ -199,7 +199,7 @@ pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
 /// entry of TypeScript's grammar, as Svelte does.
 /// It is a context that runs that entry's patterns only.
 /// Its text sits on `base`, which holds the embedding's own scope.
-#[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
+#[cfg(any(feature = "lang-svelte", feature = "lang-tsx", feature = "lang-vue"))]
 fn start_entry(arena: &mut Arena, base: u32, rule: Rule) -> u32 {
     arena.push(ROOT, rule.code(), 0, base).unwrap_or(ROOT)
 }
@@ -256,6 +256,13 @@ pub(crate) fn start_array_binding_const(arena: &mut Arena, base: u32) -> u32 {
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_type_parameters(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Rule::EntryTypeParameters)
+}
+
+/// The start of the string of Vue's `generic` attribute, whose patterns
+/// copy those of `source.ts#type-parameters` with no `const`.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn start_generic_attribute(arena: &mut Arena, base: u32) -> u32 {
+    start_entry(arena, base, Rule::EntryGenericAttribute)
 }
 
 /// Lexes the text of `line` from byte `from` and `state`, appending its

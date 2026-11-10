@@ -1,0 +1,699 @@
+L <!-- A component written for nishiki to reach the vue grammar's block, directive and attribute rules. -->
+T 4 text.html.vue comment.block.vue punctuation.definition.comment.vue
+T 102 text.html.vue comment.block.vue
+T 105 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L <!-- @layout { "name": "wide", "order": [1, 2], "draft": true } -->
+T 4 text.html.vue comment.block.vue punctuation.definition.comment.vue
+T 5 text.html.vue comment.block.vue
+T 6 text.html.vue comment.block.vue punctuation.definition.block.tag.comment.vue
+T 12 text.html.vue comment.block.vue storage.type.class.comment.vue
+T 13 text.html.vue comment.block.vue
+T 14 text.html.vue comment.block.vue meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 15 text.html.vue comment.block.vue meta.structure.dictionary.json
+T 16 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 20 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json
+T 21 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 22 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 23 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 24 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.begin.json
+T 28 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json
+T 29 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json string.quoted.double.json punctuation.definition.string.end.json
+T 30 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+T 31 text.html.vue comment.block.vue meta.structure.dictionary.json
+T 32 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 37 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json
+T 38 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 39 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 40 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 41 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 42 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.numeric.json
+T 43 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.separator.array.json
+T 44 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json
+T 45 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.numeric.json
+T 46 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 47 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.pair.json
+T 48 text.html.vue comment.block.vue meta.structure.dictionary.json
+T 49 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 54 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json
+T 55 text.html.vue comment.block.vue meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 56 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 57 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 61 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json constant.language.json
+T 62 text.html.vue comment.block.vue meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 63 text.html.vue comment.block.vue meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+T 64 text.html.vue comment.block.vue
+T 67 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L <script setup lang="ts" generic="T extends string, U = number, in out V">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 23 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.vue meta.tag-stuff
+T 31 text.html.vue meta.tag-stuff meta.attribute.generic.vue entity.other.attribute-name.html.vue
+T 32 text.html.vue meta.tag-stuff meta.attribute.generic.vue punctuation.separator.key-value.html.vue
+T 33 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue punctuation.definition.string.begin.html.vue
+T 34 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue entity.name.type.ts
+T 35 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 42 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue storage.modifier.ts
+T 43 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 49 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue support.type.primitive.ts
+T 50 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue punctuation.separator.comma.ts
+T 51 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 52 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue entity.name.type.ts
+T 53 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 54 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue keyword.operator.assignment.ts
+T 55 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 61 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue support.type.primitive.ts
+T 62 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue punctuation.separator.comma.ts
+T 63 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 65 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue storage.modifier.ts
+T 66 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 69 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue storage.modifier.ts
+T 70 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue
+T 71 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue entity.name.type.ts
+T 72 text.html.vue meta.tag-stuff meta.attribute.generic.vue meta.type.parameters.vue punctuation.definition.string.end.html.vue
+T 73 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L defineProps<{ item: T }>();
+T 11 text.html.vue source.ts meta.function-call.ts entity.name.function.ts
+T 12 text.html.vue source.ts meta.type.parameters.ts punctuation.definition.typeparameters.begin.ts
+T 13 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts punctuation.definition.block.ts
+T 14 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts
+T 18 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.definition.property.ts variable.object.property.ts
+T 19 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 20 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts
+T 21 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts entity.name.type.ts
+T 22 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts meta.field.declaration.ts meta.type.annotation.ts
+T 23 text.html.vue source.ts meta.type.parameters.ts meta.object.type.ts punctuation.definition.block.ts
+T 24 text.html.vue source.ts meta.type.parameters.ts punctuation.definition.typeparameters.end.ts
+T 25 text.html.vue source.ts meta.brace.round.ts
+T 26 text.html.vue source.ts meta.brace.round.ts
+T 27 text.html.vue source.ts punctuation.terminator.statement.ts
+L </script>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.script.html.vue
+T 9 text.html.vue punctuation.definition.tag.end.html.vue
+L <script
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+L   lang="ts">export const six: number = 6;</script>
+T 2 text.html.vue meta.tag-stuff
+T 6 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 7 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 8 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 10 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 12 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 18 text.html.vue source.ts meta.var.expr.ts keyword.control.export.ts
+T 19 text.html.vue source.ts meta.var.expr.ts
+T 24 text.html.vue source.ts meta.var.expr.ts storage.type.ts
+T 25 text.html.vue source.ts meta.var.expr.ts
+T 28 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.definition.variable.ts variable.other.constant.ts
+T 29 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts keyword.operator.type.annotation.ts
+T 30 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 36 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts support.type.primitive.ts
+T 37 text.html.vue source.ts meta.var.expr.ts meta.var-single-variable.expr.ts meta.type.annotation.ts
+T 38 text.html.vue source.ts meta.var.expr.ts keyword.operator.assignment.ts
+T 39 text.html.vue source.ts meta.var.expr.ts
+T 40 text.html.vue source.ts meta.var.expr.ts constant.numeric.decimal.ts
+T 41 text.html.vue source.ts punctuation.terminator.statement.ts
+T 43 text.html.vue punctuation.definition.tag.begin.html.vue
+T 49 text.html.vue entity.name.tag.script.html.vue
+T 50 text.html.vue punctuation.definition.tag.end.html.vue
+L <script
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+L   lang="tsx">export const seven = <u>7</u>;</script>
+T 2 text.html.vue meta.tag-stuff
+T 6 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 7 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 8 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 13 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 19 text.html.vue source.tsx meta.var.expr.tsx keyword.control.export.tsx
+T 20 text.html.vue source.tsx meta.var.expr.tsx
+T 25 text.html.vue source.tsx meta.var.expr.tsx storage.type.tsx
+T 26 text.html.vue source.tsx meta.var.expr.tsx
+T 31 text.html.vue source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 32 text.html.vue source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 33 text.html.vue source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 34 text.html.vue source.tsx meta.var.expr.tsx
+T 35 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 36 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 37 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 38 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 40 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 41 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 42 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 43 text.html.vue source.tsx punctuation.terminator.statement.tsx
+T 45 text.html.vue punctuation.definition.tag.begin.html.vue
+T 51 text.html.vue entity.name.tag.script.html.vue
+T 52 text.html.vue punctuation.definition.tag.end.html.vue
+L <script setup lang="tsx">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 23 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 24 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 25 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L export const eight = <s>8</s>;
+T 6 text.html.vue source.tsx meta.var.expr.tsx keyword.control.export.tsx
+T 7 text.html.vue source.tsx meta.var.expr.tsx
+T 12 text.html.vue source.tsx meta.var.expr.tsx storage.type.tsx
+T 13 text.html.vue source.tsx meta.var.expr.tsx
+T 18 text.html.vue source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 19 text.html.vue source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 20 text.html.vue source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 21 text.html.vue source.tsx meta.var.expr.tsx
+T 22 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 23 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 24 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 25 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx meta.jsx.children.tsx
+T 27 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.begin.tsx
+T 28 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx entity.name.tag.tsx
+T 29 text.html.vue source.tsx meta.var.expr.tsx meta.tag.without-attributes.tsx punctuation.definition.tag.end.tsx
+T 30 text.html.vue source.tsx punctuation.terminator.statement.tsx
+L </script>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.script.html.vue
+T 9 text.html.vue punctuation.definition.tag.end.html.vue
+L <script lang="tsx">export const nine = 9;</script>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.script.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 17 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 19 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 25 text.html.vue source.tsx meta.var.expr.tsx keyword.control.export.tsx
+T 26 text.html.vue source.tsx meta.var.expr.tsx
+T 31 text.html.vue source.tsx meta.var.expr.tsx storage.type.tsx
+T 32 text.html.vue source.tsx meta.var.expr.tsx
+T 36 text.html.vue source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx meta.definition.variable.tsx variable.other.constant.tsx
+T 37 text.html.vue source.tsx meta.var.expr.tsx meta.var-single-variable.expr.tsx
+T 38 text.html.vue source.tsx meta.var.expr.tsx keyword.operator.assignment.tsx
+T 39 text.html.vue source.tsx meta.var.expr.tsx
+T 40 text.html.vue source.tsx meta.var.expr.tsx constant.numeric.decimal.tsx
+T 41 text.html.vue source.tsx punctuation.terminator.statement.tsx
+T 43 text.html.vue punctuation.definition.tag.begin.html.vue
+T 49 text.html.vue entity.name.tag.script.html.vue
+T 50 text.html.vue punctuation.definition.tag.end.html.vue
+L 
+L <template>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.template.html.vue
+T 10 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L   <div>
+T 2 text.html.vue text.html.derivative
+T 3 text.html.vue text.html.derivative meta.tag.structure.div.start.html punctuation.definition.tag.begin.html
+T 6 text.html.vue text.html.derivative meta.tag.structure.div.start.html entity.name.tag.html
+T 7 text.html.vue text.html.derivative meta.tag.structure.div.start.html punctuation.definition.tag.end.html
+L     <template><span>bare</span></template>
+T 4 text.html.vue text.html.derivative
+T 5 text.html.vue text.html.derivative meta.template-tag.start punctuation.definition.tag.begin.html.vue
+T 13 text.html.vue text.html.derivative meta.template-tag.start entity.name.tag.template.html.vue
+T 14 text.html.vue text.html.derivative meta.template-tag.start punctuation.definition.tag.end.html.vue
+T 15 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.inline.span.start.html punctuation.definition.tag.begin.html
+T 19 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.inline.span.start.html entity.name.tag.html
+T 20 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.inline.span.start.html punctuation.definition.tag.end.html
+T 24 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end
+T 26 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.inline.span.end.html punctuation.definition.tag.begin.html
+T 30 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.inline.span.end.html entity.name.tag.html
+T 31 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end meta.tag.inline.span.end.html punctuation.definition.tag.end.html
+T 33 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end punctuation.definition.tag.begin.html.vue
+T 41 text.html.vue text.html.derivative meta.template-tag.start meta.template-tag.end entity.name.tag.template.html.vue
+T 42 text.html.vue text.html.derivative meta.template-tag.start punctuation.definition.tag.end.html.vue
+L   </div>
+T 2 text.html.vue text.html.derivative
+T 4 text.html.vue text.html.derivative meta.tag.structure.div.end.html punctuation.definition.tag.begin.html
+T 7 text.html.vue text.html.derivative meta.tag.structure.div.end.html entity.name.tag.html
+T 8 text.html.vue text.html.derivative meta.tag.structure.div.end.html punctuation.definition.tag.end.html
+L </template>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 10 text.html.vue entity.name.tag.template.html.vue
+T 11 text.html.vue punctuation.definition.tag.end.html.vue
+L 
+L <panel style="color: red; --gap: 2px; /* note */ margin: 0 auto;;" v-on:[eventName].once="go" :[attrName].prop="value" #[slotName]="slotProps">panel</panel>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.panel.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 12 text.html.vue meta.tag-stuff meta.attribute.style.vue entity.other.attribute-name.html.vue
+T 13 text.html.vue meta.tag-stuff meta.attribute.style.vue punctuation.separator.key-value.html.vue
+T 14 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.definition.string.begin.html.vue
+T 19 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-name.css meta.property-name.css support.type.property-name.css
+T 20 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.separator.key-value.css
+T 21 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue
+T 24 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 25 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.terminator.rule.css
+T 26 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue
+T 31 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue variable.css
+T 32 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.separator.key-value.css
+T 33 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue
+T 34 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css constant.numeric.css
+T 36 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 37 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.terminator.rule.css
+T 38 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue
+T 40 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue comment.block.css punctuation.definition.comment.begin.css
+T 46 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue comment.block.css
+T 48 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue comment.block.css punctuation.definition.comment.end.css
+T 49 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue
+T 55 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-name.css meta.property-name.css support.type.property-name.css
+T 56 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.separator.key-value.css
+T 57 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue
+T 58 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css constant.numeric.css
+T 59 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css
+T 63 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css support.constant.property-value.css
+T 64 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.terminator.rule.css
+T 65 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.terminator.rule.css
+T 66 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.definition.string.end.html.vue
+T 67 text.html.vue meta.tag-stuff
+T 71 text.html.vue meta.tag-stuff meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 72 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 73 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 82 text.html.vue meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 83 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 84 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.attribute-shorthand.bind.html.vue
+T 88 text.html.vue meta.tag-stuff meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 89 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 90 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 92 text.html.vue meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 93 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+T 94 text.html.vue meta.tag-stuff
+T 95 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.attribute-shorthand.bind.html.vue
+T 96 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 104 text.html.vue meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 105 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 106 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.attribute-shorthand.bind.html.vue
+T 110 text.html.vue meta.tag-stuff meta.attribute.directive.vue entity.other.attribute-name.html.vue
+T 111 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 112 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 117 text.html.vue meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 118 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+T 119 text.html.vue meta.tag-stuff
+T 120 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.attribute-shorthand.slot.html.vue
+T 121 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 129 text.html.vue meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 130 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 131 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.separator.key-value.html.vue
+T 132 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.begin.html.vue
+T 141 text.html.vue meta.tag-stuff meta.attribute.directive.vue source.ts.embedded.html.vue variable.other.readwrite.ts
+T 142 text.html.vue meta.tag-stuff meta.attribute.directive.vue punctuation.definition.string.end.html.vue
+T 143 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 148 text.html.vue text
+T 150 text.html.vue punctuation.definition.tag.begin.html.vue
+T 155 text.html.vue entity.name.tag.panel.html.vue
+T 156 text.html.vue punctuation.definition.tag.end.html.vue
+L <panel style='padding: 1px'>quoted</panel>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.panel.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 12 text.html.vue meta.tag-stuff meta.attribute.style.vue entity.other.attribute-name.html.vue
+T 13 text.html.vue meta.tag-stuff meta.attribute.style.vue punctuation.separator.key-value.html.vue
+T 14 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.definition.string.begin.html.vue
+T 21 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-name.css meta.property-name.css support.type.property-name.css
+T 22 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.separator.key-value.css
+T 23 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue
+T 24 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css constant.numeric.css
+T 26 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue meta.property-value.css constant.numeric.css keyword.other.unit.px.css
+T 27 text.html.vue meta.tag-stuff meta.attribute.style.vue source.css.embedded.html.vue punctuation.definition.string.end.html.vue
+T 28 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 34 text.html.vue text
+T 36 text.html.vue punctuation.definition.tag.begin.html.vue
+T 41 text.html.vue entity.name.tag.panel.html.vue
+T 42 text.html.vue punctuation.definition.tag.end.html.vue
+L 
+L <docs lang="md">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 5 text.html.vue entity.name.tag.docs.html.vue
+T 6 text.html.vue meta.tag-stuff
+T 10 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 15 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 16 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L # Title
+T 1 text.html.vue text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.vue text.html.markdown markup.heading.markdown heading.1.markdown
+T 7 text.html.vue text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L Some *Markdown* text.
+T 5 text.html.vue text.html.markdown meta.paragraph.markdown
+T 6 text.html.vue text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 14 text.html.vue text.html.markdown meta.paragraph.markdown markup.italic.markdown
+T 15 text.html.vue text.html.markdown meta.paragraph.markdown markup.italic.markdown punctuation.definition.italic.markdown
+T 21 text.html.vue text.html.markdown meta.paragraph.markdown
+L </docs>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.docs.html.vue
+T 7 text.html.vue punctuation.definition.tag.end.html.vue
+L <config lang="json">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.config.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 20 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L { "a": [1, true, null] }
+T 1 text.html.vue source.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 2 text.html.vue source.json meta.structure.dictionary.json
+T 3 text.html.vue source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 4 text.html.vue source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 5 text.html.vue source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 6 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 7 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 8 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.begin.json
+T 9 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.numeric.json
+T 10 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.separator.array.json
+T 11 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json
+T 15 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.language.json
+T 16 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.separator.array.json
+T 17 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json
+T 21 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json constant.language.json
+T 22 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.array.json punctuation.definition.array.end.json
+T 23 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 24 text.html.vue source.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+L </config>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.config.html.vue
+T 9 text.html.vue punctuation.definition.tag.end.html.vue
+L <config lang="json">{ "b": 2 }</config>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.config.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 20 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 21 text.html.vue source.json meta.structure.dictionary.json punctuation.definition.dictionary.begin.json
+T 22 text.html.vue source.json meta.structure.dictionary.json
+T 23 text.html.vue source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.begin.json
+T 24 text.html.vue source.json meta.structure.dictionary.json string.json support.type.property-name.json
+T 25 text.html.vue source.json meta.structure.dictionary.json string.json support.type.property-name.json punctuation.support.type.property-name.end.json
+T 26 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json punctuation.separator.dictionary.key-value.json
+T 27 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 28 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json constant.numeric.json
+T 29 text.html.vue source.json meta.structure.dictionary.json meta.structure.dictionary.value.json
+T 30 text.html.vue source.json meta.structure.dictionary.json punctuation.definition.dictionary.end.json
+T 32 text.html.vue punctuation.definition.tag.begin.html.vue
+T 38 text.html.vue entity.name.tag.config.html.vue
+T 39 text.html.vue punctuation.definition.tag.end.html.vue
+L <config lang="jsonc">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.config.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 21 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L // a comment
+T 2 text.html.vue source.json.comments comment.line.double-slash.js punctuation.definition.comment.json.comments
+T 12 text.html.vue source.json.comments comment.line.double-slash.js
+L { "c": 3 }
+T 1 text.html.vue source.json.comments meta.structure.dictionary.json.comments punctuation.definition.dictionary.begin.json.comments
+T 2 text.html.vue source.json.comments meta.structure.dictionary.json.comments
+T 3 text.html.vue source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments punctuation.support.type.property-name.begin.json.comments
+T 4 text.html.vue source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments
+T 5 text.html.vue source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments punctuation.support.type.property-name.end.json.comments
+T 6 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments punctuation.separator.dictionary.key-value.json.comments
+T 7 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments
+T 8 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments constant.numeric.json.comments
+T 9 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments
+T 10 text.html.vue source.json.comments meta.structure.dictionary.json.comments punctuation.definition.dictionary.end.json.comments
+L </config>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.config.html.vue
+T 9 text.html.vue punctuation.definition.tag.end.html.vue
+L <config lang="jsonc">{ "d": 4 }</config>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.config.html.vue
+T 8 text.html.vue meta.tag-stuff
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 21 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 22 text.html.vue source.json.comments meta.structure.dictionary.json.comments punctuation.definition.dictionary.begin.json.comments
+T 23 text.html.vue source.json.comments meta.structure.dictionary.json.comments
+T 24 text.html.vue source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments punctuation.support.type.property-name.begin.json.comments
+T 25 text.html.vue source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments
+T 26 text.html.vue source.json.comments meta.structure.dictionary.json.comments string.json.comments support.type.property-name.json.comments punctuation.support.type.property-name.end.json.comments
+T 27 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments punctuation.separator.dictionary.key-value.json.comments
+T 28 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments
+T 29 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments constant.numeric.json.comments
+T 30 text.html.vue source.json.comments meta.structure.dictionary.json.comments meta.structure.dictionary.value.json.comments
+T 31 text.html.vue source.json.comments meta.structure.dictionary.json.comments punctuation.definition.dictionary.end.json.comments
+T 33 text.html.vue punctuation.definition.tag.begin.html.vue
+T 39 text.html.vue entity.name.tag.config.html.vue
+T 40 text.html.vue punctuation.definition.tag.end.html.vue
+L <settings lang="toml">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.settings.html.vue
+T 10 text.html.vue meta.tag-stuff
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 15 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 16 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 21 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L [server]
+T 1 text.html.vue source.toml meta.group.toml punctuation.definition.section.begin.toml
+T 7 text.html.vue source.toml meta.group.toml entity.name.section.toml
+T 8 text.html.vue source.toml meta.group.toml punctuation.definition.section.begin.toml
+L port = 8080
+T 4 text.html.vue source.toml variable.other.key.toml
+T 5 text.html.vue source.toml
+T 6 text.html.vue source.toml punctuation.separator.key-value.toml
+T 7 text.html.vue source.toml
+T 11 text.html.vue source.toml constant.numeric.integer.toml
+L </settings>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 10 text.html.vue entity.name.tag.settings.html.vue
+T 11 text.html.vue punctuation.definition.tag.end.html.vue
+L <settings lang="toml">a = 1</settings>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.settings.html.vue
+T 10 text.html.vue meta.tag-stuff
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 15 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 16 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 21 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 23 text.html.vue source.toml variable.other.key.toml
+T 24 text.html.vue source.toml
+T 25 text.html.vue source.toml punctuation.separator.key-value.toml
+T 26 text.html.vue source.toml
+T 27 text.html.vue source.toml constant.numeric.integer.toml
+T 29 text.html.vue punctuation.definition.tag.begin.html.vue
+T 37 text.html.vue entity.name.tag.settings.html.vue
+T 38 text.html.vue punctuation.definition.tag.end.html.vue
+L <preview lang="vue">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.preview.html.vue
+T 9 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 15 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 20 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L <template><b>{{ msg }}</b></template>
+T 1 text.html.vue text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue text.html.vue entity.name.tag.template.html.vue
+T 10 text.html.vue text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 11 text.html.vue text.html.vue text.html.derivative meta.tag.inline.b.start.html punctuation.definition.tag.begin.html
+T 12 text.html.vue text.html.vue text.html.derivative meta.tag.inline.b.start.html entity.name.tag.html
+T 13 text.html.vue text.html.vue text.html.derivative meta.tag.inline.b.start.html punctuation.definition.tag.end.html
+T 22 text.html.vue text.html.vue text.html.derivative
+T 24 text.html.vue text.html.vue text.html.derivative meta.tag.inline.b.end.html punctuation.definition.tag.begin.html
+T 25 text.html.vue text.html.vue text.html.derivative meta.tag.inline.b.end.html entity.name.tag.html
+T 26 text.html.vue text.html.vue text.html.derivative meta.tag.inline.b.end.html punctuation.definition.tag.end.html
+T 28 text.html.vue text.html.vue punctuation.definition.tag.begin.html.vue
+T 36 text.html.vue text.html.vue entity.name.tag.template.html.vue
+T 37 text.html.vue text.html.vue punctuation.definition.tag.end.html.vue
+L </preview>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 9 text.html.vue entity.name.tag.preview.html.vue
+T 10 text.html.vue punctuation.definition.tag.end.html.vue
+L <preview lang="vue"><i>x</i></preview>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 8 text.html.vue entity.name.tag.preview.html.vue
+T 9 text.html.vue meta.tag-stuff
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 15 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 18 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 19 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 20 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 21 text.html.vue text.html.vue punctuation.definition.tag.begin.html.vue
+T 22 text.html.vue text.html.vue entity.name.tag.i.html.vue
+T 23 text.html.vue text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 24 text.html.vue text.html.vue text
+T 26 text.html.vue text.html.vue punctuation.definition.tag.begin.html.vue
+T 27 text.html.vue text.html.vue entity.name.tag.i.html.vue
+T 28 text.html.vue text.html.vue punctuation.definition.tag.end.html.vue
+T 30 text.html.vue punctuation.definition.tag.begin.html.vue
+T 37 text.html.vue entity.name.tag.preview.html.vue
+T 38 text.html.vue punctuation.definition.tag.end.html.vue
+L <style lang="postcss">
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+T 7 text.html.vue meta.tag-stuff
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 20 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 21 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 22 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L .g { color: green; }
+T 20 text.html.vue
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <style
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+L   lang="scss">
+T 2 text.html.vue meta.tag-stuff
+T 6 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 7 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 8 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 14 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L $w: 1px;
+T 2 text.html.vue source.css.scss meta.definition.variable.scss variable.scss
+T 3 text.html.vue source.css.scss meta.definition.variable.scss punctuation.separator.key-value.scss
+T 4 text.html.vue source.css.scss meta.definition.variable.scss
+T 5 text.html.vue source.css.scss meta.definition.variable.scss constant.numeric.css
+T 7 text.html.vue source.css.scss meta.definition.variable.scss constant.numeric.css keyword.other.unit.px.css
+T 8 text.html.vue source.css.scss punctuation.terminator.rule.scss
+L .h { width: $w; }
+T 1 text.html.vue source.css.scss entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 text.html.vue source.css.scss entity.other.attribute-name.class.css
+T 3 text.html.vue source.css.scss
+T 4 text.html.vue source.css.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+T 5 text.html.vue source.css.scss meta.property-list.scss
+T 10 text.html.vue source.css.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 11 text.html.vue source.css.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 12 text.html.vue source.css.scss meta.property-list.scss
+T 14 text.html.vue source.css.scss meta.property-list.scss meta.property-value.scss variable.scss
+T 15 text.html.vue source.css.scss meta.property-list.scss punctuation.terminator.rule.scss
+T 16 text.html.vue source.css.scss meta.property-list.scss
+T 17 text.html.vue source.css.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <style
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+L   lang="scss">.i { color: red; }</style>
+T 2 text.html.vue meta.tag-stuff
+T 6 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 7 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 8 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 14 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 15 text.html.vue source.css.scss entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 16 text.html.vue source.css.scss entity.other.attribute-name.class.css
+T 17 text.html.vue source.css.scss
+T 18 text.html.vue source.css.scss meta.property-list.scss punctuation.section.property-list.begin.bracket.curly.scss
+T 19 text.html.vue source.css.scss meta.property-list.scss
+T 24 text.html.vue source.css.scss meta.property-list.scss meta.property-name.scss meta.property-name.css support.type.property-name.css
+T 25 text.html.vue source.css.scss meta.property-list.scss punctuation.separator.key-value.scss
+T 26 text.html.vue source.css.scss meta.property-list.scss
+T 29 text.html.vue source.css.scss meta.property-list.scss meta.property-value.scss support.constant.color.w3c-standard-color-name.css
+T 30 text.html.vue source.css.scss meta.property-list.scss punctuation.terminator.rule.scss
+T 31 text.html.vue source.css.scss meta.property-list.scss
+T 32 text.html.vue source.css.scss meta.property-list.scss punctuation.section.property-list.end.bracket.curly.scss
+T 34 text.html.vue punctuation.definition.tag.begin.html.vue
+T 39 text.html.vue entity.name.tag.style.html.vue
+T 40 text.html.vue punctuation.definition.tag.end.html.vue
+L <style
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+L   scoped>
+T 2 text.html.vue meta.tag-stuff
+T 8 text.html.vue meta.tag-stuff meta.attribute.unrecognized.scoped.html entity.other.attribute-name.html
+T 9 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L .j { color: blue; }
+T 1 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css punctuation.definition.entity.css
+T 2 text.html.vue source.css meta.selector.css entity.other.attribute-name.class.css
+T 3 text.html.vue source.css
+T 4 text.html.vue source.css meta.property-list.css punctuation.section.property-list.begin.bracket.curly.css
+T 5 text.html.vue source.css meta.property-list.css
+T 10 text.html.vue source.css meta.property-list.css meta.property-name.css support.type.property-name.css
+T 11 text.html.vue source.css meta.property-list.css punctuation.separator.key-value.css
+T 12 text.html.vue source.css meta.property-list.css
+T 16 text.html.vue source.css meta.property-list.css meta.property-value.css support.constant.color.w3c-standard-color-name.css
+T 17 text.html.vue source.css meta.property-list.css punctuation.terminator.rule.css
+T 18 text.html.vue source.css meta.property-list.css
+T 19 text.html.vue source.css meta.property-list.css punctuation.section.property-list.end.bracket.curly.css
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <style
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+L   lang="less">
+T 2 text.html.vue meta.tag-stuff
+T 6 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 7 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 8 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 13 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 14 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+L @k: 1px;
+T 1 text.html.vue source.css.less meta.property-value.less variable.other.readwrite.less punctuation.definition.variable.less
+T 2 text.html.vue source.css.less meta.property-value.less variable.other.readwrite.less support.other.variable.less
+T 3 text.html.vue source.css.less meta.property-value.less punctuation.separator.key-value.less
+T 4 text.html.vue source.css.less meta.property-value.less meta.property-value.less
+T 5 text.html.vue source.css.less meta.property-value.less constant.numeric.less
+T 7 text.html.vue source.css.less meta.property-value.less constant.numeric.less keyword.other.unit.less
+T 8 text.html.vue source.css.less meta.property-value.less punctuation.terminator.rule.less
+L </style>
+T 2 text.html.vue punctuation.definition.tag.begin.html.vue
+T 7 text.html.vue entity.name.tag.style.html.vue
+T 8 text.html.vue punctuation.definition.tag.end.html.vue
+L <style
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 6 text.html.vue entity.name.tag.style.html.vue
+L   lang="postcss">.l { color: red; }</style>
+T 2 text.html.vue meta.tag-stuff
+T 6 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 7 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 8 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 15 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 16 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 17 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 35 text.html.vue
+T 37 text.html.vue punctuation.definition.tag.begin.html.vue
+T 42 text.html.vue entity.name.tag.style.html.vue
+T 43 text.html.vue punctuation.definition.tag.end.html.vue
+L 

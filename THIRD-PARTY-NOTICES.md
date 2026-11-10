@@ -2478,6 +2478,7 @@ suitability for any purpose.
 ## Vue
 
 Its Vue support emits the scope names of the Vue TextMate grammar in [vuejs/language-tools](https://github.com/vuejs/language-tools), `extensions/vscode/syntaxes/vue.tmLanguage.json` at commit `cd7a6e53d58111640f116d1e19f1c1cf06c7157d`, which Shiki bundles as `vue`, and tries that grammar's rules in its order.
+The patterns of the string of its `style` attribute sit in tables generated from that grammar, among the CSS lexer's (`src/css/grammar.rs`).
 That grammar is licensed under the MIT License:
 
 ```text
