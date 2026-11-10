@@ -12,8 +12,8 @@
   → verify: each step's Callgrind rows and a clean differential test, in the research
   - 2026-11-10: steps 1, 2 and 2b measured on boxes, each with 0 differences.
     The steps go on until each language reaches 1.000.
-  - 2026-11-10: the retry lines at fixture length, on 2b, in release and debug builds:
-    - Zig and Lua pass.
+  - 2026-11-10: the retry lines, on 2b, in release and debug builds:
+    - Zig and Lua pass at fixture length.
     - Protocol Buffers' field line reaches the work limit at 101 bytes, one short of its longest fixture line.
       It is a finding with two fixes (design, section 2.5).
   - Still to come: the first-byte test, the groups recorded, the `\b` test and a flat dispatch (lead, 2026-11-10).
