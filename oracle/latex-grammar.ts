@@ -59,16 +59,22 @@ export const latex: Config = {
       "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})":
         "super::engine::closes_cache",
       "^\\s*(?=\\\\end\\{hscode\\*?})": "super::engine::closes_hscode",
-      "^\\s*(?=\\\\end\\{java(?:code|verbatim|block|concode|console|converbatim)\\*?})": "super::engine::closes_java",
-      "^\\s*(?=\\\\end\\{jl(?:code|verbatim|block|concode|console|converbatim)\\*?})": "super::engine::closes_jl",
-      "^\\s*(?=\\\\end\\{julia(?:code|verbatim|block|concode|console|converbatim)\\*?})": "super::engine::closes_julia",
+      "^\\s*(?=\\\\end\\{java(?:code|verbatim|block|concode|console|converbatim)\\*?})":
+        "super::engine::closes_java",
+      "^\\s*(?=\\\\end\\{jl(?:code|verbatim|block|concode|console|converbatim)\\*?})":
+        "super::engine::closes_jl",
+      "^\\s*(?=\\\\end\\{julia(?:code|verbatim|block|concode|console|converbatim)\\*?})":
+        "super::engine::closes_julia",
       "^\\s*(?=\\\\end\\{lua(?:code|draw)\\*?})": "super::engine::closes_lua",
-      "^\\s*(?=\\\\end\\{py(?:code|verbatim|block|concode|console|converbatim)\\*?})": "super::engine::closes_py",
-      "^\\s*(?=\\\\end\\{pylab(?:code|verbatim|block|concode|console|converbatim)\\*?})": "super::engine::closes_pylab",
+      "^\\s*(?=\\\\end\\{py(?:code|verbatim|block|concode|console|converbatim)\\*?})":
+        "super::engine::closes_py",
+      "^\\s*(?=\\\\end\\{pylab(?:code|verbatim|block|concode|console|converbatim)\\*?})":
+        "super::engine::closes_pylab",
       "^\\s*(?=\\\\end\\{(?:sageblock|sagesilent|sageverbatim|sageexample|sagecommandline|pythonq??|pythonrepl)\\*?})":
         "super::engine::closes_sage",
       "^\\s*(?=\\\\end\\{scalacode\\*?})": "super::engine::closes_scalacode",
-      "^\\s*(?=\\\\end\\{sympy(?:code|verbatim|block|concode|console|converbatim)\\*?})": "super::engine::closes_sympy",
+      "^\\s*(?=\\\\end\\{sympy(?:code|verbatim|block|concode|console|converbatim)\\*?})":
+        "super::engine::closes_sympy",
       "}": "super::engine::closes_brace",
       "(?=})": "super::engine::closes_brace",
     },

@@ -40,11 +40,15 @@ const row = new RegExp(
 const matches = [...table.matchAll(row)];
 
 /** The text of the row that `matches[i]` starts, which ends where the next row starts. */
-const bodyOf = (i: number): string => table.slice(matches[i].index, matches[i + 1]?.index ?? table.length);
+const bodyOf = (i: number): string =>
+  table.slice(matches[i].index, matches[i + 1]?.index ?? table.length);
 
 /** The `reads` list of a row's text. */
 const readsOf = (body: string): string[] =>
-  body.match(/\breads: \[([^\]]+)\]/)?.[1].split(",").map((name) => name.trim()) ?? [];
+  body
+    .match(/\breads: \[([^\]]+)\]/)?.[1]
+    .split(",")
+    .map((name) => name.trim()) ?? [];
 
 export const handLexed: Record<string, HandLexed> = Object.fromEntries(
   matches.map(([, variant, id, scope], i) => {

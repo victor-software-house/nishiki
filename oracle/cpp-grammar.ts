@@ -11,7 +11,16 @@
 // expressions there for oracle/onig.ts.
 import langs from "@shikijs/langs@4.6.0/cpp";
 
-import { arms, groupsCheck, requireGroup, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  requireGroup,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -153,7 +162,12 @@ const captureSources: { capture: Capture; g: Grammar; patterns: Node[]; name: st
 /** Nested contexts by the patterns they try, so equal ones are one rule. */
 const contexts = new Map<string, string>();
 
-function captureList(g: Grammar, captures: Captures | undefined, owner: string, regex: string): Capture[] {
+function captureList(
+  g: Grammar,
+  captures: Captures | undefined,
+  owner: string,
+  regex: string,
+): Capture[] {
   if (!captures) return [];
   const out: Capture[] = [];
   for (const [group, value] of Object.entries(captures)) {
@@ -173,7 +187,12 @@ function captureList(g: Grammar, captures: Captures | undefined, owner: string, 
     if (scopes.length || nested) {
       const capture: Capture = { group: Number(group), scopes, nested };
       if (value.patterns) {
-        captureSources.push({ capture, g, patterns: value.patterns, name: `${owner}Capture${group}` });
+        captureSources.push({
+          capture,
+          g,
+          patterns: value.patterns,
+          name: `${owner}Capture${group}`,
+        });
       }
       out.push(capture);
     }
@@ -204,7 +223,12 @@ function register(g: Grammar, node: Node, id: string): string {
   }
   if (node.begin !== undefined && node.end !== undefined) {
     patternById.set(id, { id, regex: node.begin, act: { role: "begin", rule: id }, captures: [] });
-    patternById.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { role: "end" }, captures: [] });
+    patternById.set(`${id}End`, {
+      id: `${id}End`,
+      regex: node.end,
+      act: { role: "end" },
+      captures: [],
+    });
     const rule: Rule = {
       id,
       name: scopeList(node.name, node.begin),
@@ -214,8 +238,18 @@ function register(g: Grammar, node: Node, id: string): string {
       patterns: [],
     };
     rules.set(id, rule);
-    patternById.get(id)!.captures = captureList(g, node.beginCaptures ?? node.captures, id, node.begin);
-    patternById.get(`${id}End`)!.captures = captureList(g, node.endCaptures ?? node.captures, `${id}End`, node.end);
+    patternById.get(id)!.captures = captureList(
+      g,
+      node.beginCaptures ?? node.captures,
+      id,
+      node.begin,
+    );
+    patternById.get(`${id}End`)!.captures = captureList(
+      g,
+      node.endCaptures ?? node.captures,
+      `${id}End`,
+      node.end,
+    );
     sources.push({ g, node, id });
     rule.patterns = flatten(g, node.patterns ?? [], id);
     return id;
@@ -290,7 +324,7 @@ root.patterns = flatten(cpp, cpp.patterns, "Root");
 // own.
 const claimed = new Map<string, string>();
 const fullContexts = new Map<string, Rule>();
-for (let i = 0, j = 0; i < sources.length || j < captureSources.length; ) {
+for (let i = 0, j = 0; i < sources.length || j < captureSources.length;) {
   if (i < sources.length) {
     const { g, node, id } = sources[i++]!;
     expanding.clear();
@@ -430,7 +464,10 @@ g += arms(
       .filter((c) => c.nested)
       .map((c) => `(${c.group}, Nested { rule: Rule::${c.nested}, scopes: ${scText(c.scopes)} })`)
       .join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -440,7 +477,8 @@ g += `        }\n    }\n}\n`;
 const rxOf = new Map<string, string>();
 for (const p of patternList) if (!rxOf.has(p.regex)) rxOf.set(p.regex, p.id);
 g += `\n/// A regular expression of the grammar, which several patterns can share.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Rx {\n`;
-for (const [regex, id] of rxOf) g += `    /// \`${docs(regex).replaceAll("`", "'")}\`.\n    ${id},\n`;
+for (const [regex, id] of rxOf)
+  g += `    /// \`${docs(regex).replaceAll("`", "'")}\`.\n    ${id},\n`;
 g += `}\n\nimpl Rx {\n    /// Every expression, in code order.\n    #[cfg(test)]\n    pub(crate) const ALL: [Rx; ${rxOf.size}] = [\n`;
 for (const id of rxOf.values()) g += `        Rx::${id},\n`;
 g += `    ];
@@ -460,7 +498,9 @@ const macroArms: [string, string][] = [];
 for (const [regex, id] of rxOf) {
   if (!regex.endsWith(macroTail)) continue;
   const base = regex.slice(0, -macroTail.length);
-  const found = rxOf.get(base) ?? (base.startsWith("(?:") && base.endsWith(")") ? rxOf.get(base.slice(3, -1)) : undefined);
+  const found =
+    rxOf.get(base) ??
+    (base.startsWith("(?:") && base.endsWith(")") ? rxOf.get(base.slice(3, -1)) : undefined);
   if (found === undefined) throw new Error(`no base for ${id}`);
   macroArms.push([id, `Some(Rx::${found})`]);
 }
@@ -471,7 +511,10 @@ g += `            _ => None,
 }
 
 impl Pattern {\n${tooLong}    pub(crate) fn rx(self) -> Rx {\n        match self {\n`;
-g += arms(patternList.map((p): [string, string] => [p.id, `Rx::${rxOf.get(p.regex)}`]), "Pattern");
+g += arms(
+  patternList.map((p): [string, string] => [p.id, `Rx::${rxOf.get(p.regex)}`]),
+  "Pattern",
+);
 g += `        }\n    }\n}\n`;
 
 g += startTable(patternList);
@@ -486,7 +529,9 @@ await writeRust(`${root_dir}src/cpp/grammar.rs`, g);
 // Scope table.
 const s = scopeFile("cpp-grammar.ts", "CPP", scopes, "", false);
 await writeRust(`${root_dir}src/cpp/scope.rs`, s);
-console.log(`${ruleList.length} rules (${stateful} open across lines), ${patternList.length} patterns, ${rxOf.size} expressions, ${scopes.size} scopes`);
+console.log(
+  `${ruleList.length} rules (${stateful} open across lines), ${patternList.length} patterns, ${rxOf.size} expressions, ${scopes.size} scopes`,
+);
 
 // The type names that a member access may not name: the alternation in the
 // negative lookahead of `MemberAccess`, spelled out.
@@ -508,7 +553,11 @@ const builtinRegex = [...rxOf.keys()].find((r) => r.startsWith("\\s*+(?<!\\w)(?:
 if (builtinRegex === undefined) throw new Error("no builtin storage type expression");
 const builtin = /^\\s\*\+\(\?<!\\w\)\(\?:\(\?:\(\?:\(([^)]*)\)\|\(([^)]*)\)\)/.exec(builtinRegex)!;
 for (const [name, doc, list] of [
-  ["PRIMITIVE_TYPES", "The first list of builtin storage types, sorted: a word that no word character follows is in it or is not.", builtin[1]!],
+  [
+    "PRIMITIVE_TYPES",
+    "The first list of builtin storage types, sorted: a word that no word character follows is in it or is not.",
+    builtin[1]!,
+  ],
   ["STDINT_TYPES", "The second list, of the types of the C library.", builtin[2]!],
 ] as const) {
   t += `\n/// ${doc}\npub(super) const ${name}: &[&[u8]] = &[\n`;
@@ -545,7 +594,8 @@ const predefined = /^\\b\(([A-Za-z_0-9|?]+)\)\\b$/
   .exec(predefinedRegex)![1]!
   .split("|")
   .flatMap((w) => (w.endsWith("??") ? [w.slice(0, -3), w.slice(0, -2)] : [w]));
-t += "\n/// The predefined macros, in the order the expression tries them.\npub(super) const PREDEFINED: &[&[u8]] = &[\n";
+t +=
+  "\n/// The predefined macros, in the order the expression tries them.\npub(super) const PREDEFINED: &[&[u8]] = &[\n";
 for (const w of predefined) t += `    b"${w}",\n`;
 t += "];\n";
 
@@ -565,7 +615,8 @@ await writeRust(`${root_dir}src/cpp/types.rs`, t);
 if (process.env["RX_DUMP"]) {
   const lines = [...rxOf].map(([regex, id]) => {
     const groups = new Set<number>();
-    for (const p of patternList) if (p.regex === regex) for (const c of p.captures) groups.add(c.group);
+    for (const p of patternList)
+      if (p.regex === regex) for (const c of p.captures) groups.add(c.group);
     return JSON.stringify({ id, regex, groups: [...groups].sort((a, b) => a - b) });
   });
   await Bun.write(process.env["RX_DUMP"], lines.join("\n") + "\n");

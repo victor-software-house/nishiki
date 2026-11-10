@@ -147,7 +147,8 @@ probes.forEach(([pattern, list], p) => {
   for (const line of list) {
     const text = `${line}\n`;
     const found = answer(scanner.findNextMatchSync(text, 0)?.captureIndices, text);
-    if (found === undefined) throw new Error(`${pattern} on ${JSON.stringify(line)}: an ambiguous answer`);
+    if (found === undefined)
+      throw new Error(`${pattern} on ${JSON.stringify(line)}: an ambiguous answer`);
     cases.push(`${p}\t${lines.indexOf(line)}\t0`);
     expected.push(found);
   }

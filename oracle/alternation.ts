@@ -29,10 +29,14 @@ export function expand(src: string): string[] {
         } else if (src[pos] === "{") {
           // A greedy `{m,n}` tries the most repetitions first.
           const close = src.indexOf("}", pos);
-          const [lo, hi] = src.slice(pos + 1, close).split(",").map(Number) as [number, number];
+          const [lo, hi] = src
+            .slice(pos + 1, close)
+            .split(",")
+            .map(Number) as [number, number];
           pos = close + 1;
           const once = strings;
-          const times = (n: number): string[] => (n === 0 ? [""] : times(n - 1).flatMap((a) => once.map((b) => a + b)));
+          const times = (n: number): string[] =>
+            n === 0 ? [""] : times(n - 1).flatMap((a) => once.map((b) => a + b));
           strings = [];
           for (let n = hi; n >= lo; n--) strings.push(...times(n));
         } else break;
@@ -59,7 +63,8 @@ export function expand(src: string): string[] {
         if (src[pos] === "-" && src[pos + 1] !== "]") {
           pos++;
           const hi = src[pos++]!;
-          for (let code = lo.charCodeAt(0); code <= hi.charCodeAt(0); code++) chars.push(String.fromCharCode(code));
+          for (let code = lo.charCodeAt(0); code <= hi.charCodeAt(0); code++)
+            chars.push(String.fromCharCode(code));
         } else chars.push(lo);
       }
       pos++;

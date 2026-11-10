@@ -37,7 +37,9 @@ type Node = {
 };
 type Grammar = { scopeName: string; repository: Record<string, Node>; patterns: Node[] };
 
-const grammar = (gdscript as unknown as Grammar[]).find((lang) => lang.scopeName === "source.gdscript")!;
+const grammar = (gdscript as unknown as Grammar[]).find(
+  (lang) => lang.scopeName === "source.gdscript",
+)!;
 const repository = grammar.repository;
 const root = { patterns: grammar.patterns } as Node;
 
@@ -141,10 +143,16 @@ function register(node: Node, id: string): string {
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (patternById.has(id)) return id;
   if (node.match !== undefined) {
-    patternById.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.set(id, {
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   patternById.set(id, {
     id,
     regex: node.begin,
@@ -266,7 +274,10 @@ g += arms(
 );
 g += `        }\n    }\n\n    /// What a rule carries from line to line: the begin capture group its\n    /// end repeats.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
 g += arms(
-  ruleList.map((r): [string, string] => [r.id, r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`]),
+  ruleList.map((r): [string, string] => [
+    r.id,
+    r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`,
+  ]),
   "Rule",
 );
 g += `        }\n    }\n}\n\n`;
@@ -290,7 +301,10 @@ g += arms(
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const captures = p.captures.map(([n, names]) => `(${n}, ${scText(names)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -319,8 +333,16 @@ g += wordList(
   words("BuiltinClasses", /^\(\?<!\[\^\.\]\\\.\|:\)\\b\(([A-Za-z0-9|?]*)\)\\b$/),
 );
 
-g += wordList("KEYWORDS", "The keywords of `Keywords`.", words("Keywords", /^\\b\(\?:([a-z_|]*)\)\\b$/));
-g += wordList("CONTROL_FLOW", "The keywords of `ControlFlow`.", words("ControlFlow", /^\\b\(\?:([a-z_|]*)\)\\b$/));
+g += wordList(
+  "KEYWORDS",
+  "The keywords of `Keywords`.",
+  words("Keywords", /^\\b\(\?:([a-z_|]*)\)\\b$/),
+);
+g += wordList(
+  "CONTROL_FLOW",
+  "The keywords of `ControlFlow`.",
+  words("ControlFlow", /^\\b\(\?:([a-z_|]*)\)\\b$/),
+);
 g += wordList(
   "STATEMENT_KEYWORDS",
   "The keywords of `StatementKeywordAt0`.",
@@ -329,7 +351,10 @@ g += wordList(
 
 g += startTable(patternList, "any");
 g += ruleCodes("Gdscript", "GDSCRIPT");
-g += groupsCheck("Gdscript", patternList.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "Gdscript",
+  patternList.flatMap((p) => p.captures.map(([n]) => n)),
+);
 
 await writeRust(`${root_dir}src/gdscript/grammar.rs`, g);
 

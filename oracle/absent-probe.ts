@@ -19,7 +19,10 @@ const engine = await createOnigurumaEngine(wasm as any);
 // Razor and Typst embed.
 const csharpProbes: [string, string[]][] = [
   ["\\G(?=(?~\\*/)$)", [" * doc */", " * doc", "", "*/", "/** doc", " * a */ b"]],
-  ["^(\\s*+)(\\*(?!/))?(?=(?~\\*/)$)", ["   * doc line", "   */", "   * end */", " * a */ b", "*", ""]],
+  [
+    "^(\\s*+)(\\*(?!/))?(?=(?~\\*/)$)",
+    ["   * doc line", "   */", "   * end */", " * a */ b", "*", ""],
+  ],
 ];
 
 // The bodies put inside the operator.
@@ -68,11 +71,29 @@ const templates = [
 ];
 
 // The lines every generated pattern is asked about.
-const lines = ["", "abc", "aab", "xabcd", "xbxdyd", "abababc", "a*/x", "c*/ab", "a*b/ c", "xcdab", "aaéb", "bad cab"];
+const lines = [
+  "",
+  "abc",
+  "aab",
+  "xabcd",
+  "xbxdyd",
+  "abababc",
+  "a*/x",
+  "c*/ab",
+  "a*b/ c",
+  "xcdab",
+  "aaéb",
+  "bad cab",
+];
 
 const probes: [string, string[]][] = [
   ...csharpProbes,
-  ...bodies.flatMap((body) => templates.map((template): [string, string[]] => [template.replaceAll("X", `(?~${body})`), lines])),
+  ...bodies.flatMap((body) =>
+    templates.map((template): [string, string[]] => [
+      template.replaceAll("X", `(?~${body})`),
+      lines,
+    ]),
+  ),
 ];
 
 const patterns = probes.map(([pattern]) => pattern);
@@ -103,4 +124,6 @@ writeFileSync(`${dir}patterns.hex`, `${patterns.map(hex).join("\n")}\n`);
 writeFileSync(`${dir}lines.hex`, `${allLines.map(hex).join("\n")}\n`);
 writeFileSync(`${dir}cases.tsv`, `${cases.join("\n")}\n`);
 writeFileSync(`${dir}expected.tsv`, `${expected.join("\n")}\n`);
-console.log(`${patterns.length} patterns, ${allLines.length} lines, ${cases.length} cases, ${ambiguous} left out`);
+console.log(
+  `${patterns.length} patterns, ${allLines.length} lines, ${cases.length} cases, ${ambiguous} left out`,
+);

@@ -36,7 +36,9 @@ function isSummary(value: unknown): value is Summary {
     summary !== null &&
     Array.isArray(summary.rounds) &&
     summary.rounds.every((n) => typeof n === "number") &&
-    [summary.median, summary.min, summary.max, summary.spread_pct].every((n) => typeof n === "number")
+    [summary.median, summary.min, summary.max, summary.spread_pct].every(
+      (n) => typeof n === "number",
+    )
   );
 }
 
@@ -48,33 +50,74 @@ export function readRecord(path: string): BenchRecord {
     expect(typeof record[key] === "string", path, `${key} is not a string`);
   }
   expect(
-    typeof record.host?.class === "string" && typeof record.host.cpu === "string" && typeof record.host.cpus === "number",
+    typeof record.host?.class === "string" &&
+      typeof record.host.cpu === "string" &&
+      typeof record.host.cpus === "number",
     path,
     "host is incomplete",
   );
-  expect(typeof record.anchor?.drift_pct === "number" && typeof record.anchor.bound_pct === "number", path, "anchor is incomplete");
-  expect(Array.isArray(record.criterion) && record.criterion.every((f) => typeof f.id === "string" && isSummary(f.value)), path, "a Criterion figure is malformed");
   expect(
-    Array.isArray(record.latency) && record.latency.every((f) => isSummary(f.steady_p99_ns) && isSummary(f.first_contact_max_ns) && isSummary(f.resolution_ns)),
+    typeof record.anchor?.drift_pct === "number" && typeof record.anchor.bound_pct === "number",
+    path,
+    "anchor is incomplete",
+  );
+  expect(
+    Array.isArray(record.criterion) &&
+      record.criterion.every((f) => typeof f.id === "string" && isSummary(f.value)),
+    path,
+    "a Criterion figure is malformed",
+  );
+  expect(
+    Array.isArray(record.latency) &&
+      record.latency.every(
+        (f) =>
+          isSummary(f.steady_p99_ns) &&
+          isSummary(f.first_contact_max_ns) &&
+          isSummary(f.resolution_ns),
+      ),
     path,
     "a latency figure is malformed",
   );
-  expect(Array.isArray(record.cold) && record.cold.every((f) => typeof f.median_us === "number"), path, "a cold figure is malformed");
+  expect(
+    Array.isArray(record.cold) && record.cold.every((f) => typeof f.median_us === "number"),
+    path,
+    "a cold figure is malformed",
+  );
   return record;
 }
 
 /** Reads and checks one comparison record: the files are the boundary. */
 export function readCompareRecord(path: string): CompareRecord {
   const record = JSON.parse(readFileSync(path, "utf8")) as CompareRecord;
-  expect(record.schema === COMPARE_SCHEMA, path, `schema ${record.schema} is not ${COMPARE_SCHEMA}`);
+  expect(
+    record.schema === COMPARE_SCHEMA,
+    path,
+    `schema ${record.schema} is not ${COMPARE_SCHEMA}`,
+  );
   for (const key of ["commit", "date", "started", "finished"] as const) {
     expect(typeof record[key] === "string", path, `${key} is not a string`);
   }
-  expect(typeof record.host?.class === "string" && typeof record.host.cpus === "number", path, "host is incomplete");
-  expect(typeof record.anchor?.drift_pct === "number" && typeof record.anchor.bound_pct === "number", path, "anchor is incomplete");
-  expect(Array.isArray(record.engines) && record.engines.every((e) => typeof e.name === "string" && typeof e.version === "string"), path, "an engine is malformed");
   expect(
-    Array.isArray(record.rows) && record.rows.every((r) => isSummary(r.setup_ms) && isSummary(r.first_ms) && isSummary(r.mib_per_s)),
+    typeof record.host?.class === "string" && typeof record.host.cpus === "number",
+    path,
+    "host is incomplete",
+  );
+  expect(
+    typeof record.anchor?.drift_pct === "number" && typeof record.anchor.bound_pct === "number",
+    path,
+    "anchor is incomplete",
+  );
+  expect(
+    Array.isArray(record.engines) &&
+      record.engines.every((e) => typeof e.name === "string" && typeof e.version === "string"),
+    path,
+    "an engine is malformed",
+  );
+  expect(
+    Array.isArray(record.rows) &&
+      record.rows.every(
+        (r) => isSummary(r.setup_ms) && isSummary(r.first_ms) && isSummary(r.mib_per_s),
+      ),
     path,
     "a row is malformed",
   );
@@ -95,14 +138,18 @@ function records<R extends { started: string }>(kind: Kind<R>): { path: string; 
   if (!existsSync(kind.results)) return [];
   const found = (readdirSync(kind.results, { recursive: true }) as string[])
     .filter((path) => path.endsWith(".json"))
-    .map((path) => ({ path: join(kind.results, path), record: kind.read(join(kind.results, path)) }));
+    .map((path) => ({
+      path: join(kind.results, path),
+      record: kind.read(join(kind.results, path)),
+    }));
   return found.sort((a, b) => ordinal(a.record.started, b.record.started));
 }
 
 /** Ordinal order, the same under every locale. */
 const ordinal = (a: string, b: string) => (a < b ? -1 : a > b ? 1 : 0);
 
-const fixed = (n: number, digits: number) => n.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+const fixed = (n: number, digits: number) =>
+  n.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 
 /** A latency figure in µs, or `<` its resolution when below it. */
 function micros(ns: number, resolutionNs: number): string {
@@ -159,7 +206,9 @@ export function renderRecord(record: BenchRecord, stem: string): string {
   for (const figure of record.criterion.toSorted((a, b) => ordinal(a.id, b.id))) {
     const digits = figure.unit === "ns" ? 0 : 2;
     const v = figure.value;
-    out.push(`| ${figure.id} | ${fixed(v.median, digits)} | ${figure.unit} | ${fixed(v.min, digits)} | ${fixed(v.max, digits)} | ${fixed(v.spread_pct, 1)}% |`);
+    out.push(
+      `| ${figure.id} | ${fixed(v.median, digits)} | ${figure.unit} | ${fixed(v.min, digits)} | ${fixed(v.max, digits)} | ${fixed(v.spread_pct, 1)}% |`,
+    );
   }
   out.push(
     "",
@@ -176,9 +225,19 @@ export function renderRecord(record: BenchRecord, stem: string): string {
       `| ${f.language} | ${f.tier} | ${f.lines} | ${micros(f.steady_p50_ns.median, res)} | ${micros(f.steady_p99_ns.median, res)} | ${micros(f.steady_max_ns.median, res)} | ${micros(f.first_contact_max_ns.median, res)} | ${fixed(f.steady_p99_ns.spread_pct, 1)}% |`,
     );
   }
-  out.push("", "## Cold start", "", "µs in a fresh process, from just before the highlighter is created.", "", "| file | measure | median | p90 |", "|:--|:--|--:|--:|");
+  out.push(
+    "",
+    "## Cold start",
+    "",
+    "µs in a fresh process, from just before the highlighter is created.",
+    "",
+    "| file | measure | median | p90 |",
+    "|:--|:--|--:|--:|",
+  );
   for (const f of record.cold) {
-    out.push(`| ${f.name} | ${f.measure.replace("_", " ")} | ${fixed(f.median_us, 1)} | ${fixed(f.p90_us, 1)} |`);
+    out.push(
+      `| ${f.name} | ${f.measure.replace("_", " ")} | ${fixed(f.median_us, 1)} | ${fixed(f.p90_us, 1)} |`,
+    );
   }
   return `${out.join("\n")}\n`;
 }
@@ -196,7 +255,9 @@ type Entry = { name: string; value: number; spread_pct: number | null };
 /** The median over languages, the largest or smallest with its name, and the median spread over the rounds. */
 function overLanguages(entries: Entry[], worst: "max" | "min"): string {
   if (entries.length === 0) return "| | |";
-  const pick = entries.reduce((a, b) => ((worst === "max" ? b.value > a.value : b.value < a.value) ? b : a));
+  const pick = entries.reduce((a, b) =>
+    (worst === "max" ? b.value > a.value : b.value < a.value) ? b : a,
+  );
   const spreads = entries.flatMap((e) => (e.spread_pct === null ? [] : [e.spread_pct]));
   const spread = spreads.length === 0 ? "per process" : `${fixed(median(spreads), 1)}%`;
   return `${fixed(median(entries.map((e) => e.value)), 1)} | ${fixed(pick.value, 1)} (${pick.name}) | ${spread} |`;
@@ -214,17 +275,29 @@ export function renderSummary(newest: { path: string; record: BenchRecord } | un
       "Medium throughput, MiB/s",
       record.criterion
         .filter((f) => /^lex\/[^/]+\/medium$/.test(f.id))
-        .map((f) => ({ name: f.id.split("/")[1], value: f.value.median, spread_pct: f.value.spread_pct })),
+        .map((f) => ({
+          name: f.id.split("/")[1],
+          value: f.value.median,
+          spread_pct: f.value.spread_pct,
+        })),
       "min",
     ],
     [
       "Medium steady p99 per line, µs",
-      medium.map((f) => ({ name: f.language, value: f.steady_p99_ns.median / 1e3, spread_pct: f.steady_p99_ns.spread_pct })),
+      medium.map((f) => ({
+        name: f.language,
+        value: f.steady_p99_ns.median / 1e3,
+        spread_pct: f.steady_p99_ns.spread_pct,
+      })),
       "max",
     ],
     [
       "Medium first-contact max per line, µs",
-      medium.map((f) => ({ name: f.language, value: f.first_contact_max_ns.median / 1e3, spread_pct: f.first_contact_max_ns.spread_pct })),
+      medium.map((f) => ({
+        name: f.language,
+        value: f.first_contact_max_ns.median / 1e3,
+        spread_pct: f.first_contact_max_ns.spread_pct,
+      })),
       "max",
     ],
     [
@@ -283,7 +356,8 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
     "| engine | version | features | backend | runtime | languages left out |",
     "|:--|:--|:--|:--|:--|:--|",
     ...record.engines.map(
-      (e) => `| ${e.name} | ${e.version} | ${e.features} | ${e.backend} | ${e.runtime} | ${(record.left_out[e.name] ?? []).join(", ") || "none"} |`,
+      (e) =>
+        `| ${e.name} | ${e.version} | ${e.features} | ${e.backend} | ${e.runtime} | ${(record.left_out[e.name] ?? []).join(", ") || "none"} |`,
     ),
     "",
     "## Results",
@@ -295,7 +369,9 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
     "| file | engine | setup ms | first document ms | warm MiB/s | spread | tokens | fidelity |",
     "|:--|:--|--:|--:|--:|--:|--:|--:|",
   ];
-  for (const row of record.rows.toSorted((a, b) => ordinal(a.file, b.file) || ordinal(a.engine, b.engine))) {
+  for (const row of record.rows.toSorted(
+    (a, b) => ordinal(a.file, b.file) || ordinal(a.engine, b.engine),
+  )) {
     const fidelity = row.fidelity === null ? "n/a" : `${fixed(row.fidelity, 2)}%`;
     out.push(
       `| ${row.file} | ${row.engine} | ${fixed(row.setup_ms.median, 2)} | ${fixed(row.first_ms.median, 2)} | ${fixed(row.mib_per_s.median, 1)} | ${fixed(row.mib_per_s.spread_pct, 1)}% | ${row.tokens} | ${fidelity} |`,
@@ -306,7 +382,9 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
 
 /** bench/compare/README.md's summary of the newest comparison, markers
  * included: one row per engine, its medians over the files. */
-export function renderCompareSummary(newest: { path: string; record: CompareRecord } | undefined): string {
+export function renderCompareSummary(
+  newest: { path: string; record: CompareRecord } | undefined,
+): string {
   if (!newest) return `${BEGIN}\n\n${NO_RECORD}\n\n${END}`;
   const { path, record } = newest;
   const page = join(basename(dirname(path)), `${basename(path, ".json")}.md`);
@@ -359,7 +437,10 @@ const stemOf = (path: string) => basename(path, ".json");
 const markdownOf = (path: string) => join(dirname(path), `${stemOf(path)}.md`);
 
 /** Renders every record of `kind`, or those at `paths`. */
-async function render<R extends { started: string }>(kind: Kind<R>, paths: string[]): Promise<void> {
+async function render<R extends { started: string }>(
+  kind: Kind<R>,
+  paths: string[],
+): Promise<void> {
   for (const path of paths.length > 0 ? paths : records(kind).map((r) => r.path)) {
     await Bun.write(markdownOf(path), kind.page(kind.read(path), stemOf(path)));
     console.log(`✔ ${markdownOf(path)}`);
@@ -374,7 +455,9 @@ async function summarise<R extends { started: string }>(kind: Kind<R>): Promise<
 }
 
 /** What differs from its JSON among `kind`'s pages and its README summary. */
-function problems<R extends { started: string }>(kind: Kind<R>): { count: number; found: string[] } {
+function problems<R extends { started: string }>(
+  kind: Kind<R>,
+): { count: number; found: string[] } {
   const all = records(kind);
   const found: string[] = [];
   for (const { path, record } of all) {
@@ -385,7 +468,8 @@ function problems<R extends { started: string }>(kind: Kind<R>): { count: number
       found.push(`${markdownOf(path)} is missing`);
       continue;
     }
-    if (page !== kind.page(record, stemOf(path))) found.push(`${markdownOf(path)} differs from its JSON`);
+    if (page !== kind.page(record, stemOf(path)))
+      found.push(`${markdownOf(path)} differs from its JSON`);
   }
   const text = readFileSync(kind.readme, "utf8");
   if (text !== withSummary(kind.readme, text, kind.summary(all.at(-1)))) {
@@ -395,9 +479,17 @@ function problems<R extends { started: string }>(kind: Kind<R>): { count: number
 }
 
 /** Fills a record's compute and renders it again. */
-async function fillCompute<R extends { compute: BenchRecord["compute"]; started: string }>(kind: Kind<R>, path: string, numbers: number[]): Promise<void> {
+async function fillCompute<R extends { compute: BenchRecord["compute"]; started: string }>(
+  kind: Kind<R>,
+  path: string,
+  numbers: number[],
+): Promise<void> {
   const record = kind.read(path);
-  record.compute = { seconds: numbers[0] ?? 0, unit_minutes: numbers[1] ?? 0, usd: numbers[2] ?? 0 };
+  record.compute = {
+    seconds: numbers[0] ?? 0,
+    unit_minutes: numbers[1] ?? 0,
+    usd: numbers[2] ?? 0,
+  };
   await Bun.write(path, `${JSON.stringify(record, null, 2)}\n`);
   await Bun.write(markdownOf(path), kind.page(record, stemOf(path)));
   console.log(`✔ ${path} and ${markdownOf(path)}`);
@@ -408,7 +500,10 @@ async function main(): Promise<void> {
   const isCompare = (path: string) => path.startsWith(`${COMPARE.results}/`);
   switch (command) {
     case "render": {
-      await render(BENCH, args.filter((path) => !isCompare(path)));
+      await render(
+        BENCH,
+        args.filter((path) => !isCompare(path)),
+      );
       await render(COMPARE, args.filter(isCompare));
       return;
     }
@@ -432,13 +527,19 @@ async function main(): Promise<void> {
       const compare = problems(COMPARE);
       const found = [...bench.found, ...compare.found];
       if (found.length > 0) {
-        throw new Error(`${found.join("\n")}\nRun \`mise run bench:report render\` and \`mise run bench:report summary\`; never edit them by hand.`);
+        throw new Error(
+          `${found.join("\n")}\nRun \`mise run bench:report render\` and \`mise run bench:report summary\`; never edit them by hand.`,
+        );
       }
-      console.log(`✔ ${bench.count} records, ${compare.count} comparison records and both README summaries match their JSON`);
+      console.log(
+        `✔ ${bench.count} records, ${compare.count} comparison records and both README summaries match their JSON`,
+      );
       return;
     }
     default:
-      throw new Error("usage: report.ts render [record.json...] | compute <record.json> <seconds> <unit-minutes> <usd> | summary | check");
+      throw new Error(
+        "usage: report.ts render [record.json...] | compute <record.json> <seconds> <unit-minutes> <usd> | summary | check",
+      );
   }
 }
 

@@ -115,15 +115,37 @@ function captureList(captures: Node["captures"]): [number, string[]][] {
 /** Registers `node` under `id` and returns the id of the pattern it adds. */
 function register(node: Node, id: string): string {
   if (node.match !== undefined) {
-    patternById.push({ id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.push({
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
-  patternById.push({ id, regex: node.begin, act: { role: "begin", rule: id }, captures: captureList(node.captures) });
-  patternById.push({ id: `${id}End`, regex: node.end, act: { role: "end" }, captures: captureList(node.captures) });
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
+  patternById.push({
+    id,
+    regex: node.begin,
+    act: { role: "begin", rule: id },
+    captures: captureList(node.captures),
+  });
+  patternById.push({
+    id: `${id}End`,
+    regex: node.end,
+    act: { role: "end" },
+    captures: captureList(node.captures),
+  });
   const backrefs = [...new Set([...node.end.matchAll(/\\([1-9])/g)].map((m) => Number(m[1])))];
   if (backrefs.length > 1) throw new Error(`${id}: the end repeats more than one group`);
-  const rule: Rule = { id, name: scopeList(node.name), end: `${id}End`, backref: backrefs[0] ?? null, patterns: [] };
+  const rule: Rule = {
+    id,
+    name: scopeList(node.name),
+    end: `${id}End`,
+    backref: backrefs[0] ?? null,
+    patterns: [],
+  };
   rules.push(rule);
   rule.patterns = (node.patterns ?? []).map((inner, index) => register(inner, `${id}At${index}`));
   return id;
@@ -147,14 +169,19 @@ grammar.patterns.forEach((node, index) => {
   if (alternation === undefined) return;
   const all = expand(alternation.replaceAll("\\w+", "*")).map((word) => word.toLowerCase());
   const exact = [...new Set(all.filter((word) => /^\w+$/.test(word)))].sort();
-  const globs = [...new Set(all.filter((word) => word.includes("*")))].map((word) => word.split("*"));
+  const globs = [...new Set(all.filter((word) => word.includes("*")))].map((word) =>
+    word.split("*"),
+  );
   const literals = all.filter((word) => !/^[\w*]+$/.test(word));
   // The lexer compares a word with `\w+` on its lowered letters, where `ß` is
   // `ss` and `ﬁ` is `fi`. A part whose edge next to a `\w+` is one of those
   // letters could take half of a character's letters.
   for (const parts of globs) {
     parts.forEach((part, i) => {
-      const edges = [i > 0 ? part[0] : undefined, i < parts.length - 1 ? part[part.length - 1] : undefined];
+      const edges = [
+        i > 0 ? part[0] : undefined,
+        i < parts.length - 1 ? part[part.length - 1] : undefined,
+      ];
       if (edges.some((edge) => edge !== undefined && "filst".includes(edge))) {
         throw new Error(`${names[index]}: ${parts.join("*")} has a fold letter next to a \\w+`);
       }
@@ -216,16 +243,26 @@ g += `}\n\nimpl Pattern {\n    pub(crate) fn definition(self) -> PatternDefiniti
 g += arms(
   patternById.map((p): [string, string] => {
     const act =
-      p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match"
+        ? `Act::Match(${list(p.act.name)})`
+        : p.act.role === "begin"
+          ? `Act::Begin(Rule::${p.act.rule})`
+          : "Act::End";
     const captures = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
 g += startTable(patternById);
 g += ruleCodes("CMake", "CMAKE");
-g += groupsCheck("CMake", patternById.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "CMake",
+  patternById.flatMap((p) => p.captures.map(([n]) => n)),
+);
 await writeRust(`${root_dir}src/cmake/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;
@@ -257,4 +294,6 @@ for (const [name, set] of words) {
 await writeRust(`${root_dir}src/cmake/words.rs`, w);
 
 await writeRust(`${root_dir}src/cmake/scope.rs`, scopeFile("cmake-grammar.ts", "CMAKE", scopes));
-console.log(`${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${words.size} word lists`);
+console.log(
+  `${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${words.size} word lists`,
+);

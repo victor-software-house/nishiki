@@ -10,15 +10,21 @@ import { $ } from "bun";
 
 const pinned: Record<string, string> = (await Bun.file("package.json").json()).dependencies;
 const transpiler = new Bun.Transpiler({ loader: "ts" });
-const scripts = (await $`git ls-files -- '*.ts' ':!bench/corpus/' ':!oracle/inputs/'`.text()).split("\n").filter(Boolean);
+const scripts = (await $`git ls-files -- '*.ts' ':!bench/corpus/' ':!oracle/inputs/'`.text())
+  .split("\n")
+  .filter(Boolean);
 const problems: string[] = [];
 for (const script of scripts) {
-  for (const { path } of transpiler.scanImports((await Bun.file(script).text()).replace(/^#!.*/, ""))) {
+  for (const { path } of transpiler.scanImports(
+    (await Bun.file(script).text()).replace(/^#!.*/, ""),
+  )) {
     if (path.startsWith(".") || path === "bun" || /^(node|bun):/.test(path)) continue;
     const versioned = /^((?:@[^/]+\/)?[^/@]+)@([^/]+)/.exec(path);
     if (!versioned) problems.push(`${script}: ${path} names no version`);
     else if (pinned[versioned[1]] !== versioned[2])
-      problems.push(`${script}: ${path}, but package.json pins ${versioned[1]} at ${pinned[versioned[1]] ?? "no version"}`);
+      problems.push(
+        `${script}: ${path}, but package.json pins ${versioned[1]} at ${pinned[versioned[1]] ?? "no version"}`,
+      );
   }
 }
 if (problems.length > 0) {

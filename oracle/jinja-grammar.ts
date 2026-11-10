@@ -134,10 +134,16 @@ function register(node: Node, id: string): string {
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (patternById.has(id)) return id;
   if (node.match !== undefined) {
-    patternById.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.set(id, {
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   patternById.set(id, {
     id,
     regex: node.begin,
@@ -207,9 +213,26 @@ function expandNode(node: Node, id: string, shared: boolean): string[] {
 const listNames: Record<string, string[]> = {
   Root: ["Raw", "", "Output", "Statement"],
   Expression: [
-    "Block", "Filter", "Is", "TagName", "Keywords", "Constants", "Builtins", "Name", "Arithmetic", "FilterCall",
-    "Member", "Brackets", "Parens", "Braces", "Punctuation", "Comparison", "Assignment", "DoubleString",
-    "SingleString", "Regex",
+    "Block",
+    "Filter",
+    "Is",
+    "TagName",
+    "Keywords",
+    "Constants",
+    "Builtins",
+    "Name",
+    "Arithmetic",
+    "FilterCall",
+    "Member",
+    "Brackets",
+    "Parens",
+    "Braces",
+    "Punctuation",
+    "Comparison",
+    "Assignment",
+    "DoubleString",
+    "SingleString",
+    "Regex",
   ],
 };
 for (const [list, names] of Object.entries(listNames)) {
@@ -277,7 +300,10 @@ g += arms(
 );
 g += `        }\n    }\n\n    /// What a rule carries from line to line: the begin capture group its\n    /// end repeats.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
 g += arms(
-  ruleList.map((r): [string, string] => [r.id, r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`]),
+  ruleList.map((r): [string, string] => [
+    r.id,
+    r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`,
+  ]),
   "Rule",
 );
 g += `        }\n    }\n}\n\n`;
@@ -301,7 +327,10 @@ g += arms(
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const captures = p.captures.map(([n, names]) => `(${n}, ${scText(names)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -309,7 +338,10 @@ g += `        }\n    }\n}\n`;
 
 g += startTable(patternList, "any");
 g += ruleCodes("Jinja", "JINJA");
-g += groupsCheck("Jinja", patternList.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "Jinja",
+  patternList.flatMap((p) => p.captures.map(([n]) => n)),
+);
 
 await writeRust(`${root_dir}src/jinja/grammar.rs`, g);
 
@@ -319,7 +351,9 @@ await writeRust(`${root_dir}src/jinja/scope.rs`, s);
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
-    patternList.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) })).join("\n") + "\n",
+    patternList
+      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
+      .join("\n") + "\n",
   );
 }
 console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes`);

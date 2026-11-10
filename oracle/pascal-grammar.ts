@@ -12,7 +12,16 @@
 // The output is generated; do not edit it.
 import pascal from "@shikijs/langs@4.6.0/pascal";
 import { expand } from "./alternation.ts";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, takesOneBlank, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  takesOneBlank,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Node = {
   name?: string;
@@ -115,13 +124,29 @@ function captureList(captures: Node["captures"]): [number, string[]][] {
 /** Registers `node` under `id` and returns the id of the pattern it adds. */
 function register(node: Node, id: string): string {
   if (node.match !== undefined) {
-    patternById.push({ id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.push({
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   if (/\\[1-9]/.test(node.end)) throw new Error(`${id}: the end repeats a group`);
-  patternById.push({ id, regex: node.begin, act: { role: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
-  patternById.push({ id: `${id}End`, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
+  patternById.push({
+    id,
+    regex: node.begin,
+    act: { role: "begin", rule: id },
+    captures: captureList(node.beginCaptures ?? node.captures),
+  });
+  patternById.push({
+    id: `${id}End`,
+    regex: node.end,
+    act: { role: "end" },
+    captures: captureList(node.endCaptures ?? node.captures),
+  });
   const rule: Rule = { id, name: scopeList(node.name), end: `${id}End`, patterns: [] };
   rules.push(rule);
   rule.patterns = (node.patterns ?? []).map((inner, index) => register(inner, `${id}At${index}`));
@@ -133,7 +158,8 @@ rules[0]!.patterns = grammar.patterns.map((node, index) => register(node, names[
 // No pattern may take a blank after the first of a run: the lexer skips the
 // rest of a run (`BlankRuns::Skip`).
 for (const p of patternById) {
-  if (takesOneBlank(p.regex)) throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
+  if (takesOneBlank(p.regex))
+    throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
 }
 
 // Words.
@@ -163,7 +189,17 @@ const prototype = grammar.patterns[names.indexOf("Prototype")]!.match!;
 const ahead = /\(\?=\(\?i:([a-z|]*)\)\)$/.exec(prototype)?.[1];
 if (ahead === undefined) throw new Error("the prototype's lookahead changed");
 words.set("PrototypeAhead", wordList("PrototypeAhead", ahead));
-for (const id of ["Keywords", "Prototype", "Function", "Variable", "Operator", "Control", "Types", "Constant", "Assert"]) {
+for (const id of [
+  "Keywords",
+  "Prototype",
+  "Function",
+  "Variable",
+  "Operator",
+  "Control",
+  "Types",
+  "Constant",
+  "Assert",
+]) {
   if (!words.has(id)) throw new Error(`${id}: its word list changed shape`);
 }
 
@@ -220,16 +256,26 @@ g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the
 g += arms(
   patternById.map((p): [string, string] => {
     const act =
-      p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match"
+        ? `Act::Match(${list(p.act.name)})`
+        : p.act.role === "begin"
+          ? `Act::Begin(Rule::${p.act.rule})`
+          : "Act::End";
     const captures = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
 g += startTable(patternById);
 g += ruleCodes("Pascal", "PASCAL");
-g += groupsCheck("Pascal", patternById.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "Pascal",
+  patternById.flatMap((p) => p.captures.map(([n]) => n)),
+);
 await writeRust(`${root_dir}src/pascal/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;
@@ -239,7 +285,10 @@ let w = `//! The words of the grammar's \`\\b(?i:(…))\\b\` alternations, lower
 //! Shiki 4.6.0 bundles; do not edit.
 `;
 for (const [name, list] of words) {
-  const what = name === "PrototypeAhead" ? "the lookahead of the `Prototype` pattern" : `the \`${name}\` pattern`;
+  const what =
+    name === "PrototypeAhead"
+      ? "the lookahead of the `Prototype` pattern"
+      : `the \`${name}\` pattern`;
   w += `\n/// The words of ${what}.\npub(super) const ${constName(name)}: &[&[u8]] = &[${list.map(bytes).join(", ")}];\n`;
 }
 await writeRust(`${root_dir}src/pascal/words.rs`, w);
@@ -250,7 +299,11 @@ await writeRust(`${root_dir}src/pascal/scope.rs`, scopeFile("pascal-grammar.ts",
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
-    patternById.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) })).join("\n") + "\n",
+    patternById
+      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
+      .join("\n") + "\n",
   );
 }
-console.log(`${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${words.size} word lists`);
+console.log(
+  `${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${words.size} word lists`,
+);

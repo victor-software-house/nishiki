@@ -15,7 +15,16 @@
 //
 // The rules that include another grammar embed it (`Payload::Embed`).
 // The matchers that decide whether a pattern matches are written by hand.
-import { arms, groupsCheck, ruleCodes, scopeFile, startOf, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startOf,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 /** A grammar node, as Shiki bundles it. */
 export type Node = {
@@ -92,7 +101,9 @@ async function dropShortExpects(path: string): Promise<void> {
     const head = lines.findIndex((l, j) => j > k && /^\s*pub\(crate\) (const )?fn /.test(l));
     const indent = /^\s*/.exec(lines[head]!)![0];
     const close = lines.findIndex((l, j) => j > head && l === `${indent}}`);
-    const body = lines.slice(head, close + 1).filter((l) => l.trim() !== "" && !l.trim().startsWith("//"));
+    const body = lines
+      .slice(head, close + 1)
+      .filter((l) => l.trim() !== "" && !l.trim().startsWith("//"));
     if (body.length <= MAX_LINES) drop.add(k);
   });
   await Bun.write(path, lines.filter((_, k) => !drop.has(k)).join("\n"));
@@ -154,7 +165,8 @@ export async function generate(cfg: Family): Promise<void> {
     return name.split(" ").map((part) => {
       const m = /^(.*?)\$\{(\d+):\/downcase\}(.*)$/.exec(part);
       if (m) return `${m[1]}|${m[2]}|${m[3]}`;
-      if (part.includes("$")) throw new Error(`${part}: a dynamic scope other than a lowered group`);
+      if (part.includes("$"))
+        throw new Error(`${part}: a dynamic scope other than a lowered group`);
       return scope(part);
     });
   }
@@ -198,7 +210,8 @@ export async function generate(cfg: Family): Promise<void> {
           atom = [];
           for (let k = 0; k < body.length; k++) {
             if (body[k + 1] === "-" && k + 2 < body.length) {
-              for (let c = body.charCodeAt(k); c <= body.charCodeAt(k + 2); c++) atom.push(String.fromCharCode(c));
+              for (let c = body.charCodeAt(k); c <= body.charCodeAt(k + 2); c++)
+                atom.push(String.fromCharCode(c));
               k += 2;
             } else atom.push(body[k]!);
           }
@@ -240,9 +253,15 @@ export async function generate(cfg: Family): Promise<void> {
     const m = /^(\(\?i\))?(\(\\\\\)\?)?\\b(.*)\\b$/.exec(regex);
     if (!m) return null;
     const words = expandWords(m[3]!);
-    if (!words || words.some((word) => !/^[A-Za-z0-9_]+([\\-][A-Za-z0-9_]+)?$/.test(word))) return null;
+    if (!words || words.some((word) => !/^[A-Za-z0-9_]+([\\-][A-Za-z0-9_]+)?$/.test(word)))
+      return null;
     const fold = m[1] !== undefined;
-    return { fold, slash: m[2] !== undefined, body: m[3]!, words: [...new Set(words.map((w) => (fold ? w.toLowerCase() : w)))] };
+    return {
+      fold,
+      slash: m[2] !== undefined,
+      body: m[3]!,
+      words: [...new Set(words.map((w) => (fold ? w.toLowerCase() : w)))],
+    };
   }
 
   // Rules and patterns.
@@ -296,7 +315,17 @@ export async function generate(cfg: Family): Promise<void> {
     if (known !== undefined) return known;
     const id = `Nested${nestedRules.size}`;
     nestedRules.set(key, id);
-    const rule: Rule = { id, name: [], content: [], end: "", endLast: false, backref: null, embed: null, ownAfter: false, patterns: [] };
+    const rule: Rule = {
+      id,
+      name: [],
+      content: [],
+      end: "",
+      endLast: false,
+      backref: null,
+      embed: null,
+      ownAfter: false,
+      patterns: [],
+    };
     rules.set(id, rule);
     rule.patterns = flatten(list, id);
     return id;
@@ -377,7 +406,9 @@ export async function generate(cfg: Family): Promise<void> {
       rules.set(id, rule);
       rule.patterns = flatten(node.patterns ?? [], id);
       if (rule.embed && rule.backref !== null) {
-        throw new Error(`${id}: a rule that embeds carries the language's state, not its backreference`);
+        throw new Error(
+          `${id}: a rule that embeds carries the language's state, not its backreference`,
+        );
       }
       return id;
     }
@@ -393,8 +424,15 @@ export async function generate(cfg: Family): Promise<void> {
       } else if (node.include !== undefined && !node.include.startsWith("#")) {
         const embed = embeddable[node.include];
         if (!embed) throw new Error(`${context}: external include ${node.include}`);
-        if (context === "Root" && index === 0 && node.include === "text.html.basic" && cfg.htmlFirst !== null) return;
-        if (index !== list.length - 1) throw new Error(`${context}: patterns after ${node.include}`);
+        if (
+          context === "Root" &&
+          index === 0 &&
+          node.include === "text.html.basic" &&
+          cfg.htmlFirst !== null
+        )
+          return;
+        if (index !== list.length - 1)
+          throw new Error(`${context}: patterns after ${node.include}`);
         rules.get(context)!.embed = embed;
       } else if (node.include !== undefined) {
         const key = node.include.slice(1);
@@ -402,7 +440,8 @@ export async function generate(cfg: Family): Promise<void> {
         if (!target) throw new Error(`unknown include ${key}`);
         out.push(...expand(target, pascal(key)));
       } else {
-        for (const [variant, suffix] of labelled(node)) out.push(...expand(variant, `${context}At${index}${suffix}`));
+        for (const [variant, suffix] of labelled(node))
+          out.push(...expand(variant, `${context}At${index}${suffix}`));
       }
     });
     return out;
@@ -419,7 +458,9 @@ export async function generate(cfg: Family): Promise<void> {
    * one did, in its place.
    * Any other node stays as it is. */
   function labelled(node: Node): [Node, string][] {
-    const embeds = node.patterns?.some((p) => p.include !== undefined && embeddable[p.include] !== undefined);
+    const embeds = node.patterns?.some(
+      (p) => p.include !== undefined && embeddable[p.include] !== undefined,
+    );
     const backref = node.end === undefined ? null : /\\([1-9])/.exec(node.end);
     if (!embeds || !backref || node.begin === undefined) return [[node, ""]];
     const group = Number(backref[1]);
@@ -461,20 +502,31 @@ export async function generate(cfg: Family): Promise<void> {
     throw new Error(`${id}: empty rule`);
   }
 
-  const rootRule: Rule = { id: "Root", name: [], content: [], end: "", endLast: false, backref: null, embed: null, ownAfter: false, patterns: [] };
-  rules.set("Root", rootRule);
-  rootRule.patterns = flatten(grammar.patterns, "Root");
-  if (cfg.htmlFirst !== null) rules.set(cfg.htmlFirst, {
-    id: cfg.htmlFirst,
+  const rootRule: Rule = {
+    id: "Root",
     name: [],
     content: [],
     end: "",
     endLast: false,
     backref: null,
-    embed: embeddable["text.html.basic"]!,
-    ownAfter: true,
-    patterns: rootRule.patterns,
-  });
+    embed: null,
+    ownAfter: false,
+    patterns: [],
+  };
+  rules.set("Root", rootRule);
+  rootRule.patterns = flatten(grammar.patterns, "Root");
+  if (cfg.htmlFirst !== null)
+    rules.set(cfg.htmlFirst, {
+      id: cfg.htmlFirst,
+      name: [],
+      content: [],
+      end: "",
+      endLast: false,
+      backref: null,
+      embed: embeddable["text.html.basic"]!,
+      ownAfter: true,
+      patterns: rootRule.patterns,
+    });
 
   const ruleList = [...rules.values()];
   const patternList = [...patternById.values()];
@@ -487,12 +539,15 @@ export async function generate(cfg: Family): Promise<void> {
   const tableOf = new Map<string, [Table, number]>();
   for (const table of tables) {
     const own = new RegExp(`^${pascal(table.key)}(At\\d+)${table.deep ? "*" : "?"}$`);
-    table.lists = patternList.filter((p) => own.test(p.id) && p.words?.fold === table.fold && p.words.slash === table.slash);
+    table.lists = patternList.filter(
+      (p) => own.test(p.id) && p.words?.fold === table.fold && p.words.slash === table.slash,
+    );
     if (table.lists.length === 0) throw new Error(`${table.name}: no lists`);
     table.lists.forEach((p, k) => tableOf.set(p.id, [table, k]));
   }
   const support = repository["support"]?.patterns?.length;
-  if (cfg.supportAllLists && support !== tables[0]!.lists.length) throw new Error(`Support: ${tables[0]!.lists.length} of ${support} patterns are word lists`);
+  if (cfg.supportAllLists && support !== tables[0]!.lists.length)
+    throw new Error(`Support: ${tables[0]!.lists.length} of ${support} patterns are word lists`);
 
   // A table answers for its lists as one pattern, its head, the first list:
   // the first list that holds the word at a position. A rule that holds the
@@ -520,7 +575,8 @@ export async function generate(cfg: Family): Promise<void> {
         if (place?.[0] !== table || id === head) continue;
         const k = place[1];
         const taken = table.lists[k]!.words!.words.find((word) => first.get(word) !== k);
-        if (taken !== undefined) throw new Error(`${r.id}: holds ${id} alone, but an earlier list holds ${taken}`);
+        if (taken !== undefined)
+          throw new Error(`${r.id}: holds ${id} alone, but an earlier list holds ${taken}`);
       }
     }
   }
@@ -540,7 +596,8 @@ export async function generate(cfg: Family): Promise<void> {
     const all = new Set(table.lists.flatMap((p) => p.words!.words));
     for (const word of all) {
       const head = word.split(/[\\-]/)[0]!;
-      if (head !== word && all.has(head)) throw new Error(`${table.name}: ${word} starts with the word ${head}`);
+      if (head !== word && all.has(head))
+        throw new Error(`${table.name}: ${word} starts with the word ${head}`);
     }
   }
 
@@ -550,9 +607,12 @@ export async function generate(cfg: Family): Promise<void> {
   const sc = (id: string) => {
     const [prefix, group, suffix] = id.split("|");
     if (group !== undefined) captured = true;
-    return group === undefined ? `Sc::S(S::${id})` : `Sc::Group(${JSON.stringify(prefix)}, ${group}, ${JSON.stringify(suffix)})`;
+    return group === undefined
+      ? `Sc::S(S::${id})`
+      : `Sc::Group(${JSON.stringify(prefix)}, ${group}, ${JSON.stringify(suffix)})`;
   };
-  const list = (ids: string[]) => (ids.length ? `scopes![${ids.map(sc).join(", ")}]` : "Sc::NO_SCOPES");
+  const list = (ids: string[]) =>
+    ids.length ? `scopes![${ids.map(sc).join(", ")}]` : "Sc::NO_SCOPES";
 
   let g = `//! The grammar's rules as tables. Generated by \`oracle/${cfg.script}\`
   //! from the \`${cfg.name}\` grammar Shiki 4.6.0 bundles; do not edit.
@@ -636,14 +696,19 @@ export async function generate(cfg: Family): Promise<void> {
     if (r.id === cfg.htmlFirst || r.id === "Root") return "End::Never";
     if (r.id === "SqlStringDoubleQuoted") return "End::DoubleSql";
     if (r.id === "SqlStringSingleQuoted") return "End::SingleSql";
-    const label = /^\^\\s\*\(([A-Z]+)\)(?:\(\?!|\\b)/.exec(patternById.get(r.end)?.regex ?? "")?.[1];
+    const label = /^\^\\s\*\(([A-Z]+)\)(?:\(\?!|\\b)/.exec(
+      patternById.get(r.end)?.regex ?? "",
+    )?.[1];
     if (label === undefined) throw new Error(`${r.id}: an embedding rule whose end is not a label`);
     if (r.id.startsWith("HeredocInterior")) return `End::Heredoc(b"${label}")`;
     if (r.id.startsWith("NowdocInterior")) return `End::Nowdoc(b"${label}")`;
     throw new Error(`${r.id}: an embedding rule of no known kind`);
   };
   g += `        }\n    }\n\n    /// Where the rule takes the line back from the language it embeds.\n${tooLong}    pub(crate) fn end_halt(self) -> End {\n        match self {\n`;
-  g += arms(ruleList.map((r): [string, string] => [r.id, endHalt(r)]), "Rule");
+  g += arms(
+    ruleList.map((r): [string, string] => [r.id, endHalt(r)]),
+    "Rule",
+  );
   const ownAfter = ruleList.filter((r) => r.ownAfter).map((r) => `Rule::${r.id}`);
   g += "        }\n    }\n";
   if (ownAfter.length > 0) {
@@ -670,7 +735,10 @@ export async function generate(cfg: Family): Promise<void> {
             : "Act::End";
       const captures = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
       const nested = p.nested.map(([n, rule]) => `(${n}, Rule::${rule})`).join(", ");
-      return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+      return [
+        p.id,
+        `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+      ];
     }),
     "Pattern",
   );
@@ -693,11 +761,17 @@ export async function generate(cfg: Family): Promise<void> {
   /// Every pattern that is a list of a word table, as a match arm.
   macro_rules! table_patterns {
       () => {
-  ${tables.flatMap((x) => x.lists).map((p, k) => `        ${k === 0 ? "" : "| "}Pattern::${p.id}\n`).join("")}    };
+  ${tables
+    .flatMap((x) => x.lists)
+    .map((p, k) => `        ${k === 0 ? "" : "| "}Pattern::${p.id}\n`)
+    .join("")}    };
   }
   pub(crate) use table_patterns;
   `;
-  g += startTable(patternList.map((p) => ({ id: p.id, regex: startRegex(p) })), "any");
+  g += startTable(
+    patternList.map((p) => ({ id: p.id, regex: startRegex(p) })),
+    "any",
+  );
   g += `
   impl Pattern {
       /// The pattern of a table's list, by its place in the table.
@@ -707,12 +781,19 @@ export async function generate(cfg: Family): Promise<void> {
           lists[usize::from(list)]
       }
   }
-  ${tables.map((x) => `
+  ${tables
+    .map(
+      (x) => `
   /// The patterns of the \`${x.key}\` lists, in table order.
   static ${x.name.toUpperCase()}_LISTS: [Pattern; ${x.lists.length}] = [${x.lists.map((p) => `Pattern::${p.id}`).join(", ")}];
-  `).join("")}`;
+  `,
+    )
+    .join("")}`;
   g += ruleCodes(cfg.engine, cfg.display);
-  g += groupsCheck(cfg.engine, patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+  g += groupsCheck(
+    cfg.engine,
+    patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+  );
 
   // Output: the words.
 
@@ -750,21 +831,31 @@ export async function generate(cfg: Family): Promise<void> {
   for (const t of tables) {
     const table = wordTable(t.lists);
     const text = table.map(([word]) => word).join("");
-    if (text.length > 65535) throw new Error(`${t.name}: ${text.length} bytes do not fit a u16 end`);
-    if (t.lists.length > 255) throw new Error(`${t.name}: ${t.lists.length} lists do not fit a byte`);
+    if (text.length > 65535)
+      throw new Error(`${t.name}: ${text.length} bytes do not fit a u16 end`);
+    if (t.lists.length > 255)
+      throw new Error(`${t.name}: ${t.lists.length} lists do not fit a byte`);
     const longest = Math.max(...table.map(([word]) => word.length));
-    if (longest > 90) throw new Error(`${t.name}: a word of ${longest} bytes is past the lookup buffer`);
+    if (longest > 90)
+      throw new Error(`${t.name}: a word of ${longest} bytes is past the lookup buffer`);
     let end = 0;
     const ends = table.map(([word]) => (end += word.length));
     w += `/// The \`${t.key}\` lists: ${table.length} words in ${t.lists.length} ${t.lists.length === 1 ? "list" : "lists"}.\n`;
     w += `pub(crate) static ${t.name.toUpperCase()}: Words = Words {\n    text: ${JSON.stringify(text)},\n    ends: &[${ends.join(", ")}],\n    lists: &[${table.map(([, k]) => k).join(", ")}],\n    case: Case::${t.fold ? "Folded" : "Exact"},\n    backslash: Backslash::${t.slash ? "Optional" : "Never"},\n};\n\n`;
   }
 
-  g = g.split(GROUP_VARIANT).join(captured ? groupVariant : "").split(GROUP_ARM).join(captured ? groupArm : "");
+  g = g
+    .split(GROUP_VARIANT)
+    .join(captured ? groupVariant : "")
+    .split(GROUP_ARM)
+    .join(captured ? groupArm : "");
   await writeRust(`${root_dir}src/${cfg.dir}/grammar.rs`, g);
   await dropShortExpects(`${root_dir}src/${cfg.dir}/grammar.rs`);
   await writeRust(`${root_dir}src/${cfg.dir}/words.rs`, w);
-  await writeRust(`${root_dir}src/${cfg.dir}/scope.rs`, scopeFile(cfg.script, cfg.display, scopes, "", false));
+  await writeRust(
+    `${root_dir}src/${cfg.dir}/scope.rs`,
+    scopeFile(cfg.script, cfg.display, scopes, "", false),
+  );
 
   // With RX_DUMP set to a file, writes each pattern for oracle/onig.ts, as the
   // matchers answer for it:
@@ -776,7 +867,8 @@ export async function generate(cfg: Family): Promise<void> {
   // - a group that a dynamic scope name reads counts as named.
   if (Bun.env["RX_DUMP"]) {
     const held = new Set(ruleList.flatMap((r) => r.patterns));
-    const dynamic = (ids: string[]) => ids.flatMap((id) => (id.includes("|") ? [Number(id.split("|")[1])] : []));
+    const dynamic = (ids: string[]) =>
+      ids.flatMap((id) => (id.includes("|") ? [Number(id.split("|")[1])] : []));
     const groupsOf = (p: Pattern) => [
       ...new Set([
         ...p.captures.flatMap(([n, ids]) => [n, ...dynamic(ids)]),
@@ -790,12 +882,13 @@ export async function generate(cfg: Family): Promise<void> {
     });
     await Bun.write(
       Bun.env["RX_DUMP"],
-      probed.map((p) => JSON.stringify({ id: p.id, regex: startRegex(p), groups: groupsOf(p) })).join("\n") + "\n",
+      probed
+        .map((p) => JSON.stringify({ id: p.id, regex: startRegex(p), groups: groupsOf(p) }))
+        .join("\n") + "\n",
     );
   }
 
   console.log(
     `${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${tables.map((x) => `${x.lists.length} ${x.name}`).join(", ")} word lists`,
   );
-
 }

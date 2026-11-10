@@ -30,7 +30,10 @@ import { dedent } from "./dedent.ts";
 import { type ClassesFacts, rangeNotation, shikiGrammars, writeFacts } from "./facts.ts";
 
 const root = new URL("..", import.meta.url).pathname;
-const highlighter = await createHighlighter({ langs: ["json", "typescript", "python"], themes: ["github-dark"] });
+const highlighter = await createHighlighter({
+  langs: ["json", "typescript", "python"],
+  themes: ["github-dark"],
+});
 const enc = new TextEncoder();
 
 /** The code points that can be letters, marks, digits or spaces: U+0080 to
@@ -77,7 +80,8 @@ const words = probe((ch) => `[true${ch}]`).map(
   (parts) => !at(parts, 1).includes("constant.language.json"),
 );
 const spaces = probe((ch) => `[${ch}]`).map(
-  (parts, i) => !at(parts, 1).some((scope) => scope.startsWith("invalid.")) && points[i] !== undefined,
+  (parts, i) =>
+    !at(parts, 1).some((scope) => scope.startsWith("invalid.")) && points[i] !== undefined,
 );
 
 const alphas = probe((ch) => `let ${ch}a;`, "typescript").map((parts) =>
@@ -103,7 +107,7 @@ function property(name: string): boolean[] {
   const scanner = engine.createScanner([`\\p{${name}}+`]);
   const string = engine.createString(text);
   const flags = points.map(() => false);
-  for (let from = 0; ; ) {
+  for (let from = 0; ;) {
     const match = scanner.findNextMatchSync(string, from);
     if (!match) break;
     const { start, end } = match.captureIndices[0]!;

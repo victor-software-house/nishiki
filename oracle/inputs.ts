@@ -130,8 +130,7 @@ const alamofire =
   "https://raw.githubusercontent.com/Alamofire/Alamofire/6c2892ea5adb5a03fa81c510933dd782c5ddd9cb";
 const angularComponents =
   "https://raw.githubusercontent.com/angular/components/6b8d6a47693cf9c862c46919e5de8982fa3fd417";
-const ant =
-  "https://raw.githubusercontent.com/apache/ant/dbb01a2d528568b1d7ba0c2d84e533577f7f0876";
+const ant = "https://raw.githubusercontent.com/apache/ant/dbb01a2d528568b1d7ba0c2d84e533577f7f0876";
 const antd =
   "https://raw.githubusercontent.com/ant-design/ant-design/7c060247516925f48175d7f29cd43b626632665e";
 const argumentParser =
@@ -243,8 +242,7 @@ const fastapi =
   "https://raw.githubusercontent.com/tiangolo/fastapi/5cb6272ed7e3e07eaf6978e1e65b94aca76fa8e0";
 const flask =
   "https://raw.githubusercontent.com/pallets/flask/49943b5a94413a530761350f04e896f76e8d620e";
-const fmt =
-  "https://raw.githubusercontent.com/fmtlib/fmt/4ed3535092a96ac9f56fab80df83416d51bcc78e";
+const fmt = "https://raw.githubusercontent.com/fmtlib/fmt/4ed3535092a96ac9f56fab80df83416d51bcc78e";
 const foundation =
   "https://raw.githubusercontent.com/apple/swift-corelibs-foundation/cbfe1c7376ffe869d08b1b5f643d747ef0a16069";
 const ggplot2 =
@@ -271,8 +269,7 @@ const graphiql =
   "https://raw.githubusercontent.com/graphql/graphiql/e7a5e07b6c2cb9b524831544c689e742cdc1b904";
 const graphqlJs =
   "https://raw.githubusercontent.com/graphql/graphql-js/eb0bd0801ea5f9f7680e91ae575ed74397f051cb";
-const grpc =
-  "https://raw.githubusercontent.com/grpc/grpc/9a4f19513f24b48c0fbfc9c56765e553f9c6e56c";
+const grpc = "https://raw.githubusercontent.com/grpc/grpc/9a4f19513f24b48c0fbfc9c56765e553f9c6e56c";
 const gson =
   "https://raw.githubusercontent.com/google/gson/57731049da3e415be3d5d34db1ca3b80f3c73810";
 const guava =
@@ -281,10 +278,8 @@ const h5bp =
   "https://raw.githubusercontent.com/h5bp/html5-boilerplate/b6597338e695dc4a8165c5abcb2bfffa586c3ee5";
 const hackSqlFake =
   "https://raw.githubusercontent.com/slackhq/hack-sql-fake/851dc8ebb5f49ec9d743e6c1a2c2a79e3d21aab4";
-const haml =
-  "https://raw.githubusercontent.com/haml/haml/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b";
-const helm =
-  "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
+const haml = "https://raw.githubusercontent.com/haml/haml/4a89a4639a5bb4e6e28e1763227cabfb106e5d8b";
+const helm = "https://raw.githubusercontent.com/helm/helm/bc232c5312e784e808ea95ae76f9e82d4fe142fc";
 const hhvmHsl =
   "https://raw.githubusercontent.com/hhvm/hsl/16e8aa16d252ed218e357495179766adc09c3659";
 const hhvmXhpLib =
@@ -309,8 +304,7 @@ const jekyll =
   "https://raw.githubusercontent.com/jekyll/jekyll/97c3bdc822df9d5bea4c269b29a28de5a5e29d70";
 const jinjahtml =
   "https://raw.githubusercontent.com/samuelcolvin/jinjahtml-vscode/be729c88f723602e7b5df2e9dc5e8c016c31c38f";
-const jq =
-  "https://raw.githubusercontent.com/jqlang/jq/5c001b18d7237cce1fdba63608732163f978dd23";
+const jq = "https://raw.githubusercontent.com/jqlang/jq/5c001b18d7237cce1fdba63608732163f978dd23";
 const jquery =
   "https://raw.githubusercontent.com/jquery/jquery/feaa9fcdb68cdeadf013d97d8fd40848d4618578";
 const jsonLua =
@@ -323,8 +317,7 @@ const kingfisher =
   "https://raw.githubusercontent.com/onevcat/Kingfisher/770465258c652c73fdef447c10004765c440e993";
 const kinoBloom =
   "https://raw.githubusercontent.com/keijiro/KinoBloom/0a04c43fa47de12bb52edb325c8d3c0125d0b4ca";
-const knex =
-  "https://raw.githubusercontent.com/knex/knex/e25d54bcb707714a17f5a5744eba5c4246bb4d1d";
+const knex = "https://raw.githubusercontent.com/knex/knex/e25d54bcb707714a17f5a5744eba5c4246bb4d1d";
 const kotlinxSerialization =
   "https://raw.githubusercontent.com/Kotlin/kotlinx.serialization/6f6a2e66c3dbf4a34e86a030368ecb0f7a734d22";
 const ktor =
@@ -351,14 +344,12 @@ const linenoise =
   "https://raw.githubusercontent.com/antirez/linenoise/a473823d74b93eab2ba83480df16ed37617493f2";
 const liveDashboard =
   "https://raw.githubusercontent.com/phoenixframework/phoenix_live_dashboard/83a0bd137ed3e4c66b8037b140a2744803a48e13";
-const lua =
-  "https://raw.githubusercontent.com/lua/lua/8cb93bada561977eb370819e39d7d644e5fd0a3f";
+const lua = "https://raw.githubusercontent.com/lua/lua/8cb93bada561977eb370819e39d7d644e5fd0a3f";
 const luaLanguageServer =
   "https://raw.githubusercontent.com/LuaLS/lua-language-server/a58fc7b01e1746c46275c71b0e61bfed40a6296d";
 const luarocks =
   "https://raw.githubusercontent.com/luarocks/luarocks/85bfe36c812465b2f377877939d884a4db829a25";
-const lume =
-  "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
+const lume = "https://raw.githubusercontent.com/rxi/lume/98847e7812cf28d3d64b289b03fad71dc704547d";
 const markdownlint =
   "https://raw.githubusercontent.com/DavidAnson/markdownlint/b67636d47f335cf124990faae4a72c5e9fadd613";
 const masonry =
@@ -377,8 +368,7 @@ const minikube =
   "https://raw.githubusercontent.com/kubernetes/minikube/1f8cacf5b0bdb6ecdcf1abf16da4f3d596ba7996";
 const mkdocsMaterial =
   "https://raw.githubusercontent.com/squidfunk/mkdocs-material/7590e14da9fcab7c81bb2496a4c3389f0901988e";
-const moby =
-  "https://raw.githubusercontent.com/moby/moby/aed2b781abc209a639b79d00f6962b629242aa1a";
+const moby = "https://raw.githubusercontent.com/moby/moby/aed2b781abc209a639b79d00f6962b629242aa1a";
 const moshi =
   "https://raw.githubusercontent.com/square/moshi/889013ec2edb8d8034902662a1dc8c4f3b3f8111";
 const newtonsoft =
@@ -395,8 +385,7 @@ const nodejs =
   "https://raw.githubusercontent.com/nodejs/node/3556d018a4863a42fba62a927e7e605c1e8cf128";
 const normalize =
   "https://raw.githubusercontent.com/necolas/normalize.css/fc091cce1534909334c1911709a39c22d406977b";
-const nvm =
-  "https://raw.githubusercontent.com/nvm-sh/nvm/5e38bc0caed342356ffd26eb21e0e9b995ac228b";
+const nvm = "https://raw.githubusercontent.com/nvm-sh/nvm/5e38bc0caed342356ffd26eb21e0e9b995ac228b";
 const nvmMake =
   "https://raw.githubusercontent.com/nvm-sh/nvm/16df5aa69aeda3814703e14f9d35a4f60220dd37";
 const ohmyzsh =
@@ -423,8 +412,7 @@ const prometheus =
   "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
 const prometheusGo =
   "https://raw.githubusercontent.com/prometheus/prometheus/b0c3a30ab2a09b88e64d876017a0134aa2f38f40";
-const puma =
-  "https://raw.githubusercontent.com/puma/puma/c0df0c19dde943c3f5c25cd67caa984dfa84e3da";
+const puma = "https://raw.githubusercontent.com/puma/puma/c0df0c19dde943c3f5c25cd67caa984dfa84e3da";
 const pyenv =
   "https://raw.githubusercontent.com/pyenv/pyenv/e6669f0a84df60daba8672c3b3f0caebd0fdcef8";
 const pytest =
@@ -433,14 +421,12 @@ const quicklispClient =
   "https://raw.githubusercontent.com/quicklisp/quicklisp-client/6d96fd86c114345bd74d995bb296fae46f1f26ec";
 const r8brain =
   "https://raw.githubusercontent.com/avaneev/r8brain-free-src/cb2abb9977efe2471979b380ed95daa56ab4fdb9";
-const rack =
-  "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
+const rack = "https://raw.githubusercontent.com/rack/rack/da90464e3fa93e3cb49dc2d4ede798e6c6b70b4f";
 const rag =
   "https://raw.githubusercontent.com/jxnl/n-levels-of-rag/2ce1106b0163d11fcf7959187b42f0d3a67fbe05";
 const rails =
   "https://raw.githubusercontent.com/rails/rails/f21e7f42b510327f6bc57dcb7fcc9825d4670a91";
-const rake =
-  "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
+const rake = "https://raw.githubusercontent.com/ruby/rake/3f29d39daa688eb51cd975c06b1501320f10b911";
 const rapidjson =
   "https://raw.githubusercontent.com/Tencent/rapidjson/24b5e7a8b27f42fa16b96fc70aade9106cf7102f";
 const reactNative =
@@ -553,8 +539,7 @@ const vscode =
 /** The fidelity stand-ins of three languages, in `standIns` below. */
 const vscodeColorizeFixtures =
   "https://raw.githubusercontent.com/microsoft/vscode/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/extensions/vscode-colorize-tests/test/colorize-fixtures";
-const vue =
-  "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
+const vue = "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
 const woo =
   "https://raw.githubusercontent.com/fukamachi/woo/51b8cb2653116cd05f6a8d0029719ce6ce106711";
 const xerces =
@@ -578,28 +563,68 @@ const zod =
 
 export const inputs: Input[] = [
   // Assembly runs on the TextMate engine.
-  { lang: "asm", name: "blake3-sse41-msvc", url: `${blake3}/c/blake3_sse41_x86-64_windows_msvc.asm` },
+  {
+    lang: "asm",
+    name: "blake3-sse41-msvc",
+    url: `${blake3}/c/blake3_sse41_x86-64_windows_msvc.asm`,
+  },
   { lang: "asm", name: "coverage", text: asmCoverage },
   { lang: "asm", name: "dav1d-cpuid", url: `${dav1d}/src/x86/cpuid.asm` },
   { lang: "asm", name: "dav1d-msac", url: `${dav1d}/src/x86/msac.asm` },
-  { lang: "asm", name: "libjpeg-turbo-jquanti-avx2", url: `${libjpegTurbo}/simd/x86_64/jquanti-avx2.asm` },
+  {
+    lang: "asm",
+    name: "libjpeg-turbo-jquanti-avx2",
+    url: `${libjpegTurbo}/simd/x86_64/jquanti-avx2.asm`,
+  },
   { lang: "asm", name: "libjpeg-turbo-jsimdcpu", url: `${libjpegTurbo}/simd/x86_64/jsimdcpu.asm` },
   { lang: "asm", name: "sample", url: `${samples}/asm.sample` },
   { lang: "asm", name: "xv6-bootasm", url: `${xv6}/bootasm.S` },
   { lang: "asm", name: "xv6-entry", url: `${xv6}/entry.S` },
   { lang: "asm", name: "xv6-swtch", url: `${xv6}/swtch.S` },
   { lang: "asm", name: "xv6-trapasm", url: `${xv6}/trapasm.S` },
-  { lang: "astro", name: "basics-welcome", url: `${astro}/examples/basics/src/components/Welcome.astro` },
+  {
+    lang: "astro",
+    name: "basics-welcome",
+    url: `${astro}/examples/basics/src/components/Welcome.astro`,
+  },
   { lang: "astro", name: "blog-header", url: `${astro}/examples/blog/src/components/Header.astro` },
   { lang: "astro", name: "coverage", text: astroCoverage },
-  { lang: "astro", name: "hackernews-toggle", url: `${astro}/examples/hackernews/src/components/Toggle.astro` },
-  { lang: "astro", name: "markdoc-aside", url: `${astro}/examples/with-markdoc/src/components/Aside.astro` },
-  { lang: "astro", name: "portfolio-base-layout", url: `${astro}/examples/portfolio/src/layouts/BaseLayout.astro` },
-  { lang: "astro", name: "portfolio-index", url: `${astro}/examples/portfolio/src/pages/index.astro` },
-  { lang: "astro", name: "portfolio-nav", url: `${astro}/examples/portfolio/src/components/Nav.astro` },
-  { lang: "astro", name: "portfolio-theme-toggle", url: `${astro}/examples/portfolio/src/components/ThemeToggle.astro` },
+  {
+    lang: "astro",
+    name: "hackernews-toggle",
+    url: `${astro}/examples/hackernews/src/components/Toggle.astro`,
+  },
+  {
+    lang: "astro",
+    name: "markdoc-aside",
+    url: `${astro}/examples/with-markdoc/src/components/Aside.astro`,
+  },
+  {
+    lang: "astro",
+    name: "portfolio-base-layout",
+    url: `${astro}/examples/portfolio/src/layouts/BaseLayout.astro`,
+  },
+  {
+    lang: "astro",
+    name: "portfolio-index",
+    url: `${astro}/examples/portfolio/src/pages/index.astro`,
+  },
+  {
+    lang: "astro",
+    name: "portfolio-nav",
+    url: `${astro}/examples/portfolio/src/components/Nav.astro`,
+  },
+  {
+    lang: "astro",
+    name: "portfolio-theme-toggle",
+    url: `${astro}/examples/portfolio/src/components/ThemeToggle.astro`,
+  },
   { lang: "astro", name: "sample", url: `${samples}/astro.sample` },
-  { lang: "astro", name: "starlight-tabs", url: `${starlight}/packages/starlight/src/user-components/Tabs.astro` },
+  {
+    lang: "astro",
+    name: "starlight-tabs",
+    url: `${starlight}/packages/starlight/src/user-components/Tabs.astro`,
+  },
   { lang: "bat", name: "coverage", text: batCoverage },
   { lang: "bat", name: "gradlew", url: `${gradle}/gradlew.bat` },
   { lang: "bat", name: "sample", url: `${samples}/bat.sample` },
@@ -608,13 +633,41 @@ export const inputs: Input[] = [
   // Shiki's Markdown grammar has no Blade fence, so no Markdown input embeds
   // Blade.
   { lang: "blade", name: "coverage", text: bladeCoverage },
-  { lang: "blade", name: "laravel-exception-query", url: `${laravel}/src/Illuminate/Foundation/resources/exceptions/renderer/components/query.blade.php` },
-  { lang: "blade", name: "laravel-exception-show", url: `${laravel}/src/Illuminate/Foundation/resources/exceptions/renderer/show.blade.php` },
-  { lang: "blade", name: "laravel-exceptions-minimal", url: `${laravel}/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php` },
-  { lang: "blade", name: "laravel-mail-layout", url: `${laravel}/src/Illuminate/Mail/resources/views/html/layout.blade.php` },
-  { lang: "blade", name: "laravel-notification-email", url: `${laravel}/src/Illuminate/Notifications/resources/views/email.blade.php` },
-  { lang: "blade", name: "laravel-pagination-bootstrap-5", url: `${laravel}/src/Illuminate/Pagination/resources/views/bootstrap-5.blade.php` },
-  { lang: "blade", name: "laravel-pagination-tailwind", url: `${laravel}/src/Illuminate/Pagination/resources/views/tailwind.blade.php` },
+  {
+    lang: "blade",
+    name: "laravel-exception-query",
+    url: `${laravel}/src/Illuminate/Foundation/resources/exceptions/renderer/components/query.blade.php`,
+  },
+  {
+    lang: "blade",
+    name: "laravel-exception-show",
+    url: `${laravel}/src/Illuminate/Foundation/resources/exceptions/renderer/show.blade.php`,
+  },
+  {
+    lang: "blade",
+    name: "laravel-exceptions-minimal",
+    url: `${laravel}/src/Illuminate/Foundation/Exceptions/views/minimal.blade.php`,
+  },
+  {
+    lang: "blade",
+    name: "laravel-mail-layout",
+    url: `${laravel}/src/Illuminate/Mail/resources/views/html/layout.blade.php`,
+  },
+  {
+    lang: "blade",
+    name: "laravel-notification-email",
+    url: `${laravel}/src/Illuminate/Notifications/resources/views/email.blade.php`,
+  },
+  {
+    lang: "blade",
+    name: "laravel-pagination-bootstrap-5",
+    url: `${laravel}/src/Illuminate/Pagination/resources/views/bootstrap-5.blade.php`,
+  },
+  {
+    lang: "blade",
+    name: "laravel-pagination-tailwind",
+    url: `${laravel}/src/Illuminate/Pagination/resources/views/tailwind.blade.php`,
+  },
   { lang: "blade", name: "sample", url: `${samples}/blade.sample` },
   { lang: "c", name: "cjson", url: `${cjson}/cJSON.c` },
   { lang: "c", name: "coverage", text: cCoverage },
@@ -629,7 +682,11 @@ export const inputs: Input[] = [
   // CMake.
   { lang: "cmake", name: "catch2-lists", url: `${catch2}/CMakeLists.txt` },
   { lang: "cmake", name: "coverage", text: cmakeCoverage },
-  { lang: "cmake", name: "googletest-utils", url: `${googletest}/googletest/cmake/internal_utils.cmake` },
+  {
+    lang: "cmake",
+    name: "googletest-utils",
+    url: `${googletest}/googletest/cmake/internal_utils.cmake`,
+  },
   { lang: "cmake", name: "json-lists", url: `${nlohmannJson}/CMakeLists.txt` },
   { lang: "cmake", name: "sample", url: `${samples}/cmake.sample` },
   // CoffeeScript runs on the TextMate engine, which hands its embedded
@@ -638,7 +695,11 @@ export const inputs: Input[] = [
   { lang: "coffee", name: "coffeescript-cake", url: `${coffeescript}/src/cake.coffee` },
   { lang: "coffee", name: "coffeescript-helpers", url: `${coffeescript}/src/helpers.coffee` },
   // Backticks hold JavaScript, in a capture on one line and in a block over several.
-  { lang: "coffee", name: "coffeescript-javascript-literals", url: `${coffeescript}/test/javascript_literals.coffee` },
+  {
+    lang: "coffee",
+    name: "coffeescript-javascript-literals",
+    url: `${coffeescript}/test/javascript_literals.coffee`,
+  },
   { lang: "coffee", name: "coffeescript-optparse", url: `${coffeescript}/src/optparse.coffee` },
   { lang: "coffee", name: "coffeescript-repl", url: `${coffeescript}/src/repl.coffee` },
   { lang: "coffee", name: "coverage", text: coffeeCoverage },
@@ -647,8 +708,16 @@ export const inputs: Input[] = [
   { lang: "common-lisp", name: "cl-ppcre-regex-class", url: `${clPpcre}/regex-class.lisp` },
   { lang: "common-lisp", name: "cl-ppcre-scanner", url: `${clPpcre}/scanner.lisp` },
   { lang: "common-lisp", name: "coverage", text: commonLispCoverage },
-  { lang: "common-lisp", name: "grammar-demo", url: `${commonLispGrammar}/syntaxes/fixtures/cases/demo.lsp` },
-  { lang: "common-lisp", name: "grammar-format-strings", url: `${commonLispGrammar}/syntaxes/fixtures/cases/fstr.lsp` },
+  {
+    lang: "common-lisp",
+    name: "grammar-demo",
+    url: `${commonLispGrammar}/syntaxes/fixtures/cases/demo.lsp`,
+  },
+  {
+    lang: "common-lisp",
+    name: "grammar-format-strings",
+    url: `${commonLispGrammar}/syntaxes/fixtures/cases/fstr.lsp`,
+  },
   { lang: "common-lisp", name: "quicklisp-dist", url: `${quicklispClient}/quicklisp/dist.lisp` },
   { lang: "common-lisp", name: "quicklisp-http", url: `${quicklispClient}/quicklisp/http.lisp` },
   { lang: "common-lisp", name: "sample", url: `${samples}/common-lisp.sample` },
@@ -656,21 +725,49 @@ export const inputs: Input[] = [
   { lang: "common-lisp", name: "split-sequence-vector", url: `${splitSequence}/vector.lisp` },
   { lang: "common-lisp", name: "woo-main", url: `${woo}/src/woo.lisp` },
   { lang: "common-lisp", name: "woo-response", url: `${woo}/src/response.lisp` },
-  { lang: "cpp", name: "absl-any-invocable", url: `${abseil}/absl/functional/internal/any_invocable.h` },
-  { lang: "cpp", name: "absl-any-invocable-test", url: `${abseil}/absl/functional/any_invocable_test.h` },
+  {
+    lang: "cpp",
+    name: "absl-any-invocable",
+    url: `${abseil}/absl/functional/internal/any_invocable.h`,
+  },
+  {
+    lang: "cpp",
+    name: "absl-any-invocable-test",
+    url: `${abseil}/absl/functional/any_invocable_test.h`,
+  },
   { lang: "cpp", name: "absl-check-op", url: `${abseil}/absl/log/internal/check_op.h` },
   { lang: "cpp", name: "absl-cpu-detect", url: `${abseil}/absl/base/internal/cpu_detect.cc` },
-  { lang: "cpp", name: "absl-crc-x86-arm-combined", url: `${abseil}/absl/crc/internal/crc_x86_arm_combined.cc` },
+  {
+    lang: "cpp",
+    name: "absl-crc-x86-arm-combined",
+    url: `${abseil}/absl/crc/internal/crc_x86_arm_combined.cc`,
+  },
   { lang: "cpp", name: "absl-crc32c", url: `${abseil}/absl/crc/crc32c.h` },
-  { lang: "cpp", name: "absl-dynamic-annotations", url: `${abseil}/absl/base/internal/dynamic_annotations.h` },
-  { lang: "cpp", name: "absl-exception-safety-testing", url: `${abseil}/absl/base/internal/exception_safety_testing.h` },
+  {
+    lang: "cpp",
+    name: "absl-dynamic-annotations",
+    url: `${abseil}/absl/base/internal/dynamic_annotations.h`,
+  },
+  {
+    lang: "cpp",
+    name: "absl-exception-safety-testing",
+    url: `${abseil}/absl/base/internal/exception_safety_testing.h`,
+  },
   { lang: "cpp", name: "absl-flag", url: `${abseil}/absl/flags/flag.h` },
   { lang: "cpp", name: "absl-flag-internal", url: `${abseil}/absl/flags/internal/flag.h` },
   { lang: "cpp", name: "absl-flag-test", url: `${abseil}/absl/flags/flag_test.cc` },
   { lang: "cpp", name: "absl-hash-benchmark", url: `${abseil}/absl/hash/hash_benchmark.cc` },
   { lang: "cpp", name: "absl-mutex", url: `${abseil}/absl/synchronization/mutex.h` },
-  { lang: "cpp", name: "absl-profile-builder", url: `${abseil}/absl/profiling/internal/profile_builder.cc` },
-  { lang: "cpp", name: "absl-status-matchers", url: `${abseil}/absl/status/internal/status_matchers.h` },
+  {
+    lang: "cpp",
+    name: "absl-profile-builder",
+    url: `${abseil}/absl/profiling/internal/profile_builder.cc`,
+  },
+  {
+    lang: "cpp",
+    name: "absl-status-matchers",
+    url: `${abseil}/absl/status/internal/status_matchers.h`,
+  },
   { lang: "cpp", name: "absl-str-split", url: `${abseil}/absl/strings/str_split.h` },
   { lang: "cpp", name: "absl-symbolize-test", url: `${abseil}/absl/debugging/symbolize_test.cc` },
   { lang: "cpp", name: "benchmark-core", url: `${benchmark}/src/benchmark.cc` },
@@ -686,51 +783,175 @@ export const inputs: Input[] = [
   { lang: "cpp", name: "sample", url: `${samples}/cpp.sample` },
   { lang: "cpp", name: "spdlog-logger", url: `${spdlog}/include/spdlog/logger.h` },
   { lang: "csharp", name: "coverage", text: csharpCoverage },
-  { lang: "csharp", name: "docs-async-wpf", url: `${dotnetDocs}/keywords/snippets/async/wpf/MainWindow.xaml.cs` },
-  { lang: "csharp", name: "docs-bitwise-shift", url: `${dotnetDocs}/operators/snippets/shared/BitwiseAndShiftOperators.cs` },
-  { lang: "csharp", name: "docs-closed-hierarchy-patterns", url: `${dotnetDocs}/operators/snippets/patterns/ClosedHierarchyPatterns.cs` },
-  { lang: "csharp", name: "docs-delegate-operator", url: `${dotnetDocs}/operators/snippets/shared/DelegateOperator.cs` },
-  { lang: "csharp", name: "docs-doc-comments", url: `${dotnetDocs}/xmldoc/snippets/xmldoc/DocComments.cs` },
+  {
+    lang: "csharp",
+    name: "docs-async-wpf",
+    url: `${dotnetDocs}/keywords/snippets/async/wpf/MainWindow.xaml.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-bitwise-shift",
+    url: `${dotnetDocs}/operators/snippets/shared/BitwiseAndShiftOperators.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-closed-hierarchy-patterns",
+    url: `${dotnetDocs}/operators/snippets/patterns/ClosedHierarchyPatterns.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-delegate-operator",
+    url: `${dotnetDocs}/operators/snippets/shared/DelegateOperator.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-doc-comments",
+    url: `${dotnetDocs}/xmldoc/snippets/xmldoc/DocComments.cs`,
+  },
   { lang: "csharp", name: "docs-events", url: `${dotnetDocs}/keywords/snippets/events.cs` },
-  { lang: "csharp", name: "docs-exception-example", url: `${dotnetDocs}/statements/snippets/exception-handling-statements/ExampleClass.cs` },
-  { lang: "csharp", name: "docs-fixed", url: `${dotnetDocs}/snippets/unsafe-code/FixedKeywordExamples.cs` },
-  { lang: "csharp", name: "docs-generic-where", url: `${dotnetDocs}/keywords/snippets/GenericWhereConstraints.cs` },
-  { lang: "csharp", name: "docs-goto", url: `${dotnetDocs}/statements/snippets/jump-statements/GotoStatement.cs` },
+  {
+    lang: "csharp",
+    name: "docs-exception-example",
+    url: `${dotnetDocs}/statements/snippets/exception-handling-statements/ExampleClass.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-fixed",
+    url: `${dotnetDocs}/snippets/unsafe-code/FixedKeywordExamples.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-generic-where",
+    url: `${dotnetDocs}/keywords/snippets/GenericWhereConstraints.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-goto",
+    url: `${dotnetDocs}/statements/snippets/jump-statements/GotoStatement.cs`,
+  },
   { lang: "csharp", name: "docs-group", url: `${dotnetDocs}/keywords/snippets/group.cs` },
-  { lang: "csharp", name: "docs-keywords-contextual", url: `${dotnetDocs}/keywords/snippets/csrefKeywordsContextual.cs` },
-  { lang: "csharp", name: "docs-keywords-modifiers", url: `${dotnetDocs}/keywords/snippets/csrefKeywordsModifiers.cs` },
+  {
+    lang: "csharp",
+    name: "docs-keywords-contextual",
+    url: `${dotnetDocs}/keywords/snippets/csrefKeywordsContextual.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-keywords-modifiers",
+    url: `${dotnetDocs}/keywords/snippets/csrefKeywordsModifiers.cs`,
+  },
   { lang: "csharp", name: "docs-lock", url: `${dotnetDocs}/statements/snippets/lock/Program.cs` },
-  { lang: "csharp", name: "docs-raw-string-literal", url: `${dotnetDocs}/tokens/snippets/raw-string-literal.cs` },
-  { lang: "csharp", name: "docs-record-type", url: `${dotnetDocs}/builtin-types/snippets/shared/RecordType.cs` },
-  { lang: "csharp", name: "docs-string-interpolation", url: `${dotnetDocs}/tokens/snippets/string-interpolation.cs` },
-  { lang: "csharp", name: "docs-union-body-members", url: `${dotnetDocs}/builtin-types/snippets/unions/BodyMembers.cs` },
-  { lang: "csharp", name: "docs-using-alias", url: `${dotnetDocs}/keywords/snippets/UsingAliasQualifier.cs` },
-  { lang: "csharp", name: "docs-value-tuples", url: `${dotnetDocs}/builtin-types/snippets/shared/ValueTuples.cs` },
-  { lang: "csharp", name: "docs-var-pattern", url: `${dotnetDocs}/operators/snippets/patterns/VarPattern.cs` },
-  { lang: "csharp", name: "newtonsoft-json-convert", url: `${newtonsoft}/Src/Newtonsoft.Json/JsonConvert.cs` },
-  { lang: "csharp", name: "roslyn-text-span", url: `${roslyn}/src/Compilers/Core/Portable/Text/TextSpan.cs` },
-  { lang: "csharp", name: "runtime-linq-where", url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs` },
-  { lang: "csharp", name: "runtime-stack", url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs` },
+  {
+    lang: "csharp",
+    name: "docs-raw-string-literal",
+    url: `${dotnetDocs}/tokens/snippets/raw-string-literal.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-record-type",
+    url: `${dotnetDocs}/builtin-types/snippets/shared/RecordType.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-string-interpolation",
+    url: `${dotnetDocs}/tokens/snippets/string-interpolation.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-union-body-members",
+    url: `${dotnetDocs}/builtin-types/snippets/unions/BodyMembers.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-using-alias",
+    url: `${dotnetDocs}/keywords/snippets/UsingAliasQualifier.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-value-tuples",
+    url: `${dotnetDocs}/builtin-types/snippets/shared/ValueTuples.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "docs-var-pattern",
+    url: `${dotnetDocs}/operators/snippets/patterns/VarPattern.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "newtonsoft-json-convert",
+    url: `${newtonsoft}/Src/Newtonsoft.Json/JsonConvert.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "roslyn-text-span",
+    url: `${roslyn}/src/Compilers/Core/Portable/Text/TextSpan.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "runtime-linq-where",
+    url: `${dotnetRuntime}/src/libraries/System.Linq/src/System/Linq/Where.cs`,
+  },
+  {
+    lang: "csharp",
+    name: "runtime-stack",
+    url: `${dotnetRuntime}/src/libraries/System.Collections/src/System/Collections/Generic/Stack.cs`,
+  },
   { lang: "csharp", name: "sample", url: `${samples}/csharp.sample` },
   { lang: "css", name: "charset-no-space", text: cssCharsetNoSpace },
   { lang: "css", name: "charset-unclosed", text: cssCharsetUnclosed },
   { lang: "css", name: "charset-unquoted", text: cssCharsetUnquoted },
   { lang: "css", name: "coverage", text: cssCoverage },
   { lang: "css", name: "github-markdown", url: `${githubMarkdownCss}/github-markdown.css` },
-  { lang: "css", name: "highlightjs-atom-one-dark", url: `${highlightjs}/src/styles/atom-one-dark.css` },
+  {
+    lang: "css",
+    name: "highlightjs-atom-one-dark",
+    url: `${highlightjs}/src/styles/atom-one-dark.css`,
+  },
   { lang: "css", name: "highlightjs-github", url: `${highlightjs}/src/styles/github.css` },
-  { lang: "css", name: "lessjs-at-rules-compressed-evaluation", url: `${lessjs}/packages/test-data/tests-config/at-rules-compressed-evaluation/at-rules-compressed-evaluation.css` },
-  { lang: "css", name: "lessjs-css-3", url: `${lessjs}/packages/test-data/tests-unit/css-3/css-3.css` },
-  { lang: "css", name: "lessjs-math-strict", url: `${lessjs}/packages/test-data/tests-config/math/strict/css.css` },
-  { lang: "css", name: "lessjs-media", url: `${lessjs}/packages/test-data/tests-unit/media/media.css` },
-  { lang: "css", name: "lessjs-selectors", url: `${lessjs}/packages/test-data/tests-unit/selectors/selectors.css` },
+  {
+    lang: "css",
+    name: "lessjs-at-rules-compressed-evaluation",
+    url: `${lessjs}/packages/test-data/tests-config/at-rules-compressed-evaluation/at-rules-compressed-evaluation.css`,
+  },
+  {
+    lang: "css",
+    name: "lessjs-css-3",
+    url: `${lessjs}/packages/test-data/tests-unit/css-3/css-3.css`,
+  },
+  {
+    lang: "css",
+    name: "lessjs-math-strict",
+    url: `${lessjs}/packages/test-data/tests-config/math/strict/css.css`,
+  },
+  {
+    lang: "css",
+    name: "lessjs-media",
+    url: `${lessjs}/packages/test-data/tests-unit/media/media.css`,
+  },
+  {
+    lang: "css",
+    name: "lessjs-selectors",
+    url: `${lessjs}/packages/test-data/tests-unit/selectors/selectors.css`,
+  },
   { lang: "css", name: "milligram", url: `${milligram}/dist/milligram.css` },
   { lang: "css", name: "normalize", url: `${normalize}/normalize.css` },
   { lang: "css", name: "sample", url: `${samples}/css.sample` },
-  { lang: "css", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
-  { lang: "dart", name: "collection-algorithms", url: `${dartCore}/pkgs/collection/lib/src/algorithms.dart` },
+  {
+    lang: "css",
+    name: "tailwind-preflight",
+    url: `${tailwind}/packages/tailwindcss/preflight.css`,
+  },
+  {
+    lang: "dart",
+    name: "collection-algorithms",
+    url: `${dartCore}/pkgs/collection/lib/src/algorithms.dart`,
+  },
   { lang: "dart", name: "coverage", text: dartCoverage },
-  { lang: "dart", name: "http-base-request", url: `${dartHttp}/pkgs/http/lib/src/base_request.dart` },
+  {
+    lang: "dart",
+    name: "http-base-request",
+    url: `${dartHttp}/pkgs/http/lib/src/base_request.dart`,
+  },
   { lang: "dart", name: "http-client", url: `${dartHttp}/pkgs/http/lib/src/client.dart` },
   { lang: "dart", name: "sample", url: `${samples}/dart.sample` },
   { lang: "diff", name: "coverage", text: diffCoverage },
@@ -771,7 +992,11 @@ export const inputs: Input[] = [
   { lang: "docker", name: "next-with-docker", url: `${nextjs}/examples/with-docker/Dockerfile` },
   { lang: "docker", name: "postgres-bookworm", url: `${dockerPostgres}/18/bookworm/Dockerfile` },
   { lang: "docker", name: "prometheus", url: `${prometheus}/Dockerfile` },
-  { lang: "docker", name: "python-slim-bookworm", url: `${dockerPython}/3.13/slim-bookworm/Dockerfile` },
+  {
+    lang: "docker",
+    name: "python-slim-bookworm",
+    url: `${dockerPython}/3.13/slim-bookworm/Dockerfile`,
+  },
   { lang: "docker", name: "sample", url: `${samples}/docker.sample` },
   // Elixir runs on the TextMate engine. Its `~H` and `~L` sigils hand HTML
   // to its lexer.
@@ -780,67 +1005,207 @@ export const inputs: Input[] = [
   { lang: "elixir", name: "elixir-map-set", url: `${elixirLang}/lib/elixir/lib/map_set.ex` },
   { lang: "elixir", name: "elixir-range", url: `${elixirLang}/lib/elixir/lib/range.ex` },
   { lang: "elixir", name: "embedded", text: elixirEmbedded },
-  { lang: "elixir", name: "live-dashboard-layered-graph", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/layered_graph_component.ex` },
-  { lang: "elixir", name: "live-dashboard-nav-bar", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/nav_bar_component.ex` },
-  { lang: "elixir", name: "live-dashboard-table", url: `${liveDashboard}/lib/phoenix/live_dashboard/components/table_component.ex` },
+  {
+    lang: "elixir",
+    name: "live-dashboard-layered-graph",
+    url: `${liveDashboard}/lib/phoenix/live_dashboard/components/layered_graph_component.ex`,
+  },
+  {
+    lang: "elixir",
+    name: "live-dashboard-nav-bar",
+    url: `${liveDashboard}/lib/phoenix/live_dashboard/components/nav_bar_component.ex`,
+  },
+  {
+    lang: "elixir",
+    name: "live-dashboard-table",
+    url: `${liveDashboard}/lib/phoenix/live_dashboard/components/table_component.ex`,
+  },
   { lang: "elixir", name: "sample", url: `${samples}/elixir.sample` },
   { lang: "erb", name: "coverage", text: erbCoverage },
-  { lang: "erb", name: "devise-confirmation-instructions", url: `${devise}/app/views/devise/mailer/confirmation_instructions.html.erb` },
-  { lang: "erb", name: "devise-error-messages", url: `${devise}/app/views/devise/shared/_error_messages.html.erb` },
-  { lang: "erb", name: "devise-registrations-edit", url: `${devise}/app/views/devise/registrations/edit.html.erb` },
-  { lang: "erb", name: "devise-sessions-new", url: `${devise}/app/views/devise/sessions/new.html.erb` },
-  { lang: "erb", name: "devise-shared-links", url: `${devise}/app/views/devise/shared/_links.html.erb` },
-  { lang: "erb", name: "rails-app-layout", url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt` },
-  { lang: "erb", name: "rails-info-notes", url: `${rails}/railties/lib/rails/templates/rails/info/notes.html.erb` },
-  { lang: "erb", name: "rails-mailer-email", url: `${rails}/railties/lib/rails/templates/rails/mailers/email.html.erb` },
-  { lang: "erb", name: "rails-pwa-offline", url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb` },
-  { lang: "erb", name: "rails-rescues-diagnostics", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb` },
-  { lang: "erb", name: "rails-rescues-source", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb` },
-  { lang: "erb", name: "rails-routes-table", url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb` },
-  { lang: "erb", name: "rails-scaffold-form", url: `${rails}/railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt` },
-  { lang: "erb", name: "rails-welcome", url: `${rails}/railties/lib/rails/templates/rails/welcome/index.html.erb` },
+  {
+    lang: "erb",
+    name: "devise-confirmation-instructions",
+    url: `${devise}/app/views/devise/mailer/confirmation_instructions.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "devise-error-messages",
+    url: `${devise}/app/views/devise/shared/_error_messages.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "devise-registrations-edit",
+    url: `${devise}/app/views/devise/registrations/edit.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "devise-sessions-new",
+    url: `${devise}/app/views/devise/sessions/new.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "devise-shared-links",
+    url: `${devise}/app/views/devise/shared/_links.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "rails-app-layout",
+    url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/layouts/application.html.erb.tt`,
+  },
+  {
+    lang: "erb",
+    name: "rails-info-notes",
+    url: `${rails}/railties/lib/rails/templates/rails/info/notes.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "rails-mailer-email",
+    url: `${rails}/railties/lib/rails/templates/rails/mailers/email.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "rails-pwa-offline",
+    url: `${rails}/railties/lib/rails/generators/rails/app/templates/app/views/pwa/offline.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "rails-rescues-diagnostics",
+    url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "rails-rescues-source",
+    url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/rescues/_source.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "rails-routes-table",
+    url: `${rails}/actionpack/lib/action_dispatch/middleware/templates/routes/_table.html.erb`,
+  },
+  {
+    lang: "erb",
+    name: "rails-scaffold-form",
+    url: `${rails}/railties/lib/rails/generators/erb/scaffold/templates/_form.html.erb.tt`,
+  },
+  {
+    lang: "erb",
+    name: "rails-welcome",
+    url: `${rails}/railties/lib/rails/templates/rails/welcome/index.html.erb`,
+  },
   { lang: "erb", name: "sample", url: `${samples}/erb.sample` },
   { lang: "gdscript", name: "coverage", text: gdscriptCoverage },
-  { lang: "gdscript", name: "godot-custom-drawing-lines", url: `${godotDemos}/2d/custom_drawing/lines.gd` },
-  { lang: "gdscript", name: "godot-ik-fabrik", url: `${godotDemos}/3d/ik/addons/sade/ik_fabrik.gd` },
+  {
+    lang: "gdscript",
+    name: "godot-custom-drawing-lines",
+    url: `${godotDemos}/2d/custom_drawing/lines.gd`,
+  },
+  {
+    lang: "gdscript",
+    name: "godot-ik-fabrik",
+    url: `${godotDemos}/3d/ik/addons/sade/ik_fabrik.gd`,
+  },
   { lang: "gdscript", name: "godot-midi-piano", url: `${godotDemos}/audio/midi_piano/piano.gd` },
-  { lang: "gdscript", name: "godot-paint-control", url: `${godotDemos}/gui/gd_paint/paint_control.gd` },
+  {
+    lang: "gdscript",
+    name: "godot-paint-control",
+    url: `${godotDemos}/gui/gd_paint/paint_control.gd`,
+  },
   { lang: "gdscript", name: "godot-voxel-chunk", url: `${godotDemos}/3d/voxel/world/chunk.gd` },
-  { lang: "gdscript", name: "grammar-example-1", url: `${godotVscode}/syntaxes/examples/gdscript1.gd` },
-  { lang: "gdscript", name: "grammar-example-2", url: `${godotVscode}/syntaxes/examples/gdscript2.gd` },
+  {
+    lang: "gdscript",
+    name: "grammar-example-1",
+    url: `${godotVscode}/syntaxes/examples/gdscript1.gd`,
+  },
+  {
+    lang: "gdscript",
+    name: "grammar-example-2",
+    url: `${godotVscode}/syntaxes/examples/gdscript2.gd`,
+  },
   { lang: "gdscript", name: "sample", url: `${samples}/gdscript.sample` },
   { lang: "go", name: "cobra-command", url: `${cobra}/command.go` },
   { lang: "go", name: "coverage", text: goCoverage },
   { lang: "go", name: "gin-context", url: `${gin}/context.go` },
   { lang: "go", name: "go-json-decode", url: `${golang}/src/encoding/json/decode.go` },
-  { lang: "go", name: "go-printer-declarations", url: `${golang}/src/go/printer/testdata/declarations.golden` },
-  { lang: "go", name: "go-printer-go2numbers", url: `${golang}/src/go/printer/testdata/go2numbers.golden` },
+  {
+    lang: "go",
+    name: "go-printer-declarations",
+    url: `${golang}/src/go/printer/testdata/declarations.golden`,
+  },
+  {
+    lang: "go",
+    name: "go-printer-go2numbers",
+    url: `${golang}/src/go/printer/testdata/go2numbers.golden`,
+  },
   { lang: "go", name: "go-slices", url: `${golang}/src/slices/slices.go` },
   { lang: "go", name: "go-sort", url: `${golang}/src/sort/sort.go` },
   { lang: "go", name: "go-test-bug141", url: `${golang}/test/fixedbugs/bug141.go` },
   { lang: "go", name: "go-test-issue15528", url: `${golang}/test/fixedbugs/issue15528.go` },
-  { lang: "go", name: "go-types-typeinst1", url: `${golang}/src/internal/types/testdata/check/typeinst1.go` },
-  { lang: "go", name: "go-types-typeparams", url: `${golang}/src/internal/types/testdata/check/typeparams.go` },
-  { lang: "go", name: "kubernetes-sets", url: `${kubernetes}/staging/src/k8s.io/apimachinery/pkg/util/sets/set.go` },
+  {
+    lang: "go",
+    name: "go-types-typeinst1",
+    url: `${golang}/src/internal/types/testdata/check/typeinst1.go`,
+  },
+  {
+    lang: "go",
+    name: "go-types-typeparams",
+    url: `${golang}/src/internal/types/testdata/check/typeparams.go`,
+  },
+  {
+    lang: "go",
+    name: "kubernetes-sets",
+    url: `${kubernetes}/staging/src/k8s.io/apimachinery/pkg/util/sets/set.go`,
+  },
   { lang: "go", name: "prometheus-storage", url: `${prometheusGo}/storage/interface.go` },
   { lang: "go", name: "sample", url: `${samples}/go.sample` },
   { lang: "go", name: "testify-assertions", url: `${testify}/assert/assertions.go` },
   { lang: "go", name: "viper-viper", url: `${viper}/viper.go` },
   { lang: "go", name: "zap-logger", url: `${zap}/logger.go` },
-  { lang: "graphql", name: "codegen-apollo-tooling", url: `${codegen}/dev-test/apollo-tooling/schema.graphql` },
+  {
+    lang: "graphql",
+    name: "codegen-apollo-tooling",
+    url: `${codegen}/dev-test/apollo-tooling/schema.graphql`,
+  },
   { lang: "graphql", name: "coverage", text: graphqlCoverage },
-  { lang: "graphql", name: "graphiql-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql` },
-  { lang: "graphql", name: "graphiql-merged-query", url: `${graphiql}/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql` },
-  { lang: "graphql", name: "graphiql-schema-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql` },
-  { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
-  { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
+  {
+    lang: "graphql",
+    name: "graphiql-kitchen-sink",
+    url: `${graphiql}/packages/codemirror-graphql/src/__tests__/kitchen-sink.graphql`,
+  },
+  {
+    lang: "graphql",
+    name: "graphiql-merged-query",
+    url: `${graphiql}/packages/graphiql-toolkit/src/graphql-helpers/__tests__/__queries__/mergedQueryWithSchema.graphql`,
+  },
+  {
+    lang: "graphql",
+    name: "graphiql-schema-kitchen-sink",
+    url: `${graphiql}/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql`,
+  },
+  {
+    lang: "graphql",
+    name: "graphiql-star-wars",
+    url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`,
+  },
+  {
+    lang: "graphql",
+    name: "graphql-js-kitchen-sink",
+    url: `${graphqlJs}/benchmark/kitchen-sink.graphql`,
+  },
   { lang: "graphql", name: "interpolation", text: graphqlInterpolation },
   { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
   // Shiki's Markdown grammar has no Hack fence, so no Markdown input embeds
   // Hack.
   { lang: "hack", name: "coverage", text: hackCoverage },
-  { lang: "hack", name: "hack-sql-fake-query-planner", url: `${hackSqlFake}/src/Query/QueryPlanner.hack` },
-  { lang: "hack", name: "hack-sql-fake-select-test", url: `${hackSqlFake}/tests/SelectExpressionTest.php` },
+  {
+    lang: "hack",
+    name: "hack-sql-fake-query-planner",
+    url: `${hackSqlFake}/src/Query/QueryPlanner.hack`,
+  },
+  {
+    lang: "hack",
+    name: "hack-sql-fake-select-test",
+    url: `${hackSqlFake}/tests/SelectExpressionTest.php`,
+  },
   { lang: "hack", name: "hsl-str-transform", url: `${hhvmHsl}/src/str/transform.php` },
   { lang: "hack", name: "sample", url: `${samples}/hack.sample` },
   { lang: "hack", name: "xhp-lib-basics-test", url: `${hhvmXhpLib}/tests/BasicsTest.hack` },
@@ -852,9 +1217,17 @@ export const inputs: Input[] = [
   { lang: "haml", name: "haml-helpers", url: `${haml}/test/haml/templates/helpers.haml` },
   { lang: "haml", name: "haml-just-stuff", url: `${haml}/test/haml/templates/just_stuff.haml` },
   { lang: "haml", name: "haml-real-sample", url: `${haml}/benchmark/etc/real_sample.haml` },
-  { lang: "haml", name: "haml-silent-script", url: `${haml}/test/haml/templates/silent_script.haml` },
+  {
+    lang: "haml",
+    name: "haml-silent-script",
+    url: `${haml}/test/haml/templates/silent_script.haml`,
+  },
   { lang: "haml", name: "haml-standard", url: `${haml}/test/haml/templates/standard.haml` },
-  { lang: "haml", name: "haml-whitespace", url: `${haml}/test/haml/templates/whitespace_handling.haml` },
+  {
+    lang: "haml",
+    name: "haml-whitespace",
+    url: `${haml}/test/haml/templates/whitespace_handling.haml`,
+  },
   { lang: "haml", name: "invalid-tags", text: hamlInvalidTags },
   { lang: "haml", name: "sample", url: `${samples}/haml.sample` },
   // Shiki's Markdown grammar has no Haskell fence, so no Markdown input
@@ -883,17 +1256,57 @@ export const inputs: Input[] = [
     url: `${terragrunt}/test/fixtures/stacks/stack-deps-tree/live/terragrunt.stack.hcl`,
   },
   { lang: "hlsl", name: "coverage", text: hlslCoverage },
-  { lang: "hlsl", name: "directx-execute-indirect", url: `${directxSamples}/Samples/Desktop/D3D12ExecuteIndirect/src/compute.hlsl` },
-  { lang: "hlsl", name: "directx-frustum-ms", url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl` },
-  { lang: "hlsl", name: "directx-meshlet-ps", url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl` },
-  { lang: "hlsl", name: "directx-model-viewer-ps", url: `${directxSamples}/MiniEngine/Model/Shaders/ModelViewerPS.hlsl` },
-  { lang: "hlsl", name: "directx-present-ps", url: `${directxSamples}/Samples/Desktop/D3D12HDR/src/presentPS.hlsl` },
-  { lang: "hlsl", name: "directx-text-vs", url: `${directxSamples}/MiniEngine/Core/Shaders/TextVS.hlsl` },
-  { lang: "hlsl", name: "directx-tone-map", url: `${directxSamples}/MiniEngine/Core/Shaders/ToneMapCS.hlsl` },
-  { lang: "hlsl", name: "dxsdk-basic-hlsl-fx11", url: `${directxSdkSamples}/BasicHLSLFX11/BasicHLSLFX11.fx` },
-  { lang: "hlsl", name: "dxsdk-tutorial13", url: `${directxSdkSamples}/Direct3D11TutorialsFX11/Tutorial13/Tutorial13.fx` },
+  {
+    lang: "hlsl",
+    name: "directx-execute-indirect",
+    url: `${directxSamples}/Samples/Desktop/D3D12ExecuteIndirect/src/compute.hlsl`,
+  },
+  {
+    lang: "hlsl",
+    name: "directx-frustum-ms",
+    url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/MeshletCull/FrustumMS.hlsl`,
+  },
+  {
+    lang: "hlsl",
+    name: "directx-meshlet-ps",
+    url: `${directxSamples}/Samples/Desktop/D3D12MeshShaders/src/DynamicLOD/MeshletPS.hlsl`,
+  },
+  {
+    lang: "hlsl",
+    name: "directx-model-viewer-ps",
+    url: `${directxSamples}/MiniEngine/Model/Shaders/ModelViewerPS.hlsl`,
+  },
+  {
+    lang: "hlsl",
+    name: "directx-present-ps",
+    url: `${directxSamples}/Samples/Desktop/D3D12HDR/src/presentPS.hlsl`,
+  },
+  {
+    lang: "hlsl",
+    name: "directx-text-vs",
+    url: `${directxSamples}/MiniEngine/Core/Shaders/TextVS.hlsl`,
+  },
+  {
+    lang: "hlsl",
+    name: "directx-tone-map",
+    url: `${directxSamples}/MiniEngine/Core/Shaders/ToneMapCS.hlsl`,
+  },
+  {
+    lang: "hlsl",
+    name: "dxsdk-basic-hlsl-fx11",
+    url: `${directxSdkSamples}/BasicHLSLFX11/BasicHLSLFX11.fx`,
+  },
+  {
+    lang: "hlsl",
+    name: "dxsdk-tutorial13",
+    url: `${directxSdkSamples}/Direct3D11TutorialsFX11/Tutorial13/Tutorial13.fx`,
+  },
   { lang: "hlsl", name: "sample", url: `${samples}/hlsl.sample` },
-  { lang: "html", name: "bootstrap3-visual-modal", url: `${bootstrap3}/js/tests/visual/modal.html` },
+  {
+    lang: "html",
+    name: "bootstrap3-visual-modal",
+    url: `${bootstrap3}/js/tests/visual/modal.html`,
+  },
   { lang: "html", name: "h5bp-404", url: `${h5bp}/src/404.html` },
   { lang: "html", name: "h5bp-index", url: `${h5bp}/src/index.html` },
   { lang: "html", name: "invalid-tags", text: htmlInvalidTags },
@@ -902,26 +1315,82 @@ export const inputs: Input[] = [
   { lang: "html", name: "mathjax-mml-chtml", url: `${mathjaxDemos}/page/mml-chtml.html` },
   { lang: "html", name: "mathjax-tex-mml", url: `${mathjaxDemos}/page/tex-mml.html` },
   { lang: "html", name: "sample", url: `${samples}/html.sample` },
-  { lang: "html", name: "three-animation-keyframes", url: `${threeJs}/examples/webgl_animation_keyframes.html` },
-  { lang: "html", name: "three-css3d-periodictable", url: `${threeJs}/examples/css3d_periodictable.html` },
-  { lang: "html", name: "three-geometry-colors", url: `${threeJs}/examples/webgl_geometry_colors.html` },
+  {
+    lang: "html",
+    name: "three-animation-keyframes",
+    url: `${threeJs}/examples/webgl_animation_keyframes.html`,
+  },
+  {
+    lang: "html",
+    name: "three-css3d-periodictable",
+    url: `${threeJs}/examples/css3d_periodictable.html`,
+  },
+  {
+    lang: "html",
+    name: "three-geometry-colors",
+    url: `${threeJs}/examples/webgl_geometry_colors.html`,
+  },
   { lang: "html", name: "three-loader-gltf", url: `${threeJs}/examples/webgl_loader_gltf.html` },
   { lang: "html", name: "todomvc-backbone", url: `${todomvc}/examples/backbone/index.html` },
   { lang: "html", name: "todomvc-jquery", url: `${todomvc}/examples/jquery/index.html` },
   { lang: "html", name: "todomvc-knockoutjs", url: `${todomvc}/examples/knockoutjs/index.html` },
   { lang: "html", name: "todomvc-lit", url: `${todomvc}/examples/lit/index.html` },
   { lang: "html", name: "todomvc-polymer", url: `${todomvc}/examples/polymer/index.html` },
-  { lang: "html-derivative", name: "vue-classic-grid", url: `${vue}/packages/vue/examples/classic/grid.html` },
-  { lang: "html-derivative", name: "vue-classic-todomvc", url: `${vue}/packages/vue/examples/classic/todomvc.html` },
-  { lang: "html-derivative", name: "vue-commits", url: `${vue}/packages/vue/examples/composition/commits.html` },
-  { lang: "html-derivative", name: "vue-grid", url: `${vue}/packages/vue/examples/composition/grid.html` },
-  { lang: "html-derivative", name: "vue-hydration-visible", url: `${vue}/packages/vue/__tests__/e2e/hydration-strat-visible.html` },
-  { lang: "html-derivative", name: "vue-markdown", url: `${vue}/packages/vue/examples/composition/markdown.html` },
-  { lang: "html-derivative", name: "vue-modal", url: `${vue}/packages/vue/examples/transition/modal.html` },
-  { lang: "html-derivative", name: "vue-svg", url: `${vue}/packages/vue/examples/composition/svg.html` },
-  { lang: "html-derivative", name: "vue-todomvc", url: `${vue}/packages/vue/examples/composition/todomvc.html` },
-  { lang: "html-derivative", name: "vue-transition-list", url: `${vue}/packages/vue/examples/transition/list.html` },
-  { lang: "html-derivative", name: "vue-tree", url: `${vue}/packages/vue/examples/composition/tree.html` },
+  {
+    lang: "html-derivative",
+    name: "vue-classic-grid",
+    url: `${vue}/packages/vue/examples/classic/grid.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-classic-todomvc",
+    url: `${vue}/packages/vue/examples/classic/todomvc.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-commits",
+    url: `${vue}/packages/vue/examples/composition/commits.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-grid",
+    url: `${vue}/packages/vue/examples/composition/grid.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-hydration-visible",
+    url: `${vue}/packages/vue/__tests__/e2e/hydration-strat-visible.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-markdown",
+    url: `${vue}/packages/vue/examples/composition/markdown.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-modal",
+    url: `${vue}/packages/vue/examples/transition/modal.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-svg",
+    url: `${vue}/packages/vue/examples/composition/svg.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-todomvc",
+    url: `${vue}/packages/vue/examples/composition/todomvc.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-transition-list",
+    url: `${vue}/packages/vue/examples/transition/list.html`,
+  },
+  {
+    lang: "html-derivative",
+    name: "vue-tree",
+    url: `${vue}/packages/vue/examples/composition/tree.html`,
+  },
   { lang: "ini", name: "black-tox", url: `${black}/tox.ini` },
   { lang: "ini", name: "coverage", text: iniCoverage },
   { lang: "ini", name: "django-tox", url: `${django}/tox.ini` },
@@ -942,9 +1411,17 @@ export const inputs: Input[] = [
     url: `${commonsLang}/src/main/java/org/apache/commons/lang3/Validate.java`,
   },
   { lang: "java", name: "coverage", text: javaCoverage },
-  { lang: "java", name: "google-java-format-b380299722", url: `${googleJavaFormat}/B380299722.input` },
+  {
+    lang: "java",
+    name: "google-java-format-b380299722",
+    url: `${googleJavaFormat}/B380299722.input`,
+  },
   { lang: "java", name: "google-java-format-i574", url: `${googleJavaFormat}/I574.input` },
-  { lang: "java", name: "google-java-format-lambda-hug", url: `${googleJavaFormat}/LambdaHug.input` },
+  {
+    lang: "java",
+    name: "google-java-format-lambda-hug",
+    url: `${googleJavaFormat}/LambdaHug.input`,
+  },
   { lang: "java", name: "google-java-format-m1", url: `${googleJavaFormat}/M1.input` },
   {
     lang: "java",
@@ -977,30 +1454,106 @@ export const inputs: Input[] = [
   { lang: "javascript", name: "express-application", url: `${express}/lib/application.js` },
   { lang: "javascript", name: "express-response", url: `${express}/lib/response.js` },
   { lang: "javascript", name: "sample", url: `${samples}/javascript.sample` },
-  { lang: "javascript", name: "tsc-await-using-declarations-11", url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.11.ts` },
-  { lang: "javascript", name: "tsc-check-merged-global-umdsymbol", url: `${typescriptTests}/compiler/checkMergedGlobalUMDSymbol.ts` },
-  { lang: "javascript", name: "tsc-contextual-type-caching", url: `${typescriptTests}/compiler/contextualTypeCaching.ts` },
-  { lang: "javascript", name: "tsc-contravariant-only-inference-from-annotated-function-js", url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts` },
-  { lang: "javascript", name: "tsc-declaration-emit-higher-order-retained-generics", url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts` },
-  { lang: "javascript", name: "tsc-divergent-accessors-types7", url: `${typescriptTests}/compiler/divergentAccessorsTypes7.ts` },
-  { lang: "javascript", name: "tsc-fix-signature-caching", url: `${typescriptTests}/conformance/fixSignatureCaching.ts` },
-  { lang: "javascript", name: "tsc-jsdoc-disallowed-in-typescript", url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts` },
-  { lang: "javascript", name: "tsc-jsx-namespace-prefix-in-name", url: `${typescriptTests}/compiler/jsxNamespacePrefixInName.tsx` },
-  { lang: "javascript", name: "tsc-parserharness", url: `${typescriptTests}/conformance/parser/ecmascript5/RealWorld/parserharness.ts` },
-  { lang: "javascript", name: "tsc-plain-jsgrammar-errors", url: `${typescriptTests}/conformance/salsa/plainJSGrammarErrors.ts` },
-  { lang: "javascript", name: "tsc-source-map-validation-statements", url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts` },
-  { lang: "javascript", name: "tsc-tsx-react-emit-entities", url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx` },
-  { lang: "javascript", name: "tsc-variadic-tuples1", url: `${typescriptTests}/conformance/types/tuple/variadicTuples1.ts` },
-  { lang: "javascript", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
+  {
+    lang: "javascript",
+    name: "tsc-await-using-declarations-11",
+    url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.11.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-check-merged-global-umdsymbol",
+    url: `${typescriptTests}/compiler/checkMergedGlobalUMDSymbol.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-contextual-type-caching",
+    url: `${typescriptTests}/compiler/contextualTypeCaching.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-contravariant-only-inference-from-annotated-function-js",
+    url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-declaration-emit-higher-order-retained-generics",
+    url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-divergent-accessors-types7",
+    url: `${typescriptTests}/compiler/divergentAccessorsTypes7.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-fix-signature-caching",
+    url: `${typescriptTests}/conformance/fixSignatureCaching.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-jsdoc-disallowed-in-typescript",
+    url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-jsx-namespace-prefix-in-name",
+    url: `${typescriptTests}/compiler/jsxNamespacePrefixInName.tsx`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-parserharness",
+    url: `${typescriptTests}/conformance/parser/ecmascript5/RealWorld/parserharness.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-plain-jsgrammar-errors",
+    url: `${typescriptTests}/conformance/salsa/plainJSGrammarErrors.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-source-map-validation-statements",
+    url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-tsx-react-emit-entities",
+    url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-variadic-tuples1",
+    url: `${typescriptTests}/conformance/types/tuple/variadicTuples1.ts`,
+  },
+  {
+    lang: "javascript",
+    name: "tsc-yield-expression-inner-comment-emit",
+    url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts`,
+  },
   { lang: "jinja", name: "coverage", text: jinjaCoverage },
-  { lang: "jinja", name: "hypothesis-annotation-card", url: `${hypothesis}/h/templates/includes/annotation_card.html.jinja2` },
+  {
+    lang: "jinja",
+    name: "hypothesis-annotation-card",
+    url: `${hypothesis}/h/templates/includes/annotation_card.html.jinja2`,
+  },
   { lang: "jinja", name: "hypothesis-help", url: `${hypothesis}/h/templates/help.html.jinja2` },
-  { lang: "jinja", name: "hypothesis-navbar", url: `${hypothesis}/h/templates/includes/navbar.html.jinja2` },
-  { lang: "jinja", name: "hypothesis-users", url: `${hypothesis}/h/templates/admin/users.html.jinja2` },
+  {
+    lang: "jinja",
+    name: "hypothesis-navbar",
+    url: `${hypothesis}/h/templates/includes/navbar.html.jinja2`,
+  },
+  {
+    lang: "jinja",
+    name: "hypothesis-users",
+    url: `${hypothesis}/h/templates/admin/users.html.jinja2`,
+  },
   { lang: "jinja", name: "jinjahtml-conf", url: `${jinjahtml}/examples/testing.conf.j2` },
   { lang: "jinja", name: "jinjahtml-service", url: `${jinjahtml}/examples/testing.service.j2` },
   { lang: "jinja", name: "jinjahtml-testing", url: `${jinjahtml}/examples/testing.jinja` },
-  { lang: "jinja", name: "mkdocs-material-nav-item", url: `${mkdocsMaterial}/src/templates/partials/nav-item.html` },
+  {
+    lang: "jinja",
+    name: "mkdocs-material-nav-item",
+    url: `${mkdocsMaterial}/src/templates/partials/nav-item.html`,
+  },
   { lang: "jinja", name: "sample", url: `${samples}/jinja.sample` },
   { lang: "json", name: "coverage", text: jsonCoverage },
   { lang: "json", name: "sample", url: `${samples}/json.sample` },
@@ -1022,25 +1575,101 @@ export const inputs: Input[] = [
   { lang: "jsx", name: "preact-keys", url: `${preact}/test/browser/keys.test.jsx` },
   { lang: "jsx", name: "preact-render", url: `${preact}/compat/test/browser/render.test.jsx` },
   { lang: "jsx", name: "sample", url: `${samples}/jsx.sample` },
-  { lang: "jsx", name: "tsc-arbitrary-module-namespace-identifiers-syntax", url: `${typescriptTests}/conformance/es2022/arbitraryModuleNamespaceIdentifiers/arbitraryModuleNamespaceIdentifiers_syntax.ts` },
-  { lang: "jsx", name: "tsc-async-with-var-shadowing-es6", url: `${typescriptTests}/conformance/async/es6/asyncWithVarShadowing_es6.ts` },
-  { lang: "jsx", name: "tsc-await-using-declarations-1", url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.1.ts` },
-  { lang: "jsx", name: "tsc-checker-initialization-crash", url: `${typescriptTests}/compiler/checkerInitializationCrash.ts` },
-  { lang: "jsx", name: "tsc-computed-property-names-contextual-type6-es5", url: `${typescriptTests}/conformance/es6/computedProperties/computedPropertyNamesContextualType6_ES5.ts` },
-  { lang: "jsx", name: "tsc-contravariant-only-inference-from-annotated-function-js", url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts` },
-  { lang: "jsx", name: "tsc-control-flow-optional-chain", url: `${typescriptTests}/conformance/controlFlow/controlFlowOptionalChain.ts` },
-  { lang: "jsx", name: "tsc-correlated-unions", url: `${typescriptTests}/compiler/correlatedUnions.ts` },
-  { lang: "jsx", name: "tsc-declaration-emit-binding-patterns-unused", url: `${typescriptTests}/compiler/declarationEmitBindingPatternsUnused.ts` },
-  { lang: "jsx", name: "tsc-declaration-emit-higher-order-retained-generics", url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts` },
-  { lang: "jsx", name: "tsc-divergent-accessors-types7", url: `${typescriptTests}/compiler/divergentAccessorsTypes7.ts` },
-  { lang: "jsx", name: "tsc-fix-signature-caching", url: `${typescriptTests}/conformance/fixSignatureCaching.ts` },
-  { lang: "jsx", name: "tsc-jsdoc-disallowed-in-typescript", url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts` },
-  { lang: "jsx", name: "tsc-jsx-complex-signature-has-applicability-error", url: `${typescriptTests}/compiler/jsxComplexSignatureHasApplicabilityError.tsx` },
-  { lang: "jsx", name: "tsc-jsx-namespace-prefix-in-name", url: `${typescriptTests}/compiler/jsxNamespacePrefixInName.tsx` },
-  { lang: "jsx", name: "tsc-parserharness", url: `${typescriptTests}/conformance/parser/ecmascript5/RealWorld/parserharness.ts` },
-  { lang: "jsx", name: "tsc-source-map-validation-statements", url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts` },
-  { lang: "jsx", name: "tsc-tsx-react-emit-entities", url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx` },
-  { lang: "jsx", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
+  {
+    lang: "jsx",
+    name: "tsc-arbitrary-module-namespace-identifiers-syntax",
+    url: `${typescriptTests}/conformance/es2022/arbitraryModuleNamespaceIdentifiers/arbitraryModuleNamespaceIdentifiers_syntax.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-async-with-var-shadowing-es6",
+    url: `${typescriptTests}/conformance/async/es6/asyncWithVarShadowing_es6.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-await-using-declarations-1",
+    url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.1.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-checker-initialization-crash",
+    url: `${typescriptTests}/compiler/checkerInitializationCrash.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-computed-property-names-contextual-type6-es5",
+    url: `${typescriptTests}/conformance/es6/computedProperties/computedPropertyNamesContextualType6_ES5.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-contravariant-only-inference-from-annotated-function-js",
+    url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-control-flow-optional-chain",
+    url: `${typescriptTests}/conformance/controlFlow/controlFlowOptionalChain.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-correlated-unions",
+    url: `${typescriptTests}/compiler/correlatedUnions.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-declaration-emit-binding-patterns-unused",
+    url: `${typescriptTests}/compiler/declarationEmitBindingPatternsUnused.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-declaration-emit-higher-order-retained-generics",
+    url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-divergent-accessors-types7",
+    url: `${typescriptTests}/compiler/divergentAccessorsTypes7.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-fix-signature-caching",
+    url: `${typescriptTests}/conformance/fixSignatureCaching.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-jsdoc-disallowed-in-typescript",
+    url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-jsx-complex-signature-has-applicability-error",
+    url: `${typescriptTests}/compiler/jsxComplexSignatureHasApplicabilityError.tsx`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-jsx-namespace-prefix-in-name",
+    url: `${typescriptTests}/compiler/jsxNamespacePrefixInName.tsx`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-parserharness",
+    url: `${typescriptTests}/conformance/parser/ecmascript5/RealWorld/parserharness.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-source-map-validation-statements",
+    url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-tsx-react-emit-entities",
+    url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx`,
+  },
+  {
+    lang: "jsx",
+    name: "tsc-yield-expression-inner-comment-emit",
+    url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts`,
+  },
   { lang: "julia", name: "base-abstractset", url: `${julia}/base/abstractset.jl` },
   { lang: "julia", name: "base-sort", url: `${julia}/base/sort.jl` },
   { lang: "julia", name: "coverage", text: juliaCoverage },
@@ -1099,57 +1728,233 @@ export const inputs: Input[] = [
     url: `${turbine}/src/commonTest/kotlin/app/cash/turbine/FlowTest.kt`,
   },
   { lang: "latex", name: "coverage", text: latexCoverage },
-  { lang: "latex", name: "latex-basics-33-wordref", url: `${latexBasics}/test/colorize-fixtures/33-wordref.tex` },
-  { lang: "latex", name: "latex-basics-basic-commands", url: `${latexBasics}/test/colorize-fixtures/basic-commands.tex` },
-  { lang: "latex", name: "latex-basics-basic-envs", url: `${latexBasics}/test/colorize-fixtures/basic-envs.tex` },
-  { lang: "latex", name: "latex-basics-basics", url: `${latexBasics}/test/colorize-fixtures/basics.dtx` },
-  { lang: "latex", name: "latex-basics-beamer", url: `${latexBasics}/test/colorize-fixtures/beamer.tex` },
-  { lang: "latex", name: "latex-basics-cite", url: `${latexBasics}/test/colorize-fixtures/cite.tex` },
-  { lang: "latex", name: "latex-basics-code-asy", url: `${latexBasics}/test/colorize-fixtures/code-asy.tex` },
-  { lang: "latex", name: "latex-basics-code-cpp", url: `${latexBasics}/test/colorize-fixtures/code-cpp.tex` },
-  { lang: "latex", name: "latex-basics-code-css", url: `${latexBasics}/test/colorize-fixtures/code-css.tex` },
-  { lang: "latex", name: "latex-basics-code-html", url: `${latexBasics}/test/colorize-fixtures/code-html.tex` },
-  { lang: "latex", name: "latex-basics-code-java", url: `${latexBasics}/test/colorize-fixtures/code-java.tex` },
-  { lang: "latex", name: "latex-basics-code-jl", url: `${latexBasics}/test/colorize-fixtures/code-jl.tex` },
-  { lang: "latex", name: "latex-basics-code-js", url: `${latexBasics}/test/colorize-fixtures/code-js.tex` },
-  { lang: "latex", name: "latex-basics-code-lua", url: `${latexBasics}/test/colorize-fixtures/code-lua.tex` },
-  { lang: "latex", name: "latex-basics-code-py", url: `${latexBasics}/test/colorize-fixtures/code-py.tex` },
-  { lang: "latex", name: "latex-basics-code-rb", url: `${latexBasics}/test/colorize-fixtures/code-rb.tex` },
-  { lang: "latex", name: "latex-basics-code-ts", url: `${latexBasics}/test/colorize-fixtures/code-ts.tex` },
-  { lang: "latex", name: "latex-basics-code-xml", url: `${latexBasics}/test/colorize-fixtures/code-xml.tex` },
-  { lang: "latex", name: "latex-basics-code-yaml", url: `${latexBasics}/test/colorize-fixtures/code-yaml.tex` },
-  { lang: "latex", name: "latex-basics-hyperref-cmds", url: `${latexBasics}/test/colorize-fixtures/hyperref-cmds.tex` },
-  { lang: "latex", name: "latex-basics-minted", url: `${latexBasics}/test/colorize-fixtures/minted.tex` },
-  { lang: "latex", name: "latex-basics-new-commands", url: `${latexBasics}/test/colorize-fixtures/new-commands.tex` },
-  { lang: "latex", name: "latex-basics-robust-externalize", url: `${latexBasics}/test/colorize-fixtures/robust-externalize.tex` },
-  { lang: "latex", name: "latex-basics-songs", url: `${latexBasics}/test/colorize-fixtures/songs.tex` },
-  { lang: "latex", name: "latex-basics-terminal", url: `${latexBasics}/test/colorize-fixtures/terminal.tex` },
-  { lang: "latex", name: "latex-basics-tikz", url: `${latexBasics}/test/colorize-fixtures/tikz.tex` },
+  {
+    lang: "latex",
+    name: "latex-basics-33-wordref",
+    url: `${latexBasics}/test/colorize-fixtures/33-wordref.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-basic-commands",
+    url: `${latexBasics}/test/colorize-fixtures/basic-commands.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-basic-envs",
+    url: `${latexBasics}/test/colorize-fixtures/basic-envs.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-basics",
+    url: `${latexBasics}/test/colorize-fixtures/basics.dtx`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-beamer",
+    url: `${latexBasics}/test/colorize-fixtures/beamer.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-cite",
+    url: `${latexBasics}/test/colorize-fixtures/cite.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-asy",
+    url: `${latexBasics}/test/colorize-fixtures/code-asy.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-cpp",
+    url: `${latexBasics}/test/colorize-fixtures/code-cpp.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-css",
+    url: `${latexBasics}/test/colorize-fixtures/code-css.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-html",
+    url: `${latexBasics}/test/colorize-fixtures/code-html.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-java",
+    url: `${latexBasics}/test/colorize-fixtures/code-java.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-jl",
+    url: `${latexBasics}/test/colorize-fixtures/code-jl.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-js",
+    url: `${latexBasics}/test/colorize-fixtures/code-js.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-lua",
+    url: `${latexBasics}/test/colorize-fixtures/code-lua.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-py",
+    url: `${latexBasics}/test/colorize-fixtures/code-py.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-rb",
+    url: `${latexBasics}/test/colorize-fixtures/code-rb.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-ts",
+    url: `${latexBasics}/test/colorize-fixtures/code-ts.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-xml",
+    url: `${latexBasics}/test/colorize-fixtures/code-xml.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-code-yaml",
+    url: `${latexBasics}/test/colorize-fixtures/code-yaml.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-hyperref-cmds",
+    url: `${latexBasics}/test/colorize-fixtures/hyperref-cmds.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-minted",
+    url: `${latexBasics}/test/colorize-fixtures/minted.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-new-commands",
+    url: `${latexBasics}/test/colorize-fixtures/new-commands.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-robust-externalize",
+    url: `${latexBasics}/test/colorize-fixtures/robust-externalize.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-songs",
+    url: `${latexBasics}/test/colorize-fixtures/songs.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-terminal",
+    url: `${latexBasics}/test/colorize-fixtures/terminal.tex`,
+  },
+  {
+    lang: "latex",
+    name: "latex-basics-tikz",
+    url: `${latexBasics}/test/colorize-fixtures/tikz.tex`,
+  },
   { lang: "latex", name: "sample", url: `${samples}/latex.sample` },
   { lang: "less", name: "antd-button-mixin", url: `${antd}/components/button/style/mixin.less` },
-  { lang: "less", name: "antd-color-palette", url: `${antd}/components/style/color/colorPalette.less` },
-  { lang: "less", name: "antd-compact-item", url: `${antd}/components/style/mixins/compact-item.less` },
+  {
+    lang: "less",
+    name: "antd-color-palette",
+    url: `${antd}/components/style/color/colorPalette.less`,
+  },
+  {
+    lang: "less",
+    name: "antd-compact-item",
+    url: `${antd}/components/style/mixins/compact-item.less`,
+  },
   { lang: "less", name: "antd-customize", url: `${antd}/components/style/mixins/customize.less` },
   { lang: "less", name: "bootstrap3-forms", url: `${bootstrap3}/less/forms.less` },
-  { lang: "less", name: "bootstrap3-mixins-buttons", url: `${bootstrap3}/less/mixins/buttons.less` },
-  { lang: "less", name: "bootstrap3-mixins-gradients", url: `${bootstrap3}/less/mixins/gradients.less` },
-  { lang: "less", name: "bootstrap3-mixins-grid-framework", url: `${bootstrap3}/less/mixins/grid-framework.less` },
+  {
+    lang: "less",
+    name: "bootstrap3-mixins-buttons",
+    url: `${bootstrap3}/less/mixins/buttons.less`,
+  },
+  {
+    lang: "less",
+    name: "bootstrap3-mixins-gradients",
+    url: `${bootstrap3}/less/mixins/gradients.less`,
+  },
+  {
+    lang: "less",
+    name: "bootstrap3-mixins-grid-framework",
+    url: `${bootstrap3}/less/mixins/grid-framework.less`,
+  },
   { lang: "less", name: "bootstrap3-navbar", url: `${bootstrap3}/less/navbar.less` },
   { lang: "less", name: "bootstrap3-variables", url: `${bootstrap3}/less/variables.less` },
   { lang: "less", name: "coverage", text: lessCoverage },
-  { lang: "less", name: "lessjs-at-rules", url: `${lessjs}/packages/test-data/tests-unit/at-rules/at-rules.less` },
-  { lang: "less", name: "lessjs-at-rules-compressed", url: `${lessjs}/packages/test-data/tests-config/at-rules-compressed/at-rules-compressed.less` },
-  { lang: "less", name: "lessjs-container", url: `${lessjs}/packages/test-data/tests-unit/container/container.less` },
-  { lang: "less", name: "lessjs-css-3", url: `${lessjs}/packages/test-data/tests-unit/css-3/css-3.less` },
-  { lang: "less", name: "lessjs-extract-and-length", url: `${lessjs}/packages/test-data/tests-unit/extract-and-length/extract-and-length.less` },
-  { lang: "less", name: "lessjs-functions", url: `${lessjs}/packages/test-data/tests-unit/functions/functions.less` },
-  { lang: "less", name: "lessjs-functions-each", url: `${lessjs}/packages/test-data/tests-unit/functions-each/functions-each.less` },
-  { lang: "less", name: "lessjs-import-reference", url: `${lessjs}/packages/test-data/tests-unit/import/import/import-reference.less` },
-  { lang: "less", name: "lessjs-math-strict", url: `${lessjs}/packages/test-data/tests-config/math-strict/css.less` },
-  { lang: "less", name: "lessjs-merge", url: `${lessjs}/packages/test-data/tests-unit/merge/merge.less` },
-  { lang: "less", name: "lessjs-selectors", url: `${lessjs}/packages/test-data/tests-unit/selectors/selectors.less` },
-  { lang: "less", name: "lessjs-sourcemaps-comprehensive", url: `${lessjs}/packages/test-data/tests-config/sourcemaps/comprehensive/comprehensive.less` },
-  { lang: "less", name: "lessjs-urls", url: `${lessjs}/packages/test-data/tests-unit/urls/urls.less` },
+  {
+    lang: "less",
+    name: "lessjs-at-rules",
+    url: `${lessjs}/packages/test-data/tests-unit/at-rules/at-rules.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-at-rules-compressed",
+    url: `${lessjs}/packages/test-data/tests-config/at-rules-compressed/at-rules-compressed.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-container",
+    url: `${lessjs}/packages/test-data/tests-unit/container/container.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-css-3",
+    url: `${lessjs}/packages/test-data/tests-unit/css-3/css-3.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-extract-and-length",
+    url: `${lessjs}/packages/test-data/tests-unit/extract-and-length/extract-and-length.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-functions",
+    url: `${lessjs}/packages/test-data/tests-unit/functions/functions.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-functions-each",
+    url: `${lessjs}/packages/test-data/tests-unit/functions-each/functions-each.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-import-reference",
+    url: `${lessjs}/packages/test-data/tests-unit/import/import/import-reference.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-math-strict",
+    url: `${lessjs}/packages/test-data/tests-config/math-strict/css.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-merge",
+    url: `${lessjs}/packages/test-data/tests-unit/merge/merge.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-selectors",
+    url: `${lessjs}/packages/test-data/tests-unit/selectors/selectors.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-sourcemaps-comprehensive",
+    url: `${lessjs}/packages/test-data/tests-config/sourcemaps/comprehensive/comprehensive.less`,
+  },
+  {
+    lang: "less",
+    name: "lessjs-urls",
+    url: `${lessjs}/packages/test-data/tests-unit/urls/urls.less`,
+  },
   { lang: "less", name: "sample", url: `${samples}/less.sample` },
   { lang: "lua", name: "coverage", text: luaCoverage },
   { lang: "lua", name: "inspect", url: `${inspectLua}/inspect.lua` },
@@ -1184,7 +1989,11 @@ export const inputs: Input[] = [
     url: `${argumentParser}/Sources/ArgumentParser/Documentation.docc/Articles/GettingStarted.md`,
   },
   { lang: "markdown", name: "benchmark-user-guide", url: `${benchmark}/docs/user_guide.md` },
-  { lang: "markdown", name: "black-other-tools", url: `${black}/docs/guides/using_black_with_other_tools.md` },
+  {
+    lang: "markdown",
+    name: "black-other-tools",
+    url: `${black}/docs/guides/using_black_with_other_tools.md`,
+  },
   {
     lang: "markdown",
     name: "book-ownership",
@@ -1247,22 +2056,50 @@ export const inputs: Input[] = [
     name: "kingfisher-common-tasks-cache",
     url: `${kingfisher}/Sources/Documentation.docc/CommonTasks/CommonTasks_Cache.md`,
   },
-  { lang: "markdown", name: "knex-schema-builder", url: `${knex}/docs/src/guide/schema-builder.md` },
+  {
+    lang: "markdown",
+    name: "knex-schema-builder",
+    url: `${knex}/docs/src/guide/schema-builder.md`,
+  },
   { lang: "markdown", name: "ky-readme", url: `${ky}/readme.md` },
   { lang: "markdown", name: "latexrun-readme", url: `${latexrun}/README.md` },
   { lang: "markdown", name: "less-pop", text: markdownLessPop },
-  { lang: "markdown", name: "markdownlint-blanks-around-headings-arrays", url: `${markdownlint}/test/blanks-around-headings-arrays.md` },
-  { lang: "markdown", name: "markdownlint-link-style-autolink-only", url: `${markdownlint}/test/link-style-autolink-only.md` },
-  { lang: "markdown", name: "next-with-docker-export-readme", url: `${nextjs}/examples/with-docker-export-output/README.md` },
-  { lang: "markdown", name: "next-with-docker-readme", url: `${nextjs}/examples/with-docker/README.md` },
+  {
+    lang: "markdown",
+    name: "markdownlint-blanks-around-headings-arrays",
+    url: `${markdownlint}/test/blanks-around-headings-arrays.md`,
+  },
+  {
+    lang: "markdown",
+    name: "markdownlint-link-style-autolink-only",
+    url: `${markdownlint}/test/link-style-autolink-only.md`,
+  },
+  {
+    lang: "markdown",
+    name: "next-with-docker-export-readme",
+    url: `${nextjs}/examples/with-docker-export-output/README.md`,
+  },
+  {
+    lang: "markdown",
+    name: "next-with-docker-readme",
+    url: `${nextjs}/examples/with-docker/README.md`,
+  },
   { lang: "markdown", name: "nvm-readme", url: `${nvm}/README.md` },
   { lang: "markdown", name: "perl-heredoc-tags-1", text: markdownPerlHeredocTags1 },
   { lang: "markdown", name: "perl-heredoc-tags-2", text: markdownPerlHeredocTags2 },
   { lang: "markdown", name: "pgvector-readme", url: `${pgvector}/README.md` },
   { lang: "markdown", name: "php-fence", text: markdownPhpFence },
   { lang: "markdown", name: "poetry-faq", url: `${poetry}/docs/faq.md` },
-  { lang: "markdown", name: "powershell-releasing", url: `${powershell}/docs/maintainers/releasing.md` },
-  { lang: "markdown", name: "powershell-windows-build", url: `${powershell}/docs/building/windows-core.md` },
+  {
+    lang: "markdown",
+    name: "powershell-releasing",
+    url: `${powershell}/docs/maintainers/releasing.md`,
+  },
+  {
+    lang: "markdown",
+    name: "powershell-windows-build",
+    url: `${powershell}/docs/building/windows-core.md`,
+  },
   { lang: "markdown", name: "preact-readme", url: `${preact}/README.md` },
   { lang: "markdown", name: "prettier-plugins", url: `${prettier}/docs/plugins.md` },
   { lang: "markdown", name: "pyenv-readme", url: `${pyenv}/README.md` },
@@ -1270,10 +2107,22 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "rich-readme", url: `${rich}/README.md` },
   { lang: "markdown", name: "sample", url: `${samples}/markdown.sample` },
   { lang: "markdown", name: "scala3-enums", url: `${scala3}/docs/_docs/reference/enums/enums.md` },
-  { lang: "markdown", name: "scala3-givens", url: `${scala3}/docs/_docs/reference/contextual/givens.md` },
+  {
+    lang: "markdown",
+    name: "scala3-givens",
+    url: `${scala3}/docs/_docs/reference/contextual/givens.md`,
+  },
   { lang: "markdown", name: "serde-readme", url: `${serde}/README.md` },
-  { lang: "markdown", name: "shadcn-data-table", url: `${shadcn}/apps/v4/content/docs/components/radix/data-table.mdx` },
-  { lang: "markdown", name: "shadcn-message-scroller", url: `${shadcn}/apps/v4/content/docs/components/radix/message-scroller.mdx` },
+  {
+    lang: "markdown",
+    name: "shadcn-data-table",
+    url: `${shadcn}/apps/v4/content/docs/components/radix/data-table.mdx`,
+  },
+  {
+    lang: "markdown",
+    name: "shadcn-message-scroller",
+    url: `${shadcn}/apps/v4/content/docs/components/radix/message-scroller.mdx`,
+  },
   { lang: "markdown", name: "tokio-readme", url: `${tokio}/README.md` },
   {
     lang: "markdown",
@@ -1302,7 +2151,11 @@ export const inputs: Input[] = [
     url: `${vite}/docs/guide/features.md`,
   },
   { lang: "markdown", name: "vite-ssr", url: `${vite}/docs/guide/ssr.md` },
-  { lang: "markdown", name: "vitepress-runtime-api", url: `${vitepress}/docs/en/reference/runtime-api.md` },
+  {
+    lang: "markdown",
+    name: "vitepress-runtime-api",
+    url: `${vitepress}/docs/en/reference/runtime-api.md`,
+  },
   {
     lang: "markdown",
     name: "vitest-migration-jest",
@@ -1325,15 +2178,35 @@ export const inputs: Input[] = [
   { lang: "matlab", name: "chebfun-roots", url: `${chebfun}/@chebfun/roots.m` },
   { lang: "matlab", name: "chebfun-sum", url: `${chebfun}/@chebfun/sum.m` },
   { lang: "matlab", name: "coverage", text: matlabCoverage },
-  { lang: "matlab", name: "grammar-arguments-block", url: `${matlabGrammar}/test/t13ArgumentsBlock.m` },
-  { lang: "matlab", name: "grammar-property-validation", url: `${matlabGrammar}/test/t08PropertyValidation.m` },
+  {
+    lang: "matlab",
+    name: "grammar-arguments-block",
+    url: `${matlabGrammar}/test/t13ArgumentsBlock.m`,
+  },
+  {
+    lang: "matlab",
+    name: "grammar-property-validation",
+    url: `${matlabGrammar}/test/t08PropertyValidation.m`,
+  },
   { lang: "matlab", name: "sample", url: `${samples}/matlab.sample` },
   // Shiki's Markdown grammar has no Mermaid fence, so no Markdown input
   // embeds Mermaid.
-  { lang: "mermaid", name: "api-sequence", url: `${mermaid}/docs/diagrams/mermaid-api-sequence.mmd` },
+  {
+    lang: "mermaid",
+    name: "api-sequence",
+    url: `${mermaid}/docs/diagrams/mermaid-api-sequence.mmd`,
+  },
   { lang: "mermaid", name: "coverage", text: mermaidCoverage },
-  { lang: "mermaid", name: "flowchart-code-flow", url: `${mermaid}/docs/diagrams/flowchart-code-flow.mmd` },
-  { lang: "mermaid", name: "mindmap-sequence", url: `${mermaid}/docs/diagrams/mindmap-implementation-sequence.mmd` },
+  {
+    lang: "mermaid",
+    name: "flowchart-code-flow",
+    url: `${mermaid}/docs/diagrams/flowchart-code-flow.mmd`,
+  },
+  {
+    lang: "mermaid",
+    name: "mindmap-sequence",
+    url: `${mermaid}/docs/diagrams/mindmap-implementation-sequence.mmd`,
+  },
   { lang: "mermaid", name: "sample", url: `${samples}/mermaid.sample` },
   // Shiki's Markdown grammar has no Nix fence, so no Markdown input embeds Nix.
   { lang: "nix", name: "coverage", text: nixCoverage },
@@ -1343,34 +2216,98 @@ export const inputs: Input[] = [
   { lang: "nix", name: "nixpkgs-ripgrep", url: `${nixpkgs}/pkgs/by-name/ri/ripgrep/package.nix` },
   { lang: "nix", name: "sample", url: `${samples}/nix.sample` },
   // Objective-C has a hand lexer.
-  { lang: "objective-c", name: "afnetworking-http-session-manager", url: `${afnetworking}/AFNetworking/AFHTTPSessionManager.h` },
-  { lang: "objective-c", name: "afnetworking-url-session-manager", url: `${afnetworking}/AFNetworking/AFURLSessionManager.m` },
+  {
+    lang: "objective-c",
+    name: "afnetworking-http-session-manager",
+    url: `${afnetworking}/AFNetworking/AFHTTPSessionManager.h`,
+  },
+  {
+    lang: "objective-c",
+    name: "afnetworking-url-session-manager",
+    url: `${afnetworking}/AFNetworking/AFURLSessionManager.m`,
+  },
   { lang: "objective-c", name: "coverage", text: objectiveCCoverage },
-  { lang: "objective-c", name: "masonry-constraint-maker", url: `${masonry}/Masonry/MASConstraintMaker.m` },
+  {
+    lang: "objective-c",
+    name: "masonry-constraint-maker",
+    url: `${masonry}/Masonry/MASConstraintMaker.m`,
+  },
   { lang: "objective-c", name: "mbprogresshud", url: `${mbProgressHud}/MBProgressHUD.m` },
   { lang: "objective-c", name: "sample", url: `${samples}/objective-c.sample` },
-  { lang: "objective-c", name: "sdwebimage-graphics-image-renderer", url: `${sdwebimage}/SDWebImage/Core/SDGraphicsImageRenderer.m` },
-  { lang: "objective-c", name: "sdwebimage-image-cache", url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h` },
-  { lang: "objective-c", name: "sdwebimage-manager", url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m` },
+  {
+    lang: "objective-c",
+    name: "sdwebimage-graphics-image-renderer",
+    url: `${sdwebimage}/SDWebImage/Core/SDGraphicsImageRenderer.m`,
+  },
+  {
+    lang: "objective-c",
+    name: "sdwebimage-image-cache",
+    url: `${sdwebimage}/SDWebImage/Core/SDImageCache.h`,
+  },
+  {
+    lang: "objective-c",
+    name: "sdwebimage-manager",
+    url: `${sdwebimage}/SDWebImage/Core/SDWebImageManager.m`,
+  },
   { lang: "objective-c", name: "yykit-macro", url: `${yykit}/YYKit/Base/YYKitMacro.h` },
   // Objective-C++ has a hand lexer.
   // Its grammar repeats Objective-C's, so it reads Objective-C's coverage input too.
   { lang: "objective-cpp", name: "coverage", text: objectiveCppCoverage },
-  { lang: "objective-cpp", name: "grammar-misc-002", url: `${betterObjcpp}/language_examples/misc_002.mm` },
-  { lang: "objective-cpp", name: "grammar-misc-003", url: `${betterObjcpp}/language_examples/misc_003.mm` },
+  {
+    lang: "objective-cpp",
+    name: "grammar-misc-002",
+    url: `${betterObjcpp}/language_examples/misc_002.mm`,
+  },
+  {
+    lang: "objective-cpp",
+    name: "grammar-misc-003",
+    url: `${betterObjcpp}/language_examples/misc_003.mm`,
+  },
   { lang: "objective-cpp", name: "objective-c-coverage", text: objectiveCCoverage },
-  { lang: "objective-cpp", name: "react-native-component-view-registry", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/RCTComponentViewRegistry.mm` },
-  { lang: "objective-cpp", name: "react-native-dev-loading-view", url: `${reactNative}/packages/react-native/React/CoreModules/RCTDevLoadingView.mm` },
-  { lang: "objective-cpp", name: "react-native-device-info", url: `${reactNative}/packages/react-native/React/CoreModules/RCTDeviceInfo.mm` },
-  { lang: "objective-cpp", name: "react-native-legacy-interop-coordinator", url: `${reactNative}/packages/react-native/ReactCommon/react/renderer/components/legacyviewmanagerinterop/platform/ios/react/renderer/components/legacyviewmanagerinterop/RCTLegacyViewManagerInteropCoordinator.mm` },
-  { lang: "objective-cpp", name: "react-native-mounting-manager", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/RCTMountingManager.mm` },
-  { lang: "objective-cpp", name: "react-native-surface-presenter", url: `${reactNative}/packages/react-native/React/Fabric/RCTSurfacePresenter.mm` },
-  { lang: "objective-cpp", name: "react-native-virtual-view", url: `${reactNative}/packages/react-native/React/Fabric/Mounting/ComponentViews/VirtualView/RCTVirtualViewComponentView.mm` },
+  {
+    lang: "objective-cpp",
+    name: "react-native-component-view-registry",
+    url: `${reactNative}/packages/react-native/React/Fabric/Mounting/RCTComponentViewRegistry.mm`,
+  },
+  {
+    lang: "objective-cpp",
+    name: "react-native-dev-loading-view",
+    url: `${reactNative}/packages/react-native/React/CoreModules/RCTDevLoadingView.mm`,
+  },
+  {
+    lang: "objective-cpp",
+    name: "react-native-device-info",
+    url: `${reactNative}/packages/react-native/React/CoreModules/RCTDeviceInfo.mm`,
+  },
+  {
+    lang: "objective-cpp",
+    name: "react-native-legacy-interop-coordinator",
+    url: `${reactNative}/packages/react-native/ReactCommon/react/renderer/components/legacyviewmanagerinterop/platform/ios/react/renderer/components/legacyviewmanagerinterop/RCTLegacyViewManagerInteropCoordinator.mm`,
+  },
+  {
+    lang: "objective-cpp",
+    name: "react-native-mounting-manager",
+    url: `${reactNative}/packages/react-native/React/Fabric/Mounting/RCTMountingManager.mm`,
+  },
+  {
+    lang: "objective-cpp",
+    name: "react-native-surface-presenter",
+    url: `${reactNative}/packages/react-native/React/Fabric/RCTSurfacePresenter.mm`,
+  },
+  {
+    lang: "objective-cpp",
+    name: "react-native-virtual-view",
+    url: `${reactNative}/packages/react-native/React/Fabric/Mounting/ComponentViews/VirtualView/RCTVirtualViewComponentView.mm`,
+  },
   { lang: "objective-cpp", name: "sample", url: `${samples}/objective-cpp.sample` },
   { lang: "pascal", name: "coverage", text: pascalCoverage },
   { lang: "pascal", name: "horse-commons", url: `${horse}/src/Horse.Commons.pas` },
   { lang: "pascal", name: "horse-http2-framing", url: `${horse}/src/Horse.Core.Http2.Framing.pas` },
-  { lang: "pascal", name: "horse-websocket-console", url: `${horse}/samples/lazarus/console_websocket/console_websocket.lpr` },
+  {
+    lang: "pascal",
+    name: "horse-websocket-console",
+    url: `${horse}/samples/lazarus/console_websocket/console_websocket.lpr`,
+  },
   { lang: "pascal", name: "r8brain-dll", url: `${r8brain}/DLL/r8bsrc.pas` },
   { lang: "pascal", name: "sample", url: `${samples}/pascal.sample` },
   // Perl runs on the TextMate engine. Its heredocs hand HTML, XML, CSS,
@@ -1384,38 +2321,102 @@ export const inputs: Input[] = [
   // XML, JavaScript, JSON and CSS to their lexers.
   { lang: "php", name: "coverage", text: phpCoverage },
   { lang: "php", name: "embedded", text: phpEmbedded },
-  { lang: "php", name: "laravel-postgres-grammar", url: `${laravel}/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php` },
+  {
+    lang: "php",
+    name: "laravel-postgres-grammar",
+    url: `${laravel}/src/Illuminate/Database/Query/Grammars/PostgresGrammar.php`,
+  },
   { lang: "php", name: "laravel-router", url: `${laravel}/src/Illuminate/Routing/Router.php` },
   { lang: "php", name: "sample", url: `${samples}/php.sample` },
   // PostCSS has a lexer of its own on the rule engine.
   { lang: "postcss", name: "coverage", text: postcssCoverage },
-  { lang: "postcss", name: "custom-media-basic", url: `${csstools}/plugins/postcss-custom-media/test/basic.css` },
-  { lang: "postcss", name: "custom-selectors-basic", url: `${csstools}/plugins/postcss-custom-selectors/test/basic.css` },
-  { lang: "postcss", name: "mixins-arguments", url: `${csstools}/plugins/postcss-mixins/test/arguments.css` },
-  { lang: "postcss", name: "mixins-spaces", url: `${csstools}/plugins/postcss-mixins/test/spaces.css` },
-  { lang: "postcss", name: "nesting-at-nest", url: `${csstools}/plugins/postcss-nesting/test/at-nest.css` },
-  { lang: "postcss", name: "nesting-spec-examples", url: `${csstools}/plugins/postcss-nesting/test/spec-examples.css` },
+  {
+    lang: "postcss",
+    name: "custom-media-basic",
+    url: `${csstools}/plugins/postcss-custom-media/test/basic.css`,
+  },
+  {
+    lang: "postcss",
+    name: "custom-selectors-basic",
+    url: `${csstools}/plugins/postcss-custom-selectors/test/basic.css`,
+  },
+  {
+    lang: "postcss",
+    name: "mixins-arguments",
+    url: `${csstools}/plugins/postcss-mixins/test/arguments.css`,
+  },
+  {
+    lang: "postcss",
+    name: "mixins-spaces",
+    url: `${csstools}/plugins/postcss-mixins/test/spaces.css`,
+  },
+  {
+    lang: "postcss",
+    name: "nesting-at-nest",
+    url: `${csstools}/plugins/postcss-nesting/test/at-nest.css`,
+  },
+  {
+    lang: "postcss",
+    name: "nesting-spec-examples",
+    url: `${csstools}/plugins/postcss-nesting/test/spec-examples.css`,
+  },
   { lang: "postcss", name: "sample", url: `${samples}/postcss.sample` },
-  { lang: "postcss", name: "tailwind-preflight", url: `${tailwind}/packages/tailwindcss/preflight.css` },
+  {
+    lang: "postcss",
+    name: "tailwind-preflight",
+    url: `${tailwind}/packages/tailwindcss/preflight.css`,
+  },
   { lang: "powershell", name: "coverage", text: powershellCoverage },
   { lang: "powershell", name: "dotnet-install", url: `${dotnetInstall}/src/dotnet-install.ps1` },
-  { lang: "powershell", name: "install-powershell", url: `${powershell}/tools/install-powershell.ps1` },
+  {
+    lang: "powershell",
+    name: "install-powershell",
+    url: `${powershell}/tools/install-powershell.ps1`,
+  },
   { lang: "powershell", name: "sample", url: `${samples}/powershell.sample` },
-  { lang: "powershell", name: "set-release-tag", url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1` },
+  {
+    lang: "powershell",
+    name: "set-release-tag",
+    url: `${powershell}/tools/releaseBuild/setReleaseTag.ps1`,
+  },
   // Protobuf runs on the TextMate engine. Shiki's Markdown grammar has no
   // Protobuf fence, so no Markdown input embeds it.
   { lang: "proto", name: "coverage", text: protoCoverage },
   { lang: "proto", name: "googleapis-http", url: `${googleapis}/google/api/http.proto` },
-  { lang: "proto", name: "googleapis-operations", url: `${googleapis}/google/longrunning/operations.proto` },
+  {
+    lang: "proto",
+    name: "googleapis-operations",
+    url: `${googleapis}/google/longrunning/operations.proto`,
+  },
   { lang: "proto", name: "grpc-route-guide", url: `${grpc}/examples/protos/route_guide.proto` },
   { lang: "proto", name: "sample", url: `${samples}/proto.sample` },
-  { lang: "python", name: "black-attribute-access-on-number-literals", url: `${black}/tests/data/cases/attribute_access_on_number_literals.py` },
-  { lang: "python", name: "black-bytes-docstring", url: `${black}/tests/data/cases/bytes_docstring.py` },
+  {
+    lang: "python",
+    name: "black-attribute-access-on-number-literals",
+    url: `${black}/tests/data/cases/attribute_access_on_number_literals.py`,
+  },
+  {
+    lang: "python",
+    name: "black-bytes-docstring",
+    url: `${black}/tests/data/cases/bytes_docstring.py`,
+  },
   { lang: "python", name: "black-fmtonoff", url: `${black}/tests/data/cases/fmtonoff.py` },
   { lang: "python", name: "black-pep-701", url: `${black}/tests/data/cases/pep_701.py` },
-  { lang: "python", name: "black-python2-detection", url: `${black}/tests/data/miscellaneous/python2_detection.py` },
-  { lang: "python", name: "black-string-prefixes", url: `${black}/tests/data/cases/string_prefixes.py` },
-  { lang: "python", name: "black-string-quotes", url: `${black}/tests/data/miscellaneous/string_quotes.py` },
+  {
+    lang: "python",
+    name: "black-python2-detection",
+    url: `${black}/tests/data/miscellaneous/python2_detection.py`,
+  },
+  {
+    lang: "python",
+    name: "black-string-prefixes",
+    url: `${black}/tests/data/cases/string_prefixes.py`,
+  },
+  {
+    lang: "python",
+    name: "black-string-quotes",
+    url: `${black}/tests/data/miscellaneous/string_quotes.py`,
+  },
   { lang: "python", name: "black-strings", url: `${black}/src/black/strings.py` },
   { lang: "python", name: "coverage", text: pythonCoverage },
   { lang: "python", name: "fastapi-routing", url: `${fastapi}/fastapi/routing.py` },
@@ -1423,7 +2424,11 @@ export const inputs: Input[] = [
   { lang: "python", name: "pytest-python", url: `${pytest}/src/_pytest/python.py` },
   { lang: "python", name: "requests-models", url: `${requests}/src/requests/models.py` },
   { lang: "python", name: "rich-console", url: `${rich}/rich/console.py` },
-  { lang: "python", name: "ruff-class", url: `${ruff}/crates/ruff_python_parser/resources/valid/statement/class.py` },
+  {
+    lang: "python",
+    name: "ruff-class",
+    url: `${ruff}/crates/ruff_python_parser/resources/valid/statement/class.py`,
+  },
   { lang: "python", name: "sample", url: `${samples}/python.sample` },
   { lang: "r", name: "coverage", text: rCoverage },
   { lang: "r", name: "dplyr-across", url: `${dplyr}/R/across.R` },
@@ -1445,7 +2450,11 @@ export const inputs: Input[] = [
   { lang: "ruby", name: "rack-response", url: `${rack}/lib/rack/response.rb` },
   { lang: "ruby", name: "rack-spec-headers", url: `${rack}/test/spec_headers.rb` },
   { lang: "ruby", name: "rack-spec-lint", url: `${rack}/test/spec_lint.rb` },
-  { lang: "ruby", name: "rails-callbacks", url: `${rails}/activesupport/lib/active_support/callbacks.rb` },
+  {
+    lang: "ruby",
+    name: "rails-callbacks",
+    url: `${rails}/activesupport/lib/active_support/callbacks.rb`,
+  },
   {
     lang: "ruby",
     name: "rails-inflector",
@@ -1455,14 +2464,46 @@ export const inputs: Input[] = [
   { lang: "ruby", name: "rake-task", url: `${rake}/lib/rake/task.rb` },
   { lang: "ruby", name: "rspec-example", url: `${rspecCore}/lib/rspec/core/example.rb` },
   { lang: "ruby", name: "rubocop-cop-base", url: `${rubocop}/lib/rubocop/cop/base.rb` },
-  { lang: "ruby", name: "rubocop-duplicated-gem", url: `${rubocop}/lib/rubocop/cop/bundler/duplicated_gem.rb` },
-  { lang: "ruby", name: "rubocop-line-length-spec", url: `${rubocop}/spec/rubocop/cop/layout/line_length_spec.rb` },
-  { lang: "ruby", name: "rubocop-percent-literal-delimiters-spec", url: `${rubocop}/spec/rubocop/cop/style/percent_literal_delimiters_spec.rb` },
-  { lang: "ruby", name: "rubocop-quoted-symbols-spec", url: `${rubocop}/spec/rubocop/cop/style/quoted_symbols_spec.rb` },
-  { lang: "ruby", name: "rubocop-redundant-percent-q-spec", url: `${rubocop}/spec/rubocop/cop/style/redundant_percent_q_spec.rb` },
-  { lang: "ruby", name: "rubocop-regexp-literal-spec", url: `${rubocop}/spec/rubocop/cop/style/regexp_literal_spec.rb` },
-  { lang: "ruby", name: "rubocop-symbol-array-spec", url: `${rubocop}/spec/rubocop/cop/style/symbol_array_spec.rb` },
-  { lang: "ruby", name: "rubocop-useless-assignment-spec", url: `${rubocop}/spec/rubocop/cop/lint/useless_assignment_spec.rb` },
+  {
+    lang: "ruby",
+    name: "rubocop-duplicated-gem",
+    url: `${rubocop}/lib/rubocop/cop/bundler/duplicated_gem.rb`,
+  },
+  {
+    lang: "ruby",
+    name: "rubocop-line-length-spec",
+    url: `${rubocop}/spec/rubocop/cop/layout/line_length_spec.rb`,
+  },
+  {
+    lang: "ruby",
+    name: "rubocop-percent-literal-delimiters-spec",
+    url: `${rubocop}/spec/rubocop/cop/style/percent_literal_delimiters_spec.rb`,
+  },
+  {
+    lang: "ruby",
+    name: "rubocop-quoted-symbols-spec",
+    url: `${rubocop}/spec/rubocop/cop/style/quoted_symbols_spec.rb`,
+  },
+  {
+    lang: "ruby",
+    name: "rubocop-redundant-percent-q-spec",
+    url: `${rubocop}/spec/rubocop/cop/style/redundant_percent_q_spec.rb`,
+  },
+  {
+    lang: "ruby",
+    name: "rubocop-regexp-literal-spec",
+    url: `${rubocop}/spec/rubocop/cop/style/regexp_literal_spec.rb`,
+  },
+  {
+    lang: "ruby",
+    name: "rubocop-symbol-array-spec",
+    url: `${rubocop}/spec/rubocop/cop/style/symbol_array_spec.rb`,
+  },
+  {
+    lang: "ruby",
+    name: "rubocop-useless-assignment-spec",
+    url: `${rubocop}/spec/rubocop/cop/lint/useless_assignment_spec.rb`,
+  },
   { lang: "ruby", name: "sample", url: `${samples}/ruby.sample` },
   { lang: "ruby", name: "thor", url: `${thor}/lib/thor.rb` },
   { lang: "ruby", name: "xml-heredocs", text: rubyXmlHeredocs },
@@ -1484,15 +2525,31 @@ export const inputs: Input[] = [
   { lang: "sass", name: "coverage", text: sassCoverage },
   { lang: "sass", name: "sample", url: `${samples}/sass.sample` },
   { lang: "scala", name: "circe-build", url: `${circe}/build.sbt` },
-  { lang: "scala", name: "circe-json", url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala` },
+  {
+    lang: "scala",
+    name: "circe-json",
+    url: `${circe}/modules/core/shared/src/main/scala/io/circe/Json.scala`,
+  },
   { lang: "scala", name: "coverage", text: scalaCoverage },
   { lang: "scala", name: "sample", url: `${samples}/scala.sample` },
-  { lang: "scala", name: "scala3-boundary", url: `${scala3}/library/src/scala/util/boundary.scala` },
-  { lang: "scala", name: "scala3-source-position", url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala` },
+  {
+    lang: "scala",
+    name: "scala3-boundary",
+    url: `${scala3}/library/src/scala/util/boundary.scala`,
+  },
+  {
+    lang: "scala",
+    name: "scala3-source-position",
+    url: `${scala3}/compiler/src/dotty/tools/dotc/util/SourcePosition.scala`,
+  },
   { lang: "scss", name: "angular-menu", url: `${angularComponents}/src/material/menu/menu.scss` },
   { lang: "scss", name: "bootstrap-button", url: `${bootstrap}/scss/buttons/_button.scss` },
   { lang: "scss", name: "bootstrap-functions", url: `${bootstrap}/scss/_functions.scss` },
-  { lang: "scss", name: "bootstrap-mixins-form-validation", url: `${bootstrap}/scss/mixins/_form-validation.scss` },
+  {
+    lang: "scss",
+    name: "bootstrap-mixins-form-validation",
+    url: `${bootstrap}/scss/mixins/_form-validation.scss`,
+  },
   { lang: "scss", name: "bootstrap-mixins-grid", url: `${bootstrap}/scss/mixins/_grid.scss` },
   { lang: "scss", name: "bootstrap-navbar", url: `${bootstrap}/scss/_navbar.scss` },
   { lang: "scss", name: "bootstrap-root", url: `${bootstrap}/scss/_root.scss` },
@@ -1503,23 +2560,67 @@ export const inputs: Input[] = [
   { lang: "scss", name: "coverage", text: scssCoverage },
   { lang: "scss", name: "sample", url: `${samples}/scss.sample` },
   { lang: "shaderlab", name: "coverage", text: shaderlabCoverage },
-  { lang: "shaderlab", name: "kinobloom-bloom", url: `${kinoBloom}/Assets/Kino/Bloom/Shader/Bloom.shader` },
-  { lang: "shaderlab", name: "kinobloom-cubemap", url: `${kinoBloom}/Assets/SkyboxPlus/Cubemap.shader` },
-  { lang: "shaderlab", name: "kinobloom-gradients", url: `${kinoBloom}/Assets/SkyboxPlus/Gradients.shader` },
+  {
+    lang: "shaderlab",
+    name: "kinobloom-bloom",
+    url: `${kinoBloom}/Assets/Kino/Bloom/Shader/Bloom.shader`,
+  },
+  {
+    lang: "shaderlab",
+    name: "kinobloom-cubemap",
+    url: `${kinoBloom}/Assets/SkyboxPlus/Cubemap.shader`,
+  },
+  {
+    lang: "shaderlab",
+    name: "kinobloom-gradients",
+    url: `${kinoBloom}/Assets/SkyboxPlus/Gradients.shader`,
+  },
   { lang: "shaderlab", name: "sample", url: `${samples}/shaderlab.sample` },
-  { lang: "shaderlab", name: "unity-mobile-vertexlit", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Mobile/Mobile-VertexLit.shader` },
-  { lang: "shaderlab", name: "unity-particle-add", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Particle%20Add.shader` },
-  { lang: "shaderlab", name: "unity-skybox", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Skybox.shader` },
-  { lang: "shaderlab", name: "unity-sprites-diffuse", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Sprites-Diffuse.shader` },
-  { lang: "shaderlab", name: "unity-ui-default", url: `${unityBuiltinShaders}/DefaultResourcesExtra/UI/UI-Default.shader` },
-  { lang: "shaderlab", name: "unity-unlit-alpha", url: `${unityBuiltinShaders}/DefaultResourcesExtra/Unlit/Unlit-Alpha.shader` },
+  {
+    lang: "shaderlab",
+    name: "unity-mobile-vertexlit",
+    url: `${unityBuiltinShaders}/DefaultResourcesExtra/Mobile/Mobile-VertexLit.shader`,
+  },
+  {
+    lang: "shaderlab",
+    name: "unity-particle-add",
+    url: `${unityBuiltinShaders}/DefaultResourcesExtra/Particle%20Add.shader`,
+  },
+  {
+    lang: "shaderlab",
+    name: "unity-skybox",
+    url: `${unityBuiltinShaders}/DefaultResourcesExtra/Skybox.shader`,
+  },
+  {
+    lang: "shaderlab",
+    name: "unity-sprites-diffuse",
+    url: `${unityBuiltinShaders}/DefaultResourcesExtra/Sprites-Diffuse.shader`,
+  },
+  {
+    lang: "shaderlab",
+    name: "unity-ui-default",
+    url: `${unityBuiltinShaders}/DefaultResourcesExtra/UI/UI-Default.shader`,
+  },
+  {
+    lang: "shaderlab",
+    name: "unity-unlit-alpha",
+    url: `${unityBuiltinShaders}/DefaultResourcesExtra/Unlit/Unlit-Alpha.shader`,
+  },
   { lang: "shellscript", name: "bats-core-bats", url: `${batsCore}/libexec/bats-core/bats` },
-  { lang: "shellscript", name: "bats-core-gather-tests", url: `${batsCore}/libexec/bats-core/bats-gather-tests` },
+  {
+    lang: "shellscript",
+    name: "bats-core-gather-tests",
+    url: `${batsCore}/libexec/bats-core/bats-gather-tests`,
+  },
   { lang: "shellscript", name: "coverage", text: shellscriptCoverage },
   { lang: "shellscript", name: "docker-install", url: `${dockerInstall}/install.sh` },
   { lang: "shellscript", name: "homebrew-uninstall", url: `${homebrewInstall}/uninstall.sh` },
   { lang: "shellscript", name: "nvm", url: `${nvm}/nvm.sh` },
-  { lang: "shellscript", name: "ohmyzsh-alias-finder-test", url: `${ohmyzsh}/plugins/alias-finder/tests/test_run.sh` },
+  {
+    lang: "shellscript",
+    name: "ohmyzsh-alias-finder-test",
+    url: `${ohmyzsh}/plugins/alias-finder/tests/test_run.sh`,
+  },
   { lang: "shellscript", name: "pyenv-init", url: `${pyenv}/libexec/pyenv-init` },
   { lang: "shellscript", name: "ruby-build", url: `${rubyBuild}/bin/ruby-build` },
   { lang: "shellscript", name: "sample", url: `${samples}/shellscript.sample` },
@@ -1548,22 +2649,62 @@ export const inputs: Input[] = [
   { lang: "svelte", name: "coverage", text: svelteCoverage },
   { lang: "svelte", name: "dollar-script", text: svelteDollarScript },
   { lang: "svelte", name: "invalid-tags", text: svelteInvalidTags },
-  { lang: "svelte", name: "kit-root", url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte` },
+  {
+    lang: "svelte",
+    name: "kit-root",
+    url: `${svelteKit}/packages/kit/src/runtime/components/root.svelte`,
+  },
   { lang: "svelte", name: "less-pop", text: svelteLessPop },
   { lang: "svelte", name: "sample", url: `${samples}/svelte.sample` },
   { lang: "svelte", name: "script-close", text: svelteScriptClose },
-  { lang: "svelte", name: "site-kit-docs-contents", url: `${svelteSiteKit}/src/lib/docs/DocsContents.svelte` },
-  { lang: "svelte", name: "site-kit-mobile-menu", url: `${svelteSiteKit}/src/lib/nav/MobileMenu.svelte` },
+  {
+    lang: "svelte",
+    name: "site-kit-docs-contents",
+    url: `${svelteSiteKit}/src/lib/docs/DocsContents.svelte`,
+  },
+  {
+    lang: "svelte",
+    name: "site-kit-mobile-menu",
+    url: `${svelteSiteKit}/src/lib/nav/MobileMenu.svelte`,
+  },
   { lang: "svelte", name: "site-kit-nav", url: `${svelteSiteKit}/src/lib/nav/Nav.svelte` },
-  { lang: "svelte", name: "site-kit-search-box", url: `${svelteSiteKit}/src/lib/search/SearchBox.svelte` },
-  { lang: "svelte", name: "site-kit-search-result-list", url: `${svelteSiteKit}/src/lib/search/SearchResultList.svelte` },
+  {
+    lang: "svelte",
+    name: "site-kit-search-box",
+    url: `${svelteSiteKit}/src/lib/search/SearchBox.svelte`,
+  },
+  {
+    lang: "svelte",
+    name: "site-kit-search-result-list",
+    url: `${svelteSiteKit}/src/lib/search/SearchResultList.svelte`,
+  },
   { lang: "svelte", name: "site-kit-text", url: `${svelteSiteKit}/src/lib/components/Text.svelte` },
   { lang: "svelte", name: "site-kit-tooltip", url: `${svelteSiteKit}/src/lib/docs/Tooltip.svelte` },
-  { lang: "svelte", name: "tests-const-tag-component", url: `${svelte}/packages/svelte/tests/runtime-legacy/samples/const-tag-component/main.svelte` },
-  { lang: "svelte", name: "tests-destructure-async-assignments", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/destructure-async-assignments/main.svelte` },
-  { lang: "svelte", name: "tests-form-default-value", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/form-default-value/main.svelte` },
-  { lang: "svelte", name: "tests-props-default-value-behavior", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/props-default-value-behavior/main.svelte` },
-  { lang: "svelte", name: "tests-style-directive-mutations", url: `${svelte}/packages/svelte/tests/runtime-runes/samples/style-directive-mutations/main.svelte` },
+  {
+    lang: "svelte",
+    name: "tests-const-tag-component",
+    url: `${svelte}/packages/svelte/tests/runtime-legacy/samples/const-tag-component/main.svelte`,
+  },
+  {
+    lang: "svelte",
+    name: "tests-destructure-async-assignments",
+    url: `${svelte}/packages/svelte/tests/runtime-runes/samples/destructure-async-assignments/main.svelte`,
+  },
+  {
+    lang: "svelte",
+    name: "tests-form-default-value",
+    url: `${svelte}/packages/svelte/tests/runtime-runes/samples/form-default-value/main.svelte`,
+  },
+  {
+    lang: "svelte",
+    name: "tests-props-default-value-behavior",
+    url: `${svelte}/packages/svelte/tests/runtime-runes/samples/props-default-value-behavior/main.svelte`,
+  },
+  {
+    lang: "svelte",
+    name: "tests-style-directive-mutations",
+    url: `${svelte}/packages/svelte/tests/runtime-runes/samples/style-directive-mutations/main.svelte`,
+  },
   {
     lang: "swift",
     name: "alamofire-af-error",
@@ -1616,21 +2757,81 @@ export const inputs: Input[] = [
     name: "string-processing-custom-tests",
     url: `${stringProcessing}/Tests/RegexBuilderTests/CustomTests.swift`,
   },
-  { lang: "swift", name: "swift-test-decl-func-keyword-argument-labels", url: `${swiftTests}/test/decl/func/keyword-argument-labels.swift` },
-  { lang: "swift", name: "swift-test-decl-func-rethrows", url: `${swiftTests}/test/decl/func/rethrows.swift` },
-  { lang: "swift", name: "swift-test-decl-import-import", url: `${swiftTests}/test/decl/import/import.swift` },
-  { lang: "swift", name: "swift-test-decl-protocol-protocol-enum-witness", url: `${swiftTests}/test/decl/protocol/protocol_enum_witness.swift` },
-  { lang: "swift", name: "swift-test-decl-protocol-protocols", url: `${swiftTests}/test/decl/protocol/protocols.swift` },
-  { lang: "swift", name: "swift-test-expr-expressions", url: `${swiftTests}/test/expr/expressions.swift` },
-  { lang: "swift", name: "swift-test-expr-primary-selector-selector", url: `${swiftTests}/test/expr/primary/selector/selector.swift` },
-  { lang: "swift", name: "swift-test-expr-unary-async-await", url: `${swiftTests}/test/expr/unary/async_await.swift` },
-  { lang: "swift", name: "swift-test-parse-conditionalcompilation-basicparseerrors", url: `${swiftTests}/test/Parse/ConditionalCompilation/basicParseErrors.swift` },
-  { lang: "swift", name: "swift-test-parse-escaped-identifiers", url: `${swiftTests}/test/Parse/escaped_identifiers.swift` },
-  { lang: "swift", name: "swift-test-parse-operator-decl", url: `${swiftTests}/test/Parse/operator_decl.swift` },
-  { lang: "swift", name: "swift-test-parse-raw-string", url: `${swiftTests}/test/Parse/raw_string.swift` },
-  { lang: "swift", name: "swift-test-parse-raw-string-errors", url: `${swiftTests}/test/Parse/raw_string_errors.swift` },
-  { lang: "swift", name: "swift-test-parse-trailing-comma", url: `${swiftTests}/test/Parse/trailing-comma.swift` },
-  { lang: "swift", name: "swift-test-parse-type-expr", url: `${swiftTests}/test/Parse/type_expr.swift` },
+  {
+    lang: "swift",
+    name: "swift-test-decl-func-keyword-argument-labels",
+    url: `${swiftTests}/test/decl/func/keyword-argument-labels.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-decl-func-rethrows",
+    url: `${swiftTests}/test/decl/func/rethrows.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-decl-import-import",
+    url: `${swiftTests}/test/decl/import/import.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-decl-protocol-protocol-enum-witness",
+    url: `${swiftTests}/test/decl/protocol/protocol_enum_witness.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-decl-protocol-protocols",
+    url: `${swiftTests}/test/decl/protocol/protocols.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-expr-expressions",
+    url: `${swiftTests}/test/expr/expressions.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-expr-primary-selector-selector",
+    url: `${swiftTests}/test/expr/primary/selector/selector.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-expr-unary-async-await",
+    url: `${swiftTests}/test/expr/unary/async_await.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-parse-conditionalcompilation-basicparseerrors",
+    url: `${swiftTests}/test/Parse/ConditionalCompilation/basicParseErrors.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-parse-escaped-identifiers",
+    url: `${swiftTests}/test/Parse/escaped_identifiers.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-parse-operator-decl",
+    url: `${swiftTests}/test/Parse/operator_decl.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-parse-raw-string",
+    url: `${swiftTests}/test/Parse/raw_string.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-parse-raw-string-errors",
+    url: `${swiftTests}/test/Parse/raw_string_errors.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-parse-trailing-comma",
+    url: `${swiftTests}/test/Parse/trailing-comma.swift`,
+  },
+  {
+    lang: "swift",
+    name: "swift-test-parse-type-expr",
+    url: `${swiftTests}/test/Parse/type_expr.swift`,
+  },
   {
     lang: "swift",
     name: "testing-runner-tests",
@@ -1638,11 +2839,31 @@ export const inputs: Input[] = [
   },
   // Shiki's Markdown grammar has no fence of its own for TeX: its `tex` fence embeds LaTeX.
   { lang: "tex", name: "coverage", text: texCoverage },
-  { lang: "tex", name: "latex-basics-iffalse", url: `${latexBasics}/test/colorize-fixtures/iffalse.tex` },
-  { lang: "tex", name: "latex-basics-math-envs", url: `${latexBasics}/test/colorize-fixtures/math-envs.tex` },
-  { lang: "tex", name: "latex-basics-maths-inline", url: `${latexBasics}/test/colorize-fixtures/maths-inline.tex` },
-  { lang: "tex", name: "latex-basics-skeleton", url: `${latexBasics}/test/colorize-fixtures/skeleton.dtx` },
-  { lang: "tex", name: "latex-basics-subeqn", url: `${latexBasics}/test/colorize-fixtures/subeqn.dtx` },
+  {
+    lang: "tex",
+    name: "latex-basics-iffalse",
+    url: `${latexBasics}/test/colorize-fixtures/iffalse.tex`,
+  },
+  {
+    lang: "tex",
+    name: "latex-basics-math-envs",
+    url: `${latexBasics}/test/colorize-fixtures/math-envs.tex`,
+  },
+  {
+    lang: "tex",
+    name: "latex-basics-maths-inline",
+    url: `${latexBasics}/test/colorize-fixtures/maths-inline.tex`,
+  },
+  {
+    lang: "tex",
+    name: "latex-basics-skeleton",
+    url: `${latexBasics}/test/colorize-fixtures/skeleton.dtx`,
+  },
+  {
+    lang: "tex",
+    name: "latex-basics-subeqn",
+    url: `${latexBasics}/test/colorize-fixtures/subeqn.dtx`,
+  },
   { lang: "tex", name: "sample", url: `${samples}/tex.sample` },
   { lang: "toml", name: "burntsushi-example", url: `${burntsushiToml}/_example/example.toml` },
   { lang: "toml", name: "cargo-manifest", url: `${cargo}/Cargo.toml` },
@@ -1653,49 +2874,197 @@ export const inputs: Input[] = [
   { lang: "toml", name: "ruff-pyproject", url: `${ruff}/pyproject.toml` },
   { lang: "toml", name: "sample", url: `${samples}/toml.sample` },
   { lang: "toml", name: "tokio-manifest", url: `${tokio}/tokio/Cargo.toml` },
-  { lang: "toml", name: "toml-test-inline-table-key-dotted-01", url: `${tomlTest}/tests/valid/inline-table/key-dotted-01.toml` },
-  { lang: "toml", name: "toml-test-key-quoted-unicode", url: `${tomlTest}/tests/valid/key/quoted-unicode.toml` },
+  {
+    lang: "toml",
+    name: "toml-test-inline-table-key-dotted-01",
+    url: `${tomlTest}/tests/valid/inline-table/key-dotted-01.toml`,
+  },
+  {
+    lang: "toml",
+    name: "toml-test-key-quoted-unicode",
+    url: `${tomlTest}/tests/valid/key/quoted-unicode.toml`,
+  },
   { lang: "tsx", name: "coverage", text: typescriptCoverage },
   { lang: "tsx", name: "sample", url: `${samples}/tsx.sample` },
   { lang: "tsx", name: "shadcn-chart", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/chart.tsx` },
-  { lang: "tsx", name: "shadcn-combobox", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/combobox.tsx` },
-  { lang: "tsx", name: "shadcn-sidebar", url: `${shadcn}/apps/v4/registry/new-york-v4/ui/sidebar.tsx` },
-  { lang: "tsx", name: "tsc-async-with-var-shadowing-es6", url: `${typescriptTests}/conformance/async/es6/asyncWithVarShadowing_es6.ts` },
-  { lang: "tsx", name: "tsc-await-using-declarations-11", url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.11.ts` },
-  { lang: "tsx", name: "tsc-co-and-contra-variant-inferences3", url: `${typescriptTests}/compiler/coAndContraVariantInferences3.ts` },
-  { lang: "tsx", name: "tsc-conflicting-declarations-import-from-namespace2", url: `${typescriptTests}/compiler/conflictingDeclarationsImportFromNamespace2.ts` },
-  { lang: "tsx", name: "tsc-contextual-type-caching", url: `${typescriptTests}/compiler/contextualTypeCaching.ts` },
-  { lang: "tsx", name: "tsc-contravariant-only-inference-from-annotated-function-js", url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts` },
-  { lang: "tsx", name: "tsc-declaration-emit-higher-order-retained-generics", url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts` },
-  { lang: "tsx", name: "tsc-dependent-destructured-variables-from-nested-patterns", url: `${typescriptTests}/conformance/controlFlow/dependentDestructuredVariablesFromNestedPatterns.ts` },
-  { lang: "tsx", name: "tsc-divergent-accessors-types7", url: `${typescriptTests}/compiler/divergentAccessorsTypes7.ts` },
-  { lang: "tsx", name: "tsc-fix-signature-caching", url: `${typescriptTests}/conformance/fixSignatureCaching.ts` },
-  { lang: "tsx", name: "tsc-jsdoc-disallowed-in-typescript", url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts` },
-  { lang: "tsx", name: "tsc-jsx-namespace-prefix-in-name", url: `${typescriptTests}/compiler/jsxNamespacePrefixInName.tsx` },
-  { lang: "tsx", name: "tsc-parserharness", url: `${typescriptTests}/conformance/parser/ecmascript5/RealWorld/parserharness.ts` },
-  { lang: "tsx", name: "tsc-plain-jsgrammar-errors", url: `${typescriptTests}/conformance/salsa/plainJSGrammarErrors.ts` },
-  { lang: "tsx", name: "tsc-source-map-validation-statements", url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts` },
-  { lang: "tsx", name: "tsc-tsx-react-emit-entities", url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx` },
-  { lang: "tsx", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
+  {
+    lang: "tsx",
+    name: "shadcn-combobox",
+    url: `${shadcn}/apps/v4/registry/new-york-v4/ui/combobox.tsx`,
+  },
+  {
+    lang: "tsx",
+    name: "shadcn-sidebar",
+    url: `${shadcn}/apps/v4/registry/new-york-v4/ui/sidebar.tsx`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-async-with-var-shadowing-es6",
+    url: `${typescriptTests}/conformance/async/es6/asyncWithVarShadowing_es6.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-await-using-declarations-11",
+    url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.11.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-co-and-contra-variant-inferences3",
+    url: `${typescriptTests}/compiler/coAndContraVariantInferences3.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-conflicting-declarations-import-from-namespace2",
+    url: `${typescriptTests}/compiler/conflictingDeclarationsImportFromNamespace2.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-contextual-type-caching",
+    url: `${typescriptTests}/compiler/contextualTypeCaching.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-contravariant-only-inference-from-annotated-function-js",
+    url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-declaration-emit-higher-order-retained-generics",
+    url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-dependent-destructured-variables-from-nested-patterns",
+    url: `${typescriptTests}/conformance/controlFlow/dependentDestructuredVariablesFromNestedPatterns.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-divergent-accessors-types7",
+    url: `${typescriptTests}/compiler/divergentAccessorsTypes7.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-fix-signature-caching",
+    url: `${typescriptTests}/conformance/fixSignatureCaching.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-jsdoc-disallowed-in-typescript",
+    url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-jsx-namespace-prefix-in-name",
+    url: `${typescriptTests}/compiler/jsxNamespacePrefixInName.tsx`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-parserharness",
+    url: `${typescriptTests}/conformance/parser/ecmascript5/RealWorld/parserharness.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-plain-jsgrammar-errors",
+    url: `${typescriptTests}/conformance/salsa/plainJSGrammarErrors.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-source-map-validation-statements",
+    url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-tsx-react-emit-entities",
+    url: `${typescriptTests}/conformance/jsx/tsxReactEmitEntities.tsx`,
+  },
+  {
+    lang: "tsx",
+    name: "tsc-yield-expression-inner-comment-emit",
+    url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts`,
+  },
   { lang: "typescript", name: "coverage", text: typescriptCoverage },
   { lang: "typescript", name: "ky-core", url: `${ky}/source/core/Ky.ts` },
   { lang: "typescript", name: "sample", url: `${samples}/typescript.sample` },
-  { lang: "typescript", name: "tsc-assertion-type-predicates1", url: `${typescriptTests}/conformance/controlFlow/assertionTypePredicates1.ts` },
-  { lang: "typescript", name: "tsc-async-with-var-shadowing-es6", url: `${typescriptTests}/conformance/async/es6/asyncWithVarShadowing_es6.ts` },
-  { lang: "typescript", name: "tsc-await-using-declarations-11", url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.11.ts` },
-  { lang: "typescript", name: "tsc-check-merged-global-umdsymbol", url: `${typescriptTests}/compiler/checkMergedGlobalUMDSymbol.ts` },
-  { lang: "typescript", name: "tsc-const-assertions", url: `${typescriptTests}/conformance/expressions/typeAssertions/constAssertions.ts` },
-  { lang: "typescript", name: "tsc-constructor-with-incomplete-type-annotation", url: `${typescriptTests}/compiler/constructorWithIncompleteTypeAnnotation.ts` },
-  { lang: "typescript", name: "tsc-contravariant-only-inference-from-annotated-function-js", url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts` },
-  { lang: "typescript", name: "tsc-declaration-emit-higher-order-retained-generics", url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts` },
-  { lang: "typescript", name: "tsc-declaration-emit-mapped-type-preserves-type-parameter-constraint", url: `${typescriptTests}/compiler/declarationEmitMappedTypePreservesTypeParameterConstraint.ts` },
-  { lang: "typescript", name: "tsc-duplicate-identifier-binding-element-in-parameter-declaration1", url: `${typescriptTests}/compiler/duplicateIdentifierBindingElementInParameterDeclaration1.ts` },
-  { lang: "typescript", name: "tsc-erasable-syntax-only", url: `${typescriptTests}/compiler/erasableSyntaxOnly.ts` },
-  { lang: "typescript", name: "tsc-fix-signature-caching", url: `${typescriptTests}/conformance/fixSignatureCaching.ts` },
-  { lang: "typescript", name: "tsc-intra-expression-inferences", url: `${typescriptTests}/conformance/types/typeRelationships/typeInference/intraExpressionInferences.ts` },
-  { lang: "typescript", name: "tsc-jsdoc-disallowed-in-typescript", url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts` },
-  { lang: "typescript", name: "tsc-source-map-validation-statements", url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts` },
-  { lang: "typescript", name: "tsc-yield-expression-inner-comment-emit", url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts` },
+  {
+    lang: "typescript",
+    name: "tsc-assertion-type-predicates1",
+    url: `${typescriptTests}/conformance/controlFlow/assertionTypePredicates1.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-async-with-var-shadowing-es6",
+    url: `${typescriptTests}/conformance/async/es6/asyncWithVarShadowing_es6.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-await-using-declarations-11",
+    url: `${typescriptTests}/conformance/statements/VariableStatements/usingDeclarations/awaitUsingDeclarations.11.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-check-merged-global-umdsymbol",
+    url: `${typescriptTests}/compiler/checkMergedGlobalUMDSymbol.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-const-assertions",
+    url: `${typescriptTests}/conformance/expressions/typeAssertions/constAssertions.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-constructor-with-incomplete-type-annotation",
+    url: `${typescriptTests}/compiler/constructorWithIncompleteTypeAnnotation.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-contravariant-only-inference-from-annotated-function-js",
+    url: `${typescriptTests}/compiler/contravariantOnlyInferenceFromAnnotatedFunctionJs.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-declaration-emit-higher-order-retained-generics",
+    url: `${typescriptTests}/compiler/declarationEmitHigherOrderRetainedGenerics.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-declaration-emit-mapped-type-preserves-type-parameter-constraint",
+    url: `${typescriptTests}/compiler/declarationEmitMappedTypePreservesTypeParameterConstraint.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-duplicate-identifier-binding-element-in-parameter-declaration1",
+    url: `${typescriptTests}/compiler/duplicateIdentifierBindingElementInParameterDeclaration1.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-erasable-syntax-only",
+    url: `${typescriptTests}/compiler/erasableSyntaxOnly.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-fix-signature-caching",
+    url: `${typescriptTests}/conformance/fixSignatureCaching.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-intra-expression-inferences",
+    url: `${typescriptTests}/conformance/types/typeRelationships/typeInference/intraExpressionInferences.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-jsdoc-disallowed-in-typescript",
+    url: `${typescriptTests}/conformance/jsdoc/jsdocDisallowedInTypescript.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-source-map-validation-statements",
+    url: `${typescriptTests}/compiler/sourceMapValidationStatements.ts`,
+  },
+  {
+    lang: "typescript",
+    name: "tsc-yield-expression-inner-comment-emit",
+    url: `${typescriptTests}/compiler/yieldExpressionInnerCommentEmit.ts`,
+  },
   {
     lang: "typescript",
     name: "vue-api-create-app",
@@ -1712,45 +3081,145 @@ export const inputs: Input[] = [
     url: `${zod}/packages/zod/src/v4/classic/schemas.ts`,
   },
   { lang: "vb", name: "coverage", text: vbCoverage },
-  { lang: "vb", name: "roslyn-error-method-symbol", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb` },
-  { lang: "vb", name: "roslyn-named-type-binder", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb` },
-  { lang: "vb", name: "roslyn-special-members", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/SpecialMembers.vb` },
-  { lang: "vb", name: "roslyn-typed-constant", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/TypedConstant.vb` },
-  { lang: "vb", name: "roslyn-with-block-binder", url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb` },
+  {
+    lang: "vb",
+    name: "roslyn-error-method-symbol",
+    url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/ErrorMethodSymbol.vb`,
+  },
+  {
+    lang: "vb",
+    name: "roslyn-named-type-binder",
+    url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/NamedTypeBinder.vb`,
+  },
+  {
+    lang: "vb",
+    name: "roslyn-special-members",
+    url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/SpecialMembers.vb`,
+  },
+  {
+    lang: "vb",
+    name: "roslyn-typed-constant",
+    url: `${roslyn}/src/Compilers/VisualBasic/Portable/Symbols/TypedConstant.vb`,
+  },
+  {
+    lang: "vb",
+    name: "roslyn-with-block-binder",
+    url: `${roslyn}/src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb`,
+  },
   { lang: "vb", name: "sample", url: `${samples}/vb.sample` },
   { lang: "vue", name: "coverage", text: vueCoverage },
   { lang: "vue", name: "less-pop", text: vueLessPop },
-  { lang: "vue", name: "playground-app", url: `${vue}/packages-private/sfc-playground/src/App.vue` },
-  { lang: "vue", name: "playground-header", url: `${vue}/packages-private/sfc-playground/src/Header.vue` },
-  { lang: "vue", name: "playground-sun", url: `${vue}/packages-private/sfc-playground/src/icons/Sun.vue` },
-  { lang: "vue", name: "playground-version-select", url: `${vue}/packages-private/sfc-playground/src/VersionSelect.vue` },
+  {
+    lang: "vue",
+    name: "playground-app",
+    url: `${vue}/packages-private/sfc-playground/src/App.vue`,
+  },
+  {
+    lang: "vue",
+    name: "playground-header",
+    url: `${vue}/packages-private/sfc-playground/src/Header.vue`,
+  },
+  {
+    lang: "vue",
+    name: "playground-sun",
+    url: `${vue}/packages-private/sfc-playground/src/icons/Sun.vue`,
+  },
+  {
+    lang: "vue",
+    name: "playground-version-select",
+    url: `${vue}/packages-private/sfc-playground/src/VersionSelect.vue`,
+  },
   { lang: "vue", name: "sample", url: `${samples}/vue.sample` },
   { lang: "vue", name: "script-close", text: vueScriptClose },
-  { lang: "vue", name: "vitepress-badge", url: `${vitepress}/src/client/theme-default/components/VPBadge.vue` },
-  { lang: "vue", name: "vitepress-carbon-ads", url: `${vitepress}/src/client/theme-default/components/VPCarbonAds.vue` },
-  { lang: "vue", name: "vitepress-image", url: `${vitepress}/src/client/theme-default/components/VPImage.vue` },
-  { lang: "vue", name: "vitepress-layout", url: `${vitepress}/src/client/theme-default/Layout.vue` },
-  { lang: "vue", name: "vitepress-local-search-box", url: `${vitepress}/src/client/theme-default/components/VPLocalSearchBox.vue` },
+  {
+    lang: "vue",
+    name: "vitepress-badge",
+    url: `${vitepress}/src/client/theme-default/components/VPBadge.vue`,
+  },
+  {
+    lang: "vue",
+    name: "vitepress-carbon-ads",
+    url: `${vitepress}/src/client/theme-default/components/VPCarbonAds.vue`,
+  },
+  {
+    lang: "vue",
+    name: "vitepress-image",
+    url: `${vitepress}/src/client/theme-default/components/VPImage.vue`,
+  },
+  {
+    lang: "vue",
+    name: "vitepress-layout",
+    url: `${vitepress}/src/client/theme-default/Layout.vue`,
+  },
+  {
+    lang: "vue",
+    name: "vitepress-local-search-box",
+    url: `${vitepress}/src/client/theme-default/components/VPLocalSearchBox.vue`,
+  },
   { lang: "vue", name: "vitepress-modal-demo", url: `${vitepress}/docs/components/ModalDemo.vue` },
-  { lang: "vue", name: "vitepress-nav-bar-hamburger", url: `${vitepress}/src/client/theme-default/components/VPNavBarHamburger.vue` },
-  { lang: "vue", name: "vitepress-nav-menu-group", url: `${vitepress}/src/client/theme-default/components/VPNavMenuGroup.vue` },
-  { lang: "vue", name: "vitepress-not-found", url: `${vitepress}/src/client/theme-default/NotFound.vue` },
-  { lang: "vue", name: "vitepress-switch", url: `${vitepress}/src/client/theme-default/components/VPSwitch.vue` },
+  {
+    lang: "vue",
+    name: "vitepress-nav-bar-hamburger",
+    url: `${vitepress}/src/client/theme-default/components/VPNavBarHamburger.vue`,
+  },
+  {
+    lang: "vue",
+    name: "vitepress-nav-menu-group",
+    url: `${vitepress}/src/client/theme-default/components/VPNavMenuGroup.vue`,
+  },
+  {
+    lang: "vue",
+    name: "vitepress-not-found",
+    url: `${vitepress}/src/client/theme-default/NotFound.vue`,
+  },
+  {
+    lang: "vue",
+    name: "vitepress-switch",
+    url: `${vitepress}/src/client/theme-default/components/VPSwitch.vue`,
+  },
   { lang: "xml", name: "ant-build", url: `${ant}/build.xml` },
-  { lang: "xml", name: "ant-checkstyle-frames", url: `${ant}/src/etc/checkstyle/checkstyle-frames.xsl` },
+  {
+    lang: "xml",
+    name: "ant-checkstyle-frames",
+    url: `${ant}/src/etc/checkstyle/checkstyle-frames.xsl`,
+  },
   { lang: "xml", name: "ant-junit-frames", url: `${ant}/src/etc/junit-frames.xsl` },
   { lang: "xml", name: "ant-junit-noframes", url: `${ant}/src/etc/junit-noframes.xsl` },
-  { lang: "xml", name: "bootstrap-logo", url: `${bootstrap}/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg` },
+  {
+    lang: "xml",
+    name: "bootstrap-logo",
+    url: `${bootstrap}/site/static/docs/%5Bversion%5D/assets/brand/bootstrap-logo.svg`,
+  },
   { lang: "xml", name: "commons-lang-pom", url: `${commonsLang}/pom.xml` },
   { lang: "xml", name: "coverage", text: xmlCoverage },
   { lang: "xml", name: "coverage-jsp-comment", text: xmlCoverageJspComment },
-  { lang: "xml", name: "foundation-keyed-archive", url: `${foundation}/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist` },
+  {
+    lang: "xml",
+    name: "foundation-keyed-archive",
+    url: `${foundation}/Tests/Foundation/Resources/NSKeyedUnarchiver-ConcreteValueTest.plist`,
+  },
   { lang: "xml", name: "rome-at", url: `${rome}/rome-modules/src/test/resources/xml/at.xml` },
-  { lang: "xml", name: "rome-slashdot", url: `${rome}/rome-modules/src/test/resources/xml/slashdot.xml` },
-  { lang: "xml", name: "rome-yahoo-top-songs", url: `${rome}/rome-modules/src/test/resources/data/YahooTopSongs.xml` },
+  {
+    lang: "xml",
+    name: "rome-slashdot",
+    url: `${rome}/rome-modules/src/test/resources/xml/slashdot.xml`,
+  },
+  {
+    lang: "xml",
+    name: "rome-yahoo-top-songs",
+    url: `${rome}/rome-modules/src/test/resources/data/YahooTopSongs.xml`,
+  },
   { lang: "xml", name: "sample", url: `${samples}/xml.sample` },
-  { lang: "xml", name: "views-activity-entrance", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml` },
-  { lang: "xml", name: "views-lots-of-cards", url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/lots_of_cards.xml` },
+  {
+    lang: "xml",
+    name: "views-activity-entrance",
+    url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/activity_entrance.xml`,
+  },
+  {
+    lang: "xml",
+    name: "views-lots-of-cards",
+    url: `${viewsWidgets}/ConstraintLayoutExamples/motionlayoutintegrations/src/main/res/layout/lots_of_cards.xml`,
+  },
   { lang: "xml", name: "xerces-design", url: `${xerces}/design/xml/design.xml` },
   { lang: "xml", name: "xerces-schedule", url: `${xerces}/design/xml/schedule.xml` },
   { lang: "xml", name: "xerces-xni-config", url: `${xerces}/docs/xni-config.xml` },

@@ -36,7 +36,9 @@ type Node = {
 };
 type Grammar = { scopeName: string; repository: Record<string, Node>; patterns: Node[] };
 
-const grammar = (vb as unknown as Grammar[]).find((lang) => lang.scopeName === "source.asp.vb.net")!;
+const grammar = (vb as unknown as Grammar[]).find(
+  (lang) => lang.scopeName === "source.asp.vb.net",
+)!;
 const repository = grammar.repository;
 const root = { patterns: grammar.patterns } as Node;
 
@@ -135,10 +137,16 @@ function register(node: Node, id: string): string {
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (patternById.has(id)) return id;
   if (node.match !== undefined) {
-    patternById.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.set(id, {
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   patternById.set(id, {
     id,
     regex: node.begin,
@@ -184,7 +192,9 @@ function flatten(list: Node[], context: string): string[] {
       if (!target) throw new Error(`unknown include ${key}`);
       out.push(...expandNode(target, pascal(key), true));
     } else {
-      out.push(...expandNode(node, context === "Root" ? rootName(index) : `${context}At${index}`, false));
+      out.push(
+        ...expandNode(node, context === "Root" ? rootName(index) : `${context}At${index}`, false),
+      );
     }
   });
   return out;
@@ -206,9 +216,32 @@ function expandNode(node: Node, id: string, shared: boolean): string[] {
 
 /** The names of the root's own patterns, by index. */
 const rootNames = [
-  "LineFeed", "", "Tabs", "Spaces", "FunctionHead", "Comment", "Control", "Operators", "DimName", "Storage",
-  "Modifiers", "Constants", "String", "DollarVariable", "AspClasses", "AspCollections", "AspConstants",
-  "AspFunctions", "AspEvents", "AsType", "Functions", "Numbers", "VbConstants", "FunctionCall", "Variable", "JsOperators",
+  "LineFeed",
+  "",
+  "Tabs",
+  "Spaces",
+  "FunctionHead",
+  "Comment",
+  "Control",
+  "Operators",
+  "DimName",
+  "Storage",
+  "Modifiers",
+  "Constants",
+  "String",
+  "DollarVariable",
+  "AspClasses",
+  "AspCollections",
+  "AspConstants",
+  "AspFunctions",
+  "AspEvents",
+  "AsType",
+  "Functions",
+  "Numbers",
+  "VbConstants",
+  "FunctionCall",
+  "Variable",
+  "JsOperators",
 ];
 if (rootNames.length !== root.patterns!.length) throw new Error("the root's patterns changed");
 function rootName(index: number): string {
@@ -273,7 +306,10 @@ g += arms(
 );
 g += `        }\n    }\n\n    /// What a rule carries from line to line: the begin capture group its\n    /// end repeats.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
 g += arms(
-  ruleList.map((r): [string, string] => [r.id, r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`]),
+  ruleList.map((r): [string, string] => [
+    r.id,
+    r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`,
+  ]),
   "Rule",
 );
 g += `        }\n    }\n}\n\n`;
@@ -297,7 +333,10 @@ g += arms(
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const captures = p.captures.map(([n, names]) => `(${n}, ${scText(names)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -312,7 +351,10 @@ g += `        }\n    }\n}\n`;
 /** The words of the alternation in pattern `id`, in the grammar's order. */
 function ordered(id: string): string[] {
   const regex = patternById.get(id)!.regex;
-  const found = /^\(\?i:\\s\*\\b\(([A-Za-z0-9_ |?]*)\)\\b(?:\\s\*)?\)$|^\(\?i:\\b\(([A-Za-z0-9_ |?]*)\)\\b\)$/.exec(regex);
+  const found =
+    /^\(\?i:\\s\*\\b\(([A-Za-z0-9_ |?]*)\)\\b(?:\\s\*)?\)$|^\(\?i:\\b\(([A-Za-z0-9_ |?]*)\)\\b\)$/.exec(
+      regex,
+    );
   const body = found?.[1] ?? found?.[2];
   if (body === undefined) throw new Error(`${id} changed shape`);
   // A lazy `x??` tries the word without its last letter first.
@@ -368,7 +410,10 @@ for (const [name, id, doc] of lists) {
 
 g += startTable(patternList, "any");
 g += ruleCodes("Vb", "VB");
-g += groupsCheck("Vb", patternList.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "Vb",
+  patternList.flatMap((p) => p.captures.map(([n]) => n)),
+);
 
 await writeRust(`${root_dir}src/vb/grammar.rs`, g);
 

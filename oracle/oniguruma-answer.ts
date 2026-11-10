@@ -27,6 +27,8 @@ export function answer(groups: Group[] | undefined, text: string): string | unde
     return undefined;
   }
   return groups
-    .map(({ start, end }) => (start === unset || end < start ? "x" : `${utf8(text, start)},${utf8(text, end)}`))
+    .map(({ start, end }) =>
+      start === unset || end < start ? "x" : `${utf8(text, start)},${utf8(text, end)}`,
+    )
     .join(";");
 }

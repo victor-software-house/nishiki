@@ -211,7 +211,9 @@ function walk(rule: Rule, path: string, place: Place, tag: boolean): void {
   const inner: Place = rule.repository
     ? { grammar: place.grammar, repositories: [...place.repositories, rule.repository] }
     : place;
-  rule.patterns?.forEach((child, index) => walk(child, under(path, `patterns[${index}]`), inner, tag));
+  rule.patterns?.forEach((child, index) =>
+    walk(child, under(path, `patterns[${index}]`), inner, tag),
+  );
   for (const key of captureKeys) {
     for (const [group, capture] of groupsIn(rule[key])) {
       walk(capture, under(path, `${key}[${group}]`), inner, tag);
@@ -354,7 +356,9 @@ function settle(): void {
 }
 
 const tagged = (source: string | RegExp, letter: "u" | "i") =>
-  typeof source === "string" ? new RegExp(`^\\(\\?#${letter}(\\d+)\\)`).exec(source)?.[1] : undefined;
+  typeof source === "string"
+    ? new RegExp(`^\\(\\?#${letter}(\\d+)\\)`).exec(source)?.[1]
+    : undefined;
 const base = await createOnigurumaEngine(import("shiki@4.6.0/wasm"));
 const engine: RegexEngine = {
   createString: (text) => base.createString(text),
@@ -405,7 +409,7 @@ const newHighlighter = () =>
  * the records in place. It makes no array of every record. */
 function textOf(records: string): string {
   const lines: string[] = [];
-  for (let at = 0; at < records.length; ) {
+  for (let at = 0; at < records.length;) {
     const newline = records.indexOf("\n", at);
     const end = newline < 0 ? records.length : newline;
     if (records.startsWith("L ", at)) lines.push(records.slice(at + 2, end));
@@ -466,7 +470,9 @@ for (const lang of inputLangs) {
   const highlighter = await newHighlighter();
   counting = fixtures;
   const dir = `${root}tests/oracle/${lang}`;
-  for (const name of readdirSync(dir).filter((file) => file.endsWith(".txt")).sort()) {
+  for (const name of readdirSync(dir)
+    .filter((file) => file.endsWith(".txt"))
+    .sort()) {
     const committed = readFileSync(`${dir}/${name}`, "utf8");
     if (!agrees(highlighter, textOf(committed), lang, committed)) differing.push(`${lang}/${name}`);
     Bun.gc(true);
@@ -483,17 +489,24 @@ rmSync(corpus, { recursive: true });
 if (picking) {
   const highlighter = await newHighlighter();
   const keysOf = (counted: Tally) => [
-    ...[...counted.expressions].filter((unit) => expressions[unit]?.grammar === pickGrammar).map(String),
-    ...[...counted.captures].filter((key) => expressions[Number(key.split(":")[0])]?.grammar === pickGrammar),
+    ...[...counted.expressions]
+      .filter((unit) => expressions[unit]?.grammar === pickGrammar)
+      .map(String),
+    ...[...counted.captures].filter(
+      (key) => expressions[Number(key.split(":")[0])]?.grammar === pickGrammar,
+    ),
   ];
   const nameOf = (key: string) => {
     const [unit, group] = key.split(":");
     return `${expressions[Number(unit)]?.path}${group === undefined ? "" : ` group ${group}`}`;
   };
   const all = expressions.flatMap(({ grammar, groups }, unit) =>
-    grammar === pickGrammar && reachable.has(unit) ? [String(unit), ...groups.map((group) => `${unit}:${group}`)] : [],
+    grammar === pickGrammar && reachable.has(unit)
+      ? [String(unit), ...groups.map((group) => `${unit}:${group}`)]
+      : [],
   );
-  if (all.length === 0) throw new Error(`${pickGrammar}: not a hand-lexed grammar with reachable units`);
+  if (all.length === 0)
+    throw new Error(`${pickGrammar}: not a hand-lexed grammar with reachable units`);
   const have = new Set(keysOf(fixtures));
   const files = pickPaths.flatMap((path) =>
     statSync(path).isDirectory()
@@ -510,8 +523,14 @@ if (picking) {
   }
   console.log(`${pickGrammar}: the fixtures exercise ${have.size} of ${all.length} units`);
   for (;;) {
-    const ranked = [...adds].map(([file, keys]) => ({ file, keys: [...keys].filter((key) => !have.has(key)) }));
-    const best = ranked.reduce((a, b) => (b.keys.length > a.keys.length ? b : a), { file: "", keys: [] as string[] });
+    const ranked = [...adds].map(([file, keys]) => ({
+      file,
+      keys: [...keys].filter((key) => !have.has(key)),
+    }));
+    const best = ranked.reduce((a, b) => (b.keys.length > a.keys.length ? b : a), {
+      file: "",
+      keys: [] as string[],
+    });
     if (best.keys.length === 0) break;
     for (const key of best.keys) have.add(key);
     console.log(`+${best.keys.length}\t${have.size}\t${best.file}`);
@@ -582,14 +601,17 @@ for (const waiver of waivers) {
   if (hitIn(fixtures, u)) failures.push(`${where} is exercised by a fixture: remove its waiver`);
   const pieces = `${root}oracle/fuzz/${waiver.grammar}.ts`;
   const probed = (await Bun.file(pieces).exists()) && (await import(pieces)).probe !== undefined;
-  if (waiver.dropped && waiver.probe) failures.push(`the waiver for ${where} is for a dropped rule, which no probe answers`);
-  if (probed && !waiver.probe && !waiver.dropped) failures.push(`the waiver for ${where} names no oracle/onig.ts probe`);
+  if (waiver.dropped && waiver.probe)
+    failures.push(`the waiver for ${where} is for a dropped rule, which no probe answers`);
+  if (probed && !waiver.probe && !waiver.dropped)
+    failures.push(`the waiver for ${where} names no oracle/onig.ts probe`);
   waived.set(keyOf(u), waiver.reason);
 }
 const isWaived = (u: Unit) =>
   waived.has(keyOf(u)) || (u.group !== undefined && waived.has(String(u.unit)));
 for (const name of complete) {
-  if (!handLexed.has(name)) failures.push(`${name} is listed complete, but is not a hand-lexed grammar`);
+  if (!handLexed.has(name))
+    failures.push(`${name} is listed complete, but is not a hand-lexed grammar`);
 }
 
 const rows: string[] = [];
@@ -611,8 +633,12 @@ for (const name of [...handLexed.keys()].sort()) {
   const open = missing.filter((u) => !isWaived(u));
   const listed = complete.includes(name);
   if (listed && open.length > 0) {
-    const paths = open.map((u) => `${expressions[u.unit]?.path}${u.group === undefined ? "" : ` group ${u.group}`}`);
-    failures.push(`${name} is listed complete, but no fixture or waiver covers ${paths.join(", ")}`);
+    const paths = open.map(
+      (u) => `${expressions[u.unit]?.path}${u.group === undefined ? "" : ` group ${u.group}`}`,
+    );
+    failures.push(
+      `${name} is listed complete, but no fixture or waiver covers ${paths.join(", ")}`,
+    );
   }
   const state = listed ? "yes" : open.length === 0 ? "ready" : "";
   rows.push(
@@ -630,7 +656,10 @@ for (const name of [...handLexed.keys()].sort()) {
     if (gaps.length === 0) return [];
     const list = gaps.map((u) => {
       const reason = waived.get(keyOf(u));
-      const marks = [hitIn(fuzzed, u) ? "fuzz" : "", reason === undefined ? "" : `waived: ${reason}`];
+      const marks = [
+        hitIn(fuzzed, u) ? "fuzz" : "",
+        reason === undefined ? "" : `waived: ${reason}`,
+      ];
       const note = marks.filter((mark) => mark !== "").join("; ");
       return `${u.group}${note === "" ? "" : ` (${note})`}`;
     });

@@ -75,19 +75,67 @@ const startEnd = (start: number, startName: string, end: number, endName: string
 
 const lists: [string, string[]][] = [
   ["METADATA_VOID", tags(at(2, "meta.tag.metadata.$2.void.html"))],
-  ["METADATA", startEnd(3, "meta.tag.metadata.$2.start.html", 4, "meta.tag.metadata.$2.end.html", "metadata")],
+  [
+    "METADATA",
+    startEnd(3, "meta.tag.metadata.$2.start.html", 4, "meta.tag.metadata.$2.end.html", "metadata"),
+  ],
   ["STRUCTURE_VOID", tags(at(5, "meta.tag.structure.$2.void.html"))],
-  ["STRUCTURE", startEnd(6, "meta.tag.structure.$2.start.html", 7, "meta.tag.structure.$2.end.html", "structure")],
+  [
+    "STRUCTURE",
+    startEnd(
+      6,
+      "meta.tag.structure.$2.start.html",
+      7,
+      "meta.tag.structure.$2.end.html",
+      "structure",
+    ),
+  ],
   ["INLINE_VOID", tags(at(8, "meta.tag.inline.$2.void.html"))],
-  ["INLINE", startEnd(9, "meta.tag.inline.$2.start.html", 10, "meta.tag.inline.$2.end.html", "inline")],
+  [
+    "INLINE",
+    startEnd(9, "meta.tag.inline.$2.start.html", 10, "meta.tag.inline.$2.end.html", "inline"),
+  ],
   ["OBJECT_VOID", tags(at(11, "meta.tag.object.$2.void.html"))],
-  ["OBJECT", startEnd(12, "meta.tag.object.$2.start.html", 13, "meta.tag.object.$2.end.html", "object")],
+  [
+    "OBJECT",
+    startEnd(12, "meta.tag.object.$2.start.html", 13, "meta.tag.object.$2.end.html", "object"),
+  ],
   ["DEPRECATED_METADATA_VOID", tags(at(14, "meta.tag.metadata.$2.void.html"))],
-  ["DEPRECATED_STRUCTURE", startEnd(15, "meta.tag.structure.$2.start.html", 16, "meta.tag.structure.$2.end.html", "deprecated structure")],
-  ["DEPRECATED_INLINE", startEnd(17, "meta.tag.inline.$2.start.html", 18, "meta.tag.inline.$2.end.html", "deprecated inline")],
+  [
+    "DEPRECATED_STRUCTURE",
+    startEnd(
+      15,
+      "meta.tag.structure.$2.start.html",
+      16,
+      "meta.tag.structure.$2.end.html",
+      "deprecated structure",
+    ),
+  ],
+  [
+    "DEPRECATED_INLINE",
+    startEnd(
+      17,
+      "meta.tag.inline.$2.start.html",
+      18,
+      "meta.tag.inline.$2.end.html",
+      "deprecated inline",
+    ),
+  ],
   ["DEPRECATED_OBJECT_VOID", tags(at(19, "meta.tag.object.$2.void.html"))],
-  ["DEPRECATED_OBJECT", startEnd(20, "meta.tag.object.$2.start.html", 21, "meta.tag.object.$2.end.html", "deprecated object")],
-  ["UNSUPPORTED", startEnd(22, "meta.tag.other.$2.start.html", 23, "meta.tag.other.$2.end.html", "unsupported")],
+  [
+    "DEPRECATED_OBJECT",
+    startEnd(
+      20,
+      "meta.tag.object.$2.start.html",
+      21,
+      "meta.tag.object.$2.end.html",
+      "deprecated object",
+    ),
+  ],
+  [
+    "UNSUPPORTED",
+    startEnd(22, "meta.tag.other.$2.start.html", 23, "meta.tag.other.$2.end.html", "unsupported"),
+  ],
 ];
 
 // The elements of the `svg` and `math` sub-grammars: per category, the list of
@@ -101,7 +149,10 @@ for (const [ns, key, names] of [
   // Patterns 0 and 1 are the comment and the CDATA includes.
   names.forEach((cat, i) => {
     const [voidRule, openRule] = [patterns[2 + 2 * i]!, patterns[3 + 2 * i]!];
-    for (const [suffix, rule] of [["_VOID", voidRule], ["", openRule]] as const) {
+    for (const [suffix, rule] of [
+      ["_VOID", voidRule],
+      ["", openRule],
+    ] as const) {
       const expected = `meta.element.${cat}.${key}.$2.html`;
       if (rule.name !== expected) throw new Error(`${key}: ${rule.name}, not ${expected}`);
       lists.push([`${ns}_${cat.toUpperCase()}${suffix}`, tags(rule.begin ?? rule.match!)]);
@@ -112,7 +163,9 @@ for (const [ns, key, names] of [
 const attributes = (node: Node, key: string): [string, string[]][] => {
   const name = key.toUpperCase();
   const first = node.patterns![0]!.begin!;
-  const out: [string, string[]][] = [[`${name}_ATTRIBUTES`, words(first, "(", ")(?![-:\\w])", false)]];
+  const out: [string, string[]][] = [
+    [`${name}_ATTRIBUTES`, words(first, "(", ")(?![-:\\w])", false)],
+  ];
   return out;
 };
 lists.push(...attributes(repository["attribute"]!, "html"));
@@ -130,10 +183,12 @@ shared.push(["ENTITIES", words(entity, "(&)(?=[A-Za-z])(", ")(;)", false)]);
 
 /** The Rust source of `lists`, each a sorted `&[&str]` of `visibility`. */
 function rust(header: string, visibility: string, lists: [string, string[]][]): string {
-  const tables = lists.map(([name, list]) => dedent`
+  const tables = lists.map(
+    ([name, list]) => dedent`
     ${visibility} const ${name}: &[&str] = &[
         ${list.map((w) => `${JSON.stringify(w)},`).join("\n")}
-    ];`);
+    ];`,
+  );
   return `${[header, ...tables].join("\n\n")}\n`;
 }
 

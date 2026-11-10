@@ -70,10 +70,29 @@ let out = dedent`
   //! \`oracle/python-words.ts\`; do not edit.
 
   `;
-out += wordList("BUILTIN_FUNCTIONS", regexOf("builtin-functions", 0), "The words of `builtin-functions`.") + "\n";
+out +=
+  wordList(
+    "BUILTIN_FUNCTIONS",
+    regexOf("builtin-functions", 0),
+    "The words of `builtin-functions`.",
+  ) + "\n";
 out += wordList("LEGACY_BUILTINS", regexOf("builtin-functions", 1), "The legacy builtins.") + "\n";
 out += wordList("BUILTIN_TYPES", regexOf("builtin-types"), "The words of `builtin-types`.") + "\n";
-out += wordList("BUILTIN_EXCEPTIONS", regexOf("builtin-exceptions"), "The words of `builtin-exceptions`.") + "\n";
-out += wordList("MAGIC_FUNCTIONS", regexOf("magic-function-names"), "The words of `magic-function-names`.") + "\n";
-out += wordList("MAGIC_VARIABLES", regexOf("magic-variable-names"), "The words of `magic-variable-names`.");
+out +=
+  wordList(
+    "BUILTIN_EXCEPTIONS",
+    regexOf("builtin-exceptions"),
+    "The words of `builtin-exceptions`.",
+  ) + "\n";
+out +=
+  wordList(
+    "MAGIC_FUNCTIONS",
+    regexOf("magic-function-names"),
+    "The words of `magic-function-names`.",
+  ) + "\n";
+out += wordList(
+  "MAGIC_VARIABLES",
+  regexOf("magic-variable-names"),
+  "The words of `magic-variable-names`.",
+);
 await Bun.write(new URL("../src/python/words.rs", import.meta.url).pathname, out);

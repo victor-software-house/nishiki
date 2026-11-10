@@ -85,7 +85,13 @@ export type BenchRecord = {
   toolchain: { rustc: string; cargo: string };
   rounds: number;
   cold_processes: number;
-  anchor: { id: string; start_mib_s: number; end_mib_s: number; drift_pct: number; bound_pct: number };
+  anchor: {
+    id: string;
+    start_mib_s: number;
+    end_mib_s: number;
+    drift_pct: number;
+    bound_pct: number;
+  };
   compute: { seconds: number; unit_minutes: number; usd: number } | null;
   criterion: CriterionFigure[];
   latency: LatencyFigure[];
@@ -134,17 +140,24 @@ async function executables(args: string[]): Promise<Map<string, string>> {
 }
 
 /** Each Criterion benchmark saved under `baseline` in `home`, in its unit. */
-function criterionFigures(home: string, baseline: string): Map<string, { unit: CriterionFigure["unit"]; value: number }> {
+function criterionFigures(
+  home: string,
+  baseline: string,
+): Map<string, { unit: CriterionFigure["unit"]; value: number }> {
   const figures = new Map<string, { unit: CriterionFigure["unit"]; value: number }>();
   const suffix = `/${baseline}/benchmark.json`;
   for (const path of readdirSync(home, { recursive: true }) as string[]) {
     if (!path.endsWith(suffix)) continue;
     const dir = join(home, path.slice(0, -"/benchmark.json".length));
     const benchmark = JSON.parse(readFileSync(join(dir, "benchmark.json"), "utf8"));
-    const ns: number = JSON.parse(readFileSync(join(dir, "estimates.json"), "utf8")).median.point_estimate;
+    const ns: number = JSON.parse(readFileSync(join(dir, "estimates.json"), "utf8")).median
+      .point_estimate;
     const throughput = benchmark.throughput ?? {};
     if ("Bytes" in throughput) {
-      figures.set(benchmark.full_id, { unit: "MiB/s", value: (throughput.Bytes / ns) * 1e9 / MIB });
+      figures.set(benchmark.full_id, {
+        unit: "MiB/s",
+        value: ((throughput.Bytes / ns) * 1e9) / MIB,
+      });
     } else if ("Elements" in throughput) {
       figures.set(benchmark.full_id, { unit: "Melem/s", value: (throughput.Elements / ns) * 1e3 });
     } else {
@@ -163,7 +176,10 @@ function tsv(text: string): Record<string, string>[] {
 
 /** This host's description, or an error naming the reference class when it is another host. */
 export async function referenceHost(): Promise<BenchRecord["host"]> {
-  if (process.platform !== "linux") throw new Error(`a record comes from the reference host class, ${REFERENCE.class}, and this host is not Linux`);
+  if (process.platform !== "linux")
+    throw new Error(
+      `a record comes from the reference host class, ${REFERENCE.class}, and this host is not Linux`,
+    );
   const cpuinfo = readFileSync("/proc/cpuinfo", "utf8");
   const meminfo = readFileSync("/proc/meminfo", "utf8");
   const osRelease = readFileSync("/etc/os-release", "utf8");
@@ -200,18 +216,24 @@ async function main(): Promise<void> {
   });
   const rounds = Number(values.rounds);
   const coldProcesses = Number(values["cold-processes"]);
-  if (!Number.isInteger(rounds) || rounds < 5) throw new Error("--rounds needs a whole number of at least 5");
-  if (!Number.isInteger(coldProcesses) || coldProcesses < 4) throw new Error("--cold-processes needs a whole number of at least 4");
+  if (!Number.isInteger(rounds) || rounds < 5)
+    throw new Error("--rounds needs a whole number of at least 5");
+  if (!Number.isInteger(coldProcesses) || coldProcesses < 4)
+    throw new Error("--cold-processes needs a whole number of at least 4");
   const host = await referenceHost();
   if ((await $`git status --porcelain`.text()).trim() !== "") {
-    throw new Error("the tree has changes: a record names one commit, so commit or stash them first");
+    throw new Error(
+      "the tree has changes: a record names one commit, so commit or stash them first",
+    );
   }
 
   const started = new Date();
   const commit = (await $`git rev-parse HEAD`.text()).trim();
   const date = started.toISOString().slice(0, 10);
   const stem = `${date}-${commit.slice(0, 8)}`;
-  const corpusVersion = Number(readFileSync("bench/corpus.toml", "utf8").match(/^version = (\d+)$/m)?.[1]);
+  const corpusVersion = Number(
+    readFileSync("bench/corpus.toml", "utf8").match(/^version = (\d+)$/m)?.[1],
+  );
   const home = join(process.env.CARGO_TARGET_DIR ?? "target", "record", stem);
   rmSync(home, { recursive: true, force: true });
   mkdirSync(home, { recursive: true });
@@ -223,7 +245,8 @@ async function main(): Promise<void> {
   const styling = benches.get("styling");
   const latency = bins.get("latency");
   const cold = bins.get("cold");
-  if (!throughput || !styling || !latency || !cold) throw new Error("the bench workspace built without one of its programs");
+  if (!throughput || !styling || !latency || !cold)
+    throw new Error("the bench workspace built without one of its programs");
 
   let raw = dedent`
     commit ${commit}
@@ -235,7 +258,17 @@ async function main(): Promise<void> {
     return output;
   };
   const anchor = async (baseline: string): Promise<number> => {
-    await run(`anchor, ${baseline}`, [throughput, "--bench", `^${ANCHOR}$`, "--warm-up-time", "1", "--measurement-time", "2", "--save-baseline", baseline]);
+    await run(`anchor, ${baseline}`, [
+      throughput,
+      "--bench",
+      `^${ANCHOR}$`,
+      "--warm-up-time",
+      "1",
+      "--measurement-time",
+      "2",
+      "--save-baseline",
+      baseline,
+    ]);
     const figure = criterionFigures(home, baseline).get(ANCHOR);
     if (!figure) throw new Error(`the anchor ${ANCHOR} printed no estimate`);
     return figure.value;
@@ -268,7 +301,8 @@ async function main(): Promise<void> {
       `the anchor moved ${driftPct.toFixed(2)}% (${anchorStart.toFixed(1)} to ${anchorEnd.toFixed(1)} MiB/s), over the reference class's bound of ${REFERENCE.bound_pct}%: no record written; rerun. The output is in ${home}`,
     );
   }
-  const numbers = (rows: Record<string, string>[], column: string) => summary(rows.map((row) => Number(row[column])));
+  const numbers = (rows: Record<string, string>[], column: string) =>
+    summary(rows.map((row) => Number(row[column])));
   const record: BenchRecord = {
     schema: SCHEMA,
     commit,
@@ -283,9 +317,19 @@ async function main(): Promise<void> {
     },
     rounds,
     cold_processes: coldProcesses,
-    anchor: { id: ANCHOR, start_mib_s: anchorStart, end_mib_s: anchorEnd, drift_pct: driftPct, bound_pct: REFERENCE.bound_pct },
+    anchor: {
+      id: ANCHOR,
+      start_mib_s: anchorStart,
+      end_mib_s: anchorEnd,
+      drift_pct: driftPct,
+      bound_pct: REFERENCE.bound_pct,
+    },
     compute: null,
-    criterion: [...criterion].map(([id, { unit, rounds }]) => ({ id, unit, value: summary(rounds) })),
+    criterion: [...criterion].map(([id, { unit, rounds }]) => ({
+      id,
+      unit,
+      value: summary(rounds),
+    })),
     latency: [...latencyRows.values()].map((rows) => ({
       language: rows[0].language,
       tier: rows[0].tier,

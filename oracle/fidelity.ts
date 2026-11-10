@@ -62,7 +62,10 @@ const checkedInputs = ids.flatMap((id) => [
   { id, sample: id, input: standIns[id] ?? `${samples}/${id}.sample` },
   ...(extraInputs[id] ?? []).map((path) => ({
     id,
-    sample: path.split("/").at(-1)!.replace(/\.[^.]*$/, ""),
+    sample: path
+      .split("/")
+      .at(-1)!
+      .replace(/\.[^.]*$/, ""),
     input: path,
   })),
 ]);
@@ -70,7 +73,9 @@ const checkedInputs = ids.flatMap((id) => [
 /** The text at `input`, a URL read from the mirror or a path in this
  * repository, with CRLF read as LF, as Shiki splits lines. */
 async function inputText(input: string): Promise<string> {
-  const text = input.startsWith("https://") ? await sourceText(input) : await Bun.file(`${repository}${input}`).text();
+  const text = input.startsWith("https://")
+    ? await sourceText(input)
+    : await Bun.file(`${repository}${input}`).text();
   return text.replaceAll("\r\n", "\n");
 }
 

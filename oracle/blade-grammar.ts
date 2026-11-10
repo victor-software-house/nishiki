@@ -34,12 +34,17 @@ function bladeEmbedded(key: string) {
     patterns: entry.patterns!.map((node) => {
       if (!node.begin?.includes("(BLADE)")) return node;
       const html = node.patterns!.findIndex((p) => p.include === "text.html.basic");
-      return { ...node, patterns: [...node.patterns!.slice(0, html), { include: "text.html.php.blade" }] };
+      return {
+        ...node,
+        patterns: [...node.patterns!.slice(0, html), { include: "text.html.php.blade" }],
+      };
     }),
   };
 }
 const supportList = grammar.repository.support!.patterns!;
-const construct = supportList.findIndex((node) => node.begin !== undefined && node.end === undefined);
+const construct = supportList.findIndex(
+  (node) => node.begin !== undefined && node.end === undefined,
+);
 const repository = {
   ...grammar.repository,
   support: {
@@ -58,7 +63,12 @@ const repository = {
 };
 
 await generate({
-  grammar: { ...grammar, repository, scopeName: "source.php", patterns: [{ include: "#language" }] },
+  grammar: {
+    ...grammar,
+    repository,
+    scopeName: "source.php",
+    patterns: [{ include: "#language" }],
+  },
   name: "blade",
   script: "blade-grammar.ts",
   dir: "blade",

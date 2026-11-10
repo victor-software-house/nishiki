@@ -77,7 +77,9 @@ function locked(crate: string): string {
 
 /** A package's pinned version in bench/compare/shiki.ts's imports. */
 function pinned(spec: string): string {
-  const version = new RegExp(`"${spec.replace("/", "\\/")}@(\\d+\\.\\d+\\.\\d+)`).exec(readFileSync("bench/compare/shiki.ts", "utf8"))?.[1];
+  const version = new RegExp(`"${spec.replace("/", "\\/")}@(\\d+\\.\\d+\\.\\d+)`).exec(
+    readFileSync("bench/compare/shiki.ts", "utf8"),
+  )?.[1];
   if (!version) throw new Error(`${spec} has no pinned version in bench/compare/shiki.ts`);
   return version;
 }
@@ -85,13 +87,55 @@ function pinned(spec: string): string {
 /** The engines of the comparison, with the versions their builds pin. */
 function engines(commit: string): CompareEngine[] {
   return [
-    { name: "nishiki", version: commit.slice(0, 8), features: "every language, textmate tier", backend: "hand lexers and its TextMate engine", runtime: "rust" },
-    { name: "syntect", version: `${locked("syntect")}, two-face ${locked("two-face")}`, features: "default", backend: "Oniguruma", runtime: "rust" },
-    { name: "tree-sitter", version: locked("tree-sitter-highlight"), features: "one grammar crate per language", backend: "tree-sitter", runtime: "rust" },
-    { name: "giallo", version: locked("giallo"), features: "giallo", backend: "its own TextMate engine", runtime: "rust" },
-    { name: "shiki-oniguruma", version: pinned("shiki"), features: "limits off", backend: "Oniguruma in WebAssembly", runtime: "bun" },
-    { name: "shiki-javascript", version: pinned("shiki"), features: "limits off", backend: "JavaScript regex engine", runtime: "bun" },
-    { name: "pierre", version: pinned("@pierre/highlights"), features: "line limit off", backend: "its own WebAssembly lexers", runtime: "bun" },
+    {
+      name: "nishiki",
+      version: commit.slice(0, 8),
+      features: "every language, textmate tier",
+      backend: "hand lexers and its TextMate engine",
+      runtime: "rust",
+    },
+    {
+      name: "syntect",
+      version: `${locked("syntect")}, two-face ${locked("two-face")}`,
+      features: "default",
+      backend: "Oniguruma",
+      runtime: "rust",
+    },
+    {
+      name: "tree-sitter",
+      version: locked("tree-sitter-highlight"),
+      features: "one grammar crate per language",
+      backend: "tree-sitter",
+      runtime: "rust",
+    },
+    {
+      name: "giallo",
+      version: locked("giallo"),
+      features: "giallo",
+      backend: "its own TextMate engine",
+      runtime: "rust",
+    },
+    {
+      name: "shiki-oniguruma",
+      version: pinned("shiki"),
+      features: "limits off",
+      backend: "Oniguruma in WebAssembly",
+      runtime: "bun",
+    },
+    {
+      name: "shiki-javascript",
+      version: pinned("shiki"),
+      features: "limits off",
+      backend: "JavaScript regex engine",
+      runtime: "bun",
+    },
+    {
+      name: "pierre",
+      version: pinned("@pierre/highlights"),
+      features: "line limit off",
+      backend: "its own WebAssembly lexers",
+      runtime: "bun",
+    },
   ];
 }
 
@@ -125,19 +169,36 @@ async function main(): Promise<void> {
   });
   const rounds = Number(values.rounds);
   const cold = Number(values.cold);
-  if (!Number.isInteger(rounds) || rounds < 5) throw new Error("--rounds needs a whole number of at least 5");
-  if (!Number.isInteger(cold) || cold < 3) throw new Error("--cold needs a whole number of at least 3");
+  if (!Number.isInteger(rounds) || rounds < 5)
+    throw new Error("--rounds needs a whole number of at least 5");
+  if (!Number.isInteger(cold) || cold < 3)
+    throw new Error("--cold needs a whole number of at least 3");
   const host = await referenceHost();
   if ((await $`git status --porcelain`.text()).trim() !== "") {
-    throw new Error("the tree has changes: a record names one commit, so commit or stash them first");
+    throw new Error(
+      "the tree has changes: a record names one commit, so commit or stash them first",
+    );
   }
 
   const started = new Date();
   const commit = (await $`git rev-parse HEAD`.text()).trim();
   const date = started.toISOString().slice(0, 10);
   const stem = `${date}-${commit.slice(0, 8)}`;
-  const corpusVersion = Number(readFileSync("bench/corpus.toml", "utf8").match(/^version = (\d+)$/m)?.[1]);
-  const cargo = ["cargo", "run", "--quiet", "--locked", "--release", "--manifest-path", MANIFEST, "--features", FEATURES, "--"];
+  const corpusVersion = Number(
+    readFileSync("bench/corpus.toml", "utf8").match(/^version = (\d+)$/m)?.[1],
+  );
+  const cargo = [
+    "cargo",
+    "run",
+    "--quiet",
+    "--locked",
+    "--release",
+    "--manifest-path",
+    MANIFEST,
+    "--features",
+    FEATURES,
+    "--",
+  ];
 
   let raw = dedent`
     commit ${commit}
@@ -152,7 +213,19 @@ async function main(): Promise<void> {
   await run("Pierre's theme", [...cargo, "--pierre-theme", "target/compare/pierre-theme.json"]);
   let anchorFile = "";
   const anchor = async (title: string): Promise<number> => {
-    const rows = tsvRows(await run(title, [...cargo, "--tsv", "--tier", "medium", "--rounds", "5", "--cold", "3", "python"]));
+    const rows = tsvRows(
+      await run(title, [
+        ...cargo,
+        "--tsv",
+        "--tier",
+        "medium",
+        "--rounds",
+        "5",
+        "--cold",
+        "3",
+        "python",
+      ]),
+    );
     const nishiki = rows.find((row) => row.engine === "nishiki");
     if (!nishiki) throw new Error("the anchor printed no nishiki row");
     anchorFile = nishiki.file ?? "";
@@ -162,10 +235,29 @@ async function main(): Promise<void> {
   const anchorStart = await anchor("anchor, start");
   const rows: CompareRow[] = [];
   for (const tier of TIERS) {
-    const output = await run(`Rust engines, ${tier} tier`, [...cargo, "--tsv", "--tier", tier, "--rounds", String(rounds), "--cold", String(cold)]);
+    const output = await run(`Rust engines, ${tier} tier`, [
+      ...cargo,
+      "--tsv",
+      "--tier",
+      tier,
+      "--rounds",
+      String(rounds),
+      "--cold",
+      String(cold),
+    ]);
     rows.push(...tsvRows(output).map(compareRow));
   }
-  const bun = await run("Bun engines", ["bun", "bench/compare/shiki.ts", "time", "--tsv", "--rounds", String(rounds), "--cold", String(cold), ...TIERS.flatMap((tier) => ["--tier", tier])]);
+  const bun = await run("Bun engines", [
+    "bun",
+    "bench/compare/shiki.ts",
+    "time",
+    "--tsv",
+    "--rounds",
+    String(rounds),
+    "--cold",
+    String(cold),
+    ...TIERS.flatMap((tier) => ["--tier", tier]),
+  ]);
   rows.push(...tsvRows(bun).map(compareRow));
   const anchorEnd = await anchor("anchor, end");
   const driftPct = Math.abs(anchorEnd / anchorStart - 1) * 100;
@@ -183,7 +275,10 @@ async function main(): Promise<void> {
   const left_out = Object.fromEntries(
     all.map((engine) => [
       engine.name,
-      languages.filter((language) => !rows.some((row) => row.engine === engine.name && row.file.startsWith(`${language}/`))),
+      languages.filter(
+        (language) =>
+          !rows.some((row) => row.engine === engine.name && row.file.startsWith(`${language}/`)),
+      ),
     ]),
   );
   const record: CompareRecord = {
@@ -204,7 +299,13 @@ async function main(): Promise<void> {
     tiers: TIERS,
     rounds,
     cold_processes: cold,
-    anchor: { id: `nishiki on ${anchorFile}`, start_mib_s: anchorStart, end_mib_s: anchorEnd, drift_pct: driftPct, bound_pct: REFERENCE.bound_pct },
+    anchor: {
+      id: `nishiki on ${anchorFile}`,
+      start_mib_s: anchorStart,
+      end_mib_s: anchorEnd,
+      drift_pct: driftPct,
+      bound_pct: REFERENCE.bound_pct,
+    },
     compute: null,
     rows,
   };

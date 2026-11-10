@@ -16,7 +16,15 @@
 // output is generated, do not edit it.
 import haskell from "@shikijs/langs@4.6.0/haskell";
 import { expand as spell } from "./alternation.ts";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -32,7 +40,9 @@ type Node = {
   include?: string;
 };
 
-const grammar = (haskell as unknown as { repository: Record<string, Node>; patterns: Node[] }[])[0]!;
+const grammar = (
+  haskell as unknown as { repository: Record<string, Node>; patterns: Node[] }[]
+)[0]!;
 const repository = grammar.repository;
 const root = { patterns: grammar.patterns } as Node;
 
@@ -227,7 +237,11 @@ function register(node: Node, id: string): string[] {
   if (node.begin !== undefined && node.end !== undefined) {
     const named = namedGroup(node);
     const copies: [string, Node, [number, string] | null][] = named
-      ? named[1].map((word) => [`${id}${pascal(word)}`, { ...node, name: node.name!.replaceAll(`$${named[0]}`, word) }, [named[0], word]])
+      ? named[1].map((word) => [
+          `${id}${pascal(word)}`,
+          { ...node, name: node.name!.replaceAll(`$${named[0]}`, word) },
+          [named[0], word],
+        ])
       : [[id, node, null]];
     for (const [cid, cnode, word] of copies) {
       if (patternById.has(cid)) continue;
@@ -419,7 +433,10 @@ g += arms(
           : "Act::End";
     const captures = p.captures.map(([n, names]) => `(${n}, ${scText(names)})`).join(", ");
     const nested = p.nested.map(([n, rule]) => `(${n}, Rule::${rule})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -461,7 +478,10 @@ g += wordList(
 
 g += startTable(patternList, "any");
 g += ruleCodes("Haskell", "HASKELL");
-g += groupsCheck("Haskell", patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+g += groupsCheck(
+  "Haskell",
+  patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+);
 
 await writeRust(`${root_dir}src/haskell/grammar.rs`, g);
 

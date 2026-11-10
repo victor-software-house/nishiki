@@ -27,7 +27,16 @@
 // Run with `bun run oracle/perl-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import perl from "@shikijs/langs@4.6.0/perl";
-import { arms, groupsCheck, ruleCodes, scopeFile, startOf, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startOf,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -45,9 +54,14 @@ type Node = {
   while?: string;
 };
 
-const grammar = (perl as unknown as { name: string; scopeName: string; repository: Record<string, Node>; patterns: Node[] }[]).find(
-  (lang) => lang.name === "perl",
-)!;
+const grammar = (
+  perl as unknown as {
+    name: string;
+    scopeName: string;
+    repository: Record<string, Node>;
+    patterns: Node[];
+  }[]
+).find((lang) => lang.name === "perl")!;
 const repository = grammar.repository;
 
 const root_dir = new URL("..", import.meta.url).pathname;
@@ -139,7 +153,8 @@ function expandWords(src: string): string[] | null {
         atom = [];
         for (let k = 0; k < body.length; k++) {
           if (body[k + 1] === "-" && k + 2 < body.length) {
-            for (let c = body.charCodeAt(k); c <= body.charCodeAt(k + 2); c++) atom.push(String.fromCharCode(c));
+            for (let c = body.charCodeAt(k); c <= body.charCodeAt(k + 2); c++)
+              atom.push(String.fromCharCode(c));
             k += 2;
           } else atom.push(body[k]!);
         }
@@ -178,9 +193,15 @@ function wordList(regex: string): WordList | null {
   const m = /^(\(\?i\))?(\(\\\\\)\?)?\\b(.*)\\b$/.exec(regex);
   if (!m) return null;
   const words = expandWords(m[3]!);
-  if (!words || words.some((word) => !/^[A-Za-z0-9_]+([\\-][A-Za-z0-9_]+)?$/.test(word))) return null;
+  if (!words || words.some((word) => !/^[A-Za-z0-9_]+([\\-][A-Za-z0-9_]+)?$/.test(word)))
+    return null;
   const fold = m[1] !== undefined;
-  return { fold, slash: m[2] !== undefined, body: m[3]!, words: [...new Set(words.map((w) => (fold ? w.toLowerCase() : w)))] };
+  return {
+    fold,
+    slash: m[2] !== undefined,
+    body: m[3]!,
+    words: [...new Set(words.map((w) => (fold ? w.toLowerCase() : w)))],
+  };
 }
 
 // Rules and patterns.
@@ -242,7 +263,16 @@ function nestedRule(list: Node[]): string {
   if (known !== undefined) return known;
   const id = `Nested${nestedRules.size}`;
   nestedRules.set(key, id);
-  const rule: Rule = { id, name: [], content: [], end: "", backref: null, embed: null, endLast: false, patterns: [] };
+  const rule: Rule = {
+    id,
+    name: [],
+    content: [],
+    end: "",
+    backref: null,
+    embed: null,
+    endLast: false,
+    patterns: [],
+  };
   rules.set(id, rule);
   rule.patterns = flatten(list, id);
   return id;
@@ -338,7 +368,9 @@ function register(node: Node, id: string): string | null {
       return null;
     }
     if (rule.embed && rule.backref !== null) {
-      throw new Error(`${id}: a rule that embeds carries the language's state, not its backreference`);
+      throw new Error(
+        `${id}: a rule that embeds carries the language's state, not its backreference`,
+      );
     }
     return id;
   }
@@ -386,7 +418,8 @@ function flatten(list: Node[], context: string): string[] {
  * Any other node stays as it is. */
 function heredocForms(node: Node): [Node, string][] {
   if (node.begin === undefined || !node.begin.includes("(<<(~)?)")) return [[node, ""]];
-  if (node.end !== "^((?!\\5)\\s+)?((\\6))$") throw new Error(`${node.begin}: a heredoc with another end`);
+  if (node.end !== "^((?!\\5)\\s+)?((\\6))$")
+    throw new Error(`${node.begin}: a heredoc with another end`);
   const label = /^\(\(\(\(<<\(~\)\?\) \*[^)]*\)\(([A-Z]+)\)/.exec(node.begin)?.[1];
   const end = (tilde: string) => node.end!.replace("\\5", tilde).replace("\\6", label ?? "\\6");
   return [
@@ -404,13 +437,23 @@ function expand(node: Node, id: string): string[] {
   }
   if (node.patterns) {
     const ids = flatten(node.patterns, id);
-    if (missing.has(id) && ids.length === 0) throw new Error(`${id}: a repository entry whose patterns are all missing`);
+    if (missing.has(id) && ids.length === 0)
+      throw new Error(`${id}: a repository entry whose patterns are all missing`);
     return ids;
   }
   throw new Error(`${id}: empty rule`);
 }
 
-const rootRule: Rule = { id: "Root", name: [], content: [], end: "", backref: null, embed: null, endLast: false, patterns: [] };
+const rootRule: Rule = {
+  id: "Root",
+  name: [],
+  content: [],
+  end: "",
+  backref: null,
+  embed: null,
+  endLast: false,
+  patterns: [],
+};
 rules.set("Root", rootRule);
 rootRule.patterns = flatten(grammar.patterns, "Root");
 const ruleList = [...rules.values()];
@@ -420,11 +463,13 @@ const patternList = [...patternById.values()];
 const functionLists = patternList.filter((p) => p.words !== null && p.regex.length > 1000);
 if (functionLists.length !== 1) throw new Error(`${functionLists.length} long word lists`);
 const functions = functionLists[0]!;
-if (functions.words!.fold || functions.words!.slash) throw new Error(`${functions.id}: a folded or slashed list`);
+if (functions.words!.fold || functions.words!.slash)
+  throw new Error(`${functions.id}: a folded or slashed list`);
 
 // Output: the tables.
 
-const list = (ids: string[]) => (ids.length ? `scopes![${ids.map((id) => `S::${id}`).join(", ")}]` : "S::NO_SCOPES");
+const list = (ids: string[]) =>
+  ids.length ? `scopes![${ids.map((id) => `S::${id}`).join(", ")}]` : "S::NO_SCOPES";
 
 let g = `//! The grammar's rules as tables. Generated by \`oracle/perl-grammar.ts\`
 //! from the \`perl\` grammar Shiki 4.6.0 bundles; do not edit.
@@ -480,13 +525,19 @@ const endHalt = (r: Rule): string => {
   const begin = patternById.get(r.id)?.regex;
   const end = patternById.get(r.end)?.regex;
   if (begin === "^" && end === "\\n" && r.patterns.length === 0) return "End::LineFeed";
-  const interpolation = [...Array(9).keys()].map((k) => `EscapedCharAt${k}`).concat([...Array(11).keys()].map((k) => `VariableAt${k}`));
-  if (begin === "^" && end === "\\n" && r.patterns.join() === interpolation.join()) return "End::Interpolated";
+  const interpolation = [...Array(9).keys()]
+    .map((k) => `EscapedCharAt${k}`)
+    .concat([...Array(11).keys()].map((k) => `VariableAt${k}`));
+  if (begin === "^" && end === "\\n" && r.patterns.join() === interpolation.join())
+    return "End::Interpolated";
   if (end === "^(?:(=end)\\s+(html)|(?==cut))") return "End::PodHtml";
   throw new Error(`${r.id}: an embedding rule of no known kind`);
 };
 g += `        }\n    }\n\n    /// Where the rule takes the line back from the language it embeds.\n${tooLong}    pub(crate) fn end_halt(self) -> End {\n        match self {\n`;
-g += arms(ruleList.map((r): [string, string] => [r.id, endHalt(r)]), "Rule");
+g += arms(
+  ruleList.map((r): [string, string] => [r.id, endHalt(r)]),
+  "Rule",
+);
 g += `        }\n    }\n}\n\n`;
 
 g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
@@ -508,7 +559,10 @@ g += arms(
           : "Act::End";
     const captures = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
     const nested = p.nested.map(([n, rule]) => `(${n}, Rule::${rule})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -519,9 +573,15 @@ for (const p of patternList) {
     throw new Error(`${p.id}: the first-byte analysis does not read ${p.regex}`);
   }
 }
-g += startTable(patternList.map((p) => ({ id: p.id, regex: p.regex })), "any");
+g += startTable(
+  patternList.map((p) => ({ id: p.id, regex: p.regex })),
+  "any",
+);
 g += ruleCodes("Perl", "PERL");
-g += groupsCheck("Perl", patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+g += groupsCheck(
+  "Perl",
+  patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+);
 
 // Output: the words.
 
@@ -552,12 +612,20 @@ await writeRust(`${root_dir}src/perl/scope.rs`, scopeFile("perl-grammar.ts", "PE
 // So is `\z`, which vscode-textmate rewrites so that it never matches a
 // line, where Oniguruma matches it at the end of the text.
 if (Bun.env["RX_DUMP"]) {
-  const groupsOf = (p: Pattern) => [...new Set([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)])];
-  const probed = patternList.filter((p) => !(p.act.role === "end" && /\\[1-9]/.test(p.regex)) && p.regex !== "\\z");
+  const groupsOf = (p: Pattern) => [
+    ...new Set([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+  ];
+  const probed = patternList.filter(
+    (p) => !(p.act.role === "end" && /\\[1-9]/.test(p.regex)) && p.regex !== "\\z",
+  );
   await Bun.write(
     Bun.env["RX_DUMP"],
-    probed.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: groupsOf(p) })).join("\n") + "\n",
+    probed
+      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: groupsOf(p) }))
+      .join("\n") + "\n",
   );
 }
 
-console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${words.length} functions`);
+console.log(
+  `${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${words.length} functions`,
+);

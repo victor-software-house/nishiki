@@ -37,7 +37,21 @@ const corpus = join(root, "bench/corpus");
 const traces = join(root, "bench/traces");
 
 /** The languages whose first medium-tier file becomes a tool-write trace. */
-const TOOL_LANGUAGES = ["c", "cpp", "css", "go", "html", "java", "json", "python", "ruby", "rust", "shellscript", "typescript", "yaml"];
+const TOOL_LANGUAGES = [
+  "c",
+  "cpp",
+  "css",
+  "go",
+  "html",
+  "java",
+  "json",
+  "python",
+  "ruby",
+  "rust",
+  "shellscript",
+  "typescript",
+  "yaml",
+];
 
 /** The nishiki files whose history becomes edit traces, with their language. */
 const HISTORY: [path: string, language: string][] = [
@@ -57,10 +71,19 @@ const NISHIKI_LICENCE = "MIT OR Apache-2.0";
 const encoder = new TextEncoder();
 const decoder = new TextDecoder("utf-8", { fatal: true });
 
-type Row = { path: string; language: string; tier: string; source: string; licence: string; sha256: string };
+type Row = {
+  path: string;
+  language: string;
+  tier: string;
+  source: string;
+  licence: string;
+  sha256: string;
+};
 
 function corpusRows(): Map<string, Row> {
-  const manifest = Bun.TOML.parse(readFileSync(join(root, "bench/corpus.toml"), "utf8")) as { file: Row[] };
+  const manifest = Bun.TOML.parse(readFileSync(join(root, "bench/corpus.toml"), "utf8")) as {
+    file: Row[];
+  };
   return new Map(manifest.file.map((row) => [row.path, row]));
 }
 
@@ -72,7 +95,8 @@ function sha256(bytes: Uint8Array): string {
  * The split follows the pre-tokenizer pattern of byte-pair tokenizers, then
  * cuts any piece past six characters into four-character pieces. */
 function tokenPieces(text: string): string[] {
-  const pattern = /'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+/gu;
+  const pattern =
+    /'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+/gu;
   const pieces: string[] = [];
   for (const match of text.matchAll(pattern)) {
     const chars = [...match[0]];
@@ -104,7 +128,8 @@ function appendTrace(origin: string, row: Row): string {
       ["url", row.source],
       ["licence", row.licence],
       ["sha256", sha256(bytes)],
-    ]) + dedent`
+    ]) +
+    dedent`
       deltas
       ${rows.join("\n")}
       `
@@ -115,7 +140,9 @@ function appendTrace(origin: string, row: Row): string {
 function appendTraces(): Map<string, string> {
   const rows = corpusRows();
   const out = new Map<string, string>();
-  for (const row of [...rows.values()].filter((row) => row.tier === "reply").sort((a, b) => a.path.localeCompare(b.path))) {
+  for (const row of [...rows.values()]
+    .filter((row) => row.tier === "reply")
+    .sort((a, b) => a.path.localeCompare(b.path))) {
     out.set(`reply/${row.path.split("/").pop()}.deltas`, appendTrace("reply", row));
   }
   for (const language of TOOL_LANGUAGES) {
@@ -162,7 +189,11 @@ function lineOffset(lines: string[], index: number): number {
 /** An edit trace of one nishiki file: its first version, then one
  * replacement per hunk, in order, each with offsets into the text before it. */
 async function editTrace(path: string, language: string): Promise<string> {
-  const commits = (await $`git -C ${root} log --format=%H --reverse ${HISTORY_END} -- ${path}`.text()).trim().split("\n");
+  const commits = (
+    await $`git -C ${root} log --format=%H --reverse ${HISTORY_END} -- ${path}`.text()
+  )
+    .trim()
+    .split("\n");
   const base = await $`git -C ${root} show ${commits[0]}:${path}`.text();
   let lines = base.split("\n");
   let body = dedent`
@@ -170,7 +201,8 @@ async function editTrace(path: string, language: string): Promise<string> {
     ${base}
     `;
   for (let c = 1; c < commits.length; c++) {
-    const diff = await $`git -C ${root} diff --no-ext-diff -U0 ${commits[c - 1]} ${commits[c]} -- ${path}`.text();
+    const diff =
+      await $`git -C ${root} diff --no-ext-diff -U0 ${commits[c - 1]} ${commits[c]} -- ${path}`.text();
     let shift = 0;
     for (const h of hunks(diff)) {
       const first = h.start + shift;
@@ -178,7 +210,8 @@ async function editTrace(path: string, language: string): Promise<string> {
       const oldBytes = encoder.encode(lines.join("\n"));
       const newBytes = encoder.encode(next.join("\n"));
       const start = Math.min(lineOffset(lines, first), oldBytes.length, newBytes.length);
-      const suffix = oldBytes.length - Math.min(lineOffset(lines, first + h.count), oldBytes.length);
+      const suffix =
+        oldBytes.length - Math.min(lineOffset(lines, first + h.count), oldBytes.length);
       const text = decoder.decode(newBytes.subarray(start, newBytes.length - suffix));
       body += dedent`
         replace ${start} ${oldBytes.length - suffix} ${encoder.encode(text).length}
@@ -190,7 +223,10 @@ async function editTrace(path: string, language: string): Promise<string> {
   }
   const last = await $`git -C ${root} show ${commits[commits.length - 1]}:${path}`.text();
   const replayed = replay(parseEdits(body)).text;
-  if (replayed !== last) throw new Error(`${path}: replaying the hunks does not give the file at ${commits[commits.length - 1]}`);
+  if (replayed !== last)
+    throw new Error(
+      `${path}: replaying the hunks does not give the file at ${commits[commits.length - 1]}`,
+    );
   return (
     header([
       ["origin", "edits"],
@@ -239,10 +275,13 @@ function parseEdits(body: string): Edits {
 function replay(edits: Edits): { text: string; problems: string[] } {
   let text = edits.base;
   const problems: string[] = [];
-  const boundary = (bytes: Uint8Array, i: number) => i === bytes.length || (bytes[i]! & 0xc0) !== 0x80;
+  const boundary = (bytes: Uint8Array, i: number) =>
+    i === bytes.length || (bytes[i]! & 0xc0) !== 0x80;
   edits.replacements.forEach((r, i) => {
-    if (r.start > r.end || r.end > text.length) problems.push(`replacement ${i + 1}: ${r.start}..${r.end} is outside the text`);
-    else if (!boundary(text, r.start) || !boundary(text, r.end)) problems.push(`replacement ${i + 1}: ${r.start}..${r.end} cuts a character`);
+    if (r.start > r.end || r.end > text.length)
+      problems.push(`replacement ${i + 1}: ${r.start}..${r.end} is outside the text`);
+    else if (!boundary(text, r.start) || !boundary(text, r.end))
+      problems.push(`replacement ${i + 1}: ${r.start}..${r.end} cuts a character`);
     const next = new Uint8Array(text.length - (r.end - r.start) + r.text.length);
     next.set(text.subarray(0, r.start), 0);
     next.set(r.text, r.start);
@@ -275,7 +314,8 @@ export function split(trace: string, last: RegExp): { fields: Map<string, string
  * leaves the committed traces in place. */
 async function write() {
   const all = appendTraces();
-  for (const [path, language] of HISTORY) all.set(`edits/${path.replaceAll("/", "-")}.edits`, await editTrace(path, language));
+  for (const [path, language] of HISTORY)
+    all.set(`edits/${path.replaceAll("/", "-")}.edits`, await editTrace(path, language));
   rmSync(join(traces, "reply"), { recursive: true, force: true });
   rmSync(join(traces, "tool-write"), { recursive: true, force: true });
   rmSync(join(traces, "edits"), { recursive: true, force: true });
@@ -310,25 +350,30 @@ async function check() {
       problems.push(`${name}: missing; run \`bun bench/traces.ts write\``);
       continue;
     }
-    if (found !== trace) problems.push(`${name}: differs from its source; run \`bun bench/traces.ts write\``);
+    if (found !== trace)
+      problems.push(`${name}: differs from its source; run \`bun bench/traces.ts write\``);
   }
   for (const origin of ["reply", "tool-write"]) {
     for (const file of readdirSync(join(traces, origin))) {
-      if (!expected.has(`${origin}/${file}`)) problems.push(`${origin}/${file}: no source writes it`);
+      if (!expected.has(`${origin}/${file}`))
+        problems.push(`${origin}/${file}: no source writes it`);
     }
   }
   const editFiles = readdirSync(join(traces, "edits")).sort();
   const wanted = HISTORY.map(([path]) => `${path.replaceAll("/", "-")}.edits`).sort();
-  if (editFiles.join(" ") !== wanted.join(" ")) problems.push(`edits/: holds ${editFiles.join(", ")}, expected ${wanted.join(", ")}`);
+  if (editFiles.join(" ") !== wanted.join(" "))
+    problems.push(`edits/: holds ${editFiles.join(", ")}, expected ${wanted.join(", ")}`);
   for (const file of editFiles) {
     const { fields, rest } = split(readFileSync(join(traces, "edits", file), "utf8"), /^base \d+$/);
     for (const key of ["origin", "language", "source", "url", "licence", "from", "to", "sha256"]) {
       if (!fields.has(key)) problems.push(`edits/${file}: no ${key} line`);
     }
-    if (fields.get("licence") !== NISHIKI_LICENCE) problems.push(`edits/${file}: licence is not ${NISHIKI_LICENCE}`);
+    if (fields.get("licence") !== NISHIKI_LICENCE)
+      problems.push(`edits/${file}: licence is not ${NISHIKI_LICENCE}`);
     const { text, problems: found } = replay(parseEdits(rest));
     problems.push(...found.map((problem) => `edits/${file}: ${problem}`));
-    if (sha256(encoder.encode(text)) !== fields.get("sha256")) problems.push(`edits/${file}: replaying it does not give its sha256`);
+    if (sha256(encoder.encode(text)) !== fields.get("sha256"))
+      problems.push(`edits/${file}: replaying it does not give its sha256`);
     const to = fields.get("to");
     const path = fields.get("source");
     if (to === undefined || path === undefined) continue;
@@ -338,10 +383,13 @@ async function check() {
     }
     const source = await shown(to, path);
     if (source === undefined) problems.push(`edits/${file}: ${path} does not exist at ${to}`);
-    else if (source !== text) problems.push(`edits/${file}: replaying it does not give its source at its \`to\` commit`);
+    else if (source !== text)
+      problems.push(`edits/${file}: replaying it does not give its source at its \`to\` commit`);
   }
   if (unread.length > 0) {
-    console.error(`this clone lacks the \`to\` commit of ${unread.join(", ")}; those traces are held to their sha256 alone`);
+    console.error(
+      `this clone lacks the \`to\` commit of ${unread.join(", ")}; those traces are held to their sha256 alone`,
+    );
   }
   if (problems.length > 0) {
     console.error(problems.join("\n"));
@@ -354,7 +402,14 @@ export type Step = { push: string } | { replace: { start: number; end: number; t
 
 /** A trace as a replayer drives it: its first text (empty for an append
  * trace), its steps, and the text they end with. */
-export type Trace = { name: string; origin: string; language: string; initial: string; steps: Step[]; final: string };
+export type Trace = {
+  name: string;
+  origin: string;
+  language: string;
+  initial: string;
+  steps: Step[];
+  final: string;
+};
 
 /** The pushes that an append trace's body, `rest`, makes of its source's
  * `bytes`.
@@ -365,7 +420,10 @@ export type Trace = { name: string; origin: string; language: string; initial: s
 export function pushes(name: string, bytes: Uint8Array, rest: string): Step[] {
   const steps: Step[] = [];
   let at = 0;
-  for (const field of rest.split(/\s+/).slice(1).filter((field) => field !== "")) {
+  for (const field of rest
+    .split(/\s+/)
+    .slice(1)
+    .filter((field) => field !== "")) {
     const length = /^\+?\d+$/.test(field) ? Number(field) : Number.NaN;
     if (!Number.isSafeInteger(length) || at + length > bytes.length) {
       throw new Error(`${name}: a delta is not a length or runs past the source`);
@@ -392,7 +450,9 @@ export function loadTraces(): Trace[] {
           origin,
           language: fields.get("language") ?? "",
           initial: decoder.decode(edits.base),
-          steps: edits.replacements.map((r) => ({ replace: { start: r.start, end: r.end, text: decoder.decode(r.text) } })),
+          steps: edits.replacements.map((r) => ({
+            replace: { start: r.start, end: r.end, text: decoder.decode(r.text) },
+          })),
           final: replay(edits).text,
         });
         continue;
@@ -400,7 +460,14 @@ export function loadTraces(): Trace[] {
       const { fields, rest } = split(trace, /^deltas$/);
       const bytes = readFileSync(join(root, fields.get("source") ?? ""));
       const steps = pushes(name, bytes, rest);
-      out.push({ name, origin, language: fields.get("language") ?? "", initial: "", steps, final: decoder.decode(bytes) });
+      out.push({
+        name,
+        origin,
+        language: fields.get("language") ?? "",
+        initial: "",
+        steps,
+        final: decoder.decode(bytes),
+      });
     }
   }
   return out;

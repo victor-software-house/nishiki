@@ -27,7 +27,15 @@
 // Run with `bun run oracle/svelte-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
 import svelte from "@shikijs/langs@4.6.0/svelte";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -51,7 +59,9 @@ type Grammar = {
   injections: Record<string, Node>;
 };
 
-const grammar = (svelte as unknown as Grammar[]).find((lang) => lang.scopeName === "source.svelte")!;
+const grammar = (svelte as unknown as Grammar[]).find(
+  (lang) => lang.scopeName === "source.svelte",
+)!;
 const repository = grammar.repository;
 
 // `generics="…"` embeds TypeScript and ends at a repeat of its quote, group 3.
@@ -59,7 +69,7 @@ const repository = grammar.repository;
 // cannot also hold the quote: the rule becomes one rule per quote.
 {
   const generics = repository["attributes-generics"]!;
-  if (generics.begin !== '(generics)(=)(["\'])' || generics.end !== "(\\3)") {
+  if (generics.begin !== "(generics)(=)([\"'])" || generics.end !== "(\\3)") {
     throw new Error("attributes-generics changed: check its split by quote");
   }
   repository["attributes-generics"] = {
@@ -113,8 +123,14 @@ function scope(name: string): string {
 }
 /** The scopes of a static name; an empty name adds none, as in vscode-textmate. */
 function scopeList(name: string | undefined): string[] {
-  if (name !== undefined && /\$\d/.test(name)) throw new Error(`${name}: a dynamic name where a static one belongs`);
-  return name === undefined ? [] : name.split(" ").filter((part) => part !== "").map(scope);
+  if (name !== undefined && /\$\d/.test(name))
+    throw new Error(`${name}: a dynamic name where a static one belongs`);
+  return name === undefined
+    ? []
+    : name
+        .split(" ")
+        .filter((part) => part !== "")
+        .map(scope);
 }
 
 /** A name with one scope that repeats begin capture `group`, such as
@@ -127,7 +143,8 @@ function dynamicName(name: string): Dynamic | null {
   if (at < 0) return null;
   const m = /^(.*)\$(\d)(.*)$/.exec(parts[at]!)!;
   if (/\$\d/.test(m[1]! + m[3]!)) throw new Error(`${name}: two groups in one scope`);
-  if (parts.slice(at + 1).some((part) => /\$\d/.test(part))) throw new Error(`${name}: two dynamic scopes`);
+  if (parts.slice(at + 1).some((part) => /\$\d/.test(part)))
+    throw new Error(`${name}: two dynamic scopes`);
   return {
     before: parts.slice(0, at).map(scope),
     prefix: m[1]!,
@@ -147,14 +164,26 @@ type Embed = { lang: string; feature: string; entry: string | null };
  * or nothing, for a grammar nishiki does not lex. */
 const externals: Record<string, Embed | null> = {
   "source.ts": { lang: "TypeScript", feature: "lang-typescript", entry: null },
-  "source.ts#object-literal": { lang: "TypeScript", feature: "lang-typescript", entry: "start_object_literal" },
-  "source.ts#object-binding-pattern": { lang: "TypeScript", feature: "lang-typescript", entry: "start_object_binding" },
+  "source.ts#object-literal": {
+    lang: "TypeScript",
+    feature: "lang-typescript",
+    entry: "start_object_literal",
+  },
+  "source.ts#object-binding-pattern": {
+    lang: "TypeScript",
+    feature: "lang-typescript",
+    entry: "start_object_binding",
+  },
   "source.ts#object-binding-pattern-const": {
     lang: "TypeScript",
     feature: "lang-typescript",
     entry: "start_object_binding_const",
   },
-  "source.ts#array-binding-pattern": { lang: "TypeScript", feature: "lang-typescript", entry: "start_array_binding" },
+  "source.ts#array-binding-pattern": {
+    lang: "TypeScript",
+    feature: "lang-typescript",
+    entry: "start_array_binding",
+  },
   "source.ts#array-binding-pattern-const": {
     lang: "TypeScript",
     feature: "lang-typescript",
@@ -176,7 +205,11 @@ const externals: Record<string, Embed | null> = {
  * `type-parameters` copies the patterns of TypeScript's own type parameter
  * list, between its `<` and `>`. */
 const entryRules: Record<string, Embed> = {
-  "type-parameters": { lang: "TypeScript", feature: "lang-typescript", entry: "start_type_parameters" },
+  "type-parameters": {
+    lang: "TypeScript",
+    feature: "lang-typescript",
+    entry: "start_type_parameters",
+  },
 };
 
 // Rules and patterns.
@@ -193,7 +226,11 @@ const pascal = (key: string) =>
     .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
     .join("");
 
-type Act = { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" } | { role: "while" };
+type Act =
+  | { role: "match"; name: string[] }
+  | { role: "begin"; rule: string }
+  | { role: "end" }
+  | { role: "while" };
 type Pattern = {
   id: string;
   regex: string;
@@ -271,7 +308,8 @@ function nestedName(group: string, patterns: Node[], context: string): string | 
   rules.set(name, rule);
   if (deferred !== undefined) return name;
   const members = flatten(patterns, name);
-  if (members.some((member) => "embed" in member)) throw new Error(`${name}: a nested list embeds a grammar`);
+  if (members.some((member) => "embed" in member))
+    throw new Error(`${name}: a nested list embeds a grammar`);
   rule.patterns = members.map((member) => (member as { pattern: string }).pattern);
   return name;
 }
@@ -327,7 +365,10 @@ function register(node: Node, id: string): string {
   });
   const closing = node.end ?? node.while!;
   const closeId = node.end !== undefined ? `${id}End` : `${id}While`;
-  const closeCaptures = node.end !== undefined ? (node.endCaptures ?? node.captures) : (node.whileCaptures ?? node.captures);
+  const closeCaptures =
+    node.end !== undefined
+      ? (node.endCaptures ?? node.captures)
+      : (node.whileCaptures ?? node.captures);
   patternById.set(closeId, {
     id: closeId,
     regex: closing,
@@ -376,7 +417,8 @@ function flatten(list: Node[], context: string): Member[] {
       return;
     }
     if (!node.include.startsWith("#")) {
-      if (!(node.include in externals)) throw new Error(`${context}: unknown include ${node.include}`);
+      if (!(node.include in externals))
+        throw new Error(`${context}: unknown include ${node.include}`);
       const embed = externals[node.include]!;
       if (embed !== null) out.push({ embed });
       return;
@@ -394,7 +436,8 @@ function flatten(list: Node[], context: string): Member[] {
 }
 
 function expand(node: Node, id: string): Member[] {
-  if (node.match !== undefined || node.begin !== undefined) return [{ pattern: register(node, renames[id] ?? id) }];
+  if (node.match !== undefined || node.begin !== undefined)
+    return [{ pattern: register(node, renames[id] ?? id) }];
   if (node.patterns) return flatten(node.patterns, id);
   throw new Error(`${id}: empty rule`);
 }
@@ -456,20 +499,33 @@ for (const id of ["TagsLang", "TagsLangAt0"]) {
 
 /** Whether one of the rule's own scopes hides the template body's selector. */
 function hidesTemplate(rule: Rule): boolean {
-  const idents = [...rule.name, ...rule.content, ...(rule.dynamic?.before ?? []), ...(rule.dynamic?.after ?? [])];
+  const idents = [
+    ...rule.name,
+    ...rule.content,
+    ...(rule.dynamic?.before ?? []),
+    ...(rule.dynamic?.after ?? []),
+  ];
   const names = [...idents.map((ident) => scopes.get(ident)!), rule.dynamic?.prefix ?? ""];
   return names.some((name) => name.startsWith("source.") || name.startsWith("meta.lang"));
 }
 for (const rule of rules.values()) {
   const deferred = Object.values(deferredNames).includes(rule.id);
-  if (rule.id === "Root" || rule.embed !== null || deferred || rule.patterns.includes("BodyTemplate") || hidesTemplate(rule)) continue;
+  if (
+    rule.id === "Root" ||
+    rule.embed !== null ||
+    deferred ||
+    rule.patterns.includes("BodyTemplate") ||
+    hidesTemplate(rule)
+  )
+    continue;
   rule.patterns = ["BodyTemplate", ...rule.patterns];
   rule.injected += 1;
 }
 
 // Output.
 
-const list = (names: string[]) => (names.length ? `scopes![${names.map((n) => `S::${n}`).join(", ")}]` : "S::NO_SCOPES");
+const list = (names: string[]) =>
+  names.length ? `scopes![${names.map((n) => `S::${n}`).join(", ")}]` : "S::NO_SCOPES";
 
 const ruleList = [...rules.values()];
 const patternList = [...patternById.values()];
@@ -540,11 +596,15 @@ g += arms(
 /** The features Cargo.toml defines: an embedded language whose feature is
  * not there yet, such as PostCSS before its lexer lands, embeds nothing. */
 const features = new Set(
-  [...(await Bun.file(`${root_dir}Cargo.toml`).text()).matchAll(/^([a-z_-]+) = /gm)].map((m) => m[1]!),
+  [...(await Bun.file(`${root_dir}Cargo.toml`).text()).matchAll(/^([a-z_-]+) = /gm)].map(
+    (m) => m[1]!,
+  ),
 );
 for (const r of ruleList) {
   if (r.embed !== null && !features.has(r.embed.feature)) {
-    console.warn(`${r.id}: no feature ${r.embed.feature} in Cargo.toml yet; the rule embeds nothing`);
+    console.warn(
+      `${r.id}: no feature ${r.embed.feature} in Cargo.toml yet; the rule embeds nothing`,
+    );
   }
 }
 g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end or name repeats a begin capture group carries that\n    /// group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
@@ -561,7 +621,10 @@ g += arms(
 );
 g += `        }\n    }\n\n    /// The TypeScript entry an embedding rule starts at; none for the root.\n    pub(crate) fn embed_start(self) -> Option<fn(&mut crate::arena::Arena, u32) -> u32> {\n        match self {\n`;
 g += arms(
-  ruleList.map((r): [string, string] => [r.id, r.embed?.entry ? `entry!(${r.embed.entry})` : "None"]),
+  ruleList.map((r): [string, string] => [
+    r.id,
+    r.embed?.entry ? `entry!(${r.embed.entry})` : "None",
+  ]),
   "Rule",
 );
 g += `        }\n    }\n\n    /// The prefix of the name scope that repeats the rule's payload.\n    pub(crate) fn name_delimiter(self) -> Option<&'static str> {\n        match self {\n`;
@@ -607,14 +670,20 @@ g += arms(
             : "Act::Match(S::NO_SCOPES)";
     const captures = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
     const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
 
 g += startTable(patternList, "quote");
-g += groupsCheck("Svelte", patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+g += groupsCheck(
+  "Svelte",
+  patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+);
 g += ruleCodes("Svelte", "SVELTE");
 
 await writeRust(`${root_dir}src/svelte/grammar.rs`, g);

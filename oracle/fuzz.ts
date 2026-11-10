@@ -21,8 +21,17 @@ import { grammars } from "./grammars.ts";
 type Extras = { pieces?: string[]; mutations?: string[]; fences?: string[] };
 
 const [lang, mode, seedArg, countArg, outdir, ...files] = process.argv.slice(2);
-if (!lang || !mode || !seedArg || !countArg || !outdir || !["win", "gen", "mdw", "mdg"].includes(mode)) {
-  console.error("usage: bun run oracle/fuzz.ts <lang> <win|gen|mdw|mdg> <seed> <count> <outdir> [files...]");
+if (
+  !lang ||
+  !mode ||
+  !seedArg ||
+  !countArg ||
+  !outdir ||
+  !["win", "gen", "mdw", "mdg"].includes(mode)
+) {
+  console.error(
+    "usage: bun run oracle/fuzz.ts <lang> <win|gen|mdw|mdg> <seed> <count> <outdir> [files...]",
+  );
   process.exit(2);
 }
 const root = new URL("..", import.meta.url).pathname;
@@ -46,7 +55,38 @@ const pick = <T>(choices: T[]): T => choices[int(choices.length)] as T;
 
 /** Texts that break most grammars somewhere: brackets, quotes, comment
  * markers, escapes, a line continuation, and characters outside ASCII. */
-const MUTATIONS = ["(", ")", "{", "}", "[", "]", "<", ">", ";", ",", ":", "::", "\"", "'", "`", "\\", "/*", "*/", "//", "#", "=", " ", "\t", "é", "日", "٣", " ", "́", "🦀", "\\\n"];
+const MUTATIONS = [
+  "(",
+  ")",
+  "{",
+  "}",
+  "[",
+  "]",
+  "<",
+  ">",
+  ";",
+  ",",
+  ":",
+  "::",
+  '"',
+  "'",
+  "`",
+  "\\",
+  "/*",
+  "*/",
+  "//",
+  "#",
+  "=",
+  " ",
+  "\t",
+  "é",
+  "日",
+  "٣",
+  " ",
+  "́",
+  "🦀",
+  "\\\n",
+];
 const mutations = [...MUTATIONS, ...(extras.mutations ?? [])];
 
 /** `text` with a few insertions, deletions, and repeated, dropped or cut lines. */
@@ -87,9 +127,9 @@ function fixtureTexts(): string[] {
     );
 }
 
-const sources = (files.length ? files.map((file) => readFileSync(file, "utf8")) : fixtureTexts()).map((text) =>
-  text.replaceAll("\r\n", "\n").split("\n"),
-);
+const sources = (
+  files.length ? files.map((file) => readFileSync(file, "utf8")) : fixtureTexts()
+).map((text) => text.replaceAll("\r\n", "\n").split("\n"));
 
 function window(): string {
   const lines = pick(sources);

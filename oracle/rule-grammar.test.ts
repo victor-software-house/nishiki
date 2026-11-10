@@ -91,7 +91,7 @@ test("a back reference or a call that can match empty can match where no byte fo
 });
 
 test("a back reference inside a lookahead that needs a byte cannot match where no byte follows", () => {
-  expect(startOf("(?=(?><<[-~](\"?)(SQL)\\b\\1))", "any").atEnd).toBe(false);
+  expect(startOf('(?=(?><<[-~]("?)(SQL)\\b\\1))', "any").atEnd).toBe(false);
 });
 
 test("a back reference behind a byte the match needs cannot match where no byte follows", () => {
@@ -136,7 +136,10 @@ test("an item before a \\b counts as safe inside a word only when a match there 
   expect(startOf("a?\\b-").wb).toBe(false);
   expect(startOf("(?:a\\b)?-").wb).toBe(false);
   expect(startOf("(?:([-:\\\\_\\p{L}\\d])*\\\\)?\\b(?i:Add|Get)").wb).toBe(true);
-  expect(startOf("(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}])").wb).toBe(true);
+  expect(
+    startOf("(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}])")
+      .wb,
+  ).toBe(true);
   expect(startOf("[\\w-]*\\bx").wb).toBe(true);
   expect(startOf("(\\w*)\\1\\bx", "any").wb).toBe(false);
   expect(startOf("\\G[\\w-]*\\bx").wb).toBe(false);
@@ -145,7 +148,10 @@ test("an item before a \\b counts as safe inside a word only when a match there 
 test("a pattern kept out of words only because a match there can start earlier is still tried where the scan starts", () => {
   expect(startOf("(?:([-:\\\\_\\p{L}\\d])*\\\\)?\\b(?i:Add|Get)").inWordFirst).toBe(true);
   expect(startOf("\\s*\\bx").inWordFirst).toBe(false);
-  expect(startOf("(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}])").inWordFirst).toBe(false);
+  expect(
+    startOf("(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}])")
+      .inWordFirst,
+  ).toBe(false);
   expect(startOf("a?\\b-").inWordFirst).toBe(false);
 });
 

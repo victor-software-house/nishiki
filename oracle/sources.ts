@@ -82,15 +82,22 @@ const sampleLicenceSources = [
 /** `qml.sample` states its own licence, KDE's LGPL choice. */
 const qmlLicence: Omit<PinnedFile, "url"> = {
   licence: "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL",
-  licenceSources: ["LGPL-2.1-only.txt", "LGPL-3.0-only.txt", "LicenseRef-KDE-Accepted-LGPL.txt"].map(
-    (name) => `https://github.com/KDE/knewstuff/blob/4ebc0157add67654dd86af21201fba52f48a2dbb/LICENSES/${name}`,
+  licenceSources: [
+    "LGPL-2.1-only.txt",
+    "LGPL-3.0-only.txt",
+    "LicenseRef-KDE-Accepted-LGPL.txt",
+  ].map(
+    (name) =>
+      `https://github.com/KDE/knewstuff/blob/4ebc0157add67654dd86af21201fba52f48a2dbb/LICENSES/${name}`,
   ),
 };
 
 /** The `sql` grammar is MIT, as microsoft/vscode. */
 const sqlGrammarLicence: Omit<PinnedFile, "url"> = {
   licence: "MIT",
-  licenceSources: ["https://github.com/microsoft/vscode/blob/af600487b1e94374d9f48f57cbf2cad24656b07f/LICENSE.txt"],
+  licenceSources: [
+    "https://github.com/microsoft/vscode/blob/af600487b1e94374d9f48f57cbf2cad24656b07f/LICENSE.txt",
+  ],
 };
 
 /** SPDX ids for the licence names `tests/oracle/SOURCES.md` uses. */
@@ -109,9 +116,12 @@ function recordedLicences(): Map<string, Omit<PinnedFile, "url">> {
   const links = new Map<string, string>();
   for (const [, label, url] of text.matchAll(/^\[([^\]]+)\]: (\S+)$/gm)) links.set(label, url);
   const rows = new Map<string, Omit<PinnedFile, "url">>();
-  for (const [, key, name, label] of text.matchAll(/^\| `?([^`|]+?)`? \| .+ \| \[([^\]]+)\]\[([^\]]+)\] \|$/gm)) {
+  for (const [, key, name, label] of text.matchAll(
+    /^\| `?([^`|]+?)`? \| .+ \| \[([^\]]+)\]\[([^\]]+)\] \|$/gm,
+  )) {
     const link = links.get(label);
-    if (link === undefined) throw new Error(`SOURCES.md: ${key} links to [${label}], which has no URL`);
+    if (link === undefined)
+      throw new Error(`SOURCES.md: ${key} links to [${label}], which has no URL`);
     rows.set(key, { licence: spdxIds[name] ?? name, licenceSources: [link] });
   }
   return rows;
@@ -122,7 +132,8 @@ export function pinnedFiles(): PinnedFile[] {
   const recorded = recordedLicences();
   const files = new Map<string, PinnedFile>();
   const add = (url: string, licence: Omit<PinnedFile, "url"> | undefined, where: string) => {
-    if (licence === undefined) throw new Error(`${url}: no licence in tests/oracle/SOURCES.md for ${where}`);
+    if (licence === undefined)
+      throw new Error(`${url}: no licence in tests/oracle/SOURCES.md for ${where}`);
     files.set(url, { url, ...licence });
   };
   for (const input of inputs) {
@@ -137,7 +148,11 @@ export function pinnedFiles(): PinnedFile[] {
   for (const language of bundledLanguagesInfo) {
     if (language.id in standIns) continue;
     const url = `${samples}/${language.id}.sample`;
-    add(url, language.id === "qml" ? qmlLicence : { licence: "MIT", licenceSources: sampleLicenceSources }, url);
+    add(
+      url,
+      language.id === "qml" ? qmlLicence : { licence: "MIT", licenceSources: sampleLicenceSources },
+      url,
+    );
   }
   for (const input of inputs) {
     if ("url" in input && input.url.startsWith(`${samples}/`) && !files.has(input.url)) {
@@ -157,7 +172,9 @@ export function mirrorPath(url: string): string {
 /** A licence text's raw URL, from its GitHub file URL. A line anchor is
  * dropped: the whole file is mirrored. */
 function rawLicenceUrl(url: string): string {
-  const match = /^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/([0-9a-f]{40})\/([^#]+)(#.*)?$/.exec(url);
+  const match = /^https:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/([0-9a-f]{40})\/([^#]+)(#.*)?$/.exec(
+    url,
+  );
   if (match === null) throw new Error(`${url}: not a GitHub file URL at a commit`);
   return `${rawHost}${match[1]}/${match[2]}/${match[3]}`;
 }
@@ -166,7 +183,9 @@ function rawLicenceUrl(url: string): string {
 function mirrorDirectory(): string {
   const directory = Bun.env["NISHIKI_SOURCES"];
   if (!directory) {
-    throw new Error("set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources (oracle/AGENTS.md)");
+    throw new Error(
+      "set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources (oracle/AGENTS.md)",
+    );
   }
   return directory;
 }
@@ -177,7 +196,8 @@ export async function sourceText(url: string): Promise<string> {
   const kept = keptOut[url];
   if (kept !== undefined) return fixtureText(kept.fixture);
   const path = `${mirrorDirectory()}/${mirrorPath(url)}`;
-  if (!existsSync(path)) throw new Error(`${url}: not in the mirror at ${path}; run oracle/sources.ts fill`);
+  if (!existsSync(path))
+    throw new Error(`${url}: not in the mirror at ${path}; run oracle/sources.ts fill`);
   return Bun.file(path).text();
 }
 
@@ -274,9 +294,17 @@ async function mirrorFile(
   }
   const recorded = rows.get(path);
   const digest = sha256(bytes);
-  if (recorded !== undefined && recorded.sha256 !== digest) throw new Error(`${path}: differs from its row; fill never rewrites a file`);
+  if (recorded !== undefined && recorded.sha256 !== digest)
+    throw new Error(`${path}: differs from its row; fill never rewrites a file`);
   const commit = path.split("/")[2];
-  const mirrored: MirroredFile = { path, source: url, commit, ...fields, bytes: bytes.length, sha256: digest };
+  const mirrored: MirroredFile = {
+    path,
+    source: url,
+    commit,
+    ...fields,
+    bytes: bytes.length,
+    sha256: digest,
+  };
   if (mirrored.licence === undefined) delete mirrored.licence;
   if (mirrored.licence_sources === undefined) delete mirrored.licence_sources;
   rows.set(path, mirrored);
@@ -289,7 +317,9 @@ const noticeNames = ["NOTICE", "NOTICE.txt", "NOTICE.md"];
 async function fill(mirror: string) {
   const rows = readManifest(mirror);
   const toMirror = pinnedFiles().filter((pinned) => !(pinned.url in keptOut));
-  const licenceTexts = new Set(toMirror.flatMap((pinned) => pinned.licenceSources.map(rawLicenceUrl)));
+  const licenceTexts = new Set(
+    toMirror.flatMap((pinned) => pinned.licenceSources.map(rawLicenceUrl)),
+  );
   await pool([...licenceTexts], 16, async (url) => {
     await mirrorFile(mirror, rows, url, { purpose: "licence text" });
   });
@@ -301,15 +331,23 @@ async function fill(mirror: string) {
   const notices = new Map<string, string[]>();
   await pool([...apacheCommitDirectories], 16, async (commitDirectory) => {
     for (const name of noticeNames) {
-      const found = await mirrorFile(mirror, rows, `${rawHost}${commitDirectory}/${name}`, { purpose: "licence text" }, true);
-      if (found !== undefined) notices.set(commitDirectory, [...(notices.get(commitDirectory) ?? []), found.path]);
+      const found = await mirrorFile(
+        mirror,
+        rows,
+        `${rawHost}${commitDirectory}/${name}`,
+        { purpose: "licence text" },
+        true,
+      );
+      if (found !== undefined)
+        notices.set(commitDirectory, [...(notices.get(commitDirectory) ?? []), found.path]);
     }
   });
   await pool(toMirror, 16, async (pinned) => {
     const commitDirectory = mirrorPath(pinned.url).split("/").slice(0, 3).join("/");
     const [owner, name, commit] = commitDirectory.split("/");
     const noticeSources = (notices.get(commitDirectory) ?? []).map(
-      (path) => `${githubHost}${owner}/${name}/blob/${commit}/${path.split("/").slice(3).join("/")}`,
+      (path) =>
+        `${githubHost}${owner}/${name}/blob/${commit}/${path.split("/").slice(3).join("/")}`,
     );
     await mirrorFile(mirror, rows, pinned.url, {
       purpose: "input",
@@ -328,7 +366,9 @@ function mirroredPaths(mirror: string): string[] {
   return readdirSync(mirror, { recursive: true, withFileTypes: true })
     .filter((found) => found.isFile())
     .map((found) => relative(mirror, join(found.parentPath, found.name)))
-    .filter((path) => !ownFiles.has(path) && !path.startsWith(".git/") && !path.startsWith(".github/"));
+    .filter(
+      (path) => !ownFiles.has(path) && !path.startsWith(".git/") && !path.startsWith(".github/"),
+    );
 }
 
 function check(mirror: string) {
@@ -341,10 +381,12 @@ function check(mirror: string) {
       continue;
     }
     const bytes = new Uint8Array(readFileSync(file));
-    if (bytes.length !== row.bytes || sha256(bytes) !== row.sha256) problems.push(`${row.path}: differs from its row`);
+    if (bytes.length !== row.bytes || sha256(bytes) !== row.sha256)
+      problems.push(`${row.path}: differs from its row`);
     if (row.purpose !== "input") continue;
     for (const source of row.licence_sources ?? []) {
-      if (!rows.has(mirrorPath(rawLicenceUrl(source)))) problems.push(`${row.path}: licence text ${source} is not mirrored`);
+      if (!rows.has(mirrorPath(rawLicenceUrl(source))))
+        problems.push(`${row.path}: licence text ${source} is not mirrored`);
     }
   }
   for (const path of mirroredPaths(mirror)) {
@@ -359,17 +401,22 @@ function check(mirror: string) {
       problems.push(`${file.url}: pinned but not mirrored; run oracle/sources.ts fill`);
       continue;
     }
-    if (row.licence !== file.licence) problems.push(`${row.path}: licence ${row.licence}, SOURCES.md says ${file.licence}`);
+    if (row.licence !== file.licence)
+      problems.push(`${row.path}: licence ${row.licence}, SOURCES.md says ${file.licence}`);
     for (const source of file.licenceSources) {
-      if (!row.licence_sources?.includes(source)) problems.push(`${row.path}: licence_sources lacks ${source}`);
+      if (!row.licence_sources?.includes(source))
+        problems.push(`${row.path}: licence_sources lacks ${source}`);
     }
   }
   for (const [url, kept] of Object.entries(keptOut)) {
     const path = mirrorPath(url);
     if (!pinnedUrls.has(url)) problems.push(`keptOut: ${url} is no longer pinned`);
-    if (rows.has(path) || existsSync(`${mirror}/${path}`)) problems.push(`keptOut: ${path} is in the mirror`);
+    if (rows.has(path) || existsSync(`${mirror}/${path}`))
+      problems.push(`keptOut: ${path} is in the mirror`);
     if (!fixtureText(kept.fixture).split("\n").includes(kept.header)) {
-      problems.push(`keptOut: tests/oracle/${kept.fixture} has no line ${JSON.stringify(kept.header)}`);
+      problems.push(
+        `keptOut: tests/oracle/${kept.fixture} has no line ${JSON.stringify(kept.header)}`,
+      );
     }
   }
   if (problems.length > 0) {
