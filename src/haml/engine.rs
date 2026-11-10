@@ -5,7 +5,7 @@ use super::grammar::{Nested, Pattern, Rule};
 use super::matchers::halts;
 use super::scope::S;
 use crate::arena::Arena;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The HAML lexer for one line.
@@ -66,7 +66,7 @@ impl Grammar for Haml {
     /// Ruby goes on after it.
     const EMBEDS: bool = true;
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

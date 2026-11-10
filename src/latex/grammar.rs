@@ -7666,7 +7666,7 @@ impl Rule {
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::SongsEnvAt0
             | Rule::MultilineOptionalArgNoHighlight
@@ -7816,49 +7816,49 @@ impl Rule {
             | Rule::CitationMacroCapture4
             | Rule::InlineCodeMacroAt3Capture5
             | Rule::InlineCodeMacroAt4Capture5
-            | Rule::MacroWithArgsTokenizerCapture7 => rules::Payload::None,
+            | Rule::MacroWithArgsTokenizerCapture7 => rules::CarriedState::None,
             Rule::EmbeddedCodeEnvAt0
             | Rule::EmbeddedCodeEnvAt15
             | Rule::EmbeddedCodeEnvAt17
-            | Rule::TexDollarMath => rules::Payload::Backref(1),
+            | Rule::TexDollarMath => rules::CarriedState::Backref(1),
             Rule::EmbeddedCodeEnvAt0At2
             | Rule::EmbeddedCodeEnvAt16At1At1
             | Rule::InlineCodeMacroAt7At1 => rules::embedded!(Shell, "lang-shell")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At4
             | Rule::EmbeddedCodeEnvAt16At3At1
             | Rule::InlineCodeMacroAt9At1 => rules::embedded!(Css, "lang-css")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At6
             | Rule::EmbeddedCodeEnvAt5At2
             | Rule::EmbeddedCodeEnvAt16At5At1
             | Rule::InlineCodeMacroAt11At1 => rules::embedded!(Haskell, "lang-haskell")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At7
             | Rule::EmbeddedCodeEnvAt16At6At1
             | Rule::InlineCodeMacroAt12At1 => rules::embedded!(Html, "lang-html")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At8
             | Rule::EmbeddedCodeEnvAt6At2
             | Rule::EmbeddedCodeEnvAt16At7At1
             | Rule::InlineCodeMacroAt13At1 => rules::embedded!(Java, "lang-java")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At9
             | Rule::EmbeddedCodeEnvAt7At2
             | Rule::EmbeddedCodeEnvAt8At2
             | Rule::EmbeddedCodeEnvAt16At8At1
             | Rule::InlineCodeMacroAt14At1 => rules::embedded!(Julia, "lang-julia")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At10
             | Rule::EmbeddedCodeEnvAt16At9At1
             | Rule::InlineCodeMacroAt15At1 => rules::embedded!(JavaScript, "lang-javascript")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At11
             | Rule::EmbeddedCodeEnvAt9At2
             | Rule::EmbeddedCodeEnvAt16At10At1
             | Rule::InlineCodeMacroAt5
             | Rule::InlineCodeMacroAt16At1 => rules::embedded!(Lua, "lang-lua")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At12
             | Rule::EmbeddedCodeEnvAt10At2
             | Rule::EmbeddedCodeEnvAt11At2
@@ -7866,40 +7866,39 @@ impl Rule {
             | Rule::EmbeddedCodeEnvAt14At2
             | Rule::EmbeddedCodeEnvAt16At11At1
             | Rule::InlineCodeMacroAt17At1 => rules::embedded!(Python, "lang-python")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At13
             | Rule::EmbeddedCodeEnvAt16At12At1
             | Rule::InlineCodeMacroAt18At1 => rules::embedded!(Ruby, "lang-ruby")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At14
             | Rule::EmbeddedCodeEnvAt16At13At1
             | Rule::InlineCodeMacroAt19At1 => rules::embedded!(Rust, "lang-rust")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At15
             | Rule::EmbeddedCodeEnvAt16At14At1
             | Rule::InlineCodeMacroAt20At1 => rules::embedded!(TypeScript, "lang-typescript")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At16
             | Rule::EmbeddedCodeEnvAt16At15At1
             | Rule::InlineCodeMacroAt21At1 => rules::embedded!(Xml, "lang-xml")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt0At17
             | Rule::EmbeddedCodeEnvAt16At16At1
             | Rule::InlineCodeMacroAt22At1 => rules::embedded!(Yaml, "lang-yaml")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt13At2 => rules::embedded!(Scala, "lang-scala")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::EmbeddedCodeEnvAt16
             | Rule::VerbatimEnvAt0
             | Rule::VerbatimEnvAt3
             | Rule::AllBalancedEnvAt2
             | Rule::AllBalancedEnvAt3
             | Rule::AllBalancedEnvAt6
-            | Rule::AllBalancedEnvAt8 => rules::Payload::Backref(2),
-            Rule::AllBalancedEnvAt0 => rules::Payload::Backref(4),
-            Rule::TexMathContentAt6At0 => {
-                rules::embedded!(R, "lang-r").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            | Rule::AllBalancedEnvAt8 => rules::CarriedState::Backref(2),
+            Rule::AllBalancedEnvAt0 => rules::CarriedState::Backref(4),
+            Rule::TexMathContentAt6At0 => rules::embedded!(R, "lang-r")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
         }
     }
 

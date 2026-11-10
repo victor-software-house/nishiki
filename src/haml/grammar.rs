@@ -505,7 +505,7 @@ impl Rule {
     /// language's state, when its feature is on.
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::InterpolatedText
@@ -514,7 +514,7 @@ impl Rule {
             | Rule::TagAt4
             | Rule::TagAt4At3
             | Rule::InterpolatedRubyLine
-            | Rule::RubyStart => rules::Payload::None,
+            | Rule::RubyStart => rules::CarriedState::None,
             Rule::InterpolatedRubyAt1
             | Rule::NestCurlyAndSelf
             | Rule::RubyFilterBody
@@ -523,9 +523,8 @@ impl Rule {
             | Rule::Rubyline
             | Rule::TagAt5
             | Rule::RubyOrOpalFilterBody
-            | Rule::RubyFilterKeywordBody => {
-                embedded!(Ruby, "lang-ruby").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            | Rule::RubyFilterKeywordBody => embedded!(Ruby, "lang-ruby")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::RubyFilter
             | Rule::JavascriptFilter
             | Rule::Script
@@ -539,24 +538,22 @@ impl Rule {
             | Rule::SassStylesFilter
             | Rule::MarkdownFilter
             | Rule::CssFilter
-            | Rule::SassFilterAlone => rules::Payload::Backref(1),
+            | Rule::SassFilterAlone => rules::CarriedState::Backref(1),
             Rule::JavascriptFilterBody | Rule::ScriptBody => {
                 embedded!(JavaScript, "lang-javascript")
-                    .map_or(rules::Payload::None, rules::Payload::Embed)
+                    .map_or(rules::CarriedState::None, rules::CarriedState::Embed)
             }
             Rule::SassStyleFilterBody
             | Rule::SassFilterBody
             | Rule::SassStylesFilterBody
-            | Rule::SassFilterAloneBody => {
-                embedded!(Sass, "lang-sass").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            | Rule::SassFilterAloneBody => embedded!(Sass, "lang-sass")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::CoffeeFilterBody => embedded!(CoffeeScript, "lang-coffee")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::MarkdownFilterBody => embedded!(Markdown, "lang-markdown")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
-            Rule::CssFilterBody => {
-                embedded!(Css, "lang-css").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::CssFilterBody => embedded!(Css, "lang-css")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
         }
     }
 

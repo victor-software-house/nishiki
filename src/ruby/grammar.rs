@@ -4291,7 +4291,7 @@ impl Rule {
     /// A rule whose end repeats a begin capture group carries that group.
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::RootAt21
             | Rule::RootAt26
@@ -4389,7 +4389,7 @@ impl Rule {
             | Rule::RootAt106At0
             | Rule::RootAt127
             | Rule::RootAt128
-            | Rule::Root => rules::Payload::None,
+            | Rule::Root => rules::CarriedState::None,
             Rule::RootAt46
             | Rule::RootAt51
             | Rule::RootAt56
@@ -4398,50 +4398,41 @@ impl Rule {
             | Rule::RootAt71
             | Rule::RootAt72
             | Rule::RootAt77
-            | Rule::RootAt82 => rules::Payload::Backref(1),
+            | Rule::RootAt82 => rules::CarriedState::Backref(1),
             Rule::YardComment
             | Rule::YardParamTypes
             | Rule::YardOption
             | Rule::YardTypes
             | Rule::YardDirective
             | Rule::YardSee
-            | Rule::YardMacroAttribute => rules::Payload::Backref(3),
-            Rule::RootAt89At0 => {
-                embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::RootAt90At0 => {
-                embedded!(Haml, "lang-haml").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::RootAt91At0 => {
-                embedded!(Xml, "lang-xml").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::RootAt92At0 => {
-                embedded!(Sql, "lang-sql").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            | Rule::YardMacroAttribute => rules::CarriedState::Backref(3),
+            Rule::RootAt89At0 => embedded!(Html, "lang-html")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt90At0 => embedded!(Haml, "lang-haml")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt91At0 => embedded!(Xml, "lang-xml")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt92At0 => embedded!(Sql, "lang-sql")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::RootAt93At0 => embedded!(GraphQl, "lang-graphql")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
-            Rule::RootAt94At0 => {
-                embedded!(Css, "lang-css").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::RootAt95At0 => {
-                embedded!(Cpp, "lang-cpp").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt94At0 => embedded!(Css, "lang-css")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt95At0 => embedded!(Cpp, "lang-cpp")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::RootAt96At0 => {
-                embedded!(C, "lang-c").map_or(rules::Payload::None, rules::Payload::Embed)
+                embedded!(C, "lang-c").map_or(rules::CarriedState::None, rules::CarriedState::Embed)
             }
             Rule::RootAt97At0 => embedded!(JavaScript, "lang-javascript")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
-            Rule::RootAt99At0 => {
-                embedded!(Shell, "lang-shell").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::RootAt100At0 => {
-                embedded!(Lua, "lang-lua").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::RootAt102At0 => {
-                embedded!(Yaml, "lang-yaml").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::RootAt104 => rules::Payload::Backref(2),
-            Rule::RootAt105 => rules::Payload::Backref(6),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt99At0 => embedded!(Shell, "lang-shell")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt100At0 => embedded!(Lua, "lang-lua")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt102At0 => embedded!(Yaml, "lang-yaml")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::RootAt104 => rules::CarriedState::Backref(2),
+            Rule::RootAt105 => rules::CarriedState::Backref(6),
         }
     }
 }

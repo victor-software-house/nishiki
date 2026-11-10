@@ -9,7 +9,7 @@ use super::scope::S;
 use crate::arena::Arena;
 use crate::php_family::halts::{quoted_to, sql_common};
 pub(crate) use crate::rules::embedded;
-use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, NameCase, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The lexer of Blade's PHP for one line.
@@ -77,7 +77,7 @@ impl Grammar for Blade {
 
     const EMBEDS: bool = true;
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

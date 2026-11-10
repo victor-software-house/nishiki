@@ -723,15 +723,15 @@ for (const r of ruleList) {
     );
   }
 }
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end or name repeats a begin capture group carries that\n    /// group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end or name repeats a begin capture group carries that\n    /// group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
     r.embed && features.has(r.embed.feature)
-      ? `embedded!(${r.embed.lang}, "${r.embed.feature}").map_or(rules::Payload::None, rules::Payload::Embed)`
+      ? `embedded!(${r.embed.lang}, "${r.embed.feature}").map_or(rules::CarriedState::None, rules::CarriedState::Embed)`
       : r.backref === null
-        ? "rules::Payload::None"
-        : `rules::Payload::Backref(${r.backref})`,
+        ? "rules::CarriedState::None"
+        : `rules::CarriedState::Backref(${r.backref})`,
   ]),
   "Rule",
 );

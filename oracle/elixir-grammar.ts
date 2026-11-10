@@ -10,7 +10,7 @@
 //
 // The `~H` and `~L` sigils include `text.elixir` and then `text.html.basic`.
 // Shiki does not bundle `text.elixir`, so that include adds nothing.
-// The rule embeds HTML (`Payload::Embed`).
+// The rule embeds HTML (`CarriedState::Embed`).
 // Its end is where HTML hands the line back (`engine::TripleQuote`).
 //
 // Run with `bun run oracle/elixir-grammar.ts` and commit the result.
@@ -291,15 +291,15 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds HTML carries HTML's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds HTML carries HTML's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
     r.embedsHtml
-      ? `embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)`
+      ? `embedded!(Html, "lang-html").map_or(rules::CarriedState::None, rules::CarriedState::Embed)`
       : r.backref === null
-        ? "rules::Payload::None"
-        : `rules::Payload::Backref(${r.backref})`,
+        ? "rules::CarriedState::None"
+        : `rules::CarriedState::Backref(${r.backref})`,
   ]),
   "Rule",
 );

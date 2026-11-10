@@ -2903,7 +2903,7 @@ impl Rule {
     /// A rule whose end repeats a begin capture group carries that group.
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::CommentsAt0
@@ -2984,35 +2984,29 @@ impl Rule {
             | Rule::LanguageAt13At1
             | Rule::SwitchStatementAt1At1
             | Rule::Nested12
-            | Rule::UseInnerAt1 => rules::Payload::None,
+            | Rule::UseInnerAt1 => rules::CarriedState::None,
             Rule::SqlStringDoubleQuoted
             | Rule::SqlStringSingleQuoted
             | Rule::HeredocInteriorAt3
-            | Rule::NowdocInteriorAt3 => {
-                embedded!(Sql, "lang-sql").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::HeredocInteriorAt0 | Rule::NowdocInteriorAt0 => {
-                embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::HeredocInteriorAt1 | Rule::NowdocInteriorAt1 => {
-                embedded!(Blade, "lang-blade").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::HeredocInteriorAt2 | Rule::NowdocInteriorAt2 => {
-                embedded!(Xml, "lang-xml").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            | Rule::NowdocInteriorAt3 => embedded!(Sql, "lang-sql")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::HeredocInteriorAt0 | Rule::NowdocInteriorAt0 => embedded!(Html, "lang-html")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::HeredocInteriorAt1 | Rule::NowdocInteriorAt1 => embedded!(Blade, "lang-blade")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::HeredocInteriorAt2 | Rule::NowdocInteriorAt2 => embedded!(Xml, "lang-xml")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
             Rule::HeredocInteriorAt4Javascript
             | Rule::HeredocInteriorAt4Js
             | Rule::NowdocInteriorAt4Javascript
             | Rule::NowdocInteriorAt4Js => embedded!(JavaScript, "lang-javascript")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
-            Rule::HeredocInteriorAt5 | Rule::NowdocInteriorAt5 => {
-                embedded!(Json, "lang-json").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::HeredocInteriorAt6 | Rule::NowdocInteriorAt6 => {
-                embedded!(Css, "lang-css").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::HeredocInteriorAt7 | Rule::HeredocInteriorAt8 => rules::Payload::Backref(3),
-            Rule::NowdocInteriorAt7 | Rule::NowdocInteriorAt8 => rules::Payload::Backref(2),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::HeredocInteriorAt5 | Rule::NowdocInteriorAt5 => embedded!(Json, "lang-json")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::HeredocInteriorAt6 | Rule::NowdocInteriorAt6 => embedded!(Css, "lang-css")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::HeredocInteriorAt7 | Rule::HeredocInteriorAt8 => rules::CarriedState::Backref(3),
+            Rule::NowdocInteriorAt7 | Rule::NowdocInteriorAt8 => rules::CarriedState::Backref(2),
         }
     }
 

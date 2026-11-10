@@ -20,7 +20,7 @@
 use super::Embedding;
 #[cfg(feature = "_halting-embedding")]
 use super::Stop;
-use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
+use super::{Act, Captures, CarriedState, DynName, Grammar, NameCase, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
 use crate::language::{Halt, Halts, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
@@ -159,7 +159,11 @@ pub(crate) struct Scratch<G: Grammar> {
 /// Only a grammar that defers groups keeps one ([`Grammar::deferred`]).
 #[cfg(feature = "_embedding")]
 #[derive(Debug, Default)]
-pub(crate) struct Deferrals {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Deferrals {
     /// The groups, in the order their placeholders went out.
     pub(crate) groups: Vec<Deferred>,
     /// The tokens a group's language emits, before they take its
@@ -285,7 +289,11 @@ pub(crate) const FIRST_LINE: u32 = 1;
     clippy::struct_excessive_bools,
     reason = "each flag is one fact the grammar's anchors ask about"
 )]
-pub(crate) struct Lexer<'a, G: Grammar> {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Lexer<'a, G: Grammar> {
     /// The text: the line, or the part of it up to where a capture that is
     /// lexed again ends.
     pub(crate) s: &'a [u8],
@@ -374,6 +382,17 @@ enum Entry {
     Resume,
 }
 
+/// Shows where the lexer stands in its line, not the buffers it writes.
+impl<G: Grammar> core::fmt::Debug for Lexer<'_, G> {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        f.debug_struct("Lexer")
+            .field("pos", &self.pos)
+            .field("len", &self.s.len())
+            .field("state", &self.state)
+            .finish_non_exhaustive()
+    }
+}
+
 impl<'a, G: Grammar> Lexer<'a, G> {
     #[expect(
         clippy::inline_always,
@@ -456,9 +475,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// grammar that has such rules.
     fn note_embedding(&mut self) {
         if G::EMBEDS && self.embedding {
-            self.embeds = match G::rule_payload(self.top().rule) {
-                Payload::Embed(language) => Some(language),
-                Payload::None | Payload::Backref(_) => None,
+            self.embeds = match G::rule_carried_state(self.top().rule) {
+                CarriedState::Embed(language) => Some(language),
+                CarriedState::None | CarriedState::Backref(_) => None,
             };
         }
     }
@@ -492,14 +511,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             #[cfg(feature = "_embedding")]
             if G::EMBEDS_ON_DEMAND
                 && !self.embedding
-                && let Payload::Embed(language) = G::rule_payload(self.top().rule)
+                && let CarriedState::Embed(language) = G::rule_carried_state(self.top().rule)
             {
                 self.yielded = Some((self.pos, language, self.anchor == Some(self.pos)));
             }
         }
         if G::CAPTURED_EOL
             && self.frames.len() > 1
-            && G::rule_payload(self.top().rule) == Payload::None
+            && G::rule_carried_state(self.top().rule) == CarriedState::None
             && self.top().payload == CAPTURED_EOL
         {
             self.anchor = Some(self.pos);
@@ -703,7 +722,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.note_embedding();
         if !G::EMBEDS
             && !self.host
-            && let Payload::Embed(language) = G::rule_payload(self.top().rule)
+            && let CarriedState::Embed(language) = G::rule_carried_state(self.top().rule)
         {
             self.yield_to(language);
         } else {
@@ -1265,7 +1284,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let Some(prefix) = G::rule_name_delimiter(rule) else {
             return name;
         };
-        let source = if self.arena.string(payload).len() > G::NAMED_PAYLOAD {
+        let source = if self.arena.string(payload).len() > G::LONGEST_NAMED_DELIMITER {
             NameSource::Line {
                 start: 0,
                 end: 0,
@@ -1865,14 +1884,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.emit(start, top_content);
         let before = self.depth();
         let mut embedded = None;
-        let payload = match G::rule_payload(rule) {
-            Payload::None if G::CAPTURED_EOL && end > self.s.len() => CAPTURED_EOL,
-            Payload::None => 0,
-            Payload::Embed(language) => {
+        let payload = match G::rule_carried_state(rule) {
+            CarriedState::None if G::CAPTURED_EOL && end > self.s.len() => CAPTURED_EOL,
+            CarriedState::None => 0,
+            CarriedState::Embed(language) => {
                 embedded = Some(language);
                 0
             }
-            Payload::Backref(group) => {
+            CarriedState::Backref(group) => {
                 let text = std::str::from_utf8(self.capture_text(usize::from(group))).unwrap_or("");
                 self.arena.intern(text).unwrap_or_else(|| {
                     self.report.record(Limit::Nodes);
@@ -2071,7 +2090,7 @@ mod tests {
     use crate::language::Halt;
     use crate::language::Parts;
     use crate::limits::{Limits, LineReport};
-    use crate::rules::{Act, Captures, Grammar, NameCase, Payload, ScopeName, Text};
+    use crate::rules::{Act, Captures, CarriedState, Grammar, NameCase, ScopeName, Text};
     #[cfg(feature = "_embedding")]
     use crate::rules::{Embedding, Embeds, EndText, FnHalt};
     use crate::scope::{Scope, Scopes, scopes};
@@ -2372,30 +2391,30 @@ mod tests {
     }
 
     /// What [`Rule::Inner`] carries: Rust, or nothing in a build without Rust.
-    fn inner_payload() -> Payload {
+    fn inner_payload() -> CarriedState {
         #[cfg(feature = "lang-rust")]
-        let payload = Payload::Embed(crate::Language::Rust);
+        let payload = CarriedState::Embed(crate::Language::Rust);
         #[cfg(not(feature = "lang-rust"))]
-        let payload = Payload::None;
+        let payload = CarriedState::None;
         payload
     }
 
     /// What [`Rule::Held`] carries: JavaScript, or nothing in a build
     /// without it.
-    fn held_payload() -> Payload {
+    fn held_payload() -> CarriedState {
         #[cfg(feature = "lang-javascript")]
-        let payload = Payload::Embed(crate::Language::JavaScript);
+        let payload = CarriedState::Embed(crate::Language::JavaScript);
         #[cfg(not(feature = "lang-javascript"))]
-        let payload = Payload::None;
+        let payload = CarriedState::None;
         payload
     }
 
     /// What [`Rule::Mixed`] carries: HTML, or nothing in a build without it.
-    fn mixed_payload() -> Payload {
+    fn mixed_payload() -> CarriedState {
         #[cfg(feature = "lang-html")]
-        let payload = Payload::Embed(crate::Language::Html);
+        let payload = CarriedState::Embed(crate::Language::Html);
         #[cfg(not(feature = "lang-html"))]
-        let payload = Payload::None;
+        let payload = CarriedState::None;
         payload
     }
 
@@ -2588,10 +2607,10 @@ mod tests {
             Name::NO_SCOPES
         }
 
-        fn rule_payload(rule: Rule) -> Payload {
+        fn rule_carried_state(rule: Rule) -> CarriedState {
             match rule {
-                Rule::Root => Payload::None,
-                Rule::Quote => Payload::Backref(1),
+                Rule::Root => CarriedState::None,
+                Rule::Quote => CarriedState::Backref(1),
                 Rule::Inner => inner_payload(),
                 Rule::Held => held_payload(),
                 Rule::Mixed => mixed_payload(),

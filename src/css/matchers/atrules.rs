@@ -5,6 +5,10 @@ use super::super::engine::CssLike;
 use super::chars::{Letters, Words};
 use crate::rules::{Chars, Lexer};
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: CssLike> Lexer<'_, G> {
     /// The lookahead `(["';{\s]|/\*|$)` and its kin at `p`: white space, a
     /// comment, the end, or one of `set`.

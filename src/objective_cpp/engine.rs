@@ -4,7 +4,7 @@
 use super::grammar::{Expr, Nested, Pattern, Rule, Sc};
 use super::scope::S;
 use crate::objective_c::{Memory, ObjcMemory};
-use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Objective-C++ lexer for one line.
@@ -85,10 +85,10 @@ impl Grammar for ObjectiveCpp {
     }
 
     /// A raw string keeps its delimiter, which its end repeats.
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.definition()
             .backref
-            .map_or(Payload::None, Payload::Backref)
+            .map_or(CarriedState::None, CarriedState::Backref)
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {

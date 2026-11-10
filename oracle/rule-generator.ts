@@ -868,15 +868,20 @@ function embedTables(
       ruleList.map((r): [string, string] => {
         const embed = embeds.get(r.id);
         if (embed)
-          return [r.id, `${lang(embed.embed)}.map_or(rules::Payload::None, rules::Payload::Embed)`];
+          return [
+            r.id,
+            `${lang(embed.embed)}.map_or(rules::CarriedState::None, rules::CarriedState::Embed)`,
+          ];
         return [
           r.id,
-          r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`,
+          r.backref === null
+            ? "rules::CarriedState::None"
+            : `rules::CarriedState::Backref(${r.backref})`,
         ];
       }),
       "Rule",
     );
-    g += `    /// What the rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n${longTable(payloadArms)}    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n${payloadArms}`;
+    g += `    /// What the rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n${longTable(payloadArms)}    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n${payloadArms}`;
     g += "        }\n    }\n";
   }
   if (deferred.size) {

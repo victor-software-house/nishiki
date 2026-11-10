@@ -4,7 +4,7 @@
 use super::grammar::{Nested, Pattern, Rule, Sc};
 use super::scope::S;
 use crate::arena::Arena;
-use crate::rules::{self, Act, Captures, FnHalt, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, FnHalt, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The TeX lexer for one line.
@@ -54,7 +54,7 @@ impl Grammar for Tex {
 
     /// Math carries the `$` or `$$` that opened it, which its end repeats.
     /// `\Sexpr{…}`'s inner rule carries R.
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

@@ -80,6 +80,10 @@ impl Words {
 }
 
 /// The lookups of a word table, on the rule engine's lexer of either grammar.
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: PhpFamily> Lexer<'_, G> {
     /// The list of `words` that holds the word at `p` first, and the end of
     /// its match.

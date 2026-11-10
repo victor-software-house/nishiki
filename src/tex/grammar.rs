@@ -247,7 +247,7 @@ impl Rule {
     /// feature is on.
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::IffalseBlock
             | Rule::Comment
@@ -257,11 +257,10 @@ impl Rule {
             | Rule::Conditionals
             | Rule::MathContentAt0
             | Rule::MathContentAt6
-            | Rule::Root => rules::Payload::None,
-            Rule::DollarMath => rules::Payload::Backref(1),
-            Rule::MathContentAt6At0 => {
-                rules::embedded!(R, "lang-r").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
+            | Rule::Root => rules::CarriedState::None,
+            Rule::DollarMath => rules::CarriedState::Backref(1),
+            Rule::MathContentAt6At0 => rules::embedded!(R, "lang-r")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
         }
     }
 }

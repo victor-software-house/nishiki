@@ -1330,7 +1330,7 @@ impl Rule {
     /// What a rule carries from line to line.
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::ParensAndCont
             | Rule::Parens
@@ -1405,7 +1405,7 @@ impl Rule {
             | Rule::FunctionHeaderCloseBraceNoArg
             | Rule::FunctionDefinitionAt1At1
             | Rule::FunctionHeaderUntilColonWithArg
-            | Rule::Root => rules::Payload::None,
+            | Rule::Root => rules::CarriedState::None,
         }
     }
 }

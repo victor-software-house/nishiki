@@ -58,6 +58,10 @@ pub(in crate::css) enum Letters {
     Dashed,
 }
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: CssLike> Lexer<'_, G> {
     /// The end of the run of `letters` from `p`: `[a-z]*` or `[-a-z]*` under
     /// `(?i)`.

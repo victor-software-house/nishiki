@@ -1,0 +1,47 @@
+//! The rule engine's API, for a caller that runs a grammar of their own.
+//!
+//! This module is exempt from semver.
+//! Any release can change it, a patch included.
+//!
+//! It compiles only with `--cfg nishiki_unstable`, which a caller sets in
+//! `RUSTFLAGS` or in `.cargo/config.toml`:
+//!
+//! ```toml
+//! [build]
+//! rustflags = ["--cfg", "nishiki_unstable"]
+//! ```
+//!
+//! A cfg is the opt-in, not a Cargo feature.
+//! Features unify across a dependency graph, so a crate that depends on
+//! nishiki could turn the API on for every other crate that does.
+//!
+//! [`Grammar`] is the trait each rule-engine language implements: its rules,
+//! patterns and scopes, and the matchers that decide where a pattern
+//! matches.
+//! The other items are the types its signatures name.
+//! [`Scopes`] here is a static scope list.
+//! It differs from [`crate::Scopes`], which walks a token's scope stack.
+//!
+//! A caller outside the crate names these items:
+//!
+//! ```
+//! use nishiki::unstable::{CarriedState, Grammar};
+//!
+//! /// The state a grammar's root rule carries from line to line.
+//! fn root_state<G: Grammar>() -> CarriedState {
+//!     G::rule_carried_state(G::ROOT)
+//! }
+//!
+//! assert!(size_of::<CarriedState>() <= 2);
+//! ```
+
+pub use crate::arena::Arena;
+#[cfg(feature = "_embedding")]
+pub use crate::rules::Deferrals;
+#[cfg(feature = "_rule-engine")]
+pub use crate::rules::{
+    Act, BlankRuns, Captures, CarriedState, Grammar, Lexer, NameCase, ScopeName,
+};
+pub use crate::scope::Scope;
+#[cfg(feature = "_language")]
+pub use crate::scope::{Keyed, Scopes};

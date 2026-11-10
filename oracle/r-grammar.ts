@@ -8,7 +8,7 @@
 // `Pattern` or `Rule`, so it has one matcher.
 //
 // A raw string's end and a roxygen fence's end repeat a group of their begin,
-// which the rule carries as `Payload::Backref`.
+// which the rule carries as `CarriedState::Backref`.
 // `@examplesIf` lexes its condition again as an expression, through a rule of
 // its own.
 //
@@ -304,11 +304,13 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line: the begin capture group its end\n    /// repeats, when it does.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line: the begin capture group its end\n    /// repeats, when it does.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((rule): [string, string] => [
     rule.id,
-    rule.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${rule.backref})`,
+    rule.backref === null
+      ? "rules::CarriedState::None"
+      : `rules::CarriedState::Backref(${rule.backref})`,
   ]),
   "Rule",
 );

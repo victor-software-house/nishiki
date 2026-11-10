@@ -3,6 +3,10 @@
 use super::super::engine::CssLike;
 use crate::rules::{Chars, Lexer};
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: CssLike> Lexer<'_, G> {
     /// `/\*`
     pub(in crate::css) fn comment_block(&mut self, p: usize) -> Option<usize> {

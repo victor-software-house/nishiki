@@ -10,6 +10,7 @@ The public API and its docs are on [docs.rs](https://docs.rs/nishiki); this page
 - [`language.rs`](language.rs): `Language`, and the one table every per-language list is built from.
 - [`limits.rs`](limits.rs): `Limits`, the bounds on one line's work and memory, and `LineReport`.
 - [`theme.rs`](theme.rs): `Theme`, which reads TextMate themes in Shiki's format and styles each scope.
+- [`unstable.rs`](unstable.rs): `nishiki::unstable`, the rule engine's API under `--cfg nishiki_unstable`, exempt from semver.
 
 ## Shared by the lexers
 

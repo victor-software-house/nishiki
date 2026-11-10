@@ -145,11 +145,13 @@ impl Rule {
 
     /// What a rule carries from line to line: the state of HLSL, when the
     /// rule embeds it and its feature is on.
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
-            Rule::Root | Rule::LineComment | Rule::Attribute | Rule::String => rules::Payload::None,
+            Rule::Root | Rule::LineComment | Rule::Attribute | Rule::String => {
+                rules::CarriedState::None
+            }
             Rule::CgBlock | Rule::HlslBlock => rules::embedded!(Hlsl, "lang-hlsl")
-                .map_or(rules::Payload::None, rules::Payload::Embed),
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
         }
     }
 

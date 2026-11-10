@@ -8,6 +8,10 @@ pub(crate) fn starts_word(c: char) -> bool {
     c == '$' || c == '_' || c.is_ascii_alphabetic() || c == 'ſ' || c == '\u{212a}'
 }
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: PhpFamily> Lexer<'_, G> {
     /// `\$\{(?=.*?})`.
     pub(crate) fn dollar_brace(&self, p: usize) -> Option<usize> {

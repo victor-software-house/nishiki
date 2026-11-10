@@ -9,7 +9,7 @@ use crate::arena::Arena;
 use crate::classes::space_width;
 use crate::language::{Context, Halt, Language, Line, StopReason, Stopped};
 use crate::limits::Finished;
-use crate::rules::{self, Act, Captures, FnHalt, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, FnHalt, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The LaTeX lexer for one line.
@@ -90,9 +90,9 @@ impl Grammar for Latex {
     /// environment's rule the name its end repeats.
     /// A sectioning command carries its name, group 3, which its name scope
     /// `meta.function.section.$3.latex` repeats.
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         if matches!(rule, Rule::SectionsMacro) {
-            return Payload::Backref(3);
+            return CarriedState::Backref(3);
         }
         rule.payload()
     }

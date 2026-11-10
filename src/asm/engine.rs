@@ -6,7 +6,7 @@ use std::cell::Cell;
 use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
 use super::words::LONGEST;
-use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, BlankRuns, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Assembly lexer for one line.
@@ -140,8 +140,8 @@ impl Grammar for Asm {
         rule.definition().content
     }
 
-    fn rule_payload(_: Rule) -> Payload {
-        Payload::None
+    fn rule_carried_state(_: Rule) -> CarriedState {
+        CarriedState::None
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {

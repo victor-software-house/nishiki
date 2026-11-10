@@ -42,6 +42,10 @@ pub(super) enum Last {
     Member,
 }
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: Grammar> Lexer<'_, G>
 where
     G::Extra: ObjcMemory,

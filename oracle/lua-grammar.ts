@@ -10,7 +10,7 @@
 // The C it embeds keeps a state.
 // A frame carries only one payload.
 // The include therefore becomes a rule of its own inside the cdef rule.
-// That rule adds no scope and embeds C (`Payload::Embed`).
+// That rule adds no scope and embeds C (`CarriedState::Embed`).
 // Its end, `(?=]\2])`, reads the level from the cdef rule's frame.
 //
 // Run with `bun run oracle/lua-grammar.ts` and commit the result; the output
@@ -270,15 +270,15 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that includes another language's grammar carries that language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that includes another language's grammar carries that language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
     r.embed
-      ? `embedded!(${r.embed[0]}, "${r.embed[1]}").map_or(rules::Payload::None, rules::Payload::Embed)`
+      ? `embedded!(${r.embed[0]}, "${r.embed[1]}").map_or(rules::CarriedState::None, rules::CarriedState::Embed)`
       : r.backref === null
-        ? "rules::Payload::None"
-        : `rules::Payload::Backref(${r.backref})`,
+        ? "rules::CarriedState::None"
+        : `rules::CarriedState::Backref(${r.backref})`,
   ]),
   "Rule",
 );

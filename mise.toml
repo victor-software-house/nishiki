@@ -50,6 +50,7 @@ depends = [
   "check:size",
   "test",
   "test:doc",
+  "check:unstable",
   "test:miri",
   "doc",
   "check:docs",
@@ -82,6 +83,25 @@ env = { CARGO_BUILD_JOBS = "2" }
 # That chain ends before test, which runs the longest.
 [tasks."test:doc"]
 wait_for = ["check:size"]
+
+# nishiki::unstable compiles only with --cfg nishiki_unstable.
+# This lints every target with the cfg and runs the module's doctests.
+# The full suite runs once, in test, without the cfg.
+# Its own target directory keeps the cfg's builds from replacing lint's.
+# It waits for test:doc, so it compiles beside test only.
+[tasks."check:unstable"]
+description = "Lint with nishiki::unstable, and run its doctests"
+wait_for = ["test:doc"]
+run = [
+  "cargo clippy --locked --workspace --all-targets --all-features -- -D warnings",
+  "cargo test --locked --package nishiki --doc --all-features --no-fail-fast -- unstable",
+]
+
+[tasks."check:unstable".env]
+CARGO_BUILD_JOBS = "2"
+CARGO_TARGET_DIR = "target/unstable"
+RUSTFLAGS = "--cfg nishiki_unstable"
+RUSTDOCFLAGS = "--cfg nishiki_unstable"
 
 # The tests of the Bun scripts under oracle/, bench/ and mise-tasks/.
 # They need no network, unlike the oracle runs.

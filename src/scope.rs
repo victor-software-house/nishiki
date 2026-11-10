@@ -12,7 +12,11 @@
 
 /// A scope name: a language's table base plus the name's index in it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub(crate) struct Scope(u32);
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Scope(u32);
 
 /// Scope numbers from here up name scopes made at run time, such as the
 /// delimiter of a here-document.
@@ -408,7 +412,11 @@ mod tests {
         reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
     )
 )]
-pub(crate) struct Keyed<T: ?Sized> {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Keyed<T: ?Sized> {
     /// The codes of the scopes, folded as the digits of a number in base
     /// [`KEY_STEP`], each code plus one.
     pub(crate) key: u16,
@@ -416,7 +424,7 @@ pub(crate) struct Keyed<T: ?Sized> {
     pub(crate) list: T,
 }
 
-/// A static scope list with its key; [`scopes!`] makes one.
+/// A static scope list with its key; `scopes!` makes one.
 #[cfg(feature = "_language")]
 #[cfg_attr(
     not(feature = "_hand-lexers"),
@@ -425,7 +433,11 @@ pub(crate) struct Keyed<T: ?Sized> {
         reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
     )
 )]
-pub(crate) type Scopes<S> = &'static Keyed<[S]>;
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub type Scopes<S> = &'static Keyed<[S]>;
 
 /// The base of the fold that keys a list.
 /// It is odd, the high half of the 32-bit golden ratio.

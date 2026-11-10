@@ -1248,7 +1248,7 @@ impl Rule {
     /// A rule that embeds HTML carries HTML's state, when its feature is on.
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::Payload {
+    pub(crate) fn payload(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::RootAt0
@@ -1287,11 +1287,10 @@ impl Rule {
             | Rule::CoreSyntaxAt47
             | Rule::CoreSyntaxAt47At0
             | Rule::CoreSyntaxAt48
-            | Rule::CoreSyntaxAt48At0 => rules::Payload::None,
-            Rule::CoreSyntaxAt5 | Rule::CoreSyntaxAt6 => {
-                embedded!(Html, "lang-html").map_or(rules::Payload::None, rules::Payload::Embed)
-            }
-            Rule::CoreSyntaxAt38 | Rule::CoreSyntaxAt44 => rules::Payload::Backref(1),
+            | Rule::CoreSyntaxAt48At0 => rules::CarriedState::None,
+            Rule::CoreSyntaxAt5 | Rule::CoreSyntaxAt6 => embedded!(Html, "lang-html")
+                .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
+            Rule::CoreSyntaxAt38 | Rule::CoreSyntaxAt44 => rules::CarriedState::Backref(1),
         }
     }
 }

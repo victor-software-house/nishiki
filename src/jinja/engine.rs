@@ -5,7 +5,7 @@ use std::convert::Infallible;
 
 use super::grammar::{Pattern, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Jinja lexer for one line.
@@ -54,7 +54,7 @@ impl Grammar for Jinja {
         rule.definition().content
     }
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.payload()
     }
 

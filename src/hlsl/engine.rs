@@ -4,7 +4,7 @@ use std::cell::Cell;
 
 use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The HLSL lexer for one line.
@@ -81,8 +81,8 @@ impl Grammar for Hlsl {
         rule.definition().content
     }
 
-    fn rule_payload(_: Rule) -> Payload {
-        Payload::None
+    fn rule_carried_state(_: Rule) -> CarriedState {
+        CarriedState::None
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {

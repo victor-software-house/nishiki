@@ -17,7 +17,7 @@
 // end repeats the label alone.
 // A heredoc tagged HTML, XML, CSS, JAVASCRIPT or SQL holds a rule that opens
 // at each line's start, ends at its line feed and embeds that language
-// (`Payload::Embed`).
+// (`CarriedState::Embed`).
 // A heredoc tagged POSTSCRIPT includes a grammar that Shiki lacks, so its
 // lines keep the heredoc's scopes.
 //
@@ -507,15 +507,15 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n${tooLong}    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n${tooLong}    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
     r.embed
-      ? `embedded!(${r.embed[0]}, "${r.embed[1]}").map_or(rules::Payload::None, rules::Payload::Embed)`
+      ? `embedded!(${r.embed[0]}, "${r.embed[1]}").map_or(rules::CarriedState::None, rules::CarriedState::Embed)`
       : r.backref === null
-        ? "rules::Payload::None"
-        : `rules::Payload::Backref(${r.backref})`,
+        ? "rules::CarriedState::None"
+        : `rules::CarriedState::Backref(${r.backref})`,
   ]),
   "Rule",
 );

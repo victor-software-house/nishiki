@@ -6,7 +6,7 @@ use std::cell::{Cell, OnceCell};
 use super::grammar::{Pattern, Rule};
 use super::matchers::{Class, Escape};
 use super::scope::S;
-use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
+use crate::rules::{self, Act, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
 
 /// The Less lexer for one line.
@@ -97,10 +97,10 @@ impl Grammar for Less {
         rule.definition().content
     }
 
-    fn rule_payload(rule: Rule) -> Payload {
+    fn rule_carried_state(rule: Rule) -> CarriedState {
         rule.definition()
             .backref
-            .map_or(Payload::None, Payload::Backref)
+            .map_or(CarriedState::None, CarriedState::Backref)
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {
