@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Each rule-engine language's tables are what its oracle/<language>-grammar.ts writes"
+#MISE description="Each rule-engine language's tables match its oracle/<language>-grammar.ts"
 #MISE tools={bun="1.4.4"}
 # Runs every rule-engine generator, oracle/<language>-grammar.ts.
 # oracle/rule-grammar.ts is the library they share, not a generator.

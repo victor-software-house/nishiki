@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="tests/oracle/COVERAGE.md is what oracle/coverage.ts measures, and complete grammars stay complete"
+#MISE description="COVERAGE.md matches oracle/coverage.ts, and complete grammars stay complete"
 #MISE tools={bun="1.4.4"}
 # Measures the oracle's coverage again into a temporary file and fails when
 # it differs from the committed report, or when oracle/coverage.ts fails: a

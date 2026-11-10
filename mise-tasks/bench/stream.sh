@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Per-delta latency on the stream traces: setup, first delta, steady p50, p99 and maximum, and the whole file"
+#MISE description="Stream-trace latency: setup, first delta, steady p50, p99, maximum, whole file"
 #MISE env={CARGO_TARGET_DIR = "target/bench"}
 # Not part of verify: timings depend on the machine (bench/AGENTS.md).
 # Arguments go to the program: `mise run bench:stream reply` replays the

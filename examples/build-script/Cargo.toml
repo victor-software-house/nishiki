@@ -3,7 +3,7 @@ name = "nishiki-build-script"
 version = "0.0.0"
 edition = "2024"
 rust-version = "1.99.1"
-description = "A program that compiles a TextMate grammar in its build script and highlights with it"
+description = "Compiles a TextMate grammar in its build script and highlights with it"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/victor-software-house/nishiki"
 # Never published (CODING_STANDARDS 5.3).

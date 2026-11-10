@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="The bench workspace is formatted, passes its lints, and runs each benchmark once; the comparison workspace is formatted and linted"
+#MISE description="Both bench workspaces are formatted and linted, and each benchmark runs once"
 #MISE env={CARGO_TARGET_DIR = "target/bench"}
 # verify does not build bench/, which is its own workspace.
 # The Callgrind workflow's Bench job runs this on a pull request labelled

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Per-line latency on the benchmark corpus: steady p50, p99 and maximum, and first contact"
+#MISE description="Per-line latency on the corpus: steady p50, p99 and maximum, and first contact"
 #MISE env={CARGO_TARGET_DIR = "target/bench"}
 # Not part of verify: timings depend on the machine (bench/AGENTS.md).
 # Arguments go to the program: `mise run bench:latency --tier medium python`

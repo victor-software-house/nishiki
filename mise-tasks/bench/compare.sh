@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Compare nishiki with syntect, tree-sitter-highlight, Shiki and Pierre on the benchmark corpus"
+#MISE description="Compare with syntect, tree-sitter-highlight, Shiki and Pierre on the corpus"
 #MISE tools={bun="1.4.4"}
 #MISE env={CARGO_TARGET_DIR = "target/compare"}
 #MISE depends=["check:bun-lockfile"]
