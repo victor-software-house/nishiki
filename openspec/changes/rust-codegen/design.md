@@ -320,6 +320,7 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
 | `word_lists` | each list read from an expression, by pattern id and its bounds | `words` |
 | `backref_start` | `BackrefStart::Quote` or `BackrefStart::Any` | `startTable`'s argument |
 | `matchers` | `HandMatchers::All`, or the patterns with a hand matcher | every pattern, by hand |
+| `names` | a name for each pattern whose derived name is too long (section 8.4) | the snake-cased pattern id |
 | `added_outputs` | the files a language adds, each a function of the model | the six one-off outputs |
 
 - The values are Rust, so the compiler checks every field, and no second file format exists.
@@ -344,6 +345,38 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
   The `generated-rust` spec allows such a set and no other token change.
 - `oracle/rule-grammar.test.ts`'s 24 cases become unit tests with typed inputs.
 
+### 8.4 Generated names
+
+Generated identifiers follow rule 3.9, names are prose, and the 100-column limit, as written ones do (lead, 2026-11-10).
+Swift's script breaks both today:
+
+- It names each matcher `rx_` plus the snake-cased pattern id.
+  The id spells the whole repository path.
+- Of its 347 matcher names, 30 run 60 characters or more.
+  The longest has 100: `rx_expressions_without_trailing_closures_or_member_references_function_or_macro_call_expression_at_1`.
+- 143 lines that hold one pass 100 columns.
+
+`names.rs` derives a short, plain name instead:
+
+1. A pattern takes the repository key of its rule, the last part of the path.
+   Its place in the rule follows: `begin`, `end`, `while`, or its position in a pattern list.
+2. Two patterns with the same name are told apart by one rule.
+   Each takes the nearest enclosing repository key where their paths differ.
+   The whole path is never appended.
+3. A name stays within 40 characters, so a line that calls it fits in 100 columns.
+   A longer name is an error (section 9), and the language's `RuleTables` gives that pattern a name in `names`.
+
+The same rule names every generated identifier, such as a frame's `Rule` variant.
+A hand matcher takes the name of its pattern, so a move renames the hand-written function too.
+`codegen --compare` maps each old name to its new one by pattern id, and compares the tokens after that.
+
+The first Swift move proves the rule:
+
+- its pull request renames Swift's matchers and their hand-written overrides;
+- no generated Swift name passes 40 characters, and no line that holds one passes 100 columns.
+
+The readability exemption for Swift's generated names ends with that pull request.
+
 ## 9. Errors
 
 `unstable::codegen::GenerateError` is one enum, documented under `# Errors`:
@@ -354,7 +387,8 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
 - a scope name repeats a group the expression lacks;
 - the rules do not fit a byte, or the patterns a `u16`;
 - an end repeats more than one group of its begin;
-- a hand matcher names a pattern the grammar lacks.
+- a hand matcher names a pattern the grammar lacks;
+- a derived name passes 40 characters, and `names` gives none (section 8.4).
 
 Each variant names the pattern id or include that failed.
 `codegen/` has its own error enum for a fact file it cannot read.
