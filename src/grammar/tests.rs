@@ -56,13 +56,13 @@ fn error(bytes: &[u8]) -> Reason {
 /// A grammar whose rules are `rules`, the first of them its one pattern.
 fn grammar_of(rules: Vec<UnlinkedRule>) -> UnlinkedGrammar {
     UnlinkedGrammar {
-        scope: "source.crafted".to_owned(),
-        rules,
-        patterns: vec![0],
-        repository: Vec::new(),
-        injections: Vec::new(),
+        scope: "source.crafted".into(),
+        rules: rules.into(),
+        patterns: vec![0].into(),
+        repository: Vec::new().into(),
+        injections: Vec::new().into(),
         injection_selector: None,
-        inject_to: Vec::new(),
+        inject_to: Vec::new().into(),
     }
 }
 
@@ -416,7 +416,8 @@ fn every_truncation_fails() {
 #[test]
 fn a_rule_index_out_of_range_fails() {
     let mut grammar = compile(DEMO).unwrap();
-    grammar.patterns.push(grammar.rules.len());
+    let count = grammar.rules.len();
+    grammar.patterns.to_mut().push(count);
     assert!(matches!(
         bytes::read(&bytes::write(&grammar)),
         Err(Reason::Malformed { .. })
@@ -427,23 +428,23 @@ fn a_rule_index_out_of_range_fails() {
 fn a_rule_named_twice_fails() {
     let mut grammar = compile(DEMO).unwrap();
     let first = grammar.patterns[0];
-    grammar.patterns.push(first);
+    grammar.patterns.to_mut().push(first);
     assert!(bytes::read(&bytes::write(&grammar)).is_err());
 }
 
 #[test]
 fn a_repository_out_of_order_fails() {
     let mut grammar = compile(DEMO).unwrap();
-    grammar
-        .repository
-        .push(("a".to_owned(), grammar.rules.len()));
-    grammar.rules.push(UnlinkedRule::default());
+    let count = grammar.rules.len();
+    grammar.repository.to_mut().push(("a".into(), count));
+    grammar.rules.to_mut().push(UnlinkedRule::default());
     assert!(matches!(
         bytes::read(&bytes::write(&grammar)),
         Err(Reason::Malformed { .. })
     ));
     grammar
         .repository
+        .to_mut()
         .sort_unstable_by(|(a, _), (b, _)| a.cmp(b));
     assert!(bytes::read(&bytes::write(&grammar)).is_ok());
 }
@@ -451,7 +452,7 @@ fn a_repository_out_of_order_fails() {
 #[test]
 fn a_rule_that_names_itself_fails() {
     let grammar = grammar_of(vec![UnlinkedRule {
-        patterns: vec![0],
+        patterns: vec![0].into(),
         ..UnlinkedRule::default()
     }]);
     assert!(bytes::read(&bytes::write(&grammar)).is_err());
@@ -464,9 +465,9 @@ fn rules_nested_past_the_depth_limit_fail() {
             (0..levels)
                 .map(|id| UnlinkedRule {
                     patterns: if id + 1 < levels {
-                        vec![id + 1]
+                        vec![id + 1].into()
                     } else {
-                        Vec::new()
+                        Vec::new().into()
                     },
                     ..UnlinkedRule::default()
                 })
