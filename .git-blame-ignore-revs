@@ -1,0 +1,6 @@
+# Commits that only reformat, which git blame skips.
+# GitHub reads this file; to apply it locally, run once:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# style: format the TypeScript scripts with oxfmt (#692)
+eab592ddd49d771a7b90982cd7f6f5845fc109ca
