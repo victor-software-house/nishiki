@@ -97,7 +97,10 @@ function expandDynamic(): void {
 }
 expandDynamic();
 
-/** The first capturing group of `regex`, outside character classes: where it starts and ends, and what is inside. */
+/**
+ * The first capturing group of `regex`, outside character classes: where it starts and ends,
+ * and what is inside.
+ */
 function firstGroup(regex: string): { start: number; end: number; body: string } {
   let inClass = false;
   for (let i = 0; i < regex.length; i++) {

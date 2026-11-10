@@ -263,7 +263,8 @@ export const allowed: Record<string, Allowed> = {
     file: "LICENSE",
   },
   // The repository has no licence that GitHub identifies.
-  // The grammar's own folder holds an MIT licence, read at f18e8663177f72eb94e4568ea583c277692014dd.
+  // The grammar's own folder holds an MIT licence,
+  // read at f18e8663177f72eb94e4568ea583c277692014dd.
   r: {
     bundled: "posit-dev/positron@c4d6bab60dd914427a2d47a4b64e75e025d94059",
     origin: "posit-dev/positron",

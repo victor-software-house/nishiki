@@ -1,12 +1,14 @@
-// Writes src/latex/scope.rs and src/latex/grammar.rs from the `latex` grammar that Shiki 4.6.0 bundles
-// (microsoft/vscode `extensions/latex`, MIT, from jlelong/vscode-latex-basics).
+// Writes src/latex/scope.rs and src/latex/grammar.rs from the `latex` grammar that Shiki 4.6.0
+// bundles (microsoft/vscode `extensions/latex`, MIT, from jlelong/vscode-latex-basics).
 // It runs the generator in `oracle/rule-generator.ts`.
 // The matchers that decide whether a pattern matches are written by hand in src/latex.
 //
 // The grammar includes `text.tex`, the TeX grammar, as its last root pattern and in places.
-// TeX's matchers answer those expressions, so `Pattern::expr` sends them to `crate::tex::grammar::Rx`.
+// TeX's matchers answer those expressions,
+// so `Pattern::expr` sends them to `crate::tex::grammar::Rx`.
 // Code environments include other grammars.
-// A language nishiki lexes takes their text; the others, which Shiki does not load with LaTeX, resolve to nothing.
+// A language nishiki lexes takes their text; the others, which Shiki does not load with LaTeX,
+// resolve to nothing.
 //
 // Run with `bun run oracle/latex-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
@@ -52,7 +54,8 @@ export const latex: Config = {
     "text.html.basic": lang("Html", "lang-html"),
     "text.xml": lang("Xml", "lang-xml"),
   },
-  // Each embedding rule ends at a line that closes its environment, or at a `}`, as `\Sexpr{…}`'s R does.
+  // Each embedding rule ends at a line that closes its environment, or at a `}`,
+  // as `\Sexpr{…}`'s R does.
   endHalts: {
     by: {
       "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})": "super::engine::closes_listing",

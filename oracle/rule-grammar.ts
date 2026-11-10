@@ -823,15 +823,18 @@ export function canMatchEmpty(regex: string): boolean {
 }
 
 /** Whether some alternative of `regex` takes exactly one blank and then
- * requires a character that is not a blank: one unquantified unit that takes
- * one blank (`oneBlankUnit`), then a rest whose first byte cannot be a space
- * or a tab.
- * A negative lookbehind before the unit is stepped over when its body has no atom that can match a blank, as in MATLAB's `(?<!\.\.\.).\n`.
+ * requires a character that is not a blank:
+ * one unquantified unit that takes one blank (`oneBlankUnit`),
+ * then a rest whose first byte cannot be a space or a tab.
+ * A negative lookbehind before the unit is stepped over when its body has no atom that can match a
+ * blank, as in MATLAB's `(?<!\.\.\.).\n`.
  * At a blank that follows another blank, such a lookbehind always passes.
  * So it cannot let the pattern fail at the last blank of a run and match at an earlier one.
- * A body that can match a blank, as in `(?<! )` or `(?<!\s\s)`, could do that, so the alternative does not count.
+ * A body that can match a blank, as in `(?<! )` or `(?<!\s\s)`, could do that,
+ * so the alternative does not count.
  * Such a pattern can match at the last blank of a run and nowhere before it.
- * A `BlankRuns::ToLast` grammar tries only these patterns there. */
+ * A `BlankRuns::ToLast` grammar tries only these patterns there.
+ */
 export function takesOneBlank(regex: string, backref: Backref = "quote"): boolean {
   return alternatives(regex.startsWith("(?i)") ? regex.slice(4) : regex).some((whole) => {
     const alt = afterLookbehinds(whole, backref);
@@ -845,7 +848,10 @@ export function takesOneBlank(regex: string, backref: Backref = "quote"): boolea
   });
 }
 
-/** `regex` after the negative lookbehinds it starts with whose bodies cannot match a blank (`blankFree`). */
+/**
+ * `regex` after the negative lookbehinds it starts with whose bodies cannot match a
+ * blank (`blankFree`).
+ */
 function afterLookbehinds(regex: string, backref: Backref): string {
   let rest = regex;
   while (rest.startsWith("(?<!")) {

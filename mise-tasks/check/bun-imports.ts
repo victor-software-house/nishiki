@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-//MISE description="Every npm import in a Bun script names a package and version that package.json pins"
+//MISE description="Each npm import in a Bun script names the version package.json pins"
 //MISE tools={bun="1.4.4"}
 // Bun's auto-install takes an imported package's version from its specifier,
 // such as shiki@4.6.0, and the packages below it from bun.lock. bun.lock

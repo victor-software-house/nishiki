@@ -252,7 +252,10 @@ function median(values: number[]): number {
 /** One language's figure: its median over the rounds and its spread, when it has rounds. */
 type Entry = { name: string; value: number; spread_pct: number | null };
 
-/** The median over languages, the largest or smallest with its name, and the median spread over the rounds. */
+/**
+ * The median over languages, the largest or smallest with its name,
+ * and the median spread over the rounds.
+ */
 function overLanguages(entries: Entry[], worst: "max" | "min"): string {
   if (entries.length === 0) return "| | |";
   const pick = entries.reduce((a, b) =>

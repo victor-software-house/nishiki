@@ -1,5 +1,5 @@
-// Writes src/coffee/scope.rs and src/coffee/grammar.rs from the `coffee` grammar that
-// Shiki 4.6.0 bundles (atom/language-coffee-script through microsoft/vscode, MIT).
+// Writes src/coffee/scope.rs and src/coffee/grammar.rs from the `coffee` grammar that Shiki 4.6.0
+// bundles (atom/language-coffee-script through microsoft/vscode, MIT).
 // It writes the scope names.
 // For every rule it writes the scopes the rule adds, how it ends and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
@@ -7,14 +7,15 @@
 //
 // Two changes keep Shiki's output:
 // - A pattern named after its first group (`$1`) becomes one pattern per word of the group.
-// - The regular expression rule includes only `source.js.regexp`, which no grammar Shiki loads provides.
+// - The regular expression rule includes only `source.js.regexp`,
+//   which no grammar Shiki loads provides.
 //   vscode-textmate skips such a rule, so it is left out.
 //
 // Svelte's grammar injects two patterns into the CoffeeScript it embeds:
 // `L:(source.ts, source.js, source.coffee)`, its `$` prefixes.
-// They become `Pattern::SvelteVariable` and `Pattern::SvelteProps`, listed in
-// `Pattern::SVELTE`. No rule lists them. The tables of the dialect that Svelte
-// embeds put them first in every rule (src/coffee/svelte.rs).
+// They become `Pattern::SvelteVariable` and `Pattern::SvelteProps`, listed in `Pattern::SVELTE`.
+// No rule lists them.
+// The tables of the dialect that Svelte embeds put them first in every rule (src/coffee/svelte.rs).
 //
 // The script string `` (`)(.*)(`) `` lexes its middle group as JavaScript.
 // That group's nested list is `Rule::Javascript`, a rule with no patterns.
@@ -57,7 +58,10 @@ const repository = grammar.repository;
 
 const root_dir = new URL("..", import.meta.url).pathname;
 
-/** The first capturing group of `regex`, outside character classes: where it starts and ends, and what is inside. */
+/**
+ * The first capturing group of `regex`, outside character classes: where it starts and ends,
+ * and what is inside.
+ */
 function firstGroup(regex: string): { start: number; end: number; body: string } {
   let inClass = false;
   for (let i = 0; i < regex.length; i++) {
@@ -288,7 +292,10 @@ type Rule = {
 const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
-/** The rule that tokenizes the text of a capture group with the patterns `list`, one per distinct list. */
+/**
+ * The rule that tokenizes the text of a capture group with the patterns `list`,
+ * one per distinct list.
+ */
 const nestedRules = new Map<string, string>();
 function nestedRule(list: Node[]): string {
   const key = JSON.stringify(list);

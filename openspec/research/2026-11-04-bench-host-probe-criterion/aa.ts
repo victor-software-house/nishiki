@@ -29,7 +29,10 @@ const quantile = (values: number[], q: number): number => {
   return sorted[low] + (sorted[high] - sorted[low]) * (position - low);
 };
 
-/** The A/A gap as a magnitude: the one place a sign is dropped, so no summary can rank a negative gap below a positive one. */
+/**
+ * The A/A gap as a magnitude: the one place a sign is dropped,
+ * so no summary can rank a negative gap below a positive one.
+ */
 const aaGap = (odd: number[], even: number[]): number => Math.abs(median(even) / median(odd) - 1);
 
 /** The geometric mean: a run's speed over every language, each weighted alike. */

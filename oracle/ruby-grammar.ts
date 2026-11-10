@@ -147,7 +147,10 @@ const embeddable: Record<string, [string, string]> = {
 const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
-/** The rule that tokenizes the text of a capture group with the patterns `list`, one per distinct list. */
+/**
+ * The rule that tokenizes the text of a capture group with the patterns `list`,
+ * one per distinct list.
+ */
 const nestedRules = new Map<string, string>();
 /** The repositories an `include` resolves in, innermost first: a rule may carry its own. */
 type Repos = Record<string, Node>[];

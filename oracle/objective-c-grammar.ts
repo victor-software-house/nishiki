@@ -1,10 +1,12 @@
-// Writes src/objective_c/scope.rs, src/objective_c/grammar.rs and src/objective_c/words.rs from the `objective-c` grammar that
-// Shiki 4.6.0 bundles (microsoft/vscode `extensions/objective-c`, MIT, from jeff-hykin/better-objc-syntax).
+// Writes src/objective_c/scope.rs, src/objective_c/grammar.rs and src/objective_c/words.rs from the
+// `objective-c` grammar that Shiki 4.6.0 bundles (microsoft/vscode `extensions/objective-c`, MIT,
+// from jeff-hykin/better-objc-syntax).
 // It runs the generator in `oracle/rule-generator.ts`.
 // The matchers that decide whether a pattern matches are written by hand in src/objective_c.
 //
 // The grammar's `c_lang` entry carries a repository of its own.
-// Where Markdown embeds Objective-C, the engine resolves `$base` to the grammar's root, as the generator does.
+// Where Markdown embeds Objective-C, the engine resolves `$base` to the grammar's root,
+// as the generator does.
 //
 // Run with `bun run oracle/objective-c-grammar.ts` and commit the result.
 // The output is generated; do not edit it.

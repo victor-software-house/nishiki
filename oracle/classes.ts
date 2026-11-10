@@ -1,9 +1,9 @@
-// Writes src/classes/table.rs: the characters that Oniguruma's `\d`, `\w`,
-// `\s`, `[[:alpha:]]`, `\p{upper}`, `\p{L}`, `\p{N}` and `\p{M}` match, as
-// Shiki 4.6.0 uses them in the `json`, `typescript` and `python` grammars. Rust's `char` methods differ from them (`\d` is only
-// the decimal digits, `\w` includes marks, `[[:alpha:]]` follows an older
-// Unicode), so the table is measured rather than derived: one line per
-// character, tokenized by the grammar, and read back from its scopes.
+// Writes src/classes/table.rs: the characters that Oniguruma's `\d`, `\w`, `\s`, `[[:alpha:]]`,
+// `\p{upper}`, `\p{L}`, `\p{N}` and `\p{M}` match, as Shiki 4.6.0 uses them in the `json`,
+// `typescript` and `python` grammars.
+// Rust's `char` methods differ from them (`\d` is only the decimal digits, `\w` includes marks,
+// `[[:alpha:]]` follows an older Unicode), so the table is measured rather than derived:
+// one line per character, tokenized by the grammar, and read back from its scopes.
 //
 //   `[1X]`     X is a digit when `1X` is one number token (`\d`);
 //   `[trueX]`  X is a word character when `true` is not a constant (`\w`);
@@ -15,15 +15,14 @@
 //
 // It records those five sets in oracle/facts/classes.json, for a Rust writer.
 //
-// No bundled grammar reads `\p{L}`, `\p{N}` or `\p{M}` alone, so those three
-// are read from Shiki's own Oniguruma engine: one scan of a text of every code
-// point for each, with the pattern `\p{X}+`.
-// So are the three unions the `scala` grammar's names and operators read:
-// `\p{Lt}\p{Lu}`, `\p{Lo}\p{Nl}\p{Ll}` and `\p{Sm}\p{So}`.
-// So are the two the `haskell` grammar reads beside `\p{Lt}\p{Lu}`:
-// `\p{Ll}` and `\p{S}\p{P}`.
-// So are the three the `r` grammar's identifiers read beside `\p{L}` and `\d`:
-// `\p{Nl}`, `\p{Mn}\p{Mc}` and `\p{Pc}`.
+// No bundled grammar reads `\p{L}`, `\p{N}` or `\p{M}` alone,
+// so those three are read from Shiki's own Oniguruma engine:
+// one scan of a text of every code point for each, with the pattern `\p{X}+`.
+// So are the three unions the `scala` grammar's names and operators read: `\p{Lt}\p{Lu}`,
+// `\p{Lo}\p{Nl}\p{Ll}` and `\p{Sm}\p{So}`.
+// So are the two the `haskell` grammar reads beside `\p{Lt}\p{Lu}`: `\p{Ll}` and `\p{S}\p{P}`.
+// So are the three the `r` grammar's identifiers read beside `\p{L}` and `\d`: `\p{Nl}`,
+// `\p{Mn}\p{Mc}` and `\p{Pc}`.
 import { createOnigurumaEngine } from "@shikijs/engine-oniguruma@4.6.0";
 import { createHighlighter } from "shiki@4.6.0";
 import { dedent } from "./dedent.ts";

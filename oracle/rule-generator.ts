@@ -1,16 +1,20 @@
-// The generator of the rule-engine languages whose grammars nest repositories and share expressions:
-// Objective-C (`oracle/objective-c-grammar.ts`) and Objective-C++ (`oracle/objective-cpp-grammar.ts`).
-// For a grammar Shiki bundles, `generate` writes the module's `scope.rs`, `grammar.rs` and `words.rs`.
+// The generator of the rule-engine languages whose grammars nest repositories and share
+// expressions: Objective-C (`oracle/objective-c-grammar.ts`) and Objective-C++
+// (`oracle/objective-cpp-grammar.ts`).
+// For a grammar Shiki bundles, `generate` writes the module's `scope.rs`,
+// `grammar.rs` and `words.rs`.
 // It writes the scope names.
 // For every rule it writes the scopes the rule adds, how it ends and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
 // The matchers that decide whether a pattern matches are written by hand.
 //
-// An entry that carries a repository of its own resolves an include inside it there first, as vscode-textmate's does.
+// An entry that carries a repository of its own resolves an include inside it there first,
+// as vscode-textmate's does.
 // `$self` names the root of the grammar a rule belongs to, and `$base` this grammar's root.
 // An include of another grammar is that grammar's rules, when the config lists it in `grammars`.
 // Otherwise it is a language that another lexer handles, listed in `externals`.
-// A rule that includes one embeds that language, and a capture group's list that includes one defers the group to it.
+// A rule that includes one embeds that language,
+// and a capture group's list that includes one defers the group to it.
 // A rule that vscode-textmate would drop, because its list lost every entry, is left out.
 // A `Config` says what differs between the grammars.
 import { expand as alternatives } from "./alternation.ts";
@@ -44,7 +48,10 @@ type Node = {
 };
 export type GrammarJson = { scopeName: string; repository: Record<string, Node>; patterns: Node[] };
 
-/** The repository an include resolves in, the prefix of the ids of its own entries, and the grammar it belongs to. */
+/**
+ * The repository an include resolves in, the prefix of the ids of its own entries,
+ * and the grammar it belongs to.
+ */
 type Scope = {
   repository: Record<string, Node>;
   own: Record<string, Node>;
@@ -56,7 +63,10 @@ type Scope = {
  * `$self` inside its rules names this root. */
 type Owner = { top: Scope; root: Node; rootId: string };
 
-/** The language that takes the text of a rule or capture group whose patterns include another grammar. */
+/**
+ * The language that takes the text of a rule or capture group whose patterns
+ * include another grammar.
+ */
 export type Embed = { lang: string; feature: string };
 
 /** One list of words of a long alternation. */
@@ -94,19 +104,31 @@ export type Config = {
   /** The includes the grammar names but never defines.
    * vscode-textmate skips such an include and keeps the rest of its list. */
   unresolved?: string[];
-  /** The other grammars whose rules the tables hold, by scope name, each with the prefix of its rule ids.
+  /**
+   * The other grammars whose rules the tables hold, by scope name,
+   * each with the prefix of its rule ids.
    * LaTeX includes `text.tex` and `text.tex#braces`.
-   * Inside such a grammar, `$self` names its own root and `$base` this grammar's. */
+   * Inside such a grammar, `$self` names its own root and `$base` this grammar's.
+   */
   grammars?: Record<string, { grammar: GrammarJson; prefix: string }>;
-  /** What each include of a grammar that another lexer handles stands for: the language that takes the text, or null.
-   * Null is a grammar the oracle does not load, so the include resolves to nothing, as in vscode-textmate. */
+  /**
+   * What each include of a grammar that another lexer handles stands for:
+   * the language that takes the text, or null.
+   * Null is a grammar the oracle does not load, so the include resolves to nothing,
+   * as in vscode-textmate.
+   */
   externals?: Record<string, Embed | null>;
-  /** The halt of each embedding rule's end, by the end's expression: a Rust path to a `rules::FnHalt`.
+  /**
+   * The halt of each embedding rule's end, by the end's expression:
+   * a Rust path to a `rules::FnHalt`.
    * `otherwise` is the halt of a rule that embeds nothing, which the engine never asks for.
-   * With it the generator writes `Rule::end_halt`. */
+   * With it the generator writes `Rule::end_halt`.
+   */
   endHalts?: { by: Record<string, string>; otherwise: string };
   /** Whether the grammar scans blank runs with `BlankRuns::ToLast`.
-   * The generated `Pattern::takes_one_blank` then lists the patterns that can match only at a run's last blank. */
+   * The generated `Pattern::takes_one_blank` then lists the patterns that can match only
+   * at a run's last blank.
+   */
   toLast?: boolean;
   /** The expressions another module's matchers answer, with that module's `Rx` id.
    * The generated `Pattern::expr` sends them there; the rest are this module's own `Rx`. */
@@ -370,7 +392,9 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     throw new Error(`${id}: neither a match nor a begin/end rule`);
   }
 
-  /** The scope a node's own repository opens inside `sc`, its entries' ids starting with `prefix`. */
+  /**
+   * The scope a node's own repository opens inside `sc`, its entries' ids starting with `prefix`.
+   */
   function inner(sc: Scope, node: Node, prefix: string): Scope {
     if (!node.repository) return sc;
     return {
@@ -388,10 +412,14 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     return prefix;
   }
 
-  /** What an include in `sc` names: a node with the scope it resolves in and its id, a language that takes the
-   * text, or nothing.
-   * An unknown `#` include fails the generator when `strict`, unless the config lists it as unresolved.
-   * The drop check is not strict: inside a rule that vscode-textmate drops, such an include does no harm. */
+  /**
+   * What an include in `sc` names: a node with the scope it resolves in and its id,
+   * a language that takes the text, or nothing.
+   * An unknown `#` include fails the generator when `strict`,
+   * unless the config lists it as unresolved.
+   * The drop check is not strict: inside a rule that vscode-textmate drops,
+   * such an include does no harm.
+   */
   type Target = { node: Node; sc: Scope; id: string } | { embed: Embed } | null;
   function resolve(sc: Scope, include: string, strict = true): Target {
     if (include === "$self")
@@ -425,10 +453,13 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   }
 
   /** Whether vscode-textmate drops `node` where a list includes it.
-   * It drops a begin/end rule, or a bare list, whose list had an entry it could not keep and kept none.
-   * An entry is lost when its include resolves to nothing or to such a rule, so a drop goes up through the rules
-   * that hold it.
-   * A list that includes itself is kept, as a rule whose patterns vscode-textmate has not compiled yet is. */
+   * It drops a begin/end rule, or a bare list,
+   * whose list had an entry it could not keep and kept none.
+   * An entry is lost when its include resolves to nothing or to such a rule,
+   * so a drop goes up through the rules that hold it.
+   * A list that includes itself is kept,
+   * as a rule whose patterns vscode-textmate has not compiled yet is.
+   */
   function dropped(sc: Scope, node: Node, seen = new Set<Node>()): boolean {
     const list = node.patterns ?? [];
     if (node.match !== undefined || list.length === 0 || seen.has(node)) return false;
@@ -780,7 +811,8 @@ pub(crate) struct Nested {
     await Bun.write(
       Bun.env["RX_DUMP"],
       [...rxOf]
-        // An end that repeats a group of its begin needs the begin's text, which a case cannot supply.
+        // An end that repeats a group of its begin needs the begin's text,
+        // which a case cannot supply.
         .filter(([regex]) => !/\\[1-9]/.test(regex))
         .map(([regex, id]) => {
           // The groups the captures name, and the groups a `$N` in a scope name reads.
@@ -817,8 +849,11 @@ const longTable = (armText: string) => (armText.split("\n").length > 100 ? tooLo
 
 // Embedded languages.
 
-/** `Rule::payload`, `Rule::deferred` and `Rule::embeds_after_own`, for a grammar that embeds languages.
- * Each is written only when some rule needs it. */
+/**
+ * `Rule::payload`, `Rule::deferred` and `Rule::embeds_after_own`,
+ * for a grammar that embeds languages.
+ * Each is written only when some rule needs it.
+ */
 function embedTables(
   ruleList: { id: string; backref: number | null }[],
   embeds: Map<string, { embed: Embed; afterOwn: boolean }>,

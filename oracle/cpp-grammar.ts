@@ -589,7 +589,8 @@ for (const regex of rxOf.keys()) {
 // The predefined macros of `PredefinedMacrosAt0`, in the order it tries them.
 const predefinedRegex = [...rxOf.keys()].find((r) => r.startsWith("\\b(__cplusplus|"));
 if (predefinedRegex === undefined) throw new Error("no predefined macro expression");
-// `__FP_FAST_FMAF??` is a lazy optional letter: with the closing `\b`, both spellings match whole words.
+// `__FP_FAST_FMAF??` is a lazy optional letter: with the closing `\b`,
+// both spellings match whole words.
 const predefined = /^\\b\(([A-Za-z_0-9|?]+)\)\\b$/
   .exec(predefinedRegex)![1]!
   .split("|")

@@ -60,7 +60,10 @@ export const mutations: string[] = [
   "é",
 ];
 
-/** Info strings of Markdown fences. Shiki's Markdown grammar has no TeX fence of its own: `tex` embeds LaTeX. */
+/**
+ * Info strings of Markdown fences.
+ * Shiki's Markdown grammar has no TeX fence of its own: `tex` embeds LaTeX.
+ */
 export const fences: string[] = [];
 
 /** For the Oniguruma harness. */

@@ -129,7 +129,10 @@ type Rule = {
 const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
-/** The rule that tokenizes the text of a capture group with the patterns `list`, one per distinct list. */
+/**
+ * The rule that tokenizes the text of a capture group with the patterns `list`,
+ * one per distinct list.
+ */
 const nestedRules = new Map<string, string>();
 function nestedRule(list: Node[]): string {
   const key = JSON.stringify(list);

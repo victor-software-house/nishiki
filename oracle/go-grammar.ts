@@ -1,11 +1,11 @@
-// Writes src/go/scope.rs and src/go/grammar.rs from the `go` grammar
-// that Shiki 4.6.0 bundles (worlpaker/go-syntax through microsoft/vscode, MIT): the scope names, and
-// for every rule the scopes it adds, how it ends and the patterns it tries, in
-// the grammar's order with its `include`s flattened. The matchers that decide
-// whether a pattern matches are written by hand in src/go/matchers.
+// Writes src/go/scope.rs and src/go/grammar.rs from the `go` grammar that Shiki 4.6.0 bundles
+// (worlpaker/go-syntax through microsoft/vscode, MIT): the scope names,
+// and for every rule the scopes it adds, how it ends and the patterns it tries,
+// in the grammar's order with its `include`s flattened.
+// The matchers that decide whether a pattern matches are written by hand in src/go/matchers.
 //
-// Run with `bun run oracle/go-grammar.ts` and commit the result; the
-// output is generated, do not edit it.
+// Run with `bun run oracle/go-grammar.ts` and commit the result; the output is generated,
+// do not edit it.
 import go from "@shikijs/langs@4.6.0/go";
 import {
   arms,
@@ -35,7 +35,10 @@ type CaptureNode = { name?: string; patterns?: Node[] };
 const grammar = (go as unknown as { repository: Record<string, Node>; patterns: Node[] }[])[0]!;
 const repository = grammar.repository;
 
-/** The first capturing group of `regex`, outside character classes: where it starts and ends, and what is inside. */
+/**
+ * The first capturing group of `regex`, outside character classes: where it starts and ends,
+ * and what is inside.
+ */
 function firstGroup(regex: string): { start: number; end: number; body: string } {
   let inClass = false;
   for (let i = 0; i < regex.length; i++) {
@@ -142,7 +145,10 @@ type Rule = {
 const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
-/** The rule that tokenizes the text of a capture group with the patterns `list`, one per distinct list. */
+/**
+ * The rule that tokenizes the text of a capture group with the patterns `list`,
+ * one per distinct list.
+ */
 const nestedRules = new Map<string, string>();
 function nestedRule(list: Node[]): string {
   const key = JSON.stringify(list);

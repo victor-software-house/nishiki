@@ -1,5 +1,5 @@
-// Writes src/matlab/scope.rs and src/matlab/grammar.rs from the `matlab` grammar that Shiki 4.6.0 bundles
-// (mathworks/MATLAB-Language-grammar, BSD-2-Clause).
+// Writes src/matlab/scope.rs and src/matlab/grammar.rs from the `matlab` grammar that Shiki 4.6.0
+// bundles (mathworks/MATLAB-Language-grammar, BSD-2-Clause).
 // It runs the generator in `oracle/rule-generator.ts`.
 // The matchers that decide whether a pattern matches are written by hand in src/matlab.
 //
@@ -21,7 +21,8 @@ export const matlab: Config = {
   literal: [],
   // The bracket rules include it after their other patterns.
   unresolved: ["block_keywords"],
-  // The parens and indexing braces end at `(?<!\.\.\.).\n`, which can match at the last blank of a run.
+  // The parens and indexing braces end at `(?<!\.\.\.).\n`,
+  // which can match at the last blank of a run.
   toLast: true,
   words: () => [],
 };

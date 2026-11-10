@@ -1,9 +1,10 @@
-// Writes src/powershell/scope.rs and src/powershell/grammar.rs from the
-// `powershell` grammar that Shiki 4.6.0 bundles (PowerShell/EditorSyntax, MIT).
+// Writes src/powershell/scope.rs and src/powershell/grammar.rs from the `powershell` grammar that
+// Shiki 4.6.0 bundles (PowerShell/EditorSyntax, MIT).
 // It writes the scope names.
 // For every rule it writes the scopes the rule adds, how it ends and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
-// The matchers that decide whether a pattern matches are written by hand in src/powershell/matchers.
+// The matchers that decide whether a pattern matches are written by hand in
+// src/powershell/matchers.
 //
 // Run with `bun run oracle/powershell-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
