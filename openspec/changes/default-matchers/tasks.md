@@ -19,7 +19,11 @@
   - 2026-11-10: steps 3, 4 and 5 measured on boxes, each with 0 differences ([research][research], section 2).
     Step 5 reads 1.1002, 0.9108 and 1.1623.
     A cache of class runs raised Protocol Buffers against step 5, so it was dropped.
-  - Next: the costs of [research][research] section 2.2, the groups recorded and Protocol Buffers' `String`.
+  - 2026-11-10: steps 6, 7 and 8 measured on boxes, each with 0 differences.
+    [The research][research] has them in sections 2.2 and 2.3.
+    Step 8 reads 1.0632, 0.8537 and 1.1039.
+    Most of Lua's saving at step 8 came from inlining, not from the group-0 write.
+  - Next: Lua's identifier patterns, the costliest shape left ([research][research], section 2.4).
 - [ ] 1.3 The regex engine path gives an end pattern's back-reference the groups its begin pattern took.
   Then no pattern is left with hand code only.
   It covers Lua's five long-string and long-comment ends ([research][research], section 3).

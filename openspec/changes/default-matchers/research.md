@@ -48,6 +48,9 @@ Lexing ratios against the hand matchers, at one codegen unit:
 | 3. `\b` through `Chars::boundary` | 1.2592 | 0.9878 | 1.2977 |
 | 4. a flat dispatch | 1.1351 | 0.9878 | 1.2395 |
 | 5. a greedy repeat that gives back nothing | 1.1002 | 0.9108 | 1.1623 |
+| 6. only the groups nishiki reads recorded | 1.0998 | 0.9027 | 1.1476 |
+| 7. a back-reference to one character | 1.0696 | 0.9027 | 1.1476 |
+| 8. group 0 left to the lexer | 1.0632 | 0.8537 | 1.1039 |
 
 - The first row for Protocol Buffers has `OptionStmt` generated.
 - Step 2 kept the `\b` test out of line.
@@ -61,13 +64,23 @@ Lexing ratios against the hand matchers, at one codegen unit:
   The `\b` test decoded it before.
 - Step 4 inlines the generated dispatch into the language's `matcher`, which calls the pattern's code at once.
 - Step 5 applies when what follows the repeat must read a character outside its class ([design][design], section 2.1).
+- Step 6 records a group only when the grammar reads it (section 2.2).
+- Step 7 generates a back-reference to a group that matches one character.
+  It compares the character at the group's start with the character at the position.
+  Protocol Buffers' `String`, `(["'])(?:\\.|[^\\])*?\1`, leaves the regex engine, so all 40 of its patterns are generated.
+- Step 8 stops the generated code writing group 0.
+  The lexer writes it before any reader runs: `tokenize` after the scan picks a match, and `emit_captures` for every act and while pattern.
+- Steps 6 to 8 are measured on [`research/default-matchers`][prototype] against the hand matchers at [851351f0][base].
 
-Step 5 in two more measures:
+Steps 5 and 8 in two more measures:
 
-| Measure | Protocol Buffers | Zig | Lua |
-|:--|--:|--:|--:|
-| lexing, at 16 codegen units | 1.1032 | 0.8973 | 1.1452 |
-| the first document, at one codegen unit | 1.0765 | 0.9229 | 1.0952 |
+| Measure | Step | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|--:|
+| lexing, at 16 codegen units | 5 | 1.1032 | 0.8973 | 1.1452 |
+| lexing, at 16 codegen units | 8 | 1.0596 | 0.8139 | 1.0615 |
+| the first document, at one codegen unit | 5 | 1.0765 | 0.9229 | 1.0952 |
+| the first document, at one codegen unit | 8 | 1.0431 | 0.8710 | 1.0608 |
+| colouring, at one codegen unit | 8 | 1.0602 | 0.8626 | 1.0967 |
 
 ### 2.1 A dropped step: a cache of class runs
 
@@ -92,13 +105,82 @@ Lua's pattern `m2`, `(^[\t ]+)?` before `--`, reads a run only at a line's start
 Yet it costs 0.17 million more instructions in the last two variants, with the call guarded and with it inlined.
 The cause is unknown.
 
-### 2.2 The costs after step 5
+### 2.2 The groups recorded
 
-The profile of step 5 against the hand matchers names the costs left:
+The profile of step 5 named two costs:
 
-- Lua's `record` functions write every group of a match: 1.05 million instructions, 3.3% of Lua's count.
-  A matcher could record only the groups a scope or a back-reference reads.
-- Protocol Buffers' `String` pattern runs on the regex engine for its back-reference: 0.18 million instructions, 3.6% of its count.
+- Lua's `record` functions wrote every group of a match: 1.05 million instructions, 3.3% of Lua's count.
+- Protocol Buffers' `String` pattern ran on the regex engine for its back-reference: 0.18 million instructions, 3.6% of its count.
+
+Step 6 answers the first, and step 7 the second.
+Step 6's writer reads each pattern's groups from the grammar.
+A group is recorded when one of these reads it:
+
+- a scope that names the group;
+- the patterns of a capture, which lex the group's text;
+- an end or while pattern, through the begin text its begin pattern carries.
+
+| Language | Patterns | Patterns that read a group |
+|:--|--:|--:|
+| Protocol Buffers | 40 | 23 |
+| Zig | 56 | 3 |
+| Lua | 154 | 20 |
+
+- Four Lua patterns carry a group to their end as begin text: `CommentAt0At0`, `CommentAt0At1`, `StringAt3` and `StringAt4`.
+- Lua's `record` falls from 1.05 to 0.88 million instructions, and Zig's from 0.67 to 0.56 million.
+- C# and Swift read groups in tests too.
+  Both keep their hand matchers, so step 6 does not reach them.
+- The differential test compares every group a pattern reads, at every step.
+  It found 0 differences at steps 6, 7 and 8.
+- At step 7 it compares 8,292,000 Protocol Buffers matches, 207,300 more than in section 1, because `String` is generated.
+
+### 2.3 Where step 8's saving comes from
+
+Step 8 dropped the group-0 write.
+It also changed what the compiler inlined: Lua's `record` copies went inline.
+A probe splits the two: step 7 with `record` always inlined.
+Lexing ratios at one codegen unit, with 16 units in parentheses:
+
+| Change | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| step 7 to the probe | 1.0000 (1.0000) | 0.9681 (0.9718) | 0.9682 (0.9506) |
+| the probe to step 8 | 0.9940 (0.9938) | 0.9768 (0.9391) | 0.9934 (0.9867) |
+
+The three builds call each function the same number of times.
+In Lua, `scan` runs 87,906 times and `matcher` 364,404 times.
+
+- Step 7 to the probe saves 1.00 million instructions in Lua.
+  The four `record` copies, 0.88 million, go inline and cost nothing of their own.
+  `matcher` falls 0.12 million.
+- The probe to step 8 saves 0.20 million in Lua.
+  `scan` falls 0.24 million and `matcher` 0.21 million.
+  Three `record` copies go out of line again, at 0.25 million.
+
+So most of step 8's Lua saving is inlining, not the group-0 write.
+
+### 2.4 The costs after step 8
+
+The profile of step 8 against the hand matchers names the costs left.
+
+Lua's own functions run 12.93 million instructions, against 9.89 million by hand.
+Most of the gap is `matcher`'s own cost: 4.24 million, against 1.38 million.
+Per call, by pattern:
+
+| Pattern | Generated, per call | Hand, per call |
+|:--|--:|--:|
+| `RootAt25`, `RootAt26` and `RootAt28`, the identifiers | 66 to 73 | 48.1 (`bounded_name`) |
+| `RootAt16` | 48.6 | 37.1 |
+| `StringAt3` | 12.9 | 9.5 |
+| `LdocTag` | 8.1 | 4.3 |
+| the builtins | 62.8 | 67.5 (`word_in`) |
+
+- The three identifier patterns run 34,887 times, and `bounded_name` 38,601 times.
+- The builtins are the one pattern where the generated code wins.
+
+Protocol Buffers' `matcher` costs 1.11 million, against 0.93 million by hand, over 79,428 calls.
+The field pattern's inner loop costs 137,634 over 2,004 calls.
+Its hand code, `field_rest`, costs 33,207 over 825 calls.
+[`field-pattern-fixes`][field-pattern-fixes] changes that pattern.
 
 ## 3. Coverage
 
@@ -124,7 +206,9 @@ From 101 bytes, its work grows by about `2L`, some 200 steps, and the budget by 
 So it would end at the limit too.
 The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 bytes.
 
+[base]: https://github.com/victor-software-house/nishiki-archive/commit/851351f064d86c429f4652af2c59af138dcf6ba2
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [design]: design.md
 [field-pattern-fixes]: ../field-pattern-fixes/design.md
+[prototype]: https://github.com/victor-software-house/nishiki/tree/818ebaa1aa569c6f2c0ac025090c644658f47b33
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
