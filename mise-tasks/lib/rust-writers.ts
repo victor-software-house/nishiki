@@ -1,5 +1,5 @@
 // The Bun scripts that write Rust, and the Rust files they write.
-// check:line-width and check:literals leave both alone
+// check:line-width leaves both alone, and check:literals leaves the scripts alone,
 // until rust-codegen moves each writer to Rust (CODING_STANDARDS 3.10).
 
 /** The text of a comment line, without its marker, or the line when it is code. */

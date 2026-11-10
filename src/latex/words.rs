@@ -6,24 +6,26 @@
 pub(super) const TEXT_SYMBOL: u32 = 1 << 0;
 
 /// Every word of the lists, sorted by its bytes, end to end.
-pub(super) static WORD_BYTES: &[u8] = b"\
-textacutedbltextasciiacutetextasciibrevetextasciicarontextasciidieresistextasciigrave\
-textasciimacrontextasteriskcenteredtextbahttextbardbltextbigcircletextblanktextborn\
-textbrokenbartextbullettextcelsiustextcenttextcentoldstyletextcircledPtextcolonmonetary\
-textcopylefttextcopyrighttextcurrencytextdaggertextdaggerdbltextdblhyphentextdblhyphenchar\
-textdegreetextdiedtextdiscounttextdivtextdivorcedtextdollartextdollaroldstyletextdong\
-textdownarrowtexteightoldstyletextestimatedtexteurotextfiveoldstyletextflorin\
-textfouroldstyletextfractionsolidustextgravedbltextguaranitextinterrobang\
-textinterrobangdowntextlangletextlbrackdbltextleaftextleftarrowtextliratextlnottextlquill\
-textmarriedtextmhotextminustextmutextmusicalnotetextnairatextnineoldstyletextnumerotextohm\
-textonehalftextoneoldstyletextonequartertextonesuperiortextopenbullettextordfeminine\
-textordmasculinetextparagraphtextperiodcenteredtextpertenthousandtextperthousandtextpeso\
-textpilcrowtextpmtextquotesingletextquotestraightbasetextquotestraightdblbasetextrangle\
-textrbrackdbltextrecipetextreferencemarktextregisteredtextrightarrowtextrquilltextsection\
-textservicemarktextsevenoldstyletextsixoldstyletextsterlingtextsurdtextthreeoldstyle\
-textthreequarterstextthreequartersemdashtextthreesuperiortexttildelowtexttimes\
-texttrademarktexttwelveudashtexttwooldstyletexttwosuperiortextuparrowtextwontextyen\
-textzerooldstyle";
+pub(super) static WORD_BYTES: &[u8] = concat!(
+    "textacutedbltextasciiacutetextasciibrevetextasciicarontextasciidieresistextasciigrave",
+    "textasciimacrontextasteriskcenteredtextbahttextbardbltextbigcircletextblanktextborn",
+    "textbrokenbartextbullettextcelsiustextcenttextcentoldstyletextcircledPtextcolonmonetary",
+    "textcopylefttextcopyrighttextcurrencytextdaggertextdaggerdbltextdblhyphentextdblhyphenchar",
+    "textdegreetextdiedtextdiscounttextdivtextdivorcedtextdollartextdollaroldstyletextdong",
+    "textdownarrowtexteightoldstyletextestimatedtexteurotextfiveoldstyletextflorin",
+    "textfouroldstyletextfractionsolidustextgravedbltextguaranitextinterrobang",
+    "textinterrobangdowntextlangletextlbrackdbltextleaftextleftarrowtextliratextlnottextlquill",
+    "textmarriedtextmhotextminustextmutextmusicalnotetextnairatextnineoldstyletextnumerotextohm",
+    "textonehalftextoneoldstyletextonequartertextonesuperiortextopenbullettextordfeminine",
+    "textordmasculinetextparagraphtextperiodcenteredtextpertenthousandtextperthousandtextpeso",
+    "textpilcrowtextpmtextquotesingletextquotestraightbasetextquotestraightdblbasetextrangle",
+    "textrbrackdbltextrecipetextreferencemarktextregisteredtextrightarrowtextrquilltextsection",
+    "textservicemarktextsevenoldstyletextsixoldstyletextsterlingtextsurdtextthreeoldstyle",
+    "textthreequarterstextthreequartersemdashtextthreesuperiortexttildelowtexttimes",
+    "texttrademarktexttwelveudashtexttwooldstyletexttwosuperiortextuparrowtextwontextyen",
+    "textzerooldstyle",
+)
+.as_bytes();
 
 /// Where each word of [`WORD_BYTES`] ends: word `k` runs from the end of word
 /// `k - 1` to `WORD_ENDS[k]`.
