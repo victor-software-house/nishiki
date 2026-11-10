@@ -28,7 +28,9 @@ use crate::{Highlighter, Limits, LineReport, State, Token, textmate};
 /// A grammar loaded once from JSON and once from bytes gets two handles,
 /// with the same output.
 ///
-/// Every distinct grammar stays in memory until the process ends.
+/// Every distinct grammar, and every table linked from it, stays in memory
+/// until the process ends.
+/// So a caller loads each grammar once and keeps the handle.
 /// A service that loads grammars from untrusted input needs its own bound on
 /// how many it loads.
 #[derive(Clone, Copy)]
