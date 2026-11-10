@@ -87,9 +87,13 @@ The [codegen research][research] read how mature crates generate committed Rust.
 - A workspace of its own keeps both settings away from the root workspace:
   - A member's features unify across a workspace build.
     As a member, `codegen/` would turn `codegen` and `format` on for every root build, `check:size` included.
-  - The cfg sits in `codegen/.cargo/config.toml`.
+  - The cfg sits in `codegen/.cargo/config.toml`, for `cargo` and rust-analyzer run in `codegen/`.
     Cargo reads that file from the directory it runs in, and the mise task runs in `codegen/`.
     Its builds then use `codegen/target/`, so they never rebuild the root's target directory.
+  - A set `RUSTFLAGS` or `CARGO_ENCODED_RUSTFLAGS` replaces `build.rustflags` ([Cargo book][cargo-rustflags]).
+    A caller or a CI job may set `RUSTFLAGS`, as `check:features` does for its own builds.
+    So `mise run codegen` appends `--cfg nishiki_unstable` to `RUSTFLAGS` and keeps the caller's flags.
+    It fails when `CARGO_ENCODED_RUSTFLAGS` is set, because that variable replaces `RUSTFLAGS` too.
   - `cargo deny` runs on its manifest too, in `verify`.
 
 ## 4. The `codegen/` crate
@@ -422,6 +426,7 @@ The numbers go here when they land.
 [cargo-resolver]: https://doc.rust-lang.org/cargo/reference/resolver.html#feature-resolver-version-2
 [c-conv]: https://rust-lang.github.io/api-guidelines/naming.html#ad-hoc-conversions-follow-as_-to_-into_-conventions-c-conv
 [cargo-build-scripts]: https://doc.rust-lang.org/cargo/reference/build-scripts.html
+[cargo-rustflags]: https://doc.rust-lang.org/cargo/reference/config.html#buildrustflags
 [prettyplease-array]: https://github.com/dtolnay/prettyplease/blob/49e50897b580a5b7591ead6ef73f3fe09e76d896/src/expr.rs
 [prost-format]: https://github.com/tokio-rs/prost/blob/b3f73911a2dca69a798fff418d35ed07e30edbc3/prost-build/src/config.rs
 [ra-codegen]: https://github.com/rust-lang/rust-analyzer/blob/2a362a41a8eb6e090f1a12d9b712df85af6f0c33/xtask/src/codegen.rs
