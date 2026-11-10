@@ -1112,6 +1112,19 @@ The hand lexer was written against all seven.
 `r/dplyr-case-when` and `r/ggplot2-geom-point` are held out: they were added after the development inputs passed.
 `objective-cpp/coverage` and `objective-cpp/objective-c-coverage` were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 
+## Fidelity stand-ins
+
+`mise run check:fidelity` runs every grammar Shiki bundles on Shiki's sample for it.
+Shiki 4.6.0 has no sample for four languages, so [`oracle/fidelity.ts`](../../oracle/fidelity.ts) gives each one a stand-in.
+Its scopes are written to `target/fidelity/` on each run and never committed.
+
+| Language | Source | Licence |
+|:--|:--|:--|
+| `git-commit` | [`COMMIT_EDITMSG`][vscode-colorize-commit] in microsoft/vscode | [MIT][vscode-colorize-licence] |
+| `git-rebase` | [`git-rebase-todo`][vscode-colorize-rebase] in microsoft/vscode | [MIT][vscode-colorize-licence] |
+| `html-derivative` | the input of `html/h5bp-index` | [MIT][h5bp-licence] |
+| `nextflow-groovy` | [`test.groovy`][vscode-colorize-groovy] in microsoft/vscode | [MIT][vscode-colorize-licence] |
+
 [abseil-licence]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/LICENSE
 [absl-any-invocable]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/internal/any_invocable.h
 [absl-any-invocable-test]: https://github.com/abseil/abseil-cpp/blob/1dc74f6f0aadd77ed263a34afa9af20c91fd35f8/absl/functional/any_invocable_test.h
@@ -2064,6 +2077,10 @@ The hand lexer was written against all seven.
 [vitepress-switch]: https://github.com/vuejs/vitepress/blob/00c9d790543790e054b145db4e00e009f25c15f3/src/client/theme-default/components/VPSwitch.vue
 [vitest-jest]: https://github.com/vitest-dev/vitest/blob/7a3844954d8753fc0d5bed76a96ffd3a21716c22/docs/guide/migration/jest.md
 [vitest-licence]: https://github.com/vitest-dev/vitest/blob/7a3844954d8753fc0d5bed76a96ffd3a21716c22/LICENSE
+[vscode-colorize-commit]: https://github.com/microsoft/vscode/blob/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/extensions/vscode-colorize-tests/test/colorize-fixtures/COMMIT_EDITMSG
+[vscode-colorize-groovy]: https://github.com/microsoft/vscode/blob/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/extensions/vscode-colorize-tests/test/colorize-fixtures/test.groovy
+[vscode-colorize-licence]: https://github.com/microsoft/vscode/blob/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/LICENSE.txt
+[vscode-colorize-rebase]: https://github.com/microsoft/vscode/blob/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/extensions/vscode-colorize-tests/test/colorize-fixtures/git-rebase-todo
 [vscode-foundry]: https://github.com/microsoft/vscode/blob/a4e689ae13ef7a1fe9b515656b51c9be7c274294/build/npm/patches/foundry-local-sdk.patch
 [vscode-launch]: https://github.com/microsoft/vscode/blob/a4e689ae13ef7a1fe9b515656b51c9be7c274294/.vscode/launch.json
 [vscode-licence]: https://github.com/microsoft/vscode/blob/a4e689ae13ef7a1fe9b515656b51c9be7c274294/LICENSE.txt

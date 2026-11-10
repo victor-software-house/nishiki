@@ -6,11 +6,14 @@
 // With no language id, it writes every language in Shiki's
 // `bundledLanguagesInfo`. The out directory then holds:
 // - `grammars/<name>.json`: each grammar Shiki loads, as Shiki ships it;
-// - `samples/<id>.txt`: Shiki's scopes for the language's sample, in the
+// - `samples/<id>.txt`: Shiki's scopes for the language's input, in the
 //   fixture format of `fixture.ts`;
 // - `tables/<id>.json`: the engine's tables, from `engine-tables.ts --json`;
 // - `languages.json`: per language, its root scope, the grammars it loads,
-//   whether Shiki has a sample for it, and why its tables failed, if they did.
+//   where its input came from, and why its tables failed, if they did.
+//
+// A language's input is Shiki's sample for it. `standIns` names an input for
+// each language Shiki has no sample for.
 //
 // Each language gets a highlighter of its own, loaded with its grammar and
 // the grammars it embeds, as `createHighlighter({ langs: [id] })` loads them.
@@ -22,16 +25,31 @@ import { bundledLanguages, bundledLanguagesInfo, createHighlighter } from "shiki
 import { mkdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { fixture } from "./fixture.ts";
-import { samples } from "./inputs.ts";
+import { inputs, samples } from "./inputs.ts";
 
 /** One language's entry in `languages.json`. */
 type Language = {
   id: string;
   scope: string;
   grammars: string[];
-  sample: boolean;
+  /** The URL of its input. */
+  input: string;
   /** Why `engine-tables.ts` failed, or null when it wrote the tables. */
   tables: string | null;
+};
+
+const vscodeFixtures =
+  "https://raw.githubusercontent.com/microsoft/vscode/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/extensions/vscode-colorize-tests/test/colorize-fixtures";
+const h5bpIndex = inputs.find((input) => input.lang === "html" && input.name === "h5bp-index");
+if (h5bpIndex === undefined || !("url" in h5bpIndex)) throw new Error("inputs.ts has no html/h5bp-index");
+
+/** The input of each language Shiki 4.6.0 has no sample for.
+ * `tests/oracle/SOURCES.md` records their licences. */
+const standIns: Record<string, string> = {
+  "git-commit": `${vscodeFixtures}/COMMIT_EDITMSG`,
+  "git-rebase": `${vscodeFixtures}/git-rebase-todo`,
+  "html-derivative": h5bpIndex.url,
+  "nextflow-groovy": `${vscodeFixtures}/test.groovy`,
 };
 
 const [out, ...only] = process.argv.slice(2);
@@ -41,11 +59,13 @@ for (const dir of ["grammars", "samples", "tables"]) mkdirSync(`${out}/${dir}`, 
 const ids = only.length > 0 ? only : bundledLanguagesInfo.map((info) => info.id);
 const engineTables = fileURLToPath(new URL("engine-tables.ts", import.meta.url));
 
-/** The sample's text with LF line ends, or null when Shiki has none. */
-async function sample(id: string): Promise<string | null> {
-  const response = await fetch(`${samples}/${id}.sample`);
-  if (response.status === 404) return null;
-  if (!response.ok) throw new Error(`${id}.sample: HTTP ${response.status}`);
+/** The input's URL for language `id`. */
+const inputOf = (id: string) => standIns[id] ?? `${samples}/${id}.sample`;
+
+/** The text at `url`, with CRLF read as LF, as Shiki splits lines. */
+async function fetchText(url: string): Promise<string> {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
   return (await response.text()).replaceAll("\r\n", "\n");
 }
 
@@ -61,28 +81,41 @@ async function tables(id: string): Promise<string | null> {
   return (error ?? stderr.trim().split("\n").at(-1) ?? `exit ${code}`).trim();
 }
 
+/** Runs `task` on every item, `width` at a time, and keeps the order. */
+async function pool<T, R>(items: T[], width: number, task: (item: T) => Promise<R>): Promise<R[]> {
+  const results: R[] = new Array(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < items.length) {
+      const at = next++;
+      results[at] = await task(items[at]);
+    }
+  };
+  await Promise.all(Array.from({ length: width }, worker));
+  return results;
+}
+
+const texts = await pool(ids, 16, (id) => fetchText(inputOf(id)));
+const failures = await pool(ids, 4, tables);
 const languages: Language[] = [];
-for (const id of ids) {
+for (const [at, id] of ids.entries()) {
   const loader = bundledLanguages[id as keyof typeof bundledLanguages];
   if (!loader) throw new Error(`Shiki has no language ${id}`);
   const registrations = (await loader()).default;
   for (const grammar of registrations) {
     await Bun.write(`${out}/grammars/${grammar.name}.json`, JSON.stringify(grammar));
   }
-  const text = await sample(id);
-  if (text !== null) {
-    const highlighter = await createHighlighter({ langs: [id], themes: ["github-dark"] });
-    await Bun.write(`${out}/samples/${id}.txt`, fixture(highlighter, text, id));
-    highlighter.dispose();
-  }
-  const failure = await tables(id);
+  const highlighter = await createHighlighter({ langs: [id], themes: ["github-dark"] });
+  await Bun.write(`${out}/samples/${id}.txt`, fixture(highlighter, texts[at], id));
+  highlighter.dispose();
+  const failure = failures[at];
   languages.push({
     id,
     scope: String(registrations[registrations.length - 1].scopeName),
     grammars: registrations.map((grammar) => grammar.name),
-    sample: text !== null,
+    input: inputOf(id),
     tables: failure,
   });
-  console.log(`${failure === null ? "✔" : "✘"} ${id}${text === null ? ": no sample" : ""}${failure ? `: ${failure}` : ""}`);
+  console.log(`${failure === null ? "✔" : "✘"} ${id}${failure ? `: ${failure}` : ""}`);
 }
 await Bun.write(`${out}/languages.json`, `${JSON.stringify(languages, null, 2)}\n`);

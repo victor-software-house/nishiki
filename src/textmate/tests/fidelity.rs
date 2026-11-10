@@ -1,6 +1,7 @@
 //! The Shiki fidelity check, task 3.1 of `openspec/changes/grammar-api`.
 //!
-//! Every language Shiki 4.6.0 bundles runs on Shiki's sample for it.
+//! Every language Shiki 4.6.0 bundles runs on its input: Shiki's sample for
+//! it, or a stand-in where Shiki has none.
 //! Each non-whitespace byte must get the scope stack Shiki gives it.
 //! Every line is compared, with no block left out.
 //!
@@ -17,10 +18,10 @@ use serde_json::Value;
 
 use super::{Comparison, Grammar, Scanners, Sketch, compare, parse, survey};
 
-/// How long one sample may take before it counts as stalled.
+/// How long one input may take before it counts as stalled.
 const STALL: Duration = Duration::from_secs(120);
 
-/// The stack of the thread that lexes a sample.
+/// The stack of the thread that lexes an input.
 /// A grammar that nests deeply recurses deeply, and an overflow aborts every
 /// check.
 const STACK: usize = 256 << 20;
@@ -37,8 +38,6 @@ fn grammar(dir: &Path, id: &str) -> &'static Grammar {
 
 /// What the check found for one language.
 enum Outcome {
-    /// Shiki has no sample for it.
-    NoSample,
     /// `engine-tables.ts` failed, for the reason it gave.
     NoGrammar(String),
     Panicked(String),
@@ -60,7 +59,7 @@ fn refused(grammar: &Grammar) -> (usize, Option<String>) {
     (count, first)
 }
 
-/// Loads language `id` and compares its sample on a thread of its own.
+/// Loads language `id` and compares its input on a thread of its own.
 /// A panic or a stall then ends only that language's check.
 fn outcome(dir: &Path, id: &str) -> (Outcome, (usize, Option<String>)) {
     let (send, receive) = mpsc::channel();
@@ -98,7 +97,7 @@ fn cell(text: &str) -> String {
 
 #[test]
 #[ignore = "needs the directory oracle/fidelity.ts writes"]
-fn every_shiki_grammar_matches_shiki_on_its_sample() {
+fn every_shiki_grammar_matches_shiki() {
     let Some(dir) = std::env::var_os("NISHIKI_FIDELITY") else {
         return;
     };
@@ -108,12 +107,10 @@ fn every_shiki_grammar_matches_shiki_on_its_sample() {
             .unwrap();
     let mut report = String::new();
     let mut details = String::new();
-    let (mut equal, mut measured, mut unsampled) = (0, 0, Vec::new());
+    let (mut equal, mut measured) = (0, 0);
     for language in languages.as_array().unwrap() {
         let id = language["id"].as_str().unwrap();
-        let (found, (refusals, first_refusal)) = if language["sample"] != Value::Bool(true) {
-            (Outcome::NoSample, (0, None))
-        } else if let Some(reason) = language["tables"].as_str() {
+        let (found, (refusals, first_refusal)) = if let Some(reason) = language["tables"].as_str() {
             (Outcome::NoGrammar(reason.to_owned()), (0, None))
         } else {
             outcome(&dir, id)
@@ -125,15 +122,9 @@ fn every_shiki_grammar_matches_shiki_on_its_sample() {
                 .map(|limit| format!("{limit:?}"))
                 .collect::<Vec<_>>()
                 .join(", "),
-            Outcome::NoSample | Outcome::NoGrammar(_) | Outcome::Panicked(_) | Outcome::Stalled => {
-                String::new()
-            }
+            Outcome::NoGrammar(_) | Outcome::Panicked(_) | Outcome::Stalled => String::new(),
         };
         let row = match &found {
-            Outcome::NoSample => {
-                unsampled.push(id.to_owned());
-                continue;
-            }
             Outcome::NoGrammar(reason) => format!("no grammar: {} | | | |", cell(reason)),
             Outcome::Panicked(text) => format!("panic: {} | | | |", cell(text)),
             Outcome::Stalled => format!("stalled past {} s | | | |", STALL.as_secs()),
@@ -170,14 +161,12 @@ fn every_shiki_grammar_matches_shiki_on_its_sample() {
         let _ = writeln!(report, "| {id} | {row} | {refusal} | {limits} |");
     }
     let summary = format!(
-        "{equal} of {measured} languages match Shiki on every non-whitespace byte of their sample."
+        "{equal} of {measured} languages match Shiki on every non-whitespace byte of their input."
     );
-    let unsampled = unsampled.join(", ");
     let page = formatdoc! {"
         # Shiki fidelity
 
         {summary}
-        Shiki 4.6.0 has no sample for {unsampled}.
 
         | Language | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
         |:--|:--|--:|:--|:--|:--|:--|:--|
