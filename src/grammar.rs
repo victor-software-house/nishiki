@@ -324,7 +324,9 @@ fn linked_table(
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct GrammarLexer {
     grammar: Grammar,
-    table: &'static textmate::Grammar,
+    /// The fidelity check reads its patterns, to list those the regex
+    /// compiler refused.
+    pub(crate) table: &'static textmate::Grammar,
 }
 
 impl Syntax for Grammar {}

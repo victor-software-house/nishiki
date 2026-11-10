@@ -8,9 +8,8 @@
 // - `grammars/<name>.json`: each grammar Shiki loads, as Shiki ships it;
 // - `samples/<sample>.txt`: Shiki's scopes for each input, in the fixture
 //   format of `fixture.ts`;
-// - `tables/<id>.json`: the engine's tables, from `engine-tables.ts --json`;
 // - `languages.json`: per input, its language, its root scope, the grammars it
-//   loads, where the input came from, and why its tables failed, if they did.
+//   loads, and where the input came from.
 //
 // A language's input is Shiki's sample for it. `standIns` names an input for
 // each language Shiki has no sample for. `extraInputs` adds inputs that reach
@@ -18,7 +17,7 @@
 //
 // Each language gets a highlighter of its own, loaded with its grammar and
 // the grammars it embeds, as `createHighlighter({ langs: [id] })` loads them.
-// The engine's tables load the same set.
+// The fidelity check loads the same set through nishiki's public API.
 //
 // Nothing it writes is committed. Grammars whose licence is unknown are read
 // here for testing only, as invariant 2 allows.
@@ -37,8 +36,6 @@ type CheckedInput = {
   grammars: string[];
   /** The URL of its input, or its path in this repository. */
   input: string;
-  /** Why `engine-tables.ts` failed, or null when it wrote the tables. */
-  tables: string | null;
 };
 
 const vscodeFixtures =
@@ -65,10 +62,9 @@ const extraInputs: Record<string, string[]> = {
 
 const [out, ...only] = process.argv.slice(2);
 if (!out) throw new Error("usage: fidelity.ts <out dir> [<language id>...]");
-for (const dir of ["grammars", "samples", "tables"]) mkdirSync(`${out}/${dir}`, { recursive: true });
+for (const dir of ["grammars", "samples"]) mkdirSync(`${out}/${dir}`, { recursive: true });
 
 const ids = only.length > 0 ? only : bundledLanguagesInfo.map((info) => info.id);
-const engineTables = fileURLToPath(new URL("engine-tables.ts", import.meta.url));
 const repository = fileURLToPath(new URL("..", import.meta.url));
 
 /** Each input to check: its language, its file name in `samples/`, and its
@@ -91,18 +87,6 @@ async function fetchText(input: string): Promise<string> {
   return (await response.text()).replaceAll("\r\n", "\n");
 }
 
-/** Writes the engine's tables for `id`, and returns why they failed, or null. */
-async function tables(id: string): Promise<string | null> {
-  const child = Bun.spawn([process.execPath, engineTables, "--json", `${out}/tables`, id], {
-    stdout: "ignore",
-    stderr: "pipe",
-  });
-  const [code, stderr] = await Promise.all([child.exited, new Response(child.stderr).text()]);
-  if (code === 0) return null;
-  const error = stderr.split("\n").find((line) => line.startsWith("error:") || line.includes("Error:"));
-  return (error ?? stderr.trim().split("\n").at(-1) ?? `exit ${code}`).trim();
-}
-
 /** Runs `task` on every item, `width` at a time, and keeps the order. */
 async function pool<T, R>(items: T[], width: number, task: (item: T) => Promise<R>): Promise<R[]> {
   const results: R[] = new Array(items.length);
@@ -118,7 +102,6 @@ async function pool<T, R>(items: T[], width: number, task: (item: T) => Promise<
 }
 
 const texts = await pool(checkedInputs, 16, (checkedInput) => fetchText(checkedInput.input));
-const failures = await pool(ids, 4, tables);
 const checked: CheckedInput[] = [];
 for (const [at, { id, sample, input }] of checkedInputs.entries()) {
   const loader = bundledLanguages[id as keyof typeof bundledLanguages];
@@ -130,15 +113,13 @@ for (const [at, { id, sample, input }] of checkedInputs.entries()) {
   const highlighter = await createHighlighter({ langs: [id], themes: ["github-dark"] });
   await Bun.write(`${out}/samples/${sample}.txt`, fixture(highlighter, texts[at], id));
   highlighter.dispose();
-  const failure = failures[ids.indexOf(id)];
   checked.push({
     id,
     sample,
     scope: String(registrations[registrations.length - 1].scopeName),
     grammars: registrations.map((grammar) => grammar.name),
     input,
-    tables: failure,
   });
-  console.log(`${failure === null ? "✔" : "✘"} ${sample}${failure ? `: ${failure}` : ""}`);
+  console.log(`✔ ${sample}`);
 }
 await Bun.write(`${out}/languages.json`, `${JSON.stringify(checked, null, 2)}\n`);
