@@ -552,7 +552,8 @@ mod toml;
     feature = "lang-tsx"
 ))]
 mod typescript;
-#[cfg(nishiki_unstable)]
+#[cfg(all(nishiki_unstable, feature = "_rule-engine"))]
+#[cfg_attr(docsrs, doc(cfg(nishiki_unstable)))]
 pub mod unstable;
 #[cfg(feature = "_utf8")]
 mod utf8;

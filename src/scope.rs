@@ -13,7 +13,7 @@
 /// A scope name: a language's table base plus the name's index in it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(
-    not(nishiki_unstable),
+    not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
 pub struct Scope(u32);
@@ -412,7 +412,7 @@ mod tests {
     )
 )]
 #[cfg_attr(
-    not(nishiki_unstable),
+    not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
 pub struct Keyed<T: ?Sized> {
@@ -433,7 +433,7 @@ pub struct Keyed<T: ?Sized> {
     )
 )]
 #[cfg_attr(
-    not(nishiki_unstable),
+    not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
 pub type Scopes<S> = &'static Keyed<[S]>;

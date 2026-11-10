@@ -11,6 +11,9 @@
 //! rustflags = ["--cfg", "nishiki_unstable"]
 //! ```
 //!
+//! It also needs a language on the rule engine, such as Python or Java.
+//! The default features turn several on.
+//!
 //! A cfg is the opt-in, not a Cargo feature.
 //! Features unify across a dependency graph, so a crate that depends on
 //! nishiki could turn the API on for every other crate that does.
@@ -38,7 +41,6 @@
 pub use crate::arena::Arena;
 #[cfg(feature = "_embedding")]
 pub use crate::rules::Deferrals;
-#[cfg(feature = "_rule-engine")]
 pub use crate::rules::{
     Act, BlankRuns, Captures, CarriedState, Grammar, Lexer, NameCase, ScopeName,
 };
