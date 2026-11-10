@@ -20,6 +20,10 @@ use super::engine::CssLike;
 use super::grammar::Pattern;
 use crate::rules::Lexer;
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: CssLike> Lexer<'_, G> {
     /// Whether CSS pattern `pattern` matches at `p`, and where its match ends.
     /// It serves CSS, and SCSS, which includes CSS's rules.

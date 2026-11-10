@@ -6,6 +6,10 @@ use super::scope::S;
 use crate::rules::Lexer;
 use crate::scope::scopes;
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: CssLike> Lexer<'_, G> {
     /// Emits the tokens of capture group text `from..to`, and leaves the
     /// cursor at `to`.

@@ -3,6 +3,10 @@
 use super::super::PhpFamily;
 use crate::rules::{Chars, Lexer};
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: PhpFamily> Lexer<'_, G> {
     /// `/\*\*(?=\s)`.
     pub(crate) fn doc_comment(&self, p: usize) -> Option<usize> {

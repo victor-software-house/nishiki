@@ -20,6 +20,10 @@ enum SharedList {
     Second,
 }
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: CssLike> Lexer<'_, G> {
     /// `(?<![-\w])(name)(\()` for the names in `list`: the name is group 1 and
     /// the parenthesis group 2.

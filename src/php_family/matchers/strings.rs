@@ -4,6 +4,10 @@ use super::super::PhpFamily;
 use super::is_flag;
 use crate::rules::{Chars, Lexer};
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: PhpFamily> Lexer<'_, G> {
     /// `"/(?=(\\.|[^"/])++/[ADSUXeimsux]*")` for `"`, and for `'`:
     ///

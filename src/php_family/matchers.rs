@@ -42,6 +42,10 @@ pub(crate) fn is_qualified(b: u8) -> bool {
 }
 
 /// The shared matchers, on the rule engine's lexer of either grammar.
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: PhpFamily> Lexer<'_, G> {
     /// `[_a-z\x7F-\x{10FFFF}][0-9_a-z\x7F-\x{10FFFF}]*` under `(?i)`: a name.
     pub(crate) fn name(&self, p: usize) -> Option<usize> {

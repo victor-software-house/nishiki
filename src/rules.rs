@@ -67,11 +67,20 @@ use std::ops::ControlFlow;
 ))]
 pub(crate) use chars::Chars;
 #[cfg(feature = "_embedding")]
-pub(crate) use lexer::Deferrals;
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub use lexer::Deferrals;
 use lexer::FIRST_LINE;
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub use lexer::Lexer;
+pub(crate) use lexer::Scratch;
 #[cfg(feature = "_embedding")]
 use lexer::with_payload;
-pub(crate) use lexer::{Lexer, Scratch};
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 pub(crate) use runs::{CachedRuns, HasRuns, Runs};
 #[cfg(feature = "_rule-tables")]
@@ -92,7 +101,11 @@ use crate::{Stack, Token};
 
 /// One language's grammar: its rules and patterns, by type, and the
 /// hand-written matchers that decide where each pattern matches.
-pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub trait Grammar: Sized + Copy + Debug + 'static {
     /// A scope name of the grammar.
     type Scope: Copy + Debug + 'static;
     /// The empty list of the grammar's scopes.
@@ -192,7 +205,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// interpolation can close inside a heredoc, and an escape resumes it.
     const EMBEDS: bool = false;
     /// Whether the grammar lexes each line without its embedded languages first
-    /// ([`lex_on_demand`]). Such a grammar has no per-step test.
+    /// (`lex_on_demand`). Such a grammar has no per-step test.
     /// A line that starts inside a rule that embeds is noted where the rules
     /// are opened from the state, not on every line.
     #[cfg(feature = "_embedding")]
@@ -248,9 +261,9 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     }
     /// The first pattern of the innermost rule that matches at or after the
     /// cursor, with where its match starts and ends. At the first place where
-    /// [`Lexer::root_halts`] holds it calls [`Lexer::halt_here`] and returns
-    /// `None`. A language that keeps the candidate tables of [`Tabled`] calls
-    /// [`table_scan`].
+    /// `Lexer::root_halts` holds it calls `Lexer::halt_here` and returns
+    /// `None`. A language that keeps the candidate tables of `Tabled` calls
+    /// `table_scan`.
     fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Self::Pattern, usize)>;
     /// Whether `pattern` matches at `p`, and where it ends.
     fn matcher(lexer: &mut Lexer<'_, Self>, pattern: Self::Pattern, p: usize) -> Option<usize>;
@@ -297,7 +310,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn frames_settled(_lexer: &mut Lexer<'_, Self>, _low: usize) {}
 
     /// Whether the halts of the language that embeds the grammar can hold
-    /// below its root, through [`Halt::deep`](crate::language::Halt::deep).
+    /// below its root, through `Halt::deep`.
     /// Blade's injection holds inside the PHP of an echo at every depth, even
     /// inside a string.
     ///
@@ -325,13 +338,13 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// Whether another language lexes some capture groups of the grammar
     /// again, as `TextMate` does for a group whose patterns include another
     /// grammar ([`Grammar::defers_nested`]).
-    /// Only a grammar that embeds languages ([`Embeds`]) sets it.
+    /// Only a grammar that embeds languages (`Embeds`) sets it.
     const DEFERS_NESTED: bool = false;
     /// The language that lexes the `nested` capture groups again, if one
     /// does.
     /// The engine then emits such a group as one placeholder token and
     /// defers it.
-    /// Where the line hands control back, [`Embeds::lex_nested`] lexes it in
+    /// Where the line hands control back, `Embeds::lex_nested` lexes it in
     /// place of the placeholder.
     /// It is read only where [`Grammar::DEFERS_NESTED`] is set.
     fn defers_nested(_nested: Self::Nested) -> Option<Language> {
@@ -368,10 +381,11 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn skip_retok(_rule: Self::Rule, _text: &[u8]) -> bool {
         false
     }
-    /// How a [`DynName`] or a [`ScopeName::Capture`] with `prefix` spells
+    /// How a `DynName` or a [`ScopeName::Capture`] with `prefix` spells
     /// the text it reads: as written, unless the grammar lowers it, as CSS's
     /// units do with `${2:/downcase}`. Asked only where a dynamic name is
-    /// built, so that [`Span`] stays its size.
+    /// built, so that `Span` stays its size.
+    #[must_use]
     fn dyn_name_case(_prefix: &'static str) -> NameCase {
         NameCase::AsWritten
     }
@@ -1316,7 +1330,11 @@ fn resume_halting<G: Grammar>(lexer: Lexer<'_, G>, _: &Halts<'_>) -> (Finished, 
 
 /// The scopes of a pattern's capture groups by group number, and the groups
 /// that the grammar tokenizes with patterns of their own.
-pub(crate) type Captures<G> = (
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub type Captures<G> = (
     &'static [(u8, Scopes<<G as Grammar>::Scope>)],
     &'static [(u8, <G as Grammar>::Nested)],
 );
@@ -1343,7 +1361,11 @@ pub(crate) trait Tabled: Grammar {
 /// What the scan does with the rest of a run of spaces and tabs where no
 /// pattern matched at the run's first blank.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum BlankRuns {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum BlankRuns {
     /// It skips the rest of the run.
     ///
     /// Sound when no pattern can match at a later blank of a run and not at
@@ -1380,7 +1402,11 @@ pub(crate) enum BlankRuns {
 
 /// What a rule carries from line to line.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum CarriedState {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum CarriedState {
     /// Nothing.
     None,
     /// The text of a begin capture group, which the end pattern repeats.
@@ -1388,7 +1414,7 @@ pub(crate) enum CarriedState {
     /// The state of `Language`, whose grammar the rule's patterns include.
     ///
     /// A rule that embeds another language keeps that language's state.
-    /// The lexer hands the text to it (see [`Lexer::run_embedding`]).
+    /// The lexer hands the text to it (see `Lexer::run_embedding`).
     Embed(crate::Language),
 }
 
@@ -1439,7 +1465,11 @@ pub(crate) struct DynName {
 
 /// How a scope name spells the text it is built from.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum NameCase {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum NameCase {
     /// As the line writes it, as `$1` does.
     AsWritten,
     /// Lowered, as `${1:/downcase}` does with JavaScript's `toLowerCase`:
@@ -1453,15 +1483,22 @@ pub(crate) enum NameCase {
 
 /// What a scope of a grammar names.
 #[derive(Clone, Copy, Debug)]
-pub(crate) enum ScopeName {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum ScopeName {
     /// A scope of the crate's shared numbering.
     Fixed(Scope),
     /// A scope whose name repeats the text of a capture group of the match,
     /// as `storage.type.$1.cpp` does: `prefix`, the text of group `group`
     /// and `suffix`.
     Capture {
+        /// The name's text before the group's.
         prefix: &'static str,
+        /// The number of the capture group whose text the name repeats.
         group: u8,
+        /// The name's text after the group's.
         suffix: &'static str,
     },
 }
@@ -1480,7 +1517,11 @@ pub(crate) struct Span<G: Grammar> {
 
 /// What a matching pattern does.
 #[derive(Clone, Copy, Debug)]
-pub(crate) enum Act<G: Grammar> {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Act<G: Grammar> {
     /// Names the text and opens nothing.
     Match(Scopes<G::Scope>),
     /// Opens a rule.

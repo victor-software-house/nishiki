@@ -552,6 +552,8 @@ mod toml;
     feature = "lang-tsx"
 ))]
 mod typescript;
+#[cfg(nishiki_unstable)]
+pub mod unstable;
 #[cfg(feature = "_utf8")]
 mod utf8;
 #[cfg(feature = "lang-vb")]

@@ -25,6 +25,10 @@ pub(in crate::css) enum Tail {
     Folded,
 }
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: CssLike> Lexer<'_, G> {
     /// The lookahead `(?=$|[#\&)+,.:>\[{|~\s]|/\*)` at `p`.
     fn selector_stop_ahead(&self, p: usize) -> bool {

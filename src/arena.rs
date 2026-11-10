@@ -94,7 +94,11 @@ pub(crate) struct Frame {
 
 /// The scope stacks and states of one highlighter.
 #[derive(Debug)]
-pub(crate) struct Arena {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Arena {
     scopes: Vec<ScopeNode>,
     scope_ids: IdMap<ScopeKey>,
     frames: Vec<Frame>,

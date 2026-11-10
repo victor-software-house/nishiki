@@ -3,6 +3,10 @@
 use super::super::PhpFamily;
 use crate::rules::{Chars, Lexer};
 
+#[cfg_attr(
+    nishiki_unstable,
+    expect(private_bounds, reason = "the bound and the methods are crate-private")
+)]
 impl<G: PhpFamily> Lexer<'_, G> {
     /// `(?i)(?:^|(?<=<\?php))\s*(namespace)\s+([0-9\\_a-z\x7F-\x{10FFFF}]+)(?=\
     /// s*;)` with `named`, else `(?i)(?:^|(?<=<\?php))\s*(namespace)\s+`.

@@ -26,7 +26,10 @@ include = [
 
 [package.metadata.docs.rs]
 all-features = true
-rustdoc-args = ["--cap-lints", "warn"]
+# docs.rs builds the unstable module too, so its page shows the rule engine's
+# API; it sets `--cfg docsrs` itself.
+rustc-args = ["--cfg", "nishiki_unstable"]
+rustdoc-args = ["--cap-lints", "warn", "--cfg", "nishiki_unstable"]
 
 [features]
 # Every language with a lexer of its own is on by default; `default-features =
@@ -588,6 +591,8 @@ missing_docs = "deny"
 missing_debug_implementations = "deny"
 unreachable_pub = "deny"
 rust_2018_idioms = { level = "deny", priority = -1 }
+# `nishiki_unstable` turns on `nishiki::unstable`; any other cfg is a typo.
+unexpected_cfgs = { level = "deny", check-cfg = ["cfg(nishiki_unstable)"] }
 
 [workspace.lints.rustdoc]
 broken_intra_doc_links = "deny"

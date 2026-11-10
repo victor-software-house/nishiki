@@ -159,7 +159,11 @@ pub(crate) struct Scratch<G: Grammar> {
 /// Only a grammar that defers groups keeps one ([`Grammar::deferred`]).
 #[cfg(feature = "_embedding")]
 #[derive(Debug, Default)]
-pub(crate) struct Deferrals {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Deferrals {
     /// The groups, in the order their placeholders went out.
     pub(crate) groups: Vec<Deferred>,
     /// The tokens a group's language emits, before they take its
@@ -285,7 +289,11 @@ pub(crate) const FIRST_LINE: u32 = 1;
     clippy::struct_excessive_bools,
     reason = "each flag is one fact the grammar's anchors ask about"
 )]
-pub(crate) struct Lexer<'a, G: Grammar> {
+#[cfg_attr(
+    not(nishiki_unstable),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Lexer<'a, G: Grammar> {
     /// The text: the line, or the part of it up to where a capture that is
     /// lexed again ends.
     pub(crate) s: &'a [u8],
@@ -372,6 +380,17 @@ enum Entry {
     /// Where an embedded language halted, where the rule's own patterns are
     /// tried at the cursor before the text goes back to that language.
     Resume,
+}
+
+/// Shows where the lexer stands in its line, not the buffers it writes.
+impl<G: Grammar> core::fmt::Debug for Lexer<'_, G> {
+    fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
+        f.debug_struct("Lexer")
+            .field("pos", &self.pos)
+            .field("len", &self.s.len())
+            .field("state", &self.state)
+            .finish_non_exhaustive()
+    }
 }
 
 impl<'a, G: Grammar> Lexer<'a, G> {
