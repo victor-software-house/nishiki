@@ -42,3 +42,18 @@ Rules for the Shiki oracle, beside the root guide's invariants.
      Without the edit, `R"re(` and `R"glsl(` would read as other raw strings.
      Full Shiki does not read them that way.
    - nishiki lexes them with their own rules and plain text inside.
+9. Every third-party file a script reads comes from the public mirror `victor-software-house/nishiki-sources`, never from upstream (operator, 2026-11-10).
+   - [`sources.ts`](sources.ts) reads it from the checkout named by `NISHIKI_SOURCES`.
+     A missing file fails the run; nothing falls back to the URL.
+   - The mirror holds each file at `<owner>/<repo>/<commit>/<path>`, its raw URL without the host.
+     Its `manifest.toml` gives each file's licence, size and SHA-256.
+   - The Shiki fidelity workflow checks out the commit in `NISHIKI_SOURCES_COMMIT` in `.github/workflows/fidelity.yml`.
+   - The mirror is public, so a file enters only under a licence, found at its source, that permits redistribution.
+     A file whose own notice reserves all rights stays out.
+     `keptOut` in `sources.ts` lists each such file, and the scripts read its text from its committed fixture.
+   - A new input adds its URL and its `SOURCES.md` row, then:
+     1. `mise run sources:fill` fetches it into a checkout of the mirror;
+     2. a pull request to the mirror adds it, merged with a merge commit so its commit stays on `main`;
+     3. this repository's pull request raises `NISHIKI_SOURCES_COMMIT` to that commit.
+   - `mise run check:sources` fails when a pinned file has no row, a file differs from its row, or `keptOut` and the mirror conflict.
+     `oracle` and `oracle:fidelity` run it first.

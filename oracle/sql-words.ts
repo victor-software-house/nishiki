@@ -8,12 +8,13 @@
 // `day(s)?`, `hour(s)?`, `minute(s)?`, `proc(edure)?`, `priority ` (with a
 // space) and `within group`, which the earlier `within` always hides. The
 // plain words they unfold into are listed here.
-const source =
-  "https://raw.githubusercontent.com/microsoft/vscode/af600487b1e94374d9f48f57cbf2cad24656b07f/extensions/sql/syntaxes/sql.tmLanguage.json";
+import { sqlGrammar } from "./inputs.ts";
+import { sourceText } from "./sources.ts";
+
 const root = new URL("..", import.meta.url).pathname;
 
 type Rule = { match?: string; name?: string; captures?: Record<string, { name: string }> };
-const grammar = (await (await fetch(source)).json()) as { patterns: Rule[] };
+const grammar = JSON.parse(await sourceText(sqlGrammar)) as { patterns: Rule[] };
 
 const keywordRule = grammar.patterns.find((rule) => rule.name === "keyword.other.sql");
 const keywordText = keywordRule?.match?.match(/^\\b\(\?i\)\((.*)\)\\b$/s)?.[1];

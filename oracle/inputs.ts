@@ -2,6 +2,10 @@
 // written for nishiki under inputs/.
 // tests/oracle/SOURCES.md records each one's licence.
 // Keep the two lists in step.
+//
+// The scripts read every third-party file from the nishiki-sources mirror,
+// through sources.ts.
+// Each URL here names a file and its commit; nothing fetches it at run time.
 
 import asmCoverage from "./inputs/asm-coverage.asm" with { type: "text" };
 import astroCoverage from "./inputs/astro-coverage.astro" with { type: "text" };
@@ -102,9 +106,9 @@ import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with {
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
 import zigCoverage from "./inputs/zig-coverage.zig" with { type: "text" };
 
-/** One source file the oracle tokenizes: a third-party file, fetched from
- * its pinned `url`, or one written for nishiki under `inputs/`, imported as
- * `text`. */
+/** One source file the oracle tokenizes: a third-party file, read from the
+ * mirror at its pinned `url`, or one written for nishiki under `inputs/`,
+ * imported as `text`. */
 export type Input = {
   /** Shiki's language id. */
   lang: string;
@@ -544,6 +548,9 @@ const vitest =
   "https://raw.githubusercontent.com/vitest-dev/vitest/7a3844954d8753fc0d5bed76a96ffd3a21716c22";
 const vscode =
   "https://raw.githubusercontent.com/microsoft/vscode/a4e689ae13ef7a1fe9b515656b51c9be7c274294";
+/** The fidelity stand-ins of three languages, in `standIns` below. */
+const vscodeColorizeFixtures =
+  "https://raw.githubusercontent.com/microsoft/vscode/d5b3834b4da716541a3a5cb8483cf3675cbdd29f/extensions/vscode-colorize-tests/test/colorize-fixtures";
 const vue =
   "https://raw.githubusercontent.com/vuejs/core/68f25a4a1957710de71731702bd42e05535f494b";
 const woo =
@@ -1781,3 +1788,17 @@ export const inputs: Input[] = [
   { lang: "zig", name: "zls-build", url: `${zls}/build.zig` },
   { lang: "zig", name: "zls-offsets", url: `${zls}/src/offsets.zig` },
 ];
+
+/** The fidelity input of each language Shiki 4.6.0 has no sample for.
+ * `tests/oracle/SOURCES.md` records their licences. */
+export const standIns: Record<string, string> = {
+  "git-commit": `${vscodeColorizeFixtures}/COMMIT_EDITMSG`,
+  "git-rebase": `${vscodeColorizeFixtures}/git-rebase-todo`,
+  "html-derivative": `${h5bp}/src/index.html`,
+  "nextflow-groovy": `${vscodeColorizeFixtures}/test.groovy`,
+};
+
+/** The `sql` grammar at the commit Shiki 4.6.0 bundles, which `sql-words.ts`
+ * reads. It is MIT, as microsoft/vscode. */
+export const sqlGrammar =
+  "https://raw.githubusercontent.com/microsoft/vscode/af600487b1e94374d9f48f57cbf2cad24656b07f/extensions/sql/syntaxes/sql.tmLanguage.json";
