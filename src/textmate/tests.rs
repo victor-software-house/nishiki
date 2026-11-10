@@ -8,7 +8,7 @@ use std::collections::{BTreeSet, HashMap};
 use std::fmt::Write as _;
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::sync::{Mutex, PoisonError};
+use std::sync::{Mutex, OnceLock, PoisonError};
 
 use serde_json::Value;
 
@@ -23,21 +23,36 @@ use crate::language::Language;
 use crate::limits::{Limit, Limits, LineReport};
 use crate::{Highlighter, Stack, State, Syntax, Token};
 
-/// The tables the engine's tests run, linked once a process.
-static LINKED_TABLES: Mutex<Vec<(&str, &Grammar)>> = Mutex::new(Vec::new());
+/// The tables the engine's tests run, one cell per table name.
+///
+/// The lock guards only the list of cells.
+/// Each cell links its table once a process, so a test waits only for the
+/// table it runs.
+static LINKED_TABLES: Mutex<Vec<(&str, &OnceLock<&Grammar>)>> = Mutex::new(Vec::new());
 
 /// The test table named `name`, as `tests/engine/grammars/tables.json` lists
-/// it.
+/// it, linked on first use.
+fn table(name: &'static str) -> &'static Grammar {
+    let cell = {
+        let mut cells = LINKED_TABLES.lock().unwrap_or_else(PoisonError::into_inner);
+        if let Some(&(_, cell)) = cells.iter().find(|&&(held, _)| held == name) {
+            cell
+        } else {
+            let cell: &OnceLock<&Grammar> = Box::leak(Box::new(OnceLock::new()));
+            cells.push((name, cell));
+            cell
+        }
+    };
+    cell.get_or_init(|| link_table(name))
+}
+
+/// Links the test table named `name`.
 ///
-/// The Rust compiler links it from the Shiki grammars in that directory, which
-/// `oracle/engine-grammars.ts` writes.
+/// The Rust compiler links it from the Shiki grammars in
+/// `tests/engine/grammars/`, which `oracle/engine-grammars.ts` writes.
 /// The table names the languages it hands regions to.
 /// So an include of any other language's whole grammar matches nothing.
-fn table(name: &'static str) -> &'static Grammar {
-    let mut linked = LINKED_TABLES.lock().unwrap_or_else(PoisonError::into_inner);
-    if let Some(&(_, grammar)) = linked.iter().find(|&&(held, _)| held == name) {
-        return grammar;
-    }
+fn link_table(name: &str) -> &'static Grammar {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/grammars");
     let read = |file: &str| fs::read_to_string(dir.join(file)).unwrap();
     let tables: Value = serde_json::from_str(&read("tables.json")).unwrap();
@@ -64,9 +79,7 @@ fn table(name: &'static str) -> &'static Grammar {
         .iter()
         .map(|id| Language::from_name(id.as_str().unwrap()).unwrap())
         .collect();
-    let grammar = link(root, &set, Some(&hand_offs)).unwrap();
-    linked.push((name, grammar));
-    grammar
+    link(root, &set, Some(&hand_offs)).unwrap()
 }
 
 /// Whether the engine finds where rules start with its scanners, or searches
