@@ -37,7 +37,8 @@ fn buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch {
 }
 
 /// The scope that a Svelte document's stack starts with.
-#[cfg(feature = "lang-html")]
+/// HTML matches it by name; a test checks that name.
+#[cfg(all(test, feature = "lang-html", feature = "lang-markdown"))]
 pub(crate) const DOCUMENT: crate::scope::Scope = scope::S::Source.scope();
 
 /// The state at the start of a Svelte document whose scopes sit on the stack

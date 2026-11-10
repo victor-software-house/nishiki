@@ -53,7 +53,7 @@ mod rules;
 mod scope;
 mod searches;
 mod state;
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 mod svelte;
 mod text;
 mod type_aliases;
@@ -296,7 +296,17 @@ fn line(
 /// Lexes `line` in `dialect` like [`lex_until`], for the TypeScript or
 /// JavaScript that Svelte embeds: Svelte's grammar injects its `$` prefixes
 /// into them, which [`Dialect::SVELTE`] turns on.
-#[cfg(feature = "lang-svelte")]
+///
+/// The engine for loaded grammars calls it too.
+/// It does so when Svelte's grammar hands a region to the TypeScript or
+/// JavaScript lexer.
+#[cfg(any(
+    feature = "lang-svelte",
+    all(
+        feature = "_textmate",
+        any(feature = "lang-typescript", feature = "lang-javascript")
+    )
+))]
 pub(crate) fn lex_until_svelte(
     cx: &mut crate::language::Context<'_>,
     dialect: Dialect,

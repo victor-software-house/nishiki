@@ -24,7 +24,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.halt_if(p, self.halts.map(|halts| halts.end)) {
             return Some(p);
         }
-        #[cfg(feature = "lang-svelte")]
+        #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
         if D & super::Dialect::SVELTE != 0
             && let Some(next) = self.svelte_variable(p)
         {

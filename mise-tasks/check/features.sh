@@ -93,7 +93,11 @@ cargo check --locked --tests --no-default-features --features systems
 RUSTFLAGS="-D warnings" cargo check --locked --no-default-features --features textmate
 RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features textmate
 cargo check --locked --tests --no-default-features --features web
-# HTML with the engine for loaded grammars and without Markdown's lexer: a
-# loaded Markdown grammar still embeds HTML in Shiki's Markdown order.
-cargo test --locked --lib --no-default-features --features lang-html --features textmate html::tests::html_in_a_loaded_markdown_grammar
+# HTML with the engine for loaded grammars and without the Markdown and
+# Svelte lexers: a loaded Markdown grammar still embeds HTML in Shiki's
+# Markdown order, and a loaded Svelte grammar in Svelte's.
+cargo test --locked --lib --no-default-features --features lang-html --features textmate html::tests::html_in_a_loaded_
+# JavaScript with the engine and without Svelte's lexer: a loaded Svelte
+# grammar still gives the JavaScript it hands off Svelte's `$` prefixes.
+cargo test --locked --lib --no-default-features --features lang-javascript --features textmate grammar::tests::javascript_in_a_loaded_svelte_grammar
 cargo test --locked --lib --no-default-features --features lang-markdown

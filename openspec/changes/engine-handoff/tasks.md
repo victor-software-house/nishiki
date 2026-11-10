@@ -145,6 +145,13 @@ The engine's logic does not change when they do.
     Its block should be left out, as other fences of missing languages are.
     - A blank line in the fence's body ended the block early, so the rest of the body was compared.
     - A block now runs over blank lines and ends at its closing fence.
+- [x] 5.7 Give the JavaScript and TypeScript that a loaded Svelte grammar hands off Svelte's `$` prefixes.
+  → verify: `javascript_in_a_loaded_svelte_grammar_takes_the_dollar_prefixes` passes without `lang-svelte`
+  - Svelte's grammar injects the prefixes into `source.ts` and `source.js`.
+    A handed region's rules never run, so the injection never applied there.
+  - The engine now lexes such a region with the TypeScript lexer's Svelte dialect, when the root grammar is `source.svelte`.
+    vscode-textmate applies the injections of the grammar it lexes with, so only the root's count.
+  - The dialect and HTML's Svelte root are now built with the engine too, not only with `lang-svelte`.
 
 ## 6. The engine as an embedded language
 
