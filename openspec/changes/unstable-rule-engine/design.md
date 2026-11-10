@@ -81,6 +81,37 @@ A crate outside nishiki cannot write a `Grammar` yet, because it cannot make a `
 `unstable::codegen`, in `rule-table-codegen` task 1.1, brings that with the tables a grammar needs.
 Until then, the crate's own test defines a grammar and runs it through `RuleSyntax`.
 
+### 2.1 The cost of the generic impl
+
+`impl<G: Grammar> Sealed for RuleSyntax<G>` is a generic trait impl.
+rustc counts each item of a trait impl as reachable and walks its generic body.
+So it exports what that body reaches, `Arena::child` and `Arena::push` among them.
+An exported function in a library is not local to it, so every call in the crate loads its address from the GOT.
+
+Measured at one codegen unit, with valgrind 3.27.1:
+
+| Build | Direct calls to `child` | Direct calls to `push` | GOT calls |
+|:--|--:|--:|--:|
+| Before `RuleSyntax` | 550 | 196 | 25,257 |
+| With `RuleSyntax` compiled | 0 | 0 | 26,450 |
+
+The lexing pass rose 0.4–0.65% in JSON, JSONC, JSON Lines and HCL, which lex many short lines.
+The rise sat in functions the change did not touch, around their calls to the arena:
+
+| Language | Function | Before | After |
+|:--|:--|--:|--:|
+| JSON | `json::Lexer::begin` | 1,359,032 | 1,401,176 |
+| JSON | `Language as Sealed::line` | 333,697 | 345,831 |
+| HCL | `hcl::Lexer::tok_at` | 558,124 | 585,469 |
+| HCL | `hcl::Lexer::tok` | 413,406 | 437,724 |
+
+`rules::syntax` and `rules::lex_with` therefore compile only with the cfg and in their test.
+The build without the cfg makes the same calls as before.
+
+A build with the cfg still pays the GOT calls in every language.
+Task 1.3 removes that cost.
+Its proof is 550 and 196 direct calls in both builds, and Callgrind rows at or below 1.000 against the base.
+
 [proposal]: proposal.md
 [tokio-cfg-macro]: https://github.com/tokio-rs/tokio/blob/d6102c7e0a97b939c23d056122490faf777d2875/tokio/src/macros/cfg.rs#L278-L286
 [tokio-check-cfg]: https://github.com/tokio-rs/tokio/blob/d6102c7e0a97b939c23d056122490faf777d2875/Cargo.toml#L28-L38

@@ -28,13 +28,6 @@ use crate::{State, Token};
     not(nishiki_unstable),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
-#[cfg_attr(
-    all(not(nishiki_unstable), not(all(test, feature = "lang-toml"))),
-    expect(
-        dead_code,
-        reason = "used only through nishiki::unstable and the tests"
-    )
-)]
 pub struct RuleSyntax<G>(PhantomData<fn() -> G>);
 
 impl<G> Clone for RuleSyntax<G> {
