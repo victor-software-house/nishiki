@@ -117,7 +117,10 @@ writeFileSync(`${out}tables.json`, `${JSON.stringify(linked, null, 2)}\n`);
 
 const rows = names.map((name) => {
   const { bundled, licence } = allowed[name];
-  return `| \`${name}\` | [${bundled.replace("@", " at ")}][${name}-source] | [${licence}][${name}-licence] |`;
+  return (
+    `| \`${name}\` | [${bundled.replace("@", " at ")}][${name}-source] | ` +
+    `[${licence}][${name}-licence] |`
+  );
 });
 const links = names.flatMap((name) => {
   const { bundled, origin, file } = allowed[name];

@@ -642,7 +642,10 @@ for (const name of [...handLexed.keys()].sort()) {
   }
   const state = listed ? "yes" : open.length === 0 ? "ready" : "";
   rows.push(
-    `| ${handLexed.get(name)} | \`${name}\` | ${hit} of ${live.length} | ${percent(hit, live.length)} | ${groupsHit} of ${groups.length} | ${percent(groupsHit, groups.length)} | ${missing.length - open.length} | ${fuzzOnly} | ${state} |`,
+    `| ${handLexed.get(name)} | \`${name}\` | ${hit} of ${live.length} | ` +
+      `${percent(hit, live.length)} | ${groupsHit} of ${groups.length} | ` +
+      `${percent(groupsHit, groups.length)} | ${missing.length - open.length} | ` +
+      `${fuzzOnly} | ${state} |`,
   );
   const lines = live.flatMap((unit) => {
     const path = expressions[unit]?.path ?? "";

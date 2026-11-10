@@ -178,7 +178,8 @@ function tsv(text: string): Record<string, string>[] {
 export async function referenceHost(): Promise<BenchRecord["host"]> {
   if (process.platform !== "linux")
     throw new Error(
-      `a record comes from the reference host class, ${REFERENCE.class}, and this host is not Linux`,
+      `a record comes from the reference host class, ${REFERENCE.class}, ` +
+        `and this host is not Linux`,
     );
   const cpuinfo = readFileSync("/proc/cpuinfo", "utf8");
   const meminfo = readFileSync("/proc/meminfo", "utf8");
@@ -298,7 +299,9 @@ async function main(): Promise<void> {
   if (driftPct > REFERENCE.bound_pct) {
     await Bun.write(join(home, `${stem}.txt`), raw);
     throw new Error(
-      `the anchor moved ${driftPct.toFixed(2)}% (${anchorStart.toFixed(1)} to ${anchorEnd.toFixed(1)} MiB/s), over the reference class's bound of ${REFERENCE.bound_pct}%: no record written; rerun. The output is in ${home}`,
+      `the anchor moved ${driftPct.toFixed(2)}% (${anchorStart.toFixed(1)} to ` +
+        `${anchorEnd.toFixed(1)} MiB/s), over the reference class's bound of ` +
+        `${REFERENCE.bound_pct}%: no record written; rerun. The output is in ${home}`,
     );
   }
   const numbers = (rows: Record<string, string>[], column: string) =>

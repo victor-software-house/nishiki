@@ -125,5 +125,6 @@ writeFileSync(`${dir}lines.hex`, `${allLines.map(hex).join("\n")}\n`);
 writeFileSync(`${dir}cases.tsv`, `${cases.join("\n")}\n`);
 writeFileSync(`${dir}expected.tsv`, `${expected.join("\n")}\n`);
 console.log(
-  `${patterns.length} patterns, ${allLines.length} lines, ${cases.length} cases, ${ambiguous} left out`,
+  `${patterns.length} patterns, ${allLines.length} lines, ${cases.length} cases, ` +
+    `${ambiguous} left out`,
 );

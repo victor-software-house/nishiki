@@ -23,7 +23,8 @@ for (const script of scripts) {
     if (!versioned) problems.push(`${script}: ${path} names no version`);
     else if (pinned[versioned[1]] !== versioned[2])
       problems.push(
-        `${script}: ${path}, but package.json pins ${versioned[1]} at ${pinned[versioned[1]] ?? "no version"}`,
+        `${script}: ${path}, but package.json pins ${versioned[1]} at ` +
+          `${pinned[versioned[1]] ?? "no version"}`,
       );
   }
 }

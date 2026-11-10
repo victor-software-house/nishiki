@@ -266,7 +266,9 @@ async function main(): Promise<void> {
     mkdirSync(home, { recursive: true });
     await Bun.write(join(home, `${stem}.txt`), raw);
     throw new Error(
-      `the anchor moved ${driftPct.toFixed(2)}% (${anchorStart.toFixed(1)} to ${anchorEnd.toFixed(1)} MiB/s), over the reference class's bound of ${REFERENCE.bound_pct}%: no record written; rerun. The output is in ${home}`,
+      `the anchor moved ${driftPct.toFixed(2)}% (${anchorStart.toFixed(1)} to ` +
+        `${anchorEnd.toFixed(1)} MiB/s), over the reference class's bound of ` +
+        `${REFERENCE.bound_pct}%: no record written; rerun. The output is in ${home}`,
     );
   }
 

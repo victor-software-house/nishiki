@@ -90,7 +90,8 @@ async function report(tsv: string): Promise<void> {
     console.log(`## ${mode}`);
     for (const l of lines) {
       console.log(
-        `${l.language.padEnd(16)} runs ${l.runs}  aa ${pct(l.gap).padStart(7)}  spread ${pct(l.spread).padStart(7)}  drift ${pct(l.drift).padStart(7)}`,
+        `${l.language.padEnd(16)} runs ${l.runs}  aa ${pct(l.gap).padStart(7)}  spread ` +
+          `${pct(l.spread).padStart(7)}  drift ${pct(l.drift).padStart(7)}`,
       );
     }
     const runNumbers = [
@@ -112,7 +113,8 @@ async function report(tsv: string): Promise<void> {
       return (Math.max(...rate) - Math.min(...rate)) / median(rate);
     });
     console.log(
-      `host speed by run, against run ${runNumbers[0]}: ${hostSpeed.map((speed) => pct(speed / hostSpeed[0] - 1)).join(" ")}`,
+      `host speed by run, against run ${runNumbers[0]}: ` +
+        `${hostSpeed.map((speed) => pct(speed / hostSpeed[0] - 1)).join(" ")}`,
     );
     const worst = lines.reduce((a, b) => (b.gap > a.gap ? b : a));
     const widest = lines.reduce((a, b) => (b.spread > a.spread ? b : a));
@@ -124,7 +126,8 @@ async function report(tsv: string): Promise<void> {
         `worst aa ${pct(worst.gap)} (${worst.language});`,
         `over 2%: ${lines.filter((l) => l.gap > 0.02).length} of ${lines.length};`,
         `spread median ${pct(median(spreads))}, worst ${pct(widest.spread)} (${widest.language});`,
-        `drift median ${pct(median(drifts))}, p90 ${pct(quantile(drifts, 0.9))}, max ${pct(Math.max(...drifts))};`,
+        `drift median ${pct(median(drifts))}, p90 ${pct(quantile(drifts, 0.9))}, ` +
+          `max ${pct(Math.max(...drifts))};`,
         `spread without the host's speed: median ${pct(median(residual))};`,
         `python drift ${pct(lines.find((l) => l.language === "python")?.drift ?? Number.NaN)}`,
       ].join(" "),

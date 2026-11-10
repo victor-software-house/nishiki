@@ -388,7 +388,8 @@ async function check() {
   }
   if (unread.length > 0) {
     console.error(
-      `this clone lacks the \`to\` commit of ${unread.join(", ")}; those traces are held to their sha256 alone`,
+      `this clone lacks the \`to\` commit of ${unread.join(", ")}; ` +
+        `those traces are held to their sha256 alone`,
     );
   }
   if (problems.length > 0) {

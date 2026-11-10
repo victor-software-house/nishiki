@@ -165,26 +165,33 @@ function micros(ns: number, resolutionNs: number): string {
 function standing(record: { anchor: { bound_pct: number } }, probe: string): string {
   return [
     "These figures are indicative only.",
-    `No host class keeps two runs of one build within 2%, and this one moves by up to ${fixed(record.anchor.bound_pct, 0)}% ([probe](${probe})).`,
+    `No host class keeps two runs of one build within 2%, ` +
+      `and this one moves by up to ${fixed(record.anchor.bound_pct, 0)}% ([probe](${probe})).`,
     "Speed decisions rest on Callgrind instruction counts.",
   ].join("\n");
 }
 
 function hostLine(record: { host: BenchRecord["host"] }): string {
   const h = record.host;
-  return `${h.class}: ${h.cpu}, ${h.cpus} CPUs (${h.threads_per_core} ${h.threads_per_core === 1 ? "thread" : "threads"} a core), ${fixed(h.memory_mib / 1024, 1)} GiB, ${h.os}, Linux ${h.kernel}`;
+  return (
+    `${h.class}: ${h.cpu}, ${h.cpus} CPUs (${h.threads_per_core} ` +
+    `${h.threads_per_core === 1 ? "thread" : "threads"} a core), ` +
+    `${fixed(h.memory_mib / 1024, 1)} GiB, ${h.os}, Linux ${h.kernel}`
+  );
 }
 
 /** The record's own page. */
 export function renderRecord(record: BenchRecord, stem: string): string {
   const sha8 = record.commit.slice(0, 8);
   const compute = record.compute
-    ? `${record.compute.seconds} s, ${fixed(record.compute.unit_minutes, 1)} unit minutes, $${fixed(record.compute.usd, 2)}`
+    ? `${record.compute.seconds} s, ${fixed(record.compute.unit_minutes, 1)} unit minutes, ` +
+      `$${fixed(record.compute.usd, 2)}`
     : "not filled in";
   const out: string[] = [
     `# ${record.date}, commit ${sha8}`,
     "",
-    `A recorded session under the \`bench-methodology\` method, rendered from its JSON by \`mise run bench:report\`.`,
+    `A recorded session under the \`bench-methodology\` method, ` +
+      `rendered from its JSON by \`mise run bench:report\`.`,
     standing(record, `../../../${PROBE}`),
     "",
     "## Session",
@@ -200,11 +207,15 @@ export function renderRecord(record: BenchRecord, stem: string): string {
     tableRow("When", `${record.started} to ${record.finished}`),
     tableRow(
       "Rounds",
-      `${record.rounds} of every Criterion bench and of the latency program; ${record.cold_processes} cold processes per file, the first 3 rounds dropped`,
+      `${record.rounds} of every Criterion bench and of the latency program; ` +
+        `${record.cold_processes} cold processes per file, the first 3 rounds dropped`,
     ),
     tableRow(
       "Anchor",
-      `\`${record.anchor.id}\` for 2 s: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ${fixed(record.anchor.end_mib_s, 1)} at the end, drift ${fixed(record.anchor.drift_pct, 2)}%, within the class's bound of ${fixed(record.anchor.bound_pct, 0)}%`,
+      `\`${record.anchor.id}\` for 2 s: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the ` +
+        `start, ${fixed(record.anchor.end_mib_s, 1)} at the end, ` +
+        `drift ${fixed(record.anchor.drift_pct, 2)}%, ` +
+        `within the class's bound of ${fixed(record.anchor.bound_pct, 0)}%`,
     ),
     tableRow("Corpus", `version ${record.corpus_version}`),
     tableRow("Compute", compute),
@@ -296,7 +307,10 @@ function overLanguages(entries: Entry[], worst: "max" | "min"): string {
   );
   const spreads = entries.flatMap((e) => (e.spread_pct === null ? [] : [e.spread_pct]));
   const spread = spreads.length === 0 ? "per process" : `${fixed(median(spreads), 1)}%`;
-  return `${fixed(median(entries.map((e) => e.value)), 1)} | ${fixed(pick.value, 1)} (${pick.name}) | ${spread} |`;
+  return (
+    `${fixed(median(entries.map((e) => e.value)), 1)} | ${fixed(pick.value, 1)} ` +
+    `(${pick.name}) | ${spread} |`
+  );
 }
 
 /** The README's summary of the newest record, markers included: one short
@@ -347,7 +361,8 @@ export function renderSummary(newest: { path: string; record: BenchRecord } | un
   const out = [
     BEGIN,
     "",
-    `${record.host.class}, ${record.date}, commit \`${record.commit.slice(0, 8)}\`; [the full record](results/${page}).`,
+    `${record.host.class}, ${record.date}, commit \`${record.commit.slice(0, 8)}\`; ` +
+      `[the full record](results/${page}).`,
     standing(record, `../${PROBE}`),
     "",
     "| Figure | Median over languages | Worst | Median spread over rounds |",
@@ -363,7 +378,8 @@ export function renderSummary(newest: { path: string; record: BenchRecord } | un
 export function renderCompareRecord(record: CompareRecord, stem: string): string {
   const sha8 = record.commit.slice(0, 8);
   const compute = record.compute
-    ? `${record.compute.seconds} s, ${fixed(record.compute.unit_minutes, 1)} unit minutes, $${fixed(record.compute.usd, 2)}`
+    ? `${record.compute.seconds} s, ${fixed(record.compute.unit_minutes, 1)} unit minutes, ` +
+      `$${fixed(record.compute.usd, 2)}`
     : "not filled in";
   const out: string[] = [
     `# ${record.date}, commit ${sha8}: comparison with other highlighters`,
@@ -389,11 +405,15 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
     tableRow("Tiers", record.tiers.join(", ")),
     tableRow(
       "Rounds",
-      `${record.rounds} rounds of warm throughput per engine and file, the order rotating; ${record.cold_processes} fresh processes per engine and file`,
+      `${record.rounds} rounds of warm throughput per engine and file, the order rotating; ` +
+        `${record.cold_processes} fresh processes per engine and file`,
     ),
     tableRow(
       "Anchor",
-      `${record.anchor.id}: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ${fixed(record.anchor.end_mib_s, 1)} at the end, drift ${fixed(record.anchor.drift_pct, 2)}%, within the class's bound of ${fixed(record.anchor.bound_pct, 0)}%`,
+      `${record.anchor.id}: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ` +
+        `${fixed(record.anchor.end_mib_s, 1)} at the end, ` +
+        `drift ${fixed(record.anchor.drift_pct, 2)}%, ` +
+        `within the class's bound of ${fixed(record.anchor.bound_pct, 0)}%`,
     ),
     tableRow("Corpus", `version ${record.corpus_version}`),
     tableRow("Compute", compute),
@@ -456,7 +476,8 @@ export function renderCompareSummary(
   const out = [
     BEGIN,
     "",
-    `${record.host.class}, ${record.date}, commit \`${record.commit.slice(0, 8)}\`, tiers ${record.tiers.join(" and ")}; [the full record](results/${page}).`,
+    `${record.host.class}, ${record.date}, commit \`${record.commit.slice(0, 8)}\`, ` +
+      `tiers ${record.tiers.join(" and ")}; [the full record](results/${page}).`,
     standing(record, `../../${PROBE}`),
     "",
     "| Engine | Files | Warm MiB/s, median | First document ms, median | Fidelity, median |",
@@ -603,7 +624,8 @@ async function main(): Promise<void> {
         );
       }
       console.log(
-        `✔ ${bench.count} records, ${compare.count} comparison records and both README summaries match their JSON`,
+        `✔ ${bench.count} records, ${compare.count} comparison records and both README ` +
+          `summaries match their JSON`,
       );
       return;
     }

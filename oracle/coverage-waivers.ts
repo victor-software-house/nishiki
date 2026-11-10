@@ -42,7 +42,8 @@ const lookahead = "the group is a lookahead, so it never holds text";
 /** The reason for a group that the grammar names but its expression, with
  * `groups` groups, does not have. */
 const missing = (groups: number) =>
-  `the grammar names the group, but the expression has ${["no groups", "one group", "two groups", "three groups"][groups]}`;
+  `the grammar names the group, but the expression has ` +
+  `${["no groups", "one group", "two groups", "three groups"][groups]}`;
 
 /** Markdown's fences whose only pattern includes a grammar the oracle does
  * not load, because nishiki does not lex its language, with that grammar's
@@ -1069,7 +1070,9 @@ export const waivers: Waiver[] = [
     ["begin", "end", "patterns[0].begin", "patterns[0].while"].map((part) => ({
       grammar: "markdown",
       path: `#fenced_code_block_${name}.${part}`,
-      reason: `the fence's only pattern includes \`${scope}\`, which the oracle does not load, so vscode-textmate drops the rule`,
+      reason:
+        `the fence's only pattern includes \`${scope}\`, which the oracle does not load, ` +
+        `so vscode-textmate drops the rule`,
       dropped: true,
     })),
   ),
@@ -1150,7 +1153,9 @@ export const waivers: Waiver[] = [
     ["begin", "end"].map((part): Waiver => ({
       grammar: "latex",
       path: `${rule}.${part}`,
-      reason: `the rule's only pattern includes ${included}, which Shiki does not load with LaTeX, so vscode-textmate drops the rule`,
+      reason:
+        `the rule's only pattern includes ${included}, which Shiki does not load with LaTeX, ` +
+        `so vscode-textmate drops the rule`,
       dropped: true,
     })),
   ),
@@ -1634,7 +1639,9 @@ export const waivers: Waiver[] = [
   ...[0, 1].flatMap((index): Waiver[] => [
     {
       grammar: "erb",
-      path: `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[${index}].begin`,
+      path:
+        `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | ` +
+        `comment)].patterns[${index}].begin`,
       group: 0,
       reason:
         "the match is only the blanks that lead the line, before the lookahead, " +
@@ -1642,7 +1649,9 @@ export const waivers: Waiver[] = [
     },
     {
       grammar: "erb",
-      path: `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[${index}].end`,
+      path:
+        `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | ` +
+        `comment)].patterns[${index}].end`,
       group: 0,
       reason:
         "the match is only blanks and the line feed that end the line, " +
