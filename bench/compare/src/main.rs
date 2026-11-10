@@ -266,14 +266,16 @@ impl Row {
 fn print_head(options: &Options) {
     match options.output {
         Output::Table => {
-            println!(
-                "{} rounds of {} ms per engine and file, the order rotating; \
-                 {} fresh processes for setup and first document; \
-                 colours against Shiki 4.6.0, github-dark",
+            print!(
+                "{} rounds of {} ms per engine and file, the order rotating; ",
                 options.rounds,
-                ROUND.as_millis(),
+                ROUND.as_millis()
+            );
+            print!(
+                "{} fresh processes for setup and first document; ",
                 options.cold
             );
+            println!("colours against Shiki 4.6.0, github-dark");
             println!();
             println!(
                 "{}",

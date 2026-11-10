@@ -322,10 +322,11 @@ impl<'a> Lexer<'a> {
     /// line ended in `state`.
     /// Otherwise they are the state's chain of frames, rebuilt from its root
     /// down.
+    ///
+    /// Out of line, shell rose 0.8% (1.0081).
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
-                  rustc stopped inlining it, and shell rose 0.8% (1.0081)"
+        reason = "`lex_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     pub(crate) fn new(
@@ -460,10 +461,11 @@ impl<'a> Lexer<'a> {
     /// state's chain.
     /// They are when each has a state of its own.
     /// A node limit can deny a rule its own state.
+    ///
+    /// Out of line, shell rose 0.8% (1.0081).
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
-                  rustc stopped inlining it, and shell rose 0.8% (1.0081)"
+        reason = "`lex_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     pub(crate) fn run_halting(mut self, scratch: &mut Scratch) -> (Finished, Option<usize>) {

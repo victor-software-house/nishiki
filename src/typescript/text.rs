@@ -27,8 +27,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// |[4-7][0-7]?|.|$)`.
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
-                  `j` and `k` for the cursor"
+        reason = "`p` is the rule's start, `e` a part's end, and `j` and `k` the cursor"
     )]
     pub(crate) fn string_character_escape(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) != b'\\' {

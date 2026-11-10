@@ -256,10 +256,10 @@ fn a_heredoc_with_interpolations_and_trim_markers() {
         scopes(text, 1, "in"),
         "string.unquoted.heredoc.hcl meta.interpolation.hcl keyword.control.hcl"
     );
+    let interpolation = "string.unquoted.heredoc.hcl meta.interpolation.hcl";
     assert_eq!(
         scopes(text, 1, " ~"),
-        "string.unquoted.heredoc.hcl meta.interpolation.hcl \
-         keyword.operator.template.right.trim.hcl"
+        format!("{interpolation} keyword.operator.template.right.trim.hcl")
     );
     assert_eq!(
         scopes(text, 3, "  EOT"),

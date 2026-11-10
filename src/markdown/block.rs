@@ -240,10 +240,11 @@ pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Opti
 
 /// `(^|\G)(\s*)(``{3,}|~{3,})` at `p`: the fence a line opens, where its run
 /// starts and where it ends.
+///
+/// Out of line, it cost a call once a fence line.
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: with `vue_fence_open` a second caller, \
-              it stopped being inlined, at a call once a fence line"
+    reason = "`vue_fence_open`, a second caller, kept it out of line at one codegen unit"
 )]
 #[inline(always)]
 fn fence_run(cx: &Cx<'_>, p: usize) -> Option<(Fence, usize, usize)> {
@@ -308,10 +309,11 @@ pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> 
 
 /// `(^|\G)(\2|\s{0,3})(\3)\s*$`, which closes the fence: the opening fence's
 /// own run of characters, indented as the opening one or by at most three.
+///
+/// Out of line, it cost a call once a fence line.
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: with `vue_body_line` a second caller, \
-              it stopped being inlined, at a call once a fence line"
+    reason = "`vue_body_line`, a second caller, kept it out of line at one codegen unit"
 )]
 #[inline(always)]
 pub(crate) fn fence_close(

@@ -140,10 +140,12 @@ impl Lexer<'_> {
 
     /// The first pattern of `rule` that matches at `p`, after or before its
     /// end pattern.
+    ///
+    /// The halting and the plain scan both call it.
+    /// Out of line, it cost a call per place.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: called from both instances of the scan, \
-                  the halting one and the plain one, it stopped being inlined, at a call per place"
+        reason = "the scan's two instances kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn first_at(&mut self, rule: Rule, p: usize) -> Option<(Pattern, usize)> {

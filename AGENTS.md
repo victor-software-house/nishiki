@@ -121,7 +121,7 @@ The decisions that created nishiki live in a private planning repository:
 7. `check:local` (`mise-tasks/check/local.sh`) fails when the packaged crate lacks the README, a licence text or the notices file.
    It also runs these checks:
    - `check:layout`: every browsable directory has its README and guide.
-   - `check:literals`: no multiline text as escaped line feeds ([CODING_STANDARDS.md](CODING_STANDARDS.md) 3.10).
+   - `check:literals`: no multiline text as escaped line feeds, and no Rust string continued by a backslash ([CODING_STANDARDS.md](CODING_STANDARDS.md) 3.10).
    - `check:tiers`.
      It fails when a README row's Tier differs from the `all` or `textmate` list in `Cargo.toml`.
      It also fails when a row of the crate docs' tier table in `src/lib.rs` names other languages than its tier's list in `Cargo.toml`.

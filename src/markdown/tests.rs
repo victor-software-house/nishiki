@@ -1616,6 +1616,7 @@ fn a_line_lexes_the_same_from_kept_and_rebuilt_frames() {
 /// The lines of `a_cpp_fence_keeps_its_scopes_from_kept_and_rebuilt_frames`
 /// and, per line, each token's text with the scopes Shiki 4.6.0 gives it
 /// below the fence's `text.html.markdown markup.fenced_code.block.markdown`.
+/// On body lines they also sit below `meta.embedded.block.cpp source.cpp`.
 #[cfg(feature = "lang-cpp")]
 const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
     (
@@ -1630,88 +1631,48 @@ const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
         &[
             (
                 "int",
-                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp \
-                 storage.type.built-in.primitive.cpp",
+                "storage.type.primitive.cpp storage.type.built-in.primitive.cpp",
             ),
-            (" ", "meta.embedded.block.cpp source.cpp"),
-            (
-                "a",
-                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp \
-                 variable.other.unknown.a.cpp",
-            ),
-            (" ", "meta.embedded.block.cpp source.cpp"),
-            (
-                "=",
-                "meta.embedded.block.cpp source.cpp keyword.operator.assignment.cpp",
-            ),
-            (" ", "meta.embedded.block.cpp source.cpp"),
-            (
-                "1",
-                "meta.embedded.block.cpp source.cpp constant.numeric.decimal.cpp",
-            ),
-            (
-                ";",
-                "meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp",
-            ),
-            (" ", "meta.embedded.block.cpp source.cpp comment.block.cpp"),
+            (" ", ""),
+            ("a", "variable.lower-case.cpp variable.other.unknown.a.cpp"),
+            (" ", ""),
+            ("=", "keyword.operator.assignment.cpp"),
+            (" ", ""),
+            ("1", "constant.numeric.decimal.cpp"),
+            (";", "punctuation.terminator.statement.cpp"),
+            (" ", "comment.block.cpp"),
             (
                 "/*",
-                "meta.embedded.block.cpp source.cpp comment.block.cpp \
-                 punctuation.definition.comment.begin.cpp",
+                "comment.block.cpp punctuation.definition.comment.begin.cpp",
             ),
-            (
-                " one",
-                "meta.embedded.block.cpp source.cpp comment.block.cpp",
-            ),
+            (" one", "comment.block.cpp"),
         ],
     ),
     (
         "two */ int b;",
         &[
-            (
-                "two ",
-                "meta.embedded.block.cpp source.cpp comment.block.cpp",
-            ),
+            ("two ", "comment.block.cpp"),
             (
                 "*/",
-                "meta.embedded.block.cpp source.cpp comment.block.cpp \
-                 punctuation.definition.comment.end.cpp",
+                "comment.block.cpp punctuation.definition.comment.end.cpp",
             ),
-            (" ", "meta.embedded.block.cpp source.cpp"),
+            (" ", ""),
             (
                 "int",
-                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp \
-                 storage.type.built-in.primitive.cpp",
+                "storage.type.primitive.cpp storage.type.built-in.primitive.cpp",
             ),
-            (" ", "meta.embedded.block.cpp source.cpp"),
-            (
-                "b",
-                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp \
-                 variable.other.unknown.b.cpp",
-            ),
-            (
-                ";",
-                "meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp",
-            ),
+            (" ", ""),
+            ("b", "variable.lower-case.cpp variable.other.unknown.b.cpp"),
+            (";", "punctuation.terminator.statement.cpp"),
         ],
     ),
     (
         "return a;",
         &[
-            (
-                "return",
-                "meta.embedded.block.cpp source.cpp keyword.control.return.cpp",
-            ),
-            (" ", "meta.embedded.block.cpp source.cpp"),
-            (
-                "a",
-                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp \
-                 variable.other.unknown.a.cpp",
-            ),
-            (
-                ";",
-                "meta.embedded.block.cpp source.cpp punctuation.terminator.statement.cpp",
-            ),
+            ("return", "keyword.control.return.cpp"),
+            (" ", ""),
+            ("a", "variable.lower-case.cpp variable.other.unknown.a.cpp"),
+            (";", "punctuation.terminator.statement.cpp"),
         ],
     ),
     ("```", &[("```", "punctuation.definition.markdown")]),
@@ -1726,6 +1687,7 @@ const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
 #[test]
 fn a_cpp_fence_keeps_its_scopes_from_kept_and_rebuilt_frames() {
     const FENCE: &str = "text.html.markdown markup.fenced_code.block.markdown";
+    const CPP: &str = "meta.embedded.block.cpp source.cpp";
     let row = |highlighter: &Highlighter, line: &str, tokens: &[crate::Token]| {
         let mut start = 0;
         tokens
@@ -1743,10 +1705,22 @@ fn a_cpp_fence_keeps_its_scopes_from_kept_and_rebuilt_frames() {
             .collect::<Vec<_>>()
     };
     let want = |index: usize| -> Vec<(String, String)> {
-        CPP_FENCE[index]
-            .1
+        let (line, tokens) = CPP_FENCE[index];
+        let below: &[&str] = if line.starts_with("```") {
+            &[FENCE]
+        } else {
+            &[FENCE, CPP]
+        };
+        tokens
             .iter()
-            .map(|&(text, rest)| (text.to_owned(), format!("{FENCE} {rest}")))
+            .map(|&(text, rest)| {
+                let scopes: Vec<&str> = below
+                    .iter()
+                    .copied()
+                    .chain(Some(rest).filter(|rest| !rest.is_empty()))
+                    .collect();
+                (text.to_owned(), scopes.join(" "))
+            })
             .collect()
     };
     let mut highlighter = Highlighter::new(Language::Markdown);

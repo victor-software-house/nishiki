@@ -218,8 +218,7 @@ macro_rules! languages {
                 not(any($(feature = $feature),*)),
                 expect(
                     unused_variables,
-                    reason = "with no language feature on, \
-                              the match has no arm that reads the arguments"
+                    reason = "with no language feature on, no match arm reads the arguments"
                 )
             )]
             pub(crate) fn start(self, arena: &mut Arena, base: u32) -> u32 {
@@ -243,8 +242,7 @@ macro_rules! languages {
                 not(any($(feature = $feature),*)),
                 expect(
                     unused_variables,
-                    reason = "with no language feature on, \
-                              the match has no arm that reads the arguments"
+                    reason = "with no language feature on, no match arm reads the arguments"
                 )
             )]
             pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
@@ -267,8 +265,7 @@ macro_rules! languages {
                 not(any($(feature = $feature),*)),
                 expect(
                     unused_variables,
-                    reason = "with no language feature on, \
-                              the match has no arm that reads the arguments"
+                    reason = "with no language feature on, no match arm reads the arguments"
                 )
             )]
             #[inline(always)]
@@ -298,16 +295,14 @@ macro_rules! languages {
                 not(any(feature = "lang-markdown", feature = "_embedding", feature = "_textmate")),
                 expect(
                     dead_code,
-                    reason = "only Markdown, the rule engine's embedding and the engine embed \
-                              through the dispatch"
+                    reason = "only Markdown and the two engines embed through the dispatch"
                 )
             )]
             #[cfg_attr(
                 not(any($(feature = $feature),*)),
                 expect(
                     unused_variables,
-                    reason = "with no language feature on, \
-                              the match has no arm that reads the arguments"
+                    reason = "with no language feature on, no match arm reads the arguments"
                 )
             )]
             #[cold]
@@ -347,16 +342,14 @@ macro_rules! languages {
                 not(any(feature = "_embedding", feature = "_textmate", feature = "lang-markdown")),
                 expect(
                     dead_code,
-                    reason = "only the rule engine's embedding, the engine and Markdown's fences \
-                              embed other languages"
+                    reason = "only Markdown and the two engines embed other languages"
                 )
             )]
             #[cfg_attr(
                 not(any($(feature = $feature),*)),
                 expect(
                     unused_variables,
-                    reason = "with no language feature on, \
-                              the match has no arm that reads the arguments"
+                    reason = "with no language feature on, no match arm reads the arguments"
                 )
             )]
             #[inline]
@@ -2104,8 +2097,7 @@ pub(crate) trait Halt {
         all(not(feature = "_hand-lexers"), not(test)),
         expect(
             dead_code,
-            reason = "only hand-written lexers and the engine tests use it, \
-                      and the TextMate engine alone turns no lexer on"
+            reason = "only hand-written lexers and the engine tests use it"
         )
     )]
     fn holds(&self, s: &[u8], p: usize) -> bool {
@@ -2347,10 +2339,11 @@ impl Context<'_> {
     ///
     /// Each caller passes a closure of its own type.
     /// Each instance then has one caller, so forcing it inline copies nothing.
+    ///
+    /// As a call it ran 1.0039 of main; forced inline, 0.9993.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: in Markdown's arm of the dispatch it stayed a \
-                  call, at 1.0039 of main; forced, 0.9993"
+        reason = "in Markdown's arm of the dispatch it stayed a call at one codegen unit"
     )]
     #[inline(always)]
     #[cfg_attr(

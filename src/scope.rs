@@ -13,7 +13,7 @@
 /// A scope name: a language's table base plus the name's index in it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(
-    not(nishiki_unstable),
+    not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
 pub struct Scope(u32);
@@ -327,8 +327,7 @@ impl Scope {
         all(not(feature = "_hand-lexers"), not(test)),
         expect(
             dead_code,
-            reason = "only hand-written lexers and the engine tests use it, \
-                      and the TextMate engine alone turns no lexer on"
+            reason = "only hand-written lexers and the engine tests use it"
         )
     )]
     pub(crate) const fn new(base: u32, index: u16) -> Scope {
@@ -413,7 +412,7 @@ mod tests {
     )
 )]
 #[cfg_attr(
-    not(nishiki_unstable),
+    not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
 pub struct Keyed<T: ?Sized> {
@@ -434,7 +433,7 @@ pub struct Keyed<T: ?Sized> {
     )
 )]
 #[cfg_attr(
-    not(nishiki_unstable),
+    not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
 pub type Scopes<S> = &'static Keyed<[S]>;

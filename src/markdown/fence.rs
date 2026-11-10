@@ -29,8 +29,7 @@ pub(crate) enum Embed {
         feature = "lang-php",
         expect(
             dead_code,
-            reason = "with lang-php, a php fence embeds Language::Php, \
-                      whose embedded root tries HTML and PHP"
+            reason = "with lang-php, a php fence embeds Language::Php, which tries HTML and PHP"
         )
     )]
     Php,

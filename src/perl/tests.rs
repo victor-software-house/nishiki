@@ -104,14 +104,9 @@ fn a_heredoc_tagged_html_hands_each_line_to_html() {
             format!("{html} meta.tag.inline.b.start.html entity.name.tag.html")
         )
     );
-    assert_eq!(
-        rows[2],
-        row(&[(
-            "HTML",
-            "meta.embedded.block.html string.unquoted.heredoc.interpolated.perl \
-             punctuation.definition.string.end.perl"
-        )])
-    );
+    let heredoc = "meta.embedded.block.html string.unquoted.heredoc.interpolated.perl";
+    let end = format!("{heredoc} punctuation.definition.string.end.perl");
+    assert_eq!(rows[2], row(&[("HTML", end.as_str())]));
 }
 
 /// The rest of an opener's line lexes again as Perl, where a second opener

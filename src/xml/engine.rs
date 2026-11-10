@@ -157,10 +157,11 @@ pub(super) struct Lexer<'a> {
 impl<'a> Lexer<'a> {
     /// A lexer for `line` from `state`, with the open rules of `state` as its
     /// frames, from the root down.
+    ///
+    /// Out of line, XML rose 5% (1.0509).
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
-                  rustc stopped inlining it, and XML rose 5% (1.0509)"
+        reason = "`lex_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
@@ -226,10 +227,11 @@ impl<'a> Lexer<'a> {
 
     /// Lexes the line and returns the state after it, with where it went back
     /// to the embedding language, if it did.
+    ///
+    /// Out of line, XML rose 5% (1.0509).
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
-                  rustc stopped inlining it, and XML rose 5% (1.0509)"
+        reason = "`lex_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     pub(super) fn run_until(mut self) -> (Finished, Option<usize>) {

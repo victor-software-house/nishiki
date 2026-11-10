@@ -200,10 +200,11 @@ fn long_look_ahead(
 ///
 /// A tag is `<[^>]*+>`.
 /// A character is `(?!(?<=\S)\k<open>).`.
+///
+/// Out of line, it cost a call per step.
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: called from the plain loop and the memo's walk, \
-              it stopped being inlined, at a call per step"
+    reason = "the plain loop and the memo's walk kept it out of line at one codegen unit"
 )]
 #[inline(always)]
 fn emphasis_atom(

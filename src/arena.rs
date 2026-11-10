@@ -95,7 +95,7 @@ pub(crate) struct Frame {
 /// The scope stacks and states of one highlighter.
 #[derive(Debug)]
 #[cfg_attr(
-    not(nishiki_unstable),
+    not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
 )]
 pub struct Arena {

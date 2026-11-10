@@ -260,13 +260,15 @@ fn median(mut values: Vec<Duration>) -> Duration {
 
 /// Prints the timer's figures and the head of the table of traces.
 fn print_head(options: &Options, overhead: Duration, resolution: Duration) {
-    println!(
-        "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; \
-         {} passes, the first apart",
-        overhead.as_secs_f64() * 1e9,
-        resolution.as_secs_f64() * 1e6,
-        options.passes
+    print!(
+        "timer overhead {:.1} ns, subtracted; ",
+        overhead.as_secs_f64() * 1e9
     );
+    print!(
+        "below {:.3} µs is below resolution; ",
+        resolution.as_secs_f64() * 1e6
+    );
+    println!("{} passes, the first apart", options.passes);
     println!();
     println!(
         "{}",

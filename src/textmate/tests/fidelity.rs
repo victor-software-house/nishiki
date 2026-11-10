@@ -274,9 +274,10 @@ fn every_shiki_grammar_matches_shiki() {
         .filter(|&&known| !seen.contains(&known))
         .map(|(id, pattern)| format!("{id}: {pattern}"))
         .collect();
-    let summary = format!(
-        "{equal} of {measured} inputs match Shiki on every non-whitespace byte.\n\
-         {} patterns are refused outside the known list, and {} known refusals no longer occur.",
+    let summary = formatdoc!(
+        "
+        {equal} of {measured} inputs match Shiki on every non-whitespace byte.
+        {} patterns are refused outside the known list, and {} known refusals no longer occur.",
         unknown.len(),
         stale.len()
     );

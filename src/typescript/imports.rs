@@ -7,8 +7,7 @@ use super::state::Rule;
 impl<const D: u8> Lexer<'_, D> {
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
-                  `j` and `k` for the cursor"
+        reason = "`p` is the rule's start, `e` a part's end, and `j` and `k` the cursor"
     )]
     pub(crate) fn import_equals_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
@@ -270,8 +269,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
-                  `j` and `k` for the cursor"
+        reason = "`p` is the rule's start, `e` a part's end, and `j` and `k` the cursor"
     )]
     fn import_alias_from(
         &mut self,

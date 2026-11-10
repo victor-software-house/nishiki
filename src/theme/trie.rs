@@ -307,11 +307,13 @@ impl Trie {
     }
 
     /// The child of `node` for `part`, if the trie has one.
+    ///
+    /// `Highlighter::style` instantiates `Theme::style` in the crate.
+    /// At one codegen unit, this then stopped being inlined into `apply`.
+    /// Colouring then ran 4% more instructions.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: \
-                  once Highlighter::style instantiated Theme::style in the crate, \
-                  this stopped being inlined into apply, and colouring ran 4% more instructions"
+        reason = "Highlighter::style kept it out of `apply` at one codegen unit"
     )]
     #[inline(always)]
     fn find(&self, node: usize, part: &str) -> Option<usize> {

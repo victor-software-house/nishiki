@@ -184,8 +184,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `infer T` and `infer T extends`.
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
-                  `j` and `k` for the cursor"
+        reason = "`p` is the rule's start, `e` a part's end, and `j` and `k` the cursor"
     )]
     fn type_infer(&mut self, p: usize) -> Option<usize> {
         let e = self.keyword_of(p, &["infer"])?;

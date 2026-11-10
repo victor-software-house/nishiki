@@ -250,8 +250,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// Without `get` or `set` the word is the method's name.
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
-                  `j` and `k` for the cursor"
+        reason = "`p` is the rule's start, `e` a part's end, and `j` and `k` the cursor"
     )]
     fn method_with_prefix(&mut self, p: usize, prefix: &MethodPrefix) -> Option<usize> {
         let at = prefix.end;
@@ -406,8 +405,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?:B(readonly)\s*)?\s*(\[)\s*(ID)\s*(?=:)`.
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
-                  `j` and `k` for the cursor"
+        reason = "`p` is the rule's start, `e` a part's end, and `j` and `k` the cursor"
     )]
     pub(crate) fn indexer_declaration(&mut self, p: usize) -> Option<usize> {
         if self.full() {
@@ -444,8 +442,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(?:B([-+])?(readonly)\s*)?\s*(\[)\s*(ID)\s+(in)\s+`.
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
-                  `j` and `k` for the cursor"
+        reason = "`p` is the rule's start, `e` a part's end, and `j` and `k` the cursor"
     )]
     pub(crate) fn indexer_mapped_type_declaration(&mut self, p: usize) -> Option<usize> {
         if self.full() {
