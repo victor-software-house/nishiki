@@ -216,11 +216,6 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 - Comments are plain prose, as `AGENTS.md` "Documentation" item 3 sets out: short sentences, one claim each, concrete names.
   A comment that needs a second read is rewritten in review.
 - Inline prose inside a body is removed in review.
-- Multiline text in code and tests uses `indoc!` or `formatdoc!`.
-  In the Bun scripts it uses `dedent`, from `oracle/dedent.ts`.
-  The pre-commit hook and `check:local` run `check:literals`.
-  It fails on a string literal in `src/` or `tests/` that holds two or more escaped line feeds, outside comments and generated files.
-  A literal of line feeds alone, such as a `"\n\n"` separator, passes.
 
 ### 3.5 Dependencies
 
@@ -297,6 +292,40 @@ This holds for types, variants, fields, functions, locals, modules, files and te
   Every language's frame enum is its `Rule`, and a frame's field is `rule`.
 - Names other crates and Shiki spell stay as they are, such as `HirKind` or a scope name.
 - A scope id abbreviates the scope string in its `scope_table!` row, and the row is its definition.
+
+### 3.10 Sources read without decoding
+
+Every file a reader opens reads as it stands: no line to scroll, no escapes to decode (operator, 2026-11-10).
+
+- Multiline text in code and tests uses `indoc!` or `formatdoc!`.
+  In the Bun scripts it uses `dedent`, from `oracle/dedent.ts`.
+  - `check:literals` fails on a string literal with two or more escaped line feeds and some text.
+    It reads the Rust in `src/` and `tests/`, and the Bun scripts.
+  - A literal of line feeds alone, such as a `"\n\n"` separator, passes.
+  - The pre-commit hook runs it when a commit touches a Rust file, and `check:local` runs it in CI.
+- A file the repository writes is formatted by its writer.
+  A check compares the committed file with the writer's output, as `check:engine-grammars` does for the grammar JSON.
+- A line holds at most 100 characters in `.rs`, `.ts`, `.sh`, `.toml`, `.yml`, `.yaml` and `.json` files.
+  `check:line-width` counts characters, and `verify` runs it.
+  - rustfmt formats the Rust, and oxfmt the TypeScript, both at 100 columns.
+    `mise run format:ts` checks the TypeScript, with the settings in `.oxfmtrc.json`.
+  - oxfmt is the formatter the house Copier template uses, so nishiki stays in step with the template.
+  - Neither formatter breaks a long string or comment.
+    Those are broken by hand: a string at a clause, a comment one sentence per line.
+- A line that cannot break is exempt by what it holds, never by a list of files:
+  - a URL, or an action pinned to a commit;
+  - an import or a regex literal in TypeScript;
+  - a Markdown table row;
+  - a regex in a matcher's docs, in a code block or a code span;
+  - a JSON string.
+- `bench/corpus/`, `oracle/inputs/` and `tests/oracle/` hold language text and the oracle's output, outside the bound.
+- Three exemptions are temporary, each until the change that removes it:
+  - the Bun scripts that write Rust, and the files they write, until rust-codegen moves each writer to Rust;
+  - the Swift matcher names, until the Swift generator moves to `codegen/` (rust-codegen design 8.4);
+  - the files the Copier template renders, until nishiki takes the template release that wraps them.
+    `check:line-width` fails once `.copier-answers.yml` records that release, so the list goes then.
+- A list puts one entry per line.
+  Only a table of short numeric entries, such as byte ranges, packs several entries on a line.
 
 ## 4. Tests
 
