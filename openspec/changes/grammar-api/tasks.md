@@ -31,10 +31,12 @@
 
 ## 3. Fidelity
 
-- [ ] 3.1 A CI job loads every Shiki 4.6.0 grammar through the public API and compares Shiki's sample.
+- [x] 3.1 A CI job loads every Shiki 4.6.0 grammar through the public API and compares Shiki's sample.
   → verify: the job passes with no differing non-whitespace byte
   - 2026-11-10: the Shiki fidelity workflow runs the check through the survey's loader until 2.1 lands.
     All 242 languages match on their input, and four refuse two patterns each ([baseline][fidelity-baseline]).
+  - 2026-11-10: the check loads each language through `Grammar::from_json` and `Highlighter::for_grammar_with_limits`.
+    All 243 inputs match on every non-whitespace byte, with no refused pattern and no limit reached.
 - [ ] 3.2 One task per grammar that fails 3.1, added as each is found → verify: that grammar's sample matches
   - [x] 3.2.1 csharp: the regex compiler refuses two patterns that use Oniguruma's absent operator, `(?~…)`, in C#'s rule for `/** */` documentation comments ([baseline][fidelity-baseline]).
     → verify: both compile, and their entries leave `KNOWN_REFUSALS` in `src/textmate/tests/fidelity.rs`
