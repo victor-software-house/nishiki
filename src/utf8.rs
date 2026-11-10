@@ -20,8 +20,7 @@ pub(crate) fn char_len(lead: u8) -> usize {
     all(not(feature = "_hand-lexers"), not(test)),
     expect(
         dead_code,
-        reason = "only hand-written lexers and the engine tests use it, \
-                  and the TextMate engine alone turns no lexer on"
+        reason = "only hand-written lexers and the engine tests use it"
     )
 )]
 pub(crate) const fn is_continuation(b: u8) -> bool {
@@ -34,8 +33,7 @@ pub(crate) const fn is_continuation(b: u8) -> bool {
     all(not(feature = "_hand-lexers"), not(test)),
     expect(
         dead_code,
-        reason = "only hand-written lexers and the engine tests use it, \
-                  and the TextMate engine alone turns no lexer on"
+        reason = "only hand-written lexers and the engine tests use it"
     )
 )]
 pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
@@ -65,8 +63,7 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
     all(not(feature = "_hand-lexers"), not(test)),
     expect(
         dead_code,
-        reason = "only hand-written lexers and the engine tests use it, \
-                  and the TextMate engine alone turns no lexer on"
+        reason = "only hand-written lexers and the engine tests use it"
     )
 )]
 pub(crate) fn char_at(s: &[u8], i: usize) -> Option<(char, usize)> {
@@ -86,8 +83,7 @@ pub(crate) fn char_at(s: &[u8], i: usize) -> Option<(char, usize)> {
     all(not(feature = "_hand-lexers"), not(test)),
     expect(
         dead_code,
-        reason = "only hand-written lexers and the engine tests use it, \
-                  and the TextMate engine alone turns no lexer on"
+        reason = "only hand-written lexers and the engine tests use it"
     )
 )]
 pub(crate) fn multibyte_at(s: &[u8], i: usize, lead: u8) -> Option<(char, usize)> {

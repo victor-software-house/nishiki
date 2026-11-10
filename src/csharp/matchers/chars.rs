@@ -135,10 +135,12 @@ impl Lexer<'_> {
     ///
     /// Always inlined, as `Chars::keyword` is.
     /// It holds that body, and without the mark it went out of line.
+    ///
+    /// Out of line, it cost a call per word pattern.
+    /// The count holds at one and at sixteen codegen units.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one and sixteen codegen units: holding keyword's body, \
-                  it stopped being inlined into try_match, at a call per word pattern"
+        reason = "holding keyword's body, it went out of try_match"
     )]
     #[inline(always)]
     pub(in crate::csharp) fn non_member_keyword(&self, p: usize, word: &[u8]) -> Option<usize> {

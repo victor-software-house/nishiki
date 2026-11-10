@@ -758,10 +758,11 @@ impl<'a> Lexer<'a> {
     /// Takes matches until nothing matches at or after the position, as
     /// `TextMate` does, or a guard against a loop that does not advance stops
     /// the line.
+    ///
+    /// The loop dispatches on every rule.
     #[expect(
         clippy::too_many_lines,
-        reason = "the loop dispatches on every rule; out of it, \
-                  LLVM gave give_back_at a second call"
+        reason = "out of the loop, LLVM gave give_back_at a second call"
     )]
     fn tokenize(&mut self) {
         let mut stalled = 0_u32;
@@ -1585,10 +1586,11 @@ impl<'a> Lexer<'a> {
     ///   its own stack. ERB opened there keeps it.
     /// - How a template's injection applies inside it: by ERB's selectors, or
     ///   by Blade's in a Blade document ([`Lexer::blade_links`]).
+    ///
+    /// Out of line, it cost HTML 124k instructions in calls.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: \
-                  with two call sites it went out of line and cost HTML 124k instructions in calls"
+        reason = "two call sites kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn frame_links(&mut self, top: &Frame, rule: Rule) -> (u32, Injection) {

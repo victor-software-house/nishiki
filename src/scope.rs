@@ -327,8 +327,7 @@ impl Scope {
         all(not(feature = "_hand-lexers"), not(test)),
         expect(
             dead_code,
-            reason = "only hand-written lexers and the engine tests use it, \
-                      and the TextMate engine alone turns no lexer on"
+            reason = "only hand-written lexers and the engine tests use it"
         )
     )]
     pub(crate) const fn new(base: u32, index: u16) -> Scope {

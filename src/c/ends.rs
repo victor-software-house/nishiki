@@ -15,10 +15,12 @@ impl Lexer<'_> {
     }
 
     /// One byte `c` that ends the rule, with `capture` on it.
+    ///
+    /// The halting and the plain scan both call it.
+    /// Out of line, it cost a call per place.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: called from both instances of the scan, \
-                  the halting one and the plain one, it stopped being inlined, at a call per place"
+        reason = "the scan's two instances kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn end_byte(&mut self, p: usize, c: u8, capture: Scopes<S>) -> bool {
@@ -94,10 +96,12 @@ impl Lexer<'_> {
     }
 
     /// `\)` or the end of a macro's line.
+    ///
+    /// The halting and the plain scan both call it.
+    /// Out of line, it cost a call per place.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: called from both instances of the scan, \
-                  the halting one and the plain one, it stopped being inlined, at a call per place"
+        reason = "the scan's two instances kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn end_paren(&mut self, p: usize, capture: Scopes<S>, in_define: bool) -> bool {
@@ -139,8 +143,7 @@ impl Lexer<'_> {
     )]
     #[expect(
         clippy::inline_always,
-        reason = "the search tries it at every position, \
-                  and a call there costs C 3% of its instructions"
+        reason = "the search tries it at every position, where a call costs C 3%"
     )]
     #[inline(always)]
     pub(super) fn try_end(&mut self, r: Rule, p: usize) -> bool {

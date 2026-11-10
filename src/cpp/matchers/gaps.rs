@@ -117,8 +117,7 @@ impl Iterator for Gaps<'_> {
 
     #[expect(
         clippy::inline_always,
-        reason = "every matcher with a gap loops over it, \
-                  and out of line it cost C++ 3.5% of its instructions"
+        reason = "every matcher with a gap loops over it; out of line it cost C++ 3.5%"
     )]
     #[inline(always)]
     fn next(&mut self) -> Option<Gap> {

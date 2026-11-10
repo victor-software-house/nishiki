@@ -298,11 +298,11 @@ fn print_table(options: &Options, timings: Timings) {
         mut theme,
         mut grammar,
     } = timings;
-    println!(
-        "{} fresh processes per file, the first {DROPPED} rounds dropped; \
-         µs from just before the highlighter is created",
+    print!(
+        "{} fresh processes per file, the first {DROPPED} rounds dropped; ",
         options.processes
     );
+    println!("µs from just before the highlighter is created");
     println!();
     println!(
         "{}",
@@ -334,13 +334,12 @@ fn print_table(options: &Options, timings: Timings) {
         rank(&mut theme, 90)
     );
     let [compiled, read, linked] = &mut grammar;
-    println!(
-        "TypeScript's grammar: \
-         from JSON median {:.1} µs, from bytes median {:.1} µs, first link median {:.1} µs",
-        rank(compiled, 50),
-        rank(read, 50),
-        rank(linked, 50)
+    print!(
+        "TypeScript's grammar: from JSON median {:.1} µs, ",
+        rank(compiled, 50)
     );
+    print!("from bytes median {:.1} µs, ", rank(read, 50));
+    println!("first link median {:.1} µs", rank(linked, 50));
 }
 
 fn main() -> ExitCode {

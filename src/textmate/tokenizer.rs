@@ -612,10 +612,11 @@ impl GrammarCaches {
     /// It makes the automata caches those of these programs. The caches of
     /// the other programs are kept. Lines of the two kinds in turn then keep
     /// the states their automata built.
+    ///
+    /// Out of line, it cost a call once a line.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, \
-                  it stopped being inlined, at a call once a line"
+        reason = "`line_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn line_cells(&mut self, grammar: &'static Grammar, line: &[u8]) -> &'static Cells {
@@ -1402,10 +1403,11 @@ impl Tokenizer<'_> {
 
     /// The number of an `end` or `while` pattern built from a match, or 0
     /// when the grammar's own serves.
+    ///
+    /// Out of line, it cost a call once a step.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, \
-                  it stopped being inlined, at a call once a step"
+        reason = "`line_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn built_end(&mut self, pattern: usize, caps: &GroupSpans) -> u32 {
@@ -1490,10 +1492,11 @@ impl Tokenizer<'_> {
     /// to `best`. One that starts earlier than the rules of the open rule
     /// wins. So does one with `L:` that starts where they do. The others lose
     /// a tie.
+    ///
+    /// Out of line, it cost a call once a step.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, \
-                  it stopped being inlined, at a call once a step"
+        reason = "`line_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn scan_injections(
@@ -1816,10 +1819,11 @@ impl Tokenizer<'_> {
     ///   applies only at the language's root, as in Shiki.
     /// - The language's text ends at the end of the run or of the line. There
     ///   it has no text to halt in, so a match applies at once.
+    ///
+    /// Out of line, it cost a call once a step.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, \
-                  it stopped being inlined, at a call once a step"
+        reason = "`line_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn scan_next<H: Halting>(
@@ -2195,10 +2199,11 @@ impl Tokenizer<'_> {
 
     /// Applies the match `caps` describes, of the rule `matched` (`None` for
     /// the `end` of `rule`); true when the line is done.
+    ///
+    /// Out of line, it cost a call once a step.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, \
-                  it stopped being inlined, at a call once a step"
+        reason = "`line_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn apply(
@@ -2245,14 +2250,15 @@ impl Tokenizer<'_> {
     }
 
     /// Opens `id`, which matched `(s, e)`; true when the line is done.
+    ///
+    /// Out of line, it cost a call once a step.
     #[expect(
         clippy::too_many_arguments,
         reason = "one step of the loop, split out to keep it readable"
     )]
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `line_until` a second caller, \
-                  it stopped being inlined, at a call once a step"
+        reason = "`line_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn enter(

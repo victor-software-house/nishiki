@@ -296,10 +296,12 @@ impl<G: PhpFamily> Lexer<'_, G> {
     }
 
     /// `(array)(\()(\))`.
+    ///
+    /// Its body sat in PHP's dispatch before the move.
+    /// As a call, it cost 0.04% of PHP's instructions.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: its body sat in PHP's dispatch before the move, \
-                  and with `#[inline]` it stayed a call, at 0.04% of PHP's instructions"
+        reason = "with `#[inline]` it stayed a call from PHP's dispatch at one codegen unit"
     )]
     #[inline(always)]
     pub(crate) fn empty_array(&mut self, p: usize) -> Option<usize> {

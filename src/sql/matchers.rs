@@ -203,10 +203,12 @@ impl Lexer<'_> {
     ///
     /// `(\w+?)\.(\w+)` needs no boundary.
     /// A search that starts inside a word can therefore match there.
+    ///
+    /// The halting and the plain root skip both call it.
+    /// Out of line, it cost a call per place.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: called from both instances of the root skip, \
-                  the halting one and the plain one, it stopped being inlined, at a call per place"
+        reason = "the root skip's two instances kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn root_start(&self, p: usize) -> bool {

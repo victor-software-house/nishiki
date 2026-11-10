@@ -141,8 +141,7 @@ pub fn measure<R>(f: impl FnOnce() -> R) -> Usage {
 
 #[expect(
     unsafe_code,
-    reason = "GlobalAlloc is an unsafe trait, so counting allocations has no \
-              safe implementation; see the crate docs"
+    reason = "GlobalAlloc is an unsafe trait, so counting allocations needs unsafe code"
 )]
 // SAFETY: each method forwards its arguments unchanged to `System`, which
 // meets the `GlobalAlloc` contract, and the counting touches only

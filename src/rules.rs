@@ -851,12 +851,13 @@ pub(crate) fn lex_embedding_until_resuming<G: Embeds>(
 }
 
 /// The body of [`lex_embedding_until`], for a line it does not skip.
+///
+/// LLVM then took `settle_deferred` out of line in CoffeeScript and LaTeX.
+/// Both effects were measured at one codegen unit.
 #[cfg(feature = "_halting-embedding")]
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: with `#[inline]`, \
-              LLVM split it from `lex_embedding_until` \
-              and took `settle_deferred` out of line in CoffeeScript and LaTeX"
+    reason = "with `#[inline]`, LLVM split it from `lex_embedding_until`"
 )]
 #[inline(always)]
 fn lex_embedding_through<G: Embeds>(
@@ -993,8 +994,7 @@ fn lex_again<G: Embeds>(
 #[cold]
 #[expect(
     clippy::too_many_lines,
-    reason = "one loop: split, it changed the hand-over code of every grammar, \
-              and the hot path's codegen with it"
+    reason = "split, it changed every grammar's hand-over code and the hot path's codegen"
 )]
 fn hand_over<G: Embeds>(
     cx: &mut Context<'_>,

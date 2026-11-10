@@ -154,10 +154,11 @@ impl Children {
     ///
     /// It checks the parent and compares the part byte by byte, since two
     /// entries can share a hash.
+    ///
+    /// At one codegen unit, the map it replaced inlined into `Trie::apply`.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: Trie::find calls this once per scope part, \
-                  and the map it replaced inlined into Trie::apply"
+        reason = "Trie::find calls it once per scope part"
     )]
     #[inline(always)]
     pub(super) fn find(&self, nodes: &[Node], parent: usize, part: &str) -> Option<usize> {

@@ -10,6 +10,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::{Mutex, OnceLock, PoisonError};
 
+use indoc::indoc;
 use serde_json::Value;
 
 use super::compile::link::link;
@@ -592,24 +593,24 @@ fn markdown_grammar_matches_shiki() {
 
 /// Shiki's lines for a `less` fence whose body `)` pops at once.
 /// The body holds no `meta.embedded.block.less`.
-const POPPED_LESS_FENCE: &str = "\
-L ```less
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
-L ) a
-T 3 text.html.markdown markup.fenced_code.block.markdown
-L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-";
+const POPPED_LESS_FENCE: &str = indoc! {"
+    L ```less
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+    T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+    L ) a
+    T 3 text.html.markdown markup.fenced_code.block.markdown
+    L ```
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+"};
 
 /// Shiki's lines for a `css` fence that closes at once.
-const EMPTY_CSS_FENCE: &str = "\
-L ```css
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
-L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-";
+const EMPTY_CSS_FENCE: &str = indoc! {"
+    L ```css
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+    T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+    L ```
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+"};
 
 /// The Markdown tables drop the `less` fence rule with Less.
 /// A popped `less` fence shows it only by its fence line, and is left out.
@@ -624,24 +625,24 @@ fn a_fence_of_a_dropped_language_is_left_out_without_an_embedded_scope() {
 
 /// Shiki's lines for a popped `less` fence whose body holds a blank line,
 /// then a blank line and an empty `css` fence.
-const POPPED_LESS_FENCE_WITH_BLANK: &str = "\
-L ```less
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
-L ) a
-T 3 text.html.markdown markup.fenced_code.block.markdown
-L
-L b
-T 1 text.html.markdown markup.fenced_code.block.markdown
-L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-L
-L ```css
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
-L ```
-T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
-";
+const POPPED_LESS_FENCE_WITH_BLANK: &str = indoc! {"
+    L ```less
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+    T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+    L ) a
+    T 3 text.html.markdown markup.fenced_code.block.markdown
+    L
+    L b
+    T 1 text.html.markdown markup.fenced_code.block.markdown
+    L ```
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+    L
+    L ```css
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+    T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+    L ```
+    T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+"};
 
 /// A blank line in a fence's body does not end its block.
 /// The block ends at its closing fence, so the next fence is still compared.

@@ -237,9 +237,12 @@ mod tests {
     #[test]
     fn groups_alternatives_and_exclusions() {
         let stack = ["text.html", "meta.script.svelte", "meta.lang.ts"];
-        let selector = "L:(meta.script.svelte | meta.style.svelte) \
-                        (meta.lang.js | meta.lang.ts) - (meta source)";
-        assert_eq!(holds(selector, &stack), Some((-1, true)));
+        let selector = [
+            "L:(meta.script.svelte | meta.style.svelte)",
+            "(meta.lang.js | meta.lang.ts) - (meta source)",
+        ]
+        .join(" ");
+        assert_eq!(holds(&selector, &stack), Some((-1, true)));
         let excluded = [
             "text.html",
             "meta.script.svelte",
@@ -247,7 +250,7 @@ mod tests {
             "meta.x",
             "source.ts",
         ];
-        assert_eq!(holds(selector, &excluded), Some((-1, false)));
+        assert_eq!(holds(&selector, &excluded), Some((-1, false)));
         let inside = [
             "meta.script.svelte",
             "meta.lang.ts",

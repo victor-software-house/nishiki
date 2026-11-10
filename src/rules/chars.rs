@@ -187,10 +187,12 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
     /// C#'s `try_match` holds its hand matchers too, and is large.
     /// LLVM kept `keyword` out of line there, at a call per word pattern.
     /// Go, Swift, Java and Kotlin also run fewer instructions with it inlined.
+    ///
+    /// Out of line, it cost a call per word pattern.
+    /// The count holds at one and at sixteen codegen units.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one and sixteen codegen units: inside C#'s large try_match, \
-                  keyword stopped being inlined, at a call per word pattern"
+        reason = "inside C#'s large try_match, keyword went out of line"
     )]
     #[inline(always)]
     fn keyword(&self, i: usize, text: &[u8]) -> Option<usize> {

@@ -396,9 +396,7 @@ impl<G: Grammar> core::fmt::Debug for Lexer<'_, G> {
 impl<'a, G: Grammar> Lexer<'a, G> {
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `lex_until` a second caller, \
-                  it stopped being inlined, \
-                  which cost CSS, C and SQL a call and a copy of the lexer once a line"
+        reason = "`lex_until` kept it out of line, at a call and a lexer copy once a line"
     )]
     #[inline(always)]
     pub(crate) fn new(
@@ -494,10 +492,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Opens the rules of the state the line starts in, unless the frames
     /// the last line ended with are already in place.
+    ///
+    /// Out of line, it cost a call once a line.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once its callers were forced inline, \
-                  it stopped being inlined, at a call once a line"
+        reason = "once its callers were forced inline, it went out of line at one codegen unit"
     )]
     #[inline(always)]
     fn open(&mut self) {
@@ -597,10 +596,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Lexes the line like [`Lexer::run`], and returns where it halted too:
     /// the tokens end there, and the embedding lexer goes on from there.
+    ///
+    /// Out of line, it cost CSS, C and SQL a call once a line.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `lex_until` a second caller, \
-                  it stopped being inlined, which cost CSS, C and SQL a call once a line"
+        reason = "`lex_until`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     pub(crate) fn run_halting(mut self) -> (Finished, Option<Stopped>) {
@@ -705,11 +705,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// The loop of the embedding entry points.
     /// It returns where the innermost rule hands the text to the language it
     /// embeds.
+    ///
+    /// At one codegen unit, Ruby kept its count only with it inlined.
     #[cfg(feature = "_embedding")]
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: the halting entry points are a second call site, \
-                  and Ruby's lines kept their count only with it inlined"
+        reason = "the halting entry points are a second call site"
     )]
     #[inline(always)]
     fn embed(&mut self, entry: Entry) -> Option<Embedding> {
@@ -749,8 +750,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// The line's count goes back to the lender (see [`Steps::finish`]).
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: a call here, with the lexer moved into it, \
-                  costs CSS 0.7% of its instructions"
+        reason = "a call here, with the lexer moved into it, costs CSS 0.7% at one codegen unit"
     )]
     #[inline(always)]
     fn finish(mut self) -> Finished {
@@ -875,10 +875,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// as an empty literal does in a regular expression.
     /// Matchers call this one with words from lists in their hot loops, where
     /// one more test costs (Make +1.9% instructions, 2026-11-03).
+    ///
+    /// Out of line, it cost a call per place.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: called from both instances of C's scan, \
-                  it stopped being inlined there, at a call per place"
+        reason = "C's two scan instances kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     pub(crate) fn starts(&self, i: usize, text: &[u8]) -> bool {
@@ -1739,10 +1740,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// names its text under that rule's content scopes, not those of the rules
     /// above it, and moves the cursor and `\G` past it. The first rule whose
     /// pattern fails closes, with every rule above it.
+    ///
+    /// Out of line, it cost a call once a line.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with run_embedding a second caller, \
-                  it stopped being inlined, at a call once a line"
+        reason = "`run_embedding`, a second caller, kept it out of line at one codegen unit"
     )]
     #[inline(always)]
     fn check_while(&mut self) {
@@ -1802,10 +1804,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// line that only closed rules relinks nothing.
     /// Where the links below `low`, the lowest frame the line pushed, hold,
     /// the line keeps them and relinks from there.
+    ///
+    /// Measured at one codegen unit, that cost one memcpy a run.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: out of line, \
-                  its `&mut self` made ERB build each Ruby lexer in memory, one memcpy a run"
+        reason = "out of line, its `&mut self` made ERB build each Ruby lexer in memory"
     )]
     #[inline(always)]
     fn link_whiles(&mut self, low: usize) {
