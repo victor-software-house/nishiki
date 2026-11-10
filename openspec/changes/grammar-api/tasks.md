@@ -55,7 +55,9 @@
 
 ## 4. Speed and docs
 
-- [ ] 4.1 A bench row for compiling and loading a grammar, from JSON and from bytes → verify: the table in `bench/README.md`
+- [x] 4.1 A bench row for compiling and loading a grammar, from JSON and from bytes → verify: the table in `bench/README.md`
+  - 2026-11-10: `bench:cold` times `from_json`, `from_bytes` and the first link of TypeScript's grammar in fresh processes.
+    On a box it printed medians of 870, 312 and 2,565 µs.
 - [ ] 4.2 Crate docs: an "Any language" section, a build-script example, and the limits a grammar runs under.
   → verify: the docs.rs preview builds, and every example runs as a doctest
 - [ ] 4.3 `AGENTS.md` invariant 4 and the README describe grammars callers bring → verify: review

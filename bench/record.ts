@@ -56,11 +56,11 @@ export type LatencyFigure = {
   resolution_ns: Summary;
 };
 
-/** One file's or the theme's cold-start measure, over the processes. */
+/** One file's, the theme's or the grammar's cold-start measure, over the processes. */
 export type ColdFigure = {
-  kind: "file" | "theme";
+  kind: "file" | "theme" | "grammar";
   name: string;
-  measure: "new" | "first_line" | "document" | "from_json";
+  measure: "new" | "first_line" | "document" | "from_json" | "from_bytes" | "link";
   median_us: number;
   p90_us: number;
 };

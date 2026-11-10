@@ -10,23 +10,28 @@
 //!   rest. It prints the three times, counted from just before the highlighter
 //!   is created. Reading the file comes before that.
 //! - A theme sample times `Theme::from_json` on Shiki's github-dark.
-//! - The runner starts `--processes` samples per file (31 by default). It
-//!   interleaves files and languages round by round and drops the first three
+//! - A grammar sample times three steps on TypeScript's grammar from the
+//!   corpus: `Grammar::from_json`, `Grammar::from_bytes` on the bytes
+//!   `Grammar::to_bytes` wrote, and the first `Highlighter::for_grammar`, which
+//!   links it. nishiki keeps every grammar and link for the rest of the
+//!   process, so each runs once per process, as a caller's does.
+//! - The runner starts `--processes` samples per file, theme and grammar (31 by
+//!   default). It interleaves them round by round and drops the first three
 //!   rounds. Then it prints the median and p90 of each time.
 //!
 //! Usage: `cold [--processes N] [--tier small|medium|large|reply] [--tsv]
 //! [language...]`, by default the small tier of every language;
 //! `mise run bench:cold` runs it in release mode. A sample is
-//! `cold --sample <file>` or `cold --theme`. `--tsv` prints tab-separated
-//! rows, one per file or theme and measure, instead of the table, for
-//! `bench/record.ts`.
+//! `cold --sample <file>`, `cold --theme` or `cold --grammar`. `--tsv` prints
+//! tab-separated rows, one per file, theme or grammar and measure, instead of
+//! the table, for `bench/record.ts`.
 
 use std::hint::black_box;
 use std::path::{Path, PathBuf};
 use std::process::{Command, ExitCode};
 use std::time::Instant;
 
-use nishiki::{Highlighter, Language, State, Theme};
+use nishiki::{Grammar, Grammars, Highlighter, Language, State, Theme};
 use nishiki_bench::{GITHUB_DARK, Tier, corpus};
 
 /// Samples per file when `--processes` is not given.
@@ -84,6 +89,35 @@ fn theme_sample() -> Result<(), String> {
     let elapsed = start.elapsed();
     black_box(theme);
     println!("{}", elapsed.as_secs_f64() * 1e6);
+    Ok(())
+}
+
+/// One grammar sample: the µs `Grammar::from_json`, `Grammar::from_bytes` and
+/// the first `Highlighter::for_grammar` take on TypeScript's grammar.
+///
+/// Writing the bytes is not timed.
+fn grammar_sample() -> Result<(), String> {
+    let json = nishiki_bench::grammar(Language::TypeScript)
+        .map_err(|error| format!("TypeScript's grammar: {error}"))?;
+    let start = Instant::now();
+    let grammar = Grammar::from_json(&json).map_err(|error| error.to_string())?;
+    let compiled = start.elapsed();
+    let bytes = grammar.to_bytes();
+    let start = Instant::now();
+    let loaded = Grammar::from_bytes(&bytes).map_err(|error| error.to_string())?;
+    let read = start.elapsed();
+    black_box(loaded);
+    let start = Instant::now();
+    let highlighter =
+        Highlighter::for_grammar(grammar, &Grammars::new()).map_err(|error| error.to_string())?;
+    let linked = start.elapsed();
+    black_box(highlighter);
+    println!(
+        "{} {} {}",
+        compiled.as_secs_f64() * 1e6,
+        read.as_secs_f64() * 1e6,
+        linked.as_secs_f64() * 1e6
+    );
     Ok(())
 }
 
@@ -168,6 +202,7 @@ fn runner(options: &Options) -> Result<(), String> {
         .collect();
     let mut times: Vec<[Vec<f64>; 3]> = files.iter().map(|_| Default::default()).collect();
     let mut theme = Vec::new();
+    let mut grammar: [Vec<f64>; 3] = Default::default();
     for round in 0..options.processes {
         for ((_, path), times) in files.iter().zip(&mut times) {
             let numbers = run(&["--sample".as_ref(), path.as_os_str()])?;
@@ -180,6 +215,12 @@ fn runner(options: &Options) -> Result<(), String> {
         let numbers = run(&["--theme".as_ref()])?;
         if round >= DROPPED {
             theme.extend(numbers);
+        }
+        let numbers = run(&["--grammar".as_ref()])?;
+        if round >= DROPPED {
+            for (series, number) in grammar.iter_mut().zip(numbers) {
+                series.push(number);
+            }
         }
     }
     if options.tsv {
@@ -199,6 +240,13 @@ fn runner(options: &Options) -> Result<(), String> {
             rank(&mut theme, 50),
             rank(&mut theme, 90)
         );
+        for (measure, series) in ["from_json", "from_bytes", "link"].iter().zip(&mut grammar) {
+            println!(
+                "grammar\ttypescript\t{measure}\t{:.1}\t{:.1}",
+                rank(series, 50),
+                rank(series, 90)
+            );
+        }
         return Ok(());
     }
     println!(
@@ -227,6 +275,13 @@ fn runner(options: &Options) -> Result<(), String> {
         rank(&mut theme, 50),
         rank(&mut theme, 90)
     );
+    let [compiled, read, linked] = &mut grammar;
+    println!(
+        "TypeScript's grammar: from JSON median {:.1} µs, from bytes median {:.1} µs, first link median {:.1} µs",
+        rank(compiled, 50),
+        rank(read, 50),
+        rank(linked, 50)
+    );
     Ok(())
 }
 
@@ -235,6 +290,7 @@ fn main() -> ExitCode {
     let result = match args.as_slice() {
         [flag, path] if flag == "--sample" => sample(Path::new(path)),
         [flag] if flag == "--theme" => theme_sample(),
+        [flag] if flag == "--grammar" => grammar_sample(),
         _ => options(&args).and_then(|options| runner(&options)),
     };
     match result {
