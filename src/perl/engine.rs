@@ -183,7 +183,8 @@ fn variable(s: &[u8], p: usize) -> bool {
 pub(super) fn is_special(b: u8) -> bool {
     matches!(
         b,
-        b'!' | b'#' | b'$' | b'%' | b'(' | b')' | b'*' | b','..=b'/' | b':'..=b'@' | b'['..=b'_' | b'a' | b'b' | b'|' | b'~'
+        b'!' | b'#' | b'$' | b'%' | b'(' | b')' | b'*' | b','..=b'/' | b':'..=b'@' | b'['..=b'_'
+            | b'a' | b'b' | b'|' | b'~'
     )
 }
 

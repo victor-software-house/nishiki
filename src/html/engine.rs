@@ -760,7 +760,8 @@ impl<'a> Lexer<'a> {
     /// the line.
     #[expect(
         clippy::too_many_lines,
-        reason = "the loop dispatches on every rule; out of it, LLVM gave give_back_at a second call"
+        reason = "the loop dispatches on every rule; out of it, \
+                  LLVM gave give_back_at a second call"
     )]
     fn tokenize(&mut self) {
         let mut stalled = 0_u32;
@@ -1581,7 +1582,8 @@ impl<'a> Lexer<'a> {
     ///   by Blade's in a Blade document ([`Lexer::blade_links`]).
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with two call sites it went out of line and cost HTML 124k instructions in calls"
+        reason = "measured at one codegen unit: \
+                  with two call sites it went out of line and cost HTML 124k instructions in calls"
     )]
     #[inline(always)]
     fn frame_links(&mut self, top: &Frame, rule: Rule) -> (u32, Injection) {

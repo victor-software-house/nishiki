@@ -156,7 +156,8 @@ impl Children {
     /// entries can share a hash.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: Trie::find calls this once per scope part, and the map it replaced inlined into Trie::apply"
+        reason = "measured at one codegen unit: Trie::find calls this once per scope part, \
+                  and the map it replaced inlined into Trie::apply"
     )]
     #[inline(always)]
     pub(super) fn find(&self, nodes: &[Node], parent: usize, part: &str) -> Option<usize> {

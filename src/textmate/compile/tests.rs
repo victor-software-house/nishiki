@@ -77,7 +77,10 @@ fn nested_repositories_shadow_outer_ones() {
     let root = grammar(indoc! {r##"
         {
           "scopeName": "source.a",
-          "patterns": [{"include": "#word"}, {"patterns": [{"include": "#word"}], "repository": {"word": {"match": "inner"}}}],
+          "patterns": [
+            {"include": "#word"},
+            {"patterns": [{"include": "#word"}], "repository": {"word": {"match": "inner"}}}
+          ],
           "repository": {"word": {"match": "outer"}}
         }
     "##});
@@ -91,7 +94,10 @@ fn grammars_that_include_each_other_link_in_either_order() {
         {"scopeName": "source.a", "patterns": [{"match": "a"}, {"include": "source.b"}]}
     "#});
     let b = grammar(indoc! {r#"
-        {"scopeName": "source.b", "patterns": [{"match": "b"}, {"include": "source.a"}, {"include": "$base"}]}
+        {
+          "scopeName": "source.b",
+          "patterns": [{"match": "b"}, {"include": "source.a"}, {"include": "$base"}]
+        }
     "#});
     for set in [[&a, &b], [&b, &a]] {
         let tables = link(&a, &set, None).unwrap();
@@ -119,7 +125,16 @@ fn captures_take_the_order_of_their_numbers() {
     let root = grammar(indoc! {r#"
         {
           "scopeName": "source.a",
-          "patterns": [{"match": "(a)(b)", "captures": {"2": {"name": "two"}, "1": {"name": "one", "patterns": [{"match": "a"}]}, "x": {"name": "no"}}}]
+          "patterns": [
+            {
+              "match": "(a)(b)",
+              "captures": {
+                "2": {"name": "two"},
+                "1": {"name": "one", "patterns": [{"match": "a"}]},
+                "x": {"name": "no"}
+              }
+            }
+          ]
         }
     "#});
     let tables = link(&root, &[], None).unwrap();
@@ -152,7 +167,12 @@ fn injections_keep_the_order_of_the_text() {
 fn a_grammar_injects_itself_where_it_names_the_root() {
     let root = grammar(r#"{"scopeName": "source.a", "patterns": []}"#);
     let injected = grammar(indoc! {r#"
-        {"scopeName": "source.i", "injectionSelector": "L:source.a", "injectTo": ["source.a"], "patterns": [{"match": "i"}]}
+        {
+          "scopeName": "source.i",
+          "injectionSelector": "L:source.a",
+          "injectTo": ["source.a"],
+          "patterns": [{"match": "i"}]
+        }
     "#});
     let tables = link(&root, &[&injected], None).unwrap();
     assert_eq!(tables.injections.len(), 1);
@@ -233,7 +253,11 @@ mod hand_offs {
             {
               "scopeName": "source.a",
               "patterns": [
-                {"begin": "<style>", "end": "</style>", "patterns": [{"match": "!"}, {"include": "source.css"}, {"match": "\\?"}]},
+                {
+                  "begin": "<style>",
+                  "end": "</style>",
+                  "patterns": [{"match": "!"}, {"include": "source.css"}, {"match": "\\?"}]
+                },
                 {"include": "source.css#escapes"}
               ]
             }
@@ -242,7 +266,11 @@ mod hand_offs {
 
     fn css() -> super::UnlinkedGrammar {
         grammar(indoc! {r#"
-            {"scopeName": "source.css", "patterns": [{"match": "css"}], "repository": {"escapes": {"match": "\\\\."}}}
+            {
+              "scopeName": "source.css",
+              "patterns": [{"match": "css"}],
+              "repository": {"escapes": {"match": "\\\\."}}
+            }
         "#})
     }
 
@@ -394,7 +422,8 @@ fn every_language_takes_the_hand_off_of_its_grammar_scope() {
 /// ```sh
 /// bun oracle/engine-tables.ts --every <dir>
 /// bun oracle/engine-tables.ts <other dir> 'haml>ruby>javascript>css>markdown>sass>coffee'
-/// NISHIKI_LINK_SURVEY=<dir>:<other dir> cargo test --all-features link_survey -- --ignored --nocapture
+/// NISHIKI_LINK_SURVEY=<dir>:<other dir> \
+///   cargo test --all-features link_survey -- --ignored --nocapture
 /// ```
 ///
 /// The files are named for a spec's first language.
@@ -444,9 +473,17 @@ mod survey {
             "scope": grammar.scope,
             "root": grammar.root,
             "names": grammar.names,
-            "patterns": grammar.patterns.iter().map(|p| json!({"source": p.source, "backrefs": p.backrefs})).collect::<Vec<_>>(),
+            "patterns": grammar
+                .patterns
+                .iter()
+                .map(|p| json!({"source": p.source, "backrefs": p.backrefs}))
+                .collect::<Vec<_>>(),
             "lists": grammar.lists.iter().map(|l| l.rules).collect::<Vec<_>>(),
-            "injections": grammar.injections.iter().map(|i| json!({"selector": i.selector, "rule": i.rule})).collect::<Vec<_>>(),
+            "injections": grammar
+                .injections
+                .iter()
+                .map(|i| json!({"selector": i.selector, "rule": i.rule}))
+                .collect::<Vec<_>>(),
             "rules": grammar.rules.iter().map(|r| json!({
                 "matching": matching(r.matching),
                 "name": r.name,
@@ -459,7 +496,15 @@ mod survey {
                 "list": r.list,
                 "applyEndLast": r.apply_end_last,
             })).collect::<Vec<_>>(),
-            "handOffs": grammar.hand_offs.iter().map(|h| json!({"language": format!("{:?}", h.language), "before": h.before, "after": h.after})).collect::<Vec<_>>(),
+            "handOffs": grammar
+                .hand_offs
+                .iter()
+                .map(|h| json!({
+                    "language": format!("{:?}", h.language),
+                    "before": h.before,
+                    "after": h.after,
+                }))
+                .collect::<Vec<_>>(),
             "listHandOffs": grammar.list_hand_offs,
             "handingCaptures": grammar.handing_captures,
             "dfaCache": grammar.dfa_cache,

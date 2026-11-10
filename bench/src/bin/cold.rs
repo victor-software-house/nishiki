@@ -32,6 +32,7 @@ use std::process::{Command, ExitCode};
 use std::time::Instant;
 
 use nishiki::{Grammar, Grammars, Highlighter, Language, State, Theme};
+use nishiki_bench::report::{Align, table_head};
 use nishiki_bench::{GITHUB_DARK, Tier, corpus};
 
 /// Samples per file when `--processes` is not given.
@@ -189,7 +190,33 @@ fn options(args: &[String]) -> Result<Options, String> {
     Ok(options)
 }
 
+/// The times of every sample that counts.
+struct Timings {
+    /// Each file's name.
+    names: Vec<String>,
+    /// Per file, the times to create the highlighter, to lex the first line
+    /// and to lex the document.
+    times: Vec<[Vec<f64>; 3]>,
+    /// The times of `Theme::from_json`.
+    theme: Vec<f64>,
+    /// The times of the three grammar steps.
+    grammar: [Vec<f64>; 3],
+}
+
+/// Runs the samples, then prints what they measured as `--tsv` asks.
 fn runner(options: &Options) -> Result<(), String> {
+    let timings = measure(options)?;
+    if options.tsv {
+        print_tsv(timings);
+    } else {
+        print_table(options, timings);
+    }
+    Ok(())
+}
+
+/// Starts every sample, round by round, and keeps those after the dropped
+/// rounds.
+fn measure(options: &Options) -> Result<Timings, String> {
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("corpus");
     let documents = corpus().map_err(|error| format!("cannot read bench/corpus: {error}"))?;
     let files: Vec<(String, PathBuf)> = documents
@@ -223,42 +250,73 @@ fn runner(options: &Options) -> Result<(), String> {
             }
         }
     }
-    if options.tsv {
-        println!("kind\tname\tmeasure\tmedian_us\tp90_us");
-        for ((name, _), [created, first, whole]) in files.iter().zip(&mut times) {
-            for (measure, series) in [("new", created), ("first_line", first), ("document", whole)]
-            {
-                println!(
-                    "file\t{name}\t{measure}\t{:.1}\t{:.1}",
-                    rank(series, 50),
-                    rank(series, 90)
-                );
-            }
-        }
-        println!(
-            "theme\tgithub-dark\tfrom_json\t{:.1}\t{:.1}",
-            rank(&mut theme, 50),
-            rank(&mut theme, 90)
-        );
-        for (measure, series) in ["from_json", "from_bytes", "link"].iter().zip(&mut grammar) {
+    Ok(Timings {
+        names: files.into_iter().map(|(name, _)| name).collect(),
+        times,
+        theme,
+        grammar,
+    })
+}
+
+/// Prints the tab-separated rows `bench/record.ts` reads.
+fn print_tsv(timings: Timings) {
+    let Timings {
+        names,
+        mut times,
+        mut theme,
+        mut grammar,
+    } = timings;
+    println!("kind\tname\tmeasure\tmedian_us\tp90_us");
+    for (name, [created, first, whole]) in names.iter().zip(&mut times) {
+        for (step, series) in [("new", created), ("first_line", first), ("document", whole)] {
             println!(
-                "grammar\ttypescript\t{measure}\t{:.1}\t{:.1}",
+                "file\t{name}\t{step}\t{:.1}\t{:.1}",
                 rank(series, 50),
                 rank(series, 90)
             );
         }
-        return Ok(());
     }
     println!(
-        "{} fresh processes per file, the first {DROPPED} rounds dropped; µs from just before the highlighter is created",
+        "theme\tgithub-dark\tfrom_json\t{:.1}\t{:.1}",
+        rank(&mut theme, 50),
+        rank(&mut theme, 90)
+    );
+    for (step, series) in ["from_json", "from_bytes", "link"].iter().zip(&mut grammar) {
+        println!(
+            "grammar\ttypescript\t{step}\t{:.1}\t{:.1}",
+            rank(series, 50),
+            rank(series, 90)
+        );
+    }
+}
+
+/// Prints the table, with the theme and the grammar below it.
+fn print_table(options: &Options, timings: Timings) {
+    let Timings {
+        names,
+        mut times,
+        mut theme,
+        mut grammar,
+    } = timings;
+    println!(
+        "{} fresh processes per file, the first {DROPPED} rounds dropped; \
+         µs from just before the highlighter is created",
         options.processes
     );
     println!();
     println!(
-        "| file | new, median | new, p90 | first line, median | first line, p90 | document, median | document, p90 |"
+        "{}",
+        table_head(&[
+            ("file", Align::Left),
+            ("new, median", Align::Right),
+            ("new, p90", Align::Right),
+            ("first line, median", Align::Right),
+            ("first line, p90", Align::Right),
+            ("document, median", Align::Right),
+            ("document, p90", Align::Right),
+        ])
     );
-    println!("|:--|--:|--:|--:|--:|--:|--:|");
-    for ((name, _), [created, first, whole]) in files.iter().zip(&mut times) {
+    for (name, [created, first, whole]) in names.iter().zip(&mut times) {
         println!(
             "| {name} | {:.1} | {:.1} | {:.1} | {:.1} | {:.1} | {:.1} |",
             rank(created, 50),
@@ -277,12 +335,12 @@ fn runner(options: &Options) -> Result<(), String> {
     );
     let [compiled, read, linked] = &mut grammar;
     println!(
-        "TypeScript's grammar: from JSON median {:.1} µs, from bytes median {:.1} µs, first link median {:.1} µs",
+        "TypeScript's grammar: \
+         from JSON median {:.1} µs, from bytes median {:.1} µs, first link median {:.1} µs",
         rank(compiled, 50),
         rank(read, 50),
         rank(linked, 50)
     );
-    Ok(())
 }
 
 fn main() -> ExitCode {

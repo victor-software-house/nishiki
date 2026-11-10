@@ -501,7 +501,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// A function type: `<` or `(` and a parameter.
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
+                  `j` and `k` for the cursor"
     )]
     pub(crate) fn colon_function_ahead(&self, i: usize, forms: Annotation) -> bool {
         if self.byte(i) != b':' {

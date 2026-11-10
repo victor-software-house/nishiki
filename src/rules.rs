@@ -835,7 +835,9 @@ pub(crate) fn lex_embedding_until_resuming<G: Embeds>(
 #[cfg(feature = "_halting-embedding")]
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: with `#[inline]`, LLVM split it from `lex_embedding_until` and took `settle_deferred` out of line in CoffeeScript and LaTeX"
+    reason = "measured at one codegen unit: with `#[inline]`, \
+              LLVM split it from `lex_embedding_until` \
+              and took `settle_deferred` out of line in CoffeeScript and LaTeX"
 )]
 #[inline(always)]
 fn lex_embedding_through<G: Embeds>(
@@ -970,7 +972,8 @@ fn lex_again<G: Embeds>(
 #[cold]
 #[expect(
     clippy::too_many_lines,
-    reason = "one loop: split, it changed the hand-over code of every grammar, and the hot path's codegen with it"
+    reason = "one loop: split, it changed the hand-over code of every grammar, \
+              and the hot path's codegen with it"
 )]
 fn hand_over<G: Embeds>(
     cx: &mut Context<'_>,

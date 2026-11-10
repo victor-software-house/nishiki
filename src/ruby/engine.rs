@@ -79,7 +79,8 @@ impl Grammar for Ruby {
 
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: a hint left it out of line, at a call on every rule opened and closed"
+        reason = "measured at one codegen unit: a hint left it out of line, \
+                  at a call on every rule opened and closed"
     )]
     #[inline(always)]
     fn rule_payload(rule: Rule) -> Payload {

@@ -52,7 +52,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// `((?:[^*\s]|\*[^/\s])+)?`
     #[expect(
         clippy::many_single_char_names,
-        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
+        reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, \
+                  `j` and `k` for the cursor"
     )]
     fn optional_parameter_ahead(&self, p: usize) -> Option<OptionalParameter> {
         let name_char = |b: u8| b == b'$' || b == b'_' || b.is_ascii_alphanumeric();

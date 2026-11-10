@@ -6,7 +6,11 @@ use crate::rules::Chars;
 
 /// `[-\]*,.0-9<>A-\[_a-z]`, a character of a type expression's word.
 fn type_word_part(b: u8) -> bool {
-    matches!(b, b'-' | b']' | b'*' | b',' | b'.' | b'0'..=b'9' | b'<' | b'>' | b'A'..=b'[' | b'_' | b'a'..=b'z')
+    matches!(
+        b,
+        b'-' | b']' | b'*' | b',' | b'.' | b'0'..=b'9' | b'<' | b'>' | b'A'..=b'[' | b'_'
+            | b'a'..=b'z'
+    )
 }
 
 impl Lexer<'_> {

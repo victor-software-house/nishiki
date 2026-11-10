@@ -22,6 +22,7 @@ use std::process::ExitCode;
 use std::time::{Duration, Instant};
 
 use nishiki::{Highlighter, Language, State};
+use nishiki_bench::report::{Align, table_head};
 use nishiki_bench::timing::{micros, rank, timer_overhead};
 use nishiki_bench::{Document, Tier, corpus};
 
@@ -96,6 +97,50 @@ fn passes(document: &Document, passes: usize, overhead: Duration) -> Vec<Vec<Dur
         .collect()
 }
 
+/// Prints the head of the TSV rows, or the timer's figures and the head of the
+/// table.
+fn print_head(options: &Options, overhead: Duration, resolution: Duration) {
+    if options.tsv {
+        println!(
+            "{}",
+            [
+                "language",
+                "tier",
+                "lines",
+                "below_resolution",
+                "steady_p50_ns",
+                "steady_p99_ns",
+                "steady_max_ns",
+                "first_contact_max_ns",
+                "resolution_ns",
+            ]
+            .join("\t")
+        );
+    } else {
+        println!(
+            "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; \
+             {} passes, the first apart",
+            overhead.as_secs_f64() * 1e9,
+            resolution.as_secs_f64() * 1e6,
+            options.passes
+        );
+        println!();
+        println!(
+            "{}",
+            table_head(&[
+                ("language", Align::Left),
+                ("tier", Align::Left),
+                ("lines", Align::Right),
+                ("below resolution", Align::Right),
+                ("steady p50 µs", Align::Right),
+                ("steady p99 µs", Align::Right),
+                ("steady max µs", Align::Right),
+                ("first-contact max µs", Align::Right),
+            ])
+        );
+    }
+}
+
 fn main() -> ExitCode {
     let options = match options() {
         Ok(options) => options,
@@ -113,23 +158,7 @@ fn main() -> ExitCode {
     };
     let overhead = timer_overhead();
     let resolution = overhead * 4;
-    if options.tsv {
-        println!(
-            "language\ttier\tlines\tbelow_resolution\tsteady_p50_ns\tsteady_p99_ns\tsteady_max_ns\tfirst_contact_max_ns\tresolution_ns"
-        );
-    } else {
-        println!(
-            "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; {} passes, the first apart",
-            overhead.as_secs_f64() * 1e9,
-            resolution.as_secs_f64() * 1e6,
-            options.passes
-        );
-        println!();
-        println!(
-            "| language | tier | lines | below resolution | steady p50 µs | steady p99 µs | steady max µs | first-contact max µs |"
-        );
-        println!("|:--|:--|--:|--:|--:|--:|--:|--:|");
-    }
+    print_head(&options, overhead, resolution);
 
     let selected = documents.iter().filter(|document| {
         options.tier.is_none_or(|tier| document.tier == tier)

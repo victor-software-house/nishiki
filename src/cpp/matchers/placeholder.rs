@@ -166,7 +166,8 @@ impl Lexer<'_> {
         let ok = i < (self.lim() + usize::from(self.nl))
             && matches!(
                 self.at(i),
-                b'%' | b'A' | b'C'..=b'G' | b'O' | b'S' | b'U' | b'X' | b'a' | b'c'..=b'g' | b'i' | b'n' | b'o' | b'p' | b's' | b'u' | b'x'
+                b'%' | b'A' | b'C'..=b'G' | b'O' | b'S' | b'U' | b'X' | b'a' | b'c'..=b'g' | b'i'
+                    | b'n' | b'o' | b'p' | b's' | b'u' | b'x'
             );
         ok.then_some(i + 1)
     }

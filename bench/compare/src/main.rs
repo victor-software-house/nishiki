@@ -28,6 +28,7 @@ use std::process::{Command, ExitCode};
 use std::time::{Duration, Instant};
 
 use nishiki::{Highlighter, Language, State};
+use nishiki_bench::report::{Align, table_head};
 use nishiki_bench::{Document, Tier, corpus};
 
 use crate::engines::{Colours, NAMES, lines, pierre_theme, setup};
@@ -261,6 +262,36 @@ impl Row {
     }
 }
 
+/// Prints the head of the table or of the TSV rows, as `--tsv` asks.
+fn print_head(options: &Options) {
+    match options.output {
+        Output::Table => {
+            println!(
+                "{} rounds of {} ms per engine and file, the order rotating; \
+                 {} fresh processes for setup and first document; \
+                 colours against Shiki 4.6.0, github-dark",
+                options.rounds,
+                ROUND.as_millis(),
+                options.cold
+            );
+            println!();
+            println!(
+                "{}",
+                table_head(&[
+                    ("file", Align::Left),
+                    ("engine", Align::Left),
+                    ("setup ms", Align::Right),
+                    ("first document ms", Align::Right),
+                    ("warm MiB/s", Align::Right),
+                    ("tokens", Align::Right),
+                    ("fidelity %", Align::Right),
+                ])
+            );
+        }
+        Output::Tsv => println!("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity"),
+    }
+}
+
 fn runner(options: &Options) -> Result<(), String> {
     let documents = corpus().map_err(|error| format!("cannot read bench/corpus: {error}"))?;
     let selected: Vec<&Document> = documents
@@ -270,22 +301,7 @@ fn runner(options: &Options) -> Result<(), String> {
                 && (options.languages.is_empty() || options.languages.contains(&document.language))
         })
         .collect();
-    match options.output {
-        Output::Table => {
-            println!(
-                "{} rounds of {} ms per engine and file, the order rotating; {} fresh processes for setup and first document; colours against Shiki 4.6.0, github-dark",
-                options.rounds,
-                ROUND.as_millis(),
-                options.cold
-            );
-            println!();
-            println!(
-                "| file | engine | setup ms | first document ms | warm MiB/s | tokens | fidelity % |"
-            );
-            println!("|:--|:--|--:|--:|--:|--:|--:|");
-        }
-        Output::Tsv => println!("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity"),
-    }
+    print_head(options);
     for document in selected {
         if !nishiki_complete(document) {
             return Err(format!(

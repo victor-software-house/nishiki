@@ -113,6 +113,33 @@ test("an empty value before another value on its line keeps the line's indentati
   expect(prefixes).toBe(["impl A {", "    fn x() {}", "}"].join("\n"));
 });
 
+test("a value after an empty value on its line has its later lines indented as that line", () => {
+  const body = ["fn x() {", "    y();", "}"].join("\n");
+  const text = dedent`
+    impl A {
+        ${""}${body}
+    }`;
+  const spaced = dedent`
+    impl A {
+        ${""}  ${""}${body}
+    }`;
+  const after = dedent`
+    impl A {
+        x${""}${body}
+    }`;
+  expect(text).toBe(["impl A {", "    fn x() {", "        y();", "    }", "}"].join("\n"));
+  expect(spaced).toBe(["impl A {", "      fn x() {", "          y();", "      }", "}"].join("\n"));
+  expect(after).toBe(["impl A {", "    xfn x() {", "    y();", "}", "}"].join("\n"));
+});
+
+test("a line break value after an empty value leaves the line empty once", () => {
+  const text = dedent`
+    a
+        ${""}  ${["", "x"].join("\n")}
+    b`;
+  expect(text).toBe(["a", "", "      x", "b"].join("\n"));
+});
+
 test("empty values alone on their line leave it empty", () => {
   const code = dedent`
     a

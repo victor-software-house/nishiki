@@ -294,7 +294,8 @@ impl<G: PhpFamily> Lexer<'_, G> {
     /// `(array)(\()(\))`.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: its body sat in PHP's dispatch before the move, and with `#[inline]` it stayed a call, at 0.04% of PHP's instructions"
+        reason = "measured at one codegen unit: its body sat in PHP's dispatch before the move, \
+                  and with `#[inline]` it stayed a call, at 0.04% of PHP's instructions"
     )]
     #[inline(always)]
     pub(crate) fn empty_array(&mut self, p: usize) -> Option<usize> {

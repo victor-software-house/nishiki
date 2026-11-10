@@ -48,7 +48,8 @@ crate::scope::scope_table! {
     VariableLanguageSpecialQuantifierStar "variable.language.special.quantifier.star.shell"
     KeywordOperatorQuantifierStar "keyword.operator.quantifier.star.shell"
     PunctuationDefinitionArbitraryRepetition "punctuation.definition.arbitrary-repetition.shell"
-    PunctuationDefinitionRegexArbitraryRepetition "punctuation.definition.regex.arbitrary-repetition.shell"
+    PunctuationDefinitionRegexArbitraryRepetition
+        "punctuation.definition.regex.arbitrary-repetition.shell"
     VariableLanguageSpecialQuantifierPlus "variable.language.special.quantifier.plus.shell"
     KeywordOperatorQuantifierPlus "keyword.operator.quantifier.plus.shell"
     VariableLanguageSpecialQuantifierQuestion "variable.language.special.quantifier.question.shell"
@@ -56,7 +57,8 @@ crate::scope::scope_table! {
     VariableLanguageSpecialAt "variable.language.special.at.shell"
     KeywordOperatorAt "keyword.operator.at.shell"
     PunctuationDefinitionRegexAt "punctuation.definition.regex.at.shell"
-    KeywordOperatorOrvariableLanguageSpecialOr "keyword.operator.orvariable.language.special.or.shell"
+    KeywordOperatorOrvariableLanguageSpecialOr
+        "keyword.operator.orvariable.language.special.or.shell"
     KeywordOperatorAlternationRuby "keyword.operator.alternation.ruby.shell"
     PunctuationDefinitionRegexAlternation "punctuation.definition.regex.alternation.shell"
     PunctuationSeparatorRegexAlternation "punctuation.separator.regex.alternation.shell"
@@ -100,7 +102,8 @@ crate::scope::scope_table! {
     MetaFunctionBody "meta.function.body.shell"
     KeywordOperatorHeredoc "keyword.operator.heredoc.shell"
     PunctuationDefinitionStringHeredocQuote "punctuation.definition.string.heredoc.quote.shell"
-    PunctuationDefinitionStringHeredocDelimiter "punctuation.definition.string.heredoc.delimiter.shell"
+    PunctuationDefinitionStringHeredocDelimiter
+        "punctuation.definition.string.heredoc.delimiter.shell"
     KeywordOperatorHerestring "keyword.operator.herestring.shell"
     MetaHerestring "meta.herestring.shell"
     StringUnquotedHerestring "string.unquoted.herestring.shell"
@@ -157,7 +160,8 @@ crate::scope::scope_table! {
     VariableParameterPositionalAll "variable.parameter.positional.all.shell"
     VariableParameterPositional "variable.parameter.positional.shell"
     VariableLanguageSpecial "variable.language.special.shell"
-    PunctuationSectionBracketCurlyVariableBegin "punctuation.section.bracket.curly.variable.begin.shell"
+    PunctuationSectionBracketCurlyVariableBegin
+        "punctuation.section.bracket.curly.variable.begin.shell"
     MetaParameterExpansion "meta.parameter-expansion"
     PunctuationSectionBracketCurlyVariableEnd "punctuation.section.bracket.curly.variable.end.shell"
     KeywordControlWhile "keyword.control.while.shell"

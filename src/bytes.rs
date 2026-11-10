@@ -49,7 +49,8 @@ pub(crate) fn contains(list: &[&[u8]], word: &[u8]) -> bool {
     all(not(feature = "_hand-lexers"), not(test)),
     expect(
         dead_code,
-        reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+        reason = "only hand-written lexers and the engine tests use it, \
+                  and the TextMate engine alone turns no lexer on"
     )
 )]
 pub(crate) fn order(a: &[u8], b: &[u8]) -> Ordering {

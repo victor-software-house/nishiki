@@ -137,7 +137,8 @@ impl Lexer<'_> {
     /// It holds that body, and without the mark it went out of line.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one and sixteen codegen units: holding keyword's body, it stopped being inlined into try_match, at a call per word pattern"
+        reason = "measured at one and sixteen codegen units: holding keyword's body, \
+                  it stopped being inlined into try_match, at a call per word pattern"
     )]
     #[inline(always)]
     pub(in crate::csharp) fn non_member_keyword(&self, p: usize, word: &[u8]) -> Option<usize> {

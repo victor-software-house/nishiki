@@ -159,7 +159,8 @@ impl<'a> Lexer<'a> {
     /// frames, from the root down.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and XML rose 5% (1.0509)"
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
+                  rustc stopped inlining it, and XML rose 5% (1.0509)"
     )]
     #[inline(always)]
     pub(super) fn new(cx: &'a mut Context<'_>, line: Line<'a>, state: u32) -> Self {
@@ -227,7 +228,8 @@ impl<'a> Lexer<'a> {
     /// to the embedding language, if it did.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: once `lex_until` became a second caller, rustc stopped inlining it, and XML rose 5% (1.0509)"
+        reason = "measured at one codegen unit: once `lex_until` became a second caller, \
+                  rustc stopped inlining it, and XML rose 5% (1.0509)"
     )]
     #[inline(always)]
     pub(super) fn run_until(mut self) -> (Finished, Option<usize>) {

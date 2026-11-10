@@ -266,7 +266,8 @@ impl Lexer<'_> {
         }
         let test = matches!(
             self.at(p + 1),
-            b'A' | b'B' | b'C' | b'M' | b'O' | b'R' | b'S' | b'T' | b'W' | b'X' | b'b'..=b'g' | b'k' | b'l' | b'o' | b'p' | b'r'..=b'u' | b'w' | b'x' | b'z'
+            b'A' | b'B' | b'C' | b'M' | b'O' | b'R' | b'S' | b'T' | b'W' | b'X' | b'b'..=b'g' | b'k'
+                | b'l' | b'o' | b'p' | b'r'..=b'u' | b'w' | b'x' | b'z'
         );
         (test && self.word_at(p + 2).is_none()).then_some(p + 2)
     }

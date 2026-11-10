@@ -331,7 +331,9 @@ impl<'a> Lexer<'a> {
     /// to this line.
     #[expect(
         clippy::inline_always,
-        reason = "measured at sixteen codegen units: left out of line, it took the lexer by a libc copy of 815k instructions on the Markdown fixtures; inlined, Markdown ran 1.6% fewer, and one unit was unchanged"
+        reason = "measured at sixteen codegen units: left out of line, \
+                  it took the lexer by a libc copy of 815k instructions on the Markdown fixtures; \
+                  inlined, Markdown ran 1.6% fewer, and one unit was unchanged"
     )]
     #[inline(always)]
     pub(crate) fn finish(mut self) -> Finished {
@@ -422,7 +424,8 @@ impl<'a> Lexer<'a> {
     /// flags from a table, at a call per token.
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: emit went out of line when step changed size, at a call per token"
+        reason = "measured at one codegen unit: emit went out of line when step changed size, \
+                  at a call per token"
     )]
     #[inline(always)]
     fn emit(&mut self, upto: usize, node: u32) {
@@ -1434,7 +1437,8 @@ impl<'a> Lexer<'a> {
     /// frame keeps one (`kept`).
     #[expect(
         clippy::inline_always,
-        reason = "measured at one codegen unit: with `#[inline]`, it stayed out of `step` and cost Markdown 0.2% in calls once a fence line"
+        reason = "measured at one codegen unit: with `#[inline]`, it stayed out of `step` \
+                  and cost Markdown 0.2% in calls once a fence line"
     )]
     #[inline(always)]
     fn keep_body_state(
@@ -1499,7 +1503,8 @@ impl<'a> Lexer<'a> {
 /// Only a language that [`Language::pops_host`] names can.
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: out of line, the call it adds on every fence line cost Markdown 0.4%"
+    reason = "measured at one codegen unit: out of line, \
+              the call it adds on every fence line cost Markdown 0.4%"
 )]
 #[inline(always)]
 fn lex_fence(

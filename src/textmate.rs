@@ -164,7 +164,8 @@ pub(crate) fn lex_handing(
     any(not(test), not(feature = "_hand-lexers")),
     expect(
         dead_code,
-        reason = "no language embeds an engine grammar now; its hand-off tests do, with a hand-written lexer on"
+        reason = "no language embeds an engine grammar now; its hand-off tests do, \
+                  with a hand-written lexer on"
     )
 )]
 pub(crate) fn lex_handing_embedded(
