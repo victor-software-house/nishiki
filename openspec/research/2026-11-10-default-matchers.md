@@ -32,7 +32,7 @@ The regex machine run per pattern costs 2.56 to 4.54 times.
 4. [`emit.rs`][emit] writes `generated.rs` from the parsed tree of each expression.
    An ignored test runs it, then rustfmt formats the output.
 5. Every generated matcher must match exactly what Oniguruma matches, because Shiki-exact output gates the release.
-   A repeat is written in one of four ways, and the code never recurses once per turn:
+   A repeat is written in one of five ways, and the code never recurses once per turn:
 
    | Repeat | Written as | Exact because |
    |:--|:--|:--|
@@ -134,9 +134,11 @@ From `--timings`, the crates `codegen` adds compile in about 3 s on the critical
 
 - A profile per function of the generated code.
   The three costs above come from reading it.
-- The regex machine's step limit.
-  The generated code counts no steps; a hostile line was not tried against it.
+- The work limit.
+  At [5df96cd8][prototype], generated code counts no steps, and the regex machine runs with no budget.
+  No hostile line was tried against either.
   Zig's hostile-line limits test passed.
+  Design section 5.6 now requires both to spend the line's budget, with a hostile-line test in CI.
 - The size the generated code adds to the binary.
 - The differential test's time in a debug build, as CI runs tests.
 - The program size of `examples/build-script`, which does not exist yet.

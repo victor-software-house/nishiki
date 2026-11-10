@@ -27,7 +27,7 @@
 ## 3. The writer
 
 - [ ] 3.1 Protocol Buffers' grammar in `tests/engine/grammars/`, then `unstable::codegen` with default matchers, and `codegen/` writing its tables; `oracle/proto-grammar.ts` is deleted.
-  → verify: `codegen --compare` shows equal tokens outside the start sets the pull request lists. `mise run codegen -- --check` and the differential test of design section 5.6 pass in CI, and Identity shows no change
+  → verify: `codegen --compare` shows equal tokens outside the start sets the pull request lists. `mise run codegen -- --check` and the differential and hostile-line tests of design section 5.6 pass in CI, and Identity shows no change
 - [ ] 3.2 `AGENTS.md`, `CODING_STANDARDS.md` and `oracle/AGENTS.md` gain the rules of the proposal and how to move one language.
   → verify: review
 - [ ] 3.3 Unicode sets, case folds and classes are written from `oracle/facts/`.
