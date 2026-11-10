@@ -304,8 +304,12 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
 - Multiline text in code and tests uses `indoc!` or `formatdoc!`.
   In the Bun scripts it uses `dedent`, from `oracle/dedent.ts`.
   - `check:literals` fails on a string literal with two or more escaped line feeds and some text.
-    It reads the Rust in `src/` and `tests/`, and the Bun scripts.
+    It reads all the Rust and the Bun scripts.
   - A literal of line feeds alone, such as a `"\n\n"` separator, passes.
+- No Rust string literal continues on the next line through a backslash line break.
+  - A lint reason or a message fits on one line.
+    A reason's detail goes in the item's doc comment.
+  - `check:literals` fails on such a literal, wherever the Rust sits.
   - The pre-commit hook runs it when a commit touches a Rust file, and `check:local` runs it in CI.
 - A file the repository writes is formatted by its writer.
   A check compares the committed file with the writer's output, as `check:engine-grammars` does for the grammar JSON.
@@ -315,7 +319,8 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
     `mise run format:ts` checks the TypeScript, with the settings in `.oxfmtrc.json`.
   - oxfmt is the formatter the house Copier template uses, so nishiki stays in step with the template.
   - Neither formatter breaks a long string or comment.
-    Those are broken by hand: a string at a clause, a comment one sentence per line.
+    A comment is broken by hand, one sentence per line.
+    A long string is shortened, split into separate strings, or written as a document.
 - A line that cannot break is exempt by what it holds, never by a list of files:
   - a URL, or an action pinned to a commit;
   - an import or a regex literal in TypeScript;
