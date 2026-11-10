@@ -326,6 +326,7 @@ pub(crate) fn lex_line<S: Syntax>(
         text: line,
         start: 0,
         embedded: false,
+        anchored_at_root: false,
     };
     let to = lex(*lexer, &mut cx, text, from);
     *state = State(if to == store.start { ROOT } else { to });

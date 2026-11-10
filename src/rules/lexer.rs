@@ -304,6 +304,9 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// Where the current search starts.
     pub(crate) pos: usize,
     anchor: Option<usize>,
+    /// Whether `\G` matches at the line's start while the root rule alone is
+    /// open ([`crate::language::Line::anchored_at_root`]).
+    anchored_at_root: bool,
     /// Whether `\G` matches at `pos`.
     pub(crate) g: bool,
     /// Whether this is the first line of the document, where `\A` matches.
@@ -426,6 +429,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             last: start,
             pos: start,
             anchor: text.anchored.then_some(start),
+            anchored_at_root: text.anchored_at_root,
             g: false,
             first_line: false,
             frames,
@@ -498,6 +502,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             && G::rule_payload(self.top().rule) == Payload::None
             && self.top().payload == CAPTURED_EOL
         {
+            self.anchor = Some(self.pos);
+        }
+        if self.anchored_at_root && self.frames.len() == 1 {
             self.anchor = Some(self.pos);
         }
     }
@@ -2204,6 +2211,7 @@ mod tests {
             bytes: b"[[ab]]",
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         };
         let parts = Parts {
             arena: &mut arena,
@@ -2244,6 +2252,7 @@ mod tests {
             bytes: b"ab",
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         };
         let parts = Parts {
             arena: &mut arena,
@@ -2264,6 +2273,7 @@ mod tests {
             bytes: b"ab",
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         };
         Lexer::new(parts, text, ROOT, scratch)
     }
@@ -2786,6 +2796,7 @@ mod tests {
                 bytes,
                 start: 0,
                 anchored: false,
+                anchored_at_root: false,
             };
             let parts = Parts {
                 arena: &mut *arena,
@@ -2896,6 +2907,7 @@ mod tests {
             bytes: b">>fn",
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         };
         let parts = Parts {
             arena: &mut arena,
@@ -2962,6 +2974,7 @@ mod tests {
             text: "@@1 x @@2",
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         let ends: Vec<usize> = out.iter().map(|token| token.end()).collect();
@@ -2990,6 +3003,7 @@ mod tests {
             bytes,
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         };
         let parts = Parts {
             arena,
@@ -3050,6 +3064,7 @@ mod tests {
             text: "%%!x",
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         ASKED.with(|asked| asked.set(0));
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
@@ -3096,6 +3111,7 @@ mod tests {
             text: "a %%",
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         ASKED.with(|asked| asked.set(0));
         let next =
@@ -3157,6 +3173,7 @@ mod tests {
                 text,
                 start: 0,
                 embedded: false,
+                anchored_at_root: false,
             };
             state =
                 crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
@@ -3195,6 +3212,7 @@ mod tests {
             text: "<<ab ##x y",
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         PARENT_TEXTS.with_borrow_mut(Vec::clear);
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
@@ -3237,6 +3255,7 @@ mod tests {
             text: "##a ! b",
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         let bang = out
@@ -3568,6 +3587,7 @@ mod tests {
                 bytes: line,
                 start,
                 anchored: false,
+                anchored_at_root: false,
             };
             let halts: crate::language::Halts<'_> = (halt, None);
             let (finished, stopped) = Lexer::new(parts, text, state, &mut scratch)
@@ -3598,6 +3618,7 @@ mod tests {
                     bytes: line,
                     start: 0,
                     anchored: false,
+                    anchored_at_root: false,
                 };
                 let halts: crate::language::Halts<'_> = (halt, None);
                 let (finished, stopped) = Lexer::new(parts, text, state, &mut scratch)

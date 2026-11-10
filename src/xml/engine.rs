@@ -485,6 +485,7 @@ impl<'a> Lexer<'a> {
             text: self.text,
             start: from,
             embedded: false,
+            anchored_at_root: false,
         };
         let (finished, at) = Self::lex_jsp(&mut cx, line, state);
         (self.steps.take_back(finished), at)

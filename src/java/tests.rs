@@ -218,6 +218,7 @@ fn until(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
             text,
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         let (next, halted) = super::lex_until(&mut cx, line, state, &|s: &[u8], p: usize| {
             s.get(p..).is_some_and(|rest| rest.starts_with(b"%>"))

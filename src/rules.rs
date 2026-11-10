@@ -419,6 +419,7 @@ pub(crate) fn lex<G: Grammar>(
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
+        anchored_at_root: line.anchored_at_root,
     };
     let (parts, buffers) = cx.parts();
     Lexer::new(parts, text, state, scratch(buffers)).run()
@@ -451,6 +452,7 @@ pub(crate) fn lex_until<G: Grammar>(
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
+        anchored_at_root: line.anchored_at_root,
     };
     let halts = (end, after);
     let (parts, buffers) = cx.parts();
@@ -713,6 +715,7 @@ fn lex_deferred<G: Embeds>(
             text: line.text.get(..group.to).unwrap_or(line.text),
             start: group.from,
             embedded: false,
+            anchored_at_root: false,
         };
         let Some(finished) = G::lex_nested(group.language, &mut part_cx, part, group.base) else {
             continue;
@@ -783,6 +786,7 @@ pub(crate) fn lex_embedding<G: Embeds>(
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
+        anchored_at_root: line.anchored_at_root,
     };
     let (parts, buffers) = cx.parts();
     let (first, embedding) = Lexer::new(parts, text, state, scratch(buffers)).run_embedding();
@@ -851,6 +855,7 @@ fn lex_embedding_through<G: Embeds>(
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
+        anchored_at_root: line.anchored_at_root,
     };
     let (parts, buffers) = cx.parts();
     let (first, stop) = Lexer::new(parts, text, state, scratch(buffers))
@@ -886,6 +891,7 @@ pub(crate) fn lex_on_demand<G: Embeds>(
         bytes: line.text.as_bytes(),
         start: line.start,
         anchored: line.embedded,
+        anchored_at_root: line.anchored_at_root,
     };
     let first = cx.out.len();
     let (parts, buffers) = cx.parts();
@@ -1007,6 +1013,7 @@ fn hand_over<G: Embeds>(
             text: line.text,
             start: embedding.at,
             embedded: false,
+            anchored_at_root: false,
         };
         let (end, after) = G::embed_halts_for(rule, &embedding, cx.arena);
         let own = G::embeds_after_own(rule);
@@ -1076,6 +1083,7 @@ fn hand_over<G: Embeds>(
             bytes: line.text.as_bytes(),
             start: at,
             anchored: embedding.anchored && at == embedding.at,
+            anchored_at_root: false,
         };
         let lent = steps.lend(cx.limits);
         let parts = Parts {
@@ -1277,6 +1285,7 @@ fn own_starts<G: Embeds>(
         bytes: line.text.as_bytes(),
         start: at,
         anchored: true,
+        anchored_at_root: false,
     };
     let lent = steps.lend(cx.limits);
     let parts = Parts {
@@ -1559,4 +1568,7 @@ pub(crate) struct Text<'a> {
     /// `while` rule has matched the container prefix just before `start`, as
     /// it does in Shiki.
     pub(crate) anchored: bool,
+    /// Whether `\G` matches at `start` while the root rule alone is open
+    /// ([`crate::language::Line::anchored_at_root`]).
+    pub(crate) anchored_at_root: bool,
 }
