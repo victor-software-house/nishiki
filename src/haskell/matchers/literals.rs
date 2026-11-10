@@ -9,7 +9,7 @@ use crate::rules::Chars;
 const SIMPLE_ESCAPES: &[u8] = b"\"&'\\abfnrtv";
 
 impl Lexer<'_> {
-    /// `\b(?<!')` at `p` before a digit: no word character and no quote just
+    /// `\b(?<!')` at `p` before a digit: no word character and no quote right
     /// before it.
     fn number_start(&self, p: usize) -> bool {
         p < self.lim()

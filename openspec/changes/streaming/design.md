@@ -177,7 +177,7 @@ pub enum EditError { OutOfBounds, NotCharBoundary }
 
 ### 3. A completed line is lexed once
 
-On `\n`, the line just completed is lexed from the state the line above left.
+On `\n`, the completed line is lexed from the state the line above left.
 
 - If the provisional line's text has not changed since its last lexing, its tokens and end state are already the final ones.
   `Highlighter::line` excludes the line ending, so an ended line lexes as the same text unended did.

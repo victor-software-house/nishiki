@@ -74,7 +74,7 @@ pub struct UnlinkedGrammar {
 
 /// One rule object of a grammar, as its JSON holds it.
 ///
-/// Each field records what the linker asks of the object, with JavaScript's
+/// Each field records what the linker reads from the object, with JavaScript's
 /// reading of absent, `null` and empty values.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
 pub struct UnlinkedRule {

@@ -18,8 +18,8 @@ pub(crate) type Scratch = rules::Scratch<CommonLisp>;
 /// measured.
 /// It holds where the run starts and ends, and the length of the text it was
 /// measured in.
-/// A capture group lexed again has a shorter text, so the length tells the
-/// two apart.
+/// A capture group lexed again has a shorter text, so the length distinguishes
+/// the two.
 #[derive(Clone, Copy, Debug)]
 pub(super) struct Run {
     /// Where the run starts.

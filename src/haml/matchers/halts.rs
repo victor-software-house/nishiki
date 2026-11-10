@@ -4,7 +4,8 @@
 //! Each test reads the line's bytes `s` alone, without the line feed.
 //! The line's end, `s.len()`, stands for the line feed, which the grammar's
 //! `\s` and `\R` take.
-//! The matchers use the same tests, so a pattern and its halt agree.
+//! The matchers use the same tests, so a pattern and its halt give the same
+//! answer.
 
 use crate::classes::space_width;
 

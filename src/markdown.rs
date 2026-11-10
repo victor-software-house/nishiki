@@ -160,9 +160,9 @@ pub(crate) fn line(cx: &mut crate::language::Context<'_>, line: &str, state: u32
 ///   scratch. A second copy of the line's lexer would keep its parts from being
 ///   inlined into [`line`] (2% more instructions on Markdown documents).
 /// - After a block that closed inside the line, such as a raw HTML block at
-///   `</style>`. The rest of the line is then at Markdown's root, where `\G` no
-///   longer holds, so no block opens there. The rest is one plain token, and
-///   the end is tested from its start.
+///   `</style>`. The rest of the line is then at Markdown's root, where `\G`
+///   fails, so no block opens there. The rest is one plain token, and the end
+///   is tested from its start.
 ///
 /// The character before `line.start` goes to the lexer through the scratch,
 /// for the lookbehinds at the start ([`text::LineFacts::before_start`]).

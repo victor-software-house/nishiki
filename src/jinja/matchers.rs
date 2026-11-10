@@ -5,7 +5,7 @@
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
-//! Where a quantifier could give characters back, the doc comment says why it
+//! Where a quantifier could give characters back, the doc comment shows why it
 //! cannot matter, or how the matcher gives them back.
 //!
 //! The grammar's names, `[A-Z_a-z][0-9A-Z_a-z]*`, are ASCII.

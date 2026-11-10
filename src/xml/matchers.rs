@@ -159,7 +159,7 @@ impl Lexer<'_> {
         (at > i && at + 1 < r).then_some(at)
     }
 
-    /// `hit` with the parts of the name `i..r` scoped as `names` says.
+    /// `hit` with the parts of the name `i..r` scoped as `names` sets.
     fn name_captures(&self, hit: Hit, i: usize, r: usize, names: Names) -> Hit {
         let colon = self.colon(i, r);
         let local_from = colon.map_or(i, |at| at + 1);

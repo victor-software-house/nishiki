@@ -280,7 +280,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// stay inlined.
     /// In the dialects that open an entry, `object_literal` has a second call
     /// site here, and LLVM keeps it out of line.
-    /// No attribute asks for that: an inline attribute would hold for every
+    /// No attribute can force that: an inline attribute would hold for every
     /// dialect of `Lexer<D>`.
     fn entry(&mut self, entry: Entry, p: usize) -> Option<usize> {
         if D & super::Dialect::SVELTE == 0 && D != super::Dialect::TSX {

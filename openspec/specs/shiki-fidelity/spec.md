@@ -12,7 +12,7 @@ So a theme in Shiki's format colours nishiki's output as Shiki would.
 For every fixture of a supported language, nishiki SHALL give each non-whitespace byte the scope stack Shiki gave it.
 The stack is the one Shiki gave when the fixture was written, outermost first.
 
-#### Scenario: A lexer agrees with Shiki
+#### Scenario: A lexer matches Shiki
 
 - **WHEN** the oracle test lexes a fixture's lines in order from the default state
 - **THEN** every non-whitespace byte carries the scope stack the fixture records for it

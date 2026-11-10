@@ -78,7 +78,7 @@ fn is_flow_indicator(b: u8) -> bool {
     matches!(b, b',' | b'[' | b']' | b'{' | b'}')
 }
 
-/// The directives the grammar tells apart.
+/// The directives the grammar distinguishes.
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Directive {
     Yaml,
@@ -462,7 +462,7 @@ impl<'a> Lexer<'a> {
     /// The length of the escape that starts at `i`, or 0 when the backslash
     /// is only text.
     /// The grammar reads `\x`, `\u` and `\U` with decimal digits only.
-    /// It reads `\p` where YAML says `\P`.
+    /// It reads `\p` where YAML specifies `\P`.
     fn escape_len(&self, i: usize) -> usize {
         let digits = |n: usize| {
             self.s

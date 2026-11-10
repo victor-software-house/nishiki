@@ -148,7 +148,7 @@ impl End {
     }
 }
 
-/// The engine asks [`rules::Embeds::end_holds`] instead, with the filter's
+/// The engine calls [`rules::Embeds::end_holds`] instead, with the filter's
 /// indent ([`rules::EndText::ParentPayload`]).
 /// Asked directly, the end reads an empty indent.
 impl crate::language::Halt for End {

@@ -24,7 +24,7 @@ Only permissively licensed files SHALL be used.
 
 #### Scenario: A corpus file changes
 
-- **WHEN** a corpus file's content no longer matches its SHA-256 in the manifest
+- **WHEN** a corpus file's content differs from its SHA-256 in the manifest
 - **THEN** the corpus check fails
 
 #### Scenario: A file has no manifest row

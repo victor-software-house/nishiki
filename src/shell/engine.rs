@@ -305,7 +305,7 @@ pub(crate) struct Lexer<'a> {
     pub(crate) function_name_run: Cell<NameRun>,
     /// The last [`Lexer::name_run`] answer: where it was asked, the end of
     /// the text, and the answer.
-    /// Several rules ask about the same word.
+    /// Several rules test the same word.
     pub(crate) names: Cell<NameAnswer>,
     /// Where the language that embeds shell takes the text back, while only
     /// the root is open.
@@ -549,7 +549,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// The end of the blanks from `i`.
-    /// Most positions are not blank, and a matcher asks at every candidate
+    /// Most positions are not blank, and a matcher checks at every candidate
     /// position.
     /// That case therefore returns first.
     #[inline]
@@ -1041,7 +1041,7 @@ impl<'a> Lexer<'a> {
         false
     }
 
-    /// [`Lexer::loops`] for the rule just opened above frame `before`.
+    /// [`Lexer::loops`] for the rule opened last above frame `before`.
     fn loops_below(&self, before: usize, rule: Rule) -> bool {
         let pos = self.pos;
         let mut i = before;

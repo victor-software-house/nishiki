@@ -83,7 +83,7 @@ struct Parser {
     chars: Vec<char>,
     at: usize,
     flags: Flags,
-    /// Set when the atom just read was `(?i)` or another group of flags only.
+    /// Set when the last atom read was `(?i)` or another group of flags only.
     isolated: bool,
     /// Set inside a lookbehind, where `(?i)` folds only one character to one.
     lookbehind: bool,
@@ -336,7 +336,8 @@ impl Parser {
         Ok(name)
     }
 
-    /// The absent operator `(?~X)`, after its `(?`, read as [`absent`] says.
+    /// The absent operator `(?~X)`, after its `(?`, read as [`absent`]
+    /// describes.
     ///
     /// Its other forms, which start `(?~|`, are refused.
     /// So is the operator inside a lookbehind or inside another absent

@@ -72,7 +72,7 @@ fn atoms_and_keys_name_their_colon() {
 }
 
 /// `fn` with a `->` later on the line opens an anonymous function's head.
-/// A line of many `fn` asks for the line's last `->` once.
+/// A line of many `fn` searches for the line's last `->` once.
 #[test]
 fn fn_reads_the_arrow_after_it() {
     assert_eq!(leaf("f = fn x -> x end", "fn"), "keyword.control.elixir");

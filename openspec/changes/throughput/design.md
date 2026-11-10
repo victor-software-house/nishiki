@@ -232,7 +232,7 @@ The lead brings both APIs to the operator together.
 
 Every slice keeps output unchanged: no `identity:` line, the oracle green, the Shiki differential at 0 for every language it touches.
 The CI gate fails a row that rises more than 0.5% at one codegen unit.
-Review asks more of every slice: every row at or below 1.000, and a per-function split for a row above it.
+Review is stricter: every row at or below 1.000, and a per-function split for a row above it.
 
 ### Collisions with language work in flight
 

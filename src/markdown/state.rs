@@ -86,7 +86,7 @@ pub(crate) enum Container {
 impl Container {
     /// The `Container` values whose code is their own, not a language's, in
     /// code order.
-    /// A test checks that [`Container::code`] agrees.
+    /// A test checks that [`Container::code`] matches it.
     pub(super) const FIXED: &[Container] = &[
         Container::Base,
         Container::Quote,

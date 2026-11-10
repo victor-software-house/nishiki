@@ -4,7 +4,7 @@
 //! ((?:\s*+(/\*)((?:[^*]++|\*+(?!/))*+(\*/))\s*+)+|\s++|(?<=\W)|(?=\W)|^|\n?$|\A|\Z)
 //! ```
 //!
-//! It is white space and comments, or just a place where a token may start.
+//! It is white space and comments, or only a place where a token may start.
 //! It can match in several ways, and what follows it decides which one the
 //! matcher takes.
 //! [`Lexer::gaps`] therefore gives every way, in the order the regular

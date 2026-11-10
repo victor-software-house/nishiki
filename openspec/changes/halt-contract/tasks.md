@@ -8,7 +8,7 @@ The engine's logic does not change when they do.
 
 ## 1. Agreement
 
-- [x] 1.1 Halt semantics agreed with xml-html (ERB's halt at any depth, Vue's entries) → verify: their reply recorded in design section 9
+- [x] 1.1 Halt semantics agreed with xml-html (ERB's halt at any depth, Vue's entries) → verify: their reply recorded in design section 10
   - xml-html, 2026-11-03:
     - `any` has injection priority and skips comments;
     - the full stack at an `any` halt, and halts tried at place 0;
@@ -17,7 +17,7 @@ The engine's logic does not change when they do.
     - a covered second hand-off dropped;
     - mixed repository rules compiled into the engine's table;
     - ERB moves onto `Halts` in its second PR.
-- [x] 1.2 Engine profile agreed with engine-spans (cost of a `&dyn` halt per place) → verify: their reply recorded in design section 9
+- [x] 1.2 Engine profile agreed with engine-spans (cost of a `&dyn` halt per place) → verify: their reply recorded in design section 10
   - engine-spans, 2026-11-03: `&dyn Fn` is fine; keep the `halt: None` branch; `#[inline]` dispatch; halts stay pure; label the PR `bench`.
 - [x] 1.3 GraphQL port's embedding agreed with primitives → verify: their reply recorded in design section 10
   - primitives, 2026-11-03: `lex_embedding_until` maps onto `Halts`; nested hand-offs forward only the outer `any`; halts per rule from the grammar.

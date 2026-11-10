@@ -1231,7 +1231,7 @@ impl<'a> Lexer<'a> {
         (next, resumes_at(stopped))
     }
 
-    /// Lexes JavaScript up to `</script>`, as `script` says.
+    /// Lexes JavaScript up to `</script>`, as `script` sets.
     /// It stays out of line, as [`Lexer::lex_style`] does.
     #[cold]
     #[inline(never)]
@@ -1634,7 +1634,7 @@ impl<'a> Lexer<'a> {
         (base, injection)
     }
 
-    /// Whether `rule`, just opened above frame `before`, repeats a rule that
+    /// Whether `rule`, opened last above frame `before`, repeats a rule that
     /// opened at the same position without advancing.
     fn loops_below(&self, before: usize, rule: Rule) -> bool {
         let mut i = before;

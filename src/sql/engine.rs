@@ -36,7 +36,7 @@ pub(crate) struct Extra {
     /// Where the last match started.
     start: usize,
     /// The last run of word characters measured: where it starts and ends.
-    /// The rules of a word ask about the same one in turn.
+    /// The rules of a word test the same one in turn.
     pub(super) run: Cell<(usize, usize)>,
     /// The last search for each [`Closer`]: where it started and where it
     /// found the byte.

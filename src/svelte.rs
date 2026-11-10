@@ -15,7 +15,7 @@
 //! bodies to the CSS lexer.
 //!
 //! The embedded language's state is the payload of its rule's frame.
-//! Each embedding rule says where it takes the line back
+//! Each embedding rule sets where it takes the line back
 //! (`engine::End`).
 mod engine;
 mod grammar;

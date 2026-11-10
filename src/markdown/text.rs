@@ -40,7 +40,7 @@ pub(crate) struct LineFacts {
 }
 
 impl Cx<'_> {
-    /// The byte at `p`: the line's, the newline just past it, or nothing at
+    /// The byte at `p`: the line's, the newline after it, or nothing at
     /// or after `end`.
     #[inline]
     pub(crate) fn get(&self, p: usize) -> Option<u8> {
@@ -103,7 +103,7 @@ impl Cx<'_> {
         self.get(self.skip_space(p)).is_none()
     }
 
-    /// The character at `p`: the line's, or the newline just past it.
+    /// The character at `p`: the line's, or the newline after it.
     #[inline]
     fn char_at(&self, p: usize) -> Option<char> {
         let first = self.get(p)?;

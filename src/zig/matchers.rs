@@ -5,7 +5,7 @@
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
-//! Where a quantifier could give characters back, the doc comment says why it
+//! Where a quantifier could give characters back, the doc comment shows why it
 //! cannot matter, or what giving them back leaves to test.
 
 mod numbers;
@@ -278,7 +278,7 @@ impl Lexer<'_> {
         (self.at(self.space_end(end)) == b'(').then_some(end)
     }
 
-    /// The end of a name from `p` that starts as `start` says.
+    /// The end of a name from `p` that starts as `start` sets.
     /// A type name goes on with `[0-9A-Za-z]`, without `_`.
     fn name_end(&self, p: usize, start: NameStart) -> Option<usize> {
         match start {

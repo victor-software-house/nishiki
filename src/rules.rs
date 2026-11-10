@@ -590,7 +590,7 @@ pub(crate) trait Embeds: Grammar {
 
     /// Whether `end` holds at `p` of `s`.
     /// `parent_text` is the text of the embedding rule's parent payload.
-    /// The engine asks this instead of `end` itself only when
+    /// The engine calls this instead of `end` itself only when
     /// [`Embeds::END_TEXT`] is [`EndText::ParentPayload`].
     ///
     /// The default body only calls `end.holds`.
@@ -1428,7 +1428,7 @@ pub(crate) struct Embedding {
 
 /// A scope whose name ends in text of the line, such as the digits of `2>`:
 /// the scope is `prefix`, the text `start..end` spelled as
-/// [`Grammar::dyn_name_case`] says, and `suffix`.
+/// [`Grammar::dyn_name_case`] sets, and `suffix`.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct DynName {
     pub(crate) prefix: &'static str,
@@ -1524,7 +1524,7 @@ pub(crate) struct RuleDefinition<G: Grammar> {
     ///
     /// A rule whose `L:` injections win a tie with its end lists the end
     /// among its patterns instead, after them, as Svelte's language tags do.
-    /// The engine knows an end pattern by its act, not by this field.
+    /// The engine finds an end pattern by its act, not by this field.
     pub(crate) end: Option<G::Pattern>,
     /// The begin capture group that the end pattern repeats, when it does.
     pub(crate) backref: Option<u8>,
@@ -1535,7 +1535,7 @@ pub(crate) struct RuleDefinition<G: Grammar> {
 /// The bytes a pattern can start at.
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Start {
-    /// Bit `b` of word `b / 64` says that a match can start before byte `b`.
+    /// Bit `b` of word `b / 64` marks that a match can start before byte `b`.
     pub(crate) bytes: [u64; 4],
     /// Where in the line a match can start.
     /// A pattern that opens with `^` matches only at the start of the line.
@@ -1565,7 +1565,7 @@ pub(crate) struct Text<'a> {
     pub(crate) bytes: &'a [u8],
     pub(crate) start: usize,
     /// Whether `\G` matches at `start`: set for a Markdown fence line, whose
-    /// `while` rule has matched the container prefix just before `start`, as
+    /// `while` rule has matched the container prefix right before `start`, as
     /// it does in Shiki.
     pub(crate) anchored: bool,
     /// Whether `\G` matches at `start` while the root rule alone is open

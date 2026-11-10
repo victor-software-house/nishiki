@@ -56,7 +56,7 @@ impl Lexer<'_> {
         (p == self.lim()).then_some(p + 1)
     }
 
-    /// `(?<=[\n;])`: just after a `;` or after the line feed.
+    /// `(?<=[\n;])`: right after a `;` or after the line feed.
     pub(super) fn after_semicolon_or_line_feed(&self, p: usize) -> Option<usize> {
         (self.prev_is_byte(p, b';') || p == self.lim() + 1).then_some(p)
     }

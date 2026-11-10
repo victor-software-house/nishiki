@@ -12,6 +12,10 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: ${{ github.workflow }}-caller-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release:
     permissions:

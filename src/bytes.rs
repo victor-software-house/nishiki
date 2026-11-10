@@ -8,12 +8,12 @@
 
 use std::cmp::Ordering;
 
-/// Whether `a` and `b` hold the same bytes, as `==` on byte slices says.
+/// Whether `a` and `b` hold the same bytes, as `==` on byte slices does.
 pub(crate) fn same(a: &[u8], b: &[u8]) -> bool {
     a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x == y)
 }
 
-/// Whether `a` starts with `prefix`, as `starts_with` on byte slices says.
+/// Whether `a` starts with `prefix`, as `starts_with` on byte slices does.
 #[cfg(any(
     feature = "lang-javascript",
     feature = "lang-jsx",
@@ -24,7 +24,7 @@ pub(crate) fn starts_with(a: &[u8], prefix: &[u8]) -> bool {
     a.get(..prefix.len()).is_some_and(|head| same(head, prefix))
 }
 
-/// Whether `a` ends with `suffix`, as `ends_with` on byte slices says.
+/// Whether `a` ends with `suffix`, as `ends_with` on byte slices does.
 #[cfg(any(
     feature = "lang-javascript",
     feature = "lang-jsx",
@@ -38,7 +38,7 @@ pub(crate) fn ends_with(a: &[u8], suffix: &[u8]) -> bool {
         .is_some_and(|tail| same(tail, suffix))
 }
 
-/// Whether `list` holds `word`, as `contains` on a list of byte slices says.
+/// Whether `list` holds `word`, as `contains` on a list of byte slices does.
 #[cfg(any(feature = "lang-coffee", feature = "lang-objective-c"))]
 pub(crate) fn contains(list: &[&[u8]], word: &[u8]) -> bool {
     list.iter().any(|entry| same(entry, word))

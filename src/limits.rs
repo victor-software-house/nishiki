@@ -313,7 +313,7 @@ const NODE_BYTES: usize = 64;
 impl Limits {
     /// Whether [`Limits::depth`] keeps one more context from opening where
     /// `open` contexts are open above the language's root.
-    /// Every lexer asks here, so a pinned depth means the same in every
+    /// Every lexer checks here, so a pinned depth means the same in every
     /// language.
     pub(crate) fn depth_reached(&self, open: usize) -> bool {
         self.depth.is_some_and(|max| open >= max)

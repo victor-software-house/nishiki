@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; edit with `copier update --data`.
-_commit: v0.0.84
+_commit: v0.0.91
 _src_path: https://github.com/victor-software-house/templates.git
 ci_cache_size: 50
 ci_runner: namespace-4x8
@@ -14,12 +14,18 @@ extra_runner_labels: []
 feature_sets: []
 generated_paths:
 - tests/engine/*.rs
-- src/{csharp/grammar,blade/words,hack/words,php/words,textmate/regex/folds,textmate/regex/unicode}.rs
+- src/csharp/grammar.rs
+- src/blade/words.rs
+- src/hack/words.rs
+- src/php/words.rs
+- src/textmate/regex/folds.rs
+- src/textmate/regex/unicode.rs
 github_owner: victor-software-house
 layout: crate
 library: true
 max_width: 100
 merge_queue: true
+merge_queue_cancel_lower: true
 mise_version: 2026.10.25
 nightly_fmt: true
 pieces:
@@ -41,6 +47,9 @@ pieces_extra:
 - machete
 - doc_tests
 - rustdoc
+platforms:
+- linux-x64
+- macos-arm64
 project: rust-crate
 prose_fail_level: warning
 published: true
@@ -50,7 +59,7 @@ rust_nightly: nightly-2026-11-01
 rust_version: 1.99.1
 test_profiles: []
 tokio: false
-verify_timeout: 8
+verify_timeout: 12
 workflow_policy:
 - drafts
 - concurrency

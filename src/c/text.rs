@@ -16,7 +16,7 @@ impl Lexer<'_> {
     }
 
     /// The byte at `i`.
-    /// It is the line feed just after the text, and 0 past that.
+    /// It is the line feed right after the text, and 0 past that.
     #[inline]
     pub(super) fn b(&self, i: usize) -> u8 {
         self.at(i)
@@ -155,7 +155,7 @@ impl Lexer<'_> {
     // Hits.
 
     /// A match from `start` to `end`. Its pattern's
-    /// [`super::lists::Pattern::act`] says what it does and names it.
+    /// [`super::lists::Pattern::act`] decides what it does and names it.
     pub(super) fn plain(&mut self, start: usize, end: usize) -> bool {
         self.x.start = start;
         self.x.end = end;

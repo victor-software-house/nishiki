@@ -2,7 +2,7 @@
 //!
 //! The grammar opens a rule where a number starts, `(?<!\w)(?=\.??\d)`.
 //! Six patterns inside it start at `\G` and must take the whole run of
-//! number-like characters, as their closing lookahead says.
+//! number-like characters, as their closing lookahead requires.
 //! The seventh marks what none of them takes.
 //! The rule ends where the run does.
 //! The digit groups are lexed again for their `'` separators.

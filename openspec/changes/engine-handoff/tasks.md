@@ -92,7 +92,7 @@ Items 2 to 4 landed on 2026-11-04 (UTC):
     - The hand-off now ends the region where its language pops it, as vscode-textmate does.
     - Both fixtures left the gap lists, and the loaded tests pass.
   - [x] 2.5.3 Attribute names in an HTML fence differ from Shiki's: `markdown/invalid-tags` and both `markdown/perl-heredoc-tags-*`.
-    - HTML told Markdown's document from its scope's number, which a loaded grammar's scope never has.
+    - HTML found Markdown's document by its scope's number, which a loaded grammar's scope never has.
     - It now compares the scope's name.
   - [x] 2.5.4 `markdown/vitepress-runtime-api` holds a `vue` fence from markdown-vue's injection, which a Markdown-only set lacks.
     Its block should be left out, as other fences of missing languages are.

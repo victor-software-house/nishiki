@@ -1907,7 +1907,7 @@ languages! {
 }
 
 impl Language {
-    /// The language Shiki knows by `name`, its id or one of its aliases,
+    /// The language Shiki identifies by `name`, its id or one of its aliases,
     /// such as `"rust"` or `"rs"`; ASCII case is ignored.
     ///
     /// ```
@@ -1934,8 +1934,8 @@ impl Language {
     /// language ([`StopReason::PopHost`]).
     /// Less is the one: `(;)|(?=[)}])`.
     ///
-    /// Markdown asks it of a fence's language.
-    /// The engine for loaded grammars asks it of a hand-off's language.
+    /// Markdown calls it for a fence's language.
+    /// The engine for loaded grammars calls it for a hand-off's language.
     /// Both then lex through [`Language::lex_until`], so the language can
     /// report the pop.
     ///

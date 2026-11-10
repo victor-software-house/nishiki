@@ -5,7 +5,7 @@ The engine's hand-off on main (approved by the lead, 2026-11-04).
 Sections 1, 2, 8 and 9 of the [`halt-contract` design][contract], made concrete for main after [#228][pr228] and [#325][pr325], with HAML as the first user.
 The `halt-contract` change's tasks for `Halts` and entries stay deferred; this needs neither.
 
-## 1. What HAML asks for
+## 1. What HAML needs
 
 HAML's includes of hand-lexed grammars fall into two shapes (Shiki's `haml` grammar, 4.4.3):
 
@@ -19,7 +19,8 @@ HAML's includes of hand-lexed grammars fall into two shapes (Shiki's `haml` gram
 2. A filter's end and its `before` patterns can match only at a line's start.
    The engine tries them there itself and hands over the rest of the line whole, so the target needs no halting entry: `Language::lex_embedded` serves, Markdown included.
 3. An inline hand-off halts mid-line, so its target needs `lex_until`: Ruby gets `halts: true` on its row (its `lex_until` exists), and JavaScript and CSS have theirs.
-4. Sass and CoffeeScript have no hand lexer; they stay includes compiled into HAML's table and become engine rows of their own (13.1).
+4. Sass and CoffeeScript have no hand lexer.
+   They stay includes compiled into HAML's table and become engine rows of their own (the [`halt-contract` design][contract], section 13.1).
 
 ## 2. A halt that carries context
 
@@ -44,7 +45,7 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 3. The engine's halt holds the places where its end and `before` rules start on the line.
    The engine finds them before the target runs (section 4 point 3).
    The halt answers `first` from them.
-   The answer depends only on the bytes and the place (4, rule 1).
+   The answer depends only on the bytes and the place (the [`halt-contract` design][contract], section 4, rule 1).
 4. csharp's Lua halt, which needs the `]=*]` level its begin read, is the same shape: a struct holding the level.
    One change of `Halt` serves both (lead, 2026-11-04):
    - csharp makes it in its Lua cdef PR, with the `]=*]` halt as its first stateful user;
@@ -102,14 +103,14 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    - The generator neither loads nor compiles those grammars.
      They need no licence entry for bundling.
    - An include of one of their whole grammars becomes a hand-off.
-   - An include of one of their repository rules compiles into the table as today (1.3) when the grammar is loaded.
+   - An include of one of their repository rules compiles into the table as today (the [`halt-contract` design][contract], section 1.3) when the grammar is loaded.
      It is dropped when the grammar is not loaded.
 3. The table does not say where the halts can start.
    The tokenizer finds them on each line before the target runs (section 4 point 3).
    A line with no halt left goes to the target whole.
 4. A list has one hand-off at most.
    The generator fails on a second.
-   It drops Vue's redundant second include first (2).
+   It drops Vue's redundant second include first (the [`halt-contract` design][contract], section 2).
 5. Until the tokenizer hands off (section 4), a list with a hand-off lexes as a list without the include.
    Shiki does the same for a grammar it has not loaded.
    No shipped table holds a hand-off yet.
@@ -204,7 +205,7 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 1. The hand-off frame is the [`halt-contract` design][contract]'s section 8: `kind` `tag::TEXTMATE | 1`, `payload` the target's state, `stack` the embedding rule's content stack, `parent` the embedding rule's frame.
    The target is the one `HandOff` in the parent rule's list, so the frame stores no index.
 2. Work: the engine lends what its line has left, in steps of the work limit, and charges what the target returns in `Finished`, times `STEP`.
-3. Depth stays per language (9.1); the target's limits go to the same `cx.report` (9.3).
+3. Depth stays per language, and the target's limits go to the same `cx.report` (the [`halt-contract` design][contract], sections 9.1 and 9.3).
 
 ## 6. Order
 

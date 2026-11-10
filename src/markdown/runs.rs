@@ -122,7 +122,7 @@ struct Held {
 struct Built {
     /// The address and length of the line that `table` describes.
     /// A Markdown lexer inside this line's HTML lexes a prefix of the line.
-    /// The length tells the two lines apart.
+    /// The length distinguishes the two lines.
     line: Option<(usize, usize)>,
     table: Table,
 }

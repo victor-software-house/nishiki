@@ -550,7 +550,7 @@ fn wide_characters() -> BTreeSet<char> {
     wide
 }
 
-/// The lines of every UTF-8 lead byte classify as their characters say:
+/// The lines of every UTF-8 lead byte classify as their characters do:
 /// full exactly when one is a wide fold character.
 #[test]
 fn every_lead_byte_classifies() {

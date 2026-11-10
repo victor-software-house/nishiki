@@ -15,7 +15,7 @@ use crate::rules::Chars;
 /// A scan for the first position at or after `from` that satisfies a test:
 /// `(key, from, found)`.
 /// It records that no position in `from..found` satisfies the test.
-/// The key tells apart queries whose test differs, such as the `#` count.
+/// The key separates queries whose test differs, such as the `#` count.
 type Found = Cell<Option<(usize, usize, usize)>>;
 
 /// What the matchers of this file remember about a line.
@@ -159,7 +159,7 @@ const OPTIONS: [&[u8]; 16] = [
 
 impl Lexer<'_> {
     /// The end of the run of `#` from `p`.
-    /// Every start inside a run asks about it.
+    /// Every start inside a run looks it up.
     /// The last run is therefore kept.
     fn hash_run_end(&self, p: usize) -> usize {
         let (start, end) = self.x.regex_literals.hashes.get();

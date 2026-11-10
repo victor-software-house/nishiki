@@ -294,8 +294,8 @@
 //!   - `lang-xml` turns on `lang-java`;
 //!   - `lang-html` turns on `lang-css` and `lang-javascript`;
 //!   - `lang-scss` turns on `lang-css`.
-//! - [`Language::ALL`] and [`Language::from_name`] know only the languages that
-//!   are built.
+//! - [`Language::ALL`] and [`Language::from_name`] cover only the languages
+//!   that are built.
 //! - Nothing is downloaded at run time. Every language you turn on is in the
 //!   binary. A grammar you bring through [`Grammar`] comes from your own JSON
 //!   or bytes.

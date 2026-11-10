@@ -279,7 +279,7 @@ impl Lexer<'_> {
         Some((name_end, paren))
     }
 
-    /// A call at `p`, with its `(` scoped as `list` says.
+    /// A call at `p`, with its `(` scoped as `list` sets.
     pub(super) fn call_like(&mut self, p: usize, list: List) -> bool {
         let Some((name_end, paren)) = self.call_target(p, wordset::CALL_EXCL) else {
             return false;
