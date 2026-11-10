@@ -47,7 +47,6 @@ use state::{ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, Rule};
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
-use crate::scope::Scope;
 
 /// The state at the start of an HTML document whose scopes sit on the stack
 /// `base`: one rule with `text.html.basic` on top of it.
@@ -76,13 +75,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     let payload = match outermost {
         #[cfg(feature = "lang-svelte")]
         Some(root) if root == crate::svelte::DOCUMENT.name() => ROOT_SVELTE,
-        Some(root)
-            if DERIVATIVE_FIRST
-                .iter()
-                .any(|document| document.name() == root) =>
-        {
-            ROOT_DERIVATIVE_FIRST
-        }
+        Some(root) if DERIVATIVE_FIRST.contains(&root) => ROOT_DERIVATIVE_FIRST,
         Some(_) | None => ROOT_EMBEDDED,
     };
     arena
@@ -90,15 +83,20 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The documents whose grammar Shiki compiles html-derivative's rules in
-/// before HTML's own: Markdown, and Svelte, whose `@component` comment
-/// embeds Markdown.
+/// The root scopes of the documents whose grammar Shiki compiles
+/// html-derivative's rules in before HTML's own.
+/// They are Markdown's, and Svelte's, whose `@component` comment embeds
+/// Markdown.
 /// HAML embeds Markdown too, but compiles HTML first.
-const DERIVATIVE_FIRST: &[Scope] = &[
-    #[cfg(feature = "lang-markdown")]
-    crate::markdown::DOCUMENT,
-    #[cfg(feature = "lang-svelte")]
-    crate::svelte::DOCUMENT,
+///
+/// They are names, because a grammar loaded at run time can embed HTML too.
+/// So each is listed when its language's lexer is on, or the engine for
+/// loaded grammars is.
+const DERIVATIVE_FIRST: &[&str] = &[
+    #[cfg(any(feature = "lang-markdown", feature = "_textmate"))]
+    "text.html.markdown",
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
+    "source.svelte",
 ];
 
 /// Lexes `line` from `state`, under the crate's one lexer contract
