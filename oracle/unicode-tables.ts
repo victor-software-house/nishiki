@@ -1,6 +1,8 @@
-// Writes src/textmate/regex/unicode.rs: the character sets that Oniguruma, as
-// Shiki bundles it, gives \p{..}, [[:..:]], \w, \d and \s, measured by asking
-// it about every code point, as ranges.
+// Measures the character sets that Oniguruma, as Shiki bundles it, gives
+// \p{..}, [[:..:]], \w, \d and \s, by asking it about every code point.
+// It records them as ranges in oracle/facts/unicode-sets.json.
+// It also writes src/textmate/regex/unicode.rs from them, until a Rust writer
+// takes that step over.
 //
 // Usage: bun oracle/unicode-tables.ts
 import { type RegexEngine } from "shiki@4.6.0";
@@ -8,6 +10,7 @@ import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
 import { writeFileSync } from "node:fs";
 import { dedent } from "./dedent.ts";
+import { bundledOniguruma, rangeNotation, type UnicodeSetsFacts, writeFacts } from "./facts.ts";
 import { type PointText, pointText, scalarValues } from "./scalars.ts";
 
 /** The first and last code point of a run of code points. */
@@ -115,6 +118,16 @@ function rust(sets: readonly CharacterSet[]): string {
   return source;
 }
 
+/** The facts unicode-sets.json records: every set, as ranges in Unicode's notation. */
+function facts(sets: readonly CharacterSet[]): UnicodeSetsFacts {
+  return {
+    measured: bundledOniguruma,
+    script: "oracle/unicode-tables.ts",
+    sets: sets.map(({ key, ranges }) => ({ key, ranges: ranges.map(rangeNotation) })),
+  };
+}
+
 const sets = measure(await createOnigurumaEngine(wasm as any));
+writeFacts("unicode-sets", facts(sets));
 writeFileSync(new URL("../src/textmate/regex/unicode.rs", import.meta.url).pathname, rust(sets));
 console.log(sets.map(({ key, ranges }) => `${key}:${ranges.length}`).join(" "));

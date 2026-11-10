@@ -1,6 +1,9 @@
-// Writes src/textmate/regex/folds.rs: the characters Oniguruma, as Shiki
-// bundles it, takes as one under `(?i)`, measured by asking it, as
-// unicode-tables.ts measures the character sets.
+// Measures the characters Oniguruma, as Shiki bundles it, takes as one under
+// `(?i)`, by asking it, as unicode-tables.ts measures the character sets.
+// It records the orbits and the folds of more than one character in
+// oracle/facts/case-folds.json.
+// It also writes src/textmate/regex/folds.rs from them, until a Rust writer
+// takes that step over.
 //
 // The candidates are the code points whose lower or upper case differs from
 // themselves, which every member of a case fold has. For each candidate the
@@ -18,6 +21,7 @@ import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
 import { writeFileSync } from "node:fs";
 import { dedent } from "./dedent.ts";
+import { bundledOniguruma, type CaseFoldsFacts, codePointNotation, writeFacts } from "./facts.ts";
 import { type PointText, pointText, scalarValues } from "./scalars.ts";
 
 /** What Oniguruma answers about case: the orbits and the folds of more than one character. */
@@ -168,6 +172,9 @@ function tables({ candidates, orbitOf, foldOf }: Measured): Tables {
   };
 }
 
+/** The code points of a string, in order. */
+const codePoints = (text: string) => [...text].map((c) => c.codePointAt(0)!);
+
 const hex = (n: number) => `0x${n.toString(16)}`;
 const list = (xs: readonly number[]) => `&[${xs.map(hex).join(", ")}]`;
 
@@ -218,7 +225,25 @@ function rust({ largest, next, multi, folds, wideLead, wideSecond, wideTails }: 
 }
 
 const output = process.argv[2] ?? new URL("../src/textmate/regex/folds.rs", import.meta.url).pathname;
-const folded = tables(measure(await createOnigurumaEngine(wasm as any)));
+/** The facts case-folds.json records: the orbits, and the folds of more than one character. */
+function facts({ orbitOf, foldOf }: Measured): CaseFoldsFacts {
+  const orbits = [...new Set(orbitOf.values())].sort((a, b) => a[0]! - b[0]!);
+  return {
+    measured: bundledOniguruma,
+    script: "oracle/case-folds.ts",
+    orbits: orbits.map((orbit) => orbit.map(codePointNotation)),
+    folds: [...foldOf]
+      .sort(([a], [b]) => a - b)
+      .map(([cp, fold]) => ({
+        char: codePointNotation(cp),
+        fold: codePoints(fold).map(codePointNotation),
+      })),
+  };
+}
+
+const measured = measure(await createOnigurumaEngine(wasm as any));
+writeFacts("case-folds", facts(measured));
+const folded = tables(measured);
 writeFileSync(output, rust(folded));
 console.log(
   [

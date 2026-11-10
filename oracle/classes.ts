@@ -13,6 +13,8 @@
 //   `XX`       X is a capital when the pair is a constant name (`\p{upper}`, in
 //              `python`).
 //
+// It records those five sets in oracle/facts/classes.json, for a Rust writer.
+//
 // No bundled grammar reads `\p{L}`, `\p{N}` or `\p{M}` alone, so those three
 // are read from Shiki's own Oniguruma engine: one scan of a text of every code
 // point for each, with the pattern `\p{X}+`.
@@ -25,6 +27,7 @@
 import { createOnigurumaEngine } from "@shikijs/engine-oniguruma@4.6.0";
 import { createHighlighter } from "shiki@4.6.0";
 import { dedent } from "./dedent.ts";
+import { type ClassesFacts, rangeNotation, shikiGrammars, writeFacts } from "./facts.ts";
 
 const root = new URL("..", import.meta.url).pathname;
 const highlighter = await createHighlighter({ langs: ["json", "typescript", "python"], themes: ["github-dark"] });
@@ -297,6 +300,17 @@ const out = dedent`
       contains(CONNECTORS, c)
   }
   `;
+/** The facts classes.json records: the five sets read by tokenizing, and the points probed. */
+const facts: ClassesFacts = {
+  measured: shikiGrammars(["json", "typescript", "python"]),
+  script: "oracle/classes.ts",
+  points: ranges(points.map(() => true)).map(rangeNotation),
+  sets: Object.entries({ digits, words, spaces, alphas, uppers }).map(([key, flags]) => ({
+    key,
+    ranges: ranges(flags).map(rangeNotation),
+  })),
+};
+writeFacts("classes", facts);
 await Bun.write(`${root}src/classes/table.rs`, out);
 console.log(
   [

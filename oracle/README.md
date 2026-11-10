@@ -43,20 +43,26 @@ The file it writes marks itself as generated in its first line; edit the script,
 | `<language>-grammar.ts` | `src/<language>/scope.rs` and `grammar.rs` for a language on the rule engine. [`rule-grammar.ts`](rule-grammar.ts) holds what they share, and [`rule-grammar.test.ts`](rule-grammar.test.ts) tests its pattern analysis. |
 | `<language>-words.ts` | `src/<language>/words.rs`: the words of a grammar's large alternations. [`alternation.ts`](alternation.ts) expands them. |
 | [`engine-grammars.ts`](engine-grammars.ts) | `tests/engine/grammars/`: the Shiki grammars the engine's tests link into tables, with what each table links and where each grammar comes from. |
-| [`classes.ts`](classes.ts) | `src/classes/table.rs`: Oniguruma's character classes. |
-| [`unicode-tables.ts`](unicode-tables.ts) | `src/textmate/regex/unicode.rs`: Oniguruma's Unicode sets. |
+| [`classes.ts`](classes.ts) | `src/classes/table.rs`: Oniguruma's character classes. `facts/classes.json`: the five classes it reads by tokenizing. |
+| [`unicode-tables.ts`](unicode-tables.ts) | `src/textmate/regex/unicode.rs` and `facts/unicode-sets.json`: Oniguruma's Unicode sets. |
 | [`absent-probe.ts`](absent-probe.ts) | `tests/engine/absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which test how `src/textmate/regex/parse.rs` reads it. |
-| [`case-folds.ts`](case-folds.ts) | `src/textmate/regex/folds.rs`: Oniguruma's case folds. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
+| [`case-folds.ts`](case-folds.ts) | `src/textmate/regex/folds.rs`: Oniguruma's case folds. `facts/case-folds.json`: its orbits and the folds of more than one character. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
 
 Both regex probes read each Oniguruma answer with [`oniguruma-answer.ts`](oniguruma-answer.ts).
 
 [`licences.ts`](licences.ts) records each grammar's licence, read at its source.
 `engine-grammars.ts` refuses a grammar that list refuses or lacks.
 
+## Fact files
+
+[`facts/`](facts/README.md) holds what Shiki and Oniguruma answer, as JSON, for a Rust writer to read.
+
 ## Shared helpers
 
 - [`dedent.ts`](dedent.ts): `dedent`, a template tag for multiline text written at the indentation of the code that builds it.
   [`dedent.test.ts`](dedent.test.ts) tests it.
+- [`scalars.ts`](scalars.ts): every Unicode scalar value, and code points as one string for a scanner to search.
+- [`facts.ts`](facts.ts): writes the fact files, with a type for each, and the Unicode notation they use.
 
 ## Tests
 
