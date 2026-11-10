@@ -67,7 +67,7 @@ pub(crate) type IdMap<K, V = u32> = HashMap<K, V, BuildHasherDefault<IdHasher>>;
 /// A scope stack's key: its parent and its top scope.
 type ScopeKey = (u32, u32);
 
-/// A state's key: parent, kind, payload and scope stack.
+/// A state's key: parent, rule, payload and scope stack.
 type FrameKey = (u32, u16, u32, u32);
 
 /// One interned scope stack: its parent stack plus one scope.
@@ -82,8 +82,8 @@ struct ScopeNode {
 pub(crate) struct Frame {
     /// The state this context was opened in.
     pub(crate) parent: u32,
-    /// The lexer's context kind, tagged with its language.
-    pub(crate) kind: u16,
+    /// The rule of the lexer's open context, tagged with its language.
+    pub(crate) rule: u16,
     /// Data the context carries, such as a raw string's `#` count.
     pub(crate) payload: u32,
     /// The scope stack of text inside the context.
@@ -113,7 +113,7 @@ impl Arena {
     pub(crate) fn new(limit: Option<usize>) -> Self {
         let root = Frame {
             parent: ROOT,
-            kind: 0,
+            rule: 0,
             payload: 0,
             stack: ROOT,
             depth: 0,
@@ -286,11 +286,11 @@ impl Arena {
             .unwrap_or(self.frames[0])
     }
 
-    /// The state `parent` with a context of `kind` opened on it, or `None`
+    /// The state `parent` with the context of `rule` opened on it, or `None`
     /// when the node limit keeps a new state from being made.
     #[inline(never)]
-    pub(crate) fn push(&mut self, parent: u32, kind: u16, payload: u32, stack: u32) -> Option<u32> {
-        let key = (parent, kind, payload, stack);
+    pub(crate) fn push(&mut self, parent: u32, rule: u16, payload: u32, stack: u32) -> Option<u32> {
+        let key = (parent, rule, payload, stack);
         if let Some(&id) = self.frame_ids.get(&key) {
             return Some(id);
         }
@@ -324,11 +324,11 @@ impl Arena {
     pub(crate) fn push_or_insert(
         &mut self,
         parent: u32,
-        kind: u16,
+        rule: u16,
         payload: u32,
         stack: u32,
     ) -> Option<u32> {
-        let key = (parent, kind, payload, stack);
+        let key = (parent, rule, payload, stack);
         let frame = self.frame_on(key);
         match self.frame_ids.entry(key) {
             Entry::Occupied(found) => Some(*found.get()),
@@ -340,10 +340,10 @@ impl Arena {
     }
 
     /// The state that the key's context makes on its parent.
-    fn frame_on(&self, (parent, kind, payload, stack): (u32, u16, u32, u32)) -> Frame {
+    fn frame_on(&self, (parent, rule, payload, stack): (u32, u16, u32, u32)) -> Frame {
         Frame {
             parent,
-            kind,
+            rule,
             payload,
             stack,
             depth: self.frame(parent).depth + 1,

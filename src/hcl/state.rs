@@ -6,7 +6,7 @@ use super::scope::S;
 /// The high byte that marks a frame as one of HCL's.
 const TAG: u16 = crate::tag::HCL;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// An open context, one per begin/end rule of Shiki's grammar.
     pub(crate) enum Kind: TAG {
         /// Outside every context: the body of the file.

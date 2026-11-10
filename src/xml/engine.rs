@@ -192,7 +192,7 @@ impl<'a> Lexer<'a> {
         loop {
             let frame = lexer.arena.frame(id);
             lexer.chain.push((id, frame));
-            if Rule::from_code(frame.kind) == Rule::Root || frame.parent == ROOT {
+            if Rule::from_code(frame.rule) == Rule::Root || frame.parent == ROOT {
                 break;
             }
             id = frame.parent;
@@ -203,7 +203,7 @@ impl<'a> Lexer<'a> {
                 rule: if index + 1 == lexer.chain.len() {
                     Rule::Root
                 } else {
-                    Rule::from_code(frame.kind)
+                    Rule::from_code(frame.rule)
                 },
                 stack: frame.stack,
                 state: id,

@@ -274,7 +274,7 @@ impl<'a> Lexer<'a> {
             let mut at = state;
             while at != ROOT {
                 let frame = arena.frame(at);
-                let kind = Kind::from_code(frame.kind);
+                let kind = Kind::from_code(frame.rule);
                 let name = if rules::content_name(kind).is_empty() {
                     frame.stack
                 } else {
@@ -1654,9 +1654,9 @@ fn after_first_line(arena: &mut Arena, chain: &mut Vec<ArenaFrame>, state: u32) 
         at = frame.parent;
     }
     let root = chain.pop()?;
-    let mut rebuilt = arena.push(ROOT, root.kind, 0, root.stack)?;
+    let mut rebuilt = arena.push(ROOT, root.rule, 0, root.stack)?;
     while let Some(frame) = chain.pop() {
-        rebuilt = arena.push(rebuilt, frame.kind, frame.payload, frame.stack)?;
+        rebuilt = arena.push(rebuilt, frame.rule, frame.payload, frame.stack)?;
     }
     Some(rebuilt)
 }

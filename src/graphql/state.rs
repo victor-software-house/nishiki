@@ -7,7 +7,7 @@ use crate::scope::{Scopes, scopes};
 /// The high byte that marks a frame as one of the GraphQL lexer's.
 const TAG: u16 = crate::tag::GRAPHQL;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// A begin/end rule of the grammar.
     /// It can stay open at the end of a line.
     pub(crate) enum Rule: TAG {

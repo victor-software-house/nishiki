@@ -252,7 +252,7 @@ impl<'a> Lexer<'a> {
 
     /// The innermost open context.
     pub(crate) fn top(&self) -> Kind {
-        Kind::from_code(self.frame.kind)
+        Kind::from_code(self.frame.rule)
     }
 
     /// The data the innermost context carries.
@@ -292,11 +292,11 @@ impl<'a> Lexer<'a> {
     pub(crate) fn set_payload(&mut self, payload: u32) {
         let Frame {
             parent,
-            kind,
+            rule,
             stack,
             ..
         } = self.frame;
-        match self.arena.push(parent, kind, payload, stack) {
+        match self.arena.push(parent, rule, payload, stack) {
             Some(state) => self.enter(state),
             None => self.report.record(Limit::Nodes),
         }

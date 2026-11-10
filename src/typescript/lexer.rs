@@ -152,7 +152,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
             opened: &mut scratch.opened,
             line_pos: from,
             anchor: usize::MAX,
-            first_line: frame.kind == Kind::Top.code() && frame.depth == 1,
+            first_line: frame.rule == Kind::Top.code() && frame.depth == 1,
             stuck: false,
             halts,
             halt: None,
@@ -591,7 +591,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// The innermost open context.
     pub(crate) fn top(&self) -> Kind {
-        let kind = Kind::from_code(self.frame.kind);
+        let kind = Kind::from_code(self.frame.rule);
         if kind == Kind::Started {
             Kind::Top
         } else {

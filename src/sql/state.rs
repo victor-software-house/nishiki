@@ -7,7 +7,7 @@ use crate::scope::{Scopes, scopes};
 /// The high byte that marks a frame as one of the SQL lexer's.
 const TAG: u16 = crate::tag::SQL;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// A rule of the grammar that can stay open at the end of a line.
     pub(crate) enum Rule: TAG {
         /// Outside every rule.

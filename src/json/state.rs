@@ -6,7 +6,7 @@ use super::scope::S;
 /// The high byte that marks a frame as one of JSON's.
 const TAG: u16 = crate::tag::JSON;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// An open context: a begin/end rule of the JSON grammar.
     pub(crate) enum Kind: TAG {
         /// Outside every context.

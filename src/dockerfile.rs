@@ -33,7 +33,7 @@ use crate::{Stack, Token};
 /// The high byte that marks a frame as one of the Dockerfile lexer's.
 const TAG: u16 = crate::tag::DOCKERFILE;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// What a frame is.
     enum Kind: TAG {
         /// Outside a string.
@@ -116,7 +116,7 @@ impl Lexer<'_> {
         let mut text = rules::Line::new(self.bytes, &steps);
         let mut pos = start;
         if start == 0
-            && Kind::from_code(self.frame.kind) == Kind::Top
+            && Kind::from_code(self.frame.rule) == Kind::Top
             && let Some(hit) = text.at_start()
         {
             self.hit(&hit);
@@ -129,7 +129,7 @@ impl Lexer<'_> {
                 break;
             }
             let from = pos;
-            pos = match Kind::from_code(self.frame.kind).string() {
+            pos = match Kind::from_code(self.frame.rule).string() {
                 None => self.top(pos),
                 Some(quote) => self.string(pos, quote),
             };

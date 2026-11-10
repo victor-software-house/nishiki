@@ -6,7 +6,7 @@ use super::scope::S;
 /// The high byte that marks a frame as one of TOML's.
 const TAG: u16 = crate::tag::TOML;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// An open context.
     pub(crate) enum Kind: TAG {
         /// Outside every context: a table of key/value pairs.

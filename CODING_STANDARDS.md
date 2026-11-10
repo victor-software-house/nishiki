@@ -74,7 +74,7 @@ and lets one language embed another on the same arena.
 
 - A lexer's open contexts are frames of the shared arena (`src/arena.rs`).
   They are pushed and popped through the lexer's `push`, `push_with`, `pop`, `set_payload` and `payload`.
-- A frame's kind is the language's context enum, tagged with the language's own high byte.
+- A frame's `rule` names the open context, as a variant of the language's enum tagged with its own high byte.
 - Every tag is a constant in `src/tag.rs`.
   A compile-time check fails when two ranges overlap,
   including a lexer that claims a wider range for flag bits.

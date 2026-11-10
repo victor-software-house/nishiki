@@ -296,7 +296,7 @@ pub(crate) fn start_vue(arena: &mut Arena, base: u32) -> u32 {
 /// Whether `state` is outside every rule.
 #[cfg(all(feature = "lang-vue", feature = "lang-markdown"))]
 pub(crate) fn at_root(arena: &Arena, state: u32) -> bool {
-    arena.frame(state).kind == Rule::Root.code()
+    arena.frame(state).rule == Rule::Root.code()
 }
 
 /// Whether the `while` rule of a Vue body on top of `state` holds at `p` of
@@ -304,7 +304,7 @@ pub(crate) fn at_root(arena: &Arena, state: u32) -> bool {
 /// A state with no such body on top has no `while` rule to fail.
 #[cfg(all(feature = "lang-vue", feature = "lang-markdown"))]
 pub(crate) fn vue_while_holds(arena: &Arena, state: u32, s: &[u8], p: usize) -> bool {
-    Rule::from_code(arena.frame(state).kind) != Rule::VueBodyWhile
+    Rule::from_code(arena.frame(state).rule) != Rule::VueBodyWhile
         || (p == 0 && !vue::script_end(s, vue::blanks_end(s, 0)))
 }
 
@@ -315,7 +315,7 @@ pub(crate) fn vue_while_holds(arena: &Arena, state: u32, s: &[u8], p: usize) -> 
 pub(crate) fn innermost_stack(arena: &Arena, state: u32) -> u32 {
     let frame = arena.frame(state);
     let embeds = matches!(
-        Rule::from_code(frame.kind),
+        Rule::from_code(frame.rule),
         Rule::BodyCss | Rule::BodyJs | Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpr
     );
     if embeds && frame.payload != 0 {

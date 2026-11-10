@@ -202,7 +202,7 @@ fn halt_after_block(
     state: u32,
 ) -> Option<usize> {
     let root = cx.arena.frame(state);
-    if Kind::from_code(root.kind) != Kind::Base || cx.out.len() < first + 2 {
+    if Kind::from_code(root.rule) != Kind::Base || cx.out.len() < first + 2 {
         return None;
     }
     let last = cx.out.len() - 1;

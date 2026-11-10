@@ -9,7 +9,7 @@ fn highlighter() -> Highlighter {
 
 /// The innermost open context after a line, and how many are open.
 fn top(h: &Highlighter, state: State) -> Kind {
-    Kind::from_code(h.frame(state).kind)
+    Kind::from_code(h.frame(state).rule)
 }
 
 fn depth(h: &Highlighter, state: State) -> u32 {

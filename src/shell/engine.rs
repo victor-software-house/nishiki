@@ -397,7 +397,7 @@ impl<'a> Lexer<'a> {
             loop {
                 let frame = lexer.arena.frame(id);
                 chain.push((id, frame));
-                if Rule::from_code(frame.kind) == Rule::Root || frame.parent == ROOT {
+                if Rule::from_code(frame.rule) == Rule::Root || frame.parent == ROOT {
                     break;
                 }
                 id = frame.parent;
@@ -415,7 +415,7 @@ impl<'a> Lexer<'a> {
                     });
                     continue;
                 }
-                let rule = Rule::from_code(frame.kind);
+                let rule = Rule::from_code(frame.rule);
                 let parent = lexer.top().content;
                 let name = lexer.path(parent, rule_info(rule).name);
                 lexer.frames.push(Frame {

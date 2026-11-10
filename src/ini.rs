@@ -37,7 +37,7 @@ use crate::{Stack, Token};
 /// The high byte that marks a frame as one of the INI lexer's.
 const TAG: u16 = crate::tag::INI;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// What a frame is.
     enum Kind: TAG {
         /// Outside a string.
@@ -162,7 +162,7 @@ impl Lexer<'_> {
                 break;
             }
             let from = pos;
-            pos = match Kind::from_code(self.frame.kind) {
+            pos = match Kind::from_code(self.frame.rule) {
                 Kind::Top => self.top(&mut text, &mut slots, pos),
                 Kind::Single => self.string(pos, Quote::Single),
                 Kind::Double => self.string(pos, Quote::Double),

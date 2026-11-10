@@ -7,7 +7,7 @@ use crate::scope::{Scopes, scopes};
 /// The high byte that marks a frame as one of the Makefile lexer's.
 const TAG: u16 = crate::tag::MAKE;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// A rule of the grammar.
     /// It is a begin/end rule that can stay open at the end of a line, or a
     /// pseudo rule.

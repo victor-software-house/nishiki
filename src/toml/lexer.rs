@@ -155,7 +155,7 @@ impl<'a> Lexer<'a> {
     // Contexts.
 
     pub(super) fn top(&self) -> Kind {
-        Kind::from_code(self.em.frame.kind)
+        Kind::from_code(self.em.frame.rule)
     }
 
     /// Opens a context.
@@ -189,7 +189,7 @@ impl<'a> Lexer<'a> {
         match self
             .em
             .arena
-            .push(frame.parent, frame.kind, payload, frame.stack)
+            .push(frame.parent, frame.rule, payload, frame.stack)
         {
             Some(state) => self.em.enter(state),
             None => self.em.report.record(Limit::Nodes),

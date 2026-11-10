@@ -507,7 +507,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         loop {
             let frame = self.arena.frame(id);
             chain.push((id, frame));
-            if G::rule_from_code(frame.kind) == G::ROOT || frame.parent == ROOT {
+            if G::rule_from_code(frame.rule) == G::ROOT || frame.parent == ROOT {
                 break;
             }
             id = frame.parent;
@@ -521,7 +521,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     self.first_line = true;
                     state = self
                         .arena
-                        .push(frame.parent, frame.kind, 0, frame.stack)
+                        .push(frame.parent, frame.rule, 0, frame.stack)
                         .unwrap_or(id);
                 }
                 self.frames.push(Frame {
@@ -536,7 +536,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 });
                 continue;
             }
-            let rule = G::rule_from_code(frame.kind);
+            let rule = G::rule_from_code(frame.rule);
             let parent = if G::BEGIN_STACKS {
                 G::begin_stack(self, rule).unwrap_or(self.top().content)
             } else {
@@ -2029,7 +2029,7 @@ fn lower_with_final_sigma(name: &mut String, text: &str) {
 #[cfg(feature = "_embedding")]
 pub(crate) fn with_payload(arena: &mut Arena, state: u32, payload: u32) -> Option<u32> {
     let frame = arena.frame(state);
-    arena.push(frame.parent, frame.kind, payload, frame.stack)
+    arena.push(frame.parent, frame.rule, payload, frame.stack)
 }
 
 #[cfg(test)]
@@ -2887,7 +2887,7 @@ mod tests {
         let embedding = embedding.expect("the line stops where Rust starts");
         assert_eq!(embedding.at, 2);
         assert_eq!(embedding.language, crate::Language::Rust);
-        let rule = Named::rule_from_code(arena.frame(finished.state()).kind);
+        let rule = Named::rule_from_code(arena.frame(finished.state()).rule);
         assert_eq!(Named::rule_code(rule), Named::rule_code(Rule::Inner));
         let start = Named::embed_start(rule).expect("the entry's start function");
         let expected: fn(&mut Arena, u32) -> u32 = inner_start;
@@ -3082,7 +3082,7 @@ mod tests {
             crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         assert_eq!(ASKED.with(std::cell::Cell::get), 0, "no language was asked");
         assert_eq!(
-            Named::rule_from_code(arena.frame(next).kind),
+            Named::rule_from_code(arena.frame(next).rule),
             Rule::Held,
             "the line ends inside the rule"
         );
@@ -3141,7 +3141,7 @@ mod tests {
             state =
                 crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         }
-        let rule = Named::rule_from_code(arena.frame(state).kind);
+        let rule = Named::rule_from_code(arena.frame(state).rule);
         assert_eq!(Named::rule_code(rule), Named::rule_code(Rule::Inner));
         let names: Vec<&str> = arena.scopes(out[0].stack().0).collect();
         assert!(names.iter().any(|name| name.contains(".rust")), "{names:?}");

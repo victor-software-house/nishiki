@@ -925,7 +925,7 @@ fn rebuild<H: Halting>(
     let mut at = state;
     while at != ROOT {
         let f = arena.frame(at);
-        if H::HANDS_OFF && f.kind == HAND_OFF_TAG {
+        if H::HANDS_OFF && f.rule == HAND_OFF_TAG {
             frames.push(Frame {
                 rule: HANDED,
                 state: at,

@@ -936,7 +936,7 @@ fn lex_again<G: Embeds>(
     };
     let state = lex_embedding::<G>(&mut again, line, state, scratch);
     let state = steps.take_back(state);
-    let rule = G::rule_from_code(cx.arena.frame(state).kind);
+    let rule = G::rule_from_code(cx.arena.frame(state).rule);
     if matches!(G::rule_payload(rule), Payload::Embed(_)) {
         scratch(cx.scratch).forget_resume();
     }
@@ -992,7 +992,7 @@ fn hand_over<G: Embeds>(
             break (next, None);
         }
         let language = embedding.language;
-        let rule = G::rule_from_code(cx.arena.frame(next).kind);
+        let rule = G::rule_from_code(cx.arena.frame(next).rule);
         let inner = match embedding.state {
             0 => match G::embed_start(rule) {
                 Some(start) => start(cx.arena, embedding.base),

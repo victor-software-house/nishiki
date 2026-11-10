@@ -135,7 +135,7 @@ impl<'a> Lexer<'a> {
     }
 
     pub(super) fn top(&self) -> Kind {
-        Kind::from_code(self.em.frame.kind)
+        Kind::from_code(self.em.frame.rule)
     }
 
     /// Opens a context with `payload`.

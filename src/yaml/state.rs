@@ -6,7 +6,7 @@ use super::scope::S;
 /// The high byte that marks a frame as one of YAML's.
 const TAG: u16 = crate::tag::YAML;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// An open context.
     pub(crate) enum Kind: TAG {
         /// Outside every context.
