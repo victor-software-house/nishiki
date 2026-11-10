@@ -35,7 +35,7 @@ mod state;
 mod vue;
 mod words;
 
-#[cfg(all(feature = "lang-html-derivative", feature = "lang-markdown"))]
+#[cfg(feature = "lang-html-derivative")]
 pub(crate) use engine::GiveBack;
 pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;

@@ -14,6 +14,7 @@ on:
     paths:
       - oracle/**
       - tests/oracle/**
+      - src/language.rs
       - mise-tasks/oracle/coverage.sh
       - mise-tasks/check/oracle-coverage.sh
       - .github/workflows/coverage.yml

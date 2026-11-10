@@ -242,22 +242,29 @@ fn a_set_keeps_one_grammar_per_scope() {
     assert_eq!(set.get("source.other"), None);
 }
 
-#[cfg(feature = "lang-rust")]
+/// A grammar whose region handed to CSS ends with a `\G` pattern.
+/// The linker refuses it once the caller names CSS with [`Grammars::hand_off`].
+#[cfg(feature = "lang-css")]
+const FAILING: &str = r#"{
+    "scopeName": "source.failing",
+    "patterns": [{ "begin": "<", "end": "\\G>", "patterns": [{ "include": "source.css" }] }]
+}"#;
+
+#[cfg(feature = "lang-css")]
 #[test]
-fn a_hand_off_to_a_language_with_no_grammar_scope_fails() {
+fn a_link_the_engine_refuses_fails() {
     let mut set = Grammars::new();
-    set.hand_off(crate::Language::Rust);
-    let failed = Highlighter::for_grammar(Grammar::from_json(DEMO).unwrap(), &set);
+    set.hand_off(crate::Language::Css);
+    let failed = Highlighter::for_grammar(Grammar::from_json(FAILING).unwrap(), &set);
     assert!(matches!(failed.unwrap_err().0, Reason::Link(_)));
 }
 
-#[cfg(feature = "lang-rust")]
+#[cfg(feature = "lang-css")]
 #[test]
 fn a_failed_link_keeps_no_entry() {
-    let grammar =
-        Grammar::from_json(r#"{ "scopeName": "source.failing", "patterns": [] }"#).unwrap();
+    let grammar = Grammar::from_json(FAILING).unwrap();
     let mut set = Grammars::new();
-    set.hand_off(crate::Language::Rust);
+    set.hand_off(crate::Language::Css);
     assert!(linked_table(grammar, &set).is_err());
     let tables = LINKED_TABLES.lock().unwrap();
     assert!(!tables.contains_key(&LinkKey::new(grammar, &set)));

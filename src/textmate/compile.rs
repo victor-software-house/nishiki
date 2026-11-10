@@ -21,7 +21,6 @@
 //! With nested repositories, that place depends on the order the link visits
 //! rules in.
 
-mod hand_lexed;
 mod json;
 pub(crate) mod link;
 

@@ -1,7 +1,7 @@
 //! The compiler and the linker on small grammars, and the survey that holds
 //! the linker to `oracle/engine-tables.ts` on every grammar Shiki bundles.
 
-use indoc::indoc;
+use indoc::{formatdoc, indoc};
 
 use super::link::{LinkError, link};
 use super::{UnlinkedGrammar, compile};
@@ -275,39 +275,124 @@ mod hand_offs {
         assert_eq!(list_patterns(tables, tables.root), ["<style>", "\\\\."]);
     }
 
+    /// Neither CSS nor HTML reads the other, so the first include takes the
+    /// region.
+    #[cfg(feature = "lang-html")]
     #[test]
-    fn two_hand_offs_in_one_list_are_refused() {
+    fn the_first_of_several_hand_offs_in_one_list_takes_the_region() {
         let root = grammar(indoc! {r#"
-            {"scopeName": "source.a", "patterns": [{"include": "source.css"}, {"include": "text.html.basic"}]}
+            {
+              "scopeName": "source.a",
+              "patterns": [{ "include": "source.css" }, { "include": "text.html.basic" }]
+            }
         "#});
-        let languages = [Language::Css, Language::Html];
-        #[cfg(feature = "lang-html")]
-        assert_eq!(
-            link(&root, &[], Some(&languages)).unwrap_err(),
-            LinkError::TwoHandOffs
-        );
-        #[cfg(not(feature = "lang-html"))]
-        assert!(link(&root, &[], Some(&languages)).is_err());
+        let tables = link(&root, &[], Some(&[Language::Css, Language::Html])).unwrap();
+        let languages: Vec<Language> = tables.hand_offs.iter().map(|h| h.language).collect();
+        assert_eq!(languages, [Language::Css]);
+    }
+
+    /// PHP's lexer reads the HTML around PHP's code, as a Markdown `php` fence
+    /// includes both grammars.
+    #[cfg(feature = "lang-php")]
+    #[test]
+    fn the_language_that_reads_the_others_takes_the_region() {
+        let root = grammar(indoc! {r#"
+            {
+              "scopeName": "source.a",
+              "patterns": [{ "include": "text.html.basic" }, { "include": "source.php" }]
+            }
+        "#});
+        let tables = link(&root, &[], None).unwrap();
+        let languages: Vec<Language> = tables.hand_offs.iter().map(|h| h.language).collect();
+        assert_eq!(languages, [Language::Php]);
+    }
+
+    /// The region hands nothing off, so its include of CSS matches nothing.
+    #[test]
+    fn a_halt_with_last_match_end_hands_nothing_off() {
+        let root = grammar(indoc! {r#"
+            {
+              "scopeName": "source.a",
+              "patterns": [
+                { "begin": "<", "end": "\\G>", "patterns": [{ "include": "source.css" }] }
+              ]
+            }
+        "#});
+        let tables = link(&root, &[], None).unwrap();
+        assert!(tables.hand_offs.is_empty());
     }
 
     #[test]
-    fn a_halt_with_last_match_end_is_refused() {
+    fn a_named_language_refuses_a_halt_with_last_match_end() {
         let root = grammar(indoc! {r#"
-            {"scopeName": "source.a", "patterns": [{"begin": "<", "end": "\\G>", "patterns": [{"include": "source.css"}]}]}
+            {
+              "scopeName": "source.a",
+              "patterns": [
+                { "begin": "<", "end": "\\G>", "patterns": [{ "include": "source.css" }] }
+              ]
+            }
         "#});
         assert!(matches!(
-            link(&root, &[], None),
+            link(&root, &[], Some(&[Language::Css])),
             Err(LinkError::AnchoredHalt(_))
         ));
     }
+
+    /// A region with an end, which Rust's lexer cannot halt for.
+    #[cfg(feature = "lang-rust")]
+    fn ended_rust() -> super::UnlinkedGrammar {
+        grammar(indoc! {r#"
+            {
+              "scopeName": "source.a",
+              "patterns": [
+                { "begin": "<", "end": ">", "patterns": [{ "include": "source.rust" }] }
+              ]
+            }
+        "#})
+    }
+
+    /// The include of Rust matches nothing.
+    #[cfg(feature = "lang-rust")]
+    #[test]
+    fn a_lexer_that_cannot_halt_takes_no_region_with_an_end() {
+        let tables = link(&ended_rust(), &[], None).unwrap();
+        assert!(tables.hand_offs.is_empty());
+    }
+
+    #[cfg(feature = "lang-rust")]
+    #[test]
+    fn a_named_lexer_that_cannot_halt_refuses_a_region_with_an_end() {
+        assert_eq!(
+            link(&ended_rust(), &[], Some(&[Language::Rust])).err(),
+            Some(LinkError::NoHalt(Language::Rust))
+        );
+    }
 }
 
-#[cfg(feature = "lang-rust")]
+/// Every language nishiki lexes takes a hand-off.
+/// A grammar that includes the language's grammar scope, without that grammar
+/// in the set, hands the region to the language's lexer.
+/// The region is a `while` rule's, so it needs no halt.
 #[test]
-fn a_language_no_grammar_hands_off_to_is_refused() {
-    let root = grammar(r#"{"scopeName": "source.a", "patterns": []}"#);
-    let error = link(&root, &[], Some(&[crate::language::Language::Rust]));
-    assert!(matches!(error, Err(LinkError::NotHandLexed(_))));
+fn every_language_takes_the_hand_off_of_its_grammar_scope() {
+    for &language in crate::language::Language::ALL {
+        let scope = language.grammar_scope();
+        let root = grammar(&formatdoc! {r#"
+            {{
+              "scopeName": "source.a",
+              "patterns": [
+                {{ "begin": "<", "while": "^>", "patterns": [{{ "include": "{scope}" }}] }}
+              ]
+            }}
+        "#});
+        let tables = link(&root, &[], None).unwrap();
+        let handed: Vec<_> = tables
+            .hand_offs
+            .iter()
+            .map(|hand_off| hand_off.language)
+            .collect();
+        assert_eq!(handed, [language], "{}", language.id());
+    }
 }
 
 /// The linker against `oracle/engine-tables.ts`, table for table.
@@ -488,5 +573,61 @@ mod survey {
             slowest.0
         );
         assert!(report.is_empty(), "tables differ:\n{report}");
+    }
+
+    /// Links every grammar of the survey directories with no language
+    /// named, so each hand lexer built takes the includes of its grammar.
+    /// Each grammar links twice: with the grammars Shiki loads for it, and
+    /// alone.
+    /// `bun oracle/engine-tables.ts --every <dir>` writes a directory.
+    /// Every grammar must link both ways.
+    #[test]
+    #[ignore = "a survey over scratch directories"]
+    fn every_grammar_links_with_every_hand_lexer() {
+        let Some(dirs) = std::env::var_os("NISHIKI_LINK_SURVEY") else {
+            return;
+        };
+        let mut failures = Vec::new();
+        let mut linked = [0usize; 2];
+        let mut handing = [0usize; 2];
+        for dir in std::env::split_paths(&dirs) {
+            let mut bases: Vec<String> = std::fs::read_dir(&dir)
+                .unwrap()
+                .map(|entry| entry.unwrap().file_name().into_string().unwrap())
+                .filter_map(|name| name.strip_suffix(".sources.jsonl").map(str::to_owned))
+                .collect();
+            bases.sort();
+            for base in bases {
+                let sources =
+                    std::fs::read_to_string(dir.join(format!("{base}.sources.jsonl"))).unwrap();
+                let mut lines = sources.lines();
+                let header: Value = serde_json::from_str(lines.next().unwrap()).unwrap();
+                let grammars: Vec<UnlinkedGrammar> =
+                    lines.map(|line| compile(line).unwrap()).collect();
+                let root_scope = header["root"].as_str().unwrap();
+                let root = grammars.iter().find(|g| g.scope == root_scope).unwrap();
+                let set: Vec<&UnlinkedGrammar> = grammars.iter().collect();
+                for (way, (name, set)) in [("full", &set[..]), ("alone", &[][..])]
+                    .into_iter()
+                    .enumerate()
+                {
+                    match link(root, set, None) {
+                        Ok(tables) => {
+                            linked[way] += 1;
+                            handing[way] += usize::from(!tables.hand_offs.is_empty());
+                        }
+                        Err(error) => failures.push(format!("{base} {name}: {error}")),
+                    }
+                }
+            }
+        }
+        eprintln!(
+            "with their grammars: {} linked, {} hand off; alone: {} linked, {} hand off",
+            linked[0], handing[0], linked[1], handing[1]
+        );
+        assert!(
+            failures.is_empty(),
+            "grammars that did not link: {failures:#?}"
+        );
     }
 }

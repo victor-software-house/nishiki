@@ -76,6 +76,12 @@ macro_rules! languages {
         }
         lex_arm($cx, $line, $state)
     }};
+    (@halts []) => {
+        false
+    };
+    (@halts [true]) => {
+        true
+    };
     (@until [] [$module:ident] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
         let _ = ($cx, $line, $state, $end, $after);
         None
@@ -88,8 +94,10 @@ macro_rules! languages {
         $variant:ident {
             feature: $feature:literal,
             names: [$id:literal $(, $alias:literal)*],
+            scope: $scope:literal,
             module: $module:ident
             $(, dialect: $dialect:expr)?
+            $(, reads: [$($reads:ident),+])?
             $(, reads_line_feed: $line_feed:literal)?
             $(, halts: $halts:tt)?
             $(, from_start: $from_start:tt)?
@@ -130,6 +138,44 @@ macro_rules! languages {
             pub fn id(self) -> &'static str {
                 match self {
                     $(#[cfg(feature = $feature)] Language::$variant => $id,)*
+                }
+            }
+
+            /// The root scope of Shiki's grammar for the language, such as
+            /// `"source.rust"`.
+            /// A grammar loaded from JSON hands an include of that scope to the
+            /// language's lexer.
+            #[cfg(all(feature = "_textmate", feature = "json"))]
+            pub(crate) fn grammar_scope(self) -> &'static str {
+                match self {
+                    $(#[cfg(feature = $feature)] Language::$variant => $scope,)*
+                }
+            }
+
+            /// The languages whose text this language's lexer also lexes, such
+            /// as HTML around PHP's code.
+            /// Where one list of a grammar includes the grammars of several
+            /// languages, the language that reads all the others takes the
+            /// region.
+            #[cfg(all(feature = "_textmate", feature = "json"))]
+            pub(crate) fn reads(self) -> &'static [Language] {
+                match self {
+                    $(
+                        #[cfg(feature = $feature)]
+                        Language::$variant => &[$($(Language::$reads),+)?],
+                    )*
+                }
+            }
+
+            /// Whether this language's lexer can halt where a grammar that
+            /// hands it a region takes the line back.
+            #[cfg(all(feature = "_textmate", feature = "json"))]
+            pub(crate) fn halts(self) -> bool {
+                match self {
+                    $(
+                        #[cfg(feature = $feature)]
+                        Language::$variant => languages!(@halts [$($halts)?]),
+                    )*
                 }
             }
 
@@ -324,7 +370,13 @@ languages! {
     /// - `a!=b` reads `a!` as a macro.
     /// - A camel-case name such as `fooBar` gets no scope.
     /// - Every non-ASCII byte counts as a word character.
-    Rust { feature: "lang-rust", names: ["rust", "rs"], module: rust, inlined: true }
+    Rust {
+        feature: "lang-rust",
+        names: ["rust", "rs"],
+        scope: "source.rust",
+        module: rust,
+        inlined: true,
+    }
     /// Markdown, with the scopes of Shiki's `markdown` grammar. A fence of
     /// another supported language is lexed as that language.
     ///
@@ -360,6 +412,7 @@ languages! {
     Markdown {
         feature: "lang-markdown",
         names: ["markdown", "md"],
+        scope: "text.html.markdown",
         module: markdown,
         halts: true,
         from_start: true,
@@ -378,6 +431,7 @@ languages! {
     TypeScript {
         feature: "lang-typescript",
         names: ["typescript", "ts", "cts", "mts"],
+        scope: "source.ts",
         module: typescript,
         dialect: crate::typescript::Dialect::TypeScript,
         halts: true,
@@ -388,6 +442,7 @@ languages! {
     JavaScript {
         feature: "lang-javascript",
         names: ["javascript", "js", "cjs", "mjs"],
+        scope: "source.js",
         module: typescript,
         dialect: crate::typescript::Dialect::JavaScript,
         halts: true,
@@ -398,8 +453,10 @@ languages! {
     Jsx {
         feature: "lang-jsx",
         names: ["jsx"],
+        scope: "source.js.jsx",
         module: typescript,
         dialect: crate::typescript::Dialect::Jsx,
+        halts: true,
     }
     /// `TSX`, with the scopes of Shiki's `tsx` grammar.
     ///
@@ -407,6 +464,7 @@ languages! {
     Tsx {
         feature: "lang-tsx",
         names: ["tsx"],
+        scope: "source.tsx",
         module: typescript,
         dialect: crate::typescript::Dialect::Tsx,
         halts: true,
@@ -424,6 +482,7 @@ languages! {
     Shell {
         feature: "lang-shell",
         names: ["shellscript", "bash", "sh", "shell", "zsh"],
+        scope: "source.shell",
         module: shell,
         reads_line_feed: true,
         halts: true,
@@ -439,6 +498,7 @@ languages! {
     Json {
         feature: "lang-json",
         names: ["json"],
+        scope: "source.json",
         module: json,
         dialect: crate::json::Dialect::Json,
         halts: true,
@@ -450,6 +510,7 @@ languages! {
     Jsonc {
         feature: "lang-json",
         names: ["jsonc"],
+        scope: "source.json.comments",
         module: json,
         dialect: crate::json::Dialect::Jsonc,
         halts: true,
@@ -461,6 +522,7 @@ languages! {
     Jsonl {
         feature: "lang-json",
         names: ["jsonl"],
+        scope: "source.json.lines",
         module: json,
         dialect: crate::json::Dialect::Jsonl,
         halts: true,
@@ -475,7 +537,13 @@ languages! {
     /// - A single-quoted docstring ends at the line end even after a backslash, so the next line is code; a single-quoted string goes on.
     /// - `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/classes.ts`).
     ///   A later Unicode version in Shiki's engine would need them regenerated.
-    Python { feature: "lang-python", names: ["python", "py"], module: python, halts: true }
+    Python {
+        feature: "lang-python",
+        names: ["python", "py"],
+        scope: "source.python",
+        module: python,
+        halts: true,
+    }
     /// YAML, with the scopes of Shiki's `yaml` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -489,7 +557,14 @@ languages! {
     /// - Front matter starts only on the first line of a Markdown document.
     ///   The state of a document's first line therefore differs from the states after it.
     /// - A line of a block scalar is text up to the first line indented less than the scalar's first line.
-    Yaml { feature: "lang-yaml", names: ["yaml", "yml"], module: yaml, halts: true, inlined: true }
+    Yaml {
+        feature: "lang-yaml",
+        names: ["yaml", "yml"],
+        scope: "source.yaml",
+        module: yaml,
+        halts: true,
+        inlined: true,
+    }
     /// TOML, with the scopes of Shiki's `toml` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -503,7 +578,13 @@ languages! {
     /// - A key that begins with a `"` ends at the first later `"` that an `=` follows.
     /// - `\s` for non-ASCII characters is JSON's table.
     ///   A pass over every character confirmed it for this grammar too.
-    Toml { feature: "lang-toml", names: ["toml"], module: toml, inlined: true }
+    Toml {
+        feature: "lang-toml",
+        names: ["toml"],
+        scope: "source.toml",
+        module: toml,
+        inlined: true,
+    }
     /// Makefile, with the scopes of Shiki's `make` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -513,14 +594,26 @@ languages! {
     /// - The `endef` of a definition has the scope of `override`.
     /// - A Markdown fence's Makefile lines see the line feed of a line that a quote or list took whole.
     ///   They close the references that line left open.
-    Make { feature: "lang-make", names: ["make", "makefile"], module: make, reads_line_feed: true }
+    Make {
+        feature: "lang-make",
+        names: ["make", "makefile"],
+        scope: "source.makefile",
+        module: make,
+        reads_line_feed: true,
+    }
     /// Diff, with the scopes of Shiki's `diff` grammar.
     ///
     /// # Behaviour kept from Shiki
     ///
     /// - Diff lines are lexed on their own, as the grammar has no state.
     /// - A Markdown fence's diff lines lose their `^` anchors when a quote or list indents the fence.
-    Diff { feature: "lang-diff", names: ["diff"], module: diff, inlined: true }
+    Diff {
+        feature: "lang-diff",
+        names: ["diff"],
+        scope: "source.diff",
+        module: diff,
+        inlined: true,
+    }
     /// Dockerfile, with the scopes of Shiki's `docker` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -534,6 +627,7 @@ languages! {
     Dockerfile {
         feature: "lang-dockerfile",
         names: ["docker", "dockerfile"],
+        scope: "source.dockerfile",
         module: dockerfile,
         inlined: true,
     }
@@ -547,7 +641,7 @@ languages! {
     ///   - a method is a line that has a blank and then a `(`, with no `=` or `//` before it;
     ///   - a variable is a type, a name and a `:`, `;` or `=`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Java { feature: "lang-java", names: ["java"], module: java }
+    Java { feature: "lang-java", names: ["java"], scope: "source.java", module: java }
     /// C, with the scopes of Shiki's `c` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -560,7 +654,14 @@ languages! {
     ///   so in a Markdown fence indented by a list item a directive is plain text.
     /// - An unterminated string keeps every later line.
     /// - `\d`, `\w` and `\s` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    C { feature: "lang-c", names: ["c"], module: c, reads_line_feed: true, halts: true }
+    C {
+        feature: "lang-c",
+        names: ["c"],
+        scope: "source.c",
+        module: c,
+        reads_line_feed: true,
+        halts: true,
+    }
     /// C++, with the scopes of Shiki's `cpp` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -577,7 +678,14 @@ languages! {
     ///   - comments between two tokens give back at most 8 of themselves when what follows fails;
     ///   - capture groups lexed again inside one another, as a long `a::b::c::` chain's are, stop after 64 levels.
     ///     The text of a deeper one keeps its own scopes.
-    Cpp { feature: "lang-cpp", names: ["cpp", "c++"], module: cpp, reads_line_feed: true, halts: true }
+    Cpp {
+        feature: "lang-cpp",
+        names: ["cpp", "c++"],
+        scope: "source.cpp",
+        module: cpp,
+        reads_line_feed: true,
+        halts: true,
+    }
     /// SQL, with the scopes of Shiki's `sql` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -586,7 +694,7 @@ languages! {
     /// - A string that closes on its line ignores a backslash before its quote.
     /// - A name after a `.` is a table name, even when it is a number.
     /// - A keyword is matched without regard to case, as Shiki's engine does, so `ſelect` is `select`.
-    Sql { feature: "lang-sql", names: ["sql"], module: sql, halts: true }
+    Sql { feature: "lang-sql", names: ["sql"], scope: "source.sql", module: sql, halts: true }
     /// INI, with the scopes of Shiki's `ini` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -599,7 +707,13 @@ languages! {
     ///   A Markdown fence's INI lines lose that anchor when a quote or list indents the fence.
     /// - A Markdown fence names the language `ini` or `conf`.
     ///   A `properties` fence is plain text, as in Shiki.
-    Ini { feature: "lang-ini", names: ["ini", "properties"], module: ini, inlined: true }
+    Ini {
+        feature: "lang-ini",
+        names: ["ini", "properties"],
+        scope: "source.ini",
+        module: ini,
+        inlined: true,
+    }
     /// GraphQL, with the scopes of Shiki's `graphql` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -612,7 +726,14 @@ languages! {
     /// - A Markdown fence is plain text, as Shiki's Markdown grammar has no rule that embeds GraphQL.
     /// - A `${...}` in a selection set is lexed as JavaScript by the JavaScript lexer.
     ///   It carries its state across lines, up to the first `}` that no context of the code is waiting for.
-    GraphQl { feature: "lang-graphql", names: ["graphql", "gql"], module: graphql, halts: true, inlined: true }
+    GraphQl {
+        feature: "lang-graphql",
+        names: ["graphql", "gql"],
+        scope: "source.graphql",
+        module: graphql,
+        halts: true,
+        inlined: true,
+    }
     /// CSS, with the scopes of Shiki's `css` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -625,7 +746,7 @@ languages! {
     /// - A line that follows a backslash at its end belongs to the escape for the rest of the rule, as in Shiki.
     ///   The grammar's end pattern `^(?<!\G)` never matches again.
     /// - A Markdown fence names the languages `css` and `css.erb`.
-    Css { feature: "lang-css", names: ["css"], module: css, halts: true }
+    Css { feature: "lang-css", names: ["css"], scope: "source.css", module: css, halts: true }
     /// Kotlin, with the scopes of Shiki's `kotlin` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -642,7 +763,12 @@ languages! {
     /// - A line that opens a group of generics a hundred thousand times and closes it once runs into the work limit.
     ///   The grammar's pattern scans from each opener, and so does the lexer.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Kotlin { feature: "lang-kotlin", names: ["kotlin", "kt", "kts"], module: kotlin }
+    Kotlin {
+        feature: "lang-kotlin",
+        names: ["kotlin", "kt", "kts"],
+        scope: "source.kotlin",
+        module: kotlin,
+    }
     /// Go, with the scopes of Shiki's `go` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -659,7 +785,7 @@ languages! {
     ///     nishiki lexes that rest of the line.
     /// - A Markdown fence names the language `go` or `golang`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Go { feature: "lang-go", names: ["go", "golang"], module: go }
+    Go { feature: "lang-go", names: ["go", "golang"], scope: "source.go", module: go }
     /// Ruby, with the scopes of Shiki's `ruby` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -671,7 +797,13 @@ languages! {
     /// - One named for Slim is plain text with Ruby's interpolation, as in Shiki, which has no Slim grammar.
     /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki.
     ///   The grammar's rule for the data after `__END__` comes after the rule for constants, so it never matches.
-    Ruby { feature: "lang-ruby", names: ["ruby", "rb"], module: ruby, halts: true }
+    Ruby {
+        feature: "lang-ruby",
+        names: ["ruby", "rb"],
+        scope: "source.ruby",
+        module: ruby,
+        halts: true,
+    }
     /// C#, with the scopes of Shiki's `csharp` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -687,7 +819,12 @@ languages! {
     ///   - a base-class constructor call with more than 32 dotted names reads as its first 32.
     /// - A Markdown fence names the language `cs`, `csharp` or `c#`.
     ///   The `csx` and `c-sharp` fences are plain text, as in Shiki.
-    CSharp { feature: "lang-csharp", names: ["csharp", "c#", "cs"], module: csharp }
+    CSharp {
+        feature: "lang-csharp",
+        names: ["csharp", "c#", "cs"],
+        scope: "source.cs",
+        module: csharp,
+    }
     /// XML, with the scopes of Shiki's `xml` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -703,7 +840,7 @@ languages! {
     /// - `<% ... %>` is Java, lexed by the Java lexer.
     ///   A `%>` ends the code only when Java has no context open, so one inside a string, a block or a `//` comment belongs to Java.
     /// - A Markdown fence names the languages `xml`, `xsd`, `tld`, `jsp`, `pt`, `cpt`, `dtml`, `rss`, `opml`, `xsl` and `xslt`.
-    Xml { feature: "lang-xml", names: ["xml"], module: xml, halts: true }
+    Xml { feature: "lang-xml", names: ["xml"], scope: "text.xml", module: xml, halts: true }
     /// Swift, with the scopes of Shiki's `swift` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -718,7 +855,7 @@ languages! {
     ///   In a fence, `\G` holds at the start of every line, as Shiki's fence rule leaves it:
     ///   - the lines of a `"""` string after its opening line are `invalid.illegal.content-after-opening-delimiter`;
     ///   - a `}` that starts a line does not end an enum's case list, so the enum stays open after it.
-    Swift { feature: "lang-swift", names: ["swift"], module: swift }
+    Swift { feature: "lang-swift", names: ["swift"], scope: "source.swift", module: swift }
     /// PowerShell, with the scopes of Shiki's `powershell` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -729,7 +866,12 @@ languages! {
     ///   A `$(...)` substatement in the string holds code, members included.
     /// - Keywords, commands and operators match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
     /// - `\w`, `\s`, `\d`, `\p{L}` and `\p{N}` for non-ASCII characters come from tables measured on Shiki's engine (`oracle/classes.ts`).
-    PowerShell { feature: "lang-powershell", names: ["powershell", "ps", "ps1", "pwsh"], module: powershell }
+    PowerShell {
+        feature: "lang-powershell",
+        names: ["powershell", "ps", "ps1", "pwsh"],
+        scope: "source.powershell",
+        module: powershell,
+    }
     /// Scala, with the scopes of Shiki's `scala` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -741,7 +883,7 @@ languages! {
     /// - In a triple-quoted interpolated string, `$$` is an interpolation, because there the interpolation patterns come first.
     /// - Bounds such as `<:`, `>:` and `<%` are operators.
     ///   The grammar's keyword rule comes before its bounds rule and takes every run of two or more operator characters.
-    Scala { feature: "lang-scala", names: ["scala"], module: scala }
+    Scala { feature: "lang-scala", names: ["scala"], scope: "source.scala", module: scala }
     /// HTML, with the scopes of Shiki's `html` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -779,7 +921,13 @@ languages! {
     ///     No line comes near the bound.
     ///   - The bound is a constant in `src/html/engine.rs` until the next minor release moves it into `Limits`.
     /// - A Markdown fence names the languages `html`, `htm`, `shtml`, `xhtml`, `inc`, `tmpl` and `tpl`.
-    Html { feature: "lang-html", names: ["html"], module: html, halts: true }
+    Html {
+        feature: "lang-html",
+        names: ["html"],
+        scope: "text.html.basic",
+        module: html,
+        halts: true,
+    }
     /// Zig, with the scopes of Shiki's `zig` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -790,7 +938,7 @@ languages! {
     /// - A whole number such as `2` is a float.
     /// - `1e+` is the invalid number `1e` and an operator.
     ///   `1.e` is the number `1`, an accessor and the name `e`.
-    Zig { feature: "lang-zig", names: ["zig"], module: zig }
+    Zig { feature: "lang-zig", names: ["zig"], scope: "source.zig", module: zig }
     /// ERB, with the scopes of Shiki's `erb` grammar: HTML whose `<% %>`
     /// tags hold Ruby.
     ///
@@ -809,7 +957,7 @@ languages! {
     /// - A heredoc of another language inside the Ruby, such as `<<~SQL`, stays Ruby text.
     /// - Shiki opens ERB inside a CSS rule or string, and inside a JavaScript string, template or JSX element, as in `'a-<%= x %>'` in a script.
     ///   There it stays that language's text, because the CSS and JavaScript lexers halt for ERB only at their top level.
-    Erb { feature: "lang-erb", names: ["erb"], module: erb }
+    Erb { feature: "lang-erb", names: ["erb"], scope: "text.html.erb", module: erb }
     /// Lua, with the scopes of Shiki's `lua` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -817,7 +965,7 @@ languages! {
     /// - The body of `ffi.cdef[[...]]` is the plain content of its brackets, where Shiki lexes it as C.
     /// - A long string or comment closes only at a bracket with as many `=` signs as it opened with, across lines.
     /// - A Markdown fence names the language `lua`.
-    Lua { feature: "lang-lua", names: ["lua"], module: lua, halts: true }
+    Lua { feature: "lang-lua", names: ["lua"], scope: "source.lua", module: lua, halts: true }
     /// CMake, with the scopes of Shiki's `cmake` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -826,7 +974,7 @@ languages! {
     /// - A command is named only at the start of a line, and the blanks before it are part of its token.
     /// - Command names, keywords, variables and properties match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
     /// - `\w` for non-ASCII characters comes from the table measured for JSON (`oracle/classes.ts`).
-    CMake { feature: "lang-cmake", names: ["cmake"], module: cmake }
+    CMake { feature: "lang-cmake", names: ["cmake"], scope: "source.cmake", module: cmake }
     /// Protobuf, with the scopes of Shiki's `proto` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -835,7 +983,12 @@ languages! {
     /// - A number before a letter ends at its dot: `1.5x` is the number `1.` and the text `5x`.
     /// - `reserved` is a statement only inside a message.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Proto { feature: "lang-proto", names: ["proto", "protobuf"], module: proto }
+    Proto {
+        feature: "lang-proto",
+        names: ["proto", "protobuf"],
+        scope: "source.proto",
+        module: proto,
+    }
     /// html-derivative, with the scopes of Shiki's `html-derivative`
     /// grammar: HTML with a rule of its own for the tags no other rule takes.
     ///
@@ -849,7 +1002,10 @@ languages! {
     HtmlDerivative {
         feature: "lang-html-derivative",
         names: ["html-derivative"],
+        scope: "text.html.derivative",
         module: html_derivative,
+        reads: [Html],
+        halts: true,
     }
     /// Batch, with the scopes of Shiki's `bat` grammar.
     ///
@@ -863,7 +1019,12 @@ languages! {
     ///   It reads it before any other rule and before the end of the rule open there.
     ///   In a Markdown fence it does not, since Shiki applies an embedded grammar's injection nowhere.
     /// - `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Bat { feature: "lang-bat", names: ["bat", "batch", "cmd"], module: bat }
+    Bat {
+        feature: "lang-bat",
+        names: ["bat", "batch", "cmd"],
+        scope: "source.batchfile",
+        module: bat,
+    }
     /// Nix, with the scopes of Shiki's `nix` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -871,7 +1032,7 @@ languages! {
     /// - `then` and `else` are two tokens each, `th` and `en`, `el` and `se`.
     /// - The blank after `...` in a function head belongs to the operator.
     /// - A block comment's first match runs past `**/`, so `/* a **/ b */` is one comment.
-    Nix { feature: "lang-nix", names: ["nix"], module: nix }
+    Nix { feature: "lang-nix", names: ["nix"], scope: "source.nix", module: nix }
     /// Dart, with the scopes of Shiki's `dart` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -886,7 +1047,7 @@ languages! {
     /// - A string left open at the end of a line goes on to the next line.
     /// - A function name needs no word boundary before it, so in `9abc(` the name is `abc`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Dart { feature: "lang-dart", names: ["dart"], module: dart }
+    Dart { feature: "lang-dart", names: ["dart"], scope: "source.dart", module: dart }
     /// Julia, with the scopes of Shiki's `julia` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -900,7 +1061,13 @@ languages! {
     /// - A type declaration needs a literal `!:_` before `struct`, as the grammar's pattern reads, so in `struct Foo` the name gets no scope.
     /// - The identifier classes and the operator classes for non-ASCII characters come from tables measured on Shiki 4.6.0 (`oracle/julia-grammar.ts`).
     ///   A later Unicode version in Shiki's engine would need them regenerated.
-    Julia { feature: "lang-julia", names: ["julia", "jl"], module: julia, reads_line_feed: true }
+    Julia {
+        feature: "lang-julia",
+        names: ["julia", "jl"],
+        scope: "source.julia",
+        module: julia,
+        reads_line_feed: true,
+    }
     /// SCSS, with the scopes of Shiki's `scss` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -911,7 +1078,13 @@ languages! {
     /// - The whole suffix after a parent selector, as `-b` in `&-b`, is `punctuation.definition.entity.css`.
     /// - In an attribute selector such as `[x="y"]`, the quotes of the value are a string and the text between them, `y`, is not.
     /// - A Markdown fence names the language `scss`.
-    Scss { feature: "lang-scss", names: ["scss"], module: scss, halts: true }
+    Scss {
+        feature: "lang-scss",
+        names: ["scss"],
+        scope: "source.css.scss",
+        module: scss,
+        halts: true,
+    }
     /// Mermaid, with the scopes of Shiki's `mermaid` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -919,7 +1092,13 @@ languages! {
     /// - A document is plain until a line starts a diagram, such as `graph TD` or `sequenceDiagram`, or opens a ```` ```mermaid ```` or `::: mermaid` block.
     /// - A diagram runs to a line of three or more colons, backticks or tildes, and the next diagram needs such a line before it.
     /// - Most keywords match without regard to case, and `ſ` and the Kelvin sign match `s` and `k`; the words that start a diagram match only as written.
-    Mermaid { feature: "lang-mermaid", names: ["mermaid", "mmd"], module: mermaid, reads_line_feed: true }
+    Mermaid {
+        feature: "lang-mermaid",
+        names: ["mermaid", "mmd"],
+        scope: "markdown.mermaid.codeblock",
+        module: mermaid,
+        reads_line_feed: true,
+    }
     /// Haskell, with the scopes of Shiki's `haskell` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -928,7 +1107,12 @@ languages! {
     /// - `^` holds only at the start of a line, so a line comment after code never continues a Haddock comment.
     /// - Pragmas match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
     /// - `\p{Ll}`, `\p{Lt}`, `[\p{Lu}\p{Lt}]` and `[\p{S}\p{P}]` for non-ASCII characters come from tables measured on Shiki's engine (`oracle/classes.ts`).
-    Haskell { feature: "lang-haskell", names: ["haskell", "hs"], module: haskell }
+    Haskell {
+        feature: "lang-haskell",
+        names: ["haskell", "hs"],
+        scope: "source.haskell",
+        module: haskell,
+    }
     /// Less, with the scopes of Shiki's `less` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -937,7 +1121,13 @@ languages! {
     /// - `@viewport` reads as a variable: the grammar's at-rules include `#at-viewport`, which it never defines, and Shiki skips the include.
     /// - Outside a guard, `default()` is the guard function only when a word character follows its `)`; otherwise `default` is a value keyword.
     /// - A Markdown fence names the language `less`.
-    Less { feature: "lang-less", names: ["less"], module: less, halts: true }
+    Less {
+        feature: "lang-less",
+        names: ["less"],
+        scope: "source.css.less",
+        module: less,
+        halts: true,
+    }
     /// HAML, with the scopes of Shiki's `haml` grammar.
     /// Its filters and Ruby go to the Ruby, JavaScript, CSS, Markdown, Sass
     /// and CoffeeScript lexers.
@@ -954,7 +1144,14 @@ languages! {
     /// - A Ruby line keeps PHP's keyword scopes for `elseif`, `foreach`, `function(` and their kin, and a `#` starts a comment to the line's end.
     /// - `&amp`, as written, stands where the grammar means `&`: before a Ruby line's mark and among a tag's parts.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Haml { feature: "lang-haml", names: ["haml"], module: haml, reads_line_feed: true, halts: true }
+    Haml {
+        feature: "lang-haml",
+        names: ["haml"],
+        scope: "text.haml",
+        module: haml,
+        reads_line_feed: true,
+        halts: true,
+    }
     /// Sass, the indented syntax, with the scopes of Shiki's `sass` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -964,7 +1161,7 @@ languages! {
     /// - `@import` runs to the line's end, and the text from ` as` on is marked invalid.
     /// - A unit needs a digit or `}` before it and no word boundary after it, so `1sec` is `1`, `s` and `ec`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Sass { feature: "lang-sass", names: ["sass"], module: sass, halts: true }
+    Sass { feature: "lang-sass", names: ["sass"], scope: "source.sass", module: sass, halts: true }
     /// CoffeeScript, with the scopes of Shiki's `coffee` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -973,7 +1170,13 @@ languages! {
     ///   It is lexed as if the line ended there.
     /// - A regular expression literal is plain operators and words.
     ///   The grammar's rule for it includes only `source.js.regexp`, which no grammar provides, so Shiki skips the rule.
-    CoffeeScript { feature: "lang-coffee", names: ["coffee", "coffeescript"], module: coffee, halts: true }
+    CoffeeScript {
+        feature: "lang-coffee",
+        names: ["coffee", "coffeescript"],
+        scope: "source.coffee",
+        module: coffee,
+        halts: true,
+    }
     /// PHP, with the scopes of Shiki's `php` grammar. HTML, SQL, JavaScript,
     /// JSON, CSS and XML in its strings and heredocs go to their lexers.
     ///
@@ -983,7 +1186,14 @@ languages! {
     /// - A Markdown `php` fence tries HTML first, then PHP where HTML matches nothing. The text between two tags reads as PHP.
     /// - Without `lang-php`, a Markdown `php` fence is HTML, as Shiki reads it without its PHP grammar.
     /// - A language that embeds PHP starts it at the fence's root, so HTML and PHP mix as in that fence.
-    Php { feature: "lang-php", names: ["php"], module: php, halts: true }
+    Php {
+        feature: "lang-php",
+        names: ["php"],
+        scope: "source.php",
+        module: php,
+        reads: [Html],
+        halts: true,
+    }
     /// Objective-C, with the scopes of Shiki's `objective-c` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -997,6 +1207,7 @@ languages! {
     ObjectiveC {
         feature: "lang-objective-c",
         names: ["objective-c", "objc"],
+        scope: "source.objc",
         module: objective_c,
         reads_line_feed: true,
         halts: true,
@@ -1014,7 +1225,7 @@ languages! {
     /// - `sub name {` names the space before the brace as part of the declaration.
     /// - Capture groups lexed again inside one another, as a line of heredoc openers is, stop after 64 levels, where Shiki goes on. The text of a deeper one keeps the scopes around it, and the line reports the depth limit.
     ///   The bound is a constant in `src/perl/engine.rs` until the next minor release moves it into `Limits`.
-    Perl { feature: "lang-perl", names: ["perl"], module: perl, halts: true }
+    Perl { feature: "lang-perl", names: ["perl"], scope: "source.perl", module: perl, halts: true }
     /// Elixir, with the scopes of Shiki's `elixir` grammar. HTML in its `~H`
     /// and `~L` sigils goes to HTML's lexer.
     ///
@@ -1026,6 +1237,7 @@ languages! {
     Elixir {
         feature: "lang-elixir",
         names: ["elixir"],
+        scope: "source.elixir",
         module: elixir,
         reads_line_feed: true,
         halts: true,
@@ -1057,7 +1269,7 @@ languages! {
     /// - In a Less block, a `)` or `}` at Less's root ends the Less.
     ///   Less's `(;)|(?=[)}])` matches there without advancing, and vscode-textmate then pops the innermost rule, Vue's style block.
     ///   The rest of the block is plain text up to `</style>`.
-    Vue { feature: "lang-vue", names: ["vue"], module: vue }
+    Vue { feature: "lang-vue", names: ["vue"], scope: "text.html.vue", module: vue }
     /// x86 and x86-64 assembly, with the scopes of Shiki's `asm` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -1075,6 +1287,7 @@ languages! {
     Asm {
         feature: "lang-asm",
         names: ["asm"],
+        scope: "source.asm.x86_64",
         module: asm,
         reads_line_feed: true,
     }
@@ -1089,6 +1302,7 @@ languages! {
     Vb {
         feature: "lang-vb",
         names: ["vb"],
+        scope: "source.asp.vb.net",
         module: vb,
         reads_line_feed: true,
     }
@@ -1106,6 +1320,7 @@ languages! {
     Matlab {
         feature: "lang-matlab",
         names: ["matlab"],
+        scope: "source.matlab",
         module: matlab,
         reads_line_feed: true,
         halts: true,
@@ -1123,7 +1338,7 @@ languages! {
     /// - A number's first branch, `\b\d+`, has no `\b` after it, so `12ab` starts with the number `12`; its second, `\d*\.\d+`, has none before it, so `x1.5` holds the number `1.5`.
     /// - Words match without regard to case, and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Pascal { feature: "lang-pascal", names: ["pascal"], module: pascal }
+    Pascal { feature: "lang-pascal", names: ["pascal"], scope: "source.pascal", module: pascal }
     /// GDScript, Godot's scripting language, with the scopes of Shiki's
     /// `gdscript` grammar.
     ///
@@ -1135,6 +1350,7 @@ languages! {
     GdScript {
         feature: "lang-gdscript",
         names: ["gdscript", "gd"],
+        scope: "source.gdscript",
         module: gdscript,
         reads_line_feed: true,
     }
@@ -1151,6 +1367,7 @@ languages! {
     PostCss {
         feature: "lang-postcss",
         names: ["postcss"],
+        scope: "source.css.postcss",
         module: postcss,
         halts: true,
     }
@@ -1168,6 +1385,7 @@ languages! {
     CommonLisp {
         feature: "lang-common-lisp",
         names: ["common-lisp", "lisp"],
+        scope: "source.commonlisp",
         module: common_lisp,
         reads_line_feed: true,
     }
@@ -1188,6 +1406,7 @@ languages! {
     ObjectiveCpp {
         feature: "lang-objective-cpp",
         names: ["objective-cpp"],
+        scope: "source.objcpp",
         module: objective_cpp,
         reads_line_feed: true,
         halts: true,
@@ -1217,7 +1436,7 @@ languages! {
     ///   In CoffeeScript they reach comments, `#{}` interpolations and the JavaScript between backticks too.
     ///   A Markdown fence names its code `meta.embedded.block.javascript` with no `source.js`, so a fence takes none.
     ///   An event-handler attribute's JavaScript takes none either, as in Shiki.
-    Svelte { feature: "lang-svelte", names: ["svelte"], module: svelte }
+    Svelte { feature: "lang-svelte", names: ["svelte"], scope: "source.svelte", module: svelte }
     /// R, with the scopes of Shiki's `r` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -1234,7 +1453,7 @@ languages! {
     /// - A number's exponent may have no digits, so `1e` and `1e+` are numbers.
     /// - `\w` and `\d` for non-ASCII characters come from the tables measured on Shiki's engine, and so do the `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}` of names (`oracle/classes.ts`).
     /// - A Markdown fence names the language `r`, `s` or `rprofile`, in any case, or `{.r …}`.
-    R { feature: "lang-r", names: ["r"], module: r, halts: true }
+    R { feature: "lang-r", names: ["r"], scope: "source.r", module: r, halts: true }
     /// Jinja, with the scopes of Shiki's `jinja` grammar: its tags,
     /// expressions and comments over plain text.
     ///
@@ -1243,7 +1462,7 @@ languages! {
     /// - The text between tags is plain, as the grammar reads it: Shiki's `jinja` is the only Jinja language a user can name.
     /// - A name, `[A-Z_a-z][0-9A-Z_a-z]*`, needs no `\b` before it, so `1abc` holds the name `abc`.
     /// - The name after `{%` or `{%-` that no `,` or `=` follows is the tag's keyword, as `endfor` is.
-    Jinja { feature: "lang-jinja", names: ["jinja"], module: jinja }
+    Jinja { feature: "lang-jinja", names: ["jinja"], scope: "source.jinja", module: jinja }
     /// HCL, with the scopes of Shiki's `hcl` grammar.
     ///
     /// # Behaviour kept from Shiki
@@ -1262,7 +1481,7 @@ languages! {
     /// - A `for` body and an inline `if` read `//` and `/*` as operators, because expressions come before comments there.
     /// - A heredoc starts only where its label ends the line.
     /// - `\d`, `\w`, `\s` and `[[:alpha:]]` for non-ASCII characters come from the tables measured on Shiki's engine (`oracle/classes.ts`).
-    Hcl { feature: "lang-hcl", names: ["hcl"], module: hcl }
+    Hcl { feature: "lang-hcl", names: ["hcl"], scope: "source.hcl", module: hcl }
     /// TeX, with the scopes of Shiki's `tex` grammar.
     /// LaTeX's lexer runs the same rules for the TeX its grammar includes.
     ///
@@ -1273,7 +1492,7 @@ languages! {
     /// - A `%!TEX root = …` magic comment is an ordinary comment: the comment's `%:?` matches at the same `%` first, so the grammar's rule for magic comments never applies.
     /// - `\bogoplus`, a typo for `\bigoplus` in the grammar's list of big operators, is a math constant.
     ///   Every other big operator is also in the symbol list, which comes first, so only that word reaches the operator rule.
-    Tex { feature: "lang-tex", names: ["tex"], module: tex }
+    Tex { feature: "lang-tex", names: ["tex"], scope: "text.tex", module: tex }
     /// LaTeX, with the scopes of Shiki's `latex` grammar.
     /// The grammar includes TeX's rules, which [`Language::Tex`]'s matchers
     /// answer.
@@ -1296,6 +1515,7 @@ languages! {
     Latex {
         feature: "lang-latex",
         names: ["latex"],
+        scope: "text.tex.latex",
         module: latex,
         reads_line_feed: true,
         halts: true,
@@ -1314,7 +1534,7 @@ languages! {
     /// - A name is `[A-Z_a-z\x7F-ÿ]` and the digits: the class stops at U+00FF.
     /// - `Gender\Gender` in the list of built-in classes holds the anchor `\G`, so it never matches.
     /// - `\d`, `\w`, `\s`, `\p{L}`, `\p{Nl}`, `[\p{Mn}\p{Mc}]` and `\p{Pc}` for non-ASCII characters come from the tables measured on Shiki's engine (`oracle/classes.ts`).
-    Hack { feature: "lang-hack", names: ["hack"], module: hack }
+    Hack { feature: "lang-hack", names: ["hack"], scope: "source.hack", module: hack }
     /// Astro, with the scopes of Shiki's `astro` grammar.
     /// The TypeScript lexer lexes its frontmatter.
     /// The TSX lexer lexes its expressions and backtick attribute values.
@@ -1337,7 +1557,7 @@ languages! {
     /// - The `;` of a numeric entity, such as `&#38;`, gets no punctuation scope, because the grammar names group 3 of a pattern with two groups.
     /// - The frontmatter opens only at a `---` that starts the document.
     ///   It ends at a `---` that starts a line, or at a `...` before the end of a line, even one in TypeScript, such as a spread.
-    Astro { feature: "lang-astro", names: ["astro"], module: astro }
+    Astro { feature: "lang-astro", names: ["astro"], scope: "source.astro", module: astro }
     /// HLSL, Microsoft's shading language, with the scopes of Shiki's `hlsl`
     /// grammar.
     ///
@@ -1355,7 +1575,7 @@ languages! {
     ///   A fraction needs no `\b` before its `.`, so `a.5` holds the number `.5`.
     /// - `true` and `false` are case-sensitive, and `TRUE`, `FALSE` and `NULL` are FX constants.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    Hlsl { feature: "lang-hlsl", names: ["hlsl"], module: hlsl, halts: true }
+    Hlsl { feature: "lang-hlsl", names: ["hlsl"], scope: "source.hlsl", module: hlsl, halts: true }
     /// ShaderLab, Unity's shader language, with the scopes of Shiki's
     /// `shaderlab` grammar.
     /// A `CGPROGRAM` or `HLSLPROGRAM` block is lexed by the HLSL lexer, with
@@ -1372,7 +1592,12 @@ languages! {
     /// - A number may end at its `.`, so `1.5x` starts with the number `1.`.
     /// - A string has no escapes: a `\"` ends it.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON (`oracle/classes.ts`).
-    ShaderLab { feature: "lang-shaderlab", names: ["shaderlab", "shader"], module: shaderlab }
+    ShaderLab {
+        feature: "lang-shaderlab",
+        names: ["shaderlab", "shader"],
+        scope: "source.shaderlab",
+        module: shaderlab,
+    }
     /// Blade, Laravel's templates, with the scopes of Shiki's `blade` grammar.
     /// The HTML lexer runs its tags, and Blade's own copy of PHP's rules lexes
     /// the PHP of its echoes, directives and `@php` sections.
@@ -1384,7 +1609,7 @@ languages! {
     /// - Inside a tag, Blade wins that tie, so `<div @click="x">` holds the directive `@click`.
     /// - A `<script>` or `<style>` body holds no Blade.
     /// - A PHP name is `[_a-z\x7F-ÿ]` and the digits, ignoring case: the class stops at U+00FF.
-    Blade { feature: "lang-blade", names: ["blade"], module: blade }
+    Blade { feature: "lang-blade", names: ["blade"], scope: "text.html.php.blade", module: blade }
 }
 
 impl Language {
