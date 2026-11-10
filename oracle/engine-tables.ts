@@ -429,12 +429,24 @@ async function write(id: string) {
   // A list with a hand-off holds the rules before it, then the rules after it.
   // It stays apart from a plain list with the same rules. The hand-off names
   // the list and its two parts.
+  // A list that includes several handed grammars hands its region to the
+  // language that reads all the others, else to the first. The other
+  // includes match nothing.
+  const variantOf = (p: number) => builder.handOffs[p - HAND_OFF];
+  const readsOf = new Map(Object.values(handLexed).map((h) => [h.variant, h.reads]));
+  const halts = new Map(Object.values(handLexed).map((h) => [h.variant, h.halts]));
   const listOf = (patterns: number[], owner: Rule) => {
-    const at = patterns.findIndex((p) => p >= HAND_OFF);
+    const variants = patterns.filter((p) => p >= HAND_OFF).map(variantOf);
+    const readsAll = (p: number) => {
+      if (p < HAND_OFF) return false;
+      const reads = readsOf.get(variantOf(p)) ?? [];
+      return variants.every((v) => v === variantOf(p) || reads.includes(v));
+    };
+    const taker = patterns.findIndex(readsAll);
+    const at = taker >= 0 ? taker : patterns.findIndex((p) => p >= HAND_OFF);
     if (at < 0) return plain(patterns, NONE);
-    const before = patterns.slice(0, at);
-    const after = patterns.slice(at + 1);
-    if (after.some((p) => p >= HAND_OFF)) throw new Error(`${id}: a list with two hand-offs`);
+    const before = patterns.slice(0, at).filter((p) => p < HAND_OFF);
+    const after = patterns.slice(at + 1).filter((p) => p < HAND_OFF);
     // The tokenizer finds where these patterns start before the language
     // runs. It searches from the region's start, then past each start. `\G`
     // matches where the last match ended. A search from another place cannot
@@ -444,9 +456,14 @@ async function write(id: string) {
     const anchored = halting.filter((p) => p !== NONE && usesLastMatchEnd(builder.patterns[p]));
     if (anchored.length > 0)
       throw new Error(`${id}: a hand-off whose halts use \\G: ${anchored.map((p) => builder.patterns[p]).join(", ")}`);
+    // A lexer that cannot halt would run past these patterns.
+    const variant = variantOf(patterns[at]);
+    if (!halts.get(variant) && halting.some((p) => p !== NONE)) {
+      throw new Error(`${id}: a hand-off to ${variant}, whose lexer cannot halt, has rules or an end`);
+    }
     const row: PendingHandOff = {
       list: NONE,
-      variant: builder.handOffs[patterns[at] - HAND_OFF],
+      variant,
       before: plain(before, NONE),
       after: plain(after, NONE),
     };

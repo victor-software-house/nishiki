@@ -46,6 +46,7 @@ const tables = [
   "common-lisp",
   "elixir>html",
   "gdscript",
+  "graphql",
   "haml>ruby>javascript>css>markdown>sass>coffee",
   "html>javascript>css",
   "javascript",
@@ -62,6 +63,7 @@ const tables = [
   "toml",
   "typescript",
   "vb",
+  "vue>css>javascript>typescript>json>html>html-derivative",
   "yaml",
 ];
 

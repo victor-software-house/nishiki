@@ -129,6 +129,27 @@ impl fmt::Debug for Grammar {
 ///
 /// An include of one rule of a grammar, such as `source.ruby#escaped_char`,
 /// always resolves in the set.
+///
+/// A list of rules that includes the grammars of several such languages
+/// hands its region to one of them.
+/// It is the language whose lexer also lexes the others' text, as PHP's
+/// lexer reads the HTML around its code.
+/// Otherwise it is the first.
+/// The other includes match nothing.
+///
+/// A region whose end pattern uses `\G` hands nothing off with no language
+/// named, and its include matches nothing.
+/// The engine finds where such an end starts before the language runs, from
+/// places where `\G` cannot be known.
+/// A language named with [`Grammars::hand_off`] makes such a grammar fail.
+///
+/// Some lexers, such as Rust's, cannot stop inside a line for the grammar.
+/// Such a language takes a region only when nothing there needs it to stop.
+/// The region then has no rules beside the include and no end pattern, as in
+/// a Markdown fence.
+///
+/// - With no language named, any other region hands nothing off.
+/// - A language named with [`Grammars::hand_off`] makes such a grammar fail.
 #[derive(Clone, Debug, Default)]
 pub struct Grammars {
     /// The grammars, in the order they were first inserted.
@@ -172,9 +193,9 @@ impl Grammars {
     /// Names `language` to lex by hand where a grammar includes its whole
     /// grammar.
     ///
+    /// Its whole grammar is the root scope of Shiki's grammar for it, such as
+    /// `source.css` for [`Language::Css`].
     /// Once any language is named, only named languages are lexed by hand.
-    /// [`Highlighter::for_grammar`] fails when nishiki has no grammar scope
-    /// for `language`.
     pub fn hand_off(&mut self, language: Language) {
         let handed = self.handed.get_or_insert_with(Vec::new);
         if !handed.contains(&language) {

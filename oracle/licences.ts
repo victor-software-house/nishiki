@@ -79,6 +79,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  graphql: {
+    bundled: "prisma-labs/vscode-graphql@4569aef2364b42b6acd8188e4a6ca9b0ba3c6a1d",
+    origin: "prisma-labs/vscode-graphql",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   // slackhq/vscode-hack converted the grammar from hhvm/atom-ide-hack, also
   // MIT (`LICENSE` at 35a7800fc5bc6ecd18913d17375e4d458eeb7c1f).
   hack: {
@@ -153,6 +159,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  jsx: {
+    bundled: "microsoft/vscode@210541906e5a96ab39f9c753f921b1bd35f4138b",
+    origin: "microsoft/TypeScript-TmLanguage",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
   julia: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "JuliaEditorSupport/atom-language-julia",
@@ -176,6 +188,12 @@ export const allowed: Record<string, Allowed> = {
     origin: "microsoft/vscode-markdown-tm-grammar",
     licence: "MIT",
     file: "LICENSE.txt",
+  },
+  "markdown-vue": {
+    bundled: "vuejs/language-tools@784dd56026e07f1dadb9ef2498418eccbb3dee29",
+    origin: "vuejs/language-tools",
+    licence: "MIT",
+    file: "LICENSE",
   },
   matlab: {
     bundled: "mathworks/MATLAB-Language-grammar@69dbf20c1eb19efd629c0438a2a493e60617e8de",
@@ -322,6 +340,30 @@ export const allowed: Record<string, Allowed> = {
     origin: "textmate/asp.vb.net.tmbundle",
     licence: "TextMate bundle licence",
     file: "README.mdown",
+  },
+  vue: {
+    bundled: "vuejs/language-tools@cd7a6e53d58111640f116d1e19f1c1cf06c7157d",
+    origin: "vuejs/language-tools",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  "vue-directives": {
+    bundled: "vuejs/language-tools@784dd56026e07f1dadb9ef2498418eccbb3dee29",
+    origin: "vuejs/language-tools",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  "vue-interpolations": {
+    bundled: "vuejs/language-tools@784dd56026e07f1dadb9ef2498418eccbb3dee29",
+    origin: "vuejs/language-tools",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  "vue-sfc-style-variable-injection": {
+    bundled: "vuejs/language-tools@e85556a2e4bf0d6c981bdbd95c8a0b1e85e7ae8a",
+    origin: "vuejs/language-tools",
+    licence: "MIT",
+    file: "LICENSE",
   },
   yaml: {
     bundled: "textmate/yaml.tmbundle@e54ceae3b719506dba7e481a77cea4a8b576ae46",

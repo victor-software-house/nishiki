@@ -28,7 +28,7 @@
 use std::collections::{HashMap, HashSet};
 use std::sync::OnceLock;
 
-use super::{Repository, RuleId, UnlinkedCapture, UnlinkedGrammar, hand_lexed};
+use super::{Repository, RuleId, UnlinkedCapture, UnlinkedGrammar};
 use crate::language::Language;
 use crate::textmate::grammar::{
     Capture, DYNAMIC_NAME, Folding, Grammar, HandOff, Injection, List, Matching, NONE, Pattern,
@@ -72,14 +72,14 @@ const MAX_HAND_OFFS: usize = 256;
 /// Each is a case `oracle/engine-tables.ts` refuses too.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) enum LinkError {
-    /// The hand-off list names a language no grammar can hand off to.
-    NotHandLexed(Language),
-    /// A list of rules includes two hand-lexed grammars.
-    TwoHandOffs,
     /// A pattern that ends a hand-off's region uses `\G`.
     /// The tokenizer finds where such patterns start before the hand-lexed
     /// language runs, from places where `\G` cannot be known.
     AnchoredHalt(String),
+    /// A named language's lexer cannot halt, and the region it takes has
+    /// rules beside the include or an end.
+    /// The lexer would run past where they match.
+    NoHalt(Language),
     /// The grammar holds more hand-offs than a `u8` can number.
     TooManyHandOffs,
     /// The grammar names more scopes than a scope reference can number.
@@ -95,14 +95,17 @@ pub(crate) enum LinkError {
 impl std::fmt::Display for LinkError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            LinkError::NotHandLexed(language) => {
-                write!(f, "no grammar can hand a region to {}", language.id())
-            }
-            LinkError::TwoHandOffs => f.write_str("a list of rules includes two hand-offs"),
             LinkError::AnchoredHalt(pattern) => {
                 write!(
                     f,
                     "a hand-off's region ends with a pattern that uses \\G: {pattern}"
+                )
+            }
+            LinkError::NoHalt(language) => {
+                write!(
+                    f,
+                    "a hand-off's region has rules or an end where the {} lexer cannot halt",
+                    language.id()
                 )
             }
             LinkError::TooManyHandOffs => {
@@ -129,27 +132,38 @@ impl std::error::Error for LinkError {}
 /// The tables are leaked, so the tokenizer can key its caches on their
 /// address.
 ///
-/// `handed` lists the languages lexed by hand whose grammars are handed off.
-/// With `None`, it is every such language whose grammar neither `root` nor
-/// `set` holds.
+/// `handed` lists the languages whose grammars are handed off to their
+/// lexers.
+/// With `None`, it is every language whose grammar neither `root` nor `set`
+/// holds, by [`Language::grammar_scope`].
+/// Then a region whose end uses `\G` hands nothing off, and the include
+/// matches nothing.
+/// A language named in `handed` refuses such a region with
+/// [`LinkError::AnchoredHalt`].
+///
+/// A language whose lexer cannot [halt](Language::halts) takes a region only
+/// when nothing there needs a halt: no rules beside the include, and no end.
+/// A Markdown fence's inner `while` rule is such a region.
+/// With `None`, any other region hands nothing off.
+/// A language named in `handed` refuses it with [`LinkError::NoHalt`].
+///
+/// A list that includes several handed grammars hands its region to one
+/// language: the one that [reads](Language::reads) all the others, else the
+/// first.
+/// The other includes match nothing.
 pub(crate) fn link(
     root: &UnlinkedGrammar,
     set: &[&UnlinkedGrammar],
     handed: Option<&[Language]>,
 ) -> Result<&'static Grammar, LinkError> {
+    let scoped = |&language: &Language| (language.grammar_scope(), language);
+    let named = handed.is_some();
     let handed: Vec<(&str, Language)> = match handed {
-        Some(languages) => languages
+        Some(languages) => languages.iter().map(scoped).collect(),
+        None => Language::ALL
             .iter()
-            .map(|&language| {
-                hand_lexed::scope(language)
-                    .map(|scope| (scope, language))
-                    .ok_or(LinkError::NotHandLexed(language))
-            })
-            .collect::<Result<_, _>>()?,
-        None => hand_lexed::all()
-            .iter()
-            .filter(|&&(scope, _)| root.scope != scope && set.iter().all(|g| g.scope != scope))
-            .copied()
+            .map(scoped)
+            .filter(|&(scope, _)| root.scope != scope && set.iter().all(|g| g.scope != scope))
             .collect(),
     };
     let mut docs: Vec<(&str, Source)> = Vec::new();
@@ -170,6 +184,7 @@ pub(crate) fn link(
         docs,
         fragments,
         handed,
+        named,
         rules: Vec::new(),
         patterns: Vec::new(),
         pattern_ids: HashMap::new(),
@@ -319,6 +334,9 @@ struct Builder<'a> {
     fragments: Vec<(&'a str, Source)>,
     /// The scopes whose include is a hand-off, with the language.
     handed: Vec<(&'a str, Language)>,
+    /// Whether the caller named the handed languages.
+    /// A named language must take each region that includes its grammar.
+    named: bool,
     /// The rules, by number.
     rules: Vec<PendingRule<'a>>,
     /// The patterns, by number.
@@ -958,32 +976,47 @@ impl Tables {
         builder: &Builder<'_>,
         owner: &PendingRule<'_>,
     ) -> Result<usize, LinkError> {
-        let rules_of = |entries: &[Entry]| -> Vec<usize> {
-            entries
-                .iter()
-                .filter_map(|entry| match *entry {
-                    Entry::Rule(id) => Some(id),
-                    Entry::HandOff(_) => None,
-                })
-                .collect()
+        let language_of = |entry: &Entry| match *entry {
+            Entry::HandOff(index) => builder.hand_offs.get(index).copied(),
+            Entry::Rule(_) => None,
         };
-        let Some(at) = owner
+        let languages: Vec<Language> = owner.patterns.iter().filter_map(language_of).collect();
+        let reads_the_others = |entry: &Entry| {
+            language_of(entry).is_some_and(|language| {
+                languages
+                    .iter()
+                    .all(|other| *other == language || language.reads().contains(other))
+            })
+        };
+        let taker = owner
             .patterns
             .iter()
-            .position(|entry| matches!(entry, Entry::HandOff(_)))
-        else {
+            .position(reads_the_others)
+            .or_else(|| {
+                owner
+                    .patterns
+                    .iter()
+                    .position(|entry| matches!(entry, Entry::HandOff(_)))
+            });
+        match taker {
+            Some(at) => self.handing(builder, owner, at),
+            None => Ok(self.plain(rules_of(&owner.patterns), None)),
+        }
+    }
+
+    /// The number of `owner`'s list, whose entry `at` is the hand-off that
+    /// takes the region.
+    /// The list's other hand-offs match nothing.
+    fn handing(
+        &mut self,
+        builder: &Builder<'_>,
+        owner: &PendingRule<'_>,
+        at: usize,
+    ) -> Result<usize, LinkError> {
+        let (before, rest) = owner.patterns.split_at(at);
+        let Some((&Entry::HandOff(hand_off), after)) = rest.split_first() else {
             return Ok(self.plain(rules_of(&owner.patterns), None));
         };
-        let (before, rest) = owner.patterns.split_at(at);
-        let (hand_off, after) = match rest.split_first() {
-            Some((&Entry::HandOff(index), after)) => (index, after),
-            Some((&Entry::Rule(_), _)) | None => {
-                return Ok(self.plain(rules_of(&owner.patterns), None));
-            }
-        };
-        if after.iter().any(|entry| matches!(entry, Entry::HandOff(_))) {
-            return Err(LinkError::TwoHandOffs);
-        }
         let (before, after) = (rules_of(before), rules_of(after));
         let mut halts: Vec<usize> = before
             .iter()
@@ -998,6 +1031,9 @@ impl Tables {
             .filter_map(|&pattern| builder.patterns.get(pattern))
             .find(|source| uses_last_match_end(source))
         {
+            if !builder.named {
+                return Ok(self.plain(rules_of(&owner.patterns), None));
+            }
             return Err(LinkError::AnchoredHalt((*anchored).to_owned()));
         }
         let language = builder
@@ -1005,6 +1041,15 @@ impl Tables {
             .get(hand_off)
             .copied()
             .ok_or(LinkError::TooManyHandOffs)?;
+        let has_halts = halts
+            .iter()
+            .any(|&pattern| builder.patterns.get(pattern).is_some());
+        if has_halts && !language.halts() {
+            if !builder.named {
+                return Ok(self.plain(rules_of(&owner.patterns), None));
+            }
+            return Err(LinkError::NoHalt(language));
+        }
         let before_list = self.plain(before.clone(), None);
         let after_list = self.plain(after.clone(), None);
         let found = self.hand_offs.iter().position(|h| {
@@ -1027,6 +1072,17 @@ impl Tables {
         }
         Ok(list)
     }
+}
+
+/// The rules of `entries`, without their hand-offs.
+fn rules_of(entries: &[Entry]) -> Vec<usize> {
+    entries
+        .iter()
+        .filter_map(|entry| match *entry {
+            Entry::Rule(id) => Some(id),
+            Entry::HandOff(_) => None,
+        })
+        .collect()
 }
 
 /// Whether `source` uses `\G`, which matches where the last match ended.

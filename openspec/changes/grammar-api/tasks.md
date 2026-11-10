@@ -8,8 +8,15 @@
   It compared 246 specs table for table, with no difference:
   - every language Shiki bundles, from `--json --every`: 242 specs;
   - the four test tables that name other languages: `elixir>html`, `html>javascript>css`, the Markdown spec with its fences, and `haml>ruby>javascript>css>markdown>sass>coffee`.
-- [ ] 1.2 Retire the TypeScript generator for shipped tables, and keep it as the compiler's oracle.
+- [x] 1.2 Retire the TypeScript generator for shipped tables, and keep it as the compiler's oracle.
   → verify: `check:features` and Identity pass with the Rust compiler's tables
+  2026-11-10 UTC: [#663] merged with every check green, Verify and Identity among them.
+  - No language ships a generated table, and the engine's tests link theirs with the Rust compiler.
+  - `oracle/engine-tables.ts` writes only JSON tables, as the compiler's oracle.
+  - `check:features` runs in Verify's static checks.
+- [ ] 1.3 Hand off a region whose end pattern uses `\G`, as Shiki does.
+  → verify: the grammar links with the language named through `Grammars::hand_off`, and its fixture matches Shiki
+  - Today such a region hands nothing off when no language is named, and the link fails when one is.
 
 ## 2. Public API
 
@@ -64,6 +71,13 @@
   - [x] 3.2.4 typst: the same two patterns, from the C# grammar it embeds.
     → verify: as 3.2.1
     - 2026-11-10: as 3.2.1.
+- [ ] 3.3 Close the hand-off gaps that `src/textmate/tests/loaded.rs` lists.
+  → verify: each fixture leaves its test's gaps, and the test passes
+  - [ ] 3.3.1 vue-directives' injection misses the tags that html-derivative's lexer reads: six Vue fixtures.
+  - [ ] 3.3.2 The hand-off goes on past a lexer that pops its host, as Less does at a `)`: `markdown/less-pop` and `vue/less-pop`.
+  - [ ] 3.3.3 Attribute names in an HTML fence differ from Shiki's: `markdown/invalid-tags` and both `markdown/perl-heredoc-tags-*`.
+  - [ ] 3.3.4 `markdown/vitepress-runtime-api` holds a `vue` fence from markdown-vue's injection, which a Markdown-only set lacks.
+    Its block should be left out, as other fences of missing languages are.
 
 ## 4. Speed and docs
 
@@ -82,3 +96,4 @@
     The pull request that ticks this task is the review.
 
 [fidelity-baseline]: ../../research/2026-11-10-shiki-fidelity-baseline.md
+[#663]: https://github.com/victor-software-house/nishiki-archive/pull/663

@@ -25,15 +25,19 @@
 // fixed fuzz corpus from oracle/fuzz.ts the same way, and writes, per
 // hand-lexed grammar, the reachable expressions and captures the fixtures
 // exercise, those only the fuzz corpus exercises, and the units no root
-// reaches, to tests/oracle/COVERAGE.md. Every loaded grammar must
-// be listed as hand-lexed, so a new hand lexer cannot drop out of the count. The run fails after writing the report
-// when a waiver in oracle/coverage-waivers.ts is wrong, or when a grammar
-// listed complete there has a unit that neither a fixture nor a waiver covers.
+// reaches, to tests/oracle/COVERAGE.md. Every loaded grammar must be listed
+// as hand-lexed, so a new hand lexer cannot drop out of the count. Each row of
+// `languages!` in src/language.rs must name the root scope of Shiki's grammar
+// for its id, since the linker hands an include of that scope to the row's
+// lexer. The run fails after writing the report when a waiver in
+// oracle/coverage-waivers.ts is wrong, or when a grammar listed complete there
+// has a unit that neither a fixture nor a waiver covers.
 import { mkdtempSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { createHighlighter, type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
+import { handLexed as handOffs } from "./hand-lexed.ts";
 import { fixtureParts, type Highlighter } from "./fixture.ts";
 import { grammars } from "./grammars.ts";
 import { complete, waivers } from "./coverage-waivers.ts";
@@ -233,6 +237,12 @@ const unlisted = loaded.filter((grammar) => !handLexed.has(grammar.name));
 if (unlisted.length > 0) {
   const names = unlisted.map((grammar) => grammar.name).join(", ");
   throw new Error(`${names}: loaded, but not listed as hand-lexed`);
+}
+for (const [id, { scope }] of Object.entries(handOffs)) {
+  const own = loaded.find((grammar) => grammar.name === id)?.scopeName ?? "not loaded";
+  if (own !== scope) {
+    throw new Error(`${id}: src/language.rs names the scope ${scope}, Shiki's grammar ${own}`);
+  }
 }
 for (const grammar of loaded) {
   walk(grammar, "", { grammar, repositories: [] }, handLexed.has(grammar.name));

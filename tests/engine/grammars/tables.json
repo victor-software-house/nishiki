@@ -37,6 +37,18 @@
     "handOffs": []
   },
   {
+    "name": "graphql",
+    "root": "source.graphql",
+    "grammars": [
+      "javascript",
+      "typescript",
+      "jsx",
+      "tsx",
+      "graphql"
+    ],
+    "handOffs": []
+  },
+  {
     "name": "haml",
     "root": "text.haml",
     "grammars": [
@@ -201,6 +213,31 @@
       "vb"
     ],
     "handOffs": []
+  },
+  {
+    "name": "vue",
+    "root": "text.html.vue",
+    "grammars": [
+      "markdown-vue",
+      "vue-directives",
+      "vue-interpolations",
+      "vue-sfc-style-variable-injection",
+      "vue",
+      "css",
+      "javascript",
+      "typescript",
+      "json",
+      "html",
+      "html-derivative"
+    ],
+    "handOffs": [
+      "css",
+      "javascript",
+      "typescript",
+      "json",
+      "html",
+      "html-derivative"
+    ]
   },
   {
     "name": "yaml",

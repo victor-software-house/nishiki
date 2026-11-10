@@ -1,0 +1,86 @@
+L # PHP in a fence
+T 1 text.html.markdown markup.heading.markdown heading.1.markdown punctuation.definition.heading.markdown
+T 2 text.html.markdown markup.heading.markdown heading.1.markdown
+T 16 text.html.markdown markup.heading.markdown heading.1.markdown entity.name.section.markdown
+L 
+L A Markdown `php` fence holds HTML and PHP code.
+T 11 text.html.markdown meta.paragraph.markdown
+T 12 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 15 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown
+T 16 text.html.markdown meta.paragraph.markdown markup.inline.raw.string.markdown punctuation.definition.raw.markdown
+T 47 text.html.markdown meta.paragraph.markdown
+L 
+L ```php
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L <p class="greeting">Hello</p>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html entity.name.tag.html
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html meta.attribute.class.html entity.other.attribute-name.html
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html meta.attribute.class.html punctuation.separator.key-value.html
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.begin.html
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html meta.attribute.class.html string.quoted.double.html punctuation.definition.string.end.html
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 25 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+T 27 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 28 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.end.html entity.name.tag.html
+T 29 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L <?php
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.ternary.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+L $name = "World";
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php variable.other.php punctuation.definition.variable.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php variable.other.php
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.assignment.php
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php punctuation.definition.string.begin.php
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php punctuation.definition.string.end.php
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php punctuation.terminator.expression.php
+L echo "<b>$name</b>";
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php support.function.construct.output.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php punctuation.definition.string.begin.php
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php variable.other.php punctuation.definition.variable.php
+T 14 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php variable.other.php
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php string.quoted.double.php punctuation.definition.string.end.php
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php punctuation.terminator.expression.php
+L ?>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.ternary.php
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+L <ul>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+L   <li><?= $name ?></li>
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 3 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+T 6 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 7 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 8 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.ternary.php
+T 9 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.assignment.php
+T 10 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 11 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php variable.other.php punctuation.definition.variable.php
+T 15 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php variable.other.php
+T 16 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php
+T 17 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.ternary.php
+T 18 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 19 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 20 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.arithmetic.php
+T 22 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+T 23 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+L </ul>
+T 1 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+T 2 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.arithmetic.php
+T 4 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php constant.other.php
+T 5 text.html.markdown markup.fenced_code.block.markdown meta.embedded.block.php keyword.operator.comparison.php
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L 

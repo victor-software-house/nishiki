@@ -8,7 +8,7 @@
 //! The HTML lexer runs it, in the grammar's derivative mode.
 
 use crate::arena::Arena;
-use crate::language::{Context, Line};
+use crate::language::{Context, Halt, Line, Stopped};
 use crate::limits::Finished;
 
 /// The state at the start of an html-derivative document whose scopes sit on
@@ -28,6 +28,35 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     crate::html::lex_derivative(cx, line, state)
+}
+
+/// Lexes `line` like [`lex`], for html-derivative that another language
+/// embeds from [`start_embedded`].
+/// While no rule of html-derivative is open, the line halts at the first of
+/// these places:
+///
+/// - where `end` holds before the root's patterns;
+/// - where `after` holds and none of them matches.
+///
+/// The second value is where.
+#[inline]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+    after: Option<&dyn Halt>,
+) -> (Finished, Option<Stopped>) {
+    let halts = (end, after);
+    let give_back = crate::html::GiveBack::Halts(&halts);
+    let (finished, halt) = crate::html::lex_derivative_until(
+        cx,
+        line,
+        state,
+        crate::html::Span::Line,
+        Some(give_back),
+    );
+    (finished, halt.map(Stopped::halt))
 }
 
 #[cfg(test)]

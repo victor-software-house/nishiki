@@ -12,6 +12,7 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `css` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][css-source] | [MIT][css-licence] |
 | `elixir` | [elixir-editors/elixir-tmbundle at 43c8cd957d5ac6e1abbd8730fc7a08c81a6e76c9][elixir-source] | [Apache-2.0][elixir-licence] |
 | `gdscript` | [godotengine/godot-vscode-plugin at 3f2860fd76c591a6010f0d35220490933e41d01d][gdscript-source] | [MIT][gdscript-licence] |
+| `graphql` | [prisma-labs/vscode-graphql at 4569aef2364b42b6acd8188e4a6ca9b0ba3c6a1d][graphql-source] | [MIT][graphql-licence] |
 | `haml` | [karuna/haml-vscode at aa45415aefd691af0a501ea4f98e434490623e0d][haml-source] | [MIT][haml-licence] |
 | `html` | [microsoft/vscode at 45324363153075dab0482312ae24d8c068d81e4f][html-source] | [TextMate bundle licence][html-licence] |
 | `html-derivative` | [microsoft/vscode at 4064f172528461afc6944383d07521f6a30da89c][html-derivative-source] | [TextMate bundle licence][html-derivative-licence] |
@@ -21,8 +22,10 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `json` | [microsoft/vscode at d6af4893ed9a3545163a4cb748fa5548bd1e51a5][json-source] | [MIT][json-licence] |
 | `jsonc` | [microsoft/vscode at 0adddd82816db666c52038e8277312dc55da2756][jsonc-source] | [MIT][jsonc-licence] |
 | `jsonl` | [microsoft/vscode at 0adddd82816db666c52038e8277312dc55da2756][jsonl-source] | [MIT][jsonl-licence] |
+| `jsx` | [microsoft/vscode at 210541906e5a96ab39f9c753f921b1bd35f4138b][jsx-source] | [MIT][jsx-licence] |
 | `make` | [microsoft/vscode at 91db8ea85fee30ebb3c7a5e7939aa2a8d79811c5][make-source] | [MIT][make-licence] |
 | `markdown` | [microsoft/vscode at 6d8ab9737d58fc5eaf07e2ae6553b38183a5de47][markdown-source] | [MIT][markdown-licence] |
+| `markdown-vue` | [vuejs/language-tools at 784dd56026e07f1dadb9ef2498418eccbb3dee29][markdown-vue-source] | [MIT][markdown-vue-licence] |
 | `matlab` | [mathworks/MATLAB-Language-grammar at 69dbf20c1eb19efd629c0438a2a493e60617e8de][matlab-source] | [BSD-2-Clause][matlab-licence] |
 | `objective-c` | [microsoft/vscode at bd1abe08c38bb5deccf65610f8f3c03d2338d20d][objective-c-source] | [MIT][objective-c-licence] |
 | `objective-cpp` | [microsoft/vscode at bd1abe08c38bb5deccf65610f8f3c03d2338d20d][objective-cpp-source] | [MIT][objective-cpp-licence] |
@@ -36,6 +39,10 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `tsx` | [microsoft/vscode at 210541906e5a96ab39f9c753f921b1bd35f4138b][tsx-source] | [MIT][tsx-licence] |
 | `typescript` | [microsoft/vscode at 210541906e5a96ab39f9c753f921b1bd35f4138b][typescript-source] | [MIT][typescript-licence] |
 | `vb` | [microsoft/vscode at 35d97bc7e439fce0f50f42074041ab2d8571b20a][vb-source] | [TextMate bundle licence][vb-licence] |
+| `vue` | [vuejs/language-tools at cd7a6e53d58111640f116d1e19f1c1cf06c7157d][vue-source] | [MIT][vue-licence] |
+| `vue-directives` | [vuejs/language-tools at 784dd56026e07f1dadb9ef2498418eccbb3dee29][vue-directives-source] | [MIT][vue-directives-licence] |
+| `vue-interpolations` | [vuejs/language-tools at 784dd56026e07f1dadb9ef2498418eccbb3dee29][vue-interpolations-source] | [MIT][vue-interpolations-licence] |
+| `vue-sfc-style-variable-injection` | [vuejs/language-tools at e85556a2e4bf0d6c981bdbd95c8a0b1e85e7ae8a][vue-sfc-style-variable-injection-source] | [MIT][vue-sfc-style-variable-injection-licence] |
 | `yaml` | [textmate/yaml.tmbundle at e54ceae3b719506dba7e481a77cea4a8b576ae46][yaml-source] | [MIT][yaml-licence] |
 
 [asm-source]: https://github.com/13xforever/x86_64-assembly-vscode/tree/5c1958f4283d260f5dc88fa4f5f31c620e061a5a
@@ -50,6 +57,8 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [elixir-licence]: https://github.com/elixir-editors/elixir-tmbundle/blob/43c8cd957d5ac6e1abbd8730fc7a08c81a6e76c9/LICENSE
 [gdscript-source]: https://github.com/godotengine/godot-vscode-plugin/tree/3f2860fd76c591a6010f0d35220490933e41d01d
 [gdscript-licence]: https://github.com/godotengine/godot-vscode-plugin/blob/3f2860fd76c591a6010f0d35220490933e41d01d/LICENSE
+[graphql-source]: https://github.com/prisma-labs/vscode-graphql/tree/4569aef2364b42b6acd8188e4a6ca9b0ba3c6a1d
+[graphql-licence]: https://github.com/prisma-labs/vscode-graphql/blob/4569aef2364b42b6acd8188e4a6ca9b0ba3c6a1d/LICENSE
 [haml-source]: https://github.com/karuna/haml-vscode/tree/aa45415aefd691af0a501ea4f98e434490623e0d
 [haml-licence]: https://github.com/karuna/haml-vscode/blob/aa45415aefd691af0a501ea4f98e434490623e0d/LICENSE.md
 [html-source]: https://github.com/microsoft/vscode/tree/45324363153075dab0482312ae24d8c068d81e4f
@@ -68,10 +77,14 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [jsonc-licence]: https://github.com/microsoft/vscode-JSON.tmLanguage/blob/HEAD/LICENSE
 [jsonl-source]: https://github.com/microsoft/vscode/tree/0adddd82816db666c52038e8277312dc55da2756
 [jsonl-licence]: https://github.com/microsoft/vscode-JSON.tmLanguage/blob/HEAD/LICENSE
+[jsx-source]: https://github.com/microsoft/vscode/tree/210541906e5a96ab39f9c753f921b1bd35f4138b
+[jsx-licence]: https://github.com/microsoft/TypeScript-TmLanguage/blob/HEAD/LICENSE.txt
 [make-source]: https://github.com/microsoft/vscode/tree/91db8ea85fee30ebb3c7a5e7939aa2a8d79811c5
 [make-licence]: https://github.com/fadeevab/make.tmbundle/blob/HEAD/LICENSE.md
 [markdown-source]: https://github.com/microsoft/vscode/tree/6d8ab9737d58fc5eaf07e2ae6553b38183a5de47
 [markdown-licence]: https://github.com/microsoft/vscode-markdown-tm-grammar/blob/HEAD/LICENSE.txt
+[markdown-vue-source]: https://github.com/vuejs/language-tools/tree/784dd56026e07f1dadb9ef2498418eccbb3dee29
+[markdown-vue-licence]: https://github.com/vuejs/language-tools/blob/784dd56026e07f1dadb9ef2498418eccbb3dee29/LICENSE
 [matlab-source]: https://github.com/mathworks/MATLAB-Language-grammar/tree/69dbf20c1eb19efd629c0438a2a493e60617e8de
 [matlab-licence]: https://github.com/mathworks/MATLAB-Language-grammar/blob/69dbf20c1eb19efd629c0438a2a493e60617e8de/license.txt
 [objective-c-source]: https://github.com/microsoft/vscode/tree/bd1abe08c38bb5deccf65610f8f3c03d2338d20d
@@ -98,5 +111,13 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [typescript-licence]: https://github.com/microsoft/TypeScript-TmLanguage/blob/HEAD/LICENSE.txt
 [vb-source]: https://github.com/microsoft/vscode/tree/35d97bc7e439fce0f50f42074041ab2d8571b20a
 [vb-licence]: https://github.com/textmate/asp.vb.net.tmbundle/blob/HEAD/README.mdown
+[vue-source]: https://github.com/vuejs/language-tools/tree/cd7a6e53d58111640f116d1e19f1c1cf06c7157d
+[vue-licence]: https://github.com/vuejs/language-tools/blob/cd7a6e53d58111640f116d1e19f1c1cf06c7157d/LICENSE
+[vue-directives-source]: https://github.com/vuejs/language-tools/tree/784dd56026e07f1dadb9ef2498418eccbb3dee29
+[vue-directives-licence]: https://github.com/vuejs/language-tools/blob/784dd56026e07f1dadb9ef2498418eccbb3dee29/LICENSE
+[vue-interpolations-source]: https://github.com/vuejs/language-tools/tree/784dd56026e07f1dadb9ef2498418eccbb3dee29
+[vue-interpolations-licence]: https://github.com/vuejs/language-tools/blob/784dd56026e07f1dadb9ef2498418eccbb3dee29/LICENSE
+[vue-sfc-style-variable-injection-source]: https://github.com/vuejs/language-tools/tree/e85556a2e4bf0d6c981bdbd95c8a0b1e85e7ae8a
+[vue-sfc-style-variable-injection-licence]: https://github.com/vuejs/language-tools/blob/e85556a2e4bf0d6c981bdbd95c8a0b1e85e7ae8a/LICENSE
 [yaml-source]: https://github.com/textmate/yaml.tmbundle/tree/e54ceae3b719506dba7e481a77cea4a8b576ae46
 [yaml-licence]: https://github.com/textmate/yaml.tmbundle/blob/e54ceae3b719506dba7e481a77cea4a8b576ae46/Syntaxes/YAML-license.txt
