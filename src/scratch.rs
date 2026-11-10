@@ -43,7 +43,10 @@ pub(crate) struct Scratch {
     /// The CoffeeScript lexer's for the CoffeeScript that Svelte embeds, a
     /// dialect of its own for Svelte's `$` prefixes.
     /// It is boxed and allocated by the first such line.
-    #[cfg(all(feature = "lang-coffee", feature = "lang-svelte"))]
+    #[cfg(all(
+        feature = "lang-coffee",
+        any(feature = "lang-svelte", feature = "_textmate")
+    ))]
     pub(crate) coffee_svelte: Option<Box<crate::coffee::Scratch<{ crate::coffee::SVELTE }>>>,
     /// The Common Lisp lexer's, for Common Lisp documents.
     /// It is boxed and allocated by the first Common Lisp line.

@@ -1591,7 +1591,7 @@ pub(crate) enum Pattern {
 impl Pattern {
     /// Svelte's `$` prefixes, which its grammar injects into the CoffeeScript
     /// it embeds, in the grammar's order.
-    #[cfg(feature = "lang-svelte")]
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     pub(crate) const SVELTE: [Pattern; 2] = [Pattern::SvelteVariable, Pattern::SvelteProps];
 
     /// Every pattern, for the tool that compares the matchers with Oniguruma.

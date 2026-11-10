@@ -20,12 +20,12 @@ mod engine;
 mod grammar;
 mod matchers;
 mod scope;
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 mod svelte;
 mod words;
 
 use engine::Coffee;
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 pub(crate) use engine::SVELTE;
 pub(crate) use engine::Scratch;
 pub(crate) use scope::NAMES;
@@ -77,7 +77,7 @@ pub(crate) fn lex_until(
 /// Lexes `line` like [`lex_until`], for the CoffeeScript that Svelte embeds.
 /// Svelte's grammar injects its `$` prefixes there, in every rule
 /// ([`SVELTE`]).
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 pub(crate) fn lex_until_svelte(
     cx: &mut Context<'_>,
     line: Line<'_>,
@@ -89,7 +89,7 @@ pub(crate) fn lex_until_svelte(
 }
 
 /// The buffers of the CoffeeScript that Svelte embeds.
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 fn svelte_buffers(scratch: &mut crate::scratch::Scratch) -> &mut Scratch<SVELTE> {
     scratch.coffee_svelte.get_or_insert_with(Box::default)
 }
@@ -121,7 +121,7 @@ impl rules::Embeds for Coffee {
 }
 
 /// The CoffeeScript that Svelte embeds embeds the same language.
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 impl rules::Embeds for Coffee<SVELTE> {
     type End = rules::FnHalt;
     const HALTS: bool = true;

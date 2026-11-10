@@ -254,7 +254,7 @@ impl Halt for Starts<'_> {
     not(any(feature = "lang-typescript", feature = "lang-javascript")),
     expect(
         unused_variables,
-        reason = "only TypeScript and JavaScript read the grammar, for Svelte's dialect"
+        reason = "only Svelte's TypeScript, JavaScript and CoffeeScript read the grammar"
     )
 )]
 fn lex_handed(
@@ -266,15 +266,28 @@ fn lex_handed(
     (before, after): (&[usize], &[usize]),
 ) -> (crate::limits::Finished, Option<Stopped>) {
     #[cfg(any(feature = "lang-typescript", feature = "lang-javascript"))]
-    if let Some(dialect) = svelte_dialect(grammar, language) {
-        return crate::typescript::lex_until_svelte(
-            cx,
-            dialect,
-            line,
-            state,
-            &Starts(before),
-            Some(&Starts(after)),
-        );
+    match svelte_script(grammar, language) {
+        Some(SvelteScript::TypeScript(dialect)) => {
+            return crate::typescript::lex_until_svelte(
+                cx,
+                dialect,
+                line,
+                state,
+                &Starts(before),
+                Some(&Starts(after)),
+            );
+        }
+        #[cfg(feature = "lang-coffee")]
+        Some(SvelteScript::CoffeeScript) => {
+            return crate::coffee::lex_until_svelte(
+                cx,
+                line,
+                state,
+                &Starts(before),
+                Some(&Starts(after)),
+            );
+        }
+        None => {}
     }
     let halting = if before.is_empty() && after.is_empty() && !language.pops_host() {
         None
@@ -284,33 +297,50 @@ fn lex_handed(
     halting.unwrap_or_else(|| (language.lex_embedded(cx, line, state), None))
 }
 
-/// The dialect that lexes a region Svelte's grammar hands to `language`,
-/// with Svelte's `$` prefixes.
-/// `None` for another grammar, or a language other than TypeScript and
-/// JavaScript.
+/// The lexer that takes a region Svelte's grammar hands off, with Svelte's
+/// `$` prefixes.
+#[cfg(any(feature = "lang-typescript", feature = "lang-javascript"))]
+#[derive(Clone, Copy)]
+enum SvelteScript {
+    /// The TypeScript lexer, in its dialect for TypeScript or JavaScript.
+    TypeScript(crate::typescript::Dialect),
+    /// The CoffeeScript lexer, in its dialect for Svelte.
+    #[cfg(feature = "lang-coffee")]
+    CoffeeScript,
+}
+
+/// The lexer that takes a region Svelte's grammar hands to `language`, with
+/// Svelte's `$` prefixes.
+/// `None` for another grammar, or a language other than TypeScript,
+/// JavaScript and CoffeeScript.
 ///
-/// Svelte's grammar injects the prefixes into `source.ts` and `source.js`,
-/// with the selector `L:(source.ts, source.js, source.coffee)`.
+/// Svelte's grammar injects the prefixes into those three, with the selector
+/// `L:(source.ts, source.js, source.coffee)`.
 /// The rules of a handed region never run, so the language applies them.
 /// vscode-textmate applies the injections of the grammar it lexes with.
 /// So they hold only while Svelte's grammar is the root, which its name
 /// marks.
 #[cfg(any(feature = "lang-typescript", feature = "lang-javascript"))]
 #[cold]
-fn svelte_dialect(
-    grammar: &Grammar,
-    language: crate::Language,
-) -> Option<crate::typescript::Dialect> {
+fn svelte_script(grammar: &Grammar, language: crate::Language) -> Option<SvelteScript> {
     if grammar.scope != "source.svelte" {
         return None;
     }
     #[cfg(feature = "lang-typescript")]
     if matches!(language, crate::Language::TypeScript) {
-        return Some(crate::typescript::Dialect::TypeScript);
+        return Some(SvelteScript::TypeScript(
+            crate::typescript::Dialect::TypeScript,
+        ));
     }
     #[cfg(feature = "lang-javascript")]
     if matches!(language, crate::Language::JavaScript) {
-        return Some(crate::typescript::Dialect::JavaScript);
+        return Some(SvelteScript::TypeScript(
+            crate::typescript::Dialect::JavaScript,
+        ));
+    }
+    #[cfg(feature = "lang-coffee")]
+    if matches!(language, crate::Language::CoffeeScript) {
+        return Some(SvelteScript::CoffeeScript);
     }
     None
 }
