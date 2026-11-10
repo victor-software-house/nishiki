@@ -13,6 +13,7 @@
 # Each src/<language>/grammar.rs listed here is generated from that
 # language's grammar and keeps the grammar's own words.
 # tests/engine/grammars/ holds Shiki's grammars as Shiki ships them.
+# oracle/facts/ holds code points in hex, such as `AADB..AADD`.
 extend-exclude = [
   "*.lock",
   "src/asm/grammar.rs",
@@ -41,6 +42,7 @@ extend-exclude = [
   "src/shaderlab/words.rs",
   "src/svelte/grammar.rs",
   "tests/engine/grammars/*.json",
+  "oracle/facts/*.json",
 ]
 
 # Unicode general-category codes, such as Nd, which are not words.
