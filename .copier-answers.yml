@@ -14,7 +14,12 @@ extra_runner_labels: []
 feature_sets: []
 generated_paths:
 - tests/engine/*.rs
-- src/{csharp/grammar,blade/words,hack/words,php/words,textmate/regex/folds,textmate/regex/unicode}.rs
+- src/csharp/grammar.rs
+- src/blade/words.rs
+- src/hack/words.rs
+- src/php/words.rs
+- src/textmate/regex/folds.rs
+- src/textmate/regex/unicode.rs
 github_owner: victor-software-house
 layout: crate
 library: true
