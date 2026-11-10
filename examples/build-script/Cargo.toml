@@ -22,11 +22,21 @@ path = "main.rs"
 # Both need nishiki's TextMate engine. Each asks for the default features too,
 # as the other members do: the engine alone leaves the hand lexers' shared code
 # unused.
+# `cargo package` keeps build and normal dependencies, and each needs a
+# version. The workspace entry is a path alone, so these two name the version
+# beside the path. `cargo package --workspace` packages nishiki first and
+# resolves this requirement to that package.
 [build-dependencies]
-nishiki = { workspace = true, features = ["default", "textmate"] }
+nishiki = { path = "../..", version = "0.1", default-features = false, features = [
+  "default",
+  "textmate",
+] }
 
 [dependencies]
-nishiki = { workspace = true, features = ["default", "textmate"] }
+nishiki = { path = "../..", version = "0.1", default-features = false, features = [
+  "default",
+  "textmate",
+] }
 
 [dev-dependencies]
 indoc = { workspace = true }
