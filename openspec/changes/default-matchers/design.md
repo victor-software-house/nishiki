@@ -128,7 +128,8 @@ A retry line holds only at fixture length:
 - The longest oracle fixture lines are 102 bytes for Protocol Buffers, 242 for Zig and 974 for Lua.
 - So a retry line of fixture length passes only when the scan does not retry at every start.
   A `\b` fails at once inside a word, which the scanner skips, or another pattern takes the run first.
-- On step 2b, Zig's and Lua's retry lines pass at fixture length, and Protocol Buffers' does not (below).
+- On step 2b, Zig's and Lua's retry lines pass at fixture length.
+  Protocol Buffers' field line ends at the work limit at 101 bytes, one short of its longest fixture line (below).
 - This is a measured fact about the fixtures, not a bound.
   The hand lexers and Shiki have no linear scan either.
 
@@ -153,8 +154,13 @@ Under the default limits, on a box:
 | 101 bytes, one short of the longest fixture line (102) | uncut | ends at `Limit::Work` |
 | 12,001 bytes | ends at `Limit::Work` | ends at `Limit::Work` |
 
-So the generated matcher cuts a line of fixture length that the hand matcher lexes whole.
+So the generated matcher cuts a 101-byte line that the hand matcher lexes whole.
 The 12,001-byte line is the pattern's limit line.
+
+A 102-byte line was not measured.
+From 101 bytes, its work grows by about `2L`, some 200 steps, and the budget by 64.
+So it would end at the limit too.
+The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 bytes.
 
 Two fixes, in order:
 
