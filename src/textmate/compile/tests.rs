@@ -225,7 +225,7 @@ mod hand_offs {
 
     use super::{grammar, list_patterns};
     use crate::language::Language;
-    use crate::textmate::compile::link::{LinkError, link};
+    use crate::textmate::compile::link::link;
 
     /// A grammar whose `style` region includes CSS whole, and one CSS rule.
     fn styled() -> super::UnlinkedGrammar {
@@ -307,9 +307,11 @@ mod hand_offs {
         assert_eq!(languages, [Language::Php]);
     }
 
-    /// The region hands nothing off, so its include of CSS matches nothing.
+    /// `\G` in a halt matches only where the embedding rule's begin ended.
+    /// Hand-lexed tokens never move that place, so the starts found before
+    /// the language runs are the ones Shiki finds.
     #[test]
-    fn a_halt_with_last_match_end_hands_nothing_off() {
+    fn a_halt_with_last_match_end_hands_off() {
         let root = grammar(indoc! {r#"
             {
               "scopeName": "source.a",
@@ -318,24 +320,11 @@ mod hand_offs {
               ]
             }
         "#});
-        let tables = link(&root, &[], None).unwrap();
-        assert!(tables.hand_offs.is_empty());
-    }
-
-    #[test]
-    fn a_named_language_refuses_a_halt_with_last_match_end() {
-        let root = grammar(indoc! {r#"
-            {
-              "scopeName": "source.a",
-              "patterns": [
-                { "begin": "<", "end": "\\G>", "patterns": [{ "include": "source.css" }] }
-              ]
-            }
-        "#});
-        assert!(matches!(
-            link(&root, &[], Some(&[Language::Css])),
-            Err(LinkError::AnchoredHalt(_))
-        ));
+        for handed in [None, Some([Language::Css].as_slice())] {
+            let tables = link(&root, &[], handed).unwrap();
+            let languages: Vec<Language> = tables.hand_offs.iter().map(|h| h.language).collect();
+            assert_eq!(languages, [Language::Css]);
+        }
     }
 
     /// A region with an end, which Rust's lexer cannot halt for.
@@ -364,7 +353,9 @@ mod hand_offs {
     fn a_named_lexer_that_cannot_halt_refuses_a_region_with_an_end() {
         assert_eq!(
             link(&ended_rust(), &[], Some(&[Language::Rust])).err(),
-            Some(LinkError::NoHalt(Language::Rust))
+            Some(crate::textmate::compile::link::LinkError::NoHalt(
+                Language::Rust
+            ))
         );
     }
 }

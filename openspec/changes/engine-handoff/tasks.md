@@ -116,10 +116,13 @@ The engine's logic does not change when they do.
 - [ ] 5.3 Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR
 - [ ] 5.4 A capture whose rule includes a hand-lexed grammar hands its text off, as CoffeeScript's backticks do → verify: the `coffee/coffeescript-javascript-literals` fixture matches Shiki
   - [#417][pr417] opened on 2026-11-04.
-- [ ] 5.5 Hand off a region whose end pattern uses `\G`, as Shiki does.
+- [x] 5.5 Hand off a region whose end pattern uses `\G`, as Shiki does.
   → verify: the grammar links with the language named through `Grammars::hand_off`, and its fixture matches Shiki
-  - Today such a region hands nothing off when no language is named, and the link fails when one is.
   - Moved from the `grammar-api` change when it was archived.
+  - `\G` matches only where the embedding rule's begin ended, and hand-lexed tokens never move that place.
+    So the linker and `oracle/engine-tables.ts` no longer refuse `\G` in a halt: an end, a `before` rule or an `after` rule.
+  - `an_end_at_the_anchor_matches_only_there` in `src/grammar/tests.rs` covers an end.
+    `vue/vitepress-nav-menu-group` covers a `before` rule.
 - [ ] 5.6 Close the hand-off gaps that `src/textmate/tests/loaded.rs` lists.
   → verify: each fixture leaves its test's gaps, and the test passes
   - Moved from the `grammar-api` change when it was archived.

@@ -242,32 +242,72 @@ fn a_set_keeps_one_grammar_per_scope() {
     assert_eq!(set.get("source.other"), None);
 }
 
-/// A grammar whose region handed to CSS ends with a `\G` pattern.
-/// The linker refuses it once the caller names CSS with [`Grammars::hand_off`].
-#[cfg(feature = "lang-css")]
+/// A grammar whose region handed to Rust has an end pattern.
+/// Rust's lexer cannot stop for it, so the linker refuses the grammar once
+/// the caller names Rust with [`Grammars::hand_off`].
+#[cfg(feature = "lang-rust")]
 const FAILING: &str = r#"{
     "scopeName": "source.failing",
-    "patterns": [{ "begin": "<", "end": "\\G>", "patterns": [{ "include": "source.css" }] }]
+    "patterns": [{ "begin": "<", "end": ">", "patterns": [{ "include": "source.rust" }] }]
 }"#;
 
-#[cfg(feature = "lang-css")]
+#[cfg(feature = "lang-rust")]
 #[test]
 fn a_link_the_engine_refuses_fails() {
     let mut set = Grammars::new();
-    set.hand_off(crate::Language::Css);
+    set.hand_off(crate::Language::Rust);
     let failed = Highlighter::for_grammar(Grammar::from_json(FAILING).unwrap(), &set);
     assert!(matches!(failed.unwrap_err().0, Reason::Link(_)));
 }
 
-#[cfg(feature = "lang-css")]
+#[cfg(feature = "lang-rust")]
 #[test]
 fn a_failed_link_keeps_no_entry() {
     let grammar = Grammar::from_json(FAILING).unwrap();
     let mut set = Grammars::new();
-    set.hand_off(crate::Language::Css);
+    set.hand_off(crate::Language::Rust);
     assert!(linked_table(grammar, &set).is_err());
     let tables = LINKED_TABLES.lock().unwrap();
     assert!(!tables.contains_key(&LinkKey::new(grammar, &set)));
+}
+
+/// A region handed to CSS, whose end `\G>` matches only where the begin
+/// ended, as in Shiki.
+///
+/// - In `<s>b`, the end matches at once, and `b` is outside the region.
+/// - In `<sa { color: red; }>`, the end fails at `a`, so CSS lexes the rest and
+///   the region stays open past the last `>`.
+#[cfg(feature = "lang-css")]
+#[test]
+fn an_end_at_the_anchor_matches_only_there() {
+    let grammar = Grammar::from_json(indoc! {r#"
+        {
+          "scopeName": "source.anchored",
+          "patterns": [
+            {
+              "begin": "<s",
+              "end": "\\G>",
+              "name": "meta.s",
+              "patterns": [{ "include": "source.css" }]
+            }
+          ]
+        }
+    "#})
+    .unwrap();
+    let mut highlighter = highlighter(grammar);
+    let closed = tokens(&mut highlighter, "<s>b");
+    assert_eq!(
+        closed.last(),
+        Some(&("b".to_owned(), vec!["source.anchored".to_owned()]))
+    );
+    let open = tokens(&mut highlighter, "<sa { color: red; }>");
+    let in_region = |scopes: &[String]| scopes.iter().any(|scope| scope == "meta.s");
+    assert!(open.iter().all(|(_, scopes)| in_region(scopes)));
+    assert!(open.iter().any(|(_, scopes)| {
+        scopes
+            .iter()
+            .any(|scope| scope == "support.type.property-name.css")
+    }));
 }
 
 /// Less pops the rule that embeds it at a `)` at its root.

@@ -72,10 +72,6 @@ const MAX_HAND_OFFS: usize = 256;
 /// Each is a case `oracle/engine-tables.ts` refuses too.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub(crate) enum LinkError {
-    /// A pattern that ends a hand-off's region uses `\G`.
-    /// The tokenizer finds where such patterns start before the hand-lexed
-    /// language runs, from places where `\G` cannot be known.
-    AnchoredHalt(String),
     /// A named language's lexer cannot halt, and the region it takes has
     /// rules beside the include or an end.
     /// The lexer would run past where they match.
@@ -95,12 +91,6 @@ pub(crate) enum LinkError {
 impl std::fmt::Display for LinkError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            LinkError::AnchoredHalt(pattern) => {
-                write!(
-                    f,
-                    "a hand-off's region ends with a pattern that uses \\G: {pattern}"
-                )
-            }
             LinkError::NoHalt(language) => {
                 write!(
                     f,
@@ -136,10 +126,6 @@ impl std::error::Error for LinkError {}
 /// lexers.
 /// With `None`, it is every language whose grammar neither `root` nor `set`
 /// holds, by [`Language::grammar_scope`].
-/// Then a region whose end uses `\G` hands nothing off, and the include
-/// matches nothing.
-/// A language named in `handed` refuses such a region with
-/// [`LinkError::AnchoredHalt`].
 ///
 /// A language whose lexer cannot [halt](Language::halts) takes a region only
 /// when nothing there needs a halt: no rules beside the include, and no end.
@@ -1026,16 +1012,6 @@ impl Tables {
         if owner.matching == Matching::BeginEnd {
             halts.push(owner.end);
         }
-        if let Some(anchored) = halts
-            .iter()
-            .filter_map(|&pattern| builder.patterns.get(pattern))
-            .find(|source| uses_last_match_end(source))
-        {
-            if !builder.named {
-                return Ok(self.plain(rules_of(&owner.patterns), None));
-            }
-            return Err(LinkError::AnchoredHalt((*anchored).to_owned()));
-        }
         let language = builder
             .hand_offs
             .get(hand_off)
@@ -1083,22 +1059,6 @@ fn rules_of(entries: &[Entry]) -> Vec<usize> {
             Entry::HandOff(_) => None,
         })
         .collect()
-}
-
-/// Whether `source` uses `\G`, which matches where the last match ended.
-fn uses_last_match_end(source: &str) -> bool {
-    let bytes = source.as_bytes();
-    let mut i = 0;
-    while i + 1 < bytes.len() {
-        if bytes.get(i) == Some(&b'\\') {
-            if bytes.get(i + 1) == Some(&b'G') {
-                return true;
-            }
-            i += 1;
-        }
-        i += 1;
-    }
-    false
 }
 
 /// A capture group with its names interned, before it is leaked.
