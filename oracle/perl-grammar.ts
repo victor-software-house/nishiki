@@ -76,8 +76,8 @@ function scopeIdent(name: string): string {
   let out = "";
   parts.forEach((part, index) => {
     for (const piece of part.split(/[-_]/)) {
-      const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-      out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+      const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+      out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
     }
   });
   return out + suffix;
@@ -506,9 +506,9 @@ g += arms(
         : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
-    const caps = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
+    const captures = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
     const nested = p.nested.map(([n, rule]) => `(${n}, Rule::${rule})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pattern",
 );

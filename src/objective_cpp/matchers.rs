@@ -37,10 +37,10 @@ impl Lexer<'_> {
             Rx::CppSpecialBlockAt1 => {
                 let end = self.keyword(p, b"namespace")?;
                 let name = self.space_end(end);
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 match self.bounded_ident(name) {
                     Some(stop) => {
-                        self.cap(2, name, stop);
+                        self.capture(2, name, stop);
                         Some(stop)
                     }
                     None => Some(name),
@@ -55,7 +55,7 @@ impl Lexer<'_> {
                     b']' | b'(' | b')' | b',' | b';' | b'=' | b'>' | b'['
                 );
                 (closes && p < self.lim()).then(|| {
-                    self.cap(1, p, p + 1);
+                    self.capture(1, p, p + 1);
                     p
                 })
             }
@@ -67,7 +67,7 @@ impl Lexer<'_> {
                 let name = self.space_end(p + 1);
                 let stop = self.scoped_ident_end(name)?;
                 self.paren_after(stop)?;
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(p + 1)
             }
             Rx::CppConstructorAt1End => (self.at(p) == b'{' && p < self.lim()).then_some(p),
@@ -76,14 +76,14 @@ impl Lexer<'_> {
                 let closes = matches!(self.at(p), b']' | b'(' | b')' | b';' | b'=' | b'>' | b'[');
                 (self.prev_is(p, b'}') || (closes && p < self.lim())).then_some(p)
             }
-            Rx::CppSpecialBlockAt2Cap7At0 => self.access(p),
-            Rx::CppSpecialBlockAt2Cap7At1 => self.ascii_ident_end(p),
+            Rx::CppSpecialBlockAt2Capture7At0 => self.access(p),
+            Rx::CppSpecialBlockAt2Capture7At1 => self.ascii_ident_end(p),
             Rx::CppSpecialBlockAt2At1End => {
                 let end = self.lit(p, b"}")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 let blanks = self.blank_end(end);
                 if blanks == self.lim() && self.at(blanks) == b'\n' {
-                    self.cap(2, end, blanks + 1);
+                    self.capture(2, end, blanks + 1);
                     return Some(blanks + 1);
                 }
                 Some(end)
@@ -95,7 +95,7 @@ impl Lexer<'_> {
                 let end = self.lit(p, b"extern")?;
                 let quote = self.space_end(end);
                 (self.at(quote) == b'"' && quote < self.lim()).then(|| {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     end
                 })
             }
@@ -109,7 +109,7 @@ impl Lexer<'_> {
             },
             Rx::CppStringsAt0 => match self.encoding(p, b'"') {
                 Some(quote) => {
-                    self.cap(1, p, quote);
+                    self.capture(1, p, quote);
                     Some(quote + 1)
                 }
                 None => (self.at(p) == b'"' && p < self.lim()).then_some(p + 1),
@@ -185,8 +185,8 @@ impl Lexer<'_> {
                 let end = self.lit(p, b"template")?;
                 let open = self.space_end(end);
                 (self.at(open) == b'<' && open < self.lim()).then(|| {
-                    self.cap(1, p, end);
-                    self.cap(2, open, open + 1);
+                    self.capture(1, p, end);
+                    self.capture(2, open, open + 1);
                     self.space_end(open + 1)
                 })
             }
@@ -296,9 +296,9 @@ impl Lexer<'_> {
         while let Some(stop) = self.bounded_ident(end) {
             end = self.lit(stop, b"::").unwrap_or(stop);
         }
-        self.cap(1, p, using);
-        self.cap(2, word, namespace);
-        self.cap(3, names, end);
+        self.capture(1, p, using);
+        self.capture(2, word, namespace);
+        self.capture(3, names, end);
         Some(end)
     }
 
@@ -310,11 +310,11 @@ impl Lexer<'_> {
             Some(end) => (1, end),
             None => (2, self.keyword(p, b"struct")?),
         };
-        self.cap(group, p, word);
+        self.capture(group, p, word);
         let name = self.space_end(word);
         let mut end = name;
         if let Some(stop) = self.bounded_ident(name) {
-            self.cap(3, name, stop);
+            self.capture(3, name, stop);
             end = stop;
         }
         let Some([access, access_end, base, list]) = self.base_head(end) else {
@@ -324,9 +324,9 @@ impl Lexer<'_> {
         while let Some(next) = self.base_more(stop) {
             stop = next;
         }
-        self.cap(5, access, access_end);
-        self.cap(6, base, list);
-        self.cap(7, list, stop);
+        self.capture(5, access, access_end);
+        self.capture(6, base, list);
+        self.capture(7, list, stop);
         Some(stop)
     }
 
@@ -361,7 +361,7 @@ impl Lexer<'_> {
     fn raw_begin(&mut self, p: usize) -> Option<usize> {
         let r = match self.encoding(p, b'R') {
             Some(r) => {
-                self.cap(1, p, r);
+                self.capture(1, p, r);
                 r
             }
             None => p,
@@ -381,8 +381,8 @@ impl Lexer<'_> {
             return None;
         }
         let group = if chars <= RAW_DELIMITER_MAX { 2 } else { 3 };
-        self.cap(group, from, end);
-        self.cap(RAW_DELIMITER, from, end);
+        self.capture(group, from, end);
+        self.capture(RAW_DELIMITER, from, end);
         Some(end + 1)
     }
 
@@ -401,9 +401,9 @@ impl Lexer<'_> {
             return None;
         }
         if long {
-            self.cap(1, p + 1, stop);
+            self.capture(1, p + 1, stop);
         } else {
-            self.cap(1, stop, stop);
+            self.capture(1, stop, stop);
         }
         Some(stop + 1)
     }
@@ -420,13 +420,13 @@ impl Lexer<'_> {
         let first = self.ascii_ident_end(start)?;
         let blanks = self.space_end(first);
         if let Some(end) = self.argument_end(blanks) {
-            self.cap(1, start, blanks);
+            self.capture(1, start, blanks);
             return Some(end);
         }
         let (last, stop) = self.last_of_names(start, first);
         if let Some(end) = self.argument_end(stop) {
-            self.cap(2, start, last);
-            self.cap(3, last, stop);
+            self.capture(2, start, last);
+            self.capture(3, last, stop);
             return Some(end);
         }
         if let Some(dots) = self.lit(blanks, b"...") {
@@ -434,9 +434,9 @@ impl Lexer<'_> {
             if let Some(name_end) = self.ascii_ident_end(name)
                 && let Some(end) = self.argument_end(name_end)
             {
-                self.cap(4, start, first);
-                self.cap(5, blanks, dots);
-                self.cap(6, name, name_end);
+                self.capture(4, start, first);
+                self.capture(5, blanks, dots);
+                self.capture(6, name, name_end);
                 return Some(end);
             }
         }
@@ -450,10 +450,10 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.argument_end(value_end)?;
-        self.cap(7, start, last);
-        self.cap(8, last, stop);
-        self.cap(9, equals, equals + 1);
-        self.cap(10, value, value_end);
+        self.capture(7, start, last);
+        self.capture(8, last, stop);
+        self.capture(9, equals, equals + 1);
+        self.capture(10, value, value_end);
         Some(end)
     }
 
@@ -481,11 +481,11 @@ impl Lexer<'_> {
         }
         match self.at(i) {
             b',' => {
-                self.cap(11, i, i + 1);
+                self.capture(11, i, i + 1);
                 Some(i + 1)
             }
             b'>' => {
-                self.cap(11, i, i);
+                self.capture(11, i, i);
                 Some(i)
             }
             _ => None,
@@ -504,9 +504,9 @@ impl Lexer<'_> {
             at = after;
         }
         let (name, stop) = last?;
-        self.cap(1, p, name);
-        self.cap(2, name, stop);
-        self.cap(3, stop, stop + 2);
+        self.capture(1, p, name);
+        self.capture(2, name, stop);
+        self.capture(3, stop, stop + 2);
         Some(stop + 2)
     }
 
@@ -525,8 +525,8 @@ impl Lexer<'_> {
         let tilde = self.lit(at, b"~")?;
         let stop = self.ascii_ident_end(tilde)?;
         let open = self.paren_after(stop)?;
-        self.cap(1, p, stop);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, stop);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 }

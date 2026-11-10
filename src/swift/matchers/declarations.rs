@@ -139,7 +139,7 @@ impl Lexer<'_> {
         }
         let end = self.keyword(p, word)?;
         let next = self.open_paren_or_angle(end)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(next)
     }
 
@@ -161,7 +161,7 @@ impl Lexer<'_> {
         if !(self.not_after_op_ascii(p) && self.not_before_op_ascii(end)) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -192,10 +192,10 @@ impl Lexer<'_> {
     /// `\b(word)\b(?:\s*:\s*(a|b)\b)?`.
     fn word_with_value(&mut self, p: usize, word: &[u8], values: &[&[u8]]) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         match self.colon_word(end, values) {
             Some((from, to)) => {
-                self.cap(2, from, to);
+                self.capture(2, from, to);
                 Some(to)
             }
             None => Some(end),
@@ -241,12 +241,12 @@ impl Lexer<'_> {
             return None;
         };
         if let Some((from, to)) = fix {
-            self.cap(1, from, to);
+            self.capture(1, from, to);
         }
-        self.cap(2, p, word_end);
-        self.cap(3, name, end);
+        self.capture(2, p, word_end);
+        self.capture(3, name, end);
         if alt_one {
-            self.cap(4, name, end);
+            self.capture(4, name, end);
         }
         Some(self.blank_end(end))
     }
@@ -268,15 +268,15 @@ impl Lexer<'_> {
     /// character is an operator one.
     pub(in crate::swift) fn rx_declarations_function(&mut self, p: usize) -> Option<usize> {
         let kw = self.keyword(p, b"func")?;
-        self.cap(1, p, kw);
+        self.capture(1, p, kw);
         let name = self.blank_end(kw);
         if name == kw {
             return None;
         }
         if let Some(id) = self.ident_at(name) {
             let next = self.open_paren_or_angle(id.end)?;
-            self.cap(2, name, id.end);
-            self.cap_quotes(3, name, id);
+            self.capture(2, name, id.end);
+            self.capture_quotes(3, name, id);
             return Some(next);
         }
         let (min, max) = if let Some(width) = self.op_head_at(name) {
@@ -289,7 +289,7 @@ impl Lexer<'_> {
             return None;
         };
         let (end, next) = self.operator_then(min, max, Self::open_paren_or_angle)?;
-        self.cap(2, name, end);
+        self.capture(2, name, end);
         Some(next)
     }
 
@@ -323,7 +323,7 @@ impl Lexer<'_> {
             end += 1;
         }
         let next = self.open_paren_or_angle(end)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(next)
     }
 
@@ -334,7 +334,7 @@ impl Lexer<'_> {
     /// ```
     pub(in crate::swift) fn rx_declarations_parameter_clause(&mut self, p: usize) -> Option<usize> {
         (self.at(p) == b'(').then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         })
     }
@@ -351,10 +351,10 @@ impl Lexer<'_> {
         if self.at(p) != b')' {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         let word = self.blank_end(p + 1);
         if let Some(end) = self.keyword(word, b"async") {
-            self.cap(2, word, end);
+            self.capture(2, word, end);
             return Some(end);
         }
         Some(p + 1)
@@ -379,10 +379,10 @@ impl Lexer<'_> {
         if self.at(colon) != b':' {
             return None;
         }
-        self.cap(1, p, first.end);
-        self.cap_quotes(2, p, first);
-        self.cap(4, from, second.end);
-        self.cap_quotes(5, from, second);
+        self.capture(1, p, first.end);
+        self.capture_quotes(2, p, first);
+        self.capture(4, from, second.end);
+        self.capture_quotes(5, from, second);
         Some(second.end)
     }
 
@@ -400,9 +400,9 @@ impl Lexer<'_> {
         if self.at(colon) != b':' {
             return None;
         }
-        self.cap(1, p, id.end);
-        self.cap(2, p, id.end);
-        self.cap_quotes(3, p, id);
+        self.capture(1, p, id.end);
+        self.capture(2, p, id.end);
+        self.capture_quotes(3, p, id);
         Some(id.end)
     }
 
@@ -462,7 +462,7 @@ impl Lexer<'_> {
     /// ```
     pub(in crate::swift) fn rx_code_block(&mut self, p: usize) -> Option<usize> {
         (self.at(p) == b'{').then(|| {
-            self.cap(0, p, p + 1);
+            self.capture(0, p, p + 1);
             p + 1
         })
     }
@@ -480,7 +480,7 @@ impl Lexer<'_> {
     /// ```
     pub(in crate::swift) fn rx_code_block_end(&mut self, p: usize) -> Option<usize> {
         (self.at(p) == b'}').then(|| {
-            self.cap(0, p, p + 1);
+            self.capture(0, p, p + 1);
             p + 1
         })
     }
@@ -510,7 +510,7 @@ impl Lexer<'_> {
         if !self.not_before_op_ascii(arrow) {
             return None;
         }
-        self.cap(1, p, arrow);
+        self.capture(1, p, arrow);
         Some(self.blank_end(arrow))
     }
 
@@ -728,7 +728,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -742,7 +742,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         (self.at(p) == b'[').then(|| {
-            self.cap(0, p, p + 1);
+            self.capture(0, p, p + 1);
             p + 1
         })
     }
@@ -763,7 +763,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -811,7 +811,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         (self.at(p) == b':').then(|| {
-            self.cap(0, p, p + 1);
+            self.capture(0, p, p + 1);
             p + 1
         })
     }
@@ -839,7 +839,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         (self.at(p) == b'{').then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         })
     }
@@ -856,7 +856,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         (self.at(p) == b'}').then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         })
     }
@@ -875,7 +875,7 @@ impl Lexer<'_> {
         if next == end {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(next)
     }
 
@@ -888,7 +888,7 @@ impl Lexer<'_> {
     /// `\n?` takes the line feed when it is still there.
     pub(in crate::swift) fn rx_declarations_import_end(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b';' {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         if self.at_eol(p) {
@@ -910,7 +910,7 @@ impl Lexer<'_> {
             if let Some(end) = self.lit(p, keyword) {
                 let next = self.blank_end(end);
                 if next > end {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     return Some(next);
                 }
             }
@@ -937,7 +937,7 @@ impl Lexer<'_> {
             return None;
         }
         let id = self.ident_at(p)?;
-        self.cap_quotes(1, p, id);
+        self.capture_quotes(1, p, id);
         Some(id.end)
     }
 
@@ -970,7 +970,7 @@ impl Lexer<'_> {
         if let Some(width) = self.op_head_at(p) {
             let max = self.op_run_end(p + width, Dots::Refused);
             let (end, _) = self.operator_then(p + width, max, look)?;
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         if self.at(p) != b'.' {
@@ -1036,7 +1036,7 @@ impl Lexer<'_> {
     /// ```
     pub(in crate::swift) fn rx_declarations_operator_swift_2(&mut self, p: usize) -> Option<usize> {
         (self.g && p == self.pos && self.at(p) == b'{').then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         })
     }
@@ -1056,8 +1056,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_in(from, &[b"left", b"right"])?;
-        self.cap(1, p, word);
-        self.cap(2, from, end);
+        self.capture(1, p, word);
+        self.capture(2, from, end);
         Some(end)
     }
 
@@ -1084,8 +1084,8 @@ impl Lexer<'_> {
         if end == from || self.word_at(end).is_some() {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, from, end);
+        self.capture(1, p, word);
+        self.capture(2, from, end);
         Some(end)
     }
 
@@ -1099,7 +1099,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.keyword(p, b"assignment")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -1114,9 +1114,9 @@ impl Lexer<'_> {
         }
         let from = self.blank_end(p + 1);
         let id = self.ident_at(from)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, from, id.end);
-        self.cap_quotes(3, from, id);
+        self.capture(1, p, p + 1);
+        self.capture(2, from, id.end);
+        self.capture_quotes(3, from, id);
         Some(id.end)
     }
 
@@ -1149,9 +1149,9 @@ impl Lexer<'_> {
         if self.at(brace) != b'{' {
             return None;
         }
-        self.cap(1, p, p + b"precedencegroup".len());
-        self.cap(2, from, id.end);
-        self.cap_quotes(3, from, id);
+        self.capture(1, p, p + b"precedencegroup".len());
+        self.capture(2, from, id.end);
+        self.capture_quotes(3, from, id);
         Some(brace)
     }
 
@@ -1176,9 +1176,9 @@ impl Lexer<'_> {
         }
         let from = self.blank_end(colon + 1);
         let id = self.ident_at(from)?;
-        self.cap(1, p, word);
-        self.cap(2, from, id.end);
-        self.cap_quotes(3, from, id);
+        self.capture(1, p, word);
+        self.capture(2, from, id.end);
+        self.capture_quotes(3, from, id);
         Some(id.end)
     }
 
@@ -1218,9 +1218,9 @@ impl Lexer<'_> {
         if !matches!(self.at(next), b'(' | b'<' | b'=') {
             return None;
         }
-        self.cap(1, p, p + b"macro".len());
-        self.cap(2, from, id.end);
-        self.cap_quotes(3, from, id);
+        self.capture(1, p, p + b"macro".len());
+        self.capture(2, from, id.end);
+        self.capture_quotes(3, from, id);
         Some(next)
     }
 
@@ -1244,7 +1244,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         (self.at(p) == b'=').then(|| {
-            self.cap(0, p, p + 1);
+            self.capture(0, p, p + 1);
             p + 1
         })
     }

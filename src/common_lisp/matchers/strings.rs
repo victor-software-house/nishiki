@@ -83,9 +83,9 @@ impl Lexer<'_> {
         let mut q = p + 1;
         loop {
             if let Some(end) = self.directive_at(q, directive) {
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 if q > p + 1 {
-                    self.cap(2, p + 1, q);
+                    self.capture(2, p + 1, q);
                 }
                 return Some(end);
             }
@@ -132,7 +132,7 @@ impl Lexer<'_> {
         for modifiers in tries.into_iter().flatten() {
             if let Some(end) = self.directive_end(modifiers, directive) {
                 if modifiers > q {
-                    self.cap(8, q, modifiers);
+                    self.capture(8, q, modifiers);
                 }
                 return Some(end);
             }
@@ -151,7 +151,7 @@ impl Lexer<'_> {
             Directive::Letter => self.letter_directive_end(m)?,
             Directive::Call => return self.call(m),
         };
-        self.cap(10, m, end);
+        self.capture(10, m, end);
         Some(end)
     }
 
@@ -183,9 +183,9 @@ impl Lexer<'_> {
         if self.symbol_end_before(first, close) != close {
             return None;
         }
-        self.cap(10, m, name);
-        self.cap(11, name, close);
-        self.cap(12, close, close + 1);
+        self.capture(10, m, name);
+        self.capture(11, name, close);
+        self.capture(12, close, close + 1);
         Some(close + 1)
     }
 }

@@ -112,7 +112,7 @@ where
     pub(super) fn word_operator(&mut self, p: usize) -> Option<usize> {
         let end = self.unkeyed_word(p, &[b"and", b"is", b"isnt", b"not", b"or"])?;
         let group = if self.at(p) == b'i' { 2 } else { 1 };
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -166,18 +166,18 @@ where
         if let Some(class) = self.lit(from, b"class") {
             let name = self.space_end(class);
             if name > class {
-                self.cap(1, p, new);
-                self.cap(2, from, class);
+                self.capture(1, p, new);
+                self.capture(2, from, class);
                 let Some(end) = self.dotted_name(name) else {
                     return Some(name);
                 };
-                self.cap(3, name, end);
+                self.capture(3, name, end);
                 return Some(end);
             }
         }
         let end = self.dotted_name(from)?;
-        self.cap(1, p, new);
-        self.cap(4, from, end);
+        self.capture(1, p, new);
+        self.capture(4, from, end);
         Some(end)
     }
 
@@ -223,10 +223,10 @@ where
         }
         let class = self.lit(p, b"class")?;
         let (extends, end) = self.extends_clause(class)?;
-        self.cap(1, p, class);
+        self.capture(1, p, class);
         let after = extends + 7;
-        self.cap(2, extends, after);
-        self.cap(3, self.space_end(after), end);
+        self.capture(2, extends, after);
+        self.capture(3, self.space_end(after), end);
         Some(end)
     }
 
@@ -257,17 +257,17 @@ where
         if name == class {
             return None;
         }
-        self.cap(1, p, class);
+        self.capture(1, p, class);
         let Some(named) = self.class_name(name, ClassName::Plain) else {
             return Some(name);
         };
-        self.cap(2, name, named);
+        self.capture(2, name, named);
         let Some((extends, end)) = self.extends_clause(named) else {
             return Some(named);
         };
         let after = extends + 7;
-        self.cap(3, extends, after);
-        self.cap(4, self.space_end(after), end);
+        self.capture(3, extends, after);
+        self.capture(4, self.space_end(after), end);
         Some(end)
     }
 

@@ -62,7 +62,7 @@ impl Lexer<'_> {
             }
             end = self.char_start_before(end);
         }
-        self.cap(1, p, op_end);
+        self.capture(1, p, op_end);
         Some(end)
     }
 
@@ -83,7 +83,7 @@ impl Lexer<'_> {
         let op_end = self.lit(p, b"::")?;
         let end = self.space_end(op_end);
         self.byte_in(end, |b| b.is_ascii_uppercase()).then(|| {
-            self.cap(1, p, op_end);
+            self.capture(1, p, op_end);
             end
         })
     }

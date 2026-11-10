@@ -59,7 +59,7 @@ impl Default for Extra {
 
 /// A capture group of a match that adds a scope.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
     pub(super) scope: S,
@@ -70,7 +70,7 @@ pub(super) struct Cap {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) caps: [Option<Cap>; 4],
+    pub(super) captures: [Option<Capture>; 4],
 }
 
 impl Hit {
@@ -78,13 +78,13 @@ impl Hit {
         Hit {
             start,
             end,
-            caps: [None; 4],
+            captures: [None; 4],
         }
     }
 
     /// The match with a group `from..to` that adds `scope`, in slot `slot`.
-    pub(super) fn cap(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
-        self.caps[slot] = Some(Cap { from, to, scope });
+    pub(super) fn capture(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
+        self.captures[slot] = Some(Capture { from, to, scope });
         self
     }
 }
@@ -130,9 +130,9 @@ impl Lexer<'_> {
         let hit = self.pattern_at(pattern, p)?;
         self.x.start = hit.start;
         self.clear_spans();
-        for cap in hit.caps.iter().flatten() {
-            if cap.from < cap.to {
-                self.span_one(cap.from, cap.to, Some(cap.scope), None);
+        for capture in hit.captures.iter().flatten() {
+            if capture.from < capture.to {
+                self.span_one(capture.from, capture.to, Some(capture.scope), None);
             }
         }
         Some(hit.end)

@@ -101,8 +101,8 @@ impl Lexer<'_> {
         if end == p || self.at(end) != b'.' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, end, end + 1);
+        self.capture(1, p, end);
+        self.capture(2, end, end + 1);
         Some(end + 1)
     }
 }

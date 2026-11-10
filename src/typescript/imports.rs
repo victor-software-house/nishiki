@@ -16,12 +16,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut j = k + "import".len();
-        let mut type_cap = None;
+        let mut type_capture = None;
         let t = self.ws(j);
         if t > j && self.starts(t, "type") && self.boundary(t + "type".len()) {
             let after = self.ws(t + "type".len());
             if after > t + "type".len() {
-                type_cap = Some((t, t + "type".len()));
+                type_capture = Some((t, t + "type".len()));
                 j = t + "type".len();
             }
         }
@@ -50,7 +50,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.prefix_tokens(rule, &pre);
         self.capture(rule, k, k + 6, &[S::KeywordControlImport]);
-        if let Some((a, b)) = type_cap {
+        if let Some((a, b)) = type_capture {
             self.capture(rule, a, b, &[S::KeywordControlType]);
         }
         self.capture(rule, n0, n, &[S::VariableOtherReadwriteAlias]);
@@ -97,7 +97,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut e = k + "import".len();
-        let mut type_cap = None;
+        let mut type_capture = None;
         let t = self.ws(e);
         if t > e && self.starts(t, "type") && self.boundary(t + "type".len()) {
             let after = self.ws(t + "type".len());
@@ -105,7 +105,7 @@ impl<const D: u8> Lexer<'_, D> {
                 && self.starts(after, "from")
                 && self.boundary(after + "from".len()))
             {
-                type_cap = Some((t, t + "type".len()));
+                type_capture = Some((t, t + "type".len()));
                 e = t + "type".len();
             }
         }
@@ -116,7 +116,7 @@ impl<const D: u8> Lexer<'_, D> {
         self.flush(p);
         self.prefix_tokens(Rule::Import, &pre);
         self.capture(Rule::Import, k, k + 6, &[S::KeywordControlImport]);
-        if let Some((a, b)) = type_cap {
+        if let Some((a, b)) = type_capture {
             self.capture(Rule::Import, a, b, &[S::KeywordControlType]);
         }
         self.finish(Rule::Import, e);
@@ -242,22 +242,22 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut j = p;
-        let mut type_cap = None;
+        let mut type_capture = None;
         if self.starts(j, "type") && self.boundary(j) {
             let e = j + "type".len();
             let k = self.ws(e);
             if k > e {
-                type_cap = Some((j, e));
+                type_capture = Some((j, e));
                 j = k;
             }
         }
         for attempt in 0..2 {
             let (start, tcap) = if attempt == 0 {
-                (j, type_cap)
+                (j, type_capture)
             } else {
                 (p, None)
             };
-            if attempt == 1 && type_cap.is_none() {
+            if attempt == 1 && type_capture.is_none() {
                 break;
             }
             if let Some(r) = self.import_alias_from(p, start, tcap) {
@@ -275,7 +275,7 @@ impl<const D: u8> Lexer<'_, D> {
         &mut self,
         p: usize,
         j: usize,
-        type_cap: Option<(usize, usize)>,
+        type_capture: Option<(usize, usize)>,
     ) -> Option<usize> {
         let (first_end, first_scope): (usize, S) = if self.starts(j, "default")
             && self.boundary(j)
@@ -311,7 +311,7 @@ impl<const D: u8> Lexer<'_, D> {
                 (e, S::StringQuotedAlias)
             };
         self.flush(p);
-        if let Some((a, b)) = type_cap {
+        if let Some((a, b)) = type_capture {
             self.capture(Rule::Top, a, b, &[S::KeywordControlType]);
         }
         if first_scope == S::StringQuotedAlias {
@@ -335,12 +335,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(type\s+)?(ID|STR)`.
     fn import_name(&mut self, p: usize) -> Option<usize> {
         let mut j = p;
-        let mut type_cap = None;
+        let mut type_capture = None;
         if self.starts(j, "type") && self.boundary(j) {
             let e = j + "type".len();
             let k = self.ws(e);
             if k > e && (self.ident(k).is_some() || self.quoted(k).is_some()) {
-                type_cap = Some((j, e));
+                type_capture = Some((j, e));
                 j = k;
             }
         }
@@ -351,7 +351,7 @@ impl<const D: u8> Lexer<'_, D> {
             (e, S::StringQuotedAlias)
         };
         self.flush(p);
-        if let Some((a, b)) = type_cap {
+        if let Some((a, b)) = type_capture {
             self.capture(Rule::Top, a, b, &[S::KeywordControlType]);
         }
         self.capture(Rule::Top, j, e, &[scope]);

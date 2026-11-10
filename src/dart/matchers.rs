@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -148,7 +148,7 @@ impl Lexer<'_> {
     /// `(x)` for the literal `x`, with group 1 around it.
     fn captured(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 }

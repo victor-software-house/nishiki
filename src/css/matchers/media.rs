@@ -89,8 +89,8 @@ impl<G: CssLike> Lexer<'_, G> {
         }
         let name = self.lit_ci(p, "layer")?;
         (self.at(name) == b'(' && name < self.lim()).then(|| {
-            self.cap(1, p, name);
-            self.cap(2, name, name + 1);
+            self.capture(1, p, name);
+            self.capture(2, name, name + 1);
             name + 1
         })
     }
@@ -109,7 +109,7 @@ impl<G: CssLike> Lexer<'_, G> {
     /// `(?i)(?<![-\w])(layer)(?![-\w])`
     pub(in crate::css) fn layer_import_at1(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Spelled(&["layer"]))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -165,7 +165,7 @@ impl<G: CssLike> Lexer<'_, G> {
             return None;
         };
         self.ahead_blank_or_comment(end, b",;{").then(|| {
-            self.cap(group, p, end);
+            self.capture(group, p, end);
             end
         })
     }
@@ -292,7 +292,7 @@ impl<G: CssLike> Lexer<'_, G> {
             || matches!(self.s.get(end), Some(b')' | b':' | b'<' | b'=' | b'>'))
             || self.starts(end, b"/*");
         ahead.then(|| {
-            self.cap(group, p, end);
+            self.capture(group, p, end);
             end
         })
     }
@@ -333,9 +333,9 @@ impl<G: CssLike> Lexer<'_, G> {
         let second = self.spaces(slash + 1);
         let end = self.digit_end(second);
         (end > second).then(|| {
-            self.cap(1, p, first);
-            self.cap(2, slash, slash + 1);
-            self.cap(3, second, end);
+            self.capture(1, p, first);
+            self.capture(2, slash, slash + 1);
+            self.capture(3, second, end);
             end
         })
     }

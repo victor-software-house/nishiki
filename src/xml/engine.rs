@@ -23,7 +23,7 @@ use crate::{Stack, Token, java};
 /// The most capture groups a match carries.
 /// The end of a tag with nothing in it has a name of three parts between
 /// three punctuation marks.
-const CAPS: usize = 7;
+const CAPTURES: usize = 7;
 
 /// The end of a `<% ... %>`.
 /// It halts the Java inside.
@@ -34,7 +34,7 @@ fn jsp_end(s: &[u8], p: usize) -> bool {
 /// A capture group that carries a scope.
 /// `inner` is a second group over the same bytes, nested in it.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
     pub(super) scope: S,
@@ -46,7 +46,7 @@ pub(super) struct Cap {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    caps: [Option<Cap>; CAPS],
+    captures: [Option<Capture>; CAPTURES],
 }
 
 impl Hit {
@@ -54,13 +54,13 @@ impl Hit {
         Hit {
             start,
             end,
-            caps: [None; CAPS],
+            captures: [None; CAPTURES],
         }
     }
 
     /// The match with a group `from..to` that adds `scope`.
-    pub(super) fn cap(self, from: usize, to: usize, scope: S) -> Hit {
-        self.group(Cap {
+    pub(super) fn capture(self, from: usize, to: usize, scope: S) -> Hit {
+        self.group(Capture {
             from,
             to,
             scope,
@@ -71,7 +71,7 @@ impl Hit {
     /// The match with a group `from..to` that adds `scope` and, over the same
     /// bytes, a nested group that adds `inner`.
     pub(super) fn nested(self, from: usize, to: usize, scope: S, inner: S) -> Hit {
-        self.group(Cap {
+        self.group(Capture {
             from,
             to,
             scope,
@@ -79,9 +79,9 @@ impl Hit {
         })
     }
 
-    fn group(mut self, cap: Cap) -> Hit {
-        if let Some(slot) = self.caps.iter_mut().find(|slot| slot.is_none()) {
-            *slot = Some(cap);
+    fn group(mut self, capture: Capture) -> Hit {
+        if let Some(slot) = self.captures.iter_mut().find(|slot| slot.is_none()) {
+            *slot = Some(capture);
         }
         self
     }
@@ -454,7 +454,7 @@ impl<'a> Lexer<'a> {
             self.frames[last].state = next;
             return None;
         };
-        Some(Found::End(Hit::new(at, at + 2).cap(
+        Some(Found::End(Hit::new(at, at + 2).capture(
             at,
             at + 2,
             S::EmbeddedEnd,
@@ -558,13 +558,13 @@ impl<'a> Lexer<'a> {
     /// Emits a match's capture groups over `base`, the stack of the text of
     /// the match outside them.
     fn captures(&mut self, base: u32, hit: &Hit) {
-        for cap in hit.caps.iter().flatten() {
-            self.tok(base, cap.from);
-            let mut stack = self.path(base, Some(cap.scope));
-            if let Some(inner) = cap.inner {
+        for capture in hit.captures.iter().flatten() {
+            self.tok(base, capture.from);
+            let mut stack = self.path(base, Some(capture.scope));
+            if let Some(inner) = capture.inner {
                 stack = self.path(stack, Some(inner));
             }
-            self.tok(stack, cap.to);
+            self.tok(stack, capture.to);
         }
     }
 }

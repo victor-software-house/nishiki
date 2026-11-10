@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -137,15 +137,15 @@ impl Lexer<'_> {
             Pattern::TagsStartNode | Pattern::TagsGeneralStart => {
                 let name = self.lit(p, b"<")?;
                 let end = self.tag_name_end(name);
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
             Pattern::TagsGeneralEnd => {
                 let name = self.lit(p, b"</")?;
                 let end = self.tag_name_end(name);
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
             Pattern::TagsEndNode => self.end_node(p),
@@ -155,8 +155,8 @@ impl Lexer<'_> {
                 }
                 let name = self.lit(p, b"<")?;
                 let end = self.lit(name, b"script")?;
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
             Pattern::StyleStartInBody => {
@@ -192,19 +192,19 @@ impl Lexer<'_> {
                 if !(self.space_at(end) > 0 || self.starts(end, b">") || self.starts(end, b"/>")) {
                     return None;
                 }
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
             Pattern::TagsVoidEnd => {
                 let start = if self.starts(p, b"/") { p + 1 } else { p };
                 self.lit(start, b">")
             }
-            Pattern::TagsGeneralEndEnd => self.lit_cap1(p, b">"),
+            Pattern::TagsGeneralEndEnd => self.lit_capture1(p, b">"),
             Pattern::TagsGeneralStartEnd => {
                 let start = if self.starts(p, b"/") { p + 1 } else { p };
                 let end = self.lit(start, b">")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
 
@@ -214,7 +214,7 @@ impl Lexer<'_> {
             Pattern::AttributesEvents => self.event_name(p),
             Pattern::AttributesKeyvalue => {
                 let end = self.attribute_name(p)?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::AttributesEventsEnd | Pattern::AttributesKeyvalueEnd => {
@@ -236,7 +236,7 @@ impl Lexer<'_> {
                 (self.at_g(p) && self.starts(start, b"{")).then_some(start)
             }
             Pattern::InterpolationAt0At0End => self.prev_is(p, b'}').then_some(p),
-            Pattern::AttributeLiteral => self.lit_cap1(p, b"`"),
+            Pattern::AttributeLiteral => self.lit_capture1(p, b"`"),
             Pattern::AttributeLiteralEnd => self.lit(p, b"`"),
             Pattern::EventScript => {
                 let opens = if self.starts(p, b"/") {
@@ -250,12 +250,12 @@ impl Lexer<'_> {
             Pattern::EventScriptBare => {
                 let end = self.unquoted_end(p);
                 (end > p).then(|| {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     end
                 })
             }
-            Pattern::EventScriptDouble => self.lit_cap1(p, b"\""),
-            Pattern::EventScriptSingle => self.lit_cap1(p, b"'"),
+            Pattern::EventScriptDouble => self.lit_capture1(p, b"\""),
+            Pattern::EventScriptSingle => self.lit_capture1(p, b"'"),
             Pattern::EventScriptDoubleEnd
             | Pattern::EventScriptSingleEnd
             | Pattern::ValueQuotedEnd => self.payload_at(p).map(|width| p + width),
@@ -279,7 +279,7 @@ impl Lexer<'_> {
                 if !(self.starts(p, b"\"") || self.starts(p, b"'")) {
                     return None;
                 }
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(p + 1)
             }
             Pattern::AttributesInterpolated => {
@@ -288,17 +288,17 @@ impl Lexer<'_> {
                 }
                 let start = self.space_end(p);
                 let end = self.lit(start, b"{")?;
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
-            Pattern::AttributesInterpolatedEnd => self.lit_cap1(p, b"}"),
+            Pattern::AttributesInterpolatedEnd => self.lit_capture1(p, b"}"),
 
             Pattern::EntityNamed => self.named_entity(p),
             Pattern::EntityDecimal => {
                 let digits = self.lit(p, b"&#")?;
                 let end = self.skip(digits, |b| b.is_ascii_digit());
                 (end > digits && self.starts(end, b";")).then(|| {
-                    self.cap(1, p, p + 1);
+                    self.capture(1, p, p + 1);
                     end + 1
                 })
             }
@@ -309,7 +309,7 @@ impl Lexer<'_> {
                 }
                 let end = self.skip(x + 1, |b| b.is_ascii_hexdigit());
                 (end > x + 1 && self.starts(end, b";")).then(|| {
-                    self.cap(1, p, p + 1);
+                    self.capture(1, p, p + 1);
                     end + 1
                 })
             }
@@ -326,7 +326,7 @@ impl Lexer<'_> {
                 let dashes = self.lit(p, b"---")?;
                 let end = self.space_end(dashes);
                 self.at_eol(end).then(|| {
-                    self.cap(1, p, dashes);
+                    self.capture(1, p, dashes);
                     end
                 })
             }
@@ -406,9 +406,9 @@ impl Lexer<'_> {
     }
 
     /// `(text)`, the whole match as group 1.
-    fn lit_cap1(&mut self, p: usize, text: &[u8]) -> Option<usize> {
+    fn lit_capture1(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -445,13 +445,13 @@ impl Lexer<'_> {
             while trimmed > name && self.space_before(trimmed) {
                 trimmed = self.char_start_before(trimmed);
             }
-            self.cap(1, p, name);
-            self.cap(2, name, trimmed);
-            self.cap(3, close, close + 1);
+            self.capture(1, p, name);
+            self.capture(2, name, trimmed);
+            self.capture(3, close, close + 1);
             return Some(close + 1);
         }
         let end = self.lit(p, b"/>")?;
-        self.cap(4, p, end);
+        self.capture(4, p, end);
         Some(end)
     }
 
@@ -486,7 +486,7 @@ impl Lexer<'_> {
             end = self.char_start_before(end);
         }
         (end > name).then(|| {
-            self.cap(1, name, end);
+            self.capture(1, name, end);
             end
         })
     }
@@ -506,7 +506,7 @@ impl Lexer<'_> {
     fn lang_tag(&mut self, p: usize, tag: &[u8]) -> Option<usize> {
         let name = self.lit(p, b"<")?;
         let end = self.lit(name, tag)?;
-        self.cap(1, name, end);
+        self.capture(1, name, end);
         Some(end)
     }
 
@@ -535,7 +535,7 @@ impl Lexer<'_> {
                 && let Some((value, end)) = self.lang_value(name, want)
             {
                 if matches!(want, LangValue::Named) {
-                    self.cap(3, value, end);
+                    self.capture(3, value, end);
                 }
                 return Some(p);
             }
@@ -669,7 +669,7 @@ impl Lexer<'_> {
             }
         }
         let end = name + best?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -700,9 +700,9 @@ impl Lexer<'_> {
         ENTITIES
             .binary_search_by(|entity| crate::bytes::order(entity.as_bytes(), word))
             .ok()?;
-        self.cap(1, p, name);
-        self.cap(2, name, end);
-        self.cap(3, end, end + 1);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
+        self.capture(3, end, end + 1);
         Some(end + 1)
     }
 
@@ -713,7 +713,7 @@ impl Lexer<'_> {
         if (p == 0 || self.at_g(p))
             && let Some(end) = self.lit(p, b"---")
         {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         let dots = self.lit(p, b"...")?;

@@ -7,7 +7,7 @@
 
 use memchr::memchr;
 
-use super::engine::{CapName, Hit, Lexer};
+use super::engine::{CaptureName, Hit, Lexer};
 use super::rules::Pattern;
 use super::scope::{BUILTINS, FUNCTIONS, S, SPECIAL_TARGETS};
 use super::state::Rule;
@@ -166,7 +166,7 @@ impl Lexer<'_> {
             Rule::VarParen | Rule::VarBrace => {
                 let close = if rule == Rule::VarParen { b')' } else { b'}' };
                 ((p < self.lim() && self.s[p] == close) || self.plain_newline(p))
-                    .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctVar))
+                    .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::PunctVar))
             }
             Rule::FuncParen | Rule::AnotherParen => {
                 ((p < self.lim() && self.s[p] == b')') || self.plain_newline(p)).then(zero)
@@ -189,7 +189,7 @@ impl Lexer<'_> {
         let from = self.spaces(0);
         let end = from + word.len();
         (self.starts(from, word) && self.boundary_after(end))
-            .then(|| Hit::new(0, end).cap(0, from, end, scope))
+            .then(|| Hit::new(0, end).capture(0, from, end, scope))
     }
 
     // Patterns.
@@ -221,7 +221,7 @@ impl Lexer<'_> {
             Pattern::SpecialTarget => self.special_target(p),
             Pattern::Comment => self.comment(p),
             Pattern::CommentHash => (p < self.lim() && self.s[p] == b'#')
-                .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctComment)),
+                .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::PunctComment)),
             Pattern::VarParen => self.dollar(p, b'('),
             Pattern::VarBrace => self.dollar(p, b'{'),
             Pattern::FuncParen => self.function(p, b'('),
@@ -282,7 +282,7 @@ impl Lexer<'_> {
     /// the variable's punctuation.
     fn dollar(&self, p: usize, open: u8) -> Option<Hit> {
         (p + 1 < self.lim() && self.s[p] == b'$' && self.s[p + 1] == open)
-            .then(|| Hit::new(p, p + 2).cap(0, p, p + 2, S::PunctVar))
+            .then(|| Hit::new(p, p + 2).capture(0, p, p + 2, S::PunctVar))
     }
 
     /// `(?<=\()(MAKEFILES|...)(?=\s*\))`
@@ -311,7 +311,7 @@ impl Lexer<'_> {
         let &(_, scope) = FUNCTIONS.iter().find(|(name, _)| name.as_bytes() == word)?;
         let end = p + run;
         let blank = self.space_w(end);
-        (blank > 0).then(|| Hit::new(p, end + blank).cap(0, p, end, scope))
+        (blank > 0).then(|| Hit::new(p, end + blank).capture(0, p, end, scope))
     }
 
     /// `(?<=\()(origin|flavor)\s(?=[^\s)]+\s*\))`
@@ -339,7 +339,7 @@ impl Lexer<'_> {
         }
         self.spend(i - from);
         (i > from && self.at(self.spaces(i)) == close)
-            .then(|| Hit::new(p, end + blank).cap(0, p, end, scope))
+            .then(|| Hit::new(p, end + blank).capture(0, p, end, scope))
     }
 
     /// `(?<=\()(?!\))`
@@ -353,7 +353,7 @@ impl Lexer<'_> {
             let from = self.blanks(0);
             return self
                 .even_backslashes(from)
-                .map(|end| Hit::new(0, end).cap(0, 0, from, S::LeadingSpace));
+                .map(|end| Hit::new(0, end).capture(0, 0, from, S::LeadingSpace));
         }
         if p > 0 && self.prev(p) == Some(b'\\') {
             return None;
@@ -390,7 +390,7 @@ impl Lexer<'_> {
         };
         let end = word_start + word.len();
         (self.starts(word_start, word) && self.boundary_after(end))
-            .then(|| Hit::new(0, end).cap(0, from, end, scope))
+            .then(|| Hit::new(0, end).capture(0, from, end, scope))
     }
 
     /// `^[ ]*(export)\b` and the like: the first of `words` that fits.
@@ -402,7 +402,7 @@ impl Lexer<'_> {
         words.iter().find_map(|&(word, scope)| {
             let end = from + word.len();
             (self.starts(from, word) && self.boundary_after(end))
-                .then(|| Hit::new(0, end).cap(0, from, end, scope))
+                .then(|| Hit::new(0, end).capture(0, from, end, scope))
         })
     }
 
@@ -448,12 +448,12 @@ impl Lexer<'_> {
         let (end, op) = found?;
         let mut hit = Hit::new(0, end);
         if let Some((from, to)) = over {
-            hit = hit.cap(0, from, to, S::KwOverride);
+            hit = hit.capture(0, from, to, S::KwOverride);
         }
-        hit = hit.cap(1, at, define_end, S::KwDefine);
-        hit = hit.cap(2, name, name_end, S::VarOther);
+        hit = hit.capture(1, at, define_end, S::KwDefine);
+        hit = hit.capture(2, name, name_end, S::VarOther);
         if let Some((from, to)) = op {
-            hit = hit.cap(3, from, to, S::KeyValue);
+            hit = hit.capture(3, from, to, S::KeyValue);
         }
         Some(hit)
     }
@@ -497,7 +497,7 @@ impl Lexer<'_> {
         words.iter().find_map(|&(word, scope)| {
             let end = from + word.len();
             (self.starts(from, word) && self.space_w(end) > 0)
-                .then(|| Hit::new(0, end).cap(0, from, end, scope))
+                .then(|| Hit::new(0, end).capture(0, from, end, scope))
         })
     }
 
@@ -539,7 +539,7 @@ impl Lexer<'_> {
             found = last_end(i).or(found);
         }
         let end = found?;
-        Some(Hit::new(0, end).cap(0, 0, end, S::KwElse))
+        Some(Hit::new(0, end).capture(0, 0, end, S::KwElse))
     }
 
     /// `^(?!\t)([^:]*)(:)(?!\=)`: the targets are lexed again.
@@ -553,8 +553,8 @@ impl Lexer<'_> {
             return None;
         }
         let hit = Hit::new(0, colon + 1);
-        let hit = hit.group(0, 0, colon, CapName::None, Some(Rule::RetokTarget));
-        Some(hit.cap(1, colon, colon + 1, S::KeyValue))
+        let hit = hit.group(0, 0, colon, CaptureName::None, Some(Rule::RetokTarget));
+        Some(hit.capture(1, colon, colon + 1, S::KeyValue))
     }
 
     /// `^\s*(\.(PHONY|...))\s*$`
@@ -566,7 +566,7 @@ impl Lexer<'_> {
         SPECIAL_TARGETS.iter().find_map(|&(name, scope)| {
             let end = from + name.len();
             (self.starts(from, name.as_bytes()) && self.at_eol(self.spaces(end)))
-                .then(|| Hit::new(0, self.spaces(end)).cap(0, from, end, scope))
+                .then(|| Hit::new(0, self.spaces(end)).capture(0, from, end, scope))
         })
     }
 
@@ -580,7 +580,7 @@ impl Lexer<'_> {
             end += 1;
         }
         self.spend(end);
-        Some(Hit::new(0, end).group(0, 1, end, CapName::Flags, None))
+        Some(Hit::new(0, end).group(0, 1, end, CaptureName::Flags, None))
     }
 
     /// `(^[ ]*|\G\s*)([^\s:#=]+)\s*((?<![?:+!])=|\?=|:=|\+=|!=)`
@@ -624,10 +624,10 @@ impl Lexer<'_> {
                             0,
                             from,
                             end,
-                            CapName::One(S::VarOther),
+                            CaptureName::One(S::VarOther),
                             Some(Rule::RetokVars),
                         )
-                        .cap(1, after, after + width, S::KeyValue),
+                        .capture(1, after, after + width, S::KeyValue),
                 );
             }
             end -= 1;

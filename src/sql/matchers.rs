@@ -271,7 +271,7 @@ impl Lexer<'_> {
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let one = |byte: u8, scope: S| {
             (p < self.lim() && self.s[p] == byte)
-                .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, scope))
+                .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, scope))
         };
         match rule {
             Rule::Root => None,
@@ -284,7 +284,7 @@ impl Lexer<'_> {
                 .s
                 .get(p..self.lim())
                 .is_some_and(|rest| rest.starts_with(b"*/"))
-                .then(|| Hit::new(p, p + 2).cap(0, p, p + 2, S::PunctComment)),
+                .then(|| Hit::new(p, p + 2).capture(0, p, p + 2, S::PunctComment)),
             Rule::StrSingle => one(b'\'', S::PunctStrEnd),
             Rule::StrBacktick => one(b'`', S::PunctStrEnd),
             Rule::StrDouble => one(b'"', S::PunctStrEnd),
@@ -370,7 +370,7 @@ impl Lexer<'_> {
     /// A rule's begin: `text`, scoped as its punctuation.
     fn begin(&self, p: usize, text: &[u8], scope: S) -> Option<Hit> {
         self.text_hit(p, text)
-            .map(|hit| hit.cap(0, p, p + text.len(), scope))
+            .map(|hit| hit.capture(0, p, p + text.len(), scope))
     }
 
     /// `[!<>]?=|<>|<|>`
@@ -408,8 +408,8 @@ impl Lexer<'_> {
     /// `(\()(\))`
     fn parens(&self, p: usize) -> Option<Hit> {
         self.text_hit(p, b"()").map(|hit| {
-            hit.cap(0, p, p + 1, S::PunctScopeBegin)
-                .cap(1, p + 1, p + 2, S::PunctScopeEnd)
+            hit.capture(0, p, p + 1, S::PunctScopeBegin)
+                .capture(1, p + 1, p + 2, S::PunctScopeEnd)
         })
     }
 
@@ -427,8 +427,8 @@ impl Lexer<'_> {
         let close = self.find_closer(Closer::Brace, p + 2)?;
         Some(
             Hit::new(p, close + 1)
-                .cap(0, p, p + 2, S::PunctStrBegin)
-                .cap(1, close, close + 1, S::PunctStrEnd),
+                .capture(0, p, p + 2, S::PunctStrBegin)
+                .capture(1, close, close + 1, S::PunctStrEnd),
         )
     }
 
@@ -450,8 +450,8 @@ impl Lexer<'_> {
         let close = self.find_closer(Closer::Quote, quote + 1)?;
         Some(
             Hit::new(p, close + 1)
-                .cap(0, quote, quote + 1, S::PunctStrBegin)
-                .cap(1, close, close + 1, S::PunctStrEnd),
+                .capture(0, quote, quote + 1, S::PunctStrBegin)
+                .capture(1, close, close + 1, S::PunctStrEnd),
         )
     }
 
@@ -466,8 +466,8 @@ impl Lexer<'_> {
         let close = p + 1 + body;
         (self.s[close] == quote).then(|| {
             Hit::new(p, close + 1)
-                .cap(0, p, p + 1, S::PunctStrBegin)
-                .cap(1, close, close + 1, S::PunctStrEnd)
+                .capture(0, p, p + 1, S::PunctStrBegin)
+                .capture(1, close, close + 1, S::PunctStrEnd)
         })
     }
 
@@ -483,7 +483,7 @@ impl Lexer<'_> {
                 .s
                 .get(end..self.lim())
                 .is_some_and(|rest| rest.starts_with(text))
-                .then(|| Hit::new(0, end).cap(0, 0, end, S::LeadingSpace));
+                .then(|| Hit::new(0, end).capture(0, 0, end, S::LeadingSpace));
         }
         self.s
             .get(p..self.lim())
@@ -592,9 +592,9 @@ impl Lexer<'_> {
             })?;
         Some(
             Hit::new(0, end)
-                .cap(0, word, phrase, S::KwCreate)
-                .cap(1, type_start, type_end, S::KwOther)
-                .cap(2, name, name_end, S::EntityFunction),
+                .capture(0, word, phrase, S::KwCreate)
+                .capture(1, type_start, type_end, S::KwOther)
+                .capture(2, name, name_end, S::EntityFunction),
         )
     }
 
@@ -610,8 +610,8 @@ impl Lexer<'_> {
         let (end, _) = self.object_type(start, DROP_TYPES, false)?;
         Some(
             Hit::new(0, end)
-                .cap(0, word, dropped, S::KwCreate)
-                .cap(1, start, end, S::KwOther),
+                .capture(0, word, dropped, S::KwCreate)
+                .capture(1, start, end, S::KwOther),
         )
     }
 
@@ -640,11 +640,11 @@ impl Lexer<'_> {
             .filter(|&end| self.bnd(end));
         let end = cascade.unwrap_or(name_end);
         let mut hit = Hit::new(p, end)
-            .cap(0, word, dropped, S::KwCreate)
-            .cap(1, table, table_end, S::KwTable)
-            .cap(2, name, name_end, S::EntityFunction);
+            .capture(0, word, dropped, S::KwCreate)
+            .capture(1, table, table_end, S::KwTable)
+            .capture(2, name, name_end, S::EntityFunction);
         if let Some(cascade_end) = cascade {
-            hit = hit.cap(3, name_end, cascade_end, S::KwCascade);
+            hit = hit.capture(3, name_end, cascade_end, S::KwCascade);
         }
         Some(hit)
     }
@@ -661,8 +661,8 @@ impl Lexer<'_> {
         let (end, after) = self.object_type(start, ALTER_TYPES, true)?;
         Some(
             Hit::new(0, after)
-                .cap(0, word, altered, S::KwCreate)
-                .cap(1, start, end, S::KwTable),
+                .capture(0, word, altered, S::KwCreate)
+                .capture(1, start, end, S::KwTable),
         )
     }
 
@@ -718,7 +718,7 @@ impl Lexer<'_> {
         }?;
         let paren = self.spaces(end);
         (self.at(paren) == b'(' && paren < self.lim())
-            .then(|| Hit::new(p, paren + 1).cap(0, start, end, scope))
+            .then(|| Hit::new(p, paren + 1).capture(0, start, end, scope))
     }
 
     /// `(\w+?)\.(\w+)`
@@ -735,12 +735,11 @@ impl Lexer<'_> {
             return None;
         }
         let table = self.word_run(database + 1);
-        Some(Hit::new(p, table).cap(0, p, database, S::DatabaseName).cap(
-            1,
-            database + 1,
-            table,
-            S::TableName,
-        ))
+        Some(
+            Hit::new(p, table)
+                .capture(0, p, database, S::DatabaseName)
+                .capture(1, database + 1, table, S::TableName),
+        )
     }
 
     /// The keywords of the rule that closes the grammar's word rules.

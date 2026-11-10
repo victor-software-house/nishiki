@@ -16,7 +16,7 @@ impl Lexer<'_> {
         if self.at(dashes) != open {
             return None;
         }
-        self.cap(1, p + 2, dashes);
+        self.capture(1, p + 2, dashes);
         Some(dashes + 1)
     }
 

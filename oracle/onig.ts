@@ -165,7 +165,7 @@ if (run.status !== 0) {
   console.log(run.stdout.slice(-3000), run.stderr.slice(-3000));
   process.exit(1);
 }
-const answers: ({ end: number; caps: ([number, number] | null)[] } | null)[] = readFileSync(output, "utf8")
+const answers: ({ end: number; captures: ([number, number] | null)[] } | null)[] = readFileSync(output, "utf8")
   .trim()
   .split("\n")
   .map((line) => JSON.parse(line));
@@ -180,15 +180,15 @@ cases.forEach((c, i) => {
   const b = (unit: number) => bytes(c.text, unit);
   const want = found && {
     end: b(found.captureIndices[0]?.end ?? 0),
-    caps: found.captureIndices.map((x) => (x.start === 4294967295 ? null : ([b(x.start), b(x.end)] as [number, number]))),
+    captures: found.captureIndices.map((x) => (x.start === 4294967295 ? null : ([b(x.start), b(x.end)] as [number, number]))),
   };
   const got = answers[i] ?? null;
   let ok = want === null ? got === null : got !== null && got.end === want.end;
   if (ok && want && got) {
     for (const k of expression.groups) {
       if (k === 0) continue;
-      const w = want.caps[k];
-      const g = got.caps[k];
+      const w = want.captures[k];
+      const g = got.captures[k];
       if (!w || w[0] >= w[1]) {
         if (g && g[0] < g[1]) ok = false;
       } else if (!g || g[0] !== w[0] || g[1] !== w[1]) ok = false;

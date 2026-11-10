@@ -142,8 +142,8 @@ impl Lexer<'_> {
         if !self.assigned_signature(end) {
             return None;
         }
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -243,7 +243,7 @@ impl Lexer<'_> {
         } else {
             None
         };
-        self.cap(1, p, keyword);
+        self.capture(1, p, keyword);
         if let Some(Name {
             module_dot,
             ident,
@@ -251,10 +251,10 @@ impl Lexer<'_> {
         }) = named
         {
             if let Some(dot) = module_dot {
-                self.cap(2, dot, dot + 1);
+                self.capture(2, dot, dot + 1);
             }
-            self.cap(3, ident.0, ident.1);
-            self.cap(4, ident.1, end);
+            self.capture(3, ident.0, ident.1);
+            self.capture(4, ident.1, end);
             return Some(end);
         }
         (self.at(space) == b'(').then_some(space)
@@ -299,9 +299,9 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, name);
-        self.cap(2, name, braces);
-        self.cap(3, open, open + 1);
+        self.capture(1, p, name);
+        self.capture(2, name, braces);
+        self.capture(3, open, open + 1);
         Some(open + 1)
     }
 
@@ -310,7 +310,7 @@ impl Lexer<'_> {
         let end = self.lit(p, b")")?;
         match self.primes(end) {
             Some(primes) => {
-                self.cap(1, end, primes);
+                self.capture(1, end, primes);
                 Some(primes)
             }
             None => Some(end),
@@ -334,7 +334,7 @@ impl Lexer<'_> {
             return None;
         }
         let name = self.ident(start)?;
-        self.cap(1, start, name);
+        self.capture(1, start, name);
         let op = self.space_end(name);
         let Some(after_op) = self.lit(op, b"<:") else {
             return Some(name);
@@ -350,8 +350,8 @@ impl Lexer<'_> {
                 .map_or(supertype, |k| supertype + 2 + k),
             _ => supertype,
         };
-        self.cap(2, name, end);
-        self.cap(3, op, after_op);
+        self.capture(2, name, end);
+        self.capture(3, op, after_op);
         Some(end)
     }
 

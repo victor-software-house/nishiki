@@ -46,7 +46,7 @@ impl Lexer<'_> {
                 ],
             )?
         };
-        self.cap(1, p, start);
+        self.capture(1, p, start);
         Some(end)
     }
 
@@ -63,7 +63,7 @@ impl Lexer<'_> {
         if !(self.starts(name, b":") && self.at(name + 1) != b':') {
             return None;
         }
-        self.cap(1, name, name + 1);
+        self.capture(1, name, name + 1);
         Some(name + 1)
     }
 
@@ -87,7 +87,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.skip(0, |b| matches!(b, b' ' | b'\t'));
             if blanks > 0 && self.starts(blanks, mark) {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }

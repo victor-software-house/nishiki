@@ -50,7 +50,7 @@ pub(crate) struct Extra {
 /// A capture group that carries a scope.
 /// `inner` is a second group over the same bytes, nested in it.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
     pub(super) scope: S,
@@ -62,7 +62,7 @@ pub(super) struct Cap {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) caps: [Option<Cap>; 5],
+    pub(super) captures: [Option<Capture>; 5],
 }
 
 impl Hit {
@@ -70,13 +70,13 @@ impl Hit {
         Hit {
             start,
             end,
-            caps: [None; 5],
+            captures: [None; 5],
         }
     }
 
     /// The match with a group `from..to` that adds `scope`, in slot `slot`.
-    pub(super) fn cap(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
-        self.caps[slot] = Some(Cap {
+    pub(super) fn capture(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
+        self.captures[slot] = Some(Capture {
             from,
             to,
             scope,
@@ -88,7 +88,7 @@ impl Hit {
     /// The match with a group `from..to` that adds `scope`.
     /// A nested group over the same bytes adds `inner`.
     pub(super) fn nested(mut self, slot: usize, from: usize, to: usize, scope: S, inner: S) -> Hit {
-        self.caps[slot] = Some(Cap {
+        self.captures[slot] = Some(Capture {
             from,
             to,
             scope,
@@ -105,11 +105,11 @@ impl Lexer<'_> {
     #[inline]
     fn record(&mut self, hit: &Hit) -> (usize, usize) {
         self.clear_spans();
-        for cap in hit.caps.iter().flatten() {
-            if cap.from < cap.to {
-                self.span_one(cap.from, cap.to, Some(cap.scope), None);
-                if cap.inner.is_some() {
-                    self.span_one(cap.from, cap.to, cap.inner, None);
+        for capture in hit.captures.iter().flatten() {
+            if capture.from < capture.to {
+                self.span_one(capture.from, capture.to, Some(capture.scope), None);
+                if capture.inner.is_some() {
+                    self.span_one(capture.from, capture.to, capture.inner, None);
                 }
             }
         }

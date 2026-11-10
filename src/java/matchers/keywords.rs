@@ -32,7 +32,7 @@ impl Lexer<'_> {
     /// `\b(word)\b` with the word as group 1.
     pub(super) fn keyword_group(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -43,7 +43,7 @@ impl Lexer<'_> {
         if width == 0 {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end + width)
     }
 }

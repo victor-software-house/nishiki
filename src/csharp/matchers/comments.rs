@@ -52,13 +52,13 @@ impl Lexer<'_> {
             if let Some(after) = blanks
                 && let Some(end) = self.marker_at(after, marker)
             {
-                self.cap(1, 0, after);
-                self.cap(2, after, end);
+                self.capture(1, 0, after);
+                self.capture(2, after, end);
                 return Some(end);
             }
         }
         let end = self.marker_at(p, marker)?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -76,9 +76,9 @@ impl Lexer<'_> {
         let after = self.blanks(0);
         let end = self.marker_at(after, marker)?;
         if after > 0 {
-            self.cap(1, 0, after);
+            self.capture(1, 0, after);
         }
-        self.cap(2, after, end);
+        self.capture(2, after, end);
         Some(end)
     }
 
@@ -132,7 +132,7 @@ impl Lexer<'_> {
         let after = self.blanks(0);
         let star = self.at(after) == b'*' && after < self.lim() && self.at(after + 1) != b'/';
         let end = if star && self.no_block_end(after + 1) {
-            self.cap(2, after, after + 1);
+            self.capture(2, after, after + 1);
             after + 1
         } else if self.no_block_end(after) {
             after
@@ -140,7 +140,7 @@ impl Lexer<'_> {
             return None;
         };
         if after > 0 {
-            self.cap(1, 0, after);
+            self.capture(1, 0, after);
         }
         Some(end)
     }
@@ -181,8 +181,8 @@ impl Lexer<'_> {
             return None;
         };
         let semi = self.lit(end, b";")?;
-        self.cap(1, p, amp);
-        self.cap(3, end, semi);
+        self.capture(1, p, amp);
+        self.capture(3, end, semi);
         Some(semi)
     }
 
@@ -208,15 +208,15 @@ impl Lexer<'_> {
             && ns_end < self.lim()
             && let Some(local_end) = self.xml_name(ns_end + 1)
         {
-            self.cap(base, p, local_end);
-            self.cap(base + 1, p, ns_end);
-            self.cap(base + 2, ns_end, ns_end + 1);
-            self.cap(base + 3, ns_end + 1, local_end);
+            self.capture(base, p, local_end);
+            self.capture(base + 1, p, ns_end);
+            self.capture(base + 2, ns_end, ns_end + 1);
+            self.capture(base + 3, ns_end + 1, local_end);
             return Some(local_end);
         }
         let end = self.xml_name(p)?;
-        self.cap(base, p, end);
-        self.cap(base + 3, p, end);
+        self.capture(base, p, end);
+        self.capture(base + 3, p, end);
         Some(end)
     }
 
@@ -228,7 +228,7 @@ impl Lexer<'_> {
         let lt = self.lit(p, b"<")?;
         let slash = self.lit(lt, b"/").unwrap_or(lt);
         let end = self.xml_qualified_name(slash, 2)?;
-        self.cap(1, p, slash);
+        self.capture(1, p, slash);
         Some(end)
     }
 
@@ -236,7 +236,7 @@ impl Lexer<'_> {
     pub(in crate::csharp) fn xml_tag_close(&mut self, p: usize) -> Option<usize> {
         let slash = self.lit(p, b"/").unwrap_or(p);
         let end = self.lit(slash, b">")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -245,7 +245,7 @@ impl Lexer<'_> {
         let at_start = |lexer: &mut Self, at: usize| -> Option<usize> {
             let name_end = lexer.xml_qualified_name(at, 1)?;
             let eq = lexer.lit(name_end, b"=")?;
-            lexer.cap(5, name_end, eq);
+            lexer.capture(5, name_end, eq);
             Some(eq)
         };
         if p == 0

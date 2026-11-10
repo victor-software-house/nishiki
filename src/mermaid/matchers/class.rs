@@ -77,11 +77,11 @@ impl Lexer<'_> {
     /// Records the groups of [`Lexer::quoted_name`], which count from `group`.
     fn name_groups(&mut self, group: usize, p: usize, end: usize, quoted: bool) {
         if quoted {
-            self.cap(group, p, p + 1);
-            self.cap(group + 1, p + 1, end - 1);
-            self.cap(group + 2, end - 1, end);
+            self.capture(group, p, p + 1);
+            self.capture(group + 1, p + 1, end - 1);
+            self.capture(group + 2, end - 1, end);
         } else {
-            self.cap(group + 3, p, end);
+            self.capture(group + 3, p, end);
         }
     }
 
@@ -109,10 +109,10 @@ impl Lexer<'_> {
         if !self.at_eol(end) {
             return None;
         }
-        self.cap(1, start, note);
-        self.cap(2, word, r#for);
+        self.capture(1, start, note);
+        self.capture(2, word, r#for);
         self.name_groups(3, name, name_end, quoted);
-        self.cap(7, text, text_end);
+        self.capture(7, text, text_end);
         Some(end)
     }
 
@@ -127,9 +127,9 @@ impl Lexer<'_> {
         let name_end = self.class_run1(name, is_name)?;
         let brace = self.ws(name_end);
         let end = self.lit(brace, b"{")?;
-        self.cap(1, start, word);
-        self.cap(2, name, name_end);
-        self.cap(3, brace, end);
+        self.capture(1, start, word);
+        self.capture(2, name, name_end);
+        self.capture(3, brace, end);
         Some(end)
     }
 
@@ -150,15 +150,15 @@ impl Lexer<'_> {
     fn generics(&mut self, group: usize, p: usize) -> usize {
         let mut q = p;
         if self.at(q) == b'~' {
-            self.cap(group, q, q + 1);
+            self.capture(group, q, q + 1);
             q += 1;
         }
         if let Some(end) = self.class_run1(q, is_name) {
-            self.cap(group + 1, q, end);
+            self.capture(group + 1, q, end);
             q = end;
         }
         if self.at(q) == b'~' {
-            self.cap(group + 2, q, q + 1);
+            self.capture(group + 2, q, q + 1);
             q += 1;
         }
         q
@@ -181,7 +181,7 @@ impl Lexer<'_> {
             Head::Body => self.group_at(9, self.ws01(after), b"{")?,
             Head::Bare => after,
         };
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         self.name_groups(2, name, name_end, quoted);
         Some(end)
     }
@@ -189,7 +189,7 @@ impl Lexer<'_> {
     /// `(literal)` at `p`, with the literal the group `group`.
     fn group_at(&mut self, group: usize, p: usize, literal: &[u8]) -> Option<usize> {
         let end = self.lit(p, literal)?;
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -209,13 +209,13 @@ impl Lexer<'_> {
             && let Some(name) = self.class_run1(p + 1, is_name)
         {
             let end = next(self, name)?;
-            self.cap(group, p, p + 1);
-            self.cap(group + 1, p + 1, name);
+            self.capture(group, p, p + 1);
+            self.capture(group + 1, p + 1, name);
             return Some(end);
         }
         let name = self.class_run1(p, is_name)?;
         let end = next(self, name)?;
-        self.cap(group + 1, p, name);
+        self.capture(group + 1, p, name);
         Some(end)
     }
 
@@ -246,9 +246,9 @@ impl Lexer<'_> {
         if !self.at_eol(end) {
             return None;
         }
-        self.cap(group, p, close);
-        self.cap(group + 1, close, marks);
-        self.cap(group + 2, returns, returns_end);
+        self.capture(group, p, close);
+        self.capture(group + 1, close, marks);
+        self.capture(group + 2, returns, returns_end);
         Some(end)
     }
 
@@ -264,11 +264,11 @@ impl Lexer<'_> {
         q += usize::from(self.at(q) == b',' && q < self.lim());
         q = self.ws(q);
         let name = self.class_run(q, is_name);
-        self.cap(1, q, name);
+        self.capture(1, q, name);
         q = self.generics(2, name);
         q = self.ws01(q);
         let last = self.class_run(q, is_name);
-        self.cap(5, q, last);
+        self.capture(5, q, last);
         last
     }
 
@@ -300,7 +300,7 @@ impl Lexer<'_> {
             (5, comma, value),
             (6, value, close),
         ] {
-            self.cap(group, from, to);
+            self.capture(group, from, to);
         }
         Some(end)
     }
@@ -359,10 +359,10 @@ impl Lexer<'_> {
                 continue;
             }
             if let Some(v) = visibility {
-                self.cap(1, v, v + 1);
+                self.capture(1, v, v + 1);
             }
-            self.cap(2, start, ty);
-            self.cap(3, name, name_end);
+            self.capture(2, start, ty);
+            self.capture(3, name, name_end);
             return Some(end);
         }
         None
@@ -384,7 +384,7 @@ impl Lexer<'_> {
             if !lexer.at_eol(end) {
                 return None;
             }
-            lexer.cap(group + 5, field, end);
+            lexer.capture(group + 5, field, end);
             Some(end)
         })
     }
@@ -405,14 +405,14 @@ impl Lexer<'_> {
         let open = self.lit(p, b"<<")?;
         let name = self.class_run1(open, |c| c == '-' || is_word(c))?;
         let close = self.lit(name, b">>")?;
-        self.cap(1, p, open);
-        self.cap(2, open, name);
-        self.cap(3, name, close);
+        self.capture(1, p, open);
+        self.capture(2, open, name);
+        self.capture(3, name, close);
         let q = self.ws01(close);
         match after {
             After::Name => {
                 let end = self.class_run(q, is_name);
-                self.cap(4, q, end);
+                self.capture(4, q, end);
                 Some(end)
             }
             After::Class => Some(self.named(4, q).unwrap_or(q)),
@@ -516,12 +516,12 @@ impl Lexer<'_> {
             (12, rest.colon),
         ] {
             if let Some((from, to)) = span {
-                self.cap(group, from, to);
+                self.capture(group, from, to);
             }
         }
         let (name, second_end, second_quoted) = rest.name;
         self.name_groups(8, name, second_end, second_quoted);
-        self.cap(13, rest.label.0, rest.label.1);
+        self.capture(13, rest.label.0, rest.label.1);
         Some(rest.label.1)
     }
 
@@ -538,7 +538,7 @@ impl Lexer<'_> {
             return None;
         }
         self.name_groups(1, p, name_end, quoted);
-        self.cap(5, colon, colon_end);
+        self.capture(5, colon, colon_end);
         Some(colon_end + space)
     }
 
@@ -558,8 +558,8 @@ impl Lexer<'_> {
             let last = lexer.ws01(generic);
             let last_end = lexer.class_run(last, is_name);
             let end = lexer.method_tail(14, last_end)?;
-            lexer.cap(9, open, first);
-            lexer.cap(13, last, last_end);
+            lexer.capture(9, open, first);
+            lexer.capture(13, last, last_end);
             Some(end)
         })
     }

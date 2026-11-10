@@ -72,12 +72,12 @@ impl Lexer<'_> {
                 }
             }
             if end > at + 1 {
-                self.cap(1, at, end);
+                self.capture(1, at, end);
                 return Some(end);
             }
         }
         let (_, end) = self.char_at(at)?;
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 
@@ -114,7 +114,7 @@ impl Lexer<'_> {
             Some((c, end)) => (!is_word(c)).then_some(end)?,
             None => (self.at(delimiter) == b'\n').then_some(delimiter + 1)?,
         };
-        self.cap(1, delimiter, end);
+        self.capture(1, delimiter, end);
         Some(end)
     }
 
@@ -233,7 +233,7 @@ impl Lexer<'_> {
         if end == start {
             return None;
         }
-        self.cap(1, p, start);
+        self.capture(1, p, start);
         Some(end)
     }
 

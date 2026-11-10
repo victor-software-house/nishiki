@@ -23,7 +23,7 @@ impl Lexer<'_> {
     /// `(?<!\w)word(?!\w)` as capture group 1.
     pub(super) fn word_group(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.word_lit(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -81,7 +81,7 @@ impl Lexer<'_> {
         } else {
             all
         };
-        self.cap(1, p, word_end);
+        self.capture(1, p, word_end);
         Some(end)
     }
 
@@ -103,9 +103,9 @@ impl Lexer<'_> {
             .iter()
             .rposition(|&b| b == b')')?
             + body;
-        self.cap(1, open, open + 1);
-        self.cap(2, body, close);
-        self.cap(3, close, close + 1);
+        self.capture(1, open, open + 1);
+        self.capture(2, body, close);
+        self.capture(3, close, close + 1);
         Some(close + 1)
     }
 
@@ -115,8 +115,8 @@ impl Lexer<'_> {
         if self.at(end) != b'(' || end >= self.lim() {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, end, end + 1);
+        self.capture(1, p, end);
+        self.capture(2, end, end + 1);
         Some(end + 1)
     }
 
@@ -133,9 +133,9 @@ impl Lexer<'_> {
                 .count();
         let n = end - digits;
         if n >= 2 && self.s[digits..end - 2].iter().all(|&b| b == b'0') {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
         } else {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
         }
         Some(end)
     }
@@ -161,8 +161,8 @@ impl Lexer<'_> {
             if end == word {
                 continue;
             }
-            self.cap(1, p, tag_end);
-            self.cap(2, word, end);
+            self.capture(1, p, tag_end);
+            self.capture(2, word, end);
             return Some(end);
         }
         None
@@ -178,7 +178,7 @@ impl Lexer<'_> {
             RawPrefix::Any => &[b"LR", b"L8R", b"UR", b"U8R", b"uR", b"u8R", b"R"],
         };
         let end = candidates.iter().find_map(|c| self.lit(p, c))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -207,11 +207,11 @@ impl Lexer<'_> {
             return None;
         }
         if end - from <= RAW_DELIMITER_MAX {
-            self.cap(2, from, end);
+            self.capture(2, from, end);
         } else {
-            self.cap(3, from, end);
+            self.capture(3, from, end);
         }
-        self.cap(usize::from(RAW_DELIMITER), from, end);
+        self.capture(usize::from(RAW_DELIMITER), from, end);
         Some(end + 1)
     }
 
@@ -224,7 +224,7 @@ impl Lexer<'_> {
             let end = lexer.lit(at, b"template")?;
             let after = lexer.skip_space(end);
             (after > end).then(|| {
-                lexer.cap(2, at, end);
+                lexer.capture(2, at, end);
                 after
             })
         };
@@ -233,7 +233,7 @@ impl Lexer<'_> {
             if after > e
                 && let Some(end) = try_template(self, after)
             {
-                self.cap(1, p, e);
+                self.capture(1, p, e);
                 return Some(end);
             }
         }
@@ -247,8 +247,8 @@ impl Lexer<'_> {
         if self.at(q) != b'<' || q >= self.lim() {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, q, q + 1);
+        self.capture(1, p, end);
+        self.capture(2, q, q + 1);
         Some(q + 1)
     }
 
@@ -344,7 +344,7 @@ impl Lexer<'_> {
         let end = self.word_lit(p, b"typedef")?;
         let q = self.skip_space(end);
         self.word_lit(q, kw)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(q)
     }
 
@@ -358,9 +358,9 @@ impl Lexer<'_> {
             self.boundary(end).then_some(end)
         })?;
         let q = self.skip_space(word);
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         let end = self.lit(q, b"volatile").unwrap_or(q);
-        self.cap(2, q, end);
+        self.capture(2, q, end);
         Some(end)
     }
 
@@ -386,7 +386,7 @@ impl Lexer<'_> {
         if self.at(p) != b',' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(self.skip_space(p + 1))
     }
 

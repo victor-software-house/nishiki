@@ -46,9 +46,9 @@ impl Lexer<'_> {
             let at = lx.spaces(end);
             (at < lx.lim() && lx.at(at) == open).then_some((marks, end, at))
         })?;
-        self.cap(1, p, marks);
-        self.cap(2, marks, end);
-        self.cap(3, at, at + 1);
+        self.capture(1, p, marks);
+        self.capture(2, marks, end);
+        self.capture(3, at, at + 1);
         Some(at + 1)
     }
 
@@ -72,7 +72,7 @@ impl Lexer<'_> {
         let start = self.spaces(p);
         let (end, close) =
             self.after_chans(start, Lead::Spaces, |lx, q, _| lx.type_before_close(q))?;
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(close)
     }
 
@@ -94,8 +94,8 @@ impl Lexer<'_> {
         let names = self.field_names(start)?;
         let (end, close) =
             self.after_chans(names, Lead::Spaces, |lx, q, _| lx.type_before_close(q))?;
-        self.cap(1, start, names);
-        self.cap(2, names, end);
+        self.capture(1, start, names);
+        self.capture(2, names, end);
         Some(close)
     }
 
@@ -122,12 +122,12 @@ impl Lexer<'_> {
         if let Some(names) = self.field_names(p)
             && let Some(end) = field_type(self, names)
         {
-            self.cap(1, p, names);
-            self.cap(2, names, end);
+            self.capture(1, p, names);
+            self.capture(2, names, end);
             return Some(end);
         }
         let end = field_type(self, p)?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -156,7 +156,7 @@ impl Lexer<'_> {
         if end == p {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(close)
     }
 
@@ -168,7 +168,7 @@ impl Lexer<'_> {
             let stops = end < lx.lim() && matches!(lx.at(end), b'"' | b'/' | b'`');
             (name > q && (stops || lx.at_eol(end))).then_some(end)
         })?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -187,20 +187,20 @@ impl Lexer<'_> {
         let blank = self.spaces(names);
         let rest = self.untyped_end(blank);
         if rest > blank {
-            self.cap(1, p, names);
-            self.cap(2, blank, rest);
+            self.capture(1, p, names);
+            self.capture(2, blank, rest);
             return Some(rest);
         }
         if blank > names {
-            self.cap(1, p, names);
-            self.cap(2, self.char_start_before(blank), blank);
+            self.capture(1, p, names);
+            self.capture(2, self.char_start_before(blank), blank);
             return Some(blank);
         }
         let last = self.char_start_before(names);
         let names_start = self.last_name_start(names);
         if last > names_start {
-            self.cap(1, p, last);
-            self.cap(2, last, names);
+            self.capture(1, p, last);
+            self.capture(2, last, names);
             return Some(names);
         }
         if names_start == p {
@@ -208,8 +208,8 @@ impl Lexer<'_> {
         }
         let shorter = self.names_before(p, names_start)?;
         let rest_start = self.spaces(shorter);
-        self.cap(1, p, shorter);
-        self.cap(2, rest_start, names);
+        self.capture(1, p, shorter);
+        self.capture(2, rest_start, names);
         Some(names)
     }
 
@@ -258,8 +258,8 @@ impl Lexer<'_> {
             return None;
         }
         let rest = self.rest_after_blanks(name_end)?;
-        self.cap(1, name, name_end);
-        self.cap(2, rest, self.text_end());
+        self.capture(1, name, name_end);
+        self.capture(2, rest, self.text_end());
         Some(self.text_end())
     }
 
@@ -269,7 +269,7 @@ impl Lexer<'_> {
             return None;
         }
         let rest = self.rest_after_blanks(p)?;
-        self.cap(1, rest, self.text_end());
+        self.capture(1, rest, self.text_end());
         Some(self.text_end())
     }
 

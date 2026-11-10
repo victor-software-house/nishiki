@@ -127,7 +127,7 @@ impl Lexer<'_> {
             CodePattern::ImportAt1End | CodePattern::CommentsBaseEnd => self.at_eol(p).then_some(p),
             CodePattern::Codetags => {
                 let end = self.word_in(p, CODETAGS)?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             CodePattern::Backticks => (self.at(p) == b'`').then_some(p + 1),
@@ -178,7 +178,7 @@ impl Lexer<'_> {
                 (self.at(p) == b',').then_some(p + 1)
             }
             CodePattern::ItemAccessAt0 => self.item_access_begin(p),
-            CodePattern::ItemAccessAt0End => self.char_cap(p, b']'),
+            CodePattern::ItemAccessAt0End => self.char_capture(p, b']'),
             CodePattern::SpecialVariables => self.special_variables(p),
             CodePattern::BuiltinFunctionsAt0 => self.builtin(p, chars::FUNCTION),
             CodePattern::BuiltinFunctionsAt1 => self.builtin(p, chars::LEGACY),
@@ -195,17 +195,17 @@ impl Lexer<'_> {
             | CodePattern::ClassNameAt2
             | CodePattern::FunctionDefNameAt2
             | CodePattern::InheritanceIdentifier => self.bounded_ident(p),
-            CodePattern::ItemIndex => self.char_cap(p, b'['),
+            CodePattern::ItemIndex => self.char_capture(p, b'['),
             CodePattern::ItemIndexEnd => (self.at(p) == b']').then_some(p),
             CodePattern::OddFunctionCall => self.odd_call_begin(p),
             CodePattern::OddFunctionCallEnd
             | CodePattern::FunctionCallEnd
             | CodePattern::CallWrapperInheritanceEnd
             | CodePattern::ClassInheritanceEnd
-            | CodePattern::ParametersEnd => self.char_cap(p, b')'),
+            | CodePattern::ParametersEnd => self.char_capture(p, b')'),
             CodePattern::FunctionCall | CodePattern::CallWrapperInheritance => self.call_begin(p),
             CodePattern::FunctionArgumentsEnd => self.arguments_end(p),
-            CodePattern::FunctionArgumentsAt0 => self.char_cap(p, b','),
+            CodePattern::FunctionArgumentsAt0 => self.char_capture(p, b','),
             CodePattern::FunctionArgumentsAt1 => self.argument_unpacking(p),
             CodePattern::LambdaIncomplete => self.lambda_incomplete(p, b"),"),
             CodePattern::FunctionArgumentsAt4 | CodePattern::ClassKwarg => {
@@ -233,7 +233,7 @@ impl Lexer<'_> {
             CodePattern::FunctionDeclarationEnd => self.def_end(p),
             CodePattern::FunctionArguments
             | CodePattern::ClassInheritance
-            | CodePattern::Parameters => self.char_cap(p, b'('),
+            | CodePattern::Parameters => self.char_capture(p, b'('),
             CodePattern::LambdaAt2At0 | CodePattern::ParametersAt0 => {
                 (self.at(p) == b'/').then_some(p + 1)
             }
@@ -242,7 +242,7 @@ impl Lexer<'_> {
             | CodePattern::ParametersAt1 => self.star_run(p),
             CodePattern::ParameterSpecial => self.parameter_special(p),
             CodePattern::ParametersAt6 => self.parameter_name(p),
-            CodePattern::LooseDefault => self.char_cap(p, b'='),
+            CodePattern::LooseDefault => self.char_capture(p, b'='),
             CodePattern::LooseDefaultEnd | CodePattern::AnnotatedParameterEnd => {
                 self.parameter_end(p)
             }
@@ -271,17 +271,17 @@ impl Lexer<'_> {
     }
 
     /// A one-byte match of `byte` whose capture group 1 is that byte.
-    fn char_cap(&mut self, p: usize, byte: u8) -> Option<usize> {
+    fn char_capture(&mut self, p: usize, byte: u8) -> Option<usize> {
         if self.at(p) != byte || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
     /// The regex `(#)`.
     fn hash(&mut self, p: usize) -> Option<usize> {
-        self.char_cap(p, b'#')
+        self.char_capture(p, b'#')
     }
 
     /// The regex `\.+`.
@@ -317,7 +317,7 @@ impl Lexer<'_> {
         if self.last(Ahead::Import)? < p + 5 {
             return None;
         }
-        self.cap(1, p, p + 4);
+        self.capture(1, p, p + 4);
         Some(p + 4)
     }
 
@@ -330,7 +330,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        self.cap(1, p, p + 6);
+        self.capture(1, p, p + 6);
         Some(p + 6)
     }
 
@@ -361,7 +361,7 @@ impl Lexer<'_> {
     /// A keyword with `\b` on both sides, as `\bfor\b`.
     fn keyword_zero(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -378,7 +378,7 @@ impl Lexer<'_> {
         if self.at_eol(r) || self.at(r) == b'#' {
             return None;
         }
-        self.cap(1, q, q + 5);
+        self.capture(1, q, q + 5);
         Some(r)
     }
 
@@ -477,14 +477,14 @@ impl Lexer<'_> {
         for base in bases.into_iter().take(3).flatten() {
             if let Some((end, j)) = tail(self, base) {
                 if let Some((from, to)) = j {
-                    self.cap(1, from, to);
+                    self.capture(1, from, to);
                 }
                 return Some(end);
             }
         }
         let e = self.digits(p).and_then(|e| self.exponent(e))?;
         if matches!(self.at(e), b'J' | b'j') && e < self.lim() && self.boundary(e + 1) {
-            self.cap(1, e, e + 1);
+            self.capture(1, e, e + 1);
             return Some(e + 1);
         }
         self.boundary(e).then_some(e)
@@ -519,13 +519,13 @@ impl Lexer<'_> {
             && end < self.lim()
             && self.boundary(end + 1)
         {
-            self.cap(1, end, end + 1);
+            self.capture(1, end, end + 1);
             return Some(end + 1);
         }
         if b == b'0' && p < self.lim() {
             let end = self.skip(p + 1, |c| c.is_ascii_digit());
             if end > p + 1 && !matches!(self.at(end), b'.' | b'E' | b'e') && self.boundary(end) {
-                self.cap(2, p + 1, end);
+                self.capture(2, p + 1, end);
                 return Some(end);
             }
         }
@@ -557,7 +557,7 @@ impl Lexer<'_> {
         if !any || !self.boundary(k) {
             return None;
         }
-        self.cap(1, p, p + 2);
+        self.capture(1, p, p + 2);
         Some(k)
     }
 
@@ -575,7 +575,7 @@ impl Lexer<'_> {
             && digits_end < self.lim()
             && self.boundary(digits_end + 1)
         {
-            self.cap(2, digits_end, digits_end + 1);
+            self.capture(2, digits_end, digits_end + 1);
             return Some(digits_end + 1);
         }
         None
@@ -599,7 +599,7 @@ impl Lexer<'_> {
         }
         let after = self.space_end(p + 6);
         if self.prev_is(p, b'.') || matches!(self.at(after), b'.' | b'=') && after < self.lim() {
-            self.cap(1, p, p + 6);
+            self.capture(1, p, p + 6);
             return Some(p + 6);
         }
         None
@@ -617,7 +617,7 @@ impl Lexer<'_> {
                 || self.at(q) == b',' && q < self.lim()
                 || self.at_eol(q)
             {
-                self.cap(1, p, p + 6);
+                self.capture(1, p, p + 6);
                 return Some(q);
             }
             let width = self.space_at(q);
@@ -633,14 +633,14 @@ impl Lexer<'_> {
         if !self.boundary(p) || !self.starts(p, b"lambda") || !self.boundary(p + 6) {
             return None;
         }
-        self.cap(1, p, p + 6);
+        self.capture(1, p, p + 6);
         Some(p + 6)
     }
 
     /// The end `(:)|(\n)`.
     fn lambda_end(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b':' && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         (p == self.lim()).then_some(p + 1)
@@ -659,9 +659,9 @@ impl Lexer<'_> {
     fn lambda_parameter(&mut self, p: usize) -> Option<usize> {
         let e = self.ident_end(p)?;
         let q = self.space_end(e);
-        self.cap(1, p, e);
+        self.capture(1, p, e);
         if q < self.lim() && self.at(q) == b',' {
-            self.cap(2, q, q + 1);
+            self.capture(2, q, q + 1);
             return Some(q + 1);
         }
         (q < self.lim() && self.at(q) == b':' || self.at_eol(q)).then_some(q)
@@ -681,15 +681,15 @@ impl Lexer<'_> {
         if equals == Equals::NotDouble && self.at(q + 1) == b'=' && q + 1 < self.lim() {
             return None;
         }
-        self.cap(1, p, e);
-        self.cap(2, q, q + 1);
+        self.capture(1, p, e);
+        self.capture(2, q, q + 1);
         Some(q + 1)
     }
 
     /// The end `(,)|(?=:|$)`.
     fn lambda_default_end(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b',' && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         (self.at(p) == b':' && p < self.lim() || self.at_eol(p)).then_some(p)
@@ -704,20 +704,20 @@ impl Lexer<'_> {
         let word = self.text(p, end);
         debug_assert!(FLOW_KEYWORDS.is_sorted(), "FLOW_KEYWORDS not sorted");
         if FLOW_KEYWORDS.binary_search(&word).is_ok() {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         if word == b"lambda" {
             let after = self.space_end(end);
             if self.prev_is(p, b'.') || matches!(self.at(after), b'.' | b'=') && after < self.lim()
             {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
             return None;
         }
         if word == b"as" || word == b"import" {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         None
@@ -740,31 +740,31 @@ impl Lexer<'_> {
         }
         let two = |me: &Self, text: &[u8]| me.starts(p, text);
         if two(self, b"<<") || two(self, b">>") {
-            self.cap(3, p, p + 2);
+            self.capture(3, p, p + 2);
             return Some(p + 2);
         }
         if matches!(b, b'&' | b'^' | b'|' | b'~') {
-            self.cap(3, p, p + 1);
+            self.capture(3, p, p + 1);
             return Some(p + 1);
         }
         if two(self, b"**") || two(self, b"//") {
-            self.cap(4, p, p + 2);
+            self.capture(4, p, p + 2);
             return Some(p + 2);
         }
         if matches!(b, b'-' | b'%' | b'*' | b'+' | b'/' | b'@') {
-            self.cap(4, p, p + 1);
+            self.capture(4, p, p + 1);
             return Some(p + 1);
         }
         if two(self, b"!=") || two(self, b"==") || two(self, b">=") || two(self, b"<=") {
-            self.cap(5, p, p + 2);
+            self.capture(5, p, p + 2);
             return Some(p + 2);
         }
         if matches!(b, b'<' | b'>') {
-            self.cap(5, p, p + 1);
+            self.capture(5, p, p + 1);
             return Some(p + 1);
         }
         if two(self, b":=") {
-            self.cap(6, p, p + 2);
+            self.capture(6, p, p + 2);
             return Some(p + 2);
         }
         None
@@ -789,14 +789,14 @@ impl Lexer<'_> {
             if !not_before_colon(self, end) {
                 return None;
             }
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         if matches!(word, b"for" | b"if" | b"else" | b"await") {
             if !not_before_colon(self, end) {
                 return None;
             }
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         if word == b"yield" {
@@ -804,14 +804,14 @@ impl Lexer<'_> {
             if q > end && self.starts(q, b"from") {
                 let e = q + 4;
                 if self.boundary(e) && not_before_colon(self, e) {
-                    self.cap(2, p, e);
+                    self.capture(2, p, e);
                     return Some(e);
                 }
             }
             if !not_before_colon(self, end) {
                 return None;
             }
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         None
@@ -834,8 +834,8 @@ impl Lexer<'_> {
         }
         let end = self.word_end(p);
         match self.text(p, end) {
-            b"self" => self.cap(1, p, end),
-            b"cls" => self.cap(2, p, end),
+            b"self" => self.capture(1, p, end),
+            b"cls" => self.capture(2, p, end),
             _ => return None,
         }
         Some(end)
@@ -847,14 +847,14 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_listed(p, list)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// A match `\b(__(?:names)__)\b`.
     fn magic(&mut self, p: usize, list: u8) -> Option<usize> {
         let end = self.word_listed(p, list)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -905,7 +905,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.ident_end(p)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -944,7 +944,7 @@ impl Lexer<'_> {
         }
         let q = self.space_end(p);
         let end = self.star_run(q)?;
-        self.cap(1, q, end);
+        self.capture(1, q, end);
         Some(end)
     }
 
@@ -958,8 +958,8 @@ impl Lexer<'_> {
         if self.at(r) != b'(' || r >= self.lim() {
             return None;
         }
-        self.cap(1, q, q + 1);
-        self.cap(2, r, r + 1);
+        self.capture(1, q, q + 1);
+        self.capture(2, r, r + 1);
         Some(r + 1)
     }
 
@@ -972,8 +972,8 @@ impl Lexer<'_> {
         if q >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, q, self.lim() + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, q, self.lim() + 1);
         Some(self.lim() + 1)
     }
 
@@ -986,7 +986,7 @@ impl Lexer<'_> {
         if q <= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(self.lim() + 1)
     }
 
@@ -1031,7 +1031,7 @@ impl Lexer<'_> {
         } else {
             q
         };
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -1070,14 +1070,14 @@ impl Lexer<'_> {
         if !(matches!(self.at(after), b'(' | b':') && after < self.lim()) {
             return None;
         }
-        self.cap(1, class_at, class_at + 5);
+        self.capture(1, class_at, class_at + 5);
         Some(name_at)
     }
 
     /// The end `(:)` of a class.
     fn class_end(&mut self, p: usize) -> Option<usize> {
         self.colon_ahead(p)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -1098,12 +1098,12 @@ impl Lexer<'_> {
             && r > q + 5
             && let Some(end) = self.def_after(r)
         {
-            self.cap(1, q, q + 5);
-            self.cap(2, end.0, end.0 + 3);
+            self.capture(1, q, q + 5);
+            self.capture(2, end.0, end.0 + 3);
             return Some(end.1);
         }
         let end = self.def_after(q)?;
-        self.cap(2, end.0, end.0 + 3);
+        self.capture(2, end.0, end.0 + 3);
         Some(end.1)
     }
 
@@ -1125,7 +1125,7 @@ impl Lexer<'_> {
     /// The end `(:|(?=[\n"#']))` of a function declaration.
     fn def_end(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b':' && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         let b = self.at(p);
@@ -1145,12 +1145,12 @@ impl Lexer<'_> {
         };
         let q = self.space_end(end);
         if self.at(q) == b',' && q < self.lim() {
-            self.cap(4, q, q + 1);
+            self.capture(4, q, q + 1);
         } else if !(self.at(q) == b')' && q < self.lim()) {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(which, p, end);
+        self.capture(1, p, end);
+        self.capture(which, p, end);
         Some(if self.at(q) == b',' { q + 1 } else { q })
     }
 
@@ -1160,11 +1160,11 @@ impl Lexer<'_> {
     fn parameter_name(&mut self, p: usize) -> Option<usize> {
         let e = self.ident_end(p)?;
         let q = self.space_end(e);
-        self.cap(1, p, e);
+        self.capture(1, p, e);
         if q < self.lim() {
             match self.at(q) {
                 b',' => {
-                    self.cap(2, q, q + 1);
+                    self.capture(2, q, q + 1);
                     return Some(q + 1);
                 }
                 b'#' | b')' | b'=' => return Some(q),
@@ -1177,7 +1177,7 @@ impl Lexer<'_> {
     /// The end `(,)|(?=\))`.
     fn parameter_end(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b',' && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         (self.at(p) == b')' && p < self.lim()).then_some(p)
@@ -1193,8 +1193,8 @@ impl Lexer<'_> {
         if self.at(q) != b':' || q >= self.lim() {
             return None;
         }
-        self.cap(1, p, e);
-        self.cap(2, q, q + 1);
+        self.capture(1, p, e);
+        self.capture(2, q, q + 1);
         Some(q + 1)
     }
 
@@ -1203,7 +1203,7 @@ impl Lexer<'_> {
         if !self.starts(p, b"->") {
             return None;
         }
-        self.cap(1, p, p + 2);
+        self.capture(1, p, p + 2);
         Some(p + 2)
     }
 
@@ -1244,7 +1244,7 @@ impl Lexer<'_> {
         if !ok {
             return None;
         }
-        self.cap(1, q, end);
+        self.capture(1, q, end);
         Some(end)
     }
 
@@ -1287,8 +1287,8 @@ impl Lexer<'_> {
         if c != '_' && !is_alpha(c) {
             return None;
         }
-        self.cap(1, q, q + 1);
-        self.cap(2, q, q + 1);
+        self.capture(1, q, q + 1);
+        self.capture(2, q, q + 1);
         Some(r)
     }
 
@@ -1316,8 +1316,8 @@ impl Lexer<'_> {
                 Some(hash) => back(self, from + hash).min(trailing),
                 None => trailing,
             };
-            self.cap(1, p, p + 1);
-            self.cap(2, p + 1, k);
+            self.capture(1, p, p + 1);
+            self.capture(2, p + 1, k);
             return Some(k);
         }
         (p == self.lim() || self.at(p) == b'#').then_some(p)
@@ -1329,7 +1329,7 @@ impl Lexer<'_> {
             return Some(end);
         }
         if self.at(p) == b'.' && p < self.lim() {
-            self.cap(2, p, p + 1);
+            self.capture(2, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -1348,7 +1348,7 @@ impl Lexer<'_> {
         let lim = self.lim();
         let k = memchr::memchr(b'#', self.text(next, lim)).map_or(lim, |hash| next + hash);
         self.spend(k - next);
-        self.cap(1, q, k);
+        self.capture(1, q, k);
         Some(k)
     }
 }

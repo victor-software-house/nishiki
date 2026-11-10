@@ -39,14 +39,14 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(p, b"${")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `(})`.
     pub(super) fn template_end(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"}")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 }

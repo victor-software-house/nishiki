@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -304,7 +304,7 @@ impl Lexer<'_> {
     /// [`Lexer::keyword_at`] with group 1 around the word.
     fn keyword_group(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword_at(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -312,7 +312,7 @@ impl Lexer<'_> {
     /// that matches.
     fn keyword_in(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let end = words.iter().find_map(|word| self.keyword_at(p, word))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -331,7 +331,7 @@ impl Lexer<'_> {
         if !(p < self.lim() && self.at(p) == byte) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -435,15 +435,15 @@ impl Lexer<'_> {
 
     /// Groups `groups` around the `(`, the operator and the `)` that
     /// [`Lexer::paren_op`] found from `open`, and the end of the match.
-    fn cap_paren(
+    fn capture_paren(
         &mut self,
         groups: [usize; 3],
         open: usize,
         (start, end, close): (usize, usize, usize),
     ) -> usize {
-        self.cap(groups[0], open, open + 1);
-        self.cap(groups[1], start, end);
-        self.cap(groups[2], close, close + 1);
+        self.capture(groups[0], open, open + 1);
+        self.capture(groups[1], start, end);
+        self.capture(groups[2], close, close + 1);
         close + 1
     }
 

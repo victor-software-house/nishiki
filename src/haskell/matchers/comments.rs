@@ -11,7 +11,7 @@ impl Lexer<'_> {
         if p != 0 || self.lim() == 0 || self.at(0) != b'#' {
             return None;
         }
-        self.cap(1, 0, 1);
+        self.capture(1, 0, 1);
         Some(self.lim())
     }
 
@@ -28,7 +28,7 @@ impl Lexer<'_> {
     /// `(?i)\b(?<!')(LANGUAGE)\b(?!')`, with group 1 around the word.
     pub(super) fn pragma_word(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.folded_keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -49,7 +49,7 @@ impl Lexer<'_> {
     /// around it.
     pub(super) fn extension(&mut self, p: usize) -> Option<usize> {
         let end = self.extension_end(p, EXTENSIONS)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -89,15 +89,15 @@ impl Lexer<'_> {
         if let Some(phase) = self.phase(blanks) {
             let at = self.space_end(phase);
             if let Some(end) = instance(self, at) {
-                self.cap(1, p, word);
-                self.cap(2, blanks, phase);
-                self.cap(3, at, end);
+                self.capture(1, p, word);
+                self.capture(2, blanks, phase);
+                self.capture(3, at, end);
                 return Some(end);
             }
         }
         let end = instance(self, blanks)?;
-        self.cap(1, p, word);
-        self.cap(3, blanks, end);
+        self.capture(1, p, word);
+        self.capture(3, blanks, end);
         Some(end)
     }
 
@@ -111,18 +111,18 @@ impl Lexer<'_> {
         if self.word_at(word).is_some() || self.at(word) == b'\'' {
             return None;
         }
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         let mut at = word;
         let blanks = self.space_end(word);
         if blanks > word
             && let Some(inline) = self.folded_keyword(blanks, b"inline")
         {
-            self.cap(2, blanks, inline);
+            self.capture(2, blanks, inline);
             at = inline;
         }
         let blanks = self.space_end(at);
         if let Some(phase) = self.phase(blanks) {
-            self.cap(3, blanks, phase);
+            self.capture(3, blanks, phase);
             return Some(self.space_end(phase));
         }
         Some(blanks)
@@ -134,7 +134,7 @@ impl Lexer<'_> {
         let end = PRAGMAS
             .iter()
             .find_map(|word| self.folded_keyword(p, word))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -147,7 +147,7 @@ impl Lexer<'_> {
             self.folded(p, word)
                 .filter(|&end| self.word_at(end).is_none())
         })?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -167,8 +167,8 @@ impl Lexer<'_> {
         }
         let dashes = self.space_end(0);
         let end = self.haddock_dashes(dashes, b"$|")?;
-        self.cap(1, 0, dashes);
-        self.cap(2, dashes, end);
+        self.capture(1, 0, dashes);
+        self.capture(2, dashes, end);
         Some(end)
     }
 
@@ -195,13 +195,13 @@ impl Lexer<'_> {
             if indent > 0
                 && let Some(end) = self.haddock_dashes(indent, b"*^")
             {
-                self.cap(1, 0, indent);
-                self.cap(2, indent, end);
+                self.capture(1, 0, indent);
+                self.capture(2, indent, end);
                 return Some(end);
             }
         }
         let end = self.haddock_dashes(p, b"*^")?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -230,7 +230,7 @@ impl Lexer<'_> {
         if p == 0 {
             let indent = self.skip(0, |b| b == b' ' || b == b'\t');
             if indent > 0 && self.comment_dashes(indent) {
-                self.cap(1, 0, indent);
+                self.capture(1, 0, indent);
                 return Some(indent);
             }
         }

@@ -269,16 +269,16 @@ pub(crate) enum Rule {
     MultilineArgNoHighlight,
     SongsEnvAt1At2,
     Root,
-    EmbeddedCodeEnvAt0Cap0,
-    LabelMacroCap3,
-    AutocitesArgAt0Cap1,
-    AutocitesArgAt0Cap2,
-    AutocitesArgAt0Cap6,
-    CitationMacroCap3,
-    CitationMacroCap4,
-    InlineCodeMacroAt3Cap5,
-    InlineCodeMacroAt4Cap5,
-    MacroWithArgsTokenizerCap7,
+    EmbeddedCodeEnvAt0Capture0,
+    LabelMacroCapture3,
+    AutocitesArgAt0Capture1,
+    AutocitesArgAt0Capture2,
+    AutocitesArgAt0Capture6,
+    CitationMacroCapture3,
+    CitationMacroCapture4,
+    InlineCodeMacroAt3Capture5,
+    InlineCodeMacroAt4Capture5,
+    MacroWithArgsTokenizerCapture7,
 }
 
 impl Rule {
@@ -489,16 +489,16 @@ impl Rule {
         Rule::MultilineArgNoHighlight,
         Rule::SongsEnvAt1At2,
         Rule::Root,
-        Rule::EmbeddedCodeEnvAt0Cap0,
-        Rule::LabelMacroCap3,
-        Rule::AutocitesArgAt0Cap1,
-        Rule::AutocitesArgAt0Cap2,
-        Rule::AutocitesArgAt0Cap6,
-        Rule::CitationMacroCap3,
-        Rule::CitationMacroCap4,
-        Rule::InlineCodeMacroAt3Cap5,
-        Rule::InlineCodeMacroAt4Cap5,
-        Rule::MacroWithArgsTokenizerCap7,
+        Rule::EmbeddedCodeEnvAt0Capture0,
+        Rule::LabelMacroCapture3,
+        Rule::AutocitesArgAt0Capture1,
+        Rule::AutocitesArgAt0Capture2,
+        Rule::AutocitesArgAt0Capture6,
+        Rule::CitationMacroCapture3,
+        Rule::CitationMacroCapture4,
+        Rule::InlineCodeMacroAt3Capture5,
+        Rule::InlineCodeMacroAt4Capture5,
+        Rule::MacroWithArgsTokenizerCapture7,
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
@@ -7497,7 +7497,7 @@ impl Rule {
                     Pattern::TexMacroGeneralAt3,
                 ],
             },
-            Rule::Root | Rule::MacroWithArgsTokenizerCap7 => RuleDefinition {
+            Rule::Root | Rule::MacroWithArgsTokenizerCapture7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7606,49 +7606,49 @@ impl Rule {
                     Pattern::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt0Cap0 => RuleDefinition {
+            Rule::EmbeddedCodeEnvAt0Capture0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pattern::MacroWithArgsTokenizer],
             },
-            Rule::LabelMacroCap3 => RuleDefinition {
+            Rule::LabelMacroCapture3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pattern::OptionalArgBracketAt0],
             },
-            Rule::AutocitesArgAt0Cap1 => RuleDefinition {
+            Rule::AutocitesArgAt0Capture1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pattern::OptionalArgParenthesisNoHighlightAt0],
             },
-            Rule::AutocitesArgAt0Cap2 => RuleDefinition {
+            Rule::AutocitesArgAt0Capture2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pattern::OptionalArgBracketNoHighlightAt0],
             },
-            Rule::AutocitesArgAt0Cap6 | Rule::CitationMacroCap3 => RuleDefinition {
+            Rule::AutocitesArgAt0Capture6 | Rule::CitationMacroCapture3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pattern::AutocitesArgAt0],
             },
-            Rule::CitationMacroCap4 => RuleDefinition {
+            Rule::CitationMacroCapture4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pattern::OptionalArgAngleNoHighlightAt0],
             },
-            Rule::InlineCodeMacroAt3Cap5 | Rule::InlineCodeMacroAt4Cap5 => RuleDefinition {
+            Rule::InlineCodeMacroAt3Capture5 | Rule::InlineCodeMacroAt4Capture5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7807,16 +7807,16 @@ impl Rule {
             | Rule::MultilineArgNoHighlight
             | Rule::SongsEnvAt1At2
             | Rule::Root
-            | Rule::EmbeddedCodeEnvAt0Cap0
-            | Rule::LabelMacroCap3
-            | Rule::AutocitesArgAt0Cap1
-            | Rule::AutocitesArgAt0Cap2
-            | Rule::AutocitesArgAt0Cap6
-            | Rule::CitationMacroCap3
-            | Rule::CitationMacroCap4
-            | Rule::InlineCodeMacroAt3Cap5
-            | Rule::InlineCodeMacroAt4Cap5
-            | Rule::MacroWithArgsTokenizerCap7 => rules::Payload::None,
+            | Rule::EmbeddedCodeEnvAt0Capture0
+            | Rule::LabelMacroCapture3
+            | Rule::AutocitesArgAt0Capture1
+            | Rule::AutocitesArgAt0Capture2
+            | Rule::AutocitesArgAt0Capture6
+            | Rule::CitationMacroCapture3
+            | Rule::CitationMacroCapture4
+            | Rule::InlineCodeMacroAt3Capture5
+            | Rule::InlineCodeMacroAt4Capture5
+            | Rule::MacroWithArgsTokenizerCapture7 => rules::Payload::None,
             Rule::EmbeddedCodeEnvAt0
             | Rule::EmbeddedCodeEnvAt15
             | Rule::EmbeddedCodeEnvAt17
@@ -8113,16 +8113,16 @@ impl Rule {
             | Rule::MultilineArgNoHighlight
             | Rule::SongsEnvAt1At2
             | Rule::Root
-            | Rule::EmbeddedCodeEnvAt0Cap0
-            | Rule::LabelMacroCap3
-            | Rule::AutocitesArgAt0Cap1
-            | Rule::AutocitesArgAt0Cap2
-            | Rule::AutocitesArgAt0Cap6
-            | Rule::CitationMacroCap3
-            | Rule::CitationMacroCap4
-            | Rule::MacroWithArgsTokenizerCap7 => None,
-            Rule::InlineCodeMacroAt3Cap5 => rules::embedded!(Python, "lang-python"),
-            Rule::InlineCodeMacroAt4Cap5 => rules::embedded!(Julia, "lang-julia"),
+            | Rule::EmbeddedCodeEnvAt0Capture0
+            | Rule::LabelMacroCapture3
+            | Rule::AutocitesArgAt0Capture1
+            | Rule::AutocitesArgAt0Capture2
+            | Rule::AutocitesArgAt0Capture6
+            | Rule::CitationMacroCapture3
+            | Rule::CitationMacroCapture4
+            | Rule::MacroWithArgsTokenizerCapture7 => None,
+            Rule::InlineCodeMacroAt3Capture5 => rules::embedded!(Python, "lang-python"),
+            Rule::InlineCodeMacroAt4Capture5 => rules::embedded!(Julia, "lang-julia"),
         }
     }
 
@@ -8290,16 +8290,16 @@ impl Rule {
             | Rule::MultilineArgNoHighlight
             | Rule::SongsEnvAt1At2
             | Rule::Root
-            | Rule::EmbeddedCodeEnvAt0Cap0
-            | Rule::LabelMacroCap3
-            | Rule::AutocitesArgAt0Cap1
-            | Rule::AutocitesArgAt0Cap2
-            | Rule::AutocitesArgAt0Cap6
-            | Rule::CitationMacroCap3
-            | Rule::CitationMacroCap4
-            | Rule::InlineCodeMacroAt3Cap5
-            | Rule::InlineCodeMacroAt4Cap5
-            | Rule::MacroWithArgsTokenizerCap7 => super::engine::never,
+            | Rule::EmbeddedCodeEnvAt0Capture0
+            | Rule::LabelMacroCapture3
+            | Rule::AutocitesArgAt0Capture1
+            | Rule::AutocitesArgAt0Capture2
+            | Rule::AutocitesArgAt0Capture6
+            | Rule::CitationMacroCapture3
+            | Rule::CitationMacroCapture4
+            | Rule::InlineCodeMacroAt3Capture5
+            | Rule::InlineCodeMacroAt4Capture5
+            | Rule::MacroWithArgsTokenizerCapture7 => super::engine::never,
             Rule::EmbeddedCodeEnvAt0At2
             | Rule::EmbeddedCodeEnvAt0At4
             | Rule::EmbeddedCodeEnvAt0At6
@@ -9313,7 +9313,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9336,7 +9336,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9358,7 +9358,7 @@ impl Pattern {
                 nested: &[(
                     7,
                     Nested {
-                        rule: Rule::MacroWithArgsTokenizerCap7,
+                        rule: Rule::MacroWithArgsTokenizerCapture7,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9369,7 +9369,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9396,7 +9396,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9648,7 +9648,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9702,7 +9702,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9718,7 +9718,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9734,7 +9734,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9750,7 +9750,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9771,7 +9771,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9792,7 +9792,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9813,7 +9813,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9834,7 +9834,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9855,7 +9855,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9876,7 +9876,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9897,7 +9897,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9918,7 +9918,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9939,7 +9939,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9960,7 +9960,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -9971,7 +9971,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10262,7 +10262,7 @@ impl Pattern {
                 nested: &[(
                     0,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10282,7 +10282,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10293,7 +10293,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10304,7 +10304,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10320,7 +10320,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10331,7 +10331,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10342,7 +10342,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10389,7 +10389,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::LabelMacroCap3,
+                        rule: Rule::LabelMacroCapture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10646,7 +10646,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10657,7 +10657,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10678,7 +10678,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10689,7 +10689,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10700,7 +10700,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10711,7 +10711,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10722,7 +10722,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10764,7 +10764,7 @@ impl Pattern {
                 nested: &[(
                     4,
                     Nested {
-                        rule: Rule::LabelMacroCap3,
+                        rule: Rule::LabelMacroCapture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10846,21 +10846,21 @@ impl Pattern {
                     (
                         3,
                         Nested {
-                            rule: Rule::AutocitesArgAt0Cap6,
+                            rule: Rule::AutocitesArgAt0Capture6,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         4,
                         Nested {
-                            rule: Rule::CitationMacroCap4,
+                            rule: Rule::CitationMacroCapture4,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::AutocitesArgAt0Cap2,
+                            rule: Rule::AutocitesArgAt0Capture2,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
@@ -10877,21 +10877,21 @@ impl Pattern {
                     (
                         1,
                         Nested {
-                            rule: Rule::AutocitesArgAt0Cap1,
+                            rule: Rule::AutocitesArgAt0Capture1,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         2,
                         Nested {
-                            rule: Rule::AutocitesArgAt0Cap2,
+                            rule: Rule::AutocitesArgAt0Capture2,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         6,
                         Nested {
-                            rule: Rule::AutocitesArgAt0Cap6,
+                            rule: Rule::AutocitesArgAt0Capture6,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
@@ -10972,7 +10972,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::LabelMacroCap3,
+                        rule: Rule::LabelMacroCapture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10992,7 +10992,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::LabelMacroCap3,
+                        rule: Rule::LabelMacroCapture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -11076,7 +11076,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::EmbeddedCodeEnvAt0Cap0,
+                        rule: Rule::EmbeddedCodeEnvAt0Capture0,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -11120,14 +11120,14 @@ impl Pattern {
                     (
                         3,
                         Nested {
-                            rule: Rule::LabelMacroCap3,
+                            rule: Rule::LabelMacroCapture3,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::LabelMacroCap3,
+                            rule: Rule::LabelMacroCapture3,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
@@ -11145,14 +11145,14 @@ impl Pattern {
                     (
                         3,
                         Nested {
-                            rule: Rule::LabelMacroCap3,
+                            rule: Rule::LabelMacroCapture3,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::LabelMacroCap3,
+                            rule: Rule::LabelMacroCapture3,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
@@ -11180,7 +11180,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::LabelMacroCap3,
+                        rule: Rule::LabelMacroCapture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -11200,7 +11200,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::LabelMacroCap3,
+                        rule: Rule::LabelMacroCapture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -11219,21 +11219,21 @@ impl Pattern {
                     (
                         3,
                         Nested {
-                            rule: Rule::LabelMacroCap3,
+                            rule: Rule::LabelMacroCapture3,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::InlineCodeMacroAt3Cap5,
+                            rule: Rule::InlineCodeMacroAt3Capture5,
                             scopes: scopes![Sc::S(S::SourcePython)],
                         },
                     ),
                     (
                         8,
                         Nested {
-                            rule: Rule::InlineCodeMacroAt3Cap5,
+                            rule: Rule::InlineCodeMacroAt3Capture5,
                             scopes: scopes![Sc::S(S::SourcePython)],
                         },
                     ),
@@ -11253,21 +11253,21 @@ impl Pattern {
                     (
                         3,
                         Nested {
-                            rule: Rule::LabelMacroCap3,
+                            rule: Rule::LabelMacroCapture3,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::InlineCodeMacroAt4Cap5,
+                            rule: Rule::InlineCodeMacroAt4Capture5,
                             scopes: scopes![Sc::S(S::SourceJulia)],
                         },
                     ),
                     (
                         8,
                         Nested {
-                            rule: Rule::InlineCodeMacroAt4Cap5,
+                            rule: Rule::InlineCodeMacroAt4Capture5,
                             scopes: scopes![Sc::S(S::SourceJulia)],
                         },
                     ),

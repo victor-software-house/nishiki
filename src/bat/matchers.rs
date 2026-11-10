@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -268,7 +268,7 @@ impl Lexer<'_> {
         }
         let byte = group?;
         self.lit_byte(p, byte)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -304,11 +304,11 @@ impl Lexer<'_> {
     /// and group 2 around the line feed.
     fn string_end(&mut self, p: usize) -> Option<usize> {
         if self.lit_byte(p, b'"').is_some() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         if p == self.lim() && self.at(p) == b'\n' {
-            self.cap(2, p, p + 1);
+            self.capture(2, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -337,7 +337,7 @@ impl Lexer<'_> {
             let e = self.digit_end(digits);
             (e > digits && ends(self, e)).then_some(e)
         })?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

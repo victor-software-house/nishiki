@@ -89,10 +89,10 @@ impl Lexer<'_> {
         }
         let first = usize::from(promoted);
         if let Some(quote) = quote {
-            self.cap(1, quote, quote + 1);
+            self.capture(1, quote, quote + 1);
         }
-        self.cap(first + 1, at, at + 1);
-        self.cap(first + 2, end, end + 1);
+        self.capture(first + 1, at, at + 1);
+        self.capture(first + 2, end, end + 1);
         Some(end + 1)
     }
 
@@ -118,10 +118,10 @@ impl Lexer<'_> {
         let hash = self.lit(p, b"(#")?;
         let close = self.space_end(hash);
         let end = self.lit(close, b"#)")?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, hash);
-        self.cap(3, close, close + 1);
-        self.cap(4, close + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, hash);
+        self.capture(3, close, close + 1);
+        self.capture(4, close + 1, end);
         Some(end)
     }
 
@@ -133,10 +133,10 @@ impl Lexer<'_> {
         let commas = self.lit(comma, b",")?;
         let close = self.commas_end(commas);
         let end = self.lit(close, b"#)")?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, hash);
-        self.cap(3, close, close + 1);
-        self.cap(4, close + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, hash);
+        self.capture(3, close, close + 1);
+        self.capture(4, close + 1, end);
         Some(end)
     }
 
@@ -159,18 +159,18 @@ impl Lexer<'_> {
         if !self.boundary(end) || self.at(end) == b'\'' {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `(\.)|(->|→)`, with a group around the dot or the arrow.
     pub(super) fn forall_end(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.lit(p, b".") {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let end = self.lit(p, b"->").or_else(|| self.lit(p, "→".as_bytes()))?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -224,11 +224,11 @@ impl Lexer<'_> {
         if !(bracket < self.lim() && self.at(bracket) == open) {
             return None;
         }
-        self.cap(1, p, at);
+        self.capture(1, p, at);
         if let Some(quote) = quote {
-            self.cap(2, quote, quote + 1);
+            self.capture(2, quote, quote + 1);
         }
-        self.cap(3, bracket, bracket + 1);
+        self.capture(3, bracket, bracket + 1);
         Some(bracket + 1)
     }
 
@@ -237,7 +237,7 @@ impl Lexer<'_> {
         if !self.application_before(p) || !self.starts(p, b"@\"") {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -247,7 +247,7 @@ impl Lexer<'_> {
         if !self.application_before(p) || self.at(p) != b'@' || !self.here_is(p + 1, is_name) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -301,10 +301,10 @@ impl Lexer<'_> {
         }
         let end = self.operator_ends(op).into_iter().flatten().next()?;
         if quoted {
-            self.cap(1, p, start);
+            self.capture(1, p, start);
         }
-        self.cap(2, start, op);
-        self.cap(3, op, end);
+        self.capture(2, start, op);
+        self.capture(3, op, end);
         Some(end)
     }
 
@@ -319,12 +319,12 @@ impl Lexer<'_> {
         let close = self.name_from(name, is_title_or_upper)?;
         let end = self.lit(close, b"`")?;
         if let Some(quote) = quote {
-            self.cap(1, quote, tick);
+            self.capture(1, quote, tick);
         }
-        self.cap(2, tick, qualifiers);
-        self.cap(3, qualifiers, name);
-        self.cap(4, name, close);
-        self.cap(5, close, end);
+        self.capture(2, tick, qualifiers);
+        self.capture(3, qualifiers, name);
+        self.capture(4, name, close);
+        self.capture(5, close, end);
         Some(end)
     }
 
@@ -347,10 +347,10 @@ impl Lexer<'_> {
             (name, self.name_from(name, is_title_or_upper)?)
         };
         if let Some(quote) = quote {
-            self.cap(1, quote, start);
+            self.capture(1, quote, start);
         }
-        self.cap(2, start, name);
-        self.cap(3, name, end);
+        self.capture(2, start, name);
+        self.capture(3, name, end);
         Some(end)
     }
 
@@ -369,28 +369,28 @@ impl Lexer<'_> {
         let (op, _) = self.qualifiers(start, false);
         qualifiers += op - start;
         if let Some(quote) = quote {
-            self.cap(1, quote, open);
+            self.capture(1, quote, open);
         }
-        self.cap(2, open, open + 1);
-        self.cap(3, start, start + qualifiers);
-        self.cap(4, op, end);
-        self.cap(5, close, close + 1);
+        self.capture(2, open, open + 1);
+        self.capture(3, start, start + qualifiers);
+        self.capture(4, op, end);
+        self.capture(5, close, close + 1);
         Some(close + 1)
     }
 
     /// `(\()(#)`, with groups around both characters.
     pub(super) fn hash_paren(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"(#")?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
     /// `(#)(\))`, with groups around both characters.
     pub(super) fn hash_close(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"#)")?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -402,9 +402,9 @@ impl Lexer<'_> {
             return None;
         }
         if let Some(quote) = quote {
-            self.cap(1, quote, at);
+            self.capture(1, quote, at);
         }
-        self.cap(2, at, at + 1);
+        self.capture(2, at, at + 1);
         Some(at + 1)
     }
 
@@ -412,7 +412,7 @@ impl Lexer<'_> {
     pub(super) fn spaced_double_colon(&mut self, p: usize) -> Option<usize> {
         let colons = self.space_end(p);
         let end = self.double_colon(colons)?;
-        self.cap(1, colons, end);
+        self.capture(1, colons, end);
         Some(self.space_end(end))
     }
 
@@ -464,9 +464,9 @@ impl Lexer<'_> {
         if self.here_is(end, is_open_op) {
             return None;
         }
-        self.cap(1, 0, indent);
-        self.cap(2, indent, names);
-        self.cap(3, colons, end);
+        self.capture(1, 0, indent);
+        self.capture(2, indent, names);
+        self.capture(3, colons, end);
         Some(end)
     }
 
@@ -511,8 +511,8 @@ impl Lexer<'_> {
         if self.here_is(end, is_open_op) {
             return None;
         }
-        self.cap(1, 0, indent);
-        self.cap(2, indent, end);
+        self.capture(1, 0, indent);
+        self.capture(2, indent, end);
         Some(self.space_end(end))
     }
 
@@ -567,7 +567,7 @@ impl Lexer<'_> {
         if self.here_is(end, is_open_op) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 }

@@ -44,18 +44,18 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut after = e;
-        let mut type_cap = None;
+        let mut type_capture = None;
         let t = self.ws(e);
         let mut default_start = None;
         if t > e && self.starts(t, "type") && self.boundary(t + "type".len()) {
-            type_cap = Some((t, t + "type".len()));
+            type_capture = Some((t, t + "type".len()));
             after = t + "type".len();
         }
         let eq = self.ws(after);
         if self.byte(eq) == b'=' && self.byte(eq + 1) != b'=' || self.byte(eq) == b'=' {
             self.flush(p);
             self.capture(Rule::ExportDefault, p, e, &[S::KeywordControlExport]);
-            if let Some((a, b)) = type_cap {
+            if let Some((a, b)) = type_capture {
                 self.capture(Rule::ExportDefault, a, b, &[S::KeywordControlType]);
             }
             self.capture(
@@ -77,7 +77,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(d) = default_start {
             self.flush(p);
             self.capture(Rule::ExportDefault, p, e, &[S::KeywordControlExport]);
-            if let Some((a, b)) = type_cap {
+            if let Some((a, b)) = type_capture {
                 self.capture(Rule::ExportDefault, a, b, &[S::KeywordControlType]);
             }
             self.capture(
@@ -90,12 +90,12 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(d + 7);
         }
         let mut after = e;
-        let mut type_cap = None;
+        let mut type_capture = None;
         let t = self.ws(e);
         if t > e && self.starts(t, "type") && self.boundary(t + "type".len()) {
             let try_type = self.export_clause_ahead(t + "type".len());
             if try_type {
-                type_cap = Some((t, t + "type".len()));
+                type_capture = Some((t, t + "type".len()));
                 after = t + "type".len();
             }
         }
@@ -110,7 +110,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.capture(Rule::Export, p, e, &[S::KeywordControlExport]);
-        if let Some((a, b)) = type_cap {
+        if let Some((a, b)) = type_capture {
             self.capture(Rule::Export, a, b, &[S::KeywordControlType]);
         }
         self.push(Rule::Export);

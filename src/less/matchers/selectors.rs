@@ -105,7 +105,7 @@ impl Lexer<'_> {
         if self.at(eq) != b'=' || eq >= self.lim() {
             return None;
         }
-        self.cap(1, at, eq + 1);
+        self.capture(1, at, eq + 1);
         Some(self.spaces(eq + 1))
     }
 
@@ -120,7 +120,7 @@ impl Lexer<'_> {
             && matches!(self.at(at), b'I' | b'i')
             && at < self.lim()
         {
-            self.cap(1, at, at + 1);
+            self.capture(1, at, at + 1);
             return Some(at + 1);
         }
         Some(p)
@@ -134,8 +134,8 @@ impl Lexer<'_> {
         let end = names
             .iter()
             .find_map(|name| self.lit(p + 1, name).filter(|&end| self.at(end) == b'('))?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -153,7 +153,7 @@ impl Lexer<'_> {
             self.lit(name, word)
                 .filter(|&end| self.spaces_then(end, b"(").is_some())
         })?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(end)
     }
 
@@ -163,8 +163,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.table_word(p + 1, words::PSEUDO_CLASSES)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -172,8 +172,8 @@ impl Lexer<'_> {
     pub(super) fn pseudo_element(&mut self, p: usize) -> Option<usize> {
         let name = self.colons(p)?;
         let end = self.table_word(name, words::PSEUDO_ELEMENTS)?;
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -208,8 +208,8 @@ impl Lexer<'_> {
                 self.boundary_back(first - 1, end)
                     .filter(|&end| end >= first)
             })?;
-        self.cap(1, p, vendor);
-        self.cap(2, vendor, name);
+        self.capture(1, p, vendor);
+        self.capture(2, vendor, name);
         Some(end)
     }
 

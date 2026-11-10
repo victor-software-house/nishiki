@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -51,7 +51,7 @@ impl Lexer<'_> {
             How::Lit(text) => self.lit(p, text),
             How::Group(text) => {
                 let end = self.lit(p, text)?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             How::Word { word, dot, group } => {
@@ -61,7 +61,7 @@ impl Lexer<'_> {
                     self.keyword(p, word)?
                 };
                 if group {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                 }
                 Some(end)
             }
@@ -84,12 +84,12 @@ impl Lexer<'_> {
     #[cfg(test)]
     pub(super) fn probe(&mut self, pattern: Pattern, p: usize) -> Option<(usize, ProbeGroups)> {
         let end = self.try_match(pattern, p)?;
-        let mut caps: ProbeGroups =
+        let mut captures: ProbeGroups =
             [None; <super::engine::CSharp as crate::rules::Grammar>::GROUPS];
-        for (group, cap) in caps.iter_mut().enumerate().skip(1) {
-            *cap = self.cap_span(group);
+        for (group, capture) in captures.iter_mut().enumerate().skip(1) {
+            *capture = self.capture_span(group);
         }
-        Some((end, caps))
+        Some((end, captures))
     }
 
     /// The matcher of one expression that is not generated: one arm for each.
@@ -236,7 +236,7 @@ impl Lexer<'_> {
             Fn::SubpatternAt0 => self.subpattern(p),
             Fn::SwitchLabelEnd => {
                 if let Some(end) = self.lit(p, b":") {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     return Some(end);
                 }
                 self.ahead_of_class(p, b"}")

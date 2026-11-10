@@ -84,7 +84,7 @@
 //!    characters.
 
 mod block;
-mod caps;
+mod captures;
 mod fence;
 #[cfg(feature = "lang-html-derivative")]
 mod html;

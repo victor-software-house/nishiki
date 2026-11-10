@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
 //! A matcher records the capture groups the grammar names, and the groups it
-//! tokenizes again, with [`Lexer::cap`].
+//! tokenizes again, with [`Lexer::capture`].
 //! The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -70,7 +70,7 @@ where
             Pattern::DoubleHeredoc | Pattern::DoubleHeredocEnd => self.lit(p, b"\"\"\""),
             Pattern::SingleHeredocEscape | Pattern::DoubleHeredocEscape => {
                 let end = self.backslash_any(p)?;
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(end)
             }
             Pattern::Interpolation => self.lit(p, b"#{"),
@@ -94,7 +94,7 @@ where
             Pattern::Assertion => self.assertion(p),
             Pattern::AssertionEnd => {
                 let end = self.lit(p, b")")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::Group => {
@@ -108,7 +108,7 @@ where
             Pattern::CharacterSet => self.character_set(p),
             Pattern::CharacterSetEnd => {
                 let end = self.lit(p, b"]")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::CharacterRange => self.character_range(p),

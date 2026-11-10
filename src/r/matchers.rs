@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -80,7 +80,7 @@ impl Lexer<'_> {
             Pattern::FunctionDefinition => self.function_definition(p),
             Pattern::FunctionDefinitionEnd => {
                 let end = self.lit(p, b")")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::FunctionDefinitionAt0End => matches!(self.at(p), b')' | b',').then_some(p),
@@ -137,7 +137,7 @@ impl Lexer<'_> {
     fn dotted_word(&mut self, p: usize, group: usize) -> Option<usize> {
         let end = self.dotted_end(p);
         (end > p).then(|| {
-            self.cap(group, p, end);
+            self.capture(group, p, end);
             end
         })
     }

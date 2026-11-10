@@ -67,7 +67,7 @@ impl Lexer<'_> {
         }
         let after = self.spaces(end).min(self.lim());
         (self.at(after) == b'{' && after < self.lim()).then(|| {
-            self.cap(1, start, end);
+            self.capture(1, start, end);
             after
         })
     }
@@ -114,9 +114,9 @@ impl Lexer<'_> {
         let brackets = self.balanced_brackets(end);
         let after = brackets.unwrap_or(end);
         (self.at(after) == b'{' && after < self.lim()).then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             if let Some(close) = brackets {
-                self.cap(2, end, close);
+                self.capture(2, end, close);
             }
             after
         })
@@ -135,12 +135,12 @@ impl Lexer<'_> {
             return None;
         }
         if p > 0 && self.at(p - 1) == b'.' {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
         } else {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
         }
         if let Some(close) = brackets {
-            self.cap(3, end, close);
+            self.capture(3, end, close);
         }
         Some(after)
     }
@@ -228,7 +228,7 @@ impl Lexer<'_> {
         }
         let end = self.run_of(4, p, in_class);
         (self.at(end) == b':' && end < self.lim() && self.at(end + 1) != b'=').then(|| {
-            self.cap(1, p, end + 1);
+            self.capture(1, p, end + 1);
             end + 1
         })
     }

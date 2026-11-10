@@ -8,7 +8,7 @@ impl Lexer<'_> {
     pub(super) fn line_comment(&mut self, p: usize) -> Option<usize> {
         self.lit(p, b"//")?;
         let end = self.lim();
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -149,7 +149,7 @@ impl Lexer<'_> {
             None => code,
         };
         self.spend(end.saturating_sub(code));
-        self.cap(1, code, end);
+        self.capture(1, code, end);
         Some(end)
     }
 }

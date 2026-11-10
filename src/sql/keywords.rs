@@ -142,14 +142,14 @@ impl Lexer<'_> {
             return None;
         }
         let e = self.word_run(p);
-        let named = Hit::new(p, e).cap(0, p, e, S::StorageType);
+        let named = Hit::new(p, e).capture(0, p, e, S::StorageType);
         if PLAIN_TYPES.iter().any(|word| self.run_is(p, e, word)) {
             return Some(named);
         }
         if self.run_is(p, e, "double") {
             let end = self.space_then(e, "precision").filter(|&end| self.bnd(end));
             if let Some(end) = end {
-                return Some(Hit::new(p, end).cap(0, p, end, S::StorageType));
+                return Some(Hit::new(p, end).capture(0, p, end, S::StorageType));
             }
         }
         if let Some(hit) = self.sized_type(p, e) {
@@ -160,20 +160,21 @@ impl Lexer<'_> {
                 || (digit_width(self.s, p + 7) > 0 && e == p + 7 + digit_width(self.s, p + 7)));
         if self.run_is(p, e, "char") || self.run_is(p, e, "number") || varchar {
             return Some(match self.paren_digits(e) {
-                Some((from, to, end)) => {
-                    Hit::new(p, end)
-                        .cap(0, p, e, S::StorageType)
-                        .cap(1, from, to, S::Numeric)
-                }
+                Some((from, to, end)) => Hit::new(p, end).capture(0, p, e, S::StorageType).capture(
+                    1,
+                    from,
+                    to,
+                    S::Numeric,
+                ),
                 None => named,
             });
         }
         if self.run_is(p, e, "numeric") || self.run_is(p, e, "decimal") {
             return Some(match self.paren_pair(e) {
                 Some((first, second, end)) => Hit::new(p, end)
-                    .cap(0, p, e, S::StorageType)
-                    .cap(1, first.0, first.1, S::Numeric)
-                    .cap(2, second.0, second.1, S::Numeric),
+                    .capture(0, p, e, S::StorageType)
+                    .capture(1, first.0, first.1, S::Numeric)
+                    .capture(2, second.0, second.1, S::Numeric),
                 None => named,
             });
         }
@@ -202,8 +203,8 @@ impl Lexer<'_> {
             let (from, to, end) = self.paren_digits(name)?;
             Some(
                 Hit::new(p, end)
-                    .cap(0, p, name, S::StorageType)
-                    .cap(1, from, to, S::Numeric),
+                    .capture(0, p, name, S::StorageType)
+                    .capture(1, from, to, S::Numeric),
             )
         })
     }
@@ -222,17 +223,17 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        let mut hit = Hit::new(p, e).cap(0, p, word_end, S::StorageType);
+        let mut hit = Hit::new(p, e).capture(0, p, word_end, S::StorageType);
         if let Some((from, to)) = suffix {
-            hit = hit.cap(1, from, to, S::StorageType);
+            hit = hit.capture(1, from, to, S::StorageType);
         }
         let mut end = e;
         if let Some((from, to, after)) = self.paren_digits(e) {
-            hit = hit.cap(2, from, to, S::Numeric);
+            hit = hit.capture(2, from, to, S::Numeric);
             end = after;
         }
         if let Some(after) = self.time_zone(end) {
-            hit = hit.cap(3, end, after, S::StorageType);
+            hit = hit.capture(3, end, after, S::StorageType);
             end = after;
         }
         hit.end = end;

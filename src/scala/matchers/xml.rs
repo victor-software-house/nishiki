@@ -61,14 +61,14 @@ impl Lexer<'_> {
 
     /// Records a tag name's groups: the namespace in `ns`, the `((:))` pair in
     /// `colon` and `colon + 1`, and the local name in `local`.
-    fn cap_tag_name(&mut self, start: usize, name: TagName, groups: [usize; 3]) {
+    fn capture_tag_name(&mut self, start: usize, name: TagName, groups: [usize; 3]) {
         let [ns, colon, local] = groups;
         if let Some(ns_end) = name.namespace {
-            self.cap(ns, start, ns_end);
-            self.cap(colon, ns_end, ns_end + 1);
-            self.cap(colon + 1, ns_end, ns_end + 1);
+            self.capture(ns, start, ns_end);
+            self.capture(colon, ns_end, ns_end + 1);
+            self.capture(colon + 1, ns_end, ns_end + 1);
         }
-        self.cap(local, name.local, name.end);
+        self.capture(local, name.local, name.end);
     }
 
     /// `(<)((?:(ns)((:)))?(local))(?=(\s[^>]*)?></\2>)`: the start of an
@@ -94,8 +94,8 @@ impl Lexer<'_> {
         {
             return None;
         }
-        self.cap(1, p, start);
-        self.cap_tag_name(start, name, [3, 4, 6]);
+        self.capture(1, p, start);
+        self.capture_tag_name(start, name, [3, 4, 6]);
         Some(name.end)
     }
 
@@ -124,15 +124,15 @@ impl Lexer<'_> {
             Some(found) => found,
             None => (None, start, self.local_close(start)?),
         };
-        self.cap(1, p, p + 2);
-        self.cap(2, p + 1, p + 2);
+        self.capture(1, p, p + 2);
+        self.capture(2, p + 1, p + 2);
         if let Some(ns_end) = namespace {
-            self.cap(3, start, ns_end);
-            self.cap(4, ns_end, ns_end + 1);
-            self.cap(5, ns_end, ns_end + 1);
+            self.capture(3, start, ns_end);
+            self.capture(4, ns_end, ns_end + 1);
+            self.capture(5, ns_end, ns_end + 1);
         }
-        self.cap(6, local, end);
-        self.cap(7, end, end + 1);
+        self.capture(6, local, end);
+        self.capture(7, end, end + 1);
         Some(end + 1)
     }
 
@@ -154,8 +154,8 @@ impl Lexer<'_> {
         let start = p + 1 + usize::from(self.at(p + 1) == b'/');
         let name = self.tag_name(start, is_tag_word_or_dash)?;
         memchr::memchr(b'>', self.s.get(name.end..)?)?;
-        self.cap(1, p, start);
-        self.cap_tag_name(start, name, [2, 3, 5]);
+        self.capture(1, p, start);
+        self.capture_tag_name(start, name, [2, 3, 5]);
         Some(name.end)
     }
 
@@ -165,7 +165,7 @@ impl Lexer<'_> {
         if self.at(start) != b'>' || start >= self.lim() {
             return None;
         }
-        self.cap(1, p, start + 1);
+        self.capture(1, p, start + 1);
         Some(start + 1)
     }
 
@@ -188,11 +188,11 @@ impl Lexer<'_> {
             None => (None, start, local_eq(start)?),
         };
         if let Some(ns_end) = namespace {
-            self.cap(1, start, ns_end);
-            self.cap(2, ns_end, ns_end + 1);
-            self.cap(3, ns_end, ns_end + 1);
+            self.capture(1, start, ns_end);
+            self.capture(2, ns_end, ns_end + 1);
+            self.capture(3, ns_end, ns_end + 1);
         }
-        self.cap(4, local, end);
+        self.capture(4, local, end);
         Some(end + 1)
     }
 
@@ -218,8 +218,8 @@ impl Lexer<'_> {
         if self.at(body) != b';' || body >= self.lim() {
             return None;
         }
-        self.cap(1, p, amp);
-        self.cap(3, body, body + 1);
+        self.capture(1, p, amp);
+        self.capture(3, body, body + 1);
         Some(body + 1)
     }
 

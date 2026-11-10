@@ -84,9 +84,9 @@ impl Lexer<'_> {
     /// Records `digits` as group `group`, and its last separator as the group
     /// after it.
     fn record_digits(&mut self, group: usize, digits: Digits) {
-        self.cap(group, digits.start, digits.end);
+        self.capture(group, digits.start, digits.end);
         if let Some(at) = digits.separator {
-            self.cap(group + 1, at, at + 1);
+            self.capture(group + 1, at, at + 1);
         }
     }
 
@@ -108,10 +108,10 @@ impl Lexer<'_> {
 
     /// Records `exponent` as the four groups from `group`.
     fn record_exponent(&mut self, group: usize, exponent: Exponent) {
-        self.cap(group, exponent.letter, exponent.letter + 1);
-        self.cap(group + 1, exponent.letter + 1, exponent.plus);
-        self.cap(group + 2, exponent.plus, exponent.minus);
-        self.cap(group + 3, exponent.minus, exponent.end);
+        self.capture(group, exponent.letter, exponent.letter + 1);
+        self.capture(group + 1, exponent.letter + 1, exponent.plus);
+        self.capture(group + 2, exponent.plus, exponent.minus);
+        self.capture(group + 3, exponent.minus, exponent.end);
     }
 
     /// The end of `(i(?!\w))?` at `p`.
@@ -122,7 +122,7 @@ impl Lexer<'_> {
     /// Records the imaginary suffix `p..end` as `group` when there is one.
     fn record_imaginary(&mut self, group: usize, p: usize, end: usize) {
         if end > p {
-            self.cap(group, p, end);
+            self.capture(group, p, end);
         }
     }
 
@@ -195,7 +195,7 @@ impl Lexer<'_> {
         let after_i = self.imaginary(before_i);
         let end = self.eol_end(after_i)?;
         self.record_digits(1, whole);
-        self.cap(3, whole.end, whole.end + 1);
+        self.capture(3, whole.end, whole.end + 1);
         if let Some(digits) = fraction {
             self.record_digits(4, digits);
         }
@@ -231,7 +231,7 @@ impl Lexer<'_> {
         let before_i = exponent.map_or(fraction.end, |exponent| exponent.end);
         let after_i = self.imaginary(before_i);
         let end = self.eol_end(after_i)?;
-        self.cap(18, p, p + 1);
+        self.capture(18, p, p + 1);
         self.record_digits(19, fraction);
         if let Some(exponent) = exponent {
             self.record_exponent(21, exponent);
@@ -254,9 +254,9 @@ impl Lexer<'_> {
         let exponent = self.exponent(after, *b"Pp")?;
         let after_i = self.imaginary(exponent.end);
         let end = self.eol_end(after_i)?;
-        self.cap(26, p, p + 2);
+        self.capture(26, p, p + 2);
         self.record_digits(27, whole);
-        self.cap(29, whole.end, whole.end + 1);
+        self.capture(29, whole.end, whole.end + 1);
         if let Some(digits) = fraction {
             self.record_digits(30, digits);
         }
@@ -274,7 +274,7 @@ impl Lexer<'_> {
         let exponent = self.exponent(whole.end, *b"Pp")?;
         let after_i = self.imaginary(exponent.end);
         let end = self.eol_end(after_i)?;
-        self.cap(37, p, p + 2);
+        self.capture(37, p, p + 2);
         self.record_digits(38, whole);
         self.record_exponent(40, exponent);
         self.record_imaginary(44, exponent.end, after_i);
@@ -290,8 +290,8 @@ impl Lexer<'_> {
         let exponent = self.exponent(fraction.end, *b"Pp")?;
         let after_i = self.imaginary(exponent.end);
         let end = self.eol_end(after_i)?;
-        self.cap(45, p, p + 2);
-        self.cap(46, p + 2, p + 3);
+        self.capture(45, p, p + 2);
+        self.capture(46, p + 2, p + 3);
         self.record_digits(47, fraction);
         self.record_exponent(49, exponent);
         self.record_imaginary(53, exponent.end, after_i);
@@ -344,7 +344,7 @@ impl Lexer<'_> {
         let digits = self.digits(self.underscore(p + 2), digit)?;
         let after_i = self.imaginary(digits.end);
         let end = self.eol_end(after_i)?;
-        self.cap(group, p, p + 2);
+        self.capture(group, p, p + 2);
         self.record_digits(group + 1, digits);
         self.record_imaginary(group + 3, digits.end, after_i);
         Some(end)
@@ -360,7 +360,7 @@ impl Lexer<'_> {
         let digits = self.digits(self.underscore(prefix), octal)?;
         let after_i = self.imaginary(digits.end);
         let end = self.eol_end(after_i)?;
-        self.cap(8, p, prefix);
+        self.capture(8, p, prefix);
         self.record_digits(9, digits);
         self.record_imaginary(11, digits.end, after_i);
         Some(end)

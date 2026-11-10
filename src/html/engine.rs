@@ -717,7 +717,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Emits the text `from..to` under `base` with `scopes` on top.
-    pub(super) fn cap(&mut self, base: u32, from: usize, to: usize, scopes: &[S]) {
+    pub(super) fn capture(&mut self, base: u32, from: usize, to: usize, scopes: &[S]) {
         if from >= to {
             return;
         }
@@ -727,7 +727,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Emits the text `from..to` under the stack `stack`.
-    pub(super) fn cap_stack(&mut self, base: u32, from: usize, to: usize, stack: u32) {
+    pub(super) fn capture_stack(&mut self, base: u32, from: usize, to: usize, stack: u32) {
         if from >= to {
             return;
         }
@@ -1468,7 +1468,7 @@ impl<'a> Lexer<'a> {
     fn inject(&mut self, hit: &Hit) -> bool {
         let top = *self.top();
         self.tok(top.content, hit.start);
-        self.cap(top.content, hit.start, hit.end, &[S::BadAngleBracket]);
+        self.capture(top.content, hit.start, hit.end, &[S::BadAngleBracket]);
         self.pos = self.pos.max(hit.end);
         false
     }

@@ -20,7 +20,7 @@ impl Lexer<'_> {
         }
         let end = self.hashes_quote(self.space_end(0))?;
         if group > 0 {
-            self.cap(group, 0, end);
+            self.capture(group, 0, end);
         }
         Some(end)
     }
@@ -40,8 +40,8 @@ impl Lexer<'_> {
         let name = self.lit(tag, b"@examples")?;
         let blanks = self.space_end(name);
         if self.at_eol(blanks) {
-            self.cap(1, 0, lead);
-            self.cap(2, tag, name);
+            self.capture(1, 0, lead);
+            self.capture(2, tag, name);
             return Some(blanks);
         }
         let name = self.lit(tag, b"@examplesIf")?;
@@ -50,9 +50,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = blanks.max(self.lim());
-        self.cap(1, 0, lead);
-        self.cap(3, tag, name);
-        self.cap(4, blanks, end);
+        self.capture(1, 0, lead);
+        self.capture(3, tag, name);
+        self.capture(4, blanks, end);
         Some(end)
     }
 
@@ -89,15 +89,15 @@ impl Lexer<'_> {
         }
         let rest = self.space_end(ticks);
         let end = rest.max(self.lim());
-        self.cap(1, p, ticks);
-        self.cap(2, rest, end);
+        self.capture(1, p, ticks);
+        self.capture(2, rest, end);
         Some(end)
     }
 
     /// `(\1)`: the fence's backticks again.
     pub(super) fn fence_end(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, self.payload_text().as_bytes())?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -120,9 +120,9 @@ impl Lexer<'_> {
                 if end > word
                     && let Some(close) = self.link_close(end)
                 {
-                    self.cap(2, p + 1, first);
-                    self.cap(3, first, word);
-                    return Some(self.link_caps(p, word, end, close));
+                    self.capture(2, p + 1, first);
+                    self.capture(3, first, word);
+                    return Some(self.link_captures(p, word, end, close));
                 }
             }
         }
@@ -130,7 +130,7 @@ impl Lexer<'_> {
             return None;
         }
         let close = self.link_close(first)?;
-        Some(self.link_caps(p, p + 1, first, close))
+        Some(self.link_captures(p, p + 1, first, close))
     }
 
     /// `(\(\))?(])` at `i`: where the `]` stands, with or without the `()`
@@ -144,13 +144,13 @@ impl Lexer<'_> {
 
     /// Records the link's bracket, name, parentheses and closing bracket,
     /// and returns its end.
-    fn link_caps(&mut self, open: usize, word: usize, end: usize, close: usize) -> usize {
-        self.cap(1, open, open + 1);
-        self.cap(4, word, end);
+    fn link_captures(&mut self, open: usize, word: usize, end: usize, close: usize) -> usize {
+        self.capture(1, open, open + 1);
+        self.capture(4, word, end);
         if close > end {
-            self.cap(5, end, close);
+            self.capture(5, end, close);
         }
-        self.cap(6, close, close + 1);
+        self.capture(6, close, close + 1);
         close + 1
     }
 
@@ -292,9 +292,9 @@ impl Lexer<'_> {
         }
         let close = p + 1 + memchr::memchr(b'>', self.text(p + 1, self.lim()))?;
         self.spend(close - p);
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, close);
-        self.cap(3, close, close + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, close);
+        self.capture(3, close, close + 1);
         Some(close + 1)
     }
 
@@ -305,7 +305,7 @@ impl Lexer<'_> {
         let name = [b"param".as_slice(), b"field", b"slot"]
             .into_iter()
             .find_map(|word| self.lit(tag, word))?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(self.space_end(name))
     }
 

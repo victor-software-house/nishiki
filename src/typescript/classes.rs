@@ -8,11 +8,11 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn class_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let mut k = pre.at;
-        let mut abstract_cap = None;
+        let mut abstract_capture = None;
         if self.starts(k, "abstract") && self.boundary(k) {
             let e = k + "abstract".len();
             let j = self.ws(e);
-            abstract_cap = Some((k, e));
+            abstract_capture = Some((k, e));
             k = j;
         }
         if !self.starts(k, "class")
@@ -29,7 +29,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.prefix_tokens(Rule::ClassDecl, &pre);
-        if let Some((a, b)) = abstract_cap {
+        if let Some((a, b)) = abstract_capture {
             self.capture(Rule::ClassDecl, a, b, &[S::StorageModifier]);
         }
         self.capture(Rule::ClassDecl, k, e, &[S::StorageTypeClass]);
@@ -42,12 +42,12 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut k = p;
-        let mut abstract_cap = None;
+        let mut abstract_capture = None;
         if self.starts(k, "abstract") {
             let e = k + "abstract".len();
             let j = self.ws(e);
             if j > e {
-                abstract_cap = Some((k, e));
+                abstract_capture = Some((k, e));
                 k = j;
             }
         }
@@ -64,7 +64,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        if let Some((a, b)) = abstract_cap {
+        if let Some((a, b)) = abstract_capture {
             self.capture(Rule::ClassDecl, a, b, &[S::StorageModifier]);
         }
         self.capture(Rule::ClassDecl, k, e, &[S::StorageTypeClass]);
@@ -89,10 +89,10 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn interface_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let mut k = pre.at;
-        let mut abstract_cap = None;
+        let mut abstract_capture = None;
         if self.starts(k, "abstract") && self.boundary(k) {
             let e = k + "abstract".len();
-            abstract_cap = Some((k, e));
+            abstract_capture = Some((k, e));
             k = self.ws(e);
         }
         if !self.starts(k, "interface")
@@ -108,7 +108,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.prefix_tokens(Rule::InterfaceDecl, &pre);
-        if let Some((a, b)) = abstract_cap {
+        if let Some((a, b)) = abstract_capture {
             self.capture(Rule::InterfaceDecl, a, b, &[S::StorageModifier]);
         }
         self.capture(Rule::InterfaceDecl, k, e, &[S::StorageTypeInterface]);

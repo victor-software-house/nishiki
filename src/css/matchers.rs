@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
 //! A matcher records the capture groups the grammar names with
-//! [`Lexer::cap`](crate::rules::Lexer::cap).
+//! [`Lexer::capture`](crate::rules::Lexer::capture).
 //! The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher

@@ -130,8 +130,8 @@ impl Lexer<'_> {
         }
         let at = self.space_end(p + 1);
         let end = self.delim_at(at, Delim::MatchQuote)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, at, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -201,8 +201,8 @@ impl Lexer<'_> {
         }
         let at = self.space_end(p + 1);
         let end = self.delim_at(at, Delim::SubstLine)?;
-        self.cap(1, p, at);
-        self.cap(2, at, end);
+        self.capture(1, p, at);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -216,8 +216,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.char_end(at);
-        self.cap(1, p, p + 1);
-        self.cap(2, at, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -228,7 +228,7 @@ impl Lexer<'_> {
         let after = self.lit(p, name)?;
         let at = self.space_end(after);
         (self.at(at) == open && at < self.lim()).then(|| {
-            self.cap(1, p, after);
+            self.capture(1, p, after);
             at + 1
         })
     }
@@ -239,8 +239,8 @@ impl Lexer<'_> {
         let after = self.lit(p, name)?;
         let at = self.space_end(after);
         let end = self.delim_at(at, class)?;
-        self.cap(1, p, after);
-        self.cap(2, at, end);
+        self.capture(1, p, after);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -258,7 +258,7 @@ impl Lexer<'_> {
         }
         let at = self.space_end(self.lit(p, name)?);
         let end = self.delim_at(at, class)?;
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 
@@ -273,7 +273,7 @@ impl Lexer<'_> {
         let name = p + 1 + usize::from(self.at(p + 1) == b'w' && p + 1 < self.lim());
         let at = self.space_end(name);
         let end = self.delim_at(at, Delim::Word)?;
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 
@@ -302,7 +302,7 @@ impl Lexer<'_> {
     /// rule's end repeats.
     pub(super) fn one_delim(&mut self, p: usize, class: Delim) -> Option<usize> {
         let end = self.delim_at(p, class)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -333,9 +333,9 @@ impl Lexer<'_> {
     pub(super) fn flags(&mut self, p: usize, end: FlagsEnd) -> Option<usize> {
         let flags = self.skip(p, is_flag);
         self.flags_close(flags, end).then(|| {
-            self.cap(1, p, flags);
-            self.cap(2, p, flags);
-            self.cap(3, p, flags);
+            self.capture(1, p, flags);
+            self.capture(2, p, flags);
+            self.capture(3, p, flags);
             flags
         })
     }
@@ -366,9 +366,9 @@ impl Lexer<'_> {
         }
         let end = self.skip(x + 1, is_x_flag);
         self.boundary(end).then(|| {
-            self.cap(1, p, end);
-            self.cap(2, p, end);
-            self.cap(3, p, end);
+            self.capture(1, p, end);
+            self.capture(2, p, end);
+            self.capture(3, p, end);
             end
         })
     }
@@ -406,8 +406,8 @@ impl Lexer<'_> {
         }
         let at = self.space_end(p);
         (self.at(at) == b'/' && at < self.lim()).then(|| {
-            self.cap(1, at, at + 1);
-            self.cap(2, at, at + 1);
+            self.capture(1, at, at + 1);
+            self.capture(2, at, at + 1);
             at + 1
         })
     }
@@ -418,9 +418,9 @@ impl Lexer<'_> {
         let close = self.repeat(p)?;
         let flags = self.skip(close, is_flag);
         self.flags_close(flags, FlagsEnd::Hash).then(|| {
-            self.cap(1, p, flags);
-            self.cap(2, p, flags);
-            self.cap(3, close, flags);
+            self.capture(1, p, flags);
+            self.capture(2, p, flags);
+            self.capture(3, close, flags);
             flags
         })
     }
@@ -450,10 +450,10 @@ impl Lexer<'_> {
         while let Some(middle) = self.unescaped(from, delim) {
             let after = middle + delim.len();
             if let Some(close) = self.unescaped(after, delim) {
-                self.cap(1, p, name);
-                self.cap(2, at, open);
-                self.cap(5, middle, after);
-                self.cap(8, close, close + delim.len());
+                self.capture(1, p, name);
+                self.capture(2, at, open);
+                self.capture(5, middle, after);
+                self.capture(8, close, close + delim.len());
                 return Some(close + delim.len());
             }
             from = self.char_end(middle);

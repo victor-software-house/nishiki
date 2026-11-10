@@ -7,7 +7,7 @@
 //! Where that changes a result, the functions try the same alternatives in
 //! the same order.
 
-use super::caps::Caps;
+use super::captures::Captures;
 use super::limits::{MAX_BRACKET_DEPTH, MAX_PAREN_DEPTH};
 use super::runs::{Closer, Delim, Open, Runs, Span};
 use super::stops::{Opener, PLAIN_STEPS, Step};
@@ -116,9 +116,9 @@ pub(crate) fn emphasis_open(
     runs: &mut Runs,
     p: usize,
     emphasis: Emphasis,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
-    emphasis_open_after(cx, runs, p, emphasis, caps, PLAIN_STEPS)
+    emphasis_open_after(cx, runs, p, emphasis, captures, PLAIN_STEPS)
 }
 
 /// [`emphasis_open`], with the memo taking over after `plain_steps` steps.
@@ -128,7 +128,7 @@ fn emphasis_open_after(
     runs: &mut Runs,
     p: usize,
     emphasis: Emphasis,
-    caps: &mut Caps,
+    captures: &mut Captures,
     plain_steps: usize,
 ) -> Option<usize> {
     let (mark, len) = delimiter(cx, p, emphasis)?;
@@ -160,7 +160,7 @@ fn emphasis_open_after(
     if !closes {
         return None;
     }
-    caps.set(1, p, start);
+    captures.set(1, p, start);
     Some(start)
 }
 
@@ -248,24 +248,34 @@ fn emphasis_atom(
 }
 
 /// `(?<=\S)(\1)` at `p`: the closing delimiter of bold.
-pub(crate) fn bold_close(cx: &Cx<'_>, p: usize, mark: u8, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn bold_close(
+    cx: &Cx<'_>,
+    p: usize,
+    mark: u8,
+    captures: &mut Captures,
+) -> Option<usize> {
     if !cx.non_space_before(p) || !cx.starts(p, &[mark, mark]) {
         return None;
     }
-    caps.set(1, p, p + 2);
+    captures.set(1, p, p + 2);
     Some(p + 2)
 }
 
 /// `(?<=\S)(\1)((?!\1)|(?=\1\1))` at `p`: the closing delimiter of italic,
 /// not followed by one more delimiter, or followed by two.
-pub(crate) fn italic_close(cx: &Cx<'_>, p: usize, mark: u8, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn italic_close(
+    cx: &Cx<'_>,
+    p: usize,
+    mark: u8,
+    captures: &mut Captures,
+) -> Option<usize> {
     if !cx.non_space_before(p) || cx.get(p) != Some(mark) {
         return None;
     }
     if cx.get(p + 1) == Some(mark) && !cx.starts(p + 1, &[mark, mark]) {
         return None;
     }
-    caps.set(1, p, p + 1);
+    captures.set(1, p, p + 1);
     Some(p + 1)
 }
 
@@ -324,13 +334,18 @@ pub(crate) fn code_span(cx: &Cx<'_>, runs: &mut Runs, p: usize) -> Option<Span> 
 }
 
 /// The raw rule: a code span, its backtick runs and its text.
-pub(crate) fn raw(cx: &Cx<'_>, runs: &mut Runs, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn raw(
+    cx: &Cx<'_>,
+    runs: &mut Runs,
+    p: usize,
+    captures: &mut Captures,
+) -> Option<usize> {
     let span = code_span(cx, runs, p)?;
-    caps.set(1, p, p + span.open_len);
+    captures.set(1, p, p + span.open_len);
     if span.close > p + span.open_len {
-        caps.set(2, p + span.open_len, span.close);
+        captures.set(2, p + span.open_len, span.close);
     }
-    caps.set(3, span.close, span.end);
+    captures.set(3, span.close, span.end);
     Some(span.end)
 }
 
@@ -343,7 +358,7 @@ pub(crate) fn strikethrough(
     cx: &Cx<'_>,
     runs: &mut Runs,
     p: usize,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
     if cx.get(p) != Some(b'~') || cx.before(p) == Some(b'\\') {
         return None;
@@ -368,11 +383,11 @@ pub(crate) fn strikethrough(
     cx.spend(steps);
     let span = span?;
     let open_end = p + span.open_len;
-    caps.set(1, p, open_end);
+    captures.set(1, p, open_end);
     if span.close > open_end {
-        caps.set(2, open_end, span.close);
+        captures.set(2, open_end, span.close);
     }
-    caps.set(3, span.close, span.end);
+    captures.set(3, span.close, span.end);
     Some(span.end)
 }
 
@@ -527,9 +542,9 @@ fn destination(
     runs: &mut Runs,
     open: usize,
     owner: Destination,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
-    caps.set(5, open, open + 1);
+    captures.set(5, open, open + 1);
     let start = cx.skip(open + 1, |b| matches!(b, b' ' | b'\t'));
     if cx.get(start) == Some(b'<') {
         let mut i = start + 1;
@@ -541,14 +556,14 @@ fn destination(
             }
         }
         if cx.get(i) == Some(b'>') {
-            let mut angle = *caps;
+            let mut angle = *captures;
             angle.set(7, start, start + 1);
             if i > start + 1 {
                 angle.set(8, start + 1, i);
             }
             angle.set(9, i, i + 1);
             if let Some(end) = destination_tail(cx, runs, i + 1, owner, &mut angle) {
-                *caps = angle;
+                *captures = angle;
                 return Some(end);
             }
         }
@@ -556,9 +571,9 @@ fn destination(
     let url_end = destination_end(cx, start, 0);
     cx.spend(url_end - start);
     if url_end > start {
-        caps.set(10, start, url_end);
+        captures.set(10, start, url_end);
     }
-    destination_tail(cx, runs, url_end, owner, caps)
+    destination_tail(cx, runs, url_end, owner, captures)
 }
 
 /// `[\t ]*(title)?\s*(\))` after the destination, ending at the parenthesis.
@@ -572,7 +587,7 @@ fn destination_tail(
     runs: &mut Runs,
     p: usize,
     owner: Destination,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
     let mut close = cx.skip_space(at);
@@ -604,16 +619,16 @@ fn destination_tail(
             && (owner == Destination::Link || i > at + 1)
             && fits(cx, i + 1);
         if closes {
-            caps.set(first, at, i + 1);
-            caps.set(first + 1, at, at + 1);
-            caps.set(first + 2, i, i + 1);
+            captures.set(first, at, i + 1);
+            captures.set(first + 1, at, at + 1);
+            captures.set(first + 2, i, i + 1);
             close = cx.skip_space(i + 1);
         } else {
             return None;
         }
     }
     if cx.get(close) == Some(b')') {
-        caps.set(21, close, close + 1);
+        captures.set(21, close, close + 1);
         Some(close + 1)
     } else {
         None
@@ -657,7 +672,7 @@ fn inline_link(
     p: usize,
     bang: bool,
     owner: Destination,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
     let open = p + usize::from(bang);
     if bang && cx.get(p) != Some(b'!') {
@@ -667,15 +682,15 @@ fn inline_link(
         return None;
     }
     let close = label(cx, open)?;
-    caps.set(1, p, open + 1);
+    captures.set(1, p, open + 1);
     if close > open + 1 {
-        caps.set(2, open + 1, close);
+        captures.set(2, open + 1, close);
     }
-    caps.set(4, close, close + 1);
+    captures.set(4, close, close + 1);
     if cx.get(close + 1) != Some(b'(') {
         return None;
     }
-    destination(cx, runs, close + 1, owner, caps)
+    destination(cx, runs, close + 1, owner, captures)
 }
 
 /// `(!\[)(label)(])(\()…(\))`
@@ -683,9 +698,9 @@ pub(crate) fn image_inline(
     cx: &Cx<'_>,
     runs: &mut Runs,
     p: usize,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
-    inline_link(cx, runs, p, true, Destination::Image, caps)
+    inline_link(cx, runs, p, true, Destination::Image, captures)
 }
 
 /// `(\[)(label)(])(\()…(\))`
@@ -693,13 +708,13 @@ pub(crate) fn link_inline(
     cx: &Cx<'_>,
     runs: &mut Runs,
     p: usize,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
-    inline_link(cx, runs, p, false, Destination::Link, caps)
+    inline_link(cx, runs, p, false, Destination::Link, captures)
 }
 
 /// `(!\[)(label)(]) ?(\[)(.*?)(])`
-pub(crate) fn image_reference(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn image_reference(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.starts(p, b"![") {
         return None;
     }
@@ -714,22 +729,22 @@ pub(crate) fn image_reference(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<
     let end = (i + 1..cx.end)
         .take_while(|&k| cx.get(k) != Some(b'\n'))
         .find(|&k| cx.get(k) == Some(b']'))?;
-    caps.set(1, p, p + 2);
+    captures.set(1, p, p + 2);
     if close > p + 2 {
-        caps.set(2, p + 2, close);
+        captures.set(2, p + 2, close);
     }
-    caps.set(4, close, close + 1);
-    caps.set(5, i, i + 1);
+    captures.set(4, close, close + 1);
+    captures.set(5, i, i + 1);
     if end > i + 1 {
-        caps.set(6, i + 1, end);
+        captures.set(6, i + 1, end);
     }
-    caps.set(7, end, end + 1);
+    captures.set(7, end, end + 1);
     Some(end + 1)
 }
 
 /// `(<)((?:mailto:)?[!#-'*+\--9=?A-Z^-~]+@[-0-9A-Za-z]+(?:\.[-0-9A-Za-z]+)*
 /// )(>)`
-pub(crate) fn link_email(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn link_email(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if cx.get(p) != Some(b'<') {
         return None;
     }
@@ -757,13 +772,13 @@ pub(crate) fn link_email(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize
     if cx.get(end) != Some(b'>') {
         return None;
     }
-    caps.set(1, p, p + 1);
-    caps.set(2, p + 1, end);
+    captures.set(1, p, p + 1);
+    captures.set(2, p + 1, end);
     Some(end + 1)
 }
 
 /// `(<)((?:https?|ftp)://.*?)(>)`
-pub(crate) fn link_inet(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn link_inet(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if cx.get(p) != Some(b'<') {
         return None;
     }
@@ -783,9 +798,9 @@ pub(crate) fn link_inet(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize>
     let end = (i + scheme + 3..cx.end)
         .take_while(|&k| cx.get(k) != Some(b'\n'))
         .find(|&k| cx.get(k) == Some(b'>'))?;
-    caps.set(1, p, p + 1);
-    caps.set(2, p + 1, end);
-    caps.set(3, end, end + 1);
+    captures.set(1, p, p + 1);
+    captures.set(2, p + 1, end);
+    captures.set(3, end, end + 1);
     Some(end + 1)
 }
 
@@ -795,7 +810,7 @@ fn not_after_bracket(cx: &Cx<'_>, p: usize) -> bool {
 }
 
 /// `(?<![]\\])(\[)(label)(])(\[)([^]]*+)(])`
-pub(crate) fn link_reference(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn link_reference(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if cx.get(p) != Some(b'[') || !not_after_bracket(cx, p) {
         return None;
     }
@@ -804,21 +819,25 @@ pub(crate) fn link_reference(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<u
         return None;
     }
     let end = (close + 2..cx.end).find(|&k| cx.get(k) == Some(b']'))?;
-    caps.set(1, p, p + 1);
+    captures.set(1, p, p + 1);
     if close > p + 1 {
-        caps.set(2, p + 1, close);
+        captures.set(2, p + 1, close);
     }
-    caps.set(4, close, close + 1);
-    caps.set(5, close + 1, close + 2);
+    captures.set(4, close, close + 1);
+    captures.set(5, close + 1, close + 2);
     if end > close + 2 {
-        caps.set(6, close + 2, end);
+        captures.set(6, close + 2, end);
     }
-    caps.set(7, end, end + 1);
+    captures.set(7, end, end + 1);
     Some(end + 1)
 }
 
 /// `(?<![]\\])(\[)(label)(]) ?(\[)(])`
-pub(crate) fn link_reference_literal(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn link_reference_literal(
+    cx: &Cx<'_>,
+    p: usize,
+    captures: &mut Captures,
+) -> Option<usize> {
     if cx.get(p) != Some(b'[') || !not_after_bracket(cx, p) {
         return None;
     }
@@ -830,18 +849,22 @@ pub(crate) fn link_reference_literal(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> 
     if cx.get(i) != Some(b'[') || cx.get(i + 1) != Some(b']') {
         return None;
     }
-    caps.set(1, p, p + 1);
+    captures.set(1, p, p + 1);
     if close > p + 1 {
-        caps.set(2, p + 1, close);
+        captures.set(2, p + 1, close);
     }
-    caps.set(4, close, close + 1);
-    caps.set(5, i, i + 1);
-    caps.set(6, i + 1, i + 2);
+    captures.set(4, close, close + 1);
+    captures.set(5, i, i + 1);
+    captures.set(6, i + 1, i + 2);
     Some(i + 2)
 }
 
 /// `(?<![]\\])(\[)((?:[^]\[\\\s]|\\[]\[])+?)((?<!\\)])`
-pub(crate) fn link_reference_shortcut(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn link_reference_shortcut(
+    cx: &Cx<'_>,
+    p: usize,
+    captures: &mut Captures,
+) -> Option<usize> {
     if cx.get(p) != Some(b'[') || !not_after_bracket(cx, p) {
         return None;
     }
@@ -849,9 +872,9 @@ pub(crate) fn link_reference_shortcut(cx: &Cx<'_>, p: usize, caps: &mut Caps) ->
     let mut i = start;
     loop {
         if i > start && cx.get(i) == Some(b']') && cx.before(i) != Some(b'\\') {
-            caps.set(1, p, p + 1);
-            caps.set(2, start, i);
-            caps.set(3, i, i + 1);
+            captures.set(1, p, p + 1);
+            captures.set(2, start, i);
+            captures.set(3, i, i + 1);
             return Some(i + 1);
         }
         if cx.space_at(i) > 0 {
@@ -869,7 +892,7 @@ pub(crate) fn link_reference_shortcut(cx: &Cx<'_>, p: usize, caps: &mut Caps) ->
 mod tests {
     use super::{Emphasis, emphasis_atom, emphasis_open_after};
     use crate::limits::{Limits, Steps};
-    use crate::markdown::caps::Caps;
+    use crate::markdown::captures::Captures;
     use crate::markdown::runs::Runs;
     use crate::markdown::text::{Cx, LineFacts};
 
@@ -944,13 +967,13 @@ mod tests {
                             String::from_utf8_lossy(line)
                         );
                         fresh.reset();
-                        let mut caps = Caps::new();
+                        let mut captures = Captures::new();
                         let first = emphasis_open_after(
                             &cx,
                             &mut fresh,
                             p,
                             emphasis,
-                            &mut caps,
+                            &mut captures,
                             SHORT_PLAIN_STEPS,
                         );
                         assert_eq!(first, expected, "fresh memo, {case}");
@@ -959,7 +982,7 @@ mod tests {
                             &mut kept,
                             p,
                             emphasis,
-                            &mut caps,
+                            &mut captures,
                             SHORT_PLAIN_STEPS,
                         );
                         assert_eq!(again, expected, "kept memo, {case}");

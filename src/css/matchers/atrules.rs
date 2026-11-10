@@ -44,7 +44,7 @@ impl<G: CssLike> Lexer<'_, G> {
             return None;
         }
         let end = self.at_word(p, word)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -103,49 +103,49 @@ impl<G: CssLike> Lexer<'_, G> {
         if self.at_anchor(p) && self.at(p) == b'@' && p < lim && !self.starts(p, b"@charset") {
             let end = self.word_run(p + 1);
             if end > p + 1 {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
         }
         if self.at_anchor(p) {
             let end = self.spaces(p);
             if end > p {
-                self.cap(2, p, end);
+                self.capture(2, p, end);
                 return Some(end);
             }
         }
         if self.starts(p, b"@charset") && p + 8 < lim && self.space_at(p + 8) == 0 {
             let end = self.skip_to(p + 9, b';');
-            self.cap(3, p, end);
+            self.capture(3, p, end);
             return Some(end);
         }
         if p >= 8 && self.text(p - 8, p) == b"@charset" {
             let spaces = self.skip(p, |b| b == b' ');
             if spaces >= p + 2 {
-                self.cap(4, p, spaces);
+                self.capture(4, p, spaces);
                 return Some(spaces);
             }
             let tabs = self.skip(p, |b| b == b'\t');
             if tabs > p {
-                self.cap(4, p, tabs);
+                self.capture(4, p, tabs);
                 return Some(tabs);
             }
         }
         if p >= 9 && self.text(p - 9, p) == b"@charset " {
             let end = self.skip_to_any(p, b"\";");
             if end > p {
-                self.cap(5, p, end);
+                self.capture(5, p, end);
                 return Some(end);
             }
         }
         if self.at(p) == b'"' && p < lim && self.find(Find::Quote, p + 1).is_none() {
-            self.cap(6, p, lim + 1);
+            self.capture(6, p, lim + 1);
             return Some(lim + 1);
         }
         if p > 0 && self.s.get(p - 1) == Some(&b'"') {
             let end = self.skip_to(p, b';');
             if end > p {
-                self.cap(7, p, end);
+                self.capture(7, p, end);
                 return Some(end);
             }
         }
@@ -174,8 +174,8 @@ impl<G: CssLike> Lexer<'_, G> {
     pub(in crate::css) fn at_rules_at0_at1(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"@charset")?;
         (self.space_at(end) > 0).then(|| {
-            self.cap(1, p, end);
-            self.cap(2, p, p + 1);
+            self.capture(1, p, end);
+            self.capture(2, p, p + 1);
             end
         })
     }
@@ -201,8 +201,8 @@ impl<G: CssLike> Lexer<'_, G> {
         } else {
             return None;
         };
-        self.cap(1, p, word);
-        self.cap(2, p, p + 1);
+        self.capture(1, p, word);
+        self.capture(2, p, p + 1);
         Some(end)
     }
 
@@ -234,8 +234,8 @@ impl<G: CssLike> Lexer<'_, G> {
     /// `(?i)((@)font-face)(?=\s*|\{|/\*|$)`
     pub(in crate::css) fn at_rules_at2(&mut self, p: usize) -> Option<usize> {
         let end = self.at_word(p, "font-face")?;
-        self.cap(1, p, end);
-        self.cap(2, p, p + 1);
+        self.capture(1, p, end);
+        self.capture(2, p, p + 1);
         Some(end)
     }
 
@@ -248,8 +248,8 @@ impl<G: CssLike> Lexer<'_, G> {
     fn font_feature(&mut self, p: usize, word: &str) -> Option<usize> {
         let end = self.at_word(p, word)?;
         self.at_follows(end, b"\"';@{").then(|| {
-            self.cap(1, p, end);
-            self.cap(2, p, p + 1);
+            self.capture(1, p, end);
+            self.capture(2, p, p + 1);
             end
         })
     }
@@ -293,7 +293,7 @@ impl<G: CssLike> Lexer<'_, G> {
     pub(in crate::css) fn at_rules_at3(&mut self, p: usize) -> Option<usize> {
         let end = self.at_word(p, "page")?;
         self.at_follows(end, b":{").then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             end
         })
     }
@@ -311,7 +311,7 @@ impl<G: CssLike> Lexer<'_, G> {
         }
         matches!(self.at(after), b':' | b';' | b'{').then(|| {
             if after == p {
-                self.cap(1, after, after + 1);
+                self.capture(1, after, after + 1);
             }
             p
         })
@@ -368,8 +368,8 @@ impl<G: CssLike> Lexer<'_, G> {
             && name < self.lim()
             && self.in_list(p, name, Words::Spelled(&["domain", "regexp", "url-prefix"]));
         ok.then(|| {
-            self.cap(1, p, name);
-            self.cap(2, name, name + 1);
+            self.capture(1, p, name);
+            self.capture(2, name, name + 1);
             name + 1
         })
     }
@@ -386,14 +386,14 @@ impl<G: CssLike> Lexer<'_, G> {
             return None;
         }
         let end = self.keyframes_word(p)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
     /// `(?i)(?<![-\w])(from|to)(?![-\w])|([-+]?(?:\d+(?:\.\d+)?|\.\d+)%)`
     pub(in crate::css) fn at_rules_at7_at1_at2(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.standalone_word(p, Words::Spelled(&["from", "to"])) {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let sign = usize::from(matches!(self.at(p), b'+' | b'-') && p < self.lim());
@@ -410,7 +410,7 @@ impl<G: CssLike> Lexer<'_, G> {
             return None;
         }
         (self.at(end) == b'%' && end < self.lim()).then(|| {
-            self.cap(2, p, end + 1);
+            self.capture(2, p, end + 1);
             end + 1
         })
     }
@@ -462,8 +462,8 @@ impl<G: CssLike> Lexer<'_, G> {
         }
         let end = end.or_else(|| self.lit_ci(p + 1, "viewport"))?;
         self.at_follows(end, b"\"';{").then(|| {
-            self.cap(1, p, end);
-            self.cap(2, p, p + 1);
+            self.capture(1, p, end);
+            self.capture(2, p, p + 1);
             end
         })
     }
@@ -478,8 +478,8 @@ impl<G: CssLike> Lexer<'_, G> {
     pub(in crate::css) fn at_rules_at11(&mut self, p: usize) -> Option<usize> {
         let end = self.at_word(p, "font-feature-values")?;
         self.at_follows(end, b"\"';{").then(|| {
-            self.cap(1, p, end);
-            self.cap(2, p, p + 1);
+            self.capture(1, p, end);
+            self.capture(2, p, p + 1);
             self.spaces(end)
         })
     }
@@ -488,8 +488,8 @@ impl<G: CssLike> Lexer<'_, G> {
     pub(in crate::css) fn at_rules_at13(&mut self, p: usize) -> Option<usize> {
         let end = self.at_word(p, "namespace")?;
         self.at_follows(end, b"\"';").then(|| {
-            self.cap(1, p, end);
-            self.cap(2, p, p + 1);
+            self.capture(1, p, end);
+            self.capture(2, p, p + 1);
             end
         })
     }
@@ -516,8 +516,8 @@ impl<G: CssLike> Lexer<'_, G> {
         let mut name = p;
         while name < self.lim() {
             if let Some(end) = self.name_end(name) {
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 return Some(end);
             }
             name = self.char_end(name);
@@ -550,7 +550,7 @@ impl<G: CssLike> Lexer<'_, G> {
         }
         let end = self.wordish_run(p + 1);
         (end > p + 1).then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             end
         })
     }

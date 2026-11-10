@@ -55,7 +55,7 @@ impl Lexer<'_> {
         let end = self.lit(p, word.as_bytes())?;
         let after = self.spaces(end);
         (after > end).then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             after
         })
     }
@@ -182,33 +182,33 @@ impl Lexer<'_> {
             return None;
         }
         if let Some(end) = alias {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
         }
-        self.cap(2, quote, close + 1);
-        self.cap(3, quote, quote + 1);
-        self.cap(4, quote + 1, close);
-        self.cap(5, close, close + 1);
+        self.capture(2, quote, close + 1);
+        self.capture(3, quote, quote + 1);
+        self.capture(4, quote + 1, close);
+        self.capture(5, close, close + 1);
         Some(close + 1)
     }
 
     /// `(/\*)`
     pub(in crate::go) fn comment_block_begin(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"/*")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `(\*/)`
     pub(in crate::go) fn comment_block_end(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"*/")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `(//)`
     pub(in crate::go) fn comment_line_begin(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"//")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -230,7 +230,7 @@ impl Lexer<'_> {
         let end = self.lit(p, b"[]")?;
         let after = self.spaces(end);
         (after > end).then(|| {
-            self.cap(1, end, after);
+            self.capture(1, end, after);
             after
         })
     }
@@ -251,16 +251,16 @@ impl Lexer<'_> {
     /// `\b(?:(true|false)|(nil)|(iota))\b`
     pub(in crate::go) fn language_constants(&mut self, p: usize) -> Option<usize> {
         let end = self.word_in(p, &[b"false", b"iota", b"nil", b"true"])?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         match &self.s[p..end] {
             b"true" | b"false" => {}
             b"nil" => {
-                self.cap(1, 0, 0);
-                self.cap(2, p, end);
+                self.capture(1, 0, 0);
+                self.capture(2, p, end);
             }
             _ => {
-                self.cap(1, 0, 0);
-                self.cap(3, p, end);
+                self.capture(1, 0, 0);
+                self.capture(3, p, end);
             }
         }
         Some(end)
@@ -270,8 +270,8 @@ impl Lexer<'_> {
     pub(in crate::go) fn map_types(&mut self, p: usize) -> Option<usize> {
         let end = self.keyword(p, b"map")?;
         let open = self.lit(end, b"[")?;
-        self.cap(1, p, end);
-        self.cap(2, end, open);
+        self.capture(1, p, end);
+        self.capture(2, end, open);
         Some(open)
     }
 
@@ -383,9 +383,9 @@ impl Lexer<'_> {
     /// `\b(complex(64|128)|float(32|64)|u?int(8|16|32|64)?)\b`
     pub(in crate::go) fn storage_types_at3(&mut self, p: usize) -> Option<usize> {
         let end = self.word_in(p, NUMERIC)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         if self.s[p..end].starts_with(b"complex") {
-            self.cap(2, p + 7, end);
+            self.capture(2, p + 7, end);
         }
         Some(end)
     }
@@ -441,7 +441,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -454,7 +454,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -484,14 +484,14 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `([-%*+/])`
     pub(in crate::go) fn operators_at7(&mut self, p: usize) -> Option<usize> {
         (matches!(self.at(p), b'-' | b'%' | b'*' | b'+' | b'/') && p < self.lim()).then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         })
     }
@@ -508,7 +508,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -550,8 +550,8 @@ impl Lexer<'_> {
         if self.at(p) == b'\\' && p < self.lim() {
             for end in self.escape_alternatives(p + 1).into_iter().flatten() {
                 if self.at(end) == b'\'' && end < self.lim() {
-                    self.cap(1, p, end);
-                    self.cap(2, p + 1, end);
+                    self.capture(1, p, end);
+                    self.capture(2, p + 1, end);
                     return Some(end);
                 }
             }
@@ -559,7 +559,7 @@ impl Lexer<'_> {
         if p < self.lim() {
             let end = self.char_end(p);
             if self.at(end) == b'\'' && end < self.lim() {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
         }
@@ -590,7 +590,7 @@ impl Lexer<'_> {
             .into_iter()
             .flatten()
             .next()?;
-        self.cap(1, p + 1, end);
+        self.capture(1, p + 1, end);
         Some(end)
     }
 

@@ -97,7 +97,7 @@ impl Lexer<'_> {
         let end = self.word_end(p);
         let at = self.space_end(end);
         self.starts(at, b"=>").then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             at
         })
     }
@@ -126,8 +126,8 @@ impl Lexer<'_> {
             end = self.char_end(end);
         }
         (name > keyword && end > name).then(|| {
-            self.cap(1, at, keyword);
-            self.cap(2, name, end);
+            self.capture(1, at, keyword);
+            self.capture(2, name, end);
             end
         })
     }
@@ -151,15 +151,15 @@ impl Lexer<'_> {
             let mut end = name;
             while end > blanks {
                 if let Some(tail) = self.sub_tail(end) {
-                    self.cap(1, p, keyword);
-                    self.cap(2, blanks, end);
+                    self.capture(1, p, keyword);
+                    self.capture(2, blanks, end);
                     return Some(tail);
                 }
                 end -= 1;
             }
         }
         let tail = self.sub_tail(keyword)?;
-        self.cap(1, p, keyword);
+        self.capture(1, p, keyword);
         Some(tail)
     }
 
@@ -210,9 +210,9 @@ impl Lexer<'_> {
     /// `(\t| {4})(\t| {4})?`: one or two steps of indentation.
     pub(super) fn indent(&mut self, p: usize) -> Option<usize> {
         let first = self.indent_step(p)?;
-        self.cap(1, p, first);
+        self.capture(1, p, first);
         if let Some(second) = self.indent_step(first) {
-            self.cap(2, first, second);
+            self.capture(2, first, second);
             return Some(second);
         }
         Some(first)
@@ -238,7 +238,7 @@ impl Lexer<'_> {
             .find_map(|word| self.lit(at, word))?;
         let end = self.lit(name, b"__")?;
         self.word_at(end).is_none().then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         })
     }
@@ -251,7 +251,7 @@ impl Lexer<'_> {
         let end = self
             .lit(p, b"__DATA__")
             .or_else(|| self.lit(p, b"__END__"))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(if end == self.lim() && self.avail(end) {
             end + 1
         } else {
@@ -281,7 +281,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -313,8 +313,8 @@ impl Lexer<'_> {
         let end = self.word_end(name);
         let at = self.space_end(end);
         (name > keyword && end > name && self.at(at) == b'=' && at < self.lim()).then(|| {
-            self.cap(1, p, keyword);
-            self.cap(2, name, end);
+            self.capture(1, p, keyword);
+            self.capture(2, name, end);
             at + 1
         })
     }
@@ -336,8 +336,8 @@ impl Lexer<'_> {
         let digits = self.space_end(p + 1);
         let end = self.digit_end(digits);
         (end > digits && self.boundary(end)).then(|| {
-            self.cap(1, p, p + 1);
-            self.cap(2, digits, end);
+            self.capture(1, p, p + 1);
+            self.capture(2, digits, end);
             end
         })
     }

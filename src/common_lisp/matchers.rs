@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -84,7 +84,7 @@ impl Lexer<'_> {
             Pattern::BlockCommentEnd => self.lit(p, b"|#"),
             Pattern::String | Pattern::StringEnd => {
                 let end = self.lit(p, b"\"")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::StringAt0 => self.escaped(p),
@@ -315,11 +315,11 @@ impl Lexer<'_> {
         }
         let end = self.class_end(p, self.lim(), package_byte);
         if end > p && self.at(end) == b':' {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         if self.at(p) == b'#' && self.at(p + 1) == b':' {
-            self.cap(3, p, p + 1);
+            self.capture(3, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -333,7 +333,7 @@ impl Lexer<'_> {
         let open = self.lit(p, b"(")?;
         let word = self.space_end(open);
         let end = self.listed(word, true, words::SPECIAL_OPERATORS)?;
-        self.cap(2, word, end);
+        self.capture(2, word, end);
         Some(end)
     }
 
@@ -345,7 +345,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.skip(0, |b| b == b' ' || b == b'\t');
             if blanks > 0 && self.at(blanks) == b';' {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }

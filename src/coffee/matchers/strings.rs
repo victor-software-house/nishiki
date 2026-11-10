@@ -37,7 +37,7 @@ where
             b'4'..=b'7' => from + 1 + usize::from(octal(from + 1)),
             _ => self.any_char(from)?,
         };
-        self.cap(1, p, from);
+        self.capture(1, p, from);
         Some(end)
     }
 
@@ -58,9 +58,9 @@ where
     pub(super) fn script(&mut self, p: usize) -> Option<usize> {
         let open = self.lit(p, b"`")?;
         let close = open + memchr::memrchr(b'`', self.text(open, self.lim()))?;
-        self.cap(1, p, open);
-        self.cap(2, open, close);
-        self.cap(3, close, close + 1);
+        self.capture(1, p, open);
+        self.capture(2, open, close);
+        self.capture(3, close, close + 1);
         Some(close + 1)
     }
 
@@ -89,7 +89,7 @@ where
             return None;
         }
         let end = self.lit(p, b"#")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let lim = self.lim();
         Some(if self.avail(lim) { lim + 1 } else { lim })
     }
@@ -97,7 +97,7 @@ where
     /// `(///)[gimuy]*`.
     pub(super) fn heregex_end(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"///")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.skip(end, |b| matches!(b, b'g' | b'i' | b'm' | b'u' | b'y')))
     }
 
@@ -144,19 +144,19 @@ where
             b"?!" => 4,
             _ => return None,
         };
-        self.cap(1, p, open);
-        self.cap(group, open, open + 2);
+        self.capture(1, p, open);
+        self.capture(group, open, open + 2);
         Some(open + 2)
     }
 
     /// `(\[)(\^)?`.
     pub(super) fn character_set(&mut self, p: usize) -> Option<usize> {
         let open = self.lit(p, b"[")?;
-        self.cap(1, p, open);
+        self.capture(1, p, open);
         let Some(end) = self.lit(open, b"^") else {
             return Some(open);
         };
-        self.cap(2, open, end);
+        self.capture(2, open, end);
         Some(end)
     }
 
@@ -191,10 +191,10 @@ where
         .into_iter()
         .find_map(|(end, group)| end.map(|end| (end, group)))?;
         if let Some(group) = left {
-            self.cap(group, p, dash);
+            self.capture(group, p, dash);
         }
         if let Some(group) = right {
-            self.cap(group, from, end);
+            self.capture(group, from, end);
         }
         Some(end)
     }
@@ -238,8 +238,8 @@ where
         if end == from {
             return None;
         }
-        self.cap(1, p, from);
-        self.cap(2, from, end);
+        self.capture(1, p, from);
+        self.capture(2, from, end);
         Some(end)
     }
 
@@ -287,8 +287,8 @@ where
         }
         let equals = self.space_end(name);
         let end = self.lit(equals, b"=")?;
-        self.cap(1, p, name);
-        self.cap(2, equals, end);
+        self.capture(1, p, name);
+        self.capture(2, equals, end);
         Some(end)
     }
 }

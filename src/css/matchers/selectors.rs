@@ -183,13 +183,13 @@ impl<G: CssLike> Lexer<'_, G> {
             .or_else(|| (self.s.get(p) == Some(&b'*')).then_some(p + 1));
         let bar = match prefix_end {
             Some(end) if self.s.get(end) == Some(&b'|') => {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 end
             }
             _ if self.s.get(p) == Some(&b'|') => p,
             _ => return None,
         };
-        self.cap(2, bar, bar + 1);
+        self.capture(2, bar, bar + 1);
         Some(bar + 1)
     }
 
@@ -271,8 +271,8 @@ impl<G: CssLike> Lexer<'_, G> {
             (end > run).then_some(end)
         }?;
         let end = self.ident_run(first);
-        self.cap(1, p, p + 1);
-        self.cap(2, body, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, body, end);
         Some(end)
     }
 
@@ -282,8 +282,8 @@ impl<G: CssLike> Lexer<'_, G> {
             return None;
         }
         let end = self.ident_run_before_stop(p + 1)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -294,8 +294,8 @@ impl<G: CssLike> Lexer<'_, G> {
             return None;
         }
         let end = self.ident_run_before_stop(p + 1)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -353,7 +353,7 @@ impl<G: CssLike> Lexer<'_, G> {
         } else {
             return None;
         };
-        self.cap(1, flag, flag + 1);
+        self.capture(1, flag, flag + 1);
         Some(end)
     }
 
@@ -390,7 +390,7 @@ impl<G: CssLike> Lexer<'_, G> {
             }
         }
         (end > from).then(|| {
-            self.cap(1, from, end);
+            self.capture(1, from, end);
             end
         })
     }
@@ -431,7 +431,7 @@ impl<G: CssLike> Lexer<'_, G> {
             && !matches!(self.s[after], b'=' | b']')
             && self.space_at(after) == 0;
         ok.then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         })
     }
@@ -451,7 +451,7 @@ impl<G: CssLike> Lexer<'_, G> {
             && end < self.lim()
             || self.starts(end, b"/*");
         ahead.then(|| {
-            self.cap(1, p, name);
+            self.capture(1, p, name);
             end
         })
     }
@@ -491,9 +491,9 @@ impl<G: CssLike> Lexer<'_, G> {
         {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         if word > p + 1 {
-            self.cap(2, p + 1, word);
+            self.capture(2, p + 1, word);
         }
         Some(end)
     }
@@ -522,7 +522,7 @@ impl<G: CssLike> Lexer<'_, G> {
             if matches!(self.at(after), b';' | b'}') && after < self.lim() {
                 return None;
             }
-            self.cap(2, p, p + 2);
+            self.capture(2, p, p + 2);
             return Some(run);
         } else {
             return None;
@@ -531,7 +531,7 @@ impl<G: CssLike> Lexer<'_, G> {
         if self.wordish_at(end) || matches!(self.at(after), b';' | b'}') && after < self.lim() {
             return None;
         }
-        self.cap(1, p, p + colons);
+        self.capture(1, p, p + colons);
         Some(end)
     }
 
@@ -565,9 +565,9 @@ impl<G: CssLike> Lexer<'_, G> {
             && name < self.lim()
             && self.in_list(p + 1, name, list);
         ok.then(|| {
-            self.cap(1, p, name);
-            self.cap(2, p, p + 1);
-            self.cap(3, name, name + 1);
+            self.capture(1, p, name);
+            self.capture(2, p, p + 1);
+            self.capture(3, name, name + 1);
             name + 1
         })
     }
@@ -585,7 +585,7 @@ impl<G: CssLike> Lexer<'_, G> {
     /// `(?i)(?<![-\w])(ltr|rtl)(?![-\w])`
     pub(in crate::css) fn functional_pseudo_classes_at0_at2(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Spelled(&["ltr", "rtl"]))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

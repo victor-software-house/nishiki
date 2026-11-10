@@ -105,7 +105,7 @@ impl Lexer<'_> {
     pub(super) fn typedef_tag(&mut self, p: usize, keyword: &[u8]) -> Option<usize> {
         let word = self.word_lit(p, keyword)?;
         let first = self.gaps(word).next()?;
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         self.put_gap(2, GapForm::Parts, word, &first);
         let mut pos = first.end;
         if self.at(pos) == b'{' && pos < self.lim() {
@@ -113,7 +113,7 @@ impl Lexer<'_> {
         }
         if let Some(&attr) = self.attribute_ends(pos).first() {
             let gap = self.gaps(attr).next()?;
-            self.cap(6, pos, attr);
+            self.capture(6, pos, attr);
             self.put_gap(7, GapForm::Parts, attr, &gap);
             pos = gap.end;
         }
@@ -124,12 +124,12 @@ impl Lexer<'_> {
             pos = gap.end;
         }
         if pos > names {
-            self.cap(11, names, pos);
+            self.capture(11, names, pos);
         }
         for gap in self.gaps(pos) {
             if self.at(gap.end) == b':' && gap.end < self.lim() && self.at(gap.end + 1) != b':' {
                 self.put_gap(16, GapForm::Parts, pos, &gap);
-                self.cap(20, gap.end, gap.end + 1);
+                self.capture(20, gap.end, gap.end + 1);
                 return Some(gap.end + 1);
             }
         }
@@ -180,11 +180,11 @@ impl Lexer<'_> {
                 let Some((after, chain, (third, name, fourth))) = found else {
                     continue;
                 };
-                self.cap(1, p, word);
+                self.capture(1, p, word);
                 self.put_gap(2, GapForm::Plain, word, &first);
-                self.cap(4, first.end, ty);
+                self.capture(4, first.end, ty);
                 if let Some((end, f, l)) = chain {
-                    self.cap(5, ty, end);
+                    self.capture(5, ty, end);
                     if let Some(gap) = f {
                         self.put_gap(6, GapForm::Plain, ty, &gap);
                     }
@@ -193,7 +193,7 @@ impl Lexer<'_> {
                     }
                 }
                 self.put_gap(10, GapForm::Plain, after, &third);
-                self.cap(12, third.end, name);
+                self.capture(12, third.end, name);
                 self.put_gap(13, GapForm::Plain, name, &fourth);
                 return Some(fourth.end);
             }
@@ -296,13 +296,13 @@ impl Lexer<'_> {
                 continue;
             };
             self.put_gap(1, GapForm::Parts, 0, &first);
-            self.cap(5, first.end, loop_end);
+            self.capture(5, first.end, loop_end);
             if let Some((from, g)) = last {
                 self.put_gap(6, GapForm::Parts, from, &g);
             }
-            self.cap(10, loop_end, convention);
+            self.capture(10, loop_end, convention);
             self.put_gap(11, GapForm::Parts, convention, &gap);
-            self.cap(15, gap.end, end);
+            self.capture(15, gap.end, end);
             return Some(end);
         }
         None
@@ -326,13 +326,13 @@ impl Lexer<'_> {
                         });
                     if let Some((loop_end, last, end)) = found {
                         self.put_gap(1, GapForm::Parts, 0, &first);
-                        self.cap(5, first.end, convention);
+                        self.capture(5, first.end, convention);
                         self.put_gap(6, GapForm::Parts, convention, &second);
-                        self.cap(10, second.end, loop_end);
+                        self.capture(10, second.end, loop_end);
                         if let Some((from, g)) = last {
                             self.put_gap(11, GapForm::Parts, from, &g);
                         }
-                        self.cap(15, loop_end, end);
+                        self.capture(15, loop_end, end);
                         return Some(end);
                     }
                 }
@@ -386,15 +386,15 @@ impl Lexer<'_> {
                     Some((loop_end, last, gap))
                 });
             if let Some((loop_end, last, gap)) = found {
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 self.put_gap(2, GapForm::Parts, p + 1, &first);
                 self.put_gap(6, GapForm::Parts, last.0, &last.1);
-                self.cap(10, last.1.end, last.2);
+                self.capture(10, last.1.end, last.2);
                 self.put_gap(11, GapForm::Parts, loop_end, &gap);
                 return Some(gap.end);
             }
             if ahead(self, first.end) {
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 self.put_gap(2, GapForm::Parts, p + 1, &first);
                 return Some(first.end);
             }

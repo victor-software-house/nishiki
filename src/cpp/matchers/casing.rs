@@ -29,14 +29,14 @@ impl Lexer<'_> {
             let alnum = |b: u8| b.is_ascii_alphanumeric();
             let end = self.byte_run(p, lower);
             if end > p && self.boundary(end) {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
             let first = self.byte_run(p, alnum);
             if first > p && self.at(first) == b'_' && first < self.lim() {
                 let end = self.byte_run(first + 1, alnum);
                 if self.boundary(end) {
-                    self.cap(2, p, end);
+                    self.capture(2, p, end);
                     return Some(end);
                 }
             }
@@ -44,7 +44,7 @@ impl Lexer<'_> {
             if low > p && self.at(low).is_ascii_uppercase() && low < self.lim() {
                 let end = self.byte_run(low + 1, alnum);
                 if self.boundary(end) {
-                    self.cap(3, p, end);
+                    self.capture(3, p, end);
                     return Some(end);
                 }
             }
@@ -53,13 +53,13 @@ impl Lexer<'_> {
                     b.is_ascii_uppercase() || b.is_ascii_digit() || b == b'_'
                 });
                 if self.boundary(end) {
-                    self.cap(4, p, end);
+                    self.capture(4, p, end);
                     return Some(end);
                 }
             }
         }
         let end = self.word_ident(p)?;
-        self.cap(5, p, end);
+        self.capture(5, p, end);
         Some(end)
     }
 

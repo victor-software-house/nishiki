@@ -61,7 +61,7 @@ pub(crate) struct Nested {
 #[repr(u8)]
 pub(crate) enum Rule {
     ClassdefAt0,
-    ClassdefAt0Cap3At0Cap1At1,
+    ClassdefAt0Capture3At0Capture1At1,
     StringAt1,
     StringAt2,
     CommentsAt0,
@@ -71,15 +71,15 @@ pub(crate) enum Rule {
     CommentsAt2,
     CommentsAt2At0,
     ClassdefAt0At0,
-    ClassdefAt0At0Cap3At1,
+    ClassdefAt0At0Capture3At1,
     Validators,
     BracedValidatorList,
     ValidatorStringsAt0At0,
     ValidatorStringsAt0At1,
     ClassdefAt0At1,
-    ClassdefAt0At1Cap3At1,
+    ClassdefAt0At1Capture3At1,
     ClassdefAt0At2,
-    ClassdefAt0At2Cap3At1,
+    ClassdefAt0At2Capture3At1,
     ClassdefAt0At3,
     FunctionAt0,
     FunctionAt0At0,
@@ -98,24 +98,24 @@ pub(crate) enum Rule {
     IndexingCurlyBrackets,
     CurlyBrackets,
     Root,
-    ClassdefAt0Cap3At0Cap1,
-    ClassdefAt0Cap3At0Cap5,
-    ClassdefAt0Cap3At0Cap6,
-    ClassdefAt0Cap3,
-    ClassdefAt0At0Cap3,
-    ValidatorsEndCap1At2Cap1,
-    ValidatorsEndCap1,
-    ClassdefAt0At1Cap3,
-    ClassdefAt0At2Cap3,
-    FunctionAt0Cap4,
-    FunctionAt0At1Cap3,
+    ClassdefAt0Capture3At0Capture1,
+    ClassdefAt0Capture3At0Capture5,
+    ClassdefAt0Capture3At0Capture6,
+    ClassdefAt0Capture3,
+    ClassdefAt0At0Capture3,
+    ValidatorsEndCapture1At2Capture1,
+    ValidatorsEndCapture1,
+    ClassdefAt0At1Capture3,
+    ClassdefAt0At2Capture3,
+    FunctionAt0Capture4,
+    FunctionAt0At1Capture3,
 }
 
 impl Rule {
     /// Every rule, in code order.
     pub(crate) const ALL: [Rule; 49] = [
         Rule::ClassdefAt0,
-        Rule::ClassdefAt0Cap3At0Cap1At1,
+        Rule::ClassdefAt0Capture3At0Capture1At1,
         Rule::StringAt1,
         Rule::StringAt2,
         Rule::CommentsAt0,
@@ -125,15 +125,15 @@ impl Rule {
         Rule::CommentsAt2,
         Rule::CommentsAt2At0,
         Rule::ClassdefAt0At0,
-        Rule::ClassdefAt0At0Cap3At1,
+        Rule::ClassdefAt0At0Capture3At1,
         Rule::Validators,
         Rule::BracedValidatorList,
         Rule::ValidatorStringsAt0At0,
         Rule::ValidatorStringsAt0At1,
         Rule::ClassdefAt0At1,
-        Rule::ClassdefAt0At1Cap3At1,
+        Rule::ClassdefAt0At1Capture3At1,
         Rule::ClassdefAt0At2,
-        Rule::ClassdefAt0At2Cap3At1,
+        Rule::ClassdefAt0At2Capture3At1,
         Rule::ClassdefAt0At3,
         Rule::FunctionAt0,
         Rule::FunctionAt0At0,
@@ -152,17 +152,17 @@ impl Rule {
         Rule::IndexingCurlyBrackets,
         Rule::CurlyBrackets,
         Rule::Root,
-        Rule::ClassdefAt0Cap3At0Cap1,
-        Rule::ClassdefAt0Cap3At0Cap5,
-        Rule::ClassdefAt0Cap3At0Cap6,
-        Rule::ClassdefAt0Cap3,
-        Rule::ClassdefAt0At0Cap3,
-        Rule::ValidatorsEndCap1At2Cap1,
-        Rule::ValidatorsEndCap1,
-        Rule::ClassdefAt0At1Cap3,
-        Rule::ClassdefAt0At2Cap3,
-        Rule::FunctionAt0Cap4,
-        Rule::FunctionAt0At1Cap3,
+        Rule::ClassdefAt0Capture3At0Capture1,
+        Rule::ClassdefAt0Capture3At0Capture5,
+        Rule::ClassdefAt0Capture3At0Capture6,
+        Rule::ClassdefAt0Capture3,
+        Rule::ClassdefAt0At0Capture3,
+        Rule::ValidatorsEndCapture1At2Capture1,
+        Rule::ValidatorsEndCapture1,
+        Rule::ClassdefAt0At1Capture3,
+        Rule::ClassdefAt0At2Capture3,
+        Rule::FunctionAt0Capture4,
+        Rule::FunctionAt0At1Capture3,
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
@@ -209,13 +209,13 @@ impl Rule {
                     Pattern::Operators,
                 ],
             },
-            Rule::ClassdefAt0Cap3At0Cap1At1 => RuleDefinition {
+            Rule::ClassdefAt0Capture3At0Capture1At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
-                end: Some(Pattern::ClassdefAt0Cap3At0Cap1At1End),
+                end: Some(Pattern::ClassdefAt0Capture3At0Capture1At1End),
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0Cap3At0Cap1At1At0,
+                    Pattern::ClassdefAt0Capture3At0Capture1At1At0,
                     Pattern::StringAt0,
                     Pattern::StringAt1,
                     Pattern::StringAt2,
@@ -319,14 +319,14 @@ impl Rule {
                     Pattern::Operators,
                 ],
             },
-            Rule::ClassdefAt0At0Cap3At1 => RuleDefinition {
+            Rule::ClassdefAt0At0Capture3At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
-                end: Some(Pattern::ClassdefAt0At0Cap3At1End),
+                end: Some(Pattern::ClassdefAt0At0Capture3At1End),
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0At0Cap3At1At0,
-                    Pattern::ClassdefAt0At0Cap3At1At1,
+                    Pattern::ClassdefAt0At0Capture3At1At0,
+                    Pattern::ClassdefAt0At0Capture3At1At1,
                 ],
             },
             Rule::Validators => RuleDefinition {
@@ -414,14 +414,14 @@ impl Rule {
                     Pattern::Operators,
                 ],
             },
-            Rule::ClassdefAt0At1Cap3At1 => RuleDefinition {
+            Rule::ClassdefAt0At1Capture3At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
-                end: Some(Pattern::ClassdefAt0At1Cap3At1End),
+                end: Some(Pattern::ClassdefAt0At1Capture3At1End),
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0At1Cap3At1At0,
-                    Pattern::ClassdefAt0At1Cap3At1At1,
+                    Pattern::ClassdefAt0At1Capture3At1At0,
+                    Pattern::ClassdefAt0At1Capture3At1At1,
                 ],
             },
             Rule::ClassdefAt0At2 => RuleDefinition {
@@ -461,14 +461,14 @@ impl Rule {
                     Pattern::Operators,
                 ],
             },
-            Rule::ClassdefAt0At2Cap3At1 => RuleDefinition {
+            Rule::ClassdefAt0At2Capture3At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
-                end: Some(Pattern::ClassdefAt0At2Cap3At1End),
+                end: Some(Pattern::ClassdefAt0At2Capture3At1End),
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0At2Cap3At1At0,
-                    Pattern::ClassdefAt0At2Cap3At1At1,
+                    Pattern::ClassdefAt0At2Capture3At1At0,
+                    Pattern::ClassdefAt0At2Capture3At1At1,
                 ],
             },
             Rule::ClassdefAt0At3 => RuleDefinition {
@@ -1081,7 +1081,7 @@ impl Rule {
                     Pattern::EndInParens,
                 ],
             },
-            Rule::Root | Rule::ClassdefAt0Cap3At0Cap6 => RuleDefinition {
+            Rule::Root | Rule::ClassdefAt0Capture3At0Capture6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -1118,59 +1118,59 @@ impl Rule {
                     Pattern::Operators,
                 ],
             },
-            Rule::ClassdefAt0Cap3At0Cap1 => RuleDefinition {
+            Rule::ClassdefAt0Capture3At0Capture1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0Cap3At0Cap1At0,
-                    Pattern::ClassdefAt0Cap3At0Cap1At1,
+                    Pattern::ClassdefAt0Capture3At0Capture1At0,
+                    Pattern::ClassdefAt0Capture3At0Capture1At1,
                 ],
             },
-            Rule::ClassdefAt0Cap3At0Cap5 => RuleDefinition {
+            Rule::ClassdefAt0Capture3At0Capture5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0Cap3At0Cap5At0,
-                    Pattern::ClassdefAt0Cap3At0Cap5At1,
+                    Pattern::ClassdefAt0Capture3At0Capture5At0,
+                    Pattern::ClassdefAt0Capture3At0Capture5At1,
                 ],
             },
-            Rule::ClassdefAt0Cap3 => RuleDefinition {
+            Rule::ClassdefAt0Capture3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::ClassdefAt0Cap3At0],
+                patterns: &[Pattern::ClassdefAt0Capture3At0],
             },
-            Rule::ClassdefAt0At0Cap3 => RuleDefinition {
+            Rule::ClassdefAt0At0Capture3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0At0Cap3At0,
-                    Pattern::ClassdefAt0At0Cap3At1,
+                    Pattern::ClassdefAt0At0Capture3At0,
+                    Pattern::ClassdefAt0At0Capture3At1,
                 ],
             },
-            Rule::ValidatorsEndCap1At2Cap1 => RuleDefinition {
+            Rule::ValidatorsEndCapture1At2Capture1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pattern::Validators],
             },
-            Rule::ValidatorsEndCap1 => RuleDefinition {
+            Rule::ValidatorsEndCapture1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::ValidatorsEndCap1At0,
-                    Pattern::ValidatorsEndCap1At1,
-                    Pattern::ValidatorsEndCap1At2,
+                    Pattern::ValidatorsEndCapture1At0,
+                    Pattern::ValidatorsEndCapture1At1,
+                    Pattern::ValidatorsEndCapture1At2,
                     Pattern::ClassdefAt0,
                     Pattern::FunctionAt0,
                     Pattern::BlocksAt0,
@@ -1202,39 +1202,39 @@ impl Rule {
                     Pattern::Operators,
                 ],
             },
-            Rule::ClassdefAt0At1Cap3 => RuleDefinition {
+            Rule::ClassdefAt0At1Capture3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0At1Cap3At0,
-                    Pattern::ClassdefAt0At1Cap3At1,
+                    Pattern::ClassdefAt0At1Capture3At0,
+                    Pattern::ClassdefAt0At1Capture3At1,
                 ],
             },
-            Rule::ClassdefAt0At2Cap3 => RuleDefinition {
+            Rule::ClassdefAt0At2Capture3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::ClassdefAt0At2Cap3At0,
-                    Pattern::ClassdefAt0At2Cap3At1,
+                    Pattern::ClassdefAt0At2Capture3At0,
+                    Pattern::ClassdefAt0At2Capture3At1,
                 ],
             },
-            Rule::FunctionAt0Cap4 => RuleDefinition {
+            Rule::FunctionAt0Capture4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::FunctionAt0Cap4At0],
+                patterns: &[Pattern::FunctionAt0Capture4At0],
             },
-            Rule::FunctionAt0At1Cap3 => RuleDefinition {
+            Rule::FunctionAt0At1Capture3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::FunctionAt0At1Cap3At0],
+                patterns: &[Pattern::FunctionAt0At1Capture3At0],
             },
         }
     }
@@ -1249,15 +1249,15 @@ pub(crate) enum Pattern {
     /// The end: `\s*(?:^|[,;\s])(end)\b`.
     ClassdefAt0End,
     /// The match: `…`.
-    ClassdefAt0Cap3At0,
+    ClassdefAt0Capture3At0,
     /// The match: `[A-Za-z][0-9A-Z_a-z]*`.
-    ClassdefAt0Cap3At0Cap1At0,
+    ClassdefAt0Capture3At0Capture1At0,
     /// The begin: `=\s*`.
-    ClassdefAt0Cap3At0Cap1At1,
+    ClassdefAt0Capture3At0Capture1At1,
     /// The end: `,|(?=\))`.
-    ClassdefAt0Cap3At0Cap1At1End,
+    ClassdefAt0Capture3At0Capture1At1End,
     /// The match: `true|false`.
-    ClassdefAt0Cap3At0Cap1At1At0,
+    ClassdefAt0Capture3At0Capture1At1At0,
     /// The match: `^\s*((!).*$\n?)`.
     StringAt0,
     /// The begin: `((?<=([\&(*-/:->\[\\^{|~\s]))|^)'`.
@@ -1279,9 +1279,9 @@ pub(crate) enum Pattern {
     /// The match: `"(?=.)`.
     StringAt2At1,
     /// The match: `[A-Za-z][0-9A-Z_a-z]*(\.[A-Za-z][0-9A-Z_a-z]*)*`.
-    ClassdefAt0Cap3At0Cap5At0,
+    ClassdefAt0Capture3At0Capture5At0,
     /// The match: `&`.
-    ClassdefAt0Cap3At0Cap5At1,
+    ClassdefAt0Capture3At0Capture5At1,
     /// The match: `…`.
     CommandDual,
     /// The match: `(\.\.\.)(.*)$`.
@@ -1329,25 +1329,25 @@ pub(crate) enum Pattern {
     /// The end: `\s*(?:^|[,;\s])(end)\b`.
     ClassdefAt0At0End,
     /// The match: `[A-Za-z][0-9A-Z_a-z]*`.
-    ClassdefAt0At0Cap3At0,
+    ClassdefAt0At0Capture3At0,
     /// The begin: `=\s*`.
-    ClassdefAt0At0Cap3At1,
+    ClassdefAt0At0Capture3At1,
     /// The end: `,|(?=\))`.
-    ClassdefAt0At0Cap3At1End,
+    ClassdefAt0At0Capture3At1End,
     /// The match: `true|false`.
-    ClassdefAt0At0Cap3At1At0,
+    ClassdefAt0At0Capture3At1At0,
     /// The match: `p(?:ublic|rotected|rivate)`.
-    ClassdefAt0At0Cap3At1At1,
+    ClassdefAt0At0Capture3At1At1,
     /// The begin: `\s*;?\s*([A-Za-z][.0-9?A-Z_a-z]*)`.
     Validators,
     /// The end: `([\n%;=].*)`.
     ValidatorsEnd,
     /// The match: `(%.*)`.
-    ValidatorsEndCap1At0,
+    ValidatorsEndCapture1At0,
     /// The match: `(=[^;]*)`.
-    ValidatorsEndCap1At1,
+    ValidatorsEndCapture1At1,
     /// The match: `([\n;]\s*[A-Za-z].*)`.
-    ValidatorsEndCap1At2,
+    ValidatorsEndCapture1At2,
     /// The match: `\s*(\([^)]*\))`.
     ValidatorsAt1,
     /// The match: `([A-Za-z][.0-9A-Z_a-z]*)`.
@@ -1385,29 +1385,29 @@ pub(crate) enum Pattern {
     /// The end: `\s*(?:^|[,;\s])(end)\b`.
     ClassdefAt0At1End,
     /// The match: `[A-Za-z][0-9A-Z_a-z]*`.
-    ClassdefAt0At1Cap3At0,
+    ClassdefAt0At1Capture3At0,
     /// The begin: `=\s*`.
-    ClassdefAt0At1Cap3At1,
+    ClassdefAt0At1Capture3At1,
     /// The end: `,|(?=\))`.
-    ClassdefAt0At1Cap3At1End,
+    ClassdefAt0At1Capture3At1End,
     /// The match: `true|false`.
-    ClassdefAt0At1Cap3At1At0,
+    ClassdefAt0At1Capture3At1At0,
     /// The match: `p(?:ublic|rotected|rivate)`.
-    ClassdefAt0At1Cap3At1At1,
+    ClassdefAt0At1Capture3At1At1,
     /// The begin: `^(\s*)(events)\b([^%]*)\s*(\([^)]*\))?\s*($|(?=%))`.
     ClassdefAt0At2,
     /// The end: `\s*(?:^|[,;\s])(end)\b`.
     ClassdefAt0At2End,
     /// The match: `[A-Za-z][0-9A-Z_a-z]*`.
-    ClassdefAt0At2Cap3At0,
+    ClassdefAt0At2Capture3At0,
     /// The begin: `=\s*`.
-    ClassdefAt0At2Cap3At1,
+    ClassdefAt0At2Capture3At1,
     /// The end: `,|(?=\))`.
-    ClassdefAt0At2Cap3At1End,
+    ClassdefAt0At2Capture3At1End,
     /// The match: `true|false`.
-    ClassdefAt0At2Cap3At1At0,
+    ClassdefAt0At2Capture3At1At0,
     /// The match: `p(?:ublic|rotected|rivate)`.
-    ClassdefAt0At2Cap3At1At1,
+    ClassdefAt0At2Capture3At1At1,
     /// The begin: `^(\s*)(enumeration)\b([^%]*)\s*($|(?=%))`.
     ClassdefAt0At3,
     /// The end: `\s*(?:^|[,;\s])(end)\b`.
@@ -1417,7 +1417,7 @@ pub(crate) enum Pattern {
     /// The end: `\s*(?:^|[,;\s])(end)\b(\s*\n)?`.
     FunctionAt0End,
     /// The match: `\w+`.
-    FunctionAt0Cap4At0,
+    FunctionAt0Capture4At0,
     /// The begin: `\G\(`.
     FunctionAt0At0,
     /// The end: `\)`.
@@ -1429,7 +1429,7 @@ pub(crate) enum Pattern {
     /// The end: `\s*(?:^|[,;\s])(end)\b`.
     FunctionAt0At1End,
     /// The match: `[A-Za-z][0-9A-Z_a-z]*`.
-    FunctionAt0At1Cap3At0,
+    FunctionAt0At1Capture3At0,
     /// The begin: `\s*(?:^|[,;\s])(for)\b`.
     BlocksAt0,
     /// The end: `\s*(?:^|[,;\s])(end)\b`.
@@ -1510,7 +1510,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3,
+                        rule: Rule::ClassdefAt0Capture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1520,7 +1520,7 @@ impl Pattern {
                 captures: &[(1, scopes![Sc::S(S::KwControlEndClass)])],
                 nested: &[],
             },
-            Pattern::ClassdefAt0Cap3At0 => PatternDefinition {
+            Pattern::ClassdefAt0Capture3At0 => PatternDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (2, scopes![Sc::S(S::MetaClassDeclaration)]),
@@ -1531,48 +1531,48 @@ impl Pattern {
                     (
                         1,
                         Nested {
-                            rule: Rule::ClassdefAt0Cap3At0Cap1,
+                            rule: Rule::ClassdefAt0Capture3At0Capture1,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::ClassdefAt0Cap3At0Cap5,
+                            rule: Rule::ClassdefAt0Capture3At0Capture5,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         6,
                         Nested {
-                            rule: Rule::ClassdefAt0Cap3At0Cap6,
+                            rule: Rule::ClassdefAt0Capture3At0Capture6,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                 ],
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At0 => PatternDefinition {
+            Pattern::ClassdefAt0Capture3At0Capture1At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarParameterClass)]),
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At1 => PatternDefinition {
-                act: Act::Begin(Rule::ClassdefAt0Cap3At0Cap1At1),
+            Pattern::ClassdefAt0Capture3At0Capture1At1 => PatternDefinition {
+                act: Act::Begin(Rule::ClassdefAt0Capture3At0Capture1At1),
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At1End
+            Pattern::ClassdefAt0Capture3At0Capture1At1End
             | Pattern::CommentsAt0End
             | Pattern::CommentsAt0At0End
             | Pattern::CommentsAt0At0At0End
             | Pattern::CommentBlockEnd
             | Pattern::CommentsAt2End
             | Pattern::CommentsAt2At0End
-            | Pattern::ClassdefAt0At0Cap3At1End
+            | Pattern::ClassdefAt0At0Capture3At1End
             | Pattern::ValidatorStringsAt0At0End
             | Pattern::ValidatorStringsAt0At1End
-            | Pattern::ClassdefAt0At1Cap3At1End
-            | Pattern::ClassdefAt0At2Cap3At1End
+            | Pattern::ClassdefAt0At1Capture3At1End
+            | Pattern::ClassdefAt0At2Capture3At1End
             | Pattern::FunctionAt0At0End
             | Pattern::BlocksAt2At0End
             | Pattern::BlocksAt3At0End
@@ -1584,10 +1584,10 @@ impl Pattern {
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At1At0
-            | Pattern::ClassdefAt0At0Cap3At1At0
-            | Pattern::ClassdefAt0At1Cap3At1At0
-            | Pattern::ClassdefAt0At2Cap3At1At0 => PatternDefinition {
+            Pattern::ClassdefAt0Capture3At0Capture1At1At0
+            | Pattern::ClassdefAt0At0Capture3At1At0
+            | Pattern::ClassdefAt0At1Capture3At1At0
+            | Pattern::ClassdefAt0At2Capture3At1At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstLanguageBoolean)]),
                 captures: &[],
                 nested: &[],
@@ -1627,12 +1627,12 @@ impl Pattern {
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pattern::ClassdefAt0Cap3At0Cap5At0 => PatternDefinition {
+            Pattern::ClassdefAt0Capture3At0Capture5At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::EntOtherInheritedClass)]),
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0Cap3At0Cap5At1 => PatternDefinition {
+            Pattern::ClassdefAt0Capture3At0Capture5At1 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorOther)]),
                 captures: &[],
                 nested: &[],
@@ -1726,7 +1726,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0At0Cap3,
+                        rule: Rule::ClassdefAt0At0Capture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1736,19 +1736,19 @@ impl Pattern {
                 captures: &[(1, scopes![Sc::S(S::KwControlEndProperties)])],
                 nested: &[],
             },
-            Pattern::ClassdefAt0At0Cap3At0 => PatternDefinition {
+            Pattern::ClassdefAt0At0Capture3At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarParameterProperties)]),
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0At0Cap3At1 => PatternDefinition {
-                act: Act::Begin(Rule::ClassdefAt0At0Cap3At1),
+            Pattern::ClassdefAt0At0Capture3At1 => PatternDefinition {
+                act: Act::Begin(Rule::ClassdefAt0At0Capture3At1),
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0At0Cap3At1At1
-            | Pattern::ClassdefAt0At1Cap3At1At1
-            | Pattern::ClassdefAt0At2Cap3At1At1 => PatternDefinition {
+            Pattern::ClassdefAt0At0Capture3At1At1
+            | Pattern::ClassdefAt0At1Capture3At1At1
+            | Pattern::ClassdefAt0At2Capture3At1At1 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstLanguageAccess)]),
                 captures: &[],
                 nested: &[],
@@ -1764,29 +1764,31 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::ValidatorsEndCap1,
+                        rule: Rule::ValidatorsEndCapture1,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
             },
-            Pattern::ValidatorsEndCap1At0 | Pattern::ValidatorsEndCap1At1 => PatternDefinition {
+            Pattern::ValidatorsEndCapture1At0 | Pattern::ValidatorsEndCapture1At1 => {
+                PatternDefinition {
+                    act: Act::Match(Sc::NO_SCOPES),
+                    captures: &[],
+                    nested: &[(
+                        1,
+                        Nested {
+                            rule: Rule::ClassdefAt0Capture3At0Capture6,
+                            scopes: Sc::NO_SCOPES,
+                        },
+                    )],
+                }
+            }
+            Pattern::ValidatorsEndCapture1At2 => PatternDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[],
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
-                        scopes: Sc::NO_SCOPES,
-                    },
-                )],
-            },
-            Pattern::ValidatorsEndCap1At2 => PatternDefinition {
-                act: Act::Match(Sc::NO_SCOPES),
-                captures: &[],
-                nested: &[(
-                    1,
-                    Nested {
-                        rule: Rule::ValidatorsEndCap1At2Cap1,
+                        rule: Rule::ValidatorsEndCapture1At2Capture1,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1829,7 +1831,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0At1Cap3,
+                        rule: Rule::ClassdefAt0At1Capture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1839,13 +1841,13 @@ impl Pattern {
                 captures: &[(1, scopes![Sc::S(S::KwControlEndMethods)])],
                 nested: &[],
             },
-            Pattern::ClassdefAt0At1Cap3At0 => PatternDefinition {
+            Pattern::ClassdefAt0At1Capture3At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarParameterMethods)]),
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0At1Cap3At1 => PatternDefinition {
-                act: Act::Begin(Rule::ClassdefAt0At1Cap3At1),
+            Pattern::ClassdefAt0At1Capture3At1 => PatternDefinition {
+                act: Act::Begin(Rule::ClassdefAt0At1Capture3At1),
                 captures: &[],
                 nested: &[],
             },
@@ -1855,7 +1857,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0At2Cap3,
+                        rule: Rule::ClassdefAt0At2Capture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1865,13 +1867,13 @@ impl Pattern {
                 captures: &[(1, scopes![Sc::S(S::KwControlEndEvents)])],
                 nested: &[],
             },
-            Pattern::ClassdefAt0At2Cap3At0 => PatternDefinition {
+            Pattern::ClassdefAt0At2Capture3At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarParameterEvents)]),
                 captures: &[],
                 nested: &[],
             },
-            Pattern::ClassdefAt0At2Cap3At1 => PatternDefinition {
-                act: Act::Begin(Rule::ClassdefAt0At2Cap3At1),
+            Pattern::ClassdefAt0At2Capture3At1 => PatternDefinition {
+                act: Act::Begin(Rule::ClassdefAt0At2Capture3At1),
                 captures: &[],
                 nested: &[],
             },
@@ -1897,7 +1899,7 @@ impl Pattern {
                 nested: &[(
                     4,
                     Nested {
-                        rule: Rule::FunctionAt0Cap4,
+                        rule: Rule::FunctionAt0Capture4,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1907,7 +1909,7 @@ impl Pattern {
                 captures: &[(1, scopes![Sc::S(S::KwControlEndFunction)])],
                 nested: &[],
             },
-            Pattern::FunctionAt0Cap4At0 => PatternDefinition {
+            Pattern::FunctionAt0Capture4At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarParameterOutput)]),
                 captures: &[],
                 nested: &[],
@@ -1928,7 +1930,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::FunctionAt0At1Cap3,
+                        rule: Rule::FunctionAt0At1Capture3,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1938,7 +1940,7 @@ impl Pattern {
                 captures: &[(1, scopes![Sc::S(S::KwControlEndArguments)])],
                 nested: &[],
             },
-            Pattern::FunctionAt0At1Cap3At0 => PatternDefinition {
+            Pattern::FunctionAt0At1Capture3At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarParameterArguments)]),
                 captures: &[],
                 nested: &[],
@@ -1964,7 +1966,7 @@ impl Pattern {
                 nested: &[(
                     2,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
+                        rule: Rule::ClassdefAt0Capture3At0Capture6,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1975,7 +1977,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
+                        rule: Rule::ClassdefAt0Capture3At0Capture6,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -1986,7 +1988,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
+                        rule: Rule::ClassdefAt0Capture3At0Capture6,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -2032,7 +2034,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
+                        rule: Rule::ClassdefAt0Capture3At0Capture6,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -2043,7 +2045,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
+                        rule: Rule::ClassdefAt0Capture3At0Capture6,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -2064,7 +2066,7 @@ impl Pattern {
                 nested: &[(
                     3,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
+                        rule: Rule::ClassdefAt0Capture3At0Capture6,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -2105,7 +2107,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::ClassdefAt0Cap3At0Cap6,
+                        rule: Rule::ClassdefAt0Capture3At0Capture6,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -2128,15 +2130,15 @@ pub(crate) enum Rx {
     /// `\s*(?:^|[,;\s])(end)\b`.
     ClassdefAt0End,
     /// `…`.
-    ClassdefAt0Cap3At0,
+    ClassdefAt0Capture3At0,
     /// `[A-Za-z][0-9A-Z_a-z]*`.
-    ClassdefAt0Cap3At0Cap1At0,
+    ClassdefAt0Capture3At0Capture1At0,
     /// `=\s*`.
-    ClassdefAt0Cap3At0Cap1At1,
+    ClassdefAt0Capture3At0Capture1At1,
     /// `,|(?=\))`.
-    ClassdefAt0Cap3At0Cap1At1End,
+    ClassdefAt0Capture3At0Capture1At1End,
     /// `true|false`.
-    ClassdefAt0Cap3At0Cap1At1At0,
+    ClassdefAt0Capture3At0Capture1At1At0,
     /// `^\s*((!).*$\n?)`.
     StringAt0,
     /// `((?<=([\&(*-/:->\[\\^{|~\s]))|^)'`.
@@ -2158,9 +2160,9 @@ pub(crate) enum Rx {
     /// `"(?=.)`.
     StringAt2At1,
     /// `[A-Za-z][0-9A-Z_a-z]*(\.[A-Za-z][0-9A-Z_a-z]*)*`.
-    ClassdefAt0Cap3At0Cap5At0,
+    ClassdefAt0Capture3At0Capture5At0,
     /// `&`.
-    ClassdefAt0Cap3At0Cap5At1,
+    ClassdefAt0Capture3At0Capture5At1,
     /// `…`.
     CommandDual,
     /// `(\.\.\.)(.*)$`.
@@ -2202,17 +2204,17 @@ pub(crate) enum Rx {
     /// `^(\s*)(properties)\b([^%]*)\s*(\([^)]*\))?\s*($|(?=%))`.
     ClassdefAt0At0,
     /// `p(?:ublic|rotected|rivate)`.
-    ClassdefAt0At0Cap3At1At1,
+    ClassdefAt0At0Capture3At1At1,
     /// `\s*;?\s*([A-Za-z][.0-9?A-Z_a-z]*)`.
     Validators,
     /// `([\n%;=].*)`.
     ValidatorsEnd,
     /// `(%.*)`.
-    ValidatorsEndCap1At0,
+    ValidatorsEndCapture1At0,
     /// `(=[^;]*)`.
-    ValidatorsEndCap1At1,
+    ValidatorsEndCapture1At1,
     /// `([\n;]\s*[A-Za-z].*)`.
-    ValidatorsEndCap1At2,
+    ValidatorsEndCapture1At2,
     /// `\s*(\([^)]*\))`.
     ValidatorsAt1,
     /// `([A-Za-z][.0-9A-Z_a-z]*)`.
@@ -2240,7 +2242,7 @@ pub(crate) enum Rx {
     /// `\s*(?:^|[,;\s])(end)\b(\s*\n)?`.
     FunctionAt0End,
     /// `\w+`.
-    FunctionAt0Cap4At0,
+    FunctionAt0Capture4At0,
     /// `\G\(`.
     FunctionAt0At0,
     /// `\)`.
@@ -2305,11 +2307,11 @@ impl Rx {
     pub(crate) const ALL: [Rx; 87] = [
         Rx::ClassdefAt0,
         Rx::ClassdefAt0End,
-        Rx::ClassdefAt0Cap3At0,
-        Rx::ClassdefAt0Cap3At0Cap1At0,
-        Rx::ClassdefAt0Cap3At0Cap1At1,
-        Rx::ClassdefAt0Cap3At0Cap1At1End,
-        Rx::ClassdefAt0Cap3At0Cap1At1At0,
+        Rx::ClassdefAt0Capture3At0,
+        Rx::ClassdefAt0Capture3At0Capture1At0,
+        Rx::ClassdefAt0Capture3At0Capture1At1,
+        Rx::ClassdefAt0Capture3At0Capture1At1End,
+        Rx::ClassdefAt0Capture3At0Capture1At1At0,
         Rx::StringAt0,
         Rx::StringAt1,
         Rx::StringAt1End,
@@ -2320,8 +2322,8 @@ impl Rx {
         Rx::StringAt2End,
         Rx::StringAt2At0,
         Rx::StringAt2At1,
-        Rx::ClassdefAt0Cap3At0Cap5At0,
-        Rx::ClassdefAt0Cap3At0Cap5At1,
+        Rx::ClassdefAt0Capture3At0Capture5At0,
+        Rx::ClassdefAt0Capture3At0Capture5At1,
         Rx::CommandDual,
         Rx::LineContinuation,
         Rx::CommentsAt0,
@@ -2342,12 +2344,12 @@ impl Rx {
         Rx::Numbers,
         Rx::Operators,
         Rx::ClassdefAt0At0,
-        Rx::ClassdefAt0At0Cap3At1At1,
+        Rx::ClassdefAt0At0Capture3At1At1,
         Rx::Validators,
         Rx::ValidatorsEnd,
-        Rx::ValidatorsEndCap1At0,
-        Rx::ValidatorsEndCap1At1,
-        Rx::ValidatorsEndCap1At2,
+        Rx::ValidatorsEndCapture1At0,
+        Rx::ValidatorsEndCapture1At1,
+        Rx::ValidatorsEndCapture1At2,
         Rx::ValidatorsAt1,
         Rx::ValidatorsAt2,
         Rx::BracedValidatorList,
@@ -2361,7 +2363,7 @@ impl Rx {
         Rx::ClassdefAt0At3,
         Rx::FunctionAt0,
         Rx::FunctionAt0End,
-        Rx::FunctionAt0Cap4At0,
+        Rx::FunctionAt0Capture4At0,
         Rx::FunctionAt0At0,
         Rx::FunctionAt0At0End,
         Rx::FunctionAt0At1,
@@ -2411,24 +2413,24 @@ impl Pattern {
             | Pattern::BlocksAt4End
             | Pattern::BlocksAt5End
             | Pattern::BlocksAt6End => Rx::ClassdefAt0End,
-            Pattern::ClassdefAt0Cap3At0 => Rx::ClassdefAt0Cap3At0,
-            Pattern::ClassdefAt0Cap3At0Cap1At0
-            | Pattern::ClassdefAt0At0Cap3At0
-            | Pattern::ClassdefAt0At1Cap3At0
-            | Pattern::ClassdefAt0At2Cap3At0
-            | Pattern::FunctionAt0At1Cap3At0 => Rx::ClassdefAt0Cap3At0Cap1At0,
-            Pattern::ClassdefAt0Cap3At0Cap1At1
-            | Pattern::ClassdefAt0At0Cap3At1
-            | Pattern::ClassdefAt0At1Cap3At1
-            | Pattern::ClassdefAt0At2Cap3At1 => Rx::ClassdefAt0Cap3At0Cap1At1,
-            Pattern::ClassdefAt0Cap3At0Cap1At1End
-            | Pattern::ClassdefAt0At0Cap3At1End
-            | Pattern::ClassdefAt0At1Cap3At1End
-            | Pattern::ClassdefAt0At2Cap3At1End => Rx::ClassdefAt0Cap3At0Cap1At1End,
-            Pattern::ClassdefAt0Cap3At0Cap1At1At0
-            | Pattern::ClassdefAt0At0Cap3At1At0
-            | Pattern::ClassdefAt0At1Cap3At1At0
-            | Pattern::ClassdefAt0At2Cap3At1At0 => Rx::ClassdefAt0Cap3At0Cap1At1At0,
+            Pattern::ClassdefAt0Capture3At0 => Rx::ClassdefAt0Capture3At0,
+            Pattern::ClassdefAt0Capture3At0Capture1At0
+            | Pattern::ClassdefAt0At0Capture3At0
+            | Pattern::ClassdefAt0At1Capture3At0
+            | Pattern::ClassdefAt0At2Capture3At0
+            | Pattern::FunctionAt0At1Capture3At0 => Rx::ClassdefAt0Capture3At0Capture1At0,
+            Pattern::ClassdefAt0Capture3At0Capture1At1
+            | Pattern::ClassdefAt0At0Capture3At1
+            | Pattern::ClassdefAt0At1Capture3At1
+            | Pattern::ClassdefAt0At2Capture3At1 => Rx::ClassdefAt0Capture3At0Capture1At1,
+            Pattern::ClassdefAt0Capture3At0Capture1At1End
+            | Pattern::ClassdefAt0At0Capture3At1End
+            | Pattern::ClassdefAt0At1Capture3At1End
+            | Pattern::ClassdefAt0At2Capture3At1End => Rx::ClassdefAt0Capture3At0Capture1At1End,
+            Pattern::ClassdefAt0Capture3At0Capture1At1At0
+            | Pattern::ClassdefAt0At0Capture3At1At0
+            | Pattern::ClassdefAt0At1Capture3At1At0
+            | Pattern::ClassdefAt0At2Capture3At1At0 => Rx::ClassdefAt0Capture3At0Capture1At1At0,
             Pattern::StringAt0 => Rx::StringAt0,
             Pattern::StringAt1 | Pattern::ValidatorStringsAt0At0 => Rx::StringAt1,
             Pattern::StringAt1End | Pattern::ValidatorStringsAt0At0End => Rx::StringAt1End,
@@ -2439,8 +2441,8 @@ impl Pattern {
             Pattern::StringAt2End | Pattern::ValidatorStringsAt0At1End => Rx::StringAt2End,
             Pattern::StringAt2At0 | Pattern::ValidatorStringsAt0At1At0 => Rx::StringAt2At0,
             Pattern::StringAt2At1 | Pattern::ValidatorStringsAt0At1At1 => Rx::StringAt2At1,
-            Pattern::ClassdefAt0Cap3At0Cap5At0 => Rx::ClassdefAt0Cap3At0Cap5At0,
-            Pattern::ClassdefAt0Cap3At0Cap5At1 => Rx::ClassdefAt0Cap3At0Cap5At1,
+            Pattern::ClassdefAt0Capture3At0Capture5At0 => Rx::ClassdefAt0Capture3At0Capture5At0,
+            Pattern::ClassdefAt0Capture3At0Capture5At1 => Rx::ClassdefAt0Capture3At0Capture5At1,
             Pattern::CommandDual => Rx::CommandDual,
             Pattern::LineContinuation => Rx::LineContinuation,
             Pattern::CommentsAt0 => Rx::CommentsAt0,
@@ -2461,14 +2463,14 @@ impl Pattern {
             Pattern::Numbers => Rx::Numbers,
             Pattern::Operators => Rx::Operators,
             Pattern::ClassdefAt0At0 => Rx::ClassdefAt0At0,
-            Pattern::ClassdefAt0At0Cap3At1At1
-            | Pattern::ClassdefAt0At1Cap3At1At1
-            | Pattern::ClassdefAt0At2Cap3At1At1 => Rx::ClassdefAt0At0Cap3At1At1,
+            Pattern::ClassdefAt0At0Capture3At1At1
+            | Pattern::ClassdefAt0At1Capture3At1At1
+            | Pattern::ClassdefAt0At2Capture3At1At1 => Rx::ClassdefAt0At0Capture3At1At1,
             Pattern::Validators => Rx::Validators,
             Pattern::ValidatorsEnd => Rx::ValidatorsEnd,
-            Pattern::ValidatorsEndCap1At0 => Rx::ValidatorsEndCap1At0,
-            Pattern::ValidatorsEndCap1At1 => Rx::ValidatorsEndCap1At1,
-            Pattern::ValidatorsEndCap1At2 => Rx::ValidatorsEndCap1At2,
+            Pattern::ValidatorsEndCapture1At0 => Rx::ValidatorsEndCapture1At0,
+            Pattern::ValidatorsEndCapture1At1 => Rx::ValidatorsEndCapture1At1,
+            Pattern::ValidatorsEndCapture1At2 => Rx::ValidatorsEndCapture1At2,
             Pattern::ValidatorsAt1 => Rx::ValidatorsAt1,
             Pattern::ValidatorsAt2 => Rx::ValidatorsAt2,
             Pattern::BracedValidatorList => Rx::BracedValidatorList,
@@ -2482,7 +2484,9 @@ impl Pattern {
             Pattern::ClassdefAt0At3 => Rx::ClassdefAt0At3,
             Pattern::FunctionAt0 => Rx::FunctionAt0,
             Pattern::FunctionAt0End => Rx::FunctionAt0End,
-            Pattern::FunctionAt0Cap4At0 | Pattern::FunctionAt0At0At1 => Rx::FunctionAt0Cap4At0,
+            Pattern::FunctionAt0Capture4At0 | Pattern::FunctionAt0At0At1 => {
+                Rx::FunctionAt0Capture4At0
+            }
             Pattern::FunctionAt0At0 => Rx::FunctionAt0At0,
             Pattern::FunctionAt0At0End => Rx::FunctionAt0At0End,
             Pattern::FunctionAt0At1 => Rx::FunctionAt0At1,
@@ -2555,7 +2559,7 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ClassdefAt0Cap3At0 => Start {
+            Pattern::ClassdefAt0Capture3At0 => Start {
                 bytes: [
                     0x0000_0101_0000_3e00,
                     0x07ff_fffe_07ff_fffe,
@@ -2565,13 +2569,13 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At0
-            | Pattern::ClassdefAt0Cap3At0Cap5At0
-            | Pattern::ClassdefAt0At0Cap3At0
+            Pattern::ClassdefAt0Capture3At0Capture1At0
+            | Pattern::ClassdefAt0Capture3At0Capture5At0
+            | Pattern::ClassdefAt0At0Capture3At0
             | Pattern::ValidatorsAt2
-            | Pattern::ClassdefAt0At1Cap3At0
-            | Pattern::ClassdefAt0At2Cap3At0
-            | Pattern::FunctionAt0At1Cap3At0
+            | Pattern::ClassdefAt0At1Capture3At0
+            | Pattern::ClassdefAt0At2Capture3At0
+            | Pattern::FunctionAt0At1Capture3At0
             | Pattern::IndexingCurlyBrackets => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
@@ -2582,11 +2586,11 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At1
-            | Pattern::ClassdefAt0At0Cap3At1
-            | Pattern::ValidatorsEndCap1At1
-            | Pattern::ClassdefAt0At1Cap3At1
-            | Pattern::ClassdefAt0At2Cap3At1 => Start {
+            Pattern::ClassdefAt0Capture3At0Capture1At1
+            | Pattern::ClassdefAt0At0Capture3At1
+            | Pattern::ValidatorsEndCapture1At1
+            | Pattern::ClassdefAt0At1Capture3At1
+            | Pattern::ClassdefAt0At2Capture3At1 => Start {
                 bytes: [
                     0x2000_0000_0000_0000,
                     0x0000_0000_0000_0000,
@@ -2596,10 +2600,10 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At1End
-            | Pattern::ClassdefAt0At0Cap3At1End
-            | Pattern::ClassdefAt0At1Cap3At1End
-            | Pattern::ClassdefAt0At2Cap3At1End => Start {
+            Pattern::ClassdefAt0Capture3At0Capture1At1End
+            | Pattern::ClassdefAt0At0Capture3At1End
+            | Pattern::ClassdefAt0At1Capture3At1End
+            | Pattern::ClassdefAt0At2Capture3At1End => Start {
                 bytes: [
                     0x0000_1200_0000_0000,
                     0x0000_0000_0000_0000,
@@ -2609,10 +2613,10 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ClassdefAt0Cap3At0Cap1At1At0
-            | Pattern::ClassdefAt0At0Cap3At1At0
-            | Pattern::ClassdefAt0At1Cap3At1At0
-            | Pattern::ClassdefAt0At2Cap3At1At0 => Start {
+            Pattern::ClassdefAt0Capture3At0Capture1At1At0
+            | Pattern::ClassdefAt0At0Capture3At1At0
+            | Pattern::ClassdefAt0At1Capture3At1At0
+            | Pattern::ClassdefAt0At2Capture3At1At0 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0010_0040_0000_0000,
@@ -2676,7 +2680,7 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ClassdefAt0Cap3At0Cap5At1 => Start {
+            Pattern::ClassdefAt0Capture3At0Capture5At1 => Start {
                 bytes: [
                     0x0000_0040_0000_0000,
                     0x0000_0000_0000_0000,
@@ -2735,18 +2739,18 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: true,
             },
-            Pattern::CommentsAt0At0 | Pattern::CommentsAt2At0 | Pattern::ValidatorsEndCap1At0 => {
-                Start {
-                    bytes: [
-                        0x0000_0020_0000_0000,
-                        0x0000_0000_0000_0000,
-                        0x0000_0000_0000_0000,
-                        0x0000_0000_0000_0000,
-                    ],
-                    places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
-                    matches_at_end: false,
-                }
-            }
+            Pattern::CommentsAt0At0
+            | Pattern::CommentsAt2At0
+            | Pattern::ValidatorsEndCapture1At0 => Start {
+                bytes: [
+                    0x0000_0020_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
             Pattern::CommentsAt0At0End
             | Pattern::CommentsAt0At0At0End
             | Pattern::CommentsAt2At0End => Start {
@@ -2839,9 +2843,9 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
-            Pattern::ClassdefAt0At0Cap3At1At1
-            | Pattern::ClassdefAt0At1Cap3At1At1
-            | Pattern::ClassdefAt0At2Cap3At1At1 => Start {
+            Pattern::ClassdefAt0At0Capture3At1At1
+            | Pattern::ClassdefAt0At1Capture3At1At1
+            | Pattern::ClassdefAt0At2Capture3At1At1 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0001_0000_0000_0000,
@@ -2871,7 +2875,7 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ValidatorsEndCap1At2 => Start {
+            Pattern::ValidatorsEndCapture1At2 => Start {
                 bytes: [
                     0x0800_0000_0000_0400,
                     0x0000_0000_0000_0000,
@@ -2971,7 +2975,7 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
             },
-            Pattern::FunctionAt0Cap4At0 | Pattern::FunctionAt0At0At1 => Start {
+            Pattern::FunctionAt0Capture4At0 | Pattern::FunctionAt0At0At1 => Start {
                 bytes: [
                     0x03ff_0000_0000_0000,
                     0x07ff_fffe_87ff_fffe,

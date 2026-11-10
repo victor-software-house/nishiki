@@ -35,9 +35,13 @@ fn a_foreach_type_keeps_all_but_the_last_blank_before_the_name() {
             anchor: Anchor::Free,
             after: After::LineFeed,
         };
-        let (_, caps) = answer(&mut arena, Pattern::ForeachStatementAt1At1, &case)
+        let (_, captures) = answer(&mut arena, Pattern::ForeachStatementAt1At1, &case)
             .unwrap_or_else(|| panic!("no match in {text:?}"));
-        assert_eq!((caps[3], caps[8]), (Some(ty), Some(name)), "{text:?}");
+        assert_eq!(
+            (captures[3], captures[8]),
+            (Some(ty), Some(name)),
+            "{text:?}"
+        );
     }
 }
 
@@ -53,7 +57,7 @@ mod probe {
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
         answer_cases(&Pattern::ALL, |arena, pattern, case| {
-            answer(arena, pattern, case).map(|(end, caps)| (end, caps.to_vec()))
+            answer(arena, pattern, case).map(|(end, captures)| (end, captures.to_vec()))
         });
     }
 }

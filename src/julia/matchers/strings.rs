@@ -22,8 +22,8 @@ impl Lexer<'_> {
                 open
             };
             if space > 0 && self.starts(quotes, TRIPLE) {
-                self.cap(1, p, p + 4);
-                self.cap(2, open, quotes + 3);
+                self.capture(1, p, p + 4);
+                self.capture(2, open, quotes + 3);
                 return Some(quotes + 3);
             }
         }
@@ -33,11 +33,11 @@ impl Lexer<'_> {
     /// `(""") ?(->)?`: group 1 is the quotes, group 2 the arrow.
     pub(super) fn doc_macro_end(&mut self, p: usize) -> Option<usize> {
         let quotes = self.lit(p, TRIPLE)?;
-        self.cap(1, p, quotes);
+        self.capture(1, p, quotes);
         let arrow = quotes + usize::from(self.at(quotes) == b' ');
         match self.lit(arrow, b"->") {
             Some(end) => {
-                self.cap(2, arrow, end);
+                self.capture(2, arrow, end);
                 Some(end)
             }
             None => Some(arrow),
@@ -53,13 +53,13 @@ impl Lexer<'_> {
         }
         let open = self.space_at(p);
         let quotes = if self.starts(open, b"doc") && self.starts(open + 3, TRIPLE) {
-            self.cap(1, open, open + 3);
+            self.capture(1, open, open + 3);
             open + 3
         } else {
             open
         };
         let end = self.lit(quotes, TRIPLE)?;
-        self.cap(2, quotes, end);
+        self.capture(2, quotes, end);
         let space = self.space_at(end);
         if space > 0 && self.at_eol(end + space) {
             return Some(end + space);
@@ -111,7 +111,7 @@ impl Lexer<'_> {
         if self.at(p) != b'$' || self.at(p + 1) != b'(' {
             return None;
         }
-        self.cap(1, p + 1, p + 2);
+        self.capture(1, p + 1, p + 2);
         Some(p + 2)
     }
 
@@ -132,8 +132,8 @@ impl Lexer<'_> {
     pub(super) fn prefixed(&mut self, p: usize, prefix: &[u8], quotes: &[u8]) -> Option<usize> {
         let open = self.lit(p, prefix)?;
         let end = self.lit(open, quotes)?;
-        self.cap(1, p, open);
-        self.cap(2, open, end);
+        self.capture(1, p, open);
+        self.capture(2, open, end);
         Some(end)
     }
 
@@ -143,8 +143,8 @@ impl Lexer<'_> {
         let name = p + usize::from(self.at(p) == b'i');
         let open = self.lit(name, b"cxx")?;
         let end = self.lit(open, TRIPLE)?;
-        self.cap(1, p, open);
-        self.cap(2, open, end);
+        self.capture(1, p, open);
+        self.capture(2, open, end);
         Some(end)
     }
 
@@ -160,7 +160,7 @@ impl Lexer<'_> {
         }
         self.spend(q - p);
         let end = self.lit(q, TRIPLE)?;
-        self.cap(2, q, end);
+        self.capture(2, q, end);
         Some(end)
     }
 
@@ -201,8 +201,8 @@ impl Lexer<'_> {
         while end - flags < 4 && matches!(self.at(end), b'i' | b'm' | b's' | b'x') {
             end += 1;
         }
-        self.cap(1, p, flags);
-        self.cap(2, flags, end);
+        self.capture(1, p, flags);
+        self.capture(2, flags, end);
         Some(end)
     }
 
@@ -213,7 +213,7 @@ impl Lexer<'_> {
         }
         let name = self.ident(p)?;
         let end = self.lit(name, quotes)?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(end)
     }
 
@@ -221,10 +221,10 @@ impl Lexer<'_> {
     /// quotes are group 1 and suffix group 2.
     pub(super) fn macro_end(&mut self, p: usize, quotes: &[u8]) -> Option<usize> {
         let suffix = self.lit(p, quotes)?;
-        self.cap(1, p, suffix);
+        self.capture(1, p, suffix);
         match self.ident(suffix) {
             Some(end) => {
-                self.cap(2, suffix, end);
+                self.capture(2, suffix, end);
                 Some(end)
             }
             None => Some(suffix),
@@ -250,7 +250,7 @@ impl Lexer<'_> {
         }
         if let Some(name) = self.ident(p) {
             let end = self.lit(name, quotes)?;
-            self.cap(1, p, name);
+            self.capture(1, p, name);
             return Some(end);
         }
         self.lit(p, quotes)

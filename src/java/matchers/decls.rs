@@ -129,8 +129,8 @@ impl Lexer<'_> {
         if name == start {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, start, name);
+        self.capture(1, p, end);
+        self.capture(2, start, name);
         Some(name)
     }
 
@@ -166,9 +166,9 @@ impl Lexer<'_> {
                 if name > after {
                     let end = self.word_end(name);
                     if end > name {
-                        self.cap(1, first, j);
-                        self.cap(2, j, after);
-                        self.cap(3, name, end);
+                        self.capture(1, first, j);
+                        self.capture(2, j, after);
+                        self.capture(3, name, end);
                         return Some(end);
                     }
                 }
@@ -202,11 +202,11 @@ impl Lexer<'_> {
                 continue;
             }
             if let Some(after_open) = with_open.filter(|_| module != p) {
-                self.cap(1, p, after_open);
-                self.cap(2, p, p + 4);
+                self.capture(1, p, after_open);
+                self.capture(2, p, p + 4);
             }
-            self.cap(3, module, end);
-            self.cap(4, name, name_end);
+            self.capture(3, module, end);
+            self.capture(4, name, name_end);
             return Some(name_end);
         }
         None
@@ -231,15 +231,15 @@ impl Lexer<'_> {
             })
             .flatten();
         if let Some(close) = generics {
-            self.cap(3, name_end, close);
+            self.capture(3, name_end, close);
             open = close;
         }
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, name, name_end);
-        self.cap(4, open, open + 1);
+        self.capture(1, p, end);
+        self.capture(2, name, name_end);
+        self.capture(4, open, open + 1);
         Some(open + 1)
     }
 
@@ -343,8 +343,8 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, end);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 }

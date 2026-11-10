@@ -61,7 +61,7 @@ impl Lexer<'_> {
             return None;
         }
         let mark = self.lit(p, b"#!")?;
-        self.cap(1, p, mark);
+        self.capture(1, p, mark);
         let end = self.lim();
         Some(self.line_feed(end).unwrap_or(end))
     }
@@ -73,7 +73,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.tabs(0);
             if blanks > 0 && self.starts(blanks, b"--") {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }
@@ -91,7 +91,7 @@ impl Lexer<'_> {
             if blanks > p
                 && let Some(end) = self.line_feed(blanks)
             {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
         }
@@ -130,8 +130,8 @@ impl Lexer<'_> {
         let at = self.tabs(p);
         let name = self.lit(at, b"@")?;
         let end = self.word_in(name, LDOC_TAGS)?;
-        self.cap(1, at, name);
-        self.cap(2, name, end);
+        self.capture(1, at, name);
+        self.capture(2, name, end);
         Some(end)
     }
 }

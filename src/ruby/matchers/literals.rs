@@ -219,7 +219,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.char_end_nl(p);
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

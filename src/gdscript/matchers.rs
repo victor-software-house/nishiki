@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -170,14 +170,14 @@ impl Lexer<'_> {
     /// `(text)`: a literal, with group 1 around it.
     fn group_lit(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `(a|b)`: the first of `options` at `p`, with group 1 around it.
     fn first_group(&mut self, p: usize, options: &[&[u8]]) -> Option<usize> {
         let end = self.first_lit(p, options)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -200,7 +200,7 @@ impl Lexer<'_> {
     /// `\b(word)\b` for a word of `words`, with group 1 around it.
     fn word_group(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let end = self.word_in(p, words)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -217,7 +217,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.name(p)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

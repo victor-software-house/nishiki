@@ -46,7 +46,7 @@ type ScopeGap = (usize, Option<Template>, Option<(usize, Gap)>);
 #[derive(Clone, Copy)]
 pub(crate) struct TypeMatch {
     pub(crate) end: usize,
-    pub(crate) caps: Few<(usize, usize, usize), 5>,
+    pub(crate) captures: Few<(usize, usize, usize), 5>,
     pub(crate) gaps: Few<(usize, usize, Gap), 3>,
 }
 
@@ -237,27 +237,34 @@ impl Lexer<'_> {
                 if blocked {
                     continue;
                 }
-                let mut caps = Few::new();
+                let mut captures = Few::new();
                 let mut gaps = Few::new();
                 if let (Some(group), Some(a)) = (layout.attribute, before.attribute) {
-                    caps.push((group, p, a));
+                    captures.push((group, p, a));
                 }
                 gaps.push((layout.gap_a, before.start, before.gap_a));
                 if let Some((at, gap)) = before.last {
                     gaps.push((layout.gap_b, at, gap));
                 }
                 if let Some((scope_end, gap)) = scope {
-                    caps.push((layout.scope, before.loop_end, scope_end));
+                    captures.push((layout.scope, before.loop_end, scope_end));
                     gaps.push((layout.gap_c, scope_end, gap));
                     if let Some((a, tpl_end, spaced)) = template {
-                        caps.push((layout.scope_template.0, a, spaced));
-                        caps.push((layout.scope_template.1, a, tpl_end));
+                        captures.push((layout.scope_template.0, a, spaced));
+                        captures.push((layout.scope_template.1, a, tpl_end));
                     }
                 }
                 if tpl.is_some() {
-                    caps.push((layout.template, name, end));
+                    captures.push((layout.template, name, end));
                 }
-                if let Some(found) = rest(self, &TypeMatch { end, caps, gaps }) {
+                if let Some(found) = rest(
+                    self,
+                    &TypeMatch {
+                        end,
+                        captures,
+                        gaps,
+                    },
+                ) {
                     return Some(found);
                 }
             }
@@ -272,8 +279,8 @@ impl Lexer<'_> {
 
     /// Records a qualified type match.
     pub(super) fn put_type(&mut self, layout: &Layout, found: &TypeMatch) {
-        for &(group, a, b) in found.caps.iter() {
-            self.cap(group, a, b);
+        for &(group, a, b) in found.captures.iter() {
+            self.capture(group, a, b);
         }
         for (group, from, gap) in found.gaps.iter() {
             self.put_gap(*group, layout.gap_form, *from, gap);
@@ -343,10 +350,10 @@ impl Lexer<'_> {
             for second in self.gaps(word) {
                 let start = self.skip_space(second.end);
                 if let Some(found) = self.first_type(start, &layout) {
-                    self.cap(1, p, word);
+                    self.capture(1, p, word);
                     self.put_gap(2, GapForm::Plain, p, &first);
                     self.put_gap(4, GapForm::Plain, word, &second);
-                    self.cap(6, second.end, found.end);
+                    self.capture(6, second.end, found.end);
                     self.put_type(&layout, &found);
                     return Some(found.end);
                 }
@@ -384,7 +391,7 @@ impl Lexer<'_> {
             gap_form: GapForm::Plain,
         };
         let found = self.first_type(spaces, &layout)?;
-        self.cap(1, spaces, found.end);
+        self.capture(1, spaces, found.end);
         self.put_type(&layout, &found);
         Some(found.end)
     }
@@ -408,10 +415,10 @@ impl Lexer<'_> {
                 .find(|gap| lexer.at(gap.end) == b'{' && gap.end < lexer.lim())?;
             Some((*found, gap))
         })?;
-        self.cap(1, p, found.end);
+        self.capture(1, p, found.end);
         self.put_type(&layout, &found);
         self.put_gap(19, GapForm::Parts, found.end, &gap);
-        self.cap(23, gap.end, gap.end + 1);
+        self.capture(23, gap.end, gap.end + 1);
         Some(gap.end + 1)
     }
 
@@ -448,7 +455,7 @@ impl Lexer<'_> {
                 Some((*found, first, name, second))
             })
         })?;
-        self.cap(1, p, found.end);
+        self.capture(1, p, found.end);
         self.put_type(&layout, &found);
         self.put_gap(13, GapForm::Plain, found.end, &first);
         self.put_gap(15, GapForm::Plain, name, &second);
@@ -484,10 +491,10 @@ impl Lexer<'_> {
                     })
                 })
             })?;
-        self.cap(1, p, found.end);
+        self.capture(1, p, found.end);
         self.put_type(&layout, &found);
         self.put_gap(13, GapForm::Plain, found.end, &first);
-        self.cap(group, first.end, end);
+        self.capture(group, first.end, end);
         self.put_gap(20, GapForm::Plain, end, &second);
         Some(second.end)
     }

@@ -69,8 +69,8 @@ impl Lexer<'_> {
         if end - p < 2 {
             return None;
         }
-        self.cap(1, p, end - 2);
-        self.cap(2, end - 2, end);
+        self.capture(1, p, end - 2);
+        self.capture(2, end - 2, end);
         Some(end)
     }
 
@@ -83,8 +83,8 @@ impl Lexer<'_> {
         if end == p {
             return None;
         }
-        self.cap(1, p, end - 1);
-        self.cap(2, end - 1, end);
+        self.capture(1, p, end - 1);
+        self.capture(2, end - 1, end);
         Some(end)
     }
 
@@ -98,8 +98,8 @@ impl Lexer<'_> {
         if end == p || (end - p).is_multiple_of(2) {
             return None;
         }
-        self.cap(1, p, end - 1);
-        self.cap(2, end - 1, end);
+        self.capture(1, p, end - 1);
+        self.capture(2, end - 1, end);
         Some(end)
     }
 
@@ -127,14 +127,14 @@ impl Lexer<'_> {
         excluded: &[u8],
     ) -> Option<usize> {
         if self.at(p) == quote && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         let (c, end) = self.cp(p)?;
         if c == '\n' || (c.is_ascii() && excluded.contains(&self.s[p])) || !self.at_eol(end) {
             return None;
         }
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 

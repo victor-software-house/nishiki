@@ -81,7 +81,7 @@ impl Lexer<'_> {
     /// The blanks can include the line feed.
     pub(super) fn directive(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.space_end(end))
     }
 

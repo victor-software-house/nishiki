@@ -29,7 +29,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.skip(0, |b| b == b' ' || b == b'\t');
             if blanks > 0 && self.at(blanks) == b'#' && blanks < self.lim() {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }
@@ -48,7 +48,7 @@ impl Lexer<'_> {
             return None;
         }
         let lim = self.lim();
-        self.cap(1, 0, lim);
+        self.capture(1, 0, lim);
         Some(lim)
     }
 
@@ -76,8 +76,8 @@ impl Lexer<'_> {
         let html = self.lit(at, b"html")?;
         let end = self.space_end(html);
         self.at_eol(end).then(|| {
-            self.cap(1, 0, 6);
-            self.cap(2, at, html);
+            self.capture(1, 0, 6);
+            self.capture(2, at, html);
             end
         })
     }
@@ -92,8 +92,8 @@ impl Lexer<'_> {
             if at > 4
                 && let Some(html) = self.lit(at, b"html")
             {
-                self.cap(1, 0, 4);
-                self.cap(2, at, html);
+                self.capture(1, 0, 4);
+                self.capture(2, at, html);
                 return Some(html);
             }
         }
@@ -118,8 +118,8 @@ impl Lexer<'_> {
             .find(|&end| self.word_at(end).is_none())?;
         let rest = self.space_end(command);
         let end = rest.max(self.lim());
-        self.cap(1, 0, command);
-        self.cap(2, rest, end);
+        self.capture(1, 0, command);
+        self.capture(2, rest, end);
         Some(end)
     }
 
@@ -140,7 +140,7 @@ impl Lexer<'_> {
     fn pod_plain(&mut self, p: usize) -> Option<usize> {
         let end = self.skip(p, |b| b != b'<' && b != b'>');
         (end > p && self.at(end) == b'>' && end < self.lim()).then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end + 1
         })
     }
@@ -174,7 +174,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.skip(close, |b| b == b'>');
-        self.cap(2, open, close);
+        self.capture(2, open, close);
         Some(end)
     }
 
@@ -208,7 +208,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.skip(close, |b| b == b'>');
-        self.cap(2, open, close);
+        self.capture(2, open, close);
         Some(end)
     }
 
@@ -219,7 +219,7 @@ impl Lexer<'_> {
         }
         let end = self.skip(p + 2, |b| b != b'>');
         (end > p + 2 && self.at(end) == b'>' && end < self.lim()).then(|| {
-            self.cap(1, p + 2, end);
+            self.capture(1, p + 2, end);
             end + 1
         })
     }
@@ -247,7 +247,7 @@ impl Lexer<'_> {
             .iter()
             .filter_map(|word| self.lit(at, word))
             .find(|&end| self.word_at(end).is_none())?;
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 }

@@ -322,9 +322,9 @@ impl Lexer<'_> {
         if name == name_at {
             return None;
         }
-        self.cap(1, p, using);
-        self.cap(2, keyword_at, keyword);
-        self.cap(3, name_at, name);
+        self.capture(1, p, using);
+        self.capture(2, keyword_at, keyword);
+        self.capture(3, name_at, name);
         Some(name)
     }
 
@@ -349,7 +349,7 @@ impl Lexer<'_> {
                 (name > scope + 1).then_some((scope, name))
             });
         let (name_at, name) = if let Some((scope, name)) = scoped {
-            self.cap(2, scope_at, scope);
+            self.capture(2, scope_at, scope);
             (scope + 1, name)
         } else {
             let name = self.class_end(scope_at, is_function_name);
@@ -358,8 +358,8 @@ impl Lexer<'_> {
             }
             (scope_at, name)
         };
-        self.cap(1, keyword_at, keyword);
-        self.cap(3, name_at, name);
+        self.capture(1, keyword_at, keyword);
+        self.capture(3, name_at, name);
         Some(name)
     }
 
@@ -374,8 +374,8 @@ impl Lexer<'_> {
             return None;
         }
         let name = self.folded_word(name_at, ATTRIBUTES)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, name_at, name);
+        self.capture(1, p, p + 1);
+        self.capture(2, name_at, name);
         Some(name)
     }
 
@@ -386,10 +386,10 @@ impl Lexer<'_> {
             return None;
         }
         let name = self.folded_word(p, ATTRIBUTE_ARGUMENTS)?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         let equals = self.space_end(name);
         if self.at(equals) == b'=' {
-            self.cap(2, equals, equals + 1);
+            self.capture(2, equals, equals + 1);
             return Some(equals + 1);
         }
         Some(equals)
@@ -420,8 +420,8 @@ impl Lexer<'_> {
             }
             name = self.char_start_before(name);
         }
-        self.cap(1, p, keyword);
-        self.cap(2, name_at, name);
+        self.capture(1, p, keyword);
+        self.capture(2, name_at, name);
         Some(name)
     }
 
@@ -434,7 +434,7 @@ impl Lexer<'_> {
         if self.word_at(end).is_some() {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 }

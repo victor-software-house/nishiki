@@ -84,7 +84,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.alone_after(p, &[b".."])?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -111,9 +111,9 @@ impl Lexer<'_> {
                 (close < self.lim() && self.at(close) == b')').then_some((end, close))
             });
         let (end, close) = close?;
-        self.cap(1, p, p + 1);
-        self.cap(2, start, end);
-        self.cap(3, close, close + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, start, end);
+        self.capture(3, close, close + 1);
         Some(close + 1)
     }
 
@@ -127,7 +127,7 @@ impl Lexer<'_> {
             let end = self.alone_after(p, &[text.as_bytes()])?;
             Some((group, end))
         })?;
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -143,7 +143,7 @@ impl Lexer<'_> {
         if self.here_is(end, is_hash_blocker) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -156,7 +156,7 @@ impl Lexer<'_> {
         {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -171,7 +171,7 @@ impl Lexer<'_> {
             let end = self.lit(p, text)?;
             self.here_is(end, is_prefix_operand).then_some((group, end))
         })?;
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -212,11 +212,11 @@ impl Lexer<'_> {
             }
         }
         let end = self.operator_ends(op).into_iter().flatten().next()?;
-        self.cap(1, p, op);
+        self.capture(1, p, op);
         if let Some(quotes) = quotes {
-            self.cap(2, quotes, quotes + 2);
+            self.capture(2, quotes, quotes + 2);
         }
-        self.cap(3, op, end);
+        self.capture(3, op, end);
         Some(end)
     }
 
@@ -239,10 +239,10 @@ impl Lexer<'_> {
         }
         let close = self.class_end(next, is_name);
         let end = self.lit(close, b"`")?;
-        self.cap(1, p, qualifiers);
-        self.cap(2, qualifiers, name);
-        self.cap(3, name, close);
-        self.cap(4, close, end);
+        self.capture(1, p, qualifiers);
+        self.capture(2, qualifiers, name);
+        self.capture(3, name, close);
+        self.capture(4, close, end);
         Some(end)
     }
 
@@ -254,15 +254,15 @@ impl Lexer<'_> {
         }
         let at = self.lit(p, b"#")?;
         if let Some(end) = self.quoted_end(at) {
-            self.cap(1, p, at);
-            self.cap(2, at, end);
+            self.capture(1, p, at);
+            self.capture(2, at, end);
             return Some(end);
         }
         let end = self.class_end(at, is_label_part);
         if end == at {
             return None;
         }
-        self.cap(1, p, at);
+        self.capture(1, p, at);
         Some(end)
     }
 
@@ -282,8 +282,8 @@ impl Lexer<'_> {
         if width == 0 {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, hash);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, hash);
         Some(hash + width)
     }
 
@@ -312,11 +312,11 @@ impl Lexer<'_> {
         }
         let bars = letter.map_or(after, |at| at + 1);
         let end = self.bars(bars)?;
-        self.cap(1, p, after);
+        self.capture(1, p, after);
         if let Some(at) = letter {
-            self.cap(2, at, at + 1);
+            self.capture(2, at, at + 1);
         }
-        self.cap(3, bars, end);
+        self.capture(3, bars, end);
         Some(end)
     }
 
@@ -343,12 +343,12 @@ impl Lexer<'_> {
         }
         self.spend(name - quoter);
         let end = self.bars(name)?;
-        self.cap(1, p, after);
+        self.capture(1, p, after);
         if let Some(group) = group {
-            self.cap(group, after, quoter);
+            self.capture(group, after, quoter);
         }
-        self.cap(4, quoter, name);
-        self.cap(5, name, end);
+        self.capture(4, quoter, name);
+        self.capture(5, name, end);
         Some(end)
     }
 

@@ -25,12 +25,12 @@ impl Lexer<'_> {
     pub(super) fn operator_tag(&mut self, p: usize) -> Option<usize> {
         let at = self.after_dashes(p)?;
         let tag = self.lit(at, b"@operator")?;
-        self.cap(1, at, tag);
+        self.capture(1, at, tag);
         let name = self.space_end(tag);
         if self.boundary(name) {
             let end = self.skip(name, |b| b.is_ascii_lowercase());
             if end > name {
-                self.cap(2, name, end);
+                self.capture(2, name, end);
                 return Some(end);
             }
         }
@@ -63,8 +63,8 @@ impl Lexer<'_> {
     pub(super) fn param_name(&mut self, p: usize) -> Option<usize> {
         let name = self.bounded_name(p)?;
         let end = self.byte_of(name, b"?").unwrap_or(name);
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -72,11 +72,11 @@ impl Lexer<'_> {
     /// group 2, or the bracket of an indexed field as 3, then an optional `?`.
     pub(super) fn field_name(&mut self, p: usize) -> Option<usize> {
         let name = if let Some(end) = self.bounded_name(p) {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             end
         } else {
             let end = self.lit(p, b"[")?;
-            self.cap(3, p, end);
+            self.capture(3, p, end);
             end
         };
         Some(self.byte_of(name, b"?").unwrap_or(name))
@@ -108,12 +108,12 @@ impl Lexer<'_> {
         if name == p {
             return None;
         }
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         let blanks = self.tabs(name);
         let Some(end) = self.lit(blanks, b":") else {
             return Some(blanks);
         };
-        self.cap(2, blanks, end);
+        self.capture(2, blanks, end);
         Some(end)
     }
 

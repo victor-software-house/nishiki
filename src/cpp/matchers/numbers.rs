@@ -205,11 +205,11 @@ impl Lexer<'_> {
         if !self.at_g(p) {
             return None;
         }
-        let mut caps = Few::<(usize, usize, usize), 11>::new();
+        let mut captures = Few::<(usize, usize, usize), 11>::new();
         let mut pos = p;
         if !shape.prefix.is_empty() {
             let end = self.lit_any(pos, shape.prefix)?;
-            caps.push((1, pos, end));
+            captures.push((1, pos, end));
             pos = end;
         }
         if shape.decimal_start {
@@ -244,7 +244,7 @@ impl Lexer<'_> {
                 return None;
             }
             let after_int = int.map_or(pos, |(end, _)| end);
-            let mut with_int = caps;
+            let mut with_int = captures;
             if let Some((end, sep)) = int {
                 with_int.push((shape.int.0, pos, end));
                 if let Some(at) = sep {
@@ -320,12 +320,12 @@ impl Lexer<'_> {
                                 continue;
                             }
                             for (group, a, b) in with_suffix {
-                                self.cap(group, a, b);
+                                self.capture(group, a, b);
                             }
                             if let (Some((group, _)), Some(_)) = (shape.invalid, invalid_end)
                                 && end != at
                             {
-                                self.cap(group, at, end);
+                                self.capture(group, at, end);
                             }
                             return Some(end);
                         }

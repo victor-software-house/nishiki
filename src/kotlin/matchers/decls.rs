@@ -53,10 +53,10 @@ impl Lexer<'_> {
         }
         let name_end = self.name_at(name)?;
         let (end, generics) = self.blanks_and_generics(name_end);
-        self.cap(1, p, keyword);
-        self.cap(2, name, name_end);
+        self.capture(1, p, keyword);
+        self.capture(2, name, name_end);
         if let Some((from, to)) = generics {
-            self.cap(3, from, to);
+            self.capture(3, from, to);
         }
         Some(end)
     }
@@ -67,12 +67,12 @@ impl Lexer<'_> {
             return None;
         }
         let keyword = self.lit(p, b"object")?;
-        self.cap(1, p, keyword);
+        self.capture(1, p, keyword);
         let name = self.space_end(keyword);
         if name > keyword
             && let Some(end) = self.name_at(name)
         {
-            self.cap(2, name, end);
+            self.capture(2, name, end);
             return Some(end);
         }
         Some(keyword)
@@ -85,9 +85,9 @@ impl Lexer<'_> {
             .or_else(|| self.lit(p, b"var"))
             .filter(|&end| self.boundary(p) && self.word_at(end).is_none())?;
         let (end, generics) = self.blanks_and_generics(keyword);
-        self.cap(1, p, keyword);
+        self.capture(1, p, keyword);
         if let Some((from, to)) = generics {
-            self.cap(2, from, to);
+            self.capture(2, from, to);
         }
         Some(end)
     }
@@ -111,17 +111,17 @@ impl Lexer<'_> {
             None
         };
         let named = named.or_else(|| self.name_at(start).map(|end| (None, start, end)));
-        self.cap(1, p, keyword);
+        self.capture(1, p, keyword);
         if let Some((from, to)) = generics {
-            self.cap(2, from, to);
+            self.capture(2, from, to);
         }
         let Some((receiver, name, end)) = named else {
             return Some(start);
         };
         if let Some((from, to)) = receiver {
-            self.cap(4, from, to);
+            self.capture(4, from, to);
         }
-        self.cap(5, name, end);
+        self.capture(5, name, end);
         Some(end)
     }
 
@@ -146,9 +146,9 @@ impl Lexer<'_> {
         if !matches!(self.at(end), b'(' | b'{') {
             return None;
         }
-        self.cap(1, name, name_end);
+        self.capture(1, name, name_end);
         if let Some((from, to)) = generics {
-            self.cap(2, from, to);
+            self.capture(2, from, to);
         }
         Some(end)
     }
@@ -158,7 +158,7 @@ impl Lexer<'_> {
         let colons = if self.at(p) == b'?' { p + 1 } else { p };
         let name = self.lit(colons, b"::")?;
         let end = self.name_at(name)?;
-        self.cap(1, name, end);
+        self.capture(1, name, end);
         Some(end)
     }
 
@@ -171,8 +171,8 @@ impl Lexer<'_> {
         let first = self.lit(name, b"=")?;
         let second = self.space_end(first);
         let end = self.lit(second, b"=")?;
-        self.cap(1, p, first);
-        self.cap(2, second, end);
+        self.capture(1, p, first);
+        self.capture(2, second, end);
         Some(end)
     }
 

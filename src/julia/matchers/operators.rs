@@ -72,9 +72,9 @@ impl Lexer<'_> {
         let dots = if self.starts(ty, b"...") { ty + 3 } else { ty };
         let dot = dots + usize::from(self.at(dots) == b'.');
         let end = self.skip(dot, |b| b == b'\'');
-        self.cap(1, op, op + 2);
-        self.cap(2, start, ty);
-        self.cap(3, dots, end);
+        self.capture(1, op, op + 2);
+        self.capture(2, start, ty);
+        self.capture(3, dots, end);
         Some(end)
     }
 
@@ -214,7 +214,7 @@ impl Lexer<'_> {
     pub(super) fn transposed_variable(&mut self, p: usize) -> Option<usize> {
         let name = self.ident(p)?;
         let end = self.primes(name)?;
-        self.cap(2, name, end);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -225,8 +225,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.primes(p + 1)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 }

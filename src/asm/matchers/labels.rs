@@ -115,10 +115,10 @@ impl Lexer<'_> {
             is_alpha,
         )?;
         let end = self.label_end(first);
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         if self.at(end) == b':' {
-            self.cap(3, end, end + 1);
+            self.capture(3, end, end + 1);
             return Some(end + 1);
         }
         Some(end)
@@ -151,10 +151,10 @@ impl Lexer<'_> {
             return None;
         }
         if name > p {
-            self.cap(1, p, name);
+            self.capture(1, p, name);
         }
-        self.cap(2, name, end);
-        self.cap(3, end, end + 1);
+        self.capture(2, name, end);
+        self.capture(3, end, end + 1);
         Some(end + 1)
     }
 
@@ -168,10 +168,10 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.label_end(name);
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         if self.at(end) == b':' {
-            self.cap(3, end, end + 1);
+            self.capture(3, end, end + 1);
             return Some(end + 1);
         }
         Some(end)

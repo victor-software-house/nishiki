@@ -19,9 +19,9 @@ impl Lexer<'_> {
             return None;
         };
         if let Some(raw) = raw {
-            self.cap(1, raw, raw + 1);
+            self.capture(1, raw, raw + 1);
         }
-        self.cap(2, quote, end);
+        self.capture(2, quote, end);
         Some(end)
     }
 
@@ -63,7 +63,7 @@ impl Lexer<'_> {
                     ..=b'g' | b'i' | b'o' | b'r' | b's' | b'u' | b'x'
             ))
         .then_some(at + 1)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -113,7 +113,7 @@ impl Lexer<'_> {
             }
         }
         if self.starts(at, b"!") && matches!(self.at(at + 1), b'a' | b'r' | b's') {
-            self.cap(3, at, at + 2);
+            self.capture(3, at, at + 2);
             at += 2;
         }
         Some(at)
@@ -123,17 +123,17 @@ impl Lexer<'_> {
     /// spec as group 4.
     pub(super) fn brace_placeholder(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.lit(p, b"{{").or_else(|| self.lit(p, b"}}")) {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let mut at = self.field(p)?;
         if self.starts(at, b":") {
             let spec = self.spec(at + 1)?;
-            self.cap(4, at, spec);
+            self.capture(4, at, spec);
             at = spec;
         }
         let end = self.lit(at, b"}")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -203,8 +203,8 @@ impl Lexer<'_> {
             at = self.skip(close + 1, plain);
         }
         let end = self.lit(at, b"}")?;
-        self.cap(4, colon, colon + 1);
-        self.cap(1, p, end);
+        self.capture(4, colon, colon + 1);
+        self.capture(1, p, end);
         Some(end)
     }
 }

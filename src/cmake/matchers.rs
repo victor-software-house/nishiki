@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Most of the grammar is `\b(?i:…)\b` alternations of words, some with `\w+`
@@ -158,7 +158,7 @@ impl Lexer<'_> {
         if self.at(run) != b'[' {
             return None;
         }
-        self.cap(1, equals, run);
+        self.capture(1, equals, run);
         Some(run + 1)
     }
 

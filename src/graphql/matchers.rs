@@ -125,14 +125,14 @@ impl Lexer<'_> {
     /// `\s*(c)` with the group scoped.
     fn single(&self, p: usize, c: u8, scope: S) -> Option<Hit> {
         let i = self.ws(p);
-        (self.at(i) == c).then(|| Hit::new(p, i + 1).cap(0, i, i + 1, scope))
+        (self.at(i) == c).then(|| Hit::new(p, i + 1).capture(0, i, i + 1, scope))
     }
 
     /// `\s*(name)` with the group scoped.
     fn named(&self, p: usize, scope: S) -> Option<Hit> {
         let i = self.ws(p);
         let e = self.name_end(i)?;
-        Some(Hit::new(p, e).cap(0, i, e, scope))
+        Some(Hit::new(p, e).capture(0, i, e, scope))
     }
 
     /// `\s*(name)(?:\s*(!))?`, the group and the `!` scoped.
@@ -140,9 +140,9 @@ impl Lexer<'_> {
         let i = self.ws(p);
         let e = self.name_end(i)?;
         let k = self.ws(e);
-        let hit = Hit::new(p, e).cap(0, i, e, scope);
+        let hit = Hit::new(p, e).capture(0, i, e, scope);
         if self.at(k) == b'!' {
-            Some(Hit { end: k + 1, ..hit }.cap(1, k, k + 1, S::NullType))
+            Some(Hit { end: k + 1, ..hit }.capture(1, k, k + 1, S::NullType))
         } else {
             Some(hit)
         }
@@ -165,7 +165,7 @@ impl Lexer<'_> {
             Pattern::Hash => {
                 let i = self.ws(p);
                 (self.at(i) == b'#' && i < self.lim())
-                    .then(|| Hit::new(p, self.lim()).cap(0, p, i, S::LeadingSpace))
+                    .then(|| Hit::new(p, self.lim()).capture(0, p, i, S::LeadingSpace))
             }
             Pattern::Ampersand => self.single(p, b'&', S::Ampersand),
             Pattern::Colon => self.single(p, b':', S::Colon),
@@ -175,12 +175,12 @@ impl Lexer<'_> {
                 let e = self
                     .keyword(i, b"true")
                     .or_else(|| self.keyword(i, b"false"))?;
-                Some(Hit::new(p, e).cap(0, i, e, S::Boolean))
+                Some(Hit::new(p, e).capture(0, i, e, S::Boolean))
             }
             Pattern::Null => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"null")?;
-                Some(Hit::new(p, e).cap(0, i, e, S::Null))
+                Some(Hit::new(p, e).capture(0, i, e, S::Null))
             }
             Pattern::EnumValue => {
                 let e = self.name_end(self.ws(p))?;
@@ -192,8 +192,8 @@ impl Lexer<'_> {
                 let k = self.ws(e);
                 (self.at(k) == b':').then(|| {
                     Hit::new(p, k + 1)
-                        .cap(0, i, e, S::Alias)
-                        .cap(1, k, k + 1, S::Colon)
+                        .capture(0, i, e, S::Alias)
+                        .capture(1, k, k + 1, S::Colon)
                 })
             }
             Pattern::Field => self.named(p, S::Variable),
@@ -207,7 +207,7 @@ impl Lexer<'_> {
                 (self.at(k) == b':').then(|| {
                     Hit::new(p, k + 1)
                         .nested(0, i, e, S::ObjectKey, S::ObjectKeyName)
-                        .cap(1, k, k + 1, S::Punctuation)
+                        .capture(1, k, k + 1, S::Punctuation)
                 })
             }
             Pattern::Operation => {
@@ -215,18 +215,19 @@ impl Lexer<'_> {
                 let e = self
                     .keyword(i, b"query")
                     .or_else(|| self.keyword(i, b"mutation"))?;
-                Some(Hit::new(p, e).cap(0, i, e, S::Operation))
+                Some(Hit::new(p, e).capture(0, i, e, S::Operation))
             }
             Pattern::Scalar => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"scalar")?;
                 let j = self.ws(e);
                 let n = self.name_end(j)?;
-                Some(
-                    Hit::new(p, n)
-                        .cap(0, i, e, S::KeywordScalar)
-                        .cap(1, j, n, S::ScalarName),
-                )
+                Some(Hit::new(p, n).capture(0, i, e, S::KeywordScalar).capture(
+                    1,
+                    j,
+                    n,
+                    S::ScalarName,
+                ))
             }
             Pattern::BuiltinType => {
                 let i = self.ws(p);
@@ -234,9 +235,9 @@ impl Lexer<'_> {
                     .iter()
                     .find_map(|word| self.keyword(i, word))?;
                 let k = self.ws(e);
-                let hit = Hit::new(p, e).cap(0, i, e, S::BuiltinType);
+                let hit = Hit::new(p, e).capture(0, i, e, S::BuiltinType);
                 if self.at(k) == b'!' {
-                    Some(Hit { end: k + 1, ..hit }.cap(1, k, k + 1, S::NullType))
+                    Some(Hit { end: k + 1, ..hit }.capture(1, k, k + 1, S::NullType))
                 } else {
                     Some(hit)
                 }
@@ -251,7 +252,7 @@ impl Lexer<'_> {
                     return None;
                 }
                 let e = self.name_end(i + 1)?;
-                Some(Hit::new(p, e).cap(0, i, e, S::Variable))
+                Some(Hit::new(p, e).capture(0, i, e, S::Variable))
             }
             Pattern::UnionMember => {
                 let i = self.ws(p);
@@ -260,11 +261,12 @@ impl Lexer<'_> {
                 }
                 let j = self.ws(i + 1);
                 let e = self.name_end(j)?;
-                Some(
-                    Hit::new(p, e)
-                        .cap(0, i, i + 1, S::UnionOr)
-                        .cap(1, j, e, S::SupportType),
-                )
+                Some(Hit::new(p, e).capture(0, i, i + 1, S::UnionOr).capture(
+                    1,
+                    j,
+                    e,
+                    S::SupportType,
+                ))
             }
             Pattern::Location => {
                 let i = self.ws(p);
@@ -273,7 +275,7 @@ impl Lexer<'_> {
                 }
                 let j = self.ws(i + 1);
                 let e = self.letters_end(j);
-                Some(Hit::new(p, e).cap(0, j, e, S::LocationType))
+                Some(Hit::new(p, e).capture(0, j, e, S::LocationType))
             }
             Pattern::EscapeSimple => {
                 let ok = self.at(p) == b'\\'
@@ -324,7 +326,7 @@ impl Lexer<'_> {
                 }
             }
         }
-        Some(Hit::new(p, e).cap(0, i, e, S::Float))
+        Some(Hit::new(p, e).capture(0, i, e, S::Float))
     }
 
     /// The begin pattern of `rule` at `p`.
@@ -336,9 +338,9 @@ impl Lexer<'_> {
         match rule {
             Rule::CommentTriple => self
                 .lit(p, b"\"\"\"")
-                .then(|| Hit::new(p, p + 3).cap(0, p, p + 3, S::LeadingSpace)),
+                .then(|| Hit::new(p, p + 3).capture(0, p, p + 3, S::LeadingSpace)),
             Rule::CommentSingle => (self.at(p) == b'"' && p < self.lim())
-                .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::LeadingSpace)),
+                .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::LeadingSpace)),
             Rule::Fragment => self.begin_fragment(p),
             Rule::DirectiveDefinition => {
                 let i = self.ws(p);
@@ -348,29 +350,29 @@ impl Lexer<'_> {
                     return None;
                 }
                 let n = self.name_end(j + 1)?;
-                Some(Hit::new(p, n).cap(0, i, e, S::KeywordDirective).cap(
-                    1,
-                    j,
-                    n,
-                    S::DirectiveName,
-                ))
+                Some(
+                    Hit::new(p, n)
+                        .capture(0, i, e, S::KeywordDirective)
+                        .capture(1, j, n, S::DirectiveName),
+                )
             }
             Rule::DirectiveLocations => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"on")?;
                 let j = self.ws(e);
                 let k = self.letters_end(j);
-                Some(
-                    Hit::new(p, k)
-                        .cap(0, i, e, S::KeywordOn)
-                        .cap(1, j, k, S::LocationType),
-                )
+                Some(Hit::new(p, k).capture(0, i, e, S::KeywordOn).capture(
+                    1,
+                    j,
+                    k,
+                    S::LocationType,
+                ))
             }
             Rule::TypeInterface => self.begin_type(p),
             Rule::Implements => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"implements")?;
-                Some(Hit::new(p, self.ws(e)).cap(0, i, e, S::KeywordImplements))
+                Some(Hit::new(p, self.ws(e)).capture(0, i, e, S::KeywordImplements))
             }
             Rule::Enum => {
                 let i = self.ws(p);
@@ -379,8 +381,8 @@ impl Lexer<'_> {
                 let n = self.name_end(j)?;
                 Some(
                     Hit::new(p, n)
-                        .cap(0, i, e, S::KeywordEnum)
-                        .cap(1, j, n, S::EnumType),
+                        .capture(0, i, e, S::KeywordEnum)
+                        .capture(1, j, n, S::EnumType),
                 )
             }
             Rule::EnumBody | Rule::SchemaBody | Rule::TypeObject | Rule::Selection => {
@@ -389,7 +391,7 @@ impl Lexer<'_> {
             Rule::Schema => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"schema")?;
-                Some(Hit::new(p, e).cap(0, i, e, S::KeywordSchema))
+                Some(Hit::new(p, e).capture(0, i, e, S::KeywordSchema))
             }
             Rule::SchemaField | Rule::TypeField => {
                 let i = self.ws(p);
@@ -400,18 +402,19 @@ impl Lexer<'_> {
                     S::Variable
                 };
                 self.field_ahead(e)
-                    .then(|| Hit::new(p, e).cap(0, i, e, scope))
+                    .then(|| Hit::new(p, e).capture(0, i, e, scope))
             }
             Rule::Union => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"union")?;
                 let j = self.ws(e);
                 let n = self.name_end(j)?;
-                Some(
-                    Hit::new(p, n)
-                        .cap(0, i, e, S::KeywordUnion)
-                        .cap(1, j, n, S::SupportType),
-                )
+                Some(Hit::new(p, n).capture(0, i, e, S::KeywordUnion).capture(
+                    1,
+                    j,
+                    n,
+                    S::SupportType,
+                ))
             }
             Rule::UnionMembers => {
                 let i = self.ws(p);
@@ -420,11 +423,12 @@ impl Lexer<'_> {
                 }
                 let j = self.ws(i + 1);
                 let n = self.name_end(j)?;
-                Some(
-                    Hit::new(p, n)
-                        .cap(0, i, i + 1, S::Assignment)
-                        .cap(1, j, n, S::SupportType),
-                )
+                Some(Hit::new(p, n).capture(0, i, i + 1, S::Assignment).capture(
+                    1,
+                    j,
+                    n,
+                    S::SupportType,
+                ))
             }
             Rule::Directive => {
                 let i = self.ws(p);
@@ -433,7 +437,7 @@ impl Lexer<'_> {
                 }
                 let j = self.ws(i + 1);
                 let n = self.name_end(j)?;
-                Some(Hit::new(p, n).cap(0, i, n, S::DirectiveName))
+                Some(Hit::new(p, n).capture(0, i, n, S::DirectiveName))
             }
             Rule::Arguments => self.single(p, b'(', S::BraceDirective),
             Rule::Argument => {
@@ -442,8 +446,8 @@ impl Lexer<'_> {
                 let k = self.ws(e);
                 (self.at(k) == b':').then(|| {
                     Hit::new(p, k + 1)
-                        .cap(0, i, e, S::Parameter)
-                        .cap(1, k, k + 1, S::Colon)
+                        .capture(0, i, e, S::Parameter)
+                        .capture(1, k, k + 1, S::Colon)
                 })
             }
             Rule::String => {
@@ -460,13 +464,13 @@ impl Lexer<'_> {
                 let from = i + usize::from(self.at(i) == b'$');
                 let e = self.name_end(from)?;
                 self.field_ahead(e)
-                    .then(|| Hit::new(p, e).cap(0, i, e, S::Parameter))
+                    .then(|| Hit::new(p, e).capture(0, i, e, S::Parameter))
             }
             Rule::Default => {
                 let width = self.space_at(p);
                 (width > 0 && self.at(p + width) == b'=').then(|| {
                     let at = p + width;
-                    Hit::new(p, at + 1).cap(0, at, at + 1, S::Assignment)
+                    Hit::new(p, at + 1).capture(0, at, at + 1, S::Assignment)
                 })
             }
             Rule::Spread => {
@@ -479,11 +483,12 @@ impl Lexer<'_> {
                     return None;
                 }
                 let n = self.name_end(j)?;
-                Some(
-                    Hit::new(p, n)
-                        .cap(0, i, i + 3, S::Spread)
-                        .cap(1, j, n, S::FragmentVariable),
-                )
+                Some(Hit::new(p, n).capture(0, i, i + 3, S::Spread).capture(
+                    1,
+                    j,
+                    n,
+                    S::FragmentVariable,
+                ))
             }
             Rule::InlineFragment => {
                 let i = self.ws(p);
@@ -491,25 +496,22 @@ impl Lexer<'_> {
                     return None;
                 }
                 let j = self.ws(i + 3);
-                let hit = Hit::new(p, j).cap(0, i, i + 3, S::Spread);
+                let hit = Hit::new(p, j).capture(0, i, i + 3, S::Spread);
                 let on = self.keyword(j, b"on").and_then(|e| {
                     let k = self.ws(e);
                     Some((e, k, self.name_end(k)?))
                 });
                 Some(match on {
-                    Some((e, k, n)) => Hit { end: n, ..hit }.cap(1, j, e, S::KeywordOn).cap(
-                        2,
-                        k,
-                        n,
-                        S::SupportType,
-                    ),
+                    Some((e, k, n)) => Hit { end: n, ..hit }
+                        .capture(1, j, e, S::KeywordOn)
+                        .capture(2, k, n, S::SupportType),
                     None => hit,
                 })
             }
             Rule::Interpolation => {
                 let i = self.ws(p);
                 (self.at(i) == b'$' && self.at(i + 1) == b'{')
-                    .then(|| Hit::new(p, i + 2).cap(0, i, i + 2, S::SubstitutionBegin))
+                    .then(|| Hit::new(p, i + 2).capture(0, i, i + 2, S::SubstitutionBegin))
             }
             Rule::Root => None,
         }
@@ -524,13 +526,13 @@ impl Lexer<'_> {
             let on_end = self.keyword(on_at, b"on")?;
             let m = self.ws(on_end);
             let n = self.name_end(m)?;
-            let mut hit = Hit::new(p, n).cap(0, i, e, S::KeywordFragment);
+            let mut hit = Hit::new(p, n).capture(0, i, e, S::KeywordFragment);
             if let Some((from, to)) = name {
-                hit = hit.cap(1, from, to, S::FragmentName);
+                hit = hit.capture(1, from, to, S::FragmentName);
             }
             Some(
-                hit.cap(2, on_at, on_end, S::KeywordOn)
-                    .cap(3, m, n, S::SupportType),
+                hit.capture(2, on_at, on_end, S::KeywordOn)
+                    .capture(3, m, n, S::SupportType),
             )
         };
         if let Some(n1) = self.name_end(j)
@@ -552,7 +554,7 @@ impl Lexer<'_> {
             }
             let j = self.ws(keyword_end);
             Some(match self.name_end(j) {
-                Some(n) => Hit { end: n, ..hit }.cap(4, j, n, S::SupportType),
+                Some(n) => Hit { end: n, ..hit }.capture(4, j, n, S::SupportType),
                 None => Hit { end: j, ..hit },
             })
         };
@@ -567,7 +569,7 @@ impl Lexer<'_> {
             if let Some(x) = extend.filter(|&x| self.boundary(x)) {
                 let t = self.ws(x);
                 if self.boundary(t) && self.lit(t, b"type") {
-                    let hit = Hit::new(p, t + 4).cap(0, i, x, S::KeywordType).cap(
+                    let hit = Hit::new(p, t + 4).capture(0, i, x, S::KeywordType).capture(
                         1,
                         t,
                         t + 4,
@@ -579,19 +581,19 @@ impl Lexer<'_> {
                 }
             }
             if self.lit(i, b"type") {
-                let hit = Hit::new(p, i + 4).cap(1, i, i + 4, S::KeywordType);
+                let hit = Hit::new(p, i + 4).capture(1, i, i + 4, S::KeywordType);
                 if let found @ Some(_) = after(i + 4, hit) {
                     return found;
                 }
             }
             if self.lit(i, b"interface") {
-                let hit = Hit::new(p, i + 9).cap(2, i, i + 9, S::KeywordInterface);
+                let hit = Hit::new(p, i + 9).capture(2, i, i + 9, S::KeywordInterface);
                 if let found @ Some(_) = after(i + 9, hit) {
                     return found;
                 }
             }
             if self.lit(i, b"input") {
-                let hit = Hit::new(p, i + 5).cap(3, i, i + 5, S::KeywordInput);
+                let hit = Hit::new(p, i + 5).capture(3, i, i + 5, S::KeywordInput);
                 return after(i + 5, hit);
             }
         }
@@ -662,16 +664,16 @@ impl Lexer<'_> {
                     return None;
                 }
                 let k = self.ws(i + 1);
-                let hit = Hit::new(p, i + 1).cap(0, i, i + 1, S::BraceSquare);
+                let hit = Hit::new(p, i + 1).capture(0, i, i + 1, S::BraceSquare);
                 if self.at(k) == b'!' {
-                    Some(Hit { end: k + 1, ..hit }.cap(1, k, k + 1, S::NullType))
+                    Some(Hit { end: k + 1, ..hit }.capture(1, k, k + 1, S::NullType))
                 } else {
                     Some(hit)
                 }
             }
             Rule::Default => matches!(self.at(p), b'\n' | b')' | b',').then(|| Hit::new(p, p)),
             Rule::Interpolation => (self.at(p) == b'}' && p < self.lim())
-                .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::SubstitutionEnd)),
+                .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::SubstitutionEnd)),
         }
     }
 
@@ -688,7 +690,7 @@ impl Lexer<'_> {
         if field || stop(i) {
             return Some(Hit::new(p, p));
         }
-        (self.at(i) == b',').then(|| Hit::new(p, i + 1).cap(4, i, i + 1, S::Comma))
+        (self.at(i) == b',').then(|| Hit::new(p, i + 1).capture(4, i, i + 1, S::Comma))
     }
 
     /// `(?=\s*(?:(name)\s*(:)|\)))|\s*(,)`
@@ -700,6 +702,6 @@ impl Lexer<'_> {
         if next_argument || self.at(i) == b')' {
             return Some(Hit::new(p, p));
         }
-        (self.at(i) == b',').then(|| Hit::new(p, i + 1).cap(2, i, i + 1, S::Comma))
+        (self.at(i) == b',').then(|| Hit::new(p, i + 1).capture(2, i, i + 1, S::Comma))
     }
 }

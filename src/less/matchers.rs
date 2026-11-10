@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where. A matcher records the
 //! capture groups the grammar names with
-//! [`Lexer::cap`](crate::rules::Lexer::cap); the engine names them.
+//! [`Lexer::capture`](crate::rules::Lexer::capture); the engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would. Where a quantifier could give characters back, the doc comment says
@@ -790,7 +790,7 @@ impl Lexer<'_> {
                 self.spaces_then(p, b";{")
             }
             Pattern::AtContainerAt0At0At0 => self.alt(p, &[b"not", b"and", b"or"]),
-            Pattern::AtContainerAt0At0At1At0 => self.alt_cap(
+            Pattern::AtContainerAt0At0At1At0 => self.alt_capture(
                 p,
                 &[
                     b"aspect-ratio",
@@ -895,7 +895,7 @@ impl Lexer<'_> {
             }
             Pattern::RuleListBodyAt5At7 => self.animation_property(p),
             Pattern::RuleListBodyAt5At7At0At6 => self.animation_name(p),
-            Pattern::RuleListBodyAt5At8 => self.alt_cap(
+            Pattern::RuleListBodyAt5At8 => self.alt_capture(
                 p,
                 &[
                     b"transition-property",
@@ -985,7 +985,7 @@ impl Lexer<'_> {
     #[inline(never)]
     fn merge_colon_blanks(&mut self, p: usize) -> Option<usize> {
         let end = self.merge_colon(p)?;
-        Some(self.blanks_cap(end, 4))
+        Some(self.blanks_capture(end, 4))
     }
 
     /// `(?=\s*})`: the end of a rule list.
@@ -1135,9 +1135,9 @@ impl Lexer<'_> {
     }
 
     /// [`Lexer::alt`], the word in group 1.
-    fn alt_cap(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
+    fn alt_capture(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let end = self.alt(p, words)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -1165,7 +1165,7 @@ impl Lexer<'_> {
         }
         let name = self.text(p, end);
         words.contains(&name).then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         })
     }
@@ -1173,14 +1173,14 @@ impl Lexer<'_> {
     /// `\b(a|b|…)(\()` at `p`, the name in group 1 and the `(` in group 2.
     fn func_open(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let end = self.func(p, words)?;
-        self.cap(2, end, end + 1);
+        self.capture(2, end, end + 1);
         Some(end + 1)
     }
 
     /// `(x)` for the literal `text`, in group 1.
     fn group_lit(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -1188,7 +1188,7 @@ impl Lexer<'_> {
     fn spaced_lit(&mut self, p: usize, byte: u8) -> Option<usize> {
         let at = self.spaces(p);
         (self.at(at) == byte && at < self.lim()).then(|| {
-            self.cap(1, at, at + 1);
+            self.capture(1, at, at + 1);
             at + 1
         })
     }

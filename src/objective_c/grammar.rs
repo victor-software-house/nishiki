@@ -188,24 +188,24 @@ pub(crate) enum Rule {
     CommentAt1,
     CommentAt1At0,
     Root,
-    CNumbersAt0Cap2,
-    CNumbersAt0Cap5,
-    CNumbersAt0Cap11,
-    CNumbersAt1Cap2,
-    CNumbersAt1Cap5,
-    CNumbersAt1Cap11,
-    CNumbersAt2Cap2,
-    CNumbersAt3Cap2,
-    CNumbersAt4Cap2,
-    CNumbersAt4Cap8,
-    CNumbersAt5Cap2,
-    CNumbersAt5Cap8,
-    CMethodAccessCap1,
-    CMemberAccessCap1,
-    CMemberAccessCap4At2Cap1,
-    CMemberAccessCap4,
-    CMethodAccessCap4At2Cap1,
-    CMethodAccessCap4,
+    CNumbersAt0Capture2,
+    CNumbersAt0Capture5,
+    CNumbersAt0Capture11,
+    CNumbersAt1Capture2,
+    CNumbersAt1Capture5,
+    CNumbersAt1Capture11,
+    CNumbersAt2Capture2,
+    CNumbersAt3Capture2,
+    CNumbersAt4Capture2,
+    CNumbersAt4Capture8,
+    CNumbersAt5Capture2,
+    CNumbersAt5Capture8,
+    CMethodAccessCapture1,
+    CMemberAccessCapture1,
+    CMemberAccessCapture4At2Capture1,
+    CMemberAccessCapture4,
+    CMethodAccessCapture4At2Capture1,
+    CMethodAccessCapture4,
 }
 
 impl Rule {
@@ -335,24 +335,24 @@ impl Rule {
         Rule::CommentAt1,
         Rule::CommentAt1At0,
         Rule::Root,
-        Rule::CNumbersAt0Cap2,
-        Rule::CNumbersAt0Cap5,
-        Rule::CNumbersAt0Cap11,
-        Rule::CNumbersAt1Cap2,
-        Rule::CNumbersAt1Cap5,
-        Rule::CNumbersAt1Cap11,
-        Rule::CNumbersAt2Cap2,
-        Rule::CNumbersAt3Cap2,
-        Rule::CNumbersAt4Cap2,
-        Rule::CNumbersAt4Cap8,
-        Rule::CNumbersAt5Cap2,
-        Rule::CNumbersAt5Cap8,
-        Rule::CMethodAccessCap1,
-        Rule::CMemberAccessCap1,
-        Rule::CMemberAccessCap4At2Cap1,
-        Rule::CMemberAccessCap4,
-        Rule::CMethodAccessCap4At2Cap1,
-        Rule::CMethodAccessCap4,
+        Rule::CNumbersAt0Capture2,
+        Rule::CNumbersAt0Capture5,
+        Rule::CNumbersAt0Capture11,
+        Rule::CNumbersAt1Capture2,
+        Rule::CNumbersAt1Capture5,
+        Rule::CNumbersAt1Capture11,
+        Rule::CNumbersAt2Capture2,
+        Rule::CNumbersAt3Capture2,
+        Rule::CNumbersAt4Capture2,
+        Rule::CNumbersAt4Capture8,
+        Rule::CNumbersAt5Capture2,
+        Rule::CNumbersAt5Capture8,
+        Rule::CMethodAccessCapture1,
+        Rule::CMemberAccessCapture1,
+        Rule::CMemberAccessCapture4At2Capture1,
+        Rule::CMemberAccessCapture4,
+        Rule::CMethodAccessCapture4At2Capture1,
+        Rule::CMethodAccessCapture4,
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
@@ -7616,102 +7616,91 @@ impl Rule {
                     Pattern::CLangAt38,
                 ],
             },
-            Rule::CNumbersAt0Cap2 => RuleDefinition {
+            Rule::CNumbersAt0Capture2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt0Cap2At0],
+                patterns: &[Pattern::CNumbersAt0Capture2At0],
             },
-            Rule::CNumbersAt0Cap5 => RuleDefinition {
+            Rule::CNumbersAt0Capture5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt0Cap5At0],
+                patterns: &[Pattern::CNumbersAt0Capture5At0],
             },
-            Rule::CNumbersAt0Cap11 => RuleDefinition {
+            Rule::CNumbersAt0Capture11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt0Cap11At0],
+                patterns: &[Pattern::CNumbersAt0Capture11At0],
             },
-            Rule::CNumbersAt1Cap2 => RuleDefinition {
+            Rule::CNumbersAt1Capture2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt1Cap2At0],
+                patterns: &[Pattern::CNumbersAt1Capture2At0],
             },
-            Rule::CNumbersAt1Cap5 => RuleDefinition {
+            Rule::CNumbersAt1Capture5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt1Cap5At0],
+                patterns: &[Pattern::CNumbersAt1Capture5At0],
             },
-            Rule::CNumbersAt1Cap11 => RuleDefinition {
+            Rule::CNumbersAt1Capture11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt1Cap11At0],
+                patterns: &[Pattern::CNumbersAt1Capture11At0],
             },
-            Rule::CNumbersAt2Cap2 => RuleDefinition {
+            Rule::CNumbersAt2Capture2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt2Cap2At0],
+                patterns: &[Pattern::CNumbersAt2Capture2At0],
             },
-            Rule::CNumbersAt3Cap2 => RuleDefinition {
+            Rule::CNumbersAt3Capture2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt3Cap2At0],
+                patterns: &[Pattern::CNumbersAt3Capture2At0],
             },
-            Rule::CNumbersAt4Cap2 => RuleDefinition {
+            Rule::CNumbersAt4Capture2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt4Cap2At0],
+                patterns: &[Pattern::CNumbersAt4Capture2At0],
             },
-            Rule::CNumbersAt4Cap8 => RuleDefinition {
+            Rule::CNumbersAt4Capture8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt4Cap8At0],
+                patterns: &[Pattern::CNumbersAt4Capture8At0],
             },
-            Rule::CNumbersAt5Cap2 => RuleDefinition {
+            Rule::CNumbersAt5Capture2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt5Cap2At0],
+                patterns: &[Pattern::CNumbersAt5Capture2At0],
             },
-            Rule::CNumbersAt5Cap8 => RuleDefinition {
+            Rule::CNumbersAt5Capture8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::CNumbersAt5Cap8At0],
+                patterns: &[Pattern::CNumbersAt5Capture8At0],
             },
-            Rule::CMethodAccessCap1 => RuleDefinition {
-                name: Sc::NO_SCOPES,
-                content: Sc::NO_SCOPES,
-                end: None,
-                backref: None,
-                patterns: &[
-                    Pattern::SpecialVariablesAt0,
-                    Pattern::SpecialVariablesAt1,
-                    Pattern::CMethodAccessCap1At1,
-                ],
-            },
-            Rule::CMemberAccessCap1 => RuleDefinition {
+            Rule::CMethodAccessCapture1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7719,10 +7708,10 @@ impl Rule {
                 patterns: &[
                     Pattern::SpecialVariablesAt0,
                     Pattern::SpecialVariablesAt1,
-                    Pattern::CMemberAccessCap1At1,
+                    Pattern::CMethodAccessCapture1At1,
                 ],
             },
-            Rule::CMemberAccessCap4At2Cap1 => RuleDefinition {
+            Rule::CMemberAccessCapture1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7730,10 +7719,21 @@ impl Rule {
                 patterns: &[
                     Pattern::SpecialVariablesAt0,
                     Pattern::SpecialVariablesAt1,
-                    Pattern::CMemberAccessCap4At2Cap1At1,
+                    Pattern::CMemberAccessCapture1At1,
                 ],
             },
-            Rule::CMemberAccessCap4 => RuleDefinition {
+            Rule::CMemberAccessCapture4At2Capture1 => RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: None,
+                backref: None,
+                patterns: &[
+                    Pattern::SpecialVariablesAt0,
+                    Pattern::SpecialVariablesAt1,
+                    Pattern::CMemberAccessCapture4At2Capture1At1,
+                ],
+            },
+            Rule::CMemberAccessCapture4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7741,10 +7741,10 @@ impl Rule {
                 patterns: &[
                     Pattern::CMemberAccess,
                     Pattern::CMethodAccess,
-                    Pattern::CMemberAccessCap4At2,
+                    Pattern::CMemberAccessCapture4At2,
                 ],
             },
-            Rule::CMethodAccessCap4At2Cap1 => RuleDefinition {
+            Rule::CMethodAccessCapture4At2Capture1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7752,10 +7752,10 @@ impl Rule {
                 patterns: &[
                     Pattern::SpecialVariablesAt0,
                     Pattern::SpecialVariablesAt1,
-                    Pattern::CMethodAccessCap4At2Cap1At1,
+                    Pattern::CMethodAccessCapture4At2Capture1At1,
                 ],
             },
-            Rule::CMethodAccessCap4 => RuleDefinition {
+            Rule::CMethodAccessCapture4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7763,7 +7763,7 @@ impl Rule {
                 patterns: &[
                     Pattern::CMemberAccess,
                     Pattern::CMethodAccess,
-                    Pattern::CMethodAccessCap4At2,
+                    Pattern::CMethodAccessCapture4At2,
                 ],
             },
         }
@@ -7951,39 +7951,39 @@ pub(crate) enum Pattern {
     /// The match: `…`.
     CNumbersAt0,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt0Cap2At0,
+    CNumbersAt0Capture2At0,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt0Cap5At0,
+    CNumbersAt0Capture5At0,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt0Cap11At0,
+    CNumbersAt0Capture11At0,
     /// The match: `…`.
     CNumbersAt1,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt1Cap2At0,
+    CNumbersAt1Capture2At0,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt1Cap5At0,
+    CNumbersAt1Capture5At0,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt1Cap11At0,
+    CNumbersAt1Capture11At0,
     /// The match: `…`.
     CNumbersAt2,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt2Cap2At0,
+    CNumbersAt2Capture2At0,
     /// The match: `…`.
     CNumbersAt3,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt3Cap2At0,
+    CNumbersAt3Capture2At0,
     /// The match: `…`.
     CNumbersAt4,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt4Cap2At0,
+    CNumbersAt4Capture2At0,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt4Cap8At0,
+    CNumbersAt4Capture8At0,
     /// The match: `…`.
     CNumbersAt5,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt5Cap2At0,
+    CNumbersAt5Capture2At0,
     /// The match: `(?<=\h)'(?=\h)`.
-    CNumbersAt5Cap8At0,
+    CNumbersAt5Capture8At0,
     /// The match: `(?:['.0-9A-Z_a-z]|(?<=[EPep])[-+])+`.
     CNumbersAt6,
     /// The begin: `\?`.
@@ -8031,19 +8031,19 @@ pub(crate) enum Pattern {
     /// The match: `\b(s(?:elf|uper))\b`.
     SpecialVariablesAt1,
     /// The match: `(.+)`.
-    CMethodAccessCap1At1,
+    CMethodAccessCapture1At1,
     /// The match: `…`.
     CMemberAccess,
     /// The match: `(.+)`.
-    CMemberAccessCap1At1,
+    CMemberAccessCapture1At1,
     /// The match: `((?:[A-Z_a-z]\w*|(?<=[])]))\s*)(?:(\.\*?)|(->\*?))`.
-    CMemberAccessCap4At2,
+    CMemberAccessCapture4At2,
     /// The match: `(.+)`.
-    CMemberAccessCap4At2Cap1At1,
+    CMemberAccessCapture4At2Capture1At1,
     /// The match: `((?:[A-Z_a-z]\w*|(?<=[])]))\s*)(?:(\.\*?)|(->\*?))`.
-    CMethodAccessCap4At2,
+    CMethodAccessCapture4At2,
     /// The match: `(.+)`.
-    CMethodAccessCap4At2Cap1At1,
+    CMethodAccessCapture4At2Capture1At1,
     /// The begin: `…`.
     CFunctionCallInnardsAt5,
     /// The end: `\)`.
@@ -9053,38 +9053,38 @@ impl Pattern {
                     (
                         2,
                         Nested {
-                            rule: Rule::CNumbersAt0Cap2,
+                            rule: Rule::CNumbersAt0Capture2,
                             scopes: scopes![Sc::S(S::ConstNumericHexadecimal)],
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::CNumbersAt0Cap5,
+                            rule: Rule::CNumbersAt0Capture5,
                             scopes: scopes![Sc::S(S::ConstNumericHexadecimal)],
                         },
                     ),
                     (
                         11,
                         Nested {
-                            rule: Rule::CNumbersAt0Cap11,
+                            rule: Rule::CNumbersAt0Capture11,
                             scopes: scopes![Sc::S(S::ConstNumericExponentHexadecimal)],
                         },
                     ),
                 ],
             },
-            Pattern::CNumbersAt0Cap2At0
-            | Pattern::CNumbersAt0Cap5At0
-            | Pattern::CNumbersAt0Cap11At0
-            | Pattern::CNumbersAt1Cap2At0
-            | Pattern::CNumbersAt1Cap5At0
-            | Pattern::CNumbersAt1Cap11At0
-            | Pattern::CNumbersAt2Cap2At0
-            | Pattern::CNumbersAt3Cap2At0
-            | Pattern::CNumbersAt4Cap2At0
-            | Pattern::CNumbersAt4Cap8At0
-            | Pattern::CNumbersAt5Cap2At0
-            | Pattern::CNumbersAt5Cap8At0 => PatternDefinition {
+            Pattern::CNumbersAt0Capture2At0
+            | Pattern::CNumbersAt0Capture5At0
+            | Pattern::CNumbersAt0Capture11At0
+            | Pattern::CNumbersAt1Capture2At0
+            | Pattern::CNumbersAt1Capture5At0
+            | Pattern::CNumbersAt1Capture11At0
+            | Pattern::CNumbersAt2Capture2At0
+            | Pattern::CNumbersAt3Capture2At0
+            | Pattern::CNumbersAt4Capture2At0
+            | Pattern::CNumbersAt4Capture8At0
+            | Pattern::CNumbersAt5Capture2At0
+            | Pattern::CNumbersAt5Capture8At0 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::PSeparatorConstantNumeric)]),
                 captures: &[],
                 nested: &[],
@@ -9104,21 +9104,21 @@ impl Pattern {
                     (
                         2,
                         Nested {
-                            rule: Rule::CNumbersAt1Cap2,
+                            rule: Rule::CNumbersAt1Capture2,
                             scopes: scopes![Sc::S(S::ConstNumericDecimal)],
                         },
                     ),
                     (
                         5,
                         Nested {
-                            rule: Rule::CNumbersAt1Cap5,
+                            rule: Rule::CNumbersAt1Capture5,
                             scopes: scopes![Sc::S(S::ConstNumericDecimal)],
                         },
                     ),
                     (
                         11,
                         Nested {
-                            rule: Rule::CNumbersAt1Cap11,
+                            rule: Rule::CNumbersAt1Capture11,
                             scopes: scopes![Sc::S(S::ConstNumericExponentDecimal)],
                         },
                     ),
@@ -9134,7 +9134,7 @@ impl Pattern {
                 nested: &[(
                     2,
                     Nested {
-                        rule: Rule::CNumbersAt2Cap2,
+                        rule: Rule::CNumbersAt2Capture2,
                         scopes: scopes![Sc::S(S::ConstNumericBinary)],
                     },
                 )],
@@ -9149,7 +9149,7 @@ impl Pattern {
                 nested: &[(
                     2,
                     Nested {
-                        rule: Rule::CNumbersAt3Cap2,
+                        rule: Rule::CNumbersAt3Capture2,
                         scopes: scopes![Sc::S(S::ConstNumericOctal)],
                     },
                 )],
@@ -9168,14 +9168,14 @@ impl Pattern {
                     (
                         2,
                         Nested {
-                            rule: Rule::CNumbersAt4Cap2,
+                            rule: Rule::CNumbersAt4Capture2,
                             scopes: scopes![Sc::S(S::ConstNumericHexadecimal)],
                         },
                     ),
                     (
                         8,
                         Nested {
-                            rule: Rule::CNumbersAt4Cap8,
+                            rule: Rule::CNumbersAt4Capture8,
                             scopes: scopes![Sc::S(S::ConstNumericExponentHexadecimal)],
                         },
                     ),
@@ -9194,14 +9194,14 @@ impl Pattern {
                     (
                         2,
                         Nested {
-                            rule: Rule::CNumbersAt5Cap2,
+                            rule: Rule::CNumbersAt5Capture2,
                             scopes: scopes![Sc::S(S::ConstNumericDecimal)],
                         },
                     ),
                     (
                         8,
                         Nested {
-                            rule: Rule::CNumbersAt5Cap8,
+                            rule: Rule::CNumbersAt5Capture8,
                             scopes: scopes![Sc::S(S::ConstNumericExponentDecimal)],
                         },
                     ),
@@ -9312,14 +9312,14 @@ impl Pattern {
                     (
                         1,
                         Nested {
-                            rule: Rule::CMethodAccessCap1,
+                            rule: Rule::CMethodAccessCapture1,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         4,
                         Nested {
-                            rule: Rule::CMethodAccessCap4,
+                            rule: Rule::CMethodAccessCapture4,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
@@ -9343,10 +9343,10 @@ impl Pattern {
                 captures: &[],
                 nested: &[],
             },
-            Pattern::CMethodAccessCap1At1
-            | Pattern::CMemberAccessCap1At1
-            | Pattern::CMemberAccessCap4At2Cap1At1
-            | Pattern::CMethodAccessCap4At2Cap1At1 => PatternDefinition {
+            Pattern::CMethodAccessCapture1At1
+            | Pattern::CMemberAccessCapture1At1
+            | Pattern::CMemberAccessCapture4At2Capture1At1
+            | Pattern::CMethodAccessCapture4At2Capture1At1 => PatternDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarOtherObjectAccess)]),
                 captures: &[],
                 nested: &[],
@@ -9362,20 +9362,20 @@ impl Pattern {
                     (
                         1,
                         Nested {
-                            rule: Rule::CMemberAccessCap1,
+                            rule: Rule::CMemberAccessCapture1,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                     (
                         4,
                         Nested {
-                            rule: Rule::CMemberAccessCap4,
+                            rule: Rule::CMemberAccessCapture4,
                             scopes: Sc::NO_SCOPES,
                         },
                     ),
                 ],
             },
-            Pattern::CMemberAccessCap4At2 => PatternDefinition {
+            Pattern::CMemberAccessCapture4At2 => PatternDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (2, scopes![Sc::S(S::PSeparatorDotAccess)]),
@@ -9384,12 +9384,12 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::CMemberAccessCap4At2Cap1,
+                        rule: Rule::CMemberAccessCapture4At2Capture1,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
             },
-            Pattern::CMethodAccessCap4At2 => PatternDefinition {
+            Pattern::CMethodAccessCapture4At2 => PatternDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (2, scopes![Sc::S(S::PSeparatorDotAccess)]),
@@ -9398,7 +9398,7 @@ impl Pattern {
                 nested: &[(
                     1,
                     Nested {
-                        rule: Rule::CMethodAccessCap4At2Cap1,
+                        rule: Rule::CMethodAccessCapture4At2Capture1,
                         scopes: Sc::NO_SCOPES,
                     },
                 )],
@@ -10546,7 +10546,7 @@ pub(crate) enum Rx {
     /// `…`.
     CNumbersAt0,
     /// `(?<=\h)'(?=\h)`.
-    CNumbersAt0Cap2At0,
+    CNumbersAt0Capture2At0,
     /// `…`.
     CNumbersAt1,
     /// `…`.
@@ -10602,11 +10602,11 @@ pub(crate) enum Rx {
     /// `\b(s(?:elf|uper))\b`.
     SpecialVariablesAt1,
     /// `(.+)`.
-    CMethodAccessCap1At1,
+    CMethodAccessCapture1At1,
     /// `…`.
     CMemberAccess,
     /// `((?:[A-Z_a-z]\w*|(?<=[])]))\s*)(?:(\.\*?)|(->\*?))`.
-    CMemberAccessCap4At2,
+    CMemberAccessCapture4At2,
     /// `…`.
     CFunctionCallInnardsAt5,
     /// `\(`.
@@ -10919,7 +10919,7 @@ impl Rx {
         Rx::CNumbers,
         Rx::CNumbersEnd,
         Rx::CNumbersAt0,
-        Rx::CNumbersAt0Cap2At0,
+        Rx::CNumbersAt0Capture2At0,
         Rx::CNumbersAt1,
         Rx::CNumbersAt2,
         Rx::CNumbersAt3,
@@ -10947,9 +10947,9 @@ impl Rx {
         Rx::CMethodAccess,
         Rx::SpecialVariablesAt0,
         Rx::SpecialVariablesAt1,
-        Rx::CMethodAccessCap1At1,
+        Rx::CMethodAccessCapture1At1,
         Rx::CMemberAccess,
-        Rx::CMemberAccessCap4At2,
+        Rx::CMemberAccessCapture4At2,
         Rx::CFunctionCallInnardsAt5,
         Rx::CFunctionCallInnardsAt6,
         Rx::CPreprocessorRuleEnabledBlockAt0At2,
@@ -11228,18 +11228,18 @@ impl Pattern {
             Pattern::CNumbers => Rx::CNumbers,
             Pattern::CNumbersEnd => Rx::CNumbersEnd,
             Pattern::CNumbersAt0 => Rx::CNumbersAt0,
-            Pattern::CNumbersAt0Cap2At0
-            | Pattern::CNumbersAt0Cap5At0
-            | Pattern::CNumbersAt0Cap11At0
-            | Pattern::CNumbersAt1Cap2At0
-            | Pattern::CNumbersAt1Cap5At0
-            | Pattern::CNumbersAt1Cap11At0
-            | Pattern::CNumbersAt2Cap2At0
-            | Pattern::CNumbersAt3Cap2At0
-            | Pattern::CNumbersAt4Cap2At0
-            | Pattern::CNumbersAt4Cap8At0
-            | Pattern::CNumbersAt5Cap2At0
-            | Pattern::CNumbersAt5Cap8At0 => Rx::CNumbersAt0Cap2At0,
+            Pattern::CNumbersAt0Capture2At0
+            | Pattern::CNumbersAt0Capture5At0
+            | Pattern::CNumbersAt0Capture11At0
+            | Pattern::CNumbersAt1Capture2At0
+            | Pattern::CNumbersAt1Capture5At0
+            | Pattern::CNumbersAt1Capture11At0
+            | Pattern::CNumbersAt2Capture2At0
+            | Pattern::CNumbersAt3Capture2At0
+            | Pattern::CNumbersAt4Capture2At0
+            | Pattern::CNumbersAt4Capture8At0
+            | Pattern::CNumbersAt5Capture2At0
+            | Pattern::CNumbersAt5Capture8At0 => Rx::CNumbersAt0Capture2At0,
             Pattern::CNumbersAt1 => Rx::CNumbersAt1,
             Pattern::CNumbersAt2 => Rx::CNumbersAt2,
             Pattern::CNumbersAt3 => Rx::CNumbersAt3,
@@ -11271,13 +11271,13 @@ impl Pattern {
             Pattern::CMethodAccess => Rx::CMethodAccess,
             Pattern::SpecialVariablesAt0 => Rx::SpecialVariablesAt0,
             Pattern::SpecialVariablesAt1 => Rx::SpecialVariablesAt1,
-            Pattern::CMethodAccessCap1At1
-            | Pattern::CMemberAccessCap1At1
-            | Pattern::CMemberAccessCap4At2Cap1At1
-            | Pattern::CMethodAccessCap4At2Cap1At1 => Rx::CMethodAccessCap1At1,
+            Pattern::CMethodAccessCapture1At1
+            | Pattern::CMemberAccessCapture1At1
+            | Pattern::CMemberAccessCapture4At2Capture1At1
+            | Pattern::CMethodAccessCapture4At2Capture1At1 => Rx::CMethodAccessCapture1At1,
             Pattern::CMemberAccess => Rx::CMemberAccess,
-            Pattern::CMemberAccessCap4At2 | Pattern::CMethodAccessCap4At2 => {
-                Rx::CMemberAccessCap4At2
+            Pattern::CMemberAccessCapture4At2 | Pattern::CMethodAccessCapture4At2 => {
+                Rx::CMemberAccessCapture4At2
             }
             Pattern::CFunctionCallInnardsAt5
             | Pattern::CPreprocessorRuleDefineLineFunctionsAt6
@@ -12009,18 +12009,18 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pattern::CNumbersAt0Cap2At0
-            | Pattern::CNumbersAt0Cap5At0
-            | Pattern::CNumbersAt0Cap11At0
-            | Pattern::CNumbersAt1Cap2At0
-            | Pattern::CNumbersAt1Cap5At0
-            | Pattern::CNumbersAt1Cap11At0
-            | Pattern::CNumbersAt2Cap2At0
-            | Pattern::CNumbersAt3Cap2At0
-            | Pattern::CNumbersAt4Cap2At0
-            | Pattern::CNumbersAt4Cap8At0
-            | Pattern::CNumbersAt5Cap2At0
-            | Pattern::CNumbersAt5Cap8At0 => Start {
+            Pattern::CNumbersAt0Capture2At0
+            | Pattern::CNumbersAt0Capture5At0
+            | Pattern::CNumbersAt0Capture11At0
+            | Pattern::CNumbersAt1Capture2At0
+            | Pattern::CNumbersAt1Capture5At0
+            | Pattern::CNumbersAt1Capture11At0
+            | Pattern::CNumbersAt2Capture2At0
+            | Pattern::CNumbersAt3Capture2At0
+            | Pattern::CNumbersAt4Capture2At0
+            | Pattern::CNumbersAt4Capture8At0
+            | Pattern::CNumbersAt5Capture2At0
+            | Pattern::CNumbersAt5Capture8At0 => Start {
                 bytes: [
                     0x0000_0080_0000_0000,
                     0x0000_0000_0000_0000,
@@ -12200,8 +12200,8 @@ impl Pattern {
             },
             Pattern::CMethodAccess
             | Pattern::CMemberAccess
-            | Pattern::CMemberAccessCap4At2
-            | Pattern::CMethodAccessCap4At2 => Start {
+            | Pattern::CMemberAccessCapture4At2
+            | Pattern::CMethodAccessCapture4At2 => Start {
                 bytes: [
                     0x0000_6001_0000_3e00,
                     0x07ff_fffe_87ff_fffe,
@@ -12221,10 +12221,10 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pattern::CMethodAccessCap1At1
-            | Pattern::CMemberAccessCap1At1
-            | Pattern::CMemberAccessCap4At2Cap1At1
-            | Pattern::CMethodAccessCap4At2Cap1At1 => Start {
+            Pattern::CMethodAccessCapture1At1
+            | Pattern::CMemberAccessCapture1At1
+            | Pattern::CMemberAccessCapture4At2Capture1At1
+            | Pattern::CMethodAccessCapture4At2Capture1At1 => Start {
                 bytes: [
                     0xffff_ffff_ffff_fbff,
                     0xffff_ffff_ffff_ffff,

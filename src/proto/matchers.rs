@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -62,8 +62,8 @@ impl Lexer<'_> {
                 if end == p || self.at(colon) != b':' {
                     return None;
                 }
-                self.cap(1, p, end);
-                self.cap(2, colon, colon + 1);
+                self.capture(1, p, end);
+                self.capture(2, colon, colon + 1);
                 Some(colon + 1)
             }
             Pattern::KvEnd => match self.at(p) {
@@ -80,7 +80,7 @@ impl Lexer<'_> {
                 if blanks == end {
                     return None;
                 }
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(blanks)
             }
             Pattern::ReservedAt0 => self.reserved_range(p),
@@ -90,12 +90,12 @@ impl Lexer<'_> {
             Pattern::FieldOptionsEnd => self.lit(p, b"]"),
             Pattern::OptionName => {
                 let name = self.option_name(p)?;
-                self.cap(1, p, name.first);
+                self.capture(1, p, name.first);
                 if let Some((start, end)) = name.inner {
-                    self.cap(2, start, end);
+                    self.capture(2, start, end);
                 }
                 if let Some((start, end)) = name.outer {
-                    self.cap(3, start, end);
+                    self.capture(3, start, end);
                 }
                 Some(name.end)
             }
@@ -107,8 +107,8 @@ impl Lexer<'_> {
                     return None;
                 }
                 let name_end = self.skip(name + 1, is_name);
-                self.cap(1, p, end);
-                self.cap(2, name, name_end);
+                self.capture(1, p, end);
+                self.capture(2, name, name_end);
                 Some(name_end)
             }
             Pattern::MethodEnd => match self.at(p) {
@@ -140,7 +140,7 @@ impl Lexer<'_> {
     /// `(;)`, with its group.
     fn semicolon(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b";")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

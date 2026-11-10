@@ -84,16 +84,16 @@ impl Lexer<'_> {
         let (name_group, op_group) = match lead {
             Lead::Line => (1, 2),
             Lead::Condition => {
-                self.cap(1, p, word);
+                self.capture(1, p, word);
                 (3, 4)
             }
         };
-        self.cap(name_group, name, name_end);
+        self.capture(name_group, name, name_end);
         match (lead, assign) {
             (Lead::Line, Assign::Plain) => Some(op),
             (Lead::Condition, Assign::Plain) => Some(op_end),
             (_, Assign::Logical | Assign::Augmented) => {
-                self.cap(op_group, op, op_end);
+                self.capture(op_group, op, op_end);
                 Some(op_end)
             }
         }
@@ -141,7 +141,7 @@ impl Lexer<'_> {
     pub(in crate::ruby) fn hash_key(&mut self, p: usize) -> Option<usize> {
         let colon = self.key_name_end(p)?;
         (self.byte_in(colon, |b| b == b':') && !self.byte_in(colon + 1, |b| b == b':')).then(|| {
-            self.cap(1, colon, colon + 1);
+            self.capture(1, colon, colon + 1);
             colon + 1
         })
     }
@@ -153,7 +153,7 @@ impl Lexer<'_> {
         }
         let end = self.key_name_end(p + 1)?;
         self.starts(self.space_end(end), b"=>").then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             end
         })
     }
@@ -165,7 +165,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.symbol_name_end(p + 1)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 

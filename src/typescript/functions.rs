@@ -11,12 +11,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// `at`: the pieces of the head.
     fn function_head(&self, at: usize) -> Option<FunctionHead> {
         let mut j = at;
-        let mut async_cap = None;
+        let mut async_capture = None;
         if self.starts(j, "async") {
             let e = j + "async".len();
             let k = self.ws(e);
             if k > e && self.starts(k, "function") {
-                async_cap = Some((j, e));
+                async_capture = Some((j, e));
                 j = k;
             }
         }
@@ -41,7 +41,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let end = self.ws(e);
         Some(FunctionHead {
-            async_cap,
+            async_capture,
             kw,
             star,
             name,
@@ -50,7 +50,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn emit_function_head(&mut self, rule: Rule, head: &FunctionHead) {
-        if let Some((a, b)) = head.async_cap {
+        if let Some((a, b)) = head.async_capture {
             self.capture(rule, a, b, &[S::StorageModifierAsync]);
         }
         self.capture(rule, head.kw.0, head.kw.1, &[S::StorageTypeFunction]);
@@ -410,7 +410,7 @@ impl<const D: u8> Lexer<'_, D> {
 
 /// The pieces of `function name` that begin a function.
 pub(crate) struct FunctionHead {
-    async_cap: Option<(usize, usize)>,
+    async_capture: Option<(usize, usize)>,
     kw: (usize, usize),
     star: Option<(usize, usize)>,
     name: Option<(usize, usize)>,

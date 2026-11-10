@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -96,9 +96,9 @@ impl Lexer<'_> {
         let word_end = self.lit(word_start, word)?;
         let close = self.space_end(word_end);
         let end = self.lit(close, b"%}")?;
-        self.cap(1, p, open);
-        self.cap(2, word_start, word_end);
-        self.cap(3, close, end);
+        self.capture(1, p, open);
+        self.capture(2, word_start, word_end);
+        self.capture(3, close, end);
         Some(end)
     }
 
@@ -132,8 +132,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.bounded_name(name)?;
-        self.cap(1, start, keyword_end);
-        self.cap(2, name, end);
+        self.capture(1, start, keyword_end);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -156,7 +156,7 @@ impl Lexer<'_> {
         if self.starts(next, b",") || self.starts(next, b"=") {
             return None;
         }
-        self.cap(1, name, end);
+        self.capture(1, name, end);
         Some(end)
     }
 
@@ -200,7 +200,7 @@ impl Lexer<'_> {
             }
             _ => return None,
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -209,8 +209,8 @@ impl Lexer<'_> {
     fn mark_and_name(&mut self, p: usize, mark: &[u8]) -> Option<usize> {
         let name = self.lit(p, mark)?;
         let end = self.name(name)?;
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -219,7 +219,7 @@ impl Lexer<'_> {
         if !(p < self.lim() && matches!(self.at(p), b',' | b'.' | b':' | b'|')) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -231,7 +231,7 @@ impl Lexer<'_> {
             .or_else(|| self.lit(p, b"=>"))
             .or_else(|| (p < self.lim() && matches!(self.at(p), b'<' | b'>')).then_some(p + 1))
             .or_else(|| self.lit(p, b"!="))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -257,7 +257,7 @@ impl Lexer<'_> {
             b'v' => 11,
             _ => return None,
         };
-        self.cap(group, p, after + 1);
+        self.capture(group, p, after + 1);
         Some(after + 1)
     }
 
@@ -282,11 +282,11 @@ impl Lexer<'_> {
                 .then_some(end)
         };
         if let Some(end) = self.lit(p, b"\\U").and_then(|start| hex(start, 8)) {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         if let Some(end) = self.lit(p, b"\\u").and_then(|start| hex(start, 4)) {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         let name = self.lit(p, b"\\N{")?;
@@ -295,7 +295,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(close, b"}")?;
-        self.cap(3, p, end);
+        self.capture(3, p, end);
         Some(end)
     }
 }

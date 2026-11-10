@@ -102,11 +102,11 @@ impl Lexer<'_> {
     /// `template`.
     fn put_chain(&mut self, chain: &Chain, colons: usize, template: (usize, usize)) {
         if let Some(at) = chain.colons {
-            self.cap(colons, at, at + 2);
+            self.capture(colons, at, at + 2);
         }
         if let Some((a, tpl_end, spaced)) = chain.template {
-            self.cap(template.0, a, spaced);
-            self.cap(template.1, a, tpl_end);
+            self.capture(template.0, a, spaced);
+            self.capture(template.1, a, tpl_end);
         }
     }
 
@@ -142,14 +142,14 @@ impl Lexer<'_> {
                 Some((Some(*chain), name_after(lexer, chain.end)?))
             })
             .or_else(|| Some((None, name_after(self, b)?)))?;
-        self.cap(1, p, using);
-        self.cap(2, a, namespace);
+        self.capture(1, p, using);
+        self.capture(2, a, namespace);
         let at = chain.map_or(b, |c| c.end);
         if let Some(chain) = &chain {
-            self.cap(3, b, chain.end);
+            self.capture(3, b, chain.end);
             self.put_chain(chain, 4, (5, 6));
         }
-        self.cap(7, at, name);
+        self.capture(7, at, name);
         Some(name)
     }
 
@@ -177,12 +177,12 @@ impl Lexer<'_> {
         } else {
             (after, None)
         };
-        self.cap(1, p, chain.end);
+        self.capture(1, p, chain.end);
         self.put_chain(&chain, 2, (3, 4));
-        self.cap(5, at, name);
+        self.capture(5, at, name);
         if let Some((colons, word, e)) = tail {
-            self.cap(6, colons, colons + 2);
-            self.cap(7, word, e);
+            self.capture(6, colons, colons + 2);
+            self.capture(7, word, e);
         }
         Some(end)
     }
@@ -229,15 +229,15 @@ impl Lexer<'_> {
                 Some((*chain, at, name, end, semicolon))
             })
         })?;
-        self.cap(1, p, word);
-        self.cap(2, a, alias);
-        self.cap(3, eq, eq + 1);
-        self.cap(4, target, end);
-        self.cap(5, target, chain.end);
+        self.capture(1, p, word);
+        self.capture(2, a, alias);
+        self.capture(3, eq, eq + 1);
+        self.capture(4, target, end);
+        self.capture(5, target, chain.end);
         self.put_chain(&chain, 6, (7, 8));
-        self.cap(9, at, name);
+        self.capture(9, at, name);
         if let Some(s) = semicolon {
-            self.cap(10, s, s + 1);
+            self.capture(10, s, s + 1);
         }
         Some(end)
     }
@@ -265,15 +265,15 @@ impl Lexer<'_> {
                                 if self.at(fourth.end) != b'(' || fourth.end >= self.lim() {
                                     continue;
                                 }
-                                self.cap(1, start, convention);
+                                self.capture(1, start, convention);
                                 self.put_gap(2, GapForm::Parts, convention, &first);
-                                self.cap(6, first.end, chain_end);
+                                self.capture(6, first.end, chain_end);
                                 if let Some((a, tpl_end, spaced)) = template {
-                                    self.cap(7, a, spaced);
-                                    self.cap(8, a, tpl_end);
+                                    self.capture(7, a, spaced);
+                                    self.capture(8, a, tpl_end);
                                 }
-                                self.cap(9, chain_end, fourth.end);
-                                self.cap(10, chain_end, name);
+                                self.capture(9, chain_end, fourth.end);
+                                self.capture(10, chain_end, name);
                                 self.put_gap(11, GapForm::Parts, name, &second);
                                 self.put_gap(15, GapForm::Parts, second.end + 2, &third);
                                 self.put_gap(19, GapForm::Parts, copy, &fourth);
@@ -315,15 +315,15 @@ impl Lexer<'_> {
                                         continue;
                                     }
                                     self.put_gap(1, GapForm::Parts, p, &first);
-                                    self.cap(5, first.end, convention);
+                                    self.capture(5, first.end, convention);
                                     self.put_gap(6, GapForm::Parts, convention, &second);
-                                    self.cap(10, second.end, chain_end);
+                                    self.capture(10, second.end, chain_end);
                                     if let Some((a, tpl_end, spaced)) = template {
-                                        self.cap(11, a, spaced);
-                                        self.cap(12, a, tpl_end);
+                                        self.capture(11, a, spaced);
+                                        self.capture(12, a, tpl_end);
                                     }
-                                    self.cap(13, chain_end, fifth.end);
-                                    self.cap(14, chain_end, name);
+                                    self.capture(13, chain_end, fifth.end);
+                                    self.capture(14, chain_end, name);
                                     self.put_gap(15, GapForm::Parts, name, &third);
                                     self.put_gap(19, GapForm::Parts, third.end + 2, &fourth);
                                     self.put_gap(23, GapForm::Parts, copy, &fifth);
@@ -379,14 +379,14 @@ impl Lexer<'_> {
             } else {
                 self.ident_bounded(name_at).unwrap_or(name_at)
             };
-            self.cap(1, p, word);
+            self.capture(1, p, word);
             if let Some((a, e)) = form {
-                self.cap(2, a, e);
+                self.capture(2, a, e);
             }
             if let Some(end) = attribute {
-                self.cap(3, after, end);
+                self.capture(3, after, end);
             }
-            self.cap(4, name_at, name_end);
+            self.capture(4, name_at, name_end);
             return Some(self.enum_base(name_end).unwrap_or(name_end));
         }
         None
@@ -452,24 +452,24 @@ impl Lexer<'_> {
     /// - the template with its comment parts;
     /// - the last `::`.
     fn put_resolution(&mut self, found: &ScopeResolution, chain_group: usize) {
-        self.cap(chain_group, found.first, found.chain.end);
+        self.capture(chain_group, found.first, found.chain.end);
         self.put_chain(
             &found.chain,
             chain_group + 1,
             (chain_group + 2, chain_group + 3),
         );
-        self.cap(chain_group + 4, found.name_at, found.name);
+        self.capture(chain_group + 4, found.name_at, found.name);
         let template = chain_group + 5;
         if let Some(tpl) = &found.template {
-            self.cap(template, tpl.start, tpl.spaced);
-            self.cap(template + 1, tpl.start, tpl.end);
+            self.capture(template, tpl.start, tpl.spaced);
+            self.capture(template + 1, tpl.start, tpl.end);
             for (i, part) in tpl.parts.iter().enumerate() {
                 if let Some((x, y)) = part {
-                    self.cap(template + 2 + i, *x, *y);
+                    self.capture(template + 2 + i, *x, *y);
                 }
             }
         }
-        self.cap(template + 5, found.colons, found.colons + 2);
+        self.capture(template + 5, found.colons, found.colons + 2);
     }
 
     /// `(CHAIN)(NAME)\s*+(TEMPLATE\s*+)?(::)` as a whole expression.
@@ -503,8 +503,8 @@ impl Lexer<'_> {
             }
             (first, self.ident_bounded(first)?)
         };
-        self.cap(5, colon, colon + 1);
-        self.cap(17, id_at, id);
+        self.capture(5, colon, colon + 1);
+        self.capture(17, id_at, id);
         Some(id)
     }
 
@@ -573,20 +573,20 @@ impl Lexer<'_> {
             }
             None
         })?;
-        self.cap(1, p, chain.end);
+        self.capture(1, p, chain.end);
         self.put_chain(&chain, 2, (3, 4));
-        self.cap(5, chain.end, name);
+        self.capture(5, chain.end, name);
         self.put_gap(6, GapForm::Parts, name, &gap);
         if let Some((tpl_end, after, parts)) = template {
-            self.cap(10, gap.end, after);
-            self.cap(11, gap.end, tpl_end);
+            self.capture(10, gap.end, after);
+            self.capture(11, gap.end, tpl_end);
             for (i, part) in parts.iter().enumerate() {
                 if let Some((a, b)) = part {
-                    self.cap(12 + i, *a, *b);
+                    self.capture(12 + i, *a, *b);
                 }
             }
         }
-        self.cap(15, open, open + 1);
+        self.capture(15, open, open + 1);
         Some(open + 1)
     }
 }

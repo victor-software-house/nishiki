@@ -121,13 +121,13 @@ impl Lexer<'_> {
     /// dot and 3 the arrow.
     fn record_access(&mut self, access: &Access) {
         if let Some(at) = access.question {
-            self.cap(1, at, at + 1);
+            self.capture(1, at, at + 1);
         }
         if let Some((from, to)) = access.dot {
-            self.cap(2, from, to);
+            self.capture(2, from, to);
         }
         if let Some((from, to)) = access.arrow {
-            self.cap(3, from, to);
+            self.capture(3, from, to);
         }
     }
 
@@ -156,9 +156,9 @@ impl Lexer<'_> {
             if let Some(access) = access {
                 self.record_access(&access);
             }
-            self.cap(4, start, name_end);
+            self.capture(4, start, name_end);
             if let Some((from, to)) = arguments {
-                self.cap(5, from, to);
+                self.capture(5, from, to);
             }
             return Some(end);
         }
@@ -210,13 +210,13 @@ impl Lexer<'_> {
             if used > 0 {
                 let from = ends[used - 1];
                 let prev_end = self.ident(from).unwrap_or(from);
-                self.cap(1, from, prev_end);
+                self.capture(1, from, prev_end);
                 let dot = self.blanks(prev_end);
-                self.cap(2, dot, dot + 1);
+                self.capture(2, dot, dot + 1);
             }
-            self.cap(3, start, name_end);
+            self.capture(3, start, name_end);
             if let Some(w) = args {
-                self.cap(4, w, end);
+                self.capture(4, w, end);
             }
             return Some(end);
         }
@@ -256,7 +256,7 @@ impl Lexer<'_> {
             return None;
         };
         self.record_access(&access);
-        self.cap(4, name_start, name_end);
+        self.capture(4, name_start, name_end);
         Some(end)
     }
 
@@ -288,10 +288,10 @@ impl Lexer<'_> {
                 continue;
             }
             if let Some(d) = dot_at {
-                self.cap(1, d, d + 1);
+                self.capture(1, d, d + 1);
             }
-            self.cap(2, name_start, name_end);
-            self.cap(3, name_end, end);
+            self.capture(2, name_start, name_end);
+            self.capture(3, name_end, end);
             return Some(end);
         }
         None
@@ -311,7 +311,7 @@ impl Lexer<'_> {
         }
         let next = self.blanks(after_op?);
         self.ident(next)?;
-        self.cap(1, p, name_end);
+        self.capture(1, p, name_end);
         Some(name_end)
     }
 
@@ -340,10 +340,10 @@ impl Lexer<'_> {
                         self.record_access(&access);
                     }
                     if let Some((from, to, _)) = name {
-                        self.cap(4, from, to);
+                        self.capture(4, from, to);
                     }
                     if let Some((from, _)) = question {
-                        self.cap(5, from, from + 1);
+                        self.capture(5, from, from + 1);
                     }
                     return Some(at);
                 }
@@ -368,8 +368,8 @@ impl Lexer<'_> {
         if self.at(colon) != b':' || colon >= self.lim() {
             return None;
         }
-        self.cap(1, p, name_end);
-        self.cap(2, colon, colon + 1);
+        self.capture(1, p, name_end);
+        self.capture(2, colon, colon + 1);
         Some(colon + 1)
     }
 
@@ -380,7 +380,7 @@ impl Lexer<'_> {
         if self.at(equals) != b'=' || equals >= self.lim() {
             return None;
         }
-        self.cap(1, p, name_end);
+        self.capture(1, p, name_end);
         Some(equals)
     }
 
@@ -391,7 +391,7 @@ impl Lexer<'_> {
         if self.at(colon) != b':' || colon >= self.lim() {
             return None;
         }
-        self.cap(1, p, name_end);
+        self.capture(1, p, name_end);
         Some(colon)
     }
 
@@ -401,7 +401,7 @@ impl Lexer<'_> {
         if self.last_comma_or_colon()? < open {
             return None;
         }
-        self.cap(1, p, open);
+        self.capture(1, p, open);
         Some(open)
     }
 
@@ -422,9 +422,9 @@ impl Lexer<'_> {
             if !class {
                 return None;
             }
-            lx.cap(1, p, open);
-            lx.cap(2, ty.start, ty.end);
-            lx.cap(7, close, end);
+            lx.capture(1, p, open);
+            lx.capture(2, ty.start, ty.end);
+            lx.capture(7, close, end);
             Some(end)
         })
     }
@@ -438,8 +438,8 @@ impl Lexer<'_> {
                 if lx.at(end) != b'(' || end >= lx.lim() {
                     return None;
                 }
-                lx.cap(1, p, new_end);
-                lx.cap(2, ty.start, ty.end);
+                lx.capture(1, p, new_end);
+                lx.capture(2, ty.start, ty.end);
                 Some(end)
             });
             if found.is_some() {
@@ -450,7 +450,7 @@ impl Lexer<'_> {
         if self.at(end) != b'(' || end >= self.lim() {
             return None;
         }
-        self.cap(1, p, new_end);
+        self.capture(1, p, new_end);
         Some(end)
     }
 
@@ -471,8 +471,8 @@ impl Lexer<'_> {
             if !lx.initializer_ahead(end) {
                 return None;
             }
-            lx.cap(1, p, new_end);
-            lx.cap(2, ty.start, ty.end);
+            lx.capture(1, p, new_end);
+            lx.capture(2, ty.start, ty.end);
             Some(end)
         })
     }
@@ -486,8 +486,8 @@ impl Lexer<'_> {
             if lx.at(end) != b'[' || end >= lx.lim() {
                 return None;
             }
-            lx.cap(1, p, word_end);
-            lx.cap(2, ty.start, ty.end);
+            lx.capture(1, p, word_end);
+            lx.capture(2, ty.start, ty.end);
             Some(end)
         });
         if found.is_some() {
@@ -496,7 +496,7 @@ impl Lexer<'_> {
         if self.at(start) != b'[' || start >= self.lim() {
             return None;
         }
-        self.cap(1, p, word_end);
+        self.capture(1, p, word_end);
         Some(start)
     }
 
@@ -507,7 +507,7 @@ impl Lexer<'_> {
         if !self.initializer_ahead(after) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(after)
     }
 
@@ -518,7 +518,7 @@ impl Lexer<'_> {
         if !self.initializer_ahead(after) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(after)
     }
 
@@ -553,10 +553,10 @@ impl Lexer<'_> {
                 let arrow = self.blanks(name_end);
                 if let Some(end) = self.lit(arrow, b"=>") {
                     if used > 0 {
-                        self.cap(1, p, at);
+                        self.capture(1, p, at);
                     }
-                    self.cap(2, at, name_end);
-                    self.cap(6, arrow, end);
+                    self.capture(2, at, name_end);
+                    self.capture(6, arrow, end);
                     return Some(end);
                 }
             }
@@ -567,12 +567,12 @@ impl Lexer<'_> {
                 let arrow = self.blanks(close);
                 if let Some(end) = self.lit(arrow, b"=>") {
                     if used > 0 {
-                        self.cap(1, p, at);
+                        self.capture(1, p, at);
                     }
-                    self.cap(3, at, at + 1);
-                    self.cap(4, at + 1, close - 1);
-                    self.cap(5, close - 1, close);
-                    self.cap(6, arrow, end);
+                    self.capture(3, at, at + 1);
+                    self.capture(4, at + 1, close - 1);
+                    self.capture(5, close - 1, close);
+                    self.capture(6, arrow, end);
                     return Some(end);
                 }
             }
@@ -588,9 +588,9 @@ impl Lexer<'_> {
             let at = ends[used];
             if let Some(end) = self.keyword(at, b"delegate") {
                 if used > 0 {
-                    self.cap(1, p, at);
+                    self.capture(1, p, at);
                 }
-                self.cap(2, at, end);
+                self.capture(2, at, end);
                 return Some(self.blanks(end));
             }
         }
@@ -600,7 +600,7 @@ impl Lexer<'_> {
     /// `\b(ref)\b|(?=\S)`
     pub(in crate::csharp) fn ref_or_non_blank(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.keyword(p, b"ref") {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         (self.avail(p) && self.space_width(p) == 0).then_some(p)
@@ -614,7 +614,7 @@ impl Lexer<'_> {
     /// `(@?ident)\b`, a type parameter's name.
     pub(in crate::csharp) fn type_parameter_name(&mut self, p: usize) -> Option<usize> {
         let end = self.name_then_boundary(p)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -647,10 +647,10 @@ impl Lexer<'_> {
                     .ident(name_start)
                     .filter(|&end| lx.word_at(end).is_none())?;
                 if let Some((from, to)) = modifier {
-                    lx.cap(1, from, to);
+                    lx.capture(1, from, to);
                 }
-                lx.cap(2, ty.start, ty.end);
-                lx.cap(7, name_start, name_end);
+                lx.capture(2, ty.start, ty.end);
+                lx.capture(7, name_start, name_end);
                 Some(name_end)
             });
             if found.is_some() {
@@ -676,10 +676,10 @@ impl Lexer<'_> {
                 let (name_start, ty_end) = lx.plus_blanks(ty)?;
                 let name_end = lx.ident(name_start)?;
                 if let Some((from, to)) = modifier {
-                    lx.cap(1, from, to);
+                    lx.capture(1, from, to);
                 }
-                lx.cap(2, ty.start, ty_end);
-                lx.cap(7, name_start, name_end);
+                lx.capture(2, ty.start, ty_end);
+                lx.capture(7, name_start, name_end);
                 Some(name_end)
             });
             if found.is_some() {
@@ -708,15 +708,15 @@ impl Lexer<'_> {
             && let Some(name_start) = self.blanks1(var_end)
             && let Some((name_end, end)) = finish(self, name_start)
         {
-            self.cap(1, p, var_end);
-            self.cap(name_group, name_start, name_end);
+            self.capture(1, p, var_end);
+            self.capture(name_group, name_start, name_end);
             return Some(end);
         }
         self.type_name(p, Shape::STD, &mut |lx, ty: Ty| {
             let (name_start, ty_end) = lx.plus_blanks(ty)?;
             let (name_end, end) = finish(lx, name_start)?;
-            lx.cap(2, ty.start, ty_end);
-            lx.cap(name_group, name_start, name_end);
+            lx.capture(2, ty.start, ty_end);
+            lx.capture(name_group, name_start, name_end);
             Some(end)
         })
     }
@@ -728,7 +728,7 @@ impl Lexer<'_> {
         if !self.ahead_in(end, b"),") {
             return None;
         }
-        self.cap(1, p, name_end);
+        self.capture(1, p, name_end);
         Some(end)
     }
 
@@ -753,7 +753,7 @@ impl Lexer<'_> {
         if self.at(at) != b'=' || at >= self.lim() || self.byte_in(at + 1, b"=>") {
             return None;
         }
-        self.cap(1, p, close);
+        self.capture(1, p, close);
         Some(at)
     }
 
@@ -776,10 +776,10 @@ impl Lexer<'_> {
         let found = self.type_name(start, Shape::STD, &mut |lx, ty: Ty| {
             let (name_start, ty_end) = lx.plus_blanks(ty)?;
             let (name_end, in_start, in_end, end) = finish(lx, name_start)?;
-            lx.cap(1, p, word_end);
-            lx.cap(2, ty.start, ty_end);
-            lx.cap(7, name_start, name_end);
-            lx.cap(8, in_start, in_end);
+            lx.capture(1, p, word_end);
+            lx.capture(2, ty.start, ty_end);
+            lx.capture(7, name_start, name_end);
+            lx.capture(8, in_start, in_end);
             Some(end)
         });
         if found.is_some() {
@@ -789,16 +789,16 @@ impl Lexer<'_> {
             return None;
         }
         let (name_end, in_start, in_end, end) = finish(self, start)?;
-        self.cap(1, p, word_end);
-        self.cap(7, start, name_end);
-        self.cap(8, in_start, in_end);
+        self.capture(1, p, word_end);
+        self.capture(7, start, name_end);
+        self.capture(8, in_start, in_end);
         Some(end)
     }
 
     /// `\b(word)\b\s*`, a keyword and the blanks after it.
     pub(in crate::csharp) fn keyword_and_blanks(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.blanks(end))
     }
 
@@ -811,9 +811,9 @@ impl Lexer<'_> {
             .filter(|&end| self.word_at(end).is_none())?;
         let equals = self.blanks(name_end);
         let after = self.lit(equals, b"=")?;
-        self.cap(1, p, end);
-        self.cap(2, name_start, name_end);
-        self.cap(3, equals, after);
+        self.capture(1, p, end);
+        self.capture(2, name_start, name_end);
+        self.capture(3, equals, after);
         Some(self.blanks(after))
     }
 
@@ -824,18 +824,18 @@ impl Lexer<'_> {
         let name_end = self
             .ident(name_start)
             .filter(|&end| self.word_at(end).is_none())?;
-        self.cap(1, p, end);
-        self.cap(2, name_start, name_end);
+        self.capture(1, p, end);
+        self.capture(2, name_start, name_end);
         Some(self.blanks(name_end))
     }
 
     /// `(?<!\.)\b(as)\b\s*T?`
     pub(in crate::csharp) fn as_expression(&mut self, p: usize) -> Option<usize> {
         let end = self.non_member_keyword(p, b"as")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let start = self.blanks(end);
         let found = self.type_name(start, Shape::AS, &mut |lx, ty: Ty| {
-            lx.cap(2, ty.start, ty.end);
+            lx.capture(2, ty.start, ty.end);
             Some(ty.end)
         });
         Some(found.unwrap_or(start))

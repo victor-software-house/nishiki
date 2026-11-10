@@ -65,13 +65,13 @@ impl Lexer<'_> {
             _ => return None,
         };
         let end = self.class_run(text, is_title);
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         if let Some(after) = colon
             && text > after
         {
-            self.cap(2, spaces, after);
+            self.capture(2, spaces, after);
         }
-        self.cap(3, text, end);
+        self.capture(3, text, end);
         Some(end)
     }
 
@@ -109,12 +109,12 @@ impl Lexer<'_> {
             name_end = self.char_start_before(name_end);
         };
         let alias_end = self.class_run(alias, |c| c == ',' || is_actor(c));
-        self.cap(1, start, word);
-        self.cap(2, name, name_end);
+        self.capture(1, start, word);
+        self.capture(2, name, name_end);
         if let Some((from, to)) = alias_word {
-            self.cap(3, from, to);
+            self.capture(3, from, to);
         }
-        self.cap(4, alias, alias_end);
+        self.capture(4, alias, alias_end);
         Some(alias_end)
     }
 
@@ -179,8 +179,8 @@ impl Lexer<'_> {
         let name = self.ws1(word)?;
         self.word_at(name)?;
         let (_, end) = self.sequence_actor(name, |q| Some(self.ws(q)))?;
-        self.cap(1, start, word);
-        self.cap(2, name, end);
+        self.capture(1, start, word);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -227,18 +227,18 @@ impl Lexer<'_> {
         })?;
         let text = (self.space_at(colon) > 0).then(|| self.ws(colon));
         let end = text.map_or(colon, |text| self.class_run(text, is_text));
-        self.cap(1, start, word);
-        self.cap(2, place, place_end);
-        self.cap(3, first, first_end);
+        self.capture(1, start, word);
+        self.capture(2, place, place_end);
+        self.capture(3, first, first_end);
         if let Some(after) = comma {
-            self.cap(4, after - 1, after);
+            self.capture(4, after - 1, after);
         }
         if let Some((from, to)) = second {
-            self.cap(5, from, to);
+            self.capture(5, from, to);
         }
-        self.cap(6, colon - 1, colon);
+        self.capture(6, colon - 1, colon);
         if let Some(text) = text {
-            self.cap(7, text, end);
+            self.capture(7, text, end);
         }
         Some(end)
     }
@@ -264,11 +264,11 @@ impl Lexer<'_> {
                 Tail::ToEnd => self.at_eol(word_end).then_some(word_end),
             };
             if let Some(found) = found {
-                self.cap(1, start, word_end);
+                self.capture(1, start, word_end);
                 if let Some(text) = text
                     && found == end
                 {
-                    self.cap(2, text, end);
+                    self.capture(2, text, end);
                 }
                 return Some(found);
             }
@@ -333,11 +333,11 @@ impl Lexer<'_> {
         };
         let text = self.ws(colon);
         let end = self.class_run(text, is_text);
-        self.cap(1, from, from_end);
-        self.cap(2, arrow, arrow_end);
-        self.cap(3, to, to_end);
-        self.cap(4, colon - 1, colon);
-        self.cap(5, text, end);
+        self.capture(1, from, from_end);
+        self.capture(2, arrow, arrow_end);
+        self.capture(3, to, to_end);
+        self.capture(4, colon - 1, colon);
+        self.capture(5, text, end);
         Some(end)
     }
 
@@ -349,10 +349,10 @@ impl Lexer<'_> {
         let transparent_end = self.ci(transparent, b"transparent")?;
         let text = (self.space_at(transparent_end) > 0).then(|| self.ws(transparent_end));
         let end = text.map_or(transparent_end, |text| self.class_run(text, is_text));
-        self.cap(1, start, word);
-        self.cap(2, transparent, transparent_end);
+        self.capture(1, start, word);
+        self.capture(2, transparent, transparent_end);
         if let Some(text) = text {
-            self.cap(3, text, end);
+            self.capture(3, text, end);
         }
         Some(end)
     }

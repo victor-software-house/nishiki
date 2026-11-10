@@ -151,8 +151,8 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     let out = "";
     parts.forEach((part, index) => {
       for (const piece of part.split(/[-_()$]/)) {
-        const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-        out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+        const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+        out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
       }
     });
     return out;
@@ -207,12 +207,12 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
 
   // Rules and patterns.
 
-  type Cap = { group: number; scopes: Sc[]; nested: string | null };
+  type Capture = { group: number; scopes: Sc[]; nested: string | null };
   type Pattern = {
     id: string;
     regex: string;
     act: { role: "match"; name: Sc[] } | { role: "begin"; rule: string } | { role: "end" };
-    captures: Cap[];
+    captures: Capture[];
   };
   type Rule = {
     id: string;
@@ -227,32 +227,32 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   const patternById = new Map<string, Pattern>();
   const rules = new Map<string, Rule>();
   /** The captures that nest a pattern list, to expand their lists a second time. */
-  const captureSources: { cap: Cap; scope: Scope; patterns: Node[]; name: string }[] = [];
+  const captureSources: { capture: Capture; scope: Scope; patterns: Node[]; name: string }[] = [];
   /** Nested contexts by the patterns they try, so equal ones are one rule. */
   const contexts = new Map<string, string>();
   const emptyRule = (id: string): Rule => ({ id, name: [], content: [], end: "", endLast: false, backref: null, patterns: [] });
 
-  function captureList(sc: Scope, captures: Captures | undefined, owner: string, regex: string): Cap[] {
+  function captureList(sc: Scope, captures: Captures | undefined, owner: string, regex: string): Capture[] {
     if (!captures) return [];
-    const out: Cap[] = [];
+    const out: Capture[] = [];
     for (const [group, value] of Object.entries(captures)) {
       const names = scopeList(value.name, regex);
       let nested: string | null = null;
       if (value.patterns) {
-        const list = flatten(sc, value.patterns, `${owner}Cap${group}`);
+        const list = flatten(sc, value.patterns, `${owner}Capture${group}`);
         const key = list.join(",");
         let id = contexts.get(key);
         if (id === undefined) {
-          id = `${owner}Cap${group}`;
+          id = `${owner}Capture${group}`;
           contexts.set(key, id);
           rules.set(id, { ...emptyRule(id), patterns: list });
         }
         nested = id;
       }
       if (names.length || nested) {
-        const cap: Cap = { group: Number(group), scopes: names, nested };
-        if (value.patterns) captureSources.push({ cap, scope: sc, patterns: value.patterns, name: `${owner}Cap${group}` });
-        out.push(cap);
+        const capture: Capture = { group: Number(group), scopes: names, nested };
+        if (value.patterns) captureSources.push({ capture, scope: sc, patterns: value.patterns, name: `${owner}Capture${group}` });
+        out.push(capture);
       }
     }
     return out.sort((a, b) => a.group - b.group);
@@ -440,13 +440,13 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
       rules.get(id)!.patterns = flatten(sc, node.patterns ?? [], id);
       continue;
     }
-    const { cap, scope: sc, patterns, name } = captureSources[j++]!;
+    const { capture, scope: sc, patterns, name } = captureSources[j++]!;
     expanding.clear();
     const list = flatten(sc, patterns, name);
     const key = list.join(",");
     let rule = fullContexts.get(key);
     if (rule === undefined) {
-      let id = cap.nested!;
+      let id = capture.nested!;
       if (claimed.has(id)) id = `${name}X${claimed.size}`;
       claimed.set(id, key);
       rule = rules.get(id) ?? emptyRule(id);
@@ -454,7 +454,7 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
       rules.set(id, rule);
       fullContexts.set(key, rule);
     }
-    cap.nested = rule.id;
+    capture.nested = rule.id;
   }
 
   // Output.
@@ -589,7 +589,7 @@ pub(crate) struct Nested {
           : p.act.role === "begin"
             ? `Act::Begin(Rule::${p.act.rule})`
             : "Act::End";
-      const caps = p.captures
+      const captures = p.captures
         .filter((c) => !c.nested)
         .map((c) => `(${c.group}, ${scText(c.scopes)})`)
         .join(", ");
@@ -597,7 +597,7 @@ pub(crate) struct Nested {
         .filter((c) => c.nested)
         .map((c) => `(${c.group}, Nested { rule: Rule::${c.nested}, scopes: ${scText(c.scopes)} })`)
         .join(", ");
-      return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+      return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
     }),
     "Pattern",
   );

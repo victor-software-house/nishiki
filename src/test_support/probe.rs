@@ -114,12 +114,12 @@ pub(crate) fn answer_cases<P: Copy + Debug>(
                 Some(true) | None => After::LineFeed,
             },
         };
-        let value = answer(&mut arena, pattern, &case).map_or(Value::Null, |(end, caps)| {
-            let caps: Vec<Option<[usize; 2]>> = caps
+        let value = answer(&mut arena, pattern, &case).map_or(Value::Null, |(end, captures)| {
+            let captures: Vec<Option<[usize; 2]>> = captures
                 .into_iter()
                 .map(|span| span.map(|(a, b)| [a, b]))
                 .collect();
-            json!({ "end": end, "caps": caps })
+            json!({ "end": end, "captures": captures })
         });
         out.push_str(&value.to_string());
         out.push('\n');

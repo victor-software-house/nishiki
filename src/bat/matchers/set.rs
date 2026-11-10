@@ -22,8 +22,8 @@ impl Lexer<'_> {
     pub(super) fn assignment(&mut self, p: usize) -> Option<usize> {
         let after = self.not_space(p)?;
         let equals = self.equals_from(after)?;
-        self.cap(1, p, equals);
-        self.cap(2, equals, equals + 1);
+        self.capture(1, p, equals);
+        self.capture(2, equals, equals + 1);
         Some(equals + 1)
     }
 
@@ -49,9 +49,9 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, p + 1);
-        self.cap(2, name, equals);
-        self.cap(3, equals, equals + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, name, equals);
+        self.capture(3, equals, equals + 1);
         Some(equals + 1)
     }
 
@@ -85,8 +85,8 @@ impl Lexer<'_> {
         let mut at = run;
         loop {
             if let Some(end) = self.operator_equals(at) {
-                self.cap(1, p, at);
-                self.cap(2, at, end);
+                self.capture(1, p, at);
+                self.capture(2, at, end);
                 return Some(end);
             }
             if at == p {
@@ -120,8 +120,8 @@ impl Lexer<'_> {
     pub(super) fn plain_assignment(&mut self, p: usize) -> Option<usize> {
         let equals = self.skip(p, |b| !matches!(b, b' ' | b'='));
         self.lit_byte(equals, b'=')?;
-        self.cap(1, p, equals);
-        self.cap(2, equals, equals + 1);
+        self.capture(1, p, equals);
+        self.capture(2, equals, equals + 1);
         Some(equals + 1)
     }
 }

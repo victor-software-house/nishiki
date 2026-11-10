@@ -52,7 +52,7 @@ impl Lexer<'_> {
     /// The last separator of `from..to`, recorded as capture group `group`.
     fn last_separator(&mut self, group: usize, from: usize, to: usize) {
         if let Some(i) = (from..to).rev().find(|&i| self.s[i] == b'_') {
-            self.cap(group, i, i + 1);
+            self.capture(group, i, i + 1);
         }
     }
 
@@ -77,7 +77,7 @@ impl Lexer<'_> {
             return Some(p);
         }
         if self.suffix_to_end(p, spellings) {
-            self.cap(group, p, self.lim());
+            self.capture(group, p, self.lim());
             return Some(self.lim());
         }
         None
@@ -103,14 +103,14 @@ impl Lexer<'_> {
         if end == q {
             return None;
         }
-        self.cap(base, p, p + 1);
+        self.capture(base, p, p + 1);
         if let Some(at) = plus {
-            self.cap(base + 1, at, at + 1);
+            self.capture(base + 1, at, at + 1);
         }
         if let Some(at) = minus {
-            self.cap(base + 2, at, at + 1);
+            self.capture(base + 2, at, at + 1);
         }
-        self.cap(base + 3, q, end);
+        self.capture(base + 3, q, end);
         Some(end)
     }
 
@@ -158,12 +158,12 @@ impl Lexer<'_> {
         let frac_end = self.decimal_run(frac);
         let end = self.real_tail(frac_end)?;
         if int_end > p {
-            self.cap(2, p, int_end);
+            self.capture(2, p, int_end);
             self.last_separator(3, p, int_end);
         }
-        self.cap(4, point_at, frac);
+        self.capture(4, point_at, frac);
         if frac_end > frac {
-            self.cap(5, frac, frac_end);
+            self.capture(5, frac, frac_end);
             self.last_separator(6, frac, frac_end);
         }
         Some(end)
@@ -189,8 +189,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.suffix_then_end(digits, 4, INTEGER_SUFFIXES)?;
-        self.cap(1, p, p + 2);
-        self.cap(2, p + 2, digits);
+        self.capture(1, p, p + 2);
+        self.capture(2, p + 2, digits);
         Some(end)
     }
 
@@ -208,8 +208,8 @@ impl Lexer<'_> {
         }
         self.spend(i - p);
         let end = self.suffix_then_end(i, 4, INTEGER_SUFFIXES)?;
-        self.cap(1, p, p + 2);
-        self.cap(2, p + 2, i);
+        self.capture(1, p, p + 2);
+        self.capture(2, p + 2, i);
         self.last_separator(3, p + 2, i);
         Some(end)
     }
@@ -232,7 +232,7 @@ impl Lexer<'_> {
             lexer.suffix_then_end(int_end, 9, INTEGER_SUFFIXES)
         };
         let end = tail(self)?;
-        self.cap(2, p, int_end);
+        self.capture(2, p, int_end);
         self.last_separator(3, p, int_end);
         Some(end)
     }

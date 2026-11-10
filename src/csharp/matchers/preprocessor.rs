@@ -14,7 +14,7 @@ impl Lexer<'_> {
         if self.at(hash) != b'#' || hash >= self.lim() {
             return None;
         }
-        self.cap(1, hash, hash + 1);
+        self.capture(1, hash, hash + 1);
         Some(self.blanks(hash + 1))
     }
 
@@ -31,7 +31,7 @@ impl Lexer<'_> {
     /// `(//).*(?=$)`
     pub(in crate::csharp) fn preprocessor_comment(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"//")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.lim())
     }
 
@@ -39,11 +39,11 @@ impl Lexer<'_> {
     /// single word: the end of the word and which one it was.
     fn one_of_two(&mut self, p: usize, first: &[u8], second: Option<&[u8]>) -> Option<usize> {
         if let Some(end) = self.keyword(p, first) {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let end = self.keyword(p, second?)?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -55,7 +55,7 @@ impl Lexer<'_> {
         if !self.boundary(start) || self.word_at(name).is_some() {
             return None;
         }
-        self.cap(3, start, name);
+        self.capture(3, start, name);
         Some(name)
     }
 
@@ -67,32 +67,32 @@ impl Lexer<'_> {
     /// `\b(?:(true)|(false)|([_[:alpha:]][_[:alnum:]]*))\b`
     pub(in crate::csharp) fn preprocessor_symbol(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.keyword(p, b"true") {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         if let Some(end) = self.keyword(p, b"false") {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         let end = self.plain_ident(p)?;
         if self.word_before(p) || self.word_at(end).is_some() {
             return None;
         }
-        self.cap(3, p, end);
+        self.capture(3, p, end);
         Some(end)
     }
 
     /// `([!=]=)|(!|&&|\|\|)`
     pub(in crate::csharp) fn preprocessor_operator(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.lit(p, b"!=").or_else(|| self.lit(p, b"==")) {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let end = self
             .lit(p, b"!")
             .or_else(|| self.lit(p, b"&&"))
             .or_else(|| self.lit(p, b"||"))?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -106,7 +106,7 @@ impl Lexer<'_> {
     fn message(&mut self, p: usize, group: usize) -> usize {
         let start = self.blanks(p);
         let end = self.lim().max(start);
-        self.cap(group, start, end);
+        self.capture(group, start, end);
         end
     }
 
@@ -119,7 +119,7 @@ impl Lexer<'_> {
     /// `\b(region)\b\s*(.*)(?=$)`
     pub(in crate::csharp) fn preprocessor_region(&mut self, p: usize) -> Option<usize> {
         let end = self.keyword(p, b"region")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.message(end, 2))
     }
 
@@ -137,7 +137,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(p, b"default").or_else(|| self.lit(p, b"hidden"))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -156,13 +156,13 @@ impl Lexer<'_> {
         let action_start = self.blanks(warning_end);
         let action_end = self
             .keyword(action_start, b"disable")
-            .inspect(|&end| self.cap(3, action_start, end))
+            .inspect(|&end| self.capture(3, action_start, end))
             .or_else(|| {
                 self.keyword(action_start, b"restore")
-                    .inspect(|&end| self.cap(4, action_start, end))
+                    .inspect(|&end| self.capture(4, action_start, end))
             })?;
-        self.cap(1, p, pragma_end);
-        self.cap(2, warning_start, warning_end);
+        self.capture(1, p, pragma_end);
+        self.capture(2, warning_start, warning_end);
         let first = self.blanks(action_end);
         let Some(digits) = self.ascii_digits(first) else {
             return Some(action_end);
@@ -175,7 +175,7 @@ impl Lexer<'_> {
         {
             end = more;
         }
-        self.cap(5, action_end, end);
+        self.capture(5, action_end, end);
         Some(end)
     }
 
@@ -194,10 +194,10 @@ impl Lexer<'_> {
                 at = self.blanks(at);
             }
         }
-        self.cap(1, p, pragma_end);
-        self.cap(2, checksum_start, checksum_end);
+        self.capture(1, p, pragma_end);
+        self.capture(2, checksum_start, checksum_end);
         for (i, (from, to)) in groups.into_iter().enumerate() {
-            self.cap(3 + i, from, to);
+            self.capture(3 + i, from, to);
         }
         Some(at)
     }
@@ -208,7 +208,7 @@ impl Lexer<'_> {
         if self.at(colon) != b':' || colon >= self.lim() {
             return None;
         }
-        self.cap(1, colon, colon + 1);
+        self.capture(1, colon, colon + 1);
         Some(self.blanks(colon + 1))
     }
 
@@ -216,15 +216,15 @@ impl Lexer<'_> {
     pub(in crate::csharp) fn package_name_part(&mut self, p: usize) -> Option<usize> {
         let dot = self.lit(p, b".")?;
         let end = self.plain_ident(dot)?;
-        self.cap(1, p, dot);
-        self.cap(2, dot, end);
+        self.capture(1, p, dot);
+        self.capture(2, dot, end);
         Some(end)
     }
 
     /// `\b(word)\b\s*(.*)?\s*`: a directive word and the text after it.
     pub(in crate::csharp) fn app_directive_text(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let text_end = self.message(end, 2);
         Some(self.blanks(text_end))
     }
@@ -237,7 +237,7 @@ impl Lexer<'_> {
         word: &[u8],
     ) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let name_start = self.blanks(end);
         let mut at = name_start;
         if let Some(first) = self.alpha_at(name_start) {
@@ -249,33 +249,33 @@ impl Lexer<'_> {
                     break;
                 }
             }
-            self.cap(2, name_start, at);
+            self.capture(2, name_start, at);
         }
         if self.at(at) == b'@' && at < self.lim() {
-            self.cap(3, at, at + 1);
+            self.capture(3, at, at + 1);
             at += 1;
         }
         let rest = self.lim().max(at);
-        self.cap(4, at, rest);
+        self.capture(4, at, rest);
         Some(self.blanks(rest))
     }
 
     /// `\b(property)\b\s*([_[:alpha:]][_[:alnum:]]*)?(=)?(.*)?\s*`
     pub(in crate::csharp) fn app_directive_property(&mut self, p: usize) -> Option<usize> {
         let end = self.keyword(p, b"property")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let name_start = self.blanks(end);
         let mut at = name_start;
         if let Some(name) = self.plain_ident(name_start) {
-            self.cap(2, name_start, name);
+            self.capture(2, name_start, name);
             at = name;
         }
         if self.at(at) == b'=' && at < self.lim() {
-            self.cap(3, at, at + 1);
+            self.capture(3, at, at + 1);
             at += 1;
         }
         let rest = self.lim().max(at);
-        self.cap(4, at, rest);
+        self.capture(4, at, rest);
         Some(self.blanks(rest))
     }
 
@@ -285,7 +285,7 @@ impl Lexer<'_> {
             return None;
         }
         let rest = self.lim().max(p);
-        self.cap(1, p, rest);
+        self.capture(1, p, rest);
         Some(self.blanks(rest))
     }
 }

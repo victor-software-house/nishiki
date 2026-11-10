@@ -32,8 +32,8 @@ impl<G: CssLike> Lexer<'_, G> {
         {
             return None;
         }
-        self.cap(1, p, name);
-        self.cap(2, name, name + 1);
+        self.capture(1, p, name);
+        self.capture(2, name, name + 1);
         Some(name + 1)
     }
 
@@ -83,7 +83,7 @@ impl<G: CssLike> Lexer<'_, G> {
     /// `(?i)(?<![-\w])(from|to|at|in|hue)(?![-\w])`
     pub(in crate::css) fn functions_at2_at0(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Spelled(&["at", "from", "hue", "in", "to"]))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -159,7 +159,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let end = self.lit_ci(p, "at").or_else(|| self.lit_ci(p, "round"))?;
         let ahead = self.space_at(end) > 0 || self.starts(end, b"/*") || self.at_eol(end);
         ahead.then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         })
     }
@@ -178,7 +178,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let after = self.spaces(end);
         let ahead = (self.at(after) == b')' && after < self.lim()) || self.at_eol(end);
         ahead.then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         })
     }
@@ -211,8 +211,8 @@ impl<G: CssLike> Lexer<'_, G> {
         if self.at(name) != b'(' || name >= self.lim() {
             return None;
         }
-        self.cap(1, p, name);
-        self.cap(2, name, name + 1);
+        self.capture(1, p, name);
+        self.capture(2, name, name + 1);
         Some(name + 1)
     }
 
@@ -243,14 +243,14 @@ impl<G: CssLike> Lexer<'_, G> {
     /// The keywords of the grammar's first list.
     pub(in crate::css) fn property_keywords_at0(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Table(List::PropertyKeywords))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// The list styles.
     pub(in crate::css) fn property_keywords_at1(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Table(List::CounterStyles))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -275,14 +275,14 @@ impl<G: CssLike> Lexer<'_, G> {
     /// The W3C standard colour names.
     pub(in crate::css) fn color_keywords_at0(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Table(List::ColorsStandard))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// The extended colour names.
     pub(in crate::css) fn color_keywords_at1(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Table(List::ColorsExtended))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -294,7 +294,7 @@ impl<G: CssLike> Lexer<'_, G> {
     /// The system colour names.
     pub(in crate::css) fn color_keywords_at3(&mut self, p: usize) -> Option<usize> {
         let end = self.standalone_word(p, Words::Table(List::ColorsSystem))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -324,14 +324,14 @@ impl<G: CssLike> Lexer<'_, G> {
                 for k in (1..=hex).rev() {
                     let end = at + 1 + k;
                     if !self.wordish_at(end) {
-                        self.cap(0, p, end);
-                        self.cap(1, at, at + 1);
+                        self.capture(0, p, end);
+                        self.capture(1, at, at + 1);
                         return Some(end);
                     }
                 }
             }
             if !self.wordish_at(at) {
-                self.cap(0, p, at);
+                self.capture(0, p, at);
                 return Some(at);
             }
         }
@@ -346,7 +346,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let end = self.skip(p + 1, |b| b.is_ascii_hexdigit());
         let digits = end - (p + 1);
         (matches!(digits, 3 | 4 | 6 | 8) && self.word_at(end).is_none()).then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             end
         })
     }
@@ -469,7 +469,7 @@ impl<G: CssLike> Lexer<'_, G> {
     pub(in crate::css) fn numeric_percent(&mut self, p: usize) -> Option<usize> {
         let number = self.number_end(p)?;
         (self.at(number) == b'%' && number < self.lim()).then(|| {
-            self.cap(1, number, number + 1);
+            self.capture(1, number, number + 1);
             number + 1
         })
     }
@@ -503,7 +503,7 @@ impl<G: CssLike> Lexer<'_, G> {
     /// `(:)\s*`
     pub(in crate::css) fn rule_list_innards_at8(&mut self, p: usize) -> Option<usize> {
         self.lit(p, b":")?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(self.spaces(p + 1))
     }
 
@@ -512,7 +512,7 @@ impl<G: CssLike> Lexer<'_, G> {
         let at = self.spaces(p);
         match self.s.get(at) {
             Some(b';') => {
-                self.cap(1, at, at + 1);
+                self.capture(1, at, at + 1);
                 Some(at + 1)
             }
             Some(b')' | b'}') => Some(at),

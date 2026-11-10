@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -329,7 +329,7 @@ impl Lexer<'_> {
     fn spaced_comma(&mut self, p: usize) -> Option<usize> {
         let comma = self.space_end(p);
         let end = self.lit(comma, b",")?;
-        self.cap(1, comma, end);
+        self.capture(1, comma, end);
         Some(end)
     }
 

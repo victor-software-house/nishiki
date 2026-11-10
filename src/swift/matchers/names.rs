@@ -139,8 +139,8 @@ impl Lexer<'_> {
 
     /// Records the two backtick groups `q` and `q + 1` of the identifier that
     /// starts at `start`.
-    pub(in crate::swift) fn cap_quotes(&mut self, q: usize, start: usize, id: Ident) {
-        self.cap(q, start, start + id.quote());
-        self.cap(q + 1, id.end - id.quote(), id.end);
+    pub(in crate::swift) fn capture_quotes(&mut self, q: usize, start: usize, id: Ident) {
+        self.capture(q, start, start + id.quote());
+        self.capture(q + 1, id.end - id.quote(), id.end);
     }
 }

@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -76,10 +76,10 @@ impl Lexer<'_> {
     /// `(unit)(unit)?`: an odd and an even step of indentation.
     fn pair(&mut self, p: usize, unit: &[u8]) -> Option<usize> {
         let odd = self.lit(p, unit)?;
-        self.cap(1, p, odd);
+        self.capture(1, p, odd);
         match self.lit(odd, unit) {
             Some(even) => {
-                self.cap(2, odd, even);
+                self.capture(2, odd, even);
                 Some(even)
             }
             None => Some(odd),
@@ -100,7 +100,7 @@ impl Lexer<'_> {
             return None;
         }
         if blanks > p {
-            self.cap(1, p, blanks);
+            self.capture(1, p, blanks);
         }
         Some(blanks)
     }

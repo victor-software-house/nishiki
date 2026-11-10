@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -118,21 +118,21 @@ impl Lexer<'_> {
             Pattern::LanguageAt1 => self.attribute_line(p),
             Pattern::LanguageAt1End => (p >= 2 && self.text(p - 2, p) == b">>").then_some(p),
             Pattern::Attributes => self.attribute_open(p),
-            Pattern::AttributesEnd => self.cap_lit(p, b">>"),
+            Pattern::AttributesEnd => self.capture_lit(p, b">>"),
             Pattern::AttributesAt1 => self.ident(p),
             Pattern::AttributesAt2 | Pattern::LanguageAt18At0 | Pattern::LanguageAt19At1 => {
-                self.cap_lit(p, b"(")
+                self.capture_lit(p, b"(")
             }
             Pattern::AttributesAt2End
             | Pattern::LanguageAt18At0End
             | Pattern::LanguageAt18At1End
-            | Pattern::LanguageAt19At2 => self.cap_lit(p, b")"),
+            | Pattern::LanguageAt19At2 => self.capture_lit(p, b")"),
             Pattern::Xhp => self.xhp_open(p),
             Pattern::XhpEnd => (p < self.lim()).then_some(p),
             Pattern::XhpTagElementName => self.xhp_tag(p),
             Pattern::XhpTagElementNameEnd => self.xhp_tag_end(p),
             Pattern::XhpTagTermination => self.xhp_tag_close(p),
-            Pattern::XhpTagTerminationEnd => self.cap_lit(p, b"</"),
+            Pattern::XhpTagTerminationEnd => self.capture_lit(p, b"</"),
             Pattern::XhpEvaluatedCode | Pattern::LanguageAt50 | Pattern::LanguageAt6End => {
                 self.lit(p, b"{")
             }
@@ -158,8 +158,8 @@ impl Lexer<'_> {
                 let end = self.chars_while(p, is_iword);
                 (end > p).then_some(end)
             }
-            Pattern::Generics => self.cap_lit(p, b"<"),
-            Pattern::GenericsEnd => self.cap_lit(p, b">"),
+            Pattern::Generics => self.capture_lit(p, b"<"),
+            Pattern::GenericsEnd => self.capture_lit(p, b">"),
             Pattern::GenericsAt2 => self.generic_parameter(p),
             Pattern::TypeAnnotationAt0 => self.generic_type(p),
             Pattern::TypeAnnotationAt0End => self.lit(p, b">"),
@@ -200,7 +200,7 @@ impl Lexer<'_> {
                 let end = self.chars_while(p, is_iword);
                 (end > p && self.at(end) == b'\\').then_some(end)
             }
-            Pattern::NamespaceAt1 => self.cap_lit(p, b"\\"),
+            Pattern::NamespaceAt1 => self.capture_lit(p, b"\\"),
             Pattern::ClassNameAt2 => {
                 (is_ident_start(self.at(p)) || self.at(p) == b'\\').then_some(p)
             }
@@ -275,8 +275,8 @@ impl Lexer<'_> {
                 .then_some(p),
             Pattern::ConstantsAt1At0 => self.language_constant(p),
             Pattern::LanguageAt4 => self.typedef(p),
-            Pattern::LanguageAt4End | Pattern::LanguageAt17End => self.cap_lit(p, b";"),
-            Pattern::LanguageAt4At2 | Pattern::FunctionArgumentsAt3At0 => self.cap_lit(p, b"="),
+            Pattern::LanguageAt4End | Pattern::LanguageAt17End => self.capture_lit(p, b";"),
+            Pattern::LanguageAt4At2 | Pattern::FunctionArgumentsAt3At0 => self.capture_lit(p, b"="),
             Pattern::LanguageAt5 => self.enum_class(p),
             Pattern::LanguageAt5End | Pattern::LanguageAt7End | Pattern::LanguageAt8End => {
                 (self.at(p) == b'{').then_some(p)
@@ -343,7 +343,7 @@ impl Lexer<'_> {
             Pattern::FunctionArgumentsAt3At0End => matches!(self.at(p), b')' | b',').then_some(p),
             Pattern::LanguageAt19At1End => (self.at(p) == b')').then_some(p),
             Pattern::LanguageAt19 => self.function_declaration(p),
-            Pattern::FunctionReturnType => self.cap_lit(p, b":"),
+            Pattern::FunctionReturnType => self.capture_lit(p, b":"),
             Pattern::FunctionReturnTypeEnd => (matches!(self.at(p), b';' | b'{')
                 || self.keyword(p, b"where").is_some())
             .then_some(p),
@@ -363,7 +363,7 @@ impl Lexer<'_> {
             Pattern::VarBasic => self.basic_variable(p),
             Pattern::VariablesAt3 => self.variable_brace_open(p),
             Pattern::VariablesAt3End | Pattern::ObjectAt0End | Pattern::LiteralCollectionsEnd => {
-                self.cap_lit(p, b"}")
+                self.capture_lit(p, b"}")
             }
             Pattern::LanguageAt24 => self.empty_array(p),
             Pattern::LanguageAt25 => self.array_open(p),
@@ -448,9 +448,9 @@ impl Lexer<'_> {
     }
 
     /// `(literal)`, with the literal as group 1.
-    fn cap_lit(&mut self, p: usize, text: &[u8]) -> Option<usize> {
+    fn capture_lit(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -471,7 +471,7 @@ impl Lexer<'_> {
     /// `\b(a|b|…)\b`, case as written, with the word as group 1.
     fn word_group(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let end = self.word_in(p, words)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

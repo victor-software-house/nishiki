@@ -73,8 +73,8 @@ function scopeIdent(name: string): string {
   let out = "";
   parts.forEach((part, index) => {
     for (const piece of part.split(/[-_()$]/)) {
-      const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-      out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+      const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+      out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
     }
   });
   return out;
@@ -130,12 +130,12 @@ const pascal = (key: string) =>
     // The grammar's key has a misspelling that the identifiers do not keep.
     .replaceAll("Init" + "ilizer", "Initializer");
 
-type Cap = { group: number; scopes: Sc[]; nested: string | null };
+type Capture = { group: number; scopes: Sc[]; nested: string | null };
 type Pattern = {
   id: string;
   regex: string;
   act: { role: "match"; name: Sc[] } | { role: "begin"; rule: string } | { role: "end" };
-  captures: Cap[];
+  captures: Capture[];
 };
 type Rule = {
   id: string;
@@ -149,33 +149,33 @@ type Rule = {
 const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 /** The captures that nest a pattern list, to expand their lists a second time. */
-const captureSources: { cap: Cap; g: Grammar; patterns: Node[]; name: string }[] = [];
+const captureSources: { capture: Capture; g: Grammar; patterns: Node[]; name: string }[] = [];
 /** Nested contexts by the patterns they try, so equal ones are one rule. */
 const contexts = new Map<string, string>();
 
-function captureList(g: Grammar, captures: Captures | undefined, owner: string, regex: string): Cap[] {
+function captureList(g: Grammar, captures: Captures | undefined, owner: string, regex: string): Capture[] {
   if (!captures) return [];
-  const out: Cap[] = [];
+  const out: Capture[] = [];
   for (const [group, value] of Object.entries(captures)) {
     const scopes = scopeList(value.name, regex);
     let nested: string | null = null;
     if (value.patterns) {
-      const list = flatten(g, value.patterns, `${owner}Cap${group}`);
+      const list = flatten(g, value.patterns, `${owner}Capture${group}`);
       const key = list.join(",");
       let id = contexts.get(key);
       if (id === undefined) {
-        id = `${owner}Cap${group}`;
+        id = `${owner}Capture${group}`;
         contexts.set(key, id);
         rules.set(id, { id, name: [], content: [], end: "", endLast: false, patterns: list });
       }
       nested = id;
     }
     if (scopes.length || nested) {
-      const cap: Cap = { group: Number(group), scopes, nested };
+      const capture: Capture = { group: Number(group), scopes, nested };
       if (value.patterns) {
-        captureSources.push({ cap, g, patterns: value.patterns, name: `${owner}Cap${group}` });
+        captureSources.push({ capture, g, patterns: value.patterns, name: `${owner}Capture${group}` });
       }
-      out.push(cap);
+      out.push(capture);
     }
   }
   return out.sort((a, b) => a.group - b.group);
@@ -297,13 +297,13 @@ for (let i = 0, j = 0; i < sources.length || j < captureSources.length; ) {
     rules.get(id)!.patterns = flatten(g, node.patterns ?? [], id);
     continue;
   }
-  const { cap, g, patterns, name } = captureSources[j++]!;
+  const { capture, g, patterns, name } = captureSources[j++]!;
   expanding.clear();
   const list = flatten(g, patterns, name);
   const key = list.join(",");
   let rule = fullContexts.get(key);
   if (rule === undefined) {
-    let id = cap.nested!;
+    let id = capture.nested!;
     if (claimed.has(id)) id = `${name}X${claimed.size}`;
     claimed.set(id, key);
     rule = rules.get(id) ?? { id, name: [], content: [], end: "", endLast: false, patterns: [] };
@@ -311,7 +311,7 @@ for (let i = 0, j = 0; i < sources.length || j < captureSources.length; ) {
     rules.set(id, rule);
     fullContexts.set(key, rule);
   }
-  cap.nested = rule.id;
+  capture.nested = rule.id;
 }
 
 // Output.
@@ -422,7 +422,7 @@ g += arms(
         : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
-    const caps = p.captures
+    const captures = p.captures
       .filter((c) => !c.nested)
       .map((c) => `(${c.group}, ${scText(c.scopes)})`)
       .join(", ");
@@ -430,7 +430,7 @@ g += arms(
       .filter((c) => c.nested)
       .map((c) => `(${c.group}, Nested { rule: Rule::${c.nested}, scopes: ${scText(c.scopes)} })`)
       .join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pattern",
 );

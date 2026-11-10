@@ -14,7 +14,7 @@ impl Lexer<'_> {
         if self.arrow_from(p + 2) != arrow {
             return None;
         }
-        self.cap(1, p, p + 2);
+        self.capture(1, p, p + 2);
         Some(p + 2)
     }
 
@@ -44,7 +44,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -113,9 +113,9 @@ impl Lexer<'_> {
         }
         let (dot, rest) = self.dot_after(name)?;
         let end = self.function_name(rest)?;
-        self.cap(1, p, name);
-        self.cap(2, dot, dot + 1);
-        self.cap(3, rest, end);
+        self.capture(1, p, name);
+        self.capture(2, dot, dot + 1);
+        self.capture(3, rest, end);
         Some(end)
     }
 
@@ -129,9 +129,9 @@ impl Lexer<'_> {
         }
         let (dot, rest) = self.dot_after(name)?;
         let end = self.bang_end(self.word_end(rest));
-        self.cap(1, p, name);
-        self.cap(2, dot, dot + 1);
-        self.cap(3, rest, end);
+        self.capture(1, p, name);
+        self.capture(2, dot, dot + 1);
+        self.capture(3, rest, end);
         Some(end)
     }
 
@@ -147,8 +147,8 @@ impl Lexer<'_> {
         let pipe = self.lit(p, b"|>")?;
         let start = self.space_end(pipe);
         let end = self.function_name(start)?;
-        self.cap(1, p, pipe);
-        self.cap(2, start, end);
+        self.capture(1, p, pipe);
+        self.capture(2, start, end);
         Some(end)
     }
 
@@ -185,14 +185,14 @@ impl Lexer<'_> {
         if !(self.starts(start, word) && self.boundary(end)) {
             return None;
         }
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
     /// `\b(do)\b`, which ends a module's head.
     pub(super) fn do_keyword(&mut self, p: usize) -> Option<usize> {
         let end = self.word_in(p, &[b"do"])?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -237,15 +237,15 @@ impl Lexer<'_> {
             let Some(name_end) = self.def_name(name) else {
                 continue;
             };
-            self.cap(1, start, keyword);
-            self.cap(2, name, name_end);
+            self.capture(1, start, keyword);
+            self.capture(2, name, name_end);
             if self.starts(name_end, b"(") {
-                self.cap(3, name_end, name_end + 1);
-                self.cap(4, name_end, name_end + 1);
+                self.capture(3, name_end, name_end + 1);
+                self.capture(4, name_end, name_end + 1);
                 return Some(name_end + 1);
             }
             let end = self.space_end(name_end);
-            self.cap(3, name_end, end);
+            self.capture(3, name_end, end);
             return Some(end);
         }
         None
@@ -296,11 +296,11 @@ impl Lexer<'_> {
     /// grammar names no scope for it.
     pub(super) fn def_end(&mut self, p: usize, suffixes: &[&[u8]]) -> Option<usize> {
         if self.starts(p, b"do:") && self.boundary(p) {
-            self.cap(1, p, p + 3);
+            self.capture(1, p, p + 3);
             return Some(p + 3);
         }
         if let Some(end) = self.word_in(p, &[b"do"]) {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         let start = self.space_end(p);
@@ -322,7 +322,7 @@ impl Lexer<'_> {
         if at == p || !self.starts(at, b"\\\\") {
             return None;
         }
-        self.cap(1, at, at + 2);
+        self.capture(1, at, at + 2);
         Some(at + 2)
     }
 }

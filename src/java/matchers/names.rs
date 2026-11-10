@@ -11,7 +11,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_end(p);
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -22,7 +22,7 @@ impl Lexer<'_> {
         }
         match self.s[p] {
             b',' => {
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(p + 1)
             }
             b';' | b'}' => Some(p),
@@ -37,7 +37,7 @@ impl Lexer<'_> {
         }
         match self.s[p] {
             b'}' => {
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(p + 1)
             }
             b';' => Some(p),
@@ -49,7 +49,7 @@ impl Lexer<'_> {
     pub(super) fn constructor_name(&mut self, p: usize) -> Option<usize> {
         let end = self.word_end(p);
         (end > p).then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         })
     }
@@ -78,7 +78,7 @@ impl Lexer<'_> {
         }
         match self.s[p] {
             b'|' => {
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(p + 1)
             }
             b')' => Some(p),

@@ -50,7 +50,7 @@ impl Lexer<'_> {
     pub(in crate::ruby) fn assigned_heredoc(&mut self, p: usize) -> Option<usize> {
         let marks = self.space_end(self.lit(p, b"=")?);
         let opener = self.quoted_name(self.lit(marks, b"<<")?)?;
-        self.cap(2, opener.name, opener.name_end);
+        self.capture(2, opener.name, opener.name_end);
         Some(opener.end)
     }
 
@@ -97,9 +97,9 @@ impl Lexer<'_> {
                 None => break,
             }
         }
-        self.cap(1, p, last.end);
-        self.cap(6, last.name, last.name_end);
-        self.cap(7, last.end, self.lim());
+        self.capture(1, p, last.end);
+        self.capture(6, last.name, last.name_end);
+        self.capture(7, last.end, self.lim());
         Some(self.lim())
     }
 

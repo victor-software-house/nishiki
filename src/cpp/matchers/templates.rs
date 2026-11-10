@@ -99,7 +99,7 @@ impl Lexer<'_> {
         let (end, comment) = self.template_args(p)?;
         if let Some(parts) = comment {
             for (i, (a, b)) in parts.iter().enumerate() {
-                self.cap(2 + i, *a, *b);
+                self.capture(2 + i, *a, *b);
             }
         }
         Some(self.skip_space(end))

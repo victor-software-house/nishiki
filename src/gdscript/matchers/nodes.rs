@@ -28,8 +28,8 @@ impl Lexer<'_> {
         if !matches!(self.at(p + 1), b'"' | b'\'') {
             return None;
         }
-        self.cap(group, p, p + 1);
-        self.cap(3, p + 1, p + 2);
+        self.capture(group, p, p + 1);
+        self.capture(3, p + 1, p + 2);
         Some(p + 2)
     }
 
@@ -69,11 +69,11 @@ impl Lexer<'_> {
             (None, sigil)
         };
         let end = self.name(name)?;
-        self.cap(1, p, sigil);
+        self.capture(1, p, sigil);
         if let Some(slash) = slash {
-            self.cap(2, slash, name);
+            self.capture(2, slash, name);
         }
-        self.cap(3, name, end);
+        self.capture(3, name, end);
         Some(end)
     }
 
@@ -138,11 +138,11 @@ impl Lexer<'_> {
             name = self.space_end(percent + 1);
         }
         let end = self.name(name)?;
-        self.cap(1, p, after);
+        self.capture(1, p, after);
         if let Some(percent) = percent {
-            self.cap(2, percent, percent + 1);
+            self.capture(2, percent, percent + 1);
         }
-        self.cap(3, name, end);
+        self.capture(3, name, end);
         Some(self.space_end(end))
     }
 
@@ -150,7 +150,7 @@ impl Lexer<'_> {
     pub(super) fn node_path_object(&mut self, p: usize) -> Option<usize> {
         let name = self.lit(p, b"NodePath")?;
         let end = self.lit(self.space_end(name), b"(")?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(end)
     }
 
@@ -159,7 +159,7 @@ impl Lexer<'_> {
         if p >= self.lim() || !matches!(self.at(p), b'"' | b'\'') {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -171,8 +171,8 @@ impl Lexer<'_> {
             let open = self.space_end(end);
             self.starts(open, b"(").then_some((end, open))
         })?;
-        self.cap(1, p, name);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, name);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 }

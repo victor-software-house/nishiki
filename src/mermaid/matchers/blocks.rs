@@ -75,7 +75,7 @@ impl Lexer<'_> {
         }
         let start = self.ws(p);
         let end = self.lit(start, word)?;
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -87,7 +87,7 @@ impl Lexer<'_> {
         let start = self.ws(p);
         let word = self.lit(start, b"stateDiagram")?;
         let end = self.lit(word, b"-v2").unwrap_or(word);
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -103,7 +103,7 @@ impl Lexer<'_> {
             .ws1(beta)
             .and_then(|space| self.lit(space, b"horizontal"))
             .unwrap_or(beta);
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -119,10 +119,10 @@ impl Lexer<'_> {
             .lit(start, b"graph")
             .or_else(|| self.lit(start, b"flowchart"))?;
         let space = self.ws1(word)?;
-        self.cap(1, start, word);
+        self.capture(1, start, word);
         match self.class_run1(space, |c| c == ' ' || c.is_ascii_digit() || is_letter(c)) {
             Some(end) => {
-                self.cap(2, space, end);
+                self.capture(2, space, end);
                 Some(end)
             }
             None => Some(space),

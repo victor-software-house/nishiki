@@ -42,7 +42,7 @@ impl Lexer<'_> {
                 self.regexp_line_end(p, Flavour::DoubleThree)
             }
             RegexpPattern::CommentsStringSingleThree | RegexpPattern::CommentsStringDoubleThree => {
-                self.cap_hash(p)
+                self.capture_hash(p)
             }
             RegexpPattern::CommentsStringSingleThreeEnd => {
                 (self.at_eol(p) || self.starts(p, b"'''")).then_some(p)
@@ -88,11 +88,11 @@ impl Lexer<'_> {
     }
 
     /// The regex `(#)`.
-    fn cap_hash(&mut self, p: usize) -> Option<usize> {
+    fn capture_hash(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'#' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -124,8 +124,8 @@ impl Lexer<'_> {
         if !self.starts(end, quote) {
             return None;
         }
-        self.cap(group, p, end);
-        self.cap(5, end, end + quote.len());
+        self.capture(group, p, end);
+        self.capture(5, end, end + quote.len());
         Some(end + quote.len())
     }
 
@@ -133,11 +133,11 @@ impl Lexer<'_> {
     fn regexp_line_end(&mut self, p: usize, flavour: Flavour) -> Option<usize> {
         let quote = flavour.quote();
         if self.starts(p, quote) {
-            self.cap(1, p, p + quote.len());
+            self.capture(1, p, p + quote.len());
             return Some(p + quote.len());
         }
         if !flavour.three() && p == self.lim() && !self.prev_is(p, b'\\') {
-            self.cap(2, p, p + 1);
+            self.capture(2, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -149,7 +149,7 @@ impl Lexer<'_> {
     /// The string's end or a line feed ends it before them.
     fn regexp_close(&mut self, p: usize, flavour: Flavour, close: u8) -> Option<usize> {
         if self.at(p) == close && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         if self.starts(p, flavour.quote()) {
@@ -205,14 +205,14 @@ impl Lexer<'_> {
         if self.at(p) != b'[' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         let mut q = p + 1;
         if self.at(q) == b'^' && q < self.lim() {
-            self.cap(2, q, q + 1);
+            self.capture(2, q, q + 1);
             q += 1;
         }
         if self.at(q) == b']' && q < self.lim() {
-            self.cap(3, q, q + 1);
+            self.capture(3, q, q + 1);
             q += 1;
         }
         Some(q)
@@ -248,8 +248,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_and_alnum(p + 4, b'>')?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -258,7 +258,7 @@ impl Lexer<'_> {
         if !self.starts(p, open) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + open.len())
     }
 
@@ -268,7 +268,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_and_alnum(p + 3, b')')?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -340,7 +340,7 @@ impl Lexer<'_> {
             Some((c, next)) if p + 2 < self.lim() && classes::is_digit(c) => next,
             _ => p + 2,
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -373,9 +373,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_and_alnum(p + 4, b')')?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end - 1);
-        self.cap(3, end - 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end - 1);
+        self.capture(3, end - 1, end);
         Some(end)
     }
 

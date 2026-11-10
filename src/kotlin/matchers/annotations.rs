@@ -82,7 +82,7 @@ impl Lexer<'_> {
             }
             SiteForm::Single => blanks,
         };
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(end)
     }
 }

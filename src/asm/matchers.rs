@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -328,7 +328,7 @@ impl Lexer<'_> {
             .iter()
             .find(|word| self.starts(open, word) && self.at(open + word.len()) == b'}')?;
         let close = open + word.len();
-        self.cap(1, open, close);
+        self.capture(1, open, close);
         Some(close + 1)
     }
 

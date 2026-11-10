@@ -253,8 +253,8 @@ type Groups = Vec<Option<(usize, usize)>>;
 fn answer(arena: &mut Arena, pattern: Pattern, case: &Case<'_>) -> Option<(usize, Groups)> {
     lexer::<Swift, _>(arena, case, |lexer| {
         let end = lexer.probe(pattern, case.p)?;
-        let caps = (0..Swift::GROUPS).map(|group| lexer.cap_span(group));
-        Some((end, caps.collect()))
+        let captures = (0..Swift::GROUPS).map(|group| lexer.capture_span(group));
+        Some((end, captures.collect()))
     })
 }
 

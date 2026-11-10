@@ -30,7 +30,7 @@ impl Lexer<'_> {
                 && !(self.at(p + 1) == b'}' && p + 1 < self.lim()))
             .then_some(p + 1),
             FstringPattern::FstringMultiBrace | FstringPattern::FstringSingleBrace => {
-                self.brace_cap(p)
+                self.brace_capture(p)
             }
             FstringPattern::FstringMultiBraceEnd => self.brace_close(p),
             FstringPattern::FstringSingleBraceEnd
@@ -100,18 +100,18 @@ impl Lexer<'_> {
     /// The end `(\3)` of a triple-quoted f-string.
     fn string_end_multi(&mut self, p: usize) -> Option<usize> {
         let width = self.payload_at(p)?;
-        self.cap(1, p, p + width);
+        self.capture(1, p, p + width);
         Some(p + width)
     }
 
     /// The end `(\3)|((?<!\\)\n)` of a single-line f-string.
     fn string_end_single(&mut self, p: usize) -> Option<usize> {
         if let Some(width) = self.payload_at(p) {
-            self.cap(1, p, p + width);
+            self.capture(1, p, p + width);
             return Some(p + width);
         }
         if p == self.lim() && !self.prev_is(p, b'\\') {
-            self.cap(2, p, p + 1);
+            self.capture(2, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -141,13 +141,13 @@ impl Lexer<'_> {
             q += 1;
         }
         let width = self.fquote(q, quotes)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         if let Some(s) = second {
-            self.cap(2, s, s + 1);
+            self.capture(2, s, s + 1);
         }
-        self.cap(3, q, q + width);
+        self.capture(3, q, q + width);
         if quotes == Quotes::One {
-            self.cap(4, q, q + width);
+            self.capture(4, q, q + width);
         }
         Some(q + width)
     }
@@ -162,11 +162,11 @@ impl Lexer<'_> {
             return None;
         }
         let width = self.fquote(p + 2, quotes)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, p + 2);
-        self.cap(3, p + 2, p + 2 + width);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, p + 2);
+        self.capture(3, p + 2, p + 2 + width);
         if quotes == Quotes::One {
-            self.cap(4, p + 2, p + 2 + width);
+            self.capture(4, p + 2, p + 2 + width);
         }
         Some(p + 2 + width)
     }
@@ -180,10 +180,10 @@ impl Lexer<'_> {
             return None;
         }
         let width = self.fquote(p + 2, quotes)?;
-        self.cap(1, p, p + 2);
-        self.cap(2, p + 2, p + 2 + width);
+        self.capture(1, p, p + 2);
+        self.capture(2, p + 2, p + 2 + width);
         if quotes == Quotes::One {
-            self.cap(3, p + 2, p + 2 + width);
+            self.capture(3, p + 2, p + 2 + width);
         }
         Some(p + 2 + width)
     }
@@ -196,9 +196,9 @@ impl Lexer<'_> {
         let mut q = p + 1;
         loop {
             if self.at(q) == b'}' && q < self.lim() {
-                self.cap(1, p, p + 1);
-                self.cap(2, p + 1, q);
-                self.cap(3, q, q + 1);
+                self.capture(1, p, p + 1);
+                self.capture(2, p + 1, q);
+                self.capture(3, q, q + 1);
                 return Some(q + 1);
             }
             let width = self.space_at(q);
@@ -210,11 +210,11 @@ impl Lexer<'_> {
     }
 
     /// The begin `(\{)`.
-    fn brace_cap(&mut self, p: usize) -> Option<usize> {
+    fn brace_capture(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'{' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -223,7 +223,7 @@ impl Lexer<'_> {
         if self.at(p) != b'}' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -244,7 +244,7 @@ impl Lexer<'_> {
         if self.last(Ahead::CloseBrace).is_some_and(|last| last > p) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -295,8 +295,8 @@ impl Lexer<'_> {
             return None;
         }
         let close = self.format_spec(head + 1)?;
-        self.cap(1, p, head);
-        self.cap(2, head, close);
+        self.capture(1, p, head);
+        self.capture(2, head, close);
         Some(close)
     }
 
@@ -309,8 +309,8 @@ impl Lexer<'_> {
         if self.last(Ahead::OpenBrace)? < head + 1 {
             return None;
         }
-        self.cap(1, p, head);
-        self.cap(2, head, head + 1);
+        self.capture(1, p, head);
+        self.capture(2, head, head + 1);
         Some(head + 1)
     }
 

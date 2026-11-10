@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -44,8 +44,8 @@ impl Lexer<'_> {
             Pattern::Prototype => self.prototype(p),
             Pattern::Function => {
                 let head = self.head(p, words::FUNCTION)?;
-                self.cap(1, p, head.word_end);
-                self.cap(2, head.name, head.name_end);
+                self.capture(1, p, head.word_end);
+                self.capture(2, head.name, head.name_end);
                 Some(head.name_end)
             }
             Pattern::Variable => self.listed(p, words::VARIABLE),
@@ -160,8 +160,8 @@ impl Lexer<'_> {
                 .find_map(|close| self.ahead(close + 2)),
             _ => None,
         }?;
-        self.cap(1, p, head.word_end);
-        self.cap(2, head.name, head.name_end);
+        self.capture(1, p, head.word_end);
+        self.capture(2, head.name, head.name_end);
         Some(end)
     }
 
@@ -227,7 +227,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.skip(0, |b| b == b' ' || b == b'\t');
             if blanks > 0 && self.lit(blanks, b"//").is_some() {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }

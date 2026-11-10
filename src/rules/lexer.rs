@@ -131,10 +131,10 @@ pub(crate) struct Scratch<G: Grammar> {
     /// where each ends and its stack, the innermost last.
     open_spans: Vec<(usize, u32)>,
     /// The capture groups of the last match, kept clear between lines.
-    caps: Vec<Option<(usize, usize)>>,
+    captures: Vec<Option<(usize, usize)>>,
     /// The capture groups of the matches whose nested groups are being
     /// lexed, one after another, the outermost first.
-    saved_caps: Vec<Option<(usize, usize)>>,
+    saved_captures: Vec<Option<(usize, usize)>>,
     chain: Vec<(u32, crate::arena::Frame)>,
     /// The text of a scope name made from source text.
     name: String,
@@ -236,8 +236,8 @@ impl<G: Grammar> Default for Scratch<G> {
             frames: Vec::new(),
             spans: Vec::new(),
             open_spans: Vec::new(),
-            caps: Vec::new(),
-            saved_caps: Vec::new(),
+            captures: Vec::new(),
+            saved_captures: Vec::new(),
             chain: Vec::new(),
             name: String::new(),
             resume: None,
@@ -311,7 +311,7 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// The open rules, the root first.
     frames: Vec<Frame<G>>,
     /// The capture groups of the last match, by group number.
-    caps: Vec<Option<(usize, usize)>>,
+    captures: Vec<Option<(usize, usize)>>,
     /// A matcher recorded a capture group or a span since the last try
     /// cleared them, so the next try clears them first.
     dirty: bool,
@@ -402,9 +402,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         }
         let mut spans = std::mem::take(&mut scratch.spans);
         spans.clear();
-        let mut caps = std::mem::take(&mut scratch.caps);
-        if caps.is_empty() {
-            caps.resize(G::GROUPS, None);
+        let mut captures = std::mem::take(&mut scratch.captures);
+        if captures.is_empty() {
+            captures.resize(G::GROUPS, None);
         }
         if scratch.paths.is_empty() {
             scratch.paths.resize(PATH_SLOTS, None);
@@ -427,7 +427,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             g: false,
             first_line: false,
             frames,
-            caps,
+            captures,
             dirty: false,
             spans,
             span_base: 0,
@@ -746,11 +746,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             std::mem::swap(&mut self.frames, &mut self.scratch.resume_frames);
         }
         if self.dirty {
-            self.caps[..G::GROUPS].fill(None);
+            self.captures[..G::GROUPS].fill(None);
         }
         self.scratch.frames = self.frames;
         self.scratch.spans = self.spans;
-        self.scratch.caps = self.caps;
+        self.scratch.captures = self.captures;
         self.scratch.kept = G::keep(self.x);
         self.steps.finish(state)
     }
@@ -908,16 +908,16 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     // Captures.
 
     /// Records capture group `group` of the match being tried.
-    pub(crate) fn cap(&mut self, group: usize, start: usize, end: usize) {
-        self.caps[group] = Some((start, end));
+    pub(crate) fn capture(&mut self, group: usize, start: usize, end: usize) {
+        self.captures[group] = Some((start, end));
         self.dirty = true;
     }
 
     /// The span of capture group `group` of the last match, for a test that
     /// compares the matchers with another regex engine.
     #[cfg(test)]
-    pub(crate) fn cap_span(&self, group: usize) -> Option<(usize, usize)> {
-        self.caps[group]
+    pub(crate) fn capture_span(&self, group: usize) -> Option<(usize, usize)> {
+        self.captures[group]
     }
 
     /// The bytes `start..end` of the line, empty where they lie outside it.
@@ -928,8 +928,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The text of capture group `group` of the last match, cut at the end of
     /// the line, and empty where the group starts past it.
-    pub(crate) fn cap_text(&self, group: usize) -> &'a [u8] {
-        self.caps[group].map_or(&[][..], |(start, end)| {
+    pub(crate) fn capture_text(&self, group: usize) -> &'a [u8] {
+        self.captures[group].map_or(&[][..], |(start, end)| {
             self.text(start, end.min(self.s.len()))
         })
     }
@@ -1013,11 +1013,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         matcher: impl FnOnce(&mut Self, usize) -> Option<usize>,
     ) -> Option<Probe> {
         self.open();
-        self.caps.fill(None);
+        self.captures.fill(None);
         self.pos = p;
         self.g = g;
         let end = matcher(self, p)?;
-        Some((end, self.caps.clone()))
+        Some((end, self.captures.clone()))
     }
 
     /// Drops the spans of a match that failed after naming some.
@@ -1221,7 +1221,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     name.push_str(self.arena.string(id).trim_start_matches('.'));
                 }
                 NameSource::Group(group) => {
-                    let text = String::from_utf8_lossy(self.cap_text(group.into()));
+                    let text = String::from_utf8_lossy(self.capture_text(group.into()));
                     push_spelled(&mut name, &text, G::dyn_name_case(prefix));
                 }
             }
@@ -1398,7 +1398,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         start: usize,
         end: usize,
     ) {
-        self.caps[0] = Some((start, end));
+        self.captures[0] = Some((start, end));
         self.dirty = true;
         let mut stack = [(0_usize, 0_u32); NEST];
         let mut depth = 0;
@@ -1420,7 +1420,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     (group, G::NO_SCOPES, Some(nested))
                 }
             };
-            let Some((from, to)) = self.caps[usize::from(group)] else {
+            let Some((from, to)) = self.captures[usize::from(group)] else {
                 continue;
             };
             if to <= from {
@@ -1476,14 +1476,17 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             self.defer(language, from, to, base);
             return;
         }
-        let mark = self.scratch.saved_caps.len();
-        self.scratch.saved_caps.extend_from_slice(&self.caps);
+        let mark = self.scratch.saved_captures.len();
+        self.scratch
+            .saved_captures
+            .extend_from_slice(&self.captures);
         let dirty = self.dirty;
-        self.caps[..G::GROUPS].fill(None);
+        self.captures[..G::GROUPS].fill(None);
         self.dirty = false;
         G::tokenize_nested(self, nested, from, to, base);
-        self.caps.copy_from_slice(&self.scratch.saved_caps[mark..]);
-        self.scratch.saved_caps.truncate(mark);
+        self.captures
+            .copy_from_slice(&self.scratch.saved_captures[mark..]);
+        self.scratch.saved_captures.truncate(mark);
         self.dirty = dirty;
     }
 
@@ -1668,7 +1671,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 self.emit(line_length, node);
                 return;
             };
-            self.caps[0] = Some((start, end));
+            self.captures[0] = Some((start, end));
             let advanced = end > self.pos;
             let (act, captures) = G::pattern_definition(pattern);
             let stop = match act {
@@ -1793,7 +1796,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     #[inline]
     pub(crate) fn try_pattern(&mut self, pattern: G::Pattern, p: usize) -> Option<usize> {
         if self.dirty {
-            self.caps[..G::GROUPS].fill(None);
+            self.captures[..G::GROUPS].fill(None);
             self.spans.truncate(self.span_base);
             self.dirty = false;
         }
@@ -1854,7 +1857,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 0
             }
             Payload::Backref(group) => {
-                let text = std::str::from_utf8(self.cap_text(usize::from(group))).unwrap_or("");
+                let text = std::str::from_utf8(self.capture_text(usize::from(group))).unwrap_or("");
                 self.arena.intern(text).unwrap_or_else(|| {
                     self.report.record(Limit::Nodes);
                     0
@@ -2151,15 +2154,15 @@ mod tests {
                         return None;
                     }
                     let close = p + lexer.s.get(p..)?.iter().rposition(|&b| b == b']')?;
-                    lexer.cap(1, p, p + 1);
-                    lexer.cap(2, p + 1, close);
-                    lexer.cap(3, close, close + 1);
+                    lexer.capture(1, p, p + 1);
+                    lexer.capture(2, p + 1, close);
+                    lexer.capture(3, close, close + 1);
                     Some(close + 1)
                 }
                 Pattern::Word => {
                     let end = lexer.skip(p, |b| b.is_ascii_alphabetic());
                     (end > p).then(|| {
-                        lexer.cap(1, p, end);
+                        lexer.capture(1, p, end);
                         end
                     })
                 }
@@ -2240,10 +2243,10 @@ mod tests {
             report: &mut report,
         };
         let mut lexer = Lexer::new(parts, text, ROOT, &mut scratch);
-        lexer.caps[1] = Some((1, 3));
-        lexer.caps[2] = Some((3, 4));
-        assert_eq!(lexer.cap_text(1), b"b");
-        assert_eq!(lexer.cap_text(2), b"");
+        lexer.captures[1] = Some((1, 3));
+        lexer.captures[2] = Some((3, 4));
+        assert_eq!(lexer.capture_text(1), b"b");
+        assert_eq!(lexer.capture_text(2), b"");
     }
 
     /// A lexer over `b"ab"` for the needle tests.
@@ -2674,9 +2677,9 @@ mod tests {
                     if !matches!(lexer.at(p), b'!' | b'?') {
                         return None;
                     }
-                    lexer.cap(1, p, p + 1);
-                    lexer.cap(2, p + 2, p + 3);
-                    lexer.cap(3, p, p + 1);
+                    lexer.capture(1, p, p + 1);
+                    lexer.capture(2, p + 2, p + 3);
+                    lexer.capture(3, p, p + 1);
                     Some(p + 1)
                 }
                 Mark::Open => {
@@ -2684,7 +2687,7 @@ mod tests {
                         return None;
                     }
                     let end = lexer.skip(p + 2, |b| b.is_ascii_alphabetic());
-                    lexer.cap(1, p + 2, end);
+                    lexer.capture(1, p + 2, end);
                     Some(end)
                 }
                 Mark::Close => lexer.payload_at(p).map(|width| p + width),
@@ -2699,7 +2702,7 @@ mod tests {
                         return None;
                     }
                     let end = lexer.skip(p + 2, |b| b != b' ');
-                    lexer.cap(1, p + 2, end);
+                    lexer.capture(1, p + 2, end);
                     Some(end)
                 }
             }
@@ -3382,7 +3385,7 @@ mod tests {
                         if lexer.at(p) != b'<' || lexer.at(close) != b'>' {
                             return None;
                         }
-                        lexer.cap(1, p + 1, close);
+                        lexer.capture(1, p + 1, close);
                         Some(close + 1)
                     }
                     DeepPattern::Hash => (lexer.at(p) == b'#').then_some(p + 1),

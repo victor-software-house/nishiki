@@ -33,7 +33,7 @@ pub(crate) struct Extra {
 
 /// The scope a capture group adds.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum CapName {
+pub(super) enum CaptureName {
     /// The group has no scope of its own.
     /// It is lexed again.
     None,
@@ -45,10 +45,10 @@ pub(super) enum CapName {
 
 /// A capture group of a match that carries a scope or is lexed again.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
-    pub(super) name: CapName,
+    pub(super) name: CaptureName,
     pub(super) again: Option<Rule>,
 }
 
@@ -57,7 +57,7 @@ pub(super) struct Cap {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) caps: [Option<Cap>; 4],
+    pub(super) captures: [Option<Capture>; 4],
 }
 
 impl Hit {
@@ -65,16 +65,16 @@ impl Hit {
         Hit {
             start,
             end,
-            caps: [None; 4],
+            captures: [None; 4],
         }
     }
 
     /// The match with a group `from..to` that adds `scope`, in slot `slot`.
-    pub(super) fn cap(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
-        self.caps[slot] = Some(Cap {
+    pub(super) fn capture(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
+        self.captures[slot] = Some(Capture {
             from,
             to,
-            name: CapName::One(scope),
+            name: CaptureName::One(scope),
             again: None,
         });
         self
@@ -87,10 +87,10 @@ impl Hit {
         slot: usize,
         from: usize,
         to: usize,
-        name: CapName,
+        name: CaptureName,
         again: Option<Rule>,
     ) -> Hit {
-        self.caps[slot] = Some(Cap {
+        self.captures[slot] = Some(Capture {
             from,
             to,
             name,
@@ -117,27 +117,27 @@ impl Lexer<'_> {
         };
         self.x.start = hit.start;
         self.clear_spans();
-        for cap in hit.caps.iter().flatten() {
-            if cap.from >= cap.to {
+        for capture in hit.captures.iter().flatten() {
+            if capture.from >= capture.to {
                 continue;
             }
-            if cap.name == CapName::Flags && cap.again.is_none() {
+            if capture.name == CaptureName::Flags && capture.again.is_none() {
                 self.span_dyn(
-                    cap.from,
-                    cap.to,
+                    capture.from,
+                    capture.to,
                     DynName {
                         prefix: "keyword.control.",
-                        start: cap.from,
-                        end: cap.to,
+                        start: capture.from,
+                        end: capture.to,
                         suffix: ".makefile",
                     },
                 );
             } else {
-                let one = match cap.name {
-                    CapName::One(scope) => Some(scope),
-                    CapName::None | CapName::Flags => None,
+                let one = match capture.name {
+                    CaptureName::One(scope) => Some(scope),
+                    CaptureName::None | CaptureName::Flags => None,
                 };
-                self.span_one(cap.from, cap.to, one, cap.again);
+                self.span_one(capture.from, capture.to, one, capture.again);
             }
         }
         Some(hit.end)

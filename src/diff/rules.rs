@@ -19,7 +19,7 @@ use crate::utf8::{char_len, char_start};
 
 /// A capture group that carries a scope of its own.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
     pub(super) scope: S,
@@ -32,7 +32,7 @@ pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
     pub(super) scope: S,
-    pub(super) caps: [Option<Cap>; 3],
+    pub(super) captures: [Option<Capture>; 3],
 }
 
 impl Hit {
@@ -41,12 +41,12 @@ impl Hit {
             start: 0,
             end,
             scope,
-            caps: [None; 3],
+            captures: [None; 3],
         }
     }
 
     fn with(mut self, index: usize, from: usize, to: usize, scope: S) -> Hit {
-        self.caps[index] = Some(Cap { from, to, scope });
+        self.captures[index] = Some(Capture { from, to, scope });
         self
     }
 }
@@ -289,13 +289,13 @@ impl<'a> Line<'a> {
             start: at,
             end: len,
             scope: S::MetaToFile,
-            caps: [
-                Some(Cap {
+            captures: [
+                Some(Capture {
                     from: at + 1,
                     to: at + 2,
                     scope: S::PunctToFile,
                 }),
-                Some(Cap {
+                Some(Capture {
                     from: len - 4,
                     to: len,
                     scope: S::PunctToFile,

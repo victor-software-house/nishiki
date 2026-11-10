@@ -95,8 +95,8 @@ impl Lexer<'_> {
                 self.plain_end_where(after, is_upper_start, |end| self.end_marker_tail(end))?,
             ),
         };
-        self.cap(1, start, word);
-        self.cap(group, after, end);
+        self.capture(1, start, word);
+        self.capture(group, after, end);
         Some(end)
     }
 
@@ -109,9 +109,9 @@ impl Lexer<'_> {
             None if self.end_marker_tail(after) => after,
             None => return None,
         };
-        self.cap(1, start, word);
+        self.capture(1, start, word);
         if end > after {
-            self.cap(2, after, end);
+            self.capture(2, after, end);
         }
         Some(end)
     }
@@ -142,7 +142,7 @@ impl Lexer<'_> {
     pub(super) fn pair_operator(&mut self, p: usize) -> Option<usize> {
         let (run, count) = self.keyword_ops(p);
         let end = if count >= 2 { run } else { self.lit(p, b"_*")? };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -155,7 +155,7 @@ impl Lexer<'_> {
         if !is_keyword_op(c) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -183,7 +183,7 @@ impl Lexer<'_> {
     /// `(\(\))`.
     pub(super) fn empty_parentheses(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"()")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -195,8 +195,8 @@ impl Lexer<'_> {
         if self.at(end) == b'\'' && end < self.lim() {
             return None;
         }
-        self.cap(1, p, quote);
-        self.cap(2, quote, end);
+        self.capture(1, p, quote);
+        self.capture(2, quote, end);
         Some(end)
     }
 

@@ -64,7 +64,7 @@ impl Lexer<'_> {
         if p == 0 {
             let hash = self.skip(p, |b| b == b'\t' || b == b' ');
             if hash > p && self.byte_in(hash, |b| b == b'#') {
-                self.cap(1, p, hash);
+                self.capture(1, p, hash);
                 return Some(hash);
             }
         }
@@ -115,9 +115,9 @@ impl Lexer<'_> {
             Mark::Directive => b"@!",
         };
         let name = self.lit(at, marks)?;
-        self.cap(2, hash, hash + 1);
-        self.cap(3, hash, at);
-        self.cap(4, at, name);
+        self.capture(2, hash, hash + 1);
+        self.capture(3, hash, at);
+        self.capture(4, at, name);
         Some(name)
     }
 
@@ -128,7 +128,7 @@ impl Lexer<'_> {
     fn yard_name(&mut self, p: usize, names: &[&[u8]]) -> Option<usize> {
         let end = self.word_end(p);
         names.contains(&self.text(p, end)).then(|| {
-            self.cap(5, p, end);
+            self.capture(5, p, end);
             end
         })
     }
@@ -167,9 +167,9 @@ impl Lexer<'_> {
     /// Records `(open.+close)` at `p` as groups `whole`, `whole + 1` and
     /// `whole + 2`, ending at `close_at`.
     fn record_bracketed(&mut self, whole: usize, p: usize, close_at: usize) -> usize {
-        self.cap(whole, p, close_at + 1);
-        self.cap(whole + 1, p, p + 1);
-        self.cap(whole + 2, close_at, close_at + 1);
+        self.capture(whole, p, close_at + 1);
+        self.capture(whole + 1, p, p + 1);
+        self.capture(whole + 2, close_at, close_at + 1);
         close_at + 1
     }
 
@@ -190,7 +190,7 @@ impl Lexer<'_> {
         }
         let param = |lx: &mut Self| {
             let end = lx.yard_param_end(start)?;
-            lx.cap(name, start, end);
+            lx.capture(name, start, end);
             Some(end)
         };
         let bracketed = |lx: &mut Self| {
@@ -244,7 +244,7 @@ impl Lexer<'_> {
         }
         let start = self.space_end(end);
         if let Some(param) = self.yard_param_end(start).filter(|_| start > end) {
-            self.cap(6, start, param);
+            self.capture(6, start, param);
             end = param;
         }
         let start = self.space_end(end);
@@ -261,8 +261,8 @@ impl Lexer<'_> {
                 start
             };
             if key > start {
-                self.cap(10, start, key);
-                self.cap(11, start, key);
+                self.capture(10, start, key);
+                self.capture(11, start, key);
             }
             end = key;
         }
@@ -329,7 +329,7 @@ impl Lexer<'_> {
         let start = self.space_end(end);
         match self.yard_param_end(start).filter(|_| start > end) {
             Some(param) => {
-                self.cap(11, start, param);
+                self.capture(11, start, param);
                 Some(param)
             }
             None => Some(end),
@@ -361,7 +361,7 @@ impl Lexer<'_> {
         while stop < self.lim() && !self.space_char(stop) {
             stop = self.char_end(stop);
         }
-        self.cap(7, target, stop);
+        self.capture(7, target, stop);
         Some(stop)
     }
 

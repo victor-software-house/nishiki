@@ -949,8 +949,8 @@ impl Lexer<'_> {
         if self.at(after) != b'"' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, colon, colon + 1);
+        self.capture(1, p, end);
+        self.capture(2, colon, colon + 1);
         Some(after)
     }
 
@@ -1225,10 +1225,10 @@ impl Lexer<'_> {
         let of = self.space_end(open);
         let of_end = self.lit(of, b"of")?;
         let colon = self.lit(of_end, b":")?;
-        self.cap(1, p, word);
-        self.cap(2, word, open);
-        self.cap(3, of, of_end);
-        self.cap(4, of_end, colon);
+        self.capture(1, p, word);
+        self.capture(2, word, open);
+        self.capture(3, of, of_end);
+        self.capture(4, of_end, colon);
         Some(colon)
     }
 
@@ -1324,8 +1324,8 @@ impl Lexer<'_> {
         if self.at(i + quote) != b':' {
             return None;
         }
-        self.cap(1, p, start);
-        self.cap(2, i, i + quote);
+        self.capture(1, p, start);
+        self.capture(2, i, i + quote);
         Some(i + quote + 1)
     }
 
@@ -1367,9 +1367,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.keyword(p, b"repeat")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let after = self.space_end(end);
-        self.cap(2, end, after);
+        self.capture(2, end, after);
         Some(after)
     }
 
@@ -1392,13 +1392,13 @@ impl Lexer<'_> {
             && let Some(word) = self.lit(blank, b"try")
             && self.word_at(word).is_none()
         {
-            self.cap(1, p, word);
+            self.capture(1, p, word);
             return Some(word);
         }
         if self.word_at(end).is_some() {
             return None;
         }
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -1431,9 +1431,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.keyword(p, b"do")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let after = self.space_end(end);
-        self.cap(2, end, after);
+        self.capture(2, end, after);
         Some(after)
     }
 
@@ -1447,13 +1447,13 @@ impl Lexer<'_> {
             if start > word
                 && let Some(end) = self.let_or_var(start)
             {
-                self.cap(1, p, word);
-                self.cap(2, start, end);
+                self.capture(1, p, word);
+                self.capture(2, start, end);
                 return Some(end);
             }
         }
         let end = self.let_or_var(p)?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -1575,8 +1575,8 @@ impl Lexer<'_> {
                     && let Some(end) = self.lit(start, b"async")
                     && self.word_at(end).is_none()
                 {
-                    self.cap(1, p, get);
-                    self.cap(2, blank, end);
+                    self.capture(1, p, get);
+                    self.capture(2, blank, end);
                     return Some(end);
                 }
             }
@@ -1586,14 +1586,14 @@ impl Lexer<'_> {
                     && let Some(end) = self.lit(start, b"throws")
                     && self.word_at(end).is_none()
                 {
-                    self.cap(1, p, get);
-                    self.cap(3, blank, word);
-                    self.cap(4, start, end);
+                    self.capture(1, p, get);
+                    self.capture(3, blank, word);
+                    self.capture(4, start, end);
                     return Some(end);
                 }
                 if self.word_at(word).is_none() {
-                    self.cap(1, p, get);
-                    self.cap(3, blank, word);
+                    self.capture(1, p, get);
+                    self.capture(3, blank, word);
                     return Some(word);
                 }
             }
@@ -1601,7 +1601,7 @@ impl Lexer<'_> {
         if self.word_at(get).is_some() {
             return None;
         }
-        self.cap(1, p, get);
+        self.capture(1, p, get);
         Some(get)
     }
 
@@ -1638,8 +1638,8 @@ impl Lexer<'_> {
         }
         let end = self.word_end(p);
         match self.text(p, end) {
-            b"dynamicType" | b"self" => self.cap(1, p, end),
-            b"Protocol" | b"Type" => self.cap(2, p, end),
+            b"dynamicType" | b"self" => self.capture(1, p, end),
+            b"Protocol" | b"Type" => self.capture(2, p, end),
             _ => return None,
         }
         Some(end)
@@ -1728,9 +1728,9 @@ impl Lexer<'_> {
         if end == start {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, colon, colon + 1);
-        self.cap(3, start, end);
+        self.capture(1, p, word);
+        self.capture(2, colon, colon + 1);
+        self.capture(3, start, end);
         Some(end)
     }
 }

@@ -11,16 +11,19 @@ struct Object {
     end: usize,
     /// Groups, as offsets from the first group of the object part, with
     /// their extents: at most the gap, its three comment parts and `this`.
-    caps: Few<(usize, usize, usize), 5>,
+    captures: Few<(usize, usize, usize), 5>,
 }
 
 impl Object {
     /// An object that is one group, `start..end`, followed by blanks up to
     /// `after`.
     fn one(group: usize, start: usize, end: usize, after: usize) -> Object {
-        let mut caps = Few::new();
-        caps.push((group, start, end));
-        Object { end: after, caps }
+        let mut captures = Few::new();
+        captures.push((group, start, end));
+        Object {
+            end: after,
+            captures,
+        }
     }
 }
 
@@ -106,19 +109,19 @@ impl Lexer<'_> {
             let Some(end) = self.word_lit(gap.end, b"this") else {
                 continue;
             };
-            let mut caps = Few::new();
-            caps.push((0, p, gap.end));
+            let mut captures = Few::new();
+            captures.push((0, p, gap.end));
             if gap_groups == 2 {
                 if gap.run {
-                    caps.push((1, p, gap.end));
+                    captures.push((1, p, gap.end));
                 }
             } else if let Some(parts) = gap.comment {
                 for (i, (a, b)) in parts.iter().enumerate() {
-                    caps.push((1 + i, *a, *b));
+                    captures.push((1 + i, *a, *b));
                 }
             }
-            caps.push((this, gap.end, end));
-            let object = Object { end, caps };
+            captures.push((this, gap.end, end));
+            let object = Object { end, captures };
             if let Some(found) = rest(self, &object) {
                 return Some((object, found));
             }
@@ -143,7 +146,7 @@ impl Lexer<'_> {
         if matches!(self.prev(p), Some(b']' | b')')) {
             let object = Object {
                 end: self.skip_space(p),
-                caps: Few::new(),
+                captures: Few::new(),
             };
             if let Some(found) = rest(self, &object) {
                 return Some((object, found));
@@ -193,8 +196,8 @@ impl Lexer<'_> {
     }
 
     fn put_object(&mut self, base: usize, object: &Object) {
-        for &(offset, a, b) in object.caps.iter() {
-            self.cap(base + offset, a, b);
+        for &(offset, a, b) in object.captures.iter() {
+            self.capture(base + offset, a, b);
         }
     }
 
@@ -204,7 +207,7 @@ impl Lexer<'_> {
             Operator::Dot => group,
             Operator::Arrow => group + 1,
         };
-        self.cap(group, at, end);
+        self.capture(group, at, end);
     }
 
     /// `GAPOBJECT(?:(\.\*?)|(->\*?))`, or the form that begins with a look
@@ -252,9 +255,9 @@ impl Lexer<'_> {
             })?;
         self.put_object(1, &object);
         self.put_operator(11, object.end, op_end, operator);
-        self.cap(13, op_end, chain_end);
-        self.cap(14, name, name_end);
-        self.cap(15, paren, paren + 1);
+        self.capture(13, op_end, chain_end);
+        self.capture(14, name, name_end);
+        self.capture(15, paren, paren + 1);
         Some(paren + 1)
     }
 
@@ -287,8 +290,8 @@ impl Lexer<'_> {
             })?;
         self.put_object(1, &object);
         self.put_operator(9, object.end, op_end, operator);
-        self.cap(11, op_end, chain_end);
-        self.cap(12, name, end);
+        self.capture(11, op_end, chain_end);
+        self.capture(12, name, end);
         Some(end)
     }
 }

@@ -378,16 +378,16 @@ impl Lexer<'_> {
         let [from, to, ..] = hit.at;
         match hit.pattern {
             Pattern::Processing => {
-                self.cap(base, start, start + 2, &[S::TagPunctuation]);
-                self.cap(base, start + 2, end, &[S::NameTag]);
+                self.capture(base, start, start + 2, &[S::TagPunctuation]);
+                self.capture(base, start + 2, end, &[S::NameTag]);
             }
-            Pattern::Comment => self.cap(base, start, end, &[S::CommentPunctuation]),
-            Pattern::Doctype | Pattern::Cdata => self.cap(base, start, end, &[S::TagBegin]),
+            Pattern::Comment => self.capture(base, start, end, &[S::CommentPunctuation]),
+            Pattern::Doctype | Pattern::Cdata => self.capture(base, start, end, &[S::TagBegin]),
             Pattern::StyleWrap | Pattern::ScriptWrap => {
-                self.cap(base, start, end, &[S::WhitespaceLeading]);
+                self.capture(base, start, end, &[S::WhitespaceLeading]);
             }
             Pattern::Tag => {
-                self.cap(base, start, from, &[S::TagBegin]);
+                self.capture(base, start, from, &[S::TagBegin]);
                 let rule = TagClass::from_bits(hit.bits & 0x3f).rule;
                 let scopes: &[S] = match (rule, hit.bits >> 8) {
                     (TagRule::Unrecognized, _) => &[S::NameTag, S::UnrecognizedTag],
@@ -395,13 +395,13 @@ impl Lexer<'_> {
                     (_, 2) => &[S::NameTag, S::NoLongerSupported],
                     _ => &[S::NameTag],
                 };
-                self.cap(base, from, to, scopes);
+                self.capture(base, from, to, scopes);
             }
             Pattern::Element => self.element_begin_captures(hit, frame),
             Pattern::StyleTag => self.embedded_start(base, start, end, S::TagStyleStart),
             Pattern::ScriptTag => self.embedded_start(base, start, end, S::TagScriptStart),
             Pattern::ScriptJs => {
-                self.cap(base, start, end, &[S::TagScriptStart, S::TagEnd]);
+                self.capture(base, start, end, &[S::TagScriptStart, S::TagEnd]);
             }
             Pattern::Attribute => {
                 let scope = if AttributeRule::from_bits(hit.bits) == AttributeRule::Deprecated {
@@ -409,12 +409,12 @@ impl Lexer<'_> {
                 } else {
                     S::AttributeName
                 };
-                self.cap(base, start, end, &[scope]);
+                self.capture(base, start, end, &[scope]);
             }
-            Pattern::Equals => self.cap(base, start, end, &[S::KeyValue]),
-            Pattern::Quote => self.cap(base, start, end, &[S::StringBegin]),
-            Pattern::JsLine => self.cap(base, start, end, &[S::CommentPunctuationJs]),
-            Pattern::JsBlock => self.cap(base, start, end, &[S::CommentBeginJs]),
+            Pattern::Equals => self.capture(base, start, end, &[S::KeyValue]),
+            Pattern::Quote => self.capture(base, start, end, &[S::StringBegin]),
+            Pattern::JsLine => self.capture(base, start, end, &[S::CommentPunctuationJs]),
+            Pattern::JsBlock => self.capture(base, start, end, &[S::CommentBeginJs]),
             Pattern::Erb(erb) => {
                 let scope = match erb {
                     Erb::CommentWrap => S::ErbCommentLeading,
@@ -422,7 +422,7 @@ impl Lexer<'_> {
                     Erb::Comment => S::ErbCommentBegin,
                     Erb::Block | Erb::Line => S::ErbBegin,
                 };
-                self.cap(base, start, end, &[scope]);
+                self.capture(base, start, end, &[scope]);
             }
             Pattern::Blade(blade) => self.blade_begin_captures(base, blade, start, end),
             Pattern::Vue(pattern) => self.vue_begin_captures(hit, pattern, frame),
@@ -524,7 +524,7 @@ impl Lexer<'_> {
         };
         match rule {
             VueRule::Comment | VueRule::CommentKv => {
-                self.cap(base, start, end, &[S::VueCommentPunctuation]);
+                self.capture(base, start, end, &[S::VueCommentPunctuation]);
             }
             VueRule::SelfClosing
             | VueRule::Block
@@ -532,19 +532,19 @@ impl Lexer<'_> {
             | VueRule::ScriptTagStuff
             | VueRule::StyleTagStuff
             | VueRule::TemplateTag
-            | VueRule::Capitalized => self.cap(base, start, end, &[S::VueTagEnd]),
+            | VueRule::Capitalized => self.capture(base, start, end, &[S::VueTagEnd]),
             VueRule::Element => {
                 let [name_start, name_end, ..] = hit.at;
-                self.cap(base, start, start + 2, &[S::VueTagBegin]);
+                self.capture(base, start, start + 2, &[S::VueTagBegin]);
                 let stack = self.vue_tag_name(base, name(top.payload));
-                self.cap_stack(base, name_start, name_end, stack);
+                self.capture_stack(base, name_start, name_end, stack);
             }
             VueRule::TemplateTagEnd if end > start => {
-                self.cap(base, start, start + 2, &[S::VueTagBegin]);
+                self.capture(base, start, start + 2, &[S::VueTagBegin]);
                 let stack = self.dynamic(base, &[Part::Lit("entity.name.tag.template.html.vue")]);
-                self.cap_stack(base, start + 2, end, stack);
+                self.capture_stack(base, start + 2, end, stack);
             }
-            VueRule::ExprString => self.cap(base, start, end, &[S::VueStringEnd]),
+            VueRule::ExprString => self.capture(base, start, end, &[S::VueStringEnd]),
             VueRule::TemplateTagEnd
             | VueRule::ScriptStuff
             | VueRule::StyleStuff
@@ -617,34 +617,34 @@ impl Lexer<'_> {
         let at = hit.at;
         match pattern {
             VuePattern::CommentKv => {
-                self.cap(base, start, start + 4, &[S::VueCommentPunctuation]);
-                self.cap(base, at[0], at[1], &[S::VueBlockTag]);
-                self.cap(base, at[1], end, &[S::VueStorageClass]);
+                self.capture(base, start, start + 4, &[S::VueCommentPunctuation]);
+                self.capture(base, at[0], at[1], &[S::VueBlockTag]);
+                self.capture(base, at[1], end, &[S::VueStorageClass]);
             }
-            VuePattern::Comment => self.cap(base, start, end, &[S::VueCommentPunctuation]),
+            VuePattern::Comment => self.capture(base, start, end, &[S::VueCommentPunctuation]),
             VuePattern::SelfClosing => {
-                self.cap(base, start, start + 1, &[S::VueTagBegin]);
+                self.capture(base, start, start + 1, &[S::VueTagBegin]);
                 let word = self.intern(at[0], at[1]);
                 let stack = self.vue_tag_name(base, word);
-                self.cap_stack(base, at[0], at[1], stack);
+                self.capture_stack(base, at[0], at[1], stack);
             }
-            VuePattern::Block => self.cap(base, start, end, &[S::VueTagBegin]),
+            VuePattern::Block => self.capture(base, start, end, &[S::VueTagBegin]),
             VuePattern::Element => {
                 let stack = self.vue_tag_name(base, name(frame.payload));
-                self.cap_stack(base, start, end, stack);
+                self.capture_stack(base, start, end, stack);
             }
             VuePattern::TemplateTag => {
                 let tag = TemplateTag::from_bits(hit.bits);
-                self.cap(base, start, start + 1, &[S::VueTagBegin]);
+                self.capture(base, start, start + 1, &[S::VueTagBegin]);
                 let stack = self.dynamic(base, &[Part::Lit("entity.name.tag.template.html.vue")]);
-                self.cap_stack(base, start + 1, start + 9, stack);
+                self.capture_stack(base, start + 1, start + 9, stack);
                 if tag == TemplateTag::Bare {
-                    self.cap(base, start + 9, end, &[S::VueTagEnd]);
+                    self.capture(base, start + 9, end, &[S::VueTagEnd]);
                 }
             }
             VuePattern::Capitalized => {
-                self.cap(base, start, start + 1, &[S::VueTagBegin]);
-                self.cap(base, at[0], at[1], &[S::VueNameTag]);
+                self.capture(base, start, start + 1, &[S::VueTagBegin]);
+                self.capture(base, at[0], at[1], &[S::VueNameTag]);
             }
             VuePattern::DirectiveControl => {
                 let scope = if hit.bits == 1 {
@@ -652,36 +652,36 @@ impl Lexer<'_> {
                 } else {
                     S::ConditionalVue
                 };
-                self.cap(base, start, end, &[scope]);
+                self.capture(base, start, end, &[scope]);
             }
             VuePattern::DirectiveOriginal => {
                 let [name_end, colon_end, argument_start, argument_end, argument] = at;
                 match u8::try_from(hit.bits).unwrap_or(b'v') {
-                    b'.' | b':' => self.cap(base, start, name_end, &[S::ShorthandBind]),
-                    b'@' => self.cap(base, start, name_end, &[S::ShorthandEvent]),
-                    b'#' => self.cap(base, start, name_end, &[S::ShorthandSlot]),
+                    b'.' | b':' => self.capture(base, start, name_end, &[S::ShorthandBind]),
+                    b'@' => self.capture(base, start, name_end, &[S::ShorthandEvent]),
+                    b'#' => self.capture(base, start, name_end, &[S::ShorthandSlot]),
                     _ => {
-                        self.cap(base, start, name_end, &[S::VueAttributeName]);
-                        self.cap(base, name_end, colon_end, &[S::VueKeyValue]);
+                        self.capture(base, start, name_end, &[S::VueAttributeName]);
+                        self.capture(base, name_end, colon_end, &[S::VueKeyValue]);
                     }
                 }
                 match vue::Argument::from_code(argument) {
                     vue::Argument::Bracketed => {
-                        self.cap(base, argument_start, argument_start + 1, &[S::VueKeyValue]);
-                        self.cap(base, argument_start + 1, argument_end, &[S::TsEmbedded]);
-                        self.cap(base, argument_end, argument_end + 1, &[S::VueKeyValue]);
+                        self.capture(base, argument_start, argument_start + 1, &[S::VueKeyValue]);
+                        self.capture(base, argument_start + 1, argument_end, &[S::TsEmbedded]);
+                        self.capture(base, argument_end, argument_end + 1, &[S::VueKeyValue]);
                     }
                     vue::Argument::Plain => {
-                        self.cap(base, argument_start, argument_end, &[S::VueAttributeName]);
+                        self.capture(base, argument_start, argument_end, &[S::VueAttributeName]);
                     }
                     vue::Argument::Absent => {}
                 }
             }
             VuePattern::ExprString => {
-                self.cap(base, start, start + 1, &[S::VueKeyValue]);
-                self.cap(base, at[0], end, &[S::VueStringBegin]);
+                self.capture(base, start, start + 1, &[S::VueKeyValue]);
+                self.capture(base, at[0], end, &[S::VueStringBegin]);
             }
-            VuePattern::ExprBare => self.cap(base, start, end, &[S::VueKeyValue]),
+            VuePattern::ExprBare => self.capture(base, start, end, &[S::VueKeyValue]),
             VuePattern::LangGroup | VuePattern::TemplateTagEnd | VuePattern::Modifier => {}
         }
     }
@@ -691,9 +691,9 @@ impl Lexer<'_> {
     fn embedded_start(&mut self, base: u32, start: usize, end: usize, tag: S) {
         let tag_stack = self.path(base, &[tag]);
         let stack = self.path(tag_stack, &[S::TagBegin]);
-        self.cap_stack(base, start, start + 1, stack);
+        self.capture_stack(base, start, start + 1, stack);
         let stack = self.path(tag_stack, &[S::NameTag]);
-        self.cap_stack(base, start + 1, end, stack);
+        self.capture_stack(base, start + 1, end, stack);
     }
 
     /// Emits a match rule's text under its scopes.
@@ -715,9 +715,9 @@ impl Lexer<'_> {
                     ],
                 );
                 let punctuation = self.path(stack, &[S::EntityPunctuation]);
-                self.cap_stack(base, start, start + 1, punctuation);
-                self.cap_stack(base, start + 1, semi, stack);
-                self.cap_stack(base, semi, end, punctuation);
+                self.capture_stack(base, start, start + 1, punctuation);
+                self.capture_stack(base, start + 1, semi, stack);
+                self.capture_stack(base, semi, end, punctuation);
             }
             Pattern::EntityDecimal | Pattern::EntityHexadecimal => {
                 let scope = if hit.pattern == Pattern::EntityDecimal {
@@ -727,17 +727,17 @@ impl Lexer<'_> {
                 };
                 let stack = self.path(base, &[scope]);
                 let punctuation = self.path(stack, &[S::EntityPunctuation]);
-                self.cap_stack(base, start, start + 1, punctuation);
-                self.cap_stack(base, start + 1, end, stack);
+                self.capture_stack(base, start, start + 1, punctuation);
+                self.capture_stack(base, start + 1, end, stack);
             }
-            Pattern::EntityAmbiguous => self.cap(base, start, end, &[S::AmbiguousAmpersand]),
-            Pattern::AttributeIllegal => self.cap(base, start, end, &[S::CharacterNotAllowed]),
-            Pattern::EqualsIllegal => self.cap(base, start, end, &[S::UnexpectedEquals]),
-            Pattern::CommentIllegal => self.cap(base, start, end, &[S::CommentIllegal]),
-            Pattern::DoctypeKeyword => self.cap(base, start, end, &[S::NameTag]),
-            Pattern::DoctypeWord => self.cap(base, start, end, &[S::AttributeName]),
-            Pattern::Unquoted => self.cap(base, start, end, &[S::Unquoted]),
-            Pattern::UnquotedCss => self.cap(base, start, end, &[S::Unquoted, S::SourceCss]),
+            Pattern::EntityAmbiguous => self.capture(base, start, end, &[S::AmbiguousAmpersand]),
+            Pattern::AttributeIllegal => self.capture(base, start, end, &[S::CharacterNotAllowed]),
+            Pattern::EqualsIllegal => self.capture(base, start, end, &[S::UnexpectedEquals]),
+            Pattern::CommentIllegal => self.capture(base, start, end, &[S::CommentIllegal]),
+            Pattern::DoctypeKeyword => self.capture(base, start, end, &[S::NameTag]),
+            Pattern::DoctypeWord => self.capture(base, start, end, &[S::AttributeName]),
+            Pattern::Unquoted => self.capture(base, start, end, &[S::Unquoted]),
+            Pattern::UnquotedCss => self.capture(base, start, end, &[S::Unquoted, S::SourceCss]),
             Pattern::UnquotedJs => {
                 let stack = self.path(base, &[S::Unquoted]);
                 self.javascript(start, end, stack);
@@ -746,16 +746,16 @@ impl Lexer<'_> {
             Pattern::ErbHash => {
                 let stack = self.path(base, &[S::ErbHashComment]);
                 let punctuation = self.path(stack, &[S::ErbHashPunctuation]);
-                self.cap_stack(base, start, start + 1, punctuation);
-                self.cap_stack(base, start + 1, end, stack);
+                self.capture_stack(base, start, start + 1, punctuation);
+                self.capture_stack(base, start + 1, end, stack);
             }
             Pattern::BladeMatch(blade) => {
                 let base = self.blade_base(top.rule, top.state, top.content);
                 self.blade_match_captures(base, blade, start, end);
             }
             Pattern::Vue(VuePattern::Modifier) => {
-                self.cap(base, start, start + 1, &[S::VueKeyValue]);
-                self.cap(base, start + 1, end, &[S::VueAttributeName]);
+                self.capture(base, start, start + 1, &[S::VueKeyValue]);
+                self.capture(base, start + 1, end, &[S::VueAttributeName]);
             }
             Pattern::End
             | Pattern::Inject
@@ -807,41 +807,41 @@ impl Lexer<'_> {
         let base = top.name;
         let (start, end) = (hit.start, hit.end);
         match top.rule {
-            Rule::Comment => self.cap(base, start, end, &[S::CommentPunctuation]),
-            Rule::Processing => self.cap(base, start, end, &[S::TagPunctuation]),
+            Rule::Comment => self.capture(base, start, end, &[S::CommentPunctuation]),
+            Rule::Processing => self.capture(base, start, end, &[S::TagPunctuation]),
             Rule::Cdata | Rule::Doctype | Rule::OpenStyle | Rule::OpenScript | Rule::Tag => {
-                self.cap(base, start, end, &[S::TagEnd]);
+                self.capture(base, start, end, &[S::TagEnd]);
             }
-            Rule::ElementStart => self.cap(base, start, end, &[S::TagEnd]),
+            Rule::ElementStart => self.capture(base, start, end, &[S::TagEnd]),
             Rule::Element => self.element_end_captures(top, hit),
             Rule::StyleWrap | Rule::ScriptWrap => {
-                self.cap(base, start, end, &[S::WhitespaceTrailing]);
+                self.capture(base, start, end, &[S::WhitespaceTrailing]);
             }
             Rule::StyleTag => {
                 let [name_start, name_end, gt, ..] = hit.at;
                 let tag = self.path(base, &[S::TagStyleEnd]);
                 let open = self.path(tag, &[S::TagBegin]);
                 let ignored = self.path(open, &[S::CssIgnored]);
-                self.cap_stack(base, start, start + 1, ignored);
-                self.cap_stack(base, start + 1, start + 2, open);
+                self.capture_stack(base, start, start + 1, ignored);
+                self.capture_stack(base, start + 1, start + 2, open);
                 let name_stack = self.path(tag, &[S::NameTag]);
-                self.cap_stack(base, name_start, name_end, name_stack);
+                self.capture_stack(base, name_start, name_end, name_stack);
                 self.tok(tag, gt);
                 let close = self.path(tag, &[S::TagEnd]);
-                self.cap_stack(base, gt, end, close);
+                self.capture_stack(base, gt, end, close);
                 self.tok(tag, end);
             }
             Rule::ScriptTag => {
                 let tag = self.path(base, &[S::TagScriptEnd]);
                 let open = self.path(tag, &[S::TagBegin]);
-                self.cap_stack(base, start, start + 1, open);
+                self.capture_stack(base, start, start + 1, open);
                 let name_stack = self.path(tag, &[S::NameTag]);
-                self.cap_stack(base, start + 1, end - 1, name_stack);
+                self.capture_stack(base, start + 1, end - 1, name_stack);
                 let close = self.path(tag, &[S::TagEnd]);
-                self.cap_stack(base, end - 1, end, close);
+                self.capture_stack(base, end - 1, end, close);
             }
             Rule::ScriptJsOuter => {
-                self.cap(
+                self.capture(
                     base,
                     start,
                     end,
@@ -849,7 +849,7 @@ impl Lexer<'_> {
                 );
             }
             Rule::ScriptTemplateOuter => {
-                self.cap(
+                self.capture(
                     base,
                     start,
                     end,
@@ -857,21 +857,21 @@ impl Lexer<'_> {
                 );
             }
             Rule::ScriptOtherOuter => {
-                self.cap(base, start, end, &[S::TagScriptEnd, S::TagBegin]);
+                self.capture(base, start, end, &[S::TagScriptEnd, S::TagBegin]);
             }
-            Rule::StringPlain => self.cap(base, start, end, &[S::StringEnd]),
-            Rule::StringCss => self.cap(base, start, end, &[S::StringEnd, S::SourceCss]),
-            Rule::StringJs => self.cap(base, start, end, &[S::StringEnd, S::SourceJs]),
+            Rule::StringPlain => self.capture(base, start, end, &[S::StringEnd]),
+            Rule::StringCss => self.capture(base, start, end, &[S::StringEnd, S::SourceCss]),
+            Rule::StringJs => self.capture(base, start, end, &[S::StringEnd, S::SourceJs]),
             Rule::JsBlockComment if end > start => {
-                self.cap(base, start, end, &[S::CommentEndJs]);
+                self.capture(base, start, end, &[S::CommentEndJs]);
             }
-            Rule::ErbCommentWrap => self.cap(base, start, end, &[S::ErbCommentTrailing]),
-            Rule::ErbTagWrap => self.cap(base, start, end, &[S::ErbEmbeddedTrailing]),
-            Rule::ErbComment => self.cap(base, start, end, &[S::ErbCommentEnd]),
+            Rule::ErbCommentWrap => self.capture(base, start, end, &[S::ErbCommentTrailing]),
+            Rule::ErbTagWrap => self.capture(base, start, end, &[S::ErbEmbeddedTrailing]),
+            Rule::ErbComment => self.capture(base, start, end, &[S::ErbCommentEnd]),
             Rule::ErbBlock | Rule::ErbLine => {
                 let gt = hit.at[0];
-                self.cap(base, start, gt, &[S::ErbEnd, S::SourceRuby]);
-                self.cap(base, gt, end, &[S::ErbEnd]);
+                self.capture(base, start, gt, &[S::ErbEnd, S::SourceRuby]);
+                self.capture(base, gt, end, &[S::ErbEnd]);
             }
             Rule::BladeComment
             | Rule::BladeCommentPhpWrap
@@ -1001,13 +1001,13 @@ impl Lexer<'_> {
         let word = name(frame.payload);
         let tag = self.element_tag(base, element, word, "start");
         let bracket = self.path(tag, &[S::TagBegin]);
-        self.cap_stack(base, hit.start, name_start, bracket);
+        self.capture_stack(base, hit.start, name_start, bracket);
         let name_stack = self.element_name(tag, element);
-        self.cap_stack(base, name_start, name_end, name_stack);
+        self.capture_stack(base, name_start, name_end, name_stack);
         if attrs_start != usize::MAX {
             self.region(attrs_start, attrs_end, base, Self::region_payload(element));
             let close = self.path(tag, &[S::TagEnd]);
-            self.cap_stack(base, attrs_end, hit.end, close);
+            self.capture_stack(base, attrs_end, hit.end, close);
         }
     }
 
@@ -1022,12 +1022,12 @@ impl Lexer<'_> {
         let base = self.name_stack(top.content, Rule::Element, packed(hit.bits, word));
         let tag = self.element_tag(base, element, word, "void");
         let bracket = self.path(tag, &[S::TagBegin]);
-        self.cap_stack(base, hit.start, name_start, bracket);
+        self.capture_stack(base, hit.start, name_start, bracket);
         let name_stack = self.element_name(tag, element);
-        self.cap_stack(base, name_start, name_end, name_stack);
+        self.capture_stack(base, name_start, name_end, name_stack);
         self.region(attrs_start, attrs_end, base, Self::region_payload(element));
         let close = self.path(tag, &[S::TagEnd]);
-        self.cap_stack(base, attrs_end, hit.end, close);
+        self.capture_stack(base, attrs_end, hit.end, close);
         self.pos = self.pos.max(hit.end);
         false
     }
@@ -1046,17 +1046,17 @@ impl Lexer<'_> {
                 let word = self.intern(name_start, name_end);
                 let tag = self.element_tag(base, element, word, "end");
                 let bracket = self.path(tag, &[S::TagBegin]);
-                self.cap_stack(base, hit.start, name_start, bracket);
+                self.capture_stack(base, hit.start, name_start, bracket);
                 let name_stack = self.element_name(tag, element);
-                self.cap_stack(base, name_start, name_end, name_stack);
-                self.cap_stack(base, name_end, gt, tag);
+                self.capture_stack(base, name_start, name_end, name_stack);
+                self.capture_stack(base, name_end, gt, tag);
                 let close = self.path(tag, &[S::TagEnd]);
-                self.cap_stack(base, gt, hit.end, close);
+                self.capture_stack(base, gt, hit.end, close);
             }
             1 => {
                 let tag = self.element_tag(base, element, 0, "end");
                 let close = self.path(tag, &[S::TagEnd]);
-                self.cap_stack(base, hit.start, hit.end, close);
+                self.capture_stack(base, hit.start, hit.end, close);
             }
             _ => {}
         }

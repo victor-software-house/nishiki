@@ -97,7 +97,7 @@ impl Lexer<'_> {
             (4, open, title),
             (5, title, end),
         ] {
-            self.cap(group, from, to);
+            self.capture(group, from, to);
         }
         Some(end)
     }
@@ -114,15 +114,15 @@ impl Lexer<'_> {
         let (title, end) = self.spaced_run(word, 1, |c| {
             matches!(c, ' ' | '0'..='9' | '<' | '>') || is_letter(c)
         })?;
-        self.cap(1, start, word);
-        self.cap(2, title, end);
+        self.capture(1, start, word);
+        self.capture(2, title, end);
         Some(end)
     }
 
     /// `\b(end)\b`.
     pub(super) fn end_word(&mut self, p: usize) -> Option<usize> {
         let end = self.keyword(p, b"end")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -159,8 +159,8 @@ impl Lexer<'_> {
         if self.at(shape) == b'(' && end == shape + 1 {
             end = self.skip(shape, |b| b == b'(');
         }
-        self.cap(1, p, shape);
-        self.cap(2, shape, end);
+        self.capture(1, p, shape);
+        self.capture(2, shape, end);
         Some(end)
     }
 
@@ -176,7 +176,7 @@ impl Lexer<'_> {
             }
         }
         let end = self.ws(name);
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -186,7 +186,7 @@ impl Lexer<'_> {
         if self.at(p) == b')' && end == p + 1 {
             end = self.skip(p, |b| b == b')');
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -199,14 +199,14 @@ impl Lexer<'_> {
     /// `([^"]*)`: text up to a quote, the line feed included.
     pub(super) fn unquoted(&mut self, p: usize) -> usize {
         let end = self.class_run(p, |c| c != '"');
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         end
     }
 
     /// `(?i)\s*([!#-'*+,./:;<>?\\^_\w\s]+)`: a node's text or a link's label.
     pub(super) fn label(&mut self, p: usize) -> Option<usize> {
         let (start, end) = self.spaced_run(p, 0, is_label)?;
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -241,7 +241,7 @@ impl Lexer<'_> {
             .or_else(|| self.counted(start, b'=', 2, 5))?;
         let head = line + usize::from(is_head(self.at(line)));
         let end = self.lit(head, b"|")?;
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -257,7 +257,7 @@ impl Lexer<'_> {
             .or_else(|| self.counted(from, b'-', 1, 4))
             .or_else(|| self.counted(from, b'=', 1, 4))?;
         let end = line + usize::from(is_head(self.at(line)));
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -325,9 +325,9 @@ impl Lexer<'_> {
             .chain(descending(from + 2, self.counted(from, b'=', 2, 5)))
             .chain(descending(from + 2, dots))
             .find_map(|open| Some((open, self.link_text(open)?)))?;
-        self.cap(1, start, open);
-        self.cap(2, open, text);
-        self.cap(3, text, end);
+        self.capture(1, start, open);
+        self.capture(2, open, text);
+        self.capture(3, text, end);
         Some(end)
     }
 
@@ -349,9 +349,9 @@ impl Lexer<'_> {
         let word = self.ci(start, b"class")?;
         let (names, names_end) = self.word_led(word, |c| c == '-' || c == ',' || is_word(c))?;
         let (class, end) = self.word_led(names_end, is_word)?;
-        self.cap(1, start, word);
-        self.cap(2, names, names_end);
-        self.cap(3, class, end);
+        self.capture(1, start, word);
+        self.capture(2, names, names_end);
+        self.capture(3, class, end);
         Some(end)
     }
 
@@ -363,9 +363,9 @@ impl Lexer<'_> {
         let (style, end) = self.word_led(name_end, |c| {
             matches!(c, '-' | '#' | ',' | ':' | ';') || is_word(c)
         })?;
-        self.cap(1, start, word);
-        self.cap(2, name, name_end);
-        self.cap(3, style, end);
+        self.capture(1, start, word);
+        self.capture(2, name, name_end);
+        self.capture(3, style, end);
         Some(end)
     }
 
@@ -400,13 +400,13 @@ impl Lexer<'_> {
                 return None;
             }
         };
-        self.cap(1, start, word);
-        self.cap(2, name, spaces);
+        self.capture(1, start, word);
+        self.capture(2, name, spaces);
         if let Some(to) = callback {
-            self.cap(3, spaces, to);
+            self.capture(3, spaces, to);
         }
         let end = tip.max(self.lim());
-        self.cap(4, tip, end);
+        self.capture(4, tip, end);
         Some(end)
     }
 
@@ -456,9 +456,9 @@ impl Lexer<'_> {
         let colon = self.lit(self.ws(word), b":")?;
         let value = self.class_run(colon, |c| c != ',' && c != '}');
         let end = self.lit(value, b",").unwrap_or(value);
-        self.cap(1, start, colon);
-        self.cap(2, colon, value);
-        self.cap(3, value, end);
+        self.capture(1, start, colon);
+        self.capture(2, colon, value);
+        self.capture(3, value, end);
         Some(end)
     }
 }

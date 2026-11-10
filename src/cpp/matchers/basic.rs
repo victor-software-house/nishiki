@@ -20,7 +20,7 @@ impl Lexer<'_> {
     /// `text` at `p` as capture group `group`: where it ends.
     pub(super) fn group_lit(&mut self, p: usize, group: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -119,14 +119,14 @@ impl Lexer<'_> {
     /// `(R?)(")`: group 1 is the `R`, group 2 the quote.
     pub(super) fn raw_prefix_quote(&mut self, p: usize) -> Option<usize> {
         let q = if self.at(p) == b'R' && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         } else {
-            self.cap(1, p, p);
+            self.capture(1, p, p);
             p
         };
         (self.at(q) == b'"' && q < self.lim()).then(|| {
-            self.cap(2, q, q + 1);
+            self.capture(2, q, q + 1);
             q + 1
         })
     }
@@ -143,7 +143,7 @@ impl Lexer<'_> {
     pub(super) fn lead_slashes(&mut self, p: usize, marker: &[u8]) -> Option<usize> {
         let q = self.skip_space(p);
         let end = self.lit(q, marker)?;
-        self.cap(1, q, end);
+        self.capture(1, q, end);
         Some(end)
     }
 
@@ -199,7 +199,7 @@ impl Lexer<'_> {
             None if quote(self, p) => p,
             None => return None,
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end + 1)
     }
 
@@ -216,7 +216,7 @@ impl Lexer<'_> {
     /// `\b(__cplusplus|…)\b`: one of the listed predefined macros.
     pub(super) fn predefined_macro(&mut self, p: usize) -> Option<usize> {
         let end = self.word_in(p, PREDEFINED)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -231,7 +231,7 @@ impl Lexer<'_> {
         if end < p + 5 || !self.ends_with_at(end, b"__") || self.word_at(end).is_some() {
             return None;
         }
-        self.cap(1, p + 2, end - 2);
+        self.capture(1, p + 2, end - 2);
         Some(end)
     }
 
@@ -263,7 +263,7 @@ impl Lexer<'_> {
         if end == q + 2 {
             return None;
         }
-        self.cap(1, q, end);
+        self.capture(1, q, end);
         Some(end)
     }
 
@@ -288,13 +288,13 @@ impl Lexer<'_> {
             return None;
         }
         let quote = name + 1;
-        self.cap(1, p, quote);
+        self.capture(1, p, quote);
         if name - (p + 1) > RAW_DELIMITER_MAX {
-            self.cap(2, p + 1, p + 1);
-            self.cap(3, p + 1, name);
+            self.capture(2, p + 1, p + 1);
+            self.capture(3, p + 1, name);
         } else {
-            self.cap(2, p + 1, name);
-            self.cap(3, name, name);
+            self.capture(2, p + 1, name);
+            self.capture(3, name, name);
         }
         let lead = self.at(quote);
         let first = if quote < self.lim() && lead.is_ascii_alphabetic() {
@@ -318,7 +318,7 @@ impl Lexer<'_> {
                 break;
             }
         }
-        self.cap(group, quote, end);
+        self.capture(group, quote, end);
         Some(end)
     }
 
@@ -346,7 +346,7 @@ impl Lexer<'_> {
         if !self.starts(end, b"\"(") {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end + 2)
     }
 
@@ -363,9 +363,9 @@ impl Lexer<'_> {
         }
         let at = memchr::memmem::find(&self.s[p + 2..], b"*/")?;
         let close = p + 2 + at;
-        self.cap(1, p, p + 2);
-        self.cap(2, p + 2, close + 2);
-        self.cap(3, close, close + 2);
+        self.capture(1, p, p + 2);
+        self.capture(2, p + 2, close + 2);
+        self.capture(3, close, close + 2);
         Some(close + 2)
     }
 
@@ -396,9 +396,9 @@ impl Lexer<'_> {
         if close == marker {
             return None;
         }
-        self.cap(1, p, marker);
-        self.cap(2, marker, close);
-        self.cap(3, close, close + 2);
+        self.capture(1, p, marker);
+        self.capture(2, marker, close);
+        self.capture(3, close, close + 2);
         Some(close + 2)
     }
 
@@ -443,10 +443,10 @@ impl Lexer<'_> {
         if last <= open + 1 || self.s[last - 1] != b'>' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, open, open + 1);
-        self.cap(3, open + 1, last - 1);
-        self.cap(4, last - 1, last);
+        self.capture(1, p, word);
+        self.capture(2, open, open + 1);
+        self.capture(3, open + 1, last - 1);
+        self.capture(4, last - 1, last);
         Some(self.lim() + usize::from(self.nl))
     }
 
@@ -458,14 +458,14 @@ impl Lexer<'_> {
         if let Some(end) = self.ascii_ident(p)
             && open_ok(self, end)
         {
-            self.cap(1, p, end);
-            self.cap(2, end, end + 1);
+            self.capture(1, p, end);
+            self.capture(2, end, end + 1);
             return Some(end + 1);
         }
         if !open_ok(self, p) {
             return None;
         }
-        self.cap(2, p, p + 1);
+        self.capture(2, p, p + 1);
         Some(p + 1)
     }
 
@@ -474,12 +474,12 @@ impl Lexer<'_> {
         if self.after_close(p) {
             let q = self.skip_space(p);
             if self.at(q) == b';' && q < self.lim() {
-                self.cap(1, q, q + 1);
+                self.capture(1, q, q + 1);
                 return Some(q + 1);
             }
         }
         if self.at(p) == b';' && p < self.lim() {
-            self.cap(2, p, p + 1);
+            self.capture(2, p, p + 1);
             return Some(p + 1);
         }
         (p < self.lim() && b"];=>[".contains(&self.s[p])).then_some(p)
@@ -493,7 +493,7 @@ impl Lexer<'_> {
     /// The assignment operators with their groups from `base`.
     pub(super) fn assign_at(&mut self, p: usize, base: usize) -> Option<usize> {
         let (group, end) = self.assign_op(p)?;
-        self.cap(base + group, p, end);
+        self.capture(base + group, p, end);
         Some(end)
     }
 

@@ -48,8 +48,8 @@ impl Lexer<'_> {
             .or_else(|| self.decimal(p))
             .or_else(|| self.float_name(p))?;
         let primes = self.skip(end, |b| b == b'\'');
-        self.cap(1, p, end);
-        self.cap(2, end, primes);
+        self.capture(1, p, end);
+        self.capture(2, end, primes);
         Some(primes)
     }
 

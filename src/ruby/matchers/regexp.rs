@@ -48,8 +48,8 @@ impl Lexer<'_> {
             .rev()
             .any(|end| self.follows_regexp(self.space_end(end)));
         follows.then(|| {
-            self.cap(1, p, body);
-            self.cap(2, p, body);
+            self.capture(1, p, body);
+            self.capture(2, p, body);
             body
         })
     }
@@ -99,8 +99,8 @@ impl Lexer<'_> {
     /// `((/[eimnosux]*))`
     pub(in crate::ruby) fn regexp_end(&mut self, p: usize) -> Option<usize> {
         let end = self.close_with_flags(p, b'/')?;
-        self.cap(1, p, end);
-        self.cap(2, p, end);
+        self.capture(1, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -120,8 +120,8 @@ impl Lexer<'_> {
             low
         };
         self.byte_in(high, |b| b == b'}').then(|| {
-            self.cap(1, p, p + 1);
-            self.cap(3, high, high + 1);
+            self.capture(1, p, p + 1);
+            self.capture(3, high, high + 1);
             high + 1
         })
     }
@@ -154,7 +154,7 @@ impl Lexer<'_> {
                 || matches!(b, b'-' | b'\t' | b' ' | b'!' | b',' | b'.' | b'?')
         };
         (rest > self.lim() || self.skip(rest, plain) == self.lim()).then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             rest
         })
     }

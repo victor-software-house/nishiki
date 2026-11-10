@@ -12,12 +12,12 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn enum_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let mut k = pre.at;
-        let mut const_cap = None;
+        let mut const_capture = None;
         if self.starts(k, "const") && self.boundary(k) {
             let e = k + "const".len();
             let j = self.ws(e);
             if j > e {
-                const_cap = Some((k, e));
+                const_capture = Some((k, e));
                 k = j;
             }
         }
@@ -32,7 +32,7 @@ impl<const D: u8> Lexer<'_, D> {
         let n = self.ident(j)?;
         self.flush(p);
         self.prefix_tokens(Rule::EnumDecl, &pre);
-        if let Some((a, b)) = const_cap {
+        if let Some((a, b)) = const_capture {
             self.capture(Rule::EnumDecl, a, b, &[S::StorageModifier]);
         }
         self.capture(Rule::EnumDecl, k, e, &[S::StorageTypeEnum]);

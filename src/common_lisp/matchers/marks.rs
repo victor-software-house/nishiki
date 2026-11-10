@@ -193,12 +193,12 @@ impl Lexer<'_> {
                 (some && mark == b'#' && self.any_char(digits + 1)).then_some(digits + 1)
             }
         }?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         if some {
-            self.cap(2, p + 1, digits);
+            self.capture(2, p + 1, digits);
         }
         if end > digits {
-            self.cap(3, digits, end);
+            self.capture(3, digits, end);
         }
         Some(end)
     }
@@ -255,7 +255,7 @@ impl Lexer<'_> {
         if !self.after_form(p) || self.lit(p, b"#:").is_none() || !self.non_space(p + 2) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 2)
     }
 
@@ -276,17 +276,17 @@ impl Lexer<'_> {
         match self.at(p) {
             b'`' => {
                 if self.at(p + 1) == b'#' && self.non_space(p + 2) {
-                    self.cap(2, p, p + 2);
+                    self.capture(2, p, p + 2);
                     return Some(p + 2);
                 }
                 if !self.non_space(p + 1) {
                     return None;
                 }
-                self.cap(3, p, p + 1);
+                self.capture(3, p, p + 1);
                 if self.at(p + 1) == b',' {
                     let end = self.comma(p + 1);
                     if self.non_space(end) {
-                        self.cap(4, p + 1, end);
+                        self.capture(4, p + 1, end);
                         return Some(end);
                     }
                 }
@@ -295,7 +295,7 @@ impl Lexer<'_> {
             b',' => {
                 let end = self.comma(p);
                 self.non_space(end).then(|| {
-                    self.cap(5, p, end);
+                    self.capture(5, p, end);
                     end
                 })
             }
@@ -377,9 +377,9 @@ impl Lexer<'_> {
             found
         };
         let (colons, muffs, end) = found?;
-        self.cap(1, p, colons);
-        self.cap(2, colons, muffs);
-        self.cap(3, muffs, end);
+        self.capture(1, p, colons);
+        self.capture(2, colons, muffs);
+        self.capture(3, muffs, end);
         Some(end)
     }
 

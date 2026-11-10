@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //! A filter's begin always records group 1, its indent, which its end repeats.
 //!
@@ -29,7 +29,7 @@ impl Lexer<'_> {
             Pattern::InterpolatedTextEnd | Pattern::TagAt0End => self.line_end_and_feed(p),
             Pattern::InterpolatedRubyAt0 => {
                 let end = self.lit(p, b"#{}")?;
-                self.cap(1, end - 1, end);
+                self.capture(1, end - 1, end);
                 Some(end)
             }
             Pattern::InterpolatedRubyAt1 => self.lit(p, b"#{"),
@@ -137,7 +137,7 @@ impl Lexer<'_> {
             Pattern::Escape => {
                 let dot = self.line_indent(p)?;
                 (self.at(dot) == b'.').then(|| {
-                    self.cap(1, dot, dot + 1);
+                    self.capture(1, dot, dot + 1);
                     dot + 1
                 })
             }
@@ -176,7 +176,7 @@ impl Lexer<'_> {
     fn indent_then(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let indent = self.line_indent(p)?;
         let end = self.lit(indent, text)?;
-        self.cap(1, 0, indent);
+        self.capture(1, 0, indent);
         Some(end)
     }
 
@@ -194,9 +194,9 @@ impl Lexer<'_> {
             .iter()
             .filter_map(|name| self.lit(indent, name))
             .find(|&end| self.at_eol(end))?;
-        self.cap(1, 0, indent);
+        self.capture(1, 0, indent);
         if let Some(group) = name_group {
-            self.cap(group, indent, end);
+            self.capture(group, indent, end);
         }
         Some(end)
     }
@@ -204,7 +204,7 @@ impl Lexer<'_> {
     /// `^(\s*)(:name)`, with group 2 around the name.
     fn named_filter(&mut self, p: usize, name: &[u8]) -> Option<usize> {
         let end = self.indent_then(p, name)?;
-        self.cap(2, end - name.len(), end);
+        self.capture(2, end - name.len(), end);
         Some(end)
     }
 
@@ -218,9 +218,9 @@ impl Lexer<'_> {
             .iter()
             .filter_map(|name| self.lit(colon, name))
             .find(|&end| self.at_eol(end))?;
-        self.cap(1, 0, indent);
-        self.cap(2, indent, end);
-        self.cap(3, colon, end);
+        self.capture(1, 0, indent);
+        self.capture(2, indent, end);
+        self.capture(3, colon, end);
         Some(end)
     }
 
@@ -268,7 +268,7 @@ impl Lexer<'_> {
         if !(b.is_ascii_alphabetic() || b == b'_') {
             return None;
         }
-        self.cap(1, p, first);
+        self.capture(1, p, first);
         Some(self.word_end(first + 1))
     }
 
@@ -285,7 +285,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, 0, bangs);
+        self.capture(1, 0, bangs);
         Some(end)
     }
 
@@ -307,7 +307,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, 0, indent);
+        self.capture(1, 0, indent);
         Some(end)
     }
 
@@ -324,8 +324,8 @@ impl Lexer<'_> {
                 let end = self.skip(stars, |b| b == b'*');
                 (end > stars).then_some(end)
             })?;
-        self.cap(1, 0, indent);
-        self.cap(2, indent, end);
+        self.capture(1, 0, indent);
+        self.capture(2, indent, end);
         Some(end)
     }
 
@@ -350,9 +350,9 @@ impl Lexer<'_> {
                 if end == at + 1 {
                     return None;
                 }
-                self.cap(1, at, end);
-                self.cap(2, at, at + 1);
-                self.cap(3, at + 1, end);
+                self.capture(1, at, end);
+                self.capture(2, at, at + 1);
+                self.capture(3, at + 1, end);
                 Some(end)
             }
             b'#' | b'.' => Some(at),
@@ -399,7 +399,7 @@ impl Lexer<'_> {
         if end == p + 1 {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -420,7 +420,7 @@ impl Lexer<'_> {
         if !self.nl {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(at + 1)
     }
 
@@ -445,8 +445,8 @@ impl Lexer<'_> {
     /// first.
     fn rubyline_end(&mut self, p: usize) -> Option<usize> {
         if let Some((opener, end)) = halts::block_end(self.s, p) {
-            self.cap(1, p, end);
-            self.cap(2, p, opener);
+            self.capture(1, p, end);
+            self.capture(2, p, opener);
             return Some(end);
         }
         self.at_eol(p).then_some(p)
@@ -456,7 +456,7 @@ impl Lexer<'_> {
     /// its end and the match's end.
     fn keyword_group(&mut self, found: Option<(usize, usize, usize)>) -> Option<usize> {
         let (start, end, matched) = found?;
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(matched)
     }
 

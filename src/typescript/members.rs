@@ -9,26 +9,26 @@ use crate::classes;
 /// The captures of a method's modifiers, kept inline.
 /// A prefix holds at most the four modifiers the grammar lists.
 /// The lookahead builds one at every word of a class body.
-struct CapList {
+struct CaptureList {
     len: usize,
     items: [(usize, usize, S); Self::MAX],
 }
 
-impl Default for CapList {
+impl Default for CaptureList {
     fn default() -> Self {
-        CapList {
+        CaptureList {
             len: 0,
             items: [(0, 0, S::Source); Self::MAX],
         }
     }
 }
 
-impl CapList {
+impl CaptureList {
     const MAX: usize = 4;
 
-    fn push(&mut self, cap: (usize, usize, S)) {
+    fn push(&mut self, capture: (usize, usize, S)) {
         if let Some(slot) = self.items.get_mut(self.len) {
-            *slot = cap;
+            *slot = capture;
             self.len += 1;
         }
     }
@@ -41,7 +41,7 @@ impl CapList {
 /// The modifiers before a method, as the grammar's prefix spells them.
 #[derive(Default)]
 struct MethodPrefix {
-    caps: CapList,
+    captures: CaptureList,
     end: usize,
 }
 
@@ -179,7 +179,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut prefix = MethodPrefix {
-            caps: CapList::default(),
+            captures: CaptureList::default(),
             end: p,
         };
         let mut at = p;
@@ -200,7 +200,7 @@ impl<const D: u8> Lexer<'_, D> {
                         } else {
                             S::StorageModifier
                         };
-                        prefix.caps.push((at, e, scope));
+                        prefix.captures.push((at, e, scope));
                         at = k;
                         break;
                     }
@@ -222,7 +222,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let first = self.method_prefix(p)?;
         let empty = MethodPrefix {
-            caps: CapList::default(),
+            captures: CaptureList::default(),
             end: p,
         };
         for prefix in [&first, &empty] {
@@ -251,7 +251,7 @@ impl<const D: u8> Lexer<'_, D> {
             && self.kw_after(k + "constructor".len())
         {
             self.flush(p);
-            for &(a, b, s) in prefix.caps.items() {
+            for &(a, b, s) in prefix.captures.items() {
                 self.capture(Rule::Method, a, b, &[s]);
             }
             self.capture(Rule::Method, k, k + "constructor".len(), &[S::StorageType]);
@@ -259,30 +259,30 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(k + "constructor".len());
         }
         let mut sig = at;
-        let mut new_cap = None;
-        let mut star_cap = None;
+        let mut new_capture = None;
+        let mut star_capture = None;
         if self.starts(k, "new")
             && self.boundary(k)
             && self.boundary(k + "new".len())
             && self.byte(k + "new".len()) != b':'
             && self.kw_after(k + "new".len())
         {
-            new_cap = Some((k, k + "new".len()));
+            new_capture = Some((k, k + "new".len()));
             sig = k + "new".len();
         } else if self.byte(at) == b'*' {
-            star_cap = Some((at, at + 1));
+            star_capture = Some((at, at + 1));
             sig = self.ws(at + 1);
         }
         let la = self.ws(sig);
         if self.tp_paren(la).is_some() {
             self.flush(p);
-            for &(a, b, s) in prefix.caps.items() {
+            for &(a, b, s) in prefix.captures.items() {
                 self.capture(Rule::Method, a, b, &[s]);
             }
-            if let Some((a, b)) = new_cap {
+            if let Some((a, b)) = new_capture {
                 self.capture(Rule::Method, a, b, &[S::KeywordOperatorNew]);
             }
-            if let Some((a, b)) = star_cap {
+            if let Some((a, b)) = star_capture {
                 self.capture(Rule::Method, a, b, &[S::KeywordGeneratorAsterisk]);
             }
             self.finish(Rule::Method, sig);
@@ -306,7 +306,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.named_method_ahead(j) {
             self.flush(p);
-            for &(a, b, s) in prefix.caps.items() {
+            for &(a, b, s) in prefix.captures.items() {
                 self.capture(Rule::Method, a, b, &[s]);
             }
             if let Some((a, b)) = accessor {
@@ -328,7 +328,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
             if self.named_method_ahead(j) {
                 self.flush(p);
-                for &(a, b, s) in prefix.caps.items() {
+                for &(a, b, s) in prefix.captures.items() {
                     self.capture(Rule::Method, a, b, &[s]);
                 }
                 if let Some((a, b)) = star {
@@ -696,26 +696,26 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let mut at = p;
-        let mut caps = CapList::default();
+        let mut captures = CaptureList::default();
         if self.starts(at, "async") && self.boundary(at) {
             let e = at + "async".len();
             let k = self.ws(e);
             if k > e {
-                caps.push((at, e, S::StorageModifierAsync));
+                captures.push((at, e, S::StorageModifierAsync));
                 at = k;
             }
         }
         let mut with_accessor = at;
-        let mut accessor_cap = None;
+        let mut accessor_capture = None;
         if (self.starts(at, "get") || self.starts(at, "set")) && self.boundary(at) {
             let e = at + "get".len();
             let k = self.ws(e);
             if k > e {
-                accessor_cap = Some((at, e));
+                accessor_capture = Some((at, e));
                 with_accessor = k;
             }
         }
-        for (start, acc) in [(with_accessor, accessor_cap), (at, None)] {
+        for (start, acc) in [(with_accessor, accessor_capture), (at, None)] {
             let mut j = start;
             let mut star = None;
             if self.byte(j) == b'*' {
@@ -724,7 +724,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
             if self.named_method_ahead(j) {
                 self.flush(p);
-                for &(a, b, s) in caps.items() {
+                for &(a, b, s) in captures.items() {
                     self.capture(rule, a, b, &[s]);
                 }
                 if let Some((a, b)) = acc {
@@ -741,7 +741,7 @@ impl<const D: u8> Lexer<'_, D> {
                 break;
             }
         }
-        if !caps.items().is_empty() {
+        if !captures.items().is_empty() {
             let j = p;
             if self.named_method_ahead(j) {
                 self.flush(p);

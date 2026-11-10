@@ -67,7 +67,7 @@ impl Lexer<'_> {
         let end = end
             .or_else(|| self.digit_at(after))
             .or_else(|| self.lit_byte(after, b'*'))?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -75,7 +75,7 @@ impl Lexer<'_> {
     /// parameter, with group 1 around `%%`.
     pub(super) fn repeat_parameter(&mut self, p: usize) -> Option<usize> {
         let end = self.repeat_parameter_end(p)?;
-        self.cap(1, p, p + 2);
+        self.capture(1, p, p + 2);
         Some(end)
     }
 
@@ -132,12 +132,12 @@ impl Lexer<'_> {
     /// groups around each number and the comma.
     pub(super) fn substring(&mut self, p: usize) -> Option<usize> {
         let first = self.signed_digits(p)?;
-        self.cap(1, p, first);
+        self.capture(1, p, first);
         if self.lit_byte(first, b',').is_some()
             && let Some(second) = self.signed_digits(first + 1)
         {
-            self.cap(2, first, first + 1);
-            self.cap(3, first + 1, second);
+            self.capture(2, first, first + 1);
+            self.capture(3, first + 1, second);
             return Some(second);
         }
         Some(first)

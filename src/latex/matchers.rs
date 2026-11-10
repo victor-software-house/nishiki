@@ -196,7 +196,7 @@ impl Lexer<'_> {
                 let brace = self.lit(close + 1, b"{")?;
                 let last = memrchr(b'}', self.text(brace, self.lim()))?;
                 let end = brace + last + 1;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::SongsEnvAt0End => self.capped_end(p, b"\\end{songs}", true),
@@ -242,12 +242,12 @@ impl Lexer<'_> {
                     return None;
                 }
                 let end = self.lit(p, b"{")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::EmbeddedCodeEnvAt1At1End => {
                 let end = self.lit(p, b"}")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::EmbeddedCodeEnvAt2 => self.code_env_begin(p, engine::CPP),
@@ -302,7 +302,7 @@ impl Lexer<'_> {
                 {
                     end += last + 2;
                 }
-                self.cap(1, start, close);
+                self.capture(1, start, close);
                 Some(end)
             }
             Rx::EmbeddedCodeEnvAt15End => {
@@ -320,14 +320,14 @@ impl Lexer<'_> {
                     }
                 }
                 (self.at(i) == b'{' && i < self.lim()).then(|| {
-                    self.cap(1, p, close + 1);
-                    self.cap(2, start, close);
+                    self.capture(1, p, close + 1);
+                    self.capture(2, start, close);
                     i
                 })
             }
             Rx::EmbeddedCodeEnvAt16End => {
                 let (_, _, end) = self.backref_end(p, b"\\end{")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::EmbeddedCodeEnvAt16At0 => self.cache_lang(p, ASYMPTOTE),
@@ -339,7 +339,7 @@ impl Lexer<'_> {
                 let brace = self.lit(p, b"}")?;
                 let end = self.space_end(brace);
                 (end >= self.lim()).then(|| {
-                    self.cap(1, p, brace);
+                    self.capture(1, p, brace);
                     end
                 })
             }
@@ -349,7 +349,7 @@ impl Lexer<'_> {
                     return None;
                 }
                 let end = self.space_end(0);
-                self.cap(1, 0, end);
+                self.capture(1, 0, end);
                 Some(end)
             }
             Rx::EmbeddedCodeEnvAt16At1At1End => self.line_closes(p, engine::closes_cache),
@@ -374,7 +374,7 @@ impl Lexer<'_> {
                     return None;
                 }
                 let end = self.lit(p, b"{")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::EmbeddedCodeEnvAt17 => {
@@ -404,7 +404,7 @@ impl Lexer<'_> {
                 let open = self.lit(self.space_end(p), b"\\begin{VerbatimOut}{")?;
                 let close = memchr(b'}', self.text(open, self.lim()))?;
                 let end = open + close + 1;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::VerbatimEnvAt1End => self.capped_end(p, b"\\end{VerbatimOut}", false),
@@ -414,7 +414,7 @@ impl Lexer<'_> {
                 let name = self.lit(p, b"\\")?;
                 let end = self.skip(name, |b| b.is_ascii_alphabetic());
                 (end > name).then(|| {
-                    self.cap(1, p, name);
+                    self.capture(1, p, name);
                     end
                 })
             }
@@ -424,7 +424,7 @@ impl Lexer<'_> {
             Rx::DocumentEnvAt0 => self.whole_env(p, b"document"),
             Rx::DocumentEnvAt1 => {
                 let end = self.lit(self.space_end(p), b"\\end{document}")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::AllBalancedEnvAt0 => {
@@ -432,24 +432,24 @@ impl Lexer<'_> {
                 let (name, close) = self.env_name(start, b"\\begin{", math_env)?;
                 let after = close + 1;
                 let end = self.blank_line_end(after);
-                self.cap(1, start, start + 6);
-                self.cap(2, start, start + 1);
-                self.cap(3, start + 6, name);
-                self.cap(4, name, close);
-                self.cap(5, close, after);
+                self.capture(1, start, start + 6);
+                self.capture(2, start, start + 1);
+                self.capture(3, start + 6, name);
+                self.capture(4, name, close);
+                self.capture(5, close, after);
                 if end > after {
-                    self.cap(6, after, end);
+                    self.capture(6, after, end);
                 }
                 Some(end)
             }
             Rx::AllBalancedEnvAt0End => {
                 let start = self.space_end(p);
                 let (name, close, after) = self.backref_end(start, b"\\end{")?;
-                self.cap(1, start, start + 4);
-                self.cap(2, start, start + 1);
-                self.cap(3, start + 4, name);
-                self.cap(4, name, close);
-                self.cap(5, close, after);
+                self.capture(1, start, start + 4);
+                self.capture(2, start, start + 1);
+                self.capture(3, start + 4, name);
+                self.capture(4, name, close);
+                self.capture(5, close, after);
                 Some(self.blank_line_end(after))
             }
             Rx::AllBalancedEnvAt0At0 => {
@@ -458,9 +458,9 @@ impl Lexer<'_> {
             Rx::LabelMacro => self.command_args(p, &[b"zlabel", b"label"], usize::MAX),
             Rx::OptionalArgBracketAt0 => {
                 let close = self.closed_at(p, b'[', b']')? - 1;
-                self.cap(1, p, p + 1);
-                self.cap(2, p + 1, close);
-                self.cap(3, close, close + 1);
+                self.capture(1, p, p + 1);
+                self.capture(2, p + 1, close);
+                self.capture(3, close, close + 1);
                 Some(close + 1)
             }
             Rx::LabelMacroAt0 => self.nonempty_run(p, LABEL),
@@ -473,13 +473,13 @@ impl Lexer<'_> {
                 {
                     end += last + 2;
                 }
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
             Rx::AllBalancedEnvAt1End => {
                 let start = self.space_end(p);
                 let end = self.lit(start, b"\\end{empheq}")?;
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
             Rx::AllBalancedEnvAt2 => {
@@ -488,18 +488,18 @@ impl Lexer<'_> {
                 })?;
                 let after = close + 1;
                 let end = self.blank_line_end(after);
-                self.cap(1, p, end);
-                self.cap(2, name, close);
+                self.capture(1, p, end);
+                self.capture(2, name, close);
                 if end > after {
-                    self.cap(3, after, end);
+                    self.capture(3, after, end);
                 }
                 Some(end)
             }
             Rx::AllBalancedEnvAt2End => {
                 let (name, close, after) = self.backref_end(self.space_end(p), b"\\end{")?;
                 let end = self.blank_line_end(after);
-                self.cap(1, p, end);
-                self.cap(2, name, close);
+                self.capture(1, p, end);
+                self.capture(2, name, close);
                 Some(end)
             }
             Rx::AllBalancedEnvAt3 => self.named_env(p, b"\\begin{", |name| {
@@ -508,7 +508,7 @@ impl Lexer<'_> {
             Rx::AllBalancedEnvAt3End => {
                 let (_, _, after) = self.backref_end(p, b"\\end{")?;
                 let end = self.blank_line_end(after);
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::AllBalancedEnvAt4 => self.whole_env(p, b"tikzpicture"),
@@ -525,8 +525,8 @@ impl Lexer<'_> {
                     .lit(name, b"usepackage")
                     .or_else(|| self.lit(name, b"documentclass"))?;
                 self.opens_arg(end).then(|| {
-                    self.cap(1, p, end);
-                    self.cap(2, p, name);
+                    self.capture(1, p, end);
+                    self.capture(2, p, name);
                     end
                 })
             }
@@ -546,11 +546,11 @@ impl Lexer<'_> {
                 }
                 let star = self.star_end(name_end);
                 let brace = self.lazy_brackets_to_brace(star, 2)?;
-                self.cap(1, p, star);
-                self.cap(2, p, name);
-                self.cap(3, name, name_end);
-                self.cap(4, star, brace);
-                self.cap(5, brace, brace + 1);
+                self.capture(1, p, star);
+                self.capture(2, p, name);
+                self.capture(3, name, name_end);
+                self.capture(4, star, brace);
+                self.capture(5, brace, brace + 1);
                 Some(brace + 1)
             }
             Rx::TextFontMacroAt0 => self.command_brace(p, &[b"emph"]),
@@ -564,12 +564,12 @@ impl Lexer<'_> {
                 let key = self.lit(brackets, b"{")?;
                 let key_end = self.nonempty_run(key, KEY)?;
                 let after = self.lit(key_end, b"}")?;
-                self.cap(1, p, parens);
-                self.cap(2, parens, brackets);
-                self.cap(3, brackets, key);
-                self.cap(4, key, key_end);
-                self.cap(5, key_end, after);
-                self.cap(6, after, self.lim());
+                self.capture(1, p, parens);
+                self.capture(2, parens, brackets);
+                self.capture(3, brackets, key);
+                self.capture(4, key, key_end);
+                self.capture(5, key_end, after);
+                self.capture(6, after, self.lim());
                 Some(self.lim())
             }
             Rx::OptionalArgParenthesisNoHighlightAt0 => self.delimited_pair(p, b'(', b')'),
@@ -579,16 +579,16 @@ impl Lexer<'_> {
                 if self.at(p) != b'%' || p >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, self.lim());
-                self.cap(2, p, p + 1);
+                self.capture(1, p, self.lim());
+                self.capture(2, p, p + 1);
                 Some(self.lim())
             }
             Rx::CitationMacroAt1 => self.nonempty_run(p, b"-.:"),
             Rx::ReferencesMacroAt0 => {
                 let (star, brace) = self.reference(p, b"ref", b"Ref")?;
-                self.cap(1, p, star);
-                self.cap(2, p, p + 1);
-                self.cap(3, brace, brace + 1);
+                self.capture(1, p, star);
+                self.capture(2, p, p + 1);
+                self.capture(3, brace, brace + 1);
                 Some(brace + 1)
             }
             Rx::ReferencesMacroAt1 => {
@@ -598,14 +598,14 @@ impl Lexer<'_> {
                 let second = self.lit(second_open, b"{")?;
                 let second_end = self.nonempty_run(second, LABEL)?;
                 let end = self.lit(second_end, b"}")?;
-                self.cap(1, p, star);
-                self.cap(2, p, p + 1);
-                self.cap(3, brace, brace + 1);
-                self.cap(4, brace + 1, first);
-                self.cap(5, first, second_open);
-                self.cap(6, second_open, second);
-                self.cap(7, second, second_end);
-                self.cap(8, second_end, end);
+                self.capture(1, p, star);
+                self.capture(2, p, p + 1);
+                self.capture(3, brace, brace + 1);
+                self.capture(4, brace + 1, first);
+                self.capture(5, first, second_open);
+                self.capture(6, second_open, second);
+                self.capture(7, second, second_end);
+                self.capture(8, second_end, end);
                 Some(end)
             }
             Rx::ReferencesMacroAt2 => self.command_brace(p, &[b"bibentry"]),
@@ -619,7 +619,7 @@ impl Lexer<'_> {
             Rx::AllOtherMacroAt3 => {
                 let name = self.lit(p, b"\\")?;
                 let end = self.keyword(name, b"item")?;
-                self.cap(1, p, name);
+                self.capture(1, p, name);
                 Some(end)
             }
             Rx::AllOtherMacroAt4 => {
@@ -627,15 +627,15 @@ impl Lexer<'_> {
                 let end = self.word_end(name);
                 let lists = listed(self.text(name, end), WORD_BYTES, &WORD_ENDS, &WORD_LISTS);
                 (lists & TEXT_SYMBOL != 0).then(|| {
-                    self.cap(1, p, name);
-                    self.cap(2, name, end);
+                    self.capture(1, p, name);
+                    self.capture(2, name, end);
                     end
                 })
             }
             Rx::AllOtherMacroAt5 => {
                 let name = self.lit(p, b"\\")?;
                 let end = self.expl3_variable(name)?;
-                self.cap(1, p, name);
+                self.capture(1, p, name);
                 Some(end)
             }
             Rx::HyperrefMacroAt0 => {
@@ -645,8 +645,8 @@ impl Lexer<'_> {
                     .into_iter()
                     .find_map(|rest| self.lit(name, rest))?;
                 self.opens_arg(end).then(|| {
-                    self.cap(1, start, end);
-                    self.cap(2, start, start + 1);
+                    self.capture(1, start, end);
+                    self.capture(2, start, start + 1);
                     end
                 })
             }
@@ -661,10 +661,10 @@ impl Lexer<'_> {
                     .filter(|&i| self.at(i) == b'{' && i < self.lim());
                 let brace = two
                     .or_else(|| (self.at(after) == b'{' && after < self.lim()).then_some(after))?;
-                self.cap(1, p, p + 1);
-                self.cap(2, p + 1, after - 1);
-                self.cap(3, after - 1, after);
-                self.cap(4, brace, brace + 1);
+                self.capture(1, p, p + 1);
+                self.capture(2, p + 1, after - 1);
+                self.capture(3, after - 1, after);
+                self.capture(4, brace, brace + 1);
                 Some(brace + 1)
             }
             Rx::HyperrefMacroAt0At2 => {
@@ -675,13 +675,13 @@ impl Lexer<'_> {
                     && self.at(after) == b'{'
                     && after < self.lim()
                 {
-                    self.cap(1, p, p + 1);
-                    self.cap(2, after - 1, after);
-                    self.cap(3, after, after + 1);
+                    self.capture(1, p, p + 1);
+                    self.capture(2, after - 1, after);
+                    self.capture(3, after, after + 1);
                     return Some(after + 1);
                 }
                 let end = self.lit(p, b"{")?;
-                self.cap(3, p, end);
+                self.capture(3, p, end);
                 Some(end)
             }
             Rx::HyperrefMacroAt1 => {
@@ -689,11 +689,11 @@ impl Lexer<'_> {
                 let name = self.lit(start, b"\\")?;
                 let name_end = self.lit(name, b"url").or_else(|| self.lit(name, b"path"))?;
                 let after = self.closed_at(name_end, b'{', b'}')?;
-                self.cap(1, start, name_end);
-                self.cap(2, start, name);
-                self.cap(3, name_end, name_end + 1);
-                self.cap(4, name_end + 1, after - 1);
-                self.cap(5, after - 1, after);
+                self.capture(1, start, name_end);
+                self.capture(2, start, name);
+                self.capture(3, name_end, name_end + 1);
+                self.capture(4, name_end + 1, after - 1);
+                self.capture(5, after - 1, after);
                 Some(after)
             }
             Rx::NewcommandMacro => self.newcommand(p),
@@ -711,11 +711,11 @@ impl Lexer<'_> {
                 let scan = self.space_end(name);
                 let scan_end = self.lit(scan, b"\\scantokens")?;
                 let end = self.lit(scan_end, b"{")?;
-                self.cap(1, p, name);
-                self.cap(2, p, p + 1);
-                self.cap(3, scan, scan_end);
-                self.cap(4, scan, scan + 1);
-                self.cap(5, scan_end, end);
+                self.capture(1, p, name);
+                self.capture(2, p, p + 1);
+                self.capture(3, scan, scan_end);
+                self.capture(4, scan, scan + 1);
+                self.capture(5, scan_end, end);
                 Some(end)
             }
             Rx::VerbMacroAt1 => self.verb(p),
@@ -723,7 +723,7 @@ impl Lexer<'_> {
             Rx::InlineCodeMacroAt0End => {
                 let start = self.space_end(p);
                 let end = self.lit(start, b"};")?;
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
             Rx::InlineCodeMacroAt0At0 => self.lit(p, b"%"),
@@ -777,7 +777,7 @@ impl Lexer<'_> {
                     return None;
                 }
                 let end = self.lit(p, b"{")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::InlineCodeMacroAt8 => self.cache_me_code(p, Some(CPP)),
@@ -802,9 +802,9 @@ impl Lexer<'_> {
                 let name = self.lit(name, b"TF").unwrap_or(name);
                 let name = name + self.space_at(name);
                 let end = self.lit(name, b"{")?;
-                self.cap(1, p, name);
-                self.cap(2, p, p + 1);
-                self.cap(3, name, end);
+                self.capture(1, p, name);
+                self.capture(2, p, p + 1);
+                self.capture(3, name, end);
                 Some(end)
             }
             Rx::DisplayMathAt0 => self.lit(p, b"\\["),
@@ -824,8 +824,8 @@ impl Lexer<'_> {
                     return None;
                 }
                 let end = self.lit(p + 1, b"{$}")?;
-                self.cap(1, p + 1, p + 2);
-                self.cap(2, p + 3, end);
+                self.capture(1, p + 1, p + 2);
+                self.capture(2, p + 3, end);
                 Some(end)
             }
             Rx::SongsChordsAt1 => self.lit(p, b"^"),
@@ -833,15 +833,15 @@ impl Lexer<'_> {
                 let start = self.space_end(p);
                 let end = self.lit(start, b"\\beginsong")?;
                 (self.at(end) == b'{' && end < self.lim()).then(|| {
-                    self.cap(1, start, end);
-                    self.cap(2, start, start + 1);
+                    self.capture(1, start, end);
+                    self.capture(2, start, start + 1);
                     end
                 })
             }
             Rx::SongsEnvAt1End => {
                 let end = self.lit(p, b"\\endsong")?;
-                self.cap(1, p, end);
-                self.cap(2, p, p + 1);
+                self.capture(1, p, end);
+                self.capture(2, p, p + 1);
                 Some(self.blank_line_end(end))
             }
             Rx::MultilineArgNoHighlight => {
@@ -903,15 +903,15 @@ impl Lexer<'_> {
         named: impl Fn(&[u8]) -> bool,
     ) -> Option<usize> {
         let (start, close) = self.env_name(self.space_end(p), keyword, named)?;
-        self.cap(1, p, close + 1);
-        self.cap(2, start, close);
+        self.capture(1, p, close + 1);
+        self.capture(2, start, close);
         Some(close + 1)
     }
 
     /// `(\s*\\begin\{NAME})` at `p`.
     fn whole_env(&mut self, p: usize, name: &[u8]) -> Option<usize> {
         let (_, close) = self.env_name(self.space_end(p), b"\\begin{", |text| text == name)?;
-        self.cap(1, p, close + 1);
+        self.capture(1, p, close + 1);
         Some(close + 1)
     }
 
@@ -919,7 +919,7 @@ impl Lexer<'_> {
     fn capped_end(&mut self, p: usize, text: &[u8], line: bool) -> Option<usize> {
         let end = self.lit(p, text)?;
         let end = if line { self.blank_line_end(end) } else { end };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -944,7 +944,7 @@ impl Lexer<'_> {
         let at = if p == 0 { self.space_end(0) } else { p };
         let (start, close) = self.env_name(at, b"\\begin{", named)?;
         self.opens_arg(close + 1).then(|| {
-            self.cap(1, start, close);
+            self.capture(1, start, close);
             close + 1
         })
     }
@@ -1001,9 +1001,9 @@ impl Lexer<'_> {
             return None;
         }
         let (start, close) = self.env_name(p, b"{", |name| langs.contains(&name))?;
-        self.cap(1, p, start);
-        self.cap(2, start, close);
-        self.cap(3, close, close + 1);
+        self.capture(1, p, start);
+        self.capture(2, start, close);
+        self.capture(3, close, close + 1);
         Some(close + 1)
     }
 
@@ -1012,9 +1012,9 @@ impl Lexer<'_> {
         let start = self.lit(p, b"{")?;
         let close = self.skip(start, |b| b.is_ascii_alphabetic());
         let end = self.lit(close, b"}")?;
-        self.cap(1, p, start);
-        self.cap(2, start, close);
-        self.cap(3, close, end);
+        self.capture(1, p, start);
+        self.capture(2, start, close);
+        self.capture(3, close, end);
         Some(end)
     }
 
@@ -1052,7 +1052,7 @@ impl Lexer<'_> {
                     run = self.char_start_before(run);
                 }
             })?;
-        self.cap(1, p, start);
+        self.capture(1, p, start);
         Some(end)
     }
 
@@ -1082,8 +1082,8 @@ impl Lexer<'_> {
             None => self.opens_arg(end),
         };
         ahead.then(|| {
-            self.cap(1, p, end);
-            self.cap(2, p, p + 1);
+            self.capture(1, p, end);
+            self.capture(2, p, p + 1);
             end
         })
     }
@@ -1096,9 +1096,9 @@ impl Lexer<'_> {
             self.lit(name, word)
                 .filter(|&e| self.at(e) == b'{' && e < self.lim())
         })?;
-        self.cap(1, p, name_end);
-        self.cap(2, p, name);
-        self.cap(3, name_end, name_end + 1);
+        self.capture(1, p, name_end);
+        self.capture(2, p, name);
+        self.capture(3, name_end, name_end + 1);
         Some(name_end + 1)
     }
 
@@ -1111,10 +1111,10 @@ impl Lexer<'_> {
             self.lazy_brackets_to_brace(end, max)
                 .map(|brace| (end, brace))
         })?;
-        self.cap(1, p, name_end);
-        self.cap(2, p, name);
-        self.cap(3, name_end, brace);
-        self.cap(4, brace, brace + 1);
+        self.capture(1, p, name_end);
+        self.capture(2, p, name);
+        self.capture(3, name_end, brace);
+        self.capture(4, brace, brace + 1);
         Some(brace + 1)
     }
 
@@ -1176,8 +1176,8 @@ impl Lexer<'_> {
         if self.at(k) != close {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, k, k + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, k, k + 1);
         Some(k + 1)
     }
 
@@ -1254,26 +1254,26 @@ impl Lexer<'_> {
         }
         let close = self.star_end(letters_end);
         let mut end = self.lit(close, b"}")?;
-        self.cap(1, start, open);
-        self.cap(2, start, name);
-        self.cap(3, open, arg);
-        self.cap(4, arg, close);
-        self.cap(5, close, end);
+        self.capture(1, start, open);
+        self.capture(2, start, name);
+        self.capture(3, open, arg);
+        self.capture(4, arg, close);
+        self.capture(5, close, end);
         for _ in 0..2 {
             let Some(after) = self.closed_at(end, b'[', b']') else {
                 break;
             };
-            self.cap(6, end, end + 1);
-            self.cap(7, end + 1, after - 1);
-            self.cap(8, after - 1, after);
+            self.capture(6, end, end + 1);
+            self.capture(7, end + 1, after - 1);
+            self.capture(8, after - 1, after);
             end = after;
         }
         if self.at(end) == b'{' && end < self.lim() {
             let text_end = self.skip(end + 1, |b| b != b'{' && b != b'}');
             if self.at(text_end) == b'}' && text_end < self.lim() {
-                self.cap(9, end, end + 1);
-                self.cap(10, end + 1, text_end);
-                self.cap(11, text_end, text_end + 1);
+                self.capture(9, end, end + 1);
+                self.capture(10, end + 1, text_end);
+                self.capture(11, text_end, text_end + 1);
                 end = text_end + 1;
             }
         }
@@ -1341,14 +1341,14 @@ impl Lexer<'_> {
             brackets,
             brace,
         } = tail;
-        self.cap(1, p, args);
-        self.cap(2, p, name);
-        self.cap(3, args, args_end);
+        self.capture(1, p, args);
+        self.capture(2, p, name);
+        self.capture(3, args, args_end);
         if let Some((start, end)) = angle {
-            self.cap(4, start, end);
+            self.capture(4, start, end);
         }
-        self.cap(5, brackets, brace);
-        self.cap(6, brace, brace + 1);
+        self.capture(5, brackets, brace);
+        self.capture(6, brace, brace + 1);
         Some(brace + 1)
     }
 
@@ -1456,21 +1456,21 @@ impl Lexer<'_> {
         if self.at(i) != b'{' || i >= self.lim() {
             return None;
         }
-        self.cap(1, p, star);
-        self.cap(2, p, name);
+        self.capture(1, p, star);
+        self.capture(2, p, name);
         if open.is_some() {
-            self.cap(3, star, star + 1);
+            self.capture(3, star, star + 1);
         }
-        self.cap(4, command, command_end);
-        self.cap(5, command, letters);
+        self.capture(4, command, command_end);
+        self.capture(5, command, letters);
         if close.is_some() {
-            self.cap(6, command_end, command_end + 1);
+            self.capture(6, command_end, command_end + 1);
         }
         if let Some((start, end)) = last {
-            self.cap(7, start, start + 1);
-            self.cap(8, end - 1, end);
+            self.capture(7, start, start + 1);
+            self.capture(8, end - 1, end);
         }
-        self.cap(9, i, i + 1);
+        self.capture(9, i, i + 1);
         Some(i + 1)
     }
 
@@ -1517,11 +1517,11 @@ impl Lexer<'_> {
         } else {
             close
         };
-        self.cap(1, p, name);
-        self.cap(2, p, p + 1);
-        self.cap(3, open, text);
-        self.cap(4, text, close);
-        self.cap(5, close, end);
+        self.capture(1, p, name);
+        self.capture(2, p, p + 1);
+        self.capture(3, open, text);
+        self.capture(4, text, close);
+        self.capture(5, close, end);
         Some(end)
     }
 
@@ -1542,12 +1542,12 @@ impl Lexer<'_> {
                     .map(|body| (i, close, body))
             });
             if let Some((bracket_end, (open, close, body))) = found {
-                self.cap(1, p, name_end);
-                self.cap(2, p, p + 1);
-                self.cap(3, name_end, bracket_end);
-                self.cap(4, open, open + 1);
-                self.cap(5, close, close + 1);
-                return Some(self.cap_body(body, 6));
+                self.capture(1, p, name_end);
+                self.capture(2, p, p + 1);
+                self.capture(3, name_end, bracket_end);
+                self.capture(4, open, open + 1);
+                self.capture(5, close, close + 1);
+                return Some(self.capture_body(body, 6));
             }
         }
         None
@@ -1563,10 +1563,10 @@ impl Lexer<'_> {
     ) -> Option<usize> {
         let (bracket_end, body) =
             self.optional_bracket(name_end, |lexer, i| lexer.code_body(i, excluded))?;
-        self.cap(1, p, name_end);
-        self.cap(2, p, p + 1);
-        self.cap(3, name_end, bracket_end);
-        Some(self.cap_body(body, 4))
+        self.capture(1, p, name_end);
+        self.capture(2, p, p + 1);
+        self.capture(3, name_end, bracket_end);
+        Some(self.capture_body(body, 4))
     }
 
     /// `(?:\[[^\[]*?])?` at `i` and then `rest`, tried in the regex's order:
@@ -1617,7 +1617,7 @@ impl Lexer<'_> {
 
     /// Records `body` as groups `first` to `first + 5`: the first three for
     /// a delimited body, the last three for a braced one.
-    fn cap_body(&mut self, body: Body, first: usize) -> usize {
+    fn capture_body(&mut self, body: Body, first: usize) -> usize {
         match body {
             Body::Delimited {
                 open,
@@ -1625,15 +1625,15 @@ impl Lexer<'_> {
                 close,
                 end,
             } => {
-                self.cap(first, open, text);
-                self.cap(first + 1, text, close);
-                self.cap(first + 2, close, end);
+                self.capture(first, open, text);
+                self.capture(first + 1, text, close);
+                self.capture(first + 2, close, end);
                 end
             }
             Body::Braced { open, close } => {
-                self.cap(first + 3, open, open + 1);
-                self.cap(first + 4, open + 1, close);
-                self.cap(first + 5, close, close + 1);
+                self.capture(first + 3, open, open + 1);
+                self.capture(first + 4, open + 1, close);
+                self.capture(first + 5, close, close + 1);
                 close + 1
             }
         }
@@ -1657,16 +1657,16 @@ impl Lexer<'_> {
             })?;
             Some((second, gnuplot, brace))
         })?;
-        self.cap(1, p, name);
-        self.cap(2, p, p + 1);
+        self.capture(1, p, name);
+        self.capture(2, p, p + 1);
         if let Some((start, end)) = first {
-            self.cap(3, start, end);
+            self.capture(3, start, end);
         }
-        self.cap(4, gnuplot, gnuplot + 7);
+        self.capture(4, gnuplot, gnuplot + 7);
         if let Some((start, end)) = second {
-            self.cap(5, start, end);
+            self.capture(5, start, end);
         }
-        self.cap(6, brace, brace + 1);
+        self.capture(6, brace, brace + 1);
         Some(brace + 1)
     }
 

@@ -197,7 +197,7 @@ impl Lexer<'_> {
             Pattern::LanguageAt6 => self.ikeyword(p, b"use"),
             Pattern::LanguageAt6At0 => {
                 let end = self.word_in(p, &[b"const", b"function"])?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::LanguageAt6At1End
@@ -275,7 +275,7 @@ impl Lexer<'_> {
             Pattern::StringSingleQuotedAt0 => self.single_quote_escape(p),
             Pattern::VarLanguage => {
                 let end = self.lit(p, b"$this")?;
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 self.word_at(end).is_none().then_some(end)
             }
             Pattern::VariablesAt4 => self.dollar_brace(p),

@@ -413,7 +413,7 @@ impl Table {
 mod tests {
     use super::Runs;
     use crate::limits::{Limits, Steps};
-    use crate::markdown::caps::Caps;
+    use crate::markdown::captures::Captures;
     use crate::markdown::inline::{code_span, strikethrough};
     use crate::markdown::text::{Cx, LineFacts};
 
@@ -503,10 +503,11 @@ mod tests {
 
     /// The strikethrough at `p`, found by the rule, as its spans.
     fn strike_found(cx: &Cx<'_>, runs: &mut Runs, p: usize) -> Option<(usize, usize, usize)> {
-        let mut caps = Caps::new();
-        let end = strikethrough(cx, runs, p, &mut caps)?;
+        let mut captures = Captures::new();
+        let end = strikethrough(cx, runs, p, &mut captures)?;
         let group = |index: usize| {
-            caps.iter()
+            captures
+                .iter()
                 .find_map(|(group, span)| (group == index).then_some(span))
         };
         let (_, open_end) = group(1)?;

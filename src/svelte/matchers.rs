@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -101,8 +101,8 @@ impl Lexer<'_> {
             Pattern::CommentsEnd => self.lit(p, b"-->"),
             Pattern::CommentsAt0 => {
                 let end = self.lit(p, b"@component")?;
-                self.cap(1, p, p + 1);
-                self.cap(2, p + 1, end);
+                self.capture(1, p, p + 1);
+                self.capture(2, p + 1, end);
                 Some(end)
             }
             Pattern::CommentsAt0End => self.starts(p, b"-->").then_some(p),
@@ -135,9 +135,9 @@ impl Lexer<'_> {
                 if !matches!(self.at(p), b'#' | b'/' | b':' | b'@') || p >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 let end = self.tag_keyword(p + 1);
-                self.cap(2, p + 1, end);
+                self.capture(2, p + 1, end);
                 Some(end)
             }
             Pattern::SpecialTagsVoid => self.special_tag(p, |b| b == b':' || b == b'@'),
@@ -145,7 +145,7 @@ impl Lexer<'_> {
             Pattern::SpecialTagsBlockEnd => self.special_tag(p, |b| b == b'/'),
             Pattern::SpecialTagsBlockBeginEnd | Pattern::SpecialTagsBlockEndEnd => {
                 let end = self.lit(p, b"}")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
 
@@ -174,7 +174,7 @@ impl Lexer<'_> {
                 let name = self.ident(start)?;
                 let end = self.space_end(name);
                 (self.at(end) == b'<').then(|| {
-                    self.cap(1, start, name);
+                    self.capture(1, start, name);
                     end
                 })
             }
@@ -189,7 +189,7 @@ impl Lexer<'_> {
                 let first = self.ident_start(start)?;
                 let name = self.ident_end(start + first);
                 (name > start + first).then(|| {
-                    self.cap(1, start, name);
+                    self.capture(1, start, name);
                     self.space_end(name)
                 })
             }
@@ -220,7 +220,7 @@ impl Lexer<'_> {
             Pattern::SpecialTagsModesAt3At0End => self.each_expression_ends(p).then_some(p),
             Pattern::SpecialTagsModesAt3At1 => {
                 if let Some(end) = self.lit(p, b"as") {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     return Some(end);
                 }
                 matches!(self.at(p), b',' | b'}').then_some(p)
@@ -236,8 +236,8 @@ impl Lexer<'_> {
                 let start = self.space_end(p);
                 let name = self.ident(start)?;
                 let end = self.space_end(name);
-                self.cap(1, p, end);
-                self.cap(2, start, name);
+                self.capture(1, p, end);
+                self.capture(2, start, name);
                 Some(end)
             }
             Pattern::SpecialTagsModesAt3At1At3 | Pattern::SpecialTagsModesAt5At1 => {
@@ -248,7 +248,7 @@ impl Lexer<'_> {
                 if blanks > p
                     && let Some(end) = self.lit(blanks, b"then")
                 {
-                    self.cap(1, blanks, end);
+                    self.capture(1, blanks, end);
                     return Some(end);
                 }
                 (self.at(p) == b'}').then_some(p)
@@ -266,9 +266,9 @@ impl Lexer<'_> {
                 let end = self.skip_chars(colon + 1, |c| {
                     c == '-' || c == ':' || crate::classes::is_word(c)
                 });
-                self.cap(1, p, colon - 1);
-                self.cap(2, colon - 1, colon);
-                self.cap(3, colon, end);
+                self.capture(1, p, colon - 1);
+                self.capture(2, colon - 1, colon);
+                self.capture(3, colon, end);
                 Some(end)
             }
             Pattern::TagsNameAt1 => self.lit(p, b"slot"),
@@ -299,22 +299,22 @@ impl Lexer<'_> {
             Pattern::TagsStartNode | Pattern::TagsGeneralStart => {
                 let name = self.lit(p, b"<")?;
                 let end = self.tag_name_end(name);
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
             Pattern::TagsGeneralEnd => {
                 let name = self.lit(p, b"</")?;
                 let end = self.tag_name_end(name);
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
             Pattern::TagsEndNode => self.end_node(p),
             Pattern::TagsLang => {
                 let name = self.lit(p, b"<")?;
                 let end = self.lit_in(name, &[b"script", b"style", b"template"])?;
-                self.cap(1, name, end);
+                self.capture(1, name, end);
                 Some(end)
             }
             Pattern::TagsLangEnd => self.tag_lang_end(p),
@@ -330,8 +330,8 @@ impl Lexer<'_> {
             }
             Pattern::GenericsDoubleQuoted => self.generics(p, b'"'),
             Pattern::GenericsSingleQuoted => self.generics(p, b'\''),
-            Pattern::GenericsDoubleQuotedEnd => self.lit_cap1(p, b"\""),
-            Pattern::GenericsSingleQuotedEnd => self.lit_cap1(p, b"'"),
+            Pattern::GenericsDoubleQuotedEnd => self.lit_capture1(p, b"\""),
+            Pattern::GenericsSingleQuotedEnd => self.lit_capture1(p, b"'"),
 
             Pattern::AttributesCommentsAt0 => self.lit(p, b"//").map(|_| self.lim()),
             Pattern::AttributesCommentsAt1 => self.lit(p, b"/*"),
@@ -413,7 +413,7 @@ impl Lexer<'_> {
                 if !matches!(self.at(p), b'"' | b'\'') || p >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(p + 1)
             }
             Pattern::AttributesValueAt3End => self.payload_at(p).map(|width| p + width),
@@ -421,7 +421,7 @@ impl Lexer<'_> {
             Pattern::NestedAttributesKeyvalueGroup0At1 => Some(self.lim()).filter(|&end| end > p),
             Pattern::AttributesKeyvalue => {
                 let end = self.attribute_name(p)?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::AttributesAttach => {
@@ -432,7 +432,7 @@ impl Lexer<'_> {
                 let at = self.lit(start, b"{@attach")?;
                 let width = self.space_at(at);
                 (width > 0).then(|| {
-                    self.cap(1, start, at + width);
+                    self.capture(1, start, at + width);
                     at + width
                 })
             }
@@ -442,11 +442,11 @@ impl Lexer<'_> {
                 }
                 let start = self.space_end(p);
                 let end = self.lit(start, b"{")?;
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
             Pattern::AttributesAttachEnd | Pattern::AttributesInterpolatedEnd => {
-                self.lit_cap1(p, b"}")
+                self.lit_capture1(p, b"}")
             }
             Pattern::TagsVoid => {
                 let name = self.lit(p, b"<")?;
@@ -455,8 +455,8 @@ impl Lexer<'_> {
                 if !(self.space_at(end) > 0 || next == b'>' || self.starts(end, b"/>")) {
                     return None;
                 }
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
             Pattern::TagsVoidEnd => {
@@ -470,7 +470,7 @@ impl Lexer<'_> {
                     p
                 };
                 let end = self.lit(start, b">")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Pattern::TagsStartAttributesEnd => {
@@ -559,9 +559,9 @@ impl Lexer<'_> {
     }
 
     /// `(text)`, the whole match as group 1.
-    fn lit_cap1(&mut self, p: usize, text: &[u8]) -> Option<usize> {
+    fn lit_capture1(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -588,9 +588,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.tag_keyword(at + 1);
-        self.cap(1, p, open);
-        self.cap(2, at, end);
-        self.cap(3, at + 1, end);
+        self.capture(1, p, open);
+        self.capture(2, at, end);
+        self.capture(3, at + 1, end);
         Some(end)
     }
 
@@ -680,14 +680,14 @@ impl Lexer<'_> {
                 end = next;
             }
             if end > first {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
         }
         if !self.at(p).is_ascii_uppercase() {
             return None;
         }
-        self.cap(2, p, first);
+        self.capture(2, p, first);
         Some(first)
     }
 
@@ -698,14 +698,14 @@ impl Lexer<'_> {
             if let Some(close) = close {
                 let text = self.text(name, close);
                 let trimmed = name + text.trim_ascii_end().len();
-                self.cap(1, p, name);
-                self.cap(2, name, trimmed);
-                self.cap(3, close, close + 1);
+                self.capture(1, p, name);
+                self.capture(2, name, trimmed);
+                self.capture(3, close, close + 1);
                 return Some(close + 1);
             }
         }
         let end = self.lit(p, b"/>")?;
-        self.cap(4, p, end);
+        self.capture(4, p, end);
         Some(end)
     }
 
@@ -732,9 +732,9 @@ impl Lexer<'_> {
             if let Some(name) = name
                 && let Some((quote, value, end)) = self.lang_value(name)
             {
-                self.cap(1, q, name);
-                self.cap(2, quote.0, quote.1);
-                self.cap(3, value, end);
+                self.capture(1, q, name);
+                self.capture(2, quote.0, quote.1);
+                self.capture(3, value, end);
                 return Some(p);
             }
             q = self.char_end(q);
@@ -780,9 +780,9 @@ impl Lexer<'_> {
         let eq = self.lit(p, b"generics")?;
         let open = self.lit(eq, b"=")?;
         (self.at(open) == quote && open < self.lim()).then(|| {
-            self.cap(1, p, eq);
-            self.cap(2, eq, open);
-            self.cap(3, open, open + 1);
+            self.capture(1, p, eq);
+            self.capture(2, eq, open);
+            self.capture(3, open, open + 1);
             open + 1
         })
     }
@@ -818,12 +818,12 @@ impl Lexer<'_> {
             (self.at(end) == b':').then_some((end, end + 1))
         })?;
         let name = self.attribute_name(colon)?;
-        self.cap(1, p, keyword);
-        self.cap(2, keyword, colon);
+        self.capture(1, p, keyword);
+        self.capture(2, keyword, colon);
         if self.at(self.space_end(name)) == b'=' {
-            self.cap(3, colon, name);
+            self.capture(3, colon, name);
         } else {
-            self.cap(4, colon, name);
+            self.capture(4, colon, name);
         }
         let mut end = name;
         while self.at(end) == b'|' {
@@ -831,10 +831,10 @@ impl Lexer<'_> {
             if word == end + 1 {
                 break;
             }
-            self.cap(6, end, word);
+            self.capture(6, end, word);
             end = word;
         }
-        self.cap(5, name, end);
+        self.capture(5, name, end);
         Some(end)
     }
 
@@ -861,14 +861,14 @@ impl Lexer<'_> {
             if self.at(end) != quote || end >= self.lim() {
                 return None;
             }
-            self.cap(1, p, p + 1);
-            self.cap(2, start, end);
-            self.cap(3, end, end + 1);
+            self.capture(1, p, p + 1);
+            self.capture(2, start, end);
+            self.capture(3, end, end + 1);
             return Some(end + 1);
         }
         let follows = self.space_at(end) > 0 || self.at(end) == b'>' || self.starts(end, b"/>");
         follows.then(|| {
-            self.cap(4, start, end);
+            self.capture(4, start, end);
             end
         })
     }

@@ -158,8 +158,8 @@ where
     /// `^\s*((#)\s*word)\b`, recording groups 1 and 2: the end of the word.
     pub(super) fn hash_word(&mut self, p: usize, words: &[&[u8]]) -> Option<(usize, usize)> {
         let (hash, start, end) = self.directive(p, words)?;
-        self.cap(1, hash, end);
-        self.cap(2, hash, hash + 1);
+        self.capture(1, hash, end);
+        self.capture(2, hash, hash + 1);
         Some((start, end))
     }
 
@@ -169,8 +169,8 @@ where
         if !self.condition_is(end, truth) {
             return None;
         }
-        self.cap(1, hash, end);
-        self.cap(2, hash, hash + 1);
+        self.capture(1, hash, end);
+        self.capture(2, hash, hash + 1);
         Some(end)
     }
 
@@ -178,8 +178,8 @@ where
     /// word: the end of the word.
     pub(super) fn hash_word_inner(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let (hash, start, end) = self.directive(p, words)?;
-        self.cap(1, hash, end);
-        self.cap(2, start, end);
+        self.capture(1, hash, end);
+        self.capture(2, start, end);
         Some(end)
     }
 
@@ -208,14 +208,14 @@ where
         }
         let text_end = rest.max(self.lim());
         if nested {
-            self.cap(1, hash, text_end);
-            self.cap(2, hash, mark + 4);
-            self.cap(3, hash, hash + 1);
-            self.cap(4, rest, text_end);
+            self.capture(1, hash, text_end);
+            self.capture(2, hash, mark + 4);
+            self.capture(3, hash, hash + 1);
+            self.capture(4, rest, text_end);
         } else {
-            self.cap(1, hash, text_end);
-            self.cap(2, pragma, mark + 4);
-            self.cap(3, rest, text_end);
+            self.capture(1, hash, text_end);
+            self.capture(2, pragma, mark + 4);
+            self.capture(3, rest, text_end);
         }
         Some(text_end)
     }
