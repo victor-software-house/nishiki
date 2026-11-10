@@ -9,8 +9,8 @@
 //!
 //! The work is split in two:
 //!
-//! - [`compile`] reads one grammar. Its includes stay names, so a [`Compiled`]
-//!   grammar depends on no other grammar.
+//! - [`compile`] reads one grammar. Its includes stay names, so a
+//!   [`UnlinkedGrammar`] grammar depends on no other grammar.
 //! - [`link::link`] follows the includes from a root grammar, through the
 //!   grammars a caller loaded, and writes one flat [`Grammar`](super::Grammar).
 //!
@@ -27,24 +27,25 @@ pub(crate) mod link;
 
 use json::Json;
 
-/// The index of a rule in [`Compiled::rules`].
+/// The index of a rule in [`UnlinkedGrammar::rules`].
 pub(crate) type RuleId = usize;
 
-/// Named rules, in the order of the grammar's text.
+/// Named rules, sorted by name, so an include finds one by binary search.
+/// Each name is there once.
 pub(crate) type Repository = Vec<(String, RuleId)>;
 
 /// One grammar, read from its JSON and not yet linked.
 ///
 /// It is plain data: owned strings and indices, with no cells.
-/// Every JSON object that can act as a rule is one [`RawRule`], once.
+/// Every JSON object that can act as a rule is one [`UnlinkedRule`], once.
 /// A rule's identity is its index, as vscode-textmate keys a compiled rule on
 /// its JSON object.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) struct Compiled {
+pub(crate) struct UnlinkedGrammar {
     /// The grammar's `scopeName`, such as `source.rust`.
     pub(crate) scope: String,
     /// Every rule object of the grammar.
-    pub(crate) rules: Vec<RawRule>,
+    pub(crate) rules: Vec<UnlinkedRule>,
     /// The grammar's top-level `patterns`.
     pub(crate) patterns: Vec<RuleId>,
     /// The grammar's top-level `repository`.
@@ -65,7 +66,7 @@ pub(crate) struct Compiled {
 /// Each field records what the linker asks of the object, with JavaScript's
 /// reading of absent, `null` and empty values.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
-pub(crate) struct RawRule {
+pub(crate) struct UnlinkedRule {
     /// The `include`, when it is a string. In a list of patterns, such a rule
     /// is an include and nothing else.
     pub(crate) include: Option<String>,
@@ -82,13 +83,13 @@ pub(crate) struct RawRule {
     /// `while`, when it is truthy.
     pub(crate) until: Option<String>,
     /// `captures`, unless missing or `null`.
-    pub(crate) captures: Option<Vec<RawCapture>>,
+    pub(crate) captures: Option<Vec<UnlinkedCapture>>,
     /// `beginCaptures`, unless missing or `null`.
-    pub(crate) begin_captures: Option<Vec<RawCapture>>,
+    pub(crate) begin_captures: Option<Vec<UnlinkedCapture>>,
     /// `endCaptures`, unless missing or `null`.
-    pub(crate) end_captures: Option<Vec<RawCapture>>,
+    pub(crate) end_captures: Option<Vec<UnlinkedCapture>>,
     /// `whileCaptures`, unless missing or `null`.
-    pub(crate) while_captures: Option<Vec<RawCapture>>,
+    pub(crate) while_captures: Option<Vec<UnlinkedCapture>>,
     /// Whether `applyEndPatternLast` is `1` or `true`.
     pub(crate) apply_end_last: bool,
     /// The rules of `patterns`.
@@ -104,7 +105,7 @@ pub(crate) struct RawRule {
 
 /// One capture group of a rule.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) struct RawCapture {
+pub(crate) struct UnlinkedCapture {
     /// The group's number, or `None` for a negative key.
     pub(crate) index: Option<usize>,
     /// The capture's object, read as a rule: its names, and its patterns
@@ -140,7 +141,7 @@ impl std::error::Error for CompileError {
 }
 
 /// Reads a grammar in Shiki's JSON form.
-pub(crate) fn compile(text: &str) -> Result<Compiled, CompileError> {
+pub(crate) fn compile(text: &str) -> Result<UnlinkedGrammar, CompileError> {
     let json = Json::parse(text).map_err(CompileError::Json)?;
     let scope = json
         .str("scopeName")
@@ -161,7 +162,7 @@ pub(crate) fn compile(text: &str) -> Result<Compiled, CompileError> {
         Some(Json::Array(items)) => items.iter().map(Json::js_string).collect(),
         Some(_) | None => Vec::new(),
     };
-    Ok(Compiled {
+    Ok(UnlinkedGrammar {
         scope,
         rules: reader.rules,
         patterns,
@@ -172,10 +173,10 @@ pub(crate) fn compile(text: &str) -> Result<Compiled, CompileError> {
     })
 }
 
-/// Reads rule objects into [`RawRule`]s.
+/// Reads rule objects into [`UnlinkedRule`]s.
 struct Reader {
     /// The rules read so far.
-    rules: Vec<RawRule>,
+    rules: Vec<UnlinkedRule>,
 }
 
 impl Reader {
@@ -187,25 +188,29 @@ impl Reader {
         }
     }
 
-    /// The truthy entries of a `repository` object.
+    /// The truthy entries of a `repository` object, sorted by name.
     ///
     /// A falsy entry is left out, as the linker's lookup passes over it to an
     /// outer repository.
+    /// The rules are read in the order of the text, so their numbers follow
+    /// it.
     fn repository(&mut self, value: Option<&Json>) -> Repository {
-        match value {
+        let mut repository: Repository = match value {
             Some(Json::Object(entries)) => entries
                 .iter()
                 .filter(|(_, rule)| rule.is_truthy())
                 .map(|(name, rule)| (name.clone(), self.rule(rule)))
                 .collect(),
             Some(_) | None => Vec::new(),
-        }
+        };
+        repository.sort_unstable_by(|(a, _), (b, _)| a.cmp(b));
+        repository
     }
 
     /// Reads one rule object, and the rules inside it, depth first.
     fn rule(&mut self, value: &Json) -> RuleId {
         let id = self.rules.len();
-        self.rules.push(RawRule::default());
+        self.rules.push(UnlinkedRule::default());
         let include = value.str("include").map(str::to_owned);
         let mut patterns = self.list(value.present("patterns"));
         if value.present("patterns").is_none()
@@ -215,16 +220,16 @@ impl Reader {
             && let Some(target) = &include
         {
             let fallback = self.rules.len();
-            self.rules.push(RawRule {
+            self.rules.push(UnlinkedRule {
                 include: Some(target.clone()),
-                ..RawRule::default()
+                ..UnlinkedRule::default()
             });
             patterns.push(fallback);
         }
         let repository = value
             .truthy("repository")
             .map(|repository| self.repository(Some(repository)));
-        let rule = RawRule {
+        let rule = UnlinkedRule {
             include,
             name: scopes(value.get("name")),
             content_name: scopes(value.get("contentName")),
@@ -258,7 +263,7 @@ impl Reader {
     /// So is a value that is not an object or an array.
     /// The linker sorts the groups by number after it compiles them, as
     /// `oracle/engine-tables.ts` does.
-    fn captures(&mut self, value: Option<&Json>) -> Option<Vec<RawCapture>> {
+    fn captures(&mut self, value: Option<&Json>) -> Option<Vec<UnlinkedCapture>> {
         let entries: Vec<(String, &Json)> = match value? {
             Json::Object(entries) => entries.iter().map(|(k, v)| (k.clone(), v)).collect(),
             Json::Array(items) => items
@@ -285,7 +290,7 @@ impl Reader {
             if !matches!(capture, Json::Object(_) | Json::Array(_)) {
                 continue;
             }
-            out.push(RawCapture {
+            out.push(UnlinkedCapture {
                 index: usize::try_from(index).ok(),
                 rule: self.rule(capture),
             });

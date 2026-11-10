@@ -58,7 +58,7 @@ impl Polarity {
 
 /// How a repeat takes its iterations.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Kind {
+pub(super) enum Greediness {
     /// As many as it can, giving back on failure.
     Greedy,
     /// As few as it can, taking more on failure.
@@ -69,21 +69,21 @@ pub(super) enum Kind {
 
 /// One member of a class.
 #[derive(Clone, Debug)]
-pub(super) enum Item {
+pub(super) enum Member {
     /// `a-z`, or a single character as `a-a`.
     Range(char, char),
     /// `\d`, `[:alpha:]` or `\p{Lu}`, negated or not.
-    Prop(Prop, Polarity),
+    Property(Property, Polarity),
     /// A class inside a class.
     Nested(Class),
 }
 
-impl Item {
+impl Member {
     /// The item's members below 128, one bit per code point.
     fn ascii(&self) -> u128 {
         match self {
-            Item::Range(lo, hi) => ascii_range(u32::from(*lo), u32::from(*hi)),
-            Item::Prop(Prop(ranges), polarity) => {
+            Member::Range(lo, hi) => ascii_range(u32::from(*lo), u32::from(*hi)),
+            Member::Property(Property(ranges), polarity) => {
                 let held = ranges
                     .iter()
                     .fold(0, |held, &(first, last)| held | ascii_range(first, last));
@@ -92,7 +92,7 @@ impl Item {
                     Polarity::Negated => !held,
                 }
             }
-            Item::Nested(class) => class.ascii(),
+            Member::Nested(class) => class.ascii(),
         }
     }
 }
@@ -110,16 +110,16 @@ fn ascii_range(first: u32, last: u32) -> u128 {
 #[derive(Clone, Debug)]
 pub(super) struct Class {
     pub(super) negated: bool,
-    pub(super) parts: Vec<Vec<Item>>,
+    pub(super) parts: Vec<Vec<Member>>,
 }
 
 /// A named set of characters: ranges of code points, ascending.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Prop(&'static [(u32, u32)]);
+pub(super) struct Property(&'static [(u32, u32)]);
 
-impl Prop {
+impl Property {
     /// Every character.
-    pub(super) const ANY: Prop = Prop(&[(0, 0x10_ffff)]);
+    pub(super) const ANY: Property = Property(&[(0, 0x10_ffff)]);
 
     /// Whether `c` is in the set.
     pub(super) fn matches(self, c: char) -> bool {
@@ -131,10 +131,10 @@ impl Prop {
 
 /// The set a `\p{..}` or `[:..:]` name stands for, as Oniguruma measures it:
 /// names ignore case, `_`, `-` and spaces.
-pub(super) fn prop_named(name: &str) -> Option<Prop> {
+pub(super) fn property_named(name: &str) -> Option<Property> {
     let lower = name.to_ascii_lowercase().replace(['_', ' ', '-'], "");
     let key = match lower.as_str() {
-        "any" => return Some(Prop::ANY),
+        "any" => return Some(Property::ANY),
         "letter" => "l",
         "uppercaseletter" => "lu",
         "lowercaseletter" => "ll",
@@ -180,12 +180,12 @@ pub(super) fn prop_named(name: &str) -> Option<Prop> {
         "hex" | "hexdigit" | "asciihexdigit" => "xdigit",
         other => other,
     };
-    super::unicode::lookup(key).map(Prop)
+    super::unicode::lookup(key).map(Property)
 }
 
-/// A set `prop_named` is known to have.
-pub(super) fn builtin(name: &str) -> Prop {
-    prop_named(name).unwrap_or(Prop::ANY)
+/// A set `property_named` is known to have.
+pub(super) fn builtin(name: &str) -> Property {
+    property_named(name).unwrap_or(Property::ANY)
 }
 
 /// `\w`, and what `\b` tests.
@@ -255,7 +255,7 @@ fn insensitive_char(c: char) -> Node {
 fn members_class(members: impl Iterator<Item = char>) -> Node {
     Node::Class(Box::new(Class {
         negated: false,
-        parts: vec![members.map(|m| Item::Range(m, m)).collect()],
+        parts: vec![members.map(|m| Member::Range(m, m)).collect()],
     }))
 }
 
@@ -568,12 +568,12 @@ fn strip_wide_folds(node: &Node, changed: &mut bool) -> Node {
             node: inner,
             min,
             max,
-            kind,
+            greediness,
         } => Node::Repeat {
             node: Box::new(strip_wide_folds(inner, changed)),
             min: *min,
             max: *max,
-            kind: *kind,
+            greediness: *greediness,
         },
         Node::Group { index, node: inner } => Node::Group {
             index: *index,
@@ -669,9 +669,11 @@ impl Class {
     pub(super) fn matches(&self, c: char) -> bool {
         let found = self.parts.iter().all(|union| {
             union.iter().any(|item| match item {
-                Item::Range(lo, hi) => (*lo..=*hi).contains(&c),
-                Item::Prop(prop, polarity) => prop.matches(c) == (*polarity == Polarity::Positive),
-                Item::Nested(class) => class.matches(c),
+                Member::Range(lo, hi) => (*lo..=*hi).contains(&c),
+                Member::Property(prop, polarity) => {
+                    prop.matches(c) == (*polarity == Polarity::Positive)
+                }
+                Member::Nested(class) => class.matches(c),
             })
         });
         found != self.negated
@@ -689,10 +691,10 @@ impl Class {
     }
 
     /// The class's members when it is one union of ranges, not negated.
-    pub(super) fn ranges(&self) -> Option<&[Item]> {
+    pub(super) fn ranges(&self) -> Option<&[Member]> {
         match self.parts.as_slice() {
             [union]
-                if !self.negated && union.iter().all(|item| matches!(item, Item::Range(..))) =>
+                if !self.negated && union.iter().all(|item| matches!(item, Member::Range(..))) =>
             {
                 Some(union)
             }
@@ -734,7 +736,7 @@ impl Class {
             .parts
             .iter()
             .flatten()
-            .all(|item| matches!(item, Item::Range(_, hi) if hi.is_ascii()));
+            .all(|item| matches!(item, Member::Range(_, hi) if hi.is_ascii()));
         let candidates = if ascii {
             NEXT.get(..NEXT.partition_point(|&(member, _)| member < 0x80))
                 .unwrap_or(NEXT)
@@ -756,12 +758,12 @@ impl Class {
                 parts: positive.parts,
             };
         }
-        let extra = added.into_iter().map(|m| Item::Range(m, m));
+        let extra = added.into_iter().map(|m| Member::Range(m, m));
         let parts = if positive.ranges().is_some() {
             vec![positive.parts.into_iter().flatten().chain(extra).collect()]
         } else {
             vec![
-                std::iter::once(Item::Nested(positive))
+                std::iter::once(Member::Nested(positive))
                     .chain(extra)
                     .collect(),
             ]
@@ -800,7 +802,7 @@ pub(super) enum Node {
         node: Box<Node>,
         min: u32,
         max: Option<u32>,
-        kind: Kind,
+        greediness: Greediness,
     },
     /// A group: capturing when it has an index.
     Group {

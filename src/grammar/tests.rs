@@ -5,7 +5,7 @@ use std::time::Duration;
 use indoc::indoc;
 
 use super::{Grammar, Grammars, LINKED_TABLES, LinkKey, Reason, bytes, linked_table};
-use crate::textmate::compile::{Compiled, RawRule, compile};
+use crate::textmate::compile::{UnlinkedGrammar, UnlinkedRule, compile};
 use crate::{Highlighter, State};
 
 /// A grammar with a keyword from its repository and a string with escapes.
@@ -54,8 +54,8 @@ fn error(bytes: &[u8]) -> Reason {
 }
 
 /// A grammar whose rules are `rules`, the first of them its one pattern.
-fn grammar_of(rules: Vec<RawRule>) -> Compiled {
-    Compiled {
+fn grammar_of(rules: Vec<UnlinkedRule>) -> UnlinkedGrammar {
+    UnlinkedGrammar {
         scope: "source.crafted".to_owned(),
         rules,
         patterns: vec![0],
@@ -239,10 +239,27 @@ fn a_rule_named_twice_fails() {
 }
 
 #[test]
+fn a_repository_out_of_order_fails() {
+    let mut grammar = compile(DEMO).unwrap();
+    grammar
+        .repository
+        .push(("a".to_owned(), grammar.rules.len()));
+    grammar.rules.push(UnlinkedRule::default());
+    assert!(matches!(
+        bytes::read(&bytes::write(&grammar)),
+        Err(Reason::Malformed { .. })
+    ));
+    grammar
+        .repository
+        .sort_unstable_by(|(a, _), (b, _)| a.cmp(b));
+    assert!(bytes::read(&bytes::write(&grammar)).is_ok());
+}
+
+#[test]
 fn a_rule_that_names_itself_fails() {
-    let grammar = grammar_of(vec![RawRule {
+    let grammar = grammar_of(vec![UnlinkedRule {
         patterns: vec![0],
-        ..RawRule::default()
+        ..UnlinkedRule::default()
     }]);
     assert!(bytes::read(&bytes::write(&grammar)).is_err());
 }
@@ -252,13 +269,13 @@ fn rules_nested_past_the_depth_limit_fail() {
     let chain = |levels: usize| {
         grammar_of(
             (0..levels)
-                .map(|id| RawRule {
+                .map(|id| UnlinkedRule {
                     patterns: if id + 1 < levels {
                         vec![id + 1]
                     } else {
                         Vec::new()
                     },
-                    ..RawRule::default()
+                    ..UnlinkedRule::default()
                 })
                 .collect(),
         )

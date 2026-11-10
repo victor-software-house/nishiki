@@ -6,7 +6,7 @@
 //! - [`VERSION`], a little-endian `u32`;
 //! - the length of the body, a little-endian `u32`.
 //!
-//! The body holds the fields of [`Compiled`] in order.
+//! The body holds the fields of [`UnlinkedGrammar`] in order.
 //! A count or index is a little-endian `u32`.
 //! A string is its length, then its UTF-8 bytes.
 //! An optional value is a flag byte, `0` or `1`, then the value when the flag
@@ -23,7 +23,9 @@
 //! through a cycle or a chain deeper than any JSON grammar holds.
 
 use super::Reason;
-use crate::textmate::compile::{Compiled, RawCapture, RawRule, Repository, RuleId};
+use crate::textmate::compile::{
+    Repository, RuleId, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule,
+};
 
 /// The bytes a compiled grammar opens with.
 const MAGIC: &[u8; 8] = b"nishiki\0";
@@ -52,7 +54,7 @@ const MIN_RULE: usize = 12 + 3 * 4;
 /// written as `u32::MAX`.
 /// [`read`] then refuses the bytes, since they hold fewer items than it
 /// counts.
-pub(super) fn write(grammar: &Compiled) -> Vec<u8> {
+pub(super) fn write(grammar: &UnlinkedGrammar) -> Vec<u8> {
     let mut body = Writer(Vec::new());
     body.compiled(grammar);
     let mut out = Vec::with_capacity(HEADER + body.0.len());
@@ -64,7 +66,7 @@ pub(super) fn write(grammar: &Compiled) -> Vec<u8> {
 }
 
 /// Reads bytes [`write`] wrote, and checks them.
-pub(super) fn read(bytes: &[u8]) -> Result<Compiled, Reason> {
+pub(super) fn read(bytes: &[u8]) -> Result<UnlinkedGrammar, Reason> {
     if bytes.get(..MAGIC.len()) != Some(MAGIC.as_slice()) {
         return Err(Reason::NotGrammarBytes);
     }
@@ -101,8 +103,8 @@ fn to_u32(n: usize) -> u32 {
 struct Writer(Vec<u8>);
 
 impl Writer {
-    fn compiled(&mut self, grammar: &Compiled) {
-        let Compiled {
+    fn compiled(&mut self, grammar: &UnlinkedGrammar) {
+        let UnlinkedGrammar {
             scope,
             rules,
             patterns,
@@ -123,8 +125,8 @@ impl Writer {
         self.strings(inject_to);
     }
 
-    fn rule(&mut self, rule: &RawRule) {
-        let RawRule {
+    fn rule(&mut self, rule: &UnlinkedRule) {
+        let UnlinkedRule {
             include,
             name,
             content_name,
@@ -156,9 +158,9 @@ impl Writer {
         self.option(repository.as_ref(), Writer::repository);
     }
 
-    fn captures(&mut self, captures: &[RawCapture]) {
+    fn captures(&mut self, captures: &[UnlinkedCapture]) {
         self.count(captures.len());
-        for RawCapture { index, rule } in captures {
+        for UnlinkedCapture { index, rule } in captures {
             self.option(*index, Writer::count);
             self.count(*rule);
         }
@@ -216,7 +218,7 @@ struct Reader<'a> {
 }
 
 impl Reader<'_> {
-    fn compiled(&mut self) -> Result<Compiled, Reason> {
+    fn compiled(&mut self) -> Result<UnlinkedGrammar, Reason> {
         let scope = self.string()?;
         let count = self.count(MIN_RULE)?;
         let mut rules = Vec::with_capacity(count);
@@ -224,19 +226,19 @@ impl Reader<'_> {
             self.rule_starts.push(self.at);
             rules.push(self.rule()?);
         }
-        Ok(Compiled {
+        Ok(UnlinkedGrammar {
             scope,
             rules,
             patterns: self.ids()?,
             repository: self.repository()?,
-            injections: self.repository()?,
+            injections: self.entries()?,
             injection_selector: self.option(Reader::string)?,
             inject_to: self.strings()?,
         })
     }
 
-    fn rule(&mut self) -> Result<RawRule, Reason> {
-        Ok(RawRule {
+    fn rule(&mut self) -> Result<UnlinkedRule, Reason> {
+        Ok(UnlinkedRule {
             include: self.option(Reader::string)?,
             name: self.strings()?,
             content_name: self.strings()?,
@@ -256,11 +258,11 @@ impl Reader<'_> {
     }
 
     /// A captures list: each capture takes at least a flag and a rule index.
-    fn captures(&mut self) -> Result<Vec<RawCapture>, Reason> {
+    fn captures(&mut self) -> Result<Vec<UnlinkedCapture>, Reason> {
         let count = self.count(1 + 4)?;
         let mut captures = Vec::with_capacity(count);
         for _ in 0..count {
-            captures.push(RawCapture {
+            captures.push(UnlinkedCapture {
                 index: self.option(Reader::length)?,
                 rule: self.length()?,
             });
@@ -268,13 +270,27 @@ impl Reader<'_> {
         Ok(captures)
     }
 
-    /// A repository: each entry takes at least a string's length and a rule
+    /// Named rules: each entry takes at least a string's length and a rule
     /// index.
-    fn repository(&mut self) -> Result<Repository, Reason> {
+    fn entries(&mut self) -> Result<Repository, Reason> {
         let count = self.count(4 + 4)?;
         let mut entries = Vec::with_capacity(count);
         for _ in 0..count {
             entries.push((self.string()?, self.length()?));
+        }
+        Ok(entries)
+    }
+
+    /// A repository, which the linker searches by name.
+    /// Its names must be sorted, each once, as the compiler writes them.
+    fn repository(&mut self) -> Result<Repository, Reason> {
+        let start = self.at;
+        let entries = self.entries()?;
+        if entries.windows(2).any(|pair| match pair {
+            [(a, _), (b, _)] => a >= b,
+            _ => false,
+        }) {
+            return Err(Reason::Malformed { at: start });
         }
         Ok(entries)
     }
@@ -359,7 +375,7 @@ impl Reader<'_> {
 /// - No rule sits more than [`MAX_DEPTH`] levels deep.
 ///
 /// `starts` holds each rule's offset, for the error.
-fn check_shape(grammar: &Compiled, starts: &[usize]) -> Result<(), Reason> {
+fn check_shape(grammar: &UnlinkedGrammar, starts: &[usize]) -> Result<(), Reason> {
     let count = grammar.rules.len();
     let mut depth: Vec<Option<usize>> = vec![None; count];
     let top = grammar
@@ -405,7 +421,7 @@ fn set_depth(
 
 /// The rules `rule` names: its patterns, its captures' rules and its
 /// repository's rules.
-fn children(rule: &RawRule) -> impl Iterator<Item = RuleId> + '_ {
+fn children(rule: &UnlinkedRule) -> impl Iterator<Item = RuleId> + '_ {
     let captures = [
         &rule.captures,
         &rule.begin_captures,

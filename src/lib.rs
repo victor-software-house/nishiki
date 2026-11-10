@@ -259,7 +259,7 @@
 //! | Constant | Bounds | Past it |
 //! |:--|:--|:--|
 //! | `MAX_END` (32,767) | The back-referenced `end` and `while` patterns a highlighter fills in from their `begin` matches. | The rule closes on its grammar's own pattern, and the report names the node limit. |
-//! | `MAX_INSTS` (40,000) | The instructions one pattern compiles to. | The pattern never matches. |
+//! | `MAX_INSTRUCTIONS` (40,000) | The instructions one pattern compiles to. | The pattern never matches. |
 //! | `MAX_CALLS` (256) | The subroutine calls nested in one match. | The match fails. |
 //!
 //! A language's own bounds are listed on its [`Language`] variant.

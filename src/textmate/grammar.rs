@@ -17,7 +17,7 @@
 
 use std::sync::OnceLock;
 
-use super::regex::{LineKind, Regex, Sketch};
+use super::regex::{Programs, Regex, Sketch};
 use super::scanner::Scanner;
 use crate::language::Language;
 
@@ -28,9 +28,9 @@ pub(crate) const NONE: usize = usize::MAX;
 /// capture groups of a match, such as `keyword.$1`.
 pub(crate) const DYNAMIC_NAME: u16 = 0x8000;
 
-/// What a rule does when its pattern matches.
+/// How a rule matches text: with one pattern, between two, or through its list.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum RuleKind {
+pub(crate) enum Matching {
     /// One pattern that scopes its text.
     #[cfg_attr(
         not(any(test, feature = "json")),
@@ -59,7 +59,7 @@ pub(crate) enum RuleKind {
 
 /// What a capture group of a match does.
 #[derive(Debug)]
-pub(crate) struct Cap {
+pub(crate) struct Capture {
     /// The group's number.
     pub(crate) index: usize,
     /// The scopes its text gets.
@@ -73,8 +73,8 @@ pub(crate) struct Cap {
 /// One rule of a grammar.
 #[derive(Debug)]
 pub(crate) struct Rule {
-    /// What the rule does.
-    pub(crate) kind: RuleKind,
+    /// How the rule matches text.
+    pub(crate) matching: Matching,
     /// The scopes the rule's text gets.
     pub(crate) name: &'static [u16],
     /// The scopes the rules inside a context get.
@@ -86,9 +86,9 @@ pub(crate) struct Rule {
     /// The pattern a `BeginWhile` checks at the start of each line.
     pub(crate) until: usize,
     /// The groups of the `begin` or `match` pattern.
-    pub(crate) captures: &'static [Cap],
+    pub(crate) captures: &'static [Capture],
     /// The groups of the `end` or `while` pattern.
-    pub(crate) end_captures: &'static [Cap],
+    pub(crate) end_captures: &'static [Capture],
     /// The rules that can start inside the rule, in order, includes
     /// followed: an index into [`Grammar::lists`].
     pub(crate) list: usize,
@@ -273,10 +273,10 @@ pub(crate) struct Grammar {
     /// `oracle/engine-tables.ts` writes it from a list kept by hand, which
     /// `the_folding_table_matches_the_patterns` checks.
     pub(crate) folding: Folding,
-    /// The cells a search fills on [`LineKind::Lean`] lines: see
+    /// The cells a search fills on [`Programs::Lean`] lines: see
     /// [`Grammar::cells`].
     pub(crate) cells: OnceLock<Cells>,
-    /// The same for [`LineKind::Full`] lines.
+    /// The same for [`Programs::Full`] lines.
     pub(crate) full_cells: OnceLock<Cells>,
 }
 
@@ -303,8 +303,8 @@ pub(crate) enum Folding {
 pub(crate) struct Cells {
     /// The grammar whose cells these are, read only to fill a cell.
     pub(crate) grammar: &'static Grammar,
-    /// The kind of line whose programs the cells hold.
-    pub(crate) kind: LineKind,
+    /// The programs the cells hold.
+    pub(crate) programs: Programs,
     /// The cell of each pattern's compiled form, by the pattern's index.
     pub(crate) regexes: Box<[RegexCell]>,
     /// The cell of each pattern's sketch, by the pattern's index.
@@ -320,11 +320,11 @@ impl Grammar {
         self.hand_offs.get(usize::from(index))
     }
 
-    /// The grammar's cells for lines of `kind`, allocated on first use.
-    pub(crate) fn cells(&'static self, kind: LineKind) -> &'static Cells {
-        self.cells_of(kind).get_or_init(move || Cells {
+    /// The grammar's cells for `programs`, allocated on first use.
+    pub(crate) fn cells(&'static self, programs: Programs) -> &'static Cells {
+        self.cells_of(programs).get_or_init(move || Cells {
             grammar: self,
-            kind,
+            programs,
             regexes: self.patterns.iter().map(|_| RegexCell::new()).collect(),
             sketches: self.patterns.iter().map(|_| SketchCell::new()).collect(),
             scanners: self.lists.iter().map(|_| ScannerCell::new()).collect(),
@@ -336,18 +336,18 @@ impl Grammar {
         self.folding
     }
 
-    /// Where the grammar keeps its cells for lines of `kind`.
-    pub(crate) fn cells_of(&self, kind: LineKind) -> &OnceLock<Cells> {
-        match kind {
-            LineKind::Lean => &self.cells,
-            LineKind::Full => &self.full_cells,
+    /// Where the grammar keeps its cells for `programs`.
+    pub(crate) fn cells_of(&self, programs: Programs) -> &OnceLock<Cells> {
+        match programs {
+            Programs::Lean => &self.cells,
+            Programs::Full => &self.full_cells,
         }
     }
 }
 
 impl Cells {
-    /// The compiled pattern at `index`, compiled on first use for the kind of
-    /// line the cells serve.
+    /// The compiled pattern at `index`, compiled on first use as one of the
+    /// programs the cells serve.
     /// `None` for text the engine cannot compile, which never matches.
     #[inline]
     pub(crate) fn regex(&self, index: usize) -> Option<&Regex> {
@@ -356,8 +356,8 @@ impl Cells {
             .get_or_init(move || {
                 let source = self.grammar.patterns.get(index)?.source;
                 let compiled = match self.sketches.get(index).and_then(OnceLock::get) {
-                    Some(Some(sketch)) => Regex::from_sketch(sketch, source, self.kind),
-                    Some(None) | None => Regex::for_grammar(source, self.kind),
+                    Some(Some(sketch)) => Regex::from_sketch(sketch, source, self.programs),
+                    Some(None) | None => Regex::for_grammar(source, self.programs),
                 };
                 compiled.ok()
             })

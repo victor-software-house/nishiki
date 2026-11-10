@@ -8,16 +8,16 @@
 use std::collections::HashMap;
 
 use super::analysis::{first_bytes, second_bytes, width};
-use super::ast::{Anchor, Case, Class, Item, Kind, Node};
+use super::ast::{Anchor, Case, Class, Greediness, Member, Node};
 use super::parse::{Error, Parsed};
 
 /// The most instructions a pattern may compile to.
 /// It bounds the cost of unrolling counted repeats.
-const MAX_INSTS: usize = 40_000;
+const MAX_INSTRUCTIONS: usize = 40_000;
 
 /// One instruction. Jump targets are indexes into the program.
 #[derive(Clone, Debug)]
-pub(super) enum Inst {
+pub(super) enum Instruction {
     /// These bytes, exactly.
     Lit(Box<[u8]>),
     /// Any character.
@@ -57,7 +57,7 @@ pub(super) enum Inst {
     GroupEnd { group: u32 },
     /// The pattern matched.
     Match,
-    /// One character of the class at `class`, as [`Inst::Class`].
+    /// One character of the class at `class`, as [`Instruction::Class`].
     /// Before it, the machine leaves `secondary` to try on failure, when the
     /// lead at `lead` says that branch can start here.
     /// The branches are the alternatives a case fold adds.
@@ -161,7 +161,7 @@ fn leading_class(node: &Node) -> Option<(Class, &[Node])> {
         Node::Class(class) => Some((**class).clone()),
         Node::Char(c) => Some(Class {
             negated: false,
-            parts: vec![vec![Item::Range(*c, *c)]],
+            parts: vec![vec![Member::Range(*c, *c)]],
         }),
         Node::Empty
         | Node::Any(_)
@@ -234,7 +234,7 @@ fn holds(words: &[u64; 4], byte: u8) -> bool {
 /// A compiled pattern.
 #[derive(Debug)]
 pub(super) struct Program {
-    pub(super) insts: Vec<Inst>,
+    pub(super) insts: Vec<Instruction>,
     pub(super) classes: Vec<ClassTable>,
     /// The leads of the `ClassOr` instructions.
     pub(super) leads: Vec<Lead>,
@@ -260,12 +260,12 @@ pub(super) fn compile(parsed: &Parsed) -> Result<Program, Error> {
         calls: has_calls(&parsed.root),
     };
     compiler.node(&parsed.root)?;
-    compiler.push(Inst::Match)?;
+    compiler.push(Instruction::Match)?;
     while let Some(deferred) = compiler.deferred.pop() {
         let start = compiler.pc();
         compiler.patch(deferred.at, start);
         compiler.fold_chain(&deferred.alts, &deferred.leads)?;
-        compiler.push(Inst::Jump(deferred.back))?;
+        compiler.push(Instruction::Jump(deferred.back))?;
     }
     Ok(Program {
         insts: compiler.insts,
@@ -304,7 +304,7 @@ fn nullable(node: &Node) -> bool {
 }
 
 struct Compiler<'a> {
-    insts: Vec<Inst>,
+    insts: Vec<Instruction>,
     classes: Vec<ClassTable>,
     leads: Vec<Lead>,
     deferred: Vec<Deferred>,
@@ -325,8 +325,8 @@ impl Compiler<'_> {
     }
 
     /// Adds an instruction and returns its index.
-    fn push(&mut self, inst: Inst) -> Result<u32, Error> {
-        if self.insts.len() >= MAX_INSTS {
+    fn push(&mut self, inst: Instruction) -> Result<u32, Error> {
+        if self.insts.len() >= MAX_INSTRUCTIONS {
             return err("pattern too large");
         }
         let at = self.pc();
@@ -343,29 +343,29 @@ impl Compiler<'_> {
             return;
         };
         match inst {
-            Inst::Split { secondary, .. } | Inst::ClassOr { secondary, .. } => {
+            Instruction::Split { secondary, .. } | Instruction::ClassOr { secondary, .. } => {
                 *secondary = target;
             }
-            Inst::Jump(to) => *to = target,
-            Inst::Progress { exit, .. } => *exit = target,
-            Inst::Look { end, .. } | Inst::Atomic { end } => *end = target,
-            Inst::Lit(_)
-            | Inst::Any(_)
-            | Inst::Class(_)
-            | Inst::Save(_)
-            | Inst::Assert(_)
-            | Inst::Mark(_)
-            | Inst::BodyEnd
-            | Inst::Backref { .. }
-            | Inst::Call { .. }
-            | Inst::GroupEnd { .. }
-            | Inst::Match => {}
+            Instruction::Jump(to) => *to = target,
+            Instruction::Progress { exit, .. } => *exit = target,
+            Instruction::Look { end, .. } | Instruction::Atomic { end } => *end = target,
+            Instruction::Lit(_)
+            | Instruction::Any(_)
+            | Instruction::Class(_)
+            | Instruction::Save(_)
+            | Instruction::Assert(_)
+            | Instruction::Mark(_)
+            | Instruction::BodyEnd
+            | Instruction::Backref { .. }
+            | Instruction::Call { .. }
+            | Instruction::GroupEnd { .. }
+            | Instruction::Match => {}
         }
     }
 
     /// Makes the `primary` of the split at `at` the next instruction.
     fn patch_primary(&mut self, at: u32, target: u32) {
-        if let Some(Inst::Split { primary, .. }) = self
+        if let Some(Instruction::Split { primary, .. }) = self
             .insts
             .get_mut(usize::try_from(at).unwrap_or(usize::MAX))
         {
@@ -384,10 +384,10 @@ impl Compiler<'_> {
         match node {
             Node::Empty => Ok(()),
             Node::Char(..) => self.seq(std::slice::from_ref(node)),
-            Node::Any(dotall) => self.push(Inst::Any(*dotall)).map(drop),
+            Node::Any(dotall) => self.push(Instruction::Any(*dotall)).map(drop),
             Node::Class(class) => {
                 let id = self.class_table((**class).clone());
-                self.push(Inst::Class(id)).map(drop)
+                self.push(Instruction::Class(id)).map(drop)
             }
             Node::Seq(items) => self.seq(items),
             Node::Alt(alts) => self.alt(alts),
@@ -396,8 +396,8 @@ impl Compiler<'_> {
                 node,
                 min,
                 max,
-                kind,
-            } => self.repeat(node, *min, *max, *kind),
+                greediness,
+            } => self.repeat(node, *min, *max, *greediness),
             Node::Group { index, node } => self.group(*index, node),
             Node::Look {
                 ahead,
@@ -405,7 +405,7 @@ impl Compiler<'_> {
                 node,
             } => {
                 let (min, max) = width(node);
-                let at = self.push(Inst::Look {
+                let at = self.push(Instruction::Look {
                     ahead: *ahead,
                     negative: *negative,
                     end: 0,
@@ -413,7 +413,7 @@ impl Compiler<'_> {
                     max: max.map(|m| u32::try_from(m).unwrap_or(u32::MAX)),
                 })?;
                 self.node(node)?;
-                self.push(Inst::BodyEnd)?;
+                self.push(Instruction::BodyEnd)?;
                 let end = self.pc();
                 self.patch(at, end);
                 Ok(())
@@ -435,7 +435,7 @@ impl Compiler<'_> {
                 let group = self.group_number(name)?;
                 self.call(group)
             }
-            Node::Anchor(anchor) => self.push(Inst::Assert(*anchor)).map(drop),
+            Node::Anchor(anchor) => self.push(Instruction::Assert(*anchor)).map(drop),
         }
     }
 
@@ -443,14 +443,14 @@ impl Compiler<'_> {
         if usize::try_from(group).unwrap_or(usize::MAX) > self.groups {
             return err("invalid backreference");
         }
-        self.push(Inst::Backref { group, case }).map(drop)
+        self.push(Instruction::Backref { group, case }).map(drop)
     }
 
     fn call(&mut self, group: u32) -> Result<(), Error> {
         if usize::try_from(group).unwrap_or(usize::MAX) > self.groups {
             return err("undefined group");
         }
-        self.push(Inst::Call { group }).map(drop)
+        self.push(Instruction::Call { group }).map(drop)
     }
 
     /// The nodes in order, with a run of plain characters as one literal.
@@ -470,7 +470,7 @@ impl Compiler<'_> {
 
     fn flush(&mut self, literal: &mut Vec<u8>) -> Result<(), Error> {
         if !literal.is_empty() {
-            self.push(Inst::Lit(std::mem::take(literal).into_boxed_slice()))?;
+            self.push(Instruction::Lit(std::mem::take(literal).into_boxed_slice()))?;
         }
         Ok(())
     }
@@ -485,7 +485,7 @@ impl Compiler<'_> {
     /// The alternatives a case fold adds, whose suffixes have the leads in
     /// `leads`.
     ///
-    /// The first starts with a [`Inst::ClassOr`] and runs inline.
+    /// The first starts with an [`Instruction::ClassOr`] and runs inline.
     /// The others are compiled after the program.
     /// They are entered only where their lead admits the text.
     /// A fold the text does not hold then costs nothing over the first
@@ -505,7 +505,7 @@ impl Compiler<'_> {
         let class = self.class_table(class);
         let index = u32::try_from(self.leads.len()).unwrap_or(u32::MAX);
         self.leads.push(lead.clone());
-        let at = self.push(Inst::ClassOr {
+        let at = self.push(Instruction::ClassOr {
             class,
             secondary: 0,
             lead: index,
@@ -525,14 +525,14 @@ impl Compiler<'_> {
         let mut jumps = Vec::new();
         for (index, alt) in alts.iter().enumerate() {
             if index + 1 < alts.len() {
-                let split = self.push(Inst::Split {
+                let split = self.push(Instruction::Split {
                     primary: 0,
                     secondary: 0,
                 })?;
                 let body = self.pc();
                 self.patch_primary(split, body);
                 self.node(alt)?;
-                jumps.push(self.push(Inst::Jump(0))?);
+                jumps.push(self.push(Instruction::Jump(0))?);
                 let next = self.pc();
                 self.patch(split, next);
             } else {
@@ -551,14 +551,14 @@ impl Compiler<'_> {
             return self.node(node);
         };
         let slot = u32::try_from(index * 2).unwrap_or(u32::MAX);
-        let start = self.push(Inst::Save(slot))?;
+        let start = self.push(Instruction::Save(slot))?;
         if let Some(entry) = self.group_start.get_mut(index) {
             *entry = start;
         }
         self.node(node)?;
-        self.push(Inst::Save(slot + 1))?;
+        self.push(Instruction::Save(slot + 1))?;
         if self.calls {
-            self.push(Inst::GroupEnd {
+            self.push(Instruction::GroupEnd {
                 group: u32::try_from(index).unwrap_or(u32::MAX),
             })?;
         }
@@ -566,9 +566,9 @@ impl Compiler<'_> {
     }
 
     fn atomic(&mut self, node: &Node) -> Result<(), Error> {
-        let at = self.push(Inst::Atomic { end: 0 })?;
+        let at = self.push(Instruction::Atomic { end: 0 })?;
         self.node(node)?;
-        self.push(Inst::BodyEnd)?;
+        self.push(Instruction::BodyEnd)?;
         let end = self.pc();
         self.patch(at, end);
         Ok(())
@@ -576,32 +576,38 @@ impl Compiler<'_> {
 
     /// A group repeated no times is still there to be called.
     /// Its code is therefore emitted and jumped over.
-    fn repeat(&mut self, node: &Node, min: u32, max: Option<u32>, kind: Kind) -> Result<(), Error> {
-        if kind == Kind::Possessive {
-            let at = self.push(Inst::Atomic { end: 0 })?;
-            self.repeat(node, min, max, Kind::Greedy)?;
-            self.push(Inst::BodyEnd)?;
+    fn repeat(
+        &mut self,
+        node: &Node,
+        min: u32,
+        max: Option<u32>,
+        greediness: Greediness,
+    ) -> Result<(), Error> {
+        if greediness == Greediness::Possessive {
+            let at = self.push(Instruction::Atomic { end: 0 })?;
+            self.repeat(node, min, max, Greediness::Greedy)?;
+            self.push(Instruction::BodyEnd)?;
             let end = self.pc();
             self.patch(at, end);
             return Ok(());
         }
         if max == Some(0) && self.calls {
-            let jump = self.push(Inst::Jump(0))?;
+            let jump = self.push(Instruction::Jump(0))?;
             self.node(node)?;
             let end = self.pc();
             self.patch(jump, end);
             return Ok(());
         }
-        let lazy = kind == Kind::Lazy;
+        let lazy = greediness == Greediness::Lazy;
         for _ in 0..min {
             self.node(node)?;
         }
         match max {
-            None => self.star(node, kind),
+            None => self.star(node, greediness),
             Some(max) => {
                 let mut exits = Vec::new();
                 for _ in min..max {
-                    let split = self.push(Inst::Split {
+                    let split = self.push(Instruction::Split {
                         primary: 0,
                         secondary: 0,
                     })?;
@@ -615,7 +621,7 @@ impl Compiler<'_> {
                 let end = self.pc();
                 for (split, body, lazy) in exits {
                     if lazy {
-                        if let Some(Inst::Split { primary, secondary }) = self
+                        if let Some(Instruction::Split { primary, secondary }) = self
                             .insts
                             .get_mut(usize::try_from(split).unwrap_or(usize::MAX))
                         {
@@ -632,10 +638,10 @@ impl Compiler<'_> {
     }
 
     /// `node*`, greedy or lazy.
-    fn star(&mut self, node: &Node, kind: Kind) -> Result<(), Error> {
-        let lazy = kind == Kind::Lazy;
+    fn star(&mut self, node: &Node, greediness: Greediness) -> Result<(), Error> {
+        let lazy = greediness == Greediness::Lazy;
         let check = nullable(node);
-        let head = self.push(Inst::Split {
+        let head = self.push(Instruction::Split {
             primary: 0,
             secondary: 0,
         })?;
@@ -643,22 +649,22 @@ impl Compiler<'_> {
         let reg = if check {
             let reg = u32::try_from(self.regs).unwrap_or(u32::MAX);
             self.regs += 1;
-            self.push(Inst::Mark(reg))?;
+            self.push(Instruction::Mark(reg))?;
             Some(reg)
         } else {
             None
         };
         self.node(node)?;
         let progress = match reg {
-            Some(reg) => Some(self.push(Inst::Progress { reg, exit: 0 })?),
+            Some(reg) => Some(self.push(Instruction::Progress { reg, exit: 0 })?),
             None => None,
         };
-        self.push(Inst::Jump(head))?;
+        self.push(Instruction::Jump(head))?;
         let exit = self.pc();
         if let Some(progress) = progress {
             self.patch(progress, exit);
         }
-        if let Some(Inst::Split { primary, secondary }) = self
+        if let Some(Instruction::Split { primary, secondary }) = self
             .insts
             .get_mut(usize::try_from(head).unwrap_or(usize::MAX))
         {

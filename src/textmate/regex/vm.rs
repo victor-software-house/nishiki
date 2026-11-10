@@ -6,7 +6,7 @@
 //! Every instruction costs a step from the caller's budget.
 
 use super::ast::{Anchor, Case, is_word, orbit};
-use super::program::{ClassTable, Inst, Program};
+use super::program::{ClassTable, Instruction, Program};
 
 /// A capture slot that holds no position.
 pub(super) const UNSET: u32 = u32::MAX;
@@ -203,21 +203,23 @@ impl Machine<'_> {
                 return None;
             };
             let flow = match inst {
-                Inst::Lit(_) | Inst::Any(_) | Inst::Class(_) | Inst::Backref { .. } => {
-                    self.consume(inst, pc, pos)
-                }
-                Inst::Look { .. } | Inst::Atomic { .. } | Inst::BodyEnd | Inst::Match => {
-                    self.nested(inst, pc, pos, target)
-                }
-                Inst::Split { .. }
-                | Inst::Jump(_)
-                | Inst::Save(_)
-                | Inst::Assert(_)
-                | Inst::Mark(_)
-                | Inst::Progress { .. }
-                | Inst::Call { .. }
-                | Inst::GroupEnd { .. }
-                | Inst::ClassOr { .. } => self.control(inst, pc, pos),
+                Instruction::Lit(_)
+                | Instruction::Any(_)
+                | Instruction::Class(_)
+                | Instruction::Backref { .. } => self.consume(inst, pc, pos),
+                Instruction::Look { .. }
+                | Instruction::Atomic { .. }
+                | Instruction::BodyEnd
+                | Instruction::Match => self.nested(inst, pc, pos, target),
+                Instruction::Split { .. }
+                | Instruction::Jump(_)
+                | Instruction::Save(_)
+                | Instruction::Assert(_)
+                | Instruction::Mark(_)
+                | Instruction::Progress { .. }
+                | Instruction::Call { .. }
+                | Instruction::GroupEnd { .. }
+                | Instruction::ClassOr { .. } => self.control(inst, pc, pos),
             };
             match flow {
                 Flow::Go(next_pc, next_pos) => {
@@ -244,44 +246,46 @@ impl Machine<'_> {
     ///
     /// The run loop sends every other instruction to the function that takes
     /// it.
-    fn consume(&self, inst: &Inst, pc: usize, pos: usize) -> Flow {
+    fn consume(&self, inst: &Instruction, pc: usize, pos: usize) -> Flow {
         let step = |width: usize| Flow::Go(pc + 1, pos + width);
         match inst {
-            Inst::Lit(bytes) => {
+            Instruction::Lit(bytes) => {
                 if lit_at(self.text, pos, bytes) {
                     step(bytes.len())
                 } else {
                     Flow::Fail
                 }
             }
-            Inst::Any(dotall) => match decode(self.text, pos) {
+            Instruction::Any(dotall) => match decode(self.text, pos) {
                 Some((code, width)) if *dotall || code != u32::from(b'\n') => step(width),
                 _ => Flow::Fail,
             },
-            Inst::Class(id) => {
+            Instruction::Class(id) => {
                 let table = self.program.classes.get(as_usize(*id));
                 match decode(self.text, pos) {
                     Some((code, width)) if table.is_some_and(|t| t.matches(code)) => step(width),
                     _ => Flow::Fail,
                 }
             }
-            Inst::Backref { group, case } => match self.backref(as_usize(*group), *case, pos) {
-                Some(after) => Flow::Go(pc + 1, after),
-                None => Flow::Fail,
-            },
-            Inst::Split { .. }
-            | Inst::Jump(_)
-            | Inst::Save(_)
-            | Inst::Assert(_)
-            | Inst::Mark(_)
-            | Inst::Progress { .. }
-            | Inst::Look { .. }
-            | Inst::Atomic { .. }
-            | Inst::BodyEnd
-            | Inst::Call { .. }
-            | Inst::GroupEnd { .. }
-            | Inst::Match
-            | Inst::ClassOr { .. } => Flow::Fail,
+            Instruction::Backref { group, case } => {
+                match self.backref(as_usize(*group), *case, pos) {
+                    Some(after) => Flow::Go(pc + 1, after),
+                    None => Flow::Fail,
+                }
+            }
+            Instruction::Split { .. }
+            | Instruction::Jump(_)
+            | Instruction::Save(_)
+            | Instruction::Assert(_)
+            | Instruction::Mark(_)
+            | Instruction::Progress { .. }
+            | Instruction::Look { .. }
+            | Instruction::Atomic { .. }
+            | Instruction::BodyEnd
+            | Instruction::Call { .. }
+            | Instruction::GroupEnd { .. }
+            | Instruction::Match
+            | Instruction::ClassOr { .. } => Flow::Fail,
         }
     }
 
@@ -290,16 +294,16 @@ impl Machine<'_> {
     ///
     /// The run loop sends every other instruction to the function that takes
     /// it.
-    fn control(&mut self, inst: &Inst, pc: usize, pos: usize) -> Flow {
+    fn control(&mut self, inst: &Instruction, pc: usize, pos: usize) -> Flow {
         match inst {
-            Inst::Split { primary, secondary } => {
+            Instruction::Split { primary, secondary } => {
                 self.scratch.stack.push(Entry::Branch {
                     pc: *secondary,
                     pos: as_u32(pos),
                 });
                 Flow::Go(as_usize(*primary), pos)
             }
-            Inst::ClassOr {
+            Instruction::ClassOr {
                 class,
                 secondary,
                 lead,
@@ -326,8 +330,8 @@ impl Machine<'_> {
                     _ => Flow::Fail,
                 }
             }
-            Inst::Jump(target) => Flow::Go(as_usize(*target), pos),
-            Inst::Save(slot) => {
+            Instruction::Jump(target) => Flow::Go(as_usize(*target), pos),
+            Instruction::Save(slot) => {
                 let index = as_usize(*slot);
                 if let Some(old) = self.scratch.slots.get(index).copied() {
                     self.scratch.stack.push(Entry::Slot { index: *slot, old });
@@ -335,14 +339,14 @@ impl Machine<'_> {
                 }
                 Flow::Go(pc + 1, pos)
             }
-            Inst::Assert(anchor) => {
+            Instruction::Assert(anchor) => {
                 if self.assert_at(*anchor, pos) {
                     Flow::Go(pc + 1, pos)
                 } else {
                     Flow::Fail
                 }
             }
-            Inst::Mark(reg) => {
+            Instruction::Mark(reg) => {
                 let index = as_usize(*reg);
                 if let Some(old) = self.scratch.regs.get(index).copied() {
                     self.scratch.stack.push(Entry::Reg { index: *reg, old });
@@ -350,11 +354,11 @@ impl Machine<'_> {
                 }
                 Flow::Go(pc + 1, pos)
             }
-            Inst::Progress { reg, exit } => {
+            Instruction::Progress { reg, exit } => {
                 let same = self.scratch.regs.get(as_usize(*reg)).copied() == Some(as_u32(pos));
                 Flow::Go(if same { as_usize(*exit) } else { pc + 1 }, pos)
             }
-            Inst::Call { group } => {
+            Instruction::Call { group } => {
                 let start = self.program.group_start.get(as_usize(*group)).copied();
                 match start {
                     Some(start) if self.scratch.calls.len() < MAX_CALLS => {
@@ -365,7 +369,7 @@ impl Machine<'_> {
                     _ => Flow::Fail,
                 }
             }
-            Inst::GroupEnd { group } => match self.scratch.calls.last().copied() {
+            Instruction::GroupEnd { group } => match self.scratch.calls.last().copied() {
                 Some((called, ret)) if called == *group => {
                     self.scratch.calls.pop();
                     self.scratch
@@ -375,14 +379,14 @@ impl Machine<'_> {
                 }
                 _ => Flow::Go(pc + 1, pos),
             },
-            Inst::Lit(_)
-            | Inst::Any(_)
-            | Inst::Class(_)
-            | Inst::Look { .. }
-            | Inst::Atomic { .. }
-            | Inst::BodyEnd
-            | Inst::Backref { .. }
-            | Inst::Match => Flow::Fail,
+            Instruction::Lit(_)
+            | Instruction::Any(_)
+            | Instruction::Class(_)
+            | Instruction::Look { .. }
+            | Instruction::Atomic { .. }
+            | Instruction::BodyEnd
+            | Instruction::Backref { .. }
+            | Instruction::Match => Flow::Fail,
         }
     }
 
@@ -391,9 +395,9 @@ impl Machine<'_> {
     ///
     /// The run loop sends every other instruction to the function that takes
     /// it.
-    fn nested(&mut self, inst: &Inst, pc: usize, pos: usize, target: Option<usize>) -> Flow {
+    fn nested(&mut self, inst: &Instruction, pc: usize, pos: usize, target: Option<usize>) -> Flow {
         match inst {
-            Inst::Look {
+            Instruction::Look {
                 ahead,
                 negative,
                 end,
@@ -420,7 +424,7 @@ impl Machine<'_> {
                 }
                 Flow::Go(as_usize(*end), pos)
             }
-            Inst::Atomic { end } => {
+            Instruction::Atomic { end } => {
                 let mark = self.scratch.stack.len();
                 match self.run(pc + 1, pos, None) {
                     Some(after) => {
@@ -431,27 +435,27 @@ impl Machine<'_> {
                     None => Flow::Fail,
                 }
             }
-            Inst::BodyEnd => {
+            Instruction::BodyEnd => {
                 if target.is_none_or(|t| t == pos) {
                     Flow::Done(pos)
                 } else {
                     Flow::Fail
                 }
             }
-            Inst::Match => Flow::Done(pos),
-            Inst::Lit(_)
-            | Inst::Any(_)
-            | Inst::Class(_)
-            | Inst::Split { .. }
-            | Inst::Jump(_)
-            | Inst::Save(_)
-            | Inst::Assert(_)
-            | Inst::Mark(_)
-            | Inst::Progress { .. }
-            | Inst::Backref { .. }
-            | Inst::Call { .. }
-            | Inst::GroupEnd { .. }
-            | Inst::ClassOr { .. } => Flow::Fail,
+            Instruction::Match => Flow::Done(pos),
+            Instruction::Lit(_)
+            | Instruction::Any(_)
+            | Instruction::Class(_)
+            | Instruction::Split { .. }
+            | Instruction::Jump(_)
+            | Instruction::Save(_)
+            | Instruction::Assert(_)
+            | Instruction::Mark(_)
+            | Instruction::Progress { .. }
+            | Instruction::Backref { .. }
+            | Instruction::Call { .. }
+            | Instruction::GroupEnd { .. }
+            | Instruction::ClassOr { .. } => Flow::Fail,
         }
     }
 

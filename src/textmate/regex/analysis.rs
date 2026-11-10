@@ -2,7 +2,7 @@
 //! It learns where a match can start and how much text a match needs.
 //! A search uses both to skip ahead.
 
-use super::ast::{Anchor, Class, Item, Node};
+use super::ast::{Anchor, Class, Member, Node};
 
 /// Where a match can start, beyond the character at the start.
 #[derive(Clone, Copy, Debug, Default)]
@@ -336,10 +336,10 @@ fn wide_lead_bytes(class: &Class) -> Vec<(u8, u8)> {
     ranges
         .iter()
         .filter_map(|item| match item {
-            Item::Range(lo, hi) if !hi.is_ascii() => {
+            Member::Range(lo, hi) if !hi.is_ascii() => {
                 Some((lead_byte((*lo).max('\u{80}')), lead_byte(*hi)))
             }
-            Item::Range(..) | Item::Prop(..) | Item::Nested(_) => None,
+            Member::Range(..) | Member::Property(..) | Member::Nested(_) => None,
         })
         .collect()
 }

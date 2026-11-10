@@ -62,17 +62,17 @@ import { writeRust } from "./rule-grammar.ts";
 type Json = Record<string, unknown>;
 /** The repositories an include can name, innermost last: a rule without a
  * begin or match may carry its own, which shadows the outer ones. */
-type Env = Json[];
-type Cap = { index: number; name: string[]; contentName: string[]; retokenize: number };
+type Repositories = Json[];
+type Capture = { index: number; name: string[]; contentName: string[]; retokenize: number };
 type Rule = {
-  kind: "Match" | "BeginEnd" | "BeginWhile" | "Container";
+  matching: "Match" | "BeginEnd" | "BeginWhile" | "Container";
   name: string[];
   contentName: string[];
   begin: number;
   end: number;
   while: number;
-  captures: Cap[];
-  endCaptures: Cap[];
+  captures: Capture[];
+  endCaptures: Capture[];
   patterns: number[];
   applyEndLast: boolean;
   /** Includes the rule's list had that could not be resolved. */
@@ -177,9 +177,9 @@ class Builder {
     return typeof text === "string" ? text.split(/\s+/).filter((s) => s.length > 0) : [];
   }
 
-  reserve(kind: Rule["kind"]): number {
+  reserve(matching: Rule["matching"]): number {
     this.rules.push({
-      kind,
+      matching,
       name: [],
       contentName: [],
       begin: NONE,
@@ -202,7 +202,7 @@ class Builder {
     this.used.add(String(doc.name));
     const id = this.reserve("Container");
     this.roots.set(scope, id);
-    const env: Env = [(doc.repository as Json | undefined) ?? {}];
+    const env: Repositories = [(doc.repository as Json | undefined) ?? {}];
     const [patterns, missing] = this.list(scope, (doc.patterns as Json[]) ?? [], env);
     this.rules[id].patterns = patterns;
     this.rules[id].missing = missing;
@@ -210,7 +210,7 @@ class Builder {
   }
 
   /** The rule of a raw rule object, compiled on first use. */
-  entry(scope: string, value: Json, env: Env): number {
+  entry(scope: string, value: Json, env: Repositories): number {
     const known = this.compiled.get(value);
     if (known !== undefined) return known;
     const id = this.reserve("Container");
@@ -219,7 +219,7 @@ class Builder {
     return id;
   }
 
-  include(scope: string, target: string, env: Env): number | undefined {
+  include(scope: string, target: string, env: Repositories): number | undefined {
     const variant = this.handed.get(target);
     if (variant !== undefined) return this.handOff(variant);
     if (target === "$self") return this.root(scope);
@@ -246,7 +246,7 @@ class Builder {
   }
 
   /** The rules of a list, and whether any were dropped. */
-  list(scope: string, list: Json[], env: Env): [number[], boolean] {
+  list(scope: string, list: Json[], env: Repositories): [number[], boolean] {
     const out: number[] = [];
     for (const pattern of list) {
       let id: number | undefined;
@@ -261,15 +261,15 @@ class Builder {
         id = this.rule(scope, pattern, undefined, env);
       }
       const rule = this.rules[id];
-      if (rule.kind !== "Match" && rule.missing && rule.patterns.length === 0) continue;
+      if (rule.matching !== "Match" && rule.missing && rule.patterns.length === 0) continue;
       out.push(id);
     }
     return [out, out.length !== list.length];
   }
 
-  captures(scope: string, value: unknown, env: Env): Cap[] {
+  captures(scope: string, value: unknown, env: Repositories): Capture[] {
     if (typeof value !== "object" || value === null) return [];
-    const out: Cap[] = [];
+    const out: Capture[] = [];
     for (const [key, raw] of Object.entries(value as Json)) {
       const index = Number(key);
       if (!Number.isInteger(index)) continue;
@@ -285,10 +285,10 @@ class Builder {
     return out.sort((a, b) => a.index - b.index);
   }
 
-  rule(scope: string, value: Json, into: number | undefined, outer: Env, container = false): number {
+  rule(scope: string, value: Json, into: number | undefined, outer: Repositories, container = false): number {
     // As Shiki reads them: an empty `match` is no match, an empty `while` is
     // none, and an empty or missing `end` never matches.
-    const kind: Rule["kind"] = container
+    const matching: Rule["matching"] = container
       ? "Container"
       : value.match
         ? "Match"
@@ -297,21 +297,21 @@ class Builder {
             ? "BeginWhile"
             : "BeginEnd"
           : "Container";
-    const env: Env =
-      kind === "Container" && value.repository ? [...outer, value.repository as Json] : outer;
-    const id = into ?? this.reserve(kind);
+    const env: Repositories =
+      matching === "Container" && value.repository ? [...outer, value.repository as Json] : outer;
+    const id = into ?? this.reserve(matching);
     const rule = this.rules[id];
-    rule.kind = kind;
+    rule.matching = matching;
     rule.name = this.scopes(value.name);
     rule.contentName = this.scopes(value.contentName);
     rule.applyEndLast = value.applyEndPatternLast === 1 || value.applyEndPatternLast === true;
-    if (kind === "Match") {
+    if (matching === "Match") {
       rule.begin = this.pattern(String(value.match));
       rule.captures = this.captures(scope, value.captures, env);
-    } else if (kind === "BeginEnd" || kind === "BeginWhile") {
+    } else if (matching === "BeginEnd" || matching === "BeginWhile") {
       rule.begin = this.pattern(String(value.begin));
       rule.captures = this.captures(scope, value.beginCaptures ?? value.captures, env);
-      if (kind === "BeginEnd") {
+      if (matching === "BeginEnd") {
         rule.end = value.end ? this.pattern(String(value.end)) : NONE;
         rule.endCaptures = this.captures(scope, value.endCaptures ?? value.captures, env);
       } else {
@@ -319,11 +319,11 @@ class Builder {
         rule.endCaptures = this.captures(scope, value.whileCaptures ?? value.captures, env);
       }
     }
-    if (kind !== "Match") {
+    if (matching !== "Match") {
       // A rule with no patterns, match or begin and an include holds the
       // include as its one pattern, as vscode-textmate reads it.
       const fallback =
-        kind === "Container" && !container && typeof value.include === "string" && value.include
+        matching === "Container" && !container && typeof value.include === "string" && value.include
           ? [{ include: value.include }]
           : [];
       const [patterns, missing] = this.list(scope, (value.patterns as Json[]) ?? fallback, env);
@@ -338,7 +338,7 @@ class Builder {
     const flat = new Map<number, number[]>();
     const expand = (list: number[], out: number[], seen: Set<number>) => {
       for (const id of list) {
-        if (id < HAND_OFF && this.rules[id].kind === "Container") {
+        if (id < HAND_OFF && this.rules[id].matching === "Container") {
           if (seen.has(id)) continue;
           seen.add(id);
           expand(this.rules[id].patterns, out, seen);
@@ -522,11 +522,11 @@ async function write(id: string) {
   if (!asJson) gate(id, builder.used);
   builder.flatten();
   const refs = (list: string[]) => `&[${list.map((n) => builder.nameRef(n)).join(", ")}]`;
-  const caps = (list: Cap[]) =>
+  const caps = (list: Capture[]) =>
     `&[${list
       .map(
         (c) =>
-          `Cap { index: ${c.index}, name: ${refs(c.name)}, content_name: ${refs(c.contentName)}, retokenize: ${idx(c.retokenize)} }`,
+          `Capture { index: ${c.index}, name: ${refs(c.name)}, content_name: ${refs(c.contentName)}, retokenize: ${idx(c.retokenize)} }`,
       )
       .join(", ")}]`;
   const listIds = new Map<string, number>();
@@ -541,8 +541,8 @@ async function write(id: string) {
     }
     return id;
   };
-  type HandOffRow = { list: number; variant: string; before: number; after: number };
-  const handOffRows: HandOffRow[] = [];
+  type PendingHandOff = { list: number; variant: string; before: number; after: number };
+  const handOffRows: PendingHandOff[] = [];
   const handOffIds = new Map<string, number>();
   // A list with a hand-off holds the rules before it, then the rules after it.
   // It stays apart from a plain list with the same rules. The hand-off names
@@ -558,11 +558,11 @@ async function write(id: string) {
     // matches where the last match ended. A search from another place cannot
     // know that place. The generator refuses `\G` in these patterns.
     const halting = [...before, ...after].map((r) => builder.rules[r].begin);
-    if (owner.kind === "BeginEnd") halting.push(owner.end);
+    if (owner.matching === "BeginEnd") halting.push(owner.end);
     const anchored = halting.filter((p) => p !== NONE && usesLastMatchEnd(builder.patterns[p]));
     if (anchored.length > 0)
       throw new Error(`${id}: a hand-off whose halts use \\G: ${anchored.map((p) => builder.patterns[p]).join(", ")}`);
-    const row: HandOffRow = {
+    const row: PendingHandOff = {
       list: NONE,
       variant: builder.handOffs[patterns[at] - HAND_OFF],
       before: plain(before, NONE),
@@ -582,7 +582,7 @@ async function write(id: string) {
   const rules = builder.rules
     .map(
       (r) =>
-        `    Rule { kind: RuleKind::${r.kind}, name: ${refs(r.name)}, content_name: ${refs(r.contentName)}, begin: ${idx(r.begin)}, end: ${idx(r.end)}, until: ${idx(r.while)}, captures: ${caps(r.captures)}, end_captures: ${caps(r.endCaptures)}, list: ${listOf(r.patterns, r)}, apply_end_last: ${r.applyEndLast} },`,
+        `    Rule { matching: Matching::${r.matching}, name: ${refs(r.name)}, content_name: ${refs(r.contentName)}, begin: ${idx(r.begin)}, end: ${idx(r.end)}, until: ${idx(r.while)}, captures: ${caps(r.captures)}, end_captures: ${caps(r.endCaptures)}, list: ${listOf(r.patterns, r)}, apply_end_last: ${r.applyEndLast} },`,
     )
     .join("\n");
   const listSource = () => lists.map((l) => `    List::new(&[${l.join(", ")}]),`).join("\n");
@@ -632,7 +632,7 @@ async function write(id: string) {
   const names = builder.names.map((n) => `    ${rustString(n)},`).join("\n");
   if (asJson) {
     const none = (n: number) => (n === NONE ? -1 : n);
-    const cap = (c: Cap) => ({
+    const cap = (c: Capture) => ({
       index: c.index,
       name: c.name.map((n) => builder.nameRef(n)),
       contentName: c.contentName.map((n) => builder.nameRef(n)),
@@ -646,7 +646,7 @@ async function write(id: string) {
       lists,
       injections: injections.map(([selector, rule]) => ({ selector, rule })),
       rules: builder.rules.map((r) => ({
-        kind: r.kind,
+        matching: r.matching,
         name: r.name.map((n) => builder.nameRef(n)),
         contentName: r.contentName.map((n) => builder.nameRef(n)),
         begin: none(r.begin),
@@ -672,18 +672,18 @@ async function write(id: string) {
     console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns`);
     return;
   }
-  // A grammar with no capture names no \`Cap\`, and an unused import fails the build.
+  // A grammar with no capture names no \`Capture\`, and an unused import fails the build.
   const capturing = builder.rules.some((r) => r.captures.length > 0 || r.endCaptures.length > 0);
   const imports = [
-    ...(capturing ? ["Cap"] : []),
+    ...(capturing ? ["Capture"] : []),
     "Folding",
     "Grammar",
     ...(handOffRows.length > 0 ? ["HandOff"] : []),
     "Injection",
     "List",
+    "Matching",
     "Pattern",
     "Rule",
-    "RuleKind",
   ];
   const handsOff = handOffRows.length > 0;
   const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
