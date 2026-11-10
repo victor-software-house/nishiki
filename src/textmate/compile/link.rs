@@ -58,6 +58,7 @@ const MAX_DEPTH: usize = 256;
 /// with the square of the chain's length.
 /// The chain need not nest while it compiles, so [`MAX_DEPTH`] does not
 /// bound it.
+///
 /// The grammar Shiki 4.6.0 bundles that visits the most, `typst`, visits
 /// 217,673, about a nineteenth of the bound.
 const MAX_FLATTEN_STEPS: usize = 1 << 22;
