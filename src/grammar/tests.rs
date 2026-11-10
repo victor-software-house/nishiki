@@ -183,6 +183,18 @@ fn a_hand_off_to_a_language_with_no_grammar_scope_fails() {
     assert!(matches!(failed.unwrap_err().0, Reason::Link(_)));
 }
 
+#[cfg(feature = "lang-rust")]
+#[test]
+fn a_failed_link_keeps_no_entry() {
+    let grammar =
+        Grammar::from_json(r#"{ "scopeName": "source.failing", "patterns": [] }"#).unwrap();
+    let mut set = Grammars::new();
+    set.hand_off(crate::Language::Rust);
+    assert!(linked_table(grammar, &set).is_err());
+    let tables = LINKED_TABLES.lock().unwrap();
+    assert!(!tables.contains_key(&LinkKey::new(grammar, &set)));
+}
+
 #[test]
 fn json_without_a_scope_fails() {
     let failed = Grammar::from_json(r#"{ "patterns": [] }"#).unwrap_err();
