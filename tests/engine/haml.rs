@@ -8,7 +8,9 @@
 use std::sync::OnceLock;
 
 use crate::language::Language;
-use crate::textmate::grammar::{Cap, Grammar, HandOff, Injection, List, Pattern, Rule, RuleKind};
+use crate::textmate::grammar::{
+    Cap, Folding, Grammar, HandOff, Injection, List, Pattern, Rule, RuleKind,
+};
 
 static NAMES: &[&str] = &[
     "string.quoted.double.ruby",
@@ -1153,6 +1155,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     list_hand_offs: &LIST_HAND_OFFS,
     handing_captures: HANDING_CAPTURES,
     dfa_cache: 1 << 22,
+    folding: Folding::Same,
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

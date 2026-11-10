@@ -458,9 +458,10 @@ _space = []
 _textmate = ["dep:regex-automata", "dep:regex-syntax", "_utf8", "_language"]
 _utf8 = []
 
-# Theme::from_json, for theme files in Shiki's JSON format. Not the JSON
-# language, which is `lang-json`.
-json = ["dep:serde_json"]
+# Theme::from_json, for theme files in Shiki's JSON format, and with the
+# TextMate engine its grammar compiler. Not the JSON language, which is
+# `lang-json`.
+json = ["dep:serde", "dep:serde_json"]
 
 [dependencies]
 memchr = "2.8.3"
@@ -475,6 +476,13 @@ regex-automata = { version = "0.4.18", optional = true, default-features = false
   "perf-literal",
 ] }
 regex-syntax = { version = "0.8.11", optional = true, default-features = false }
+# The grammar compiler reads JSON through a serde visitor of its own.
+# serde_json's `Value` sorts object keys, and a grammar's injections keep the
+# order of its keys. serde_json already depends on serde, so the build gains no
+# crate.
+serde = { version = "1.0.229", optional = true, default-features = false, features = [
+  "std",
+] }
 serde_json = { version = "1.0.154", optional = true }
 
 [dev-dependencies]

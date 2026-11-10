@@ -4,7 +4,7 @@
 
 use std::sync::OnceLock;
 
-use crate::textmate::grammar::{Cap, Grammar, Injection, List, Pattern, Rule, RuleKind};
+use crate::textmate::grammar::{Cap, Folding, Grammar, Injection, List, Pattern, Rule, RuleKind};
 
 static NAMES: &[&str] = &[
     "punctuation.brackets.angle.rust",
@@ -2057,6 +2057,7 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     list_hand_offs: &[],
     handing_captures: &[],
     dfa_cache: 1 << 22,
+    folding: Folding::Same,
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };

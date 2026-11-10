@@ -12,7 +12,7 @@
 - [ ] 2.1 `Grammar`, `Grammars`, `GrammarError` and `Grammar::from_json`, with process-wide interning keyed on the full source.
   → verify: a unit test loads one grammar twice and gets one handle
 - [ ] 2.2 `Highlighter::for_grammar` and its limits variant → verify: a doctest highlights a grammar loaded from JSON
-- [ ] 2.3 Includes across grammars, resolved through the `Grammars` set when first reached, and hand-offs to hand lexers.
+- [ ] 2.3 Includes across grammars, linked through the `Grammars` set when the highlighter is built, and hand-offs to hand lexers.
   → verify:
   - an HTML grammar loaded from JSON hands its `<style>` to the CSS lexer, and the fixture matches Shiki;
   - two grammars that include each other, loaded in either order, both match Shiki.

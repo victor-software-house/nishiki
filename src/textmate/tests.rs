@@ -911,8 +911,9 @@ fn lean_programs_match_as_full_ones_on_lean_lines() {
     assert!(failures.is_empty(), "{}", failures.join("\n"));
 }
 
-/// The folding table names exactly the grammars where some pattern's lean
+/// A grammar's `folding` is `Differs` exactly where some pattern's lean
 /// program differs from its full one.
+/// `oracle/engine-tables.ts` writes it from a list kept by hand.
 /// So a grammar whose line kinds run the same programs never looks at a
 /// line's kind.
 /// A grammar whose kinds differ always does.
@@ -1360,7 +1361,7 @@ mod survey {
 
     use serde_json::Value;
 
-    use super::{Grammar, Scanners, fixtures_in, parse, run};
+    use super::{Folding, Grammar, Regex, Scanners, fixtures_in, parse, run};
     use crate::textmate::grammar::{Cap, Injection, List, Pattern, Rule, RuleKind};
 
     fn leak<T>(items: Vec<T>) -> &'static [T] {
@@ -1464,18 +1465,24 @@ mod survey {
             })
             .unwrap_or_default();
         let names = v["names"].as_array().unwrap().iter().map(text).collect();
+        let patterns = leak(patterns);
         Box::leak(Box::new(Grammar {
             scope: text(&v["scope"]),
             names: leak(names),
             rules: leak(rules),
             lists: leak(lists),
             injections: leak(injections),
-            patterns: leak(patterns),
+            patterns,
             root: index(&v["root"]),
             hand_offs: &[],
             list_hand_offs: &[],
             handing_captures: &[],
             dfa_cache: 1 << 22,
+            folding: if patterns.iter().any(|p| Regex::lean_differs(p.source)) {
+                Folding::Differs
+            } else {
+                Folding::Same
+            },
             cells: OnceLock::new(),
             full_cells: OnceLock::new(),
         }))
@@ -1557,7 +1564,7 @@ fn fixtures_in(dir: &Path) -> Vec<PathBuf> {
 mod many_groups {
     use std::sync::OnceLock;
 
-    use super::super::grammar::{Cap, Grammar, List, Pattern, Rule, RuleKind};
+    use super::super::grammar::{Cap, Folding, Grammar, List, Pattern, Rule, RuleKind};
 
     static PATTERNS: [Pattern; 1] = [Pattern::new(
         "()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()()(x)",
@@ -1606,6 +1613,7 @@ mod many_groups {
         list_hand_offs: &[],
         handing_captures: &[],
         dfa_cache: 1 << 22,
+        folding: Folding::Same,
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };
@@ -1647,7 +1655,7 @@ fn a_group_far_into_a_pattern_is_named() {
 mod nested_captures {
     use std::sync::OnceLock;
 
-    use super::super::grammar::{Cap, Grammar, List, NONE, Pattern, Rule, RuleKind};
+    use super::super::grammar::{Cap, Folding, Grammar, List, NONE, Pattern, Rule, RuleKind};
 
     static PATTERNS: [Pattern; 1] = [Pattern::new("(<)(.*)")];
     static LISTS: [List; 2] = [List::new(&[1]), List::new(&[])];
@@ -1702,6 +1710,7 @@ mod nested_captures {
         list_hand_offs: &[],
         handing_captures: &[],
         dfa_cache: 1 << 22,
+        folding: Folding::Same,
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };
@@ -1747,7 +1756,7 @@ fn nested_captures_stop_at_their_bound() {
 mod injected {
     use std::sync::OnceLock;
 
-    use super::super::grammar::{Grammar, Injection, List, NONE, Pattern, Rule, RuleKind};
+    use super::super::grammar::{Folding, Grammar, Injection, List, NONE, Pattern, Rule, RuleKind};
 
     /// A rule of the given `RuleKind`, with no captures.
     const fn rule(
@@ -1801,6 +1810,7 @@ mod injected {
         list_hand_offs: &[],
         handing_captures: &[],
         dfa_cache: 1 << 22,
+        folding: Folding::Same,
         cells: OnceLock::new(),
         full_cells: OnceLock::new(),
     };
