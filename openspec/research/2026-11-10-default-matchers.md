@@ -111,7 +111,7 @@ Allocations, KiB allocated and peak KiB are equal on both sides in every run: 14
 
 ### What the generated code costs
 
-Read from the code, not yet from a profile per function:
+Read from the code at [5df96cd8][prototype], before any profile per function:
 
 - `char_at` decodes UTF-8 at each step, where the hand matchers test bytes;
 - `record` writes every group, where the hand matchers write the groups a scope reads;
@@ -130,10 +130,135 @@ Clean release builds of nishiki:
 From `--timings`, the crates `codegen` adds compile in about 3 s on the critical path: `proc-macro2`, `quote` and `unicode-ident`.
 `format` adds `syn` (11.9 s) and `prettyplease` (7.7 s), about 20 s more.
 
+## The steps, profiled
+
+[The change's research][dm-research], section 2, lists the steps that change the generated code.
+These sections hold the profiles per function behind steps 8 to 12.
+
+### Where step 8's saving comes from
+
+Step 8 dropped the group-0 write.
+It also changed what the compiler inlined: Lua's `record` copies went inline.
+A probe splits the two: step 7 with `record` always inlined.
+Lexing ratios at one codegen unit, with 16 units in parentheses:
+
+| Change | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| step 7 to the probe | 1.0000 (1.0000) | 0.9681 (0.9718) | 0.9682 (0.9506) |
+| the probe to step 8 | 0.9940 (0.9938) | 0.9768 (0.9391) | 0.9934 (0.9867) |
+
+The three builds call each function the same number of times.
+In Lua, `scan` runs 87,906 times and `matcher` 364,404 times.
+
+- Step 7 to the probe saves 1.00 million instructions in Lua.
+  The four `record` copies, 0.88 million, go inline and cost nothing of their own.
+  `matcher` falls 0.12 million.
+- The probe to step 8 saves 0.20 million in Lua.
+  `scan` falls 0.24 million and `matcher` 0.21 million.
+  Three `record` copies go out of line again, at 0.25 million.
+
+So most of step 8's Lua saving is inlining, not the group-0 write.
+
+### The costs after step 8
+
+The profile of step 8 against the hand matchers names the costs left.
+
+Lua's own functions run 12.93 million instructions, against 9.89 million by hand.
+Most of the gap is `matcher`'s own cost: 4.24 million, against 1.38 million.
+It is entered 121,468 times, so it costs 34.9 instructions per entry, against 11.4 by hand.
+Per entry, by pattern:
+
+| Pattern | Generated, per entry | Hand, per entry |
+|:--|--:|--:|
+| `RootAt25`, `RootAt26` and `RootAt28`, the identifiers | 197 to 220 | 144 (`bounded_name`) |
+| `RootAt16` | 146 | 111 (`global_declaration`) |
+| `StringAt3` | 38.6 | 28.5 (`cdef_open`) |
+| `LdocTag` | 24.4 | 12.8 (`ldoc_tag`) |
+| the builtins | 188 | 203 (`word_in`) |
+
+- The three identifier patterns are entered 11,629 times, and `bounded_name` 12,867 times.
+- The builtins are the one pattern where the generated code wins.
+
+Protocol Buffers' `matcher` costs 1.11 million over 26,476 entries, 41.9 each.
+By hand it costs 0.93 million, 35.1 each.
+The field pattern's inner loop costs 137,634 over 668 entries, 206 each.
+Its hand code, `field_rest`, costs 33,207 over 275 entries, 121 each.
+[`field-pattern-fixes`][field-pattern-fixes] changes that pattern.
+
+These per-entry costs come from Callgrind as follows:
+
+- The `lex` example lexes the fixtures three times: the first-document pass, the measured pass and the colouring pass.
+- Callgrind counts instructions only in the measured pass, but it counts calls in all three.
+- So the number of entries is the instruction count of a function's first instruction, from a profile taken with `--dump-instr=yes`.
+  It is a third of the call count.
+
+### The matcher's frame
+
+At step 9, Lua's `matcher` costs 33 instructions per entry, against 11.4 by hand.
+Its machine code shows where they go:
+
+| Build | Per entry | Entry and exit | How the match comes back |
+|:--|--:|:--|:--|
+| hand | 11.4 | one push, one pop | a call to the pattern's function, in registers |
+| step 9 | 33 | six pushes, a 136-byte frame, six pops | written to that frame, then read back |
+| step 10 | 23 | three pushes, no frame, three pops | a call to the pattern's function, in registers |
+
+Every pattern's code was inlined into `matcher`.
+The largest pattern set the registers and the frame that every entry paid for.
+
+Step 10 moves each pattern into its own function, marked `#[inline(never)]`, which calls `record` and returns `Option<usize>`.
+The regex-engine fallback moves into a function of its own too.
+Lua's `matcher` falls 1.23 million instructions, and Protocol Buffers' 0.55 million.
+
+A first form of the same split was rejected ([8482d4a4][step-10-rejected]).
+It marked each pattern's function `#[inline]`:
+
+- At one codegen unit, the compiler inlined every pattern again, so the frame stayed.
+- At 16 units, small helpers such as `Regex::match_at` went out of line.
+
+Against step 9, at one codegen unit, with 16 units in parentheses:
+
+| Measure | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| lexing | 0.9814 (0.9815) | 0.9939 (1.0160) | 0.9925 (1.0099) |
+| the first document | 0.9871 (0.9887) | 0.9946 (1.0139) | 0.9953 (1.0056) |
+| colouring | 0.9822 (0.9823) | 0.9943 (1.0148) | 0.9930 (1.0093) |
+
+### Small patterns inline
+
+At 16 codegen units, step 10 raises Zig's lexing 1.26% against step 9.
+
+- Zig's `matcher` rises 0.11 million instructions, and its pattern `m1` 0.17 million.
+- At step 9, 11 Zig patterns were inline at 16 units, `m1` among them.
+- Each tests one or two literal bytes, such as `$` or `//`.
+
+A first form of step 12 ([cb948568][step-12-first]) marked a pattern's function `#[inline]` when its code had no loop and was at most 256 bytes.
+Against step 11, at one codegen unit, with 16 units in parentheses:
+
+| Measure | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| lexing | 0.9993 (0.9289) | 0.9911 (0.9560) | 1.0081 (0.9990) |
+| the first document | 0.9995 (0.9569) | 0.9920 (0.9616) | 1.0048 (1.0033) |
+| colouring | 0.9993 (0.9321) | 0.9917 (0.9593) | 1.0076 (0.9991) |
+
+Lua rose at one unit:
+
+- Its `matcher` gained a 16-byte frame and 0.29 million instructions.
+- Lua's `m1` holds a lookbehind, written as a closure, and it went inline.
+
+Step 12 ([0647d46a][step-12]) keeps a pattern with a lookbehind out of line.
+Then Lua's `matcher` has no frame, as at step 11.
+
+- 16 Protocol Buffers patterns, 17 Zig patterns and 54 Lua patterns go inline.
+- Lua's `matcher` rises 38,913 instructions, and Lua's count falls 21,482.
+- Zig at 16 units, against step 9: 0.9676 lexing, 0.9718 the first document, 0.9700 colouring.
+- Lua at one unit, against step 10: 0.9994 lexing, 0.9997 the first document, 0.9992 colouring.
+
 ## Not verified
 
-- A profile per function of the generated code.
-  The three costs above come from reading it.
+- A profile per function of the code at [5df96cd8][prototype].
+  The three costs under "What the generated code costs" come from reading it.
+  Each later step in [the change's research][dm-research] has one.
 - The work limit.
   At [5df96cd8][prototype], generated code counts no steps, and the regex machine runs with no budget.
   No hostile line was tried against either.
@@ -158,3 +283,8 @@ From `--timings`, the crates `codegen` adds compile in about 3 s on the critical
 [emit]: https://github.com/victor-software-house/nishiki-archive/blob/5df96cd86c12fd8e45eecb075f8fb6c94fdaf1c7/src/textmate/regex/emit.rs
 [byte-commit]: https://github.com/victor-software-house/nishiki-archive/commit/c9bf3336bb2b0984d7764b6841210b6f335ff480
 [base]: https://github.com/victor-software-house/nishiki-archive/commit/851351f064d86c429f4652af2c59af138dcf6ba2
+[field-pattern-fixes]: ../changes/field-pattern-fixes/design.md
+[step-10-rejected]: https://github.com/victor-software-house/nishiki-archive/commit/8482d4a4a97d34cb65a5dc2da5d0dc47672e8f4b
+[dm-research]: ../changes/default-matchers/research.md
+[step-12]: https://github.com/victor-software-house/nishiki-archive/commit/0647d46a4b192320f8212b852633bf6c7482c943
+[step-12-first]: https://github.com/victor-software-house/nishiki-archive/commit/cb948568af41a5c26863b3b9ef3c7c6d3b483ef9

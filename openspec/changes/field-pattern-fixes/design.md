@@ -51,6 +51,18 @@ Dropping the arm halves the work at a dot.
 ## 3. Fix 2: the scan skip
 
 A skip in the generated scan makes the line linear.
+
+A prototype of fix 1 alone, [9d804fae][fix-1-prototype], was measured on a box in release and debug builds:
+
+| Line | Fix 1 alone |
+|:--|:--|
+| 101 bytes | uncut |
+| 12,001 bytes | ends at `Limit::Work` |
+
+- Section 2 expected fix 1 only to halve the work at a dot.
+  It clears the 101-byte line as well.
+- The 12,001-byte line still ends at the limit, so fix 2 is still needed.
+
 The pattern is a prefix `P`, then `R`, the `[.\w]+` that takes a run, then a suffix `S`.
 
 ### 3.1 The conditions
@@ -125,5 +137,6 @@ Until both land, a caller that needs such lines uncut raises `Limits::work`.
 Protocol Buffers moves to generated matchers only after them, since Identity and the hostile-line tests must hold.
 
 [dm-design]: ../default-matchers/design.md
+[fix-1-prototype]: https://github.com/victor-software-house/nishiki-archive/commit/9d804fae0de3b6073f38e3faf57d77ca915583cf
 [dm-research]: ../default-matchers/research.md
 [pr-720]: https://github.com/victor-software-house/nishiki-archive/pull/720
