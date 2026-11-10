@@ -1630,12 +1630,14 @@ const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
         &[
             (
                 "int",
-                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp",
+                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp \
+                 storage.type.built-in.primitive.cpp",
             ),
             (" ", "meta.embedded.block.cpp source.cpp"),
             (
                 "a",
-                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.a.cpp",
+                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp \
+                 variable.other.unknown.a.cpp",
             ),
             (" ", "meta.embedded.block.cpp source.cpp"),
             (
@@ -1654,7 +1656,8 @@ const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
             (" ", "meta.embedded.block.cpp source.cpp comment.block.cpp"),
             (
                 "/*",
-                "meta.embedded.block.cpp source.cpp comment.block.cpp punctuation.definition.comment.begin.cpp",
+                "meta.embedded.block.cpp source.cpp comment.block.cpp \
+                 punctuation.definition.comment.begin.cpp",
             ),
             (
                 " one",
@@ -1671,17 +1674,20 @@ const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
             ),
             (
                 "*/",
-                "meta.embedded.block.cpp source.cpp comment.block.cpp punctuation.definition.comment.end.cpp",
+                "meta.embedded.block.cpp source.cpp comment.block.cpp \
+                 punctuation.definition.comment.end.cpp",
             ),
             (" ", "meta.embedded.block.cpp source.cpp"),
             (
                 "int",
-                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp storage.type.built-in.primitive.cpp",
+                "meta.embedded.block.cpp source.cpp storage.type.primitive.cpp \
+                 storage.type.built-in.primitive.cpp",
             ),
             (" ", "meta.embedded.block.cpp source.cpp"),
             (
                 "b",
-                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.b.cpp",
+                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp \
+                 variable.other.unknown.b.cpp",
             ),
             (
                 ";",
@@ -1699,7 +1705,8 @@ const CPP_FENCE: [(&str, &[(&str, &str)]); 5] = [
             (" ", "meta.embedded.block.cpp source.cpp"),
             (
                 "a",
-                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp variable.other.unknown.a.cpp",
+                "meta.embedded.block.cpp source.cpp variable.lower-case.cpp \
+                 variable.other.unknown.a.cpp",
             ),
             (
                 ";",

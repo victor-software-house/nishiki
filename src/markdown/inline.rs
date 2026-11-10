@@ -202,7 +202,8 @@ fn long_look_ahead(
 /// A character is `(?!(?<=\S)\k<open>).`.
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: called from the plain loop and the memo's walk, it stopped being inlined, at a call per step"
+    reason = "measured at one codegen unit: called from the plain loop and the memo's walk, \
+              it stopped being inlined, at a call per step"
 )]
 #[inline(always)]
 fn emphasis_atom(
@@ -752,7 +753,13 @@ pub(crate) fn link_email(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Opti
     if cx.starts(i, b"mailto:") {
         i += 7;
     }
-    let is_local = |b: u8| matches!(b, b'!' | b'#'..=b'\'' | b'*' | b'+' | b'-'..=b'9' | b'=' | b'?' | b'A'..=b'Z' | b'^'..=b'~');
+    let is_local = |b: u8| {
+        matches!(
+            b,
+            b'!' | b'#'..=b'\'' | b'*' | b'+' | b'-'..=b'9' | b'=' | b'?' | b'A'..=b'Z'
+                | b'^'..=b'~'
+        )
+    };
     let local = cx.skip(i, is_local);
     if local == i || cx.get(local) != Some(b'@') {
         return None;

@@ -242,7 +242,8 @@ pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Opti
 /// starts and where it ends.
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: with `vue_fence_open` a second caller, it stopped being inlined, at a call once a fence line"
+    reason = "measured at one codegen unit: with `vue_fence_open` a second caller, \
+              it stopped being inlined, at a call once a fence line"
 )]
 #[inline(always)]
 fn fence_run(cx: &Cx<'_>, p: usize) -> Option<(Fence, usize, usize)> {
@@ -309,7 +310,8 @@ pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> 
 /// own run of characters, indented as the opening one or by at most three.
 #[expect(
     clippy::inline_always,
-    reason = "measured at one codegen unit: with `vue_body_line` a second caller, it stopped being inlined, at a call once a fence line"
+    reason = "measured at one codegen unit: with `vue_body_line` a second caller, \
+              it stopped being inlined, at a call once a fence line"
 )]
 #[inline(always)]
 pub(crate) fn fence_close(
