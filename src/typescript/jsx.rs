@@ -460,7 +460,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The end of `jsx-tag-in-expression`.
-    pub(crate) fn jsx_expr_tag_ends(&self, p: usize) -> bool {
+    pub(crate) fn jsx_expression_tag_ends(&self, p: usize) -> bool {
         self.tag_start_at(p).is_none()
     }
 

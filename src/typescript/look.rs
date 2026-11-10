@@ -10,7 +10,7 @@
 
 use super::lexer::Lexer;
 
-/// Which annotations make a name a function in [`Lexer::colon_fn_ahead`].
+/// Which annotations make a name a function in [`Lexer::colon_function_ahead`].
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Annotation {
     /// A function type or `Function`.
@@ -115,7 +115,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The first element of a type-parameter list: `(const\s+)?` and a name's
     /// first character, or a bracket group.
-    fn tp_first(&self, i: usize) -> Option<usize> {
+    fn type_parameters_first(&self, i: usize) -> Option<usize> {
         if self.starts(i, "const") {
             let j = self.ws(i + "const".len());
             if j > i + "const".len() && self.id_start(j) {
@@ -130,16 +130,16 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// A `<…>` group of the arrow-function lookahead at `i`, nested at most
     /// [`GRAMMAR_NESTING`] levels: its end after trailing blanks.
-    pub(crate) fn arrow_type_params(&self, i: usize) -> Option<usize> {
-        let e = self.arrow_type_params_group(i, 1, self.window())?;
+    pub(crate) fn arrow_type_parameters(&self, i: usize) -> Option<usize> {
+        let e = self.arrow_type_parameters_group(i, 1, self.window())?;
         Some(self.ws(e))
     }
 
-    fn arrow_type_params_group(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
+    fn arrow_type_parameters_group(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
         if self.byte(i) != b'<' {
             return None;
         }
-        let mut j = self.tp_first(self.ws(i + 1))?;
+        let mut j = self.type_parameters_first(self.ws(i + 1))?;
         while j < end {
             self.spend(1);
             match self.byte(j) {
@@ -148,7 +148,7 @@ impl<const D: u8> Lexer<'_, D> {
                     if depth >= GRAMMAR_NESTING {
                         return None;
                     }
-                    j = self.arrow_type_params_group(j, depth + 1, end)?;
+                    j = self.arrow_type_parameters_group(j, depth + 1, end)?;
                 }
                 b'=' => {
                     if self.byte(j + 1) == b'<' || j + 1 > self.len {
@@ -163,9 +163,9 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(<…>\s*)?\(`: the position after the `(`.
-    pub(crate) fn tp_paren(&self, i: usize) -> Option<usize> {
+    pub(crate) fn type_parameters_paren(&self, i: usize) -> Option<usize> {
         let j = if self.byte(i) == b'<' {
-            self.arrow_type_params(i)?
+            self.arrow_type_parameters(i)?
         } else {
             i
         };
@@ -339,7 +339,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// Whether an arrow function's parameters and `=>` start at `i`, as
     /// `(<…>)?\(` followed by either typed or untyped parameters.
     pub(crate) fn arrow_ahead(&self, i: usize) -> bool {
-        self.tp_paren(i)
+        self.type_parameters_paren(i)
             .is_some_and(|j| self.arrow_typed(j) || self.arrow_untyped(j))
             || (Self::DIALECT.jsx() && self.generic_extends_ahead(i))
     }
@@ -369,7 +369,8 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The first form only: `(<…>)?\(` then `)` or a name, then `:`.
     pub(crate) fn arrow_typed_ahead(&self, i: usize) -> bool {
-        self.tp_paren(i).is_some_and(|j| self.arrow_typed(j))
+        self.type_parameters_paren(i)
+            .is_some_and(|j| self.arrow_typed(j))
     }
 
     /// Whether a function-valued initialiser starts at `i`, as the grammar
@@ -379,7 +380,7 @@ impl<const D: u8> Lexer<'_, D> {
     ///
     /// The forms are `(async\s+)?` then `function` or `name =>`, and
     /// `(async\s*)?` then an opening, a typed arrow or an arrow.
-    pub(crate) fn fn_value_ahead(&self, i: usize) -> bool {
+    pub(crate) fn function_value_ahead(&self, i: usize) -> bool {
         let async_end = self.starts(i, "async").then(|| i + "async".len());
         let after_async = async_end
             .filter(|&a| self.space_at(a) || a >= self.len)
@@ -393,7 +394,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         std::iter::once(i)
             .chain(async_end.map(|a| self.ws(a)))
-            .any(|j| self.fn_open_ahead(j) || self.arrow_typed_ahead(j) || self.arrow_ahead(j))
+            .any(|j| {
+                self.function_open_ahead(j) || self.arrow_typed_ahead(j) || self.arrow_ahead(j)
+            })
     }
 
     /// `function\s*[(*<]` or `function\s+` at `i`.
@@ -411,7 +414,7 @@ impl<const D: u8> Lexer<'_, D> {
     ///
     /// The JSX grammars drop the type arguments before the parenthesis, which
     /// a tag would otherwise be read as.
-    pub(crate) fn fn_open_ahead(&self, i: usize) -> bool {
+    pub(crate) fn function_open_ahead(&self, i: usize) -> bool {
         (self.byte(i) == b'<' && self.eol(self.ws(i + 1)))
             || if Self::DIALECT.jsx() {
                 self.byte(i) == b'(' && self.paren_open_rest(i + 1)
@@ -423,7 +426,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(<…>)?\(` followed by a line end or by a destructured parameter that
     /// the line leaves open or assigns.
     pub(crate) fn paren_open_ahead(&self, i: usize) -> bool {
-        self.tp_paren(i).is_some_and(|j| self.paren_open_rest(j))
+        self.type_parameters_paren(i)
+            .is_some_and(|j| self.paren_open_rest(j))
     }
 
     /// What follows the `(` that ends at `j`: a line end, or a destructured
@@ -439,16 +443,16 @@ impl<const D: u8> Lexer<'_, D> {
         match self.byte(m) {
             b'{' => self
                 .balanced(m, b'{', b'}')
-                .is_some_and(|e| self.param_default_tail(e, b'{')),
+                .is_some_and(|e| self.parameter_default_tail(e, b'{')),
             b'[' => self
                 .balanced(m, b'[', b']')
-                .is_some_and(|e| self.param_default_tail(e, b'[')),
+                .is_some_and(|e| self.parameter_default_tail(e, b'[')),
             _ => false,
         }
     }
 
     /// After a destructured parameter: `\s*((:\s*\{?)$|((\s*TYPE\s*)?=\s*))`.
-    pub(crate) fn param_default_tail(&self, e: usize, open: u8) -> bool {
+    pub(crate) fn parameter_default_tail(&self, e: usize, open: u8) -> bool {
         let j = self.ws(e);
         if self.byte(j) == b':' {
             let mut k = self.ws(j + 1);
@@ -499,7 +503,7 @@ impl<const D: u8> Lexer<'_, D> {
         clippy::many_single_char_names,
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
     )]
-    pub(crate) fn colon_fn_ahead(&self, i: usize, forms: Annotation) -> bool {
+    pub(crate) fn colon_function_ahead(&self, i: usize, forms: Annotation) -> bool {
         if self.byte(i) != b':' {
             return false;
         }
@@ -525,10 +529,13 @@ impl<const D: u8> Lexer<'_, D> {
                 }
             }
         }
-        if self.starts(j, "Function") && self.kw_before(j) && self.kw_after(j + "Function".len()) {
+        if self.starts(j, "Function")
+            && self.keyword_before(j)
+            && self.keyword_after(j + "Function".len())
+        {
             return true;
         }
-        if self.fn_open_ahead(j) {
+        if self.function_open_ahead(j) {
             return true;
         }
         match forms {
@@ -546,7 +553,7 @@ impl<const D: u8> Lexer<'_, D> {
             match self.byte(j) {
                 b'=' if self.byte(j + 1) == b'>' => j += 2,
                 b'=' => {
-                    return j > i && self.fn_value_ahead(self.ws(j + 1));
+                    return j > i && self.function_value_ahead(self.ws(j + 1));
                 }
                 b'(' => match self.balanced(j, b'(', b')') {
                     Some(e) => j = e,
@@ -566,12 +573,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// `=\s*FUNCTION` at `i`, or a type-annotated form: the lookahead of a
     /// name the grammar scopes as a function.
     /// `eq_ws` is the position of the `\s*` that precedes `=`.
-    pub(crate) fn named_fn_ahead(&self, eq_ws: usize) -> bool {
+    pub(crate) fn named_function_ahead(&self, eq_ws: usize) -> bool {
         let j = self.ws(eq_ws);
-        if self.byte(j) == b'=' && self.fn_value_ahead(self.ws(j + 1)) {
+        if self.byte(j) == b'=' && self.function_value_ahead(self.ws(j + 1)) {
             return true;
         }
-        self.colon_fn_ahead(eq_ws, Annotation::OrValue)
+        self.colon_function_ahead(eq_ws, Annotation::OrValue)
     }
 
     /// The first element of a type-argument list: `keyof `, `infer `,
@@ -604,11 +611,11 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// A `<…>` type-argument group at `i`, as a call or tagged template
     /// spells it: its end after `>`.
-    pub(crate) fn type_args(&self, i: usize) -> Option<usize> {
-        self.type_args_at(i, 1, self.window())
+    pub(crate) fn type_arguments_end(&self, i: usize) -> Option<usize> {
+        self.type_arguments_end_at(i, 1, self.window())
     }
 
-    fn type_args_at(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
+    fn type_arguments_end_at(&self, i: usize, depth: usize, end: usize) -> Option<usize> {
         if self.byte(i) != b'<' {
             return None;
         }
@@ -621,7 +628,7 @@ impl<const D: u8> Lexer<'_, D> {
                     if depth >= GENERIC_NESTING {
                         return None;
                     }
-                    j = self.type_args_at(j, depth + 1, end)?;
+                    j = self.type_arguments_end_at(j, depth + 1, end)?;
                 }
                 b'>' => {
                     if j > 0 && self.bytes.get(j - 1) == Some(&b'=') {
@@ -645,7 +652,7 @@ impl<const D: u8> Lexer<'_, D> {
             j += 1;
         }
         if self.byte(j) == b'<' {
-            match self.type_args(j) {
+            match self.type_arguments_end(j) {
                 Some(e) => j = self.ws(e),
                 None => return false,
             }

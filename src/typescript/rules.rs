@@ -1,6 +1,6 @@
 //! The rules of each context, in the grammar's priority order.
 
-use super::decl::{Binding, Pattern, VarKeyword};
+use super::declarations::{Binding, DeclarationKeyword, Pattern};
 use super::lexer::Lexer;
 use super::scope::S;
 use super::state::Rule;
@@ -107,7 +107,7 @@ impl<const D: u8> Lexer<'_, D> {
             Rule::ArrowHead | Rule::PossibleArrow => self.arrow_head_rules(rule, p),
             Rule::ArrowBody => self
                 .single_line_comment_consuming_line_ending(p)
-                .or_else(|| self.decl_block(p))
+                .or_else(|| self.declaration_block(p))
                 .or_else(|| self.expression(p)),
             Rule::ArrowReturn | Rule::PossibleArrowReturn => self.arrow_return_type_body(p),
             Rule::ArrowReturnObject
@@ -173,7 +173,7 @@ impl<const D: u8> Lexer<'_, D> {
             Rule::JsDocParamTag => self
                 .doc_type_tag_rules(p)
                 .or_else(|| self.doc_type_tag_names(p))
-                .or_else(|| self.doc_optional_param(p)),
+                .or_else(|| self.doc_optional_parameter(p)),
             Rule::JsDocTypedefTag => self
                 .doc_type_tag_rules(p)
                 .or_else(|| self.doc_typedef_name(p)),
@@ -206,12 +206,12 @@ impl<const D: u8> Lexer<'_, D> {
                 .or_else(|| self.function_body(p)),
             Rule::Import => self.import_rules(p),
             Rule::ImportEqualsExternal => self.comment(p).or_else(|| self.string(p)),
-            Rule::ImportEqualsInternal => self.import_eq_int_rules(p),
+            Rule::ImportEqualsInternal => self.import_equals_internal_rules(p),
             Rule::AssertClause => self.assert_clause_rules(p),
             Rule::Indexer => self.type_annotation(p),
             Rule::IndexerMapped => self.indexer_mapped_rules(p),
             Rule::InterfaceDeclaration => self.interface_rules(p),
-            Rule::LabelBlock => self.decl_block(p),
+            Rule::LabelBlock => self.declaration_block(p),
             Rule::Method => self.method_rules(p),
             Rule::ObjectMethod => self
                 .method_rules(p)
@@ -254,16 +254,16 @@ impl<const D: u8> Lexer<'_, D> {
                 self.type_function_return_type_core(p)
             }
             Rule::TypeObject => self.type_object_rules(p),
-            Rule::TypeParameters => self.type_params_rules(p),
+            Rule::TypeParameters => self.type_parameters_rules(p),
             Rule::TypeParen => self.type_paren_rules(p),
             Rule::TypeTuple => self.type_tuple_rules(p),
             Rule::Typeof => self.type_arguments(p).or_else(|| self.expression(p)),
-            Rule::VariableLet => self.var_rules(VarKeyword::Let, p),
-            Rule::VariableConst => self.var_rules(VarKeyword::Const, p),
-            Rule::VariableUsing => self.var_rules(VarKeyword::Using, p),
-            Rule::VariableComma => self.var_comma_rules(VarKeyword::Let, p),
-            Rule::VariableCommaConst => self.var_comma_rules(VarKeyword::Const, p),
-            Rule::VariableCommaUsing => self.var_comma_rules(VarKeyword::Using, p),
+            Rule::VariableLet => self.variable_rules(DeclarationKeyword::Let, p),
+            Rule::VariableConst => self.variable_rules(DeclarationKeyword::Const, p),
+            Rule::VariableUsing => self.variable_rules(DeclarationKeyword::Using, p),
+            Rule::VariableComma => self.variable_comma_rules(DeclarationKeyword::Let, p),
+            Rule::VariableCommaConst => self.variable_comma_rules(DeclarationKeyword::Const, p),
+            Rule::VariableCommaUsing => self.variable_comma_rules(DeclarationKeyword::Using, p),
             Rule::VariableSingle => self
                 .type_annotation(p)
                 .or_else(|| self.string(p))
@@ -289,7 +289,7 @@ impl<const D: u8> Lexer<'_, D> {
         match entry {
             Entry::ObjectLiteral => self.object_literal(p),
             Entry::Binding(pattern, binding) => self.binding_pattern(p, pattern, binding),
-            Entry::TypeParameters => self.type_params_rules(p),
+            Entry::TypeParameters => self.type_parameters_rules(p),
         }
     }
 
@@ -364,7 +364,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn indexer_mapped_rules(&mut self, p: usize) -> Option<usize> {
-        if let Some(e) = self.kw(p, "as") {
+        if let Some(e) = self.keyword(p, "as") {
             return self.token_rule(p, e, S::KeywordControlAs);
         }
         self.type_(p)
@@ -394,34 +394,34 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.comment(p))
     }
 
-    fn var_rules(&mut self, which: VarKeyword, p: usize) -> Option<usize> {
-        if let Some(r) = self.var_kw_rule(p, which) {
+    fn variable_rules(&mut self, which: DeclarationKeyword, p: usize) -> Option<usize> {
+        if let Some(r) = self.variable_keyword_rule(p, which) {
             return Some(r);
         }
         let first = match which {
-            VarKeyword::Let => self
+            DeclarationKeyword::Let => self
                 .destructuring_variable(p, Binding::Variable)
-                .or_else(|| self.var_single_variable(p)),
-            VarKeyword::Const => self
+                .or_else(|| self.variable_single_variable(p)),
+            DeclarationKeyword::Const => self
                 .destructuring_variable(p, Binding::Constant)
-                .or_else(|| self.var_single_const(p)),
-            VarKeyword::Using => self.var_single_const(p),
+                .or_else(|| self.variable_single_const(p)),
+            DeclarationKeyword::Using => self.variable_single_const(p),
         };
         if let Some(r) = first {
             return Some(r);
         }
         let comma = match which {
-            VarKeyword::Let => Rule::VariableComma,
-            VarKeyword::Const => Rule::VariableCommaConst,
-            VarKeyword::Using => Rule::VariableCommaUsing,
+            DeclarationKeyword::Let => Rule::VariableComma,
+            DeclarationKeyword::Const => Rule::VariableCommaConst,
+            DeclarationKeyword::Using => Rule::VariableCommaUsing,
         };
         self.variable_initializer(p)
             .or_else(|| self.comment(p))
-            .or_else(|| self.var_comma(p, comma))
+            .or_else(|| self.variable_comma(p, comma))
             .or_else(|| self.punctuation_comma(p))
     }
 
-    fn var_comma_rules(&mut self, which: VarKeyword, p: usize) -> Option<usize> {
+    fn variable_comma_rules(&mut self, which: DeclarationKeyword, p: usize) -> Option<usize> {
         if let Some(r) = self.single_line_comment_consuming_line_ending(p) {
             return Some(r);
         }
@@ -429,13 +429,13 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         let first = match which {
-            VarKeyword::Let => self
+            DeclarationKeyword::Let => self
                 .destructuring_variable(p, Binding::Variable)
-                .or_else(|| self.var_single_variable(p)),
-            VarKeyword::Const => self
+                .or_else(|| self.variable_single_variable(p)),
+            DeclarationKeyword::Const => self
                 .destructuring_variable(p, Binding::Constant)
-                .or_else(|| self.var_single_const(p)),
-            VarKeyword::Using => self.var_single_const(p),
+                .or_else(|| self.variable_single_const(p)),
+            DeclarationKeyword::Using => self.variable_single_const(p),
         };
         first.or_else(|| self.punctuation_comma(p))
     }

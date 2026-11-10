@@ -6,7 +6,7 @@
 //! An end that is a lookahead closes the context without a token.
 
 use super::chars::{is_alnum_char, is_alpha_char};
-use super::decl::VarKeyword;
+use super::declarations::DeclarationKeyword;
 use super::lexer::Lexer;
 use super::scope::S;
 use super::state::Rule;
@@ -51,7 +51,7 @@ impl<const D: u8> Lexer<'_, D> {
                 self.end_zero(self.jsx_expression_no_attributes_ends(p), p)
             }
             Rule::JsxNoAttributes => self.jsx_no_attributes_end(p),
-            Rule::JsxExpressionTag => self.end_zero(self.jsx_expr_tag_ends(p), p),
+            Rule::JsxExpressionTag => self.end_zero(self.jsx_expression_tag_ends(p), p),
             Rule::JsxTag => self.jsx_tag_end(p),
             Rule::JsxTagOpen | Rule::JsxAttributes => self.end_zero(self.jsx_open_ends(p), p),
             Rule::JsxTagBody => self.end_zero(self.starts(p, "</"), p),
@@ -390,8 +390,8 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 None
             }
-            Rule::TypeAnnotation1 => self.type_ann_close(p, TypeStart::SameLine),
-            Rule::TypeAnnotation2 => self.type_ann_close(p, TypeStart::NextLine),
+            Rule::TypeAnnotation1 => self.type_annotation_close(p, TypeStart::SameLine),
+            Rule::TypeAnnotation2 => self.type_annotation_close(p, TypeStart::NextLine),
             Rule::TypeArguments | Rule::TypeParameters => {
                 self.end_char(p, b'>', S::PunctuationDefinitionTypeparametersEnd)
             }
@@ -413,10 +413,10 @@ impl<const D: u8> Lexer<'_, D> {
             ),
             Rule::TypeConditionalQuestionMark => self.end_char(p, b':', S::KeywordOperatorTernary),
             Rule::TypeFunctionReturn1 => {
-                self.end_zero(self.type_fn_ret_end(p, TypeStart::SameLine), p)
+                self.end_zero(self.type_function_return_end(p, TypeStart::SameLine), p)
             }
             Rule::TypeFunctionReturn2 => {
-                self.end_zero(self.type_fn_ret_end(p, TypeStart::NextLine), p)
+                self.end_zero(self.type_function_return_end(p, TypeStart::NextLine), p)
             }
             Rule::TypeSpread => self.end_zero(
                 matches!(self.byte(p), b',' | b';' | b'}')
@@ -428,14 +428,14 @@ impl<const D: u8> Lexer<'_, D> {
                 self.end_zero(!self.space_at(p) && p <= self.len && self.byte(p) != 0, p)
             }
             Rule::Typeof => self.end_zero(self.typeof_end(p), p),
-            Rule::VariableLet => self.end_var(p, VarKeyword::Let),
-            Rule::VariableConst => self.end_var(p, VarKeyword::Const),
-            Rule::VariableUsing => self.end_var(p, VarKeyword::Using),
+            Rule::VariableLet => self.end_variable(p, DeclarationKeyword::Let),
+            Rule::VariableConst => self.end_variable(p, DeclarationKeyword::Const),
+            Rule::VariableUsing => self.end_variable(p, DeclarationKeyword::Using),
             Rule::VariableKeyword => {
                 self.end_zero(self.byte(p) != 0 && !self.space_at(p) && p < self.len, p)
             }
             Rule::VariableComma | Rule::VariableCommaConst | Rule::VariableCommaUsing => {
-                self.end_var_comma(p)
+                self.end_variable_comma(p)
             }
             Rule::VariableSingle => self.end_zero(
                 self.eol(p)
@@ -453,7 +453,7 @@ impl<const D: u8> Lexer<'_, D> {
                     || self.of_in_ahead(p),
                 p,
             ),
-            Rule::VariableInitializer2 => self.end_zero(self.var_init2_end(p), p),
+            Rule::VariableInitializer2 => self.end_zero(self.variable_initializer2_end(p), p),
         }
     }
 
@@ -567,7 +567,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(Bfunction((\s+ID)|(\s*\()))`.
     fn function_keyword_follows(&self, p: usize) -> bool {
-        if !(self.kw_before(p) && self.starts(p, "function")) {
+        if !(self.keyword_before(p) && self.starts(p, "function")) {
             return false;
         }
         let e = p + "function".len();
@@ -576,7 +576,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn new_again(&self, p: usize) -> bool {
-        self.kw(p, "new").is_some()
+        self.keyword(p, "new").is_some()
     }
 
     /// `(?:([!=]==?)|(([\&^|~]\s*)?ID\s+instanceofE))`.
@@ -592,7 +592,7 @@ impl<const D: u8> Lexer<'_, D> {
             return false;
         };
         let k = self.ws(e);
-        k > e && self.kw(k, "instanceof").is_some()
+        k > e && self.keyword(k, "instanceof").is_some()
     }
 
     fn open_generic_at(&self, p: usize) -> bool {
@@ -637,7 +637,7 @@ impl<const D: u8> Lexer<'_, D> {
         if simple {
             return true;
         }
-        if self.kw_before(p) && (self.starts(p, "as") || self.starts(p, "satisfies")) {
+        if self.keyword_before(p) && (self.starts(p, "as") || self.starts(p, "satisfies")) {
             let e = if self.starts(p, "as") {
                 p + 2
             } else {
@@ -689,8 +689,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// The end is zero-width, except before a `{` that follows a name or a
     /// closing bracket.
     /// There the match takes the blanks up to the brace.
-    fn type_ann_close(&mut self, p: usize, start: TypeStart) -> Option<usize> {
-        let (end, blanks) = self.type_ann_end(p, start)?;
+    fn type_annotation_close(&mut self, p: usize, start: TypeStart) -> Option<usize> {
+        let (end, blanks) = self.type_annotation_end(p, start)?;
         let to = self.ws(p);
         if blanks && to > p {
             return Some(self.close(p, to, &[]));
@@ -704,7 +704,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// lookahead.
     /// It returns where the match ends, and whether it takes the blanks that
     /// follow.
-    fn type_ann_end(&self, p: usize, start: TypeStart) -> Option<(usize, bool)> {
+    fn type_annotation_end(&self, p: usize, start: TypeStart) -> Option<(usize, bool)> {
         if matches!(self.prev_char(p), Some('&' | ':' | '|')) {
             return None;
         }
@@ -742,7 +742,7 @@ impl<const D: u8> Lexer<'_, D> {
         stop || tail
     }
 
-    fn type_fn_ret_end(&self, p: usize, start: TypeStart) -> bool {
+    fn type_function_return_end(&self, p: usize, start: TypeStart) -> bool {
         if self.bytes.get(..p).is_some_and(|h| h.ends_with(b"=>"))
             || matches!(self.prev_char(p), Some('&' | '|'))
         {
@@ -778,22 +778,22 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.byte(p) == b'<'
             && self
-                .type_args(p)
+                .type_arguments_end(p)
                 .is_some_and(|e| self.byte(self.ws(e)) == b'`')
     }
 
-    fn end_var(&mut self, p: usize, which: VarKeyword) -> Option<usize> {
-        if self.var_keyword(p, which).is_some() {
+    fn end_variable(&mut self, p: usize, which: DeclarationKeyword) -> Option<usize> {
+        if self.variable_keyword(p, which).is_some() {
             return None;
         }
         let stop = match which {
-            VarKeyword::Using => {
+            DeclarationKeyword::Using => {
                 matches!(self.byte(p), b';' | b'}')
                     || self.of_in_ahead(p)
                     || self.blank_line_at(p)
                     || self.statement_start_at(p)
             }
-            VarKeyword::Let | VarKeyword::Const => {
+            DeclarationKeyword::Let | DeclarationKeyword::Const => {
                 Self::bol(p)
                     || matches!(self.byte(p), b';' | b'}')
                     || self.of_in_ahead(p)
@@ -801,17 +801,19 @@ impl<const D: u8> Lexer<'_, D> {
                     || self.statement_start_at(p)
             }
         };
-        let tail = self.eol(self.ws(p)) && !self.var_word_before(p, which);
+        let tail = self.eol(self.ws(p)) && !self.variable_word_before(p, which);
         (stop || tail).then(|| self.close_here(p))
     }
 
     /// `(?<!^let|[^$._[:alnum:]]let|^var|…)`: the declaration keyword just
     /// before `p`.
-    fn var_word_before(&self, p: usize, which: VarKeyword) -> bool {
+    fn variable_word_before(&self, p: usize, which: DeclarationKeyword) -> bool {
         match which {
-            VarKeyword::Let => self.word_before_text(p, "let") || self.word_before_text(p, "var"),
-            VarKeyword::Const => self.word_before_text(p, "const"),
-            VarKeyword::Using => {
+            DeclarationKeyword::Let => {
+                self.word_before_text(p, "let") || self.word_before_text(p, "var")
+            }
+            DeclarationKeyword::Const => self.word_before_text(p, "const"),
+            DeclarationKeyword::Using => {
                 self.word_before_text(p, "using")
                     || self
                         .bytes
@@ -829,7 +831,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(?<!,)(((?=[;=}]|(B(of|in)\s+)|^\s*$))|((?<=\S)(?=\s*$)))`.
-    fn end_var_comma(&mut self, p: usize) -> Option<usize> {
+    fn end_variable_comma(&mut self, p: usize) -> Option<usize> {
         if self.prev_char(p) == Some(',') {
             return None;
         }
@@ -842,7 +844,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `(?=[]),;}]|(B(of|in)\s+))|(?=^\s*$)|(?<![-\&*+/|])(?<=\S)(?<!=)(?=\s*
     /// $)`.
-    fn var_init2_end(&self, p: usize) -> bool {
+    fn variable_initializer2_end(&self, p: usize) -> bool {
         if matches!(self.byte(p), b']' | b')' | b',' | b';' | b'}')
             || self.of_in_ahead(p)
             || self.blank_line_at(p)

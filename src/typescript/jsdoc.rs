@@ -264,7 +264,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.doc_template(p) {
             return Some(r);
         }
-        if let Some(r) = self.doc_param(p) {
+        if let Some(r) = self.doc_parameter(p) {
             return Some(r);
         }
         if let Some(r) = self.doc_typed_tags(p) {
@@ -484,7 +484,7 @@ impl<const D: u8> Lexer<'_, D> {
         None
     }
 
-    fn doc_param(&mut self, p: usize) -> Option<usize> {
+    fn doc_parameter(&mut self, p: usize) -> Option<usize> {
         let words = [
             "arg",
             "argument",
