@@ -50,7 +50,7 @@ const unbreakable: Unbreakable[] = [
   },
   {
     name: "a Swift matcher name",
-    // It stays until the Swift generator moves to codegen/ (rust-codegen design 8.4).
+    // It stays until the Swift generator moves to codegen/ (rule-table-codegen design 2.4).
     holds: ({ file, text }) => file.startsWith("src/swift/") && /\brx_\w{40,}/.test(text),
   },
 ];
