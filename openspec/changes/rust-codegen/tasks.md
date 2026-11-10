@@ -12,8 +12,12 @@
   → verify: the numbers from a box, in design section 12.2
   - 2026-11-10: clean release builds on a box: 58 s and 2 crates with `all`, 78 s and 5 with `codegen`, 87 s and 7 with `format`.
     The build-script example does not exist yet, so its program size moved to task 2.2, whose `check:size` covers it.
-- [ ] 1.3 The three changes of design section 12.1 to the generated matchers, one at a time.
+- [ ] 1.3 The steps of design section 12.1, one at a time.
   → verify: each step's Callgrind rows and a clean differential test, in a research note
+  - 2026-11-10: steps 1, 2 and 2b measured on boxes, each with 0 differences.
+    The steps go on until each language reaches 1.000.
+    The retry lines at fixture length have not run yet.
+    Still to come: the first-byte test, the groups recorded, the `\b` test and a flat dispatch (lead, 2026-11-10).
 
 ## 2. Groundwork
 

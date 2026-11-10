@@ -243,14 +243,31 @@ A generated matcher spends the line's work budget, `Limits::work`, as a hand mat
 `Work` in `src/limits.rs` defines a step as one turn of a lexer's main loop or one byte a lookahead reads.
 The `line-limits` spec counts limits in work and bytes, never in time.
 
-- Each byte it reads costs one step.
-  A byte read again after a give-back or a stack pop costs one more.
-- When the budget runs out, the matcher stops and reports no match, as the regex engine does.
-- The lexer then ends the line at the work limit.
-  The rest of the line is one token under the current scopes, and the line's report records `Limit::Work`.
+The matcher spends in its loops, not at each byte it reads (lead, 2026-11-10):
+
+- A loop that takes turns spends the bytes it took when it ends, on every exit, a failed one included.
+- A lazy loop spends each turn's bytes as it takes the turn.
+- Each turn given back, or popped from the stack, spends one step.
+- A loop that gives back or tries the continuation first checks the budget at each turn.
+- A repeat inside a lookahead, or nested in another repeat, is a loop of its own and follows the same rules.
+
+Spending at each byte read kept the `\b` test out of line and cost Zig and Lua about 16% more instructions.
+Spending in loops costs Protocol Buffers 1.3% and Zig and Lua about 3% (section 12.1).
+
+The steps bound the work of each try of a pattern:
+
+- Every byte the matcher reads lies inside a loop, or inside straight-line code between loops.
+- Straight-line code reads a number of bytes the pattern fixes: its characters, classes, anchors and fixed-width lookbehinds.
+- Each loop turn takes at least one byte, which the loop spends, or gives back a turn, which spends one step.
+- So a try that spends `s` steps does at most `c × (s + 1)` work, where `c` depends only on the pattern.
+- The scanner tries patterns at each start, and each try spends its own steps.
+
+When the budget runs out, the matcher stops and reports no match, as the regex engine does.
+The lexer then ends the line at the work limit.
+The rest of the line is one token under the current scopes, and the line's report records `Limit::Work`.
 
 The regex engine, as the fallback, runs on the steps the line has left, and stops the same way.
-The two count in different units: a generated matcher counts bytes, and the engine counts instructions.
+The two count in different units: a generated matcher counts loop work, and the engine counts instructions.
 On a line near the limit they can stop at different points.
 
 The default limits still never cut an oracle fixture line, as the `line-limits` spec requires.
@@ -265,11 +282,27 @@ A differential test guards every generated language:
 - It fails at the first differing end or group.
 - It runs in CI for every language `codegen/` writes.
 
-A hostile-line test runs in CI beside it, in the language's `tests/it/limits/` file:
+Two kinds of hostile line run in CI beside it, in the language's `tests/it/limits/` file (lead, 2026-11-10):
 
-- Its lines drive each give-back loop and each stack the writer emits.
-  One such line is a long run of a repeat's body with no continuation.
-- Under the default limits, each line ends at the work limit, and its report records `Limit::Work`.
+| Line | Length | Drives | Must |
+|:--|:--|:--|:--|
+| bound line | about 12,000 bytes, past every fixture line | a give-back loop or a stack, such as a long run of a repeat's body with no continuation | finish within the default limits, with tokens that cover it |
+| retry line | the language's longest oracle fixture line | a repeat that takes a long run and fails, so the scanner tries it again at each later start | end without reaching the work limit |
+
+A bound line ends under the budget when its work is linear, and at the work limit when it is not.
+
+A retry line holds only at fixture length:
+
+- A retry at every start of an `L`-byte run takes about `L − p` bytes at start `p`, then gives them back: about `L²` steps.
+- The default budget is `64L + 4,096` steps, so such a retry fits only while `L² ≤ 64L + 4,096`, up to about 100 bytes.
+- The longest oracle fixture lines are 102 bytes for Protocol Buffers, 242 for Zig and 974 for Lua.
+- So a retry line of fixture length passes only when the scan does not retry at every start.
+  A `\b` fails at once inside a word, which the scanner skips, or another pattern takes the run first.
+- This is a measured fact about the fixtures, not a bound.
+  The hand lexers and Shiki have no linear scan either.
+
+A retry line that reaches the limit at fixture length is a finding, because Shiki would not cut that line.
+It is recorded with the pattern, the line and a plan to fix it.
 
 ## 6. Facts
 
@@ -536,11 +569,34 @@ The differential test of section 5.6 found no difference:
 | Zig | 43,320 | 2,000 | 1,447,153 | 79,593,415 | 0 |
 | Lua | 40,717 | 2,000 | 1,680,199 | 255,390,248 | 0 |
 
-Three changes come next, one at a time, each backed by a profile per function and followed by the differential test:
+Task 1.3 changes the generated code one step at a time.
+Each step is backed by a profile per function and followed by the differential test.
+Lexing ratios against the hand matchers, at one codegen unit:
 
-1. A character or class that holds only ASCII tests one byte, where the code decodes UTF-8 at every step today.
-2. A pattern tests its first byte before its code runs.
-3. A matcher records only the groups a scope or a back-reference reads, where it writes every group today.
+| Step | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| generated, before the steps | 1.2568 | 1.1746 | 1.5374 |
+| 1. a node that holds only ASCII tests one byte | 1.2418 | 1.0748 | 1.4057 |
+| 2. steps spent at each byte read | 1.2556 | 1.2468 | 1.6277 |
+| 2b. steps spent in loops, replacing 2 | 1.2604 | 1.1062 | 1.4450 |
+| hand matchers out of line, on 2 | 1.2565 | 1.2500 | 1.6189 |
+
+- The first row for Protocol Buffers has `OptionStmt` generated.
+- Step 2 kept the `\b` test out of line.
+  Step 2b brings it back in line and spends once per loop.
+- Moving the hand matchers out of line saves nothing.
+  The generated code covers nearly every pattern, so the hand path is cold.
+
+The profile names the costs left, and each becomes a step:
+
+- a pattern tests its first byte before its code runs;
+- a matcher records only the groups a scope or a back-reference reads, where it writes every group today;
+- the `\b` test decodes the character before the position, which costs Zig 2.1 and Lua 3.0 million instructions;
+- the language's `matcher` calls one dispatch function, which calls the pattern's function.
+  A flat dispatch goes straight to the pattern's function: the second level costs Lua about 4.8 million instructions.
+
+Five Lua end patterns have neither generated code nor a regex engine path: the ends of long strings and long comments.
+Each reads a group of its begin pattern through a back-reference, such as `]\1]`.
 
 ### 12.2 Feature cost
 
