@@ -14,3 +14,5 @@
     `a_grammar_the_test_defines_highlights_lines` highlights two lines with a grammar the test defines.
     `a_language_highlighter_has_no_room_for_buffers` asserts that a `Language` highlighter keeps its size.
     The tick waits for Callgrind on the pull request.
+- [ ] 1.3 A build with the cfg calls `Arena::child` and `Arena::push` directly (design section 2.1); its own pull request, with the `bench` label.
+  → verify: at one codegen unit, both builds make 550 direct calls to `Arena::child` and 196 to `Arena::push`, with every Callgrind row at or below 1.000

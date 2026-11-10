@@ -13,6 +13,10 @@ mod chars;
 mod lexer;
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 mod runs;
+// `RuleSyntax`'s generic trait impl makes rustc export `Arena::child` and
+// `Arena::push`, and each call in the crate then goes through the GOT.
+// So the module exists only where it is used: with the cfg and in its test.
+#[cfg(any(nishiki_unstable, all(test, feature = "lang-toml")))]
 mod syntax;
 mod tables;
 
@@ -449,13 +453,7 @@ pub(crate) fn lex<G: Grammar>(
 /// highlighter's scratch.
 /// Its buffers sit in the highlighter's slot for its syntax instead.
 #[inline]
-#[cfg_attr(
-    all(not(nishiki_unstable), not(all(test, feature = "lang-toml"))),
-    expect(
-        dead_code,
-        reason = "used only through nishiki::unstable and the tests"
-    )
-)]
+#[cfg(any(nishiki_unstable, all(test, feature = "lang-toml")))]
 pub(crate) fn lex_with<G: Grammar>(
     cx: &mut Context<'_>,
     line: Line<'_>,
