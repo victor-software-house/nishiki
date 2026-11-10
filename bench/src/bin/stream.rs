@@ -33,7 +33,7 @@ use std::time::{Duration, Instant};
 use nishiki::{Document, Highlighter, State, Theme, Until};
 use nishiki_bench::GITHUB_DARK;
 use nishiki_bench::timing::{micros, rank, timer_overhead};
-use nishiki_bench::traces::{Kind, Step, Trace, traces};
+use nishiki_bench::traces::{Origin, Step, Trace, traces};
 
 /// Passes when `--passes` is not given.
 const PASSES: usize = 11;
@@ -204,7 +204,7 @@ fn replay(trace: &Trace, theme: &Theme, overhead: Duration, shiki: Option<&Colou
     let start = Instant::now();
     let mut document = Document::new(trace.language, owned);
     let setup = start.elapsed().saturating_sub(overhead);
-    if trace.kind == Kind::Edits {
+    if trace.origin == Origin::Edits {
         document.push_str(&trace.text);
         document.finish();
         document.lex(Until::End);
@@ -327,8 +327,8 @@ fn main() -> ExitCode {
             .collect();
         steady.sort_unstable();
         let setup = median(passes.iter().map(|pass| pass.setup).collect());
-        let whole_file = match trace.kind {
-            Kind::ToolWrite => micros(
+        let whole_file = match trace.origin {
+            Origin::ToolWrite => micros(
                 median(
                     (0..options.passes)
                         .map(|_| whole(trace, &theme, overhead))
@@ -336,7 +336,7 @@ fn main() -> ExitCode {
                 ),
                 resolution,
             ),
-            Kind::Reply | Kind::Edits => String::new(),
+            Origin::Reply | Origin::Edits => String::new(),
         };
         println!(
             "| {} | {count} | {} | {} | {} | {} | {} | {whole_file} | {} | {score} |",
