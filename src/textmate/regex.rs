@@ -46,7 +46,7 @@ use std::sync::Mutex;
 use analysis::{Starts, anchors, first_bytes, literal_prefix, required_byte, uses_context};
 use memchr::{memchr, memchr2, memchr3, memmem};
 pub(crate) use parse::Error;
-use parse::{Dialect, Parsed};
+use parse::{Dialect, ParsedPattern};
 use program::{Program, compile};
 use regex_syntax::hir::Hir;
 use vm::Machine;
@@ -210,7 +210,7 @@ pub(crate) struct Sketch {
     /// `None` for a pattern that depends on the document or needs no text.
     relaxed: Option<Box<Hir>>,
     /// The parsed tree, until [`Regex::from_sketch`] takes it.
-    tree: Mutex<Option<Box<Parsed>>>,
+    tree: Mutex<Option<Box<ParsedPattern>>>,
 }
 
 impl Sketch {
@@ -308,7 +308,7 @@ impl Regex {
         Regex::compile(parsed, programs)
     }
 
-    fn compile(mut parsed: Parsed, programs: Programs) -> Result<Regex, Error> {
+    fn compile(mut parsed: ParsedPattern, programs: Programs) -> Result<Regex, Error> {
         match programs {
             Programs::Lean => {
                 if let Some(root) = ast::lean(&parsed.root) {

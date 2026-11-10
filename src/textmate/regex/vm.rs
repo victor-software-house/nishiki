@@ -579,14 +579,14 @@ impl Machine<'_> {
     fn assert_at(&self, anchor: Anchor, pos: usize) -> bool {
         let len = self.text.len();
         match anchor {
-            Anchor::Caret => pos == 0 || (self.text.get(pos - 1) == Some(&b'\n') && pos < len),
-            Anchor::Dollar => pos == len || self.text.get(pos) == Some(&b'\n'),
-            Anchor::StartText => pos == 0 && self.context.text_start,
-            Anchor::EndText => pos == len,
-            Anchor::EndTextNewline => {
+            Anchor::LineStart => pos == 0 || (self.text.get(pos - 1) == Some(&b'\n') && pos < len),
+            Anchor::LineEnd => pos == len || self.text.get(pos) == Some(&b'\n'),
+            Anchor::TextStart => pos == 0 && self.context.text_start,
+            Anchor::TextEnd => pos == len,
+            Anchor::TextEndOrFinalNewline => {
                 pos == len || (pos + 1 == len && self.text.get(pos) == Some(&b'\n'))
             }
-            Anchor::Search => self.context.search == Some(pos),
+            Anchor::LastMatchEnd => self.context.search == Some(pos),
             Anchor::WordBoundary | Anchor::NotWordBoundary => {
                 let before = decode_before(self.text, pos)
                     .and_then(|(code, _)| char::from_u32(code))

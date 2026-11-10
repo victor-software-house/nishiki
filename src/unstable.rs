@@ -25,6 +25,10 @@
 //! [`Scopes`] here is a static scope list.
 //! It differs from [`crate::Scopes`], which walks a token's scope stack.
 //!
+//! [`regex`] holds the parser the engine compiles patterns with.
+//! [`is_space`] and [`is_word`] are the classes `\s` and `\w` as Shiki reads
+//! them.
+//!
 //! A caller outside the crate names these items:
 //!
 //! ```
@@ -42,10 +46,14 @@
 // Those mean nothing to a reader of the docs.
 #![cfg_attr(
     docsrs,
-    doc(auto_cfg(hide(feature, values("_embedding", "_language", "_rule-engine"))))
+    doc(auto_cfg(hide(
+        feature,
+        values("_embedding", "_language", "_rule-engine", "_textmate")
+    )))
 )]
 
 pub use crate::arena::Arena;
+pub use crate::classes::{is_space, is_word};
 #[cfg(feature = "_embedding")]
 pub use crate::rules::Deferrals;
 pub use crate::rules::{
@@ -54,3 +62,6 @@ pub use crate::rules::{
 pub use crate::scope::Scope;
 #[cfg(feature = "_language")]
 pub use crate::scope::{Keyed, Scopes};
+
+#[cfg(feature = "_textmate")]
+pub mod regex;

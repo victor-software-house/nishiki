@@ -28,10 +28,10 @@ use super::ast::{Anchor, Class, Greediness, Member, Node};
 /// and lookaheads, as each one is walked.
 pub(super) fn relaxed(node: &Node) -> Hir {
     match node {
-        Node::Seq(items) => {
+        Node::Sequence(items) => {
             let mut parts = Vec::with_capacity(items.len());
             for item in items {
-                if let Node::Look {
+                if let Node::Lookaround {
                     ahead: true,
                     negative: false,
                     node: body,
@@ -45,23 +45,23 @@ pub(super) fn relaxed(node: &Node) -> Hir {
             Hir::concat(parts)
         }
         Node::Group { node: inner, .. } | Node::Atomic(inner) => relaxed(inner),
-        Node::Look {
+        Node::Lookaround {
             ahead: true,
             negative: false,
             node: body,
         } => relaxed(body),
         Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
-        | Node::Alt(_)
+        | Node::Alternation(_)
         | Node::Folds(_)
         | Node::Repeat { .. }
-        | Node::Look { .. }
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::Lookaround { .. }
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => hir(node),
     }
 }
@@ -70,16 +70,21 @@ pub(super) fn relaxed(node: &Node) -> Hir {
 fn hir(node: &Node) -> Hir {
     match node {
         Node::Empty
-        | Node::Look { .. }
+        | Node::Lookaround { .. }
         | Node::Anchor(
-            Anchor::StartText | Anchor::Search | Anchor::WordBoundary | Anchor::NotWordBoundary,
+            Anchor::TextStart
+            | Anchor::LastMatchEnd
+            | Anchor::WordBoundary
+            | Anchor::NotWordBoundary,
         ) => Hir::empty(),
         Node::Char(c) => Hir::literal(c.encode_utf8(&mut [0; 4]).as_bytes()),
-        Node::Any(true) => Hir::dot(Dot::AnyChar),
-        Node::Any(false) => Hir::dot(Dot::AnyCharExceptLF),
+        Node::Any { newline: true } => Hir::dot(Dot::AnyChar),
+        Node::Any { newline: false } => Hir::dot(Dot::AnyCharExceptLF),
         Node::Class(class) => class_hir(class),
-        Node::Seq(items) => Hir::concat(items.iter().map(hir).collect()),
-        Node::Alt(alts) | Node::Folds(alts) => Hir::alternation(alts.iter().map(hir).collect()),
+        Node::Sequence(items) => Hir::concat(items.iter().map(hir).collect()),
+        Node::Alternation(alts) | Node::Folds(alts) => {
+            Hir::alternation(alts.iter().map(hir).collect())
+        }
         Node::Repeat {
             node,
             min,
@@ -95,24 +100,25 @@ fn hir(node: &Node) -> Hir {
             sub: Box::new(hir(node)),
         }),
         Node::Group { node, .. } | Node::Atomic(node) => hir(node),
-        Node::Backref(..) | Node::NamedBackref(..) | Node::Call(_) | Node::NamedCall(_) => {
-            Hir::repetition(Repetition {
-                min: 0,
-                max: None,
-                greedy: true,
-                sub: Box::new(Hir::dot(Dot::AnyChar)),
-            })
-        }
-        Node::Anchor(Anchor::Caret) => Hir::look(Look::StartLF),
-        Node::Anchor(Anchor::Dollar | Anchor::EndTextNewline) => Hir::look(Look::EndLF),
-        Node::Anchor(Anchor::EndText) => Hir::look(Look::End),
+        Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_) => Hir::repetition(Repetition {
+            min: 0,
+            max: None,
+            greedy: true,
+            sub: Box::new(Hir::dot(Dot::AnyChar)),
+        }),
+        Node::Anchor(Anchor::LineStart) => Hir::look(Look::StartLF),
+        Node::Anchor(Anchor::LineEnd | Anchor::TextEndOrFinalNewline) => Hir::look(Look::EndLF),
+        Node::Anchor(Anchor::TextEnd) => Hir::look(Look::End),
     }
 }
 
 /// Whether a class can hold a character beyond ASCII.
 fn reaches_beyond_ascii(class: &Class) -> bool {
     class.negated
-        || class.parts.iter().flatten().any(|item| match item {
+        || class.unions.iter().flatten().any(|item| match item {
             Member::Range(_, hi) => !hi.is_ascii(),
             Member::Property(..) => true,
             Member::Nested(nested) => reaches_beyond_ascii(nested),
