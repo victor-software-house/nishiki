@@ -2,7 +2,7 @@
 
 use super::engine::Lexer;
 use super::scope::S;
-use super::state::R;
+use super::state::Rule;
 use crate::scope::{Scopes, scopes};
 
 /// The words a Doxygen command may be, in the order the grammar lists them.
@@ -246,7 +246,7 @@ impl Lexer<'_> {
         };
         let m = k + 1 + at;
         self.span(p, k, scopes![S::PunctCommentBeginDoc]);
-        self.span_retok(k, m, S::NO_SCOPES, R::Doxy);
+        self.span_retok(k, m, S::NO_SCOPES, Rule::Doxygen);
         self.span(m, m + 2, scopes![S::PunctCommentEndDoc]);
         self.plain(p, m + 2)
     }
@@ -404,7 +404,7 @@ impl Lexer<'_> {
         };
         self.span(p, p + 2, scopes![S::CommentBlock, S::PunctCommentBegin]);
         self.span(p + 2, end, scopes![S::CommentBlock]);
-        self.span_retok(close, end, S::NO_SCOPES, R::InlineClose);
+        self.span_retok(close, end, S::NO_SCOPES, Rule::InlineClose);
         self.plain(p, end)
     }
 
@@ -500,7 +500,7 @@ impl Lexer<'_> {
             && let Some((ws_end, word_end)) = self.param_name(after)
         {
             self.span(p, e, scopes![S::StorageDoxygen]);
-            self.span_retok(open, close, S::NO_SCOPES, R::ParamDir);
+            self.span_retok(open, close, S::NO_SCOPES, Rule::ParameterDirections);
             self.span(ws_end, word_end, scopes![S::VariableParameter]);
             return self.plain(p, word_end);
         }

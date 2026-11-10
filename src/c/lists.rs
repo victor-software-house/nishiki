@@ -4,7 +4,7 @@
 use std::collections::HashMap;
 use std::sync::OnceLock;
 
-use super::state::R;
+use super::state::Rule;
 
 /// A pattern of the grammar: a `match` rule or the begin of a begin/end rule.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
@@ -19,29 +19,29 @@ pub(crate) enum P {
     LineLeading,
     LineSlash,
     LineComment,
-    DoxyBare,
-    DoxyItalic,
-    DoxyBold,
-    DoxyRaw,
-    DoxyWordA,
-    DoxyWordB,
-    DoxyParam,
-    DoxyWordC,
-    DoxyWordD,
+    DoxygenBare,
+    DoxygenItalic,
+    DoxygenBold,
+    DoxygenRaw,
+    DoxygenWordA,
+    DoxygenWordB,
+    DoxygenParameter,
+    DoxygenWordC,
+    DoxygenWordD,
     Gtkdoc,
     InlineComment,
     InlineEnd,
     InlineStar,
-    DQuote,
-    SQuote,
+    DoubleQuote,
+    SingleQuote,
     EscChar,
     EscBackslash,
     EscInvalid,
     Placeholder,
     PlaceholderBad,
-    LineCont,
+    LineContinuation,
     Number,
-    NumSep,
+    NumberSeparator,
     Sizeof,
     Decrement,
     Increment,
@@ -83,9 +83,9 @@ pub(crate) enum P {
     ParensBegin,
     ParensBlockBegin,
     RangeColon,
-    FuncDefBegin,
-    FuncParamsBegin,
-    FuncParensBegin,
+    FunctionDefinitionBegin,
+    FunctionParametersBegin,
+    FunctionParensBegin,
     Probably,
     CallBegin,
     CallParensBegin,
@@ -93,71 +93,71 @@ pub(crate) enum P {
     MethodAccess,
     MemberAccess,
     PlainAccess,
-    InitBegin,
+    InitializationBegin,
     DefineBegin,
-    DefineParamName,
-    DefineParamComma,
-    DefineParamEllipsis,
-    DiagBegin,
+    DefineParameterName,
+    DefineParameterComma,
+    DefineParameterEllipsis,
+    DiagnosticBegin,
     IncludeBegin,
     PragmaMark,
-    LineDirBegin,
+    LineDirectiveBegin,
     UndefBegin,
-    PragmaDirBegin,
+    PragmaDirectiveBegin,
     DefineBlockBegin,
     DefineBlockInnerBegin,
     DefineLParen,
     DefineRParen,
-    DefineFuncBegin,
+    DefineFunctionBegin,
     DefineCallBegin,
     DefineParensBegin,
-    DefineDQuoteBegin,
-    DefineSQuoteBegin,
-    DiagDQuoteBegin,
-    DiagSQuoteBegin,
-    DiagTextBegin,
-    IncludeDQBegin,
-    IncludeLtBegin,
+    DefineDoubleQuoteBegin,
+    DefineSingleQuoteBegin,
+    DiagnosticDoubleQuoteBegin,
+    DiagnosticSingleQuoteBegin,
+    DiagnosticTextBegin,
+    IncludeDoubleQuoteBegin,
+    IncludeAngleBegin,
     UndefName,
     PragmaName,
-    CondIfBegin,
-    CondIfBBegin,
+    ConditionalIfBegin,
+    ConditionalIfBlockBegin,
     EnabledIfBegin,
-    EnabledIfBBegin,
+    EnabledIfBlockBegin,
     DisabledIfBegin,
-    DisabledIfBBegin,
+    DisabledIfBlockBegin,
     Stray,
-    HeadContBegin,
+    HeadContinuationBegin,
     HeadPlainBegin,
-    CondElifBegin,
+    ConditionalElifBegin,
     LiveElifBegin,
-    LiveElifBBegin,
+    LiveElifBlockBegin,
     LiveElseBegin,
-    LiveElseBBegin,
+    LiveElseBlockBegin,
     DisabledElifBegin,
     DisabledElifOtherBegin,
-    DisabledElifOtherBBegin,
+    DisabledElifOtherBlockBegin,
     ElseBranchBegin,
-    ElseBranchBBegin,
+    ElseBranchBlockBegin,
     ElifBranchBegin,
-    ElifBranchBBegin,
+    ElifBranchBlockBegin,
     EnabledBodyBegin,
-    EnabledBodyBBegin,
+    EnabledBodyBlockBegin,
     DisabledBodyBegin,
-    DisabledBodyBBegin,
+    DisabledBodyBlockBegin,
     DisabledElifBodyBegin,
     ElifTailBegin,
-    ElifTailBBegin,
+    ElifTailBlockBegin,
     ElifElseBegin,
-    ElifElseBBegin,
+    ElifElseBlockBegin,
     ElifElifBegin,
     NestBegin,
-    CondDefinedKeyword,
-    CondDefinedInvalid,
-    CondTernaryBegin,
-    CondNamed,
-    CondParensBegin,
-    CondConstant,
+    ConditionalDefinedKeyword,
+    ConditionalDefinedInvalid,
+    ConditionalTernaryBegin,
+    ConditionalNamed,
+    ConditionalParensBegin,
+    ConditionalConstant,
     SwitchBegin,
     SwitchHeadBegin,
     SwitchBodyBegin,
@@ -171,7 +171,7 @@ pub(crate) enum P {
     AsmInnerBegin,
     AsmLabel,
     AsmColon,
-    ParamDir,
+    ParameterDirections,
     /// The end pattern of the innermost rule.
     /// `ends` matches it by rule.
     End,
@@ -227,18 +227,18 @@ pub(super) const OPERATORS: &[Entry] = &[
     I(P::Ternary),
 ];
 
-const STRINGS: &[Entry] = &[I(P::DQuote), I(P::SQuote)];
+const STRINGS: &[Entry] = &[I(P::DoubleQuote), I(P::SingleQuote)];
 
 pub(super) const DOXY: &[Entry] = &[
-    I(P::DoxyBare),
-    I(P::DoxyItalic),
-    I(P::DoxyBold),
-    I(P::DoxyRaw),
-    I(P::DoxyWordA),
-    I(P::DoxyWordB),
-    I(P::DoxyParam),
-    I(P::DoxyWordC),
-    I(P::DoxyWordD),
+    I(P::DoxygenBare),
+    I(P::DoxygenItalic),
+    I(P::DoxygenBold),
+    I(P::DoxygenRaw),
+    I(P::DoxygenWordA),
+    I(P::DoxygenWordB),
+    I(P::DoxygenParameter),
+    I(P::DoxygenWordC),
+    I(P::DoxygenWordD),
     I(P::Gtkdoc),
 ];
 
@@ -246,12 +246,12 @@ pub(super) const INLINE: &[Entry] = &[I(P::InlineComment)];
 pub(super) const INLINE_CLOSE: &[Entry] = &[I(P::InlineEnd), I(P::InlineStar)];
 pub(super) const ACCESS: &[Entry] = &[I(P::MemberAccess), I(P::PlainAccess)];
 pub(super) const DEFINE_PARAMS: &[Entry] = &[
-    I(P::DefineParamName),
-    I(P::DefineParamComma),
-    I(P::DefineParamEllipsis),
+    I(P::DefineParameterName),
+    I(P::DefineParameterComma),
+    I(P::DefineParameterEllipsis),
 ];
-pub(super) const PARAM_DIR: &[Entry] = &[I(P::ParamDir)];
-pub(super) const NUM_SEP: &[Entry] = &[I(P::NumSep)];
+pub(super) const PARAM_DIR: &[Entry] = &[I(P::ParameterDirections)];
+pub(super) const NUM_SEP: &[Entry] = &[I(P::NumberSeparator)];
 /// The patterns a number-like run is lexed again with.
 /// Each of the first six must take the whole run from its start.
 /// The last marks what none takes.
@@ -272,7 +272,7 @@ const DISABLED_ENTRIES: &[Entry] = &[I(P::NestBegin), I(P::PragmaMark)];
 const SELF: &[Entry] = &[
     I(P::EnabledIfBegin),
     I(P::DisabledIfBegin),
-    I(P::CondIfBegin),
+    I(P::ConditionalIfBegin),
     I(P::Stray),
     I(P::Predefined),
     I(P::PredefinedProbably),
@@ -290,12 +290,12 @@ const SELF: &[Entry] = &[
     I(P::Number),
     G(STRINGS),
     I(P::DefineBegin),
-    I(P::DiagBegin),
+    I(P::DiagnosticBegin),
     I(P::IncludeBegin),
     I(P::PragmaMark),
-    I(P::LineDirBegin),
+    I(P::LineDirectiveBegin),
     I(P::UndefBegin),
-    I(P::PragmaDirBegin),
+    I(P::PragmaDirectiveBegin),
     I(P::SysTypes),
     I(P::Pthread),
     I(P::Stdint),
@@ -304,8 +304,8 @@ const SELF: &[Entry] = &[
     I(P::PosixReserved),
     I(P::BlockBegin),
     I(P::ParensBegin),
-    I(P::FuncDefBegin),
-    I(P::LineCont),
+    I(P::FunctionDefinitionBegin),
+    I(P::LineContinuation),
     I(P::BracketBegin),
     I(P::BracketEmpty),
     I(P::Semi),
@@ -313,14 +313,14 @@ const SELF: &[Entry] = &[
 ];
 
 const BLOCK_INNARDS: &[Entry] = &[
-    I(P::EnabledIfBBegin),
-    I(P::DisabledIfBBegin),
-    I(P::CondIfBBegin),
+    I(P::EnabledIfBlockBegin),
+    I(P::DisabledIfBlockBegin),
+    I(P::ConditionalIfBlockBegin),
     I(P::Stray),
     I(P::MethodAccess),
     I(P::MemberAccess),
     I(P::CFunctionCall),
-    I(P::InitBegin),
+    I(P::InitializationBegin),
     I(P::BlockInnerBegin),
     I(P::ParensBlockBegin),
     G(SELF),
@@ -331,8 +331,8 @@ const FUNC_INNARDS: &[Entry] = &[
     G(STORAGE_TYPES),
     G(OPERATORS),
     I(P::Vararg),
-    I(P::FuncParamsBegin),
-    I(P::FuncParensBegin),
+    I(P::FunctionParametersBegin),
+    I(P::FunctionParensBegin),
     G(SELF),
 ];
 
@@ -348,17 +348,17 @@ const CALL_INNARDS: &[Entry] = &[
 ];
 
 const COND_LINE: &[Entry] = &[
-    I(P::CondDefinedKeyword),
-    I(P::CondDefinedInvalid),
+    I(P::ConditionalDefinedKeyword),
+    I(P::ConditionalDefinedInvalid),
     G(COMMENTS),
     G(STRINGS),
     I(P::Number),
-    I(P::CondTernaryBegin),
+    I(P::ConditionalTernaryBegin),
     G(OPERATORS),
-    I(P::CondConstant),
-    I(P::CondNamed),
-    I(P::LineCont),
-    I(P::CondParensBegin),
+    I(P::ConditionalConstant),
+    I(P::ConditionalNamed),
+    I(P::LineContinuation),
+    I(P::ConditionalParensBegin),
 ];
 
 const DEFINE_CONTENTS: &[Entry] = &[
@@ -366,9 +366,9 @@ const DEFINE_CONTENTS: &[Entry] = &[
     I(P::DefineBlockBegin),
     I(P::DefineLParen),
     I(P::DefineRParen),
-    I(P::DefineFuncBegin),
-    I(P::DefineDQuoteBegin),
-    I(P::DefineSQuoteBegin),
+    I(P::DefineFunctionBegin),
+    I(P::DefineDoubleQuoteBegin),
+    I(P::DefineSingleQuoteBegin),
     I(P::MethodAccess),
     I(P::MemberAccess),
     G(SELF),
@@ -388,7 +388,7 @@ const DEFINE_FUNCTIONS: &[Entry] = &[
     G(DEFINE_CONTENTS),
 ];
 
-impl R {
+impl Rule {
     /// The patterns the context tries, in order.
     #[expect(
         clippy::too_many_lines,
@@ -396,63 +396,82 @@ impl R {
     )]
     fn items(self) -> &'static [&'static [Entry]] {
         match self {
-            R::Top | R::Parens | R::LiveElse | R::EnabledBody | R::SwitchTail => &[SELF],
-            R::Block | R::BlockInner | R::LiveElseB | R::EnabledBodyB => &[BLOCK_INNARDS],
-            R::ParensBlock => &[BLOCK_INNARDS, &[I(P::RangeColon)]],
-            R::FuncDef | R::FuncParens => &[FUNC_INNARDS],
-            R::FuncParams => &[&[I(P::Probably)], FUNC_INNARDS],
-            R::FuncCall | R::CallArgs | R::CallParens | R::Method | R::Init | R::Bracket => {
-                &[CALL_INNARDS]
+            Rule::Top | Rule::Parens | Rule::LiveElse | Rule::EnabledBody | Rule::SwitchTail => {
+                &[SELF]
             }
-            R::Ternary | R::AsmInner => &[CALL_INNARDS, SELF],
-            R::DocLine => &[&[I(P::LineCont)], DOXY],
-            R::DocBlock | R::Doxy => &[DOXY],
-            R::BlockComment | R::IncludeDQ | R::IncludeLt => &[],
-            R::LineLeading => &[&[I(P::LineSlash)]],
-            R::LineSlash | R::LineComment | R::DiagDQuote | R::DiagSQuote => &[&[I(P::LineCont)]],
-            R::DQuote | R::DefineDQuote => &[&[
+            Rule::Block | Rule::BlockInner | Rule::LiveElseBlock | Rule::EnabledBodyBlock => {
+                &[BLOCK_INNARDS]
+            }
+            Rule::ParensBlock => &[BLOCK_INNARDS, &[I(P::RangeColon)]],
+            Rule::FunctionDefinition | Rule::FunctionParens => &[FUNC_INNARDS],
+            Rule::FunctionParameters => &[&[I(P::Probably)], FUNC_INNARDS],
+            Rule::FunctionCall
+            | Rule::CallArguments
+            | Rule::CallParens
+            | Rule::Method
+            | Rule::Initialization
+            | Rule::Bracket => &[CALL_INNARDS],
+            Rule::Ternary | Rule::AsmInner => &[CALL_INNARDS, SELF],
+            Rule::DocLine => &[&[I(P::LineContinuation)], DOXY],
+            Rule::DocBlock | Rule::Doxygen => &[DOXY],
+            Rule::BlockComment | Rule::IncludeDoubleQuote | Rule::IncludeAngle => &[],
+            Rule::LineLeading => &[&[I(P::LineSlash)]],
+            Rule::LineSlash
+            | Rule::LineComment
+            | Rule::DiagnosticDoubleQuote
+            | Rule::DiagnosticSingleQuote => &[&[I(P::LineContinuation)]],
+            Rule::DoubleQuote | Rule::DefineDoubleQuote => &[&[
                 I(P::EscChar),
                 I(P::EscInvalid),
                 I(P::Placeholder),
                 I(P::PlaceholderBad),
-                I(P::LineCont),
+                I(P::LineContinuation),
             ]],
-            R::SQuote | R::DefineSQuote => &[&[I(P::EscChar), I(P::EscInvalid), I(P::LineCont)]],
-            R::Define => &[DEFINE_CONTENTS],
-            R::DefineBlock => &[DEFINE_BLOCKS],
-            R::DefineBlockInner => &[DEFINE_BLOCKS, DEFINE_CONTENTS],
-            R::DefineFunc | R::DefineCall | R::DefineParens => &[DEFINE_FUNCTIONS],
-            R::Diag => &[&[
-                I(P::DiagDQuoteBegin),
-                I(P::DiagSQuoteBegin),
-                I(P::DiagTextBegin),
+            Rule::SingleQuote | Rule::DefineSingleQuote => {
+                &[&[I(P::EscChar), I(P::EscInvalid), I(P::LineContinuation)]]
+            }
+            Rule::Define => &[DEFINE_CONTENTS],
+            Rule::DefineBlock => &[DEFINE_BLOCKS],
+            Rule::DefineBlockInner => &[DEFINE_BLOCKS, DEFINE_CONTENTS],
+            Rule::DefineFunction | Rule::DefineCall | Rule::DefineParens => &[DEFINE_FUNCTIONS],
+            Rule::Diagnostic => &[&[
+                I(P::DiagnosticDoubleQuoteBegin),
+                I(P::DiagnosticSingleQuoteBegin),
+                I(P::DiagnosticTextBegin),
             ]],
-            R::DiagText => &[&[I(P::LineCont)], COMMENTS],
-            R::Include => &[&[I(P::LineCont), I(P::IncludeDQBegin), I(P::IncludeLtBegin)]],
-            R::LineDir => &[STRINGS, &[I(P::Number), I(P::LineCont)]],
-            R::Undef => &[&[I(P::UndefName), I(P::LineCont)]],
-            R::PragmaDir => &[STRINGS, &[I(P::PragmaName), I(P::Number), I(P::LineCont)]],
-            R::CondIf => &[
+            Rule::DiagnosticText => &[&[I(P::LineContinuation)], COMMENTS],
+            Rule::Include => &[&[
+                I(P::LineContinuation),
+                I(P::IncludeDoubleQuoteBegin),
+                I(P::IncludeAngleBegin),
+            ]],
+            Rule::LineDirective => &[STRINGS, &[I(P::Number), I(P::LineContinuation)]],
+            Rule::Undef => &[&[I(P::UndefName), I(P::LineContinuation)]],
+            Rule::PragmaDirective => &[
+                STRINGS,
+                &[I(P::PragmaName), I(P::Number), I(P::LineContinuation)],
+            ],
+            Rule::ConditionalIf => &[
                 &[
-                    I(P::HeadContBegin),
+                    I(P::HeadContinuationBegin),
                     I(P::LiveElifBegin),
                     I(P::LiveElseBegin),
                     I(P::DisabledElifBegin),
-                    I(P::CondElifBegin),
+                    I(P::ConditionalElifBegin),
                 ],
                 SELF,
             ],
-            R::CondIfB => &[
+            Rule::ConditionalIfBlock => &[
                 &[
-                    I(P::HeadContBegin),
-                    I(P::LiveElifBBegin),
-                    I(P::LiveElseBBegin),
+                    I(P::HeadContinuationBegin),
+                    I(P::LiveElifBlockBegin),
+                    I(P::LiveElseBlockBegin),
                     I(P::DisabledElifBegin),
-                    I(P::CondElifBegin),
+                    I(P::ConditionalElifBegin),
                 ],
                 BLOCK_INNARDS,
             ],
-            R::EnabledIf => &[
+            Rule::EnabledIf => &[
                 &[I(P::HeadPlainBegin)],
                 COMMENTS,
                 &[
@@ -461,16 +480,16 @@ impl R {
                     I(P::EnabledBodyBegin),
                 ],
             ],
-            R::EnabledIfB => &[
+            Rule::EnabledIfBlock => &[
                 &[I(P::HeadPlainBegin)],
                 COMMENTS,
                 &[
-                    I(P::ElseBranchBBegin),
-                    I(P::ElifBranchBBegin),
-                    I(P::EnabledBodyBBegin),
+                    I(P::ElseBranchBlockBegin),
+                    I(P::ElifBranchBlockBegin),
+                    I(P::EnabledBodyBlockBegin),
                 ],
             ],
-            R::DisabledIf => &[
+            Rule::DisabledIf => &[
                 &[I(P::HeadPlainBegin)],
                 COMMENTS,
                 &[
@@ -481,52 +500,67 @@ impl R {
                     I(P::DisabledBodyBegin),
                 ],
             ],
-            R::DisabledIfB => &[
+            Rule::DisabledIfBlock => &[
                 &[I(P::HeadPlainBegin)],
                 COMMENTS,
                 &[
-                    I(P::LiveElifBBegin),
-                    I(P::LiveElseBBegin),
+                    I(P::LiveElifBlockBegin),
+                    I(P::LiveElseBlockBegin),
                     I(P::DisabledElifBegin),
-                    I(P::DisabledElifOtherBBegin),
-                    I(P::DisabledBodyBBegin),
+                    I(P::DisabledElifOtherBlockBegin),
+                    I(P::DisabledBodyBlockBegin),
                 ],
             ],
-            R::HeadCont | R::HeadPlain | R::CondElif | R::CondTernary | R::CondParens => {
-                &[COND_LINE]
-            }
-            R::LiveElif => &[&[I(P::HeadContBegin)], COMMENTS, &[I(P::ElifTailBegin)]],
-            R::LiveElifB => &[&[I(P::HeadContBegin)], COMMENTS, &[I(P::ElifTailBBegin)]],
-            R::ElifTail => &[&[I(P::ElifElseBegin), I(P::ElifElifBegin)], SELF],
-            R::ElifTailB => &[&[I(P::ElifElseBBegin), I(P::ElifElifBegin)], BLOCK_INNARDS],
-            R::ElifElse
-            | R::ElifElseB
-            | R::ElifElif
-            | R::DisabledElifBody
-            | R::DisabledBody
-            | R::DisabledBodyB
-            | R::ElseBranch
-            | R::ElseBranchB
-            | R::ElifBranch
-            | R::ElifBranchB
-            | R::Nest => &[DISABLED_ENTRIES],
-            R::DisabledElif => &[
-                &[I(P::HeadContBegin)],
+            Rule::HeadContinuation
+            | Rule::HeadPlain
+            | Rule::ConditionalElif
+            | Rule::ConditionalTernary
+            | Rule::ConditionalParens => &[COND_LINE],
+            Rule::LiveElif => &[
+                &[I(P::HeadContinuationBegin)],
+                COMMENTS,
+                &[I(P::ElifTailBegin)],
+            ],
+            Rule::LiveElifBlock => &[
+                &[I(P::HeadContinuationBegin)],
+                COMMENTS,
+                &[I(P::ElifTailBlockBegin)],
+            ],
+            Rule::ElifTail => &[&[I(P::ElifElseBegin), I(P::ElifElifBegin)], SELF],
+            Rule::ElifTailBlock => &[
+                &[I(P::ElifElseBlockBegin), I(P::ElifElifBegin)],
+                BLOCK_INNARDS,
+            ],
+            Rule::ElifElse
+            | Rule::ElifElseBlock
+            | Rule::ElifElif
+            | Rule::DisabledElifBody
+            | Rule::DisabledBody
+            | Rule::DisabledBodyBlock
+            | Rule::ElseBranch
+            | Rule::ElseBranchBlock
+            | Rule::ElifBranch
+            | Rule::ElifBranchBlock
+            | Rule::Nest => &[DISABLED_ENTRIES],
+            Rule::DisabledElif => &[
+                &[I(P::HeadContinuationBegin)],
                 COMMENTS,
                 &[I(P::DisabledElifBodyBegin)],
             ],
-            R::DisabledElifOther => &[&[I(P::HeadContBegin)], SELF],
-            R::DisabledElifOtherB => &[&[I(P::HeadContBegin)], BLOCK_INNARDS],
-            R::Switch => &[&[
+            Rule::DisabledElifOther => &[&[I(P::HeadContinuationBegin)], SELF],
+            Rule::DisabledElifOtherBlock => &[&[I(P::HeadContinuationBegin)], BLOCK_INNARDS],
+            Rule::Switch => &[&[
                 I(P::SwitchHeadBegin),
                 I(P::SwitchBodyBegin),
                 I(P::SwitchTailBegin),
             ]],
-            R::SwitchHead => &[&[I(P::SwitchParensBegin)], SELF],
-            R::SwitchBody => &[&[I(P::DefaultBegin), I(P::CaseBegin)], SELF, BLOCK_INNARDS],
-            R::SwitchParens | R::Case | R::Default => &[CALL_INNARDS, SELF, SELF, BLOCK_INNARDS],
-            R::Asm => &[&[I(P::AsmLineEnd)], COMMENTS, &[I(P::AsmParensBegin)]],
-            R::AsmParens => &[
+            Rule::SwitchHead => &[&[I(P::SwitchParensBegin)], SELF],
+            Rule::SwitchBody => &[&[I(P::DefaultBegin), I(P::CaseBegin)], SELF, BLOCK_INNARDS],
+            Rule::SwitchParens | Rule::Case | Rule::Default => {
+                &[CALL_INNARDS, SELF, SELF, BLOCK_INNARDS]
+            }
+            Rule::Asm => &[&[I(P::AsmLineEnd)], COMMENTS, &[I(P::AsmParensBegin)]],
+            Rule::AsmParens => &[
                 &[
                     I(P::AsmStringBegin),
                     I(P::AsmInnerBegin),
@@ -535,14 +569,14 @@ impl R {
                 ],
                 COMMENTS,
             ],
-            R::AsmString => &[&[I(P::EscBackslash), I(P::EscChar), I(P::EscInvalid)]],
-            R::Inline => &[INLINE],
-            R::InlineClose => &[INLINE_CLOSE],
-            R::Access => &[ACCESS],
-            R::DefineParams => &[DEFINE_PARAMS],
-            R::ParamDir => &[PARAM_DIR],
-            R::NumSep => &[NUM_SEP],
-            R::Number => &[NUMBER],
+            Rule::AsmString => &[&[I(P::EscBackslash), I(P::EscChar), I(P::EscInvalid)]],
+            Rule::Inline => &[INLINE],
+            Rule::InlineClose => &[INLINE_CLOSE],
+            Rule::Access => &[ACCESS],
+            Rule::DefineParameters => &[DEFINE_PARAMS],
+            Rule::ParameterDirections => &[PARAM_DIR],
+            Rule::NumberSeparator => &[NUM_SEP],
+            Rule::Number => &[NUMBER],
         }
     }
 }
@@ -578,20 +612,26 @@ fn starts(p: P, b: u8) -> bool {
             b == b'/'
         }
         P::LineLeading => matches!(b, b' ' | b'\t' | b'/'),
-        P::DoxyBare
-        | P::DoxyItalic
-        | P::DoxyBold
-        | P::DoxyRaw
-        | P::DoxyWordA
-        | P::DoxyWordB
-        | P::DoxyParam
-        | P::DoxyWordC
-        | P::DoxyWordD => matches!(b, b'@' | b'\\'),
+        P::DoxygenBare
+        | P::DoxygenItalic
+        | P::DoxygenBold
+        | P::DoxygenRaw
+        | P::DoxygenWordA
+        | P::DoxygenWordB
+        | P::DoxygenParameter
+        | P::DoxygenWordC
+        | P::DoxygenWordD => matches!(b, b'@' | b'\\'),
         P::Gtkdoc => b == b'@' || b.is_ascii_uppercase(),
         P::InlineEnd | P::InlineStar => b == b'*',
-        P::DQuote | P::DefineDQuoteBegin | P::DiagDQuoteBegin | P::IncludeDQBegin => b == b'"',
-        P::SQuote | P::DefineSQuoteBegin | P::DiagSQuoteBegin | P::NumSep => b == b'\'',
-        P::EscChar | P::EscBackslash | P::EscInvalid | P::LineCont => b == b'\\',
+        P::DoubleQuote
+        | P::DefineDoubleQuoteBegin
+        | P::DiagnosticDoubleQuoteBegin
+        | P::IncludeDoubleQuoteBegin => b == b'"',
+        P::SingleQuote
+        | P::DefineSingleQuoteBegin
+        | P::DiagnosticSingleQuoteBegin
+        | P::NumberSeparator => b == b'\'',
+        P::EscChar | P::EscBackslash | P::EscInvalid | P::LineContinuation => b == b'\\',
         P::Placeholder | P::PlaceholderBad => b == b'%',
         P::Number => b == b'.' || b.is_ascii_digit() || b >= 0x80,
         P::Typedef => b == b't',
@@ -610,8 +650,8 @@ fn starts(p: P, b: u8) -> bool {
         | P::PosixReserved
         | P::Predefined
         | P::KeywordControl
-        | P::CondConstant
-        | P::FuncDefBegin => is_ident(b),
+        | P::ConditionalConstant
+        | P::FunctionDefinitionBegin => is_ident(b),
         P::Decrement => b == b'-',
         P::Increment => b == b'+',
         P::CompoundAssign | P::Arith => matches!(b, b'-' | b'%' | b'*' | b'+' | b'/'),
@@ -621,86 +661,86 @@ fn starts(p: P, b: u8) -> bool {
         P::Logical => matches!(b, b'&' | b'!' | b'|'),
         P::BitOp => matches!(b, b'&' | b'^' | b'|' | b'~'),
         P::Assign => b == b'=',
-        P::Ternary | P::CondTernaryBegin => b == b'?',
+        P::Ternary | P::ConditionalTernaryBegin => b == b'?',
         P::MacK => b == b'k',
         P::MacG => b == b'g',
         P::MacS => b == b's',
         P::PredefinedProbably => b == b'_',
         P::Semi => b == b';',
-        P::Comma | P::DefineParamComma => b == b',',
+        P::Comma | P::DefineParameterComma => b == b',',
         P::BracketBegin => is_ident(b) || b == b'[' || b >= 0x80,
         P::BracketEmpty | P::AsmLabel => b == b'[',
-        P::Vararg | P::DefineParamEllipsis => b == b'.',
+        P::Vararg | P::DefineParameterEllipsis => b == b'.',
         P::BlockBegin | P::BlockInnerBegin | P::DefineBlockBegin | P::DefineBlockInnerBegin => {
             b == b'{'
         }
         P::ParensBegin
         | P::ParensBlockBegin
-        | P::FuncParensBegin
+        | P::FunctionParensBegin
         | P::CallParensBegin
         | P::DefineLParen
-        | P::CondParensBegin
+        | P::ConditionalParensBegin
         | P::DefineParensBegin
         | P::AsmInnerBegin => b == b'(',
         P::DefineRParen => b == b')',
         P::RangeColon | P::AsmColon => b == b':',
-        P::FuncParamsBegin
+        P::FunctionParametersBegin
         | P::CallBegin
         | P::CFunctionCall
-        | P::DefineFuncBegin
+        | P::DefineFunctionBegin
         | P::DefineCallBegin => call,
         P::MethodAccess | P::MemberAccess | P::PlainAccess => {
             is_ident(b) || is_ws(b) || matches!(b, b'.' | b'-')
         }
-        P::InitBegin => is_ws(b),
-        P::Probably | P::DefineParamName => is_ws(b) || is_ident(b) || b >= 0x80,
+        P::InitializationBegin => is_ws(b),
+        P::Probably | P::DefineParameterName => is_ws(b) || is_ident(b) || b >= 0x80,
         P::DefineBegin => is_ws(b) || matches!(b, b'/' | b'#'),
-        P::DiagBegin
+        P::DiagnosticBegin
         | P::IncludeBegin
         | P::PragmaMark
-        | P::LineDirBegin
+        | P::LineDirectiveBegin
         | P::UndefBegin
-        | P::PragmaDirBegin
-        | P::CondIfBegin
-        | P::CondIfBBegin
+        | P::PragmaDirectiveBegin
+        | P::ConditionalIfBegin
+        | P::ConditionalIfBlockBegin
         | P::EnabledIfBegin
-        | P::EnabledIfBBegin
+        | P::EnabledIfBlockBegin
         | P::DisabledIfBegin
-        | P::DisabledIfBBegin
+        | P::DisabledIfBlockBegin
         | P::Stray
-        | P::CondElifBegin
+        | P::ConditionalElifBegin
         | P::LiveElifBegin
-        | P::LiveElifBBegin
+        | P::LiveElifBlockBegin
         | P::LiveElseBegin
-        | P::LiveElseBBegin
+        | P::LiveElseBlockBegin
         | P::DisabledElifBegin
         | P::DisabledElifOtherBegin
-        | P::DisabledElifOtherBBegin
+        | P::DisabledElifOtherBlockBegin
         | P::ElseBranchBegin
-        | P::ElseBranchBBegin
+        | P::ElseBranchBlockBegin
         | P::ElifBranchBegin
-        | P::ElifBranchBBegin
+        | P::ElifBranchBlockBegin
         | P::ElifElseBegin
-        | P::ElifElseBBegin
+        | P::ElifElseBlockBegin
         | P::ElifElifBegin
         | P::NestBegin => is_ws(b) || b == b'#',
         P::EnabledBodyBegin
-        | P::EnabledBodyBBegin
+        | P::EnabledBodyBlockBegin
         | P::DisabledBodyBegin
-        | P::DisabledBodyBBegin
+        | P::DisabledBodyBlockBegin
         | P::DisabledElifBodyBegin
         | P::ElifTailBegin
-        | P::ElifTailBBegin => b == b'\n',
-        P::UndefName | P::PragmaName | P::CondNamed => is_ident(b) || b == b'$' || b >= 0x80,
-        P::CondDefinedKeyword | P::CondDefinedInvalid => b == b'd',
-        P::IncludeLtBegin => b == b'<',
-        P::DiagTextBegin => b != b'"' && b != b'\'',
+        | P::ElifTailBlockBegin => b == b'\n',
+        P::UndefName | P::PragmaName | P::ConditionalNamed => is_ident(b) || b == b'$' || b >= 0x80,
+        P::ConditionalDefinedKeyword | P::ConditionalDefinedInvalid => b == b'd',
+        P::IncludeAngleBegin => b == b'<',
+        P::DiagnosticTextBegin => b != b'"' && b != b'\'',
         P::SwitchBegin => is_ws(b) || matches!(b, b'/' | b's'),
         P::CaseBegin | P::DefaultBegin => is_ws(b) || matches!(b, b'/' | b'c' | b'd'),
         P::SwitchParensBegin | P::AsmParensBegin => is_ws(b) || matches!(b, b'/' | b'('),
         P::AsmStringBegin => matches!(b, b'R' | b'"'),
-        P::ParamDir => matches!(b, b'i' | b'o'),
-        P::HeadContBegin
+        P::ParameterDirections => matches!(b, b'i' | b'o'),
+        P::HeadContinuationBegin
         | P::HeadPlainBegin
         | P::SwitchHeadBegin
         | P::SwitchBodyBegin
@@ -724,33 +764,33 @@ fn start_only(p: P) -> bool {
             | P::BannerBlock
             | P::BannerLine
             | P::AsmLineEnd
-            | P::DiagBegin
+            | P::DiagnosticBegin
             | P::IncludeBegin
             | P::PragmaMark
-            | P::LineDirBegin
+            | P::LineDirectiveBegin
             | P::UndefBegin
-            | P::PragmaDirBegin
-            | P::CondIfBegin
-            | P::CondIfBBegin
+            | P::PragmaDirectiveBegin
+            | P::ConditionalIfBegin
+            | P::ConditionalIfBlockBegin
             | P::EnabledIfBegin
-            | P::EnabledIfBBegin
+            | P::EnabledIfBlockBegin
             | P::DisabledIfBegin
-            | P::DisabledIfBBegin
+            | P::DisabledIfBlockBegin
             | P::Stray
-            | P::CondElifBegin
+            | P::ConditionalElifBegin
             | P::LiveElifBegin
-            | P::LiveElifBBegin
+            | P::LiveElifBlockBegin
             | P::LiveElseBegin
-            | P::LiveElseBBegin
+            | P::LiveElseBlockBegin
             | P::DisabledElifBegin
             | P::DisabledElifOtherBegin
-            | P::DisabledElifOtherBBegin
+            | P::DisabledElifOtherBlockBegin
             | P::ElseBranchBegin
-            | P::ElseBranchBBegin
+            | P::ElseBranchBlockBegin
             | P::ElifBranchBegin
-            | P::ElifBranchBBegin
+            | P::ElifBranchBlockBegin
             | P::ElifElseBegin
-            | P::ElifElseBBegin
+            | P::ElifElseBlockBegin
             | P::ElifElifBegin
             | P::NestBegin
     )
@@ -771,7 +811,7 @@ fn word_start(p: P) -> bool {
             | P::MacG
             | P::MacS
             | P::ConstLang
-            | P::CondConstant
+            | P::ConditionalConstant
             | P::SysTypes
             | P::Pthread
             | P::Stdint
@@ -781,9 +821,9 @@ fn word_start(p: P) -> bool {
             | P::Predefined
             | P::PredefinedProbably
             | P::Number
-            | P::FuncDefBegin
-            | P::CondDefinedKeyword
-            | P::CondDefinedInvalid
+            | P::FunctionDefinitionBegin
+            | P::ConditionalDefinedKeyword
+            | P::ConditionalDefinedInvalid
             | P::Sizeof
     )
 }
@@ -799,7 +839,7 @@ fn run_start_only(p: P) -> bool {
             | P::LineComment
             | P::LineLeading
             | P::DefineBegin
-            | P::InitBegin
+            | P::InitializationBegin
             | P::SwitchBegin
             | P::SwitchParensBegin
             | P::AsmParensBegin
@@ -845,10 +885,10 @@ fn word_tail_only(p: P) -> bool {
 fn call_only(p: P) -> bool {
     matches!(
         p,
-        P::FuncParamsBegin
+        P::FunctionParametersBegin
             | P::CallBegin
             | P::CFunctionCall
-            | P::DefineFuncBegin
+            | P::DefineFunctionBegin
             | P::DefineCallBegin
     )
 }
@@ -921,10 +961,11 @@ impl Table {
     /// A class index fits a `u8`, and a list index fits a `u16`.
     /// `tables_fit_their_indices` checks both.
     /// The fallbacks therefore never apply.
-    /// It is `None` only for an `r` outside [`R::ALL`].
+    /// It is `None` only for an `r` outside [`Rule::ALL`].
     /// No such `r` exists.
-    pub(super) fn of(r: R) -> Option<&'static Table> {
-        static TABLES: [OnceLock<Table>; R::ALL.len()] = [const { OnceLock::new() }; R::ALL.len()];
+    pub(super) fn of(r: Rule) -> Option<&'static Table> {
+        static TABLES: [OnceLock<Table>; Rule::ALL.len()] =
+            [const { OnceLock::new() }; Rule::ALL.len()];
         TABLES
             .get(r.index())
             .map(|table| table.get_or_init(move || Table::build(r)))
@@ -935,7 +976,7 @@ impl Table {
     /// A class is the set of patterns a byte can start.
     /// A `place` is the set of patterns it allows.
     /// A list is made only for a set not seen before.
-    fn build(r: R) -> Table {
+    fn build(r: Rule) -> Table {
         let mut flat = Vec::new();
         for list in r.items() {
             flatten(list, &mut flat);
@@ -1021,11 +1062,11 @@ fn flatten(list: &[Entry], out: &mut Vec<P>) {
 
 #[cfg(test)]
 mod tests {
-    use super::{R, Table};
+    use super::{Rule, Table};
 
     #[test]
     fn tables_fit_their_indices() {
-        for &r in R::ALL {
+        for &r in Rule::ALL {
             let table = Table::of(r).unwrap_or_else(|| panic!("no table for {r:?}"));
             assert!(table.classes <= 1 << 8, "{r:?}: {} classes", table.classes);
             assert!(

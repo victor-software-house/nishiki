@@ -2,7 +2,7 @@
 
 use super::engine::{Lexer, Run};
 use super::scope::S;
-use super::state::R;
+use super::state::Rule;
 use super::wordset;
 use crate::scope::scopes;
 
@@ -128,7 +128,7 @@ impl Lexer<'_> {
             scopes![S::PunctDotAccess]
         };
         self.span(op_start, op_end, scope);
-        self.span_retok(chain.middle.0, chain.middle.1, S::NO_SCOPES, R::Access);
+        self.span_retok(chain.middle.0, chain.middle.1, S::NO_SCOPES, Rule::Access);
     }
 
     /// The begin of a method call, `object.method(`.

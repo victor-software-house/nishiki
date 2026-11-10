@@ -20,21 +20,21 @@ macro_rules! rules {
         /// a capture group again.
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
         #[repr(u8)]
-        pub(crate) enum R { $($id),* }
+        pub(crate) enum Rule { $($id),* }
 
-        impl R {
+        impl Rule {
             /// Every rule, in discriminant order.
-            pub(super) const ALL: &[R] = &[$(R::$id),*];
+            pub(super) const ALL: &[Rule] = &[$(Rule::$id),*];
 
             /// The scopes of the rule's `name`: on its begin, its text and
             /// its end.
             pub(super) const fn name(self) -> Scopes<S> {
-                match self { $(R::$id => rules!(@scopes $name)),* }
+                match self { $(Rule::$id => rules!(@scopes $name)),* }
             }
 
             /// The scopes of the rule's `contentName`: on its text only.
             pub(super) const fn content(self) -> Scopes<S> {
-                match self { $(R::$id => rules!(@scopes $content)),* }
+                match self { $(Rule::$id => rules!(@scopes $content)),* }
             }
         }
     };
@@ -46,14 +46,14 @@ rules! {
     BlockInner [] [];
     Parens [S::MetaParens] [];
     ParensBlock [S::MetaParensBlock] [];
-    FuncDef [S::MetaFunction] [];
-    FuncParams [S::MetaFunctionParams] [];
-    FuncParens [] [];
-    FuncCall [S::MetaFunctionCall] [];
-    CallArgs [] [];
+    FunctionDefinition [S::MetaFunction] [];
+    FunctionParameters [S::MetaFunctionParams] [];
+    FunctionParens [] [];
+    FunctionCall [S::MetaFunctionCall] [];
+    CallArguments [] [];
     CallParens [] [];
     Method [] [S::MetaFunctionCallMember];
-    Init [S::MetaInitialization] [];
+    Initialization [S::MetaInitialization] [];
     Ternary [] [];
     Bracket [S::MetaBracketAccess] [];
     DocLine [S::CommentLineDoc] [];
@@ -62,58 +62,58 @@ rules! {
     LineLeading [] [];
     LineSlash [S::CommentLine] [];
     LineComment [S::CommentLine] [];
-    DQuote [S::StringDouble] [];
-    SQuote [S::StringSingle] [];
+    DoubleQuote [S::StringDouble] [];
+    SingleQuote [S::StringSingle] [];
     Define [S::MetaPreprocessorMacro] [];
     DefineBlock [S::MetaBlock] [];
     DefineBlockInner [] [];
-    DefineFunc [S::MetaFunction] [];
+    DefineFunction [S::MetaFunction] [];
     DefineCall [] [];
     DefineParens [] [];
-    DefineDQuote [S::StringDouble] [];
-    DefineSQuote [S::StringSingle] [];
-    Diag [S::MetaPreprocessorDiagnostic] [];
-    DiagDQuote [S::StringDouble] [];
-    DiagSQuote [S::StringSingle] [];
-    DiagText [S::StringUnquoted] [];
+    DefineDoubleQuote [S::StringDouble] [];
+    DefineSingleQuote [S::StringSingle] [];
+    Diagnostic [S::MetaPreprocessorDiagnostic] [];
+    DiagnosticDoubleQuote [S::StringDouble] [];
+    DiagnosticSingleQuote [S::StringSingle] [];
+    DiagnosticText [S::StringUnquoted] [];
     Include [S::MetaPreprocessorInclude] [];
-    IncludeDQ [S::StringDoubleInclude] [];
-    IncludeLt [S::StringLtGt] [];
-    LineDir [S::MetaPreprocessor] [];
+    IncludeDoubleQuote [S::StringDoubleInclude] [];
+    IncludeAngle [S::StringLtGt] [];
+    LineDirective [S::MetaPreprocessor] [];
     Undef [S::MetaPreprocessor] [];
-    PragmaDir [S::MetaPreprocessorPragma] [];
-    CondIf [] [];
-    CondIfB [] [];
+    PragmaDirective [S::MetaPreprocessorPragma] [];
+    ConditionalIf [] [];
+    ConditionalIfBlock [] [];
     EnabledIf [] [];
-    EnabledIfB [] [];
+    EnabledIfBlock [] [];
     DisabledIf [] [];
-    DisabledIfB [] [];
-    HeadCont [S::MetaPreprocessor] [];
+    DisabledIfBlock [] [];
+    HeadContinuation [S::MetaPreprocessor] [];
     HeadPlain [S::MetaPreprocessor] [];
-    CondElif [S::MetaPreprocessor] [];
-    CondTernary [] [];
-    CondParens [] [];
+    ConditionalElif [S::MetaPreprocessor] [];
+    ConditionalTernary [] [];
+    ConditionalParens [] [];
     LiveElif [] [];
-    LiveElifB [] [];
+    LiveElifBlock [] [];
     ElifTail [] [];
-    ElifTailB [] [];
+    ElifTailBlock [] [];
     ElifElse [] [S::CommentElifBranch];
-    ElifElseB [] [S::CommentElifBranchIn];
+    ElifElseBlock [] [S::CommentElifBranchIn];
     ElifElif [] [S::CommentElifBranch];
     LiveElse [] [];
-    LiveElseB [] [];
+    LiveElseBlock [] [];
     DisabledElif [] [];
     DisabledElifBody [] [S::CommentElifBranch];
     DisabledElifOther [] [];
-    DisabledElifOtherB [] [];
+    DisabledElifOtherBlock [] [];
     DisabledBody [] [S::CommentIfBranch];
-    DisabledBodyB [] [S::CommentIfBranchIn];
+    DisabledBodyBlock [] [S::CommentIfBranchIn];
     ElseBranch [] [S::CommentElseBranch];
-    ElseBranchB [] [S::CommentElseBranchIn];
+    ElseBranchBlock [] [S::CommentElseBranchIn];
     ElifBranch [] [S::CommentIfBranch];
-    ElifBranchB [] [S::CommentIfBranchIn];
+    ElifBranchBlock [] [S::CommentIfBranchIn];
     EnabledBody [] [];
-    EnabledBodyB [] [];
+    EnabledBodyBlock [] [];
     Nest [] [];
     Switch [S::MetaBlockSwitch] [];
     SwitchHead [S::MetaHeadSwitch] [];
@@ -126,18 +126,18 @@ rules! {
     AsmParens [] [];
     AsmString [S::StringDouble] [S::MetaEmbeddedAsm];
     AsmInner [] [];
-    Doxy [] [];
+    Doxygen [] [];
     Inline [] [];
     InlineClose [] [];
     Access [] [];
-    DefineParams [] [];
-    ParamDir [] [];
-    NumSep [] [];
+    DefineParameters [] [];
+    ParameterDirections [] [];
+    NumberSeparator [] [];
     Number [] [];
 }
 
-impl R {
-    /// The rule's position in [`R::ALL`].
+impl Rule {
+    /// The rule's position in [`Rule::ALL`].
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
@@ -157,14 +157,15 @@ impl R {
     }
 
     /// The rule a frame's code names.
-    /// It is [`R::Top`] for a code that is not C's, such as the empty state's.
-    pub(super) fn from_code(code: u16) -> R {
+    /// It is [`Rule::Top`] for a code that is not C's, such as the empty
+    /// state's.
+    pub(super) fn from_code(code: u16) -> Rule {
         if code & 0xfe00 != TAG {
-            return R::Top;
+            return Rule::Top;
         }
-        R::ALL
+        Rule::ALL
             .get(usize::from(code & 0xff))
             .copied()
-            .unwrap_or(R::Top)
+            .unwrap_or(Rule::Top)
     }
 }
