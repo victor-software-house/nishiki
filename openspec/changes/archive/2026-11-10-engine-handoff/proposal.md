@@ -48,7 +48,8 @@ The [`halt-contract` change][contract] widens the contract itself: `Halts`, entr
 
 ### Modified Capabilities
 
-- `textmate-engine`: an include of a hand-lexed grammar is no longer compiled into the table.
+None.
+No `textmate-engine` requirement covers how an include is compiled, so the new capability changes none of them.
 
 ## Impact
 
@@ -57,5 +58,5 @@ The [`halt-contract` change][contract] widens the contract itself: `Halts`, entr
 - Julia's table loses its engine copies of Python, JavaScript and SQL.
 
 [gate]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/oracle/licences.ts
-[contract]: ../halt-contract/proposal.md
+[contract]: ../../halt-contract/proposal.md
 [language]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/src/language.rs

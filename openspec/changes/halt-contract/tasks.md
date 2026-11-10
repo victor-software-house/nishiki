@@ -55,4 +55,4 @@ The engine's logic does not change when they do.
 - [ ] 4.1 ERB's any-depth injection (xml-html)
 
 [pr159]: https://github.com/victor-software-house/nishiki-archive/pull/159
-[handoff]: ../engine-handoff/tasks.md
+[handoff]: ../archive/2026-11-10-engine-handoff/tasks.md

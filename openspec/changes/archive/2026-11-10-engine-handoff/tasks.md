@@ -156,7 +156,7 @@ Items 2 to 4 landed on 2026-11-04 (UTC):
 [pr388]: https://github.com/victor-software-house/nishiki-archive/pull/388
 [pr417]: https://github.com/victor-software-house/nishiki-archive/pull/417
 [pr490]: https://github.com/victor-software-house/nishiki-archive/pull/490
-[embeds]: ../../research/2026-11-10-engine-handoff-embeds.md
+[embeds]: ../../../research/2026-11-10-engine-handoff-embeds.md
 [run-main-oracle]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42855984002
 [ci365]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837615709
 [ci366]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837614919
@@ -166,4 +166,4 @@ Items 2 to 4 landed on 2026-11-04 (UTC):
 [cg368]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41837615905
 [ci325]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41800032873
 [cg325]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41800032455
-[contract]: ../halt-contract/design.md
+[contract]: ../../halt-contract/design.md

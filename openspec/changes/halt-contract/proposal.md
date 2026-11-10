@@ -46,5 +46,5 @@ None.
 - Each language module whose row sets `halts: true`: its `lex_until` on `&Halts`.
 
 [language]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/src/language.rs
-[handoff]: ../engine-handoff/proposal.md
+[handoff]: ../archive/2026-11-10-engine-handoff/proposal.md
 [pr159]: https://github.com/victor-software-house/nishiki-archive/pull/159
