@@ -33,10 +33,10 @@ pub(crate) const DYNAMIC_NAME: u16 = 0x8000;
 pub(crate) enum RuleKind {
     /// One pattern that scopes its text.
     #[cfg_attr(
-        not(test),
+        not(any(test, feature = "json")),
         expect(
             dead_code,
-            reason = "no language runs on the TextMate engine now; its tests do"
+            reason = "without json, no grammar reaches the engine; its tests run it"
         )
     )]
     Match,
@@ -48,10 +48,10 @@ pub(crate) enum RuleKind {
     BeginWhile,
     /// Only a list of patterns: the root of a grammar, or a capture's rules.
     #[cfg_attr(
-        not(test),
+        not(any(test, feature = "json")),
         expect(
             dead_code,
-            reason = "no language runs on the TextMate engine now; its tests do"
+            reason = "without json, no grammar reaches the engine; its tests run it"
         )
     )]
     Container,
@@ -107,10 +107,10 @@ pub(crate) struct List {
 impl List {
     /// A list of `rules`.
     #[cfg_attr(
-        not(test),
+        not(any(test, feature = "json")),
         expect(
             dead_code,
-            reason = "no language runs on the TextMate engine now; its tests do"
+            reason = "without json, no grammar reaches the engine; its tests run it"
         )
     )]
     pub(crate) const fn new(rules: &'static [usize]) -> List {
@@ -177,10 +177,10 @@ pub(crate) struct Injection {
 /// Whether `source` holds a back-reference `\1`..`\9`, which an `end` or
 /// `while` pattern fills in from the `begin` match.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 const fn has_backrefs(source: &str) -> bool {
@@ -210,10 +210,10 @@ pub(crate) struct Pattern {
 impl Pattern {
     /// The pattern `source`.
     #[cfg_attr(
-        not(test),
+        not(any(test, feature = "json")),
         expect(
             dead_code,
-            reason = "no language runs on the TextMate engine now; its tests do"
+            reason = "without json, no grammar reaches the engine; its tests run it"
         )
     )]
     pub(crate) const fn new(source: &'static str) -> Pattern {
@@ -289,10 +289,10 @@ pub(crate) enum Folding {
     Same,
     /// Some pattern's lean program differs from its full one.
     #[cfg_attr(
-        not(test),
+        not(any(test, feature = "json")),
         expect(
             dead_code,
-            reason = "no language runs on the TextMate engine now; its tests and the linker do"
+            reason = "without json, no grammar reaches the engine; its tests run it"
         )
     )]
     Differs,

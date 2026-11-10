@@ -150,8 +150,9 @@ systems = [
   "lang-swift",
 ]
 docs = ["config", "lang-latex", "lang-markdown", "lang-tex"]
-# nishiki's TextMate engine. No language runs on it now.
-textmate = ["_textmate"]
+# nishiki's TextMate engine, and the grammars a caller loads into it.
+# `json` reads them in Shiki's JSON form. No bundled language runs on it now.
+textmate = ["_textmate", "json"]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-asm = ["_language", "_scope-table", "_rule-tables", "_classes"]

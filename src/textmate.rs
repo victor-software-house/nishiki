@@ -9,10 +9,6 @@
 //! - The regular-expression machine in [`regex`] runs the patterns.
 
 #[cfg(feature = "json")]
-#[cfg_attr(
-    not(test),
-    expect(dead_code, reason = "the public grammar API calls it next")
-)]
 pub(crate) mod compile;
 pub(crate) mod grammar;
 mod regex;
@@ -22,6 +18,8 @@ mod tokenizer;
 
 pub(crate) use grammar::Grammar;
 pub(crate) use tokenizer::Scratch;
+#[cfg(feature = "json")]
+pub(crate) use tokenizer::start;
 use tokenizer::{Embedded, Text};
 
 use crate::language::{Context, Halt, Line, Stopped};
@@ -34,10 +32,10 @@ use crate::limits::{Finished, Steps};
 /// this function was inlined into `Highlighter::line` and `line_until` was
 /// not inlined into it. Batch then rose 0.2% at one codegen unit.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 #[inline(never)]
@@ -95,7 +93,7 @@ pub(crate) fn lex_embedded(
     not(test),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "no language embeds an engine grammar now; its tests do"
     )
 )]
 pub(crate) fn lex_until(
@@ -131,10 +129,10 @@ pub(crate) fn lex_until(
 /// `Highlighter::line` for every language. Its own cost rose about 6% on the
 /// diff, Rust and JSON fixtures at one codegen unit.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its hand-off tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 #[inline(never)]
@@ -165,7 +163,7 @@ pub(crate) fn lex_handing(
     not(test),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its hand-off tests do"
+        reason = "no language embeds an engine grammar now; its hand-off tests do"
     )
 )]
 pub(crate) fn lex_handing_embedded(
@@ -205,6 +203,24 @@ pub(crate) fn lex_handing_until(
         Some(Embedded { end, after }),
     );
     (counted(cx, line, next), halted.map(Stopped::halt))
+}
+
+/// Lexes `line` of a linked grammar that a highlighter runs.
+///
+/// A grammar that hands regions to languages lexed by hand runs the handing
+/// loop, as its language would.
+#[cfg(any(test, feature = "json"))]
+pub(crate) fn lex_linked(
+    cx: &mut Context<'_>,
+    grammar: &'static Grammar,
+    line: Line<'_>,
+    state: u32,
+) -> u32 {
+    if grammar.hand_offs.is_empty() {
+        lex(cx, grammar, line, state)
+    } else {
+        lex_handing(cx, grammar, line, state)
+    }
 }
 
 /// `state` with the work the engine spent on `line`.

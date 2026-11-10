@@ -184,6 +184,12 @@ impl<S: Syntax> Highlighter<S> {
         }
     }
 
+    /// What the highlighter lexes with.
+    #[cfg(feature = "textmate")]
+    pub(crate) fn lexer(&self) -> S::Lexer {
+        self.lexer
+    }
+
     /// The limits this highlighter applies to every line.
     #[must_use]
     pub fn limits(&self) -> Limits {
