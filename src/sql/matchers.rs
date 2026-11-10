@@ -565,13 +565,13 @@ impl Lexer<'_> {
             .and_then(|at| self.lit(at, "or"))
             .and_then(|at| self.spaces1(at))
             .and_then(|at| self.lit(at, "replace"));
-        let (phrase, kind_start, kind_end, name, name_end, end) = [replaced, Some(created)]
+        let (phrase, type_start, type_end, name, name_end, end) = [replaced, Some(created)]
             .into_iter()
             .flatten()
             .find_map(|phrase| {
                 let start = self.spaces1(phrase)?;
                 self.object_types(start, CREATE_TYPES, true)
-                    .find_map(|(kind_end, after)| {
+                    .find_map(|(type_end, after)| {
                         let (quote, name) = match self.at(after) {
                             q @ (b'\'' | b'"' | b'`') if after < self.lim() => (Some(q), after + 1),
                             _ => (None, after),
@@ -587,13 +587,13 @@ impl Lexer<'_> {
                             Some(_) => return None,
                             None => name_end,
                         };
-                        Some((phrase, start, kind_end, name, name_end, end))
+                        Some((phrase, start, type_end, name, name_end, end))
                     })
             })?;
         Some(
             Hit::new(0, end)
                 .cap(0, word, phrase, S::KwCreate)
-                .cap(1, kind_start, kind_end, S::KwOther)
+                .cap(1, type_start, type_end, S::KwOther)
                 .cap(2, name, name_end, S::EntityFunction),
         )
     }

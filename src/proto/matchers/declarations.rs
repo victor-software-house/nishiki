@@ -294,8 +294,8 @@ impl Lexer<'_> {
         if let Some(label_end) = label_end {
             self.cap(1, label, label_end);
         }
-        let [kind, name, equals, number] = rest;
-        self.cap(2, kind.0, kind.1);
+        let [field_type, name, equals, number] = rest;
+        self.cap(2, field_type.0, field_type.1);
         self.cap(3, name.0, name.1);
         self.cap(4, equals.0, equals.1);
         self.cap(5, number.0, number.1);
@@ -305,10 +305,10 @@ impl Lexer<'_> {
     /// `(\.?[.\w]+)\s+(\w+)\s*(=)\s*(0[Xx]\h+|[0-9]+)` from `i`: the spans of
     /// its four groups.
     fn field_rest(&self, i: usize) -> Option<[(usize, usize); 4]> {
-        let kind_end = self.dotted_word_end(i);
-        let name = self.space_end(kind_end);
+        let type_end = self.dotted_word_end(i);
+        let name = self.space_end(type_end);
         let name_end = self.word_end(name);
-        if kind_end == i || name == kind_end || name_end == name {
+        if type_end == i || name == type_end || name_end == name {
             return None;
         }
         let equals = self.space_end(name_end);
@@ -316,7 +316,7 @@ impl Lexer<'_> {
         let number = self.space_end(equals_end);
         let number_end = self.integer(number)?;
         Some([
-            (i, kind_end),
+            (i, type_end),
             (name, name_end),
             (equals, equals_end),
             (number, number_end),

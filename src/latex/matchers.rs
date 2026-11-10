@@ -1382,12 +1382,12 @@ impl Lexer<'_> {
     /// The runs give back from their ends, so the match ends at the last `_`
     /// that a lowercase letter follows, or at the last letter.
     fn expl3_variable(&self, i: usize) -> Option<usize> {
-        let kind = self.at(i);
+        let scope_letter = self.at(i);
         if i >= self.lim() {
             return None;
         }
         let in_class = |c: char| c == '@' || c == '_' || is_alpha(c);
-        match kind {
+        match scope_letter {
             b'c' | b'g' | b'l' => {
                 self.lit(i + 1, b"_")?;
                 let mut last = None;

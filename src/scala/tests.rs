@@ -99,7 +99,7 @@ fn a_using_name_quotes_only_inside_its_text() {
 }
 
 #[test]
-fn operators_take_their_kind() {
+fn operators_take_their_scopes() {
     assert_eq!(leaf("a && b", "&&"), "keyword.operator.logical.scala");
     assert_eq!(leaf("a <= b", "<="), "keyword.operator.comparison.scala");
     assert_eq!(leaf("a + b", "+"), "keyword.operator.arithmetic.scala");

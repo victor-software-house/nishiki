@@ -92,7 +92,7 @@ pub(crate) enum Lazy {
     ArrayIndex,
 }
 
-/// The last search of each [`Lazy`] kind.
+/// The last search of each [`Lazy`] variant.
 #[derive(Debug)]
 struct Finds {
     case_word: Cell<Find>,

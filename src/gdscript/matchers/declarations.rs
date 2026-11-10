@@ -68,15 +68,15 @@ impl Lexer<'_> {
         let name_end = self.name(name)?;
         let colon = self.space_end(name_end);
         let after = self.lit(colon, b":")?;
-        let kind = self.space_end(after);
+        let type_start = self.space_end(after);
         self.cap(1, name, name_end);
         self.cap(2, colon, after);
-        match self.name(kind) {
+        match self.name(type_start) {
             Some(end) => {
-                self.cap(3, kind, end);
+                self.cap(3, type_start, end);
                 Some(end)
             }
-            None => Some(kind),
+            None => Some(type_start),
         }
     }
 
@@ -147,14 +147,14 @@ impl Lexer<'_> {
     /// `(:)\s*([A-Z_a-z]\w*)?`: a variable's type.
     pub(super) fn type_annotation(&mut self, p: usize) -> Option<usize> {
         let after = self.lit(p, b":")?;
-        let kind = self.space_end(after);
+        let type_start = self.space_end(after);
         self.cap(1, p, after);
-        match self.name(kind) {
+        match self.name(type_start) {
             Some(end) => {
-                self.cap(2, kind, end);
+                self.cap(2, type_start, end);
                 Some(end)
             }
-            None => Some(kind),
+            None => Some(type_start),
         }
     }
 

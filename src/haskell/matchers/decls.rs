@@ -222,19 +222,22 @@ impl Lexer<'_> {
         if blanks == after {
             return None;
         }
-        let kinds: &[&[u8]] = if gadt {
+        let keywords: &[&[u8]] = if gadt {
             &[b"instance"]
         } else {
             &[b"family", b"instance"]
         };
-        if let Some(kind) = kinds.iter().find_map(|kind| self.lit(blanks, kind)) {
-            let head = self.space_end(kind);
-            if head > kind
+        if let Some(keyword) = keywords
+            .iter()
+            .find_map(|keyword| self.lit(blanks, keyword))
+        {
+            let head = self.space_end(keyword);
+            if head > keyword
                 && let Some(end) = self.data_head_end(head, gadt)
             {
                 self.cap(1, 0, indent);
                 self.cap(2, indent, after);
-                self.cap(3, blanks, kind);
+                self.cap(3, blanks, keyword);
                 self.cap(4, head, end);
                 return Some(end);
             }

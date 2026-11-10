@@ -345,12 +345,12 @@ impl Lexer<'_> {
     pub(super) fn transparent_box(&mut self, p: usize) -> Option<usize> {
         let start = self.ws(p);
         let word = self.ci(start, b"box")?;
-        let kind = self.ws1(word)?;
-        let kind_end = self.ci(kind, b"transparent")?;
-        let text = (self.space_at(kind_end) > 0).then(|| self.ws(kind_end));
-        let end = text.map_or(kind_end, |text| self.class_run(text, is_text));
+        let transparent = self.ws1(word)?;
+        let transparent_end = self.ci(transparent, b"transparent")?;
+        let text = (self.space_at(transparent_end) > 0).then(|| self.ws(transparent_end));
+        let end = text.map_or(transparent_end, |text| self.class_run(text, is_text));
         self.cap(1, start, word);
-        self.cap(2, kind, kind_end);
+        self.cap(2, transparent, transparent_end);
         if let Some(text) = text {
             self.cap(3, text, end);
         }

@@ -327,10 +327,10 @@ impl Lexer<'_> {
     /// Group 1 is the name, group 2 the supertype with its operator, which is
     /// group 3.
     pub(super) fn type_decl(&mut self, p: usize) -> Option<usize> {
-        let kind = self.lit(p, b"!:_")?;
-        let kind_end = self.first_word_unbounded(kind, DECLARED)?;
-        let start = self.space_end(kind_end);
-        if start == kind_end {
+        let keyword = self.lit(p, b"!:_")?;
+        let keyword_end = self.first_word_unbounded(keyword, DECLARED)?;
+        let start = self.space_end(keyword_end);
+        if start == keyword_end {
             return None;
         }
         let name = self.ident(start)?;

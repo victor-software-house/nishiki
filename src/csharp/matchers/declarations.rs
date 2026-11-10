@@ -28,7 +28,7 @@ impl Lexer<'_> {
         self.keyword(p, word).map(|_| p)
     }
 
-    /// `(?=(\brecord\b\s+)?\bword\b)`: a declaration of kind `word`, which a
+    /// `(?=(\brecord\b\s+)?\bword\b)`: a `word` declaration, which a
     /// `record` may precede.
     pub(in crate::csharp) fn ahead_of_record_or(&self, p: usize, word: &[u8]) -> Option<usize> {
         let after_record = self.keyword(p, b"record").and_then(|end| self.blanks1(end));

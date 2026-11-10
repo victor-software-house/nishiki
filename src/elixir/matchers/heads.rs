@@ -196,14 +196,19 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// `^\s*(def(?:kinds)p?)\s+(name)((\()|\s*)`: the head of a function,
+    /// `^\s*(def(?:suffixes)p?)\s+(name)((\()|\s*)`: the head of a function,
     /// macro, delegate or guard, private when `private`.
     ///
-    /// The `kinds` come in the grammar's order, the empty one first.
-    /// A word of `kinds` whose `\s+` or name fails gives way to the next.
+    /// The `suffixes` come in the grammar's order, the empty one first.
+    /// A word of `suffixes` whose `\s+` or name fails gives way to the next.
     /// The name is the grammar's `(?>prefix)?(?>…)`: the prefix is atomic,
     /// and dropped when no name follows it.
-    pub(super) fn def_head(&mut self, p: usize, kinds: &[&[u8]], private: bool) -> Option<usize> {
+    pub(super) fn def_head(
+        &mut self,
+        p: usize,
+        suffixes: &[&[u8]],
+        private: bool,
+    ) -> Option<usize> {
         if p != 0 {
             return None;
         }
@@ -211,13 +216,13 @@ impl Lexer<'_> {
         if !self.starts(start, b"def") {
             return None;
         }
-        for kind in kinds {
+        for suffix in suffixes {
             let mut keyword = start + 3;
-            if !kind.is_empty() {
-                if !self.starts(keyword, kind) {
+            if !suffix.is_empty() {
+                if !self.starts(keyword, suffix) {
                     continue;
                 }
-                keyword += kind.len();
+                keyword += suffix.len();
             }
             if private {
                 if !self.starts(keyword, b"p") {
@@ -286,10 +291,10 @@ impl Lexer<'_> {
         )
     }
 
-    /// `\b(do:)|\b(do)\b|(?=\s+(def(?:kinds))\b)`: what ends a `def` head.
+    /// `\b(do:)|\b(do)\b|(?=\s+(def(?:suffixes))\b)`: what ends a `def` head.
     /// The lookahead's group lies in the text after the match, and the
     /// grammar names no scope for it.
-    pub(super) fn def_end(&mut self, p: usize, kinds: &[&[u8]]) -> Option<usize> {
+    pub(super) fn def_end(&mut self, p: usize, suffixes: &[&[u8]]) -> Option<usize> {
         if self.starts(p, b"do:") && self.boundary(p) {
             self.cap(1, p, p + 3);
             return Some(p + 3);
@@ -302,11 +307,11 @@ impl Lexer<'_> {
         if start == p || !self.starts(start, b"def") {
             return None;
         }
-        kinds
+        suffixes
             .iter()
-            .any(|kind| {
-                let end = start + 3 + kind.len();
-                (kind.is_empty() || self.starts(start + 3, kind)) && self.boundary(end)
+            .any(|suffix| {
+                let end = start + 3 + suffix.len();
+                (suffix.is_empty() || self.starts(start + 3, suffix)) && self.boundary(end)
             })
             .then_some(p)
     }

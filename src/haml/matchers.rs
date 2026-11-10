@@ -228,12 +228,12 @@ impl Lexer<'_> {
     /// [`Filter::Unindented`] is `^(?!\1\s+|$\n*)`, and [`Filter::Indented`]
     /// is `^(?=\1\s+|$\n*)`; both hold only at the line's start and take no
     /// text.
-    fn filter_end(&self, p: usize, kind: Filter, indent: &str) -> Option<usize> {
+    fn filter_end(&self, p: usize, filter: Filter, indent: &str) -> Option<usize> {
         if p != 0 {
             return None;
         }
         let stays = self.stays_in_filter(indent.as_bytes());
-        let ends = match kind {
+        let ends = match filter {
             Filter::Unindented => !stays,
             Filter::Indented => stays,
             Filter::AfterLineFeed => false,

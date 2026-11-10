@@ -814,7 +814,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// the rule that embeds the grammar.
     /// A halt, the end of the line and every other path leave them set.
     /// Less's tests `an_embedded_line_halts_at_the_hosts_end` and
-    /// `an_embedded_line_pops_the_host_at_a_root_close` check both kinds.
+    /// `an_embedded_line_pops_the_host_at_a_root_close` check both reasons.
     fn stopped(&self) -> Option<Stopped> {
         let reason = match self.halt {
             Some(_) => StopReason::Halt,
@@ -2314,7 +2314,7 @@ mod tests {
     #[derive(Clone, Copy, Debug)]
     struct Named;
 
-    /// The kind of [`Named`]'s capture group that JavaScript lexes again.
+    /// The one of [`Named`]'s capture groups that JavaScript lexes again.
     #[derive(Clone, Copy, Debug)]
     enum Lexed {
         Script,

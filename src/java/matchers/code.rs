@@ -143,13 +143,13 @@ impl Lexer<'_> {
     }
 
     /// `(\.)\s*(new)`, and the property patterns `(\.)\s*(name)`, with the
-    /// kind of name that follows the dot.
-    pub(super) fn property(&mut self, p: usize, kind: Property) -> Option<usize> {
+    /// `property`, the name that follows the dot.
+    pub(super) fn property(&mut self, p: usize, property: Property) -> Option<usize> {
         if self.at(p) != b'.' {
             return None;
         }
         let name = self.space_end(p + 1);
-        let end = match kind {
+        let end = match property {
             Property::New => self.lit(name, b"new")?,
             Property::Chained | Property::Plain => self.ident_end(name)?,
             Property::Digit => {
@@ -159,7 +159,7 @@ impl Lexer<'_> {
                 self.name_end(name + 1)
             }
         };
-        if kind == Property::Chained {
+        if property == Property::Chained {
             let dot = self.space_end(end);
             if self.at(dot) != b'.' {
                 return None;

@@ -101,8 +101,8 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     type Rule: Copy + Debug + PartialEq + 'static;
     /// One regular expression of the grammar.
     type Pat: Copy + Debug + 'static;
-    /// A kind of capture group that the grammar tokenizes with patterns of
-    /// its own.
+    /// What a capture group holds that the grammar tokenizes with patterns
+    /// of its own.
     type Nested: Copy + Debug + 'static;
     /// What the language's matchers remember about the line being lexed.
     type Extra: Default;

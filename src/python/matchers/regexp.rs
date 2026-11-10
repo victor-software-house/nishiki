@@ -155,8 +155,8 @@ impl Lexer<'_> {
     }
 
     /// The patterns written once for each quote style.
-    pub(super) fn flavoured(&mut self, flavour: Flavour, kind: Re, p: usize) -> Option<usize> {
-        match kind {
+    pub(super) fn flavoured(&mut self, flavour: Flavour, re: Re, p: usize) -> Option<usize> {
+        match re {
             Re::CharacterSetAt0 => self.empty_set(p),
             Re::CharacterSetAt1 => self.set_begin(p),
             Re::CharacterSetAt1End => self.regexp_close(p, flavour, b']'),

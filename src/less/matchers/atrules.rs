@@ -224,12 +224,12 @@ impl Lexer<'_> {
             self.cap(1, at, stop);
             end = stop;
         }
-        let kind = self.spaces(end);
-        if let Some(stop) = self.first_of(kind, &TYPES) {
-            self.cap(2, kind, stop);
+        let media_type = self.spaces(end);
+        if let Some(stop) = self.first_of(media_type, &TYPES) {
+            self.cap(2, media_type, stop);
             return Some(stop);
         }
-        Some(kind)
+        Some(media_type)
     }
 
     /// `\s*(and)?\s*(\()\s*`.

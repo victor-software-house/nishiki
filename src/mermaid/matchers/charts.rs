@@ -604,7 +604,7 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// The end of a Git value of kind `value` at `p`.
+    /// The end of a Git value of the form `value` at `p`.
     fn git_value(&self, p: usize, value: GitValue) -> Option<usize> {
         let quoted = |class: fn(char) -> bool| {
             if self.at(p) != b'"' {
@@ -887,16 +887,16 @@ impl Lexer<'_> {
             return None;
         }
         let start = self.ws(p);
-        let kind = [
+        let prefix = [
             b"functional".as_slice(),
             b"interface",
             b"performance",
             b"physical",
         ]
         .iter()
-        .find_map(|kind| self.ci(start, kind))
-        .and_then(|kind| self.ci(kind, b"requirement"));
-        let word = kind
+        .find_map(|prefix| self.ci(start, prefix))
+        .and_then(|prefix| self.ci(prefix, b"requirement"));
+        let word = prefix
             .or_else(|| self.ci(start, b"requirement"))
             .or_else(|| self.ci(start, b"designConstraint"))?;
         self.block_head(start, word)

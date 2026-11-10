@@ -242,20 +242,20 @@ impl Lexer<'_> {
             return None;
         }
         let nth = self.lit(p + 1, b"nth-")?;
-        let kind = [Some(nth), self.lit(nth, b"last-")]
+        let name_end = [Some(nth), self.lit(nth, b"last-")]
             .into_iter()
             .flatten()
             .find_map(|from| {
                 self.lit(from, b"child")
                     .or_else(|| self.lit(from, b"of-type"))
             })?;
-        if self.at(kind) != b'(' {
+        if self.at(name_end) != b'(' {
             return None;
         }
-        self.cap(1, p, kind);
+        self.cap(1, p, name_end);
         self.cap(2, p, p + 1);
-        self.cap(3, kind, kind + 1);
-        Some(kind + 1)
+        self.cap(3, name_end, name_end + 1);
+        Some(name_end + 1)
     }
 
     /// `\d+`.

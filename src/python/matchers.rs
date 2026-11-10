@@ -35,7 +35,7 @@ impl Lexer<'_> {
             Split::String(pat) => self.string_matcher(pat, p),
             Split::Fstring(pat) => self.fstring_matcher(pat, p),
             Split::Regexp(pat) => self.regexp_matcher(pat, p),
-            Split::Flavoured(flavour, kind) => self.flavoured(flavour, kind, p),
+            Split::Flavoured(flavour, re) => self.flavoured(flavour, re, p),
         }
     }
 }

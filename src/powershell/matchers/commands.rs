@@ -298,13 +298,13 @@ impl Lexer<'_> {
             return None;
         }
         let using = self.folded(p, b"using")?;
-        let kind_at = self.space_end(using);
-        if kind_at == using {
+        let keyword_at = self.space_end(using);
+        if keyword_at == using {
             return None;
         }
-        let kind = self.first_folded(kind_at, &[b"namespace", b"module"], |_, _| true)?;
-        let name_at = self.space_end(kind);
-        if name_at == kind {
+        let keyword = self.first_folded(keyword_at, &[b"namespace", b"module"], |_, _| true)?;
+        let name_at = self.space_end(keyword);
+        if name_at == keyword {
             return None;
         }
         let mut name = name_at;
@@ -323,7 +323,7 @@ impl Lexer<'_> {
             return None;
         }
         self.cap(1, p, using);
-        self.cap(2, kind_at, kind);
+        self.cap(2, keyword_at, keyword);
         self.cap(3, name_at, name);
         Some(name)
     }

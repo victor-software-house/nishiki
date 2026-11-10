@@ -57,8 +57,8 @@ impl<'a> Emitter<'a> {
         self.pos = to;
     }
 
-    /// Opens a context of kind `code` with `payload`, whose text carries
-    /// `scopes` on top of the current stack.
+    /// Opens the context whose rule is `code`, with `payload`, whose text
+    /// carries `scopes` on top of the current stack.
     /// It returns false when the depth or node limit keeps it closed, which
     /// the report records.
     ///
