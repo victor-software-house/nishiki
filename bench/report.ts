@@ -152,6 +152,11 @@ const fixed = (n: number, digits: number) =>
   n.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
 
 /** A latency figure in µs, or `<` its resolution when below it. */
+/** A Markdown table row of `cells`. */
+function tableRow(...cells: (string | number)[]): string {
+  return `| ${cells.join(" | ")} |`;
+}
+
 function micros(ns: number, resolutionNs: number): string {
   return ns < resolutionNs ? `<${fixed(resolutionNs / 1e3, 3)}` : fixed(ns / 1e3, 2);
 }
@@ -186,14 +191,23 @@ export function renderRecord(record: BenchRecord, stem: string): string {
     "",
     "| | |",
     "|:--|:--|",
-    `| Commit | \`${record.commit}\`, kept reachable by the tag \`bench/${record.commit}\` |`,
-    `| Host | ${hostLine(record)} |`,
-    `| Toolchain | ${record.toolchain.rustc}, ${record.toolchain.cargo} |`,
-    `| When | ${record.started} to ${record.finished} |`,
-    `| Rounds | ${record.rounds} of every Criterion bench and of the latency program; ${record.cold_processes} cold processes per file, the first 3 rounds dropped |`,
-    `| Anchor | \`${record.anchor.id}\` for 2 s: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ${fixed(record.anchor.end_mib_s, 1)} at the end, drift ${fixed(record.anchor.drift_pct, 2)}%, within the class's bound of ${fixed(record.anchor.bound_pct, 0)}% |`,
-    `| Corpus | version ${record.corpus_version} |`,
-    `| Compute | ${compute} |`,
+    tableRow(
+      "Commit",
+      `\`${record.commit}\`, kept reachable by the tag \`bench/${record.commit}\``,
+    ),
+    tableRow("Host", hostLine(record)),
+    tableRow("Toolchain", `${record.toolchain.rustc}, ${record.toolchain.cargo}`),
+    tableRow("When", `${record.started} to ${record.finished}`),
+    tableRow(
+      "Rounds",
+      `${record.rounds} of every Criterion bench and of the latency program; ${record.cold_processes} cold processes per file, the first 3 rounds dropped`,
+    ),
+    tableRow(
+      "Anchor",
+      `\`${record.anchor.id}\` for 2 s: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ${fixed(record.anchor.end_mib_s, 1)} at the end, drift ${fixed(record.anchor.drift_pct, 2)}%, within the class's bound of ${fixed(record.anchor.bound_pct, 0)}%`,
+    ),
+    tableRow("Corpus", `version ${record.corpus_version}`),
+    tableRow("Compute", compute),
     "",
     `The harness output, unchanged, is in [\`${stem}.txt\`](${stem}.txt).`,
     "Each figure is the median over the rounds; spread is the largest round minus the " +
@@ -208,7 +222,14 @@ export function renderRecord(record: BenchRecord, stem: string): string {
     const digits = figure.unit === "ns" ? 0 : 2;
     const v = figure.value;
     out.push(
-      `| ${figure.id} | ${fixed(v.median, digits)} | ${figure.unit} | ${fixed(v.min, digits)} | ${fixed(v.max, digits)} | ${fixed(v.spread_pct, 1)}% |`,
+      tableRow(
+        figure.id,
+        fixed(v.median, digits),
+        figure.unit,
+        fixed(v.min, digits),
+        fixed(v.max, digits),
+        `${fixed(v.spread_pct, 1)}%`,
+      ),
     );
   }
   out.push(
@@ -225,7 +246,16 @@ export function renderRecord(record: BenchRecord, stem: string): string {
   for (const f of record.latency) {
     const res = f.resolution_ns.median;
     out.push(
-      `| ${f.language} | ${f.tier} | ${f.lines} | ${micros(f.steady_p50_ns.median, res)} | ${micros(f.steady_p99_ns.median, res)} | ${micros(f.steady_max_ns.median, res)} | ${micros(f.first_contact_max_ns.median, res)} | ${fixed(f.steady_p99_ns.spread_pct, 1)}% |`,
+      tableRow(
+        f.language,
+        f.tier,
+        f.lines,
+        micros(f.steady_p50_ns.median, res),
+        micros(f.steady_p99_ns.median, res),
+        micros(f.steady_max_ns.median, res),
+        micros(f.first_contact_max_ns.median, res),
+        `${fixed(f.steady_p99_ns.spread_pct, 1)}%`,
+      ),
     );
   }
   out.push(
@@ -239,7 +269,7 @@ export function renderRecord(record: BenchRecord, stem: string): string {
   );
   for (const f of record.cold) {
     out.push(
-      `| ${f.name} | ${f.measure.replace("_", " ")} | ${fixed(f.median_us, 1)} | ${fixed(f.p90_us, 1)} |`,
+      tableRow(f.name, f.measure.replace("_", " "), fixed(f.median_us, 1), fixed(f.p90_us, 1)),
     );
   }
   return `${out.join("\n")}\n`;
@@ -346,15 +376,27 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
     "",
     "| | |",
     "|:--|:--|",
-    `| Commit | \`${record.commit}\`, kept reachable by the tag \`bench/${record.commit}\` |`,
-    `| Host | ${hostLine(record)} |`,
-    `| Toolchain | ${record.toolchain.rustc}, ${record.toolchain.cargo}, Bun ${record.toolchain.bun} |`,
-    `| When | ${record.started} to ${record.finished} |`,
-    `| Tiers | ${record.tiers.join(", ")} |`,
-    `| Rounds | ${record.rounds} rounds of warm throughput per engine and file, the order rotating; ${record.cold_processes} fresh processes per engine and file |`,
-    `| Anchor | ${record.anchor.id}: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ${fixed(record.anchor.end_mib_s, 1)} at the end, drift ${fixed(record.anchor.drift_pct, 2)}%, within the class's bound of ${fixed(record.anchor.bound_pct, 0)}% |`,
-    `| Corpus | version ${record.corpus_version} |`,
-    `| Compute | ${compute} |`,
+    tableRow(
+      "Commit",
+      `\`${record.commit}\`, kept reachable by the tag \`bench/${record.commit}\``,
+    ),
+    tableRow("Host", hostLine(record)),
+    tableRow(
+      "Toolchain",
+      `${record.toolchain.rustc}, ${record.toolchain.cargo}, Bun ${record.toolchain.bun}`,
+    ),
+    tableRow("When", `${record.started} to ${record.finished}`),
+    tableRow("Tiers", record.tiers.join(", ")),
+    tableRow(
+      "Rounds",
+      `${record.rounds} rounds of warm throughput per engine and file, the order rotating; ${record.cold_processes} fresh processes per engine and file`,
+    ),
+    tableRow(
+      "Anchor",
+      `${record.anchor.id}: ${fixed(record.anchor.start_mib_s, 1)} MiB/s at the start, ${fixed(record.anchor.end_mib_s, 1)} at the end, drift ${fixed(record.anchor.drift_pct, 2)}%, within the class's bound of ${fixed(record.anchor.bound_pct, 0)}%`,
+    ),
+    tableRow("Corpus", `version ${record.corpus_version}`),
+    tableRow("Compute", compute),
     "",
     `The harnesses' output, unchanged, is in [\`${stem}.txt\`](${stem}.txt).`,
     "",
@@ -362,9 +404,15 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
     "",
     "| engine | version | features | backend | runtime | languages left out |",
     "|:--|:--|:--|:--|:--|:--|",
-    ...record.engines.map(
-      (e) =>
-        `| ${e.name} | ${e.version} | ${e.features} | ${e.backend} | ${e.runtime} | ${(record.left_out[e.name] ?? []).join(", ") || "none"} |`,
+    ...record.engines.map((e) =>
+      tableRow(
+        e.name,
+        e.version,
+        e.features,
+        e.backend,
+        e.runtime,
+        (record.left_out[e.name] ?? []).join(", ") || "none",
+      ),
     ),
     "",
     "## Results",
@@ -382,7 +430,16 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
   )) {
     const fidelity = row.fidelity === null ? "n/a" : `${fixed(row.fidelity, 2)}%`;
     out.push(
-      `| ${row.file} | ${row.engine} | ${fixed(row.setup_ms.median, 2)} | ${fixed(row.first_ms.median, 2)} | ${fixed(row.mib_per_s.median, 1)} | ${fixed(row.mib_per_s.spread_pct, 1)}% | ${row.tokens} | ${fidelity} |`,
+      tableRow(
+        row.file,
+        row.engine,
+        fixed(row.setup_ms.median, 2),
+        fixed(row.first_ms.median, 2),
+        fixed(row.mib_per_s.median, 1),
+        `${fixed(row.mib_per_s.spread_pct, 1)}%`,
+        row.tokens,
+        fidelity,
+      ),
     );
   }
   return `${out.join("\n")}\n`;
@@ -411,7 +468,13 @@ export function renderCompareSummary(
     const fidelities = rows.flatMap((row) => (row.fidelity === null ? [] : [row.fidelity]));
     const fidelity = fidelities.length === 0 ? "n/a" : `${fixed(median(fidelities), 2)}%`;
     out.push(
-      `| ${engine.name} | ${rows.length} | ${fixed(median(rows.map((row) => row.mib_per_s.median)), 1)} | ${fixed(median(rows.map((row) => row.first_ms.median)), 2)} | ${fidelity} |`,
+      tableRow(
+        engine.name,
+        rows.length,
+        fixed(median(rows.map((row) => row.mib_per_s.median)), 1),
+        fixed(median(rows.map((row) => row.first_ms.median)), 2),
+        fidelity,
+      ),
     );
   }
   out.push("", END);
