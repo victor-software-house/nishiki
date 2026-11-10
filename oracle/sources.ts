@@ -19,7 +19,7 @@
 // Nothing falls back to the upstream URL, so a missing file fails the run.
 import { bundledLanguagesInfo } from "shiki@4.6.0";
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname } from "node:path";
+import { dirname, join, relative } from "node:path";
 import { inputs, samples, sqlGrammar, standIns } from "./inputs.ts";
 
 const repository = new URL("..", import.meta.url).pathname;
@@ -327,7 +327,7 @@ function mirroredPaths(mirror: string): string[] {
   const ownFiles = new Set(["README.md", "AGENTS.md", "manifest.toml", ".gitattributes"]);
   return readdirSync(mirror, { recursive: true, withFileTypes: true })
     .filter((found) => found.isFile())
-    .map((found) => `${found.parentPath}/${found.name}`.slice(mirror.length + 1))
+    .map((found) => relative(mirror, join(found.parentPath, found.name)))
     .filter((path) => !ownFiles.has(path) && !path.startsWith(".git/") && !path.startsWith(".github/"));
 }
 
