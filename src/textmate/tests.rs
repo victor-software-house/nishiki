@@ -906,47 +906,6 @@ fn lean_programs_match_as_full_ones_on_lean_lines() {
     assert!(failures.is_empty(), "{}", failures.join("\n"));
 }
 
-/// A grammar's `folding` is `Differs` exactly where some pattern's lean
-/// program differs from its full one.
-/// `oracle/engine-tables.ts` writes it from a list kept by hand.
-/// So a grammar whose line kinds run the same programs never looks at a
-/// line's kind.
-/// A grammar whose kinds differ always does.
-#[test]
-fn the_folding_table_matches_the_patterns() {
-    let tested: [&Grammar; 9] = [
-        table("javascript"),
-        table("make"),
-        table("markdown"),
-        table("python"),
-        table("rust"),
-        table("shellscript"),
-        table("toml"),
-        table("typescript"),
-        table("yaml"),
-    ];
-    let mut wrong = Vec::new();
-    for grammar in SHIPPED.iter().map(|&(grammar, _)| grammar).chain(tested) {
-        let expected = if grammar
-            .patterns
-            .iter()
-            .any(|pattern| Regex::lean_differs(pattern.source))
-        {
-            Folding::Differs
-        } else {
-            Folding::Same
-        };
-        if grammar.folding() != expected {
-            wrong.push(format!("{} should be {expected:?}", grammar.scope));
-        }
-    }
-    assert!(
-        wrong.is_empty(),
-        "the folding table is wrong: {}",
-        wrong.join(", ")
-    );
-}
-
 /// Every grammar with tables. HTML's joins when the languages it hands
 /// regions to are built.
 fn every_table() -> Vec<&'static Grammar> {

@@ -169,7 +169,8 @@ The decisions that created nishiki live in a private planning repository:
    - Its approved dependencies beyond `memchr` are `regex-automata` and `regex-syntax` (operator, 2026-11-04).
    - It covers every bundled language not yet hand-written.
    - It checks the hand lexers as a second oracle.
-   - Every grammar it compiles has its licence, read at its source, in `oracle/licences.ts`, and a table the crate ships holds only grammars allowed there; `oracle/engine-tables.ts` checks both.
+   - Every grammar the repository holds has its licence, read at its source, in `oracle/licences.ts`.
+     `oracle/engine-grammars.ts` refuses a grammar that list refuses or lacks.
 4. Several lexers are written in parallel, each by its own agent, and land one at a time.
 
 ### The Shiki oracle

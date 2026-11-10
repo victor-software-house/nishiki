@@ -316,8 +316,8 @@ fn a_language_no_grammar_hands_off_to_is_refused() {
 /// the directories, joined as `PATH` joins them:
 ///
 /// ```sh
-/// bun oracle/engine-tables.ts --json --every <dir>
-/// bun oracle/engine-tables.ts --json <other dir> 'haml>ruby>javascript>css>markdown>sass>coffee'
+/// bun oracle/engine-tables.ts --every <dir>
+/// bun oracle/engine-tables.ts <other dir> 'haml>ruby>javascript>css>markdown>sass>coffee'
 /// NISHIKI_LINK_SURVEY=<dir>:<other dir> cargo test --all-features link_survey -- --ignored --nocapture
 /// ```
 ///
@@ -362,7 +362,7 @@ mod survey {
         }
     }
 
-    /// The tables in the shape `engine-tables.ts --json` writes.
+    /// The tables in the shape `engine-tables.ts` writes.
     fn tables(grammar: &Grammar) -> Value {
         json!({
             "scope": grammar.scope,

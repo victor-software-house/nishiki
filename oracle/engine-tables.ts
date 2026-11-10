@@ -1,16 +1,10 @@
 // Compiles Shiki's grammar for a language into the tables of nishiki's
-// TextMate engine, as one Rust source file.
+// TextMate engine, as JSON. It is the oracle for the Rust compiler, which
+// writes every table the engine runs.
 //
-// Usage: bun oracle/engine-tables.ts [--json] <out dir> <spec>...
+// Usage: bun oracle/engine-tables.ts [--every] <out dir> <spec>...
 //
-// A table for a directory under `src/` ships in the crate and is written as
-// `<out dir>/grammar.rs`, which the language's module includes, as in
-// `bun oracle/engine-tables.ts src/powershell powershell`; any other
-// directory gets `<id>.rs`, as the test tables in `tests/engine/` are.
-//
-// With `--json` it writes `<id>.json` instead, the same tables as data, for
-// the survey test that runs the engine on many grammars without compiling
-// them in (`mod survey` in src/textmate/tests.rs).
+// It writes `<id>.json`, the tables as data.
 // Beside it, `<id>.sources.jsonl` holds the grammars the tables came from:
 // a header line with the root scope and the handed languages, then one
 // grammar a line. The Rust compiler's comparison test links them and checks
@@ -28,8 +22,7 @@
 // registration of a language in the spec brings it along, as Julia's brings
 // C++ and R: `julia~cpp~r` loads Julia with Python, JavaScript and SQL only.
 // A rule that includes a language left out is dropped, as Shiki drops it for
-// a grammar it has not loaded. A grammar the crate must not bundle stays out
-// of a shipped table this way.
+// a grammar it has not loaded.
 //
 // `>` followed by a language id hands that language a region, as in
 // `haml>ruby>javascript`. `oracle/hand-lexed.ts` lists the languages it takes.
@@ -40,24 +33,14 @@
 //
 // The tables hold what the engine needs and nothing it can work out later:
 // - the rules, with their includes already followed;
-// - the patterns as text, compiled on first use;
+// - the patterns as text;
 // - the scope names, interned.
 // A rule whose patterns all include a grammar that is not loaded is dropped,
 // as vscode-textmate drops it.
-// The compiled patterns and the lists' scanners go in cells.
-// Each grammar allocates its cells on first use.
-//
-// Every grammar the Rust tables hold needs its licence in `oracle/licences.ts`;
-// the run fails, naming the grammar, when one is missing, or when a table the
-// crate ships holds a refused one.
 import { bundledLanguages, bundledLanguagesInfo } from "shiki@4.6.0";
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { mkdirSync, writeFileSync } from "node:fs";
 import { inputs } from "./inputs.ts";
 import { handLexed } from "./hand-lexed.ts";
-import { allowed, refused } from "./licences.ts";
-import { writeRust } from "./rule-grammar.ts";
 
 type Json = Record<string, unknown>;
 /** The repositories an include can name, innermost last: a rule without a
@@ -82,11 +65,8 @@ type Rule = {
 const NONE = 0xffffffff;
 /** Where the ids of hand-offs start in a list: above every rule's. */
 const HAND_OFF = 1 << 30;
-const idx = (n: number) => (n === NONE ? "usize::MAX" : String(n));
 
 const args = process.argv.slice(2);
-const asJson = args[0] === "--json";
-if (asJson) args.shift();
 const every = args[0] === "--every";
 if (every) args.shift();
 const outDir = args[0];
@@ -137,8 +117,6 @@ class Builder {
   roots = new Map<string, number>();
   /** Each raw rule object is compiled once, as in vscode-textmate. */
   compiled = new Map<object, number>();
-  /** The Shiki names of the grammars whose rules the tables hold. */
-  used = new Set<string>();
 
   /** The `Language` variant of each hand-off, by its id less `HAND_OFF`. */
   handOffs: string[] = [];
@@ -199,7 +177,6 @@ class Builder {
     if (known !== undefined) return known;
     const doc = this.docs.get(scope);
     if (!doc) return undefined;
-    this.used.add(String(doc.name));
     const id = this.reserve("Container");
     this.roots.set(scope, id);
     const env: Repositories = [(doc.repository as Json | undefined) ?? {}];
@@ -239,7 +216,6 @@ class Builder {
       const repository = doc?.repository as Json | undefined;
       const found = repository?.[target.slice(hash + 1)] as Json | undefined;
       if (!found) return undefined;
-      this.used.add(String(doc?.name));
       return this.entry(other, found, [repository as Json]);
     }
     return this.root(target);
@@ -368,24 +344,6 @@ class Builder {
   }
 }
 
-function rustString(text: string): string {
-  let out = '"';
-  for (const ch of text) {
-    const code = ch.codePointAt(0) as number;
-    if (ch === "\\") out += "\\\\";
-    else if (ch === '"') out += '\\"';
-    else if (ch === "\n") out += "\\n";
-    else if (ch === "\r") out += "\\r";
-    else if (ch === "\t") out += "\\t";
-    else if (code < 0x20 || code === 0x7f) out += `\\u{${code.toString(16)}}`;
-    // A character that NFC changes, such as U+F900, or a combining mark after
-    // a range's dash, would leave the literal non-NFC, which clippy refuses.
-    else if (ch.normalize("NFC") !== ch || /\p{M}/u.test(ch)) out += `\\u{${code.toString(16)}}`;
-    else out += ch;
-  }
-  return out + '"';
-}
-
 /** Whether `source` uses `\G`, which matches where the last match ended. */
 function usesLastMatchEnd(source: string): boolean {
   for (let i = 0; i + 1 < source.length; i++) {
@@ -407,93 +365,26 @@ function hasBackrefs(source: string): boolean {
   return false;
 }
 
-/** Whether the tables ship in the crate: written under `src/`. */
-const shipped = resolve(outDir).startsWith(fileURLToPath(new URL("../src/", import.meta.url)));
-
-/** Fails unless every grammar the tables hold has its licence, read at its
- * source, in `oracle/licences.ts`. Tables under `src/` ship in the crate, so
- * each of their grammars must also be allowed, with its origin in the notices
- * the crate ships. The JSON tables feed a survey and are not kept, so they
- * skip the gate. */
-function gate(spec: string, used: Set<string>) {
-  const notices = readFileSync(new URL("../THIRD-PARTY-NOTICES.md", import.meta.url), "utf8");
-  const problems = [...used].sort().flatMap((name) => {
-    const reason = refused[name];
-    if (reason) return shipped ? [`${name} is never bundled: ${reason}`] : [];
-    const entry = allowed[name];
-    if (!entry) return [`${name} has no licence in oracle/licences.ts`];
-    if (shipped && !notices.includes(`https://github.com/${entry.origin}`))
-      return [`${name}: ${entry.origin} is not in THIRD-PARTY-NOTICES.md`];
-    return [];
-  });
-  if (problems.length > 0) throw new Error(`${spec}: ${problems.join("; ")}`);
-}
-
 // The most memory, in bytes, that the lazy DFA of one of a grammar's scanners
-// may hold in a cache (`Grammar::dfa_cache`). It is a ceiling, not an
-// allocation. Past it, the lazy DFA builds its states again, and each new
-// state allocates. A grammar takes 4 MiB unless its fixtures need more.
-const dfaCache: Record<string, number> = {};
+// may hold in a cache (`Grammar::dfa_cache`).
 const DFA_CACHE = 1 << 22;
-/** A size as Rust source: a power of two as a shift. */
-const rustSize = (n: number) => (Number.isInteger(Math.log2(n)) ? `1 << ${Math.log2(n)}` : String(n));
-
-// The root scopes of the grammars where some pattern's lean program differs
-// from its full one. Only the Rust parser can tell, so the list is kept by
-// hand. `the_folding_table_matches_the_patterns` checks it against every
-// pattern. The Rust compiler computes it instead.
-const folding = new Set([
-  "markdown.mermaid.codeblock",
-  "source.asm.x86_64",
-  "source.asp.vb.net",
-  "source.batchfile",
-  "source.cmake",
-  "source.commonlisp",
-  "source.haskell",
-  "source.julia",
-  "source.pascal",
-  "source.php",
-  "source.powershell",
-  "text.html.markdown",
-]);
-
-// A Markdown fence whose rule includes more than one grammar gets a second
-// root in that language's table, `FENCE`, sharing its rules. Markdown's `php`
-// fence includes HTML, then PHP. HTML is lexed by hand, so the root hands it
-// off, and PHP's rules are tried where HTML matches nothing.
-const fences: Record<string, string[]> = {
-  php: ["text.html.basic", "source.php"],
-};
 
 mkdirSync(outDir, { recursive: true });
 async function write(id: string) {
   const [spec, ...handedIds] = id.split(">");
   const handed = new Map<string, string>();
-  const features: string[] = [];
   for (const handedId of handedIds) {
     const entry = handLexed[handedId];
     if (!entry) throw new Error(`${id}: ${handedId} is not in oracle/hand-lexed.ts`);
     handed.set(entry.scope, entry.variant);
-    features.push(entry.feature);
   }
   const { docs, fragments, scope } = await load(spec, handedIds);
-  if (asJson) {
-    const header = { root: scope, handed: handedIds };
-    const sources = [header, ...docs.values(), ...fragments.values()].map((line) => JSON.stringify(line));
-    writeFileSync(`${outDir}/${base(id)}.sources.jsonl`, `${sources.join("\n")}\n`);
-  }
+  const header = { root: scope, handed: handedIds };
+  const sources = [header, ...docs.values(), ...fragments.values()].map((line) => JSON.stringify(line));
+  writeFileSync(`${outDir}/${base(id)}.sources.jsonl`, `${sources.join("\n")}\n`);
   const builder = new Builder(docs, fragments, scope, handed);
   const root = builder.root(scope);
   if (root === undefined) throw new Error(`${id}: no root rule`);
-  // The JSON tables have no `FENCE` root, so they hold no rule for it.
-  const fenceScopes = asJson ? undefined : fences[spec];
-  let fence = NONE;
-  if (fenceScopes) {
-    fence = builder.reserve("Container");
-    const [patterns, missing] = builder.list(scope, fenceScopes.map((include) => ({ include })), [{}]);
-    if (missing) throw new Error(`${id}: the fence root misses one of ${fenceScopes.join(", ")}`);
-    builder.rules[fence].patterns = patterns;
-  }
   // The grammar's own injections, then those other grammars inject into it.
   const rootDoc = docs.get(scope) as Json;
   const injections: [string, number][] = Object.entries((rootDoc.injections as Json | undefined) ?? {}).map(
@@ -519,16 +410,7 @@ async function write(id: string) {
     const injected = builder.root(injectScope);
     if (injected !== undefined) injections.push([String(doc.injectionSelector), injected]);
   }
-  if (!asJson) gate(id, builder.used);
   builder.flatten();
-  const refs = (list: string[]) => `&[${list.map((n) => builder.nameRef(n)).join(", ")}]`;
-  const caps = (list: Capture[]) =>
-    `&[${list
-      .map(
-        (c) =>
-          `Capture { index: ${c.index}, name: ${refs(c.name)}, content_name: ${refs(c.contentName)}, retokenize: ${idx(c.retokenize)} }`,
-      )
-      .join(", ")}]`;
   const listIds = new Map<string, number>();
   const lists: number[][] = [];
   const plain = (rules: number[], handOff: number) => {
@@ -579,19 +461,6 @@ async function write(id: string) {
     handOffRows[handOff].list = list;
     return list;
   };
-  const rules = builder.rules
-    .map(
-      (r) =>
-        `    Rule { matching: Matching::${r.matching}, name: ${refs(r.name)}, content_name: ${refs(r.contentName)}, begin: ${idx(r.begin)}, end: ${idx(r.end)}, until: ${idx(r.while)}, captures: ${caps(r.captures)}, end_captures: ${caps(r.endCaptures)}, list: ${listOf(r.patterns, r)}, apply_end_last: ${r.applyEndLast} },`,
-    )
-    .join("\n");
-  const listSource = () => lists.map((l) => `    List::new(&[${l.join(", ")}]),`).join("\n");
-  const handOffSource = handOffRows
-    .map(
-      (h) =>
-        `    HandOff { language: Language::${h.variant}, before: ${h.before}, after: ${h.after} },`,
-    )
-    .join("\n");
   // A capture runs the handing loop only when its rule can reach a hand-off,
   // in its own list or through a rule nested in it. The table lists those
   // capture rules, sorted.
@@ -619,150 +488,51 @@ async function write(id: string) {
   // The tokenizer looks a list's hand-off up by the list's index, one load a
   // step. A `u8` holds the index, so a grammar has at most 256 hand-offs.
   if (handOffRows.length > 256) throw new Error(`${id}: more than 256 hand-offs`);
-  const listHandOffs = () =>
-    lists
-      .map((_, list) => {
-        const handOff = handOffRows.findIndex((h) => h.list === list);
-        return handOff < 0 ? "None" : `Some(${handOff})`;
-      })
-      .join(", ");
-  const patterns = builder.patterns
-    .map((p) => `    Pattern::new(${rustString(p)}),`)
-    .join("\n");
-  const names = builder.names.map((n) => `    ${rustString(n)},`).join("\n");
-  if (asJson) {
-    const none = (n: number) => (n === NONE ? -1 : n);
-    const cap = (c: Capture) => ({
-      index: c.index,
-      name: c.name.map((n) => builder.nameRef(n)),
-      contentName: c.contentName.map((n) => builder.nameRef(n)),
-      retokenize: none(c.retokenize),
-    });
-    const data = {
-      scope,
-      root,
-      names: builder.names,
-      patterns: builder.patterns.map((p) => ({ source: p, backrefs: hasBackrefs(p) })),
-      lists,
-      injections: injections.map(([selector, rule]) => ({ selector, rule })),
-      rules: builder.rules.map((r) => ({
-        matching: r.matching,
-        name: r.name.map((n) => builder.nameRef(n)),
-        contentName: r.contentName.map((n) => builder.nameRef(n)),
-        begin: none(r.begin),
-        end: none(r.end),
-        until: none(r.while),
-        captures: r.captures.map(cap),
-        endCaptures: r.endCaptures.map(cap),
-        list: listOf(r.patterns, r),
-        applyEndLast: r.applyEndLast,
-      })),
-      handOffs: handOffRows.map((h) => ({ language: h.variant, before: h.before, after: h.after })),
-      listHandOffs:
-        handOffRows.length > 0
-          ? lists.map((_, list) => {
-              const handOff = handOffRows.findIndex((h) => h.list === list);
-              return handOff < 0 ? null : handOff;
-            })
-          : [],
-      handingCaptures,
-      dfaCache: dfaCache[base(spec)] ?? DFA_CACHE,
-    };
-    writeFileSync(`${outDir}/${base(id)}.json`, JSON.stringify(data));
-    console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns`);
-    return;
-  }
-  // A grammar with no capture names no \`Capture\`, and an unused import fails the build.
-  const capturing = builder.rules.some((r) => r.captures.length > 0 || r.endCaptures.length > 0);
-  const imports = [
-    ...(capturing ? ["Capture"] : []),
-    "Folding",
-    "Grammar",
-    ...(handOffRows.length > 0 ? ["HandOff"] : []),
-    "Injection",
-    "List",
-    "Matching",
-    "Pattern",
-    "Rule",
-  ];
-  const handsOff = handOffRows.length > 0;
-  const source = `//! The tables of Shiki 4.6.0's \`${id}\` grammar, made by \`oracle/engine-tables.ts\`.
-//! Do not edit: regenerate with \`bun oracle/engine-tables.ts\`.
-${handsOff ? `//!\n//! It hands regions to other languages, so it needs the features ${features.map((f) => `\`${f}\``).join(", ")}.\n` : ""}
-use std::sync::OnceLock;
-
-use crate::textmate::grammar::{${imports.join(", ")}};
-${handsOff ? "use crate::language::Language;\n" : ""}
-static NAMES: &[&str] = &[
-${names}
-];
-
-static PATTERNS: [Pattern; ${builder.patterns.length}] = [
-${patterns}
-];
-
-static LISTS: [List; ${lists.length}] = [
-${listSource()}
-];
-
-static INJECTIONS: &[Injection] = &[
-${injections.map(([selector, rule]) => `    Injection { selector: ${rustString(selector)}, rule: ${rule} },`).join("\n")}
-];
-
-static RULES: &[Rule] = &[
-${rules}
-];
-${handsOff ? `\nstatic HAND_OFFS: &[HandOff] = &[\n${handOffSource}\n];\n\nstatic LIST_HAND_OFFS: [Option<u8>; ${lists.length}] = [${listHandOffs()}];\n\nstatic HANDING_CAPTURES: &[usize] = &[${handingCaptures.join(", ")}];\n` : ""}
-/// The grammar.
-pub(crate) static GRAMMAR: Grammar = Grammar {
-    scope: ${rustString(scope)},
-    names: NAMES,
-    rules: RULES,
-    lists: &LISTS,
-    injections: INJECTIONS,
-    patterns: &PATTERNS,
-    root: ${root},
-    hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
-    list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
-    handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
-    dfa_cache: ${rustSize(dfaCache[base(spec)] ?? DFA_CACHE)},
-    folding: Folding::${folding.has(scope) ? "Differs" : "Same"},
-    cells: OnceLock::new(),
-    full_cells: OnceLock::new(),
-};
-${
-  fence === NONE
-    ? ""
-    : `
-/// The root of a Markdown \`${spec}\` fence, whose rule includes ${fenceScopes.map((f) => `\`${f}\``).join(" and ")}.
-/// It shares the grammar's rules.
-pub(crate) static FENCE: Grammar = Grammar {
-    scope: ${rustString(scope)},
-    names: NAMES,
-    rules: RULES,
-    lists: &LISTS,
-    injections: INJECTIONS,
-    patterns: &PATTERNS,
-    root: ${fence},
-    hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
-    list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
-    handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
-    dfa_cache: ${rustSize(dfaCache[base(spec)] ?? DFA_CACHE)},
-    folding: Folding::${folding.has(scope) ? "Differs" : "Same"},
-    cells: OnceLock::new(),
-    full_cells: OnceLock::new(),
-};
-`
-}`;
-  await writeRust(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);
-  console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns, ${builder.names.length} names`);
+  const none = (n: number) => (n === NONE ? -1 : n);
+  const cap = (c: Capture) => ({
+    index: c.index,
+    name: c.name.map((n) => builder.nameRef(n)),
+    contentName: c.contentName.map((n) => builder.nameRef(n)),
+    retokenize: none(c.retokenize),
+  });
+  const data = {
+    scope,
+    root,
+    names: builder.names,
+    patterns: builder.patterns.map((p) => ({ source: p, backrefs: hasBackrefs(p) })),
+    lists,
+    injections: injections.map(([selector, rule]) => ({ selector, rule })),
+    rules: builder.rules.map((r) => ({
+      matching: r.matching,
+      name: r.name.map((n) => builder.nameRef(n)),
+      contentName: r.contentName.map((n) => builder.nameRef(n)),
+      begin: none(r.begin),
+      end: none(r.end),
+      until: none(r.while),
+      captures: r.captures.map(cap),
+      endCaptures: r.endCaptures.map(cap),
+      list: listOf(r.patterns, r),
+      applyEndLast: r.applyEndLast,
+    })),
+    handOffs: handOffRows.map((h) => ({ language: h.variant, before: h.before, after: h.after })),
+    listHandOffs:
+      handOffRows.length > 0
+        ? lists.map((_, list) => {
+            const handOff = handOffRows.findIndex((h) => h.list === list);
+            return handOff < 0 ? null : handOff;
+          })
+        : [],
+    handingCaptures,
+    dfaCache: DFA_CACHE,
+  };
+  writeFileSync(`${outDir}/${base(id)}.json`, JSON.stringify(data));
+  console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns`);
 }
 
 for (const id of ids) {
   try {
     await write(id);
   } catch (error) {
-    if (!asJson) throw error;
     const message = error instanceof Error ? error.message : String(error);
     writeFileSync(`${outDir}/${base(id)}.error`, `${message}\n`);
     console.log(`${id}: refused: ${message}`);
