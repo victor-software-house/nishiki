@@ -217,4 +217,4 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
 
 [pr228]: https://github.com/victor-software-house/nishiki-archive/pull/228
 [pr325]: https://github.com/victor-software-house/nishiki-archive/pull/325
-[contract]: ../halt-contract/design.md
+[contract]: ../../halt-contract/design.md

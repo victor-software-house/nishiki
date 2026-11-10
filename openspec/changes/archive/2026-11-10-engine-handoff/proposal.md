@@ -58,5 +58,5 @@ No `textmate-engine` requirement covers how an include is compiled, so the new c
 - Julia's table loses its engine copies of Python, JavaScript and SQL.
 
 [gate]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/oracle/licences.ts
-[contract]: ../halt-contract/proposal.md
+[contract]: ../../halt-contract/proposal.md
 [language]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/src/language.rs
