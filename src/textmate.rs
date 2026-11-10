@@ -8,6 +8,12 @@
 //! - The tokenizer walks them a line at a time over the arena's states.
 //! - The regular-expression machine in [`regex`] runs the patterns.
 
+#[cfg(feature = "json")]
+#[cfg_attr(
+    not(test),
+    expect(dead_code, reason = "the public grammar API calls it next")
+)]
+pub(crate) mod compile;
 pub(crate) mod grammar;
 mod regex;
 mod scanner;

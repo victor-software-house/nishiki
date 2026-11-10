@@ -265,6 +265,14 @@ pub(crate) struct Grammar {
     /// A grammar takes 4 MiB unless its fixtures need more.
     /// The generator's comment then records the measurement.
     pub(crate) dfa_cache: usize,
+    /// Whether some pattern compiles to another program for a lean line than
+    /// for a full one.
+    ///
+    /// Only the Rust parser can tell.
+    /// The linker computes it from the patterns.
+    /// `oracle/engine-tables.ts` writes it from a list kept by hand, which
+    /// `the_folding_table_matches_the_patterns` checks.
+    pub(crate) folding: Folding,
     /// The cells a search fills on [`LineKind::Lean`] lines: see
     /// [`Grammar::cells`].
     pub(crate) cells: OnceLock<Cells>,
@@ -280,28 +288,15 @@ pub(crate) enum Folding {
     #[default]
     Same,
     /// Some pattern's lean program differs from its full one.
+    #[cfg_attr(
+        not(test),
+        expect(
+            dead_code,
+            reason = "no language runs on the TextMate engine now; its tests and the linker do"
+        )
+    )]
     Differs,
 }
-
-/// The root scopes of the grammars where some pattern's lean program differs
-/// from its full one.
-///
-/// The list is kept by hand, because only the Rust parser can tell.
-/// `the_folding_table_matches_the_patterns` checks it against every pattern.
-static FOLDING: &[&str] = &[
-    "markdown.mermaid.codeblock",
-    "source.asm.x86_64",
-    "source.asp.vb.net",
-    "source.batchfile",
-    "source.cmake",
-    "source.commonlisp",
-    "source.haskell",
-    "source.julia",
-    "source.pascal",
-    "source.php",
-    "source.powershell",
-    "text.html.markdown",
-];
 
 /// The cells of a grammar that searches fill on one kind of line.
 #[derive(Debug)]
@@ -338,11 +333,7 @@ impl Grammar {
 
     /// Whether the grammar's line kinds run different programs.
     pub(crate) fn folding(&self) -> Folding {
-        if FOLDING.contains(&self.scope) {
-            Folding::Differs
-        } else {
-            Folding::Same
-        }
+        self.folding
     }
 
     /// Where the grammar keeps its cells for lines of `kind`.

@@ -10,7 +10,13 @@
 //
 // With `--json` it writes `<id>.json` instead, the same tables as data, for
 // the survey test that runs the engine on many grammars without compiling
-// them in (src/textmate/survey.rs).
+// them in (`mod survey` in src/textmate/tests.rs).
+// Beside it, `<id>.sources.jsonl` holds the grammars the tables came from:
+// a header line with the root scope and the handed languages, then one
+// grammar a line. The Rust compiler's comparison test links them and checks
+// its tables equal these (`mod survey` in src/textmate/compile/tests.rs).
+// A spec it refuses writes `<id>.error` and the run goes on.
+// `--every` adds every language Shiki bundles to the specs.
 //
 // A spec is a Shiki language id, or an id with the languages it may embed
 // joined by `+`, such as `markdown+rust+shellscript`: the grammar of the
@@ -44,7 +50,7 @@
 // Every grammar the Rust tables hold needs its licence in `oracle/licences.ts`;
 // the run fails, naming the grammar, when one is missing, or when a table the
 // crate ships holds a refused one.
-import { bundledLanguages } from "shiki@4.6.0";
+import { bundledLanguages, bundledLanguagesInfo } from "shiki@4.6.0";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -81,8 +87,10 @@ const idx = (n: number) => (n === NONE ? "usize::MAX" : String(n));
 const args = process.argv.slice(2);
 const asJson = args[0] === "--json";
 if (asJson) args.shift();
+const every = args[0] === "--every";
+if (every) args.shift();
 const outDir = args[0];
-const ids = args.slice(1);
+const ids = [...args.slice(1), ...(every ? bundledLanguagesInfo.map((info) => info.id) : [])];
 if (!outDir || ids.length === 0) throw new Error("usage: engine-tables.ts <out dir> <language id>...");
 
 /** Every grammar a language needs, by scope name. */
@@ -312,7 +320,13 @@ class Builder {
       }
     }
     if (kind !== "Match") {
-      const [patterns, missing] = this.list(scope, (value.patterns as Json[]) ?? [], env);
+      // A rule with no patterns, match or begin and an include holds the
+      // include as its one pattern, as vscode-textmate reads it.
+      const fallback =
+        kind === "Container" && !container && typeof value.include === "string" && value.include
+          ? [{ include: value.include }]
+          : [];
+      const [patterns, missing] = this.list(scope, (value.patterns as Json[]) ?? fallback, env);
       rule.patterns = patterns;
       rule.missing = missing;
     }
@@ -419,8 +433,29 @@ function gate(spec: string, used: Set<string>) {
 // may hold in a cache (`Grammar::dfa_cache`). It is a ceiling, not an
 // allocation. Past it, the lazy DFA builds its states again, and each new
 // state allocates. A grammar takes 4 MiB unless its fixtures need more.
-const dfaCache: Record<string, string> = {};
-const DFA_CACHE = "1 << 22";
+const dfaCache: Record<string, number> = {};
+const DFA_CACHE = 1 << 22;
+/** A size as Rust source: a power of two as a shift. */
+const rustSize = (n: number) => (Number.isInteger(Math.log2(n)) ? `1 << ${Math.log2(n)}` : String(n));
+
+// The root scopes of the grammars where some pattern's lean program differs
+// from its full one. Only the Rust parser can tell, so the list is kept by
+// hand. `the_folding_table_matches_the_patterns` checks it against every
+// pattern. The Rust compiler computes it instead.
+const folding = new Set([
+  "markdown.mermaid.codeblock",
+  "source.asm.x86_64",
+  "source.asp.vb.net",
+  "source.batchfile",
+  "source.cmake",
+  "source.commonlisp",
+  "source.haskell",
+  "source.julia",
+  "source.pascal",
+  "source.php",
+  "source.powershell",
+  "text.html.markdown",
+]);
 
 // A Markdown fence whose rule includes more than one grammar gets a second
 // root in that language's table, `FENCE`, sharing its rules. Markdown's `php`
@@ -431,7 +466,7 @@ const fences: Record<string, string[]> = {
 };
 
 mkdirSync(outDir, { recursive: true });
-for (const id of ids) {
+async function write(id: string) {
   const [spec, ...handedIds] = id.split(">");
   const handed = new Map<string, string>();
   const features: string[] = [];
@@ -442,10 +477,16 @@ for (const id of ids) {
     features.push(entry.feature);
   }
   const { docs, fragments, scope } = await load(spec, handedIds);
+  if (asJson) {
+    const header = { root: scope, handed: handedIds };
+    const sources = [header, ...docs.values(), ...fragments.values()].map((line) => JSON.stringify(line));
+    writeFileSync(`${outDir}/${base(id)}.sources.jsonl`, `${sources.join("\n")}\n`);
+  }
   const builder = new Builder(docs, fragments, scope, handed);
   const root = builder.root(scope);
   if (root === undefined) throw new Error(`${id}: no root rule`);
-  const fenceScopes = fences[spec];
+  // The JSON tables have no `FENCE` root, so they hold no rule for it.
+  const fenceScopes = asJson ? undefined : fences[spec];
   let fence = NONE;
   if (fenceScopes) {
     fence = builder.reserve("Container");
@@ -590,7 +631,6 @@ for (const id of ids) {
     .join("\n");
   const names = builder.names.map((n) => `    ${rustString(n)},`).join("\n");
   if (asJson) {
-    if (handOffRows.length > 0) throw new Error(`${id}: the JSON tables hold no hand-offs`);
     const none = (n: number) => (n === NONE ? -1 : n);
     const cap = (c: Cap) => ({
       index: c.index,
@@ -617,15 +657,26 @@ for (const id of ids) {
         list: listOf(r.patterns, r),
         applyEndLast: r.applyEndLast,
       })),
+      handOffs: handOffRows.map((h) => ({ language: h.variant, before: h.before, after: h.after })),
+      listHandOffs:
+        handOffRows.length > 0
+          ? lists.map((_, list) => {
+              const handOff = handOffRows.findIndex((h) => h.list === list);
+              return handOff < 0 ? null : handOff;
+            })
+          : [],
+      handingCaptures,
+      dfaCache: dfaCache[base(spec)] ?? DFA_CACHE,
     };
     writeFileSync(`${outDir}/${base(id)}.json`, JSON.stringify(data));
     console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns`);
-    continue;
+    return;
   }
   // A grammar with no capture names no \`Cap\`, and an unused import fails the build.
   const capturing = builder.rules.some((r) => r.captures.length > 0 || r.endCaptures.length > 0);
   const imports = [
     ...(capturing ? ["Cap"] : []),
+    "Folding",
     "Grammar",
     ...(handOffRows.length > 0 ? ["HandOff"] : []),
     "Injection",
@@ -674,7 +725,8 @@ pub(crate) static GRAMMAR: Grammar = Grammar {
     hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
     list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
     handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
-    dfa_cache: ${dfaCache[base(spec)] ?? DFA_CACHE},
+    dfa_cache: ${rustSize(dfaCache[base(spec)] ?? DFA_CACHE)},
+    folding: Folding::${folding.has(scope) ? "Differs" : "Same"},
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };
@@ -695,7 +747,8 @@ pub(crate) static FENCE: Grammar = Grammar {
     hand_offs: ${handsOff ? "HAND_OFFS" : "&[]"},
     list_hand_offs: ${handsOff ? "&LIST_HAND_OFFS" : "&[]"},
     handing_captures: ${handsOff ? "HANDING_CAPTURES" : "&[]"},
-    dfa_cache: ${dfaCache[base(spec)] ?? DFA_CACHE},
+    dfa_cache: ${rustSize(dfaCache[base(spec)] ?? DFA_CACHE)},
+    folding: Folding::${folding.has(scope) ? "Differs" : "Same"},
     cells: OnceLock::new(),
     full_cells: OnceLock::new(),
 };
@@ -703,4 +756,15 @@ pub(crate) static FENCE: Grammar = Grammar {
 }`;
   await writeRust(`${outDir}/${shipped ? "grammar" : base(id)}.rs`, source);
   console.log(`${id}: ${builder.rules.length} rules, ${builder.patterns.length} patterns, ${builder.names.length} names`);
+}
+
+for (const id of ids) {
+  try {
+    await write(id);
+  } catch (error) {
+    if (!asJson) throw error;
+    const message = error instanceof Error ? error.message : String(error);
+    writeFileSync(`${outDir}/${base(id)}.error`, `${message}\n`);
+    console.log(`${id}: refused: ${message}`);
+  }
 }

@@ -366,7 +366,7 @@ impl Regex {
 
     /// Whether `pattern` of a grammar compiles to another program for a
     /// [`LineKind::Lean`] line than for a [`LineKind::Full`] one.
-    #[cfg(test)]
+    #[cfg(any(test, feature = "json"))]
     pub(crate) fn lean_differs(pattern: &str) -> bool {
         parse::parse(pattern, Dialect::Grammar)
             .is_ok_and(|parsed| ast::lean(&parsed.root).is_some())

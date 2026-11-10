@@ -41,6 +41,7 @@ dependencies = [
  "nishiki-alloc-count",
  "regex-automata",
  "regex-syntax",
+ "serde",
  "serde_json",
 ]
 
