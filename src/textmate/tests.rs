@@ -143,11 +143,12 @@ fn parse(path: &Path) -> Vec<Line> {
 
 /// The lines of a fixture's text, each with the scope stack of every byte.
 /// `source` names the fixture in a panic.
+/// A line record with no text, `L` alone, is an empty line.
 fn parse_text(content: &str, source: &str) -> Vec<Line> {
     let mut lines: Vec<Line> = Vec::new();
     let mut start = 0;
     for record in content.lines() {
-        if let Some(text) = record.strip_prefix("L ") {
+        if let Some(text) = record.strip_prefix("L ").or((record == "L").then_some("")) {
             lines.push(Line {
                 text: text.to_owned(),
                 stacks: Vec::new(),
@@ -197,6 +198,29 @@ fn reachable_rules(grammar: &Grammar) -> Vec<bool> {
         );
     }
     reachable
+}
+
+/// Where the block of `lines` that starts at line `at` ends: the first line
+/// past it.
+/// `inside` says whether a line sits in a fence or front matter.
+///
+/// A block runs over blank lines, which Shiki gives no scopes.
+/// It ends after the line that closes its fence, so the next fence starts a
+/// block of its own.
+fn block_end(lines: &[Line], at: usize, inside: impl Fn(&Line) -> bool) -> usize {
+    let blank = |line: &Line| line.text.trim().is_empty();
+    let closes_fence = |line: &Line| {
+        let marks = line.text.trim();
+        marks.len() >= 3 && (marks.bytes().all(|b| b == b'`') || marks.bytes().all(|b| b == b'~'))
+    };
+    let mut end = at + 1;
+    while end < lines.len()
+        && (inside(&lines[end]) || blank(&lines[end]))
+        && (end - 1 == at || !closes_fence(&lines[end - 1]))
+    {
+        end += 1;
+    }
+    end
 }
 
 /// Which lines sit in an embedded block, a fence or front matter, of a
@@ -299,9 +323,7 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line], embedding: Embedding) -> Ve
             at += 1;
             continue;
         }
-        let end = (at..lines.len())
-            .find(|&next| !inside(&lines[next]))
-            .unwrap_or(lines.len());
+        let end = block_end(lines, at, inside);
         let unknown = dropped_fence(&lines[at])
             || lines[at..end]
                 .iter()
@@ -597,6 +619,41 @@ fn a_fence_of_a_dropped_language_is_left_out_without_an_embedded_scope() {
     assert_eq!(
         unknown_fences(table("markdown"), &lines, Embedding::Tables),
         [true, true, true]
+    );
+}
+
+/// Shiki's lines for a popped `less` fence whose body holds a blank line,
+/// then a blank line and an empty `css` fence.
+const POPPED_LESS_FENCE_WITH_BLANK: &str = "\
+L ```less
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 7 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L ) a
+T 3 text.html.markdown markup.fenced_code.block.markdown
+L
+L b
+T 1 text.html.markdown markup.fenced_code.block.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+L
+L ```css
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+T 6 text.html.markdown markup.fenced_code.block.markdown fenced_code.block.language.markdown
+L ```
+T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.markdown
+";
+
+/// A blank line in a fence's body does not end its block.
+/// The block ends at its closing fence, so the next fence is still compared.
+#[test]
+fn a_dropped_fence_is_left_out_past_a_blank_line() {
+    let lines = parse_text(
+        POPPED_LESS_FENCE_WITH_BLANK,
+        "a popped less fence with a blank line",
+    );
+    assert_eq!(
+        unknown_fences(table("markdown"), &lines, Embedding::Tables),
+        [true, true, true, true, true, false, false, false]
     );
 }
 
