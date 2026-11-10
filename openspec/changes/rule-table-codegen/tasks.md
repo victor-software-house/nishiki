@@ -2,10 +2,13 @@
 
 ## 1. The first language
 
-- [ ] 1.1 Protocol Buffers' grammar in `tests/engine/grammars/`, then `unstable::codegen` with default matchers, and `codegen/` writing its tables; `oracle/proto-grammar.ts` is deleted.
-  It needs [unstable-rule-engine][unstable-rule-engine] task 1.1, and the two fixes of the [default-matchers][default-matchers] design, section 2.5.
-  This pull request creates `codegen/`, as the [rust-codegen][rust-codegen] design describes.
-  → verify: `codegen --compare` shows equal tokens outside the start sets the pull request lists. `mise run codegen -- --check` and the differential and hostile-line tests of the default-matchers design pass in CI, and Identity shows no change
+- [ ] 1.1 Protocol Buffers moves to generated tables.
+  → verify: `codegen --compare` shows equal tokens outside the start sets the pull request lists.
+  `mise run codegen -- --check` and the differential and hostile-line tests of the default-matchers design pass in CI.
+  Identity shows no change.
+  - Its grammar goes into `tests/engine/grammars/`, and `unstable::codegen` writes its tables with default matchers.
+  - This pull request creates `codegen/`, as the [rust-codegen][rust-codegen] design describes, and deletes `oracle/proto-grammar.ts`.
+  - It needs [unstable-rule-engine][unstable-rule-engine] task 1.1, and the two fixes of the [default-matchers][default-matchers] design, section 2.5.
 
 ## 2. Families
 
