@@ -123,10 +123,18 @@ The engine's logic does not change when they do.
     So the linker and `oracle/engine-tables.ts` no longer refuse `\G` in a halt: an end, a `before` rule or an `after` rule.
   - `an_end_at_the_anchor_matches_only_there` in `src/grammar/tests.rs` covers an end.
     `vue/vitepress-nav-menu-group` covers a `before` rule.
-- [ ] 5.6 Close the hand-off gaps that `src/textmate/tests/loaded.rs` lists.
+- [x] 5.6 Close the hand-off gaps that `src/textmate/tests/loaded.rs` lists.
   → verify: each fixture leaves its test's gaps, and the test passes
   - Moved from the `grammar-api` change when it was archived.
-  - [ ] 5.6.1 vue-directives' injection misses the tags that html-derivative's lexer reads: six Vue fixtures.
+  - [x] 5.6.1 vue-directives' injection misses the tags that html-derivative's lexer reads: six Vue fixtures.
+    - The cause was another: Vue's directive rules include `source.ts#expression`, a rule inside TypeScript's grammar.
+    - Without TypeScript's grammar in the set, the linker drops those rules, as vscode-textmate does.
+    - The test now loads the TypeScript, CSS and JSON grammars that Vue includes rules from.
+    - `vue/vitepress-nav-menu-group` had a second cause.
+      Vue's nested `<template>` rule lists `tag-stuff`, whose begin is `\G`, before html-derivative.
+      The linker refused a hand-off whose halts use `\G`, so html-derivative's include matched nothing there.
+      HTML's rule for invalid tags then took `<component>`.
+      Task 5.5 lifts that refusal.
   - [x] 5.6.2 The hand-off goes on past a lexer that pops its host, as Less does at a `)`: `markdown/less-pop` and `vue/less-pop`.
     - The hand-off now ends the region where its language pops it, as vscode-textmate does.
     - Both fixtures left the gap lists, and the loaded tests pass.
