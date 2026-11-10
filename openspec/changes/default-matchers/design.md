@@ -197,24 +197,36 @@ Dropping the arm halves the work at a dot.
 
 A skip in the generated scan makes the line linear.
 The pattern is a prefix `P`, then `R`, the `[.\w]+` that takes a run, then a suffix `S`.
-Say the pattern fails at a start `p` in a run that ends at `r`.
-`P` can match empty there, as it can at any start inside a run:
+`codegen/` writes the skip only when the expression meets three conditions, and writes none otherwise:
 
-- so `R` started at `p` and was tried at every end up to `r`, since `+` has no upper bound;
-- a later start `q` before `r` puts `R`'s start inside the run when `P`'s match from `q` ends before `r`;
-- `R`'s ends are then ends already tried from `p`;
+- `P` can match empty.
+  The field pattern's `P` can, at any start inside a run.
+- `R` is one class under a `+` that gives back: greedy or lazy, not possessive, and not inside an atomic group.
+- `S` holds no back-reference and no conditional `(?(n)…)` on a group of `P` or `R`.
+
+Say the pattern fails at a start `p` in a run that ends at `r`.
+The run is the longest run of `R`'s class from `p`.
+
+- `P` matched empty at `p`, so `R` started at `p`.
+- `R` gives back, so it was tried at every end up to `r`.
+- A later start `q` before `r` puts `R`'s start inside the run when `P`'s match from `q` ends before `r`.
+- `R`'s ends are then ends already tried from `p`.
 - `S`'s result depends only on where it starts, so it fails from each of them again.
 
-Only a back-reference makes `S` depend on more than its start, because it reads a group's text.
+A back-reference and a conditional each read group state, which differs between starts.
+They are the only constructs that make `S` depend on more than its start.
 A lookbehind and `\b` read only the line, which is the same for every start.
-So `S` must hold no back-reference.
+`\G` holds at one fixed place, where the search started, and not at each try's start.
 
 The scan then skips every start before `r` from which no match of `P` reaches `r`.
 A start whose `P` can reach `r` is still tried.
 The skip follows only a failure.
 A try that ended at `Limit::Work` tried only some ends, so no skip follows it.
 
-The general rule takes `k`, the length of `P`'s longest match made only of the run's bytes.
+The general rule takes `k`, the length of the longest string of the run's bytes that begins a match of `P`.
+That string need not be a match of `P` itself.
+With `P` of `(ab\s)?`, `ab` is no match, yet `P` reaches past `r` from `r − 2`.
+
 After the failure, the scan goes on at `r − k`, or at `p + 1` when that is later.
 `codegen/` proves `k` from the expression.
 When `k` has no bound, as for a `P` of `\w*`, it writes no skip.
