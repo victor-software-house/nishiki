@@ -4,7 +4,10 @@ use std::time::Duration;
 
 use indoc::indoc;
 
-use super::{Grammar, Grammars, LINKED_TABLES, LinkKey, Reason, bytes, linked_table};
+use super::{
+    Grammar, Grammars, LINKED_TABLES, LinkKey, Reason, bytes, linked_table, static_grammar,
+};
+use crate::textmate::compile::link::LinkError;
 use crate::textmate::compile::{UnlinkedGrammar, UnlinkedRule, compile};
 use crate::{Highlighter, State};
 
@@ -637,4 +640,28 @@ fn every_engine_grammar_writes_rust_that_parses() {
         grammars += 1;
     }
     assert_ne!(grammars, 0);
+}
+
+/// A model the compiler did not write, handed to `static_grammar` unchecked,
+/// links to a rule that matches nothing or fails to link, and never panics.
+#[test]
+fn an_unchecked_static_grammar_links_without_a_panic() {
+    let past_the_end = static_grammar(Box::leak(Box::new(grammar_of(vec![UnlinkedRule {
+        patterns: vec![7].into(),
+        ..UnlinkedRule::default()
+    }]))));
+    let mut highlighter = Highlighter::for_grammar(past_the_end, &Grammars::new()).unwrap();
+    assert_eq!(
+        tokens(&mut highlighter, "let"),
+        [("let".to_owned(), vec!["source.crafted".to_owned()])]
+    );
+    let names_itself = static_grammar(Box::leak(Box::new(grammar_of(vec![UnlinkedRule {
+        patterns: vec![0].into(),
+        ..UnlinkedRule::default()
+    }]))));
+    let failed = Highlighter::for_grammar(names_itself, &Grammars::new());
+    assert!(matches!(
+        failed.unwrap_err().0,
+        Reason::Link(LinkError::TooDeep)
+    ));
 }

@@ -61,8 +61,12 @@ impl Grammar {
     /// The file holds `pub static GRAMMAR: nishiki::Grammar = …;`, laid out by
     /// prettyplease.
     /// A program includes it in a module of its own and uses `GRAMMAR`.
-    /// If prettyplease cannot read the tokens, the file holds them on one line,
-    /// still valid Rust.
+    ///
+    /// # Panics
+    ///
+    /// Panics if `syn` cannot read the tokens nishiki writes.
+    /// That is a bug in nishiki, and the test of every engine grammar guards
+    /// against it.
     ///
     /// ```
     /// use nishiki::Grammar;
@@ -76,12 +80,14 @@ impl Grammar {
     /// # Ok::<(), nishiki::GrammarError>(())
     /// ```
     #[must_use]
+    #[expect(
+        clippy::expect_used,
+        reason = "nishiki writes the tokens, so a parse failure is its own bug"
+    )]
     pub fn to_rust(self) -> String {
-        let file = static_file(self);
-        match syn::parse2::<syn::File>(file.clone()) {
-            Ok(parsed) => prettyplease::unparse(&parsed),
-            Err(_) => file.to_string(),
-        }
+        let file = syn::parse2::<syn::File>(static_file(self))
+            .expect("nishiki wrote grammar tokens that syn cannot read: a bug in nishiki");
+        prettyplease::unparse(&file)
     }
 }
 
