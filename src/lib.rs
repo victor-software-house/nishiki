@@ -510,7 +510,13 @@ mod r;
 mod resume_check;
 #[cfg(feature = "lang-ruby")]
 mod ruby;
+// The engine's items show in the docs only through `nishiki::unstable`.
+// Their internal features mean nothing to a reader there.
 #[cfg(feature = "_rule-engine")]
+#[cfg_attr(
+    docsrs,
+    doc(auto_cfg(hide(feature, values("_embedding", "_rule-engine"))))
+)]
 mod rules;
 #[cfg(feature = "lang-rust")]
 mod rust;
