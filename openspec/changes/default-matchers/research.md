@@ -45,6 +45,9 @@ Lexing ratios against the hand matchers, at one codegen unit:
 | 2b. steps spent in loops, replacing 2 | 1.2604 | 1.1062 | 1.4450 |
 | hand matchers out of line, on 2 | 1.2565 | 1.2500 | 1.6189 |
 | hand matchers out of line, on 2b | 1.2604 | 1.1094 | 1.4362 |
+| 3. `\b` through `Chars::boundary` | 1.2592 | 0.9878 | 1.2977 |
+| 4. a flat dispatch | 1.1351 | 0.9878 | 1.2395 |
+| 5. a greedy repeat that gives back nothing | 1.1002 | 0.9108 | 1.1623 |
 
 - The first row for Protocol Buffers has `OptionStmt` generated.
 - Step 2 kept the `\b` test out of line.
@@ -52,14 +55,50 @@ Lexing ratios against the hand matchers, at one codegen unit:
 - Moving the hand matchers out of line saves little.
   On 2b, Lua runs 0.6% fewer instructions, Zig 0.3% more and Protocol Buffers the same.
   The generated code covers nearly every pattern, so the hand path is cold.
+- No step tests a pattern's first byte.
+  The start tables already try each pattern only at a byte it can start with.
+- Step 3 reads the character before the position through `Chars::boundary`, as the hand lexers do.
+  The `\b` test decoded it before.
+- Step 4 inlines the generated dispatch into the language's `matcher`, which calls the pattern's code at once.
+- Step 5 applies when what follows the repeat must read a character outside its class ([design][design], section 2.1).
 
-The profile names the costs left, and each becomes a step:
+Step 5 in two more measures:
 
-- a pattern tests its first byte before its code runs;
-- a matcher records only the groups a scope or a back-reference reads, where it writes every group today;
-- the `\b` test decodes the character before the position, which costs Zig 2.1 and Lua 3.0 million instructions;
-- the language's `matcher` calls one dispatch function, which calls the pattern's function.
-  A flat dispatch goes straight to the pattern's function: the second level costs Lua about 4.8 million instructions.
+| Measure | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| lexing, at 16 codegen units | 1.1032 | 0.8973 | 1.1452 |
+| the first document, at one codegen unit | 1.0765 | 0.9229 | 1.0952 |
+
+### 2.1 A dropped step: a cache of class runs
+
+A cache on the lexer kept the last run of an ASCII class.
+Another pattern that took the same class at the same position read nothing.
+Against step 5, at one codegen unit:
+
+| Variant | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| the cache | 1.0017 | 0.9747 | 1.0002 |
+| the cache, called only when the run is not empty | 1.0026 | 0.9851 | 0.9981 |
+| the same, with the cache's function always inlined | 1.0024 | 0.9847 | 0.9976 |
+
+Protocol Buffers rises in every variant, so the step was dropped (lead, 2026-11-10).
+
+- Protocol Buffers' and Lua's `lex` functions rise by 3,705 and 12,839 instructions in all three variants.
+  The cache's field on the lexer may cause it; nobody has read the assembly.
+- Lua's identifier matchers gain what the cache was for: about 0.3 million instructions.
+
+An open question remains.
+Lua's pattern `m2`, `(^[\t ]+)?` before `--`, reads a run only at a line's start.
+Yet it costs 0.17 million more instructions in the last two variants, with the call guarded and with it inlined.
+The cause is unknown.
+
+### 2.2 The costs after step 5
+
+The profile of step 5 against the hand matchers names the costs left:
+
+- Lua's `record` functions write every group of a match: 1.05 million instructions, 3.3% of Lua's count.
+  A matcher could record only the groups a scope or a back-reference reads.
+- Protocol Buffers' `String` pattern runs on the regex engine for its back-reference: 0.18 million instructions, 3.6% of its count.
 
 ## 3. Coverage
 
@@ -69,7 +108,7 @@ They keep their hand code, a coverage gap that task 1.3 closes.
 
 ## 4. The field line under the limits
 
-These lines test Protocol Buffers' field pattern on step 2b ([design][design], section 2.5).
+These lines test Protocol Buffers' field pattern on step 2b ([`field-pattern-fixes`][field-pattern-fixes]).
 Under the default limits, on a box:
 
 | Line | Hand matcher, at base | Generated matcher, step 2b |
@@ -87,4 +126,5 @@ The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 byt
 
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [design]: design.md
+[field-pattern-fixes]: ../field-pattern-fixes/design.md
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
