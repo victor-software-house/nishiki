@@ -62,8 +62,6 @@ With no languages named, they are every language lexed by hand whose grammar the
 An include of one rule of another grammar, such as `source.ruby#escaped_char`, always resolves in the set.
 A named language's grammar then serves only such includes.
 
-The link reports which grammars of the set it read, for the cache of linked tables in decision 2.
-
 The run-time path and the build-script path both call the compiler.
 The TypeScript generator stays as its oracle.
 A test compares the two compilers' tables for every Shiki grammar, and the TypeScript generator retires once they are equal.
@@ -83,8 +81,15 @@ A handle holds no link to another grammar, so one handle serves every `Grammars`
 
 A linked table is leaked too, so the engine keeps its `&'static Grammar`.
 A second process-wide cache interns linked tables.
-Its key is the root handle, the handles the link reached and the languages named for hand-offs.
 Building the same highlighter twice therefore links once.
+The cache's key has three parts:
+
+- the root handle;
+- every handle of the set, in the order it was added;
+- the languages named for hand-offs.
+
+A key of only the grammars the link read would be wrong.
+It would miss the scopes the link looked up and did not find, and the grammars that inject themselves.
 
 Memory grows with each distinct grammar and each distinct link, and stays until the process ends.
 The crate docs state it, and warn a service not to load grammars from untrusted input without its own bound.

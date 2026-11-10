@@ -39,10 +39,8 @@ fn includes_inside_a_grammar_are_followed() {
           }
         }
     "##});
-    let linked = link(&root, &[], None).unwrap();
-    let tables = linked.grammar;
+    let tables = link(&root, &[], None).unwrap();
     assert_eq!(list_patterns(tables, tables.root), ["a", "b"]);
-    assert_eq!(linked.reached, Vec::<usize>::new());
 }
 
 #[test]
@@ -57,7 +55,7 @@ fn a_rule_with_only_an_include_holds_it() {
           }
         }
     "##});
-    let tables = link(&root, &[], None).unwrap().grammar;
+    let tables = link(&root, &[], None).unwrap();
     assert_eq!(list_patterns(tables, tables.root), ["a"]);
 }
 
@@ -70,7 +68,7 @@ fn nested_repositories_shadow_outer_ones() {
           "repository": {"word": {"match": "outer"}}
         }
     "##});
-    let tables = link(&root, &[], None).unwrap().grammar;
+    let tables = link(&root, &[], None).unwrap();
     assert_eq!(list_patterns(tables, tables.root), ["outer", "inner"]);
 }
 
@@ -83,10 +81,8 @@ fn grammars_that_include_each_other_link_in_either_order() {
         {"scopeName": "source.b", "patterns": [{"match": "b"}, {"include": "source.a"}, {"include": "$base"}]}
     "#});
     for set in [[&a, &b], [&b, &a]] {
-        let linked = link(&a, &set, None).unwrap();
-        let tables = linked.grammar;
+        let tables = link(&a, &set, None).unwrap();
         assert_eq!(list_patterns(tables, tables.root), ["a", "b"]);
-        assert_eq!(linked.reached.len(), 1);
     }
 }
 
@@ -101,7 +97,7 @@ fn an_include_of_a_missing_grammar_drops_its_rule() {
           ]
         }
     "#});
-    let tables = link(&root, &[], None).unwrap().grammar;
+    let tables = link(&root, &[], None).unwrap();
     assert_eq!(list_patterns(tables, tables.root), ["p"]);
 }
 
@@ -113,7 +109,7 @@ fn captures_take_the_order_of_their_numbers() {
           "patterns": [{"match": "(a)(b)", "captures": {"2": {"name": "two"}, "1": {"name": "one", "patterns": [{"match": "a"}]}, "x": {"name": "no"}}}]
         }
     "#});
-    let tables = link(&root, &[], None).unwrap().grammar;
+    let tables = link(&root, &[], None).unwrap();
     let rule = &tables.rules[tables.lists[tables.rules[tables.root].list].rules[0]];
     let indices: Vec<usize> = rule.captures.iter().map(|c| c.index).collect();
     assert_eq!(indices, [1, 2]);
@@ -134,7 +130,7 @@ fn injections_keep_the_order_of_the_text() {
           "injections": {"R:z": {"match": "z"}, "L:a": {"match": "a"}}
         }
     "#});
-    let tables = link(&root, &[], None).unwrap().grammar;
+    let tables = link(&root, &[], None).unwrap();
     let selectors: Vec<&str> = tables.injections.iter().map(|i| i.selector).collect();
     assert_eq!(selectors, ["R:z", "L:a"]);
 }
@@ -145,9 +141,8 @@ fn a_grammar_injects_itself_where_it_names_the_root() {
     let injected = grammar(indoc! {r#"
         {"scopeName": "source.i", "injectionSelector": "L:source.a", "injectTo": ["source.a"], "patterns": [{"match": "i"}]}
     "#});
-    let linked = link(&root, &[&injected], None).unwrap();
-    assert_eq!(linked.grammar.injections.len(), 1);
-    assert_eq!(linked.reached, [0]);
+    let tables = link(&root, &[&injected], None).unwrap();
+    assert_eq!(tables.injections.len(), 1);
 }
 
 #[cfg(feature = "lang-css")]
@@ -179,8 +174,7 @@ mod hand_offs {
 
     #[test]
     fn a_hand_lexed_grammar_missing_from_the_set_is_handed_off() {
-        let linked = link(&styled(), &[], None).unwrap();
-        let tables = linked.grammar;
+        let tables = link(&styled(), &[], None).unwrap();
         assert_eq!(tables.hand_offs.len(), 1);
         assert_eq!(tables.hand_offs[0].language, Language::Css);
         assert_eq!(list_patterns(tables, tables.root), ["<style>"]);
@@ -194,21 +188,17 @@ mod hand_offs {
     #[test]
     fn a_grammar_in_the_set_wins_over_its_hand_lexer() {
         let css = css();
-        let linked = link(&styled(), &[&css], None).unwrap();
-        let tables = linked.grammar;
+        let tables = link(&styled(), &[&css], None).unwrap();
         assert!(tables.hand_offs.is_empty());
         assert_eq!(list_patterns(tables, tables.root), ["<style>", "\\\\."]);
-        assert_eq!(linked.reached, [0]);
     }
 
     #[test]
     fn a_listed_hand_lexer_wins_and_its_grammar_serves_fragments() {
         let css = css();
-        let linked = link(&styled(), &[&css], Some(&[Language::Css])).unwrap();
-        let tables = linked.grammar;
+        let tables = link(&styled(), &[&css], Some(&[Language::Css])).unwrap();
         assert_eq!(tables.hand_offs.len(), 1);
         assert_eq!(list_patterns(tables, tables.root), ["<style>", "\\\\."]);
-        assert_eq!(linked.reached, [0]);
     }
 
     #[test]
@@ -267,7 +257,7 @@ mod survey {
     use serde_json::{Value, json};
 
     use crate::language::Language;
-    use crate::textmate::compile::link::{Linked, link};
+    use crate::textmate::compile::link::link;
     use crate::textmate::compile::{Compiled, compile};
     use crate::textmate::grammar::{Cap, Grammar, NONE, RuleKind};
 
@@ -371,14 +361,14 @@ mod survey {
             .iter()
             .map(|id| Language::from_name(id.as_str().unwrap()).unwrap())
             .collect();
-        let linked: Result<Linked, _> = link(root, &set, Some(&handed));
+        let linked = link(root, &set, Some(&handed));
         let took = started.elapsed();
         let expected = std::fs::read_to_string(dir.join(format!("{base}.json")));
         let refused = std::fs::read_to_string(dir.join(format!("{base}.error")));
         let difference = match (linked, expected, refused) {
             (Ok(linked), Ok(expected), _) => {
                 let expected: Value = serde_json::from_str(&expected).unwrap();
-                first_difference(&tables(linked.grammar), &expected, "")
+                first_difference(&tables(linked), &expected, "")
             }
             (Err(_), Err(_), Ok(_)) => None,
             (Ok(_), Err(_), Ok(refused)) => Some(format!("engine-tables.ts refused it: {refused}")),

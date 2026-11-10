@@ -44,19 +44,6 @@ const DFA_CACHE: usize = 1 << 22;
 /// The tokenizer looks a list's hand-off up as a `u8`, one load a step.
 const MAX_HAND_OFFS: usize = 256;
 
-/// A linked grammar and the grammars of the set it read.
-#[derive(Debug)]
-pub(crate) struct Linked {
-    /// The engine's tables, leaked so the tokenizer can key its caches on
-    /// their address.
-    pub(crate) grammar: &'static Grammar,
-    /// The indices in the set of the grammars whose rules or repository the
-    /// link read, ascending.
-    /// The root is not among them unless the set holds it under another
-    /// scope.
-    pub(crate) reached: Vec<usize>,
-}
-
 /// Why a grammar did not link.
 ///
 /// Each is a case `oracle/engine-tables.ts` refuses too.
@@ -101,6 +88,9 @@ impl std::error::Error for LinkError {}
 
 /// Links `root` with the grammars of `set` into the engine's tables.
 ///
+/// The tables are leaked, so the tokenizer can key its caches on their
+/// address.
+///
 /// `handed` lists the languages lexed by hand whose grammars are handed off.
 /// With `None`, it is every such language whose grammar neither `root` nor
 /// `set` holds.
@@ -108,7 +98,7 @@ pub(crate) fn link(
     root: &Compiled,
     set: &[&Compiled],
     handed: Option<&[Language]>,
-) -> Result<Linked, LinkError> {
+) -> Result<&'static Grammar, LinkError> {
     let handed: Vec<(&str, Language)> = match handed {
         Some(languages) => languages
             .iter()
@@ -148,7 +138,6 @@ pub(crate) fn link(
         roots: HashMap::new(),
         compiled: HashMap::new(),
         hand_offs: Vec::new(),
-        reached: vec![false; set.len()],
     };
     let root_rule = builder.root(&root.scope).unwrap_or(NONE);
     let mut injections: Vec<(&str, usize)> = root
@@ -299,8 +288,6 @@ struct Builder<'a> {
     compiled: HashMap<(Source, RuleId), usize>,
     /// The language of each hand-off.
     hand_offs: Vec<Language>,
-    /// Whether the link read each grammar of the set.
-    reached: Vec<bool>,
 }
 
 /// The repositories an include can name, innermost last.
@@ -312,15 +299,6 @@ impl<'a> Builder<'a> {
         match source {
             Source::Root => self.root,
             Source::Set(index) => self.set.get(index).copied().unwrap_or(self.root),
-        }
-    }
-
-    /// Records that the link read the grammar of `source`.
-    fn reach(&mut self, source: Source) {
-        if let Source::Set(index) = source
-            && let Some(slot) = self.reached.get_mut(index)
-        {
-            *slot = true;
         }
     }
 
@@ -368,7 +346,6 @@ impl<'a> Builder<'a> {
             return Some(id);
         }
         let source = self.docs.iter().find(|&&(s, _)| s == scope)?.1;
-        self.reach(source);
         let grammar = self.grammar(source);
         let id = self.reserve(RuleKind::Container);
         self.roots.insert(grammar.scope.as_str(), id);
@@ -423,7 +400,6 @@ impl<'a> Builder<'a> {
                 .1;
             let grammar = self.grammar(other);
             let rule = lookup(&grammar.repository, name)?;
-            self.reach(other);
             return Some(Entry::Rule(self.entry(other, rule, &[&grammar.repository])));
         }
         self.root(target).map(Entry::Rule)
@@ -640,7 +616,11 @@ impl<'a> Builder<'a> {
     }
 
     /// Interns the names and lists, and writes the tables.
-    fn finish(self, root: usize, injections: &[(&str, usize)]) -> Result<Linked, LinkError> {
+    fn finish(
+        self,
+        root: usize,
+        injections: &[(&str, usize)],
+    ) -> Result<&'static Grammar, LinkError> {
         let mut tables = Tables::default();
         let mut rules = Vec::with_capacity(self.rules.len());
         for draft in &self.rules {
@@ -717,16 +697,7 @@ impl<'a> Builder<'a> {
             cells: OnceLock::new(),
             full_cells: OnceLock::new(),
         };
-        let reached = self
-            .reached
-            .iter()
-            .enumerate()
-            .filter_map(|(index, &read)| read.then_some(index))
-            .collect();
-        Ok(Linked {
-            grammar: Box::leak(Box::new(grammar)),
-            reached,
-        })
+        Ok(Box::leak(Box::new(grammar)))
     }
 }
 
