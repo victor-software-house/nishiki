@@ -400,10 +400,10 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
    - A search from another place finds the same start only when the pattern ignores where the search began.
      `\A` depends on that place only on a document's first line, and a region never starts before that.
    - `\G` matches only at the anchor, where the embedding rule's begin ended on this line.
-     vscode-textmate keeps that anchor while the region's own rules open and close.
-     Hand-lexed tokens do not move it either.
-     So `\G` in the `before` or `after` patterns or in the embedding rule's end halts where Shiki matches it.
-     Vue's nested `<template>` rule needs this: its first pattern, `tag-stuff`, begins with `\G`.
+     - vscode-textmate keeps that anchor while the region's own rules open and close.
+     - Hand-lexed tokens do not move it either.
+     - So `\G` halts where Shiki matches it, in the `before` and `after` patterns and in the embedding rule's end.
+     - Vue's nested `<template>` rule needs this: its first pattern, `tag-stuff`, begins with `\G`.
 4. The step calls the target in place, in the cold `Tokenizer::run_language`.
    The step then goes on where the target halted.
    - At a halt the engine runs its own step.
