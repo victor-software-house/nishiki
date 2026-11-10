@@ -1768,8 +1768,8 @@ pub(crate) fn halt_before(
 pub(crate) struct Line<'a> {
     pub(crate) text: &'a str,
     pub(crate) start: usize,
-    /// Whether a Markdown fence embeds the language, which sets the anchor
-    /// `\G` at `start` as the fence's `while` rule does in Shiki.
+    /// Whether the anchor `\G` sits at `start`, as a Markdown fence's `while`
+    /// rule leaves it in Shiki.
     pub(crate) embedded: bool,
 }
 

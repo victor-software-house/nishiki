@@ -1867,6 +1867,11 @@ impl Tokenizer<'_> {
     /// opener `<<<'JSON'(\s*)$` consumes that newline. The language then
     /// starts at the cut and lexes nothing of this line.
     ///
+    /// When `\G` sits where the language starts, the language reads its line
+    /// as anchored there.
+    /// A Markdown fence's `while` rule leaves `\G` at the start of each line.
+    /// Then Shiki's shell grammar reads the line after a `\` as a new command.
+    ///
     /// The language may run the engine again, as Markdown does for a fence.
     /// That engine line uses the spare scratch, which sits in the whole
     /// scratch while the line runs.
@@ -1893,7 +1898,7 @@ impl Tokenizer<'_> {
         let part = Line {
             text,
             start: from.at.min(cut),
-            embedded: false,
+            embedded: from.anchor == from.at,
         };
         let state = frames[top].end;
         let (finished, halted) = {
