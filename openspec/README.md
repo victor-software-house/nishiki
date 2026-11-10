@@ -17,6 +17,7 @@ The [OpenSpec](https://github.com/Fission-AI/OpenSpec) CLI manages it.
 | Colours match Shiki | [`theme-colouring`](specs/theme-colouring/spec.md) |
 | Bounded work per line | [`line-limits`](specs/line-limits/spec.md) |
 | nishiki's TextMate engine | [`textmate-engine`](specs/textmate-engine/spec.md) |
+| Grammars a caller brings | [`grammar-loading`](specs/grammar-loading/spec.md) |
 | Speed and memory, measured | [`benchmarks`](specs/benchmarks/spec.md) |
 
 ## Commands

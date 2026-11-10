@@ -85,5 +85,5 @@
     The crate bundles none.
     The pull request that ticks this task is the review.
 
-[fidelity-baseline]: ../../research/2026-11-10-shiki-fidelity-baseline.md
+[fidelity-baseline]: ../../../research/2026-11-10-shiki-fidelity-baseline.md
 [#663]: https://github.com/victor-software-house/nishiki-archive/pull/663

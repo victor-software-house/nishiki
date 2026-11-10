@@ -153,7 +153,7 @@ const INNER: &str = indoc! {r#"
     }
 "#};
 
-/// Task 2.3 of `openspec/changes/grammar-api`.
+/// Task 2.3 of `openspec/changes/archive/2026-11-10-grammar-api`.
 ///
 /// Each root links twice, once per insertion order, into two tables.
 /// Both tables lex its line the same.
