@@ -859,9 +859,9 @@ fn object_only(p: P) -> bool {
     matches!(p, P::MethodAccess | P::MemberAccess | P::PlainAccess)
 }
 
-/// The kinds of position, as bits. Each excludes the patterns that cannot
-/// match there.
-pub(super) mod kind {
+/// The places a position can be, as bits. Each excludes the patterns that
+/// cannot match there.
+pub(super) mod place {
     /// The start of the line.
     pub(in crate::c) const START: usize = 1;
     /// After a word character.
@@ -874,40 +874,40 @@ pub(super) mod kind {
     pub(in crate::c) const NO_CALL: usize = 16;
     /// Neither a letter nor after `]` or `)`.
     pub(in crate::c) const NO_OBJECT: usize = 32;
-    /// How many kinds there are.
+    /// How many sets of these bits there are.
     pub(in crate::c) const COUNT: usize = 64;
 }
-use kind::COUNT as KINDS;
+use place::COUNT as PLACES;
 
-/// Whether the pattern `p` can match at a position whose `kind` flags are
+/// Whether the pattern `p` can match at a position whose `place` flags are
 /// `flags`.
 fn allowed(flags: usize, p: P) -> bool {
-    if flags & kind::START == 0 && start_only(p) {
+    if flags & place::START == 0 && start_only(p) {
         return false;
     }
-    if flags & kind::AFTER_WORD != 0 && word_start(p) {
+    if flags & place::AFTER_WORD != 0 && word_start(p) {
         return false;
     }
-    if flags & kind::BLANK_DEAD != 0 && run_start_only(p) {
+    if flags & place::BLANK_DEAD != 0 && run_start_only(p) {
         return false;
     }
-    if flags & kind::IN_WORD != 0 && word_tail_only(p) {
+    if flags & place::IN_WORD != 0 && word_tail_only(p) {
         return false;
     }
-    if flags & kind::NO_CALL != 0 && call_only(p) {
+    if flags & place::NO_CALL != 0 && call_only(p) {
         return false;
     }
-    flags & kind::NO_OBJECT == 0 || !object_only(p)
+    flags & place::NO_OBJECT == 0 || !object_only(p)
 }
 
-/// One context's patterns by the position's `kind` and first byte, in the
+/// One context's patterns by the position's `place` and first byte, in the
 /// order the context tries them.
 pub(super) struct Table {
     /// The class of each byte, and of the end of text.
     class_of: [u8; EOT + 1],
     /// How many classes the context has.
     classes: usize,
-    /// For each `kind` and class, the list that applies.
+    /// For each `place` and class, the list that applies.
     ids: Vec<u16>,
     lists: Vec<Vec<P>>,
 }
@@ -917,7 +917,7 @@ impl Table {
     /// A line pays only for the contexts it opens.
     ///
     /// Bytes that start the same patterns share a class.
-    /// Each `kind` has a column per class.
+    /// Each `place` has a column per class.
     /// A class index fits a `u8`, and a list index fits a `u16`.
     /// `tables_fit_their_indices` checks both.
     /// The fallbacks therefore never apply.
@@ -933,7 +933,7 @@ impl Table {
     /// Builds the table over sets of the context's patterns.
     /// A set has one bit per pattern, in the order the context tries them.
     /// A class is the set of patterns a byte can start.
-    /// A `kind` is the set of patterns it allows.
+    /// A `place` is the set of patterns it allows.
     /// A list is made only for a set not seen before.
     fn build(r: R) -> Table {
         let mut flat = Vec::new();
@@ -965,9 +965,9 @@ impl Table {
         }
         let mut lists: Vec<Vec<P>> = Vec::new();
         let mut seen: HashMap<Vec<u64>, u16> = HashMap::new();
-        let mut ids = Vec::with_capacity(KINDS * signatures.len());
+        let mut ids = Vec::with_capacity(PLACES * signatures.len());
         let mut key = vec![0_u64; words];
-        for flags in 0..KINDS {
+        for flags in 0..PLACES {
             let allows = set(&|p| allowed(flags, p));
             for signature in &signatures {
                 for ((bits, starts), allows) in key.iter_mut().zip(signature).zip(&allows) {
@@ -998,13 +998,13 @@ impl Table {
         }
     }
 
-    pub(super) fn candidates(&self, kind: usize, index: usize) -> &[P] {
+    pub(super) fn candidates(&self, place: usize, index: usize) -> &[P] {
         let class = self
             .class_of
             .get(index)
             .map_or(0, |&class| usize::from(class));
         self.ids
-            .get(kind * self.classes + class)
+            .get(place * self.classes + class)
             .and_then(|&id| self.lists.get(usize::from(id)))
             .map_or(&[], Vec::as_slice)
     }

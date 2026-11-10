@@ -8,7 +8,7 @@ use crate::scope::scopes;
 
 /// The punctuation a call-like begin gives its `(`.
 #[derive(Clone, Copy, Debug)]
-pub(super) enum CallKind {
+pub(super) enum ParenList {
     /// A call in a function-call context.
     Args,
     /// The parameters of a function definition.
@@ -279,14 +279,14 @@ impl Lexer<'_> {
         Some((name_end, paren))
     }
 
-    /// A call at `p`, with its `(` scoped as `kind` says.
-    pub(super) fn call_like(&mut self, p: usize, kind: CallKind) -> bool {
+    /// A call at `p`, with its `(` scoped as `list` says.
+    pub(super) fn call_like(&mut self, p: usize, list: ParenList) -> bool {
         let Some((name_end, paren)) = self.call_target(p, wordset::CALL_EXCL) else {
             return false;
         };
-        let scope = match kind {
-            CallKind::Args => scopes![S::PunctArgsBegin],
-            CallKind::Params => scopes![S::PunctParamBegin],
+        let scope = match list {
+            ParenList::Args => scopes![S::PunctArgsBegin],
+            ParenList::Params => scopes![S::PunctParamBegin],
         };
         self.span(p, name_end, scopes![S::EntityFunction]);
         self.span(paren, paren + 1, scope);

@@ -1,7 +1,7 @@
 //! The patterns of the grammar, by name: what each one does when it matches,
 //! and what decides where it matches.
 
-use super::access::CallKind;
+use super::access::ParenList;
 use super::engine::{C, Lexer};
 use super::lists::P;
 use super::preproc::{Look, Meta};
@@ -287,9 +287,9 @@ impl Lexer<'_> {
             | P::CondParensBegin => self.paren(p),
             P::RangeColon => self.range_colon(p),
             P::FuncDefBegin => self.func_def(p),
-            P::FuncParamsBegin => self.call_like(p, CallKind::Params),
+            P::FuncParamsBegin => self.call_like(p, ParenList::Params),
             P::Probably => self.probably(p),
-            P::CallBegin | P::DefineCallBegin => self.call_like(p, CallKind::Args),
+            P::CallBegin | P::DefineCallBegin => self.call_like(p, ParenList::Args),
             P::CFunctionCall => self.function_call(p),
             P::MethodAccess => self.method_access(p),
             P::MemberAccess => self.member_access(p),

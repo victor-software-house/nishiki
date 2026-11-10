@@ -128,26 +128,27 @@ impl Lexer<'_> {
         if p != 0 || !self.may_start_declaration(0, Pointers::Continue) {
             return None;
         }
-        let (first, head, second, kind, name, third, end, op) = self.gaps(p).find_map(|first| {
-            self.find_head(first.end, &NORMAL, |lexer, head| {
-                lexer.gaps(head.end).find_map(|second| {
-                    lexer
-                        .variable_names(second.end)
-                        .into_iter()
-                        .find_map(|(kind, name)| {
-                            lexer.gaps(name).find_map(|third| {
-                                let (end, op) = lexer.variable_end(third.end, form)?;
-                                Some((first, *head, second, kind, name, third, end, op))
+        let (first, head, second, style, name, third, end, op) =
+            self.gaps(p).find_map(|first| {
+                self.find_head(first.end, &NORMAL, |lexer, head| {
+                    lexer.gaps(head.end).find_map(|second| {
+                        lexer
+                            .variable_names(second.end)
+                            .into_iter()
+                            .find_map(|(style, name)| {
+                                lexer.gaps(name).find_map(|third| {
+                                    let (end, op) = lexer.variable_end(third.end, form)?;
+                                    Some((first, *head, second, style, name, third, end, op))
+                                })
                             })
-                        })
+                    })
                 })
-            })
-        })?;
+            })?;
         self.put_gap(1, GapForm::Parts, p, &first);
         self.cap(5, first.end, end);
         self.put_head(first.end, &NORMAL, &head);
         self.put_gap(41, GapForm::Parts, head.end, &second);
-        self.cap(44 + kind, second.end, name);
+        self.cap(44 + style, second.end, name);
         self.put_gap(50, GapForm::Parts, name, &third);
         if let Some(group) = op {
             self.cap(group, third.end, end);
@@ -185,23 +186,23 @@ impl Lexer<'_> {
         if !self.may_start_declaration(p, Pointers::Continue) {
             return None;
         }
-        let (head, second, kind, name, third, op, end) =
+        let (head, second, style, name, third, op, end) =
             self.find_head(p, &ASSIGNED, |lexer, head| {
                 lexer.gaps(head.end).find_map(|second| {
                     lexer
                         .variable_names(second.end)
                         .into_iter()
-                        .find_map(|(kind, name)| {
+                        .find_map(|(style, name)| {
                             lexer.gaps(name).find_map(|third| {
                                 let (op, end) = lexer.assign_op(third.end)?;
-                                Some((*head, second, kind, name, third, op, end))
+                                Some((*head, second, style, name, third, op, end))
                             })
                         })
                 })
             })?;
         self.put_head(p, &ASSIGNED, &head);
         self.put_gap(22, GapForm::Plain, head.end, &second);
-        self.cap(23 + kind, second.end, name);
+        self.cap(23 + style, second.end, name);
         self.put_gap(29, GapForm::Plain, name, &third);
         self.cap(31 + op, third.end, end);
         Some(end)
@@ -209,13 +210,13 @@ impl Lexer<'_> {
 
     /// `(TYPE)(POINTER)?GAP name(\[) *(\])GAP op`: an assignment to an array.
     pub(super) fn simple_array_assignment(&mut self, p: usize) -> Option<usize> {
-        let (head, second, kind, name, close, third, op, end) =
+        let (head, second, style, name, close, third, op, end) =
             self.find_head(p, &ARRAY, |lexer, head| {
                 lexer.gaps(head.end).find_map(|second| {
                     lexer
                         .variable_names(second.end)
                         .into_iter()
-                        .find_map(|(kind, name)| {
+                        .find_map(|(style, name)| {
                             if lexer.at(name) != b'[' || name >= lexer.lim() {
                                 return None;
                             }
@@ -228,14 +229,14 @@ impl Lexer<'_> {
                             }
                             lexer.gaps(close + 1).find_map(|third| {
                                 let (op, end) = lexer.assign_op(third.end)?;
-                                Some((*head, second, kind, name, close, third, op, end))
+                                Some((*head, second, style, name, close, third, op, end))
                             })
                         })
                 })
             })?;
         self.put_head(p, &ARRAY, &head);
         self.put_gap(18, GapForm::Plain, head.end, &second);
-        self.cap(19 + kind, second.end, name);
+        self.cap(19 + style, second.end, name);
         self.cap(25, name, name + 1);
         self.cap(26, close, close + 1);
         self.put_gap(27, GapForm::Plain, close + 1, &third);

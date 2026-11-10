@@ -6,14 +6,14 @@
 //!
 //! The search is C's own, not the engine's table scan.
 //! At each position it tries the end of the innermost rule first.
-//! Then it tries only the patterns that the kind of position allows
-//! (`lists::kind`).
+//! Then it tries only the patterns that the position's place allows
+//! (`lists::place`).
 //! It does not skip a run of blanks at once, because some C patterns start
 //! inside one.
 
 use std::cell::Cell;
 
-use super::lists::{EOT, P, Table, blank_run_live, kind};
+use super::lists::{EOT, P, Table, blank_run_live, place};
 use super::scope::S;
 use super::state::R;
 use crate::language::{Halts, NO_HALTS};
@@ -202,8 +202,8 @@ impl Grammar for C {
         lexer.match_pat(pat, p).then_some(lexer.x.end)
     }
 
-    fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
-        match kind {}
+    fn tokenize_nested(_: &mut Lexer<'_>, nested: Nested, _: usize, _: usize, _: u32) {
+        match nested {}
     }
 }
 
@@ -248,7 +248,7 @@ impl Lexer<'_> {
     /// the limit.
     /// Its text stays plain.
     ///
-    /// Each position tries only the patterns that its `lists::kind` allows.
+    /// Each position tries only the patterns that its `lists::place` allows.
     /// Inside an ASCII word that the search tried at its start, the patterns
     /// that read only the word's chain are left out.
     ///
@@ -289,13 +289,13 @@ impl Lexer<'_> {
             let lead = self.b(p);
             let letter = lead.is_ascii_alphabetic() || lead == b'_';
             let mut blank = false;
-            let kind = if p < word_end {
-                let mut flags = kind::AFTER_WORD | kind::IN_WORD;
+            let place = if p < word_end {
+                let mut flags = place::AFTER_WORD | place::IN_WORD;
                 if word_nocall {
-                    flags |= kind::NO_CALL;
+                    flags |= place::NO_CALL;
                 }
                 if !letter {
-                    flags |= kind::NO_OBJECT;
+                    flags |= place::NO_OBJECT;
                 }
                 flags
             } else {
@@ -307,20 +307,20 @@ impl Lexer<'_> {
                 let no_object = !letter && !matches!(self.prev(p), Some(b']' | b')'));
                 let mut flags = 0;
                 if p == 0 {
-                    flags |= kind::START;
+                    flags |= place::START;
                 }
                 if self.word_before(p) {
-                    flags |= kind::AFTER_WORD;
+                    flags |= place::AFTER_WORD;
                 }
                 if blank && blank_dead {
-                    flags |= kind::BLANK_DEAD;
+                    flags |= place::BLANK_DEAD;
                 }
                 if no_object {
-                    flags |= kind::NO_OBJECT;
+                    flags |= place::NO_OBJECT;
                 }
                 flags
             };
-            for &pat in table.candidates(kind, index) {
+            for &pat in table.candidates(place, index) {
                 self.clear_spans();
                 if !self.match_pat(pat, p) {
                     continue;

@@ -292,26 +292,26 @@ impl Lexer<'_> {
         if self.at(close) != b'>' || close >= self.lim() {
             return None;
         }
-        let kind_at = self.skip_space(close + 1);
-        let kind = self.lit_any(kind_at, &[b"class", b"typename"])?;
+        let keyword_at = self.skip_space(close + 1);
+        let keyword = self.lit_any(keyword_at, &[b"class", b"typename"])?;
         let mut caps: Few<_, 7> = [
             (9, at, word),
             (10, open, open + 1),
             (11, first_at, first),
             (12, second_at, second),
             (13, close, close + 1),
-            (14, kind_at, kind),
+            (14, keyword_at, keyword),
         ]
         .into_iter()
         .collect();
-        let name_at = self.skip_space(kind);
-        if name_at > kind
+        let name_at = self.skip_space(keyword);
+        if name_at > keyword
             && let Some(name) = self.plain_ident(name_at)
         {
             caps.push((15, name_at, name));
             return Some((name, caps));
         }
-        Some((kind, caps))
+        Some((keyword, caps))
     }
 
     /// `\b(KW)GAP((?<!\w)ID(?!\w))GAP(?:(CHAIN)GAP)?((?:(?<!\w)ID(?!\w))?)GAP(?

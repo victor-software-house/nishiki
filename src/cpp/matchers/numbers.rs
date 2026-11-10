@@ -43,7 +43,7 @@ enum Suffix {
 
 /// The groups of one expression, in the order they occur.
 struct Shape {
-    kind: Digits,
+    digits: Digits,
     /// The prefix before the digits (`0`, `0[Bb]`, `0[Xx]`) as group 1.
     prefix: &'static [&'static [u8]],
     /// `(?=[.0-9])(?!0[BXbx])` first.
@@ -57,7 +57,7 @@ struct Shape {
     frac: Option<(usize, usize)>,
     /// The exponent's four groups and the letters that start it.
     exponent: Option<([usize; 4], &'static [u8])>,
-    /// The suffix's group and kind.
+    /// The suffix's group and its letters.
     suffix: (usize, Suffix),
     /// The group of the word no pattern takes, and the characters its first
     /// character may not be.
@@ -102,14 +102,14 @@ impl Lexer<'_> {
     }
 
     /// `D(?:D|SEP)*`, and where the last separator in it is.
-    fn digit_run_sep(&self, start: usize, kind: Digits) -> Option<(usize, Option<usize>)> {
-        if start >= self.lim() || !kind.takes(self.s[start]) {
+    fn digit_run_sep(&self, start: usize, digits: Digits) -> Option<(usize, Option<usize>)> {
+        if start >= self.lim() || !digits.takes(self.s[start]) {
             return None;
         }
         let mut end = start + 1;
         let mut last = None;
         while end < self.lim() {
-            if kind.takes(self.s[end]) {
+            if digits.takes(self.s[end]) {
                 end += 1;
             } else if self.separator(end) {
                 last = Some(end);
@@ -127,11 +127,11 @@ impl Lexer<'_> {
     ///
     /// An integer suffix is a letter, an optional second one and an optional
     /// `u`.
-    fn suffix_ends(&self, pos: usize, kind: Suffix) -> Few<usize, 4> {
+    fn suffix_ends(&self, pos: usize, suffix: Suffix) -> Few<usize, 4> {
         let mut tried = Few::<usize, 4>::new();
         if pos < self.lim() {
             let b = self.s[pos];
-            match kind {
+            match suffix {
                 Suffix::Float => {
                     if matches!(b, b'F' | b'L' | b'f' | b'l') {
                         tried.push(pos + 1);
@@ -221,7 +221,7 @@ impl Lexer<'_> {
                 return None;
             }
         }
-        let int = if shape.kind == Digits::Octal {
+        let int = if shape.digits == Digits::Octal {
             let mut end = pos;
             let mut last = None;
             while end < self.lim() {
@@ -236,7 +236,7 @@ impl Lexer<'_> {
             }
             (end > pos).then_some((end, last))
         } else {
-            self.digit_run_sep(pos, shape.kind)
+            self.digit_run_sep(pos, shape.digits)
         };
         let ints = [Some(int), (!shape.int.2).then_some(None)];
         for int in ints.into_iter().flatten() {
@@ -252,7 +252,7 @@ impl Lexer<'_> {
                 }
             }
             let after_point = if let Some(group) = shape.point {
-                let digit = |b: u8| shape.kind.takes(b);
+                let digit = |b: u8| shape.digits.takes(b);
                 let before = self.prev(after_int).is_some_and(digit);
                 let ahead = self.at(after_int + 1);
                 let is_dot = self.at(after_int) == b'.' && after_int < self.lim();
@@ -267,7 +267,7 @@ impl Lexer<'_> {
             let fracs = [
                 shape
                     .frac
-                    .map(|_| self.digit_run_sep(after_point, shape.kind)),
+                    .map(|_| self.digit_run_sep(after_point, shape.digits)),
                 Some(None),
             ];
             for frac in fracs.into_iter().flatten() {
@@ -343,7 +343,7 @@ impl Lexer<'_> {
         let invalid = place == NumberIn::Code;
         let shape = match which {
             0 => Shape {
-                kind: Digits::Hex,
+                digits: Digits::Hex,
                 prefix: &[b"0X", b"0x"],
                 decimal_start: false,
                 int: (2, 3, false),
@@ -354,7 +354,7 @@ impl Lexer<'_> {
                 invalid: invalid.then_some((12, hex_excluded)),
             },
             1 => Shape {
-                kind: Digits::Decimal,
+                digits: Digits::Decimal,
                 prefix: &[],
                 decimal_start: true,
                 int: (1, 2, false),
@@ -365,7 +365,7 @@ impl Lexer<'_> {
                 invalid: invalid.then_some((11, float_excluded)),
             },
             2 => Shape {
-                kind: Digits::Binary,
+                digits: Digits::Binary,
                 prefix: &[b"0B", b"0b"],
                 decimal_start: false,
                 int: (2, 3, true),
@@ -376,7 +376,7 @@ impl Lexer<'_> {
                 invalid: invalid.then_some((5, digit_excluded)),
             },
             3 => Shape {
-                kind: Digits::Octal,
+                digits: Digits::Octal,
                 prefix: &[b"0"],
                 decimal_start: false,
                 int: (2, 3, true),
@@ -387,7 +387,7 @@ impl Lexer<'_> {
                 invalid: invalid.then_some((5, digit_excluded)),
             },
             4 => Shape {
-                kind: Digits::Hex,
+                digits: Digits::Hex,
                 prefix: &[b"0X", b"0x"],
                 decimal_start: false,
                 int: (2, 3, true),
@@ -398,7 +398,7 @@ impl Lexer<'_> {
                 invalid: invalid.then_some((9, hex_excluded)),
             },
             _ => Shape {
-                kind: Digits::Decimal,
+                digits: Digits::Decimal,
                 prefix: &[],
                 decimal_start: true,
                 int: (1, 2, true),

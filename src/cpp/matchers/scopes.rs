@@ -352,10 +352,10 @@ impl Lexer<'_> {
             return None;
         }
         let mut keyword = None;
-        for kind in [&b"class"[..], &b"struct"[..]] {
+        for text in [&b"class"[..], &b"struct"[..]] {
             let a = self.skip_space(word);
             if a > word
-                && let Some(e) = self.lit(a, kind)
+                && let Some(e) = self.lit(a, text)
             {
                 keyword = Some((a, e));
                 break;
