@@ -15,8 +15,11 @@
   - 2026-11-10: the retry lines, on 2b, in release and debug builds:
     - Zig and Lua pass at fixture length.
     - Protocol Buffers' field line reaches the work limit at 101 bytes, one short of its longest fixture line.
-      It is a finding with two fixes (design, section 2.5).
-  - Still to come: the first-byte test, the groups recorded, the `\b` test and a flat dispatch (lead, 2026-11-10).
+      It is a finding with two fixes, in [`field-pattern-fixes`][field-pattern-fixes].
+  - 2026-11-10: steps 3, 4 and 5 measured on boxes, each with 0 differences ([research][research], section 2).
+    Step 5 reads 1.1002, 0.9108 and 1.1623.
+    A cache of class runs raised Protocol Buffers against step 5, so it was dropped.
+  - Next: the costs of [research][research] section 2.2, the groups recorded and Protocol Buffers' `String`.
 - [ ] 1.3 The regex engine path gives an end pattern's back-reference the groups its begin pattern took.
   Then no pattern is left with hand code only.
   It covers Lua's five long-string and long-comment ends ([research][research], section 3).
@@ -26,5 +29,6 @@ The first language moves to default matchers in [rule-table-codegen][rule-table-
 
 [base]: https://github.com/victor-software-house/nishiki-archive/commit/851351f064d86c429f4652af2c59af138dcf6ba2
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
+[field-pattern-fixes]: ../field-pattern-fixes/design.md
 [research]: research.md
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
