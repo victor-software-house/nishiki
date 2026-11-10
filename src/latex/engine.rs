@@ -74,7 +74,7 @@ impl Grammar for Latex {
     }
 
     /// A sectioning command's name scope repeats the command, so it is built
-    /// from the payload instead ([`Grammar::rule_name_delimiter`]).
+    /// from the begin text instead ([`Grammar::rule_name_delimiter`]).
     fn rule_name(rule: Rule) -> Scopes<Sc> {
         if matches!(rule, Rule::SectionsMacro) {
             return Sc::NO_SCOPES;
@@ -94,7 +94,7 @@ impl Grammar for Latex {
         if matches!(rule, Rule::SectionsMacro) {
             return CarriedState::Backref(3);
         }
-        rule.payload()
+        rule.carried_state()
     }
 
     fn rule_name_delimiter(rule: Rule) -> Option<&'static str> {

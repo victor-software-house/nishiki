@@ -6,7 +6,8 @@
 //! interned state.
 //! Strings, here-documents, `if` blocks and statements continued by a
 //! backslash are such rules.
-//! A here-document's delimiter is the frame's payload, an interned string.
+//! A here-document's delimiter is the frame's carried value, an interned
+//! string.
 //!
 //! It reproduces Shiki's output, quirks included:
 //! - after an unterminated string or here-document every later line stays

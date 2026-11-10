@@ -16,7 +16,7 @@
 // `Embeds::embeds_after_own` stops it where a pattern after it starts.
 //
 // A filter's end repeats the indent its begin read.
-// The language it embeds keeps a state, and a frame carries one payload.
+// The language it embeds keeps a state, and a frame carries one value.
 // The include therefore becomes a rule of its own inside the filter.
 // That rule adds no scope and embeds the language.
 // Its end reads the indent from the filter's frame.
@@ -457,7 +457,7 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n    #[inline]\n    pub(crate) fn carried_state(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,

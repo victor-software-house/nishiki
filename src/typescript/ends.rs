@@ -213,7 +213,7 @@ impl<const D: u8> Lexer<'_, D> {
             | Rule::JsDocTypedefTag
             | Rule::JsDocReturnTag => self.end_zero(self.doc_type_tag_end(p), p),
             Rule::JsDocDefaultQuote => {
-                if u32::from(self.byte(p)) == self.payload() && p < self.len {
+                if u32::from(self.byte(p)) == self.carried() && p < self.len {
                     return Some(self.close(
                         p,
                         p + 1,

@@ -67,7 +67,7 @@ pub(crate) type IdMap<K, V = u32> = HashMap<K, V, BuildHasherDefault<IdHasher>>;
 /// A scope stack's key: its parent and its top scope.
 type ScopeKey = (u32, u32);
 
-/// A state's key: parent, rule, payload and scope stack.
+/// A state's key: parent, rule, carried value and scope stack.
 type FrameKey = (u32, u16, u32, u32);
 
 /// One interned scope stack: its parent stack plus one scope.
@@ -85,7 +85,7 @@ pub(crate) struct Frame {
     /// The rule of the lexer's open context, tagged with its language.
     pub(crate) rule: u16,
     /// Data the context carries, such as a raw string's `#` count.
-    pub(crate) payload: u32,
+    pub(crate) carried: u32,
     /// The scope stack of text inside the context.
     pub(crate) stack: u32,
     /// Open contexts below and including this one.
@@ -103,8 +103,8 @@ pub struct Arena {
     scope_ids: IdMap<ScopeKey>,
     frames: Vec<Frame>,
     frame_ids: IdMap<FrameKey>,
-    /// Strings lexers intern: payloads such as a here-document's delimiter,
-    /// and the names of scopes made from source text.
+    /// Strings lexers intern: begin texts such as a here-document's
+    /// delimiter, and the names of scopes made from source text.
     /// Number 0 is empty.
     strings: Vec<Box<str>>,
     string_ids: HashMap<Box<str>, u32>,
@@ -118,7 +118,7 @@ impl Arena {
         let root = Frame {
             parent: ROOT,
             rule: 0,
-            payload: 0,
+            carried: 0,
             stack: ROOT,
             depth: 0,
         };
@@ -303,8 +303,8 @@ impl Arena {
     /// The state `parent` with the context of `rule` opened on it, or `None`
     /// when the node limit keeps a new state from being made.
     #[inline(never)]
-    pub(crate) fn push(&mut self, parent: u32, rule: u16, payload: u32, stack: u32) -> Option<u32> {
-        let key = (parent, rule, payload, stack);
+    pub(crate) fn push(&mut self, parent: u32, rule: u16, carried: u32, stack: u32) -> Option<u32> {
+        let key = (parent, rule, carried, stack);
         if let Some(&id) = self.frame_ids.get(&key) {
             return Some(id);
         }
@@ -339,10 +339,10 @@ impl Arena {
         &mut self,
         parent: u32,
         rule: u16,
-        payload: u32,
+        carried: u32,
         stack: u32,
     ) -> Option<u32> {
-        let key = (parent, rule, payload, stack);
+        let key = (parent, rule, carried, stack);
         let frame = self.frame_on(key);
         match self.frame_ids.entry(key) {
             Entry::Occupied(found) => Some(*found.get()),
@@ -354,11 +354,11 @@ impl Arena {
     }
 
     /// The state that the key's context makes on its parent.
-    fn frame_on(&self, (parent, rule, payload, stack): (u32, u16, u32, u32)) -> Frame {
+    fn frame_on(&self, (parent, rule, carried, stack): (u32, u16, u32, u32)) -> Frame {
         Frame {
             parent,
             rule,
-            payload,
+            carried,
             stack,
             depth: self.frame(parent).depth + 1,
         }

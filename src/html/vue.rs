@@ -101,7 +101,7 @@ impl Lang {
         }
     }
 
-    /// The language a payload's bits name.
+    /// The language a carried value's bits name.
     pub(crate) fn from_bits(bits: u32) -> Lang {
         usize::try_from(bits)
             .ok()
@@ -109,7 +109,7 @@ impl Lang {
             .unwrap_or(Lang::Js)
     }
 
-    /// The language's bits in a payload.
+    /// The language's bits in a carried value.
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
@@ -170,7 +170,7 @@ pub(crate) enum Block {
 }
 
 impl Block {
-    /// The block's bits in a payload.
+    /// The block's bits in a carried value.
     pub(crate) fn bits(self) -> u32 {
         match self {
             Block::Lang(lang) => lang.bits(),
@@ -181,7 +181,7 @@ impl Block {
         }
     }
 
-    /// The block a payload's bits name.
+    /// The block a carried value's bits name.
     pub(crate) fn from_bits(bits: u32) -> Block {
         match bits {
             32 => Block::Template,
@@ -902,14 +902,14 @@ impl Lexer<'_> {
         };
         let tag_stuff_first = match rule {
             VueRule::Element => {
-                let block = Block::from_bits(super::state::payload_bits(self.top().payload));
+                let block = Block::from_bits(super::state::carried_bits(self.top().carried));
                 if block != Block::Lang(Lang::Html) {
                     return Template::Done(self.vue_element_patterns(p, block));
                 }
                 true
             }
             VueRule::TemplateTagEnd => {
-                TemplateTag::from_bits(self.top().payload) == TemplateTag::Attributes
+                TemplateTag::from_bits(self.top().carried) == TemplateTag::Attributes
             }
             VueRule::TemplateBody => false,
             VueRule::Comment
@@ -951,7 +951,7 @@ impl Lexer<'_> {
             VueRule::Comment | VueRule::CommentKv => self.starts(p, b"-->").then(|| one(3)),
             VueRule::SelfClosing => self.starts(p, b"/>").then(|| one(2)),
             VueRule::Block => (b == b'>').then(|| one(1)),
-            VueRule::Element => self.vue_element_end(p, super::state::name(self.top().payload)),
+            VueRule::Element => self.vue_element_end(p, super::state::name(self.top().carried)),
             VueRule::TagStuff => {
                 if self.starts(p, b"/>") {
                     Some(zero())
@@ -965,7 +965,7 @@ impl Lexer<'_> {
             VueRule::ScriptStuff => script_end(self.s, p).then(zero),
             VueRule::StyleStuff => style_end(self.s, p).then(zero),
             VueRule::LangGroup => {
-                let ends = match Lang::from_bits(self.top().payload) {
+                let ends = match Lang::from_bits(self.top().carried) {
                     Lang::Ts | Lang::Tsx | Lang::Jsx | Lang::Coffee => script_end(self.s, p),
                     Lang::Md
                     | Lang::Html
@@ -997,7 +997,7 @@ impl Lexer<'_> {
             }
             VueRule::TemplateTagEnd => self.vue_template_tag_end(p),
             VueRule::Directive => self.vue_directive_end(p),
-            VueRule::ExprString => (u32::from(b) == self.top().payload).then(|| one(1)),
+            VueRule::ExprString => (u32::from(b) == self.top().carried).then(|| one(1)),
             VueRule::ExprBare => bare_end(&self.s[..self.lim], p).then(zero),
             VueRule::Body | VueRule::BodyWhile | VueRule::Expr => None,
         }
@@ -1022,17 +1022,17 @@ impl Lexer<'_> {
             VueRule::ScriptStuff => self.vue_stuff_patterns(p, Element::Script),
             VueRule::StyleStuff => self.vue_stuff_patterns(p, Element::Style),
             VueRule::LangGroup => {
-                self.vue_lang_group_patterns(p, Lang::from_bits(self.top().payload))
+                self.vue_lang_group_patterns(p, Lang::from_bits(self.top().carried))
             }
             VueRule::TemplateTag => self.g(p).then(|| {
-                let tag = TemplateTag::from_bits(self.top().payload);
+                let tag = TemplateTag::from_bits(self.top().carried);
                 Hit::new(Pattern::Vue(VuePattern::TemplateTagEnd), p, p).with([0; 5], tag.bits())
             }),
             VueRule::Capitalized => self
                 .g(p)
                 .then(|| Hit::new(Pattern::Zero(Rule::VueCapitalizedAttributes), p, p)),
             VueRule::Directive => {
-                let directive = if self.top().payload == 1 {
+                let directive = if self.top().carried == 1 {
                     Directive::Control
                 } else {
                     Directive::Original
@@ -1112,10 +1112,10 @@ fn lexed(lang: Lang) -> Option<Lexed> {
     }
 }
 
-/// The language of the body that `parent`, a rule with `payload`, opened.
-pub(super) fn body_lang(parent: Rule, payload: u32) -> Option<Lang> {
+/// The language of the body that `parent`, a rule with `carried`, opened.
+pub(super) fn body_lang(parent: Rule, carried: u32) -> Option<Lang> {
     if parent == Rule::VueElement {
-        return match Block::from_bits(super::state::payload_bits(payload)) {
+        return match Block::from_bits(super::state::carried_bits(carried)) {
             Block::Lang(lang) => Some(lang),
             Block::Template | Block::Script | Block::Style | Block::Other => None,
         };
@@ -1126,7 +1126,7 @@ pub(super) fn body_lang(parent: Rule, payload: u32) -> Option<Lang> {
     if parent == Rule::VueStyleStuff {
         return Some(Lang::Css);
     }
-    (parent == Rule::VueLangGroup).then(|| Lang::from_bits(payload))
+    (parent == Rule::VueLangGroup).then(|| Lang::from_bits(carried))
 }
 
 /// What reads the text of `rule`, a Vue body or directive value inside
@@ -1134,20 +1134,20 @@ pub(super) fn body_lang(parent: Rule, payload: u32) -> Option<Lang> {
 /// The answer is the lexer, if any, and the halt.
 /// The halt is none for a body that runs to the end of each line.
 #[cfg(feature = "lang-vue")]
-pub(super) fn target(rule: Rule, parent: Rule, payload: u32) -> (Option<Lexed>, Option<VueHalt>) {
+pub(super) fn target(rule: Rule, parent: Rule, carried: u32) -> (Option<Lexed>, Option<VueHalt>) {
     if rule == Rule::VueExpression {
         let halt: VueHalt = if parent != Rule::VueExpressionString {
             bare_end
-        } else if payload == u32::from(b'\'') {
+        } else if carried == u32::from(b'\'') {
             single_quote
-        } else if payload == u32::from(b'`') {
+        } else if carried == u32::from(b'`') {
             backtick
         } else {
             double_quote
         };
         return (Some(Lexed::Expression), Some(halt));
     }
-    let lang = body_lang(parent, payload);
+    let lang = body_lang(parent, carried);
     if rule == Rule::VueBodyWhile {
         return (lang.and_then(lexed), None);
     }

@@ -42,7 +42,7 @@ impl Lexer<'_> {
         if !self.push(if doc { Rule::Doc } else { Rule::Block })
             && matches!(self.top(), Rule::Block | Rule::Doc)
         {
-            self.set_payload(self.payload().saturating_add(1));
+            self.set_carried(self.carried().saturating_add(1));
         }
         self.tok(p + width, &[]);
         Some(p + width)
@@ -127,7 +127,7 @@ impl Lexer<'_> {
     }
 
     pub(crate) fn in_raw_string(&mut self, p: usize) -> usize {
-        let hashes = usize::try_from(self.payload()).unwrap_or(usize::MAX);
+        let hashes = usize::try_from(self.carried()).unwrap_or(usize::MAX);
         let mut from = p;
         while let Some(i) = memchr(b'"', &self.s[from..]) {
             let q = from + i;
@@ -157,9 +157,9 @@ impl Lexer<'_> {
             }
             self.gap(q);
             self.tok(q + 2, &[]);
-            match self.payload() {
+            match self.carried() {
                 0 => self.pop(),
-                over => self.set_payload(over - 1),
+                over => self.set_carried(over - 1),
             }
             return q + 2;
         }

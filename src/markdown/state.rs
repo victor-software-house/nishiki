@@ -19,16 +19,17 @@ pub(crate) enum Container {
     /// `1.` or `1)` up to a line that is not indented.
     ListOrdered,
     /// A fence of an embedded language up to the closing fence.
-    /// The frame's payload is the [`Fence`].
+    /// The frame's carried value is the [`Fence`].
     /// A `markdown` fence embeds Markdown itself.
     /// The grammar includes its own rules there.
     Fence(Language),
     /// A fence of any other language up to the closing fence.
-    /// The payload is the [`Fence`].
+    /// The carried value is the [`Fence`].
     FencePlain,
     /// The lines inside a [`Container::Fence`].
     /// The embedded language's rules take them.
-    /// The payload of an embedded body is the state of the embedded lexer.
+    /// The carried value of an embedded body is the state of the embedded
+    /// lexer.
     Body(Language),
     /// Four spaces or a tab up to a line without them.
     RawBlock,
@@ -48,29 +49,29 @@ pub(crate) enum Container {
     /// `_` up to `_`.
     ItalicUnder,
     /// A first line of dashes up to a line of the same dashes or `...`.
-    /// The payload is the number of dashes.
+    /// The carried value is the number of dashes.
     FrontMatter,
     /// The YAML inside [`Container::FrontMatter`].
-    /// The payload is the YAML lexer's state.
+    /// The carried value is the YAML lexer's state.
     FrontMatterBody,
     /// A `<script>`, `<style>` or `<pre>` HTML block whose line does not close
     /// it, up to the line that does.
     HtmlRaw,
     /// The lines inside [`Container::HtmlRaw`] before the closing one.
-    /// html-derivative takes them, and the payload is its state.
+    /// html-derivative takes them, and the carried value is its state.
     HtmlRawBody,
     /// Any other HTML block, up to a blank line.
-    /// html-derivative takes it, and the payload is its state.
+    /// html-derivative takes it, and the carried value is its state.
     HtmlBlock,
     /// A match of html-derivative's root patterns in a paragraph or a
     /// heading, up to where the grammar is back at its root.
-    /// The payload is html-derivative's state.
+    /// The carried value is html-derivative's state.
     HtmlInline,
     /// `(?=<[^>]*?>)` in emphasis up to `(?<=>)`.
-    /// html-derivative takes its text, and the payload is its state.
+    /// html-derivative takes its text, and the carried value is its state.
     HtmlWrap,
     /// A `php` fence up to the closing fence.
-    /// The payload is the [`Fence`].
+    /// The carried value is the [`Fence`].
     /// The grammar's `php` rule includes `text.html.basic` before
     /// `source.php`.
     /// Without a PHP grammar, HTML therefore takes its body, as in Shiki.
@@ -78,7 +79,7 @@ pub(crate) enum Container {
     FencePhp,
     /// The lines inside a [`Container::FencePhp`].
     /// The HTML lexer takes them under `meta.embedded.block.php`, and the
-    /// payload is its state.
+    /// carried value is its state.
     #[cfg(feature = "lang-html")]
     BodyPhp,
 }
@@ -208,14 +209,14 @@ impl Fence {
     /// No closing fence is taken to repeat it.
     pub(crate) const MIXED: u8 = u8::MAX;
 
-    /// The fence as a frame's payload.
-    pub(crate) fn payload(self) -> u32 {
+    /// The fence as a frame's carried value.
+    pub(crate) fn carried(self) -> u32 {
         u32::from(self.delim) << 16 | u32::from(self.len) << 8 | u32::from(self.indent)
     }
 
-    /// The fence a frame's payload holds.
-    pub(crate) fn from_payload(payload: u32) -> Fence {
-        let byte = |shift: u32| u8::try_from(payload >> shift & 0xff).unwrap_or(0);
+    /// The fence a frame's carried value holds.
+    pub(crate) fn from_carried(carried: u32) -> Fence {
+        let byte = |shift: u32| u8::try_from(carried >> shift & 0xff).unwrap_or(0);
         Fence {
             delim: byte(16),
             len: byte(8),

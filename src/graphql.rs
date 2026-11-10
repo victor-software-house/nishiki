@@ -8,7 +8,7 @@
 //! interned state.
 //! Such a rule is a selection set, a type body or a multi-line string.
 //! The JavaScript of an interpolation that goes on across lines is the
-//! payload of its frame.
+//! carried value of its frame.
 //!
 //! It reproduces Shiki's output, quirks included:
 //! - The grammar's comment rule comes first everywhere. It reads every `"..."`

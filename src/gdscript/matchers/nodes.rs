@@ -35,7 +35,7 @@ impl Lexer<'_> {
 
     /// `\3`, `\2` or `\1`: the quote that opened the rule.
     pub(super) fn repeated(&self, p: usize) -> Option<usize> {
-        self.payload_at(p).map(|width| p + width)
+        self.begin_text_at(p).map(|width| p + width)
     }
 
     /// The end of `(\$\s*|%|\$%\s*)` at `p` whose rest can match: the

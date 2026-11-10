@@ -304,7 +304,7 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line: the begin capture group its end\n    /// repeats, when it does.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line: the begin capture group its end\n    /// repeats, when it does.\n    #[inline]\n    pub(crate) fn carried_state(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((rule): [string, string] => [
     rule.id,

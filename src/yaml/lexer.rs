@@ -285,11 +285,11 @@ impl<'a> Lexer<'a> {
         Rule::from_code(self.em.frame.rule)
     }
 
-    /// Opens a context with `payload`.
+    /// Opens a context with `carried`.
     /// It returns false when a limit keeps the context closed.
-    fn push(&mut self, rule: Rule, payload: u32) -> bool {
+    fn push(&mut self, rule: Rule, carried: u32) -> bool {
         let scopes = rule.scopes().iter().map(|scope| scope.scope());
-        self.em.push(rule.code(), payload, scopes)
+        self.em.push(rule.code(), carried, scopes)
     }
 
     // Block scalars.
@@ -316,7 +316,7 @@ impl<'a> Lexer<'a> {
         let blank = indent == len;
         let blank_text = self.lead_blanks == len;
         self.steps.spend(len);
-        let fixed = usize::try_from(self.em.frame.payload).unwrap_or(usize::MAX);
+        let fixed = usize::try_from(self.em.frame.carried).unwrap_or(usize::MAX);
         if fixed == 0 {
             if indent == 0 {
                 if !blank {

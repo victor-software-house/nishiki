@@ -975,7 +975,7 @@ impl Rule {
     /// A rule whose end or name repeats a begin capture group carries that
     /// group.
     #[inline]
-    pub(crate) fn payload(self) -> rules::CarriedState {
+    pub(crate) fn carried_state(self) -> rules::CarriedState {
         match self {
             Rule::BodyJavaScript => embedded!(JavaScript, "lang-javascript")
                 .map_or(rules::CarriedState::None, rules::CarriedState::Embed),
@@ -1135,7 +1135,7 @@ impl Rule {
         }
     }
 
-    /// The prefix of the name scope that repeats the rule's payload.
+    /// The prefix of the name scope that repeats the rule's begin text.
     pub(crate) fn name_delimiter(self) -> Option<&'static str> {
         match self {
             Rule::BodyJavaScript
@@ -1210,7 +1210,7 @@ impl Rule {
         }
     }
 
-    /// The text after the payload in that name scope.
+    /// The text after the begin text in that name scope.
     pub(crate) fn name_suffix(self) -> &'static str {
         match self {
             Rule::BodyJavaScript

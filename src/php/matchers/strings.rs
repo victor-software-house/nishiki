@@ -118,7 +118,7 @@ impl Lexer<'_> {
             return None;
         }
         let at = self.space_end(0);
-        let label = label.map_or_else(|| self.payload_text().as_bytes(), |label| label);
+        let label = label.map_or_else(|| self.begin_text().as_bytes(), |label| label);
         if label.is_empty() {
             return None;
         }

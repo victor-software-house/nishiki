@@ -268,7 +268,7 @@ pub(super) struct Frame {
     /// out of the arena has its parent's.
     pub(super) state: u32,
     /// What the rule carries.
-    pub(super) payload: u32,
+    pub(super) carried: u32,
     /// Whether the injection stays out of the rule's text.
     pub(super) no_inject: bool,
     /// Whether a template's injection applies to the rule's text, and how
@@ -426,7 +426,7 @@ impl<'a> Lexer<'a> {
         }
         for (index, &(id, frame)) in chain.iter().rev().enumerate() {
             if index == 0 {
-                if matches!(frame.payload, ROOT_DERIVATIVE_FIRST | ROOT_SVELTE) {
+                if matches!(frame.carried, ROOT_DERIVATIVE_FIRST | ROOT_SVELTE) {
                     lexer.document = lexer.document.derivative_first();
                 }
                 lexer.frames.push(Frame {
@@ -436,13 +436,13 @@ impl<'a> Lexer<'a> {
                     name: frame.stack,
                     content: frame.stack,
                     state: id,
-                    payload: frame.payload,
+                    carried: frame.carried,
                     no_inject: matches!(
-                        frame.payload,
+                        frame.carried,
                         ROOT_EMBEDDED | ROOT_DERIVATIVE_FIRST | ROOT_SVELTE
                     ),
                     injection: if matches!(
-                        frame.payload,
+                        frame.carried,
                         state::ROOT_BLADE_HEREDOC | state::ROOT_BLADE_HEREDOC_SEALED
                     ) {
                         Injection::ShutOut
@@ -456,7 +456,7 @@ impl<'a> Lexer<'a> {
             let top = *lexer.top();
             let (parent, injection) = lexer.frame_links(&top, rule);
             let no_inject = lexer.top().no_inject || rule.shuts_out_injection();
-            let name = lexer.name_stack(parent, rule, frame.payload);
+            let name = lexer.name_stack(parent, rule, frame.carried);
             lexer.frames.push(Frame {
                 rule,
                 enter: None,
@@ -464,7 +464,7 @@ impl<'a> Lexer<'a> {
                 name,
                 content: frame.stack,
                 state: id,
-                payload: frame.payload,
+                carried: frame.carried,
                 no_inject,
                 injection,
             });
@@ -628,7 +628,7 @@ impl<'a> Lexer<'a> {
     pub(super) fn blade_heredoc_root(&self) -> bool {
         self.frames.len() == 1
             && matches!(
-                self.frames[0].payload,
+                self.frames[0].carried,
                 state::ROOT_BLADE_HEREDOC | state::ROOT_BLADE_HEREDOC_SEALED
             )
     }
@@ -741,7 +741,7 @@ impl<'a> Lexer<'a> {
         self.tok(stack, self.lim);
     }
 
-    /// The interned id of the text `from..to`, which a payload can carry.
+    /// The interned id of the text `from..to`, which a frame can carry.
     pub(super) fn intern(&mut self, from: usize, to: usize) -> u32 {
         let text = self.text.get(from..to).unwrap_or("");
         match self.arena.intern(text) {
@@ -1019,7 +1019,7 @@ impl<'a> Lexer<'a> {
         let top = *self.top();
         let pos = self.pos;
         self.tok(top.content, pos);
-        let mut inner = self.arena.frame(top.state).payload;
+        let mut inner = self.arena.frame(top.state).carried;
         let css = top.rule == Rule::BodyCss;
         if inner == 0 {
             inner = if css {
@@ -1056,7 +1056,7 @@ impl<'a> Lexer<'a> {
                 if self
                     .frames
                     .first()
-                    .is_some_and(|root| root.payload == ROOT_SVELTE) =>
+                    .is_some_and(|root| root.carried == ROOT_SVELTE) =>
             {
                 Script::Svelte
             }
@@ -1101,7 +1101,7 @@ impl<'a> Lexer<'a> {
             .unwrap_or(top);
         let pos = self.pos;
         self.tok(top.content, pos);
-        let (lexed, halt) = vue_rules::target(top.rule, parent.rule, parent.payload);
+        let (lexed, halt) = vue_rules::target(top.rule, parent.rule, parent.carried);
         let end = halt.unwrap_or(vue_rules::never);
         let Some(lexed) = lexed else {
             let at = vue_rules::halt_at(&self.s[..self.lim], pos, end);
@@ -1115,7 +1115,7 @@ impl<'a> Lexer<'a> {
             self.pos = at;
             return Some(Hit::new(Pattern::End, at, at));
         };
-        let mut inner = self.arena.frame(top.state).payload;
+        let mut inner = self.arena.frame(top.state).carried;
         if inner == 0 {
             inner = vue_start(self.arena, lexed, top.content);
         }
@@ -1196,8 +1196,9 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Keeps `inner`, the state of the language the innermost rule embeds,
-    /// as that rule's payload, for the rest of the line or the next one.
+    /// Keeps `inner` as the innermost rule's carried value.
+    /// `inner` is the state of the language that rule embeds.
+    /// It lasts for the rest of the line or the next one.
     fn keep_inner(&mut self, inner: u32) {
         let top = *self.top();
         let parent = self.frames[self.frames.len() - 2].state;
@@ -1283,7 +1284,7 @@ impl<'a> Lexer<'a> {
         let top = *self.top();
         let pos = self.pos;
         self.tok(top.content, pos);
-        let mut inner = self.arena.frame(top.state).payload;
+        let mut inner = self.arena.frame(top.state).carried;
         if inner == 0 {
             inner = erb::ruby_start(self.arena, top.content);
         }
@@ -1342,8 +1343,8 @@ impl<'a> Lexer<'a> {
 
     /// The PHP of a Blade rule: the rest of the line up to the rule's end.
     /// It stops sooner where Blade's injection opens, at any depth of the PHP.
-    /// The PHP's state stays the rule's payload while a rule of the injection
-    /// is open inside it.
+    /// The PHP's state stays the rule's carried value while a rule of the
+    /// injection is open inside it.
     #[cold]
     #[inline(never)]
     fn blade_php(&mut self) -> Option<Hit> {
@@ -1351,7 +1352,7 @@ impl<'a> Lexer<'a> {
         let rule = top.rule.blade()?;
         let pos = self.pos;
         self.tok(top.content, pos);
-        let mut inner = self.arena.frame(top.state).payload;
+        let mut inner = self.arena.frame(top.state).carried;
         if inner == 0 {
             if pos >= self.lim {
                 return None;
@@ -1399,7 +1400,7 @@ impl<'a> Lexer<'a> {
     #[inline(never)]
     pub(super) fn blade_base(&self, rule: Rule, state: u32, content: u32) -> u32 {
         if rule.blade().is_some_and(blade::BladeRule::holds_php) {
-            let inner = self.arena.frame(state).payload;
+            let inner = self.arena.frame(state).carried;
             if inner != 0 {
                 return self.arena.frame(inner).stack;
             }
@@ -1514,7 +1515,7 @@ impl<'a> Lexer<'a> {
     fn open(&mut self, hit: &Hit) -> bool {
         let top = *self.top();
         self.tok(top.content, hit.start);
-        let Some((rule, payload)) = self.opens(hit, &top) else {
+        let Some((rule, carried)) = self.opens(hit, &top) else {
             self.tok(top.content, hit.end);
             self.pos = self.pos.max(hit.end);
             return false;
@@ -1537,7 +1538,7 @@ impl<'a> Lexer<'a> {
         }
         let advanced = hit.end > self.pos;
         let before = depth - 1;
-        self.push_frame(rule, payload);
+        self.push_frame(rule, carried);
         let frame = *self.top();
         self.begin_captures(hit, &frame, &top);
         self.tok(frame.name, hit.end);
@@ -1553,14 +1554,14 @@ impl<'a> Lexer<'a> {
     }
 
     /// Pushes `rule` on the stack, with the scopes of its name and content.
-    fn push_frame(&mut self, rule: Rule, payload: u32) {
+    fn push_frame(&mut self, rule: Rule, carried: u32) {
         let top = *self.top();
         let (base, injection) = self.frame_links(&top, rule);
-        let name = self.name_stack(base, rule, payload);
-        let content = self.content_stack(name, rule, payload);
+        let name = self.name_stack(base, rule, carried);
+        let content = self.content_stack(name, rule, carried);
         let state = self
             .arena
-            .push(top.state, rule.code(), payload, content)
+            .push(top.state, rule.code(), carried, content)
             .unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
                 top.state
@@ -1572,7 +1573,7 @@ impl<'a> Lexer<'a> {
             name,
             content,
             state,
-            payload,
+            carried,
             no_inject: top.no_inject || rule.shuts_out_injection(),
             injection,
         });
@@ -1625,7 +1626,7 @@ impl<'a> Lexer<'a> {
             self.blade_base(top_rule, state, content)
         };
         let injection = if parent == Injection::ShutOut
-            && self.frames[0].payload == state::ROOT_BLADE_HEREDOC_SEALED
+            && self.frames[0].carried == state::ROOT_BLADE_HEREDOC_SEALED
         {
             Injection::ShutOut
         } else {
@@ -1679,7 +1680,7 @@ impl<'a> Lexer<'a> {
     /// The grammar does so for a capture group of an element's start tag.
     /// It lexes on that text alone, under `base`, and the rules it leaves open
     /// end with it.
-    pub(super) fn region(&mut self, from: usize, to: usize, base: u32, payload: u32) {
+    pub(super) fn region(&mut self, from: usize, to: usize, base: u32, carried: u32) {
         if from >= to {
             return;
         }
@@ -1693,7 +1694,7 @@ impl<'a> Lexer<'a> {
             name: base,
             content: base,
             state: top.state,
-            payload,
+            carried,
             no_inject: top.no_inject,
             injection: top.injection,
         });

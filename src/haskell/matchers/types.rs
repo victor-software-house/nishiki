@@ -550,7 +550,7 @@ impl Lexer<'_> {
     /// whether the line is indented as far as the signature's colons, blank,
     /// or only a comment.
     fn continues_signature(&self) -> bool {
-        let indent = self.payload_text().as_bytes();
+        let indent = self.begin_text().as_bytes();
         if self.s.starts_with(indent) && self.space_end(indent.len()) < self.lim() {
             return true;
         }

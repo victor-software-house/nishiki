@@ -273,7 +273,7 @@ impl Lexer<'_> {
     /// The optional suffix follows in its two forms, `[A-Za-z]…` and `_…`, as
     /// groups 4 and 5.
     ///
-    /// The delimiter is the rule's payload.
+    /// The delimiter is the rule's begin text.
     /// One longer than 16 bytes is group 3 of the start and of the end.
     /// Their group 2 is then empty.
     ///
@@ -283,7 +283,7 @@ impl Lexer<'_> {
         if self.at(p) != b')' || p >= self.lim() {
             return None;
         }
-        let name = self.lit(p + 1, self.payload_text().as_bytes())?;
+        let name = self.lit(p + 1, self.begin_text().as_bytes())?;
         if self.at(name) != b'"' || name >= self.lim() {
             return None;
         }

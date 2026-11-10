@@ -11,7 +11,7 @@
 //!
 //! The open rules of a line are the frames of the arena's state.
 //! So a state is one integer and equal states are equal ids.
-//! A frame packs three things into its payload:
+//! A frame packs three things into its carried value:
 //!
 //! - its rule;
 //! - the interned text of an `end` or `while` pattern that holds
@@ -42,16 +42,16 @@ mod tests;
 /// The frame kind of the engine's states, tagged as the engine's.
 const TAG: u16 = crate::tag::TEXTMATE;
 /// The frame kind of a hand-off region. The frame sits on top of the frame of
-/// the rule that opened the region. Its payload is the state of the language
-/// lexed by hand.
+/// the rule that opened the region. Its carried value is the state of the
+/// language lexed by hand.
 const HAND_OFF_TAG: u16 = TAG | 1;
 /// The rule of a hand-off frame. No rule of a grammar has this index.
 const HANDED: usize = usize::MAX;
-/// The payload bit that says the rule opened at the end of its line.
+/// The carried value bit that says the rule opened at the end of its line.
 const EOL: u32 = 1 << 16;
-/// Where the interned end pattern's number starts in the payload.
+/// Where the interned end pattern's number starts in the carried value.
 const END_SHIFT: u32 = 17;
-/// The largest interned end pattern number a payload holds.
+/// The largest interned end pattern number a carried value holds.
 const MAX_END: u32 = (1 << 15) - 1;
 /// The end-pattern number of the root frame at the start of a document,
 /// where `\A` matches.
@@ -1058,14 +1058,14 @@ fn rebuild<H: Halting>(
                 enter: usize::MAX,
                 anchor: usize::MAX,
                 eol: false,
-                end: f.payload,
+                end: f.carried,
                 name: f.stack,
                 content: f.stack,
             });
             at = f.parent;
             continue;
         }
-        let rule = usize::try_from(f.payload & 0xffff).unwrap_or(0);
+        let rule = usize::try_from(f.carried & 0xffff).unwrap_or(0);
         let rule = if rule < grammar.rules.len() {
             rule
         } else {
@@ -1080,8 +1080,8 @@ fn rebuild<H: Halting>(
             state: at,
             enter: usize::MAX,
             anchor: usize::MAX,
-            eol: f.payload & EOL != 0,
-            end: f.payload >> END_SHIFT,
+            eol: f.carried & EOL != 0,
+            end: f.carried >> END_SHIFT,
             name,
             content: f.stack,
         });
@@ -2463,7 +2463,7 @@ impl Tokenizer<'_> {
             .map_or(ROOT, |frame| frame.state);
         let mut kept = true;
         for (at, frame) in frames.iter_mut().enumerate().skip(low) {
-            let (tag, payload) = if H::HANDS_OFF && frame.rule == HANDED {
+            let (tag, carried) = if H::HANDS_OFF && frame.rule == HANDED {
                 (HAND_OFF_TAG, frame.end)
             } else {
                 (
@@ -2473,7 +2473,7 @@ impl Tokenizer<'_> {
             };
             frame.state = self
                 .arena
-                .push(parent, tag, payload, frame.content)
+                .push(parent, tag, carried, frame.content)
                 .unwrap_or_else(|| {
                     self.report.record(Limit::Nodes);
                     kept = false;

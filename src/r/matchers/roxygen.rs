@@ -96,7 +96,7 @@ impl Lexer<'_> {
 
     /// `(\1)`: the fence's backticks again.
     pub(super) fn fence_end(&mut self, p: usize) -> Option<usize> {
-        let end = self.lit(p, self.payload_text().as_bytes())?;
+        let end = self.lit(p, self.begin_text().as_bytes())?;
         self.capture(1, p, end);
         Some(end)
     }

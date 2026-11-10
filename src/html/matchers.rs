@@ -234,7 +234,7 @@ impl Lexer<'_> {
             (Some(a), Some(b)) => Some(a.min(b)),
             (a, b) => a.or(b),
         };
-        let quote = u8::try_from(self.top().payload).unwrap_or(b'"');
+        let quote = u8::try_from(self.top().carried).unwrap_or(b'"');
         match rule {
             Rule::Root | Rule::BodyTemplate | Rule::VueTemplateBody => {
                 if p == 0 && matches!(self.at(0), b' ' | b'\t') {
@@ -266,7 +266,7 @@ impl Lexer<'_> {
             Rule::Tag => {
                 let mut q = p;
                 if matches!(
-                    TagClass::from_bits(super::state::payload_bits(self.top().payload)).rule,
+                    TagClass::from_bits(super::state::carried_bits(self.top().carried)).rule,
                     TagRule::Unrecognized | TagRule::Derivative
                 ) {
                     while q < self.lim
@@ -403,7 +403,7 @@ impl Lexer<'_> {
             Rule::DoctypeString => (b == b'"').then(|| one(1)),
             Rule::Processing => self.starts(p, b"?>").then(|| one(2)),
             Rule::Tag => {
-                let rule = TagClass::from_bits(super::state::payload_bits(self.top().payload)).rule;
+                let rule = TagClass::from_bits(super::state::carried_bits(self.top().carried)).rule;
                 match rule {
                     TagRule::Start | TagRule::End | TagRule::CustomEnd => {
                         (b == b'>').then(|| one(1))
@@ -429,7 +429,7 @@ impl Lexer<'_> {
             Rule::Element => self.element_end(p),
             Rule::ElementStart => {
                 let root =
-                    ElementClass::from_bits(super::state::payload_bits(self.top().payload)).root;
+                    ElementClass::from_bits(super::state::carried_bits(self.top().carried)).root;
                 if b == b'>' {
                     Some(one(1))
                 } else if !root && self.starts(p, b"/>") {
@@ -482,17 +482,17 @@ impl Lexer<'_> {
             }
             Rule::WrapCss | Rule::WrapJs => (!self.g(p)).then(|| Self::zero(p)),
             Rule::StringPlain | Rule::StringCss | Rule::StringJs => {
-                (u32::from(b) == self.top().payload).then(|| one(1))
+                (u32::from(b) == self.top().carried).then(|| one(1))
             }
             Rule::JsLineComment => {
-                if u32::from(b) == self.top().payload {
+                if u32::from(b) == self.top().carried {
                     Some(Self::zero(p))
                 } else {
                     (p == self.lim && self.lf).then(|| one(1))
                 }
             }
             Rule::JsBlockComment => {
-                if u32::from(b) == self.top().payload {
+                if u32::from(b) == self.top().carried {
                     Some(Self::zero(p))
                 } else {
                     self.starts(p, b"*/").then(|| one(2))
@@ -575,7 +575,7 @@ impl Lexer<'_> {
     /// `(?i)(</)(\2)\s*(>)|(/>)|(?=</\w+)`: the end of an element.
     fn element_end(&self, p: usize) -> Option<Hit> {
         let top = self.top();
-        let element = ElementClass::from_bits(super::state::payload_bits(top.payload));
+        let element = ElementClass::from_bits(super::state::carried_bits(top.carried));
         if self.at(p) == b'/' {
             return (!element.root && self.starts(p, b"/>"))
                 .then(|| Hit::new(Pattern::End, p, p + 2).with([0; 5], 1));
@@ -584,7 +584,7 @@ impl Lexer<'_> {
             return None;
         }
         let name_start = p + 2;
-        let word = self.word(super::state::name(top.payload)).as_bytes();
+        let word = self.word(super::state::name(top.carried)).as_bytes();
         if let Some(name_end) = self
             .s
             .get(..self.lim)
@@ -654,7 +654,7 @@ impl Lexer<'_> {
                 self.attribute_patterns(p, Attributes::Html)
             }
             Rule::Tag => {
-                let rule = TagClass::from_bits(super::state::payload_bits(self.top().payload)).rule;
+                let rule = TagClass::from_bits(super::state::carried_bits(self.top().carried)).rule;
                 let which = match (rule, self.document) {
                     (TagRule::Unrecognized, Document::Html | Document::Erb) => Attributes::Math,
                     (
@@ -682,7 +682,7 @@ impl Lexer<'_> {
                 self.attribute_patterns(p, which)
             }
             Rule::Region => {
-                let which = match self.top().payload {
+                let which = match self.top().carried {
                     2 => Attributes::Math,
                     _ => Attributes::Svg,
                 };
@@ -690,7 +690,7 @@ impl Lexer<'_> {
             }
             Rule::ElementStart => {
                 let element =
-                    ElementClass::from_bits(super::state::payload_bits(self.top().payload));
+                    ElementClass::from_bits(super::state::carried_bits(self.top().carried));
                 let which = match element.namespace {
                     Namespace::Svg => Attributes::Svg,
                     Namespace::Math => Attributes::Math,
@@ -884,7 +884,7 @@ impl Lexer<'_> {
     /// The patterns of a quoted value of an event handler.
     /// A run of text is `([^\n"/]|/(?![*/]))+`.
     fn js_string_patterns(&self, p: usize) -> Option<Hit> {
-        let quote = u8::try_from(self.top().payload).ok()?;
+        let quote = u8::try_from(self.top().carried).ok()?;
         let mut q = p;
         while q < self.lim {
             let b = self.s[q];
@@ -1420,7 +1420,7 @@ impl Lexer<'_> {
     /// the namespace's tags.
     fn element_patterns(&self, p: usize) -> Option<Hit> {
         let top = self.top();
-        let element = ElementClass::from_bits(super::state::payload_bits(top.payload));
+        let element = ElementClass::from_bits(super::state::carried_bits(top.carried));
         if self.g(p) && self.char_before(p) != Some('>') {
             return Some(Hit::new(Pattern::Zero(Rule::ElementStart), p, p));
         }

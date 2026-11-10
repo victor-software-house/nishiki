@@ -12,7 +12,7 @@
 //    `Grammar::embed_start`.
 //    The patterns before the include become the rule's halts.
 // 2. A rule's scope name with `$N` repeats begin capture N.
-//    The rule carries the group as its payload.
+//    The rule carries the group as its begin text.
 //    A match's scope name with `$N` is an `Sc::Group`.
 // 3. A capture group with patterns of its own is a nested list.
 //    A group whose one pattern includes `source.js` is lexed again by the
@@ -723,7 +723,7 @@ for (const r of ruleList) {
     );
   }
 }
-g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end or name repeats a begin capture group carries that\n    /// group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end or name repeats a begin capture group carries that\n    /// group.\n    #[inline]\n    pub(crate) fn carried_state(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
@@ -743,12 +743,12 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// The prefix of the name scope that repeats the rule's payload.\n    pub(crate) fn name_delimiter(self) -> Option<&'static str> {\n        match self {\n`;
+g += `        }\n    }\n\n    /// The prefix of the name scope that repeats the rule's begin text.\n    pub(crate) fn name_delimiter(self) -> Option<&'static str> {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [r.id, r.dynamic ? `Some("${r.dynamic.prefix}")` : "None"]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// The text after the payload in that name scope.\n    pub(crate) fn name_suffix(self) -> &'static str {\n        match self {\n`;
+g += `        }\n    }\n\n    /// The text after the begin text in that name scope.\n    pub(crate) fn name_suffix(self) -> &'static str {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [r.id, `"${r.dynamic?.suffix ?? ""}"`]),
   "Rule",

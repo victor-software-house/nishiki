@@ -57,7 +57,7 @@ impl<'a> Emitter<'a> {
         self.pos = to;
     }
 
-    /// Opens the context whose rule is `code`, with `payload`, whose text
+    /// Opens the context whose rule is `code`, with `carried`, whose text
     /// carries `scopes` on top of the current stack.
     /// It returns false when the depth or node limit keeps it closed, which
     /// the report records.
@@ -67,7 +67,7 @@ impl<'a> Emitter<'a> {
     pub(crate) fn push(
         &mut self,
         code: u16,
-        payload: u32,
+        carried: u32,
         scopes: impl IntoIterator<Item = Scope>,
     ) -> bool {
         let open = usize::try_from(self.frame.depth.saturating_sub(1)).unwrap_or(usize::MAX);
@@ -79,7 +79,7 @@ impl<'a> Emitter<'a> {
         for scope in scopes {
             stack = stack.and_then(|stack| self.arena.child(stack, scope));
         }
-        let Some(state) = stack.and_then(|stack| self.arena.push(self.state, code, payload, stack))
+        let Some(state) = stack.and_then(|stack| self.arena.push(self.state, code, carried, stack))
         else {
             self.report.record(Limit::Nodes);
             return false;

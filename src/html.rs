@@ -73,14 +73,14 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// The scopes are read once each time another grammar opens HTML.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     let outermost = arena.outermost(base).map(|root| arena.scope_name(root));
-    let payload = match outermost {
+    let carried = match outermost {
         #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
         Some("source.svelte") => ROOT_SVELTE,
         Some(root) if DERIVATIVE_FIRST.contains(&root) => ROOT_DERIVATIVE_FIRST,
         Some(_) | None => ROOT_EMBEDDED,
     };
     arena
-        .push(ROOT, Rule::Root.code(), payload, base)
+        .push(ROOT, Rule::Root.code(), carried, base)
         .unwrap_or(ROOT)
 }
 
@@ -93,8 +93,8 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// They are names, because a grammar loaded at run time can embed HTML too.
 /// So each is listed when its language's lexer is on, or the engine for
 /// loaded grammars is.
-/// [`start_embedded`] gives Svelte its own payload before it reads this list.
-/// Svelte stays listed, as one of these documents.
+/// [`start_embedded`] gives Svelte its own carried value before it reads this
+/// list. Svelte stays listed, as one of these documents.
 const DERIVATIVE_FIRST: &[&str] = &[
     #[cfg(any(feature = "lang-markdown", feature = "_textmate"))]
     "text.html.markdown",
@@ -253,13 +253,13 @@ pub(crate) fn start_blade_heredoc(arena: &mut Arena, base: u32) -> u32 {
     let sealed = arena
         .scopes(base)
         .any(|name| matches!(name, "meta.embedded.block.blade" | "comment.block.blade"));
-    let payload = if sealed {
+    let carried = if sealed {
         state::ROOT_BLADE_HEREDOC_SEALED
     } else {
         state::ROOT_BLADE_HEREDOC
     };
     arena
-        .push(ROOT, Rule::Root.code(), payload, base)
+        .push(ROOT, Rule::Root.code(), carried, base)
         .unwrap_or(ROOT)
 }
 
@@ -328,8 +328,8 @@ pub(crate) fn innermost_stack(arena: &Arena, state: u32) -> u32 {
         Rule::from_code(frame.rule),
         Rule::BodyCss | Rule::BodyJs | Rule::VueBody | Rule::VueBodyWhile | Rule::VueExpression
     );
-    if embeds && frame.payload != 0 {
-        arena.frame(frame.payload).stack
+    if embeds && frame.carried != 0 {
+        arena.frame(frame.carried).stack
     } else {
         frame.stack
     }

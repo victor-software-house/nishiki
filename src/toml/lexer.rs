@@ -161,35 +161,35 @@ impl<'a> Lexer<'a> {
     /// Opens a context.
     /// It returns false when a limit keeps the context closed.
     fn push(&mut self, rule: Rule) -> bool {
-        let payload = if rule == Rule::InlineTable {
-            InlineComments::Allowed.payload()
+        let carried = if rule == Rule::InlineTable {
+            InlineComments::Allowed.carried()
         } else {
-            ArrayNext::Value.payload()
+            ArrayNext::Value.carried()
         };
         self.em
-            .push(rule.code(), payload, rule.scope().map(S::scope))
+            .push(rule.code(), carried, rule.scope().map(S::scope))
     }
 
     /// What the array being read expects next.
     fn array_next(&self) -> ArrayNext {
-        ArrayNext::from_payload(self.em.frame.payload)
+        ArrayNext::from_carried(self.em.frame.carried)
     }
 
     /// Whether a comment may start a line of the inline table being read.
     fn inline_comments(&self) -> InlineComments {
-        InlineComments::from_payload(self.em.frame.payload)
+        InlineComments::from_carried(self.em.frame.carried)
     }
 
-    /// Sets the payload of the array or inline table being read.
-    fn set_payload(&mut self, payload: u32) {
-        if self.em.frame.payload == payload {
+    /// Sets the carried value of the array or inline table being read.
+    fn set_carried(&mut self, carried: u32) {
+        if self.em.frame.carried == carried {
             return;
         }
         let frame = self.em.frame;
         match self
             .em
             .arena
-            .push(frame.parent, frame.rule, payload, frame.stack)
+            .push(frame.parent, frame.rule, carried, frame.stack)
         {
             Some(state) => self.em.enter(state),
             None => self.em.report.record(Limit::Nodes),
@@ -200,8 +200,8 @@ impl<'a> Lexer<'a> {
     /// array or inline table around it.
     pub(super) fn value_starts(&mut self) {
         match self.top() {
-            Rule::Array => self.set_payload(ArrayNext::Comma.payload()),
-            Rule::InlineTable => self.set_payload(InlineComments::Barred.payload()),
+            Rule::Array => self.set_carried(ArrayNext::Comma.carried()),
+            Rule::InlineTable => self.set_carried(InlineComments::Barred.carried()),
             Rule::Top
             | Rule::Basic
             | Rule::Literal
@@ -379,7 +379,7 @@ impl<'a> Lexer<'a> {
             b'#' => return self.comment(p),
             b',' if self.array_next() == ArrayNext::Comma => {
                 self.tok_at(p, p + 1, &[S::PunctArraySep]);
-                self.set_payload(ArrayNext::Value.payload());
+                self.set_carried(ArrayNext::Value.carried());
                 return p + 1;
             }
             _ if self.array_next() == ArrayNext::Value => {
@@ -416,7 +416,7 @@ impl<'a> Lexer<'a> {
             b'}' => return self.finish(p, p + 1, S::PunctInlineEnd),
             b',' => {
                 self.tok_at(p, p + 1, &[S::PunctInlineSep]);
-                self.set_payload(InlineComments::Allowed.payload());
+                self.set_carried(InlineComments::Allowed.carried());
                 return p + 1;
             }
             b'#' if p > 0

@@ -312,7 +312,7 @@ g += arms(
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// What a rule carries from line to line: the state of HLSL, when the\n    /// rule embeds it and its feature is on.\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
+g += `        }\n    }\n\n    /// What a rule carries from line to line: the state of HLSL, when the\n    /// rule embeds it and its feature is on.\n    pub(crate) fn carried_state(self) -> rules::CarriedState {\n        match self {\n`;
 g += arms(
   rules.map((r): [string, string] => [
     r.id,

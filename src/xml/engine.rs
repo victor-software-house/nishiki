@@ -423,7 +423,7 @@ impl<'a> Lexer<'a> {
     /// The rest of a `<% ... %>` on this line: the Java up to the first `%>`
     /// that Java is not inside a context of, and then the end.
     /// The Java lexer reads the code.
-    /// Its state is the payload of the rule's frame.
+    /// Its state is the carried value of the rule's frame.
     /// Code that goes on across lines therefore resumes where it stopped.
     ///
     /// The grammar's end pattern is tried only when no Java rule is open.
@@ -432,7 +432,7 @@ impl<'a> Lexer<'a> {
     /// It reads the whole line, as the grammar's lookaheads do.
     fn jsp(&mut self) -> Option<Found> {
         let top = self.top();
-        let mut state = self.arena.frame(top.state).payload;
+        let mut state = self.arena.frame(top.state).carried;
         if state == 0 {
             state = java::start_embedded(self.arena, top.stack);
         }

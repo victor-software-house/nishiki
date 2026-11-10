@@ -7666,7 +7666,7 @@ impl Rule {
     /// A rule whose end repeats a begin capture group carries that group.
     #[inline]
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn payload(self) -> rules::CarriedState {
+    pub(crate) fn carried_state(self) -> rules::CarriedState {
         match self {
             Rule::SongsEnvAt0
             | Rule::MultilineOptionalArgNoHighlight

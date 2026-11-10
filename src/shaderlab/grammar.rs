@@ -145,7 +145,7 @@ impl Rule {
 
     /// What a rule carries from line to line: the state of HLSL, when the
     /// rule embeds it and its feature is on.
-    pub(crate) fn payload(self) -> rules::CarriedState {
+    pub(crate) fn carried_state(self) -> rules::CarriedState {
         match self {
             Rule::Root | Rule::LineComment | Rule::Attribute | Rule::String => {
                 rules::CarriedState::None

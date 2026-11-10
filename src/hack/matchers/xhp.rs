@@ -76,7 +76,7 @@ impl Lexer<'_> {
     pub(super) fn xhp_tag_end(&mut self, p: usize) -> Option<usize> {
         let after_close = p >= 2 && self.text(p - 2, p) == b"</";
         if after_close
-            && let Some(name) = self.payload_at(p)
+            && let Some(name) = self.begin_text_at(p)
             && self.at(p + name) == b'>'
         {
             self.capture(1, p, p + name);

@@ -539,7 +539,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.push_with(rule, 0)
     }
 
-    /// Opens `rule` carrying `payload`.
+    /// Opens `rule` carrying `carried`.
     ///
     /// `TextMate` refuses to open a context a second time at a position the
     /// line has not advanced past.
@@ -552,7 +552,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// [pull request 618]).
     ///
     /// [pull request 618]: https://github.com/victor-software-house/nishiki-archive/pull/618
-    pub(crate) fn push_with(&mut self, rule: Rule, payload: u32) -> bool {
+    pub(crate) fn push_with(&mut self, rule: Rule, carried: u32) -> bool {
         if self.pos <= self.line_pos {
             let here = self.opened.iter().rev();
             let mut here = here.take_while(|opened| opened.enter == self.line_pos);
@@ -566,7 +566,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
         }
         let outer = self.node(self.frame.stack, rule.names());
         let stack = self.node(outer, rule.content());
-        let Some(state) = self.arena.push(self.state, rule.code(), payload, stack) else {
+        let Some(state) = self.arena.push(self.state, rule.code(), carried, stack) else {
             self.report.record(Limit::Nodes);
             self.stuck = true;
             if let Some(halts) = self.halts {
@@ -600,8 +600,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
     }
 
     /// The data the innermost context carries.
-    pub(crate) fn payload(&self) -> u32 {
-        self.frame.payload
+    pub(crate) fn carried(&self) -> u32 {
+        self.frame.carried
     }
 
     pub(crate) fn pop(&mut self) {

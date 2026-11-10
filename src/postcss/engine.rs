@@ -60,7 +60,7 @@ impl Grammar for PostCss {
     }
 
     fn rule_carried_state(rule: Rule) -> CarriedState {
-        rule.payload()
+        rule.carried_state()
     }
 
     fn pattern_act(pattern: Pattern) -> Act<Self> {

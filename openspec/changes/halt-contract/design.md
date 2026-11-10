@@ -106,7 +106,7 @@ Where the halts live, in the rule engine (go-lexer):
 3. SQL and C have scans of their own, generic over `const HALTING`, and shell and GraphQL have private engines; each gets the same split.
    A callee that a split scan doubles is `#[inline(always)]`.
 
-Where the halts come from: a grammar maps each embedding rule to its halts, `Grammar::rule_halts(rule) -> Halts<'static>` beside `rule_payload`.
+Where the halts come from: a grammar maps each embedding rule to its halts, `Grammar::rule_halts(rule) -> Halts<'static>` beside `rule_carried_state`.
 It replaces [#159][pr159]'s single `end` and `after` pair for every language a grammar embeds (primitives).
 One grammar can embed through rules with different ends, as the engine's `HandOff` rules do.
 
@@ -175,11 +175,11 @@ Above it, a hand-off frame:
 |:--|:--|
 | `parent` | the engine's frame for the embedding rule |
 | `kind` | `tag::TEXTMATE`, with the hand-off bit |
-| `payload` | the embedded language's state |
+| `carried` | the embedded language's state |
 | `stack` | the embedding rule's content stack |
 
 Each line whose embedded state changes interns one new hand-off frame on the same parent.
-Markdown's fence body frame does the same today: it carries its language's state in its payload.
+Markdown's fence body frame does the same today: it carries its language's state in its `carried` value.
 
 When the embedded lexer halts at `before` or `after`, the engine tries its own patterns at the halt.
 vscode-textmate does the same after the embedded patterns fail.

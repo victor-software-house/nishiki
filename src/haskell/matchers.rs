@@ -373,7 +373,7 @@ impl Lexer<'_> {
     /// whether the line is indented past the declaration, blank, or only a
     /// comment.
     fn continues_declaration(&self) -> bool {
-        let indent = self.payload_text().as_bytes();
+        let indent = self.begin_text().as_bytes();
         if self.s.starts_with(indent) {
             let blanks = self.space_end(indent.len());
             if blanks > indent.len() && blanks < self.lim() {

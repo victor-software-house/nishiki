@@ -62,7 +62,7 @@ struct Frame {
     state: u32,
     /// What the rule carries: a here-document's delimiter, as a string
     /// number.
-    payload: u32,
+    carried: u32,
 }
 
 /// The answer to a search that scanned ahead for a position.
@@ -186,7 +186,7 @@ struct PathEntry {
 
 const _: () = assert!(size_of::<Option<PathEntry>>() == 16);
 
-/// A cached `push_frame`: what opening `code` with `payload` on `parent`
+/// A cached `push_frame`: what opening `code` with `carried` on `parent`
 /// made, where the text has the stack `scopes`.
 /// A rule opened inside a lexed-again capture has its parent's state but not
 /// its parent's stack.
@@ -196,7 +196,7 @@ struct PushEntry {
     parent: u32,
     scopes: u32,
     code: u16,
-    payload: u32,
+    carried: u32,
     name: u32,
     content: u32,
     state: u32,
@@ -283,7 +283,7 @@ pub(crate) struct Lexer<'a> {
     /// The rule a begin pattern chose, for [`Act::BeginChosen`].
     pub(crate) chosen: Rule,
     /// The string number of the delimiter a here-document begin matched.
-    payload: u32,
+    carried: u32,
     chain: Vec<(u32, crate::arena::Frame)>,
     /// Where each option of an `alias` statement, or each unit of a `select`
     /// word, ends, for backtracking.
@@ -370,7 +370,7 @@ impl<'a> Lexer<'a> {
             spans,
             span_base: 0,
             chosen: Rule::Root,
-            payload: 0,
+            carried: 0,
             chain: Vec::new(),
             ends: std::mem::take(&mut scratch.ends),
             name: std::mem::take(&mut scratch.name),
@@ -412,7 +412,7 @@ impl<'a> Lexer<'a> {
                         name: frame.stack,
                         content: frame.stack,
                         state: id,
-                        payload: 0,
+                        carried: 0,
                     });
                     continue;
                 }
@@ -426,7 +426,7 @@ impl<'a> Lexer<'a> {
                     name,
                     content: frame.stack,
                     state: id,
-                    payload: frame.payload,
+                    carried: frame.carried,
                 });
             }
         }
@@ -759,7 +759,7 @@ impl<'a> Lexer<'a> {
         rule: Rule,
         enter: Option<usize>,
         anchor: Option<usize>,
-        payload: u32,
+        carried: u32,
     ) {
         self.low = self.low.min(self.frames.len());
         let parent_state = self.top().state;
@@ -772,13 +772,13 @@ impl<'a> Lexer<'a> {
                 .unwrap_or(0)
                 .wrapping_mul(MIX_SCOPES)
             ^ usize::from(code).wrapping_mul(MIX_CODE)
-            ^ usize::try_from(payload).unwrap_or(0))
+            ^ usize::try_from(carried).unwrap_or(0))
             % PUSH_ENTRIES;
         if let Some(entry) = self.pushes[slot]
             && entry.parent == parent_state
             && entry.scopes == parent_scopes
             && entry.code == code
-            && entry.payload == payload
+            && entry.carried == carried
         {
             self.frames.push(Frame {
                 rule,
@@ -787,7 +787,7 @@ impl<'a> Lexer<'a> {
                 name: entry.name,
                 content: entry.content,
                 state: entry.state,
-                payload,
+                carried,
             });
             return;
         }
@@ -800,14 +800,14 @@ impl<'a> Lexer<'a> {
                 self.name.clear();
                 self.name.push_str(prefix);
                 self.name
-                    .push_str(self.arena.string(payload).trim_start_matches('.'));
+                    .push_str(self.arena.string(carried).trim_start_matches('.'));
                 self.spelled_path(name)
             }
             None => self.path(name, definition.content),
         };
         let state = self
             .arena
-            .push_or_insert(parent_state, code, payload, content)
+            .push_or_insert(parent_state, code, carried, content)
             .unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
@@ -819,7 +819,7 @@ impl<'a> Lexer<'a> {
                 parent: parent_state,
                 scopes: parent_scopes,
                 code,
-                payload,
+                carried,
                 name,
                 content,
                 state,
@@ -832,7 +832,7 @@ impl<'a> Lexer<'a> {
             name,
             content,
             state,
-            payload,
+            carried,
         });
     }
 
@@ -905,7 +905,7 @@ impl<'a> Lexer<'a> {
             name: node,
             content: node,
             state,
-            payload: 0,
+            carried: 0,
         });
         self.lim = end;
         self.nl = false;
@@ -1021,9 +1021,9 @@ impl<'a> Lexer<'a> {
         let top_content = self.top().content;
         self.emit(start, top_content);
         let before = self.depth();
-        let payload = if rule.is_heredoc() { self.payload } else { 0 };
+        let carried = if rule.is_heredoc() { self.carried } else { 0 };
         let anchor = self.anchor;
-        self.push_frame(rule, Some(self.pos), anchor, payload);
+        self.push_frame(rule, Some(self.pos), anchor, carried);
         let name = self.top().name;
         let content = self.top().content;
         let top = self.frames.len() - 1;
@@ -1189,8 +1189,8 @@ impl<'a> Lexer<'a> {
 
     /// What the innermost rule carries: a here-document's delimiter, as a
     /// string number.
-    pub(crate) fn top_payload(&self) -> u32 {
-        self.top().payload
+    pub(crate) fn top_carried(&self) -> u32 {
+        self.top().carried
     }
 
     /// Where the interned string `id` ends when the text at `i` starts with
@@ -1209,7 +1209,7 @@ impl<'a> Lexer<'a> {
         let s = self.s;
         let text = std::str::from_utf8(&s[start..end]).ok()?;
         if let Some(id) = self.arena.intern(text) {
-            self.payload = id;
+            self.carried = id;
             Some(())
         } else {
             self.report.record(Limit::Nodes);

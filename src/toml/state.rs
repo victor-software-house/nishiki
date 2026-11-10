@@ -12,10 +12,10 @@ crate::tag::frame_rules! {
         /// Outside every context: a table of key/value pairs.
         Top,
         /// `[` up to `]`.
-        /// The payload is an [`ArrayNext`].
+        /// The carried value is an [`ArrayNext`].
         Array,
         /// `{` up to `}`.
-        /// The payload is an [`InlineComments`].
+        /// The carried value is an [`InlineComments`].
         InlineTable,
         /// `"` up to `"`.
         Basic,
@@ -44,7 +44,7 @@ impl Rule {
     }
 }
 
-/// What the array being read expects next, kept in its frame's payload.
+/// What the array being read expects next, kept in its frame's carried value.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum ArrayNext {
     /// A value: the array has opened or read a comma.
@@ -54,15 +54,15 @@ pub(crate) enum ArrayNext {
 }
 
 impl ArrayNext {
-    pub(crate) fn payload(self) -> u32 {
+    pub(crate) fn carried(self) -> u32 {
         match self {
             ArrayNext::Value => 0,
             ArrayNext::Comma => 1,
         }
     }
 
-    pub(crate) fn from_payload(payload: u32) -> ArrayNext {
-        if payload == 0 {
+    pub(crate) fn from_carried(carried: u32) -> ArrayNext {
+        if carried == 0 {
             ArrayNext::Value
         } else {
             ArrayNext::Comma
@@ -71,7 +71,7 @@ impl ArrayNext {
 }
 
 /// Whether a comment may start a line of the inline table being read.
-/// It is kept in the frame's payload.
+/// It is kept in the frame's carried value.
 /// A comment may start a line only after `{` and `,`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum InlineComments {
@@ -80,15 +80,15 @@ pub(crate) enum InlineComments {
 }
 
 impl InlineComments {
-    pub(crate) fn payload(self) -> u32 {
+    pub(crate) fn carried(self) -> u32 {
         match self {
             InlineComments::Barred => 0,
             InlineComments::Allowed => 1,
         }
     }
 
-    pub(crate) fn from_payload(payload: u32) -> InlineComments {
-        if payload == 0 {
+    pub(crate) fn from_carried(carried: u32) -> InlineComments {
+        if carried == 0 {
             InlineComments::Barred
         } else {
             InlineComments::Allowed

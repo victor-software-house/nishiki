@@ -44,7 +44,7 @@ struct Frame<G: Grammar> {
     /// out of the arena has its parent's.
     state: u32,
     /// What the rule carries: the interned text its end pattern repeats.
-    payload: u32,
+    carried: u32,
     /// The index of the next frame above with a `while` pattern.
     /// It is 0 when there is none, and the root's names the first.
     /// Only a grammar with [`Grammar::WHILES`] links them, at the end of a
@@ -68,7 +68,7 @@ struct PathEntry {
     key: &'static u16,
 }
 
-/// A cached `push_frame`: what opening `code` with `payload` on `parent`,
+/// A cached `push_frame`: what opening `code` with `carried` on `parent`,
 /// whose text has the stack `scopes`, made. A rule opened inside a lexed-again
 /// capture has its parent's state but not its parent's stack, so both key it.
 #[derive(Clone, Copy, Debug)]
@@ -76,7 +76,7 @@ struct PushEntry {
     parent: u32,
     scopes: u32,
     code: u16,
-    payload: u32,
+    carried: u32,
     name: u32,
     content: u32,
     state: u32,
@@ -192,7 +192,7 @@ impl<G: Grammar> Scratch<G> {
         G::deferred_kept(&mut self.kept)
     }
 
-    /// The buffer for an embedding rule's parent payload text, for a
+    /// The buffer for an embedding rule's parent begin text, for a
     /// grammar that keeps one ([`crate::rules::Embeds::parent_text`]).
     #[cfg(feature = "_embedding")]
     pub(crate) fn parent_text(&mut self) -> Option<&mut Vec<u8>>
@@ -203,18 +203,18 @@ impl<G: Grammar> Scratch<G> {
     }
 
     /// Moves the frames kept for `from` to `to`, a state that differs from it
-    /// only in the top frame's payload, which becomes `payload`.
+    /// only in the top frame's carried value, which becomes `carried`.
     /// Where the node limit kept `to` out of the arena, `to` is `from` with
-    /// its old payload, and the frames stay as they are.
+    /// its old carried value, and the frames stay as they are.
     #[cfg(feature = "_embedding")]
-    pub(crate) fn move_resume(&mut self, from: u32, to: u32, payload: u32) {
+    pub(crate) fn move_resume(&mut self, from: u32, to: u32, carried: u32) {
         if from != to
             && self.resume == Some(from)
             && let Some(top) = self.resume_frames.last_mut()
             && top.state == from
         {
             top.state = to;
-            top.payload = payload;
+            top.carried = carried;
             self.resume = Some(to);
         }
     }
@@ -253,7 +253,7 @@ impl<G: Grammar> Default for Scratch<G> {
     }
 }
 
-/// The payload of a frame whose begin match took the line feed.
+/// The carried value of a frame whose begin match took the line feed.
 ///
 /// `\G` then holds at the start of the next line, as in vscode-textmate.
 /// Only a grammar with [`Grammar::CAPTURED_EOL`] keeps it.
@@ -268,7 +268,7 @@ enum NameSource {
         end: usize,
         case: NameCase,
     },
-    /// A string the arena interned, such as a rule's payload.
+    /// A string the arena interned, such as a rule's begin text.
     Interned(u32),
     /// The text of a capture group of the match.
     Group(u8),
@@ -278,10 +278,10 @@ enum NameSource {
 #[cfg(test)]
 pub(crate) type Probe = (usize, Vec<Option<(usize, usize)>>);
 
-/// The payload of a root frame that is the start of a document.
+/// The carried value of a root frame that is the start of a document.
 ///
 /// Its first line is the one where `\A` matches.
-/// The root of every state after it has no payload.
+/// The root of every state after it has no carried value.
 pub(crate) const FIRST_LINE: u32 = 1;
 
 /// Lexes one line.
@@ -519,7 +519,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         if G::CAPTURED_EOL
             && self.frames.len() > 1
             && G::rule_carried_state(self.top().rule) == CarriedState::None
-            && self.top().payload == CAPTURED_EOL
+            && self.top().carried == CAPTURED_EOL
         {
             self.anchor = Some(self.pos);
         }
@@ -544,9 +544,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         for (index, &(id, frame)) in chain.iter().rev().enumerate() {
             if index == 0 {
                 // After the first line the root is another state, without
-                // the payload, so `\A` matches on one line only.
+                // the carried value, so `\A` matches on one line only.
                 let mut state = id;
-                if frame.payload == FIRST_LINE {
+                if frame.carried == FIRST_LINE {
                     self.first_line = true;
                     state = self
                         .arena
@@ -560,7 +560,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                     name: frame.stack,
                     content: frame.stack,
                     state,
-                    payload: 0,
+                    carried: 0,
                     next_while: 0,
                 });
                 continue;
@@ -571,7 +571,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             } else {
                 self.top().content
             };
-            let name = self.rule_name_path(parent, rule, frame.payload);
+            let name = self.rule_name_path(parent, rule, frame.carried);
             self.frames.push(Frame {
                 rule,
                 enter: None,
@@ -579,7 +579,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 name,
                 content: frame.stack,
                 state: id,
-                payload: frame.payload,
+                carried: frame.carried,
                 next_while: 0,
             });
         }
@@ -734,9 +734,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 at,
                 anchored,
                 language,
-                state: top.payload,
+                state: top.carried,
                 base: top.content,
-                parent: self.frames[self.frames.len() - 2].payload,
+                parent: self.frames[self.frames.len() - 2].carried,
             }
         })
     }
@@ -1069,20 +1069,20 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.top().rule
     }
 
-    /// The width of the innermost rule's payload text when the line has it at
+    /// The width of the innermost rule's begin text when the line has it at
     /// `p`.
-    pub(crate) fn payload_at(&self, p: usize) -> Option<usize> {
-        let text = self.arena.string(self.top().payload).as_bytes();
+    pub(crate) fn begin_text_at(&self, p: usize) -> Option<usize> {
+        let text = self.arena.string(self.top().carried).as_bytes();
         (!text.is_empty() && self.starts(p, text)).then_some(text.len())
     }
 
-    /// The innermost rule's payload text.
-    pub(crate) fn payload_text(&self) -> &str {
-        self.arena.string(self.top().payload)
+    /// The innermost rule's begin text.
+    pub(crate) fn begin_text(&self) -> &str {
+        self.arena.string(self.top().carried)
     }
 
     /// The rules open on the line, innermost first, each with its index for
-    /// [`Lexer::payload_text_of`].
+    /// [`Lexer::begin_text_of`].
     #[cfg(any(
         feature = "lang-svelte",
         feature = "lang-astro",
@@ -1092,27 +1092,27 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.frames.iter().map(|frame| frame.rule).enumerate().rev()
     }
 
-    /// The payload text of the open rule at `index`, a rule whose payload is
-    /// a begin capture.
+    /// The begin text of the open rule at `index`, a rule whose carried value
+    /// is a begin capture.
     #[cfg(any(feature = "lang-svelte", feature = "lang-astro"))]
-    pub(crate) fn payload_text_of(&self, index: usize) -> &str {
-        self.arena.string(self.frames[index].payload)
+    pub(crate) fn begin_text_of(&self, index: usize) -> &str {
+        self.arena.string(self.frames[index].carried)
     }
 
-    /// The payload text of the rule around the innermost one.
+    /// The begin text of the rule around the innermost one.
     /// An example is the begin capture of an outer rule whose end the innermost
     /// rule waits for.
     #[cfg(any(feature = "lang-lua", feature = "lang-svelte", feature = "lang-haml"))]
-    pub(crate) fn parent_payload_text(&self) -> &str {
+    pub(crate) fn parent_begin_text(&self) -> &str {
         self.frames
             .len()
             .checked_sub(2)
-            .map_or("", |parent| self.arena.string(self.frames[parent].payload))
+            .map_or("", |parent| self.arena.string(self.frames[parent].carried))
     }
 
-    /// Whether the line has the innermost rule's payload text right before `p`.
-    pub(crate) fn payload_before(&self, p: usize) -> bool {
-        let text = self.arena.string(self.top().payload).as_bytes();
+    /// Whether the line has the innermost rule's begin text right before `p`.
+    pub(crate) fn begin_text_before(&self, p: usize) -> bool {
+        let text = self.arena.string(self.top().carried).as_bytes();
         !text.is_empty() && p >= text.len() && self.text(p - text.len(), p) == text
     }
 
@@ -1278,20 +1278,20 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// The stack `parent` with the name scopes of `rule`, which carries
-    /// `payload`, on top.
-    fn rule_name_path(&mut self, parent: u32, rule: G::Rule, payload: u32) -> u32 {
+    /// `carried`, on top.
+    fn rule_name_path(&mut self, parent: u32, rule: G::Rule, carried: u32) -> u32 {
         let name = self.path(parent, G::rule_name(rule));
         let Some(prefix) = G::rule_name_delimiter(rule) else {
             return name;
         };
-        let source = if self.arena.string(payload).len() > G::LONGEST_NAMED_DELIMITER {
+        let source = if self.arena.string(carried).len() > G::LONGEST_NAMED_DELIMITER {
             NameSource::Line {
                 start: 0,
                 end: 0,
                 case: NameCase::AsWritten,
             }
         } else {
-            NameSource::Interned(payload)
+            NameSource::Interned(carried)
         };
         let named = self.dynamic_path(name, prefix, source, G::rule_name_suffix(rule));
         self.path(named, G::rule_name_after(rule))
@@ -1302,7 +1302,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         rule: G::Rule,
         enter: Option<usize>,
         anchor: Option<usize>,
-        payload: u32,
+        carried: u32,
     ) {
         self.low = self.low.min(self.frames.len());
         let parent_state = self.top().state;
@@ -1319,13 +1319,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 .unwrap_or(0)
                 .wrapping_mul(0x85eb)
             ^ usize::from(code).wrapping_mul(31)
-            ^ usize::try_from(payload).unwrap_or(0))
+            ^ usize::try_from(carried).unwrap_or(0))
             % PUSH_ENTRIES;
         if let Some(entry) = self.scratch.pushes[slot]
             && entry.parent == parent_state
             && entry.scopes == parent_scopes
             && entry.code == code
-            && entry.payload == payload
+            && entry.carried == carried
         {
             self.frames.push(Frame {
                 rule,
@@ -1334,7 +1334,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 name: entry.name,
                 content: entry.content,
                 state: entry.state,
-                payload,
+                carried,
                 next_while: 0,
             });
             if G::DEPTH_HALTS {
@@ -1343,14 +1343,14 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             return;
         }
         self.flags.failed = false;
-        let name = self.rule_name_path(parent_scopes, rule, payload);
+        let name = self.rule_name_path(parent_scopes, rule, carried);
         let content = match G::rule_content_delimiter(rule) {
-            Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(payload), ""),
+            Some(prefix) => self.dynamic_path(name, prefix, NameSource::Interned(carried), ""),
             None => self.path(name, G::rule_content(rule)),
         };
         let state = self
             .arena
-            .push_or_insert(parent_state, code, payload, content)
+            .push_or_insert(parent_state, code, carried, content)
             .unwrap_or_else(|| {
                 self.report.record(Limit::Nodes);
                 self.flags.failed = true;
@@ -1362,7 +1362,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 parent: parent_state,
                 scopes: parent_scopes,
                 code,
-                payload,
+                carried,
                 name,
                 content,
                 state,
@@ -1375,7 +1375,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             name,
             content,
             state,
-            payload,
+            carried,
             next_while: 0,
         });
         if G::DEPTH_HALTS {
@@ -1633,7 +1633,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             name: node,
             content: node,
             state,
-            payload: 0,
+            carried: 0,
             next_while: 0,
         });
         if G::DEPTH_HALTS {
@@ -1884,7 +1884,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.emit(start, top_content);
         let before = self.depth();
         let mut embedded = None;
-        let payload = match G::rule_carried_state(rule) {
+        let carried = match G::rule_carried_state(rule) {
             CarriedState::None if G::CAPTURED_EOL && end > self.s.len() => CAPTURED_EOL,
             CarriedState::None => 0,
             CarriedState::Embed(language) => {
@@ -1901,7 +1901,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         };
         // The content scopes come after the begin tokens.
         let anchor = self.anchor;
-        self.push_frame(rule, Some(self.pos), anchor, payload);
+        self.push_frame(rule, Some(self.pos), anchor, carried);
         let name = self.top().name;
         let content = self.top().content;
         let top = self.frames.len() - 1;
@@ -2064,17 +2064,17 @@ fn lower_with_final_sigma(name: &mut String, text: &str) {
     name.push_str(&text.to_lowercase());
 }
 
-/// The state `state` with its innermost rule's payload replaced by
-/// `payload`.
+/// The state `state` with its innermost rule's carried value replaced by
+/// `carried`.
 ///
-/// The payload can be the state of the language the rule embeds after a
+/// The carried value can be the state of the language the rule embeds after a
 /// line.
 /// The result is `None` when the node limit keeps the new state from being
 /// made.
 #[cfg(feature = "_embedding")]
-pub(crate) fn with_payload(arena: &mut Arena, state: u32, payload: u32) -> Option<u32> {
+pub(crate) fn with_carried(arena: &mut Arena, state: u32, carried: u32) -> Option<u32> {
     let frame = arena.frame(state);
-    arena.push(frame.parent, frame.rule, payload, frame.stack)
+    arena.push(frame.parent, frame.rule, carried, frame.stack)
 }
 
 #[cfg(test)]
@@ -2350,8 +2350,8 @@ mod tests {
     /// - `@@` starts a capture group that runs to the next blank, which
     ///   JavaScript lexes again ([`Grammar::defers_nested`]).
     ///
-    /// The end halt of the rules that embed records the text of the embedding
-    /// rule's parent payload ([`EndText::ParentPayload`]).
+    /// The end halt of the rules that embed records the begin text of the
+    /// embedding rule's parent ([`EndText::ParentBeginText`]).
     #[derive(Clone, Copy, Debug)]
     struct Named;
 
@@ -2391,31 +2391,31 @@ mod tests {
     }
 
     /// What [`Rule::Inner`] carries: Rust, or nothing in a build without Rust.
-    fn inner_payload() -> CarriedState {
+    fn inner_state() -> CarriedState {
         #[cfg(feature = "lang-rust")]
-        let payload = CarriedState::Embed(crate::Language::Rust);
+        let carried = CarriedState::Embed(crate::Language::Rust);
         #[cfg(not(feature = "lang-rust"))]
-        let payload = CarriedState::None;
-        payload
+        let carried = CarriedState::None;
+        carried
     }
 
     /// What [`Rule::Held`] carries: JavaScript, or nothing in a build
     /// without it.
-    fn held_payload() -> CarriedState {
+    fn held_state() -> CarriedState {
         #[cfg(feature = "lang-javascript")]
-        let payload = CarriedState::Embed(crate::Language::JavaScript);
+        let carried = CarriedState::Embed(crate::Language::JavaScript);
         #[cfg(not(feature = "lang-javascript"))]
-        let payload = CarriedState::None;
-        payload
+        let carried = CarriedState::None;
+        carried
     }
 
     /// What [`Rule::Mixed`] carries: HTML, or nothing in a build without it.
-    fn mixed_payload() -> CarriedState {
+    fn mixed_state() -> CarriedState {
         #[cfg(feature = "lang-html")]
-        let payload = CarriedState::Embed(crate::Language::Html);
+        let carried = CarriedState::Embed(crate::Language::Html);
         #[cfg(not(feature = "lang-html"))]
-        let payload = CarriedState::None;
-        payload
+        let carried = CarriedState::None;
+        carried
     }
 
     /// The halt of the rules of [`Named`] that embed.
@@ -2435,7 +2435,7 @@ mod tests {
     }
 
     /// What [`Named`] keeps from line to line: the deferred capture groups,
-    /// and the buffer for its end halt's parent payload text.
+    /// and the buffer for its end halt's parent begin text.
     #[cfg(feature = "_embedding")]
     #[derive(Debug, Default)]
     struct NamedKept {
@@ -2448,7 +2448,7 @@ mod tests {
         /// How many times the engine had [`Named`] lex an embedded
         /// language its own way, on this test's thread.
         static ASKED: std::cell::Cell<usize> = const { std::cell::Cell::new(0) };
-        /// The parent payload texts the engine gave [`Named`]'s end halt,
+        /// The parent begin texts the engine gave [`Named`]'s end halt,
         /// on this test's thread.
         static PARENT_TEXTS: std::cell::RefCell<Vec<Vec<u8>>> =
             const { std::cell::RefCell::new(Vec::new()) };
@@ -2479,9 +2479,9 @@ mod tests {
             matches!(rule, Rule::Mixed)
         }
 
-        const END_TEXT: EndText = EndText::ParentPayload;
+        const END_TEXT: EndText = EndText::ParentBeginText;
 
-        /// Records the parent payload text, then asks `end`.
+        /// Records the parent begin text, then asks `end`.
         fn end_holds(end: &AtOnce, parent_text: &[u8], s: &[u8], p: usize) -> bool {
             PARENT_TEXTS.with_borrow_mut(|texts| texts.push(parent_text.to_vec()));
             end.holds(s, p)
@@ -2611,9 +2611,9 @@ mod tests {
             match rule {
                 Rule::Root => CarriedState::None,
                 Rule::Quote => CarriedState::Backref(1),
-                Rule::Inner => inner_payload(),
-                Rule::Held => held_payload(),
-                Rule::Mixed => mixed_payload(),
+                Rule::Inner => inner_state(),
+                Rule::Held => held_state(),
+                Rule::Mixed => mixed_state(),
             }
         }
 
@@ -2729,7 +2729,7 @@ mod tests {
                     lexer.capture(1, p + 2, end);
                     Some(end)
                 }
-                Mark::Close => lexer.payload_at(p).map(|width| p + width),
+                Mark::Close => lexer.begin_text_at(p).map(|width| p + width),
                 Mark::Embed => lexer
                     .starts(p, b">>")
                     .then(|| p + 2 + usize::from(p + 2 == lexer.lim())),
@@ -2895,7 +2895,7 @@ mod tests {
     }
 
     #[test]
-    fn a_rule_named_from_its_payload_keeps_the_name_on_the_next_line() {
+    fn a_rule_named_from_its_begin_text_keeps_the_name_on_the_next_line() {
         let mut arena = Arena::new(None);
         assert_eq!(arena.named_scope("after.test"), Some(AFTER));
         let rows = named_tokens(&mut arena, &[b"<<ab xy", b"zz ab"]);
@@ -3203,13 +3203,13 @@ mod tests {
         assert!(names.iter().any(|name| name.contains(".rust")), "{names:?}");
     }
 
-    /// `<<ab` opens a quote whose payload is `ab`, and `##` inside it opens a
-    /// rule that embeds HTML.
-    /// The engine hands HTML's end halt that text: the payload of the
-    /// embedding rule's parent ([`EndText::ParentPayload`]).
+    /// `<<ab` opens a quote whose begin text is `ab`, and `##` inside it
+    /// opens a rule that embeds HTML.
+    /// The engine hands HTML's end halt that text: the begin text of the
+    /// embedding rule's parent ([`EndText::ParentBeginText`]).
     #[cfg(all(feature = "_embedding", feature = "lang-html"))]
     #[test]
-    fn an_end_halt_reads_the_parent_payload_text() {
+    fn an_end_halt_reads_the_parent_begin_text() {
         let mut arena = Arena::new(None);
         let state = arena
             .push(ROOT, Named::rule_code(Rule::Root), 0, ROOT)

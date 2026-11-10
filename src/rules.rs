@@ -80,7 +80,7 @@ use lexer::FIRST_LINE;
 pub use lexer::Lexer;
 pub(crate) use lexer::Scratch;
 #[cfg(feature = "_embedding")]
-use lexer::with_payload;
+use lexer::with_carried;
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 pub(crate) use runs::{CachedRuns, HasRuns, Runs};
 #[cfg(feature = "_rule-tables")]
@@ -145,8 +145,8 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     /// Such a span takes that span's scopes too, as nested capture groups do.
     /// Off, every span sits directly under the match.
     const NESTED_SPANS: bool = false;
-    /// The longest payload that the name of a rule with a delimiter repeats.
-    /// A longer one leaves the delimiter out of the name.
+    /// The longest begin text that the name of a rule with a delimiter
+    /// repeats. A longer one leaves the delimiter out of the name.
     /// The begin pattern takes it in another group than the one the name
     /// reads.
     /// C++'s raw strings do this with a delimiter of more than 16 bytes.
@@ -214,21 +214,22 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_carried_state(_rule: Self::Rule) -> CarriedState {
         CarriedState::None
     }
-    /// The prefix of a content scope that ends in the rule's payload text,
+    /// The prefix of a content scope that ends in the rule's begin text,
     /// for a rule whose content scope is named by it.
     fn rule_content_delimiter(_rule: Self::Rule) -> Option<&'static str> {
         None
     }
-    /// The prefix of a name scope that ends in the rule's payload text.
+    /// The prefix of a name scope that ends in the rule's begin text.
     ///
     /// It is for a rule whose name repeats the begin capture group it carries.
     /// Its [`Grammar::rule_name`] then leaves that scope out.
-    /// The next line rebuilds the name from the payload, as it has no groups.
+    /// The next line rebuilds the name from the begin text, as it has no
+    /// groups.
     fn rule_name_delimiter(_rule: Self::Rule) -> Option<&'static str> {
         None
     }
-    /// The text after the payload in that name scope, such as `.svelte` in
-    /// `meta.lang.$3.svelte`; none by default.
+    /// The text after the begin text in that name scope, such as `.svelte`
+    /// in `meta.lang.$3.svelte`; none by default.
     fn rule_name_suffix(_rule: Self::Rule) -> &'static str {
         ""
     }
@@ -395,9 +396,9 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
 /// the stack `base`: the root rule with [`Grammar::SOURCE`] on top of it.
 pub(crate) fn start<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena.child(base, G::SOURCE).unwrap_or(base);
-    let payload = if G::MARKS_FIRST_LINE { FIRST_LINE } else { 0 };
+    let carried = if G::MARKS_FIRST_LINE { FIRST_LINE } else { 0 };
     arena
-        .push(ROOT, G::rule_code(G::ROOT), payload, stack)
+        .push(ROOT, G::rule_code(G::ROOT), carried, stack)
         .unwrap_or(ROOT)
 }
 
@@ -532,7 +533,7 @@ pub(crate) type FnHalt = fn(&[u8], usize) -> bool;
 pub(crate) enum EndText {
     /// The line's bytes only, through [`Halt::holds`].
     Own,
-    /// The text of the embedding rule's parent payload too, through
+    /// The begin text of the embedding rule's parent too, through
     /// [`Embeds::end_holds`].
     /// HAML's filters read it: their end repeats the indent their begin
     /// read.
@@ -542,10 +543,10 @@ pub(crate) enum EndText {
         not(any(test, feature = "lang-haml")),
         expect(
             dead_code,
-            reason = "only HAML reads its parent payload; the engine's test grammar does too"
+            reason = "only HAML reads its parent carried; the engine's test grammar does too"
         )
     )]
-    ParentPayload,
+    ParentBeginText,
 }
 
 /// A grammar whose rules embed other languages ([`CarriedState::Embed`]).
@@ -570,7 +571,7 @@ pub(crate) trait Embeds: Grammar {
     /// The first is tried before the embedded patterns at each place.
     /// The second stands for the patterns after the embedded grammar.
     /// It is tried where none of the embedded patterns match.
-    /// The halts may read the payload of the embedding rule's parent frame.
+    /// The halts may read the begin text of the embedding rule's parent.
     fn embed_halts(embedding: &Embedding, arena: &Arena) -> (Self::End, Option<FnHalt>);
 
     /// The halts for `embedding` by `rule`, the embedding rule.
@@ -603,9 +604,9 @@ pub(crate) trait Embeds: Grammar {
     const END_TEXT: EndText = EndText::Own;
 
     /// Whether `end` holds at `p` of `s`.
-    /// `parent_text` is the text of the embedding rule's parent payload.
+    /// `parent_text` is the begin text of the embedding rule's parent.
     /// The engine calls this instead of `end` itself only when
-    /// [`Embeds::END_TEXT`] is [`EndText::ParentPayload`].
+    /// [`Embeds::END_TEXT`] is [`EndText::ParentBeginText`].
     ///
     /// The default body only calls `end.holds`.
     /// A default that called an `#[inline]` function made rustc export it
@@ -614,9 +615,9 @@ pub(crate) trait Embeds: Grammar {
         end.holds(s, p)
     }
 
-    /// The buffer for the parent payload's text, in what the matchers keep
-    /// from line to line ([`Grammar::Kept`]).
-    /// A grammar whose end reads that text ([`EndText::ParentPayload`])
+    /// The buffer for the parent's begin text, in what the matchers
+    /// keep from line to line ([`Grammar::Kept`]).
+    /// A grammar whose end reads that text ([`EndText::ParentBeginText`])
     /// keeps one there, so
     /// a hand-over allocates nothing once the buffer has room.
     /// Every other grammar keeps none.
@@ -758,8 +759,8 @@ fn has_deferred<G: Grammar>(scratch: &mut Scratch<G>) -> bool {
         .is_some_and(|deferrals| !deferrals.groups.is_empty())
 }
 
-/// An embedding rule's end halt with the text of the rule's parent payload,
-/// for a grammar whose end reads it ([`EndText::ParentPayload`]).
+/// An embedding rule's end halt with the text of the rule's parent carried
+/// value, for a grammar whose end reads it ([`EndText::ParentBeginText`]).
 #[cfg(feature = "_embedding")]
 struct ParentTextEnd<'a, G: Embeds> {
     end: &'a G::End,
@@ -784,7 +785,7 @@ impl<G: Embeds> Halt for ParentTextEnd<'_, G> {
 /// a language. That language lexes the text from there.
 /// It stops where the halts from [`Embeds::embed_halts`] hold.
 /// The engine goes on from there.
-/// The rule's payload keeps the embedded language's state.
+/// The rule's carried value keeps the embedded language's state.
 /// A language that cannot halt lexes the rest of the line.
 #[cfg(feature = "_embedding")]
 pub(crate) fn lex_embedding<G: Embeds>(
@@ -987,7 +988,7 @@ fn lex_again<G: Embeds>(
 ///
 /// A rule whose begin took the line feed embeds from past the text.
 /// No text is left on the line, so the line ends there.
-/// The language starts on the next line, from the rule's empty payload.
+/// The language starts on the next line, from the rule's empty carried value.
 #[cfg(feature = "_embedding")]
 #[cold]
 #[expect(
@@ -1074,7 +1075,7 @@ fn hand_over<G: Embeds>(
             ))
         } else {
             match G::END_TEXT {
-                EndText::ParentPayload => {
+                EndText::ParentBeginText => {
                     let at = (&embedding, scratch);
                     lex_reading_parent_text::<G>(rule, &mut part_cx, part, inner, (&end, after), at)
                 }
@@ -1148,15 +1149,15 @@ fn ends_at_line_end<G: Embeds>(
         return false;
     }
     let parent_text: &[u8] = match G::END_TEXT {
-        EndText::ParentPayload => arena.string(embedding.parent).as_bytes(),
+        EndText::ParentBeginText => arena.string(embedding.parent).as_bytes(),
         EndText::Own => &[],
     };
     G::end_holds(end, parent_text, line.text.as_bytes(), len)
 }
 
 /// Lexes `part` in the embedded language up to its halts, for a grammar
-/// whose end halt reads the text of the embedding rule's parent payload
-/// ([`EndText::ParentPayload`]).
+/// whose end halt reads the begin text of the embedding rule's parent
+/// ([`EndText::ParentBeginText`]).
 /// The grammar's own way goes first ([`Embeds::lex_embedded_until`]), then
 /// the language's.
 ///
@@ -1199,7 +1200,7 @@ fn lex_reading_parent_text<G: Embeds>(
 /// embeds stopped, as `stopped` records.
 ///
 /// Where a halt held, it gives that place and the rule's state, with the
-/// language's state `inner` as its payload.
+/// language's state `inner` as its carried value.
 /// Otherwise it gives the state the line ends in:
 ///
 /// - that state, where the language lexed the rest of the line;
@@ -1226,9 +1227,9 @@ fn resume_at<G: Grammar>(
 }
 
 /// The state of the embedding rule `embedding` with the language's state
-/// `inner` as its payload ([`with_inner`]).
+/// `inner` as its carried value ([`with_inner`]).
 /// The frames the grammar kept for `embedding` move to that state, since
-/// only the top frame's payload differs.
+/// only the top frame's carried value differs.
 /// The next lexer then takes them over instead of opening every rule again.
 #[cfg(feature = "_embedding")]
 fn resumed_with<G: Grammar>(
@@ -1243,10 +1244,11 @@ fn resumed_with<G: Grammar>(
 }
 
 /// The state of the embedding rule `embedding` with the language's state
-/// `inner` as its payload, or `embedding` where the node limit is reached.
+/// `inner` as its carried value, or `embedding` where the node limit is
+/// reached.
 #[cfg(feature = "_embedding")]
 fn with_inner(cx: &mut Context<'_>, embedding: u32, inner: u32) -> u32 {
-    with_payload(cx.arena, embedding, inner).unwrap_or_else(|| {
+    with_carried(cx.arena, embedding, inner).unwrap_or_else(|| {
         cx.report.record(Limit::Nodes);
         embedding
     })
@@ -1437,8 +1439,8 @@ pub(crate) enum Stop {
 /// Where a line stopped for an embedded language.
 /// It holds the cursor, the language and its state (0 before it lexed
 /// anything). It holds the scope stack the language's text sits on.
-/// It holds the payload of the embedding rule's parent frame, such as a begin
-/// capture of the outer rule.
+/// It holds the carried value of the embedding rule's parent frame, such as
+/// the outer rule's begin text.
 #[cfg(feature = "_embedding")]
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Embedding {

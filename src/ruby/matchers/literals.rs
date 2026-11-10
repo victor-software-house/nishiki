@@ -257,7 +257,7 @@ impl Lexer<'_> {
 
     /// `\1`: the delimiter the percent literal opened with.
     pub(in crate::ruby) fn repeated_delimiter(&mut self, p: usize) -> Option<usize> {
-        self.payload_at(p).map(|width| p + width)
+        self.begin_text_at(p).map(|width| p + width)
     }
 
     /// The end of `[eimnosux]*` at `p`: a regular expression's flags.

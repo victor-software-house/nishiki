@@ -138,11 +138,11 @@ impl<'a> Lexer<'a> {
         Rule::from_code(self.em.frame.rule)
     }
 
-    /// Opens a context with `payload`.
+    /// Opens a context with `carried`.
     /// It returns false when a limit keeps the context closed.
-    pub(super) fn push(&mut self, rule: Rule, payload: u32) -> bool {
+    pub(super) fn push(&mut self, rule: Rule, carried: u32) -> bool {
         self.em
-            .push(rule.code(), payload, rule.scope().map(S::scope))
+            .push(rule.code(), carried, rule.scope().map(S::scope))
     }
 
     /// Opens `rule` at `p`.

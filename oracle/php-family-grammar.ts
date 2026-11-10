@@ -450,7 +450,7 @@ export async function generate(cfg: Family): Promise<void> {
   /** A heredoc or nowdoc that embeds a language, one per label it names.
    *
    * Its end repeats its label, as `^\s*(\3)(?!…)`.
-   * Its payload holds the embedded language's state, so it cannot hold the
+   * Its carried value holds the embedded language's state, so it cannot hold the
    * label too.
    * Each label, such as `SQL` and `DQL` for `[DS]QL`, becomes a rule of its
    * own, whose end names the label.
@@ -678,7 +678,7 @@ export async function generate(cfg: Family): Promise<void> {
     ]),
     "Rule",
   );
-  g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n${tooLong}    #[inline]\n    pub(crate) fn payload(self) -> rules::CarriedState {\n        match self {\n`;
+  g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule whose patterns include another language's grammar carries that\n    /// language's state, when its feature is on.\n    /// A rule whose end repeats a begin capture group carries that group.\n${tooLong}    #[inline]\n    pub(crate) fn carried_state(self) -> rules::CarriedState {\n        match self {\n`;
   g += arms(
     ruleList.map((r): [string, string] => [
       r.id,

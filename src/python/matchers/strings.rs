@@ -197,7 +197,7 @@ impl Lexer<'_> {
     /// A single-line string also ends at a line feed that no backslash
     /// precedes.
     fn string_end(&mut self, p: usize, close: Close) -> Option<usize> {
-        if let Some(width) = self.payload_at(p) {
+        if let Some(width) = self.begin_text_at(p) {
             self.capture(1, p, p + width);
             return Some(p + width);
         }
@@ -272,7 +272,7 @@ impl Lexer<'_> {
 
     /// The end `((?<=\1)|^)(?!\s*[Rr]?('''|"""|["']))`.
     fn docstring_statement_end(&self, p: usize) -> Option<usize> {
-        if !(self.payload_before(p) || p == 0) {
+        if !(self.begin_text_before(p) || p == 0) {
             return None;
         }
         self.string_start(self.space_end(p)).is_none().then_some(p)

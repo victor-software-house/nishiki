@@ -802,7 +802,7 @@ impl Rule {
     /// A string macro that includes another language's grammar carries that
     /// language's state.
     #[inline]
-    pub(crate) fn payload(self) -> rules::CarriedState {
+    pub(crate) fn carried_state(self) -> rules::CarriedState {
         match self {
             Rule::Root
             | Rule::Array
