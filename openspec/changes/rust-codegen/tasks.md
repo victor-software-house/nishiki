@@ -18,7 +18,7 @@
 
 ## 3. The writer
 
-- [ ] 3.1 `unstable::codegen` with default matchers, and `codegen/` writing Protocol Buffers' tables; `oracle/proto-grammar.ts` is deleted.
+- [ ] 3.1 Protocol Buffers' grammar in `tests/engine/grammars/`, then `unstable::codegen` with default matchers, and `codegen/` writing its tables; `oracle/proto-grammar.ts` is deleted.
   → verify: `codegen --compare` shows equal tokens, `mise run codegen -- --check` passes in CI, and Identity shows no change
 - [ ] 3.2 `AGENTS.md`, `CODING_STANDARDS.md` and `oracle/AGENTS.md` gain the rules of the proposal and how to move one language.
   → verify: review

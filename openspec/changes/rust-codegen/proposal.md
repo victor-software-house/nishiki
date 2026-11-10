@@ -5,7 +5,7 @@
 TypeScript scripts under `oracle/` write the generated Rust under `src/`:
 
 - 48 per-language scripts, `oracle/<language>-grammar.ts`, write the rule-engine tables.
-  With the three files they share, they hold 18,045 lines, and most of those lines are copies (design, section 1).
+  With the three files they share, they hold 18,848 lines, and most of those lines are copies (design, section 1).
 - 7 word scripts write `words.rs` files from grammar expressions.
 - `oracle/unicode-tables.ts`, `oracle/case-folds.ts` and `oracle/classes.ts` measure Oniguruma and write the tables in the same run.
 

@@ -48,9 +48,16 @@ It SHALL NOT call the system rustfmt.
 ### Requirement: A moved language keeps the same tokens
 
 Moving a language from its script to the Rust writer SHALL leave each generated file's tokens unchanged, doc comments included.
+A first-byte start set MAY differ when the pull request lists it with its Identity result and its Callgrind rows.
 
 #### Scenario: A family moves
 
 - **WHEN** a pull request moves a family to the writer
-- **THEN** `codegen --compare` finds the same tokens in every file the family's scripts wrote
+- **THEN** `codegen --compare` finds the same tokens in every file the family's scripts wrote, outside the start sets it lists
 - **AND** the pull request deletes those scripts
+
+#### Scenario: A case-insensitive pattern gains a start byte
+
+- **WHEN** the Rust analysis adds the first byte of a `(?i)` orbit member to a start set
+- **THEN** `codegen --compare` reports that set by its pattern
+- **AND** the pull request lists it, Identity passes, and Callgrind shows its rows
