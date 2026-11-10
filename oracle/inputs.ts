@@ -461,7 +461,8 @@ const ruff =
   "https://raw.githubusercontent.com/astral-sh/ruff/f10755306e3e932fd127960acb2c892fafb87410";
 const rustc =
   "https://raw.githubusercontent.com/rust-lang/rust/ae36fe22c7e590df40ffd53ac25fea35597c3f3d";
-const samples =
+/** Shiki's sample of each bundled language, as `<id>.sample`. */
+export const samples =
   "https://raw.githubusercontent.com/shikijs/textmate-grammars-themes/8f1828ebccc57930cf0adde9b35ae929584fe191/samples";
 const scala3 =
   "https://raw.githubusercontent.com/scala/scala3/d71919d08172571e6a5c9392f186b2a6a4413097";
