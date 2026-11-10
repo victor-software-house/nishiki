@@ -7,6 +7,10 @@
 //! Each non-whitespace byte must get the scope stack Shiki gives it.
 //! Every line is compared, with no block left out.
 //!
+//! Each language loads through the public API, as a caller's would:
+//! [`Grammar::from_json`] on every grammar Shiki loads for it, then
+//! [`Highlighter::for_grammar_with_limits`].
+//!
 //! `oracle/fidelity.ts` writes the directory that `NISHIKI_FIDELITY` names.
 //! The check writes `report.md` there, one row per input.
 
@@ -18,7 +22,8 @@ use std::time::Duration;
 use indoc::formatdoc;
 use serde_json::Value;
 
-use super::{Comparison, Grammar, Scanners, Sketch, compare, parse, survey};
+use super::{Comparison, Sketch, compare, parse};
+use crate::{Grammar, GrammarError, Grammars, Highlighter, Limits};
 
 /// How long one input may take before it counts as stalled.
 const STALL: Duration = Duration::from_secs(120);
@@ -28,19 +33,30 @@ const STALL: Duration = Duration::from_secs(120);
 /// check.
 const STACK: usize = 256 << 20;
 
-/// Language `id`'s grammar, from the directory `oracle/fidelity.ts` wrote.
+/// A highlighter for the grammar whose root scope is `scope`, from the
+/// directory `oracle/fidelity.ts` wrote.
 ///
-/// It reads the tables `oracle/engine-tables.ts --json` wrote, through the
-/// survey's loader. The public API replaces it: `Grammar::from_json` on the
-/// files in `grammars/`.
-fn grammar(dir: &Path, id: &str) -> &'static Grammar {
-    let path = dir.join("tables").join(format!("{id}.json"));
-    survey::load(&std::fs::read_to_string(path).unwrap())
+/// Each of `names` is a grammar Shiki loads for the language, in
+/// `grammars/<name>.json`.
+/// All of them go into the set the root's includes resolve in.
+/// No line limit applies, so a difference is never a limit's.
+fn highlighter(
+    dir: &Path,
+    names: &[String],
+    scope: &str,
+) -> Result<Highlighter<Grammar>, GrammarError> {
+    let mut grammars = Grammars::new();
+    for name in names {
+        let path = dir.join("grammars").join(format!("{name}.json"));
+        grammars.insert(Grammar::from_json(&std::fs::read_to_string(path).unwrap())?);
+    }
+    let root = grammars.get(scope).unwrap();
+    Highlighter::for_grammar_with_limits(root, &grammars, Limits::unlimited())
 }
 
 /// What the check found for one language.
 enum Outcome {
-    /// `engine-tables.ts` failed, for the reason it gave.
+    /// The grammar did not load or link, for the reason given.
     NoGrammar(String),
     Panicked(String),
     Stalled,
@@ -57,9 +73,11 @@ enum Outcome {
 /// refuses any more.
 const KNOWN_REFUSALS: &[(&str, &str)] = &[];
 
-/// Each pattern of `grammar` the regex compiler refuses, with its reason.
-fn refused(grammar: &Grammar) -> Vec<(&'static str, String)> {
-    grammar
+/// Each pattern of the linked `table` the regex compiler refuses, with its
+/// reason.
+/// [`Grammar::from_json`] does not fail on such a pattern: it never matches.
+fn refused(table: &super::Grammar) -> Vec<(&'static str, String)> {
+    table
         .patterns
         .iter()
         .filter_map(|pattern| {
@@ -70,27 +88,42 @@ fn refused(grammar: &Grammar) -> Vec<(&'static str, String)> {
         .collect()
 }
 
-/// Loads language `id` and compares its input `sample` on a thread of its own.
-/// A panic then ends only that language's check.
+/// Loads the language of `entry`, a row of `languages.json`, and compares its
+/// input on a thread of its own.
+/// A panic then ends only that input's check.
 /// A stall leaves the thread running, so the caller stops the run.
-fn outcome(dir: &Path, id: &str, sample: &str) -> (Outcome, Vec<(&'static str, String)>) {
+fn outcome(dir: &Path, entry: &Value) -> (Outcome, Vec<(&'static str, String)>) {
     let (send, receive) = mpsc::channel();
     let dir = dir.to_owned();
-    let id = id.to_owned();
-    let sample = sample.to_owned();
+    let names: Vec<String> = entry["grammars"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|name| name.as_str().unwrap().to_owned())
+        .collect();
+    let scope = entry["scope"].as_str().unwrap().to_owned();
+    let sample = entry["sample"].as_str().unwrap().to_owned();
     std::thread::Builder::new()
         .stack_size(STACK)
         .spawn(move || {
             let found = std::panic::catch_unwind(|| {
-                let loaded = grammar(&dir, &id);
                 let lines = parse(&dir.join("samples").join(format!("{sample}.txt")));
-                (compare(loaded, &lines, Scanners::On, &[]), refused(loaded))
+                match highlighter(&dir, &names, &scope) {
+                    Ok(highlighter) => {
+                        let refusals = refused(highlighter.lexer().table);
+                        (
+                            Outcome::Compared(compare(highlighter, &lines, &[])),
+                            refusals,
+                        )
+                    }
+                    Err(error) => (Outcome::NoGrammar(error.to_string()), Vec::new()),
+                }
             });
             let _ = send.send(found);
         })
         .unwrap();
     match receive.recv_timeout(STALL) {
-        Ok(Ok((found, refusals))) => (Outcome::Compared(found), refusals),
+        Ok(Ok(found)) => found,
         Ok(Err(panic)) => {
             let text = panic
                 .downcast_ref::<String>()
@@ -151,10 +184,13 @@ fn write_report(dir: &Path, summary: &str, rows: &str) {
     std::fs::write(dir.join("report.md"), page).unwrap();
 }
 
-/// Fails on a difference, a panic, a grammar that does not load, or a
+/// Fails on a difference, a panic, a grammar that does not load or link, or a
 /// refusal outside [`KNOWN_REFUSALS`].
 /// It also fails on an entry of that list no grammar refuses any more, so the
 /// list only shrinks.
+///
+/// A language with several inputs counts each of its refusals once.
+///
 /// A stall stops the run at once: its thread still runs, and would slow every
 /// language after it.
 #[test]
@@ -175,20 +211,20 @@ fn every_shiki_grammar_matches_shiki() {
     for language in languages.as_array().unwrap() {
         let id = language["id"].as_str().unwrap();
         let sample = language["sample"].as_str().unwrap();
-        let (found, refusals) = if let Some(reason) = language["tables"].as_str() {
-            (Outcome::NoGrammar(reason.to_owned()), Vec::new())
-        } else {
-            outcome(&dir, id, sample)
-        };
+        let (found, refusals) = outcome(&dir, language);
         measured += 1;
         let row = result(sample, &found, &mut details);
         if matches!(found, Outcome::Compared(Comparison { first: None, .. })) {
             equal += 1;
         }
         for &(pattern, ref reason) in &refusals {
-            match KNOWN_REFUSALS.iter().find(|&&known| known == (id, pattern)) {
-                Some(&known) => seen.push(known),
-                None => unknown.push(format!("{id}: {reason} in {pattern}")),
+            if let Some(&known) = KNOWN_REFUSALS.iter().find(|&&known| known == (id, pattern)) {
+                seen.push(known);
+            } else {
+                let refusal = format!("{id}: {reason} in {pattern}");
+                if !unknown.contains(&refusal) {
+                    unknown.push(refusal);
+                }
             }
         }
         let refusal = refusals

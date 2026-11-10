@@ -274,7 +274,9 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
 /// Blocks of languages the tables do not hold are left out, as
 /// [`unknown_fences`] finds them.
 fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize, usize, String) {
-    let found = compare(grammar, lines, scanners, &unknown_fences(grammar, lines));
+    let mut highlighter = Highlighter::<Table>::with_lexer(Table(grammar), Limits::unlimited());
+    highlighter.scratch_mut().textmate.no_scanner = scanners == Scanners::Off;
+    let found = compare(highlighter, lines, &unknown_fences(grammar, lines));
     (found.checked, found.missed, found.message)
 }
 
@@ -301,16 +303,14 @@ struct Comparison {
     reached: Vec<Limit>,
 }
 
-/// Lexes `lines` and compares each non-whitespace byte with Shiki's stack.
+/// Lexes `lines` with `highlighter` and compares each non-whitespace byte
+/// with Shiki's stack.
 /// A line that `skip` marks is lexed but not compared.
-fn compare(
-    grammar: &'static Grammar,
+fn compare<S: Syntax>(
+    mut highlighter: Highlighter<S>,
     lines: &[Line],
-    scanners: Scanners,
     skip: &[bool],
 ) -> Comparison {
-    let mut highlighter = Highlighter::<Table>::with_lexer(Table(grammar), Limits::unlimited());
-    highlighter.scratch_mut().textmate.no_scanner = scanners == Scanners::Off;
     let mut state = State::default();
     let mut names: HashMap<u32, String> = HashMap::new();
     let (mut checked, mut missed) = (0, 0);

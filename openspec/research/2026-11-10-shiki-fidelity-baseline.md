@@ -94,11 +94,12 @@ The report's "Refused patterns" column shows the count and the first.
 
 ## Gate through the public API
 
-The check reads the TypeScript compiler's tables, not the public API.
+The baseline run read the TypeScript compiler's tables, not the public API.
 
-- The function `grammar` in [`fidelity.rs`][check] is the one place that loads a grammar.
-- When task 2.1 lands, it calls `Grammar::from_json` on the files in `grammars/`.
-- The gate then also depends on task 1.1: the Rust compiler must write the tables the TypeScript compiler writes.
+- Since task 2.1 landed, the check loads each language as a caller does.
+  It calls `Grammar::from_json` on every file of the language in `grammars/`, then `Highlighter::for_grammar_with_limits`.
+- The gate therefore also checks task 1.1: the Rust compiler, not the TypeScript one, builds the tables.
+- `Grammar::from_json` does not fail on a refused pattern, so the check reads refusals from the linked table.
 
 ## Not verified
 
