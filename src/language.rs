@@ -1440,6 +1440,8 @@ languages! {
     /// - A block's `lang` attribute picks the lexer of its body: CSS, SCSS, Less, JavaScript,
     ///   TypeScript, JSX, TSX, YAML, GraphQL, Markdown, JSON, JSONC, TOML or Vue.
     /// - A block in `lang="vue"` holds a component of its own, under a second `text.html.vue`.
+    ///   It runs on the stack of the component around it, as in Shiki.
+    ///   So [`Limits::depth`] counts the contexts of every level.
     /// - A block in Pug, Stylus, `PostCSS` or JSON5 opens no body, and its text stays the block's.
     ///   Shiki loads none of their grammars, so vscode-textmate drops the block's rule.
     ///   The same holds for a language whose feature is off, such as Markdown without

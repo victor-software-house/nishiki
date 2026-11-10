@@ -284,15 +284,14 @@ pub(crate) struct Scratch {
     /// Buffers of frames for HTML lexers that run while another holds
     /// `frames`, one for each level of nesting.
     /// One such lexer runs a heredoc's HTML inside a Blade document's PHP.
-    /// Another runs a Vue block in `lang="vue"` inside a component.
-    #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
+    #[cfg(feature = "lang-blade")]
     spare: Vec<Vec<Frame>>,
     chain: Vec<(u32, crate::arena::Frame)>,
     /// The text of a scope name being built.
     name: String,
 }
 
-#[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
+#[cfg(feature = "lang-blade")]
 impl Scratch {
     /// A spare buffer for an HTML lexer that starts while another holds
     /// `frames`.
@@ -386,7 +385,7 @@ impl<'a> Lexer<'a> {
         let s = line.text.as_bytes();
         let steps = Steps::new(cx.limits, s.len());
         let mut frames = std::mem::take(&mut cx.scratch.html.frames);
-        #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
+        #[cfg(feature = "lang-blade")]
         if frames.capacity() == 0 {
             frames = cx.scratch.html.spare_frames();
         }
@@ -511,7 +510,7 @@ impl<'a> Lexer<'a> {
     /// this one goes to the spares.
     fn keep_frames(&mut self) {
         let frames = std::mem::take(&mut self.frames);
-        #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
+        #[cfg(feature = "lang-blade")]
         if self.scratch.html.frames.capacity() != 0 {
             self.scratch.html.keep_spare(frames);
             return;
@@ -858,7 +857,8 @@ impl<'a> Lexer<'a> {
                 | Rule::VueCapitalizedAttributes
                 | Rule::VueDirective
                 | Rule::VueExpressionString
-                | Rule::VueExpressionBare => self.search(),
+                | Rule::VueExpressionBare
+                | Rule::VueComponent => self.search(),
             };
             if let Some(at) = self.give_back_at(found.as_ref()) {
                 let content = self.top().content;
@@ -1832,7 +1832,6 @@ fn vue_start(arena: &mut Arena, lexed: vue_rules::Lexed, base: u32) -> u32 {
         Lexed::Json(_) => crate::json::start_embedded(arena, base),
         #[cfg(feature = "lang-toml")]
         Lexed::Toml => crate::toml::start_embedded(arena, base),
-        Lexed::Vue => super::start_vue_block(arena, base),
         Lexed::Expression => crate::typescript::start_expression(arena, base),
         Lexed::TypeParameters => crate::typescript::start_generic_attribute(arena, base),
         Lexed::StyleAttribute => crate::css::start_vue_style_attribute(arena, base),
@@ -1877,7 +1876,6 @@ fn vue_lex(
         Lexed::Json(dialect) => crate::json::lex_until(cx, dialect, line, state, &end, None),
         #[cfg(feature = "lang-toml")]
         Lexed::Toml => crate::toml::lex_until(cx, line, state, &end),
-        Lexed::Vue => super::lex_vue_until(cx, line, state, &end),
         Lexed::TypeParameters => crate::typescript::lex_until(
             cx,
             crate::typescript::Dialect::TypeScript,

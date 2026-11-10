@@ -204,11 +204,15 @@ pub(crate) enum Rule {
     /// Blade: a `:name="` binding up to its `"`. The carried value is the PHP
     /// lexer's state.
     BladeAttribute,
+    /// Vue: the component inside a block in `lang="vue"`, up to `</`.
+    /// Its patterns are Vue's root's.
+    /// It runs on the stack of the component around it, as in vscode-textmate.
+    VueComponent,
 }
 
 impl Rule {
     /// The rules in code order, which [`Rule::code`] numbers.
-    const ALL: [Rule; 81] = [
+    const ALL: [Rule; 82] = [
         Rule::Root,
         Rule::Comment,
         Rule::Cdata,
@@ -290,6 +294,7 @@ impl Rule {
         Rule::BladeBalance,
         Rule::BladePhpSection,
         Rule::BladeAttribute,
+        Rule::VueComponent,
     ];
 
     /// The rule as a frame stores it: the HTML tag in the high byte, the
@@ -424,7 +429,8 @@ impl Rule {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => false,
+            | Rule::VueExpression
+            | Rule::VueComponent => false,
         }
     }
 }
@@ -543,7 +549,8 @@ impl Rule {
             | Rule::VueDirective
             | Rule::VueExpressionString
             | Rule::VueExpressionBare
-            | Rule::VueExpression => parent,
+            | Rule::VueExpression
+            | Rule::VueComponent => parent,
         }
     }
 }
