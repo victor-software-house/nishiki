@@ -56,12 +56,13 @@ depends = [
   "check:repo",
 ]
 
-# Bun's auto-install takes the oracle's whole npm tree from oracle/bun.lock.
-# This fails when oracle/package.json names a version the lockfile lacks.
-[tasks."check:oracle-lockfile"]
-description = "oracle/bun.lock pins every package oracle/package.json names"
+# Bun's auto-install takes the whole npm tree of every script in this
+# repository from bun.lock: the oracle, bench/compare and the research probes.
+# This fails when package.json names a version the lockfile lacks.
+[tasks."check:bun-lockfile"]
+description = "bun.lock pins every package package.json names"
 tools = { bun = "1.4.4" }
-run = "bun install --cwd oracle --lockfile-only --frozen-lockfile"
+run = "bun install --lockfile-only --frozen-lockfile"
 
 # The oracle reads every third-party file from a checkout of the
 # nishiki-sources mirror, named by NISHIKI_SOURCES (oracle/AGENTS.md rule 9).

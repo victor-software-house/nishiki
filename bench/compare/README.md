@@ -14,6 +14,8 @@ The reasons for each rule are in the [`bench-methodology` design](../../openspec
 | Shiki | 4.6.0 | in Bun, Oniguruma and JavaScript engines (`shiki.ts`) |
 | @pierre/highlights | 0.4.0 | in Bun, its WebAssembly lexers (`shiki.ts`) |
 
+The repository's [`package.json`](../../package.json) and [`bun.lock`](../../bun.lock) pin Shiki, @pierre/highlights and every package below them.
+
 giallo is EUPL-1.2, a copyleft licence.
 It is a feature that is off by default, built only on the bench box, and never distributed.
 

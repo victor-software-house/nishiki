@@ -120,6 +120,8 @@ The decisions that created nishiki live in a private planning repository:
      It fails when a language of the `all` list has no line of its own in `check:features`.
    - `check:traces`.
      It fails when a stream-benchmark trace in `bench/traces/` differs from its source.
+   - `check:bun-imports`.
+     It fails when a Bun script imports an npm package that `package.json` does not pin at the same version.
 
 ### Documentation
 
