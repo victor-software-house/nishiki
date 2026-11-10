@@ -49,6 +49,12 @@ The decisions that created nishiki live in a private planning repository:
 4. **Nothing is downloaded at run time.**
    Every supported language is built in when its feature is on.
    Languages on nishiki's TextMate engine sit in the opt-in `textmate` tier, off by default and outside `all`.
+   Any other TextMate grammar loads through `Grammar`, with the `textmate` feature:
+   - at run time, from its JSON;
+   - at build time, from bytes a build script compiled.
+
+   The caller brings each grammar.
+   The crate bundles none for this and fetches none.
    The engine adds about 1.7 MB once (operator, 2026-11-03).
 5. **Nothing private ships.**
    The repository is private, but the crate's published source is public on crates.io,

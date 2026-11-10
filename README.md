@@ -6,7 +6,8 @@ nishiki aims to be:
 
 - **fast and small;**
 - **faithful to Shiki**, colouring code as Shiki does;
-- **self-contained**, with every supported language built in and nothing downloaded at run time.
+- **self-contained**, with every supported language built in and nothing downloaded at run time;
+- **open to any language**, through a TextMate grammar the caller brings.
 
 The name comes from nishiki-e (錦絵, "brocade picture"),
 the multi-colour Japanese woodblock prints of the 1760s.
@@ -45,6 +46,7 @@ A `Document` highlights text as it streams in, such as a model's reply, and lexe
 The API docs are on [docs.rs](https://docs.rs/nishiki):
 
 - the quick start, themes, streaming, limits and cargo features, on the crate page;
+- grammars a caller brings, under "Any language" on the crate page;
 - each language's quirks, on its `Language` variant.
 
 ## Languages
@@ -53,6 +55,11 @@ Each language is a cargo feature.
 The Tier column names the tier that turns each one on.
 The `all` tier is on by default.
 The opt-in `textmate` tier holds no language now.
+
+Any other language takes a TextMate grammar, such as a file of Shiki's `tm-grammars` package.
+With the `textmate` feature, `Grammar` loads it at run time from its JSON,
+or from bytes a build script compiled.
+The crate bundles no grammar for this; the caller brings each one.
 
 | Language | Variant | Feature | Tier | Names `Language::from_name` takes |
 |:--|:--|:--|:--|:--|

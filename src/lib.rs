@@ -180,21 +180,21 @@
 //! # fn main() {}
 //! ```
 //!
-//! An include of a whole grammar resolves when the highlighter is built:
-//!
-//! 1. to a language named with [`Grammars::hand_off`], whose own lexer takes
-//!    the region;
-//! 2. to a grammar in the set;
-//! 3. to a language nishiki lexes by hand, such as CSS for `source.css`, when
-//!    no language is named and its feature is on;
-//! 4. else to nothing, as in vscode-textmate.
+//! An include of another whole grammar resolves when the highlighter is
+//! built.
+//! It goes to a language named with [`Grammars::hand_off`], to a grammar in
+//! the set, or to a language nishiki lexes by hand.
+//! [`Grammars`] gives the order.
 //!
 //! A build script can compile a grammar ahead of time, so the crate parses no
 //! JSON at run time:
 //!
-//! 1. In `build.rs`, write `Grammar::from_json(&json)?.to_bytes()` to a file in
-//!    `OUT_DIR`.
-//! 2. In the crate, load it with [`Grammar::from_bytes`] and
+//! 1. List nishiki with the `textmate` feature under `[build-dependencies]` as
+//!    well as `[dependencies]`.
+//! 2. In `build.rs`, write `Grammar::from_json(&json)?.to_bytes()` to a file in
+//!    `OUT_DIR`, such as `demo.grammar`. Print `cargo::rerun-if-changed` for
+//!    the JSON file.
+//! 3. In the crate, load the file with [`Grammar::from_bytes`] and
 //!    `include_bytes!(concat!(env!("OUT_DIR"), "/demo.grammar"))`.
 //!
 //! The bytes name their format version.
@@ -218,10 +218,12 @@
 //! ```
 //!
 //! A grammar runs under the highlighter's [`Limits`], as every language does.
+//! [`Highlighter::for_grammar_with_limits`] sets them.
 //! The engine's fixed bounds are in the table under [Limits](#limits).
 //!
 //! Every distinct grammar, and every distinct link of a grammar with a set,
 //! stays in memory until the process ends.
+//! So a caller loads each grammar once and keeps the handle.
 //! A service that loads grammars from untrusted input needs its own bound on
 //! how many it loads.
 //!
@@ -285,7 +287,8 @@
 //! - [`Language::ALL`] and [`Language::from_name`] know only the languages that
 //!   are built.
 //! - Nothing is downloaded at run time. Every language you turn on is in the
-//!   binary.
+//!   binary. A grammar you bring through [`Grammar`] comes from your own JSON
+//!   or bytes.
 //! - `json` reads theme files with [`Theme::from_json`]. It is not the JSON
 //!   language, which is `lang-json`.
 //!

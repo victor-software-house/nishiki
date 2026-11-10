@@ -23,6 +23,8 @@ use indoc::formatdoc;
 use serde_json::Value;
 
 use super::{Comparison, Sketch, compare, parse};
+#[cfg(feature = "lang-css")]
+use crate::Language;
 use crate::{Grammar, GrammarError, Grammars, Highlighter, Limits};
 
 /// How long one input may take before it counts as stalled.
@@ -274,5 +276,34 @@ fn every_shiki_grammar_matches_shiki() {
         stale.is_empty(),
         "remove these from KNOWN_REFUSALS, which no grammar refuses any more:\n{}",
         stale.join("\n")
+    );
+}
+
+/// Task 2.3 of `openspec/changes/grammar-api`.
+///
+/// HTML's grammar, loaded from its JSON, hands each `<style>` to the CSS
+/// lexer.
+/// The `h5bp-404` fixture holds CSS in a `<style>` element and no script.
+/// Shiki lexed that CSS with CSS's grammar.
+/// Every non-whitespace byte must still get Shiki's stack.
+#[cfg(feature = "lang-css")]
+#[test]
+fn html_from_json_hands_its_style_to_the_css_lexer() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR"));
+    let json = std::fs::read_to_string(root.join("tests/engine/grammars/html.json")).unwrap();
+    let html = Grammar::from_json(&json).unwrap();
+    let mut grammars = Grammars::new();
+    grammars.hand_off(Language::Css);
+    let highlighter =
+        Highlighter::for_grammar_with_limits(html, &grammars, Limits::unlimited()).unwrap();
+    let lines = parse(&root.join("tests/oracle/html/h5bp-404.txt"));
+    let comparison = compare(highlighter, &lines, &[]);
+    assert!(comparison.checked > 0);
+    assert!(
+        comparison.first.is_none(),
+        "{} of {} bytes differ{}",
+        comparison.missed,
+        comparison.checked,
+        comparison.message
     );
 }

@@ -19,10 +19,16 @@
 - [x] 2.2 `Highlighter::for_grammar` and its limits variant.
   → verify: a doctest highlights a grammar loaded from JSON
   2026-11-10 UTC: the "Any language" doctest in `src/lib.rs` passes on a box.
-- [ ] 2.3 Includes across grammars, linked through the `Grammars` set when the highlighter is built, and hand-offs to hand lexers.
+- [x] 2.3 Includes across grammars, linked through the `Grammars` set when the highlighter is built, and hand-offs to hand lexers.
   → verify:
   - an HTML grammar loaded from JSON hands its `<style>` to the CSS lexer, and the fixture matches Shiki;
   - two grammars that include each other, loaded in either order, both match Shiki.
+  2026-11-10 UTC: on a box, `mise run verify` passes with both tests:
+  - `html_from_json_hands_its_style_to_the_css_lexer`, in `src/textmate/tests/fidelity.rs`, names `Language::Css` with `Grammars::hand_off`.
+    It matches Shiki on every non-whitespace byte of `tests/oracle/html/h5bp-404.txt`, whose CSS sits in a `<style>` element.
+  - `two_grammars_that_include_each_other_link_in_either_order`, in `src/grammar/tests.rs`, links each grammar from both insertion orders.
+    The two tables lex the line the same, and each keyword gets its own grammar's scope.
+    The two grammars are written for the test, so Shiki has no fixture for them.
 - [x] 2.4 `to_bytes` and `from_bytes`, with a versioned header.
   → verify:
   - a round trip gives the same output;
@@ -41,7 +47,9 @@
     All 242 languages match on their input, and four refuse two patterns each ([baseline][fidelity-baseline]).
   - 2026-11-10: the check loads each language through `Grammar::from_json` and `Highlighter::for_grammar_with_limits`.
     All 243 inputs match on every non-whitespace byte, with no refused pattern and no limit reached.
-- [ ] 3.2 One task per grammar that fails 3.1, added as each is found → verify: that grammar's sample matches
+- [x] 3.2 One task per grammar that fails 3.1, added as each is found → verify: that grammar's sample matches
+  - 2026-11-10: every sub-task below is done.
+    `KNOWN_REFUSALS` is empty.
   - [x] 3.2.1 csharp: the regex compiler refuses two patterns that use Oniguruma's absent operator, `(?~…)`, in C#'s rule for `/** */` documentation comments ([baseline][fidelity-baseline]).
     → verify: both compile, and their entries leave `KNOWN_REFUSALS` in `src/textmate/tests/fidelity.rs`
     - 2026-11-10: the parser reads `(?~X)` as `(?:(?!X)\O)*`, as Shiki's Oniguruma answers.
@@ -62,8 +70,15 @@
 - [x] 4.1 A bench row for compiling and loading a grammar, from JSON and from bytes → verify: the table in `bench/README.md`
   - 2026-11-10: `bench:cold` times `from_json`, `from_bytes` and the first link of TypeScript's grammar in fresh processes.
     On a box it printed medians of 870, 312 and 2,565 µs.
-- [ ] 4.2 Crate docs: an "Any language" section, a build-script example, and the limits a grammar runs under.
+- [x] 4.2 Crate docs: an "Any language" section, a build-script example, and the limits a grammar runs under.
   → verify: the docs.rs preview builds, and every example runs as a doctest
-- [ ] 4.3 `AGENTS.md` invariant 4 and the README describe grammars callers bring → verify: review
+  - 2026-11-10: on a box, `mise run doc` built the docs as docs.rs does, with every feature and warnings denied.
+    `mise run test:doc` ran every doctest, the section's two examples among them, and all passed.
+  - The build-script example is the `examples/build-script/` package, whose test runs in `mise run test`.
+- [x] 4.3 `AGENTS.md` invariant 4 and the README describe grammars callers bring → verify: review
+  - 2026-11-10: invariant 4 and the README's Languages section now cover grammars a caller brings.
+    Any TextMate grammar loads through `Grammar`, at run time or at build time.
+    The crate bundles none.
+    The pull request that ticks this task is the review.
 
 [fidelity-baseline]: ../../research/2026-11-10-shiki-fidelity-baseline.md
