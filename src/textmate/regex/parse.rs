@@ -1,4 +1,7 @@
 //! The parser: `Oniguruma`'s syntax, as `TextMate` grammars use it, to a tree.
+//!
+//! [`parse`] is visible to the whole crate, beside the tree it returns
+//! ([`super::ast::Node`]).
 
 use std::collections::HashMap;
 
@@ -19,17 +22,17 @@ fn err<T>(message: impl Into<String>) -> Result<T> {
 
 /// A parsed pattern.
 #[derive(Debug)]
-pub(super) struct Parsed {
-    pub(super) root: Node,
+pub(crate) struct Parsed {
+    pub(crate) root: Node,
     /// How many capture groups the pattern has.
-    pub(super) groups: usize,
+    pub(crate) groups: usize,
     /// The index of each named group.
-    pub(super) names: HashMap<String, usize>,
+    pub(crate) names: HashMap<String, usize>,
 }
 
 /// Which reading of a pattern applies.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Dialect {
+pub(crate) enum Dialect {
     /// Oniguruma's own.
     /// Only the tests read it.
     #[cfg(test)]
@@ -39,7 +42,7 @@ pub(super) enum Dialect {
 }
 
 /// Parses `pattern`.
-pub(super) fn parse(pattern: &str, dialect: Dialect) -> Result<Parsed> {
+pub(crate) fn parse(pattern: &str, dialect: Dialect) -> Result<Parsed> {
     let mut parser = Parser {
         dialect,
         chars: pattern.chars().collect(),

@@ -12,7 +12,7 @@
 #[cfg(feature = "json")]
 pub(crate) mod compile;
 pub(crate) mod grammar;
-mod regex;
+pub(crate) mod regex;
 mod scanner;
 mod selector;
 mod tokenizer;
