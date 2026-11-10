@@ -106,6 +106,7 @@ import vueCoverage from "./inputs/vue-coverage.vue" with { type: "text" };
 import vueCoverageBlocks from "./inputs/vue-coverage-blocks.vue" with { type: "text" };
 import vbCoverage from "./inputs/vb-coverage.vb" with { type: "text" };
 import vueLessPop from "./inputs/vue-less-pop.vue" with { type: "text" };
+import vueMdOneLine from "./inputs/vue-md-one-line.vue" with { type: "text" };
 import vueScriptClose from "./inputs/vue-script-close.vue" with { type: "text" };
 import vueTsEndTag from "./inputs/vue-ts-end-tag.vue" with { type: "text" };
 import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
@@ -3171,6 +3172,7 @@ export const inputs: Input[] = [
   { lang: "vue", name: "coverage", text: vueCoverage },
   { lang: "vue", name: "coverage-blocks", text: vueCoverageBlocks },
   { lang: "vue", name: "less-pop", text: vueLessPop },
+  { lang: "vue", name: "md-one-line", text: vueMdOneLine },
   {
     lang: "vue",
     name: "playground-app",

@@ -1,0 +1,62 @@
+L <!-- In Shiki, a one-line Markdown block runs to the end of the document. -->
+T 4 text.html.vue comment.block.vue punctuation.definition.comment.vue
+T 74 text.html.vue comment.block.vue
+T 77 text.html.vue comment.block.vue punctuation.definition.comment.vue
+L <docs lang="md">one line</docs>
+T 1 text.html.vue punctuation.definition.tag.begin.html.vue
+T 5 text.html.vue entity.name.tag.docs.html.vue
+T 6 text.html.vue meta.tag-stuff
+T 10 text.html.vue meta.tag-stuff meta.attribute.lang.html entity.other.attribute-name.html
+T 11 text.html.vue meta.tag-stuff meta.attribute.lang.html punctuation.separator.key-value.html
+T 12 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 14 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html
+T 15 text.html.vue meta.tag-stuff meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 16 text.html.vue meta.tag-stuff punctuation.definition.tag.end.html.vue
+T 24 text.html.vue text.html.markdown meta.paragraph.markdown
+T 26 text.html.vue text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.begin.html
+T 30 text.html.vue text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative entity.name.tag.html
+T 31 text.html.vue text.html.markdown meta.paragraph.markdown meta.tag.other.unrecognized.html.derivative punctuation.definition.tag.end.html
+L <template>
+T 1 text.html.vue text.html.markdown meta.tag.structure.template.start.html punctuation.definition.tag.begin.html
+T 9 text.html.vue text.html.markdown meta.tag.structure.template.start.html entity.name.tag.html
+T 10 text.html.vue text.html.markdown meta.tag.structure.template.start.html punctuation.definition.tag.end.html
+L   <p>{{ after }}</p>
+T 2 text.html.vue text.html.markdown
+T 3 text.html.vue text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.begin.html
+T 4 text.html.vue text.html.markdown meta.tag.structure.p.start.html entity.name.tag.html
+T 5 text.html.vue text.html.markdown meta.tag.structure.p.start.html punctuation.definition.tag.end.html
+T 16 text.html.vue text.html.markdown
+T 18 text.html.vue text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.begin.html
+T 19 text.html.vue text.html.markdown meta.tag.structure.p.end.html entity.name.tag.html
+T 20 text.html.vue text.html.markdown meta.tag.structure.p.end.html punctuation.definition.tag.end.html
+L </template>
+T 2 text.html.vue text.html.markdown meta.tag.structure.template.end.html punctuation.definition.tag.begin.html
+T 10 text.html.vue text.html.markdown meta.tag.structure.template.end.html entity.name.tag.html
+T 11 text.html.vue text.html.markdown meta.tag.structure.template.end.html punctuation.definition.tag.end.html
+L <script setup lang="ts">
+T 1 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.begin.html
+T 7 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html entity.name.tag.html
+T 8 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html
+T 13 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.unrecognized.setup.html entity.other.attribute-name.html
+T 14 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html
+T 18 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.lang.html entity.other.attribute-name.html
+T 19 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.lang.html punctuation.separator.key-value.html
+T 20 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.begin.html
+T 22 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.lang.html string.quoted.double.html
+T 23 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html meta.attribute.lang.html string.quoted.double.html punctuation.definition.string.end.html
+T 24 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.start.html punctuation.definition.tag.end.html
+L const after = 1;
+T 5 text.html.vue text.html.markdown meta.embedded.block.html source.js meta.var.expr.js storage.type.js
+T 6 text.html.vue text.html.markdown meta.embedded.block.html source.js meta.var.expr.js
+T 11 text.html.vue text.html.markdown meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js meta.definition.variable.js variable.other.constant.js
+T 12 text.html.vue text.html.markdown meta.embedded.block.html source.js meta.var.expr.js meta.var-single-variable.expr.js
+T 13 text.html.vue text.html.markdown meta.embedded.block.html source.js meta.var.expr.js keyword.operator.assignment.js
+T 14 text.html.vue text.html.markdown meta.embedded.block.html source.js meta.var.expr.js
+T 15 text.html.vue text.html.markdown meta.embedded.block.html source.js meta.var.expr.js constant.numeric.decimal.js
+T 16 text.html.vue text.html.markdown meta.embedded.block.html source.js punctuation.terminator.statement.js
+L </script>
+T 1 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html source.js-ignored-vscode
+T 2 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html
+T 8 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.end.html entity.name.tag.html
+T 9 text.html.vue text.html.markdown meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.end.html
+L 
