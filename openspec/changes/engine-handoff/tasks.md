@@ -116,6 +116,18 @@ The engine's logic does not change when they do.
 - [ ] 5.3 Perl, Elixir, Objective-C, PHP, Vue and Svelte, each its own PR
 - [ ] 5.4 A capture whose rule includes a hand-lexed grammar hands its text off, as CoffeeScript's backticks do → verify: the `coffee/coffeescript-javascript-literals` fixture matches Shiki
   - [#417][pr417] opened on 2026-11-04.
+- [ ] 5.5 Hand off a region whose end pattern uses `\G`, as Shiki does.
+  → verify: the grammar links with the language named through `Grammars::hand_off`, and its fixture matches Shiki
+  - Today such a region hands nothing off when no language is named, and the link fails when one is.
+  - Moved from the `grammar-api` change when it was archived.
+- [ ] 5.6 Close the hand-off gaps that `src/textmate/tests/loaded.rs` lists.
+  → verify: each fixture leaves its test's gaps, and the test passes
+  - Moved from the `grammar-api` change when it was archived.
+  - [ ] 5.6.1 vue-directives' injection misses the tags that html-derivative's lexer reads: six Vue fixtures.
+  - [ ] 5.6.2 The hand-off goes on past a lexer that pops its host, as Less does at a `)`: `markdown/less-pop` and `vue/less-pop`.
+  - [ ] 5.6.3 Attribute names in an HTML fence differ from Shiki's: `markdown/invalid-tags` and both `markdown/perl-heredoc-tags-*`.
+  - [ ] 5.6.4 `markdown/vitepress-runtime-api` holds a `vue` fence from markdown-vue's injection, which a Markdown-only set lacks.
+    Its block should be left out, as other fences of missing languages are.
 
 ## 6. The engine as an embedded language
 

@@ -1,4 +1,5 @@
-//! The Shiki fidelity check, task 3.1 of `openspec/changes/grammar-api`.
+//! The Shiki fidelity check, task 3.1 of
+//! `openspec/changes/archive/2026-11-10-grammar-api`.
 //!
 //! Every language Shiki 4.6.0 bundles runs on its input: Shiki's sample for
 //! it, or a stand-in where Shiki has none.
@@ -66,7 +67,8 @@ enum Outcome {
 }
 
 /// The patterns the regex compiler refuses, by language.
-/// Each is a gap in task 3.2 of `openspec/changes/grammar-api`, even where the
+/// Each is a gap in task 3.2 of
+/// `openspec/changes/archive/2026-11-10-grammar-api`, even where the
 /// input still matches.
 /// The list is empty.
 ///
@@ -279,7 +281,7 @@ fn every_shiki_grammar_matches_shiki() {
     );
 }
 
-/// Task 2.3 of `openspec/changes/grammar-api`.
+/// Task 2.3 of `openspec/changes/archive/2026-11-10-grammar-api`.
 ///
 /// HTML's grammar, loaded from its JSON, hands each `<style>` to the CSS
 /// lexer.
