@@ -325,26 +325,25 @@ fn an_end_at_the_anchor_matches_only_there() {
     }));
 }
 
-/// JavaScript that a loaded Svelte grammar hands off takes Svelte's `$`
-/// prefixes, with or without nishiki's own Svelte lexer.
-/// The grammar has Svelte's name and the injection that adds them.
-/// The handed region's rules never run, so the JavaScript lexer applies it.
+/// The innermost scope of the first `$` in `line`, lexed by a loaded grammar
+/// named `source.svelte` that hands its `<script>` to `script`.
+/// The grammar holds the injection that adds Svelte's `$` prefixes, with
+/// Svelte's selector.
 #[cfg(feature = "lang-javascript")]
-#[test]
-fn javascript_in_a_loaded_svelte_grammar_takes_the_dollar_prefixes() {
-    let grammar = Grammar::from_json(indoc! {r#"
+fn svelte_dollar(script: &str, line: &str) -> Option<String> {
+    let json = indoc! {r#"
         {
           "scopeName": "source.svelte",
           "patterns": [
             {
               "begin": "<script>",
               "end": "</script>",
-              "contentName": "source.js",
-              "patterns": [{ "include": "source.js" }]
+              "contentName": "SCRIPT",
+              "patterns": [{ "include": "SCRIPT" }]
             }
           ],
           "injections": {
-            "L:(source.ts, source.js)": {
+            "L:(source.ts, source.js, source.coffee)": {
               "patterns": [
                 {
                   "match": "\\$(?=[_[:alpha:]])",
@@ -354,15 +353,34 @@ fn javascript_in_a_loaded_svelte_grammar_takes_the_dollar_prefixes() {
             }
           }
         }
-    "#})
-    .unwrap();
-    let mut highlighter = highlighter(grammar);
-    let found = tokens(&mut highlighter, "<script>let a = $count;</script>");
-    let dollar = found.iter().find(|(text, _)| text == "$");
+    "#}
+    .replace("SCRIPT", script);
+    let mut highlighter = highlighter(Grammar::from_json(&json).unwrap());
+    tokens(&mut highlighter, line)
+        .into_iter()
+        .find(|(text, _)| text == "$")
+        .and_then(|(_, scopes)| scopes.into_iter().next())
+}
+
+/// JavaScript that a loaded Svelte grammar hands off takes Svelte's `$`
+/// prefixes, with or without nishiki's own Svelte lexer.
+/// The handed region's rules never run, so the JavaScript lexer applies them.
+#[cfg(feature = "lang-javascript")]
+#[test]
+fn javascript_in_a_loaded_svelte_grammar_takes_the_dollar_prefixes() {
     assert_eq!(
-        dollar
-            .and_then(|(_, scopes)| scopes.first())
-            .map(String::as_str),
+        svelte_dollar("source.js", "<script>let a = $count;</script>").as_deref(),
+        Some("punctuation.definition.variable.svelte")
+    );
+}
+
+/// CoffeeScript that a loaded Svelte grammar hands off takes Svelte's `$`
+/// prefixes too, as Svelte's selector names `source.coffee`.
+#[cfg(feature = "lang-coffee")]
+#[test]
+fn coffeescript_in_a_loaded_svelte_grammar_takes_the_dollar_prefixes() {
+    assert_eq!(
+        svelte_dollar("source.coffee", "<script>a = $count</script>").as_deref(),
         Some("punctuation.definition.variable.svelte")
     );
 }

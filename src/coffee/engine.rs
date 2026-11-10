@@ -20,7 +20,7 @@ pub(crate) const PLAIN: u8 = 0;
 /// (`L:(source.ts, source.js, source.coffee)`).
 /// Each rule then tries the two patterns of [`Pattern::SVELTE`] first, before
 /// its end pattern.
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 pub(crate) const SVELTE: u8 = 1;
 
 /// The `coffee` grammar that Shiki bundles, as the dialect `D` numbers.
@@ -211,5 +211,5 @@ macro_rules! dialect {
 }
 
 dialect!(PLAIN);
-#[cfg(feature = "lang-svelte")]
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 dialect!(SVELTE);

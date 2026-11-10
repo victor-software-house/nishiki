@@ -93,6 +93,10 @@ cargo check --locked --tests --no-default-features --features systems
 RUSTFLAGS="-D warnings" cargo check --locked --no-default-features --features textmate
 RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features textmate
 cargo check --locked --tests --no-default-features --features web
+# CoffeeScript with the engine and without Svelte's lexer: a loaded Svelte
+# grammar still gives the CoffeeScript it hands off Svelte's `$` prefixes.
+cargo test --locked --lib --no-default-features --features lang-coffee --features textmate \
+  grammar::tests::coffeescript_in_a_loaded_svelte_grammar
 # HTML with the engine for loaded grammars and without the Markdown and
 # Svelte lexers: a loaded Markdown grammar still embeds HTML in Shiki's
 # Markdown order, and a loaded Svelte grammar in Svelte's.

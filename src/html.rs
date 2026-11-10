@@ -93,6 +93,8 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// They are names, because a grammar loaded at run time can embed HTML too.
 /// So each is listed when its language's lexer is on, or the engine for
 /// loaded grammars is.
+/// [`start_embedded`] gives Svelte its own payload before it reads this list.
+/// Svelte stays listed, as one of these documents.
 const DERIVATIVE_FIRST: &[&str] = &[
     #[cfg(any(feature = "lang-markdown", feature = "_textmate"))]
     "text.html.markdown",
