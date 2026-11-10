@@ -23,6 +23,19 @@ fn list_patterns(grammar: &Grammar, rule: usize) -> Vec<&'static str> {
 }
 
 #[test]
+fn a_repeated_key_keeps_its_first_place_and_its_last_value() {
+    use super::json::{Json, Number};
+    let parsed = Json::parse(r#"{"a": 1, "b": 2, "a": 3}"#).unwrap();
+    assert_eq!(
+        parsed,
+        Json::Object(vec![
+            ("a".to_owned(), Json::Number(Number::Unsigned(3))),
+            ("b".to_owned(), Json::Number(Number::Unsigned(2))),
+        ])
+    );
+}
+
+#[test]
 fn a_grammar_without_a_scope_does_not_compile() {
     assert!(compile(r#"{"patterns": []}"#).is_err());
     assert!(compile("[").is_err());

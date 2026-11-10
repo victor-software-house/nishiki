@@ -10,6 +10,8 @@
 //! So the tree answers the compiler's questions as JavaScript does:
 //! whether a value is truthy, and what `String(value)` makes of it.
 
+use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 use std::fmt;
 
 use serde::de::{Deserialize, Deserializer, MapAccess, SeqAccess, Visitor};
@@ -173,12 +175,22 @@ impl<'de> Visitor<'de> for JsonVisitor {
         Ok(Json::Array(items))
     }
 
+    /// A map from each key to its place finds a repeated key in one lookup.
     fn visit_map<A: MapAccess<'de>>(self, mut map: A) -> Result<Json, A::Error> {
         let mut entries: Vec<(String, Json)> = Vec::new();
+        let mut places: HashMap<String, usize> = HashMap::new();
         while let Some((key, value)) = map.next_entry::<String, Json>()? {
-            match entries.iter_mut().find(|(k, _)| *k == key) {
-                Some(entry) => entry.1 = value,
-                None => entries.push((key, value)),
+            match places.entry(key) {
+                Entry::Occupied(place) => {
+                    if let Some(entry) = entries.get_mut(*place.get()) {
+                        entry.1 = value;
+                    }
+                }
+                Entry::Vacant(place) => {
+                    let at = entries.len();
+                    entries.push((place.key().clone(), value));
+                    place.insert(at);
+                }
             }
         }
         Ok(Json::Object(entries))
