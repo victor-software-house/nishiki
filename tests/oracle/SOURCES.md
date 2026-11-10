@@ -36,6 +36,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `bat/tomcat-catalina` | [`bin/catalina.bat`][tomcat-catalina-bat] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 | `bat/tomcat-setclasspath` | [`bin/setclasspath.bat`][tomcat-setclasspath] in apache/tomcat | [Apache-2.0][tomcat-licence] |
 | `blade/coverage` | `oracle/inputs/blade-coverage.blade.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `blade/coverage-php` | `oracle/inputs/blade-coverage-php.blade.php`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `blade/laravel-exception-query` | [`src/Illuminate/Foundation/resources/exceptions/renderer/components/query.blade.php`][laravel-exception-query] in laravel/framework | [MIT][laravel-licence] |
 | `blade/laravel-exception-show` | [`src/Illuminate/Foundation/resources/exceptions/renderer/show.blade.php`][laravel-exception-show] in laravel/framework | [MIT][laravel-licence] |
 | `blade/laravel-exceptions-minimal` | [`src/Illuminate/Foundation/Exceptions/views/minimal.blade.php`][laravel-exceptions-minimal] in laravel/framework | [MIT][laravel-licence] |

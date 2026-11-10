@@ -24,7 +24,7 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 | Assembly | `asm` | 298 of 305 | 97.7% | 25 of 36 | 69.4% | 18 | 0 | yes |
 | Astro | `astro` | 94 of 96 | 97.9% | 49 of 51 | 96.1% | 4 | 0 | yes |
 | Batch | `bat` | 79 of 79 | 100.0% | 53 of 54 | 98.1% | 1 | 0 | yes |
-| Blade | `blade` | 444 of 458 | 96.9% | 368 of 421 | 87.4% | 0 | 22 |  |
+| Blade | `blade` | 456 of 458 | 99.6% | 387 of 421 | 91.9% | 36 | 0 | yes |
 | C | `c` | 321 of 342 | 93.9% | 318 of 341 | 93.3% | 44 | 0 | yes |
 | CMake | `cmake` | 29 of 29 | 100.0% | 0 of 0 | - | 0 | 0 | yes |
 | CoffeeScript | `coffee` | 136 of 143 | 95.1% | 132 of 134 | 98.5% | 9 | 0 | yes |
@@ -168,62 +168,86 @@ injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end 
 ### `blade`
 
 ```text
-#blade.patterns[0].patterns[0].begin  ^(\s*)(?=<\?(?![^?]*\?>))  fuzz
-#blade.patterns[0].patterns[0].end  (?!\G)(\s*$\n)?  fuzz
-#blade.patterns[0].patterns[0].patterns[0].begin  <\?(?i:php|=)?  fuzz
-#blade.patterns[0].patterns[0].patterns[0].end  (\?)>  fuzz
+#blade.patterns[0].patterns[0].begin  groups 0
+  group 0: waived: the group matches only blanks, and the oracle compares no blank
+#blade.patterns[0].patterns[0].end  groups 0
+  group 0: waived: the group matches only blanks and the line feed that ends the line, and the
+    oracle compares no blank
 #blade.patterns[0].patterns[2].patterns[0].match  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 #blade.patterns[1].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
 #blade.patterns[2].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
 #blade.patterns[3].end  groups 1
+  group 1: waived: the grammar names the group, but the expression has no groups
 #blade.patterns[4].end  groups 1
-#blade.patterns[6].begin  (?<![0-9@-Z_a-z])(@(?i:append|default|else|endauth|endcan|e…  fuzz
-#blade.patterns[6].end  \)  fuzz
+  group 1: waived: the grammar names the group, but the expression has no groups
 #blade.patterns[9].end  groups 0
-#blade.patterns[14].begin  (:[-a-z]+)(=)(")  fuzz
+  group 0: waived: the group is a lookahead, so it never holds text
+#blade.patterns[14].begin  groups 4
+  group 4: waived: the grammar names the group, but the expression has three groups
 #comments.patterns[2].begin  groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 #comments.patterns[3].begin  groups 1
-#function-call.patterns[1].begin  groups 1
-#function-parameters.patterns[2].begin  groups 3
-#function-parameters.patterns[6].begin  groups 3
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[0].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[1].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[2].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[3].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[4].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[5].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[6].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[7].begin  groups 5
-#heredoc_interior.patterns[7].patterns[4].match  [$*+^]
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #heredoc_interior.patterns[7].patterns[5].end  groups 0
+  group 0: waived: the end is `$`, which holds no text
 #heredoc_interior.patterns[8].begin  groups 5
+  group 5: waived: the group matches only blanks, and the oracle compares no blank
 #language.patterns[6].patterns[1].patterns[2].captures[2].patterns[0].match
   ^(?:final|abstract|public|private|protected|static)$
-#language.patterns[7].begin  groups 1
-#namespace.begin  groups 1
+  waived: the capture always follows `as`, and its patterns match at its place in the line, so the
+    expression's `^` never holds
 #nowdoc_interior.patterns[0].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[1].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[2].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[3].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[4].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[5].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[6].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[7].begin  groups 3
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #nowdoc_interior.patterns[7].patterns[4].end  groups 0
+  group 0: waived: the end is `$`, which holds no text
 #nowdoc_interior.patterns[8].begin  groups 3
-#single_quote_regex_escape.match  \\(?:\\(?:\\['\\]?|[^'])|.)
+  group 3: waived: the group matches only blanks, and the oracle compares no blank
 #support.patterns[105].match  (?i)\bis_int(eger)?\b
-#var_language.match  (\$)this\b
+  waived: its words, `is_int` and `is_integer`, are in `patterns[98]`, which comes first and takes
+    them
 injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].begin
   groups 0
+  group 0: waived: the group matches only blanks, and the oracle compares no blank
 injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[1].end
   groups 0
-injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].begin
-  <\?(?i:php|=)?(?![^?]*\?>)  fuzz
-injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[2].end
-  (\?)>  fuzz
+  group 0: waived: the group matches only blanks and the line feed that ends the line, and the
+    oracle compares no blank
 injections[text.html.php.blade - (meta.embedded | meta.tag | comment.block.blade), L:(text.html.php.blade meta.tag - (comment.block.blade | meta.embedded.block.blade)), L:(source.js.embedded.html - (comment.block.blade | meta.embedded.block.blade))].patterns[3].patterns[0].match
   groups 1
+  group 1: waived: the group matches only blanks, and the oracle compares no blank
 ```
 
 ### `c`
