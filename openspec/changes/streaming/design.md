@@ -65,7 +65,7 @@ Two things can change tokens already shown:
 **Non-Goals:**
 
 - A speculative pass at the viewport (decision 6).
-- A WebAssembly or N-API binding (decision 9 says what one needs).
+- A WebAssembly or N-API binding (the [`document-styles` design][styles-design] lists what one needs).
 - Threads or background work inside the crate.
 
 ## Decisions
@@ -126,7 +126,7 @@ impl Document {
     pub fn set_tail(&mut self, tail: Tail);
     /// Starts a fresh highlighter and marks every line stale (decision 8).
     pub fn reset(&mut self);
-    /// Switches the theme and restyles every token (decision 12).
+    /// Switches the theme and restyles every token (`document-styles`, decision 1).
     pub fn set_theme(&mut self, theme: Theme);
 }
 
@@ -144,7 +144,7 @@ pub struct Changes { pub start: usize, pub old_end: usize, pub new_end: usize }
 pub struct DocumentLine<'a> { /* text, tokens, kind, report */ }
 
 impl DocumentLine<'_> {
-    /// Each token's end and style, from the per-stack cache (decision 12).
+    /// Each token's end and style, from the per-stack cache (`document-styles`, decision 1).
     pub fn styled(&self) -> impl Iterator<Item = (usize, Style)> + '_;
 }
 
@@ -261,94 +261,12 @@ A long-lived document under many edits can fill it to `Limits::nodes`.
 - `Document::reset` starts a fresh highlighter and marks every line stale.
   A caller may call it when a report names the node limit.
 
-### 9. What a later binding needs
-
-npm stays closed (invariant 8).
-A WebAssembly or N-API binding would need:
-
-- UTF-16 offsets.
-  JavaScript strings index by UTF-16 unit.
-  The binding converts per line, with an ASCII fast path.
-- Packed token records, as Pierre's `packed24`: one `u32` per token for its end and its stack id.
-  No JavaScript object per token.
-- A style table indexed by stack id (decision 12).
-  New stacks appear as the document grows, so each batch carries the table entries it uses first.
-  A theme change sends the whole table again.
-- Views borrowed from the document's memory, valid until the next mutation.
-- Budgeted lexing for an idle callback.
-  `lex(Until::Line(n))` already gives it in lines.
-
-None of it changes the Rust API above.
-
-### 10. Benchmarks
-
-Traces live in `bench/traces/`, written by `bench/traces.ts` from files with licences already read:
-
-| Trace | Source | Deltas |
-|:--|:--|:--|
-| Model reply | the `reply`-tier corpus files | token-sized, as the probe cuts them |
-| Tool-written file | medium-tier corpus files, one per language | token-sized, and the whole file in one delta |
-| Edit sequence | nishiki's own history, `-U0` hunks | one `replace` per hunk |
-
-- Each trace file names its source file and commit.
-  `check:corpus` style checks hold the traces and their sources together.
-- `bench/src/bin/stream.rs` times nishiki per delta: the mutation, `lex(Until::End)` with its styling, and reading the changed lines through `styled`.
-- `bench/compare/shiki.ts stream` times Shiki with `ShikiStreamTokenizer`, and Pierre with `StreamTokenizer` for appends and `LiveTokenizer` for edits.
-  Each runs as its users drive it.
-- Every engine reports setup, first-delta latency, and steady per-delta p50, p99 and maximum.
-  It also reports the final output's fidelity to Shiki on the whole text.
-- Recorded runs follow [bench/AGENTS.md][bench-agents]: the reference host class, data first, never a CI gate.
-
-### 11. Hand-offs to the throughput change
-
-Streaming needs these from the lexers.
-Each goes to the [throughput change][throughput] (owner perf-34), not into this one.
-
-| Need | Today ([note][note], section 4) | Ask |
-|:--|:--|:--|
-| Cheap first contact for every language | first line 100 to 530 µs on the rule engine, 966 µs to 1.75 ms in shell | a first line under 100 µs, so a fence's first line lands in the frame it arrives in |
-| A cold first document | 4.9 ms for shell's small file | the same cause as above, measured by `bench:cold` |
-| The `textmate` tier measured | not built by the bench | Assembly and HAML in `bench:latency` and `bench:cold` |
-| Line work linear in line length | not measured on long partial lines | a probe that lexes one long line at every prefix length, so decision 4's bound holds |
-| The resume path on a line lexed again | the tail starts from the same state each delta, so the engines rebuild its frames | count it on the stream traces, and keep the frames when it shows |
-
-### 12. Styled tokens through the per-stack style cache
-
-Agreed with perf-34, 2026-11-05.
-The operator asked that `Document` return styled tokens through the throughput change's per-stack cache.
-
-- The throughput change owns the public method, `Highlighter::style(&mut self, theme: &Theme, stack: Stack) -> Style`.
-  - It keeps a `Vec` of styles indexed by stack id, filled on first use.
-  - A stack's style is its parent's style with one `apply` for its top scope.
-  - Each `Theme` gets a process-unique id when it is built, and a clone keeps it.
-  - The cache drops its entries when it is called with another theme id.
-  - It allocates only when a new stack first appears.
-- `Document` owns one theme, given to `Document::new` and switched with `Document::set_theme`.
-- `Document::lex` calls `Highlighter::style` for every token of each line it lexes, the provisional line included.
-  A known stack is one lookup; a new one costs one `apply`.
-- Reads take `&self`.
-  `DocumentLine::styled` looks each stack up through `pub(crate) fn cached_style(&self, theme: &Theme, stack: Stack) -> Option<Style>`.
-  It returns `None` for a stack not yet seen, and for a cache filled under another theme id.
-  So no caller reads styles left from an earlier theme.
-  Inside `Document` it never returns `None` after `lex`, and the code handles `None` without a panic.
-- `set_theme` drops the cache through the theme-id rule, then walks every token once to fill it again.
-  That costs one `apply` per distinct stack and one lookup per token.
-- Stack ids are dense arena indices, bounded by `Limits::nodes`, so the style table is a flat array.
-- The signature is fixed now, so either change can land first.
-  If `Document` lands first, `styled` follows once the cache merges.
-  The public method waits for the operator's approval, together with `Document`.
-
 ## Risks / Trade-offs
 
-- [The generated deltas are smaller than a real model's] → The flicker figures are an upper bound.
-  The trace generator can take recorded transcripts later without changing the harness.
 - [Shiki's states stand in for nishiki's in the speculation and edit measurements] → The stream tests check nishiki's own tokens.
   They compare them with one-shot lexing on every fixture.
 - [A splice on a large document costs a memory move per edit] → The edit trace times it; a gap buffer comes only if it shows.
 - [`hold-last` keeps the last token uncoloured, which reads as lag on long tokens] → `stable` is advice; every token is still given.
-- [A bench dependency on `@shikijs/stream`] → It is MIT, pinned at 4.6.0 with Shiki.
-  It sits in `bench/compare` only and is never shipped, as the operator allowed (2026-11-05).
-  Its licence goes in that workspace's README.
 
 ## Open Questions
 
@@ -364,5 +282,4 @@ The operator asked that `Document` return styled tokens through the throughput c
 [vt-api]: https://github.com/shikijs/vscode-textmate/blob/5c67b2bf36852688c3d3d4a5e26f3b8f2d90be7f/src/index.ts#L221
 [vt-newline]: https://github.com/shikijs/vscode-textmate/blob/5c67b2bf36852688c3d3d4a5e26f3b8f2d90be7f/src/grammar/grammar.ts#L374
 [setext]: https://github.com/shikijs/textmate-grammars-themes/blob/8f1828ebccc57930cf0adde9b35ae929584fe191/packages/tm-grammars/grammars/markdown.json#L2543-L2554
-[bench-agents]: https://github.com/victor-software-house/nishiki-archive/blob/68620d9ef4c7eb99a91c30f3a3d6788a2c4aaebf/bench/AGENTS.md
-[throughput]: https://github.com/victor-software-house/nishiki-archive/blob/99416359c42a215e43d27db1e9a950fe2b21fe25/openspec/changes/throughput/proposal.md
+[styles-design]: ../document-styles/design.md

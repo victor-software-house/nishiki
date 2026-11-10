@@ -59,7 +59,7 @@ Review asks every row to read at or below 1.000, and a per-function split for a 
 
 ## 8. What streaming needs from the lexers
 
-The streaming change raised these needs on 2026-11-05 (`openspec/changes/streaming/`, design decision 11).
+The streaming change raised these needs on 2026-11-05 (now `openspec/changes/stream-benchmarks/`, design decision 2).
 Its figures come from `bench:latency` and `bench:cold` at 68620d9e, on a box outside the reference class, so they are indicative.
 
 - [ ] 8.1 A first line under 100 µs in every language.
