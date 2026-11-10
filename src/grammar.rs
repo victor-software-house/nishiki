@@ -275,6 +275,17 @@ struct LinkKey {
     handed: Option<Vec<Language>>,
 }
 
+impl LinkKey {
+    /// The key of linking `root` with `grammars`.
+    fn new(root: Grammar, grammars: &Grammars) -> LinkKey {
+        LinkKey {
+            root,
+            set: grammars.grammars.clone(),
+            handed: grammars.handed.clone(),
+        }
+    }
+}
+
 /// One key's linked table, empty until a link of that key succeeds.
 ///
 /// A thread holds its lock while it links.
@@ -291,23 +302,25 @@ static LINKED_TABLES: LazyLock<Mutex<HashMap<LinkKey, LinkedTable>>> =
 /// The lock on every key is held only to find or add the key's
 /// [`LinkedTable`].
 /// The link runs under that key's own lock.
-/// Links of other keys then never wait for it.
-/// Two links of one key end with one table, so no second table leaks.
-/// A link that fails leaves the key empty, and the next one tries again.
+///
+/// - Links of other keys never wait for it.
+/// - Two links of one key end with one table, so no second table leaks.
+///
+/// A link that fails removes the key's entry, so a set that never links
+/// keeps no memory.
+///
+/// - It removes the entry only while it is still the one the link held.
+/// - It takes the shared lock while it holds the key's own. No thread takes
+///   them the other way round, so they cannot deadlock.
 fn linked_table(
     root: Grammar,
     grammars: &Grammars,
 ) -> Result<&'static textmate::Grammar, GrammarError> {
-    let key = LinkKey {
-        root,
-        set: grammars.grammars.clone(),
-        handed: grammars.handed.clone(),
-    };
     let slot = Arc::clone(
         LINKED_TABLES
             .lock()
             .unwrap_or_else(PoisonError::into_inner)
-            .entry(key)
+            .entry(LinkKey::new(root, grammars))
             .or_default(),
     );
     let mut table = slot.lock().unwrap_or_else(PoisonError::into_inner);
@@ -315,10 +328,23 @@ fn linked_table(
         return Ok(linked);
     }
     let set: Vec<&UnlinkedGrammar> = grammars.grammars.iter().map(|grammar| grammar.0).collect();
-    let linked = link(root.0, &set, grammars.handed.as_deref())
-        .map_err(|error| GrammarError(Reason::Link(error)))?;
-    *table = Some(linked);
-    Ok(linked)
+    match link(root.0, &set, grammars.handed.as_deref()) {
+        Ok(linked) => {
+            *table = Some(linked);
+            Ok(linked)
+        }
+        Err(error) => {
+            let key = LinkKey::new(root, grammars);
+            let mut tables = LINKED_TABLES.lock().unwrap_or_else(PoisonError::into_inner);
+            if tables
+                .get(&key)
+                .is_some_and(|entry| Arc::ptr_eq(entry, &slot))
+            {
+                tables.remove(&key);
+            }
+            Err(GrammarError(Reason::Link(error)))
+        }
+    }
 }
 
 /// What a grammar highlighter lexes with: its grammar, and the table linked
