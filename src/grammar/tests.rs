@@ -270,6 +270,72 @@ fn a_failed_link_keeps_no_entry() {
     assert!(!tables.contains_key(&LinkKey::new(grammar, &set)));
 }
 
+/// Less pops the rule that embeds it at a `)` at its root.
+/// The rest of the line takes the scope below, as in Shiki.
+#[cfg(feature = "lang-less")]
+#[test]
+fn less_pops_the_rule_that_embeds_it() {
+    let grammar = Grammar::from_json(indoc! {r#"
+        {
+          "scopeName": "source.styled",
+          "patterns": [
+            {
+              "begin": "<",
+              "end": ">",
+              "name": "meta.wrap",
+              "patterns": [{ "include": "source.css.less" }]
+            }
+          ]
+        }
+    "#})
+    .unwrap();
+    let scopes = |names: &[&str]| names.iter().map(|&name| name.to_owned()).collect();
+    assert_eq!(
+        tokens(&mut highlighter(grammar), "<) a> b"),
+        vec![
+            ("<".to_owned(), scopes(&["meta.wrap", "source.styled"])),
+            (") a> b".to_owned(), scopes(&["source.styled"])),
+        ]
+    );
+}
+
+/// When the grammar's root embeds Less, a pop leaves the root open.
+/// The line ends there, and Less starts again on the next line, where `a`
+/// opens a selector.
+#[cfg(feature = "lang-less")]
+#[test]
+fn less_popping_at_the_root_keeps_the_root() {
+    let grammar = Grammar::from_json(indoc! {r#"
+        {
+          "scopeName": "source.styled",
+          "patterns": [{ "include": "source.css.less" }]
+        }
+    "#})
+    .unwrap();
+    let mut highlighter = highlighter(grammar);
+    let mut state = State::default();
+    let mut out = Vec::new();
+    let _ = highlighter.line(") a", &mut state, &mut out);
+    let popped: Vec<(usize, Vec<String>)> = out
+        .iter()
+        .map(|token| {
+            let scopes = highlighter
+                .scopes(token.stack())
+                .map(str::to_owned)
+                .collect();
+            (token.end(), scopes)
+        })
+        .collect();
+    assert_eq!(popped, vec![(3, vec!["source.styled".to_owned()])]);
+    out.clear();
+    let _ = highlighter.line("a { b: c; }", &mut state, &mut out);
+    assert!(out.iter().any(|token| {
+        highlighter
+            .scopes(token.stack())
+            .any(|scope| scope == "meta.selector.less")
+    }));
+}
+
 #[test]
 fn json_without_a_scope_fails() {
     let failed = Grammar::from_json(r#"{ "patterns": [] }"#).unwrap_err();
