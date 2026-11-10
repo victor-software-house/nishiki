@@ -19,9 +19,9 @@ pub(crate) enum Annotation {
     OrValue,
 }
 
-/// Which call lookahead holds, as [`Lexer::call_lookahead`] reports it.
+/// The call lookahead that holds, as [`Lexer::call_lookahead`] reports it.
 #[derive(Clone, Copy, Debug)]
-pub(crate) enum CallAhead {
+pub(crate) enum CallLookahead {
     /// A call on this line.
     Call,
     /// Type arguments that the line leaves open before the call.
@@ -730,15 +730,15 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// Which call lookahead holds at `i`, if either.
     /// Both read the name chain, and it is scanned once.
-    pub(crate) fn call_lookahead(&self, i: usize) -> Option<CallAhead> {
+    pub(crate) fn call_lookahead(&self, i: usize) -> Option<CallLookahead> {
         if !self.has_open_after(i) {
             return None;
         }
         let chain = self.chain_end(i);
         if self.call_ahead_in(i, chain) {
-            Some(CallAhead::Call)
+            Some(CallLookahead::Call)
         } else if self.call_open_ahead_in(i, chain) {
-            Some(CallAhead::Open)
+            Some(CallLookahead::Open)
         } else {
             None
         }

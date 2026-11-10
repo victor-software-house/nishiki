@@ -6,13 +6,13 @@ use super::state::R;
 use super::wordset;
 use crate::scope::scopes;
 
-/// The punctuation a call-like begin gives its `(`.
+/// The list a call-like begin opens with its `(`.
 #[derive(Clone, Copy, Debug)]
-pub(super) enum ParenList {
-    /// A call in a function-call context.
-    Args,
+pub(super) enum List {
+    /// The arguments of a call in a function-call context.
+    Arguments,
     /// The parameters of a function definition.
-    Params,
+    Parameters,
 }
 
 /// What the last name of a member access chain is.
@@ -280,13 +280,13 @@ impl Lexer<'_> {
     }
 
     /// A call at `p`, with its `(` scoped as `list` says.
-    pub(super) fn call_like(&mut self, p: usize, list: ParenList) -> bool {
+    pub(super) fn call_like(&mut self, p: usize, list: List) -> bool {
         let Some((name_end, paren)) = self.call_target(p, wordset::CALL_EXCL) else {
             return false;
         };
         let scope = match list {
-            ParenList::Args => scopes![S::PunctArgsBegin],
-            ParenList::Params => scopes![S::PunctParamBegin],
+            List::Arguments => scopes![S::PunctArgsBegin],
+            List::Parameters => scopes![S::PunctParamBegin],
         };
         self.span(p, name_end, scopes![S::EntityFunction]);
         self.span(paren, paren + 1, scope);

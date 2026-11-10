@@ -3,7 +3,7 @@
 use super::bytes::{Bytes, LITERAL_START, NAME_START};
 use super::chars::Before;
 use super::lexer::Lexer;
-use super::look::CallAhead;
+use super::look::CallLookahead;
 use super::scope::S;
 use super::state::Rule;
 
@@ -29,8 +29,8 @@ const ARROW_END_WORDS: [&str; 14] = [
 impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn function_call(&mut self, p: usize) -> Option<usize> {
         match self.call_lookahead(p)? {
-            CallAhead::Call => self.open_empty(Rule::CallOuter, p),
-            CallAhead::Open => self.open_empty(Rule::Call2Outer, p),
+            CallLookahead::Call => self.open_empty(Rule::CallOuter, p),
+            CallLookahead::Open => self.open_empty(Rule::Call2Outer, p),
         }
     }
 
