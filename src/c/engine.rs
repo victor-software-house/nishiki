@@ -154,7 +154,7 @@ impl Grammar for C {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = R;
-    type Pat = P;
+    type Pattern = P;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -186,11 +186,11 @@ impl Grammar for C {
         rule.content()
     }
 
-    fn pat_act(pat: P) -> Act<Self> {
-        pat.act()
+    fn pattern_act(pattern: P) -> Act<Self> {
+        pattern.act()
     }
 
-    fn pat_captures(_: P) -> Captures<Self> {
+    fn pattern_captures(_: P) -> Captures<Self> {
         (&[], &[])
     }
 
@@ -198,8 +198,8 @@ impl Grammar for C {
         lexer.find()
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: P, p: usize) -> Option<usize> {
-        lexer.match_pat(pat, p).then_some(lexer.x.end)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: P, p: usize) -> Option<usize> {
+        lexer.match_pattern(pattern, p).then_some(lexer.x.end)
     }
 
     fn tokenize_nested(_: &mut Lexer<'_>, nested: Nested, _: usize, _: usize, _: u32) {
@@ -252,7 +252,7 @@ impl Lexer<'_> {
     /// Inside an ASCII word that the search tried at its start, the patterns
     /// that read only the word's chain are left out.
     ///
-    /// It calls the matchers itself, not through the engine's `try_pat`.
+    /// It calls the matchers itself, not through the engine's `try_pattern`.
     /// C's matchers read no capture groups.
     /// A try then clears only the spans the last one left.
     fn find_from<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, P, usize)> {
@@ -320,16 +320,16 @@ impl Lexer<'_> {
                 }
                 flags
             };
-            for &pat in table.candidates(place, index) {
+            for &pattern in table.candidates(place, index) {
                 self.clear_spans();
-                if !self.match_pat(pat, p) {
+                if !self.match_pattern(pattern, p) {
                     continue;
                 }
-                if full && matches!(pat.act(), Act::Begin(_)) {
+                if full && matches!(pattern.act(), Act::Begin(_)) {
                     self.record_depth();
                     continue;
                 }
-                return Some((self.x.start, pat, self.x.end));
+                return Some((self.x.start, pattern, self.x.end));
             }
             if HALTING && halts.1.is_some_and(|after| after.holds(self.s, p)) {
                 self.halt_here(p);

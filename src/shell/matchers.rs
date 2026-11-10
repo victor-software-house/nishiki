@@ -11,7 +11,7 @@ mod statements;
 use blocks::{Follow, Heredoc};
 
 use super::engine::{Lexer, NameAnswer};
-use super::rules::Pat;
+use super::rules::Pattern;
 use super::scope::S;
 use crate::classes;
 use crate::scope::{Scopes, scopes};
@@ -89,98 +89,102 @@ pub(super) fn is_unquoted(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Runs the matcher of `pat` at `p`, and returns where the match ends.
+    /// Runs the matcher of `pattern` at `p`, and returns where the match ends.
     #[expect(clippy::too_many_lines, reason = "one arm per pattern, a table")]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Comment => self.m_comment(p),
-            Pat::PipeTime => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Comment => self.m_comment(p),
+            Pattern::PipeTime => {
                 self.m_keyword_between(p, b"time", scopes![S::KeywordOther], Follow::Separator)
             }
-            Pat::PipeOp => self.m_pipe(p),
-            Pat::Sep => self.m_separator(p),
-            Pat::LineCont => self.m_line_continuation(p),
-            Pat::VarAt => self.m_var_at(p),
-            Pat::VarDigit => self.m_var_digit(p),
-            Pat::VarSpecial => self.m_var_special(p),
-            Pat::VarName => self.m_var_name(p),
-            Pat::HerestringWord => self.m_herestring_word(p),
-            Pat::RedirectOp => self.m_redirect_op(p),
-            Pat::RedirectNum => self.m_redirect_number(p),
-            Pat::Tilde => self.m_tilde(p),
-            Pat::Glob => self.m_glob(p),
-            Pat::FloatKw => self.m_floating_keyword(p),
-            Pat::Support => self.m_support(p),
-            Pat::Escape => self.m_escape(p),
-            Pat::Boolean | Pat::BoolArg => self.m_boolean(p),
-            Pat::Numeric => self.m_numeric(p),
-            Pat::Unquoted => self.m_unquoted(p),
-            Pat::DqEscape => self.m_escape_in(p, b"\n\"$\\`"),
-            Pat::BtEscape => self.m_escape_in(p, b"$\\`"),
-            Pat::CaseDefault => self.m_case_default(p),
-            Pat::CaseStar => self.m_single(p, b'*', CASE_STAR),
-            Pat::CasePlus => self.m_single(p, b'+', CASE_PLUS),
-            Pat::CaseQuestion => self.m_single(p, b'?', CASE_QUESTION),
-            Pat::CaseAt => self.m_single(p, b'@', CASE_AT),
-            Pat::CasePipe => self.m_single(p, b'|', CASE_PIPE),
-            Pat::CaseParenOpen => self.m_case_paren_open(p),
-            Pat::CaseChar => self.m_case_char(p),
-            Pat::AnsiEscape => self.m_ansi_escape(p),
-            Pat::AnsiOctal => self.m_ansi_octal(p),
-            Pat::AnsiHex => self.m_ansi_hex(p),
-            Pat::AnsiControl => self.m_ansi_control(p),
-            Pat::MathOp => self.m_math_op(p),
-            Pat::MathHex => self.m_hex(p),
-            Pat::MathSemi => self.m_single(p, b';', scopes![S::PunctuationSeparatorSemicolon]),
-            Pat::MathOctal => self.m_octal(p, scopes![S::ConstantNumericOctal]),
-            Pat::MathOther => self.m_other_base(p, scopes![S::ConstantNumericOther]),
-            Pat::MathInt => self.m_integer(p),
-            Pat::MathName => self.m_math_name(p),
-            Pat::SpecialExpansion => self.m_special_expansion(p),
-            Pat::ArrayAccess => self.m_array_access_inline(p),
-            Pat::ParamDigits => self.m_param_digits(p),
-            Pat::ParamName => self.m_param_name(p),
-            Pat::ArgMatch => self.m_argument_word(p),
-            Pat::WildcardStar => {
+            Pattern::PipeOp => self.m_pipe(p),
+            Pattern::Sep => self.m_separator(p),
+            Pattern::LineCont => self.m_line_continuation(p),
+            Pattern::VarAt => self.m_var_at(p),
+            Pattern::VarDigit => self.m_var_digit(p),
+            Pattern::VarSpecial => self.m_var_special(p),
+            Pattern::VarName => self.m_var_name(p),
+            Pattern::HerestringWord => self.m_herestring_word(p),
+            Pattern::RedirectOp => self.m_redirect_op(p),
+            Pattern::RedirectNum => self.m_redirect_number(p),
+            Pattern::Tilde => self.m_tilde(p),
+            Pattern::Glob => self.m_glob(p),
+            Pattern::FloatKw => self.m_floating_keyword(p),
+            Pattern::Support => self.m_support(p),
+            Pattern::Escape => self.m_escape(p),
+            Pattern::Boolean | Pattern::BoolArg => self.m_boolean(p),
+            Pattern::Numeric => self.m_numeric(p),
+            Pattern::Unquoted => self.m_unquoted(p),
+            Pattern::DqEscape => self.m_escape_in(p, b"\n\"$\\`"),
+            Pattern::BtEscape => self.m_escape_in(p, b"$\\`"),
+            Pattern::CaseDefault => self.m_case_default(p),
+            Pattern::CaseStar => self.m_single(p, b'*', CASE_STAR),
+            Pattern::CasePlus => self.m_single(p, b'+', CASE_PLUS),
+            Pattern::CaseQuestion => self.m_single(p, b'?', CASE_QUESTION),
+            Pattern::CaseAt => self.m_single(p, b'@', CASE_AT),
+            Pattern::CasePipe => self.m_single(p, b'|', CASE_PIPE),
+            Pattern::CaseParenOpen => self.m_case_paren_open(p),
+            Pattern::CaseChar => self.m_case_char(p),
+            Pattern::AnsiEscape => self.m_ansi_escape(p),
+            Pattern::AnsiOctal => self.m_ansi_octal(p),
+            Pattern::AnsiHex => self.m_ansi_hex(p),
+            Pattern::AnsiControl => self.m_ansi_control(p),
+            Pattern::MathOp => self.m_math_op(p),
+            Pattern::MathHex => self.m_hex(p),
+            Pattern::MathSemi => self.m_single(p, b';', scopes![S::PunctuationSeparatorSemicolon]),
+            Pattern::MathOctal => self.m_octal(p, scopes![S::ConstantNumericOctal]),
+            Pattern::MathOther => self.m_other_base(p, scopes![S::ConstantNumericOther]),
+            Pattern::MathInt => self.m_integer(p),
+            Pattern::MathName => self.m_math_name(p),
+            Pattern::SpecialExpansion => self.m_special_expansion(p),
+            Pattern::ArrayAccess => self.m_array_access_inline(p),
+            Pattern::ParamDigits => self.m_param_digits(p),
+            Pattern::ParamName => self.m_param_name(p),
+            Pattern::ArgMatch => self.m_argument_word(p),
+            Pattern::WildcardStar => {
                 self.m_single(p, b'*', scopes![S::VariableLanguageSpecialWildcard])
             }
-            Pat::CmdKeyword => self.m_command_keyword(p),
-            Pat::CmdBuiltin => self.m_command_builtin(p),
-            Pat::CmdName => self.m_command_name(p),
-            Pat::ArrayNameEq => self.m_array_name_eq(p),
-            Pat::ArrayBracketEq => self.m_array_bracket_eq(p),
-            Pat::ModOption => self.m_option_word(p),
-            Pat::ModMatch => self.m_modified_match(p),
-            Pat::LogicalOp => self.m_logical_op(p),
-            Pat::LogicalTest => self.m_logical_test(p),
-            Pat::RegexCompare => self.m_text(p, b"=~", scopes![S::KeywordOperatorLogicalRegex]),
-            Pat::FuncBlank => self.m_function_blank(p),
-            Pat::RedirectFix => self.m_redirect_fix(p),
-            Pat::AliasB => self.m_alias(p),
-            Pat::ArgB => self.m_argument_begin(p),
-            Pat::ArithDoubleB => {
+            Pattern::CmdKeyword => self.m_command_keyword(p),
+            Pattern::CmdBuiltin => self.m_command_builtin(p),
+            Pattern::CmdName => self.m_command_name(p),
+            Pattern::ArrayNameEq => self.m_array_name_eq(p),
+            Pattern::ArrayBracketEq => self.m_array_bracket_eq(p),
+            Pattern::ModOption => self.m_option_word(p),
+            Pattern::ModMatch => self.m_modified_match(p),
+            Pattern::LogicalOp => self.m_logical_op(p),
+            Pattern::LogicalTest => self.m_logical_test(p),
+            Pattern::RegexCompare => self.m_text(p, b"=~", scopes![S::KeywordOperatorLogicalRegex]),
+            Pattern::FuncBlank => self.m_function_blank(p),
+            Pattern::RedirectFix => self.m_redirect_fix(p),
+            Pattern::AliasB => self.m_alias(p),
+            Pattern::ArgB => self.m_argument_begin(p),
+            Pattern::ArithDoubleB => {
                 self.m_text(p, b"((", scopes![S::PunctuationSectionArithmeticDouble])
             }
-            Pat::ArithSingleB => {
+            Pattern::ArithSingleB => {
                 self.m_single(p, b'(', scopes![S::PunctuationSectionArithmeticSingle])
             }
-            Pat::ArrayValueB => self.m_array_value(p),
-            Pat::CaseB => self.m_case(p),
-            Pat::CasePatternB => self.m_case_pattern_begin(p),
-            Pat::CaseBodyB => self.m_after(p, b')'),
-            Pat::CaseGroupB => self.m_case_group(p),
-            Pat::CaseClassB => {
+            Pattern::ArrayValueB => self.m_array_value(p),
+            Pattern::CaseB => self.m_case(p),
+            Pattern::CasePatternB => self.m_case_pattern_begin(p),
+            Pattern::CaseBodyB => self.m_after(p, b')'),
+            Pattern::CaseGroupB => self.m_case_group(p),
+            Pattern::CaseClassB => {
                 self.m_single(p, b'[', scopes![S::PunctuationDefinitionCharacterClass])
             }
-            Pat::CmdStatementB => self.m_command_statement(p),
-            Pat::CmdNameB => self.at_g(p).then_some(p),
-            Pat::CmdQuotedB => self.m_command_quoted(p),
-            Pat::ContinuationDoubleB => (self.at_g(p) && self.prev(p) == Some(b'"')).then_some(p),
-            Pat::ContinuationSingleB => (self.at_g(p) && self.prev(p) == Some(b'\'')).then_some(p),
-            Pat::ForInB => self.m_for_in(p),
-            Pat::ForB => self.m_for(p),
-            Pat::FunctionB => self.m_function(p),
-            Pat::FuncBraceB => self.m_single(
+            Pattern::CmdStatementB => self.m_command_statement(p),
+            Pattern::CmdNameB => self.at_g(p).then_some(p),
+            Pattern::CmdQuotedB => self.m_command_quoted(p),
+            Pattern::ContinuationDoubleB => {
+                (self.at_g(p) && self.prev(p) == Some(b'"')).then_some(p)
+            }
+            Pattern::ContinuationSingleB => {
+                (self.at_g(p) && self.prev(p) == Some(b'\'')).then_some(p)
+            }
+            Pattern::ForInB => self.m_for_in(p),
+            Pattern::ForB => self.m_for(p),
+            Pattern::FunctionB => self.m_function(p),
+            Pattern::FuncBraceB => self.m_single(
                 p,
                 b'{',
                 scopes![
@@ -188,7 +192,7 @@ impl Lexer<'_> {
                     S::PunctuationSectionFunctionDefinition,
                 ],
             ),
-            Pat::FuncParenB => self.m_single(
+            Pattern::FuncParenB => self.m_single(
                 p,
                 b'(',
                 scopes![
@@ -196,81 +200,83 @@ impl Lexer<'_> {
                     S::PunctuationSectionFunctionDefinition,
                 ],
             ),
-            Pat::HeredocQuotedIndentB => self.m_heredoc_quoted(p, Heredoc::Indented),
-            Pat::HeredocQuotedB => self.m_heredoc_quoted(p, Heredoc::Plain),
-            Pat::HeredocIndentB => self.m_heredoc_plain(p, Heredoc::Indented),
-            Pat::HeredocB => self.m_heredoc_plain(p, Heredoc::Plain),
-            Pat::HerestringSingleB => self.m_herestring_quote(
+            Pattern::HeredocQuotedIndentB => self.m_heredoc_quoted(p, Heredoc::Indented),
+            Pattern::HeredocQuotedB => self.m_heredoc_quoted(p, Heredoc::Plain),
+            Pattern::HeredocIndentB => self.m_heredoc_plain(p, Heredoc::Indented),
+            Pattern::HeredocB => self.m_heredoc_plain(p, Heredoc::Plain),
+            Pattern::HerestringSingleB => self.m_herestring_quote(
                 p,
                 b'\'',
                 scopes![S::StringQuotedSingle, S::PunctuationDefinitionStringBegin],
             ),
-            Pat::HerestringDoubleB => self.m_herestring_quote(
+            Pattern::HerestringDoubleB => self.m_herestring_quote(
                 p,
                 b'"',
                 scopes![S::StringQuotedDouble, S::PunctuationDefinitionStringBegin],
             ),
-            Pat::BacktickB => self.m_single(
+            Pattern::BacktickB => self.m_single(
                 p,
                 b'`',
                 scopes![S::PunctuationDefinitionEvaluationBackticks],
             ),
-            Pat::BacktickCommentB => self.m_backtick_comment(p),
-            Pat::BacktickCommentLineB => {
+            Pattern::BacktickCommentB => self.m_backtick_comment(p),
+            Pattern::BacktickCommentLineB => {
                 self.m_single(p, b'#', scopes![S::PunctuationDefinitionComment])
             }
-            Pat::LogicalDoubleB => {
+            Pattern::LogicalDoubleB => {
                 self.m_text(p, b"[[", scopes![S::PunctuationDefinitionLogicalExpression])
             }
-            Pat::LogicalSingleB => {
+            Pattern::LogicalSingleB => {
                 self.m_single(p, b'[', scopes![S::PunctuationDefinitionLogicalExpression])
             }
-            Pat::LoopForB => self.m_loop_for(p),
-            Pat::LoopWhileB => self.m_loop_while(p),
-            Pat::LoopSelectB => self.m_loop_select(p),
-            Pat::LoopIfB => {
+            Pattern::LoopForB => self.m_loop_for(p),
+            Pattern::LoopWhileB => self.m_loop_while(p),
+            Pattern::LoopSelectB => self.m_loop_select(p),
+            Pattern::LoopIfB => {
                 self.m_keyword_between(p, b"if", scopes![S::KeywordControlIf], Follow::Separator)
             }
-            Pat::GroupB => self.m_group(p),
-            Pat::ModifiedB => self.m_modified(p),
-            Pat::NormalAssignB => self.m_normal_assign(p),
-            Pat::EnvCommandB => self.m_env_command(p),
-            Pat::NormalStatementB => self.m_normal_statement(p),
-            Pat::OptionB => self.m_option_begin(p),
-            Pat::ParenB => self.m_single(p, b'(', scopes![S::PunctuationSectionParen]),
-            Pat::ExtglobB => self.m_extglob(p),
-            Pat::ProcessSubstitutionB => self.m_process_substitution(p),
-            Pat::StringSingleB => {
+            Pattern::GroupB => self.m_group(p),
+            Pattern::ModifiedB => self.m_modified(p),
+            Pattern::NormalAssignB => self.m_normal_assign(p),
+            Pattern::EnvCommandB => self.m_env_command(p),
+            Pattern::NormalStatementB => self.m_normal_statement(p),
+            Pattern::OptionB => self.m_option_begin(p),
+            Pattern::ParenB => self.m_single(p, b'(', scopes![S::PunctuationSectionParen]),
+            Pattern::ExtglobB => self.m_extglob(p),
+            Pattern::ProcessSubstitutionB => self.m_process_substitution(p),
+            Pattern::StringSingleB => {
                 self.m_single(p, b'\'', scopes![S::PunctuationDefinitionStringBegin])
             }
-            Pat::StringDoubleB => self.m_string_double(p),
-            Pat::StringAnsiB => self.m_text(p, b"$'", scopes![S::PunctuationDefinitionStringBegin]),
-            Pat::SubshellB => {
+            Pattern::StringDoubleB => self.m_string_double(p),
+            Pattern::StringAnsiB => {
+                self.m_text(p, b"$'", scopes![S::PunctuationDefinitionStringBegin])
+            }
+            Pattern::SubshellB => {
                 self.m_text(p, b"$(", scopes![S::PunctuationDefinitionSubshellSingle])
             }
-            Pat::VarPositionalB => self.m_var_positional_begin(p),
-            Pat::VarBraceB => self.m_var_brace_begin(p),
-            Pat::WhileB => self.m_keyword_word(p, b"while", scopes![S::KeywordControlWhile]),
-            Pat::EndStatement => self.m_end_statement(p),
-            Pat::EndOption => self.m_end_option(p),
-            Pat::EndArg => self.m_end_argument(p),
-            Pat::EndAlias => self.m_end_alias(p),
-            Pat::EndArithDouble => self.m_end_arith_double(p),
-            Pat::EndCase => self.m_end_case(p),
-            Pat::EndCasePattern => self.m_end_case_pattern(p),
-            Pat::EndCaseBody => self.m_end_case_body(p),
-            Pat::EndCmdName => self.m_end_command_name(p),
-            Pat::EndCmdQuotedDouble => self.m_end_command_quoted(p, b'"'),
-            Pat::EndCmdQuotedSingle => self.m_end_command_quoted(p, b'\''),
-            Pat::EndFunction => matches!(self.prev(p), Some(b')' | b'}')).then_some(p),
-            Pat::EndHeredoc => self.m_end_heredoc(p),
-            Pat::EndDone => self.m_end_done(p),
-            Pat::EndFi => {
+            Pattern::VarPositionalB => self.m_var_positional_begin(p),
+            Pattern::VarBraceB => self.m_var_brace_begin(p),
+            Pattern::WhileB => self.m_keyword_word(p, b"while", scopes![S::KeywordControlWhile]),
+            Pattern::EndStatement => self.m_end_statement(p),
+            Pattern::EndOption => self.m_end_option(p),
+            Pattern::EndArg => self.m_end_argument(p),
+            Pattern::EndAlias => self.m_end_alias(p),
+            Pattern::EndArithDouble => self.m_end_arith_double(p),
+            Pattern::EndCase => self.m_end_case(p),
+            Pattern::EndCasePattern => self.m_end_case_pattern(p),
+            Pattern::EndCaseBody => self.m_end_case_body(p),
+            Pattern::EndCmdName => self.m_end_command_name(p),
+            Pattern::EndCmdQuotedDouble => self.m_end_command_quoted(p, b'"'),
+            Pattern::EndCmdQuotedSingle => self.m_end_command_quoted(p, b'\''),
+            Pattern::EndFunction => matches!(self.prev(p), Some(b')' | b'}')).then_some(p),
+            Pattern::EndHeredoc => self.m_end_heredoc(p),
+            Pattern::EndDone => self.m_end_done(p),
+            Pattern::EndFi => {
                 self.m_keyword_between(p, b"fi", scopes![S::KeywordControlFi], Follow::Separator)
             }
-            Pat::EndBacktickComment => (!self.at_g(p)).then_some(p),
-            Pat::EndBacktickCommentLine => (self.at(p) == b'`').then_some(p),
-            Pat::EndLit => self.m_end_lit(p),
+            Pattern::EndBacktickComment => (!self.at_g(p)).then_some(p),
+            Pattern::EndBacktickCommentLine => (self.at(p) == b'`').then_some(p),
+            Pattern::EndLit => self.m_end_lit(p),
         }
     }
 

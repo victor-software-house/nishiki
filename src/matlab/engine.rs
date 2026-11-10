@@ -3,7 +3,7 @@
 
 use std::cell::Cell;
 
-use super::grammar::{Nested, Pat, Rule, Sc};
+use super::grammar::{Nested, Pattern, Rule, Sc};
 use super::scope::S;
 use crate::rules::{self, Act, BlankRuns, Captures, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -50,7 +50,7 @@ impl Grammar for Matlab {
     type Scope = Sc;
     const NO_SCOPES: Scopes<Sc> = Sc::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -62,11 +62,11 @@ impl Grammar for Matlab {
     const CAPTURED_EOL: bool = true;
     /// The parens and indexing braces end at `(?<!\.\.\.).\n`, which matches
     /// only at the last blank of a run that ends the line
-    /// ([`Pat::takes_one_blank`]).
+    /// ([`Pattern::takes_one_blank`]).
     const BLANK_RUNS: BlankRuns = BlankRuns::ToLast;
 
-    fn takes_one_blank(pat: Pat) -> bool {
-        pat.takes_one_blank()
+    fn takes_one_blank(pattern: Pattern) -> bool {
+        pattern.takes_one_blank()
     }
 
     fn scope(scope: Sc) -> ScopeName {
@@ -91,26 +91,26 @@ impl Grammar for Matlab {
         rule.definition().content
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.definition().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let definition = pat.definition();
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
         (definition.captures, definition.nested)
     }
 
-    fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let definition = pat.definition();
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
         (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat.rx(), p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.matcher(pattern.rx(), p)
     }
 
     /// Lexes the group again with its rule, under the stack the engine

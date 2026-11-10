@@ -3,7 +3,7 @@
 
 use super::Quotes;
 use crate::python::engine::{Ahead, Lexer, Stops};
-use crate::python::grammar::StringPat;
+use crate::python::grammar::StringPattern;
 use crate::rules::Chars;
 
 /// How a string closes.
@@ -20,60 +20,62 @@ enum Close {
 }
 
 impl Lexer<'_> {
-    pub(super) fn string_matcher(&mut self, pat: StringPat, p: usize) -> Option<usize> {
-        match pat {
-            StringPat::StringQuotedMultiLine => self.plain_begin(p, Quotes::Three),
-            StringPat::StringQuotedSingleLine => self.plain_begin(p, Quotes::One),
-            StringPat::StringBinQuotedMultiLine => self.bin_begin(p, Quotes::Three),
-            StringPat::StringBinQuotedSingleLine => self.bin_begin(p, Quotes::One),
-            StringPat::StringRawQuotedMultiLine => self.raw_begin(p, Quotes::Three),
-            StringPat::StringRawQuotedSingleLine => self.raw_begin(p, Quotes::One),
-            StringPat::StringRawBinQuotedMultiLine => self.raw_bin_begin(p, Quotes::Three),
-            StringPat::StringRawBinQuotedSingleLine => self.raw_bin_begin(p, Quotes::One),
-            StringPat::StringQuotedMultiLineEnd
-            | StringPat::StringBinQuotedMultiLineEnd
-            | StringPat::StringRawQuotedMultiLineEnd
-            | StringPat::StringRawBinQuotedMultiLineEnd
-            | StringPat::DocstringAt0End
-            | StringPat::DocstringAt1End => self.string_end(p, Close::Quote),
-            StringPat::StringQuotedSingleLineEnd
-            | StringPat::StringBinQuotedSingleLineEnd
-            | StringPat::StringRawQuotedSingleLineEnd
-            | StringPat::StringRawBinQuotedSingleLineEnd
-            | StringPat::DocstringAt3End => self.string_end(p, Close::QuoteOrNewline),
-            StringPat::DocstringAt2End => self.string_end(p, Close::QuoteOrAnyNewline),
-            StringPat::DocstringAt0 => self.docstring_triple(p),
-            StringPat::DocstringAt1 => self.docstring_raw(p, Quotes::Three),
-            StringPat::DocstringAt2 => self.docstring_single(p),
-            StringPat::DocstringAt3 => self.docstring_raw(p, Quotes::One),
-            StringPat::DocstringStatement => self.docstring_statement_begin(p),
-            StringPat::DocstringStatementEnd => self.docstring_statement_end(p),
-            StringPat::DocstringPrompt => self.docstring_prompt(p),
-            StringPat::EscapeSequenceUnicodeAt0 => self.unicode_escape(p),
-            StringPat::EscapeSequence => self.escape(p),
-            StringPat::StringLineContinuation => {
+    pub(super) fn string_matcher(&mut self, pattern: StringPattern, p: usize) -> Option<usize> {
+        match pattern {
+            StringPattern::StringQuotedMultiLine => self.plain_begin(p, Quotes::Three),
+            StringPattern::StringQuotedSingleLine => self.plain_begin(p, Quotes::One),
+            StringPattern::StringBinQuotedMultiLine => self.bin_begin(p, Quotes::Three),
+            StringPattern::StringBinQuotedSingleLine => self.bin_begin(p, Quotes::One),
+            StringPattern::StringRawQuotedMultiLine => self.raw_begin(p, Quotes::Three),
+            StringPattern::StringRawQuotedSingleLine => self.raw_begin(p, Quotes::One),
+            StringPattern::StringRawBinQuotedMultiLine => self.raw_bin_begin(p, Quotes::Three),
+            StringPattern::StringRawBinQuotedSingleLine => self.raw_bin_begin(p, Quotes::One),
+            StringPattern::StringQuotedMultiLineEnd
+            | StringPattern::StringBinQuotedMultiLineEnd
+            | StringPattern::StringRawQuotedMultiLineEnd
+            | StringPattern::StringRawBinQuotedMultiLineEnd
+            | StringPattern::DocstringAt0End
+            | StringPattern::DocstringAt1End => self.string_end(p, Close::Quote),
+            StringPattern::StringQuotedSingleLineEnd
+            | StringPattern::StringBinQuotedSingleLineEnd
+            | StringPattern::StringRawQuotedSingleLineEnd
+            | StringPattern::StringRawBinQuotedSingleLineEnd
+            | StringPattern::DocstringAt3End => self.string_end(p, Close::QuoteOrNewline),
+            StringPattern::DocstringAt2End => self.string_end(p, Close::QuoteOrAnyNewline),
+            StringPattern::DocstringAt0 => self.docstring_triple(p),
+            StringPattern::DocstringAt1 => self.docstring_raw(p, Quotes::Three),
+            StringPattern::DocstringAt2 => self.docstring_single(p),
+            StringPattern::DocstringAt3 => self.docstring_raw(p, Quotes::One),
+            StringPattern::DocstringStatement => self.docstring_statement_begin(p),
+            StringPattern::DocstringStatementEnd => self.docstring_statement_end(p),
+            StringPattern::DocstringPrompt => self.docstring_prompt(p),
+            StringPattern::EscapeSequenceUnicodeAt0 => self.unicode_escape(p),
+            StringPattern::EscapeSequence => self.escape(p),
+            StringPattern::StringLineContinuation => {
                 (self.at(p) == b'\\' && p < self.lim() && self.at_eol(p + 1)).then_some(p + 1)
             }
-            StringPat::StringConsumeEscape => self.consume_escape(p),
-            StringPat::StringFormatting => self.percent_format(p),
-            StringPat::StringBraceFormattingAt0 => self.brace_format(p),
-            StringPat::StringBraceFormattingAt1 => self.brace_format_nested(p),
-            StringPat::StringMultiBadBrace1FormattingUnicode
-            | StringPat::StringMultiBadBrace1FormattingRaw
-            | StringPat::StringSingleBadBrace1FormattingUnicode
-            | StringPat::StringSingleBadBrace1FormattingRaw => self.bad_brace1(p),
-            StringPat::StringMultiBadBrace2FormattingUnicode
-            | StringPat::StringMultiBadBrace2FormattingRaw => self.bad_brace2(p, Quotes::Three),
-            StringPat::StringSingleBadBrace2FormattingUnicode
-            | StringPat::StringSingleBadBrace2FormattingRaw => self.bad_brace2(p, Quotes::One),
-            StringPat::StringMultiBadBrace1FormattingUnicodeEnd
-            | StringPat::StringMultiBadBrace1FormattingRawEnd
-            | StringPat::StringMultiBadBrace2FormattingUnicodeEnd
-            | StringPat::StringMultiBadBrace2FormattingRawEnd => self.triple_ahead(p).then_some(p),
-            StringPat::StringSingleBadBrace1FormattingUnicodeEnd
-            | StringPat::StringSingleBadBrace1FormattingRawEnd
-            | StringPat::StringSingleBadBrace2FormattingUnicodeEnd
-            | StringPat::StringSingleBadBrace2FormattingRawEnd => {
+            StringPattern::StringConsumeEscape => self.consume_escape(p),
+            StringPattern::StringFormatting => self.percent_format(p),
+            StringPattern::StringBraceFormattingAt0 => self.brace_format(p),
+            StringPattern::StringBraceFormattingAt1 => self.brace_format_nested(p),
+            StringPattern::StringMultiBadBrace1FormattingUnicode
+            | StringPattern::StringMultiBadBrace1FormattingRaw
+            | StringPattern::StringSingleBadBrace1FormattingUnicode
+            | StringPattern::StringSingleBadBrace1FormattingRaw => self.bad_brace1(p),
+            StringPattern::StringMultiBadBrace2FormattingUnicode
+            | StringPattern::StringMultiBadBrace2FormattingRaw => self.bad_brace2(p, Quotes::Three),
+            StringPattern::StringSingleBadBrace2FormattingUnicode
+            | StringPattern::StringSingleBadBrace2FormattingRaw => self.bad_brace2(p, Quotes::One),
+            StringPattern::StringMultiBadBrace1FormattingUnicodeEnd
+            | StringPattern::StringMultiBadBrace1FormattingRawEnd
+            | StringPattern::StringMultiBadBrace2FormattingUnicodeEnd
+            | StringPattern::StringMultiBadBrace2FormattingRawEnd => {
+                self.triple_ahead(p).then_some(p)
+            }
+            StringPattern::StringSingleBadBrace1FormattingUnicodeEnd
+            | StringPattern::StringSingleBadBrace1FormattingRawEnd
+            | StringPattern::StringSingleBadBrace2FormattingUnicodeEnd
+            | StringPattern::StringSingleBadBrace2FormattingRawEnd => {
                 self.quote_or_newline_ahead(p).then_some(p)
             }
         }

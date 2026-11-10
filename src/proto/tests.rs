@@ -75,7 +75,7 @@ fn a_number_before_a_letter_ends_at_its_dot() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::proto::engine::Proto;
-    use crate::proto::grammar::Pat;
+    use crate::proto::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with Protobuf's matchers (see
@@ -84,10 +84,10 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Proto, _>(arena, case, |lexer| {
                 lexer.first_line = true;
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

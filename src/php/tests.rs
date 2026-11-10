@@ -89,7 +89,7 @@ fn a_heredoc_named_for_a_language_hands_its_text_over_up_to_its_label() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::php::engine::Php;
-    use crate::php::grammar::Pat;
+    use crate::php::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with PHP's matchers (see
@@ -97,9 +97,9 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Php, _>(arena, case, |lexer| {
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

@@ -18,7 +18,7 @@ mod roxygen;
 mod strings;
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// The brackets that `[]()\[{}]` names in an `@examples` block.
@@ -37,83 +37,83 @@ const RAW: [(u8, u8, u8); 6] = [
 ];
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - roxygen comments, their tokens, their Markdown and `@examples`;
     /// - comments, brackets and function definitions;
     /// - strings, raw strings and escapes;
     /// - keywords, names, numbers and operators.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Roxygen => self.roxygen_lead(p, 1),
-            Pat::RoxygenEnd => self.at_eol(p).then_some(p),
-            Pat::MarkdownAt0At0 => self.roxygen_lead(p, 0),
-            Pat::MarkdownAt0 => self.fence(p),
-            Pat::MarkdownAt0End => self.fence_end(p),
-            Pat::MarkdownAt1 => self.markdown_link(p),
-            Pat::MarkdownAt2 => self.markdown_bold_words(p),
-            Pat::MarkdownAt3 => self.markdown_italic_words(p),
-            Pat::MarkdownAt4 => self.markdown_bold(p),
-            Pat::MarkdownAt5 => self.markdown_italic(p),
-            Pat::MarkdownAt6 => self.markdown_code(p),
-            Pat::MarkdownAt7 => self.markdown_angle(p),
-            Pat::RoxygenTokensAt0 => self.lit(p, b"@@"),
-            Pat::RoxygenTokensAt1 => self.param_tag(p),
-            Pat::RoxygenTokensAt1End => self.param_end(p),
-            Pat::RoxygenTokensAt1At0 | Pat::FunctionDefinitionAt0 => self.dotted_word(p, 1),
-            Pat::RoxygenTokensAt1At1 => self.lit(p, b","),
-            Pat::RoxygenTokensAt2 => self.tag(p),
-            Pat::Latex => self.latex(p),
-            Pat::RoxygenAt3 => (p < self.lim()).then(|| self.char_end(p)),
-            Pat::RoxygenExample => self.examples(p),
-            Pat::RoxygenExampleEnd => self.examples_end(p),
-            Pat::RoxygenExampleAt1 => BRACKETS.contains(&self.at(p)).then_some(p + 1),
-            Pat::Comment => (self.at(p) == b'#').then(|| self.lim()),
-            Pat::BracketsAt0 => self.lit(p, b"{"),
-            Pat::BracketsAt0End => self.lit(p, b"}"),
-            Pat::BracketsAt1 => self.lit(p, b"["),
-            Pat::BracketsAt1End => self.lit(p, b"]"),
-            Pat::BracketsAt2 => self.lit(p, b"("),
-            Pat::BracketsAt2End => self.lit(p, b")"),
-            Pat::BracketsAt1At0 => self.argument_name(p),
-            Pat::FunctionDefinition => self.function_definition(p),
-            Pat::FunctionDefinitionEnd => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Roxygen => self.roxygen_lead(p, 1),
+            Pattern::RoxygenEnd => self.at_eol(p).then_some(p),
+            Pattern::MarkdownAt0At0 => self.roxygen_lead(p, 0),
+            Pattern::MarkdownAt0 => self.fence(p),
+            Pattern::MarkdownAt0End => self.fence_end(p),
+            Pattern::MarkdownAt1 => self.markdown_link(p),
+            Pattern::MarkdownAt2 => self.markdown_bold_words(p),
+            Pattern::MarkdownAt3 => self.markdown_italic_words(p),
+            Pattern::MarkdownAt4 => self.markdown_bold(p),
+            Pattern::MarkdownAt5 => self.markdown_italic(p),
+            Pattern::MarkdownAt6 => self.markdown_code(p),
+            Pattern::MarkdownAt7 => self.markdown_angle(p),
+            Pattern::RoxygenTokensAt0 => self.lit(p, b"@@"),
+            Pattern::RoxygenTokensAt1 => self.param_tag(p),
+            Pattern::RoxygenTokensAt1End => self.param_end(p),
+            Pattern::RoxygenTokensAt1At0 | Pattern::FunctionDefinitionAt0 => self.dotted_word(p, 1),
+            Pattern::RoxygenTokensAt1At1 => self.lit(p, b","),
+            Pattern::RoxygenTokensAt2 => self.tag(p),
+            Pattern::Latex => self.latex(p),
+            Pattern::RoxygenAt3 => (p < self.lim()).then(|| self.char_end(p)),
+            Pattern::RoxygenExample => self.examples(p),
+            Pattern::RoxygenExampleEnd => self.examples_end(p),
+            Pattern::RoxygenExampleAt1 => BRACKETS.contains(&self.at(p)).then_some(p + 1),
+            Pattern::Comment => (self.at(p) == b'#').then(|| self.lim()),
+            Pattern::BracketsAt0 => self.lit(p, b"{"),
+            Pattern::BracketsAt0End => self.lit(p, b"}"),
+            Pattern::BracketsAt1 => self.lit(p, b"["),
+            Pattern::BracketsAt1End => self.lit(p, b"]"),
+            Pattern::BracketsAt2 => self.lit(p, b"("),
+            Pattern::BracketsAt2End => self.lit(p, b")"),
+            Pattern::BracketsAt1At0 => self.argument_name(p),
+            Pattern::FunctionDefinition => self.function_definition(p),
+            Pattern::FunctionDefinitionEnd => {
                 let end = self.lit(p, b")")?;
                 self.cap(1, p, end);
                 Some(end)
             }
-            Pat::FunctionDefinitionAt0End => matches!(self.at(p), b')' | b',').then_some(p),
-            Pat::RawStringsAt0 => self.raw_open(p, RAW[0]),
-            Pat::RawStringsAt1 => self.raw_open(p, RAW[1]),
-            Pat::RawStringsAt2 => self.raw_open(p, RAW[2]),
-            Pat::RawStringsAt3 => self.raw_open(p, RAW[3]),
-            Pat::RawStringsAt4 => self.raw_open(p, RAW[4]),
-            Pat::RawStringsAt5 => self.raw_open(p, RAW[5]),
-            Pat::RawStringsAt0End => self.raw_close(p, RAW[0]),
-            Pat::RawStringsAt1End => self.raw_close(p, RAW[1]),
-            Pat::RawStringsAt2End => self.raw_close(p, RAW[2]),
-            Pat::RawStringsAt3End => self.raw_close(p, RAW[3]),
-            Pat::RawStringsAt4End => self.raw_close(p, RAW[4]),
-            Pat::RawStringsAt5End => self.raw_close(p, RAW[5]),
-            Pat::Qstring | Pat::QstringEnd => self.lit(p, b"'"),
-            Pat::Qqstring | Pat::QqstringEnd => self.lit(p, b"\""),
-            Pat::IdentifierQuoted | Pat::IdentifierQuotedEnd => self.lit(p, b"`"),
-            Pat::IdentifierQuotedAt0 => self.lit(p, b"\\`"),
-            Pat::EscapeCode => self.escape_code(p),
-            Pat::EscapeHex => self.escape_hex(p),
-            Pat::EscapeOctal => self.escape_octal(p),
-            Pat::EscapeUnicode => self.escape_unicode(p),
-            Pat::EscapeInvalid => self.escape_any(p),
-            Pat::KeywordsControl => self.control_keyword(p),
-            Pat::KeywordsBuiltin => self.builtin_keyword(p),
-            Pat::KeywordsConstant => self.constant(p),
-            Pat::NamespaceCall => self.namespace(p),
-            Pat::FunctionCall => self.function_call(p),
-            Pat::IdentifierSyntactic => self.identifier(p),
-            Pat::NumbersAt0 => self.hex_number(p),
-            Pat::NumbersAt1 => self.number(p),
-            Pat::Operators => self.operator(p),
+            Pattern::FunctionDefinitionAt0End => matches!(self.at(p), b')' | b',').then_some(p),
+            Pattern::RawStringsAt0 => self.raw_open(p, RAW[0]),
+            Pattern::RawStringsAt1 => self.raw_open(p, RAW[1]),
+            Pattern::RawStringsAt2 => self.raw_open(p, RAW[2]),
+            Pattern::RawStringsAt3 => self.raw_open(p, RAW[3]),
+            Pattern::RawStringsAt4 => self.raw_open(p, RAW[4]),
+            Pattern::RawStringsAt5 => self.raw_open(p, RAW[5]),
+            Pattern::RawStringsAt0End => self.raw_close(p, RAW[0]),
+            Pattern::RawStringsAt1End => self.raw_close(p, RAW[1]),
+            Pattern::RawStringsAt2End => self.raw_close(p, RAW[2]),
+            Pattern::RawStringsAt3End => self.raw_close(p, RAW[3]),
+            Pattern::RawStringsAt4End => self.raw_close(p, RAW[4]),
+            Pattern::RawStringsAt5End => self.raw_close(p, RAW[5]),
+            Pattern::Qstring | Pattern::QstringEnd => self.lit(p, b"'"),
+            Pattern::Qqstring | Pattern::QqstringEnd => self.lit(p, b"\""),
+            Pattern::IdentifierQuoted | Pattern::IdentifierQuotedEnd => self.lit(p, b"`"),
+            Pattern::IdentifierQuotedAt0 => self.lit(p, b"\\`"),
+            Pattern::EscapeCode => self.escape_code(p),
+            Pattern::EscapeHex => self.escape_hex(p),
+            Pattern::EscapeOctal => self.escape_octal(p),
+            Pattern::EscapeUnicode => self.escape_unicode(p),
+            Pattern::EscapeInvalid => self.escape_any(p),
+            Pattern::KeywordsControl => self.control_keyword(p),
+            Pattern::KeywordsBuiltin => self.builtin_keyword(p),
+            Pattern::KeywordsConstant => self.constant(p),
+            Pattern::NamespaceCall => self.namespace(p),
+            Pattern::FunctionCall => self.function_call(p),
+            Pattern::IdentifierSyntactic => self.identifier(p),
+            Pattern::NumbersAt0 => self.hex_number(p),
+            Pattern::NumbersAt1 => self.number(p),
+            Pattern::Operators => self.operator(p),
         }
     }
 

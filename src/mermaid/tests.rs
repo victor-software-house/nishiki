@@ -341,7 +341,7 @@ fn keywords_fold_case_but_diagram_words_do_not() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::mermaid::engine::Mermaid;
-    use crate::mermaid::grammar::Pat;
+    use crate::mermaid::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with Mermaid's matchers (see
@@ -349,9 +349,9 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Mermaid, _>(arena, case, |lexer| {
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

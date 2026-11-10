@@ -22,7 +22,7 @@ use variables::Members::{Kept, Never};
 use variables::Sigils::{Both, Dollar};
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::case_fold;
 use crate::classes::{is_digit, is_letter};
 use crate::rules::Chars;
@@ -37,7 +37,7 @@ fn is_name(c: char) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - comments and the `#requires` directive;
@@ -47,105 +47,109 @@ impl Lexer<'_> {
     /// - groups, blocks and brackets;
     /// - operators and keywords;
     /// - numbers.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::BlockComment => self.lit(p, b"<#"),
-            Pat::BlockCommentEnd => self.lit(p, b"#>"),
-            Pat::CommentLine => self.line_comment(p),
-            Pat::CommentLineEnd => self.line_comment_end(p),
-            Pat::CommentEmbeddedDocsAt0 => self.help_keyword(p),
-            Pat::CommentEmbeddedDocsAt1 => self.help_keyword_with_argument(p),
-            Pat::RequiresDirective => self.requires(p),
-            Pat::RequiresDirectiveEnd | Pat::StopParsingEnd => self.at_eol(p).then_some(p),
-            Pat::RequiresDirectiveAt0 => self.requires_parameter(p),
-            Pat::RequiresDirectiveAt1 => self.requires_value(p),
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::BlockComment => self.lit(p, b"<#"),
+            Pattern::BlockCommentEnd => self.lit(p, b"#>"),
+            Pattern::CommentLine => self.line_comment(p),
+            Pattern::CommentLineEnd => self.line_comment_end(p),
+            Pattern::CommentEmbeddedDocsAt0 => self.help_keyword(p),
+            Pattern::CommentEmbeddedDocsAt1 => self.help_keyword_with_argument(p),
+            Pattern::RequiresDirective => self.requires(p),
+            Pattern::RequiresDirectiveEnd | Pattern::StopParsingEnd => self.at_eol(p).then_some(p),
+            Pattern::RequiresDirectiveAt0 => self.requires_parameter(p),
+            Pattern::RequiresDirectiveAt1 => self.requires_value(p),
 
-            Pat::CommandsAt0 => self.command(p),
-            Pat::CommandsAt1 => self.standalone(p, b"foreach-object"),
-            Pat::CommandsAt2 => self.standalone(p, b"where-object"),
-            Pat::CommandsAt3 => self.standalone(p, b"sort-object"),
-            Pat::CommandsAt4 => self.standalone(p, b"tee-object"),
-            Pat::RootAt20 => self.executable(p),
-            Pat::UsingDirective => self.using(p),
-            Pat::Function => self.function(p),
-            Pat::FunctionEnd => matches!(self.at(p), b'(' | b'{').then_some(p),
-            Pat::Attribute => self.attribute(p),
-            Pat::AttributeAt0At1 => self.attribute_argument(p),
-            Pat::RootAt25 => self.class(p),
-            Pat::StopParsing => self.stop_parsing(p),
-            Pat::StopParsingAt0 => (p < self.lim()).then(|| self.lim()),
+            Pattern::CommandsAt0 => self.command(p),
+            Pattern::CommandsAt1 => self.standalone(p, b"foreach-object"),
+            Pattern::CommandsAt2 => self.standalone(p, b"where-object"),
+            Pattern::CommandsAt3 => self.standalone(p, b"sort-object"),
+            Pattern::CommandsAt4 => self.standalone(p, b"tee-object"),
+            Pattern::RootAt20 => self.executable(p),
+            Pattern::UsingDirective => self.using(p),
+            Pattern::Function => self.function(p),
+            Pattern::FunctionEnd => matches!(self.at(p), b'(' | b'{').then_some(p),
+            Pattern::Attribute => self.attribute(p),
+            Pattern::AttributeAt0At1 => self.attribute_argument(p),
+            Pattern::RootAt25 => self.class(p),
+            Pattern::StopParsing => self.stop_parsing(p),
+            Pattern::StopParsingAt0 => (p < self.lim()).then(|| self.lim()),
 
-            Pat::VariableAt0 | Pat::VariableNoPropertyAt0 => self.language_constant(p),
-            Pat::VariableAt1 => self.listed_variable(p, variables::CONSTANTS, Kept),
-            Pat::VariableNoPropertyAt1 => self.listed_variable(p, variables::CONSTANTS, Never),
-            Pat::VariableAt2 => self.automatic(p, Kept),
-            Pat::VariableNoPropertyAt2 => self.automatic(p, Never),
-            Pat::VariableAt3 => self.listed_variable(p, variables::PREFERENCES, Kept),
-            Pat::VariableNoPropertyAt3 => self.listed_variable(p, variables::PREFERENCES, Never),
-            Pat::VariableAt4 => self.scoped(p, Both, Kept),
-            Pat::VariableNoPropertyAt4 => self.scoped(p, Dollar, Never),
-            Pat::VariableAt5 => self.braced_scoped(p, Kept),
-            Pat::VariableNoPropertyAt5 => self.braced_scoped(p, Never),
-            Pat::VariableAt6 => self.variable(p, Both, Kept),
-            Pat::VariableNoPropertyAt6 => self.variable(p, Dollar, Never),
-            Pat::VariableAt7 => self.braced(p, Kept),
-            Pat::VariableNoPropertyAt7 => self.braced(p, Never),
+            Pattern::VariableAt0 | Pattern::VariableNoPropertyAt0 => self.language_constant(p),
+            Pattern::VariableAt1 => self.listed_variable(p, variables::CONSTANTS, Kept),
+            Pattern::VariableNoPropertyAt1 => self.listed_variable(p, variables::CONSTANTS, Never),
+            Pattern::VariableAt2 => self.automatic(p, Kept),
+            Pattern::VariableNoPropertyAt2 => self.automatic(p, Never),
+            Pattern::VariableAt3 => self.listed_variable(p, variables::PREFERENCES, Kept),
+            Pattern::VariableNoPropertyAt3 => {
+                self.listed_variable(p, variables::PREFERENCES, Never)
+            }
+            Pattern::VariableAt4 => self.scoped(p, Both, Kept),
+            Pattern::VariableNoPropertyAt4 => self.scoped(p, Dollar, Never),
+            Pattern::VariableAt5 => self.braced_scoped(p, Kept),
+            Pattern::VariableNoPropertyAt5 => self.braced_scoped(p, Never),
+            Pattern::VariableAt6 => self.variable(p, Both, Kept),
+            Pattern::VariableNoPropertyAt6 => self.variable(p, Dollar, Never),
+            Pattern::VariableAt7 => self.braced(p, Kept),
+            Pattern::VariableNoPropertyAt7 => self.braced(p, Never),
 
-            Pat::DoubleQuotedString | Pat::DoubleQuotedStringEnd => self.double_quote(p),
-            Pat::DoubleQuotedStringAt3 => self.double_quote(p).and_then(|q| self.double_quote(q)),
-            Pat::DoubleQuotedStringAt0 => self.address(p),
-            Pat::DoubleQuotedStringAt5 => self.line_continuation(p),
-            Pat::DoubleQuotedStringEscapesAt0 => self.escape(p),
-            Pat::UnicodeEscapeAt0 => self.unicode_escape(p),
-            Pat::UnicodeEscapeAt1 => self.bad_unicode_escape(p),
-            Pat::SingleQuoted | Pat::SingleQuotedEnd => self.single_quote(p),
-            Pat::SingleQuotedAt0 => self.single_quote(p).and_then(|q| self.single_quote(q)),
-            Pat::HereDouble => self.here_open(p, Lexer::double_quote),
-            Pat::HereSingle => self.here_open(p, Lexer::single_quote),
-            Pat::HereDoubleEnd => self.here_close(p, Lexer::double_quote),
-            Pat::HereSingleEnd => self.here_close(p, Lexer::single_quote),
+            Pattern::DoubleQuotedString | Pattern::DoubleQuotedStringEnd => self.double_quote(p),
+            Pattern::DoubleQuotedStringAt3 => {
+                self.double_quote(p).and_then(|q| self.double_quote(q))
+            }
+            Pattern::DoubleQuotedStringAt0 => self.address(p),
+            Pattern::DoubleQuotedStringAt5 => self.line_continuation(p),
+            Pattern::DoubleQuotedStringEscapesAt0 => self.escape(p),
+            Pattern::UnicodeEscapeAt0 => self.unicode_escape(p),
+            Pattern::UnicodeEscapeAt1 => self.bad_unicode_escape(p),
+            Pattern::SingleQuoted | Pattern::SingleQuotedEnd => self.single_quote(p),
+            Pattern::SingleQuotedAt0 => self.single_quote(p).and_then(|q| self.single_quote(q)),
+            Pattern::HereDouble => self.here_open(p, Lexer::double_quote),
+            Pattern::HereSingle => self.here_open(p, Lexer::single_quote),
+            Pattern::HereDoubleEnd => self.here_close(p, Lexer::double_quote),
+            Pattern::HereSingleEnd => self.here_close(p, Lexer::single_quote),
 
-            Pat::Hashtable => self.sigil_open(p, b'@', b'{'),
-            Pat::ArrayExpression => self.sigil_open(p, b'@', b'('),
-            Pat::ComplexSubexpression => self.substatement(p, 3),
-            Pat::Interpolation => self.substatement(p, 5),
-            Pat::HashtableEnd => self.closer(p, b'}'),
-            Pat::AttributeEnd => self.closer(p, b']'),
-            Pat::InterpolationEnd => self.closer(p, b')'),
-            Pat::HashtableAt0 => self.key_assignment(p),
-            Pat::Scriptblock => self.lit(p, b"{"),
-            Pat::ScriptblockEnd => self.lit(p, b"}"),
-            Pat::Subexpression | Pat::AttributeAt0 => self.lit(p, b"("),
-            Pat::SubexpressionEnd
-            | Pat::AttributeAt0End
-            | Pat::ArrayExpressionEnd
-            | Pat::ComplexSubexpressionEnd => self.lit(p, b")"),
-            Pat::Type => self.lit(p, b"["),
-            Pat::TypeEnd => self.lit(p, b"]"),
-            Pat::TypeAt0 => self.type_name(p),
+            Pattern::Hashtable => self.sigil_open(p, b'@', b'{'),
+            Pattern::ArrayExpression => self.sigil_open(p, b'@', b'('),
+            Pattern::ComplexSubexpression => self.substatement(p, 3),
+            Pattern::Interpolation => self.substatement(p, 5),
+            Pattern::HashtableEnd => self.closer(p, b'}'),
+            Pattern::AttributeEnd => self.closer(p, b']'),
+            Pattern::InterpolationEnd => self.closer(p, b')'),
+            Pattern::HashtableAt0 => self.key_assignment(p),
+            Pattern::Scriptblock => self.lit(p, b"{"),
+            Pattern::ScriptblockEnd => self.lit(p, b"}"),
+            Pattern::Subexpression | Pattern::AttributeAt0 => self.lit(p, b"("),
+            Pattern::SubexpressionEnd
+            | Pattern::AttributeAt0End
+            | Pattern::ArrayExpressionEnd
+            | Pattern::ComplexSubexpressionEnd => self.lit(p, b")"),
+            Pattern::Type => self.lit(p, b"["),
+            Pattern::TypeEnd => self.lit(p, b"]"),
+            Pattern::TypeAt0 => self.type_name(p),
 
-            Pat::RootAt1 => self.redirection(p),
-            Pat::RootAt21 => self.control(p),
-            Pat::RootAt22 => self.foreach_where(p),
-            Pat::RootAt24 => self.modifier(p),
-            Pat::RootAt26 => self.type_operator(p),
-            Pat::RootAt27 => self.comparison(p),
-            Pat::RootAt28 => self.dash_word_or_bang(p, operators::UNARY),
-            Pat::RootAt29 => self.dash_word_or_bang(p, operators::LOGICAL),
-            Pat::RootAt30 => self.dash_word(p, operators::BITWISE),
-            Pat::RootAt31 => self.dash_word(p, &[b"f"]),
-            Pat::RootAt32 => self.assignment(p),
-            Pat::RootAt33 => self.terminator(p),
-            Pat::RootAt34 => self.other_operator(p),
-            Pat::RootAt35 => self.range(p),
+            Pattern::RootAt1 => self.redirection(p),
+            Pattern::RootAt21 => self.control(p),
+            Pattern::RootAt22 => self.foreach_where(p),
+            Pattern::RootAt24 => self.modifier(p),
+            Pattern::RootAt26 => self.type_operator(p),
+            Pattern::RootAt27 => self.comparison(p),
+            Pattern::RootAt28 => self.dash_word_or_bang(p, operators::UNARY),
+            Pattern::RootAt29 => self.dash_word_or_bang(p, operators::LOGICAL),
+            Pattern::RootAt30 => self.dash_word(p, operators::BITWISE),
+            Pattern::RootAt31 => self.dash_word(p, &[b"f"]),
+            Pattern::RootAt32 => self.assignment(p),
+            Pattern::RootAt33 => self.terminator(p),
+            Pattern::RootAt34 => self.other_operator(p),
+            Pattern::RootAt35 => self.range(p),
 
-            Pat::NumericConstantAt0 => self.hex(p),
-            Pat::NumericConstantAt1 => self.real(p),
-            Pat::NumericConstantAt2 => self.binary(p),
-            Pat::NumericConstantAt3 => self.exponent(p, numbers::Dot::Never),
-            Pat::NumericConstantAt4 => self.exponent(p, numbers::Dot::Needed),
-            Pat::NumericConstantAt5 => self.typed_integer(p),
-            Pat::NumericConstantAt6 => self.integer(p),
+            Pattern::NumericConstantAt0 => self.hex(p),
+            Pattern::NumericConstantAt1 => self.real(p),
+            Pattern::NumericConstantAt2 => self.binary(p),
+            Pattern::NumericConstantAt3 => self.exponent(p, numbers::Dot::Never),
+            Pattern::NumericConstantAt4 => self.exponent(p, numbers::Dot::Needed),
+            Pattern::NumericConstantAt5 => self.typed_integer(p),
+            Pattern::NumericConstantAt6 => self.integer(p),
         }
     }
 

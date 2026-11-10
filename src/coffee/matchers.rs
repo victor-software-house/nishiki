@@ -20,7 +20,7 @@ mod strings;
 use expressions::{Ahead, LoneAt};
 
 use super::engine::{Coffee, Dialect, Lexer};
-use super::grammar::{Pat, Rule};
+use super::grammar::{Pattern, Rule};
 use super::words;
 use crate::rules::Chars;
 
@@ -52,7 +52,7 @@ impl<const D: u8> Lexer<'_, D>
 where
     Coffee<D>: Dialect,
 {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - strings, comments, heregexes and JSX;
@@ -60,164 +60,167 @@ where
     /// - functions, calls, objects, properties, numbers and operators;
     /// - brackets and punctuation.
     #[expect(clippy::too_many_lines, reason = "one arm per pattern of the grammar")]
-    pub(super) fn pat_matches(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::DoubleString | Pat::DoubleStringEnd => self.lit(p, b"\""),
-            Pat::SingleString | Pat::SingleStringEnd => self.lit(p, b"'"),
-            Pat::DoubleEscape => self.string_escape(p, strings::Quote::Double),
-            Pat::SingleEscape => self.string_escape(p, strings::Quote::Single),
-            Pat::SingleHeredoc | Pat::SingleHeredocEnd => self.lit(p, b"'''"),
-            Pat::DoubleHeredoc | Pat::DoubleHeredocEnd => self.lit(p, b"\"\"\""),
-            Pat::SingleHeredocEscape | Pat::DoubleHeredocEscape => {
+    pub(super) fn pattern_matches(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::DoubleString | Pattern::DoubleStringEnd => self.lit(p, b"\""),
+            Pattern::SingleString | Pattern::SingleStringEnd => self.lit(p, b"'"),
+            Pattern::DoubleEscape => self.string_escape(p, strings::Quote::Double),
+            Pattern::SingleEscape => self.string_escape(p, strings::Quote::Single),
+            Pattern::SingleHeredoc | Pattern::SingleHeredocEnd => self.lit(p, b"'''"),
+            Pattern::DoubleHeredoc | Pattern::DoubleHeredocEnd => self.lit(p, b"\"\"\""),
+            Pattern::SingleHeredocEscape | Pattern::DoubleHeredocEscape => {
                 let end = self.backslash_any(p)?;
                 self.cap(1, p, p + 1);
                 Some(end)
             }
-            Pat::Interpolation => self.lit(p, b"#{"),
-            Pat::InterpolationEnd
-            | Pat::DestructuredObjectEnd
-            | Pat::BraceEnd
-            | Pat::JsxExpressionEnd => self.lit(p, b"}"),
-            Pat::Script => self.script(p),
-            Pat::BlockComment => self.block_comment(p),
-            Pat::BlockCommentEnd => self.lit(p, b"###"),
-            Pat::Annotation => self.annotation(p),
-            Pat::LineComment => self.lit(p, b"#"),
-            Pat::LineCommentEnd => self.at_eol(p).then_some(p),
-            Pat::EmbeddedComment => self.embedded_comment(p),
-            Pat::Heregex => self.lit(p, b"///"),
-            Pat::HeregexEnd => self.heregex_end(p),
-            Pat::Anchor => self.anchor(p),
-            Pat::BackReference => self.back_reference(p),
-            Pat::Quantifier => self.quantifier(p),
-            Pat::Or => self.lit(p, b"|"),
-            Pat::Assertion => self.assertion(p),
-            Pat::AssertionEnd => {
+            Pattern::Interpolation => self.lit(p, b"#{"),
+            Pattern::InterpolationEnd
+            | Pattern::DestructuredObjectEnd
+            | Pattern::BraceEnd
+            | Pattern::JsxExpressionEnd => self.lit(p, b"}"),
+            Pattern::Script => self.script(p),
+            Pattern::BlockComment => self.block_comment(p),
+            Pattern::BlockCommentEnd => self.lit(p, b"###"),
+            Pattern::Annotation => self.annotation(p),
+            Pattern::LineComment => self.lit(p, b"#"),
+            Pattern::LineCommentEnd => self.at_eol(p).then_some(p),
+            Pattern::EmbeddedComment => self.embedded_comment(p),
+            Pattern::Heregex => self.lit(p, b"///"),
+            Pattern::HeregexEnd => self.heregex_end(p),
+            Pattern::Anchor => self.anchor(p),
+            Pattern::BackReference => self.back_reference(p),
+            Pattern::Quantifier => self.quantifier(p),
+            Pattern::Or => self.lit(p, b"|"),
+            Pattern::Assertion => self.assertion(p),
+            Pattern::AssertionEnd => {
                 let end = self.lit(p, b")")?;
                 self.cap(1, p, end);
                 Some(end)
             }
-            Pat::Group => {
+            Pattern::Group => {
                 let end = self.lit(p, b"(")?;
                 Some(self.lit(end, b"?:").unwrap_or(end))
             }
-            Pat::GroupEnd | Pat::ParamsEnd | Pat::ParenArgumentsEnd | Pat::ParenEnd => {
-                self.lit(p, b")")
-            }
-            Pat::CharacterSet => self.character_set(p),
-            Pat::CharacterSetEnd => {
+            Pattern::GroupEnd
+            | Pattern::ParamsEnd
+            | Pattern::ParenArgumentsEnd
+            | Pattern::ParenEnd => self.lit(p, b")"),
+            Pattern::CharacterSet => self.character_set(p),
+            Pattern::CharacterSetEnd => {
                 let end = self.lit(p, b"]")?;
                 self.cap(1, p, end);
                 Some(end)
             }
-            Pat::CharacterRange => self.character_range(p),
-            Pat::CharacterClass => self.character_class(p),
-            Pat::NumericEscape => self.numeric_escape(p),
-            Pat::ControlEscape => self.control_escape(p),
-            Pat::BackslashEscape => self.backslash_any(p),
-            Pat::JsxTag => self.jsx_tag(p, b"<"),
-            Pat::JsxEndTag => self.jsx_tag(p, b"</"),
-            Pat::JsxTagEnd | Pat::JsxEndTagEnd => self.jsx_tag_end(p),
-            Pat::JsxAttribute => self.jsx_attribute(p),
-            Pat::NewInstance => self.new_instance(p),
-            Pat::KeywordControl => self.keyword_control(p),
-            Pat::Delete => self.unkeyed_word(p, &[b"delete"]),
-            Pat::Instanceof => self.unkeyed_word(p, &[b"instanceof"]),
-            Pat::New => self.unkeyed_word(p, &[b"new"]),
-            Pat::Typeof => self.unkeyed_word(p, &[b"typeof"]),
-            Pat::Reserved => self.unkeyed_word(p, words::RESERVED),
-            Pat::True => self.constant(p, &[b"on", b"true", b"yes"]),
-            Pat::False => self.constant(p, &[b"false", b"no", b"off"]),
-            Pat::Null => self.constant(p, &[b"null"]),
-            Pat::Extends => self.extends(p),
-            Pat::Super => self.language_variable(p, b"super"),
-            Pat::This => self.language_variable(p, b"this"),
-            Pat::Arguments => self.language_variable(p, b"arguments"),
-            Pat::ClassExtends => self.class_extends(p),
-            Pat::Class => self.class(p),
-            Pat::Debugger => self.debugger(p),
-            Pat::SupportClass => self.listed(p, words::SUPPORT_CLASSES),
-            Pat::Console => self.keyword(p, b"console"),
-            Pat::ConsoleMethod => self.word_after(p, b"console.", words::CONSOLE_METHODS),
-            Pat::ArrayMethod => self.word_after(p, b".", words::ARRAY_METHODS),
-            Pat::ArrayStatic => self.word_after(p, b"Array.", &[b"isArray"]),
-            Pat::ObjectStatic => self.word_after(p, b"Object.", words::OBJECT_STATICS),
-            Pat::MathStatic => self.word_after(p, b"Math.", words::MATH_STATICS),
-            Pat::NumberStatic => self.word_after(p, b"Number.", words::NUMBER_STATICS),
-            Pat::SupportVariable => self.support_variable(p),
-            Pat::LanguageConstant => self.listed(p, &[b"Infinity", b"NaN", b"undefined"]),
-            Pat::EventHandler => self.listed(p, words::EVENT_HANDLERS),
-            Pat::SupportMethod => self.support_method(p),
-            Pat::DomMethod => self.listed(p, words::DOM_METHODS),
-            Pat::SupportFunction => self.listed(p, words::SUPPORT_FUNCTIONS),
-            Pat::WordOperator => self.word_operator(p),
-            Pat::FunctionAssignment => self.function_assignment(p),
-            Pat::QuotedFunctionAssignment => self.quoted_function_assignment(p),
-            Pat::InlineFunction => self.function_ahead(p).then_some(p),
-            Pat::FunctionAssignmentEnd
-            | Pat::QuotedFunctionAssignmentEnd
-            | Pat::InlineFunctionEnd => self.arrow(p),
-            Pat::Param => self.param(p),
-            Pat::InstanceParam => self.instance_param(p),
-            Pat::DestructuredObject => self.destructured(p, b'{', b'}'),
-            Pat::DestructuredArray => self.destructured(p, b'[', b']'),
-            Pat::DestructuredObjectName | Pat::DestructuredArrayName => self.short_ident(p),
-            Pat::MethodName | Pat::FunctionName => self.ident(p),
-            Pat::InvalidMethodName | Pat::InvalidFunctionName => self.digit_ident(p),
-            Pat::MethodCall => self.method_call(p),
-            Pat::BareMethodCall => self.bare_method_call(p),
-            Pat::MethodCallEnd | Pat::FunctionCallEnd => (self.prev(p) == Some(b')')).then_some(p),
-            Pat::BareMethodCallEnd | Pat::BareArgumentsEnd | Pat::BareFunctionCallEnd => {
-                self.arguments_end(p).then_some(p)
+            Pattern::CharacterRange => self.character_range(p),
+            Pattern::CharacterClass => self.character_class(p),
+            Pattern::NumericEscape => self.numeric_escape(p),
+            Pattern::ControlEscape => self.control_escape(p),
+            Pattern::BackslashEscape => self.backslash_any(p),
+            Pattern::JsxTag => self.jsx_tag(p, b"<"),
+            Pattern::JsxEndTag => self.jsx_tag(p, b"</"),
+            Pattern::JsxTagEnd | Pattern::JsxEndTagEnd => self.jsx_tag_end(p),
+            Pattern::JsxAttribute => self.jsx_attribute(p),
+            Pattern::NewInstance => self.new_instance(p),
+            Pattern::KeywordControl => self.keyword_control(p),
+            Pattern::Delete => self.unkeyed_word(p, &[b"delete"]),
+            Pattern::Instanceof => self.unkeyed_word(p, &[b"instanceof"]),
+            Pattern::New => self.unkeyed_word(p, &[b"new"]),
+            Pattern::Typeof => self.unkeyed_word(p, &[b"typeof"]),
+            Pattern::Reserved => self.unkeyed_word(p, words::RESERVED),
+            Pattern::True => self.constant(p, &[b"on", b"true", b"yes"]),
+            Pattern::False => self.constant(p, &[b"false", b"no", b"off"]),
+            Pattern::Null => self.constant(p, &[b"null"]),
+            Pattern::Extends => self.extends(p),
+            Pattern::Super => self.language_variable(p, b"super"),
+            Pattern::This => self.language_variable(p, b"this"),
+            Pattern::Arguments => self.language_variable(p, b"arguments"),
+            Pattern::ClassExtends => self.class_extends(p),
+            Pattern::Class => self.class(p),
+            Pattern::Debugger => self.debugger(p),
+            Pattern::SupportClass => self.listed(p, words::SUPPORT_CLASSES),
+            Pattern::Console => self.keyword(p, b"console"),
+            Pattern::ConsoleMethod => self.word_after(p, b"console.", words::CONSOLE_METHODS),
+            Pattern::ArrayMethod => self.word_after(p, b".", words::ARRAY_METHODS),
+            Pattern::ArrayStatic => self.word_after(p, b"Array.", &[b"isArray"]),
+            Pattern::ObjectStatic => self.word_after(p, b"Object.", words::OBJECT_STATICS),
+            Pattern::MathStatic => self.word_after(p, b"Math.", words::MATH_STATICS),
+            Pattern::NumberStatic => self.word_after(p, b"Number.", words::NUMBER_STATICS),
+            Pattern::SupportVariable => self.support_variable(p),
+            Pattern::LanguageConstant => self.listed(p, &[b"Infinity", b"NaN", b"undefined"]),
+            Pattern::EventHandler => self.listed(p, words::EVENT_HANDLERS),
+            Pattern::SupportMethod => self.support_method(p),
+            Pattern::DomMethod => self.listed(p, words::DOM_METHODS),
+            Pattern::SupportFunction => self.listed(p, words::SUPPORT_FUNCTIONS),
+            Pattern::WordOperator => self.word_operator(p),
+            Pattern::FunctionAssignment => self.function_assignment(p),
+            Pattern::QuotedFunctionAssignment => self.quoted_function_assignment(p),
+            Pattern::InlineFunction => self.function_ahead(p).then_some(p),
+            Pattern::FunctionAssignmentEnd
+            | Pattern::QuotedFunctionAssignmentEnd
+            | Pattern::InlineFunctionEnd => self.arrow(p),
+            Pattern::Param => self.param(p),
+            Pattern::InstanceParam => self.instance_param(p),
+            Pattern::DestructuredObject => self.destructured(p, b'{', b'}'),
+            Pattern::DestructuredArray => self.destructured(p, b'[', b']'),
+            Pattern::DestructuredObjectName | Pattern::DestructuredArrayName => self.short_ident(p),
+            Pattern::MethodName | Pattern::FunctionName => self.ident(p),
+            Pattern::InvalidMethodName | Pattern::InvalidFunctionName => self.digit_ident(p),
+            Pattern::MethodCall => self.method_call(p),
+            Pattern::BareMethodCall => self.bare_method_call(p),
+            Pattern::MethodCallEnd | Pattern::FunctionCallEnd => {
+                (self.prev(p) == Some(b')')).then_some(p)
             }
-            Pat::BareArguments => self.argument_ahead(p, LoneAt::Taken).then_some(p),
-            Pat::FunctionCall => self.function_call(p),
-            Pat::BareFunctionCall => self.bare_function_call(p),
-            Pat::Hex => self.prefixed_number(p, b'x', |b| b.is_ascii_hexdigit()),
-            Pat::Binary => self.prefixed_number(p, b'b', |b| matches!(b, b'0' | b'1')),
-            Pat::Octal => self.octal_number(p),
-            Pat::Decimal => self.decimal(p),
-            Pat::ConstantObject => self.constant_object(p),
-            Pat::VariableObject => {
+            Pattern::BareMethodCallEnd
+            | Pattern::BareArgumentsEnd
+            | Pattern::BareFunctionCallEnd => self.arguments_end(p).then_some(p),
+            Pattern::BareArguments => self.argument_ahead(p, LoneAt::Taken).then_some(p),
+            Pattern::FunctionCall => self.function_call(p),
+            Pattern::BareFunctionCall => self.bare_function_call(p),
+            Pattern::Hex => self.prefixed_number(p, b'x', |b| b.is_ascii_hexdigit()),
+            Pattern::Binary => self.prefixed_number(p, b'b', |b| matches!(b, b'0' | b'1')),
+            Pattern::Octal => self.octal_number(p),
+            Pattern::Decimal => self.decimal(p),
+            Pattern::ConstantObject => self.constant_object(p),
+            Pattern::VariableObject => {
                 let end = self.ident(p)?;
                 self.object_ahead(end).then_some(end)
             }
-            Pat::ConstantObjectProperty => self.constant_property(p, Ahead::Member),
-            Pat::VariableObjectProperty => self.variable_property(p, Ahead::Member),
-            Pat::ConstantProperty => self.constant_property(p, Ahead::Any),
-            Pat::VariableProperty => self.variable_property(p, Ahead::Any),
-            Pat::InvalidProperty => self.invalid_property(p),
-            Pat::WordAssignment => self.word_assignment(p),
-            Pat::CompoundAssignment => self.assignment(p, Self::compound_operator),
-            Pat::BitwiseAssignment => self.assignment(p, Self::bitwise_operator),
-            Pat::Assignment => self.assignment(p, Self::plain_assignment),
-            Pat::Shift => self.shift(p),
-            Pat::Comparison => self.comparison(p),
-            Pat::Logical => self.logical(p),
-            Pat::Bitwise => matches!(self.at(p), b'&' | b'^' | b'|' | b'~').then_some(p + 1),
-            Pat::Decrement => self.lit(p, b"--"),
-            Pat::Increment => self.lit(p, b"++"),
-            Pat::Splat => self.lit(p, b"..."),
-            Pat::Existential => self.lit(p, b"?"),
-            Pat::Arithmetic => {
+            Pattern::ConstantObjectProperty => self.constant_property(p, Ahead::Member),
+            Pattern::VariableObjectProperty => self.variable_property(p, Ahead::Member),
+            Pattern::ConstantProperty => self.constant_property(p, Ahead::Any),
+            Pattern::VariableProperty => self.variable_property(p, Ahead::Any),
+            Pattern::InvalidProperty => self.invalid_property(p),
+            Pattern::WordAssignment => self.word_assignment(p),
+            Pattern::CompoundAssignment => self.assignment(p, Self::compound_operator),
+            Pattern::BitwiseAssignment => self.assignment(p, Self::bitwise_operator),
+            Pattern::Assignment => self.assignment(p, Self::plain_assignment),
+            Pattern::Shift => self.shift(p),
+            Pattern::Comparison => self.comparison(p),
+            Pattern::Logical => self.logical(p),
+            Pattern::Bitwise => matches!(self.at(p), b'&' | b'^' | b'|' | b'~').then_some(p + 1),
+            Pattern::Decrement => self.lit(p, b"--"),
+            Pattern::Increment => self.lit(p, b"++"),
+            Pattern::Splat => self.lit(p, b"..."),
+            Pattern::Existential => self.lit(p, b"?"),
+            Pattern::Arithmetic => {
                 matches!(self.at(p), b'-' | b'%' | b'*' | b'+' | b'/').then_some(p + 1)
             }
-            Pat::Prototype => self.lit(p, b"::"),
-            Pat::InvalidIdentifier => self.invalid_identifier(p),
-            Pat::Terminator => self.lit(p, b";"),
-            Pat::Delimiter => self.lit(p, b","),
-            Pat::Brace | Pat::JsxExpression => self.lit(p, b"{"),
-            Pat::Bracket => self.lit(p, b"["),
-            Pat::BracketEnd | Pat::DestructuredArrayEnd => self.lit(p, b"]"),
-            Pat::SliceExclusive => self.slice(p, b"..."),
-            Pat::SliceInclusive => self.slice(p, b".."),
-            Pat::Params | Pat::ParenArguments | Pat::Paren => self.lit(p, b"("),
-            Pat::InstanceVariable => {
+            Pattern::Prototype => self.lit(p, b"::"),
+            Pattern::InvalidIdentifier => self.invalid_identifier(p),
+            Pattern::Terminator => self.lit(p, b";"),
+            Pattern::Delimiter => self.lit(p, b","),
+            Pattern::Brace | Pattern::JsxExpression => self.lit(p, b"{"),
+            Pattern::Bracket => self.lit(p, b"["),
+            Pattern::BracketEnd | Pattern::DestructuredArrayEnd => self.lit(p, b"]"),
+            Pattern::SliceExclusive => self.slice(p, b"..."),
+            Pattern::SliceInclusive => self.slice(p, b".."),
+            Pattern::Params | Pattern::ParenArguments | Pattern::Paren => self.lit(p, b"("),
+            Pattern::InstanceVariable => {
                 let end = self.lit(p, b"@")?;
                 Some(self.short_ident(end).unwrap_or(end))
             }
-            Pat::SvelteVariable => self.svelte_variable(p),
-            Pat::SvelteProps => self.svelte_props(p),
+            Pattern::SvelteVariable => self.svelte_variable(p),
+            Pattern::SvelteProps => self.svelte_props(p),
         }
     }
 

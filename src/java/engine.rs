@@ -5,7 +5,7 @@
 
 use std::cell::Cell;
 
-use super::grammar::{Nested, Pat, Rule};
+use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -99,7 +99,7 @@ impl Grammar for Java {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -135,26 +135,26 @@ impl Grammar for Java {
             .map_or(Payload::None, Payload::Backref)
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.definition().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let definition = pat.definition();
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
         (definition.captures, definition.nested)
     }
 
-    fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let definition = pat.definition();
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
         (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat, p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.matcher(pattern, p)
     }
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {

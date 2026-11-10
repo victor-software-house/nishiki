@@ -2,7 +2,7 @@
 //! `oracle/hlsl-grammar.ts` from the `hlsl` grammar Shiki 4.6.0 bundles; do
 //! not edit.
 
-use super::grammar::Pat;
+use super::grammar::Pattern;
 
 /// The longest lowercase word of [`FOLDED`] and the semantics.
 pub(super) const LONGEST_FOLDED: usize = 42;
@@ -492,61 +492,61 @@ pub(super) const FOLDED: &[(&[u8], u64)] = &[
 
 /// The bit of a word pattern in [`WORDS`] and [`FOLDED`]; 0 for every other
 /// pattern.
-pub(super) fn bit(pat: Pat) -> u64 {
-    match pat {
-        Pat::BlockComment
-        | Pat::BlockCommentEnd
-        | Pat::LineComment
-        | Pat::LineCommentEnd
-        | Pat::Float
-        | Pat::Fraction
-        | Pat::Integer
-        | Pat::Hex
-        | Pat::Preprocessor
-        | Pat::Function
-        | Pat::Semantic
-        | Pat::SemanticSm4
-        | Pat::SemanticSm5
-        | Pat::SemanticSm51
-        | Pat::String
-        | Pat::StringEnd
-        | Pat::StringAt0 => 0,
-        Pat::Bool => 1 << 0,
-        Pat::Control => 1 << 1,
-        Pat::Compile => 1 << 2,
-        Pat::Typedef => 1 << 3,
-        Pat::BasicType => 1 << 4,
-        Pat::Modifier => 1 << 5,
-        Pat::FloatModifier => 1 << 6,
-        Pat::PostfixModifier => 1 << 7,
-        Pat::Interpolation => 1 << 8,
-        Pat::GeometryModifier => 1 << 9,
-        Pat::StringType => 1 << 10,
-        Pat::ObjectType => 1 << 11,
-        Pat::RasterizerOrderedType => 1 << 12,
-        Pat::RwType => 1 << 13,
-        Pat::StreamType => 1 << 14,
-        Pat::LegacySampler => 1 << 15,
-        Pat::Sampler => 1 << 16,
-        Pat::LegacyTexture => 1 << 17,
-        Pat::Texture => 1 << 18,
-        Pat::Structured => 1 << 19,
-        Pat::FxConstant => 1 << 20,
-        Pat::FxStateType => 1 << 21,
-        Pat::Technique => 1 << 22,
-        Pat::BlendStateKey => 1 << 23,
-        Pat::DepthStencilStateKey => 1 << 24,
-        Pat::RasterizerStateKey => 1 << 25,
-        Pat::SamplerStateKey => 1 << 26,
-        Pat::Blend => 1 << 27,
-        Pat::BlendOp => 1 << 28,
-        Pat::DepthWriteMask => 1 << 29,
-        Pat::ComparisonFunc => 1 << 30,
-        Pat::StencilOp => 1 << 31,
-        Pat::FillMode => 1 << 32,
-        Pat::CullMode => 1 << 33,
-        Pat::Filter => 1 << 34,
-        Pat::AddressMode => 1 << 35,
+pub(super) fn bit(pattern: Pattern) -> u64 {
+    match pattern {
+        Pattern::BlockComment
+        | Pattern::BlockCommentEnd
+        | Pattern::LineComment
+        | Pattern::LineCommentEnd
+        | Pattern::Float
+        | Pattern::Fraction
+        | Pattern::Integer
+        | Pattern::Hex
+        | Pattern::Preprocessor
+        | Pattern::Function
+        | Pattern::Semantic
+        | Pattern::SemanticSm4
+        | Pattern::SemanticSm5
+        | Pattern::SemanticSm51
+        | Pattern::String
+        | Pattern::StringEnd
+        | Pattern::StringAt0 => 0,
+        Pattern::Bool => 1 << 0,
+        Pattern::Control => 1 << 1,
+        Pattern::Compile => 1 << 2,
+        Pattern::Typedef => 1 << 3,
+        Pattern::BasicType => 1 << 4,
+        Pattern::Modifier => 1 << 5,
+        Pattern::FloatModifier => 1 << 6,
+        Pattern::PostfixModifier => 1 << 7,
+        Pattern::Interpolation => 1 << 8,
+        Pattern::GeometryModifier => 1 << 9,
+        Pattern::StringType => 1 << 10,
+        Pattern::ObjectType => 1 << 11,
+        Pattern::RasterizerOrderedType => 1 << 12,
+        Pattern::RwType => 1 << 13,
+        Pattern::StreamType => 1 << 14,
+        Pattern::LegacySampler => 1 << 15,
+        Pattern::Sampler => 1 << 16,
+        Pattern::LegacyTexture => 1 << 17,
+        Pattern::Texture => 1 << 18,
+        Pattern::Structured => 1 << 19,
+        Pattern::FxConstant => 1 << 20,
+        Pattern::FxStateType => 1 << 21,
+        Pattern::Technique => 1 << 22,
+        Pattern::BlendStateKey => 1 << 23,
+        Pattern::DepthStencilStateKey => 1 << 24,
+        Pattern::RasterizerStateKey => 1 << 25,
+        Pattern::SamplerStateKey => 1 << 26,
+        Pattern::Blend => 1 << 27,
+        Pattern::BlendOp => 1 << 28,
+        Pattern::DepthWriteMask => 1 << 29,
+        Pattern::ComparisonFunc => 1 << 30,
+        Pattern::StencilOp => 1 << 31,
+        Pattern::FillMode => 1 << 32,
+        Pattern::CullMode => 1 << 33,
+        Pattern::Filter => 1 << 34,
+        Pattern::AddressMode => 1 << 35,
     }
 }
 

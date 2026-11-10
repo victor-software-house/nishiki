@@ -9,7 +9,7 @@
 use memchr::memchr;
 
 use super::engine::{Hit, Lexer};
-use super::rules::Pat;
+use super::rules::Pattern;
 use super::scope::S;
 use super::state::Rule;
 use crate::classes::{self, is_ascii_space};
@@ -259,44 +259,44 @@ impl Lexer<'_> {
 
     // Patterns.
 
-    /// The pattern `pat` at `p`.
-    pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
-        match pat {
-            Pat::Pi => self.pi(p),
-            Pat::Doctype => self.doctype(p),
-            Pat::CommentJsp => self
+    /// The pattern `pattern` at `p`.
+    pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
+        match pattern {
+            Pattern::Pi => self.pi(p),
+            Pattern::Doctype => self.doctype(p),
+            Pattern::CommentJsp => self
                 .lit(p, b"<%--")
                 .then(|| Hit::new(p, p + 4).cap(p, p + 4, S::PunctComment)),
-            Pat::Comment => self
+            Pattern::Comment => self
                 .lit(p, b"<!--")
                 .then(|| Hit::new(p, p + 4).cap(p, p + 4, S::PunctComment)),
-            Pat::NoContent => self.no_content(p),
-            Pat::Tag => self.tag(p),
-            Pat::Entity => self.entity(p),
-            Pat::Ampersand => (self.at(p) == b'&').then(|| Hit::new(p, p + 1)),
-            Pat::JspProps => self
+            Pattern::NoContent => self.no_content(p),
+            Pattern::Tag => self.tag(p),
+            Pattern::Entity => self.entity(p),
+            Pattern::Ampersand => (self.at(p) == b'&').then(|| Hit::new(p, p + 1)),
+            Pattern::JspProps => self
                 .lit(p, b"<%@")
                 .then(|| Hit::new(p, p + 3).cap(p, p + 3, S::EmbeddedBegin)),
-            Pat::Jsp => self.jsp_begin(p),
-            Pat::Cdata => self
+            Pattern::Jsp => self.jsp_begin(p),
+            Pattern::Cdata => self
                 .lit(p, b"<![CDATA[")
                 .then(|| Hit::new(p, p + 9).cap(p, p + 9, S::StringBegin)),
-            Pat::PiAttr => self.pi_attribute(p),
-            Pat::Double => {
+            Pattern::PiAttr => self.pi_attribute(p),
+            Pattern::Double => {
                 (self.at(p) == b'"').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::StringBegin))
             }
-            Pat::Single => {
+            Pattern::Single => {
                 (self.at(p) == b'\'').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::StringBegin))
             }
-            Pat::Subset => {
+            Pattern::Subset => {
                 (self.at(p) == b'[').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::PunctConstant))
             }
-            Pat::EntityDecl => self.entity_declaration(p),
-            Pat::ParameterEntity => self.parameter_entity(p),
-            Pat::CommentBad => (self.lit(p, b"--") && self.at(p + 2) != b'>')
+            Pattern::EntityDecl => self.entity_declaration(p),
+            Pattern::ParameterEntity => self.parameter_entity(p),
+            Pattern::CommentBad => (self.lit(p, b"--") && self.at(p + 2) != b'>')
                 .then(|| Hit::new(p, p + 2).cap(p, p + 2, S::InvalidComment)),
-            Pat::Attribute => self.attribute(p),
-            Pat::PageProp => ["page", "include", "taglib"]
+            Pattern::Attribute => self.attribute(p),
+            Pattern::PageProp => ["page", "include", "taglib"]
                 .iter()
                 .find(|word| self.lit(p, word.as_bytes()))
                 .map(|word| Hit::new(p, p + word.len())),

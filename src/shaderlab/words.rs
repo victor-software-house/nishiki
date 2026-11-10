@@ -2,7 +2,7 @@
 //! `oracle/shaderlab-grammar.ts` from the `shaderlab` grammar Shiki 4.6.0
 //! bundles; do not edit.
 
-use super::grammar::Pat;
+use super::grammar::Pattern;
 
 /// The longest lowercase word of [`FOLDED`].
 pub(super) const LONGEST_FOLDED: usize = 19;
@@ -343,46 +343,46 @@ pub(super) const FOLDED: &[(&[u8], u64)] = &[
 
 /// The bit of a word pattern in [`WORDS`] and [`FOLDED`]; 0 for every other
 /// pattern.
-pub(super) fn bit(pat: Pat) -> u64 {
-    match pat {
-        Pat::LineComment
-        | Pat::LineCommentEnd
-        | Pat::Number
-        | Pat::Reference
-        | Pat::Attribute
-        | Pat::AttributeEnd
-        | Pat::AttributeAt0
-        | Pat::Declaration
-        | Pat::CgBlock
-        | Pat::CgBlockEnd
-        | Pat::HlslBlock
-        | Pat::HlslBlockEnd
-        | Pat::String
-        | Pat::StringEnd => 0,
-        Pat::BasicType => 1 << 0,
-        Pat::Structure => 1 << 1,
-        Pat::PropertyName => 1 << 2,
-        Pat::PropertyValue => 1 << 3,
-        Pat::ComparisonFunction => 1 << 4,
-        Pat::StencilOperation => 1 << 5,
-        Pat::TextureCombiners => 1 << 6,
-        Pat::Fog => 1 << 7,
-        Pat::BindChannels => 1 << 8,
-        Pat::BlendOperations => 1 << 9,
-        Pat::BlendFactors => 1 << 10,
-        Pat::Fixed => 1 << 11,
-        Pat::Transformations => 1 << 12,
-        Pat::Camera => 1 << 13,
-        Pat::Time => 1 << 14,
-        Pat::Lighting => 1 << 15,
-        Pat::FogVariable => 1 << 16,
-        Pat::Various => 1 << 17,
-        Pat::TargetPlatform => 1 << 18,
-        Pat::TargetModel => 1 << 19,
-        Pat::UnityVersion => 1 << 20,
-        Pat::PlatformDifference => 1 << 21,
-        Pat::Texture2D => 1 << 22,
-        Pat::Structures => 1 << 23,
-        Pat::Surface => 1 << 24,
+pub(super) fn bit(pattern: Pattern) -> u64 {
+    match pattern {
+        Pattern::LineComment
+        | Pattern::LineCommentEnd
+        | Pattern::Number
+        | Pattern::Reference
+        | Pattern::Attribute
+        | Pattern::AttributeEnd
+        | Pattern::AttributeAt0
+        | Pattern::Declaration
+        | Pattern::CgBlock
+        | Pattern::CgBlockEnd
+        | Pattern::HlslBlock
+        | Pattern::HlslBlockEnd
+        | Pattern::String
+        | Pattern::StringEnd => 0,
+        Pattern::BasicType => 1 << 0,
+        Pattern::Structure => 1 << 1,
+        Pattern::PropertyName => 1 << 2,
+        Pattern::PropertyValue => 1 << 3,
+        Pattern::ComparisonFunction => 1 << 4,
+        Pattern::StencilOperation => 1 << 5,
+        Pattern::TextureCombiners => 1 << 6,
+        Pattern::Fog => 1 << 7,
+        Pattern::BindChannels => 1 << 8,
+        Pattern::BlendOperations => 1 << 9,
+        Pattern::BlendFactors => 1 << 10,
+        Pattern::Fixed => 1 << 11,
+        Pattern::Transformations => 1 << 12,
+        Pattern::Camera => 1 << 13,
+        Pattern::Time => 1 << 14,
+        Pattern::Lighting => 1 << 15,
+        Pattern::FogVariable => 1 << 16,
+        Pattern::Various => 1 << 17,
+        Pattern::TargetPlatform => 1 << 18,
+        Pattern::TargetModel => 1 << 19,
+        Pattern::UnityVersion => 1 << 20,
+        Pattern::PlatformDifference => 1 << 21,
+        Pattern::Texture2D => 1 << 22,
+        Pattern::Structures => 1 << 23,
+        Pattern::Surface => 1 << 24,
     }
 }

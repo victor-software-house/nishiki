@@ -15,7 +15,7 @@
 
 use std::cell::Cell;
 
-use super::rules::{Act, Pat, rule_definition};
+use super::rules::{Act, Pattern, rule_definition};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
@@ -941,13 +941,13 @@ impl<'a> Lexer<'a> {
                 return;
             }
             self.g = self.anchor == Some(self.pos);
-            let Some((start, pat, end)) = self.scan() else {
+            let Some((start, pattern, end)) = self.scan() else {
                 let node = self.top().content;
                 self.emit(self.halted.unwrap_or(line_length), node);
                 return;
             };
             let advanced = end > self.pos;
-            match pat.act() {
+            match pattern.act() {
                 Act::End => {
                     if self.end_rule(start, end, advanced, line_length) {
                         return;
@@ -1087,7 +1087,7 @@ impl<'a> Lexer<'a> {
 
     /// The first match at the earliest position from `pos`: its start, pattern
     /// and end, with the match's spans in `self.spans`.
-    fn scan(&mut self) -> Option<(usize, Pat, usize)> {
+    fn scan(&mut self) -> Option<(usize, Pattern, usize)> {
         let mut visited = 0;
         let found = match self.root_halts() {
             Some(&(halt, after)) => self.scan_positions::<true>(&mut visited, halt, after),
@@ -1121,7 +1121,7 @@ impl<'a> Lexer<'a> {
         visited: &mut usize,
         halt: &dyn Halt,
         after: Option<&dyn Halt>,
-    ) -> Option<(usize, Pat, usize)> {
+    ) -> Option<(usize, Pattern, usize)> {
         let definition = rule_definition(self.top().rule);
         let full = self.at_depth_limit();
         let mut p = self.pos;
@@ -1131,22 +1131,22 @@ impl<'a> Lexer<'a> {
                 self.halted = Some(p);
                 return None;
             }
-            let list: &[Pat] = if p < self.lim || self.nl {
+            let list: &[Pattern] = if p < self.lim || self.nl {
                 let byte = if p < self.lim { self.s[p] } else { b'\n' };
                 let prev = if p > 0 { self.s[p - 1] } else { 0 };
                 definition.candidates(p == self.pos, p == 0, prev, byte)
             } else {
                 &definition.order
             };
-            for &pat in list {
-                if full && matches!(pat.act(), Act::Begin(_) | Act::BeginChosen) {
-                    if self.try_pat(pat, p).is_some() {
+            for &pattern in list {
+                if full && matches!(pattern.act(), Act::Begin(_) | Act::BeginChosen) {
+                    if self.try_pattern(pattern, p).is_some() {
                         self.report.record(Limit::Depth);
                     }
                     continue;
                 }
-                if let Some(end) = self.try_pat(pat, p) {
-                    return Some((p, pat, end));
+                if let Some(end) = self.try_pattern(pattern, p) {
+                    return Some((p, pattern, end));
                 }
             }
             if HALTING && after.is_some_and(|after| after.holds(self.s, p)) {
@@ -1169,9 +1169,9 @@ impl<'a> Lexer<'a> {
         None
     }
 
-    fn try_pat(&mut self, pat: Pat, p: usize) -> Option<usize> {
+    fn try_pattern(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
         self.spans.truncate(self.span_base);
-        self.matcher(pat, p)
+        self.matcher(pattern, p)
     }
 
     /// The text that ends the innermost rule when it is a literal.

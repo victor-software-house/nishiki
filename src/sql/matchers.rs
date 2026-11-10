@@ -9,7 +9,7 @@
 use memchr::memchr2;
 
 use super::engine::{Closer, Hit, Lexer};
-use super::rules::Pat;
+use super::rules::Pattern;
 use super::scope::S;
 use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
@@ -294,7 +294,7 @@ impl Lexer<'_> {
 
     // Patterns.
 
-    /// The match of `pat` at `p`.
+    /// The match of `pattern` at `p`.
     ///
     /// It is `#[inline]` because `hit`, in the engine module, calls it for
     /// every candidate pattern.
@@ -304,53 +304,53 @@ impl Lexer<'_> {
     /// The matchers it calls that inline at one unit are `#[inline]` too.
     /// Without them, sixteen units ran 11% more instructions than one.
     #[inline]
-    pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
-        match pat {
-            Pat::Variable => self.variable(p),
-            Pat::BracketChar => self.bracket_char(p),
-            Pat::Create => self.create(p),
-            Pat::Drop => self.drop_object(p),
-            Pat::DropTable => self.drop_table(p),
-            Pat::Alter => self.alter(p),
-            Pat::Types => self.types(p),
-            Pat::Modifier => self.modifier(p),
-            Pat::Number => self.number(p),
-            Pat::Dml => self.dml(p),
-            Pat::Ddl => self.ddl(p),
-            Pat::Values => self.plain_word(p, &["values"]),
-            Pat::Luw => self.luw(p),
-            Pat::Authorization => self.authorization(p),
-            Pat::In => self.plain_word(p, &["in"]),
-            Pat::CommentOn => self.comment_on(p),
-            Pat::As => self.plain_word(p, &["as"]),
-            Pat::Order => self.plain_word(p, &["desc", "asc"]),
-            Pat::Star => self.single(p, b'*'),
-            Pat::Comparison => self.comparison(p),
-            Pat::Math => self
+    pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
+        match pattern {
+            Pattern::Variable => self.variable(p),
+            Pattern::BracketChar => self.bracket_char(p),
+            Pattern::Create => self.create(p),
+            Pattern::Drop => self.drop_object(p),
+            Pattern::DropTable => self.drop_table(p),
+            Pattern::Alter => self.alter(p),
+            Pattern::Types => self.types(p),
+            Pattern::Modifier => self.modifier(p),
+            Pattern::Number => self.number(p),
+            Pattern::Dml => self.dml(p),
+            Pattern::Ddl => self.ddl(p),
+            Pattern::Values => self.plain_word(p, &["values"]),
+            Pattern::Luw => self.luw(p),
+            Pattern::Authorization => self.authorization(p),
+            Pattern::In => self.plain_word(p, &["in"]),
+            Pattern::CommentOn => self.comment_on(p),
+            Pattern::As => self.plain_word(p, &["as"]),
+            Pattern::Order => self.plain_word(p, &["desc", "asc"]),
+            Pattern::Star => self.single(p, b'*'),
+            Pattern::Comparison => self.comparison(p),
+            Pattern::Math => self
                 .single(p, b'-')
                 .or_else(|| self.single(p, b'+'))
                 .or_else(|| self.single(p, b'/')),
-            Pat::Concat => self.text_hit(p, b"||"),
-            Pat::Function => self.function(p),
-            Pat::DbTable => self.db_table(p),
-            Pat::StrSingleFull => self.single_quoted(p),
-            Pat::StrBacktickFull => self.closed(p, b'`', |b| b == b'`' || b == b'\\'),
-            Pat::StrDoubleFull => self.closed(p, b'"', |b| b == b'"' || b == b'#'),
-            Pat::Keyword => self.keyword(p),
-            Pat::Parens => self.parens(p),
-            Pat::Escape => self.escape(p),
-            Pat::Interpolation => self.interpolation(p),
-            Pat::BracketBegin => self.begin(p, b"[", S::PunctBracketBegin),
-            Pat::CommentDashBegin => self.comment_begin(p, b"--"),
-            Pat::CommentHashBegin => self.comment_begin(p, b"#"),
-            Pat::LineCommentBegin => self.begin(p, b"--", S::PunctComment),
-            Pat::BlockBegin => self.begin(p, b"/*", S::PunctComment),
-            Pat::StrSingleBegin => self.begin(p, b"'", S::PunctStrBegin),
-            Pat::StrBacktickBegin => self.begin(p, b"`", S::PunctStrBegin),
-            Pat::StrDoubleBegin => self.begin(p, b"\"", S::PunctStrBegin),
-            Pat::StrBraceBegin => self.begin(p, b"%{", S::PunctStrBegin),
-            Pat::StrModrBegin => self.begin(p, b"%r{", S::PunctStrBegin),
-            Pat::End => self.end_at(self.top_rule(), p),
+            Pattern::Concat => self.text_hit(p, b"||"),
+            Pattern::Function => self.function(p),
+            Pattern::DbTable => self.db_table(p),
+            Pattern::StrSingleFull => self.single_quoted(p),
+            Pattern::StrBacktickFull => self.closed(p, b'`', |b| b == b'`' || b == b'\\'),
+            Pattern::StrDoubleFull => self.closed(p, b'"', |b| b == b'"' || b == b'#'),
+            Pattern::Keyword => self.keyword(p),
+            Pattern::Parens => self.parens(p),
+            Pattern::Escape => self.escape(p),
+            Pattern::Interpolation => self.interpolation(p),
+            Pattern::BracketBegin => self.begin(p, b"[", S::PunctBracketBegin),
+            Pattern::CommentDashBegin => self.comment_begin(p, b"--"),
+            Pattern::CommentHashBegin => self.comment_begin(p, b"#"),
+            Pattern::LineCommentBegin => self.begin(p, b"--", S::PunctComment),
+            Pattern::BlockBegin => self.begin(p, b"/*", S::PunctComment),
+            Pattern::StrSingleBegin => self.begin(p, b"'", S::PunctStrBegin),
+            Pattern::StrBacktickBegin => self.begin(p, b"`", S::PunctStrBegin),
+            Pattern::StrDoubleBegin => self.begin(p, b"\"", S::PunctStrBegin),
+            Pattern::StrBraceBegin => self.begin(p, b"%{", S::PunctStrBegin),
+            Pattern::StrModrBegin => self.begin(p, b"%r{", S::PunctStrBegin),
+            Pattern::End => self.end_at(self.top_rule(), p),
         }
     }
 

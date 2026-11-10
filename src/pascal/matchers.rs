@@ -15,7 +15,7 @@
 //! `(?i)` compares words through [`crate::case_fold`].
 
 use super::engine::{LONGEST_WORD, Lexer, Lowered};
-use super::grammar::{Pat, Rule};
+use super::grammar::{Pattern, Rule};
 use super::words;
 use crate::rules::Chars;
 use crate::{bytes, case_fold};
@@ -37,37 +37,39 @@ struct Head {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Keywords => self.listed(p, words::KEYWORDS),
-            Pat::Prototype => self.prototype(p),
-            Pat::Function => {
+    /// Whether `pattern` matches at `p`, and where its match ends.
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Keywords => self.listed(p, words::KEYWORDS),
+            Pattern::Prototype => self.prototype(p),
+            Pattern::Function => {
                 let head = self.head(p, words::FUNCTION)?;
                 self.cap(1, p, head.word_end);
                 self.cap(2, head.name, head.name_end);
                 Some(head.name_end)
             }
-            Pat::Variable => self.listed(p, words::VARIABLE),
-            Pat::Operator => self.listed(p, words::OPERATOR),
-            Pat::Control => self.listed(p, words::CONTROL),
-            Pat::Types => self.listed(p, words::TYPES),
-            Pat::Constant => self.listed(p, words::CONSTANT),
-            Pat::Assert => self.listed(p, words::ASSERT),
-            Pat::Number => self.number(p),
-            Pat::Hex => self.hex(p),
-            Pat::Directive => self.lit(p, b"{$"),
-            Pat::BraceComment => (self.at(p) == b'{' && self.at(p + 1) != b'$').then_some(p + 1),
-            Pat::DirectiveEnd | Pat::BraceCommentEnd => self.lit(p, b"}"),
-            Pat::LineComment => self.line_comment(p),
-            Pat::LineCommentEnd => (!self.at_g(p)).then_some(p),
-            Pat::LineCommentAt0 => self.lit(p, b"//"),
-            Pat::LineCommentAt0End => self.line_feed(p),
-            Pat::ParenComment => self.lit(p, b"(*"),
-            Pat::ParenCommentEnd => self.lit(p, b"*)"),
-            Pat::String | Pat::StringEnd => self.lit(p, b"'"),
-            Pat::StringAt0 => self.lit(p, b"''"),
-            Pat::CharCode => {
+            Pattern::Variable => self.listed(p, words::VARIABLE),
+            Pattern::Operator => self.listed(p, words::OPERATOR),
+            Pattern::Control => self.listed(p, words::CONTROL),
+            Pattern::Types => self.listed(p, words::TYPES),
+            Pattern::Constant => self.listed(p, words::CONSTANT),
+            Pattern::Assert => self.listed(p, words::ASSERT),
+            Pattern::Number => self.number(p),
+            Pattern::Hex => self.hex(p),
+            Pattern::Directive => self.lit(p, b"{$"),
+            Pattern::BraceComment => {
+                (self.at(p) == b'{' && self.at(p + 1) != b'$').then_some(p + 1)
+            }
+            Pattern::DirectiveEnd | Pattern::BraceCommentEnd => self.lit(p, b"}"),
+            Pattern::LineComment => self.line_comment(p),
+            Pattern::LineCommentEnd => (!self.at_g(p)).then_some(p),
+            Pattern::LineCommentAt0 => self.lit(p, b"//"),
+            Pattern::LineCommentAt0End => self.line_feed(p),
+            Pattern::ParenComment => self.lit(p, b"(*"),
+            Pattern::ParenCommentEnd => self.lit(p, b"*)"),
+            Pattern::String | Pattern::StringEnd => self.lit(p, b"'"),
+            Pattern::StringAt0 => self.lit(p, b"''"),
+            Pattern::CharCode => {
                 let digits = self.lit(p, b"#")?;
                 let end = self.digit_end(digits);
                 (end > digits).then_some(end)

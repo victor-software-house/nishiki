@@ -19,11 +19,11 @@ mod nodes;
 mod strings;
 
 use super::engine::Lexer;
-use super::grammar::{CONTROL_FLOW, KEYWORDS, Pat, STATEMENT_KEYWORDS};
+use super::grammar::{CONTROL_FLOW, KEYWORDS, Pattern, STATEMENT_KEYWORDS};
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - declarations, parameters and calls;
@@ -34,112 +34,114 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
     )]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::ExtendsStatement => self.extends(p),
-            Pat::GetterSetterGodot4At0 => self.getter(p),
-            Pat::GetterSetterGodot4At1 => self.setter(p),
-            Pat::LambdaDeclaration => self.lambda(p),
-            Pat::LambdaDeclarationEnd => self
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::ExtendsStatement => self.extends(p),
+            Pattern::GetterSetterGodot4At0 => self.getter(p),
+            Pattern::GetterSetterGodot4At1 => self.setter(p),
+            Pattern::LambdaDeclaration => self.lambda(p),
+            Pattern::LambdaDeclarationEnd => self
                 .group_lit(p, b":")
                 .or_else(|| self.closes_head(p).then_some(p)),
-            Pat::Parameters | Pat::FunctionArguments => self.group_lit(p, b"("),
-            Pat::ParametersEnd | Pat::FunctionCallEnd | Pat::NodepathFunctionEnd => {
+            Pattern::Parameters | Pattern::FunctionArguments => self.group_lit(p, b"("),
+            Pattern::ParametersEnd | Pattern::FunctionCallEnd | Pattern::NodepathFunctionEnd => {
                 self.group_lit(p, b")")
             }
-            Pat::AnnotatedParameter => self.annotated_parameter(p),
-            Pat::AnnotatedParameterEnd | Pat::LooseDefaultEnd => self
+            Pattern::AnnotatedParameter => self.annotated_parameter(p),
+            Pattern::AnnotatedParameterEnd | Pattern::LooseDefaultEnd => self
                 .group_lit(p, b",")
                 .or_else(|| self.starts(p, b")").then_some(p)),
-            Pat::AnnotatedParameterAt1 | Pat::FunctionArgumentsAt2 => self.lone_equals(p),
-            Pat::VariableDeclarationAt1 => self.lit(p, b":=").or_else(|| self.lone_equals(p)),
-            Pat::ParametersAt1 => self.parameter(p),
-            Pat::LooseDefault => self.group_lit(p, b"="),
-            Pat::ClassDeclaration => self.class_declaration(p),
-            Pat::VariableDeclaration => self.variable_keyword(p),
-            Pat::VariableDeclarationEnd => {
+            Pattern::AnnotatedParameterAt1 | Pattern::FunctionArgumentsAt2 => self.lone_equals(p),
+            Pattern::VariableDeclarationAt1 => self.lit(p, b":=").or_else(|| self.lone_equals(p)),
+            Pattern::ParametersAt1 => self.parameter(p),
+            Pattern::LooseDefault => self.group_lit(p, b"="),
+            Pattern::ClassDeclaration => self.class_declaration(p),
+            Pattern::VariableDeclaration => self.variable_keyword(p),
+            Pattern::VariableDeclarationEnd => {
                 if self.at_eol(p) {
                     Some(p)
                 } else {
                     self.lit(p, b";")
                 }
             }
-            Pat::VariableDeclarationAt0 => self.legacy_accessor(p),
-            Pat::VariableDeclarationAt2 => self.type_annotation(p),
-            Pat::VariableDeclarationAt3 => self.setget(p),
-            Pat::SignalDeclarationBare => self.signal_bare(p),
-            Pat::SignalDeclaration => self.named_head(p, b"signal"),
-            Pat::FunctionDeclaration => self.named_head(p, b"func"),
-            Pat::SignalDeclarationEnd => self.closes_head(p).then_some(p),
-            Pat::FunctionDeclarationEnd => self.group_lit(p, b":").or_else(|| self.line_feed(p)),
-            Pat::FunctionCall => self.call_ahead(p),
-            Pat::FunctionNameAt1 => self.word_group(p, &[b"preload"]),
-            Pat::FunctionNameAt2 => self.name_group(p),
-            Pat::FunctionArgumentsEnd => self.arguments_end(p),
-            Pat::FunctionArgumentsAt0 => self.group_lit(p, b","),
-            Pat::FunctionArgumentsAt1 => self.named_argument(p),
-            Pat::FunctionArgumentsAt4 => self.chained_call(p),
-            Pat::ClassName => self.class_name(p),
-            Pat::ClassNew => self.class_new(p),
-            Pat::ClassIs => self.class_is(p),
-            Pat::ClassEnum => self.class_enum(p),
-            Pat::AnyMethod => self.any_method(p),
-            Pat::AnyVariable => self.any_variable(p),
-            Pat::AnyProperty => self.any_property(p),
+            Pattern::VariableDeclarationAt0 => self.legacy_accessor(p),
+            Pattern::VariableDeclarationAt2 => self.type_annotation(p),
+            Pattern::VariableDeclarationAt3 => self.setget(p),
+            Pattern::SignalDeclarationBare => self.signal_bare(p),
+            Pattern::SignalDeclaration => self.named_head(p, b"signal"),
+            Pattern::FunctionDeclaration => self.named_head(p, b"func"),
+            Pattern::SignalDeclarationEnd => self.closes_head(p).then_some(p),
+            Pattern::FunctionDeclarationEnd => {
+                self.group_lit(p, b":").or_else(|| self.line_feed(p))
+            }
+            Pattern::FunctionCall => self.call_ahead(p),
+            Pattern::FunctionNameAt1 => self.word_group(p, &[b"preload"]),
+            Pattern::FunctionNameAt2 => self.name_group(p),
+            Pattern::FunctionArgumentsEnd => self.arguments_end(p),
+            Pattern::FunctionArgumentsAt0 => self.group_lit(p, b","),
+            Pattern::FunctionArgumentsAt1 => self.named_argument(p),
+            Pattern::FunctionArgumentsAt4 => self.chained_call(p),
+            Pattern::ClassName => self.class_name(p),
+            Pattern::ClassNew => self.class_new(p),
+            Pattern::ClassIs => self.class_is(p),
+            Pattern::ClassEnum => self.class_enum(p),
+            Pattern::AnyMethod => self.any_method(p),
+            Pattern::AnyVariable => self.any_variable(p),
+            Pattern::AnyProperty => self.any_property(p),
 
-            Pat::BuiltinGetNodeShorthandQuoted => self.quoted_node(p),
-            Pat::BuiltinGetNodeShorthandQuotedEnd
-            | Pat::NodepathObjectAt0End
-            | Pat::NodepathFunctionAt0End
-            | Pat::StringsEnd => self.repeated(p),
-            Pat::BuiltinGetNodeShorthandQuotedAt0
-            | Pat::NodepathObjectAt0At0
-            | Pat::NodepathFunctionAt0At0 => self.lit(p, b"%"),
-            Pat::BuiltinGetNodeShorthandBare => self.bare_node(p),
-            Pat::BuiltinGetNodeShorthandBareMulti => self.node_head(p),
-            Pat::BuiltinGetNodeShorthandBareMultiEnd => self.node_path_end(p),
-            Pat::BuiltinGetNodeShorthandBareMultiAt0 => self.node_segment(p),
-            Pat::NodepathObject => self.node_path_object(p),
-            Pat::NodepathObjectAt0 | Pat::NodepathFunctionAt0 => self.quote_group(p),
-            Pat::NodepathFunction => self.node_path_function(p),
-            Pat::Strings => self.string_open(p),
-            Pat::StringsAt0 => self.escape(p),
-            Pat::StringPercentPlaceholders => self.percent_placeholder(p),
-            Pat::StringBracketPlaceholdersAt0 => self.brace_placeholder(p),
-            Pat::StringBracketPlaceholdersAt1 => self.nested_brace_placeholder(p),
+            Pattern::BuiltinGetNodeShorthandQuoted => self.quoted_node(p),
+            Pattern::BuiltinGetNodeShorthandQuotedEnd
+            | Pattern::NodepathObjectAt0End
+            | Pattern::NodepathFunctionAt0End
+            | Pattern::StringsEnd => self.repeated(p),
+            Pattern::BuiltinGetNodeShorthandQuotedAt0
+            | Pattern::NodepathObjectAt0At0
+            | Pattern::NodepathFunctionAt0At0 => self.lit(p, b"%"),
+            Pattern::BuiltinGetNodeShorthandBare => self.bare_node(p),
+            Pattern::BuiltinGetNodeShorthandBareMulti => self.node_head(p),
+            Pattern::BuiltinGetNodeShorthandBareMultiEnd => self.node_path_end(p),
+            Pattern::BuiltinGetNodeShorthandBareMultiAt0 => self.node_segment(p),
+            Pattern::NodepathObject => self.node_path_object(p),
+            Pattern::NodepathObjectAt0 | Pattern::NodepathFunctionAt0 => self.quote_group(p),
+            Pattern::NodepathFunction => self.node_path_function(p),
+            Pattern::Strings => self.string_open(p),
+            Pattern::StringsAt0 => self.escape(p),
+            Pattern::StringPercentPlaceholders => self.percent_placeholder(p),
+            Pattern::StringBracketPlaceholdersAt0 => self.brace_placeholder(p),
+            Pattern::StringBracketPlaceholdersAt1 => self.nested_brace_placeholder(p),
 
-            Pat::BuiltinClasses => self.builtin_class(p),
-            Pat::ConstVars => self.const_var(p),
-            Pat::Keywords => self.word_in(p, KEYWORDS),
-            Pat::ControlFlow => self.word_in(p, CONTROL_FLOW),
-            Pat::WordlikeOperator => self.word_in(p, &[b"and", b"or", b"not"]),
-            Pat::Letter => self.word_in(p, &[b"true", b"false", b"null"]),
-            Pat::StatementKeywordAt0 => self.statement_keyword(p, STATEMENT_KEYWORDS),
-            Pat::StatementKeywordAt1 => self.statement_keyword(p, &[b"class"]),
-            Pat::StatementKeywordAt2 => self.case_or_match(p, &[b"case", b"match"], true),
-            Pat::MatchKeyword => self.case_or_match(p, &[b"match"], false),
-            Pat::InKeywordAt0 => self.word_group(p, &[b"for"]),
-            Pat::InKeywordAt0End => self.lit(p, b":"),
-            Pat::InKeywordAt0At0 | Pat::InKeywordAt1 => self.word_in(p, &[b"in"]),
-            Pat::Func => self.word_in(p, &[b"func"]),
-            Pat::Annotations => self.annotation(p),
-            Pat::PascalCaseClass => self.pascal_case(p),
-            Pat::NumbersAt0 => self.radix(p, b"0b", |b| matches!(b, b'0' | b'1' | b'_')),
-            Pat::NumbersAt1 => self.radix(p, b"0x", |b| b == b'_' || b.is_ascii_hexdigit()),
-            Pat::NumbersAt2 => self.point_number(p),
-            Pat::NumbersAt3 => self.decimal(p, false),
-            Pat::NumbersAt4 => self.decimal(p, true),
-            Pat::NumbersAt5 => self.exponent_integer(p),
-            Pat::NumbersAt6 => self.integer(p),
+            Pattern::BuiltinClasses => self.builtin_class(p),
+            Pattern::ConstVars => self.const_var(p),
+            Pattern::Keywords => self.word_in(p, KEYWORDS),
+            Pattern::ControlFlow => self.word_in(p, CONTROL_FLOW),
+            Pattern::WordlikeOperator => self.word_in(p, &[b"and", b"or", b"not"]),
+            Pattern::Letter => self.word_in(p, &[b"true", b"false", b"null"]),
+            Pattern::StatementKeywordAt0 => self.statement_keyword(p, STATEMENT_KEYWORDS),
+            Pattern::StatementKeywordAt1 => self.statement_keyword(p, &[b"class"]),
+            Pattern::StatementKeywordAt2 => self.case_or_match(p, &[b"case", b"match"], true),
+            Pattern::MatchKeyword => self.case_or_match(p, &[b"match"], false),
+            Pattern::InKeywordAt0 => self.word_group(p, &[b"for"]),
+            Pattern::InKeywordAt0End => self.lit(p, b":"),
+            Pattern::InKeywordAt0At0 | Pattern::InKeywordAt1 => self.word_in(p, &[b"in"]),
+            Pattern::Func => self.word_in(p, &[b"func"]),
+            Pattern::Annotations => self.annotation(p),
+            Pattern::PascalCaseClass => self.pascal_case(p),
+            Pattern::NumbersAt0 => self.radix(p, b"0b", |b| matches!(b, b'0' | b'1' | b'_')),
+            Pattern::NumbersAt1 => self.radix(p, b"0x", |b| b == b'_' || b.is_ascii_hexdigit()),
+            Pattern::NumbersAt2 => self.point_number(p),
+            Pattern::NumbersAt3 => self.decimal(p, false),
+            Pattern::NumbersAt4 => self.decimal(p, true),
+            Pattern::NumbersAt5 => self.exponent_integer(p),
+            Pattern::NumbersAt6 => self.integer(p),
 
-            Pat::Comment => self.comment(p),
-            Pat::Region => self.region(p),
-            Pat::LineContinuationAt0 => self.continued_text(p),
-            Pat::LineContinuationAt1 => self.continuation(p),
-            Pat::LineContinuationAt1End => self.continuation_end(p),
-            Pat::AssignmentOperator => self.lit(p, b"="),
-            Pat::BooleanOperator => self.first_group(p, &[b"&&", b"||"]),
-            Pat::ArithmeticOperator => self
+            Pattern::Comment => self.comment(p),
+            Pattern::Region => self.region(p),
+            Pattern::LineContinuationAt0 => self.continued_text(p),
+            Pattern::LineContinuationAt1 => self.continuation(p),
+            Pattern::LineContinuationAt1End => self.continuation_end(p),
+            Pattern::AssignmentOperator => self.lit(p, b"="),
+            Pattern::BooleanOperator => self.first_group(p, &[b"&&", b"||"]),
+            Pattern::ArithmeticOperator => self
                 .first_lit(
                     p,
                     &[
@@ -148,20 +150,20 @@ impl Lexer<'_> {
                     ],
                 )
                 .or_else(|| self.one_of(p, b"-%*+/")),
-            Pat::BitwiseOperator => self
+            Pattern::BitwiseOperator => self
                 .one_of(p, b"&|")
                 .or_else(|| self.first_lit(p, &[b"<<=", b">>=", b"<<", b">>"]))
                 .or_else(|| self.one_of(p, b"^~")),
-            Pat::CompareOperator => self
+            Pattern::CompareOperator => self
                 .first_lit(p, &[b"<=", b">=", b"=="])
                 .or_else(|| self.one_of(p, b"<>"))
                 .or_else(|| self.first_lit(p, &[b"!=", b"!"])),
-            Pat::CurlyBraces => self.lit(p, b"{"),
-            Pat::CurlyBracesEnd => self.lit(p, b"}"),
-            Pat::SquareBraces => self.lit(p, b"["),
-            Pat::SquareBracesEnd => self.lit(p, b"]"),
-            Pat::RoundBraces => self.lit(p, b"("),
-            Pat::RoundBracesEnd | Pat::NodepathObjectEnd => self.lit(p, b")"),
+            Pattern::CurlyBraces => self.lit(p, b"{"),
+            Pattern::CurlyBracesEnd => self.lit(p, b"}"),
+            Pattern::SquareBraces => self.lit(p, b"["),
+            Pattern::SquareBracesEnd => self.lit(p, b"]"),
+            Pattern::RoundBraces => self.lit(p, b"("),
+            Pattern::RoundBracesEnd | Pattern::NodepathObjectEnd => self.lit(p, b")"),
         }
     }
 

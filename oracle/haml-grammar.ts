@@ -5,7 +5,7 @@
 // and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
 // A pattern or rule that repeats another, with the same scopes, is the same
-// `Pat` or `Rule`, so it has one matcher.
+// `Pattern` or `Rule`, so it has one matcher.
 //
 // The rules that include another grammar embed it (`Payload::Embed`):
 // - the filters, such as `:ruby`, `:javascript` and `:markdown`;
@@ -139,7 +139,7 @@ const names = [
 ];
 if (names.length !== grammar.patterns.length) throw new Error("the grammar's root changed");
 
-type Pat = {
+type Pattern = {
   id: string;
   regex: string;
   act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
@@ -176,7 +176,7 @@ const embeddable: Record<string, [string, string]> = {
 /** The includes of grammars that Shiki's `haml` does not load. */
 const dropped = new Set(["source.scss", "text.plain", "text.html.php#language"]);
 
-const pats = new Map<string, Pat>();
+const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 /** The id each node registered under, by the node's text. */
 const seen = new Map<string, string>();
@@ -205,16 +205,16 @@ function register(node: Node, id: string): string | null {
   const key = JSON.stringify(node);
   const known = seen.get(key);
   if (known !== undefined) return droppedRules.has(known) ? null : known;
-  if (pats.has(id)) throw new Error(`${id} names two rules`);
+  if (patternById.has(id)) throw new Error(`${id} names two rules`);
   seen.set(key, id);
   if (node.applyEndPatternLast) throw new Error(`${id}: applyEndPatternLast`);
   if (node.while !== undefined) throw new Error(`${id}: while`);
   if (node.match !== undefined) {
-    pats.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures), made: false });
+    patternById.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures), made: false });
     return id;
   }
   if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
-  pats.set(id, {
+  patternById.set(id, {
     id,
     regex: node.begin,
     act: { role: "begin", rule: id },
@@ -222,7 +222,7 @@ function register(node: Node, id: string): string | null {
     made: false,
   });
   const end = `${id}End`;
-  pats.set(end, { id: end, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures), made: false });
+  patternById.set(end, { id: end, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures), made: false });
   const backrefs = [...new Set([...node.end.matchAll(/\\([1-9])/g)].map((m) => Number(m[1])))];
   if (backrefs.length > 1) throw new Error(`${id}: the end repeats more than one group`);
   const rule: Rule = {
@@ -240,8 +240,8 @@ function register(node: Node, id: string): string | null {
   // vscode-textmate skips a rule whose patterns are all missing, as the
   // `:plain`, `:php` and `:scss` filters are.
   if (missing.has(id) && rule.patterns.length === 0 && rule.embed === null) {
-    pats.delete(id);
-    pats.delete(end);
+    patternById.delete(id);
+    patternById.delete(end);
     rules.delete(id);
     droppedRules.add(id);
     return null;
@@ -256,8 +256,8 @@ function register(node: Node, id: string): string | null {
 function body(filter: Rule, end: string): void {
   if (filter.patterns.length > 0) throw new Error(`${filter.id}: patterns beside the grammar it embeds`);
   const id = `${filter.id}Body`;
-  pats.set(id, { id, regex: "\\G", act: { role: "begin", rule: id }, captures: [], made: true });
-  pats.set(`${id}End`, { id: `${id}End`, regex: `(?=${end})`, act: { role: "end" }, captures: [], made: true });
+  patternById.set(id, { id, regex: "\\G", act: { role: "begin", rule: id }, captures: [], made: true });
+  patternById.set(`${id}End`, { id: `${id}End`, regex: `(?=${end})`, act: { role: "end" }, captures: [], made: true });
   rules.set(id, { id, name: [], content: [], end: `${id}End`, backref: null, embed: filter.embed, ownAfter: false, patterns: [] });
   filter.embed = null;
   filter.patterns = [id];
@@ -320,19 +320,19 @@ rootRule.patterns = rootIds();
 
 // No pattern may take a blank after the first of a run: the lexer skips the
 // rest of a run (`BlankRuns::Skip`).
-for (const p of pats.values()) {
+for (const p of patternById.values()) {
   if (takesOneBlank(p.regex, "any")) throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
 }
 
 const ruleList = [rootRule, ...[...rules.values()].filter((r) => r !== rootRule)];
-const patList = [...pats.values()];
+const patternList = [...patternById.values()];
 
 /** Where an embedding rule takes the line back, as `engine::End` spells it:
  * its end, and the patterns it lists before the grammar it embeds. */
 function endHalt(r: Rule): string {
   if (r.embed === null) return "End::Never";
   if (r.id.endsWith("Body")) {
-    const end = pats.get(r.end)!.regex;
+    const end = patternById.get(r.end)!.regex;
     if (end === "(?=^(?!\\1\\s+|$\\n*))") return "End::Filter(Filter::Unindented)";
     if (end === "(?=^(?=\\1\\s+|$\\n*))") return "End::Filter(Filter::Indented)";
     if (end === "(?=(?m:(?<=\\n)(?!\\1\\s+|$\\n*)))") return "End::Filter(Filter::AfterLineFeed)";
@@ -357,7 +357,7 @@ const list = (ids: string[]) => (ids.length ? `scopes![${ids.map((id) => `S::${i
 let g = `//! The grammar's rules as tables. Generated by \`oracle/haml-grammar.ts\`
 //! from the \`haml\` grammar Shiki 4.6.0 bundles; do not edit.
 //!
-//! A [\`Pat\`] is one regular expression of the grammar; its doc comment shows
+//! A [\`Pattern\`] is one regular expression of the grammar; its doc comment shows
 //! which.
 //! Each rule lists the patterns it tries, in the grammar's order with its
 //! \`include\`s flattened.
@@ -370,7 +370,7 @@ use crate::rules::{self, embedded};
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Haml>;
-pub(crate) type PatDefinition = rules::PatDefinition<Haml>;
+pub(crate) type PatternDefinition = rules::PatternDefinition<Haml>;
 pub(crate) type RuleDefinition = rules::RuleDefinition<Haml>;
 pub(crate) use crate::rules::Start;
 
@@ -390,7 +390,7 @@ g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    `RuleDefinition {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end ? `Some(Pattern::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${r.patterns.map((p) => `Pattern::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
@@ -410,18 +410,18 @@ g += `        }\n    }\n\n    /// Where the rule takes the line back from the la
 g += arms(ruleList.map((r): [string, string] => [r.id, endHalt(r)]), "Rule");
 g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${ruleList.filter((r) => r.ownAfter).map((r) => `Rule::${r.id}`).join(" | ")})\n    }\n}\n\n`;
 
-g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
+g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 const docs = (s: string) => {
   const one = s.replace(/\n/g, "\\n");
   return one.length > 56 || /[^\x20-\x7e]/.test(one) ? `…` : one;
 };
-for (const p of patList) {
+for (const p of patternList) {
   const what = p.made ? (p.act.role === "begin" ? "made begin" : "made end") : p.act.role;
   g += `    /// The ${what} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatDefinition {\n        match self {\n`;
+g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
-  patList.map((p): [string, string] => {
+  patternList.map((p): [string, string] => {
     const act =
       p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
@@ -429,29 +429,29 @@ g += arms(
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const caps = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
-    return [p.id, `PatDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
   }),
-  "Pat",
+  "Pattern",
 );
 g += `        }\n    }\n}\n`;
 
-for (const p of patList) {
+for (const p of patternList) {
   if (startOf(p.regex, "any").any && !p.regex.includes("\\G")) {
     throw new Error(`${p.id}: the first-byte analysis does not read ${p.regex}`);
   }
 }
-g += startTable(patList, "any");
+g += startTable(patternList, "any");
 g += ruleCodes("Haml", "HAML");
-g += groupsCheck("Haml", patList.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck("Haml", patternList.flatMap((p) => p.captures.map(([n]) => n)));
 
 await writeRust(`${root_dir}src/haml/grammar.rs`, g);
 // A dropped rule's scopes are emitted by no pattern, so the table leaves them
 // out.
 const used = new Set<string>(["Text"]);
 for (const rule of rules.values()) for (const ident of [...rule.name, ...rule.content]) used.add(ident);
-for (const pat of pats.values()) {
-  if (pat.act.role === "match") for (const ident of pat.act.name) used.add(ident);
-  for (const [, list] of pat.captures) for (const ident of list) used.add(ident);
+for (const pattern of patternById.values()) {
+  if (pattern.act.role === "match") for (const ident of pattern.act.name) used.add(ident);
+  for (const [, list] of pattern.captures) for (const ident of list) used.add(ident);
 }
 const emitted = new Map([...scopes].filter(([ident]) => used.has(ident)));
 await writeRust(`${root_dir}src/haml/scope.rs`, scopeFile("haml-grammar.ts", "HAML", emitted));
@@ -467,7 +467,7 @@ await writeRust(`${root_dir}src/haml/scope.rs`, scopeFile("haml-grammar.ts", "HA
 // `\n*` is gone.
 const probeRegex: Record<string, string> = { RubylineAt5: "([,<|]|do|\\{)(?:(?!\\n)\\s)*(#.*)?$" };
 if (Bun.env["RX_DUMP"]) {
-  const probed = patList.filter((p) => !p.made && !(p.act.role === "end" && /\\[1-9]/.test(p.regex)));
+  const probed = patternList.filter((p) => !p.made && !(p.act.role === "end" && /\\[1-9]/.test(p.regex)));
   await Bun.write(
     Bun.env["RX_DUMP"],
     probed
@@ -476,4 +476,4 @@ if (Bun.env["RX_DUMP"]) {
   );
 }
 
-console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);
+console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes`);

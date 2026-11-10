@@ -825,14 +825,14 @@ function closingParen(regex: string): number {
   return -1;
 }
 
-/** `Pat::takes_one_blank`, from [`takesOneBlank`], for a grammar on
+/** `Pattern::takes_one_blank`, from [`takesOneBlank`], for a grammar on
  * `BlankRuns::ToLast`. */
-export function oneBlankTable(pats: { id: string; regex: string }[], backref: Backref = "quote"): string {
-  const ids = pats.filter((p) => takesOneBlank(p.regex, backref)).map((p) => `Pat::${p.id}`);
+export function oneBlankTable(patternById: { id: string; regex: string }[], backref: Backref = "quote"): string {
+  const ids = patternById.filter((p) => takesOneBlank(p.regex, backref)).map((p) => `Pattern::${p.id}`);
   if (ids.length === 0) throw new Error("a BlankRuns::ToLast grammar with no pattern that takes one blank");
   return `
 
-impl Pat {
+impl Pattern {
     /// Whether the pattern takes exactly one blank and then requires a
     /// character that is not a blank, as \`oracle/rule-grammar.ts\`'s
     /// \`takesOneBlank\` reads its expression.
@@ -862,18 +862,18 @@ const hex = (w: bigint) => {
   return `0x${digits.match(/.{4}/g)!.join("_")}`;
 };
 
-/** `Pat::start`: the bytes each pattern can start at, and its anchors. */
-export function startTable(pats: { id: string; regex: string }[], backref: Backref = "quote"): string {
+/** `Pattern::start`: the bytes each pattern can start at, and its anchors. */
+export function startTable(patternById: { id: string; regex: string }[], backref: Backref = "quote"): string {
   let starts = `
 
-impl Pat {
+impl Pattern {
 ${tooLong}    pub(crate) fn start(self) -> Start {
         use crate::rules::{Place, PlaceSet};
         match self {
 `;
   let wordsAtStart = false;
   starts += arms(
-    pats.map((p): [string, string] => {
+    patternById.map((p): [string, string] => {
       const { set, bol, any, wb, behind, atEnd, inWordFirst } = startOf(p.regex, backref);
       wordsAtStart ||= inWordFirst;
       const words = (any ? FULL() : set).map(hex).join(", ");
@@ -895,7 +895,7 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
         `Start {\n                bytes: [${words}],\n                places: PlaceSet::of(&[${places.join(", ")}]),\n                matches_at_end: ${atEnd},\n            }`,
       ];
     }),
-    "Pat",
+    "Pattern",
   );
   starts += `        }\n    }\n\n`;
   starts += `    /// Whether a pattern is tried inside a word at a scan's first position\n`;
@@ -941,10 +941,10 @@ impl Rule {
 }
 
 impl rules::Tabled for ${engine} {
-    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+    const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
 
-    fn pat_start(pat: Pat) -> rules::Start {
-        pat.start()
+    fn pattern_start(pattern: Pattern) -> rules::Start {
+        pattern.start()
     }
 
     fn tables(rule: Rule) -> &'static rules::Tables<Self> {

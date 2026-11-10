@@ -1655,7 +1655,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 self.host = false;
             }
             self.g = self.anchor == Some(self.pos);
-            let Some((start, pat, end)) = G::scan(self) else {
+            let Some((start, pattern, end)) = G::scan(self) else {
                 if let Some(at) = self.halted {
                     let node = self.top().content;
                     self.emit(at, node);
@@ -1670,7 +1670,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             };
             self.caps[0] = Some((start, end));
             let advanced = end > self.pos;
-            let (act, captures) = G::pat_definition(pat);
+            let (act, captures) = G::pattern_definition(pattern);
             let stop = match act {
                 Act::End => self.end_rule(captures, start, end, advanced, line_length),
                 Act::Begin(rule) => {
@@ -1713,18 +1713,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             let mut i = usize::try_from(self.frames[0].next_while).unwrap_or(0);
             while i != 0 && i < self.frames.len() {
                 let frame = self.frames[i];
-                let Some(pat) = G::rule_while(frame.rule) else {
+                let Some(pattern) = G::rule_while(frame.rule) else {
                     return;
                 };
                 self.g = self.anchor == Some(self.pos);
-                let Some(end) = self.try_pat(pat, self.pos) else {
+                let Some(end) = self.try_pattern(pattern, self.pos) else {
                     self.frames.truncate(i);
                     if G::DEPTH_HALTS {
                         G::frames_popped(self);
                     }
                     return;
                 };
-                self.emit_match(G::pat_captures(pat), frame.content, self.pos, end);
+                self.emit_match(G::pattern_captures(pattern), frame.content, self.pos, end);
                 self.anchor = Some(end);
                 self.pos = end;
                 i = usize::try_from(frame.next_while).unwrap_or(0);
@@ -1734,18 +1734,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let mut last = 0;
         for i in 1..self.frames.len() {
             let frame = self.frames[i];
-            let Some(pat) = G::rule_while(frame.rule) else {
+            let Some(pattern) = G::rule_while(frame.rule) else {
                 continue;
             };
             self.g = self.anchor == Some(self.pos);
-            let Some(end) = self.try_pat(pat, self.pos) else {
+            let Some(end) = self.try_pattern(pattern, self.pos) else {
                 self.frames.truncate(i);
                 if G::DEPTH_HALTS {
                     G::frames_popped(self);
                 }
                 break;
             };
-            self.emit_match(G::pat_captures(pat), frame.content, self.pos, end);
+            self.emit_match(G::pattern_captures(pattern), frame.content, self.pos, end);
             self.anchor = Some(end);
             self.pos = end;
             if G::WHILES {
@@ -1789,15 +1789,15 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.frames[last].next_while = 0;
     }
 
-    /// Tries `pat` at `p`, clearing what the last try left.
+    /// Tries `pattern` at `p`, clearing what the last try left.
     #[inline]
-    pub(crate) fn try_pat(&mut self, pat: G::Pat, p: usize) -> Option<usize> {
+    pub(crate) fn try_pattern(&mut self, pattern: G::Pattern, p: usize) -> Option<usize> {
         if self.dirty {
             self.caps[..G::GROUPS].fill(None);
             self.spans.truncate(self.span_base);
             self.dirty = false;
         }
-        G::matcher(self, pat, p)
+        G::matcher(self, pattern, p)
     }
 
     /// Closes the innermost rule. True when the line stops.
@@ -2069,7 +2069,7 @@ mod tests {
     struct Brackets;
 
     #[derive(Clone, Copy, Debug)]
-    enum Pat {
+    enum Pattern {
         Bracket,
         Word,
     }
@@ -2088,7 +2088,7 @@ mod tests {
         type Scope = Scope;
         const NO_SCOPES: Scopes<Scope> = Scope::NO_SCOPES;
         type Rule = Root;
-        type Pat = Pat;
+        type Pattern = Pattern;
         type Nested = Inside;
         type Extra = ();
         type Kept = ();
@@ -2118,35 +2118,35 @@ mod tests {
             Scope::NO_SCOPES
         }
 
-        fn pat_act(_: Pat) -> Act<Self> {
+        fn pattern_act(_: Pattern) -> Act<Self> {
             Act::Match(Scope::NO_SCOPES)
         }
 
-        fn pat_captures(pat: Pat) -> Captures<Self> {
-            match pat {
-                Pat::Bracket => (
+        fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+            match pattern {
+                Pattern::Bracket => (
                     &[(1, scopes![OPEN]), (3, scopes![CLOSE])],
                     &[(2, Inside::Again)],
                 ),
-                Pat::Word => (&[(1, scopes![WORD])], &[]),
+                Pattern::Word => (&[(1, scopes![WORD])], &[]),
             }
         }
 
-        fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Pat, usize)> {
+        fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Pattern, usize)> {
             let from = lexer.pos;
             for p in from..lexer.lim() {
-                for pat in [Pat::Bracket, Pat::Word] {
-                    if let Some(end) = lexer.try_pat(pat, p) {
-                        return Some((p, pat, end));
+                for pattern in [Pattern::Bracket, Pattern::Word] {
+                    if let Some(end) = lexer.try_pattern(pattern, p) {
+                        return Some((p, pattern, end));
                     }
                 }
             }
             None
         }
 
-        fn matcher(lexer: &mut Lexer<'_, Self>, pat: Pat, p: usize) -> Option<usize> {
-            match pat {
-                Pat::Bracket => {
+        fn matcher(lexer: &mut Lexer<'_, Self>, pattern: Pattern, p: usize) -> Option<usize> {
+            match pattern {
+                Pattern::Bracket => {
                     if lexer.at(p) != b'[' {
                         return None;
                     }
@@ -2156,7 +2156,7 @@ mod tests {
                     lexer.cap(3, close, close + 1);
                     Some(close + 1)
                 }
-                Pat::Word => {
+                Pattern::Word => {
                     let end = lexer.skip(p, |b| b.is_ascii_alphabetic());
                     (end > p).then(|| {
                         lexer.cap(1, p, end);
@@ -2501,7 +2501,7 @@ mod tests {
         const NO_SCOPES: Scopes<Name> = Name::NO_SCOPES;
         type Scope = Name;
         type Rule = Rule;
-        type Pat = Mark;
+        type Pattern = Mark;
         type Nested = Lexed;
         #[cfg(feature = "_embedding")]
         type Extra = NamedKept;
@@ -2604,8 +2604,8 @@ mod tests {
             }
         }
 
-        fn pat_act(pat: Mark) -> Act<Self> {
-            match pat {
+        fn pattern_act(pattern: Mark) -> Act<Self> {
+            match pattern {
                 Mark::Word => Act::Match(scopes![Name::Group("word.", 0, ".test")]),
                 Mark::Look | Mark::Call => Act::Match(Name::NO_SCOPES),
                 Mark::Open => Act::Begin(Rule::Quote),
@@ -2617,8 +2617,8 @@ mod tests {
             }
         }
 
-        fn pat_captures(pat: Mark) -> Captures<Self> {
-            match pat {
+        fn pattern_captures(pattern: Mark) -> Captures<Self> {
+            match pattern {
                 Mark::Look => (
                     &[
                         (1, scopes![Name::Group("mark.", 1, "")]),
@@ -2639,7 +2639,7 @@ mod tests {
         }
 
         fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Mark, usize)> {
-            let pats: &[Mark] = match lexer.top_rule() {
+            let patterns: &[Mark] = match lexer.top_rule() {
                 Rule::Root => &[
                     Mark::Open,
                     Mark::Embed,
@@ -2655,17 +2655,17 @@ mod tests {
                 Rule::Mixed => &[Mark::Look],
             };
             for p in lexer.pos..lexer.lim() {
-                for &pat in pats {
-                    if let Some(end) = lexer.try_pat(pat, p) {
-                        return Some((p, pat, end));
+                for &pattern in patterns {
+                    if let Some(end) = lexer.try_pattern(pattern, p) {
+                        return Some((p, pattern, end));
                     }
                 }
             }
             None
         }
 
-        fn matcher(lexer: &mut Lexer<'_, Self>, pat: Mark, p: usize) -> Option<usize> {
-            match pat {
+        fn matcher(lexer: &mut Lexer<'_, Self>, pattern: Mark, p: usize) -> Option<usize> {
+            match pattern {
                 Mark::Word => {
                     let end = lexer.skip(p, |b| b.is_ascii_alphabetic() || !b.is_ascii());
                     (end > p).then_some(end)
@@ -3263,7 +3263,7 @@ mod tests {
         }
 
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-        enum DeepPat {
+        enum DeepPattern {
             Quote,
             QuoteEnd,
             Open,
@@ -3279,7 +3279,7 @@ mod tests {
             type Scope = Scope;
             const NO_SCOPES: Scopes<Scope> = Scope::NO_SCOPES;
             type Rule = DeepRule;
-            type Pat = DeepPat;
+            type Pattern = DeepPattern;
             type Nested = Inside;
             type Extra = Option<usize>;
             type Kept = Option<usize>;
@@ -3328,48 +3328,56 @@ mod tests {
                 Scope::NO_SCOPES
             }
 
-            fn pat_act(pat: DeepPat) -> Act<Self> {
-                match pat {
-                    DeepPat::Quote => Act::Begin(DeepRule::Str),
-                    DeepPat::Open => Act::Begin(DeepRule::Shut),
-                    DeepPat::Hash => Act::Begin(DeepRule::Comment),
-                    DeepPat::QuoteEnd | DeepPat::Close | DeepPat::LineFeed => Act::End,
-                    DeepPat::Angle | DeepPat::Mention | DeepPat::Word => Act::Match(scopes![WORD]),
+            fn pattern_act(pattern: DeepPattern) -> Act<Self> {
+                match pattern {
+                    DeepPattern::Quote => Act::Begin(DeepRule::Str),
+                    DeepPattern::Open => Act::Begin(DeepRule::Shut),
+                    DeepPattern::Hash => Act::Begin(DeepRule::Comment),
+                    DeepPattern::QuoteEnd | DeepPattern::Close | DeepPattern::LineFeed => Act::End,
+                    DeepPattern::Angle | DeepPattern::Mention | DeepPattern::Word => {
+                        Act::Match(scopes![WORD])
+                    }
                 }
             }
 
-            fn pat_captures(pat: DeepPat) -> Captures<Self> {
-                match pat {
-                    DeepPat::Angle => (&[], &[(1, Inside::Again)]),
-                    DeepPat::Quote
-                    | DeepPat::QuoteEnd
-                    | DeepPat::Open
-                    | DeepPat::Close
-                    | DeepPat::Hash
-                    | DeepPat::LineFeed
-                    | DeepPat::Mention
-                    | DeepPat::Word => (&[], &[]),
+            fn pattern_captures(pattern: DeepPattern) -> Captures<Self> {
+                match pattern {
+                    DeepPattern::Angle => (&[], &[(1, Inside::Again)]),
+                    DeepPattern::Quote
+                    | DeepPattern::QuoteEnd
+                    | DeepPattern::Open
+                    | DeepPattern::Close
+                    | DeepPattern::Hash
+                    | DeepPattern::LineFeed
+                    | DeepPattern::Mention
+                    | DeepPattern::Word => (&[], &[]),
                 }
             }
 
-            fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, DeepPat, usize)> {
+            fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, DeepPattern, usize)> {
                 crate::rules::table_scan(lexer)
             }
 
-            fn matcher(lexer: &mut Lexer<'_, Self>, pat: DeepPat, p: usize) -> Option<usize> {
-                match pat {
-                    DeepPat::Quote | DeepPat::QuoteEnd => (lexer.at(p) == b'"').then_some(p + 1),
-                    DeepPat::Open => match lexer.at(p) {
+            fn matcher(
+                lexer: &mut Lexer<'_, Self>,
+                pattern: DeepPattern,
+                p: usize,
+            ) -> Option<usize> {
+                match pattern {
+                    DeepPattern::Quote | DeepPattern::QuoteEnd => {
+                        (lexer.at(p) == b'"').then_some(p + 1)
+                    }
+                    DeepPattern::Open => match lexer.at(p) {
                         b'[' => Some(p + 1),
                         b'!' => Some(p),
                         _ => None,
                     },
-                    DeepPat::Close => match lexer.at(p) {
+                    DeepPattern::Close => match lexer.at(p) {
                         b']' => Some(p + 1),
                         b'!' => Some(p),
                         _ => None,
                     },
-                    DeepPat::Angle => {
+                    DeepPattern::Angle => {
                         let close = lexer.skip(p + 1, |b| b != b'>');
                         if lexer.at(p) != b'<' || lexer.at(close) != b'>' {
                             return None;
@@ -3377,13 +3385,13 @@ mod tests {
                         lexer.cap(1, p + 1, close);
                         Some(close + 1)
                     }
-                    DeepPat::Hash => (lexer.at(p) == b'#').then_some(p + 1),
-                    DeepPat::LineFeed => (p == lexer.lim() && lexer.avail(p)).then_some(p + 1),
-                    DeepPat::Mention => {
+                    DeepPattern::Hash => (lexer.at(p) == b'#').then_some(p + 1),
+                    DeepPattern::LineFeed => (p == lexer.lim() && lexer.avail(p)).then_some(p + 1),
+                    DeepPattern::Mention => {
                         let end = lexer.skip(p + 1, |b| b.is_ascii_alphabetic());
                         (lexer.at(p) == b'@' && end > p + 1).then_some(end)
                     }
-                    DeepPat::Word => {
+                    DeepPattern::Word => {
                         let end = lexer.skip(p, |b| b.is_ascii_alphabetic());
                         (end > p).then_some(end)
                     }
@@ -3429,7 +3437,7 @@ mod tests {
         impl<const DEEP: bool> crate::rules::Tabled for Strings<DEEP> {
             const WORDS_AT_START: bool = false;
 
-            fn pat_start(_: DeepPat) -> crate::rules::Start {
+            fn pattern_start(_: DeepPattern) -> crate::rules::Start {
                 crate::rules::Start {
                     bytes: [u64::MAX; 4],
                     places: crate::rules::PlaceSet::of(&[
@@ -3442,20 +3450,26 @@ mod tests {
             }
 
             fn tables(rule: DeepRule) -> &'static crate::rules::Tables<Self> {
-                let (end, patterns): (Option<DeepPat>, &'static [DeepPat]) = match rule {
+                let (end, patterns): (Option<DeepPattern>, &'static [DeepPattern]) = match rule {
                     DeepRule::Root => (
                         None,
                         &[
-                            DeepPat::Quote,
-                            DeepPat::Open,
-                            DeepPat::Angle,
-                            DeepPat::Hash,
-                            DeepPat::Word,
+                            DeepPattern::Quote,
+                            DeepPattern::Open,
+                            DeepPattern::Angle,
+                            DeepPattern::Hash,
+                            DeepPattern::Word,
                         ],
                     ),
-                    DeepRule::Str => (Some(DeepPat::QuoteEnd), &[DeepPat::Mention, DeepPat::Word]),
-                    DeepRule::Shut => (Some(DeepPat::Close), &[DeepPat::Quote, DeepPat::Word]),
-                    DeepRule::Comment => (Some(DeepPat::LineFeed), &[DeepPat::Word]),
+                    DeepRule::Str => (
+                        Some(DeepPattern::QuoteEnd),
+                        &[DeepPattern::Mention, DeepPattern::Word],
+                    ),
+                    DeepRule::Shut => (
+                        Some(DeepPattern::Close),
+                        &[DeepPattern::Quote, DeepPattern::Word],
+                    ),
+                    DeepRule::Comment => (Some(DeepPattern::LineFeed), &[DeepPattern::Word]),
                 };
                 Box::leak(Box::new(crate::rules::Tables::build(
                     crate::rules::RuleDefinition {

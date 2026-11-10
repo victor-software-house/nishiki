@@ -3,7 +3,7 @@
 // It runs the generator in `oracle/rule-generator.ts`.
 //
 // The grammar repeats every expression of the `objective-c` grammar.
-// The Objective-C matchers answer those, so `Pat::expr` sends them to `crate::objective_c::Rx`.
+// The Objective-C matchers answer those, so `Pattern::expr` sends them to `crate::objective_c::Rx`.
 // The rest come from the grammar's `cpp_lang` entry and are this module's own `Rx`.
 // The root never reaches `cpp_lang_newish`.
 //

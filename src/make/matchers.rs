@@ -8,7 +8,7 @@
 use memchr::memchr;
 
 use super::engine::{CapName, Hit, Lexer};
-use super::rules::Pat;
+use super::rules::Pattern;
 use super::scope::{BUILTINS, FUNCTIONS, S, SPECIAL_TARGETS};
 use super::state::Rule;
 use crate::classes;
@@ -194,7 +194,7 @@ impl Lexer<'_> {
 
     // Patterns.
 
-    /// The match of `pat` at `p`.
+    /// The match of `pattern` at `p`.
     /// The end pattern has no match here, because it depends on the rule.
     /// `Grammar::matcher` answers it.
     #[expect(
@@ -202,58 +202,58 @@ impl Lexer<'_> {
         reason = "measured: the matchers are the hot loop"
     )]
     #[inline(always)]
-    pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
-        match pat {
-            Pat::End => None,
-            Pat::SimpleVar => self.simple_var(p),
-            Pat::Comma => self.single(p, b','),
-            Pat::Percent => self.single(p, b'%'),
-            Pat::PercentStar => self.single(p, b'%').or_else(|| self.single(p, b'*')),
-            Pat::Continuation => {
+    pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
+        match pattern {
+            Pattern::End => None,
+            Pattern::SimpleVar => self.simple_var(p),
+            Pattern::Comma => self.single(p, b','),
+            Pattern::Percent => self.single(p, b'%'),
+            Pattern::PercentStar => self.single(p, b'%').or_else(|| self.single(p, b'*')),
+            Pattern::Continuation => {
                 (p + 1 == self.lim() && self.nl && self.s[p] == b'\\').then(|| Hit::new(p, p + 2))
             }
-            Pat::AnyWord => {
+            Pattern::AnyWord => {
                 let end = self.word_end(p);
                 (end > p).then(|| Hit::new(p, end))
             }
-            Pat::BuiltinParen => self.builtin(p, b'('),
-            Pat::BuiltinBrace => self.builtin(p, b'{'),
-            Pat::SpecialTarget => self.special_target(p),
-            Pat::Comment => self.comment(p),
-            Pat::CommentHash => (p < self.lim() && self.s[p] == b'#')
+            Pattern::BuiltinParen => self.builtin(p, b'('),
+            Pattern::BuiltinBrace => self.builtin(p, b'{'),
+            Pattern::SpecialTarget => self.special_target(p),
+            Pattern::Comment => self.comment(p),
+            Pattern::CommentHash => (p < self.lim() && self.s[p] == b'#')
                 .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctComment)),
-            Pat::VarParen => self.dollar(p, b'('),
-            Pat::VarBrace => self.dollar(p, b'{'),
-            Pat::FuncParen => self.function(p, b'('),
-            Pat::FuncBrace => self.function(p, b'{'),
-            Pat::FlavorParen => self.flavor(p, b'('),
-            Pat::FlavorBrace => self.flavor(p, b'{'),
-            Pat::AnotherParen => self.another(p, b'('),
-            Pat::AnotherBrace => self.another(p, b'{'),
-            Pat::InterpParen => self.single(p, b'('),
-            Pat::InterpBrace => self.single(p, b'{'),
-            Pat::Include => self.keyword_line(p, true),
-            Pat::Vpath => self.keyword_line(p, false),
-            Pat::Define => self.define(p),
-            Pat::DefineHead => {
+            Pattern::VarParen => self.dollar(p, b'('),
+            Pattern::VarBrace => self.dollar(p, b'{'),
+            Pattern::FuncParen => self.function(p, b'('),
+            Pattern::FuncBrace => self.function(p, b'{'),
+            Pattern::FlavorParen => self.flavor(p, b'('),
+            Pattern::FlavorBrace => self.flavor(p, b'{'),
+            Pattern::AnotherParen => self.another(p, b'('),
+            Pattern::AnotherBrace => self.another(p, b'{'),
+            Pattern::InterpParen => self.single(p, b'('),
+            Pattern::InterpBrace => self.single(p, b'{'),
+            Pattern::Include => self.keyword_line(p, true),
+            Pattern::Vpath => self.keyword_line(p, false),
+            Pattern::Define => self.define(p),
+            Pattern::DefineHead => {
                 (self.at_g(p) && !(p == self.lim() && self.nl)).then(|| Hit::new(p, p))
             }
-            Pat::Export => self.leading_word(p, &[(b"export", S::KwExport)]),
-            Pat::OverridePrivate => self.leading_word(
+            Pattern::Export => self.leading_word(p, &[(b"export", S::KwExport)]),
+            Pattern::OverridePrivate => self.leading_word(
                 p,
                 &[(b"override", S::KwOverride), (b"private", S::KwPrivate)],
             ),
-            Pat::Unexport => self.leading_word(
+            Pattern::Unexport => self.leading_word(
                 p,
                 &[(b"unexport", S::KwUnexport), (b"undefine", S::KwUndefine)],
             ),
-            Pat::Conditional => self.conditional(p),
-            Pat::Condition | Pat::Prereq => self.at_g(p).then(|| Hit::new(p, p)),
-            Pat::Else => self.else_line(p),
-            Pat::Target => self.target(p),
-            Pat::TargetName => (self.nonspace_w(p) > 0).then(|| Hit::new(p, p)),
-            Pat::Recipe => self.recipe(p),
-            Pat::Assign => self.assign(p),
+            Pattern::Conditional => self.conditional(p),
+            Pattern::Condition | Pattern::Prereq => self.at_g(p).then(|| Hit::new(p, p)),
+            Pattern::Else => self.else_line(p),
+            Pattern::Target => self.target(p),
+            Pattern::TargetName => (self.nonspace_w(p) > 0).then(|| Hit::new(p, p)),
+            Pattern::Recipe => self.recipe(p),
+            Pattern::Assign => self.assign(p),
         }
     }
 

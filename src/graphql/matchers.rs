@@ -7,7 +7,7 @@
 //! `\s` matches that line feed, and `.` does not.
 
 use super::engine::{Hit, Lexer};
-use super::rules::Pat;
+use super::rules::Pattern;
 use super::scope::S;
 use super::state::Rule;
 use crate::classes;
@@ -155,38 +155,38 @@ impl Lexer<'_> {
 
     // Begin and match patterns.
 
-    /// The match of `pat` that starts at `p`.
+    /// The match of `pattern` that starts at `p`.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm for each pattern of the grammar"
     )]
-    pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
-        match pat {
-            Pat::Hash => {
+    pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
+        match pattern {
+            Pattern::Hash => {
                 let i = self.ws(p);
                 (self.at(i) == b'#' && i < self.lim())
                     .then(|| Hit::new(p, self.lim()).cap(0, p, i, S::LeadingSpace))
             }
-            Pat::Ampersand => self.single(p, b'&', S::Ampersand),
-            Pat::Colon => self.single(p, b':', S::Colon),
-            Pat::Comma => self.single(p, b',', S::Comma),
-            Pat::Boolean => {
+            Pattern::Ampersand => self.single(p, b'&', S::Ampersand),
+            Pattern::Colon => self.single(p, b':', S::Colon),
+            Pattern::Comma => self.single(p, b',', S::Comma),
+            Pattern::Boolean => {
                 let i = self.ws(p);
                 let e = self
                     .keyword(i, b"true")
                     .or_else(|| self.keyword(i, b"false"))?;
                 Some(Hit::new(p, e).cap(0, i, e, S::Boolean))
             }
-            Pat::Null => {
+            Pattern::Null => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"null")?;
                 Some(Hit::new(p, e).cap(0, i, e, S::Null))
             }
-            Pat::EnumValue => {
+            Pattern::EnumValue => {
                 let e = self.name_end(self.ws(p))?;
                 Some(Hit::new(p, e))
             }
-            Pat::Alias => {
+            Pattern::Alias => {
                 let i = self.ws(p);
                 let e = self.name_end(i)?;
                 let k = self.ws(e);
@@ -196,11 +196,11 @@ impl Lexer<'_> {
                         .cap(1, k, k + 1, S::Colon)
                 })
             }
-            Pat::Field => self.named(p, S::Variable),
-            Pat::Name => self.named(p, S::FunctionName),
-            Pat::Implemented | Pat::SchemaType => self.named(p, S::SupportType),
-            Pat::Float => self.float(p),
-            Pat::ObjectField => {
+            Pattern::Field => self.named(p, S::Variable),
+            Pattern::Name => self.named(p, S::FunctionName),
+            Pattern::Implemented | Pattern::SchemaType => self.named(p, S::SupportType),
+            Pattern::Float => self.float(p),
+            Pattern::ObjectField => {
                 let i = self.ws(p);
                 let e = self.name_end(i)?;
                 let k = self.ws(e);
@@ -210,14 +210,14 @@ impl Lexer<'_> {
                         .cap(1, k, k + 1, S::Punctuation)
                 })
             }
-            Pat::Operation => {
+            Pattern::Operation => {
                 let i = self.ws(p);
                 let e = self
                     .keyword(i, b"query")
                     .or_else(|| self.keyword(i, b"mutation"))?;
                 Some(Hit::new(p, e).cap(0, i, e, S::Operation))
             }
-            Pat::Scalar => {
+            Pattern::Scalar => {
                 let i = self.ws(p);
                 let e = self.keyword(i, b"scalar")?;
                 let j = self.ws(e);
@@ -228,7 +228,7 @@ impl Lexer<'_> {
                         .cap(1, j, n, S::ScalarName),
                 )
             }
-            Pat::BuiltinType => {
+            Pattern::BuiltinType => {
                 let i = self.ws(p);
                 let e = [&b"Int"[..], b"Float", b"String", b"Boolean", b"ID"]
                     .iter()
@@ -241,11 +241,11 @@ impl Lexer<'_> {
                     Some(hit)
                 }
             }
-            Pat::TypeName => self.typed(p, S::SupportType),
-            Pat::SkipNewlines => {
+            Pattern::TypeName => self.typed(p, S::SupportType),
+            Pattern::SkipNewlines => {
                 (p <= self.lim() && self.ws(p) > self.lim()).then(|| Hit::new(p, self.lim() + 1))
             }
-            Pat::VariableName => {
+            Pattern::VariableName => {
                 let i = self.ws(p);
                 if self.at(i) != b'$' {
                     return None;
@@ -253,7 +253,7 @@ impl Lexer<'_> {
                 let e = self.name_end(i + 1)?;
                 Some(Hit::new(p, e).cap(0, i, e, S::Variable))
             }
-            Pat::UnionMember => {
+            Pattern::UnionMember => {
                 let i = self.ws(p);
                 if self.at(i) != b'|' {
                     return None;
@@ -266,7 +266,7 @@ impl Lexer<'_> {
                         .cap(1, j, e, S::SupportType),
                 )
             }
-            Pat::Location => {
+            Pattern::Location => {
                 let i = self.ws(p);
                 if self.at(i) != b'|' {
                     return None;
@@ -275,7 +275,7 @@ impl Lexer<'_> {
                 let e = self.letters_end(j);
                 Some(Hit::new(p, e).cap(0, j, e, S::LocationType))
             }
-            Pat::EscapeSimple => {
+            Pattern::EscapeSimple => {
                 let ok = self.at(p) == b'\\'
                     && matches!(
                         self.at(p + 1),
@@ -283,15 +283,15 @@ impl Lexer<'_> {
                     );
                 ok.then(|| Hit::new(p, p + 2))
             }
-            Pat::EscapeUnicode => {
+            Pattern::EscapeUnicode => {
                 let ok = self.at(p) == b'\\'
                     && self.at(p + 1) == b'u'
                     && (2..6).all(|k| self.at(p + k).is_ascii_hexdigit());
                 ok.then(|| Hit::new(p, p + 6))
             }
-            Pat::Spaces => Some(Hit::new(p, self.ws(p))),
-            Pat::Open(rule) => self.begin_at(rule, p),
-            Pat::End => self.end_at(self.top_rule(), p),
+            Pattern::Spaces => Some(Hit::new(p, self.ws(p))),
+            Pattern::Open(rule) => self.begin_at(rule, p),
+            Pattern::End => self.end_at(self.top_rule(), p),
         }
     }
 

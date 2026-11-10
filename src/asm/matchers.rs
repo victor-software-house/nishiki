@@ -19,7 +19,7 @@ mod labels;
 mod numbers;
 
 use super::engine::{Lexer, Lowered, Spelling};
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use super::words;
 use crate::rules::Chars;
 use crate::{bytes, case_fold};
@@ -35,122 +35,126 @@ enum Case {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in the grammar's order.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
     )]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Word => self.word(p),
-            Pat::ConstantsAt0 => self.prefixed_fraction(p, numbers::Base::Binary),
-            Pat::ConstantsAt1 => self.prefixed_exponent(p, numbers::Base::Binary),
-            Pat::ConstantsAt2 => self.prefixed_fraction(p, numbers::Base::Octal),
-            Pat::ConstantsAt3 => self.prefixed_exponent(p, numbers::Base::Octal),
-            Pat::ConstantsAt4 => self.decimal_fraction(p),
-            Pat::ConstantsAt5 => self.decimal_exponent(p),
-            Pat::ConstantsAt6 => self.packed_bcd(p),
-            Pat::ConstantsAt7 => self.prefixed_fraction(p, numbers::Base::Hex),
-            Pat::ConstantsAt8 => self.prefixed_exponent(p, numbers::Base::Hex),
-            Pat::ConstantsAt9 => self.dollar_fraction(p),
-            Pat::ConstantsAt10 => self.dollar_exponent(p),
-            Pat::ConstantsAt11 => self.integer(p, numbers::Base::Binary),
-            Pat::ConstantsAt12 => self.integer(p, numbers::Base::Octal),
-            Pat::ConstantsAt13 => self.decimal(p),
-            Pat::ConstantsAt14 => self.dollar_hex(p),
-            Pat::ConstantsAt15 => self.integer(p, numbers::Base::Hex),
-            Pat::EntitiesAt0 => self.section(p),
-            Pat::EntitiesAt1 => self.global(p),
-            Pat::EntitiesAt2 => self.dollar_name(p),
-            Pat::EntitiesAt3 => self.special_label(p),
-            Pat::EntitiesAt4 => self.label(p, labels::Head::Name),
-            Pat::EntitiesAt5 => self.local_number(p),
-            Pat::EntitiesAt6 => self.label(p, labels::Head::Invalid),
-            Pat::SupportAt0 => self.listed(
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Word => self.word(p),
+            Pattern::ConstantsAt0 => self.prefixed_fraction(p, numbers::Base::Binary),
+            Pattern::ConstantsAt1 => self.prefixed_exponent(p, numbers::Base::Binary),
+            Pattern::ConstantsAt2 => self.prefixed_fraction(p, numbers::Base::Octal),
+            Pattern::ConstantsAt3 => self.prefixed_exponent(p, numbers::Base::Octal),
+            Pattern::ConstantsAt4 => self.decimal_fraction(p),
+            Pattern::ConstantsAt5 => self.decimal_exponent(p),
+            Pattern::ConstantsAt6 => self.packed_bcd(p),
+            Pattern::ConstantsAt7 => self.prefixed_fraction(p, numbers::Base::Hex),
+            Pattern::ConstantsAt8 => self.prefixed_exponent(p, numbers::Base::Hex),
+            Pattern::ConstantsAt9 => self.dollar_fraction(p),
+            Pattern::ConstantsAt10 => self.dollar_exponent(p),
+            Pattern::ConstantsAt11 => self.integer(p, numbers::Base::Binary),
+            Pattern::ConstantsAt12 => self.integer(p, numbers::Base::Octal),
+            Pattern::ConstantsAt13 => self.decimal(p),
+            Pattern::ConstantsAt14 => self.dollar_hex(p),
+            Pattern::ConstantsAt15 => self.integer(p, numbers::Base::Hex),
+            Pattern::EntitiesAt0 => self.section(p),
+            Pattern::EntitiesAt1 => self.global(p),
+            Pattern::EntitiesAt2 => self.dollar_name(p),
+            Pattern::EntitiesAt3 => self.special_label(p),
+            Pattern::EntitiesAt4 => self.label(p, labels::Head::Name),
+            Pattern::EntitiesAt5 => self.local_number(p),
+            Pattern::EntitiesAt6 => self.label(p, labels::Head::Invalid),
+            Pattern::SupportAt0 => self.listed(
                 p,
                 words::SUPPORT_AT0,
                 Case::Folded(words::SUPPORT_AT0_SPELLINGS),
             ),
-            Pat::SupportAt1 => self.listed(
+            Pattern::SupportAt1 => self.listed(
                 p,
                 words::SUPPORT_AT1,
                 Case::Folded(words::SUPPORT_AT1_SPELLINGS),
             ),
-            Pat::SupportAt2 => self.listed(
+            Pattern::SupportAt2 => self.listed(
                 p,
                 words::SUPPORT_AT2,
                 Case::Folded(words::SUPPORT_AT2_SPELLINGS),
             ),
-            Pat::SupportAt3 => self.listed(
+            Pattern::SupportAt3 => self.listed(
                 p,
                 words::SUPPORT_AT3,
                 Case::Folded(words::SUPPORT_AT3_SPELLINGS),
             ),
-            Pat::SupportAt4 => self.listed(
+            Pattern::SupportAt4 => self.listed(
                 p,
                 words::SUPPORT_AT4,
                 Case::Folded(words::SUPPORT_AT4_SPELLINGS),
             ),
-            Pat::SupportAt5 => self.braced(p, words::SUPPORT_AT5),
-            Pat::SupportAt6 => self.braced(p, words::SUPPORT_AT6),
-            Pat::SupportAt7 => self.braced(p, words::SUPPORT_AT7),
-            Pat::SupportAt8 => self.braced(p, words::SUPPORT_AT8),
-            Pat::SupportAt9 => self.dotted(p),
-            Pat::SupportAt10 => self.literal(p, words::SUPPORT_AT10),
-            Pat::SupportAt11 => self.literal(p, words::SUPPORT_AT11),
-            Pat::SupportAt12 => self.literal(p, words::SUPPORT_AT12),
-            Pat::SupportAt13 => self.literal(p, words::SUPPORT_AT13),
-            Pat::SupportAt14 => self.literal(p, words::SUPPORT_AT14),
-            Pat::SupportAt15 => self.literal(p, words::SUPPORT_AT15),
-            Pat::SupportAt16 => self.marked_name(p, b"__?USE_", b"?__"),
-            Pat::SupportAt17 => self.literal(p, words::SUPPORT_AT17),
-            Pat::SupportAt18 => self.literal(p, words::SUPPORT_AT18),
-            Pat::SupportAt19 => self.marked_name(p, b"__?ALIGN_", b"?__"),
-            Pat::SupportAt20 => self.literal(p, words::SUPPORT_AT20),
-            Pat::SupportAt21 => self.literal(p, words::SUPPORT_AT21),
-            Pat::SupportAt22 => self.literal(p, words::SUPPORT_AT22),
-            Pat::SupportAt23 => self.literal(p, words::SUPPORT_AT23),
-            Pat::SupportAt24 => self.underscored_name(p, b"__USE_"),
-            Pat::SupportAt25 => self.literal(p, words::SUPPORT_AT25),
-            Pat::SupportAt26 => self.literal(p, words::SUPPORT_AT26),
-            Pat::SupportAt27 => self.underscored_name(p, b"__ALIGN_"),
-            Pat::SupportAt28 => self.listed(p, words::SUPPORT_AT28, Case::Exact),
-            Pat::SupportAt29 => self.listed(p, words::SUPPORT_AT29, Case::Exact),
-            Pat::SupportAt30 => self.listed(
+            Pattern::SupportAt5 => self.braced(p, words::SUPPORT_AT5),
+            Pattern::SupportAt6 => self.braced(p, words::SUPPORT_AT6),
+            Pattern::SupportAt7 => self.braced(p, words::SUPPORT_AT7),
+            Pattern::SupportAt8 => self.braced(p, words::SUPPORT_AT8),
+            Pattern::SupportAt9 => self.dotted(p),
+            Pattern::SupportAt10 => self.literal(p, words::SUPPORT_AT10),
+            Pattern::SupportAt11 => self.literal(p, words::SUPPORT_AT11),
+            Pattern::SupportAt12 => self.literal(p, words::SUPPORT_AT12),
+            Pattern::SupportAt13 => self.literal(p, words::SUPPORT_AT13),
+            Pattern::SupportAt14 => self.literal(p, words::SUPPORT_AT14),
+            Pattern::SupportAt15 => self.literal(p, words::SUPPORT_AT15),
+            Pattern::SupportAt16 => self.marked_name(p, b"__?USE_", b"?__"),
+            Pattern::SupportAt17 => self.literal(p, words::SUPPORT_AT17),
+            Pattern::SupportAt18 => self.literal(p, words::SUPPORT_AT18),
+            Pattern::SupportAt19 => self.marked_name(p, b"__?ALIGN_", b"?__"),
+            Pattern::SupportAt20 => self.literal(p, words::SUPPORT_AT20),
+            Pattern::SupportAt21 => self.literal(p, words::SUPPORT_AT21),
+            Pattern::SupportAt22 => self.literal(p, words::SUPPORT_AT22),
+            Pattern::SupportAt23 => self.literal(p, words::SUPPORT_AT23),
+            Pattern::SupportAt24 => self.underscored_name(p, b"__USE_"),
+            Pattern::SupportAt25 => self.literal(p, words::SUPPORT_AT25),
+            Pattern::SupportAt26 => self.literal(p, words::SUPPORT_AT26),
+            Pattern::SupportAt27 => self.underscored_name(p, b"__ALIGN_"),
+            Pattern::SupportAt28 => self.listed(p, words::SUPPORT_AT28, Case::Exact),
+            Pattern::SupportAt29 => self.listed(p, words::SUPPORT_AT29, Case::Exact),
+            Pattern::SupportAt30 => self.listed(
                 p,
                 words::SUPPORT_AT30,
                 Case::Folded(words::SUPPORT_AT30_SPELLINGS),
             ),
-            Pat::CommentsAt0 => self.line_comment(p),
-            Pat::CommentsAt1 => self.lit(p, b"/*"),
-            Pat::CommentsAt1End => self.lit(p, b"*/"),
-            Pat::CommentsAt2 => self.if_zero(p),
-            Pat::CommentsAt2End => self.directive_line(p, &[b"endif"], directives::After::Boundary),
-            Pat::PreprocessorAt0 => {
+            Pattern::CommentsAt0 => self.line_comment(p),
+            Pattern::CommentsAt1 => self.lit(p, b"/*"),
+            Pattern::CommentsAt1End => self.lit(p, b"*/"),
+            Pattern::CommentsAt2 => self.if_zero(p),
+            Pattern::CommentsAt2End => {
+                self.directive_line(p, &[b"endif"], directives::After::Boundary)
+            }
+            Pattern::PreprocessorAt0 => {
                 self.directive_line(p, words::PREPROCESSOR_AT0, directives::After::Boundary)
             }
-            Pat::PreprocessorAt1 => {
+            Pattern::PreprocessorAt1 => {
                 self.directive_line(p, words::PREPROCESSOR_AT1, directives::After::Blanks)
             }
-            Pat::PreprocessorAt2 => {
+            Pattern::PreprocessorAt2 => {
                 self.directive_line(p, words::PREPROCESSOR_AT2, directives::After::Boundary)
             }
-            Pat::PreprocessorAt3 => {
+            Pattern::PreprocessorAt3 => {
                 self.directive_line(p, words::PREPROCESSOR_AT3, directives::After::Boundary)
             }
-            Pat::PreprocessorAt0End | Pat::PreprocessorAt3End => self.at_eol(p).then_some(p),
-            Pat::PreprocessorAt1End | Pat::PreprocessorAt2End => self.directive_end(p),
-            Pat::PreprocessorAt0At0
-            | Pat::PreprocessorAt1At0
-            | Pat::PreprocessorAt2At0
-            | Pat::PreprocessorAt3At0 => self.continuation(p),
-            Pat::PreprocessorFunctionsAt0 => self.function(p),
-            Pat::PreprocessorFunctionsAt0End => self.function_end(p),
-            Pat::PreprocessorAt1At1 | Pat::PreprocessorAt1At1End => self.lit(p, b"\""),
-            Pat::PreprocessorAt1At2 => self.lit(p, b"<"),
-            Pat::PreprocessorAt1At2End => self.lit(p, b">"),
+            Pattern::PreprocessorAt0End | Pattern::PreprocessorAt3End => {
+                self.at_eol(p).then_some(p)
+            }
+            Pattern::PreprocessorAt1End | Pattern::PreprocessorAt2End => self.directive_end(p),
+            Pattern::PreprocessorAt0At0
+            | Pattern::PreprocessorAt1At0
+            | Pattern::PreprocessorAt2At0
+            | Pattern::PreprocessorAt3At0 => self.continuation(p),
+            Pattern::PreprocessorFunctionsAt0 => self.function(p),
+            Pattern::PreprocessorFunctionsAt0End => self.function_end(p),
+            Pattern::PreprocessorAt1At1 | Pattern::PreprocessorAt1At1End => self.lit(p, b"\""),
+            Pattern::PreprocessorAt1At2 => self.lit(p, b"<"),
+            Pattern::PreprocessorAt1At2End => self.lit(p, b">"),
         }
     }
 
@@ -251,7 +255,7 @@ impl Lexer<'_> {
         None
     }
 
-    /// `Pat::Word`: a register or a mnemonic, the whole run of `\w` at `p`,
+    /// `Pattern::Word`: a register or a mnemonic, the whole run of `\w` at `p`,
     /// scoped with the name of the first merged pattern that lists it.
     fn word(&mut self, p: usize) -> Option<usize> {
         let (end, owner) = self.word_owner(p)?;

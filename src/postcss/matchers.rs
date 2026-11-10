@@ -12,7 +12,7 @@
 //! language embeds PostCSS, as vscode-textmate's does.
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::bytes;
 use crate::classes::{is_digit, is_space};
 use crate::rules::Chars;
@@ -189,102 +189,106 @@ fn is_property(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms follow the grammar's order: comments, strings and
     /// interpolations, values, at-rules, selectors, then properties.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::RootAt0 => self.lit(p, b"/*"),
-            Pat::RootAt0End => self.lit(p, b"*/"),
-            Pat::CommentTag => self.lit(p, b"{{"),
-            Pat::CommentTagEnd => self.lit(p, b"}}"),
-            Pat::CommentTagAt0 | Pat::RootAt13At0 | Pat::PropertyValue => self.dash_words(p),
-            Pat::DoubleSlash => self.lit(p, b"//"),
-            Pat::DoubleSlashEnd => self.at_eol(p).then_some(p),
-            Pat::DoubleQuoted | Pat::DoubleQuotedEnd => self.lit(p, b"\""),
-            Pat::SingleQuoted | Pat::SingleQuotedEnd => self.lit(p, b"'"),
-            Pat::QuotedInterpolation | Pat::Interpolation => self.lit(p, b"#{"),
-            Pat::QuotedInterpolationEnd | Pat::InterpolationEnd => self.lit(p, b"}"),
-            Pat::Variable => self.dash_words(self.lit(p, b"$")?),
-            Pat::Numeric => self.numeric(p),
-            Pat::Operator => self.operator(p),
-            Pat::Unit => self.unit(p),
-            Pat::PlaceholderSelector => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::RootAt0 => self.lit(p, b"/*"),
+            Pattern::RootAt0End => self.lit(p, b"*/"),
+            Pattern::CommentTag => self.lit(p, b"{{"),
+            Pattern::CommentTagEnd => self.lit(p, b"}}"),
+            Pattern::CommentTagAt0 | Pattern::RootAt13At0 | Pattern::PropertyValue => {
+                self.dash_words(p)
+            }
+            Pattern::DoubleSlash => self.lit(p, b"//"),
+            Pattern::DoubleSlashEnd => self.at_eol(p).then_some(p),
+            Pattern::DoubleQuoted | Pattern::DoubleQuotedEnd => self.lit(p, b"\""),
+            Pattern::SingleQuoted | Pattern::SingleQuotedEnd => self.lit(p, b"'"),
+            Pattern::QuotedInterpolation | Pattern::Interpolation => self.lit(p, b"#{"),
+            Pattern::QuotedInterpolationEnd | Pattern::InterpolationEnd => self.lit(p, b"}"),
+            Pattern::Variable => self.dash_words(self.lit(p, b"$")?),
+            Pattern::Numeric => self.numeric(p),
+            Pattern::Operator => self.operator(p),
+            Pattern::Unit => self.unit(p),
+            Pattern::PlaceholderSelector => {
                 let end = self.lit(p, b"%")?;
                 (!self.digit_before(p) && !self.digit_at(end)).then_some(end)
             }
-            Pat::PlaceholderSelectorEnd => self
+            Pattern::PlaceholderSelectorEnd => self
                 .line_end(p)
                 .or_else(|| self.space(p))
                 .or_else(|| matches!(self.at(p), b';' | b'{').then_some(p)),
-            Pat::VariableRootCss => {
+            Pattern::VariableRootCss => {
                 if self.prev(p) == Some(b'&') {
                     return None;
                 }
                 self.dash_words(self.lit(p, b"--")?)
             }
-            Pat::Flag => {
+            Pattern::Flag => {
                 let name = self.lit(p, b"!")?;
                 FLAGS.iter().find_map(|flag| self.lit(name, flag))
             }
-            Pat::Dotdotdot => self.lit(p, b"..."),
-            Pat::RootAt12 => self.lit(p, b"@include"),
-            Pat::RootAt12End => matches!(self.at(p), b'\n' | b'(' | b';' | b'{').then_some(p),
-            Pat::RootAt13 => {
+            Pattern::Dotdotdot => self.lit(p, b"..."),
+            Pattern::RootAt12 => self.lit(p, b"@include"),
+            Pattern::RootAt12End => matches!(self.at(p), b'\n' | b'(' | b';' | b'{').then_some(p),
+            Pattern::RootAt13 => {
                 let name = self.lit(p, b"@")?;
                 self.lit(name, b"mixin")
                     .or_else(|| self.lit(name, b"function"))
             }
-            Pat::RootAt13End => self
+            Pattern::RootAt13End => self
                 .line_end(p)
                 .or_else(|| matches!(self.at(p), b'(' | b'{').then_some(p)),
-            Pat::RootAt14 => self.import_path(p),
-            Pat::RootAt15 => self.lit(p, b"@"),
-            Pat::RootAt15End => self.at_rule_end(p),
-            Pat::RootAt16 => self.lit(p, b"#"),
-            Pat::RootAt16End => self.line_end(p).or_else(|| {
+            Pattern::RootAt14 => self.import_path(p),
+            Pattern::RootAt15 => self.lit(p, b"@"),
+            Pattern::RootAt15End => self.at_rule_end(p),
+            Pattern::RootAt16 => self.lit(p, b"#"),
+            Pattern::RootAt16End => self.line_end(p).or_else(|| {
                 (matches!(
                     self.at(p),
                     b'(' | b')' | b',' | b'.' | b';' | b'>' | b'[' | b'{'
                 ) || self.space_at(p) > 0)
                     .then_some(p)
             }),
-            Pat::PseudoClass => self.pseudo_class(p),
-            Pat::RootAt17 => self.class_head(p),
-            Pat::RootAt17End => self.line_end(p).or_else(|| {
+            Pattern::PseudoClass => self.pseudo_class(p),
+            Pattern::RootAt17 => self.class_head(p),
+            Pattern::RootAt17End => self.line_end(p).or_else(|| {
                 (matches!(self.at(p), b'(' | b')' | b',' | b';' | b'>' | b'[' | b'{')
                     || self.space_at(p) > 0)
                     .then_some(p)
             }),
-            Pat::RootAt18 => self.lit(p, b"["),
-            Pat::RootAt18End => self.lit(p, b"]"),
-            Pat::RootAt18At2 => matches!(self.at(p), b'$' | b'*' | b'^' | b'~').then_some(p + 1),
-            Pat::RootAt19 => self.selector_pseudo_class(p),
-            Pat::RootAt20 => self.lit(p, b":"),
-            Pat::RootAt20End => self.property_list_end(p),
-            Pat::RgbValue => self.rgb_value(p),
-            Pat::Function => self.function(p),
-            Pat::FunctionContent => self.function_content(p),
-            Pat::FunctionContentVar => {
+            Pattern::RootAt18 => self.lit(p, b"["),
+            Pattern::RootAt18End => self.lit(p, b"]"),
+            Pattern::RootAt18At2 => {
+                matches!(self.at(p), b'$' | b'*' | b'^' | b'~').then_some(p + 1)
+            }
+            Pattern::RootAt19 => self.selector_pseudo_class(p),
+            Pattern::RootAt20 => self.lit(p, b":"),
+            Pattern::RootAt20End => self.property_list_end(p),
+            Pattern::RgbValue => self.rgb_value(p),
+            Pattern::Function => self.function(p),
+            Pattern::FunctionContent => self.function_content(p),
+            Pattern::FunctionContentVar => {
                 if !self.ends_with(p, b"var(") {
                     return None;
                 }
                 let end = self.dash_words(p)?;
                 (self.at(end) == b')').then_some(end)
             }
-            Pat::ParentSelector => self.lit(p, b"&"),
-            Pat::RootAt24 => self.tag(p),
-            Pat::RootAt24End => (matches!(
+            Pattern::ParentSelector => self.lit(p, b"&"),
+            Pattern::RootAt24 => self.tag(p),
+            Pattern::RootAt24End => (matches!(
                 self.at(p),
                 b'-' | b'(' | b')' | b',' | b'.' | b';' | b'>' | b'[' | b'_' | b'{'
             ) || self.space_at(p) > 0)
                 .then_some(p),
-            Pat::RootAt26 => {
+            Pattern::RootAt26 => {
                 let end = self.skip(p, is_property);
                 (end > p && (self.at(end) == b':' || self.starts(end, b"#{"))).then_some(end)
             }
-            Pat::ReservedWords => self.word_in(p, RESERVED),
+            Pattern::ReservedWords => self.word_in(p, RESERVED),
         }
     }
 

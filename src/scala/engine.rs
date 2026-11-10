@@ -1,6 +1,6 @@
 //! Scala on the shared rule engine ([`crate::rules`]): the grammar's types.
 
-use super::grammar::{Nested, Pat, Rule};
+use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -18,7 +18,7 @@ impl Grammar for Scala {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = ();
     type Kept = ();
@@ -30,15 +30,15 @@ impl Grammar for Scala {
     const CAPTURED_EOL: bool = true;
     /// `\s(as)\s` in an import and ` …=` before an XML attribute take one
     /// blank and then require a character that is not a blank
-    /// ([`Pat::takes_one_blank`]).
+    /// ([`Pattern::takes_one_blank`]).
     /// They match only at the last blank of a run.
     /// In a character literal, `(?<!')[^']` can match at the second blank.
     /// `[^']{2,}`, before it in the same list, matches at the first blank of
     /// any run of two or more.
     const BLANK_RUNS: BlankRuns = BlankRuns::ToLast;
 
-    fn takes_one_blank(pat: Pat) -> bool {
-        pat.takes_one_blank()
+    fn takes_one_blank(pattern: Pattern) -> bool {
+        pattern.takes_one_blank()
     }
 
     fn scope(scope: S) -> ScopeName {
@@ -67,26 +67,26 @@ impl Grammar for Scala {
             .map_or(Payload::None, Payload::Backref)
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.definition().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let definition = pat.definition();
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
         (definition.captures, definition.nested)
     }
 
-    fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let definition = pat.definition();
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
         (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat, p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.matcher(pattern, p)
     }
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {

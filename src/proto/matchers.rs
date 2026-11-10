@@ -14,7 +14,7 @@ mod declarations;
 mod values;
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// Whether `b` is in the grammar's `[0-9A-Z_a-z]`.
@@ -28,35 +28,35 @@ fn is_dotted_name(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms follow the grammar's order: comments, the file's statements,
     /// values, declarations, then fields.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::CommentsAt0 => self.lit(p, b"/*"),
-            Pat::CommentsAt0End => self.lit(p, b"*/"),
-            Pat::CommentsAt1 => self.lit(p, b"//"),
-            Pat::CommentsAt1End => self.line_end(p),
-            Pat::Syntax => self.syntax(p),
-            Pat::Package => self.package(p),
-            Pat::Import => self.import(p),
-            Pat::OptionStmt => self.option_statement(p),
-            Pat::OptionStmtEnd
-            | Pat::ReservedEnd
-            | Pat::EnumAt3End
-            | Pat::FieldEnd
-            | Pat::MapfieldEnd => self.semicolon(p),
-            Pat::Constants => self.constant(p),
-            Pat::Number => self.number(p),
-            Pat::String => self.string(p),
-            Pat::SubMsgOption => self.lit(p, b"{"),
-            Pat::SubMsgOptionEnd
-            | Pat::MessageEnd
-            | Pat::EnumEnd
-            | Pat::ServiceEnd
-            | Pat::OneofEnd => self.lit(p, b"}"),
-            Pat::Kv => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::CommentsAt0 => self.lit(p, b"/*"),
+            Pattern::CommentsAt0End => self.lit(p, b"*/"),
+            Pattern::CommentsAt1 => self.lit(p, b"//"),
+            Pattern::CommentsAt1End => self.line_end(p),
+            Pattern::Syntax => self.syntax(p),
+            Pattern::Package => self.package(p),
+            Pattern::Import => self.import(p),
+            Pattern::OptionStmt => self.option_statement(p),
+            Pattern::OptionStmtEnd
+            | Pattern::ReservedEnd
+            | Pattern::EnumAt3End
+            | Pattern::FieldEnd
+            | Pattern::MapfieldEnd => self.semicolon(p),
+            Pattern::Constants => self.constant(p),
+            Pattern::Number => self.number(p),
+            Pattern::String => self.string(p),
+            Pattern::SubMsgOption => self.lit(p, b"{"),
+            Pattern::SubMsgOptionEnd
+            | Pattern::MessageEnd
+            | Pattern::EnumEnd
+            | Pattern::ServiceEnd
+            | Pattern::OneofEnd => self.lit(p, b"}"),
+            Pattern::Kv => {
                 let end = self.word_end(p);
                 let colon = self.space_end(end);
                 if end == p || self.at(colon) != b':' {
@@ -66,15 +66,15 @@ impl Lexer<'_> {
                 self.cap(2, colon, colon + 1);
                 Some(colon + 1)
             }
-            Pat::KvEnd => match self.at(p) {
+            Pattern::KvEnd => match self.at(p) {
                 b';' => self.semicolon(p),
                 b',' => Some(p + 1),
                 b'/' | b'}' | b'_' => Some(p),
                 b if b.is_ascii_alphabetic() => Some(p),
                 _ => None,
             },
-            Pat::Message => self.block_head(p, &[b"message", b"extend"], NameStart::Any),
-            Pat::Reserved => {
+            Pattern::Message => self.block_head(p, &[b"message", b"extend"], NameStart::Any),
+            Pattern::Reserved => {
                 let end = self.lit(p, b"reserved")?;
                 let blanks = self.space_end(end);
                 if blanks == end {
@@ -83,12 +83,12 @@ impl Lexer<'_> {
                 self.cap(1, p, end);
                 Some(blanks)
             }
-            Pat::ReservedAt0 => self.reserved_range(p),
-            Pat::Enum => self.block_head(p, &[b"enum"], NameStart::Letter),
-            Pat::EnumAt3 => self.enum_value(p),
-            Pat::FieldOptions => self.lit(p, b"["),
-            Pat::FieldOptionsEnd => self.lit(p, b"]"),
-            Pat::OptionName => {
+            Pattern::ReservedAt0 => self.reserved_range(p),
+            Pattern::Enum => self.block_head(p, &[b"enum"], NameStart::Letter),
+            Pattern::EnumAt3 => self.enum_value(p),
+            Pattern::FieldOptions => self.lit(p, b"["),
+            Pattern::FieldOptionsEnd => self.lit(p, b"]"),
+            Pattern::OptionName => {
                 let name = self.option_name(p)?;
                 self.cap(1, p, name.first);
                 if let Some((start, end)) = name.inner {
@@ -99,8 +99,8 @@ impl Lexer<'_> {
                 }
                 Some(name.end)
             }
-            Pat::Service => self.named_head(p, b"service", is_dotted_name),
-            Pat::Method => {
+            Pattern::Service => self.named_head(p, b"service", is_dotted_name),
+            Pattern::Method => {
                 let end = self.lit(p, b"rpc")?;
                 let name = self.space_end(end);
                 if name == end || !self.at(name).is_ascii_alphabetic() {
@@ -111,21 +111,21 @@ impl Lexer<'_> {
                 self.cap(2, name, name_end);
                 Some(name_end)
             }
-            Pat::MethodEnd => match self.at(p) {
+            Pattern::MethodEnd => match self.at(p) {
                 b'}' => Some(p + 1),
                 b';' => self.semicolon(p),
                 _ => None,
             },
-            Pat::RpcKeywords => self.word_in(p, &[b"stream", b"returns"]),
-            Pat::Ident => {
+            Pattern::RpcKeywords => self.word_in(p, &[b"stream", b"returns"]),
+            Pattern::Ident => {
                 let start = if self.at(p) == b'.' { p + 1 } else { p };
                 self.at(start)
                     .is_ascii_alphabetic()
                     .then(|| self.skip(start + 1, is_dotted_name))
             }
-            Pat::Oneof => self.named_head(p, b"oneof", is_name),
-            Pat::Field => self.field(p),
-            Pat::Mapfield => self.map_field(p),
+            Pattern::Oneof => self.named_head(p, b"oneof", is_name),
+            Pattern::Field => self.field(p),
+            Pattern::Mapfield => self.map_field(p),
         }
     }
 

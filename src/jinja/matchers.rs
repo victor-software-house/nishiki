@@ -13,7 +13,7 @@
 //! [`crate::classes`].
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// The keywords of `Keywords` that are one word, in the grammar's order.
@@ -30,44 +30,46 @@ const KEYWORDS: &[&[u8]] = &[
 ];
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Raw => self.raw_tag(p, b"raw"),
-            Pat::RawEnd => self.raw_tag(p, b"endraw"),
-            Pat::Comments => self.opener(p, b"{#"),
-            Pat::CommentsEnd => self.closer(p, b"#}"),
-            Pat::Output => self.opener(p, b"{{"),
-            Pat::OutputEnd => self.closer(p, b"}}"),
-            Pat::Statement => self.opener(p, b"{%"),
-            Pat::StatementEnd => self.closer(p, b"%}"),
-            Pat::Block => self.keyword_and_name(p, b"block"),
-            Pat::Filter => self.keyword_and_name(p, b"filter"),
-            Pat::Is => self.keyword_and_name(p, b"is"),
-            Pat::TagName => self.tag_name(p),
-            Pat::Keywords => self.keyword(p),
-            Pat::Constants => self.word_in(p, &[b"true", b"false", b"none"]),
-            Pat::Builtins => self.word_in(p, &[b"loop", b"super", b"self", b"varargs", b"kwargs"]),
-            Pat::Name => self.name(p),
-            Pat::Arithmetic => self.arithmetic(p),
-            Pat::FilterCall => self.mark_and_name(p, b"|"),
-            Pat::Member => self.mark_and_name(p, b"."),
-            Pat::Brackets => self.lit(p, b"["),
-            Pat::BracketsEnd => self.lit(p, b"]"),
-            Pat::Parens => self.lit(p, b"("),
-            Pat::ParensEnd => self.lit(p, b")"),
-            Pat::Braces => self.lit(p, b"{"),
-            Pat::BracesEnd => self.lit(p, b"}"),
-            Pat::Punctuation => self.punctuation(p),
-            Pat::Comparison => self.comparison(p),
-            Pat::Assignment => self.lit(p, b"="),
-            Pat::DoubleString | Pat::DoubleStringEnd => self.lit(p, b"\""),
-            Pat::SingleString | Pat::SingleStringEnd => self.lit(p, b"'"),
-            Pat::Regex => self.lit(p, b"@/"),
-            Pat::RegexEnd => self.lit(p, b"/"),
-            Pat::SimpleEscapes => self.simple_escape(p),
-            Pat::EscapedChar => self.hex_escape(p),
-            Pat::EscapedUnicodeChar => self.unicode_escape(p),
+    /// Whether `pattern` matches at `p`, and where its match ends.
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Raw => self.raw_tag(p, b"raw"),
+            Pattern::RawEnd => self.raw_tag(p, b"endraw"),
+            Pattern::Comments => self.opener(p, b"{#"),
+            Pattern::CommentsEnd => self.closer(p, b"#}"),
+            Pattern::Output => self.opener(p, b"{{"),
+            Pattern::OutputEnd => self.closer(p, b"}}"),
+            Pattern::Statement => self.opener(p, b"{%"),
+            Pattern::StatementEnd => self.closer(p, b"%}"),
+            Pattern::Block => self.keyword_and_name(p, b"block"),
+            Pattern::Filter => self.keyword_and_name(p, b"filter"),
+            Pattern::Is => self.keyword_and_name(p, b"is"),
+            Pattern::TagName => self.tag_name(p),
+            Pattern::Keywords => self.keyword(p),
+            Pattern::Constants => self.word_in(p, &[b"true", b"false", b"none"]),
+            Pattern::Builtins => {
+                self.word_in(p, &[b"loop", b"super", b"self", b"varargs", b"kwargs"])
+            }
+            Pattern::Name => self.name(p),
+            Pattern::Arithmetic => self.arithmetic(p),
+            Pattern::FilterCall => self.mark_and_name(p, b"|"),
+            Pattern::Member => self.mark_and_name(p, b"."),
+            Pattern::Brackets => self.lit(p, b"["),
+            Pattern::BracketsEnd => self.lit(p, b"]"),
+            Pattern::Parens => self.lit(p, b"("),
+            Pattern::ParensEnd => self.lit(p, b")"),
+            Pattern::Braces => self.lit(p, b"{"),
+            Pattern::BracesEnd => self.lit(p, b"}"),
+            Pattern::Punctuation => self.punctuation(p),
+            Pattern::Comparison => self.comparison(p),
+            Pattern::Assignment => self.lit(p, b"="),
+            Pattern::DoubleString | Pattern::DoubleStringEnd => self.lit(p, b"\""),
+            Pattern::SingleString | Pattern::SingleStringEnd => self.lit(p, b"'"),
+            Pattern::Regex => self.lit(p, b"@/"),
+            Pattern::RegexEnd => self.lit(p, b"/"),
+            Pattern::SimpleEscapes => self.simple_escape(p),
+            Pattern::EscapedChar => self.hex_escape(p),
+            Pattern::EscapedUnicodeChar => self.unicode_escape(p),
         }
     }
 

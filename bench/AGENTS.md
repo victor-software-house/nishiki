@@ -80,7 +80,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
       Each language's copies are placed in one codegen unit.
       At the default sixteen units, a call from another module cannot be inlined unless the callee is `#[inline]`.
     - On 2026-11-03 that alone cost C 1.1% and the SQL port 7.6% more instructions at sixteen units than at one.
-      Marking C's `match_pat` and SQL's `hit` and `pat_at` took both below their counts before the port.
+      Marking C's `match_pattern` and SQL's `hit` and `pattern_at` took both below their counts before the port.
     - The engine's own accessors were not the cause.
       Marking nine of them changed nothing.
     - The Callgrind job prints a note when a language's head runs more than 3% more instructions at sixteen units than at one.

@@ -6,7 +6,7 @@
 
 use crate::classes;
 use crate::python::engine::{Ahead, Lexer};
-use crate::python::grammar::{Flavour, Re, RegexpPat};
+use crate::python::grammar::{Flavour, Re, RegexpPattern};
 use crate::rules::Chars;
 
 impl Flavour {
@@ -27,59 +27,63 @@ impl Flavour {
 }
 
 impl Lexer<'_> {
-    pub(super) fn regexp_matcher(&mut self, pat: RegexpPat, p: usize) -> Option<usize> {
-        match pat {
-            RegexpPat::RegexpSingleOneLine => self.regexp_begin(p, Flavour::SingleOne),
-            RegexpPat::RegexpDoubleOneLine => self.regexp_begin(p, Flavour::DoubleOne),
-            RegexpPat::RegexpSingleThreeLine => self.regexp_begin(p, Flavour::SingleThree),
-            RegexpPat::RegexpDoubleThreeLine => self.regexp_begin(p, Flavour::DoubleThree),
-            RegexpPat::RegexpSingleOneLineEnd => self.regexp_line_end(p, Flavour::SingleOne),
-            RegexpPat::RegexpDoubleOneLineEnd => self.regexp_line_end(p, Flavour::DoubleOne),
-            RegexpPat::RegexpSingleThreeLineEnd => self.regexp_line_end(p, Flavour::SingleThree),
-            RegexpPat::RegexpDoubleThreeLineEnd => self.regexp_line_end(p, Flavour::DoubleThree),
-            RegexpPat::CommentsStringSingleThree | RegexpPat::CommentsStringDoubleThree => {
+    pub(super) fn regexp_matcher(&mut self, pattern: RegexpPattern, p: usize) -> Option<usize> {
+        match pattern {
+            RegexpPattern::RegexpSingleOneLine => self.regexp_begin(p, Flavour::SingleOne),
+            RegexpPattern::RegexpDoubleOneLine => self.regexp_begin(p, Flavour::DoubleOne),
+            RegexpPattern::RegexpSingleThreeLine => self.regexp_begin(p, Flavour::SingleThree),
+            RegexpPattern::RegexpDoubleThreeLine => self.regexp_begin(p, Flavour::DoubleThree),
+            RegexpPattern::RegexpSingleOneLineEnd => self.regexp_line_end(p, Flavour::SingleOne),
+            RegexpPattern::RegexpDoubleOneLineEnd => self.regexp_line_end(p, Flavour::DoubleOne),
+            RegexpPattern::RegexpSingleThreeLineEnd => {
+                self.regexp_line_end(p, Flavour::SingleThree)
+            }
+            RegexpPattern::RegexpDoubleThreeLineEnd => {
+                self.regexp_line_end(p, Flavour::DoubleThree)
+            }
+            RegexpPattern::CommentsStringSingleThree | RegexpPattern::CommentsStringDoubleThree => {
                 self.cap_hash(p)
             }
-            RegexpPat::CommentsStringSingleThreeEnd => {
+            RegexpPattern::CommentsStringSingleThreeEnd => {
                 (self.at_eol(p) || self.starts(p, b"'''")).then_some(p)
             }
-            RegexpPat::CommentsStringDoubleThreeEnd => {
+            RegexpPattern::CommentsStringDoubleThreeEnd => {
                 (self.at_eol(p) || self.starts(p, b"\"\"\"")).then_some(p)
             }
-            RegexpPat::RegexpQuantifier => self.quantifier(p),
-            RegexpPat::RegexpBaseCommonAt0 => {
+            RegexpPattern::RegexpQuantifier => self.quantifier(p),
+            RegexpPattern::RegexpBaseCommonAt0 => {
                 (self.at(p) == b'.' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpBaseCommonAt1 => {
+            RegexpPattern::RegexpBaseCommonAt1 => {
                 (self.at(p) == b'^' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpBaseCommonAt2 => {
+            RegexpPattern::RegexpBaseCommonAt2 => {
                 (self.at(p) == b'$' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpBaseCommonAt3 => {
+            RegexpPattern::RegexpBaseCommonAt3 => {
                 if !matches!(self.at(p), b'*' | b'+' | b'?') || p >= self.lim() {
                     return None;
                 }
                 Some(p + 1 + usize::from(self.at(p + 1) == b'?' && p + 1 < self.lim()))
             }
-            RegexpPat::RegexpBaseCommonAt4 => {
+            RegexpPattern::RegexpBaseCommonAt4 => {
                 (self.at(p) == b'|' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpEscapeSpecial => (self.at(p) == b'\\'
+            RegexpPattern::RegexpEscapeSpecial => (self.at(p) == b'\\'
                 && b"ABDSWZbdsw".contains(&self.at(p + 1))
                 && p + 1 < self.lim())
             .then_some(p + 2),
-            RegexpPat::RegexpEscapeCharacter => self.escape_character(p),
-            RegexpPat::RegexpEscapeUnicode => self.escape_unicode(p),
-            RegexpPat::RegexpBackreferenceNumber => self.backreference_number(p),
-            RegexpPat::RegexpEscapeCatchall => self.escape_catchall(p),
-            RegexpPat::RegexpFlags => self.flags(p),
-            RegexpPat::RegexpBackreference => self.named_backreference(p),
-            RegexpPat::RegexpCharacterSetEscapesAt0 => (self.at(p) == b'\\'
+            RegexpPattern::RegexpEscapeCharacter => self.escape_character(p),
+            RegexpPattern::RegexpEscapeUnicode => self.escape_unicode(p),
+            RegexpPattern::RegexpBackreferenceNumber => self.backreference_number(p),
+            RegexpPattern::RegexpEscapeCatchall => self.escape_catchall(p),
+            RegexpPattern::RegexpFlags => self.flags(p),
+            RegexpPattern::RegexpBackreference => self.named_backreference(p),
+            RegexpPattern::RegexpCharacterSetEscapesAt0 => (self.at(p) == b'\\'
                 && b"\\abfnrtv".contains(&self.at(p + 1))
                 && p + 1 < self.lim())
             .then_some(p + 2),
-            RegexpPat::RegexpCharacterSetEscapesAt2 => self.octal_escape(p),
+            RegexpPattern::RegexpCharacterSetEscapesAt2 => self.octal_escape(p),
         }
     }
 

@@ -2,14 +2,14 @@
 //! This is the data of the grammar's begin, end and match rules, apart from
 //! where they match.
 
-use super::engine::{Hit, Lexer, Part, Pat, packed};
+use super::engine::{Hit, Lexer, Part, Pattern, packed};
 use super::erb::Erb;
 use super::scope::S;
 use super::state::{
     AttributeRule, Category, ElementClass, Flavor, Namespace, Rule, TagClass, TagRule, name,
     payload_bits,
 };
-use super::vue::{self, TemplateTag, VuePat, VueRule};
+use super::vue::{self, TemplateTag, VuePattern, VueRule};
 
 impl Lexer<'_> {
     /// The scopes of a rule's begin and end text and everything inside it,
@@ -288,56 +288,56 @@ impl Lexer<'_> {
     /// `$1` loses its leading dots, which would make the scope invalid.
     pub(super) fn opens(&mut self, hit: &Hit, top: &super::engine::Frame) -> Option<(Rule, u32)> {
         let [from, to, ..] = hit.at;
-        Some(match hit.pat {
-            Pat::Zero(Rule::ElementStart) => {
+        Some(match hit.pattern {
+            Pattern::Zero(Rule::ElementStart) => {
                 (Rule::ElementStart, packed(payload_bits(top.payload), 0))
             }
-            Pat::Zero(rule) => (rule, 0),
-            Pat::Processing => (Rule::Processing, 0),
-            Pat::Comment => (Rule::Comment, 0),
-            Pat::Doctype => (Rule::Doctype, 0),
-            Pat::Cdata => (Rule::Cdata, 0),
-            Pat::StyleWrap => (Rule::StyleWrap, 0),
-            Pat::ScriptWrap => (Rule::ScriptWrap, 0),
-            Pat::Tag => self.tag_opens(hit, from, to),
-            Pat::Element => {
+            Pattern::Zero(rule) => (rule, 0),
+            Pattern::Processing => (Rule::Processing, 0),
+            Pattern::Comment => (Rule::Comment, 0),
+            Pattern::Doctype => (Rule::Doctype, 0),
+            Pattern::Cdata => (Rule::Cdata, 0),
+            Pattern::StyleWrap => (Rule::StyleWrap, 0),
+            Pattern::ScriptWrap => (Rule::ScriptWrap, 0),
+            Pattern::Tag => self.tag_opens(hit, from, to),
+            Pattern::Element => {
                 let word = self.intern(from, to);
                 (Rule::Element, packed(hit.bits, word))
             }
-            Pat::StyleTag => (Rule::StyleTag, 0),
-            Pat::ScriptTag => (Rule::ScriptTag, 0),
-            Pat::ScriptJs => (Rule::ScriptJsOuter, 0),
-            Pat::Attribute => self.attribute_opens(hit, from, to),
-            Pat::Equals => (value_rule(payload_bits(top.payload)), 0),
-            Pat::Quote => (string_rule(top.rule), hit.bits),
-            Pat::DoctypeQuote => (Rule::DoctypeString, 0),
-            Pat::JsLine => (Rule::JsLineComment, top.payload),
-            Pat::JsBlock => (Rule::JsBlockComment, top.payload),
-            Pat::Erb(erb) => (erb_rule(erb), 0),
-            Pat::Blade(blade) => (Self::blade_opens(blade)?, 0),
-            Pat::Vue(pat) => return self.vue_opens(pat, hit),
-            Pat::End
-            | Pat::Inject
-            | Pat::ElementVoid
-            | Pat::EntityNamed
-            | Pat::EntityDecimal
-            | Pat::EntityHexadecimal
-            | Pat::EntityAmbiguous
-            | Pat::AttributeIllegal
-            | Pat::EqualsIllegal
-            | Pat::CommentIllegal
-            | Pat::DoctypeKeyword
-            | Pat::DoctypeWord
-            | Pat::Unquoted
-            | Pat::UnquotedCss
-            | Pat::UnquotedJs
-            | Pat::JsText
-            | Pat::ErbHash
-            | Pat::BladeMatch(_) => return None,
+            Pattern::StyleTag => (Rule::StyleTag, 0),
+            Pattern::ScriptTag => (Rule::ScriptTag, 0),
+            Pattern::ScriptJs => (Rule::ScriptJsOuter, 0),
+            Pattern::Attribute => self.attribute_opens(hit, from, to),
+            Pattern::Equals => (value_rule(payload_bits(top.payload)), 0),
+            Pattern::Quote => (string_rule(top.rule), hit.bits),
+            Pattern::DoctypeQuote => (Rule::DoctypeString, 0),
+            Pattern::JsLine => (Rule::JsLineComment, top.payload),
+            Pattern::JsBlock => (Rule::JsBlockComment, top.payload),
+            Pattern::Erb(erb) => (erb_rule(erb), 0),
+            Pattern::Blade(blade) => (Self::blade_opens(blade)?, 0),
+            Pattern::Vue(pattern) => return self.vue_opens(pattern, hit),
+            Pattern::End
+            | Pattern::Inject
+            | Pattern::ElementVoid
+            | Pattern::EntityNamed
+            | Pattern::EntityDecimal
+            | Pattern::EntityHexadecimal
+            | Pattern::EntityAmbiguous
+            | Pattern::AttributeIllegal
+            | Pattern::EqualsIllegal
+            | Pattern::CommentIllegal
+            | Pattern::DoctypeKeyword
+            | Pattern::DoctypeWord
+            | Pattern::Unquoted
+            | Pattern::UnquotedCss
+            | Pattern::UnquotedJs
+            | Pattern::JsText
+            | Pattern::ErbHash
+            | Pattern::BladeMatch(_) => return None,
         })
     }
 
-    /// The tag rule a `Pat::Tag` match opens, carrying its `TagRule` and,
+    /// The tag rule a `Pattern::Tag` match opens, carrying its `TagRule` and,
     /// unless it is a custom element, its interned name.
     fn tag_opens(&mut self, hit: &Hit, from: usize, to: usize) -> (Rule, u32) {
         let tag = TagClass::from_bits(hit.bits & 0x3f);
@@ -352,7 +352,7 @@ impl Lexer<'_> {
         (Rule::Tag, packed(hit.bits & 0x3f, word))
     }
 
-    /// The attribute rule a `Pat::Attribute` match opens, carrying its
+    /// The attribute rule a `Pattern::Attribute` match opens, carrying its
     /// `AttributeRule` and, unless it is `style`, its interned name without
     /// leading dots.
     fn attribute_opens(&mut self, hit: &Hit, from: usize, to: usize) -> (Rule, u32) {
@@ -376,17 +376,17 @@ impl Lexer<'_> {
         let base = frame.name;
         let (start, end) = (hit.start, hit.end);
         let [from, to, ..] = hit.at;
-        match hit.pat {
-            Pat::Processing => {
+        match hit.pattern {
+            Pattern::Processing => {
                 self.cap(base, start, start + 2, &[S::TagPunctuation]);
                 self.cap(base, start + 2, end, &[S::NameTag]);
             }
-            Pat::Comment => self.cap(base, start, end, &[S::CommentPunctuation]),
-            Pat::Doctype | Pat::Cdata => self.cap(base, start, end, &[S::TagBegin]),
-            Pat::StyleWrap | Pat::ScriptWrap => {
+            Pattern::Comment => self.cap(base, start, end, &[S::CommentPunctuation]),
+            Pattern::Doctype | Pattern::Cdata => self.cap(base, start, end, &[S::TagBegin]),
+            Pattern::StyleWrap | Pattern::ScriptWrap => {
                 self.cap(base, start, end, &[S::WhitespaceLeading]);
             }
-            Pat::Tag => {
+            Pattern::Tag => {
                 self.cap(base, start, from, &[S::TagBegin]);
                 let rule = TagClass::from_bits(hit.bits & 0x3f).rule;
                 let scopes: &[S] = match (rule, hit.bits >> 8) {
@@ -397,13 +397,13 @@ impl Lexer<'_> {
                 };
                 self.cap(base, from, to, scopes);
             }
-            Pat::Element => self.element_begin_captures(hit, frame),
-            Pat::StyleTag => self.embedded_start(base, start, end, S::TagStyleStart),
-            Pat::ScriptTag => self.embedded_start(base, start, end, S::TagScriptStart),
-            Pat::ScriptJs => {
+            Pattern::Element => self.element_begin_captures(hit, frame),
+            Pattern::StyleTag => self.embedded_start(base, start, end, S::TagStyleStart),
+            Pattern::ScriptTag => self.embedded_start(base, start, end, S::TagScriptStart),
+            Pattern::ScriptJs => {
                 self.cap(base, start, end, &[S::TagScriptStart, S::TagEnd]);
             }
-            Pat::Attribute => {
+            Pattern::Attribute => {
                 let scope = if AttributeRule::from_bits(hit.bits) == AttributeRule::Deprecated {
                     S::AttributeNameDeprecated
                 } else {
@@ -411,11 +411,11 @@ impl Lexer<'_> {
                 };
                 self.cap(base, start, end, &[scope]);
             }
-            Pat::Equals => self.cap(base, start, end, &[S::KeyValue]),
-            Pat::Quote => self.cap(base, start, end, &[S::StringBegin]),
-            Pat::JsLine => self.cap(base, start, end, &[S::CommentPunctuationJs]),
-            Pat::JsBlock => self.cap(base, start, end, &[S::CommentBeginJs]),
-            Pat::Erb(erb) => {
+            Pattern::Equals => self.cap(base, start, end, &[S::KeyValue]),
+            Pattern::Quote => self.cap(base, start, end, &[S::StringBegin]),
+            Pattern::JsLine => self.cap(base, start, end, &[S::CommentPunctuationJs]),
+            Pattern::JsBlock => self.cap(base, start, end, &[S::CommentBeginJs]),
+            Pattern::Erb(erb) => {
                 let scope = match erb {
                     Erb::CommentWrap => S::ErbCommentLeading,
                     Erb::TagWrap => S::ErbEmbeddedLeading,
@@ -424,28 +424,28 @@ impl Lexer<'_> {
                 };
                 self.cap(base, start, end, &[scope]);
             }
-            Pat::Blade(blade) => self.blade_begin_captures(base, blade, start, end),
-            Pat::Vue(pat) => self.vue_begin_captures(hit, pat, frame),
-            Pat::End
-            | Pat::Inject
-            | Pat::Zero(_)
-            | Pat::ElementVoid
-            | Pat::DoctypeQuote
-            | Pat::EntityNamed
-            | Pat::EntityDecimal
-            | Pat::EntityHexadecimal
-            | Pat::EntityAmbiguous
-            | Pat::AttributeIllegal
-            | Pat::EqualsIllegal
-            | Pat::CommentIllegal
-            | Pat::DoctypeKeyword
-            | Pat::DoctypeWord
-            | Pat::Unquoted
-            | Pat::UnquotedCss
-            | Pat::UnquotedJs
-            | Pat::JsText
-            | Pat::ErbHash
-            | Pat::BladeMatch(_) => {}
+            Pattern::Blade(blade) => self.blade_begin_captures(base, blade, start, end),
+            Pattern::Vue(pattern) => self.vue_begin_captures(hit, pattern, frame),
+            Pattern::End
+            | Pattern::Inject
+            | Pattern::Zero(_)
+            | Pattern::ElementVoid
+            | Pattern::DoctypeQuote
+            | Pattern::EntityNamed
+            | Pattern::EntityDecimal
+            | Pattern::EntityHexadecimal
+            | Pattern::EntityAmbiguous
+            | Pattern::AttributeIllegal
+            | Pattern::EqualsIllegal
+            | Pattern::CommentIllegal
+            | Pattern::DoctypeKeyword
+            | Pattern::DoctypeWord
+            | Pattern::Unquoted
+            | Pattern::UnquotedCss
+            | Pattern::UnquotedJs
+            | Pattern::JsText
+            | Pattern::ErbHash
+            | Pattern::BladeMatch(_) => {}
         }
     }
 
@@ -564,29 +564,29 @@ impl Lexer<'_> {
     /// Without the `lang-vue` feature it opens none, and its code folds away.
     #[cold]
     #[inline(never)]
-    fn vue_opens(&mut self, pat: VuePat, hit: &Hit) -> Option<(Rule, u32)> {
+    fn vue_opens(&mut self, pattern: VuePattern, hit: &Hit) -> Option<(Rule, u32)> {
         if !cfg!(feature = "lang-vue") {
             return None;
         }
         let [from, to, ..] = hit.at;
-        Some(match pat {
-            VuePat::CommentKv => (Rule::VueCommentKv, 0),
-            VuePat::Comment => (Rule::VueComment, 0),
-            VuePat::SelfClosing => (Rule::VueSelfClosing, 0),
-            VuePat::Block => (Rule::VueBlock, 0),
-            VuePat::Element => {
+        Some(match pattern {
+            VuePattern::CommentKv => (Rule::VueCommentKv, 0),
+            VuePattern::Comment => (Rule::VueComment, 0),
+            VuePattern::SelfClosing => (Rule::VueSelfClosing, 0),
+            VuePattern::Block => (Rule::VueBlock, 0),
+            VuePattern::Element => {
                 let word = self.intern(from, to);
                 (Rule::VueElement, packed(hit.bits, word))
             }
-            VuePat::LangGroup => (Rule::VueLangGroup, hit.bits),
-            VuePat::TemplateTag => (Rule::VueTemplateTag, hit.bits),
-            VuePat::TemplateTagEnd => (Rule::VueTemplateTagEnd, hit.bits),
-            VuePat::Capitalized => (Rule::VueCapitalized, self.intern(from, to)),
-            VuePat::DirectiveControl => (Rule::VueDirective, 1),
-            VuePat::DirectiveOriginal => (Rule::VueDirective, 0),
-            VuePat::ExprString => (Rule::VueExprString, hit.bits),
-            VuePat::ExprBare => (Rule::VueExprBare, 0),
-            VuePat::Modifier => return None,
+            VuePattern::LangGroup => (Rule::VueLangGroup, hit.bits),
+            VuePattern::TemplateTag => (Rule::VueTemplateTag, hit.bits),
+            VuePattern::TemplateTagEnd => (Rule::VueTemplateTagEnd, hit.bits),
+            VuePattern::Capitalized => (Rule::VueCapitalized, self.intern(from, to)),
+            VuePattern::DirectiveControl => (Rule::VueDirective, 1),
+            VuePattern::DirectiveOriginal => (Rule::VueDirective, 0),
+            VuePattern::ExprString => (Rule::VueExprString, hit.bits),
+            VuePattern::ExprBare => (Rule::VueExprBare, 0),
+            VuePattern::Modifier => return None,
         })
     }
 
@@ -608,32 +608,32 @@ impl Lexer<'_> {
     /// Without the `lang-vue` feature it emits none, and its code folds away.
     #[cold]
     #[inline(never)]
-    fn vue_begin_captures(&mut self, hit: &Hit, pat: VuePat, frame: &super::engine::Frame) {
+    fn vue_begin_captures(&mut self, hit: &Hit, pattern: VuePattern, frame: &super::engine::Frame) {
         if !cfg!(feature = "lang-vue") {
             return;
         }
         let base = frame.name;
         let (start, end) = (hit.start, hit.end);
         let at = hit.at;
-        match pat {
-            VuePat::CommentKv => {
+        match pattern {
+            VuePattern::CommentKv => {
                 self.cap(base, start, start + 4, &[S::VueCommentPunctuation]);
                 self.cap(base, at[0], at[1], &[S::VueBlockTag]);
                 self.cap(base, at[1], end, &[S::VueStorageClass]);
             }
-            VuePat::Comment => self.cap(base, start, end, &[S::VueCommentPunctuation]),
-            VuePat::SelfClosing => {
+            VuePattern::Comment => self.cap(base, start, end, &[S::VueCommentPunctuation]),
+            VuePattern::SelfClosing => {
                 self.cap(base, start, start + 1, &[S::VueTagBegin]);
                 let word = self.intern(at[0], at[1]);
                 let stack = self.vue_tag_name(base, word);
                 self.cap_stack(base, at[0], at[1], stack);
             }
-            VuePat::Block => self.cap(base, start, end, &[S::VueTagBegin]),
-            VuePat::Element => {
+            VuePattern::Block => self.cap(base, start, end, &[S::VueTagBegin]),
+            VuePattern::Element => {
                 let stack = self.vue_tag_name(base, name(frame.payload));
                 self.cap_stack(base, start, end, stack);
             }
-            VuePat::TemplateTag => {
+            VuePattern::TemplateTag => {
                 let tag = TemplateTag::from_bits(hit.bits);
                 self.cap(base, start, start + 1, &[S::VueTagBegin]);
                 let stack = self.dynamic(base, &[Part::Lit("entity.name.tag.template.html.vue")]);
@@ -642,11 +642,11 @@ impl Lexer<'_> {
                     self.cap(base, start + 9, end, &[S::VueTagEnd]);
                 }
             }
-            VuePat::Capitalized => {
+            VuePattern::Capitalized => {
                 self.cap(base, start, start + 1, &[S::VueTagBegin]);
                 self.cap(base, at[0], at[1], &[S::VueNameTag]);
             }
-            VuePat::DirectiveControl => {
+            VuePattern::DirectiveControl => {
                 let scope = if hit.bits == 1 {
                     S::LoopVue
                 } else {
@@ -654,7 +654,7 @@ impl Lexer<'_> {
                 };
                 self.cap(base, start, end, &[scope]);
             }
-            VuePat::DirectiveOriginal => {
+            VuePattern::DirectiveOriginal => {
                 let [name_end, colon_end, argument_start, argument_end, argument] = at;
                 match u8::try_from(hit.bits).unwrap_or(b'v') {
                     b'.' | b':' => self.cap(base, start, name_end, &[S::ShorthandBind]),
@@ -677,12 +677,12 @@ impl Lexer<'_> {
                     vue::Argument::Absent => {}
                 }
             }
-            VuePat::ExprString => {
+            VuePattern::ExprString => {
                 self.cap(base, start, start + 1, &[S::VueKeyValue]);
                 self.cap(base, at[0], end, &[S::VueStringBegin]);
             }
-            VuePat::ExprBare => self.cap(base, start, end, &[S::VueKeyValue]),
-            VuePat::LangGroup | VuePat::TemplateTagEnd | VuePat::Modifier => {}
+            VuePattern::ExprBare => self.cap(base, start, end, &[S::VueKeyValue]),
+            VuePattern::LangGroup | VuePattern::TemplateTagEnd | VuePattern::Modifier => {}
         }
     }
 
@@ -703,8 +703,8 @@ impl Lexer<'_> {
         let base = top.content;
         let (start, end) = (hit.start, hit.end);
         let [from, to, semi, ..] = hit.at;
-        match hit.pat {
-            Pat::EntityNamed => {
+        match hit.pattern {
+            Pattern::EntityNamed => {
                 let word = self.intern(from, to);
                 let stack = self.dynamic(
                     base,
@@ -719,8 +719,8 @@ impl Lexer<'_> {
                 self.cap_stack(base, start + 1, semi, stack);
                 self.cap_stack(base, semi, end, punctuation);
             }
-            Pat::EntityDecimal | Pat::EntityHexadecimal => {
-                let scope = if hit.pat == Pat::EntityDecimal {
+            Pattern::EntityDecimal | Pattern::EntityHexadecimal => {
+                let scope = if hit.pattern == Pattern::EntityDecimal {
                     S::EntityDecimal
                 } else {
                     S::EntityHexadecimal
@@ -730,70 +730,70 @@ impl Lexer<'_> {
                 self.cap_stack(base, start, start + 1, punctuation);
                 self.cap_stack(base, start + 1, end, stack);
             }
-            Pat::EntityAmbiguous => self.cap(base, start, end, &[S::AmbiguousAmpersand]),
-            Pat::AttributeIllegal => self.cap(base, start, end, &[S::CharacterNotAllowed]),
-            Pat::EqualsIllegal => self.cap(base, start, end, &[S::UnexpectedEquals]),
-            Pat::CommentIllegal => self.cap(base, start, end, &[S::CommentIllegal]),
-            Pat::DoctypeKeyword => self.cap(base, start, end, &[S::NameTag]),
-            Pat::DoctypeWord => self.cap(base, start, end, &[S::AttributeName]),
-            Pat::Unquoted => self.cap(base, start, end, &[S::Unquoted]),
-            Pat::UnquotedCss => self.cap(base, start, end, &[S::Unquoted, S::SourceCss]),
-            Pat::UnquotedJs => {
+            Pattern::EntityAmbiguous => self.cap(base, start, end, &[S::AmbiguousAmpersand]),
+            Pattern::AttributeIllegal => self.cap(base, start, end, &[S::CharacterNotAllowed]),
+            Pattern::EqualsIllegal => self.cap(base, start, end, &[S::UnexpectedEquals]),
+            Pattern::CommentIllegal => self.cap(base, start, end, &[S::CommentIllegal]),
+            Pattern::DoctypeKeyword => self.cap(base, start, end, &[S::NameTag]),
+            Pattern::DoctypeWord => self.cap(base, start, end, &[S::AttributeName]),
+            Pattern::Unquoted => self.cap(base, start, end, &[S::Unquoted]),
+            Pattern::UnquotedCss => self.cap(base, start, end, &[S::Unquoted, S::SourceCss]),
+            Pattern::UnquotedJs => {
                 let stack = self.path(base, &[S::Unquoted]);
                 self.javascript(start, end, stack);
             }
-            Pat::JsText => self.javascript(start, end, base),
-            Pat::ErbHash => {
+            Pattern::JsText => self.javascript(start, end, base),
+            Pattern::ErbHash => {
                 let stack = self.path(base, &[S::ErbHashComment]);
                 let punctuation = self.path(stack, &[S::ErbHashPunctuation]);
                 self.cap_stack(base, start, start + 1, punctuation);
                 self.cap_stack(base, start + 1, end, stack);
             }
-            Pat::BladeMatch(blade) => {
+            Pattern::BladeMatch(blade) => {
                 let base = self.blade_base(top.rule, top.state, top.content);
                 self.blade_match_captures(base, blade, start, end);
             }
-            Pat::Vue(VuePat::Modifier) => {
+            Pattern::Vue(VuePattern::Modifier) => {
                 self.cap(base, start, start + 1, &[S::VueKeyValue]);
                 self.cap(base, start + 1, end, &[S::VueAttributeName]);
             }
-            Pat::End
-            | Pat::Inject
-            | Pat::Zero(_)
-            | Pat::Processing
-            | Pat::Comment
-            | Pat::Doctype
-            | Pat::Cdata
-            | Pat::StyleWrap
-            | Pat::ScriptWrap
-            | Pat::Tag
-            | Pat::Element
-            | Pat::ElementVoid
-            | Pat::StyleTag
-            | Pat::ScriptTag
-            | Pat::ScriptJs
-            | Pat::Attribute
-            | Pat::Equals
-            | Pat::Quote
-            | Pat::DoctypeQuote
-            | Pat::JsLine
-            | Pat::JsBlock
-            | Pat::Erb(_)
-            | Pat::Blade(_)
-            | Pat::Vue(
-                VuePat::CommentKv
-                | VuePat::Comment
-                | VuePat::SelfClosing
-                | VuePat::Block
-                | VuePat::Element
-                | VuePat::LangGroup
-                | VuePat::TemplateTag
-                | VuePat::TemplateTagEnd
-                | VuePat::Capitalized
-                | VuePat::DirectiveControl
-                | VuePat::DirectiveOriginal
-                | VuePat::ExprString
-                | VuePat::ExprBare,
+            Pattern::End
+            | Pattern::Inject
+            | Pattern::Zero(_)
+            | Pattern::Processing
+            | Pattern::Comment
+            | Pattern::Doctype
+            | Pattern::Cdata
+            | Pattern::StyleWrap
+            | Pattern::ScriptWrap
+            | Pattern::Tag
+            | Pattern::Element
+            | Pattern::ElementVoid
+            | Pattern::StyleTag
+            | Pattern::ScriptTag
+            | Pattern::ScriptJs
+            | Pattern::Attribute
+            | Pattern::Equals
+            | Pattern::Quote
+            | Pattern::DoctypeQuote
+            | Pattern::JsLine
+            | Pattern::JsBlock
+            | Pattern::Erb(_)
+            | Pattern::Blade(_)
+            | Pattern::Vue(
+                VuePattern::CommentKv
+                | VuePattern::Comment
+                | VuePattern::SelfClosing
+                | VuePattern::Block
+                | VuePattern::Element
+                | VuePattern::LangGroup
+                | VuePattern::TemplateTag
+                | VuePattern::TemplateTagEnd
+                | VuePattern::Capitalized
+                | VuePattern::DirectiveControl
+                | VuePattern::DirectiveOriginal
+                | VuePattern::ExprString
+                | VuePattern::ExprBare,
             ) => {}
         }
     }

@@ -25,7 +25,7 @@
 //! The directives 6 to 14 need no word character, `[0-9@-Z_a-z]`, before
 //! their `@`.
 
-use super::engine::{Hit, Lexer, Part, Pat};
+use super::engine::{Hit, Lexer, Part, Pattern};
 use super::scope::S;
 use super::state::{Injection, Rule};
 use crate::language::Halt;
@@ -705,16 +705,16 @@ impl Halt for PhpHalt {
     }
 }
 
-impl Pat {
-    /// The pattern of a match of `blade`: [`Pat::Blade`] where it opens
-    /// a rule, [`Pat::BladeMatch`] where it opens none.
+impl Pattern {
+    /// The pattern of a match of `blade`: [`Pattern::Blade`] where it opens
+    /// a rule, [`Pattern::BladeMatch`] where it opens none.
     /// The two join the arms of the other patterns that open a rule or not,
     /// so the HTML engine calls each step from one place.
     pub(super) fn blade(blade: Blade) -> Self {
         if Lexer::blade_opens(blade).is_some() {
-            Pat::Blade(blade)
+            Pattern::Blade(blade)
         } else {
-            Pat::BladeMatch(blade)
+            Pattern::BladeMatch(blade)
         }
     }
 }
@@ -843,7 +843,7 @@ impl Lexer<'_> {
     #[inline(never)]
     pub(super) fn blade_end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let rule = rule.blade()?;
-        let one = |len: usize| Hit::new(Pat::End, p, p + len);
+        let one = |len: usize| Hit::new(Pattern::End, p, p + len);
         match rule {
             BladeRule::Comment => self.starts(p, b"--}}").then(|| one(4)),
             BladeRule::CommentPhpWrap | BladeRule::PhpWrap => self.erb_wrap_end(p),
@@ -870,7 +870,7 @@ impl Lexer<'_> {
     pub(super) fn blade_patterns_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let rule = rule.blade()?;
         let text = &self.s[..self.lim];
-        let hit = |(blade, end): (Blade, usize)| Hit::new(Pat::blade(blade), p, end);
+        let hit = |(blade, end): (Blade, usize)| Hit::new(Pattern::blade(blade), p, end);
         match rule {
             BladeRule::Comment => comment_php(text, p).map(hit),
             BladeRule::CommentPhpWrap | BladeRule::PhpWrap => {

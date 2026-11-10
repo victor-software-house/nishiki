@@ -17,7 +17,7 @@ mod selectors;
 mod values;
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// Whether `b` is in the grammar's `[-0-9A-Z_a-z]`.
@@ -31,7 +31,7 @@ fn is_pseudo(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - comments and whole-line rules;
@@ -40,123 +40,127 @@ impl Lexer<'_> {
     /// - at-rules;
     /// - selectors and properties.
     #[expect(clippy::too_many_lines, reason = "one arm per pattern of the grammar")]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::RootAt0 => self.block_comment(p),
-            Pat::RootAt0End => self.block_comment_end(p),
-            Pat::CommentTag => self.starts_before(p, b"{{").then_some(p),
-            Pat::CommentTagEnd => self.starts(p, b"}}").then_some(p),
-            Pat::CommentParam => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::RootAt0 => self.block_comment(p),
+            Pattern::RootAt0End => self.block_comment_end(p),
+            Pattern::CommentTag => self.starts_before(p, b"{{").then_some(p),
+            Pattern::CommentTagEnd => self.starts(p, b"}}").then_some(p),
+            Pattern::CommentParam => {
                 let end = self.lit(p, b"@")?;
                 let word = self.word_end(end);
                 (word > end).then_some(word)
             }
-            Pat::RootAt1 => self.formatter_action(p),
-            Pat::RootAt2 => self.css_variables_import(p),
-            Pat::RootAt2End | Pat::DoubleSlashEnd => self.line_end(p),
-            Pat::PlaceholderSelectorEnd => self.line_end(p).or_else(|| {
+            Pattern::RootAt1 => self.formatter_action(p),
+            Pattern::RootAt2 => self.css_variables_import(p),
+            Pattern::RootAt2End | Pattern::DoubleSlashEnd => self.line_end(p),
+            Pattern::PlaceholderSelectorEnd => self.line_end(p).or_else(|| {
                 let blank = self.space_at(p);
                 (blank > 0).then_some(p + blank)
             }),
-            Pat::RootAt9End => self.map_end(p),
-            Pat::RootAt20End => self
+            Pattern::RootAt9End => self.map_end(p),
+            Pattern::RootAt20End => self
                 .line_end(p)
                 .or_else(|| (self.at(p) == b'(').then_some(p)),
-            Pat::RootAt21End => self.at_rule_end(p),
-            Pat::RootAt22End => self.ends_before(p, b"-#(),.>[_"),
-            Pat::RootAt23End => self.ends_before(p, b"(),.>["),
-            Pat::RootAt24End => self.ends_before(p, b"(),>["),
-            Pat::RootAt30End => self.property_end(p),
-            Pat::ImportQuotes => self.import_quotes(p),
-            Pat::DoubleSlash => self.lit(p, b"//"),
-            Pat::DoubleQuoted | Pat::DoubleQuotedEnd => self.lit(p, b"\""),
-            Pat::SingleQuoted | Pat::SingleQuotedEnd => self.lit(p, b"'"),
-            Pat::QuotedInterpolation | Pat::Interpolation => self.lit(p, b"#{"),
-            Pat::QuotedInterpolationEnd | Pat::InterpolationEnd => self.lit(p, b"}"),
-            Pat::CurlyBrackets => matches!(self.at(p), b'{' | b'}').then_some(p + 1),
-            Pat::Variable | Pat::VariableRoot => self.variable(p),
-            Pat::RootAt9 => {
+            Pattern::RootAt21End => self.at_rule_end(p),
+            Pattern::RootAt22End => self.ends_before(p, b"-#(),.>[_"),
+            Pattern::RootAt23End => self.ends_before(p, b"(),.>["),
+            Pattern::RootAt24End => self.ends_before(p, b"(),>["),
+            Pattern::RootAt30End => self.property_end(p),
+            Pattern::ImportQuotes => self.import_quotes(p),
+            Pattern::DoubleSlash => self.lit(p, b"//"),
+            Pattern::DoubleQuoted | Pattern::DoubleQuotedEnd => self.lit(p, b"\""),
+            Pattern::SingleQuoted | Pattern::SingleQuotedEnd => self.lit(p, b"'"),
+            Pattern::QuotedInterpolation | Pattern::Interpolation => self.lit(p, b"#{"),
+            Pattern::QuotedInterpolationEnd | Pattern::InterpolationEnd => self.lit(p, b"}"),
+            Pattern::CurlyBrackets => matches!(self.at(p), b'{' | b'}').then_some(p + 1),
+            Pattern::Variable | Pattern::VariableRoot => self.variable(p),
+            Pattern::RootAt9 => {
                 let end = self.variable(p)?;
                 (self.at(end) == b':').then_some(end)
             }
-            Pat::Numeric => self.numeric(p),
-            Pat::Operator => self.operator(p),
-            Pat::Unit => self.unit(p),
-            Pat::Comma => {
+            Pattern::Numeric => self.numeric(p),
+            Pattern::Operator => self.operator(p),
+            Pattern::Unit => self.unit(p),
+            Pattern::Comma => {
                 if self.at(p) == b',' {
                     return Some(p + 1);
                 }
                 self.word_in(p, &[b"and", b"or"])
             }
-            Pat::PlaceholderSelector => {
+            Pattern::PlaceholderSelector => {
                 (self.at(p) == b'%' && !self.digit_before(p) && self.digit_end(p + 1) == p + 1)
                     .then_some(p + 1)
             }
-            Pat::RgbValue => self.rgb_value(p),
-            Pat::Flag => {
+            Pattern::RgbValue => self.rgb_value(p),
+            Pattern::Flag => {
                 let end = self.lit(p, b"!")?;
                 [b"important".as_slice(), b"default", b"optional", b"global"]
                     .iter()
                     .find_map(|word| self.lit(end, word))
             }
-            Pat::Function => self.function_name(p),
-            Pat::FunctionContent => [b"url(".as_slice(), b"format(", b"attr("]
+            Pattern::Function => self.function_name(p),
+            Pattern::FunctionContent => [b"url(".as_slice(), b"format(", b"attr("]
                 .iter()
                 .any(|opening| self.starts_before(p, opening))
                 .then_some(p),
-            Pat::FunctionContentEnd => {
+            Pattern::FunctionContentEnd => {
                 if p >= self.lim() {
                     return None;
                 }
                 let end = self.char_end(p);
                 (self.at(end) == b')').then_some(end)
             }
-            Pat::ReservedWords => self.word_in(
+            Pattern::ReservedWords => self.word_in(
                 p,
                 &[
                     b"false", b"from", b"in", b"not", b"null", b"through", b"to", b"true",
                 ],
             ),
-            Pat::ParentSelector => self.lit(p, b"&"),
-            Pat::PropertyValue => {
+            Pattern::ParentSelector => self.lit(p, b"&"),
+            Pattern::PropertyValue => {
                 let end = self.skip(p, is_ident);
                 (end > p).then_some(end)
             }
-            Pat::Semicolon => self.lit(p, b";"),
-            Pat::Dotdotdot => self.lit(p, b"..."),
-            Pat::RootAt17 => self.include(p),
-            Pat::RootAt17End => matches!(self.at(p), b'\n' | b'(').then_some(p),
-            Pat::RootAt18 => (p == 0).then(|| self.lit(p, b"@use")).flatten(),
-            Pat::RootAt18End | Pat::RootAt19End => (self.at(p) == b'\n').then_some(p),
-            Pat::RootAt18At0 => self.lit(p, b"as").or_else(|| self.lit(p, b"with")),
-            Pat::ParenthesisOpen => self.lit(p, b"("),
-            Pat::ParenthesisClose | Pat::RootAt29 | Pat::RootAt30At13 => self.lit(p, b")"),
-            Pat::Colon | Pat::RootAt30 => self.lit(p, b":"),
-            Pat::RootAt19 => self.import(p),
-            Pat::RootAt20 => self.mixin(p),
-            Pat::RootAt20At0 => {
+            Pattern::Semicolon => self.lit(p, b";"),
+            Pattern::Dotdotdot => self.lit(p, b"..."),
+            Pattern::RootAt17 => self.include(p),
+            Pattern::RootAt17End => matches!(self.at(p), b'\n' | b'(').then_some(p),
+            Pattern::RootAt18 => (p == 0).then(|| self.lit(p, b"@use")).flatten(),
+            Pattern::RootAt18End | Pattern::RootAt19End => (self.at(p) == b'\n').then_some(p),
+            Pattern::RootAt18At0 => self.lit(p, b"as").or_else(|| self.lit(p, b"with")),
+            Pattern::ParenthesisOpen => self.lit(p, b"("),
+            Pattern::ParenthesisClose | Pattern::RootAt29 | Pattern::RootAt30At13 => {
+                self.lit(p, b")")
+            }
+            Pattern::Colon | Pattern::RootAt30 => self.lit(p, b":"),
+            Pattern::RootAt19 => self.import(p),
+            Pattern::RootAt20 => self.mixin(p),
+            Pattern::RootAt20At0 => {
                 let end = self.dash_word_end(p);
                 (end > p).then_some(end)
             }
-            Pat::RootAt21 => self.lit(p, b"@"),
-            Pat::RootAt22 => self.tag(p),
-            Pat::PseudoClass => {
+            Pattern::RootAt21 => self.lit(p, b"@"),
+            Pattern::RootAt22 => self.tag(p),
+            Pattern::PseudoClass => {
                 let end = self.lit(p, b":")?;
                 let run = self.skip(end, is_pseudo);
                 (run > end).then_some(run)
             }
-            Pat::RootAt23 => self.lit(p, b"#"),
-            Pat::RootAt24 => self.class_start(p),
-            Pat::RootAt25 => self.lit(p, b"["),
-            Pat::RootAt25End => self.lit(p, b"]"),
-            Pat::RootAt25At2 => matches!(self.at(p), b'$' | b'*' | b'^' | b'~').then_some(p + 1),
-            Pat::RootAt26 => self.line_pseudo_class(p),
-            Pat::Module => self.module(p),
-            Pat::RootAt28 | Pat::RootAt30At12 => {
+            Pattern::RootAt23 => self.lit(p, b"#"),
+            Pattern::RootAt24 => self.class_start(p),
+            Pattern::RootAt25 => self.lit(p, b"["),
+            Pattern::RootAt25End => self.lit(p, b"]"),
+            Pattern::RootAt25At2 => {
+                matches!(self.at(p), b'$' | b'*' | b'^' | b'~').then_some(p + 1)
+            }
+            Pattern::RootAt26 => self.line_pseudo_class(p),
+            Pattern::Module => self.module(p),
+            Pattern::RootAt28 | Pattern::RootAt30At12 => {
                 let end = self.dash_word_end(p);
                 (self.at(end) == b'(').then_some(end + 1)
             }
-            Pat::RootAt30At0 => {
+            Pattern::RootAt30At0 => {
                 if self.prev(p) != Some(b':') {
                     return None;
                 }
@@ -164,16 +168,16 @@ impl Lexer<'_> {
                 let blank = self.space_at(end);
                 (end > p && blank > 0).then_some(end + blank)
             }
-            Pat::RootAt30At11 => self.custom_property(p),
-            Pat::RootAt34 => self.after_brace(p),
-            Pat::RootAt34End => {
+            Pattern::RootAt30At11 => self.custom_property(p),
+            Pattern::RootAt34 => self.after_brace(p),
+            Pattern::RootAt34End => {
                 let blank = self.space_at(p);
                 if blank > 0 {
                     return Some(p + blank);
                 }
                 matches!(self.at(p), b'\n' | b')' | b',' | b'.' | b'[').then_some(p)
             }
-            Pat::RootAt36 => {
+            Pattern::RootAt36 => {
                 let end = self.skip(p, |b| b == b'-' || b.is_ascii_lowercase());
                 (end > p && (self.at(end) == b':' || self.starts(end, b"#{"))).then_some(end)
             }

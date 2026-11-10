@@ -22,12 +22,12 @@ mod set;
 mod variables;
 
 use super::engine::{Lexer, Marks};
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::case_fold;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - commands, `echo`, `setlocal` and `set`;
@@ -41,143 +41,155 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
     )]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::CommandsAt0 => self.command(p),
-            Pat::CommandsAt1 | Pat::CommandsAt1InFor => self.echo(p),
-            Pat::CommandsAt2 => self.setlocal(p),
-            Pat::CommandSetAt0 | Pat::CommandSetAt0InFor => self.set_command(p),
-            Pat::CommandsAt1End
-            | Pat::CommandSetAt0End
-            | Pat::CommentsAt1End
-            | Pat::CommandSetInsideAt6End
-            | Pat::CommandSetInsideAt7End
-            | Pat::CommandSetInsideAt8End
-            | Pat::CommandSetInsideAt8At1End => self.command_end(p),
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::CommandsAt0 => self.command(p),
+            Pattern::CommandsAt1 | Pattern::CommandsAt1InFor => self.echo(p),
+            Pattern::CommandsAt2 => self.setlocal(p),
+            Pattern::CommandSetAt0 | Pattern::CommandSetAt0InFor => self.set_command(p),
+            Pattern::CommandsAt1End
+            | Pattern::CommandSetAt0End
+            | Pattern::CommentsAt1End
+            | Pattern::CommandSetInsideAt6End
+            | Pattern::CommandSetInsideAt7End
+            | Pattern::CommandSetInsideAt8End
+            | Pattern::CommandSetInsideAt8At1End => self.command_end(p),
 
-            Pat::CommentsAt0 | Pat::CommentsAt0InFor => self.colon_comment(p),
-            Pat::CommentsAt0End | Pat::CommentsAt2End => self.line_feed_or(p, None),
-            Pat::CommentsAt0At0 | Pat::CommentsAt0At0InFor => self.colon_mark(p),
-            Pat::CommentsAt0At0End => (self.at(p) == b'\n').then_some(p),
-            Pat::CommentsAt1 | Pat::CommentsAt1InFor => self.rem_dot(p),
-            Pat::CommentsAt2 | Pat::CommentsAt2InFor => self.rem(p),
-            Pat::CommentsAt2At0 => matches!(self.at(p), b'<' | b'>' | b'|').then_some(p + 1),
+            Pattern::CommentsAt0 | Pattern::CommentsAt0InFor => self.colon_comment(p),
+            Pattern::CommentsAt0End | Pattern::CommentsAt2End => self.line_feed_or(p, None),
+            Pattern::CommentsAt0At0 | Pattern::CommentsAt0At0InFor => self.colon_mark(p),
+            Pattern::CommentsAt0At0End => (self.at(p) == b'\n').then_some(p),
+            Pattern::CommentsAt1 | Pattern::CommentsAt1InFor => self.rem_dot(p),
+            Pattern::CommentsAt2 | Pattern::CommentsAt2InFor => self.rem(p),
+            Pattern::CommentsAt2At0 => matches!(self.at(p), b'<' | b'>' | b'|').then_some(p + 1),
 
-            Pat::ConstantsAt0 => self.nul(p),
-            Pat::ControlsAt0 => self.call_exit_goto(p),
-            Pat::ControlsAt1 => self.if_test(p),
-            Pat::ControlsAt2 => self.if_else(p),
-            Pat::ControlsAt3 => self.for_word(p),
-            Pat::ControlsAt3At0InFor => self.in_word(p),
-            Pat::LabelsAt0 => self.label(p),
+            Pattern::ConstantsAt0 => self.nul(p),
+            Pattern::ControlsAt0 => self.call_exit_goto(p),
+            Pattern::ControlsAt1 => self.if_test(p),
+            Pattern::ControlsAt2 => self.if_else(p),
+            Pattern::ControlsAt3 => self.for_word(p),
+            Pattern::ControlsAt3At0InFor => self.in_word(p),
+            Pattern::LabelsAt0 => self.label(p),
 
-            Pat::EscapedCharactersAt0 => self.escape(p),
-            Pat::VariablesAt0 => self.parameter(p),
-            Pat::RepeatParameterAt0 => {
+            Pattern::EscapedCharactersAt0 => self.escape(p),
+            Pattern::VariablesAt0 => self.parameter(p),
+            Pattern::RepeatParameterAt0 => {
                 if self.x.embedded {
                     None
                 } else {
                     self.repeat_parameter(p)
                 }
             }
-            Pat::VariableAt0 | Pat::VariableAt0InFor => self.expansion(p, b'%'),
-            Pat::VariableDelayedExpansionAt0 | Pat::VariableDelayedExpansionAt0InFor => {
+            Pattern::VariableAt0 | Pattern::VariableAt0InFor => self.expansion(p, b'%'),
+            Pattern::VariableDelayedExpansionAt0 | Pattern::VariableDelayedExpansionAt0InFor => {
                 self.expansion(p, b'!')
             }
-            Pat::VariableAt0End => self.line_feed_or(p, Some(b'%')),
-            Pat::VariableDelayedExpansionAt0End => self.line_feed_or(p, Some(b'!')),
-            Pat::VariableAt0At0
-            | Pat::VariableAt0At0InFor
-            | Pat::VariableDelayedExpansionAt0At0
-            | Pat::VariableDelayedExpansionAt0At0InFor => self.lit(p, b":~"),
-            Pat::VariableAt0At1
-            | Pat::VariableAt0At1InFor
-            | Pat::VariableDelayedExpansionAt0At1
-            | Pat::VariableDelayedExpansionAt0At1InFor => self.lit_byte(p, b':'),
-            Pat::VariableAt0At1At1
-            | Pat::VariableAt0At1At1InFor
-            | Pat::VariableDelayedExpansionAt0At1At3
-            | Pat::VariableDelayedExpansionAt0At1At3InFor => self.lit_byte(p, b'='),
-            Pat::VariableAt0At0End | Pat::VariableAt0At1End | Pat::VariableAt0At1At1End => {
-                self.before_line_feed_or(p, b'%')
+            Pattern::VariableAt0End => self.line_feed_or(p, Some(b'%')),
+            Pattern::VariableDelayedExpansionAt0End => self.line_feed_or(p, Some(b'!')),
+            Pattern::VariableAt0At0
+            | Pattern::VariableAt0At0InFor
+            | Pattern::VariableDelayedExpansionAt0At0
+            | Pattern::VariableDelayedExpansionAt0At0InFor => self.lit(p, b":~"),
+            Pattern::VariableAt0At1
+            | Pattern::VariableAt0At1InFor
+            | Pattern::VariableDelayedExpansionAt0At1
+            | Pattern::VariableDelayedExpansionAt0At1InFor => self.lit_byte(p, b':'),
+            Pattern::VariableAt0At1At1
+            | Pattern::VariableAt0At1At1InFor
+            | Pattern::VariableDelayedExpansionAt0At1At3
+            | Pattern::VariableDelayedExpansionAt0At1At3InFor => self.lit_byte(p, b'='),
+            Pattern::VariableAt0At0End
+            | Pattern::VariableAt0At1End
+            | Pattern::VariableAt0At1At1End => self.before_line_feed_or(p, b'%'),
+            Pattern::VariableDelayedExpansionAt0At0End
+            | Pattern::VariableDelayedExpansionAt0At1End
+            | Pattern::VariableDelayedExpansionAt0At1At3End => self.before_line_feed_or(p, b'!'),
+            Pattern::VariableSubstringAt0 => self.substring(p),
+            Pattern::VariableReplaceAt0 => self.replace_text(p),
+            Pattern::VariableAt0At1At1At1 => self.run_without(p, b'%'),
+            Pattern::VariableDelayedExpansionAt0At1At3At1 => self.run_without(p, b'!'),
+
+            Pattern::CommandSetStringsAt0 | Pattern::CommandSetStringsAt0InFor => {
+                self.quoted_assignment(p)
             }
-            Pat::VariableDelayedExpansionAt0At0End
-            | Pat::VariableDelayedExpansionAt0At1End
-            | Pat::VariableDelayedExpansionAt0At1At3End => self.before_line_feed_or(p, b'!'),
-            Pat::VariableSubstringAt0 => self.substring(p),
-            Pat::VariableReplaceAt0 => self.replace_text(p),
-            Pat::VariableAt0At1At1At1 => self.run_without(p, b'%'),
-            Pat::VariableDelayedExpansionAt0At1At3At1 => self.run_without(p, b'!'),
+            Pattern::CommandSetInsideAt6
+            | Pattern::CommandSetInsideAt6InFor
+            | Pattern::CommandSetInsideAt8At1
+            | Pattern::CommandSetInsideAt8At1InFor => self.assignment(p),
+            Pattern::CommandSetInsideAt7 | Pattern::CommandSetInsideAt7InFor => {
+                self.set_switch(p, b'a')
+            }
+            Pattern::CommandSetInsideAt8 | Pattern::CommandSetInsideAt8InFor => {
+                self.set_switch(p, b'p')
+            }
+            Pattern::CommandSetOperatorsAt0 => self.augmented_assignment(p),
+            Pattern::CommandSetOperatorsAt1 => self.arithmetic(p),
+            Pattern::CommandSetOperatorsAt2 => self.lit_byte(p, b'!'),
+            Pattern::CommandSetOperatorsAt3 => self.plain_assignment(p),
+            Pattern::CommandSetInsideArithmeticAt2 => self.lit_byte(p, b','),
 
-            Pat::CommandSetStringsAt0 | Pat::CommandSetStringsAt0InFor => self.quoted_assignment(p),
-            Pat::CommandSetInsideAt6
-            | Pat::CommandSetInsideAt6InFor
-            | Pat::CommandSetInsideAt8At1
-            | Pat::CommandSetInsideAt8At1InFor => self.assignment(p),
-            Pat::CommandSetInsideAt7 | Pat::CommandSetInsideAt7InFor => self.set_switch(p, b'a'),
-            Pat::CommandSetInsideAt8 | Pat::CommandSetInsideAt8InFor => self.set_switch(p, b'p'),
-            Pat::CommandSetOperatorsAt0 => self.augmented_assignment(p),
-            Pat::CommandSetOperatorsAt1 => self.arithmetic(p),
-            Pat::CommandSetOperatorsAt2 => self.lit_byte(p, b'!'),
-            Pat::CommandSetOperatorsAt3 => self.plain_assignment(p),
-            Pat::CommandSetInsideArithmeticAt2 => self.lit_byte(p, b','),
+            Pattern::StringsAt0
+            | Pattern::StringsAt0InFor
+            | Pattern::CommandSetStringsAt0End
+            | Pattern::CommandSetInsideAt7At0
+            | Pattern::CommandSetInsideAt7At0InFor
+            | Pattern::CommandSetInsideAt7At0End => self.lit_byte(p, b'"'),
+            Pattern::StringsAt0End => self.string_end(p),
+            Pattern::StringsAt0At0 => self.lit(p, b"%%"),
+            Pattern::ParensAt0
+            | Pattern::ParensAt0InFor
+            | Pattern::CommandSetGroupAt0
+            | Pattern::CommandSetGroupAt0InFor => self.lit_byte(p, b'('),
+            Pattern::ParensAt0End | Pattern::CommandSetGroupAt0End => self.lit_byte(p, b')'),
+            Pattern::ParensAt0At0 => matches!(self.at(p), b',' | b';').then_some(p + 1),
+            Pattern::NumbersAt0 => self.number(p),
+            Pattern::OperatorsAt0 => self.at_sign(p),
+            Pattern::OperatorsAt1 => self.comparison(p),
+            Pattern::OperatorsAt2 => self.not_word(p),
+            Pattern::OperatorsAt3 => self.conditional(p),
+            Pattern::OperatorsAt4 => {
+                (self.at(p) == b'|' && !self.prev_is(p, b'^')).then_some(p + 1)
+            }
+            Pattern::OperatorsAt5 => self.redirection(p),
 
-            Pat::StringsAt0
-            | Pat::StringsAt0InFor
-            | Pat::CommandSetStringsAt0End
-            | Pat::CommandSetInsideAt7At0
-            | Pat::CommandSetInsideAt7At0InFor
-            | Pat::CommandSetInsideAt7At0End => self.lit_byte(p, b'"'),
-            Pat::StringsAt0End => self.string_end(p),
-            Pat::StringsAt0At0 => self.lit(p, b"%%"),
-            Pat::ParensAt0
-            | Pat::ParensAt0InFor
-            | Pat::CommandSetGroupAt0
-            | Pat::CommandSetGroupAt0InFor => self.lit_byte(p, b'('),
-            Pat::ParensAt0End | Pat::CommandSetGroupAt0End => self.lit_byte(p, b')'),
-            Pat::ParensAt0At0 => matches!(self.at(p), b',' | b';').then_some(p + 1),
-            Pat::NumbersAt0 => self.number(p),
-            Pat::OperatorsAt0 => self.at_sign(p),
-            Pat::OperatorsAt1 => self.comparison(p),
-            Pat::OperatorsAt2 => self.not_word(p),
-            Pat::OperatorsAt3 => self.conditional(p),
-            Pat::OperatorsAt4 => (self.at(p) == b'|' && !self.prev_is(p, b'^')).then_some(p + 1),
-            Pat::OperatorsAt5 => self.redirection(p),
-
-            Pat::ControlsAt3EndInFor => self.unless_repeat(p, |l| l.line_feed_or(p, None)),
-            Pat::ControlsAt3At0EndInFor => self.unless_repeat(p, |l| l.do_word(p)),
-            Pat::CommentsAt0EndInFor | Pat::CommentsAt2EndInFor => {
+            Pattern::ControlsAt3EndInFor => self.unless_repeat(p, |l| l.line_feed_or(p, None)),
+            Pattern::ControlsAt3At0EndInFor => self.unless_repeat(p, |l| l.do_word(p)),
+            Pattern::CommentsAt0EndInFor | Pattern::CommentsAt2EndInFor => {
                 self.unless_repeat(p, |l| l.line_feed_or(p, None))
             }
-            Pat::VariableAt0EndInFor => self.unless_repeat(p, |l| l.line_feed_or(p, Some(b'%'))),
-            Pat::CommentsAt0At0EndInFor => {
+            Pattern::VariableAt0EndInFor => {
+                self.unless_repeat(p, |l| l.line_feed_or(p, Some(b'%')))
+            }
+            Pattern::CommentsAt0At0EndInFor => {
                 self.unless_repeat(p, |l| (l.at(p) == b'\n').then_some(p))
             }
-            Pat::VariableDelayedExpansionAt0EndInFor => {
+            Pattern::VariableDelayedExpansionAt0EndInFor => {
                 self.unless_repeat(p, |l| l.line_feed_or(p, Some(b'!')))
             }
-            Pat::CommandsAt1EndInFor
-            | Pat::CommandSetAt0EndInFor
-            | Pat::CommentsAt1EndInFor
-            | Pat::CommandSetInsideAt6EndInFor
-            | Pat::CommandSetInsideAt7EndInFor
-            | Pat::CommandSetInsideAt8EndInFor
-            | Pat::CommandSetInsideAt8At1EndInFor => self.unless_repeat(p, |l| l.command_end(p)),
-            Pat::VariableAt0At0EndInFor
-            | Pat::VariableAt0At1EndInFor
-            | Pat::VariableAt0At1At1EndInFor => {
+            Pattern::CommandsAt1EndInFor
+            | Pattern::CommandSetAt0EndInFor
+            | Pattern::CommentsAt1EndInFor
+            | Pattern::CommandSetInsideAt6EndInFor
+            | Pattern::CommandSetInsideAt7EndInFor
+            | Pattern::CommandSetInsideAt8EndInFor
+            | Pattern::CommandSetInsideAt8At1EndInFor => {
+                self.unless_repeat(p, |l| l.command_end(p))
+            }
+            Pattern::VariableAt0At0EndInFor
+            | Pattern::VariableAt0At1EndInFor
+            | Pattern::VariableAt0At1At1EndInFor => {
                 self.unless_repeat(p, |l| l.before_line_feed_or(p, b'%'))
             }
-            Pat::VariableDelayedExpansionAt0At0EndInFor
-            | Pat::VariableDelayedExpansionAt0At1EndInFor
-            | Pat::VariableDelayedExpansionAt0At1At3EndInFor => {
+            Pattern::VariableDelayedExpansionAt0At0EndInFor
+            | Pattern::VariableDelayedExpansionAt0At1EndInFor
+            | Pattern::VariableDelayedExpansionAt0At1At3EndInFor => {
                 self.unless_repeat(p, |l| l.before_line_feed_or(p, b'!'))
             }
-            Pat::StringsAt0EndInFor => self.unless_repeat(p, |l| l.string_end(p)),
-            Pat::ParensAt0EndInFor | Pat::CommandSetGroupAt0EndInFor => {
+            Pattern::StringsAt0EndInFor => self.unless_repeat(p, |l| l.string_end(p)),
+            Pattern::ParensAt0EndInFor | Pattern::CommandSetGroupAt0EndInFor => {
                 self.unless_repeat(p, |l| l.lit_byte(p, b')'))
             }
-            Pat::CommandSetStringsAt0EndInFor | Pat::CommandSetInsideAt7At0EndInFor => {
+            Pattern::CommandSetStringsAt0EndInFor | Pattern::CommandSetInsideAt7At0EndInFor => {
                 self.unless_repeat(p, |l| l.lit_byte(p, b'"'))
             }
         }

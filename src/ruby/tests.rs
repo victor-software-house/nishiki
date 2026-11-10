@@ -225,7 +225,7 @@ fn the_while_flag_matches_the_rules() {
     use crate::ruby::grammar::Rule;
     use crate::rules::Grammar;
 
-    let any = Rule::ALL.iter().any(|rule| rule.while_pat().is_some());
+    let any = Rule::ALL.iter().any(|rule| rule.while_pattern().is_some());
     assert_eq!(Rule::HAS_WHILE, any);
     assert_eq!(Ruby::WHILES, any);
 }

@@ -20,11 +20,11 @@ mod xml;
 pub(in crate::scala) use names::{is_name_start, is_op, is_upper_start};
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - the `//> using` directive and the script header;
@@ -36,147 +36,165 @@ impl Lexer<'_> {
     /// - XML literals;
     /// - keywords, `end` markers and operators;
     /// - quotes, character literals and punctuation.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::UsingDirective => self.using_directive(p),
-            Pat::UsingDirectiveEnd | Pat::CommentsAt1At0End => self.line_feed(p),
-            Pat::UsingDirectiveAt2 => self.directive_value(p),
-            Pat::ScriptHeader => self.script_header(p),
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::UsingDirective => self.using_directive(p),
+            Pattern::UsingDirectiveEnd | Pattern::CommentsAt1At0End => self.line_feed(p),
+            Pattern::UsingDirectiveAt2 => self.directive_value(p),
+            Pattern::ScriptHeader => self.script_header(p),
 
-            Pat::BlockCommentsAt0 => self.lit(p, b"/**/"),
-            Pat::BlockCommentsAt1 => self.scaladoc_begin(p),
-            Pat::BlockCommentsAt1End | Pat::BlockCommentsAt2End => self.lit(p, b"*/"),
-            Pat::BlockCommentsAt1At0 => self.doc_tag_name(p, &[b"@param"]),
-            Pat::BlockCommentsAt1At1 => self.doc_tag_name(p, &[b"@tparam", b"@throws"]),
-            Pat::BlockCommentsAt1At2 => self.doc_tag(p),
-            Pat::BlockCommentsAt1At3 => self.doc_link(p),
-            Pat::BlockCommentsAt2 => self.lit(p, b"/*"),
-            Pat::CommentsAt1 => self.line_comment_lead(p),
-            Pat::CommentsAt1End => self.not_anchor(p),
-            Pat::CommentsAt1At0 => self.lit(p, b"//"),
+            Pattern::BlockCommentsAt0 => self.lit(p, b"/**/"),
+            Pattern::BlockCommentsAt1 => self.scaladoc_begin(p),
+            Pattern::BlockCommentsAt1End | Pattern::BlockCommentsAt2End => self.lit(p, b"*/"),
+            Pattern::BlockCommentsAt1At0 => self.doc_tag_name(p, &[b"@param"]),
+            Pattern::BlockCommentsAt1At1 => self.doc_tag_name(p, &[b"@tparam", b"@throws"]),
+            Pattern::BlockCommentsAt1At2 => self.doc_tag(p),
+            Pattern::BlockCommentsAt1At3 => self.doc_link(p),
+            Pattern::BlockCommentsAt2 => self.lit(p, b"/*"),
+            Pattern::CommentsAt1 => self.line_comment_lead(p),
+            Pattern::CommentsAt1End => self.not_anchor(p),
+            Pattern::CommentsAt1At0 => self.lit(p, b"//"),
 
-            Pat::ConstantsAt0 => self.word_in(p, &[b"false", b"null", b"true"]),
-            Pat::ConstantsAt1 => self.hex(p),
-            Pat::ConstantsAt2 => self.decimal(p),
-            Pat::ConstantsAt3 => self.point_decimal(p),
-            Pat::ConstantsAt4 => self.binary(p),
-            Pat::ConstantsAt5 => self.word_in(p, &[b"this", b"super"]),
+            Pattern::ConstantsAt0 => self.word_in(p, &[b"false", b"null", b"true"]),
+            Pattern::ConstantsAt1 => self.hex(p),
+            Pattern::ConstantsAt2 => self.decimal(p),
+            Pattern::ConstantsAt3 => self.point_decimal(p),
+            Pattern::ConstantsAt4 => self.binary(p),
+            Pattern::ConstantsAt5 => self.word_in(p, &[b"this", b"super"]),
 
-            Pat::StringsAt0 => self.lit(p, b"\"\"\""),
-            Pat::StringsAt0End => self.triple_quote_end(p),
-            Pat::StringsAt0At0 | Pat::StringsAt2At1 => self.triple_escape(p),
-            Pat::StringsAt1 => self.raw_string(p, b"\"\"\""),
-            Pat::StringsAt1End | Pat::StringsAt2End => self.interpolated_string_end(p, b"\"\"\""),
-            Pat::StringsAt1At0 | Pat::StringsAt4At0 | Pat::StringsAt5At0 => self.dollar_escape(p),
-            Pat::StringsAt1At2 | Pat::StringsAt2At2 | Pat::StringsAt4At2 | Pat::StringsAt5At4 => {
-                self.any_char(p)
+            Pattern::StringsAt0 => self.lit(p, b"\"\"\""),
+            Pattern::StringsAt0End => self.triple_quote_end(p),
+            Pattern::StringsAt0At0 | Pattern::StringsAt2At1 => self.triple_escape(p),
+            Pattern::StringsAt1 => self.raw_string(p, b"\"\"\""),
+            Pattern::StringsAt1End | Pattern::StringsAt2End => {
+                self.interpolated_string_end(p, b"\"\"\"")
             }
-            Pat::StringsAt2 => self.interpolated_string(p, b"\"\"\""),
-            Pat::StringsAt3
-            | Pat::StringsAt3End
-            | Pat::XmlDoublequotedString
-            | Pat::XmlDoublequotedStringEnd => self.lit_byte(p, b'"'),
-            Pat::StringsAt3At0 | Pat::StringsAt5At2 | Pat::CharLiteralAt1At0 => self.escape(p),
-            Pat::StringsAt3At1 | Pat::StringsAt5At3 | Pat::CharLiteralAt1At1 => self.any_escape(p),
-            Pat::StringsAt4 => self.raw_string(p, b"\""),
-            Pat::StringsAt4End | Pat::StringsAt5End => self.interpolated_string_end(p, b"\""),
-            Pat::StringsAt5 => self.interpolated_string(p, b"\""),
-            Pat::StringInterpolationAt0 => self.lit(p, b"$$"),
-            Pat::StringInterpolationAt1 => self.interpolated_name(p),
-            Pat::StringInterpolationAt2 => self.lit(p, b"${"),
+            Pattern::StringsAt1At0 | Pattern::StringsAt4At0 | Pattern::StringsAt5At0 => {
+                self.dollar_escape(p)
+            }
+            Pattern::StringsAt1At2
+            | Pattern::StringsAt2At2
+            | Pattern::StringsAt4At2
+            | Pattern::StringsAt5At4 => self.any_char(p),
+            Pattern::StringsAt2 => self.interpolated_string(p, b"\"\"\""),
+            Pattern::StringsAt3
+            | Pattern::StringsAt3End
+            | Pattern::XmlDoublequotedString
+            | Pattern::XmlDoublequotedStringEnd => self.lit_byte(p, b'"'),
+            Pattern::StringsAt3At0 | Pattern::StringsAt5At2 | Pattern::CharLiteralAt1At0 => {
+                self.escape(p)
+            }
+            Pattern::StringsAt3At1 | Pattern::StringsAt5At3 | Pattern::CharLiteralAt1At1 => {
+                self.any_escape(p)
+            }
+            Pattern::StringsAt4 => self.raw_string(p, b"\""),
+            Pattern::StringsAt4End | Pattern::StringsAt5End => {
+                self.interpolated_string_end(p, b"\"")
+            }
+            Pattern::StringsAt5 => self.interpolated_string(p, b"\""),
+            Pattern::StringInterpolationAt0 => self.lit(p, b"$$"),
+            Pattern::StringInterpolationAt1 => self.interpolated_name(p),
+            Pattern::StringInterpolationAt2 => self.lit(p, b"${"),
 
-            Pat::StorageModifiersAt0 => self.access_modifier(p),
-            Pat::StorageModifiersAt1 => self.other_modifier(p),
-            Pat::StorageModifiersAt2 => self.soft_modifier(p),
-            Pat::DeclarationsAt0 => self.named_declaration(p, b"def"),
-            Pat::DeclarationsAt1 => self.named_declaration(p, b"trait"),
-            Pat::DeclarationsAt2 => self.class_declaration(p),
-            Pat::DeclarationsAt3 => self.type_declaration(p),
-            Pat::DeclarationsAt4 => self.val_or_var_call(p),
-            Pat::DeclarationsAt5 => self.val_or_var(p, b"val"),
-            Pat::DeclarationsAt6 => self.val_or_var(p, b"var"),
-            Pat::DeclarationsAt7 => self.package_object(p),
-            Pat::DeclarationsAt9 => self.given_declaration(p),
-            Pat::InheritanceAt0 => self.inheritance(p),
-            Pat::ExtensionAt0 => self.extension(p),
-            Pat::Initialization => self.new_keyword(p),
-            Pat::InlineAt0 => self.inline_modifier(p),
-            Pat::InlineAt1 => self.inline_control(p),
-            Pat::NamedBoundsAt0 => self.named_bound(p),
-            Pat::UsingAt0 => self.using_clause(p),
-            Pat::ParameterListAt0 => self.parameter(p),
-            Pat::QualifiedClassName => self.qualified_class_name(p),
-            Pat::SingletonType => self.singleton_type(p),
+            Pattern::StorageModifiersAt0 => self.access_modifier(p),
+            Pattern::StorageModifiersAt1 => self.other_modifier(p),
+            Pattern::StorageModifiersAt2 => self.soft_modifier(p),
+            Pattern::DeclarationsAt0 => self.named_declaration(p, b"def"),
+            Pattern::DeclarationsAt1 => self.named_declaration(p, b"trait"),
+            Pattern::DeclarationsAt2 => self.class_declaration(p),
+            Pattern::DeclarationsAt3 => self.type_declaration(p),
+            Pattern::DeclarationsAt4 => self.val_or_var_call(p),
+            Pattern::DeclarationsAt5 => self.val_or_var(p, b"val"),
+            Pattern::DeclarationsAt6 => self.val_or_var(p, b"var"),
+            Pattern::DeclarationsAt7 => self.package_object(p),
+            Pattern::DeclarationsAt9 => self.given_declaration(p),
+            Pattern::InheritanceAt0 => self.inheritance(p),
+            Pattern::ExtensionAt0 => self.extension(p),
+            Pattern::Initialization => self.new_keyword(p),
+            Pattern::InlineAt0 => self.inline_modifier(p),
+            Pattern::InlineAt1 => self.inline_control(p),
+            Pattern::NamedBoundsAt0 => self.named_bound(p),
+            Pattern::UsingAt0 => self.using_clause(p),
+            Pattern::ParameterListAt0 => self.parameter(p),
+            Pattern::QualifiedClassName => self.qualified_class_name(p),
+            Pattern::SingletonType => self.singleton_type(p),
 
-            Pat::DeclarationsAt8 => self.keyword_and_blanks(p, b"package"),
-            Pat::Imports => self.keyword_and_blanks(p, b"import"),
-            Pat::Exports => self.keyword_and_blanks(p, b"export"),
-            Pat::DeclarationsAt8End | Pat::ImportsEnd | Pat::ExportsEnd => {
+            Pattern::DeclarationsAt8 => self.keyword_and_blanks(p, b"package"),
+            Pattern::Imports => self.keyword_and_blanks(p, b"import"),
+            Pattern::Exports => self.keyword_and_blanks(p, b"export"),
+            Pattern::DeclarationsAt8End | Pattern::ImportsEnd | Pattern::ExportsEnd => {
                 self.after_semicolon_or_line_feed(p)
             }
-            Pat::DeclarationsAt8At1 | Pat::ImportsAt4 | Pat::ExportsAt3 => self.path_name(p),
-            Pat::DeclarationsAt8At2 | Pat::ImportsAt5 | Pat::ExportsAt4 => self.lit_byte(p, b'.'),
-            Pat::ImportsAt1 | Pat::ImportsAt6At1 | Pat::ExportsAt1 | Pat::ExportsAt5At1 => {
-                self.word(p, b"given")
+            Pattern::DeclarationsAt8At1 | Pattern::ImportsAt4 | Pattern::ExportsAt3 => {
+                self.path_name(p)
             }
-            Pat::ImportsAt2 => self.import_as(p),
-            Pat::ImportsAt3 | Pat::ExportsAt2 => self.upper_name(p),
-            Pat::ImportsAt6
-            | Pat::ExportsAt5
-            | Pat::XmlEmbeddedContentAt0
-            | Pat::CurlyBraces
-            | Pat::MetaBracketsAt0 => self.lit_byte(p, b'{'),
-            Pat::ImportsAt6End
-            | Pat::ExportsAt5End
-            | Pat::StringInterpolationAt2End
-            | Pat::XmlEmbeddedContentAt0End
-            | Pat::CurlyBracesEnd
-            | Pat::MetaBracketsAt1 => self.lit_byte(p, b'}'),
-            Pat::ImportsAt6At0 | Pat::ExportsAt5At0 => self.renaming(p),
-            Pat::ImportsAt6At2 | Pat::ExportsAt5At2 => self.selector(p),
-
-            Pat::XmlLiteralAt0 => self.empty_element(p),
-            Pat::XmlLiteralAt0End => self.empty_element_end(p),
-            Pat::XmlLiteralAt1 => self.tag_open(p),
-            Pat::XmlLiteralAt1End => self.tag_close(p),
-            Pat::XmlEmbeddedContentAt1 => self.attribute(p),
-            Pat::XmlSinglequotedString | Pat::XmlSinglequotedStringEnd | Pat::CharLiteralAt1 => {
-                self.lit_byte(p, b'\'')
+            Pattern::DeclarationsAt8At2 | Pattern::ImportsAt5 | Pattern::ExportsAt4 => {
+                self.lit_byte(p, b'.')
             }
-            Pat::XmlEntity => self.entity(p),
+            Pattern::ImportsAt1
+            | Pattern::ImportsAt6At1
+            | Pattern::ExportsAt1
+            | Pattern::ExportsAt5At1 => self.word(p, b"given"),
+            Pattern::ImportsAt2 => self.import_as(p),
+            Pattern::ImportsAt3 | Pattern::ExportsAt2 => self.upper_name(p),
+            Pattern::ImportsAt6
+            | Pattern::ExportsAt5
+            | Pattern::XmlEmbeddedContentAt0
+            | Pattern::CurlyBraces
+            | Pattern::MetaBracketsAt0 => self.lit_byte(p, b'{'),
+            Pattern::ImportsAt6End
+            | Pattern::ExportsAt5End
+            | Pattern::StringInterpolationAt2End
+            | Pattern::XmlEmbeddedContentAt0End
+            | Pattern::CurlyBracesEnd
+            | Pattern::MetaBracketsAt1 => self.lit_byte(p, b'}'),
+            Pattern::ImportsAt6At0 | Pattern::ExportsAt5At0 => self.renaming(p),
+            Pattern::ImportsAt6At2 | Pattern::ExportsAt5At2 => self.selector(p),
 
-            Pat::KeywordsAt0 => self.word_in(p, &[b"return", b"throw"]),
-            Pat::KeywordsAt1 => self.word_in(p, &[b"classOf", b"isInstanceOf", b"asInstanceOf"]),
-            Pat::KeywordsAt2 => self.word_in(
+            Pattern::XmlLiteralAt0 => self.empty_element(p),
+            Pattern::XmlLiteralAt0End => self.empty_element_end(p),
+            Pattern::XmlLiteralAt1 => self.tag_open(p),
+            Pattern::XmlLiteralAt1End => self.tag_close(p),
+            Pattern::XmlEmbeddedContentAt1 => self.attribute(p),
+            Pattern::XmlSinglequotedString
+            | Pattern::XmlSinglequotedStringEnd
+            | Pattern::CharLiteralAt1 => self.lit_byte(p, b'\''),
+            Pattern::XmlEntity => self.entity(p),
+
+            Pattern::KeywordsAt0 => self.word_in(p, &[b"return", b"throw"]),
+            Pattern::KeywordsAt1 => {
+                self.word_in(p, &[b"classOf", b"isInstanceOf", b"asInstanceOf"])
+            }
+            Pattern::KeywordsAt2 => self.word_in(
                 p,
                 &[
                     b"else", b"if", b"then", b"do", b"while", b"for", b"yield", b"match", b"case",
                 ],
             ),
-            Pat::KeywordsAt3 => self.end_of(p, &[b"if", b"while", b"for", b"match"]),
-            Pat::KeywordsAt4 => self.end_of(p, &[b"val"]),
-            Pat::KeywordsAt5 => self.end_of(p, &[b"var"]),
-            Pat::KeywordsAt6 => self.end_of_type(p),
-            Pat::KeywordsAt7 => self.word_in(p, &[b"catch", b"finally", b"try"]),
-            Pat::KeywordsAt8 => self.end_of(p, &[b"try"]),
-            Pat::KeywordsAt9 => self.end_of_name(p),
-            Pat::KeywordsAt10 => self.long_operator(p),
-            Pat::KeywordsAt11 => self.pair_operator(p),
-            Pat::KeywordsAt12 => self.single_operator(p),
+            Pattern::KeywordsAt3 => self.end_of(p, &[b"if", b"while", b"for", b"match"]),
+            Pattern::KeywordsAt4 => self.end_of(p, &[b"val"]),
+            Pattern::KeywordsAt5 => self.end_of(p, &[b"var"]),
+            Pattern::KeywordsAt6 => self.end_of_type(p),
+            Pattern::KeywordsAt7 => self.word_in(p, &[b"catch", b"finally", b"try"]),
+            Pattern::KeywordsAt8 => self.end_of(p, &[b"try"]),
+            Pattern::KeywordsAt9 => self.end_of_name(p),
+            Pattern::KeywordsAt10 => self.long_operator(p),
+            Pattern::KeywordsAt11 => self.pair_operator(p),
+            Pattern::KeywordsAt12 => self.single_operator(p),
 
-            Pat::ScalaQuotedOrSymbolAt0 => self.quoted_symbol(p),
-            Pat::ScalaQuotedOrSymbolAt1 => self.staging_quote(p, b'{'),
-            Pat::ScalaQuotedOrSymbolAt2 => self.staging_quote(p, b'['),
-            Pat::ScalaQuotedOrSymbolAt3 => self.staging_splice(p),
-            Pat::CharLiteralAt0 => self.quote_char(p),
-            Pat::CharLiteralAt1End => self.char_literal_end(p),
-            Pat::CharLiteralAt1At2 => self.not_quotes(p),
-            Pat::CharLiteralAt1At3 => self.not_quote(p),
-            Pat::EmptyParentheses => self.empty_parentheses(p),
-            Pat::BackQuotedVariable => self.quoted_name(p),
-            Pat::MetaBracketsAt2 => self.bracket(p),
-            Pat::MetaBounds => self.bounds(p),
-            Pat::MetaColonsAt0 => self.lone_colon(p),
+            Pattern::ScalaQuotedOrSymbolAt0 => self.quoted_symbol(p),
+            Pattern::ScalaQuotedOrSymbolAt1 => self.staging_quote(p, b'{'),
+            Pattern::ScalaQuotedOrSymbolAt2 => self.staging_quote(p, b'['),
+            Pattern::ScalaQuotedOrSymbolAt3 => self.staging_splice(p),
+            Pattern::CharLiteralAt0 => self.quote_char(p),
+            Pattern::CharLiteralAt1End => self.char_literal_end(p),
+            Pattern::CharLiteralAt1At2 => self.not_quotes(p),
+            Pattern::CharLiteralAt1At3 => self.not_quote(p),
+            Pattern::EmptyParentheses => self.empty_parentheses(p),
+            Pattern::BackQuotedVariable => self.quoted_name(p),
+            Pattern::MetaBracketsAt2 => self.bracket(p),
+            Pattern::MetaBounds => self.bounds(p),
+            Pattern::MetaColonsAt0 => self.lone_colon(p),
         }
     }
 }

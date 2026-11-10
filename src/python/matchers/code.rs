@@ -4,7 +4,7 @@
 use super::chars;
 use crate::classes::{self, is_alpha};
 use crate::python::engine::{Ahead, Lexer};
-use crate::python::grammar::CodePat;
+use crate::python::grammar::CodePattern;
 use crate::rules::Chars;
 
 /// Whether a keyword argument's `=` may be the first of `==`.
@@ -106,159 +106,167 @@ const CODETAGS: &[&[u8]] = &[b"BUG", b"FIXME", b"HACK", b"NOTE", b"TODO", b"XXX"
 
 impl Lexer<'_> {
     #[expect(clippy::too_many_lines, reason = "one arm per pattern, a table")]
-    pub(super) fn code_matcher(&mut self, pat: CodePat, p: usize) -> Option<usize> {
-        match pat {
-            CodePat::ImportAt0 => self.import_from(p),
-            CodePat::ImportAt0End => (self.at_eol(p) || self.starts(p, b"import")).then_some(p),
-            CodePat::ImportAt0At0 => self.dots(p),
-            CodePat::ImportAt1 => self.keyword_import(p),
-            CodePat::CommentsAt0 => self.typehint_begin(p),
-            CodePat::CommentsAt0End => (self.at_eol(p) || self.at(p) == b'#').then_some(p),
-            CodePat::CommentsAt0At0 => self.typehint_ignore(p),
-            CodePat::CommentsAt0At1 => {
+    pub(super) fn code_matcher(&mut self, pattern: CodePattern, p: usize) -> Option<usize> {
+        match pattern {
+            CodePattern::ImportAt0 => self.import_from(p),
+            CodePattern::ImportAt0End => (self.at_eol(p) || self.starts(p, b"import")).then_some(p),
+            CodePattern::ImportAt0At0 => self.dots(p),
+            CodePattern::ImportAt1 => self.keyword_import(p),
+            CodePattern::CommentsAt0 => self.typehint_begin(p),
+            CodePattern::CommentsAt0End => (self.at_eol(p) || self.at(p) == b'#').then_some(p),
+            CodePattern::CommentsAt0At0 => self.typehint_ignore(p),
+            CodePattern::CommentsAt0At1 => {
                 if self.prev_is(p, b'.') {
                     return None;
                 }
                 self.word_in(p, TYPEHINT_NAMES)
             }
-            CodePat::CommentsAt0At2 => self.typehint_punctuation(p),
-            CodePat::CommentsAt0At3 => self.ident_end(p),
-            CodePat::CommentsBase => self.hash(p),
-            CodePat::ImportAt1End | CodePat::CommentsBaseEnd => self.at_eol(p).then_some(p),
-            CodePat::Codetags => {
+            CodePattern::CommentsAt0At2 => self.typehint_punctuation(p),
+            CodePattern::CommentsAt0At3 => self.ident_end(p),
+            CodePattern::CommentsBase => self.hash(p),
+            CodePattern::ImportAt1End | CodePattern::CommentsBaseEnd => self.at_eol(p).then_some(p),
+            CodePattern::Codetags => {
                 let end = self.word_in(p, CODETAGS)?;
                 self.cap(1, p, end);
                 Some(end)
             }
-            CodePat::Backticks => (self.at(p) == b'`').then_some(p + 1),
-            CodePat::BackticksEnd => self.backtick_end(p),
-            CodePat::IllegalAnno => self.lit(p, b"->"),
-            CodePat::LiteralAt0 => self.word_in(
+            CodePattern::Backticks => (self.at(p) == b'`').then_some(p + 1),
+            CodePattern::BackticksEnd => self.backtick_end(p),
+            CodePattern::IllegalAnno => self.lit(p, b"->"),
+            CodePattern::LiteralAt0 => self.word_in(
                 p,
                 &[b"Ellipsis", b"False", b"None", b"NotImplemented", b"True"],
             ),
-            CodePat::NumberFloat => self.number_float(p),
-            CodePat::NumberDec => self.number_dec(p),
-            CodePat::NumberHex => self.number_radix(p, b"Xx", |b| b.is_ascii_hexdigit()),
-            CodePat::NumberOct => self.number_radix(p, b"Oo", |b| matches!(b, b'0'..=b'7')),
-            CodePat::NumberBin => self.number_radix(p, b"Bb", |b| matches!(b, b'0' | b'1')),
-            CodePat::NumberLong => self.number_long(p),
-            CodePat::NumberAt6 => self.number_name(p),
-            CodePat::LambdaAt0 => self.lambda_member(p),
-            CodePat::LambdaAt1 => self.lambda_bare(p),
-            CodePat::LambdaAt2 => self.lambda_begin(p),
-            CodePat::LambdaAt2End => self.lambda_end(p),
-            CodePat::LambdaNestedIncomplete => self.lambda_incomplete(p, b"),:"),
-            CodePat::LambdaAt2At4 => self.lambda_parameter(p),
-            CodePat::LambdaParameterWithDefault => self.name_equals(p, Equals::Any),
-            CodePat::LambdaParameterWithDefaultEnd => self.lambda_default_end(p),
-            CodePat::Generator => self.keyword_zero(p, b"for"),
-            CodePat::GeneratorEnd => self.keyword_zero(p, b"in"),
-            CodePat::IllegalNames => self.illegal_names(p),
-            CodePat::IllegalOperatorAt0 => (self.starts(p, b"&&")
+            CodePattern::NumberFloat => self.number_float(p),
+            CodePattern::NumberDec => self.number_dec(p),
+            CodePattern::NumberHex => self.number_radix(p, b"Xx", |b| b.is_ascii_hexdigit()),
+            CodePattern::NumberOct => self.number_radix(p, b"Oo", |b| matches!(b, b'0'..=b'7')),
+            CodePattern::NumberBin => self.number_radix(p, b"Bb", |b| matches!(b, b'0' | b'1')),
+            CodePattern::NumberLong => self.number_long(p),
+            CodePattern::NumberAt6 => self.number_name(p),
+            CodePattern::LambdaAt0 => self.lambda_member(p),
+            CodePattern::LambdaAt1 => self.lambda_bare(p),
+            CodePattern::LambdaAt2 => self.lambda_begin(p),
+            CodePattern::LambdaAt2End => self.lambda_end(p),
+            CodePattern::LambdaNestedIncomplete => self.lambda_incomplete(p, b"),:"),
+            CodePattern::LambdaAt2At4 => self.lambda_parameter(p),
+            CodePattern::LambdaParameterWithDefault => self.name_equals(p, Equals::Any),
+            CodePattern::LambdaParameterWithDefaultEnd => self.lambda_default_end(p),
+            CodePattern::Generator => self.keyword_zero(p, b"for"),
+            CodePattern::GeneratorEnd => self.keyword_zero(p, b"in"),
+            CodePattern::IllegalNames => self.illegal_names(p),
+            CodePattern::IllegalOperatorAt0 => (self.starts(p, b"&&")
                 || self.starts(p, b"||")
                 || self.starts(p, b"--")
                 || self.starts(p, b"++"))
             .then_some(p + 2),
-            CodePat::IllegalOperatorAt1 => matches!(self.at(p), b'$' | b'?').then_some(p + 1),
-            CodePat::IllegalOperatorAt2 => {
+            CodePattern::IllegalOperatorAt1 => matches!(self.at(p), b'$' | b'?').then_some(p + 1),
+            CodePattern::IllegalOperatorAt2 => {
                 (self.at(p) == b'!' && self.boundary(p + 1)).then_some(p + 1)
             }
-            CodePat::Operator => self.operator(p),
-            CodePat::CurlyBraces => (self.at(p) == b'{' && p < self.lim()).then_some(p + 1),
-            CodePat::List => (self.at(p) == b'[' && p < self.lim()).then_some(p + 1),
-            CodePat::RoundBraces => (self.at(p) == b'(' && p < self.lim()).then_some(p + 1),
-            CodePat::CurlyBracesEnd => (self.at(p) == b'}').then_some(p + 1),
-            CodePat::ListEnd => (self.at(p) == b']').then_some(p + 1),
-            CodePat::RoundBracesEnd => (self.at(p) == b')').then_some(p + 1),
-            CodePat::CurlyBracesAt0 | CodePat::ItemIndexAt0 | CodePat::PunctuationAt0 => {
-                (self.at(p) == b':').then_some(p + 1)
-            }
-            CodePat::PunctuationAt1 | CodePat::ClassInheritanceAt1 => {
+            CodePattern::Operator => self.operator(p),
+            CodePattern::CurlyBraces => (self.at(p) == b'{' && p < self.lim()).then_some(p + 1),
+            CodePattern::List => (self.at(p) == b'[' && p < self.lim()).then_some(p + 1),
+            CodePattern::RoundBraces => (self.at(p) == b'(' && p < self.lim()).then_some(p + 1),
+            CodePattern::CurlyBracesEnd => (self.at(p) == b'}').then_some(p + 1),
+            CodePattern::ListEnd => (self.at(p) == b']').then_some(p + 1),
+            CodePattern::RoundBracesEnd => (self.at(p) == b')').then_some(p + 1),
+            CodePattern::CurlyBracesAt0
+            | CodePattern::ItemIndexAt0
+            | CodePattern::PunctuationAt0 => (self.at(p) == b':').then_some(p + 1),
+            CodePattern::PunctuationAt1 | CodePattern::ClassInheritanceAt1 => {
                 (self.at(p) == b',').then_some(p + 1)
             }
-            CodePat::ItemAccessAt0 => self.item_access_begin(p),
-            CodePat::ItemAccessAt0End => self.char_cap(p, b']'),
-            CodePat::SpecialVariables => self.special_variables(p),
-            CodePat::BuiltinFunctionsAt0 => self.builtin(p, chars::FUNCTION),
-            CodePat::BuiltinFunctionsAt1 => self.builtin(p, chars::LEGACY),
-            CodePat::BuiltinTypes => self.builtin(p, chars::TYPE),
-            CodePat::BuiltinExceptions => self.builtin(p, chars::EXCEPTION),
-            CodePat::MagicFunctionNames => self.magic(p, chars::MAGIC_FUNCTION),
-            CodePat::MagicVariableNames => self.magic(p, chars::MAGIC_VARIABLE),
-            CodePat::SpecialNames => self.special_names(p),
-            CodePat::ItemNameAt3
-            | CodePat::FunctionNameAt1
-            | CodePat::ExpressionAt2
-            | CodePat::FExpressionAt2
-            | CodePat::MemberAccessAttribute
-            | CodePat::ClassNameAt2
-            | CodePat::FunctionDefNameAt2
-            | CodePat::InheritanceIdentifier => self.bounded_ident(p),
-            CodePat::ItemIndex => self.char_cap(p, b'['),
-            CodePat::ItemIndexEnd => (self.at(p) == b']').then_some(p),
-            CodePat::OddFunctionCall => self.odd_call_begin(p),
-            CodePat::OddFunctionCallEnd
-            | CodePat::FunctionCallEnd
-            | CodePat::CallWrapperInheritanceEnd
-            | CodePat::ClassInheritanceEnd
-            | CodePat::ParametersEnd => self.char_cap(p, b')'),
-            CodePat::FunctionCall | CodePat::CallWrapperInheritance => self.call_begin(p),
-            CodePat::FunctionArgumentsEnd => self.arguments_end(p),
-            CodePat::FunctionArgumentsAt0 => self.char_cap(p, b','),
-            CodePat::FunctionArgumentsAt1 => self.argument_unpacking(p),
-            CodePat::LambdaIncomplete => self.lambda_incomplete(p, b"),"),
-            CodePat::FunctionArgumentsAt4 | CodePat::ClassKwarg => {
+            CodePattern::ItemAccessAt0 => self.item_access_begin(p),
+            CodePattern::ItemAccessAt0End => self.char_cap(p, b']'),
+            CodePattern::SpecialVariables => self.special_variables(p),
+            CodePattern::BuiltinFunctionsAt0 => self.builtin(p, chars::FUNCTION),
+            CodePattern::BuiltinFunctionsAt1 => self.builtin(p, chars::LEGACY),
+            CodePattern::BuiltinTypes => self.builtin(p, chars::TYPE),
+            CodePattern::BuiltinExceptions => self.builtin(p, chars::EXCEPTION),
+            CodePattern::MagicFunctionNames => self.magic(p, chars::MAGIC_FUNCTION),
+            CodePattern::MagicVariableNames => self.magic(p, chars::MAGIC_VARIABLE),
+            CodePattern::SpecialNames => self.special_names(p),
+            CodePattern::ItemNameAt3
+            | CodePattern::FunctionNameAt1
+            | CodePattern::ExpressionAt2
+            | CodePattern::FExpressionAt2
+            | CodePattern::MemberAccessAttribute
+            | CodePattern::ClassNameAt2
+            | CodePattern::FunctionDefNameAt2
+            | CodePattern::InheritanceIdentifier => self.bounded_ident(p),
+            CodePattern::ItemIndex => self.char_cap(p, b'['),
+            CodePattern::ItemIndexEnd => (self.at(p) == b']').then_some(p),
+            CodePattern::OddFunctionCall => self.odd_call_begin(p),
+            CodePattern::OddFunctionCallEnd
+            | CodePattern::FunctionCallEnd
+            | CodePattern::CallWrapperInheritanceEnd
+            | CodePattern::ClassInheritanceEnd
+            | CodePattern::ParametersEnd => self.char_cap(p, b')'),
+            CodePattern::FunctionCall | CodePattern::CallWrapperInheritance => self.call_begin(p),
+            CodePattern::FunctionArgumentsEnd => self.arguments_end(p),
+            CodePattern::FunctionArgumentsAt0 => self.char_cap(p, b','),
+            CodePattern::FunctionArgumentsAt1 => self.argument_unpacking(p),
+            CodePattern::LambdaIncomplete => self.lambda_incomplete(p, b"),"),
+            CodePattern::FunctionArgumentsAt4 | CodePattern::ClassKwarg => {
                 self.name_equals(p, Equals::NotDouble)
             }
-            CodePat::FunctionArgumentsAt5
-            | CodePat::ClassInheritanceAt2
-            | CodePat::AnnotatedParameterAt1 => self.equals_alone(p),
-            CodePat::FunctionArgumentsAt7 => self.close_open(p),
-            CodePat::IllegalObjectName => self.word_in(p, &[b"False", b"None", b"True"]),
-            CodePat::Ellipsis => self.lit(p, b"..."),
-            CodePat::LineContinuationAt0 => self.continuation_junk(p),
-            CodePat::LineContinuationAt1 => self.continuation_begin(p),
-            CodePat::LineContinuationAt1End => self.continuation_end(p),
-            CodePat::MemberAccess | CodePat::MemberAccessClass => self.member_access_begin(p),
-            CodePat::MemberAccessEnd => self.member_access_end(p, Member::Access),
-            CodePat::MemberAccessClassEnd => self.member_access_end(p, Member::Class),
-            CodePat::ClassDeclarationAt0 => self.class_begin(p),
-            CodePat::ClassDeclarationAt0End => self.class_end(p),
-            CodePat::ReturnAnnotationEnd => self.colon_ahead(p),
-            CodePat::ClassInheritanceAt3 => self.word_in(p, &[b"metaclass"]),
-            CodePat::FunctionDeclaration => self.def_begin(p),
-            CodePat::FunctionDeclarationEnd => self.def_end(p),
-            CodePat::FunctionArguments | CodePat::ClassInheritance | CodePat::Parameters => {
-                self.char_cap(p, b'(')
+            CodePattern::FunctionArgumentsAt5
+            | CodePattern::ClassInheritanceAt2
+            | CodePattern::AnnotatedParameterAt1 => self.equals_alone(p),
+            CodePattern::FunctionArgumentsAt7 => self.close_open(p),
+            CodePattern::IllegalObjectName => self.word_in(p, &[b"False", b"None", b"True"]),
+            CodePattern::Ellipsis => self.lit(p, b"..."),
+            CodePattern::LineContinuationAt0 => self.continuation_junk(p),
+            CodePattern::LineContinuationAt1 => self.continuation_begin(p),
+            CodePattern::LineContinuationAt1End => self.continuation_end(p),
+            CodePattern::MemberAccess | CodePattern::MemberAccessClass => {
+                self.member_access_begin(p)
             }
-            CodePat::LambdaAt2At0 | CodePat::ParametersAt0 => (self.at(p) == b'/').then_some(p + 1),
-            CodePat::LambdaAt2At1 | CodePat::ClassInheritanceAt0 | CodePat::ParametersAt1 => {
-                self.star_run(p)
+            CodePattern::MemberAccessEnd => self.member_access_end(p, Member::Access),
+            CodePattern::MemberAccessClassEnd => self.member_access_end(p, Member::Class),
+            CodePattern::ClassDeclarationAt0 => self.class_begin(p),
+            CodePattern::ClassDeclarationAt0End => self.class_end(p),
+            CodePattern::ReturnAnnotationEnd => self.colon_ahead(p),
+            CodePattern::ClassInheritanceAt3 => self.word_in(p, &[b"metaclass"]),
+            CodePattern::FunctionDeclaration => self.def_begin(p),
+            CodePattern::FunctionDeclarationEnd => self.def_end(p),
+            CodePattern::FunctionArguments
+            | CodePattern::ClassInheritance
+            | CodePattern::Parameters => self.char_cap(p, b'('),
+            CodePattern::LambdaAt2At0 | CodePattern::ParametersAt0 => {
+                (self.at(p) == b'/').then_some(p + 1)
             }
-            CodePat::ParameterSpecial => self.parameter_special(p),
-            CodePat::ParametersAt6 => self.parameter_name(p),
-            CodePat::LooseDefault => self.char_cap(p, b'='),
-            CodePat::LooseDefaultEnd | CodePat::AnnotatedParameterEnd => self.parameter_end(p),
-            CodePat::AnnotatedParameter => self.annotated_begin(p),
-            CodePat::ReturnAnnotation => self.arrow_begin(p),
-            CodePat::StatementKeywordAt0 => self.def_keyword(p),
-            CodePat::StatementKeywordAt1 => self.as_flow(p),
-            CodePat::ImportAt1At0 | CodePat::StatementKeywordAt2 => self.as_keyword(p),
-            CodePat::StatementKeywordAt3 => self.statement_flow(p),
-            CodePat::StatementKeywordAt4 => self
+            CodePattern::LambdaAt2At1
+            | CodePattern::ClassInheritanceAt0
+            | CodePattern::ParametersAt1 => self.star_run(p),
+            CodePattern::ParameterSpecial => self.parameter_special(p),
+            CodePattern::ParametersAt6 => self.parameter_name(p),
+            CodePattern::LooseDefault => self.char_cap(p, b'='),
+            CodePattern::LooseDefaultEnd | CodePattern::AnnotatedParameterEnd => {
+                self.parameter_end(p)
+            }
+            CodePattern::AnnotatedParameter => self.annotated_begin(p),
+            CodePattern::ReturnAnnotation => self.arrow_begin(p),
+            CodePattern::StatementKeywordAt0 => self.def_keyword(p),
+            CodePattern::StatementKeywordAt1 => self.as_flow(p),
+            CodePattern::ImportAt1At0 | CodePattern::StatementKeywordAt2 => self.as_keyword(p),
+            CodePattern::StatementKeywordAt3 => self.statement_flow(p),
+            CodePattern::StatementKeywordAt4 => self
                 .word_in(p, &[b"global", b"nonlocal"])
                 .filter(|_| !self.prev_is(p, b'.')),
-            CodePat::StatementKeywordAt5 => self
+            CodePattern::StatementKeywordAt5 => self
                 .word_in(p, &[b"class"])
                 .filter(|_| !self.prev_is(p, b'.')),
-            CodePat::StatementKeywordAt6 => self.case_match(p),
-            CodePat::AssignmentOperator => self.assignment_operator(p),
-            CodePat::Decorator => self.decorator_begin(p),
-            CodePat::DecoratorEnd => self.decorator_end(p),
-            CodePat::DecoratorNameAt2 => self.decorator_name(p),
-            CodePat::DecoratorNameAt4 => self.decorator_junk(p),
-            CodePat::SemicolonAt0 => (self.at(p) == b';' && self.at_eol(p + 1)).then_some(p + 1),
+            CodePattern::StatementKeywordAt6 => self.case_match(p),
+            CodePattern::AssignmentOperator => self.assignment_operator(p),
+            CodePattern::Decorator => self.decorator_begin(p),
+            CodePattern::DecoratorEnd => self.decorator_end(p),
+            CodePattern::DecoratorNameAt2 => self.decorator_name(p),
+            CodePattern::DecoratorNameAt4 => self.decorator_junk(p),
+            CodePattern::SemicolonAt0 => {
+                (self.at(p) == b';' && self.at_eol(p + 1)).then_some(p + 1)
+            }
         }
     }
 

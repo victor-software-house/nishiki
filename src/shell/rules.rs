@@ -2,8 +2,8 @@
 //! For each rule they hold the scopes it adds, how it ends and which patterns
 //! it tries, in the grammar's order.
 //!
-//! A [`Pat`] is one regular expression of the grammar, written as a matcher in
-//! the sibling modules.
+//! A [`Pattern`] is one regular expression of the grammar, written as a matcher
+//! in the sibling modules.
 //! The pattern lists below flatten the grammar's `include`s.
 //! The first pattern that matches at the earliest position therefore wins
 //! exactly as in a `TextMate` engine.
@@ -18,7 +18,11 @@ use crate::scope::{Scopes, scopes};
 
 /// One pattern of the grammar.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
-pub(crate) enum Pat {
+#[expect(
+    clippy::enum_variant_names,
+    reason = "the end of a case item's pattern is EndCasePattern"
+)]
+pub(crate) enum Pattern {
     // Matches that name text and push nothing.
     Comment,
     PipeTime,
@@ -169,140 +173,140 @@ pub(crate) enum Act {
     End,
 }
 
-impl Pat {
+impl Pattern {
     #[expect(clippy::too_many_lines, reason = "one arm per pattern, a table")]
     pub(crate) fn act(self) -> Act {
         use Act::{Begin, BeginChosen, End, Match};
         match self {
-            Pat::HerestringWord => Match(scopes![S::MetaHerestring]),
-            Pat::RedirectOp => Match(scopes![S::KeywordOperatorRedirect]),
-            Pat::AliasB => Begin(Rule::Alias),
-            Pat::ArgB => Begin(Rule::Argument),
-            Pat::ArithDoubleB => Begin(Rule::ArithDouble),
-            Pat::ArithSingleB => Begin(Rule::ArithSingle),
-            Pat::ArrayValueB => Begin(Rule::ArrayValue),
-            Pat::CaseB => Begin(Rule::Case),
-            Pat::CasePatternB => Begin(Rule::CasePattern),
-            Pat::CaseBodyB => Begin(Rule::CaseBody),
-            Pat::CaseGroupB => Begin(Rule::CaseGroup),
-            Pat::CaseClassB => Begin(Rule::CaseClass),
-            Pat::CmdStatementB => Begin(Rule::CommandStatement),
-            Pat::CmdNameB => Begin(Rule::CommandName),
-            Pat::CmdQuotedB => BeginChosen,
-            Pat::ContinuationDoubleB => Begin(Rule::ContinuationDouble),
-            Pat::ContinuationSingleB => Begin(Rule::ContinuationSingle),
-            Pat::ForInB => Begin(Rule::ForIn),
-            Pat::ForB => Begin(Rule::For),
-            Pat::FunctionB => Begin(Rule::Function),
-            Pat::FuncBraceB => Begin(Rule::FunctionBrace),
-            Pat::FuncParenB => Begin(Rule::FunctionParen),
-            Pat::HeredocQuotedIndentB => Begin(Rule::HeredocQuotedIndent),
-            Pat::HeredocQuotedB => Begin(Rule::HeredocQuoted),
-            Pat::HeredocIndentB => Begin(Rule::HeredocIndent),
-            Pat::HeredocB => Begin(Rule::Heredoc),
-            Pat::HerestringSingleB => Begin(Rule::HerestringSingle),
-            Pat::HerestringDoubleB => Begin(Rule::HerestringDouble),
-            Pat::BacktickB => Begin(Rule::Backtick),
-            Pat::BacktickCommentB => Begin(Rule::BacktickComment),
-            Pat::BacktickCommentLineB => Begin(Rule::BacktickCommentLine),
-            Pat::LogicalDoubleB => Begin(Rule::LogicalDouble),
-            Pat::LogicalSingleB => Begin(Rule::LogicalSingle),
-            Pat::LoopForB => Begin(Rule::LoopFor),
-            Pat::LoopWhileB => Begin(Rule::LoopWhile),
-            Pat::LoopSelectB => Begin(Rule::LoopSelect),
-            Pat::LoopIfB => Begin(Rule::LoopIf),
-            Pat::GroupB => Begin(Rule::Group),
-            Pat::ModifiedB => Begin(Rule::Modified),
-            Pat::NormalAssignB => Begin(Rule::NormalAssign),
-            Pat::EnvCommandB => Begin(Rule::EnvCommand),
-            Pat::NormalStatementB => Begin(Rule::NormalStatement),
-            Pat::OptionB => Begin(Rule::Option),
-            Pat::ParenB => Begin(Rule::Paren),
-            Pat::ExtglobB => Begin(Rule::Extglob),
-            Pat::ProcessSubstitutionB => Begin(Rule::ProcessSubstitution),
-            Pat::StringSingleB => Begin(Rule::StringSingle),
-            Pat::StringDoubleB => Begin(Rule::StringDouble),
-            Pat::StringAnsiB => Begin(Rule::StringAnsi),
-            Pat::SubshellB => Begin(Rule::Subshell),
-            Pat::VarPositionalB => Begin(Rule::VarPositional),
-            Pat::VarBraceB => Begin(Rule::VarBrace),
-            Pat::WhileB => Begin(Rule::While),
-            Pat::EndStatement
-            | Pat::EndOption
-            | Pat::EndArg
-            | Pat::EndAlias
-            | Pat::EndArithDouble
-            | Pat::EndCase
-            | Pat::EndCasePattern
-            | Pat::EndCaseBody
-            | Pat::EndCmdName
-            | Pat::EndCmdQuotedDouble
-            | Pat::EndCmdQuotedSingle
-            | Pat::EndFunction
-            | Pat::EndHeredoc
-            | Pat::EndDone
-            | Pat::EndFi
-            | Pat::EndBacktickComment
-            | Pat::EndBacktickCommentLine
-            | Pat::EndLit => End,
-            Pat::Comment
-            | Pat::PipeTime
-            | Pat::PipeOp
-            | Pat::Sep
-            | Pat::LineCont
-            | Pat::VarAt
-            | Pat::VarDigit
-            | Pat::VarSpecial
-            | Pat::VarName
-            | Pat::RedirectNum
-            | Pat::Tilde
-            | Pat::Glob
-            | Pat::FloatKw
-            | Pat::Support
-            | Pat::Escape
-            | Pat::Boolean
-            | Pat::Numeric
-            | Pat::Unquoted
-            | Pat::DqEscape
-            | Pat::BtEscape
-            | Pat::CaseDefault
-            | Pat::CaseStar
-            | Pat::CasePlus
-            | Pat::CaseQuestion
-            | Pat::CaseAt
-            | Pat::CasePipe
-            | Pat::CaseParenOpen
-            | Pat::CaseChar
-            | Pat::AnsiEscape
-            | Pat::AnsiOctal
-            | Pat::AnsiHex
-            | Pat::AnsiControl
-            | Pat::MathOp
-            | Pat::MathHex
-            | Pat::MathSemi
-            | Pat::MathOctal
-            | Pat::MathOther
-            | Pat::MathInt
-            | Pat::MathName
-            | Pat::SpecialExpansion
-            | Pat::ArrayAccess
-            | Pat::ParamDigits
-            | Pat::ParamName
-            | Pat::ArgMatch
-            | Pat::WildcardStar
-            | Pat::BoolArg
-            | Pat::CmdKeyword
-            | Pat::CmdBuiltin
-            | Pat::CmdName
-            | Pat::ArrayNameEq
-            | Pat::ArrayBracketEq
-            | Pat::ModOption
-            | Pat::ModMatch
-            | Pat::LogicalOp
-            | Pat::LogicalTest
-            | Pat::RegexCompare
-            | Pat::FuncBlank
-            | Pat::RedirectFix => Match(S::NO_SCOPES),
+            Pattern::HerestringWord => Match(scopes![S::MetaHerestring]),
+            Pattern::RedirectOp => Match(scopes![S::KeywordOperatorRedirect]),
+            Pattern::AliasB => Begin(Rule::Alias),
+            Pattern::ArgB => Begin(Rule::Argument),
+            Pattern::ArithDoubleB => Begin(Rule::ArithDouble),
+            Pattern::ArithSingleB => Begin(Rule::ArithSingle),
+            Pattern::ArrayValueB => Begin(Rule::ArrayValue),
+            Pattern::CaseB => Begin(Rule::Case),
+            Pattern::CasePatternB => Begin(Rule::CasePattern),
+            Pattern::CaseBodyB => Begin(Rule::CaseBody),
+            Pattern::CaseGroupB => Begin(Rule::CaseGroup),
+            Pattern::CaseClassB => Begin(Rule::CaseClass),
+            Pattern::CmdStatementB => Begin(Rule::CommandStatement),
+            Pattern::CmdNameB => Begin(Rule::CommandName),
+            Pattern::CmdQuotedB => BeginChosen,
+            Pattern::ContinuationDoubleB => Begin(Rule::ContinuationDouble),
+            Pattern::ContinuationSingleB => Begin(Rule::ContinuationSingle),
+            Pattern::ForInB => Begin(Rule::ForIn),
+            Pattern::ForB => Begin(Rule::For),
+            Pattern::FunctionB => Begin(Rule::Function),
+            Pattern::FuncBraceB => Begin(Rule::FunctionBrace),
+            Pattern::FuncParenB => Begin(Rule::FunctionParen),
+            Pattern::HeredocQuotedIndentB => Begin(Rule::HeredocQuotedIndent),
+            Pattern::HeredocQuotedB => Begin(Rule::HeredocQuoted),
+            Pattern::HeredocIndentB => Begin(Rule::HeredocIndent),
+            Pattern::HeredocB => Begin(Rule::Heredoc),
+            Pattern::HerestringSingleB => Begin(Rule::HerestringSingle),
+            Pattern::HerestringDoubleB => Begin(Rule::HerestringDouble),
+            Pattern::BacktickB => Begin(Rule::Backtick),
+            Pattern::BacktickCommentB => Begin(Rule::BacktickComment),
+            Pattern::BacktickCommentLineB => Begin(Rule::BacktickCommentLine),
+            Pattern::LogicalDoubleB => Begin(Rule::LogicalDouble),
+            Pattern::LogicalSingleB => Begin(Rule::LogicalSingle),
+            Pattern::LoopForB => Begin(Rule::LoopFor),
+            Pattern::LoopWhileB => Begin(Rule::LoopWhile),
+            Pattern::LoopSelectB => Begin(Rule::LoopSelect),
+            Pattern::LoopIfB => Begin(Rule::LoopIf),
+            Pattern::GroupB => Begin(Rule::Group),
+            Pattern::ModifiedB => Begin(Rule::Modified),
+            Pattern::NormalAssignB => Begin(Rule::NormalAssign),
+            Pattern::EnvCommandB => Begin(Rule::EnvCommand),
+            Pattern::NormalStatementB => Begin(Rule::NormalStatement),
+            Pattern::OptionB => Begin(Rule::Option),
+            Pattern::ParenB => Begin(Rule::Paren),
+            Pattern::ExtglobB => Begin(Rule::Extglob),
+            Pattern::ProcessSubstitutionB => Begin(Rule::ProcessSubstitution),
+            Pattern::StringSingleB => Begin(Rule::StringSingle),
+            Pattern::StringDoubleB => Begin(Rule::StringDouble),
+            Pattern::StringAnsiB => Begin(Rule::StringAnsi),
+            Pattern::SubshellB => Begin(Rule::Subshell),
+            Pattern::VarPositionalB => Begin(Rule::VarPositional),
+            Pattern::VarBraceB => Begin(Rule::VarBrace),
+            Pattern::WhileB => Begin(Rule::While),
+            Pattern::EndStatement
+            | Pattern::EndOption
+            | Pattern::EndArg
+            | Pattern::EndAlias
+            | Pattern::EndArithDouble
+            | Pattern::EndCase
+            | Pattern::EndCasePattern
+            | Pattern::EndCaseBody
+            | Pattern::EndCmdName
+            | Pattern::EndCmdQuotedDouble
+            | Pattern::EndCmdQuotedSingle
+            | Pattern::EndFunction
+            | Pattern::EndHeredoc
+            | Pattern::EndDone
+            | Pattern::EndFi
+            | Pattern::EndBacktickComment
+            | Pattern::EndBacktickCommentLine
+            | Pattern::EndLit => End,
+            Pattern::Comment
+            | Pattern::PipeTime
+            | Pattern::PipeOp
+            | Pattern::Sep
+            | Pattern::LineCont
+            | Pattern::VarAt
+            | Pattern::VarDigit
+            | Pattern::VarSpecial
+            | Pattern::VarName
+            | Pattern::RedirectNum
+            | Pattern::Tilde
+            | Pattern::Glob
+            | Pattern::FloatKw
+            | Pattern::Support
+            | Pattern::Escape
+            | Pattern::Boolean
+            | Pattern::Numeric
+            | Pattern::Unquoted
+            | Pattern::DqEscape
+            | Pattern::BtEscape
+            | Pattern::CaseDefault
+            | Pattern::CaseStar
+            | Pattern::CasePlus
+            | Pattern::CaseQuestion
+            | Pattern::CaseAt
+            | Pattern::CasePipe
+            | Pattern::CaseParenOpen
+            | Pattern::CaseChar
+            | Pattern::AnsiEscape
+            | Pattern::AnsiOctal
+            | Pattern::AnsiHex
+            | Pattern::AnsiControl
+            | Pattern::MathOp
+            | Pattern::MathHex
+            | Pattern::MathSemi
+            | Pattern::MathOctal
+            | Pattern::MathOther
+            | Pattern::MathInt
+            | Pattern::MathName
+            | Pattern::SpecialExpansion
+            | Pattern::ArrayAccess
+            | Pattern::ParamDigits
+            | Pattern::ParamName
+            | Pattern::ArgMatch
+            | Pattern::WildcardStar
+            | Pattern::BoolArg
+            | Pattern::CmdKeyword
+            | Pattern::CmdBuiltin
+            | Pattern::CmdName
+            | Pattern::ArrayNameEq
+            | Pattern::ArrayBracketEq
+            | Pattern::ModOption
+            | Pattern::ModMatch
+            | Pattern::LogicalOp
+            | Pattern::LogicalTest
+            | Pattern::RegexCompare
+            | Pattern::FuncBlank
+            | Pattern::RedirectFix => Match(S::NO_SCOPES),
         }
     }
 }
@@ -323,7 +327,7 @@ pub(crate) enum Start {
     After(&'static [u8]),
     /// Anywhere: the rule cannot skip positions.
     Any,
-    /// Only where [`Pat::anchored`] or [`Pat::at_line_start`] say.
+    /// Only where [`Pattern::anchored`] or [`Pattern::at_line_start`] say.
     Never,
 }
 
@@ -394,134 +398,142 @@ fn function_start(b: u8) -> bool {
     !matches!(b, b'\n' | b'\r' | b'"' | b'\'' | b'(' | b')' | b'=')
 }
 
-impl Pat {
+impl Pattern {
     /// Whether the pattern can match at the first position of a search without
     /// starting at a byte in its [`Start`]: it is `\\G`.
     pub(crate) fn anchored(self) -> bool {
         matches!(
             self,
-            Pat::CmdNameB | Pat::ContinuationDoubleB | Pat::ContinuationSingleB | Pat::FuncBlank
+            Pattern::CmdNameB
+                | Pattern::ContinuationDoubleB
+                | Pattern::ContinuationSingleB
+                | Pattern::FuncBlank
         )
     }
 
     /// Whether the pattern can match at the start of the line without starting
     /// at a byte in its [`Start`]: it is `^`.
     pub(crate) fn at_line_start(self) -> bool {
-        matches!(self, Pat::EndHeredoc | Pat::MathOp | Pat::NormalStatementB)
+        matches!(
+            self,
+            Pattern::EndHeredoc | Pattern::MathOp | Pattern::NormalStatementB
+        )
     }
 
     #[expect(clippy::too_many_lines, reason = "one arm per pattern, a table")]
     pub(crate) fn start(self) -> Start {
         use Start::{After, Any, Bytes, Class, Never};
         match self {
-            Pat::Comment => Bytes(b" \t#"),
-            Pat::PipeTime | Pat::Boolean | Pat::BoolArg => Bytes(b"tf"),
-            Pat::PipeOp => Bytes(b"!|"),
-            Pat::Sep => Bytes(b";&|"),
-            Pat::LineCont
-            | Pat::Escape
-            | Pat::DqEscape
-            | Pat::BtEscape
-            | Pat::AnsiEscape
-            | Pat::AnsiOctal
-            | Pat::AnsiHex
-            | Pat::AnsiControl => Bytes(b"\\"),
-            Pat::VarAt
-            | Pat::VarDigit
-            | Pat::VarSpecial
-            | Pat::VarName
-            | Pat::StringAnsiB
-            | Pat::SubshellB
-            | Pat::VarPositionalB
-            | Pat::VarBraceB => Bytes(b"$"),
-            Pat::HerestringWord
-            | Pat::HeredocQuotedIndentB
-            | Pat::HeredocQuotedB
-            | Pat::HeredocIndentB
-            | Pat::HeredocB
-            | Pat::HerestringSingleB
-            | Pat::HerestringDoubleB => Bytes(b"<"),
-            Pat::RedirectOp => Class(redirect_start),
-            Pat::RedirectNum | Pat::ParamDigits | Pat::MathOther | Pat::MathInt => Class(digit),
-            Pat::Tilde => Bytes(b"~"),
-            Pat::Glob => Bytes(b"*?"),
-            Pat::FloatKw => Bytes(b"tedif"),
-            Pat::Support => Bytes(b".:"),
-            Pat::Numeric => Class(number_start),
-            Pat::Unquoted => Class(is_unquoted),
-            Pat::CaseDefault => Bytes(b" \t*"),
-            Pat::CaseStar | Pat::WildcardStar => Bytes(b"*"),
-            Pat::CasePlus => Bytes(b"+"),
-            Pat::CaseQuestion => Bytes(b"?"),
-            Pat::CaseAt => Bytes(b"@"),
-            Pat::CasePipe => Bytes(b"|"),
-            Pat::CaseParenOpen
-            | Pat::CaseGroupB
-            | Pat::ArithDoubleB
-            | Pat::ArithSingleB
-            | Pat::FuncParenB
-            | Pat::ParenB => Bytes(b"("),
-            Pat::CaseChar => Class(case_char),
-            Pat::MathOp => Class(math_operator),
-            Pat::MathHex | Pat::MathOctal => Bytes(b"0"),
-            Pat::MathSemi => Bytes(b";"),
-            Pat::MathName => Class(math_name),
-            Pat::SpecialExpansion => Bytes(b"!:*@#%/"),
-            Pat::ArrayAccess
-            | Pat::ArrayBracketEq
-            | Pat::CaseClassB
-            | Pat::LogicalDoubleB
-            | Pat::LogicalSingleB => Bytes(b"["),
-            Pat::ParamName | Pat::ArrayNameEq | Pat::ModMatch => Class(is_name),
-            Pat::ArgMatch => Class(blank_or_unquoted),
-            Pat::CmdKeyword => Bytes(b"crb"),
-            Pat::CmdBuiltin => Class(builtin_start),
-            Pat::CmdName => Class(is_command_name),
-            Pat::ModOption | Pat::LogicalTest => Bytes(b"-"),
-            Pat::LogicalOp => Bytes(b"=!<>&|"),
-            Pat::RegexCompare => Bytes(b"="),
-            Pat::RedirectFix => Bytes(b">"),
-            Pat::AliasB => Bytes(b" \ta"),
-            Pat::ArgB | Pat::OptionB => Bytes(b" \t"),
-            Pat::ArrayValueB | Pat::NormalAssignB => Class(name_or_blank),
-            Pat::ModifiedB => Bytes(b"rdtel"),
-            Pat::CaseB => Bytes(b"c"),
-            Pat::CasePatternB | Pat::EndBacktickComment => Any,
-            Pat::CaseBodyB => After(b")"),
-            Pat::CmdStatementB => Class(command_statement_start),
-            Pat::CmdNameB
-            | Pat::ContinuationDoubleB
-            | Pat::ContinuationSingleB
-            | Pat::FuncBlank
-            | Pat::EndHeredoc
-            | Pat::EndLit => Never,
-            Pat::CmdQuotedB => Bytes(b"$\"'"),
-            Pat::ForInB | Pat::ForB | Pat::LoopForB | Pat::EndFi => Bytes(b"f"),
-            Pat::FunctionB => Class(function_start),
-            Pat::FuncBraceB | Pat::GroupB => Bytes(b"{"),
-            Pat::BacktickB | Pat::EndBacktickCommentLine => Bytes(b"`"),
-            Pat::BacktickCommentB | Pat::BacktickCommentLineB => Bytes(b"#"),
-            Pat::LoopWhileB | Pat::WhileB => Bytes(b"wu"),
-            Pat::LoopSelectB => Bytes(b"s"),
-            Pat::LoopIfB => Bytes(b"i"),
-            Pat::EnvCommandB => After(b" \t"),
-            Pat::NormalStatementB => After(b"!&(;`{| "),
-            Pat::ExtglobB => Bytes(b"!*+?@"),
-            Pat::ProcessSubstitutionB => Bytes(b"<>"),
-            Pat::StringSingleB => Bytes(b"'"),
-            Pat::StringDoubleB => Bytes(b"$\""),
-            Pat::EndStatement | Pat::EndOption => Bytes(b"\n&);`{|}] \t#"),
-            Pat::EndArg => Bytes(b" \t&;|\n)`"),
-            Pat::EndAlias => Bytes(b" \t;&|\n"),
-            Pat::EndArithDouble => Bytes(b")"),
-            Pat::EndCase => Bytes(b"e"),
-            Pat::EndCasePattern => Bytes(b"e)"),
-            Pat::EndCaseBody => Bytes(b";e"),
-            Pat::EndCmdName => Bytes(b" \t&;|\n)`<"),
-            Pat::EndCmdQuotedDouble => After(b"\""),
-            Pat::EndCmdQuotedSingle => After(b"'"),
-            Pat::EndFunction => After(b")}"),
-            Pat::EndDone => Bytes(b"d"),
+            Pattern::Comment => Bytes(b" \t#"),
+            Pattern::PipeTime | Pattern::Boolean | Pattern::BoolArg => Bytes(b"tf"),
+            Pattern::PipeOp => Bytes(b"!|"),
+            Pattern::Sep => Bytes(b";&|"),
+            Pattern::LineCont
+            | Pattern::Escape
+            | Pattern::DqEscape
+            | Pattern::BtEscape
+            | Pattern::AnsiEscape
+            | Pattern::AnsiOctal
+            | Pattern::AnsiHex
+            | Pattern::AnsiControl => Bytes(b"\\"),
+            Pattern::VarAt
+            | Pattern::VarDigit
+            | Pattern::VarSpecial
+            | Pattern::VarName
+            | Pattern::StringAnsiB
+            | Pattern::SubshellB
+            | Pattern::VarPositionalB
+            | Pattern::VarBraceB => Bytes(b"$"),
+            Pattern::HerestringWord
+            | Pattern::HeredocQuotedIndentB
+            | Pattern::HeredocQuotedB
+            | Pattern::HeredocIndentB
+            | Pattern::HeredocB
+            | Pattern::HerestringSingleB
+            | Pattern::HerestringDoubleB => Bytes(b"<"),
+            Pattern::RedirectOp => Class(redirect_start),
+            Pattern::RedirectNum | Pattern::ParamDigits | Pattern::MathOther | Pattern::MathInt => {
+                Class(digit)
+            }
+            Pattern::Tilde => Bytes(b"~"),
+            Pattern::Glob => Bytes(b"*?"),
+            Pattern::FloatKw => Bytes(b"tedif"),
+            Pattern::Support => Bytes(b".:"),
+            Pattern::Numeric => Class(number_start),
+            Pattern::Unquoted => Class(is_unquoted),
+            Pattern::CaseDefault => Bytes(b" \t*"),
+            Pattern::CaseStar | Pattern::WildcardStar => Bytes(b"*"),
+            Pattern::CasePlus => Bytes(b"+"),
+            Pattern::CaseQuestion => Bytes(b"?"),
+            Pattern::CaseAt => Bytes(b"@"),
+            Pattern::CasePipe => Bytes(b"|"),
+            Pattern::CaseParenOpen
+            | Pattern::CaseGroupB
+            | Pattern::ArithDoubleB
+            | Pattern::ArithSingleB
+            | Pattern::FuncParenB
+            | Pattern::ParenB => Bytes(b"("),
+            Pattern::CaseChar => Class(case_char),
+            Pattern::MathOp => Class(math_operator),
+            Pattern::MathHex | Pattern::MathOctal => Bytes(b"0"),
+            Pattern::MathSemi => Bytes(b";"),
+            Pattern::MathName => Class(math_name),
+            Pattern::SpecialExpansion => Bytes(b"!:*@#%/"),
+            Pattern::ArrayAccess
+            | Pattern::ArrayBracketEq
+            | Pattern::CaseClassB
+            | Pattern::LogicalDoubleB
+            | Pattern::LogicalSingleB => Bytes(b"["),
+            Pattern::ParamName | Pattern::ArrayNameEq | Pattern::ModMatch => Class(is_name),
+            Pattern::ArgMatch => Class(blank_or_unquoted),
+            Pattern::CmdKeyword => Bytes(b"crb"),
+            Pattern::CmdBuiltin => Class(builtin_start),
+            Pattern::CmdName => Class(is_command_name),
+            Pattern::ModOption | Pattern::LogicalTest => Bytes(b"-"),
+            Pattern::LogicalOp => Bytes(b"=!<>&|"),
+            Pattern::RegexCompare => Bytes(b"="),
+            Pattern::RedirectFix => Bytes(b">"),
+            Pattern::AliasB => Bytes(b" \ta"),
+            Pattern::ArgB | Pattern::OptionB => Bytes(b" \t"),
+            Pattern::ArrayValueB | Pattern::NormalAssignB => Class(name_or_blank),
+            Pattern::ModifiedB => Bytes(b"rdtel"),
+            Pattern::CaseB => Bytes(b"c"),
+            Pattern::CasePatternB | Pattern::EndBacktickComment => Any,
+            Pattern::CaseBodyB => After(b")"),
+            Pattern::CmdStatementB => Class(command_statement_start),
+            Pattern::CmdNameB
+            | Pattern::ContinuationDoubleB
+            | Pattern::ContinuationSingleB
+            | Pattern::FuncBlank
+            | Pattern::EndHeredoc
+            | Pattern::EndLit => Never,
+            Pattern::CmdQuotedB => Bytes(b"$\"'"),
+            Pattern::ForInB | Pattern::ForB | Pattern::LoopForB | Pattern::EndFi => Bytes(b"f"),
+            Pattern::FunctionB => Class(function_start),
+            Pattern::FuncBraceB | Pattern::GroupB => Bytes(b"{"),
+            Pattern::BacktickB | Pattern::EndBacktickCommentLine => Bytes(b"`"),
+            Pattern::BacktickCommentB | Pattern::BacktickCommentLineB => Bytes(b"#"),
+            Pattern::LoopWhileB | Pattern::WhileB => Bytes(b"wu"),
+            Pattern::LoopSelectB => Bytes(b"s"),
+            Pattern::LoopIfB => Bytes(b"i"),
+            Pattern::EnvCommandB => After(b" \t"),
+            Pattern::NormalStatementB => After(b"!&(;`{| "),
+            Pattern::ExtglobB => Bytes(b"!*+?@"),
+            Pattern::ProcessSubstitutionB => Bytes(b"<>"),
+            Pattern::StringSingleB => Bytes(b"'"),
+            Pattern::StringDoubleB => Bytes(b"$\""),
+            Pattern::EndStatement | Pattern::EndOption => Bytes(b"\n&);`{|}] \t#"),
+            Pattern::EndArg => Bytes(b" \t&;|\n)`"),
+            Pattern::EndAlias => Bytes(b" \t;&|\n"),
+            Pattern::EndArithDouble => Bytes(b")"),
+            Pattern::EndCase => Bytes(b"e"),
+            Pattern::EndCasePattern => Bytes(b"e)"),
+            Pattern::EndCaseBody => Bytes(b";e"),
+            Pattern::EndCmdName => Bytes(b" \t&;|\n)`<"),
+            Pattern::EndCmdQuotedDouble => After(b"\""),
+            Pattern::EndCmdQuotedSingle => After(b"'"),
+            Pattern::EndFunction => After(b")}"),
+            Pattern::EndDone => Bytes(b"d"),
         }
     }
 }
@@ -535,24 +547,24 @@ pub(crate) struct RuleDefinition {
     pub(crate) content: Scopes<S>,
     /// Prefix of a content scope that ends in the here-document delimiter.
     pub(crate) content_delimiter: Option<&'static str>,
-    pub(crate) end: Option<Pat>,
+    pub(crate) end: Option<Pattern>,
     /// Whether the end pattern comes after the other patterns.
     pub(crate) end_last: bool,
-    /// For [`Pat::EndLit`]: the text that ends the rule.
+    /// For [`Pattern::EndLit`]: the text that ends the rule.
     pub(crate) end_lit: &'static [u8],
-    /// For [`Pat::EndLit`]: the scopes of that text.
+    /// For [`Pattern::EndLit`]: the scopes of that text.
     pub(crate) end_scopes: Scopes<S>,
     /// The end pattern and the patterns, in the order they are tried.
     /// A rule's builder leaves the patterns alone here.
     /// [`with_tables`] places the end among them.
-    pub(crate) order: Box<[Pat]>,
+    pub(crate) order: Box<[Pattern]>,
     /// For the byte before a position: which zero-width patterns can match
     /// there, as a slot of [`RuleDefinition::candidates`].
     after: [u8; 256],
     /// Where the candidates for a position are in `arena`, by [`Self::slot`].
     index: Vec<(usize, usize)>,
     /// The candidate lists, each in the order the patterns are tried.
-    arena: Vec<Pat>,
+    arena: Vec<Pattern>,
     /// Whether the positions inside a run of blanks that no pattern matched
     /// at the start of can be skipped: no pattern matches anywhere.
     pub(crate) skip_blanks: bool,
@@ -563,7 +575,7 @@ impl RuleDefinition {
     /// before it, in order.
     /// `first` is whether it is the first position of a search, and `bol`
     /// whether it starts the line.
-    pub(crate) fn candidates(&self, first: bool, bol: bool, prev: u8, byte: u8) -> &[Pat] {
+    pub(crate) fn candidates(&self, first: bool, bol: bool, prev: u8, byte: u8) -> &[Pattern] {
         let variant = usize::from(first) | (usize::from(bol) << 1);
         let slot = usize::from(self.after[usize::from(prev)]);
         let (start, len) = self.index[(variant * self.slots() + slot) * 256 + usize::from(byte)];
@@ -575,99 +587,103 @@ impl RuleDefinition {
     }
 }
 
-type Group = &'static [Pat];
+type Group = &'static [Pattern];
 
-const COMMENT: Group = &[Pat::Comment];
-const PIPELINE: Group = &[Pat::PipeTime, Pat::PipeOp];
-const SEP: Group = &[Pat::Sep];
-const LOGICAL_DOUBLE: Group = &[Pat::LogicalDoubleB];
-const LOGICAL_SINGLE: Group = &[Pat::LogicalSingleB];
-const ASSIGNMENT: Group = &[Pat::ArrayValueB, Pat::ModifiedB, Pat::NormalAssignB];
-const CASE: Group = &[Pat::CaseB];
-const FOR: Group = &[Pat::ForInB, Pat::ForB];
-const LOOP: Group = &[
-    Pat::LoopForB,
-    Pat::LoopWhileB,
-    Pat::LoopSelectB,
-    Pat::LoopIfB,
+const COMMENT: Group = &[Pattern::Comment];
+const PIPELINE: Group = &[Pattern::PipeTime, Pattern::PipeOp];
+const SEP: Group = &[Pattern::Sep];
+const LOGICAL_DOUBLE: Group = &[Pattern::LogicalDoubleB];
+const LOGICAL_SINGLE: Group = &[Pattern::LogicalSingleB];
+const ASSIGNMENT: Group = &[
+    Pattern::ArrayValueB,
+    Pattern::ModifiedB,
+    Pattern::NormalAssignB,
 ];
-const FUNCTION: Group = &[Pat::FunctionB];
-const LINE_CONTINUATION: Group = &[Pat::LineCont];
-const ARITH_DOUBLE: Group = &[Pat::ArithDoubleB];
+const CASE: Group = &[Pattern::CaseB];
+const FOR: Group = &[Pattern::ForInB, Pattern::ForB];
+const LOOP: Group = &[
+    Pattern::LoopForB,
+    Pattern::LoopWhileB,
+    Pattern::LoopSelectB,
+    Pattern::LoopIfB,
+];
+const FUNCTION: Group = &[Pattern::FunctionB];
+const LINE_CONTINUATION: Group = &[Pattern::LineCont];
+const ARITH_DOUBLE: Group = &[Pattern::ArithDoubleB];
 const MISC_RANGES: Group = &[
-    Pat::LogicalSingleB,
-    Pat::LogicalDoubleB,
-    Pat::SubshellB,
-    Pat::GroupB,
+    Pattern::LogicalSingleB,
+    Pattern::LogicalDoubleB,
+    Pattern::SubshellB,
+    Pattern::GroupB,
 ];
 const VARIABLE: Group = &[
-    Pat::VarAt,
-    Pat::VarDigit,
-    Pat::VarSpecial,
-    Pat::VarPositionalB,
-    Pat::VarBraceB,
-    Pat::VarName,
+    Pattern::VarAt,
+    Pattern::VarDigit,
+    Pattern::VarSpecial,
+    Pattern::VarPositionalB,
+    Pattern::VarBraceB,
+    Pattern::VarName,
 ];
-const INTERPOLATION: Group = &[Pat::SubshellB, Pat::BacktickB];
+const INTERPOLATION: Group = &[Pattern::SubshellB, Pattern::BacktickB];
 const HEREDOC: Group = &[
-    Pat::HeredocQuotedIndentB,
-    Pat::HeredocQuotedB,
-    Pat::HeredocIndentB,
-    Pat::HeredocB,
+    Pattern::HeredocQuotedIndentB,
+    Pattern::HeredocQuotedB,
+    Pattern::HeredocIndentB,
+    Pattern::HeredocB,
 ];
 const HERESTRING: Group = &[
-    Pat::HerestringSingleB,
-    Pat::HerestringDoubleB,
-    Pat::HerestringWord,
+    Pattern::HerestringSingleB,
+    Pattern::HerestringDoubleB,
+    Pattern::HerestringWord,
 ];
-const REDIRECTION: Group = &[Pat::ProcessSubstitutionB, Pat::RedirectOp];
-const PATHNAME: Group = &[Pat::Tilde, Pat::Glob, Pat::ExtglobB];
-const FLOATING_KEYWORD: Group = &[Pat::FloatKw];
-const ALIAS: Group = &[Pat::AliasB];
-const NORMAL_STATEMENT: Group = &[Pat::NormalStatementB];
+const REDIRECTION: Group = &[Pattern::ProcessSubstitutionB, Pattern::RedirectOp];
+const PATHNAME: Group = &[Pattern::Tilde, Pattern::Glob, Pattern::ExtglobB];
+const FLOATING_KEYWORD: Group = &[Pattern::FloatKw];
+const ALIAS: Group = &[Pattern::AliasB];
+const NORMAL_STATEMENT: Group = &[Pattern::NormalStatementB];
 const STRING: Group = &[
-    Pat::Escape,
-    Pat::StringSingleB,
-    Pat::StringDoubleB,
-    Pat::StringAnsiB,
+    Pattern::Escape,
+    Pattern::StringSingleB,
+    Pattern::StringDoubleB,
+    Pattern::StringAnsiB,
 ];
-const SUPPORT: Group = &[Pat::Support];
-const BOOLEAN: Group = &[Pat::Boolean];
-const REDIRECT_NUMBER: Group = &[Pat::RedirectNum];
-const NUMERIC: Group = &[Pat::Numeric];
-const PAREN: Group = &[Pat::ParenB];
-const UNQUOTED: Group = &[Pat::Unquoted];
-const DQ_ESCAPE: Group = &[Pat::DqEscape];
-const ARGUMENT_MATCH: Group = &[Pat::ArgMatch];
+const SUPPORT: Group = &[Pattern::Support];
+const BOOLEAN: Group = &[Pattern::Boolean];
+const REDIRECT_NUMBER: Group = &[Pattern::RedirectNum];
+const NUMERIC: Group = &[Pattern::Numeric];
+const PAREN: Group = &[Pattern::ParenB];
+const UNQUOTED: Group = &[Pattern::Unquoted];
+const DQ_ESCAPE: Group = &[Pattern::DqEscape];
+const ARGUMENT_MATCH: Group = &[Pattern::ArgMatch];
 const MATH: Group = &[
-    Pat::MathOp,
-    Pat::MathHex,
-    Pat::MathSemi,
-    Pat::MathOctal,
-    Pat::MathOther,
-    Pat::MathInt,
-    Pat::MathName,
+    Pattern::MathOp,
+    Pattern::MathHex,
+    Pattern::MathSemi,
+    Pattern::MathOctal,
+    Pattern::MathOther,
+    Pattern::MathInt,
+    Pattern::MathName,
 ];
 const MATH_OPERATORS: Group = &[
-    Pat::MathOp,
-    Pat::MathHex,
-    Pat::MathOctal,
-    Pat::MathOther,
-    Pat::MathInt,
+    Pattern::MathOp,
+    Pattern::MathHex,
+    Pattern::MathOctal,
+    Pattern::MathOther,
+    Pattern::MathInt,
 ];
 const CASE_CONTEXT: Group = &[
-    Pat::CaseStar,
-    Pat::CasePlus,
-    Pat::CaseQuestion,
-    Pat::CaseAt,
-    Pat::CasePipe,
-    Pat::Escape,
-    Pat::CaseParenOpen,
-    Pat::CaseGroupB,
-    Pat::CaseClassB,
+    Pattern::CaseStar,
+    Pattern::CasePlus,
+    Pattern::CaseQuestion,
+    Pattern::CaseAt,
+    Pattern::CasePipe,
+    Pattern::Escape,
+    Pattern::CaseParenOpen,
+    Pattern::CaseGroupB,
+    Pattern::CaseClassB,
 ];
-const OPTION_B: Group = &[Pat::OptionB];
-const ARG_B: Group = &[Pat::ArgB];
+const OPTION_B: Group = &[Pattern::OptionB];
+const ARG_B: Group = &[Pattern::ArgB];
 
 const NORMAL_CONTEXT: &[Group] = &[
     COMMENT,
@@ -720,9 +736,9 @@ const TYPICAL_STATEMENTS: &[Group] = &[
     ASSIGNMENT,
     CASE,
     FOR,
-    &[Pat::WhileB],
+    &[Pattern::WhileB],
     FUNCTION,
-    &[Pat::CmdStatementB],
+    &[Pattern::CmdStatementB],
     LINE_CONTINUATION,
     ARITH_DOUBLE,
     // `normal_context`
@@ -746,9 +762,13 @@ const TYPICAL_STATEMENTS: &[Group] = &[
 ];
 
 const LOGICAL_CONTEXT: &[Group] = &[
-    &[Pat::RegexCompare],
-    &[Pat::ArithSingleB],
-    &[Pat::ArithSingleB, Pat::LogicalOp, Pat::LogicalTest],
+    &[Pattern::RegexCompare],
+    &[Pattern::ArithSingleB],
+    &[
+        Pattern::ArithSingleB,
+        Pattern::LogicalOp,
+        Pattern::LogicalTest,
+    ],
     LOGICAL_SINGLE,
     LOGICAL_DOUBLE,
     COMMENT,
@@ -780,7 +800,7 @@ const OPTION_CONTEXT: &[Group] = &[
     SUPPORT,
 ];
 
-fn flatten(groups: &[&[&[Pat]]]) -> Box<[Pat]> {
+fn flatten(groups: &[&[&[Pattern]]]) -> Box<[Pattern]> {
     groups
         .iter()
         .flat_map(|list| list.iter())
@@ -791,8 +811,8 @@ fn flatten(groups: &[&[&[Pat]]]) -> Box<[Pat]> {
 fn definition(
     name: Scopes<S>,
     content: Scopes<S>,
-    end: Option<Pat>,
-    groups: &[&[&[Pat]]],
+    end: Option<Pattern>,
+    groups: &[&[&[Pattern]]],
 ) -> RuleDefinition {
     RuleDefinition {
         name,
@@ -816,47 +836,52 @@ fn lit(
     content: Scopes<S>,
     lit: &'static [u8],
     scopes: Scopes<S>,
-    groups: &[&[&[Pat]]],
+    groups: &[&[&[Pattern]]],
 ) -> RuleDefinition {
     RuleDefinition {
         end_lit: lit,
         end_scopes: scopes,
-        ..definition(name, content, Some(Pat::EndLit), groups)
+        ..definition(name, content, Some(Pattern::EndLit), groups)
     }
 }
 
-fn heredoc(prefix: &'static str, groups: &[&[&[Pat]]]) -> RuleDefinition {
+fn heredoc(prefix: &'static str, groups: &[&[&[Pattern]]]) -> RuleDefinition {
     RuleDefinition {
         content_delimiter: Some(prefix),
-        ..definition(S::NO_SCOPES, S::NO_SCOPES, Some(Pat::EndHeredoc), groups)
+        ..definition(
+            S::NO_SCOPES,
+            S::NO_SCOPES,
+            Some(Pattern::EndHeredoc),
+            groups,
+        )
     }
 }
 
 #[expect(clippy::too_many_lines, reason = "one arm per rule, a table")]
 fn build(rule: Rule) -> RuleDefinition {
-    const NORMAL: &[&[Pat]] = NORMAL_CONTEXT;
-    const INITIAL: &[&[Pat]] = INITIAL_CONTEXT;
-    const TYPICAL: &[&[Pat]] = TYPICAL_STATEMENTS;
-    const LOGICAL: &[&[Pat]] = LOGICAL_CONTEXT;
-    const OPTION: &[&[Pat]] = OPTION_CONTEXT;
+    const NORMAL: &[&[Pattern]] = NORMAL_CONTEXT;
+    const INITIAL: &[&[Pattern]] = INITIAL_CONTEXT;
+    const TYPICAL: &[&[Pattern]] = TYPICAL_STATEMENTS;
+    const LOGICAL: &[&[Pattern]] = LOGICAL_CONTEXT;
+    const OPTION: &[&[Pattern]] = OPTION_CONTEXT;
     match rule {
         Rule::Root | Rule::RetokInitial => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[INITIAL]),
         Rule::Alias => definition(
             scopes![S::MetaExpressionAssignmentAlias],
             S::NO_SCOPES,
-            Some(Pat::EndAlias),
+            Some(Pattern::EndAlias),
             &[NORMAL],
         ),
         Rule::Argument => definition(
             scopes![S::MetaArgument],
             S::NO_SCOPES,
-            Some(Pat::EndArg),
+            Some(Pattern::EndArg),
             &[&[ARGUMENT_MATCH], NORMAL, &[LINE_CONTINUATION]],
         ),
         Rule::ArithDouble => definition(
             scopes![S::MetaArithmetic],
             S::NO_SCOPES,
-            Some(Pat::EndArithDouble),
+            Some(Pattern::EndArithDouble),
             &[&[VARIABLE, MATH, STRING]],
         ),
         Rule::ArithSingle => lit(
@@ -872,7 +897,7 @@ fn build(rule: Rule) -> RuleDefinition {
             b")",
             scopes![S::PunctuationDefinitionArray],
             &[
-                &[COMMENT, &[Pat::ArrayNameEq, Pat::ArrayBracketEq]],
+                &[COMMENT, &[Pattern::ArrayNameEq, Pattern::ArrayBracketEq]],
                 NORMAL,
                 &[UNQUOTED],
             ],
@@ -880,22 +905,26 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::Case => definition(
             scopes![S::MetaCase],
             S::NO_SCOPES,
-            Some(Pat::EndCase),
+            Some(Pattern::EndCase),
             &[&[
                 COMMENT,
-                &[Pat::CaseDefault, Pat::CasePatternB, Pat::CaseBodyB],
+                &[
+                    Pattern::CaseDefault,
+                    Pattern::CasePatternB,
+                    Pattern::CaseBodyB,
+                ],
             ]],
         ),
         Rule::CasePattern => definition(
             scopes![S::MetaCaseEntryPattern],
             S::NO_SCOPES,
-            Some(Pat::EndCasePattern),
-            &[&[CASE_CONTEXT, STRING, &[Pat::CaseChar]]],
+            Some(Pattern::EndCasePattern),
+            &[&[CASE_CONTEXT, STRING, &[Pattern::CaseChar]]],
         ),
         Rule::CaseBody => definition(
             scopes![S::MetaCaseEntryBody],
             S::NO_SCOPES,
-            Some(Pat::EndCaseBody),
+            Some(Pattern::EndCaseBody),
             &[TYPICAL, INITIAL],
         ),
         Rule::CaseGroup => lit(
@@ -906,21 +935,21 @@ fn build(rule: Rule) -> RuleDefinition {
                 S::PunctuationDefinitionGroup,
                 S::PunctuationDefinitionRegexGroup,
             ],
-            &[&[CASE_CONTEXT, STRING, &[Pat::CaseChar]]],
+            &[&[CASE_CONTEXT, STRING, &[Pattern::CaseChar]]],
         ),
         Rule::CaseClass => lit(
             scopes![S::StringRegexpCharacterClass],
             S::NO_SCOPES,
             b"]",
             scopes![S::PunctuationDefinitionCharacterClass],
-            &[&[&[Pat::Escape]]],
+            &[&[&[Pattern::Escape]]],
         ),
         Rule::CommandStatement => definition(
             scopes![S::MetaStatementCommand],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
+            Some(Pattern::EndStatement),
             &[&[
-                &[Pat::CmdNameB],
+                &[Pattern::CmdNameB],
                 LINE_CONTINUATION,
                 OPTION_B,
                 ARG_B,
@@ -931,11 +960,11 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::CommandName => definition(
             scopes![S::MetaStatementCommandName],
             S::NO_SCOPES,
-            Some(Pat::EndCmdName),
+            Some(Pattern::EndCmdName),
             &[&[
-                &[Pat::CmdKeyword, Pat::CmdBuiltin],
+                &[Pattern::CmdKeyword, Pattern::CmdBuiltin],
                 VARIABLE,
-                &[Pat::CmdName, Pat::CmdQuotedB],
+                &[Pattern::CmdName, Pattern::CmdQuotedB],
                 LINE_CONTINUATION,
                 UNQUOTED,
             ]],
@@ -943,14 +972,14 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::CommandQuotedDouble => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
-            Some(Pat::EndCmdQuotedDouble),
-            &[&[&[Pat::ContinuationSingleB, Pat::ContinuationDoubleB]]],
+            Some(Pattern::EndCmdQuotedDouble),
+            &[&[&[Pattern::ContinuationSingleB, Pattern::ContinuationDoubleB]]],
         ),
         Rule::CommandQuotedSingle => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
-            Some(Pat::EndCmdQuotedSingle),
-            &[&[&[Pat::ContinuationSingleB, Pat::ContinuationDoubleB]]],
+            Some(Pattern::EndCmdQuotedSingle),
+            &[&[&[Pattern::ContinuationSingleB, Pattern::ContinuationDoubleB]]],
         ),
         Rule::ContinuationDouble => lit(
             S::NO_SCOPES,
@@ -989,13 +1018,13 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::ForIn => definition(
             scopes![S::MetaForIn],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
+            Some(Pattern::EndStatement),
             &[&[STRING, UNQUOTED], NORMAL],
         ),
         Rule::For => definition(
             scopes![S::MetaFor],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
+            Some(Pattern::EndStatement),
             &[&[ARITH_DOUBLE], NORMAL],
         ),
         Rule::Function => RuleDefinition {
@@ -1003,9 +1032,9 @@ fn build(rule: Rule) -> RuleDefinition {
             ..definition(
                 scopes![S::MetaFunction],
                 S::NO_SCOPES,
-                Some(Pat::EndFunction),
+                Some(Pattern::EndFunction),
                 &[
-                    &[&[Pat::FuncBlank, Pat::FuncBraceB, Pat::FuncParenB]],
+                    &[&[Pattern::FuncBlank, Pattern::FuncBraceB, Pattern::FuncParenB]],
                     INITIAL,
                 ],
             )
@@ -1059,18 +1088,18 @@ fn build(rule: Rule) -> RuleDefinition {
             S::NO_SCOPES,
             b"`",
             scopes![S::PunctuationDefinitionEvaluationBackticks],
-            &[&[&[Pat::BtEscape, Pat::BacktickCommentB]], INITIAL],
+            &[&[&[Pattern::BtEscape, Pattern::BacktickCommentB]], INITIAL],
         ),
         Rule::BacktickComment => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
-            Some(Pat::EndBacktickComment),
-            &[&[&[Pat::BacktickCommentLineB]]],
+            Some(Pattern::EndBacktickComment),
+            &[&[&[Pattern::BacktickCommentLineB]]],
         ),
         Rule::BacktickCommentLine => definition(
             scopes![S::CommentLineNumberSign],
             S::NO_SCOPES,
-            Some(Pat::EndBacktickCommentLine),
+            Some(Pattern::EndBacktickCommentLine),
             &[],
         ),
         Rule::LogicalDouble => lit(
@@ -1090,25 +1119,25 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::LoopFor => definition(
             scopes![S::MetaScopeForInLoop],
             S::NO_SCOPES,
-            Some(Pat::EndDone),
+            Some(Pattern::EndDone),
             &[INITIAL],
         ),
         Rule::LoopWhile => definition(
             scopes![S::MetaScopeWhileLoop],
             S::NO_SCOPES,
-            Some(Pat::EndDone),
+            Some(Pattern::EndDone),
             &[INITIAL],
         ),
         Rule::LoopSelect => definition(
             scopes![S::MetaScopeSelectBlock],
             S::NO_SCOPES,
-            Some(Pat::EndDone),
+            Some(Pattern::EndDone),
             &[INITIAL],
         ),
         Rule::LoopIf => definition(
             scopes![S::MetaScopeIfBlock],
             S::NO_SCOPES,
-            Some(Pat::EndFi),
+            Some(Pattern::EndFi),
             &[INITIAL],
         ),
         Rule::Group => lit(
@@ -1121,21 +1150,21 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::Modified => definition(
             scopes![S::MetaStatement, S::MetaExpressionAssignmentModified],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
+            Some(Pattern::EndStatement),
             &[
-                &[&[Pat::ModOption, Pat::ArrayValueB, Pat::ModMatch]],
+                &[&[Pattern::ModOption, Pattern::ArrayValueB, Pattern::ModMatch]],
                 NORMAL,
             ],
         ),
         Rule::NormalAssign => definition(
             scopes![S::MetaExpressionAssignment],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
+            Some(Pattern::EndStatement),
             &[
                 &[
                     COMMENT,
                     STRING,
-                    &[Pat::NormalAssignB, Pat::EnvCommandB],
+                    &[Pattern::NormalAssignB, Pattern::EnvCommandB],
                     UNQUOTED,
                 ],
                 NORMAL,
@@ -1144,19 +1173,25 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::EnvCommand => definition(
             scopes![S::MetaStatementCommandEnv],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
-            &[&[&[Pat::CmdNameB], LINE_CONTINUATION, OPTION_B, ARG_B, STRING]],
+            Some(Pattern::EndStatement),
+            &[&[
+                &[Pattern::CmdNameB],
+                LINE_CONTINUATION,
+                OPTION_B,
+                ARG_B,
+                STRING,
+            ]],
         ),
         Rule::NormalStatement => definition(
             scopes![S::MetaStatement],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
+            Some(Pattern::EndStatement),
             &[TYPICAL],
         ),
         Rule::Option => definition(
             S::NO_SCOPES,
             scopes![S::StringUnquotedArgumentBare, S::ConstantOtherOptionBare],
-            Some(Pat::EndOption),
+            Some(Pattern::EndOption),
             &[OPTION],
         ),
         Rule::Paren => lit(
@@ -1200,10 +1235,10 @@ fn build(rule: Rule) -> RuleDefinition {
             b"'",
             scopes![S::PunctuationDefinitionStringEnd],
             &[&[&[
-                Pat::AnsiEscape,
-                Pat::AnsiOctal,
-                Pat::AnsiHex,
-                Pat::AnsiControl,
+                Pattern::AnsiEscape,
+                Pattern::AnsiOctal,
+                Pattern::AnsiHex,
+                Pattern::AnsiControl,
             ]]],
         ),
         Rule::Subshell => lit(
@@ -1224,10 +1259,10 @@ fn build(rule: Rule) -> RuleDefinition {
             ],
             &[&[
                 &[
-                    Pat::SpecialExpansion,
-                    Pat::ArrayAccess,
-                    Pat::ParamDigits,
-                    Pat::ParamName,
+                    Pattern::SpecialExpansion,
+                    Pattern::ArrayAccess,
+                    Pattern::ParamDigits,
+                    Pattern::ParamName,
                 ],
                 VARIABLE,
                 STRING,
@@ -1242,7 +1277,11 @@ fn build(rule: Rule) -> RuleDefinition {
                 S::PunctuationDefinitionVariable,
             ],
             &[&[
-                &[Pat::SpecialExpansion, Pat::ArrayAccess, Pat::ParamName],
+                &[
+                    Pattern::SpecialExpansion,
+                    Pattern::ArrayAccess,
+                    Pattern::ParamName,
+                ],
                 VARIABLE,
                 STRING,
             ]],
@@ -1250,7 +1289,7 @@ fn build(rule: Rule) -> RuleDefinition {
         Rule::While => definition(
             scopes![S::MetaWhile],
             S::NO_SCOPES,
-            Some(Pat::EndStatement),
+            Some(Pattern::EndStatement),
             &[
                 &[LINE_CONTINUATION, MATH_OPERATORS, OPTION_B, UNQUOTED],
                 NORMAL,
@@ -1261,21 +1300,31 @@ fn build(rule: Rule) -> RuleDefinition {
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
-            &[&[&[Pat::WildcardStar], VARIABLE, NUMERIC, &[Pat::BoolArg]]],
+            &[&[
+                &[Pattern::WildcardStar],
+                VARIABLE,
+                NUMERIC,
+                &[Pattern::BoolArg],
+            ]],
         ),
-        Rule::RetokOptions => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[&[&[Pat::ModOption]]]),
+        Rule::RetokOptions => definition(
+            S::NO_SCOPES,
+            S::NO_SCOPES,
+            None,
+            &[&[&[Pattern::ModOption]]],
+        ),
         Rule::RetokString => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[&[STRING]]),
         Rule::RetokArrayAccess => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
-            &[&[&[Pat::SpecialExpansion], STRING, VARIABLE]],
+            &[&[&[Pattern::SpecialExpansion], STRING, VARIABLE]],
         ),
         Rule::RetokHeredocRest => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
-            &[&[&[Pat::RedirectFix]], TYPICAL],
+            &[&[&[Pattern::RedirectFix]], TYPICAL],
         ),
     }
 }
@@ -1293,7 +1342,7 @@ fn build(rule: Rule) -> RuleDefinition {
 /// `every_rule_fits_its_tables` checks both, so the fallbacks never apply.
 /// What each pattern needs is computed once, so the lists only look it up.
 fn with_tables(mut definition: RuleDefinition) -> RuleDefinition {
-    let mut order: Vec<Pat> = Vec::new();
+    let mut order: Vec<Pattern> = Vec::new();
     if let Some(end) = definition.end
         && !definition.end_last
     {
@@ -1305,10 +1354,10 @@ fn with_tables(mut definition: RuleDefinition) -> RuleDefinition {
     {
         order.push(end);
     }
-    let mut zero_width: Vec<(Pat, &'static [u8])> = Vec::new();
-    for &pat in &order {
-        if let Start::After(set) = pat.start() {
-            zero_width.push((pat, set));
+    let mut zero_width: Vec<(Pattern, &'static [u8])> = Vec::new();
+    for &pattern in &order {
+        if let Start::After(set) = pattern.start() {
+            zero_width.push((pattern, set));
         }
     }
     let mut masks: Vec<u8> = vec![0];
@@ -1329,10 +1378,10 @@ fn with_tables(mut definition: RuleDefinition) -> RuleDefinition {
     }
     let classes: Vec<([bool; 256], Option<usize>)> = order
         .iter()
-        .map(|&pat| {
+        .map(|&pattern| {
             let mut class = [false; 256];
             let mut zero = None;
-            match pat.start() {
+            match pattern.start() {
                 Start::Bytes(set) => {
                     for &b in set {
                         class[usize::from(b)] = true;
@@ -1343,10 +1392,14 @@ fn with_tables(mut definition: RuleDefinition) -> RuleDefinition {
                         class[usize::from(b)] = test(b);
                     }
                 }
-                Start::After(_) => zero = zero_width.iter().position(|&(p, _)| p == pat),
+                Start::After(_) => zero = zero_width.iter().position(|&(p, _)| p == pattern),
                 Start::Any => class = [true; 256],
                 Start::Never => {
-                    if let Some(&b) = definition.end_lit.first().filter(|_| pat == Pat::EndLit) {
+                    if let Some(&b) = definition
+                        .end_lit
+                        .first()
+                        .filter(|_| pattern == Pattern::EndLit)
+                    {
                         class[usize::from(b)] = true;
                     }
                 }
@@ -1354,21 +1407,21 @@ fn with_tables(mut definition: RuleDefinition) -> RuleDefinition {
             (class, zero)
         })
         .collect();
-    let mut known: HashMap<Vec<Pat>, (usize, usize)> = HashMap::new();
+    let mut known: HashMap<Vec<Pattern>, (usize, usize)> = HashMap::new();
     for variant in 0..4_usize {
         let (first, bol) = (variant & 1 != 0, variant & 2 != 0);
         for &mask in &masks {
             for b in 0..=u8::MAX {
-                let list: Vec<Pat> = order
+                let list: Vec<Pattern> = order
                     .iter()
                     .zip(&classes)
-                    .filter(|&(&pat, &(class, zero))| {
+                    .filter(|&(&pattern, &(class, zero))| {
                         class[usize::from(b)]
                             || zero.is_some_and(|index| mask & (1 << index.min(7)) != 0)
-                            || (first && pat.anchored())
-                            || (bol && pat.at_line_start())
+                            || (first && pattern.anchored())
+                            || (bol && pattern.at_line_start())
                     })
-                    .map(|(&pat, _)| pat)
+                    .map(|(&pattern, _)| pattern)
                     .collect();
                 let place = if let Some(&place) = known.get(&list) {
                     place
@@ -1382,7 +1435,9 @@ fn with_tables(mut definition: RuleDefinition) -> RuleDefinition {
             }
         }
     }
-    definition.skip_blanks = !order.iter().any(|pat| matches!(pat.start(), Start::Any));
+    definition.skip_blanks = !order
+        .iter()
+        .any(|pattern| matches!(pattern.start(), Start::Any));
     definition.order = order.into_boxed_slice();
     definition
 }
@@ -1408,7 +1463,7 @@ mod tests {
             let zero_width = definition
                 .order
                 .iter()
-                .filter(|pat| matches!(pat.start(), Start::After(_)))
+                .filter(|pattern| matches!(pattern.start(), Start::After(_)))
                 .count();
             assert!(
                 zero_width <= 8,

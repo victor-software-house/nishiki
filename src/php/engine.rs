@@ -1,7 +1,7 @@
 //! PHP on the shared rule engine ([`crate::rules`]): the grammar's types, and
 //! where an embedded language hands the line back.
 
-use super::grammar::{Pat, Rule, Sc};
+use super::grammar::{Pattern, Rule, Sc};
 use super::scope::S;
 use crate::arena::Arena;
 use crate::php_family::halts::{quoted_to, sql_common};
@@ -23,7 +23,7 @@ impl Grammar for Php {
     type Scope = Sc;
     const NO_SCOPES: Scopes<Sc> = Sc::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Rule;
     type Extra = ();
     type Kept = ();
@@ -73,35 +73,35 @@ impl Grammar for Php {
         rule.payload()
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.definition().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let definition = pat.definition();
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
         (definition.captures, definition.nested)
     }
 
-    fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let definition = pat.definition();
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
         (definition.act, (definition.captures, definition.nested))
     }
 
     /// The scan of the pattern tables.
     /// A match of a word table's head is the list that holds the word first.
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
-        let (start, pat, end) = table_scan(lexer)?;
-        match pat.words() {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
+        let (start, pattern, end) = table_scan(lexer)?;
+        match pattern.words() {
             Some((table, 0)) => {
                 let list = lexer.word_list(table.words(), start)?;
-                Some((start, Pat::of_list(table, list), end))
+                Some((start, Pattern::of_list(table, list), end))
             }
-            Some(_) | None => Some((start, pat, end)),
+            Some(_) | None => Some((start, pattern, end)),
         }
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat, p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.matcher(pattern, p)
     }
 
     fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Rule, from: usize, to: usize, base: u32) {

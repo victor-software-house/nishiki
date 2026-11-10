@@ -5,7 +5,7 @@
 
 use memchr::{memchr, memchr2, memchr3};
 
-use super::engine::{Document, Hit, Lexer, Pat};
+use super::engine::{Document, Hit, Lexer, Pattern};
 use super::state::{
     AttributeRule, Category, ElementClass, Flavor, Namespace, Rule, TagClass, TagRule,
 };
@@ -379,7 +379,7 @@ impl Lexer<'_> {
     // Ends.
 
     fn zero(p: usize) -> Hit {
-        Hit::new(Pat::End, p, p)
+        Hit::new(Pattern::End, p, p)
     }
 
     /// The end pattern of `rule` at `p`.
@@ -389,7 +389,7 @@ impl Lexer<'_> {
     )]
     fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let b = self.at(p);
-        let one = |len: usize| Hit::new(Pat::End, p, p + len);
+        let one = |len: usize| Hit::new(Pattern::End, p, p + len);
         match rule {
             Rule::Root
             | Rule::BodyCss
@@ -448,7 +448,7 @@ impl Lexer<'_> {
                 }
                 self.spend((q - p) / 8);
                 if q == self.lim {
-                    Some(Hit::new(Pat::End, p, self.end_pos()))
+                    Some(Hit::new(Pattern::End, p, self.end_pos()))
                 } else {
                     Some(Self::zero(p))
                 }
@@ -457,7 +457,7 @@ impl Lexer<'_> {
                 let name = self.lit_ci(p, b"</style")?;
                 let gt = self.skip_ws(name);
                 (self.at(gt) == b'>')
-                    .then(|| Hit::new(Pat::End, p, gt + 1).with([p + 2, name, gt, 0, 0], 0))
+                    .then(|| Hit::new(Pattern::End, p, gt + 1).with([p + 2, name, gt, 0, 0], 0))
             }
             Rule::ScriptTag => {
                 let name = self.lit_ci(p, b"/script")?;
@@ -550,7 +550,7 @@ impl Lexer<'_> {
         }
         let end = self.end_pos();
         if self.lf && self.skip_ws(p) == end {
-            Some(Hit::new(Pat::End, p, end))
+            Some(Hit::new(Pattern::End, p, end))
         } else {
             Some(Self::zero(p))
         }
@@ -576,7 +576,7 @@ impl Lexer<'_> {
         let element = ElementClass::from_bits(super::state::payload_bits(top.payload));
         if self.at(p) == b'/' {
             return (!element.root && self.starts(p, b"/>"))
-                .then(|| Hit::new(Pat::End, p, p + 2).with([0; 5], 1));
+                .then(|| Hit::new(Pattern::End, p, p + 2).with([0; 5], 1));
         }
         if !self.starts(p, b"</") {
             return None;
@@ -591,12 +591,12 @@ impl Lexer<'_> {
             let gt = self.skip_ws(name_end);
             if self.at(gt) == b'>' {
                 return Some(
-                    Hit::new(Pat::End, p, gt + 1).with([name_start, name_end, gt, 0, 0], 0),
+                    Hit::new(Pattern::End, p, gt + 1).with([name_start, name_end, gt, 0, 0], 0),
                 );
             }
         }
         (!element.root && self.word_len(name_start).is_some())
-            .then(|| Hit::new(Pat::End, p, p).with([0; 5], 2))
+            .then(|| Hit::new(Pattern::End, p, p).with([0; 5], 2))
     }
 
     // Patterns.
@@ -633,10 +633,10 @@ impl Lexer<'_> {
                 if self.g(p)
                     && let Some(end) = self.lit_ci(p, b"doctype")
                 {
-                    return Some(Hit::new(Pat::DoctypeKeyword, p, end));
+                    return Some(Hit::new(Pattern::DoctypeKeyword, p, end));
                 }
                 if b == b'"' {
-                    return Some(Hit::new(Pat::DoctypeQuote, p, p + 1));
+                    return Some(Hit::new(Pattern::DoctypeQuote, p, p + 1));
                 }
                 if p < self.lim && self.ws_len(p) == 0 && b != b'>' {
                     let mut q = p;
@@ -644,7 +644,7 @@ impl Lexer<'_> {
                         q += crate::utf8::char_len(self.at(q));
                     }
                     self.spend((q - p) / 8);
-                    return Some(Hit::new(Pat::DoctypeWord, p, q.min(self.lim)));
+                    return Some(Hit::new(Pattern::DoctypeWord, p, q.min(self.lim)));
                 }
                 None
             }
@@ -699,13 +699,13 @@ impl Lexer<'_> {
                 .g(p)
                 .then(|| self.style_open(p))
                 .flatten()
-                .map(|end| Hit::new(Pat::StyleTag, p, end)),
+                .map(|end| Hit::new(Pattern::StyleTag, p, end)),
             Rule::ScriptWrap => (self.g(p) && b == b'<')
                 .then(|| self.lit_ci(p + 1, b"script"))
                 .flatten()
-                .map(|end| Hit::new(Pat::ScriptTag, p, end)),
+                .map(|end| Hit::new(Pattern::ScriptTag, p, end)),
             Rule::StyleTag => Some(Hit::new(
-                Pat::Zero(if self.g(p) {
+                Pattern::Zero(if self.g(p) {
                     Rule::OpenStyle
                 } else {
                     Rule::BodyCss
@@ -715,23 +715,25 @@ impl Lexer<'_> {
             )),
             Rule::ScriptTag => self
                 .g(p)
-                .then(|| Hit::new(Pat::Zero(Rule::ScriptHead), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::ScriptHead), p, p)),
             Rule::ScriptHead => {
                 if b == b'>' {
-                    return Some(Hit::new(Pat::ScriptJs, p, p + 1));
+                    return Some(Hit::new(Pattern::ScriptJs, p, p + 1));
                 }
                 if self.g(p) {
-                    return Some(Hit::new(Pat::Zero(Rule::ScriptAttributes), p, p));
+                    return Some(Hit::new(Pattern::Zero(Rule::ScriptAttributes), p, p));
                 }
                 if self.script_template_ahead(p) {
-                    return Some(Hit::new(Pat::Zero(Rule::ScriptTemplateOuter), p, p));
+                    return Some(Hit::new(Pattern::Zero(Rule::ScriptTemplateOuter), p, p));
                 }
                 self.lit_ci(p, b"type")
-                    .map(|_| Hit::new(Pat::Zero(Rule::ScriptOtherOuter), p, p))
+                    .map(|_| Hit::new(Pattern::Zero(Rule::ScriptOtherOuter), p, p))
             }
-            Rule::ScriptJsOuter => self.g(p).then(|| Hit::new(Pat::Zero(Rule::BodyJs), p, p)),
+            Rule::ScriptJsOuter => self
+                .g(p)
+                .then(|| Hit::new(Pattern::Zero(Rule::BodyJs), p, p)),
             Rule::ScriptTemplateOuter => Some(Hit::new(
-                Pat::Zero(if self.g(p) {
+                Pattern::Zero(if self.g(p) {
                     Rule::OpenScript
                 } else {
                     Rule::BodyTemplate
@@ -740,7 +742,7 @@ impl Lexer<'_> {
                 p,
             )),
             Rule::ScriptOtherOuter => Some(Hit::new(
-                Pat::Zero(if self.g(p) {
+                Pattern::Zero(if self.g(p) {
                     Rule::OpenScript
                 } else {
                     Rule::BodyOther
@@ -750,16 +752,16 @@ impl Lexer<'_> {
             )),
             Rule::Attribute => {
                 let q = self.skip_ws(p);
-                (q < self.lim && self.at(q) == b'=').then(|| Hit::new(Pat::Equals, q, q + 1))
+                (q < self.lim && self.at(q) == b'=').then(|| Hit::new(Pattern::Equals, q, q + 1))
             }
             Rule::Value => {
                 if let Some(end) = self.unquoted_end(p) {
-                    return Some(Hit::new(Pat::Unquoted, p, end));
+                    return Some(Hit::new(Pattern::Unquoted, p, end));
                 }
                 if matches!(b, b'"' | b'\'') {
-                    return Some(Hit::new(Pat::Quote, p, p + 1).with([0; 5], u32::from(b)));
+                    return Some(Hit::new(Pattern::Quote, p, p + 1).with([0; 5], u32::from(b)));
                 }
-                (b == b'=').then(|| Hit::new(Pat::EqualsIllegal, p, p + 1))
+                (b == b'=').then(|| Hit::new(Pattern::EqualsIllegal, p, p + 1))
             }
             Rule::ValueCss | Rule::ValueJs => {
                 if self.value_starts(p) {
@@ -768,21 +770,21 @@ impl Lexer<'_> {
                     } else {
                         Rule::WrapJs
                     };
-                    return Some(Hit::new(Pat::Zero(wrap), p, p));
+                    return Some(Hit::new(Pattern::Zero(wrap), p, p));
                 }
-                (b == b'=').then(|| Hit::new(Pat::EqualsIllegal, p, p + 1))
+                (b == b'=').then(|| Hit::new(Pattern::EqualsIllegal, p, p + 1))
             }
             Rule::WrapCss | Rule::WrapJs => {
                 if let Some(end) = self.unquoted_end(p) {
-                    let pat = if rule == Rule::WrapCss {
-                        Pat::UnquotedCss
+                    let pattern = if rule == Rule::WrapCss {
+                        Pattern::UnquotedCss
                     } else {
-                        Pat::UnquotedJs
+                        Pattern::UnquotedJs
                     };
-                    return Some(Hit::new(pat, p, end));
+                    return Some(Hit::new(pattern, p, end));
                 }
                 matches!(b, b'"' | b'\'')
-                    .then(|| Hit::new(Pat::Quote, p, p + 1).with([0; 5], u32::from(b)))
+                    .then(|| Hit::new(Pattern::Quote, p, p + 1).with([0; 5], u32::from(b)))
             }
             Rule::StringPlain | Rule::StringCss => self.entity(p),
             Rule::StringJs => self.js_string_patterns(p),
@@ -798,9 +800,9 @@ impl Lexer<'_> {
             | Rule::ErbBlock
             | Rule::ErbLine => None,
             Rule::ErbCommentWrap => super::erb::comment_begin(&self.s[..self.lim], p)
-                .map(|end| Hit::new(Pat::Erb(super::erb::Erb::Comment), p, end)),
+                .map(|end| Hit::new(Pattern::Erb(super::erb::Erb::Comment), p, end)),
             Rule::ErbTagWrap => super::erb::code_begin(&self.s[..self.lim], p)
-                .map(|(erb, end)| Hit::new(Pat::Erb(erb), p, end)),
+                .map(|(erb, end)| Hit::new(Pattern::Erb(erb), p, end)),
             Rule::BladeComment
             | Rule::BladeCommentPhpWrap
             | Rule::BladeCommentPhpBlock
@@ -894,18 +896,18 @@ impl Lexer<'_> {
         }
         self.spend((q - p) / 8);
         if q > p {
-            return Some(Hit::new(Pat::JsText, p, q.min(self.lim)));
+            return Some(Hit::new(Pattern::JsText, p, q.min(self.lim)));
         }
         if self.starts(p, b"//") {
-            return Some(Hit::new(Pat::JsLine, p, p + 2));
+            return Some(Hit::new(Pattern::JsLine, p, p + 2));
         }
         self.starts(p, b"/*")
-            .then(|| Hit::new(Pat::JsBlock, p, p + 2))
+            .then(|| Hit::new(Pattern::JsBlock, p, p + 2))
     }
 
     /// The patterns of a comment.
     fn comment_patterns(&self, p: usize) -> Option<Hit> {
-        let illegal = |len: usize| Hit::new(Pat::CommentIllegal, p, p + len);
+        let illegal = |len: usize| Hit::new(Pattern::CommentIllegal, p, p + len);
         if self.g(p) {
             if self.at(p) == b'>' {
                 return Some(illegal(1));
@@ -937,12 +939,12 @@ impl Lexer<'_> {
             }
             self.spend((q - digits) / 8);
             if q > digits && self.at(q) == b';' {
-                let pat = if hex {
-                    Pat::EntityHexadecimal
+                let pattern = if hex {
+                    Pattern::EntityHexadecimal
                 } else {
-                    Pat::EntityDecimal
+                    Pattern::EntityDecimal
                 };
-                return Some(Hit::new(pat, p, q + 1));
+                return Some(Hit::new(pattern, p, q + 1));
             }
             return None;
         }
@@ -960,9 +962,9 @@ impl Lexer<'_> {
                 .get(p + 1..q)
                 .is_some_and(|name| contains(html_words::ENTITIES, name))
         {
-            return Some(Hit::new(Pat::EntityNamed, p, q + 1).with([p + 1, q, q, 0, 0], 0));
+            return Some(Hit::new(Pattern::EntityNamed, p, q + 1).with([p + 1, q, q, 0, 0], 0));
         }
-        Some(Hit::new(Pat::EntityAmbiguous, p, p + 1))
+        Some(Hit::new(Pattern::EntityAmbiguous, p, p + 1))
     }
 
     // The root.
@@ -1010,10 +1012,10 @@ impl Lexer<'_> {
                 return None;
             }
             if self.wrapper_ahead(q, b"style") {
-                return Some(Hit::new(Pat::StyleWrap, 0, q));
+                return Some(Hit::new(Pattern::StyleWrap, 0, q));
             }
             if self.wrapper_ahead(q, b"script") {
-                return Some(Hit::new(Pat::ScriptWrap, 0, q));
+                return Some(Hit::new(Pattern::ScriptWrap, 0, q));
             }
             return None;
         }
@@ -1024,27 +1026,27 @@ impl Lexer<'_> {
             return None;
         }
         if self.starts(p, b"<?xml") {
-            return Some(Hit::new(Pat::Processing, p, p + 5));
+            return Some(Hit::new(Pattern::Processing, p, p + 5));
         }
         if self.starts(p, b"<!--") {
-            return Some(Hit::new(Pat::Comment, p, p + 4));
+            return Some(Hit::new(Pattern::Comment, p, p + 4));
         }
         if self.starts(p, b"<!")
             && self
                 .lit_ci(p + 2, b"doctype")
                 .is_some_and(|end| self.ws_len(end) > 0)
         {
-            return Some(Hit::new(Pat::Doctype, p, p + 2));
+            return Some(Hit::new(Pattern::Doctype, p, p + 2));
         }
         if self.starts(p, b"<![CDATA[") {
-            return Some(Hit::new(Pat::Cdata, p, p + 9));
+            return Some(Hit::new(Pattern::Cdata, p, p + 9));
         }
         if self.may_open_wrapper(p) {
             if self.wrapper_ahead(p, b"style") {
-                return Some(Hit::new(Pat::StyleWrap, p, p));
+                return Some(Hit::new(Pattern::StyleWrap, p, p));
             }
             if self.wrapper_ahead(p, b"script") {
-                return Some(Hit::new(Pat::ScriptWrap, p, p));
+                return Some(Hit::new(Pattern::ScriptWrap, p, p));
             }
         }
         self.html_tag(p)
@@ -1211,7 +1213,7 @@ impl Lexer<'_> {
         ];
         let tag = |category, deprecation: Deprecation, rule| {
             let bits = TagClass { category, rule }.bits() | deprecation.bits() << 8;
-            Hit::new(Pat::Tag, p, end).with([start, end, 0, 0, 0], bits)
+            Hit::new(Pattern::Tag, p, end).with([start, end, 0, 0, 0], bits)
         };
         if side == Side::Close {
             return lists
@@ -1274,7 +1276,7 @@ impl Lexer<'_> {
             rule,
         }
         .bits();
-        Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], bits))
+        Some(Hit::new(Pattern::Tag, p, q).with([start, q, 0, 0, 0], bits))
     }
 
     /// `(</?)(\w[^<>\s]*)(?<!/)`: html-derivative's rule for a tag that no
@@ -1323,7 +1325,7 @@ impl Lexer<'_> {
             rule,
         }
         .bits();
-        Some(Hit::new(Pat::Tag, p, q).with([start, q, 0, 0, 0], bits))
+        Some(Hit::new(Pattern::Tag, p, q).with([start, q, 0, 0, 0], bits))
     }
 
     // Elements of an SVG or MathML tree.
@@ -1357,7 +1359,7 @@ impl Lexer<'_> {
         class: ElementClass,
     ) -> Hit {
         let run = self.attribute_run(name_end);
-        let hit = Hit::new(Pat::Element, p, name_end);
+        let hit = Hit::new(Pattern::Element, p, name_end);
         if run < self.lim && self.s[run] == b'>' {
             let mut hit = hit.with([name_start, name_end, name_end, run, 0], class.bits());
             hit.end = run + 1;
@@ -1376,7 +1378,7 @@ impl Lexer<'_> {
     ) -> Option<Hit> {
         let run = self.attribute_run(name_end);
         if run < self.lim && self.s[run] == b'>' && run > name_end && self.s[run - 1] == b'/' {
-            let mut hit = Hit::new(Pat::ElementVoid, p, run + 1);
+            let mut hit = Hit::new(Pattern::ElementVoid, p, run + 1);
             hit.at = [name_start, name_end, name_end, run - 1, 0];
             hit.bits = class.bits();
             return Some(hit);
@@ -1418,16 +1420,16 @@ impl Lexer<'_> {
         let top = self.top();
         let element = ElementClass::from_bits(super::state::payload_bits(top.payload));
         if self.g(p) && self.char_before(p) != Some('>') {
-            return Some(Hit::new(Pat::Zero(Rule::ElementStart), p, p));
+            return Some(Hit::new(Pattern::Zero(Rule::ElementStart), p, p));
         }
         if self.at(p) != b'<' {
             return None;
         }
         if self.starts(p, b"<!--") {
-            return Some(Hit::new(Pat::Comment, p, p + 4));
+            return Some(Hit::new(Pattern::Comment, p, p + 4));
         }
         if self.starts(p, b"<![CDATA[") {
-            return Some(Hit::new(Pat::Cdata, p, p + 9));
+            return Some(Hit::new(Pattern::Cdata, p, p + 9));
         }
         self.child_element(p, element.namespace)
             .or_else(|| self.invalid_tag(p, TagRule::Unrecognized))
@@ -1529,7 +1531,7 @@ impl Lexer<'_> {
         self.spend((run - p) / 8);
         let word = self.text.get(p..run).unwrap_or("");
         let attribute = |rule: AttributeRule, from: usize, to: usize| {
-            Hit::new(Pat::Attribute, p, run).with([from, to, 0, 0, 0], rule.bits())
+            Hit::new(Pattern::Attribute, p, run).with([from, to, 0, 0, 0], rule.bits())
         };
         let list = match which {
             Attributes::Html => words::HTML_ATTRIBUTES,
@@ -1571,7 +1573,7 @@ impl Lexer<'_> {
         self.spend((q - p) / 8);
         if q > p {
             return Some(
-                Hit::new(Pat::Attribute, p, q)
+                Hit::new(Pattern::Attribute, p, q)
                     .with([p, q, 0, 0, 0], AttributeRule::Unrecognized.bits()),
             );
         }
@@ -1580,7 +1582,7 @@ impl Lexer<'_> {
             q += crate::utf8::char_len(self.s[q]);
         }
         self.spend((q - p) / 8);
-        Some(Hit::new(Pat::AttributeIllegal, p, q.min(self.lim)))
+        Some(Hit::new(Pattern::AttributeIllegal, p, q.min(self.lim)))
     }
 
     /// The HTML attribute rules at `p`, with HTML's attribute list.

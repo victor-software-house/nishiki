@@ -20,7 +20,7 @@ mod symbols;
 mod types;
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::case_fold;
 use crate::classes::{is_digit, is_lower, is_symbol_or_punctuation, is_title_or_upper};
 use crate::rules::Chars;
@@ -45,7 +45,7 @@ fn is_op(c: char) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - comments, pragmas and the C preprocessor;
@@ -58,194 +58,203 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
     )]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::LiquidHaskell => self.lit(p, b"{-@"),
-            Pat::LiquidHaskellEnd => self.lit(p, b"@-}"),
-            Pat::Cpp => self.cpp(p),
-            Pat::Pragma => self.lit(p, b"{-#"),
-            Pat::PragmaEnd => self.lit(p, b"#-}"),
-            Pat::PragmaAt0 => self.pragma_word(p, b"language"),
-            Pat::PragmaAt0End | Pat::PragmaAt1End | Pat::PragmaAt2End | Pat::PragmaAt4End => {
-                self.starts(p, b"#-}").then_some(p)
-            }
-            Pat::PragmaAt0At0 => self.deprecated_extension(p),
-            Pat::PragmaAt0At1 => self.extension(p),
-            Pat::PragmaAt1 => self.specialise_instance(p),
-            Pat::PragmaAt2 => self.specialise(p),
-            Pat::PragmaAt3 => self.pragma_name(p),
-            Pat::PragmaAt4 => self.deprecated(p),
-            Pat::InlinePhase => self.lit(p, b"["),
-            Pat::InlinePhaseEnd | Pat::TypeApplicationAt1End => self.lit(p, b"]"),
-            Pat::InlinePhaseAt0 => self.lit(p, b"~"),
-            Pat::InlinePhaseAt2 => Some(self.word_end(p)),
-            Pat::CommentsAt0 => self.haddock_line(p),
-            Pat::CommentsAt0End => self.haddock_line_end(p),
-            Pat::CommentsAt1 => self.haddock_mark(p),
-            Pat::CommentsAt1End | Pat::CommentsAt3At0End => self.line_feed(p),
-            Pat::CommentsAt2 => self.haddock_block(p),
-            Pat::CommentsAt2End | Pat::BlockCommentEnd => self.lit(p, b"-}"),
-            Pat::BlockComment => self.lit(p, b"{-"),
-            Pat::CommentsAt3 => self.line_comment(p),
-            Pat::CommentsAt3End => (!self.at_g(p)).then_some(p),
-            Pat::CommentsAt3At0 => self.lit(p, b"--"),
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::LiquidHaskell => self.lit(p, b"{-@"),
+            Pattern::LiquidHaskellEnd => self.lit(p, b"@-}"),
+            Pattern::Cpp => self.cpp(p),
+            Pattern::Pragma => self.lit(p, b"{-#"),
+            Pattern::PragmaEnd => self.lit(p, b"#-}"),
+            Pattern::PragmaAt0 => self.pragma_word(p, b"language"),
+            Pattern::PragmaAt0End
+            | Pattern::PragmaAt1End
+            | Pattern::PragmaAt2End
+            | Pattern::PragmaAt4End => self.starts(p, b"#-}").then_some(p),
+            Pattern::PragmaAt0At0 => self.deprecated_extension(p),
+            Pattern::PragmaAt0At1 => self.extension(p),
+            Pattern::PragmaAt1 => self.specialise_instance(p),
+            Pattern::PragmaAt2 => self.specialise(p),
+            Pattern::PragmaAt3 => self.pragma_name(p),
+            Pattern::PragmaAt4 => self.deprecated(p),
+            Pattern::InlinePhase => self.lit(p, b"["),
+            Pattern::InlinePhaseEnd | Pattern::TypeApplicationAt1End => self.lit(p, b"]"),
+            Pattern::InlinePhaseAt0 => self.lit(p, b"~"),
+            Pattern::InlinePhaseAt2 => Some(self.word_end(p)),
+            Pattern::CommentsAt0 => self.haddock_line(p),
+            Pattern::CommentsAt0End => self.haddock_line_end(p),
+            Pattern::CommentsAt1 => self.haddock_mark(p),
+            Pattern::CommentsAt1End | Pattern::CommentsAt3At0End => self.line_feed(p),
+            Pattern::CommentsAt2 => self.haddock_block(p),
+            Pattern::CommentsAt2End | Pattern::BlockCommentEnd => self.lit(p, b"-}"),
+            Pattern::BlockComment => self.lit(p, b"{-"),
+            Pattern::CommentsAt3 => self.line_comment(p),
+            Pattern::CommentsAt3End => (!self.at_g(p)).then_some(p),
+            Pattern::CommentsAt3At0 => self.lit(p, b"--"),
 
-            Pat::IntegerLiterals => self.integer(p),
-            Pat::FloatLiterals => self.float(p),
-            Pat::CharLiteral => self.char_literal(p),
-            Pat::StringLiteral | Pat::StringLiteralEnd => self.lit(p, b"\""),
-            Pat::StringLiteralAt0 => self.named_escape(p),
-            Pat::StringLiteralAt1 => self.numeric_escape(p),
-            Pat::StringLiteralAt2 => self.control_escape(p),
-            Pat::StringLiteralAt3 => self.gap_open(p),
-            Pat::StringLiteralAt3End => self.lit(p, b"\\"),
-            Pat::StringLiteralAt3At0 => self.non_blanks(p),
-            Pat::FfiAt2At3 => self.quoted(p),
+            Pattern::IntegerLiterals => self.integer(p),
+            Pattern::FloatLiterals => self.float(p),
+            Pattern::CharLiteral => self.char_literal(p),
+            Pattern::StringLiteral | Pattern::StringLiteralEnd => self.lit(p, b"\""),
+            Pattern::StringLiteralAt0 => self.named_escape(p),
+            Pattern::StringLiteralAt1 => self.numeric_escape(p),
+            Pattern::StringLiteralAt2 => self.control_escape(p),
+            Pattern::StringLiteralAt3 => self.gap_open(p),
+            Pattern::StringLiteralAt3End => self.lit(p, b"\\"),
+            Pattern::StringLiteralAt3At0 => self.non_blanks(p),
+            Pattern::FfiAt2At3 => self.quoted(p),
 
-            Pat::RootAt11 => self.module_head(p),
-            Pat::RootAt11End => self.where_ahead(p, b'\''),
-            Pat::RootAt11At3 => {
+            Pattern::RootAt11 => self.module_head(p),
+            Pattern::RootAt11End => self.where_ahead(p, b'\''),
+            Pattern::RootAt11At3 => {
                 let end = self.skip(p, |b| b.is_ascii_lowercase());
                 (end > p).then_some(end)
             }
-            Pat::ModuleName => self.module_name(p),
-            Pat::ModuleExports | Pat::ModuleExportsAt4 => self.lit(p, b"("),
-            Pat::ModuleExportsEnd | Pat::ModuleExportsAt4End | Pat::TypeApplicationAt0End => {
-                self.lit(p, b")")
-            }
-            Pat::ModuleExportsAt1 => self.keyword_group(p, b"module"),
-            Pat::ExportConstructsAt1 => self.keyword_group(p, b"pattern"),
-            Pat::ExportConstructsAt1End => self.constructor_or_operator(p, true),
-            Pat::ExportConstructsAt2 => self.keyword_group(p, b"type"),
-            Pat::ExportConstructsAt2End => self.constructor_or_operator(p, false),
-            Pat::ExportConstructsAt3 => self.variable(p),
-            Pat::ExportConstructsAt4 => self.constructor(p),
-            Pat::RootAt13 => self.declaration_head(p, b"class"),
-            Pat::RootAt21 => self.declaration_head(p, b"instance"),
-            Pat::RootAt13End | Pat::RootAt21End | Pat::RootAt22End => {
+            Pattern::ModuleName => self.module_name(p),
+            Pattern::ModuleExports | Pattern::ModuleExportsAt4 => self.lit(p, b"("),
+            Pattern::ModuleExportsEnd
+            | Pattern::ModuleExportsAt4End
+            | Pattern::TypeApplicationAt0End => self.lit(p, b")"),
+            Pattern::ModuleExportsAt1 => self.keyword_group(p, b"module"),
+            Pattern::ExportConstructsAt1 => self.keyword_group(p, b"pattern"),
+            Pattern::ExportConstructsAt1End => self.constructor_or_operator(p, true),
+            Pattern::ExportConstructsAt2 => self.keyword_group(p, b"type"),
+            Pattern::ExportConstructsAt2End => self.constructor_or_operator(p, false),
+            Pattern::ExportConstructsAt3 => self.variable(p),
+            Pattern::ExportConstructsAt4 => self.constructor(p),
+            Pattern::RootAt13 => self.declaration_head(p, b"class"),
+            Pattern::RootAt21 => self.declaration_head(p, b"instance"),
+            Pattern::RootAt13End | Pattern::RootAt21End | Pattern::RootAt22End => {
                 self.declaration_end(p, Some(b"where"), b"'")
             }
-            Pat::RootAt22 => self.declaration_head(p, b"import"),
-            Pat::RootAt22At2 => self.import_word(p),
-            Pat::RootAt14Data => self.data_head(p, b"data", true),
-            Pat::RootAt14Newtype => self.data_head(p, b"newtype", true),
-            Pat::RootAt14End => self.declaration_end(p, Some(b"deriving"), b"'"),
-            Pat::RootAt18Data => self.data_head(p, b"data", false),
-            Pat::RootAt18Newtype => self.data_head(p, b"newtype", false),
-            Pat::RootAt19 => self.type_family_head(p),
-            Pat::RootAt20 => self.type_head(p),
-            Pat::FfiEnd
-            | Pat::DerivingAt0End
-            | Pat::RoleAnnotationAt0End
-            | Pat::RootAt16End
-            | Pat::RootAt17End
-            | Pat::RootAt18End
-            | Pat::RootAt19End
-            | Pat::RootAt20End => self.declaration_end(p, None, b"'"),
-            Pat::GadtConstructorAt0End => self.declaration_end(p, Some(b"deriving"), b"''"),
-            Pat::RootAt16 => self.pattern_signature(p),
-            Pat::RootAt17 => self.pattern_head(p),
-            Pat::RoleAnnotationAt0 => self.role_head(p),
-            Pat::RoleAnnotationAt0At2 => {
+            Pattern::RootAt22 => self.declaration_head(p, b"import"),
+            Pattern::RootAt22At2 => self.import_word(p),
+            Pattern::RootAt14Data => self.data_head(p, b"data", true),
+            Pattern::RootAt14Newtype => self.data_head(p, b"newtype", true),
+            Pattern::RootAt14End => self.declaration_end(p, Some(b"deriving"), b"'"),
+            Pattern::RootAt18Data => self.data_head(p, b"data", false),
+            Pattern::RootAt18Newtype => self.data_head(p, b"newtype", false),
+            Pattern::RootAt19 => self.type_family_head(p),
+            Pattern::RootAt20 => self.type_head(p),
+            Pattern::FfiEnd
+            | Pattern::DerivingAt0End
+            | Pattern::RoleAnnotationAt0End
+            | Pattern::RootAt16End
+            | Pattern::RootAt17End
+            | Pattern::RootAt18End
+            | Pattern::RootAt19End
+            | Pattern::RootAt20End => self.declaration_end(p, None, b"'"),
+            Pattern::GadtConstructorAt0End => self.declaration_end(p, Some(b"deriving"), b"''"),
+            Pattern::RootAt16 => self.pattern_signature(p),
+            Pattern::RootAt17 => self.pattern_head(p),
+            Pattern::RoleAnnotationAt0 => self.role_head(p),
+            Pattern::RoleAnnotationAt0At2 => {
                 self.keyword_in(p, &[b"nominal", b"representational", b"phantom"])
             }
-            Pat::FfiImport => self.foreign_head(p, b"import"),
-            Pat::FfiExport => self.foreign_head(p, b"export"),
-            Pat::FfiAt1 => self.calling_convention(p),
-            Pat::FfiAt2 => self.foreign_name_ahead(p),
-            Pat::FfiAt2End => self.double_colon_ahead(p),
-            Pat::FfiAt2At1 => self.safety_and_name(p),
-            Pat::FfiAt2At2 => self.safety_to_end(p),
-            Pat::FfiAt2At4 => self.foreign_name(p),
-            Pat::WhereAt0 | Pat::RootAt14At1 => self.where_brace(p),
-            Pat::WhereAt0End | Pat::RootAt14At1End | Pat::LayoutHeraldEnd => {
+            Pattern::FfiImport => self.foreign_head(p, b"import"),
+            Pattern::FfiExport => self.foreign_head(p, b"export"),
+            Pattern::FfiAt1 => self.calling_convention(p),
+            Pattern::FfiAt2 => self.foreign_name_ahead(p),
+            Pattern::FfiAt2End => self.double_colon_ahead(p),
+            Pattern::FfiAt2At1 => self.safety_and_name(p),
+            Pattern::FfiAt2At2 => self.safety_to_end(p),
+            Pattern::FfiAt2At4 => self.foreign_name(p),
+            Pattern::WhereAt0 | Pattern::RootAt14At1 => self.where_brace(p),
+            Pattern::WhereAt0End | Pattern::RootAt14At1End | Pattern::LayoutHeraldEnd => {
                 self.group_byte(p, b'}')
             }
-            Pat::WhereAt0At1 | Pat::RootAt14At1At2 | Pat::LayoutHeraldAt1 => self.lit(p, b";"),
-            Pat::WhereAt1 | Pat::RootAt14At2 => self.keyword_group(p, b"where"),
-            Pat::GadtConstructorAt0 => self.gadt_head(p),
-            Pat::GadtConstructorAt1 => self.gadt_constructor(p),
-            Pat::GadtConstructorAt1End => self.at_eol(p).then_some(p),
-            Pat::DerivingAt0 => self.deriving_head(p),
-            Pat::DerivingAt0At1 => self.keyword_group(p, b"instance"),
-            Pat::DerivingAt0At2 => self.keyword_in(p, &[b"via", b"stock", b"newtype", b"anyclass"]),
-            Pat::DerivingAt1 => self.deriving_paren(p),
-            Pat::DerivingAt1End | Pat::TypeSignatureAt18End | Pat::RootAt37End => {
+            Pattern::WhereAt0At1 | Pattern::RootAt14At1At2 | Pattern::LayoutHeraldAt1 => {
+                self.lit(p, b";")
+            }
+            Pattern::WhereAt1 | Pattern::RootAt14At2 => self.keyword_group(p, b"where"),
+            Pattern::GadtConstructorAt0 => self.gadt_head(p),
+            Pattern::GadtConstructorAt1 => self.gadt_constructor(p),
+            Pattern::GadtConstructorAt1End => self.at_eol(p).then_some(p),
+            Pattern::DerivingAt0 => self.deriving_head(p),
+            Pattern::DerivingAt0At1 => self.keyword_group(p, b"instance"),
+            Pattern::DerivingAt0At2 => {
+                self.keyword_in(p, &[b"via", b"stock", b"newtype", b"anyclass"])
+            }
+            Pattern::DerivingAt1 => self.deriving_paren(p),
+            Pattern::DerivingAt1End | Pattern::TypeSignatureAt18End | Pattern::RootAt37End => {
                 self.group_byte(p, b')')
             }
-            Pat::DerivingAt2 => self.deriving_class(p),
-            Pat::DerivingAt3 => self.keyword_group(p, b"via"),
-            Pat::RecordDecl | Pat::Record => self.record_open(p),
-            Pat::RecordDeclEnd | Pat::RecordEnd => self.record_close(p),
-            Pat::RecordDeclField => self.record_decl_field(p),
-            Pat::RecordDeclFieldEnd | Pat::RecordFieldAt0End => self.field_end(p),
-            Pat::RecordFieldAt0 => self.record_field(p),
-            Pat::AdtConstructorAt1 => self.adt_bar(p),
-            Pat::AdtConstructorAt1End => self.adt_constructor(p),
-            Pat::Context => self.context(p),
-            Pat::LayoutHerald => self.layout_herald(p),
-            Pat::Keyword => self.keyword(p),
-            Pat::RootAt26 => self.fixity(p),
+            Pattern::DerivingAt2 => self.deriving_class(p),
+            Pattern::DerivingAt3 => self.keyword_group(p, b"via"),
+            Pattern::RecordDecl | Pattern::Record => self.record_open(p),
+            Pattern::RecordDeclEnd | Pattern::RecordEnd => self.record_close(p),
+            Pattern::RecordDeclField => self.record_decl_field(p),
+            Pattern::RecordDeclFieldEnd | Pattern::RecordFieldAt0End => self.field_end(p),
+            Pattern::RecordFieldAt0 => self.record_field(p),
+            Pattern::AdtConstructorAt1 => self.adt_bar(p),
+            Pattern::AdtConstructorAt1End => self.adt_constructor(p),
+            Pattern::Context => self.context(p),
+            Pattern::LayoutHerald => self.layout_herald(p),
+            Pattern::Keyword => self.keyword(p),
+            Pattern::RootAt26 => self.fixity(p),
 
-            Pat::TypeSignatureAt1 => self.unit(p, true),
-            Pat::TypeSignatureAt2 | Pat::TypeSignatureAt4 | Pat::RootAt7 => self.unboxed_unit(p),
-            Pat::TypeSignatureAt3 => self.tuple(p, true),
-            Pat::TypeSignatureAt5 | Pat::RootAt9 => self.unboxed_tuple(p),
-            Pat::TypeSignatureAt6 => self.empty_list(p, true),
-            Pat::TypeSignatureAt8 => self.double_colon(p),
-            Pat::Forall => self.forall(p),
-            Pat::ForallEnd => self.forall_end(p),
-            Pat::TypeVariable => self.type_variable(p),
-            Pat::TypeSignatureAt10 => self.lit(p, b"=>").or_else(|| self.lit(p, "⇒".as_bytes())),
-            Pat::TypeSignatureAt12 => self.promoted_char(p),
-            Pat::TypeApplicationAt0 => self.type_application(p, b'('),
-            Pat::TypeApplicationAt1 => self.type_application(p, b'['),
-            Pat::TypeApplicationAt2 => self.type_application_string(p),
-            Pat::TypeApplicationAt2End => self.prev_is(p, b'"').then_some(p),
-            Pat::TypeApplicationAt3 => self.type_application_name(p),
-            Pat::TypeApplicationAt3End => {
+            Pattern::TypeSignatureAt1 => self.unit(p, true),
+            Pattern::TypeSignatureAt2 | Pattern::TypeSignatureAt4 | Pattern::RootAt7 => {
+                self.unboxed_unit(p)
+            }
+            Pattern::TypeSignatureAt3 => self.tuple(p, true),
+            Pattern::TypeSignatureAt5 | Pattern::RootAt9 => self.unboxed_tuple(p),
+            Pattern::TypeSignatureAt6 => self.empty_list(p, true),
+            Pattern::TypeSignatureAt8 => self.double_colon(p),
+            Pattern::Forall => self.forall(p),
+            Pattern::ForallEnd => self.forall_end(p),
+            Pattern::TypeVariable => self.type_variable(p),
+            Pattern::TypeSignatureAt10 => {
+                self.lit(p, b"=>").or_else(|| self.lit(p, "⇒".as_bytes()))
+            }
+            Pattern::TypeSignatureAt12 => self.promoted_char(p),
+            Pattern::TypeApplicationAt0 => self.type_application(p, b'('),
+            Pattern::TypeApplicationAt1 => self.type_application(p, b'['),
+            Pattern::TypeApplicationAt2 => self.type_application_string(p),
+            Pattern::TypeApplicationAt2End => self.prev_is(p, b'"').then_some(p),
+            Pattern::TypeApplicationAt3 => self.type_application_name(p),
+            Pattern::TypeApplicationAt3End => {
                 (!self.char_here(p).is_some_and(|(c, _)| is_name(c))).then_some(p)
             }
-            Pat::TypeOperatorAt0 => self.type_operator(p),
-            Pat::TypeOperatorAt1 => self.type_operator_backticks(p),
-            Pat::TypeConstructorAt0 => self.type_constructor(p),
-            Pat::TypeConstructorAt1 => self.type_constructor_operator(p),
-            Pat::TypeSignatureAt17 => self.hash_paren(p),
-            Pat::TypeSignatureAt17End | Pat::RootAt36End => self.hash_close(p),
-            Pat::TypeSignatureAt18 => self.promoted_open(p, b'('),
-            Pat::TypeSignatureAt19 => self.promoted_open(p, b'['),
-            Pat::TypeSignatureAt19End | Pat::RootAt39End => self.group_byte(p, b']'),
-            Pat::DoubleColon => self.spaced_double_colon(p),
-            Pat::FunDecl => self.fun_decl(p),
-            Pat::FunDeclEnd => self.fun_decl_end(p),
-            Pat::StartTypeSignatureAt0 => self.signature_line(p),
-            Pat::StartTypeSignatureAt0End => self.signature_end(p, true),
-            Pat::StartTypeSignatureAt1 => self.inline_signature(p),
-            Pat::StartTypeSignatureAt1End => self.signature_end(p, false),
+            Pattern::TypeOperatorAt0 => self.type_operator(p),
+            Pattern::TypeOperatorAt1 => self.type_operator_backticks(p),
+            Pattern::TypeConstructorAt0 => self.type_constructor(p),
+            Pattern::TypeConstructorAt1 => self.type_constructor_operator(p),
+            Pattern::TypeSignatureAt17 => self.hash_paren(p),
+            Pattern::TypeSignatureAt17End | Pattern::RootAt36End => self.hash_close(p),
+            Pattern::TypeSignatureAt18 => self.promoted_open(p, b'('),
+            Pattern::TypeSignatureAt19 => self.promoted_open(p, b'['),
+            Pattern::TypeSignatureAt19End | Pattern::RootAt39End => self.group_byte(p, b']'),
+            Pattern::DoubleColon => self.spaced_double_colon(p),
+            Pattern::FunDecl => self.fun_decl(p),
+            Pattern::FunDeclEnd => self.fun_decl_end(p),
+            Pattern::StartTypeSignatureAt0 => self.signature_line(p),
+            Pattern::StartTypeSignatureAt0End => self.signature_end(p, true),
+            Pattern::StartTypeSignatureAt1 => self.inline_signature(p),
+            Pattern::StartTypeSignatureAt1End => self.signature_end(p, false),
 
-            Pat::Comma => self.lit(p, b","),
-            Pat::RootAt5 => self.stray_close(p),
-            Pat::RootAt6 => self.unit(p, false),
-            Pat::RootAt8 => self.tuple(p, false),
-            Pat::RootAt10 => self.empty_list(p, false),
-            Pat::RecordWildcard => self.record_wildcard(p),
-            Pat::PrefixOpAt0 => self.prefix_op(p),
-            Pat::ReservedSymbolAt0 => self.reserved_symbol(p),
-            Pat::ReservedSymbolAt1 => self.hashes(p),
-            Pat::ReservedSymbolAt2 => self.as_pattern(p),
-            Pat::ReservedSymbolAt3 => self.prefix_symbol(p),
-            Pat::DataConstructor => self.data_constructor(p),
-            Pat::InfixOpAt0 => self.infix_op(p),
-            Pat::InfixOpAt1 => self.infix_backticks(p),
-            Pat::OverloadedLabelAt0 => self.overloaded_label(p),
-            Pat::Qualifier => self.qualifier(p),
-            Pat::RootAt36 => self.unboxed_open(p),
-            Pat::RootAt37 => self.group_byte(p, b'('),
-            Pat::RootAt39 => self.group_byte(p, b'['),
-            Pat::QuasiQuoteAt0 => self.quasi_quote(p, b"dep", true),
-            Pat::QuasiQuoteAt1 => self.quasi_quote(p, b"t", false),
-            Pat::QuasiQuoteAt2 => self.quasi_quoter(p),
-            Pat::QuasiQuoteAt0End | Pat::QuasiQuoteAt1End | Pat::QuasiQuoteAt2End => {
+            Pattern::Comma => self.lit(p, b","),
+            Pattern::RootAt5 => self.stray_close(p),
+            Pattern::RootAt6 => self.unit(p, false),
+            Pattern::RootAt8 => self.tuple(p, false),
+            Pattern::RootAt10 => self.empty_list(p, false),
+            Pattern::RecordWildcard => self.record_wildcard(p),
+            Pattern::PrefixOpAt0 => self.prefix_op(p),
+            Pattern::ReservedSymbolAt0 => self.reserved_symbol(p),
+            Pattern::ReservedSymbolAt1 => self.hashes(p),
+            Pattern::ReservedSymbolAt2 => self.as_pattern(p),
+            Pattern::ReservedSymbolAt3 => self.prefix_symbol(p),
+            Pattern::DataConstructor => self.data_constructor(p),
+            Pattern::InfixOpAt0 => self.infix_op(p),
+            Pattern::InfixOpAt1 => self.infix_backticks(p),
+            Pattern::OverloadedLabelAt0 => self.overloaded_label(p),
+            Pattern::Qualifier => self.qualifier(p),
+            Pattern::RootAt36 => self.unboxed_open(p),
+            Pattern::RootAt37 => self.group_byte(p, b'('),
+            Pattern::RootAt39 => self.group_byte(p, b'['),
+            Pattern::QuasiQuoteAt0 => self.quasi_quote(p, b"dep", true),
+            Pattern::QuasiQuoteAt1 => self.quasi_quote(p, b"t", false),
+            Pattern::QuasiQuoteAt2 => self.quasi_quoter(p),
+            Pattern::QuasiQuoteAt0End | Pattern::QuasiQuoteAt1End | Pattern::QuasiQuoteAt2End => {
                 self.quasi_quote_end(p)
             }
         }

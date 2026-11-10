@@ -31,7 +31,7 @@ use super::scope::S;
 use super::state::{self, Injection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, ROOT_SVELTE, Rule};
 #[cfg(feature = "lang-vue")]
 use super::vue as vue_rules;
-use super::vue::VuePat;
+use super::vue::VuePattern;
 use crate::arena::{Arena, ROOT};
 #[cfg(feature = "lang-vue")]
 use crate::language::cut_tokens;
@@ -50,7 +50,7 @@ pub(super) enum Part<'a> {
 /// What a match is: the begin of a rule, a match rule, an end, or the
 /// injection.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Pat {
+pub(super) enum Pattern {
     /// The end of the innermost rule.
     End,
     /// The injection: a `<` that no rule claims.
@@ -125,7 +125,7 @@ pub(super) enum Pat {
     /// ERB: `(#).*?(?=-?%>)` in code, a comment up to the code's end.
     ErbHash,
     /// A pattern of Vue's rules.
-    Vue(VuePat),
+    Vue(VuePattern),
     /// A pattern of Blade's injection or of Blade's rules that opens a rule.
     Blade(Blade),
     /// A pattern of Blade's injection or of Blade's rules that opens none.
@@ -226,7 +226,7 @@ pub(crate) enum GiveBack<'a> {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) pat: Pat,
+    pub(super) pattern: Pattern,
     /// Positions inside the match, by pattern.
     pub(super) at: [usize; 5],
     /// The bits the match carries, such as a tag's class.
@@ -234,11 +234,11 @@ pub(super) struct Hit {
 }
 
 impl Hit {
-    pub(super) fn new(pat: Pat, start: usize, end: usize) -> Hit {
+    pub(super) fn new(pattern: Pattern, start: usize, end: usize) -> Hit {
         Hit {
             start,
             end,
-            pat,
+            pattern,
             at: [0; 5],
             bits: 0,
         }
@@ -585,7 +585,7 @@ impl<'a> Lexer<'a> {
 
     /// The match of ERB's injection at `at`, which [`Lexer::find_erb`] found.
     fn erb_hit(&self, at: usize) -> Option<Hit> {
-        erb::at(&self.s[..self.lim], at).map(|(erb, end)| Hit::new(Pat::Erb(erb), at, end))
+        erb::at(&self.s[..self.lim], at).map(|(erb, end)| Hit::new(Pattern::Erb(erb), at, end))
     }
 
     /// The first place at or after the position where Blade's injection
@@ -620,7 +620,7 @@ impl<'a> Lexer<'a> {
         } else {
             blade::at(text, at)
         };
-        found.map(|(blade, end)| Hit::new(Pat::blade(blade), at, end))
+        found.map(|(blade, end)| Hit::new(Pattern::blade(blade), at, end))
     }
 
     /// Whether only the root of a Blade heredoc is open
@@ -1004,7 +1004,7 @@ impl<'a> Lexer<'a> {
             Document::Erb => self.erb_hit(at),
             Document::Blade => self.blade_hit(at),
             Document::Html | Document::DerivativeFirst | Document::Derivative => {
-                Some(Hit::new(Pat::Inject, at, at + 1))
+                Some(Hit::new(Pattern::Inject, at, at + 1))
             }
             Document::Vue => None,
         }
@@ -1077,7 +1077,7 @@ impl<'a> Lexer<'a> {
         };
         let end_tag = if css { style_end } else { script_end };
         if end_tag(self.s, at) {
-            return Some(Hit::new(Pat::End, at, at));
+            return Some(Hit::new(Pattern::End, at, at));
         }
         self.keep_inner(next);
         self.erb_hit(at)
@@ -1111,7 +1111,7 @@ impl<'a> Lexer<'a> {
             };
             self.tok(top.content, at);
             self.pos = at;
-            return Some(Hit::new(Pat::End, at, at));
+            return Some(Hit::new(Pattern::End, at, at));
         };
         let mut inner = self.arena.frame(top.state).payload;
         if inner == 0 {
@@ -1142,7 +1142,7 @@ impl<'a> Lexer<'a> {
                 reason: StopReason::Halt,
             }) => {
                 self.advance_to(pos, Some(at));
-                Some(Hit::new(Pat::End, at, at))
+                Some(Hit::new(Pattern::End, at, at))
             }
             Some(Stopped {
                 at,
@@ -1310,11 +1310,11 @@ impl<'a> Lexer<'a> {
             return None;
         };
         if let Some(end) = erb::code_end(text, at) {
-            return Some(Hit::new(Pat::End, at, end).with([end - 1, 0, 0, 0, 0], 0));
+            return Some(Hit::new(Pattern::End, at, end).with([end - 1, 0, 0, 0, 0], 0));
         }
         self.keep_inner(next);
         let to = erb::hash_comment_end(text, at)?;
-        Some(Hit::new(Pat::ErbHash, at, to))
+        Some(Hit::new(Pattern::ErbHash, at, to))
     }
 
     /// Lexes the PHP of a Blade rule up to its halts: the rule's end, and
@@ -1380,10 +1380,10 @@ impl<'a> Lexer<'a> {
             && let Some((blade, end)) = blade::at(text, at)
         {
             self.keep_inner(next);
-            return Some(Hit::new(Pat::blade(blade), at, end));
+            return Some(Hit::new(Pattern::blade(blade), at, end));
         }
         rule.php_end(text, at)
-            .map(|end| Hit::new(Pat::End, at, end))
+            .map(|end| Hit::new(Pattern::End, at, end))
     }
 
     /// The stack a rule opened inside `top` sits on in a Blade document.
@@ -1406,61 +1406,61 @@ impl<'a> Lexer<'a> {
 
     /// Applies a match; true when the line stops.
     fn apply(&mut self, hit: Hit) -> bool {
-        match hit.pat {
-            Pat::End => self.close(&hit),
-            Pat::Inject => self.inject(&hit),
-            Pat::ElementVoid => self.element_void(&hit),
-            Pat::EntityNamed
-            | Pat::EntityDecimal
-            | Pat::EntityHexadecimal
-            | Pat::EntityAmbiguous
-            | Pat::AttributeIllegal
-            | Pat::EqualsIllegal
-            | Pat::CommentIllegal
-            | Pat::DoctypeKeyword
-            | Pat::DoctypeWord
-            | Pat::Unquoted
-            | Pat::UnquotedCss
-            | Pat::UnquotedJs
-            | Pat::JsText
-            | Pat::ErbHash
-            | Pat::BladeMatch(_)
-            | Pat::Vue(VuePat::Modifier) => self.match_rule(&hit),
-            Pat::Zero(_)
-            | Pat::Processing
-            | Pat::Comment
-            | Pat::Doctype
-            | Pat::Cdata
-            | Pat::StyleWrap
-            | Pat::ScriptWrap
-            | Pat::Tag
-            | Pat::Element
-            | Pat::StyleTag
-            | Pat::ScriptTag
-            | Pat::ScriptJs
-            | Pat::Attribute
-            | Pat::Equals
-            | Pat::Quote
-            | Pat::DoctypeQuote
-            | Pat::JsLine
-            | Pat::JsBlock
-            | Pat::Erb(_)
-            | Pat::Vue(
-                VuePat::CommentKv
-                | VuePat::Comment
-                | VuePat::SelfClosing
-                | VuePat::Block
-                | VuePat::Element
-                | VuePat::LangGroup
-                | VuePat::TemplateTag
-                | VuePat::TemplateTagEnd
-                | VuePat::Capitalized
-                | VuePat::DirectiveControl
-                | VuePat::DirectiveOriginal
-                | VuePat::ExprString
-                | VuePat::ExprBare,
+        match hit.pattern {
+            Pattern::End => self.close(&hit),
+            Pattern::Inject => self.inject(&hit),
+            Pattern::ElementVoid => self.element_void(&hit),
+            Pattern::EntityNamed
+            | Pattern::EntityDecimal
+            | Pattern::EntityHexadecimal
+            | Pattern::EntityAmbiguous
+            | Pattern::AttributeIllegal
+            | Pattern::EqualsIllegal
+            | Pattern::CommentIllegal
+            | Pattern::DoctypeKeyword
+            | Pattern::DoctypeWord
+            | Pattern::Unquoted
+            | Pattern::UnquotedCss
+            | Pattern::UnquotedJs
+            | Pattern::JsText
+            | Pattern::ErbHash
+            | Pattern::BladeMatch(_)
+            | Pattern::Vue(VuePattern::Modifier) => self.match_rule(&hit),
+            Pattern::Zero(_)
+            | Pattern::Processing
+            | Pattern::Comment
+            | Pattern::Doctype
+            | Pattern::Cdata
+            | Pattern::StyleWrap
+            | Pattern::ScriptWrap
+            | Pattern::Tag
+            | Pattern::Element
+            | Pattern::StyleTag
+            | Pattern::ScriptTag
+            | Pattern::ScriptJs
+            | Pattern::Attribute
+            | Pattern::Equals
+            | Pattern::Quote
+            | Pattern::DoctypeQuote
+            | Pattern::JsLine
+            | Pattern::JsBlock
+            | Pattern::Erb(_)
+            | Pattern::Vue(
+                VuePattern::CommentKv
+                | VuePattern::Comment
+                | VuePattern::SelfClosing
+                | VuePattern::Block
+                | VuePattern::Element
+                | VuePattern::LangGroup
+                | VuePattern::TemplateTag
+                | VuePattern::TemplateTagEnd
+                | VuePattern::Capitalized
+                | VuePattern::DirectiveControl
+                | VuePattern::DirectiveOriginal
+                | VuePattern::ExprString
+                | VuePattern::ExprBare,
             )
-            | Pat::Blade(_) => self.open(&hit),
+            | Pattern::Blade(_) => self.open(&hit),
         }
     }
 

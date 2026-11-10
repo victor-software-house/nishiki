@@ -74,7 +74,7 @@ pub(crate) struct Tables<G: Tabled> {
     /// first.
     /// No byte stands after the line feed, or at the end of a last line
     /// without one ([`Start::matches_at_end`]).
-    all: Box<[G::Pat]>,
+    all: Box<[G::Pattern]>,
     /// The candidates for each byte, in three sets of 256:
     ///
     /// - away from the start of the line, the first 256;
@@ -92,7 +92,7 @@ pub(crate) struct Tables<G: Tabled> {
     /// The list is there only when it is not empty.
     /// So the slice's length marks whether the scan tries the last blank.
     /// It sits in this slice so that every grammar's tables keep one size.
-    by_byte: Box<[&'static [G::Pat]]>,
+    by_byte: Box<[&'static [G::Pattern]]>,
 }
 
 impl<G: Tabled> Tables<G> {
@@ -106,27 +106,30 @@ impl<G: Tabled> Tables<G> {
     /// The tables are built into statics that are never dropped, so both are
     /// leaked rather than owned.
     pub(crate) fn build(definition: RuleDefinition<G>) -> Self {
-        let all: Vec<G::Pat> = definition
+        let all: Vec<G::Pattern> = definition
             .end
             .into_iter()
             .chain(definition.patterns.iter().copied())
             .collect();
-        let starts: Vec<Start> = all.iter().map(|&pat| G::pat_start(pat)).collect();
+        let starts: Vec<Start> = all
+            .iter()
+            .map(|&pattern| G::pattern_start(pattern))
+            .collect();
         let (picks, spans) = candidate_lists(&starts);
-        let lists: Vec<G::Pat> = picks
+        let lists: Vec<G::Pattern> = picks
             .iter()
             .filter_map(|&index| all.get(index).copied())
             .collect();
-        let lists: &'static [G::Pat] = Box::leak(lists.into_boxed_slice());
-        let mut by_byte: Vec<&'static [G::Pat]> = spans
+        let lists: &'static [G::Pattern] = Box::leak(lists.into_boxed_slice());
+        let mut by_byte: Vec<&'static [G::Pattern]> = spans
             .into_iter()
             .map(|(start, len)| lists.get(start..start + len).unwrap_or_default())
             .collect();
         if matches!(G::BLANK_RUNS, BlankRuns::ToLast) {
-            let one_blank: Vec<G::Pat> = all
+            let one_blank: Vec<G::Pattern> = all
                 .iter()
                 .copied()
-                .filter(|&pat| G::takes_one_blank(pat))
+                .filter(|&pattern| G::takes_one_blank(pattern))
                 .collect();
             if !one_blank.is_empty() {
                 by_byte.push(Box::leak(one_blank.into_boxed_slice()));
@@ -137,27 +140,27 @@ impl<G: Tabled> Tables<G> {
                 .iter()
                 .zip(&starts)
                 .filter(|(_, start)| start.matches_at_end)
-                .map(|(&pat, _)| pat)
+                .map(|(&pattern, _)| pattern)
                 .collect(),
             by_byte: by_byte.into_boxed_slice(),
         }
     }
 
     /// The patterns that can match at a position where byte `byte` stands.
-    pub(crate) fn candidates(&self, place: Place, byte: u8) -> &[G::Pat] {
+    pub(crate) fn candidates(&self, place: Place, byte: u8) -> &[G::Pattern] {
         self.by_byte[place.index() * 256 + usize::from(byte)]
     }
 
     /// The patterns that can match where no byte stands, the end pattern
     /// first.
-    pub(crate) fn all(&self) -> &[G::Pat] {
+    pub(crate) fn all(&self) -> &[G::Pattern] {
         &self.all
     }
 
     /// The patterns tried at the last blank of a run, the end pattern first
     /// when it is one of them.
     /// Empty for a grammar that does not use [`BlankRuns::ToLast`].
-    pub(crate) fn one_blank(&self) -> &[G::Pat] {
+    pub(crate) fn one_blank(&self) -> &[G::Pattern] {
         self.by_byte.get(3 * 256).copied().unwrap_or_default()
     }
 
@@ -249,7 +252,9 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 /// blank.
 /// It steps over a single blank by one byte, since that blank is the run's
 /// last and was just tried.
-pub(crate) fn table_scan<G: Tabled>(lexer: &mut Lexer<'_, G>) -> Option<(usize, G::Pat, usize)> {
+pub(crate) fn table_scan<G: Tabled>(
+    lexer: &mut Lexer<'_, G>,
+) -> Option<(usize, G::Pattern, usize)> {
     match lexer.root_halts() {
         Some(&(end, after)) => scan::<G, true>(lexer, end, after),
         None if G::DEPTH_HALTS
@@ -295,7 +300,7 @@ fn scan<G: Tabled, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
-) -> Option<(usize, G::Pat, usize)> {
+) -> Option<(usize, G::Pattern, usize)> {
     let tables = G::tables(lexer.top_rule());
     let full = lexer.at_depth_limit();
     let s = lexer.s;
@@ -335,15 +340,15 @@ fn scan<G: Tabled, const HALTING: bool>(
                 None => tables.all(),
             };
             let mut hit = None;
-            for &pat in list {
-                if full && matches!(G::pat_act(pat), Act::Begin(_)) {
-                    if lexer.try_pat(pat, p).is_some() {
+            for &pattern in list {
+                if full && matches!(G::pattern_act(pattern), Act::Begin(_)) {
+                    if lexer.try_pattern(pattern, p).is_some() {
                         lexer.record_depth();
                     }
                     continue;
                 }
-                if let Some(end) = lexer.try_pat(pat, p) {
-                    hit = Some((p, pat, end));
+                if let Some(end) = lexer.try_pattern(pattern, p) {
+                    hit = Some((p, pattern, end));
                     break;
                 }
             }
@@ -416,20 +421,20 @@ fn at_final_blank<G: Tabled, const HALTING: bool>(
     end: &dyn Halt,
     p: usize,
     full: bool,
-) -> ControlFlow<Option<(usize, G::Pat, usize)>> {
+) -> ControlFlow<Option<(usize, G::Pattern, usize)>> {
     if HALTING && end.holds(lexer.s, p) {
         lexer.halt_here(p);
         return ControlFlow::Break(None);
     }
-    for &pat in tables.one_blank() {
-        if full && matches!(G::pat_act(pat), Act::Begin(_)) {
-            if lexer.try_pat(pat, p).is_some() {
+    for &pattern in tables.one_blank() {
+        if full && matches!(G::pattern_act(pattern), Act::Begin(_)) {
+            if lexer.try_pattern(pattern, p).is_some() {
                 lexer.record_depth();
             }
             continue;
         }
-        if let Some(found) = lexer.try_pat(pat, p) {
-            return ControlFlow::Break(Some((p, pat, found)));
+        if let Some(found) = lexer.try_pattern(pattern, p) {
+            return ControlFlow::Break(Some((p, pattern, found)));
         }
     }
     ControlFlow::Continue(())

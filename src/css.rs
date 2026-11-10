@@ -23,7 +23,7 @@ pub(crate) use engine::{CssLike, Extra, unit_name_case};
 #[cfg(all(test, feature = "lang-scss"))]
 pub(crate) use grammar::UNITS;
 #[cfg(feature = "lang-scss")]
-pub(crate) use grammar::{Nested, Pat};
+pub(crate) use grammar::{Nested, Pattern};
 pub(crate) use scope::NAMES;
 #[cfg(feature = "lang-scss")]
 pub(crate) use scope::S;

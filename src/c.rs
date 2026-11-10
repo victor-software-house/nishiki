@@ -21,7 +21,7 @@ mod ends;
 mod engine;
 mod lists;
 mod numbers;
-mod pats;
+mod patterns;
 mod preproc;
 mod scope;
 mod simple;

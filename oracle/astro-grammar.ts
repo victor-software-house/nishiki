@@ -322,7 +322,7 @@ const pascal = (key: string) =>
     .join("");
 
 type Act = { role: "match"; name: Sc[] } | { role: "begin"; rule: string } | { role: "end" } | { role: "while" };
-type Pat = {
+type Pattern = {
   id: string;
   regex: string;
   act: Act;
@@ -351,7 +351,7 @@ type Rule = {
   before: number;
 };
 
-const pats = new Map<string, Pat>();
+const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
 /** A rule with no name, no end and no patterns yet. */
@@ -401,7 +401,7 @@ function nestedName(group: string, patterns: Node[], context: string): string {
   if (deferred !== undefined) return name;
   const members = flatten(patterns, name);
   if (members.some((member) => "embed" in member)) throw new Error(`${name}: a nested list embeds a grammar`);
-  rule.patterns = members.map((member) => (member as { pat: string }).pat);
+  rule.patterns = members.map((member) => (member as { pattern: string }).pattern);
   return name;
 }
 
@@ -425,16 +425,16 @@ function nestedList(captures: Captures | undefined, context: string): [number, s
 
 /** One member of a flattened pattern list: a pattern id, or the embedded
  * grammar of an include of another one. */
-type Member = { pat: string } | { embed: Embed };
+type Member = { pattern: string } | { embed: Embed };
 
 /** Registers a match or begin rule under `id`; returns the pattern id. */
 function register(node: Node, id: string): string {
-  const clash = pats.get(id);
+  const clash = patternById.get(id);
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
-  if (pats.has(id)) return id;
+  if (patternById.has(id)) return id;
   if (node.match !== undefined) {
     // vscode-textmate ignores the patterns of a match rule.
-    pats.set(id, {
+    patternById.set(id, {
       id,
       regex: node.match,
       act: { role: "match", name: scList(node.name) },
@@ -446,7 +446,7 @@ function register(node: Node, id: string): string {
   if (node.begin === undefined || (node.end === undefined && node.while === undefined)) {
     throw new Error(`${id}: neither a match nor a begin rule`);
   }
-  pats.set(id, {
+  patternById.set(id, {
     id,
     regex: node.begin,
     act: { role: "begin", rule: id },
@@ -456,7 +456,7 @@ function register(node: Node, id: string): string {
   const closing = node.end ?? node.while!;
   const closeId = node.end !== undefined ? `${id}End` : `${id}While`;
   const closeCaptures = node.end !== undefined ? (node.endCaptures ?? node.captures) : (node.whileCaptures ?? node.captures);
-  pats.set(closeId, {
+  patternById.set(closeId, {
     id: closeId,
     regex: closing,
     act: node.end !== undefined ? { role: "end" } : { role: "while" },
@@ -488,7 +488,7 @@ function register(node: Node, id: string): string {
     rule.embed = (embeds[0] as { embed: Embed }).embed;
     rule.before = members.findIndex((member) => "embed" in member);
   }
-  rule.patterns = members.flatMap((member) => ("pat" in member ? [member.pat] : []));
+  rule.patterns = members.flatMap((member) => ("pattern" in member ? [member.pattern] : []));
   return id;
 }
 
@@ -515,7 +515,7 @@ function flatten(list: Node[], context: string): Member[] {
 }
 
 function expand(node: Node, id: string): Member[] {
-  if (node.match !== undefined || node.begin !== undefined) return [{ pat: register(node, renames[id] ?? id) }];
+  if (node.match !== undefined || node.begin !== undefined) return [{ pattern: register(node, renames[id] ?? id) }];
   if (node.patterns) return flatten(node.patterns, id);
   throw new Error(`${id}: empty rule`);
 }
@@ -541,7 +541,7 @@ for (const [selector, injection] of Object.entries(grammar.injections)) {
 
 const rootMembers = flatten(grammar.patterns, "Root");
 if (rootMembers.some((member) => "embed" in member)) throw new Error("the root embeds a grammar");
-rules.set("Root", { ...bare("Root"), patterns: rootMembers.map((member) => (member as { pat: string }).pat) });
+rules.set("Root", { ...bare("Root"), patterns: rootMembers.map((member) => (member as { pattern: string }).pattern) });
 
 /** Whether a rule's own scopes hold a `source` scope, which hides the
  * injections' selectors from the rules inside it (`- (meta source)`). */
@@ -560,8 +560,8 @@ while (queue.length > 0) {
   if (rule === undefined) throw new Error(`no rule ${id}`);
   inside.add(id);
   if (hides(id)) continue;
-  for (const pat of rule.patterns) {
-    const act = pats.get(pat)!.act;
+  for (const pattern of rule.patterns) {
+    const act = patternById.get(pattern)!.act;
     if (act.role === "begin") queue.push(act.rule);
   }
 }
@@ -596,13 +596,13 @@ const scText = (list: Sc[]) =>
     : "Sc::NO_SCOPES";
 
 const ruleList = [...rules.values()];
-const patList = [...pats.values()];
+const patternList = [...patternById.values()];
 if (ruleList.length > 256) throw new Error(`${ruleList.length} rules do not fit one byte`);
 
 let g = `//! The grammar's rules as tables. Generated by \`oracle/astro-grammar.ts\`
 //! from the \`astro\` grammar Shiki 4.6.0 bundles; do not edit.
 //!
-//! A [\`Pat\`] is one regular expression of the grammar; its doc comment shows
+//! A [\`Pattern\`] is one regular expression of the grammar; its doc comment shows
 //! which.
 //! Each rule lists the patterns it tries, in the grammar's order with its
 //! \`include\`s flattened.
@@ -618,7 +618,7 @@ use crate::rules::{self, embedded};
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Astro>;
-pub(crate) type PatDefinition = rules::PatDefinition<Astro>;
+pub(crate) type PatternDefinition = rules::PatternDefinition<Astro>;
 pub(crate) type RuleDefinition = rules::RuleDefinition<Astro>;
 pub(crate) use crate::rules::Start;
 
@@ -673,7 +673,7 @@ g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    `RuleDefinition {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.endBackref === null ? "None" : `Some(${r.endBackref})`},\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end ? `Some(Pattern::${r.end})` : "None"},\n                backref: ${r.endBackref === null ? "None" : `Some(${r.endBackref})`},\n                patterns: &[${r.patterns.map((p) => `Pattern::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
@@ -726,17 +726,17 @@ g += arms(
 );
 g += `        }\n    }\n}\n\n`;
 
-g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
+g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 const docs = (s: string) => {
   const one = s.replace(/\n/g, "\\n");
   return one.length > 56 ? `…` : one;
 };
-for (const p of patList) {
+for (const p of patternList) {
   g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatDefinition {\n        match self {\n`;
+g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
-  patList.map((p): [string, string] => {
+  patternList.map((p): [string, string] => {
     const act =
       p.act.role === "match"
         ? `Act::Match(${scText(p.act.name)})`
@@ -747,20 +747,20 @@ g += arms(
             : "Act::Match(Sc::NO_SCOPES)";
     const caps = p.captures.map(([n, names]) => `(${n}, ${scText(names)})`).join(", ");
     const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
-    return [p.id, `PatDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
   }),
-  "Pat",
+  "Pattern",
 );
 g += `        }\n    }\n\n    /// Whether the pattern is the end of a rule inside a \`<script>\` or\n    /// \`<style>\` tag, which gives way to a body that opens at the same place.\n    pub(crate) fn yields_to_bodies(self) -> bool {\n        match self {\n`;
 g += arms(
-  patList.map((p): [string, string] => [p.id, yieldsToBodies.has(p.id) ? "true" : "false"]),
-  "Pat",
+  patternList.map((p): [string, string] => [p.id, yieldsToBodies.has(p.id) ? "true" : "false"]),
+  "Pattern",
 );
 g += `        }\n    }\n}\n`;
 
 /** The groups a pattern's tables read: its captures, its nested groups, the
  * group its rule's name or end repeats, and the groups its match name spells. */
-const groupsOf = (p: Pat): number[] => {
+const groupsOf = (p: Pattern): number[] => {
   const rule = p.act.role === "begin" ? rules.get(p.act.rule)! : null;
   const named = p.act.role === "match" ? p.act.name.flatMap((s) => ("group" in s ? [s.group] : [])) : [];
   return [
@@ -773,8 +773,8 @@ const groupsOf = (p: Pat): number[] => {
   ].sort((a, b) => a - b);
 };
 
-g += startTable(patList, "quote");
-g += groupsCheck("Astro", patList.flatMap(groupsOf));
+g += startTable(patternList, "quote");
+g += groupsCheck("Astro", patternList.flatMap(groupsOf));
 g += ruleCodes("Astro", "ASTRO");
 
 await writeRust(`${root_dir}src/astro/grammar.rs`, g);
@@ -788,10 +788,10 @@ await writeRust(`${root_dir}src/astro/scope.rs`, scopeText);
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
-    patList
+    patternList
       .filter((p) => !(p.act.role === "end" && /\\[1-9]/.test(p.regex)))
       .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: groupsOf(p).filter((n) => n > 0) }))
       .join("\n") + "\n",
   );
 }
-console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes, ${tryBodies.length} rules try the bodies`);
+console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${tryBodies.length} rules try the bodies`);

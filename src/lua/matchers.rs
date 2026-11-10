@@ -19,166 +19,166 @@ mod strings;
 use chars::{diagnostic, type_part, type_start};
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     #[expect(
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
     )]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::RootAt0 => self.function_head(p),
-            Pat::RootAt0End => self.after_function_head(p),
-            Pat::RootAt0At1 => self.group_lit(p, b"(", 1),
-            Pat::RootAt0At1End => self.parameters_end(p),
-            Pat::RootAt0At1At1 => self.vararg_parameter(p),
-            Pat::RootAt0At1At2 => self.ascii_name(p),
-            Pat::RootAt0At1At3 | Pat::EmmydocAt19At0At1 => self.lit(p, b","),
-            Pat::RootAt0At1At4 | Pat::EmmydocAt9At0At0 => self.lit(p, b":"),
-            Pat::RootAt0At1At4End => self.ahead_in(p, b"),").then_some(p),
-            Pat::RootAt0At2 => self.function_name_before_colon(p),
-            Pat::RootAt0At3 | Pat::EmmydocAt9At0 => self.bounded_name(p),
-            Pat::RootAt1 => self.hex_number(p),
-            Pat::RootAt2 => self.hex_fraction(p),
-            Pat::RootAt3 => self.hex_integer(p),
-            Pat::RootAt4 => self.decimal_number(p),
-            Pat::RootAt5 => self.decimal_fraction(p),
-            Pat::RootAt6 => self.decimal_integer(p),
-            Pat::StringAt0 => self.lit(p, b"'"),
-            Pat::StringAt0End => self.quote_end(p, b'\''),
-            Pat::StringAt1 => self.lit(p, b"\""),
-            Pat::StringAt1End => self.quote_end(p, b'"'),
-            Pat::StringAt2 => self.lit(p, b"`"),
-            Pat::StringAt2End => self.quote_end(p, b'`'),
-            Pat::StringAt3 => self.cdef_open(p),
-            Pat::StringAt3End => self.cdef_close(p),
-            Pat::StringAt3At0 => self.at_g(p).then_some(p),
-            Pat::StringAt3At0End => self.cdef_body_end(p),
-            Pat::StringAt4 => self.long_string_open(p),
-            Pat::StringAt4End => self.long_string_close(p),
-            Pat::EscapedCharAt0 => self.simple_escape(p),
-            Pat::EscapedCharAt1 => self.skip_escape(p),
-            Pat::EscapedCharAt2 => self.decimal_escape(p),
-            Pat::EscapedCharAt3 => self.hex_escape(p),
-            Pat::EscapedCharAt4 => self.unicode_escape(p),
-            Pat::EscapedCharAt5 => self.any_escape(p),
-            Pat::RootAt8 => self.shebang(p),
-            Pat::CommentAt0 => self.comment_start(p),
-            Pat::CommentAt0End => self.comment_end(p),
-            Pat::CommentAt0At0 => self.code_comment_open(p),
-            Pat::CommentAt0At1 => self.long_comment_open(p),
-            Pat::CommentAt0At0End | Pat::CommentAt0At1End => self.long_comment_close(p),
-            Pat::CommentAt0At2 => self.lit(p, b"----"),
-            Pat::CommentAt0At3 => self.lit(p, b"---"),
-            Pat::CommentAt0At4 => self.lit(p, b"--"),
-            Pat::CommentAt0At2End | Pat::CommentAt0At3End | Pat::CommentAt0At4End => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::RootAt0 => self.function_head(p),
+            Pattern::RootAt0End => self.after_function_head(p),
+            Pattern::RootAt0At1 => self.group_lit(p, b"(", 1),
+            Pattern::RootAt0At1End => self.parameters_end(p),
+            Pattern::RootAt0At1At1 => self.vararg_parameter(p),
+            Pattern::RootAt0At1At2 => self.ascii_name(p),
+            Pattern::RootAt0At1At3 | Pattern::EmmydocAt19At0At1 => self.lit(p, b","),
+            Pattern::RootAt0At1At4 | Pattern::EmmydocAt9At0At0 => self.lit(p, b":"),
+            Pattern::RootAt0At1At4End => self.ahead_in(p, b"),").then_some(p),
+            Pattern::RootAt0At2 => self.function_name_before_colon(p),
+            Pattern::RootAt0At3 | Pattern::EmmydocAt9At0 => self.bounded_name(p),
+            Pattern::RootAt1 => self.hex_number(p),
+            Pattern::RootAt2 => self.hex_fraction(p),
+            Pattern::RootAt3 => self.hex_integer(p),
+            Pattern::RootAt4 => self.decimal_number(p),
+            Pattern::RootAt5 => self.decimal_fraction(p),
+            Pattern::RootAt6 => self.decimal_integer(p),
+            Pattern::StringAt0 => self.lit(p, b"'"),
+            Pattern::StringAt0End => self.quote_end(p, b'\''),
+            Pattern::StringAt1 => self.lit(p, b"\""),
+            Pattern::StringAt1End => self.quote_end(p, b'"'),
+            Pattern::StringAt2 => self.lit(p, b"`"),
+            Pattern::StringAt2End => self.quote_end(p, b'`'),
+            Pattern::StringAt3 => self.cdef_open(p),
+            Pattern::StringAt3End => self.cdef_close(p),
+            Pattern::StringAt3At0 => self.at_g(p).then_some(p),
+            Pattern::StringAt3At0End => self.cdef_body_end(p),
+            Pattern::StringAt4 => self.long_string_open(p),
+            Pattern::StringAt4End => self.long_string_close(p),
+            Pattern::EscapedCharAt0 => self.simple_escape(p),
+            Pattern::EscapedCharAt1 => self.skip_escape(p),
+            Pattern::EscapedCharAt2 => self.decimal_escape(p),
+            Pattern::EscapedCharAt3 => self.hex_escape(p),
+            Pattern::EscapedCharAt4 => self.unicode_escape(p),
+            Pattern::EscapedCharAt5 => self.any_escape(p),
+            Pattern::RootAt8 => self.shebang(p),
+            Pattern::CommentAt0 => self.comment_start(p),
+            Pattern::CommentAt0End => self.comment_end(p),
+            Pattern::CommentAt0At0 => self.code_comment_open(p),
+            Pattern::CommentAt0At1 => self.long_comment_open(p),
+            Pattern::CommentAt0At0End | Pattern::CommentAt0At1End => self.long_comment_close(p),
+            Pattern::CommentAt0At2 => self.lit(p, b"----"),
+            Pattern::CommentAt0At3 => self.lit(p, b"---"),
+            Pattern::CommentAt0At4 => self.lit(p, b"--"),
+            Pattern::CommentAt0At2End | Pattern::CommentAt0At3End | Pattern::CommentAt0At4End => {
                 self.line_feed(p)
             }
-            Pat::EmmydocAt1At0End | Pat::EmmydocAt5At0End | Pat::EmmydocAt19At0End => {
+            Pattern::EmmydocAt1At0End | Pattern::EmmydocAt5At0End | Pattern::EmmydocAt19At0End => {
                 self.ahead_in(p, b"\n").then_some(p)
             }
-            Pat::CommentAt1 => self.lit(p, b"/*"),
-            Pat::CommentAt1End => self.lit(p, b"*/"),
-            Pat::LdocTag => self.ldoc_tag(p),
-            Pat::EmmydocAt0 => self.doc_tag(p, b"@class"),
-            Pat::EmmydocAt1 => self.doc_tag(p, b"@enum"),
-            Pat::EmmydocAt2 => self.doc_tag(p, b"@type"),
-            Pat::EmmydocAt3 => self.doc_tag(p, b"@alias"),
-            Pat::EmmydocAt4 => self.operator_tag(p),
-            Pat::EmmydocAt5 => self.doc_tag(p, b"@cast"),
-            Pat::EmmydocAt6 => self.doc_tag(p, b"@param"),
-            Pat::EmmydocAt7 => self.doc_tag(p, b"@return"),
-            Pat::EmmydocAt8 => self.doc_tag(p, b"@field"),
-            Pat::EmmydocAt9 => self.doc_tag(p, b"@generic"),
-            Pat::EmmydocAt10 => self.doc_tag(p, b"@vararg"),
-            Pat::EmmydocAt11 => self.doc_tag(p, b"@overload"),
-            Pat::EmmydocAt12 => self.doc_tag(p, b"@deprecated"),
-            Pat::EmmydocAt13 => self.doc_tag(p, b"@meta"),
-            Pat::EmmydocAt14 => self.doc_tag(p, b"@private"),
-            Pat::EmmydocAt15 => self.doc_tag(p, b"@protected"),
-            Pat::EmmydocAt16 => self.doc_tag(p, b"@package"),
-            Pat::EmmydocAt17 => self.doc_tag(p, b"@version"),
-            Pat::EmmydocAt18 => self.doc_tag(p, b"@see"),
-            Pat::EmmydocAt19 => self.doc_tag(p, b"@diagnostic"),
-            Pat::EmmydocAt20 => self.doc_tag(p, b"@module"),
-            Pat::EmmydocAt21 => self.flag_tag(p),
-            Pat::EmmydocAt22 => self.enum_item(p),
-            Pat::EmmydocAt0End
-            | Pat::EmmydocAt1End
-            | Pat::EmmydocAt2End
-            | Pat::EmmydocAt3End
-            | Pat::EmmydocAt4End
-            | Pat::EmmydocAt5End
-            | Pat::EmmydocAt6End
-            | Pat::EmmydocAt7End
-            | Pat::EmmydocAt8End
-            | Pat::EmmydocAt9End
-            | Pat::EmmydocAt10End
-            | Pat::EmmydocAt11End
-            | Pat::EmmydocAt12End
-            | Pat::EmmydocAt13End
-            | Pat::EmmydocAt14End
-            | Pat::EmmydocAt15End
-            | Pat::EmmydocAt16End
-            | Pat::EmmydocAt17End
-            | Pat::EmmydocAt18End
-            | Pat::EmmydocAt19End
-            | Pat::EmmydocAt20End
-            | Pat::EmmydocAt22End => self.ahead_in(p, b"\n#@").then_some(p),
-            Pat::EmmydocAt3At0End | Pat::EmmydocAt6At0End | Pat::EmmydocAt8At0End => {
+            Pattern::CommentAt1 => self.lit(p, b"/*"),
+            Pattern::CommentAt1End => self.lit(p, b"*/"),
+            Pattern::LdocTag => self.ldoc_tag(p),
+            Pattern::EmmydocAt0 => self.doc_tag(p, b"@class"),
+            Pattern::EmmydocAt1 => self.doc_tag(p, b"@enum"),
+            Pattern::EmmydocAt2 => self.doc_tag(p, b"@type"),
+            Pattern::EmmydocAt3 => self.doc_tag(p, b"@alias"),
+            Pattern::EmmydocAt4 => self.operator_tag(p),
+            Pattern::EmmydocAt5 => self.doc_tag(p, b"@cast"),
+            Pattern::EmmydocAt6 => self.doc_tag(p, b"@param"),
+            Pattern::EmmydocAt7 => self.doc_tag(p, b"@return"),
+            Pattern::EmmydocAt8 => self.doc_tag(p, b"@field"),
+            Pattern::EmmydocAt9 => self.doc_tag(p, b"@generic"),
+            Pattern::EmmydocAt10 => self.doc_tag(p, b"@vararg"),
+            Pattern::EmmydocAt11 => self.doc_tag(p, b"@overload"),
+            Pattern::EmmydocAt12 => self.doc_tag(p, b"@deprecated"),
+            Pattern::EmmydocAt13 => self.doc_tag(p, b"@meta"),
+            Pattern::EmmydocAt14 => self.doc_tag(p, b"@private"),
+            Pattern::EmmydocAt15 => self.doc_tag(p, b"@protected"),
+            Pattern::EmmydocAt16 => self.doc_tag(p, b"@package"),
+            Pattern::EmmydocAt17 => self.doc_tag(p, b"@version"),
+            Pattern::EmmydocAt18 => self.doc_tag(p, b"@see"),
+            Pattern::EmmydocAt19 => self.doc_tag(p, b"@diagnostic"),
+            Pattern::EmmydocAt20 => self.doc_tag(p, b"@module"),
+            Pattern::EmmydocAt21 => self.flag_tag(p),
+            Pattern::EmmydocAt22 => self.enum_item(p),
+            Pattern::EmmydocAt0End
+            | Pattern::EmmydocAt1End
+            | Pattern::EmmydocAt2End
+            | Pattern::EmmydocAt3End
+            | Pattern::EmmydocAt4End
+            | Pattern::EmmydocAt5End
+            | Pattern::EmmydocAt6End
+            | Pattern::EmmydocAt7End
+            | Pattern::EmmydocAt8End
+            | Pattern::EmmydocAt9End
+            | Pattern::EmmydocAt10End
+            | Pattern::EmmydocAt11End
+            | Pattern::EmmydocAt12End
+            | Pattern::EmmydocAt13End
+            | Pattern::EmmydocAt14End
+            | Pattern::EmmydocAt15End
+            | Pattern::EmmydocAt16End
+            | Pattern::EmmydocAt17End
+            | Pattern::EmmydocAt18End
+            | Pattern::EmmydocAt19End
+            | Pattern::EmmydocAt20End
+            | Pattern::EmmydocAt22End => self.ahead_in(p, b"\n#@").then_some(p),
+            Pattern::EmmydocAt3At0End | Pattern::EmmydocAt6At0End | Pattern::EmmydocAt8At0End => {
                 self.ahead_in(p, b"\n#").then_some(p)
             }
-            Pat::EmmydocAt0At0
-            | Pat::EmmydocAt1At0
-            | Pat::EmmydocAt3At0
-            | Pat::EmmydocAt5At0
-            | Pat::EmmydocAt18At0 => self.bounded_run(p, type_start, type_part),
-            Pat::EmmydocAt19At0At0 => self.bounded_run(p, type_start, diagnostic),
-            Pat::EmmydocAt0At1 => self.byte_of(p, b",:"),
-            Pat::EmmydocAt5At0At1 => self.cast_sign(p),
-            Pat::EmmydocAt6At0 => self.param_name(p),
-            Pat::EmmydocAt7At0 => self.lit(p, b"?"),
-            Pat::EmmydocAt8At0 => self.field_name(p),
-            Pat::EmmydocAt8At0At2 => self.lit(p, b"]"),
-            Pat::EmmydocAt9At0End => self.generic_end(p),
-            Pat::EmmydocAt17At0 => self.lua_version(p),
-            Pat::EmmydocAt17At1 => self.byte_of(p, b",<>"),
-            Pat::EmmydocAt18At1 => self.lit(p, b"#"),
-            Pat::EmmydocAt19At0 => self.diagnostic_name(p),
-            Pat::EmmydocTypeAt0 => self.keyword_out_of_line(p, b"fun"),
-            Pat::EmmydocTypeAt0End => self.type_end_ahead(p, b"#"),
-            Pat::EmmydocTypeAt0At0 => self.punctuation_then_tabs(p, b"](),:<>?["),
-            Pat::EmmydocTypeAt0At1 => self.type_field_name(p),
-            Pat::EmmydocTypeAt1 | Pat::RootAt13 => self.angle_name(p),
-            Pat::EmmydocTypeAt2 => self.keyword_out_of_line(p, b"async"),
-            Pat::EmmydocTypeAt3 => self.punctuation_then_tabs(p, b",:?`{|}"),
-            Pat::EmmydocTypeAt4 => self.type_start_ahead(p),
-            Pat::EmmydocTypeAt4End => self.type_end_ahead(p, b"#),:?|}"),
-            Pat::EmmydocTypeAt4At0 => self.type_word(p),
-            Pat::EmmydocTypeAt4At1 => self.ellipsis_then_tabs(p),
-            Pat::RootAt10 => self.goto_label(p),
-            Pat::RootAt11 => self.label(p),
-            Pat::RootAt12 => self.attribute(p),
-            Pat::RootAt14 => self.word_in(p, names::KEYWORDS),
-            Pat::RootAt15 => self.keyword_out_of_line(p, b"local"),
-            Pat::RootAt16 => self.global_declaration(p),
-            Pat::RootAt17 => self.function_keyword(p),
-            Pat::RootAt18 => self.constant(p),
-            Pat::RootAt19 => self.not_member_word(p, &[b"self"]),
-            Pat::RootAt20 => self.builtin_function(p),
-            Pat::RootAt21 => self.async_word(p),
-            Pat::RootAt22 => self.library_function(p),
-            Pat::RootAt23 => self.symbol_operator(p),
-            Pat::RootAt24 => self.word_in(p, &[b"and", b"or", b"not"]),
-            Pat::RootAt25 => self.call_name(p),
-            Pat::RootAt26 => self.name_before_colon(p),
-            Pat::RootAt27 => self.member_name(p),
-            Pat::RootAt28 => self.variable_name(p),
-            Pat::RootAt29 => self.function_variable(p),
-            Pat::RootAt30 => self.operator(p),
+            Pattern::EmmydocAt0At0
+            | Pattern::EmmydocAt1At0
+            | Pattern::EmmydocAt3At0
+            | Pattern::EmmydocAt5At0
+            | Pattern::EmmydocAt18At0 => self.bounded_run(p, type_start, type_part),
+            Pattern::EmmydocAt19At0At0 => self.bounded_run(p, type_start, diagnostic),
+            Pattern::EmmydocAt0At1 => self.byte_of(p, b",:"),
+            Pattern::EmmydocAt5At0At1 => self.cast_sign(p),
+            Pattern::EmmydocAt6At0 => self.param_name(p),
+            Pattern::EmmydocAt7At0 => self.lit(p, b"?"),
+            Pattern::EmmydocAt8At0 => self.field_name(p),
+            Pattern::EmmydocAt8At0At2 => self.lit(p, b"]"),
+            Pattern::EmmydocAt9At0End => self.generic_end(p),
+            Pattern::EmmydocAt17At0 => self.lua_version(p),
+            Pattern::EmmydocAt17At1 => self.byte_of(p, b",<>"),
+            Pattern::EmmydocAt18At1 => self.lit(p, b"#"),
+            Pattern::EmmydocAt19At0 => self.diagnostic_name(p),
+            Pattern::EmmydocTypeAt0 => self.keyword_out_of_line(p, b"fun"),
+            Pattern::EmmydocTypeAt0End => self.type_end_ahead(p, b"#"),
+            Pattern::EmmydocTypeAt0At0 => self.punctuation_then_tabs(p, b"](),:<>?["),
+            Pattern::EmmydocTypeAt0At1 => self.type_field_name(p),
+            Pattern::EmmydocTypeAt1 | Pattern::RootAt13 => self.angle_name(p),
+            Pattern::EmmydocTypeAt2 => self.keyword_out_of_line(p, b"async"),
+            Pattern::EmmydocTypeAt3 => self.punctuation_then_tabs(p, b",:?`{|}"),
+            Pattern::EmmydocTypeAt4 => self.type_start_ahead(p),
+            Pattern::EmmydocTypeAt4End => self.type_end_ahead(p, b"#),:?|}"),
+            Pattern::EmmydocTypeAt4At0 => self.type_word(p),
+            Pattern::EmmydocTypeAt4At1 => self.ellipsis_then_tabs(p),
+            Pattern::RootAt10 => self.goto_label(p),
+            Pattern::RootAt11 => self.label(p),
+            Pattern::RootAt12 => self.attribute(p),
+            Pattern::RootAt14 => self.word_in(p, names::KEYWORDS),
+            Pattern::RootAt15 => self.keyword_out_of_line(p, b"local"),
+            Pattern::RootAt16 => self.global_declaration(p),
+            Pattern::RootAt17 => self.function_keyword(p),
+            Pattern::RootAt18 => self.constant(p),
+            Pattern::RootAt19 => self.not_member_word(p, &[b"self"]),
+            Pattern::RootAt20 => self.builtin_function(p),
+            Pattern::RootAt21 => self.async_word(p),
+            Pattern::RootAt22 => self.library_function(p),
+            Pattern::RootAt23 => self.symbol_operator(p),
+            Pattern::RootAt24 => self.word_in(p, &[b"and", b"or", b"not"]),
+            Pattern::RootAt25 => self.call_name(p),
+            Pattern::RootAt26 => self.name_before_colon(p),
+            Pattern::RootAt27 => self.member_name(p),
+            Pattern::RootAt28 => self.variable_name(p),
+            Pattern::RootAt29 => self.function_variable(p),
+            Pattern::RootAt30 => self.operator(p),
         }
     }
 

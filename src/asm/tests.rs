@@ -158,14 +158,14 @@ mod probe {
 
     /// Answers the cases of `oracle/onig.ts` with Assembly's matchers (see
     /// [`answer_cases`]).
-    /// A pattern merged into `Pat::Word` is answered by its own word list.
+    /// A pattern merged into `Pattern::Word` is answered by its own word list.
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
         answer_cases(&Rx::ALL, |arena, rx, case| {
             lexer::<Asm, _>(arena, case, |lexer| {
                 lexer.probe_matcher(case.p, lexer.g, |lexer, p| match rx.answer() {
-                    Answer::Pat(pat) => lexer.matcher(pat, p),
+                    Answer::Pattern(pattern) => lexer.matcher(pattern, p),
                     Answer::List(index) => lexer.listed_in(p, index),
                 })
             })

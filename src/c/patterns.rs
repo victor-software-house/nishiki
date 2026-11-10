@@ -191,7 +191,7 @@ impl P {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`.
+    /// Whether `pattern` matches at `p`.
     /// The match's start and end are in `x`, and its parts are in the spans.
     ///
     /// It is `#[inline]` because `find`, in another module, calls it for every
@@ -204,8 +204,8 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm per pattern: the table of what each pattern matches"
     )]
-    pub(super) fn match_pat(&mut self, pat: P, p: usize) -> bool {
-        match pat {
+    pub(super) fn match_pattern(&mut self, pattern: P, p: usize) -> bool {
+        match pattern {
             P::DocLine => self.doc_line(p),
             P::DocBlockOne => self.doc_block_one(p),
             P::DocBlockBegin => self.doc_block_begin(p),

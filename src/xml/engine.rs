@@ -11,7 +11,7 @@
 
 use std::cell::Cell;
 
-use super::rules::{Pat, next_start, patterns};
+use super::rules::{Pattern, next_start, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
@@ -101,7 +101,7 @@ struct Frame {
 /// What the search found.
 enum Found {
     End(Hit),
-    Pat(Pat, Hit),
+    Pattern(Pattern, Hit),
 }
 
 /// What the highlighter keeps from one line to the next.
@@ -332,7 +332,7 @@ impl<'a> Lexer<'a> {
             };
             match found {
                 Found::End(hit) => self.close(&hit),
-                Found::Pat(pat, hit) => self.apply(pat, &hit),
+                Found::Pattern(pattern, hit) => self.apply(pattern, &hit),
             }
             debug_assert!(
                 self.pos > before,
@@ -353,7 +353,7 @@ impl<'a> Lexer<'a> {
             return None;
         }
         let to = found.map_or(self.lim, |found| match found {
-            Found::End(hit) | Found::Pat(_, hit) => hit.start,
+            Found::End(hit) | Found::Pattern(_, hit) => hit.start,
         });
         let (halted, scanned) =
             crate::language::halt_before(self.s, self.pos, to, self.lim, end, after);
@@ -381,9 +381,9 @@ impl<'a> Lexer<'a> {
             if let Some(hit) = self.end_at(rule, p) {
                 return Some(Found::End(hit));
             }
-            for &pat in patterns(rule) {
-                if let Some(hit) = self.pat_at(pat, p) {
-                    return Some(Found::Pat(pat, hit));
+            for &pattern in patterns(rule) {
+                if let Some(hit) = self.pattern_at(pattern, p) {
+                    return Some(Found::Pattern(pattern, hit));
                 }
             }
             p = self.after_miss(rule, p);
@@ -524,11 +524,11 @@ impl<'a> Lexer<'a> {
     /// A rule the depth limit keeps from opening leaves its text plain.
     /// The search then goes on after the match.
     /// The depth counts the rules open above the root, as every lexer does.
-    fn apply(&mut self, pat: Pat, hit: &Hit) {
+    fn apply(&mut self, pattern: Pattern, hit: &Hit) {
         let top = self.top();
         self.tok(top.stack, hit.start);
-        let Some(rule) = pat.opens() else {
-            let name = self.path(top.stack, pat.name());
+        let Some(rule) = pattern.opens() else {
+            let name = self.path(top.stack, pattern.name());
             self.captures(name, hit);
             self.tok(name, hit.end);
             self.pos = self.pos.max(hit.end);

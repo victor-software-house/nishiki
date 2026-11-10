@@ -13,7 +13,7 @@
 
 use memchr::memchr;
 
-use super::engine::{Hit, Lexer, Pat};
+use super::engine::{Hit, Lexer, Pattern};
 use super::scope::S;
 use super::state::Rule;
 use crate::classes::is_word;
@@ -211,10 +211,10 @@ pub(crate) enum Directive {
 
 /// A match of one of Vue's patterns.
 ///
-/// It holds no data, so `Pat` keeps a plain tag byte.
+/// It holds no data, so `Pattern` keeps a plain tag byte.
 /// The block, language or template tag of a match is in its `Hit::bits`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum VuePat {
+pub(crate) enum VuePattern {
     /// `<!-- @name`: a comment that holds JSON.
     CommentKv,
     /// `<!--`.
@@ -510,12 +510,12 @@ impl Lexer<'_> {
                 }
                 if end > at + 1 && self.ws_len(end) > 0 {
                     return Some(
-                        Hit::new(Pat::Vue(VuePat::CommentKv), p, end)
+                        Hit::new(Pattern::Vue(VuePattern::CommentKv), p, end)
                             .with([at, at + 1, 0, 0, 0], 0),
                     );
                 }
             }
-            return Some(Hit::new(Pat::Vue(VuePat::Comment), p, p + 4));
+            return Some(Hit::new(Pattern::Vue(VuePattern::Comment), p, p + 4));
         }
         let name_end = self.name_run(p + 1);
         if name_end > p + 1 {
@@ -525,12 +525,12 @@ impl Lexer<'_> {
                 && self.s[gt - 1] == b'/'
             {
                 return Some(
-                    Hit::new(Pat::Vue(VuePat::SelfClosing), p, name_end)
+                    Hit::new(Pattern::Vue(VuePattern::SelfClosing), p, name_end)
                         .with([p + 1, name_end, 0, 0, 0], 0),
                 );
             }
         }
-        Some(Hit::new(Pat::Vue(VuePat::Block), p, p + 1))
+        Some(Hit::new(Pattern::Vue(VuePattern::Block), p, p + 1))
     }
 
     /// The patterns of a block after its `<`: a block whose `lang` names a
@@ -543,7 +543,8 @@ impl Lexer<'_> {
         }
         let text = &self.s[..self.lim];
         let element = |block: Block, end: usize| {
-            Hit::new(Pat::Vue(VuePat::Element), p, end).with([p, end, 0, 0, 0], block.bits())
+            Hit::new(Pattern::Vue(VuePattern::Element), p, end)
+                .with([p, end, 0, 0, 0], block.bits())
         };
         if let Some(end) = (p + 1..=run).rev().find(|&end| boundary(text, end)) {
             let tag = if self.s.get(p..run) == Some(b"template") {
@@ -586,7 +587,8 @@ impl Lexer<'_> {
             return None;
         }
         let gt = self.skip_ascii_ws(name_end);
-        (self.at(gt) == b'>').then(|| Hit::new(Pat::End, p, gt).with([p + 2, name_end, 0, 0, 0], 0))
+        (self.at(gt) == b'>')
+            .then(|| Hit::new(Pattern::End, p, gt).with([p + 2, name_end, 0, 0, 0], 0))
     }
 
     /// `(?<=>)` at `p`: a body opens right after the start tag's `>`.
@@ -597,17 +599,17 @@ impl Lexer<'_> {
     /// The patterns of a block's element rule, after its tag name.
     #[inline(never)]
     pub(super) fn vue_element_patterns(&self, p: usize, block: Block) -> Option<Hit> {
-        let zero = |rule: Rule| Some(Hit::new(Pat::Zero(rule), p, p));
+        let zero = |rule: Rule| Some(Hit::new(Pattern::Zero(rule), p, p));
         match block {
             Block::Script => self
                 .g(p)
-                .then(|| Hit::new(Pat::Zero(Rule::VueScriptStuff), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueScriptStuff), p, p)),
             Block::Style => self
                 .g(p)
-                .then(|| Hit::new(Pat::Zero(Rule::VueStyleStuff), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueStyleStuff), p, p)),
             Block::Lang(Lang::Html) => self
                 .g(p)
-                .then(|| Hit::new(Pat::Zero(Rule::VueTagStuff), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueTagStuff), p, p)),
             Block::Lang(lang) => {
                 if self.g(p) {
                     return zero(Rule::VueTagStuff);
@@ -625,14 +627,14 @@ impl Lexer<'_> {
                     return zero(Rule::VueTagStuff);
                 }
                 self.after_gt(p)
-                    .then(|| Hit::new(Pat::Zero(Rule::VueTemplateBody), p, p))
+                    .then(|| Hit::new(Pattern::Zero(Rule::VueTemplateBody), p, p))
             }
             Block::Other => {
                 if self.g(p) {
                     return zero(Rule::VueTagStuff);
                 }
                 self.after_gt(p)
-                    .then(|| Hit::new(Pat::Zero(Rule::VueBody), p, p))
+                    .then(|| Hit::new(Pattern::Zero(Rule::VueBody), p, p))
             }
         }
     }
@@ -668,17 +670,19 @@ impl Lexer<'_> {
             Element::Style => Rule::VueStyleTagStuff,
         };
         if self.g(p) && !lang_at(text, p, langs) {
-            return Some(Hit::new(Pat::Zero(tag_stuff), p, p));
+            return Some(Hit::new(Pattern::Zero(tag_stuff), p, p));
         }
         let group: &[Lang] = match element {
             Element::Script => &[Lang::Ts, Lang::Tsx, Lang::Jsx, Lang::Coffee],
             Element::Style => &[Lang::Scss, Lang::Stylus, Lang::Less, Lang::Postcss],
         };
         if let Some(&lang) = group.iter().find(|lang| lang_at(text, p, lang.words())) {
-            return Some(Hit::new(Pat::Vue(VuePat::LangGroup), p, p).with([0; 5], lang.bits()));
+            return Some(
+                Hit::new(Pattern::Vue(VuePattern::LangGroup), p, p).with([0; 5], lang.bits()),
+            );
         }
         self.after_gt(p)
-            .then(|| Hit::new(Pat::Zero(Rule::VueBody), p, p))
+            .then(|| Hit::new(Pattern::Zero(Rule::VueBody), p, p))
     }
 
     /// The patterns of the rule that a `lang` opens in a multi-line block:
@@ -686,15 +690,15 @@ impl Lexer<'_> {
     #[inline(never)]
     pub(super) fn vue_lang_group_patterns(&self, p: usize, lang: Lang) -> Option<Hit> {
         if self.g(p) {
-            return Some(Hit::new(Pat::Zero(Rule::VueTagStuff), p, p));
+            return Some(Hit::new(Pattern::Zero(Rule::VueTagStuff), p, p));
         }
         if !self.after_gt(p) || !lang.has_grammar() {
             return None;
         }
         if lang.ends_at_script() && !self.script_end_ahead(p) {
-            return Some(Hit::new(Pat::Zero(Rule::VueBodyWhile), p, p));
+            return Some(Hit::new(Pattern::Zero(Rule::VueBodyWhile), p, p));
         }
-        Some(Hit::new(Pat::Zero(Rule::VueBody), p, p))
+        Some(Hit::new(Pattern::Zero(Rule::VueBody), p, p))
     }
 
     /// The end `(?=\blang\s*=\s*["']?(…)\b)|(>)` of a multi-line block's
@@ -706,9 +710,9 @@ impl Lexer<'_> {
             Element::Style => STYLE_LANGS,
         };
         if lang_at(&self.s[..self.lim], p, langs) {
-            return Some(Hit::new(Pat::End, p, p));
+            return Some(Hit::new(Pattern::End, p, p));
         }
-        (self.at(p) == b'>').then(|| Hit::new(Pat::End, p, p + 1))
+        (self.at(p) == b'>').then(|| Hit::new(Pattern::End, p, p + 1))
     }
 
     /// The patterns of a tag's attributes in Vue's rules: the directives,
@@ -734,7 +738,7 @@ impl Lexer<'_> {
                         || self.ws_len(end) > 0)
                 {
                     return Some(
-                        Hit::new(Pat::Vue(VuePat::DirectiveControl), p, end)
+                        Hit::new(Pattern::Vue(VuePattern::DirectiveControl), p, end)
                             .with([0; 5], u32::from(loop_word)),
                     );
                 }
@@ -783,23 +787,25 @@ impl Lexer<'_> {
                 end = q;
             }
         }
-        Some(Hit::new(Pat::Vue(VuePat::DirectiveOriginal), p, end).with(
-            [
-                name_end,
-                colon_end,
-                argument.0,
-                argument.1,
-                argument.2.code(),
-            ],
-            u32::from(b),
-        ))
+        Some(
+            Hit::new(Pattern::Vue(VuePattern::DirectiveOriginal), p, end).with(
+                [
+                    name_end,
+                    colon_end,
+                    argument.0,
+                    argument.1,
+                    argument.2.code(),
+                ],
+                u32::from(b),
+            ),
+        )
     }
 
     /// The end `(?=\s*[^=\s])` of a directive at `p`.
     #[inline(never)]
     pub(super) fn vue_directive_end(&self, p: usize) -> Option<Hit> {
         let q = self.skip_ws(p);
-        (q < self.lim && self.at(q) != b'=').then(|| Hit::new(Pat::End, p, p))
+        (q < self.lim && self.at(q) != b'=').then(|| Hit::new(Pattern::End, p, p))
     }
 
     /// The patterns of a directive: a modifier `(\.)([-\w]*)` of the
@@ -816,7 +822,7 @@ impl Lexer<'_> {
                     break;
                 }
             }
-            return Some(Hit::new(Pat::Vue(VuePat::Modifier), p, q));
+            return Some(Hit::new(Pattern::Vue(VuePattern::Modifier), p, q));
         }
         if b != b'=' {
             return None;
@@ -824,10 +830,10 @@ impl Lexer<'_> {
         let q = self.skip_ws(p + 1);
         match self.at(q) {
             quote @ (b'"' | b'\'' | b'`') => Some(
-                Hit::new(Pat::Vue(VuePat::ExprString), p, q + 1)
+                Hit::new(Pattern::Vue(VuePattern::ExprString), p, q + 1)
                     .with([q, 0, 0, 0, 0], u32::from(quote)),
             ),
-            _ if q < self.lim => Some(Hit::new(Pat::Vue(VuePat::ExprBare), p, p + 1)),
+            _ if q < self.lim => Some(Hit::new(Pattern::Vue(VuePattern::ExprBare), p, p + 1)),
             _ => None,
         }
     }
@@ -842,13 +848,13 @@ impl Lexer<'_> {
                 let end = p + 9;
                 if self.at(end) == b'>' {
                     return Some(
-                        Hit::new(Pat::Vue(VuePat::TemplateTag), p, end + 1)
+                        Hit::new(Pattern::Vue(VuePattern::TemplateTag), p, end + 1)
                             .with([0; 5], TemplateTag::Bare.bits()),
                     );
                 }
                 if self.ws_len(end) > 0 || self.starts(end, b"/>") {
                     return Some(
-                        Hit::new(Pat::Vue(VuePat::TemplateTag), p, end)
+                        Hit::new(Pattern::Vue(VuePattern::TemplateTag), p, end)
                             .with([0; 5], TemplateTag::Attributes.bits()),
                     );
                 }
@@ -857,7 +863,7 @@ impl Lexer<'_> {
                 let end = self.name_run(p + 2);
                 if self.ws_len(end) > 0 || self.at(end) == b'>' || self.starts(end, b"/>") {
                     return Some(
-                        Hit::new(Pat::Vue(VuePat::Capitalized), p, end)
+                        Hit::new(Pattern::Vue(VuePattern::Capitalized), p, end)
                             .with([p + 1, end, 0, 0, 0], 0),
                     );
                 }
@@ -871,11 +877,11 @@ impl Lexer<'_> {
     #[inline(never)]
     pub(super) fn vue_template_tag_end(&self, p: usize) -> Option<Hit> {
         if self.starts(p, b"/>") {
-            return Some(Hit::new(Pat::End, p, p));
+            return Some(Hit::new(Pattern::End, p, p));
         }
         let end = p + 10;
         (self.starts(p, b"</template") && (self.at(end) == b'>' || self.ws_len(end) > 0))
-            .then(|| Hit::new(Pat::End, p, end))
+            .then(|| Hit::new(Pattern::End, p, end))
     }
 
     /// The patterns of a nested template's inside.
@@ -927,7 +933,7 @@ impl Lexer<'_> {
             | VueRule::Expr => return Template::Done(None),
         };
         if tag_stuff_first && self.g(p) {
-            return Template::Done(Some(Hit::new(Pat::Zero(Rule::VueTagStuff), p, p)));
+            return Template::Done(Some(Hit::new(Pattern::Zero(Rule::VueTagStuff), p, p)));
         }
         self.vue_html_stuff(p)
             .map_or(Template::Root, |hit| Template::Done(Some(hit)))
@@ -939,8 +945,8 @@ impl Lexer<'_> {
     pub(super) fn vue_end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let rule = rule.vue()?;
         let b = self.at(p);
-        let one = |len: usize| Hit::new(Pat::End, p, p + len);
-        let zero = || Hit::new(Pat::End, p, p);
+        let one = |len: usize| Hit::new(Pattern::End, p, p + len);
+        let zero = || Hit::new(Pattern::End, p, p);
         match rule {
             VueRule::Comment | VueRule::CommentKv => self.starts(p, b"-->").then(|| one(3)),
             VueRule::SelfClosing => self.starts(p, b"/>").then(|| one(2)),
@@ -1007,7 +1013,7 @@ impl Lexer<'_> {
         match rule {
             VueRule::SelfClosing => self
                 .g(p)
-                .then(|| Hit::new(Pat::Zero(Rule::VueTagStuff), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueTagStuff), p, p)),
             VueRule::Block => self.vue_block_patterns(p),
             VueRule::TagStuff
             | VueRule::ScriptTagStuff
@@ -1020,11 +1026,11 @@ impl Lexer<'_> {
             }
             VueRule::TemplateTag => self.g(p).then(|| {
                 let tag = TemplateTag::from_bits(self.top().payload);
-                Hit::new(Pat::Vue(VuePat::TemplateTagEnd), p, p).with([0; 5], tag.bits())
+                Hit::new(Pattern::Vue(VuePattern::TemplateTagEnd), p, p).with([0; 5], tag.bits())
             }),
             VueRule::Capitalized => self
                 .g(p)
-                .then(|| Hit::new(Pat::Zero(Rule::VueCapitalizedAttrs), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueCapitalizedAttrs), p, p)),
             VueRule::Directive => {
                 let directive = if self.top().payload == 1 {
                     Directive::Control
@@ -1035,9 +1041,9 @@ impl Lexer<'_> {
             }
             VueRule::ExprString => (p > 0
                 && matches!(self.s.get(p - 1), Some(b'"' | b'\'' | b'`')))
-            .then(|| Hit::new(Pat::Zero(Rule::VueExpr), p, p)),
+            .then(|| Hit::new(Pattern::Zero(Rule::VueExpr), p, p)),
             VueRule::ExprBare => (p < self.lim && !matches!(b, b'"' | b'\'' | b'`'))
-                .then(|| Hit::new(Pat::Zero(Rule::VueExpr), p, p)),
+                .then(|| Hit::new(Pattern::Zero(Rule::VueExpr), p, p)),
             VueRule::Comment
             | VueRule::CommentKv
             | VueRule::Element
