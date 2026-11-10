@@ -1,6 +1,10 @@
+use std::sync::{Arc, PoisonError, mpsc};
+use std::thread;
+use std::time::Duration;
+
 use indoc::indoc;
 
-use super::{Grammar, Grammars, Reason, bytes};
+use super::{Grammar, Grammars, LINKED_TABLES, LinkKey, Reason, bytes, linked_table};
 use crate::textmate::compile::{Compiled, RawRule, compile};
 use crate::{Highlighter, State};
 
@@ -115,6 +119,48 @@ fn one_set_links_once() {
     let second = Highlighter::for_grammar(grammar, &set.clone()).unwrap();
     assert!(std::ptr::eq(first.lexer().table, second.lexer().table));
     assert_eq!(first.grammar(), grammar);
+}
+
+#[test]
+fn links_of_one_set_on_many_threads_end_with_one_table() {
+    let grammar =
+        Grammar::from_json(r#"{ "scopeName": "source.racing", "patterns": [] }"#).unwrap();
+    let set = Grammars::new();
+    let tables: Vec<_> = thread::scope(|scope| {
+        let links: Vec<_> = (0..8)
+            .map(|_| scope.spawn(|| linked_table(grammar, &set).unwrap()))
+            .collect();
+        links.into_iter().map(|link| link.join().unwrap()).collect()
+    });
+    assert!(tables.iter().all(|&table| std::ptr::eq(table, tables[0])));
+}
+
+/// A link in progress for one key, made by holding that key's lock, must
+/// not hold up a link of another key.
+#[test]
+fn a_link_waits_only_for_links_of_its_own_key() {
+    let busy = Grammar::from_json(r#"{ "scopeName": "source.busy", "patterns": [] }"#).unwrap();
+    let other = Grammar::from_json(r#"{ "scopeName": "source.other", "patterns": [] }"#).unwrap();
+    let key = LinkKey {
+        root: busy,
+        set: Vec::new(),
+        handed: None,
+    };
+    let slot = Arc::clone(
+        LINKED_TABLES
+            .lock()
+            .unwrap_or_else(PoisonError::into_inner)
+            .entry(key)
+            .or_default(),
+    );
+    let held = slot.lock().unwrap();
+    let (send, receive) = mpsc::channel();
+    thread::scope(|scope| {
+        scope.spawn(move || send.send(linked_table(other, &Grammars::new()).is_ok()));
+        let linked = receive.recv_timeout(Duration::from_secs(30));
+        drop(held);
+        assert_eq!(linked, Ok(true));
+    });
 }
 
 #[test]
