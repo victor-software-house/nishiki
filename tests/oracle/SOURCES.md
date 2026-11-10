@@ -231,6 +231,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `graphql/graphiql-schema-kitchen-sink` | [`packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql`][graphiql-schema-kitchen-sink] in graphql/graphiql | [MIT][graphiql-licence] |
 | `graphql/graphiql-star-wars` | [`packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql`][graphiql-star-wars] in graphql/graphiql | [MIT][graphiql-licence] |
 | `graphql/graphql-js-kitchen-sink` | [`benchmark/kitchen-sink.graphql`][graphql-js-kitchen-sink] in graphql/graphql-js | [MIT][graphql-js-licence] |
+| `graphql/interpolation` | `oracle/inputs/graphql-interpolation.graphql`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `graphql/sample` | [`samples/graphql.sample`][graphql-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `hack/coverage` | `oracle/inputs/hack-coverage.hack`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `hack/hack-sql-fake-query-planner` | [`src/Query/QueryPlanner.hack`][hack-sql-fake-query-planner] in slackhq/hack-sql-fake | [MIT][hack-sql-fake-licence] |
@@ -525,6 +526,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/perl-heredoc-tags-1` | `oracle/inputs/markdown-perl-heredoc-tags-1.md`, a document of the Shiki differential, generated for nishiki from `oracle/fuzz/perl.ts` | MIT or Apache-2.0, as nishiki |
 | `markdown/perl-heredoc-tags-2` | `oracle/inputs/markdown-perl-heredoc-tags-2.md`, a document of the Shiki differential, generated for nishiki from `oracle/fuzz/perl.ts` | MIT or Apache-2.0, as nishiki |
 | `markdown/pgvector-readme` | [`README.md`][pgvector-readme] in pgvector/pgvector | [PostgreSQL][pgvector-licence] |
+| `markdown/php-fence` | `oracle/inputs/markdown-php-fence.md`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/poetry-faq` | [`docs/faq.md`][poetry-faq] in python-poetry/poetry | [MIT][poetry-licence] |
 | `markdown/powershell-releasing` | [`docs/maintainers/releasing.md`][powershell-releasing] in PowerShell/PowerShell | [MIT][powershell-licence] |
 | `markdown/powershell-windows-build` | [`docs/building/windows-core.md`][powershell-windows-build] in PowerShell/PowerShell | [MIT][powershell-licence] |

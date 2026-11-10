@@ -1,0 +1,47 @@
+L query Items {
+T 5 source.graphql keyword.operation.graphql
+T 6 source.graphql
+T 11 source.graphql entity.name.function.graphql
+T 12 source.graphql meta.selectionset.graphql
+T 13 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L   ${ fields({ limit: 10 }) }
+T 2 source.graphql meta.selectionset.graphql native.interpolation
+T 4 source.graphql meta.selectionset.graphql native.interpolation keyword.other.substitution.begin
+T 5 source.graphql meta.selectionset.graphql native.interpolation
+T 11 source.graphql meta.selectionset.graphql native.interpolation meta.function-call.js entity.name.function.js
+T 12 source.graphql meta.selectionset.graphql native.interpolation meta.brace.round.js
+T 13 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js punctuation.definition.block.js
+T 14 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js
+T 19 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js meta.object.member.js meta.object-literal.key.js
+T 20 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js meta.object.member.js meta.object-literal.key.js punctuation.separator.key-value.js
+T 21 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js meta.object.member.js
+T 23 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js meta.object.member.js constant.numeric.decimal.js
+T 24 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js meta.object.member.js
+T 25 source.graphql meta.selectionset.graphql native.interpolation meta.objectliteral.js punctuation.definition.block.js
+T 26 source.graphql meta.selectionset.graphql native.interpolation meta.brace.round.js
+T 27 source.graphql meta.selectionset.graphql native.interpolation
+T 28 source.graphql meta.selectionset.graphql native.interpolation keyword.other.substitution.end
+L   items {
+T 2 source.graphql meta.selectionset.graphql
+T 7 source.graphql meta.selectionset.graphql variable.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 9 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L     ${`id ${extra}`}
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation
+T 6 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation keyword.other.substitution.begin
+T 7 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation string.template.js punctuation.definition.string.template.begin.js
+T 10 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation string.template.js
+T 12 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation string.template.js meta.template.expression.js punctuation.definition.template-expression.begin.js
+T 17 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation string.template.js meta.template.expression.js meta.embedded.line.js variable.other.readwrite.js
+T 18 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation string.template.js meta.template.expression.js punctuation.definition.template-expression.end.js
+T 19 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation string.template.js punctuation.definition.string.template.end.js
+T 20 source.graphql meta.selectionset.graphql meta.selectionset.graphql native.interpolation keyword.other.substitution.end
+L     name
+T 4 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 8 source.graphql meta.selectionset.graphql meta.selectionset.graphql variable.graphql
+L   }
+T 2 source.graphql meta.selectionset.graphql meta.selectionset.graphql
+T 3 source.graphql meta.selectionset.graphql meta.selectionset.graphql punctuation.operation.graphql
+L }
+T 1 source.graphql meta.selectionset.graphql punctuation.operation.graphql
+L 

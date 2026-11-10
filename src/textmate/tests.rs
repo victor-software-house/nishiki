@@ -166,6 +166,39 @@ fn parse_text(content: &str, source: &str) -> Vec<Line> {
     lines
 }
 
+/// What gives an embedded block of a fixture its scopes.
+#[derive(Clone, Copy, PartialEq, Eq)]
+enum Embedding {
+    /// The tables' own rules, linked from the language's grammar.
+    Tables,
+    /// The language's hand lexer, which the tables hand the block to.
+    #[cfg(all(feature = "json", feature = "lang-javascript", feature = "lang-css"))]
+    Lexers,
+}
+
+/// Which rules the grammar's root reaches, through lists and captures.
+fn reachable_rules(grammar: &Grammar) -> Vec<bool> {
+    let mut reachable = vec![false; grammar.rules.len()];
+    let mut todo = vec![grammar.root];
+    while let Some(id) = todo.pop() {
+        if std::mem::replace(&mut reachable[id], true) {
+            continue;
+        }
+        let rule = &grammar.rules[id];
+        if let Some(list) = grammar.lists.get(rule.list) {
+            todo.extend(list.rules);
+        }
+        todo.extend(
+            rule.captures
+                .iter()
+                .chain(rule.end_captures)
+                .map(|cap| cap.retokenize)
+                .filter(|&retokenize| retokenize != NONE),
+        );
+    }
+    reachable
+}
+
 /// Which lines sit in an embedded block, a fence or front matter, of a
 /// language the grammar's tables do not hold.
 /// The tables hold the languages the oracle had when they were written.
@@ -185,30 +218,28 @@ fn parse_text(content: &str, source: &str) -> Vec<Line> {
 ///   has a begin that matches the line. A body that ends at once holds no
 ///   embedded scope, as a Less body popped by its first character does. Only
 ///   this sign shows it.
-fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
+///
+/// With [`Embedding::Lexers`], the first case does not apply.
+/// Hand lexers give the blocks their scopes, which the tables never name.
+/// Then the rule that gives a block its `meta.embedded.block.*` scope must
+/// also hand the block off or hold rules.
+/// An include of a language that neither the set nor a lexer serves leaves it
+/// with neither.
+fn unknown_fences(grammar: &Grammar, lines: &[Line], embedding: Embedding) -> Vec<bool> {
     let inside = |line: &Line| {
         line.stacks.iter().any(|stack| {
             stack.contains("markup.fenced_code.block.markdown") || stack.contains(".frontmatter")
         })
     };
-    let mut reachable = vec![false; grammar.rules.len()];
-    let mut todo = vec![grammar.root];
-    while let Some(id) = todo.pop() {
-        if std::mem::replace(&mut reachable[id], true) {
-            continue;
-        }
-        let rule = &grammar.rules[id];
-        if let Some(list) = grammar.lists.get(rule.list) {
-            todo.extend(list.rules);
-        }
-        todo.extend(
-            rule.captures
-                .iter()
-                .chain(rule.end_captures)
-                .map(|cap| cap.retokenize)
-                .filter(|&retokenize| retokenize != NONE),
-        );
-    }
+    let reachable = reachable_rules(grammar);
+    let fills = |list: usize| {
+        embedding == Embedding::Tables
+            || grammar.hand_off(list).is_some()
+            || grammar
+                .lists
+                .get(list)
+                .is_some_and(|list| !list.rules.is_empty())
+    };
     let embeds = |scope: &str| {
         grammar
             .rules
@@ -216,6 +247,7 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
             .zip(&reachable)
             .any(|(rule, &reached)| {
                 reached
+                    && fills(rule.list)
                     && rule
                         .content_name
                         .iter()
@@ -277,7 +309,7 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
                 .flat_map(|stack| stack.split(' '))
                 .any(|scope| {
                     scope != grammar.scope
-                        && (!grammar.names.contains(&scope)
+                        && ((embedding == Embedding::Tables && !grammar.names.contains(&scope))
                             || (scope.starts_with("meta.embedded.block.") && !embeds(scope)))
                 });
         if unknown {
@@ -295,7 +327,11 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line]) -> Vec<bool> {
 fn run(grammar: &'static Grammar, lines: &[Line], scanners: Scanners) -> (usize, usize, String) {
     let mut highlighter = Highlighter::<Table>::with_lexer(Table(grammar), Limits::unlimited());
     highlighter.scratch_mut().textmate.no_scanner = scanners == Scanners::Off;
-    let found = compare(highlighter, lines, &unknown_fences(grammar, lines));
+    let found = compare(
+        highlighter,
+        lines,
+        &unknown_fences(grammar, lines, Embedding::Tables),
+    );
     (found.checked, found.missed, found.message)
 }
 
@@ -559,7 +595,7 @@ T 3 text.html.markdown markup.fenced_code.block.markdown punctuation.definition.
 fn a_fence_of_a_dropped_language_is_left_out_without_an_embedded_scope() {
     let lines = parse_text(POPPED_LESS_FENCE, "a popped less fence");
     assert_eq!(
-        unknown_fences(table("markdown"), &lines),
+        unknown_fences(table("markdown"), &lines, Embedding::Tables),
         [true, true, true]
     );
 }
@@ -569,7 +605,10 @@ fn a_fence_of_a_dropped_language_is_left_out_without_an_embedded_scope() {
 #[test]
 fn an_empty_fence_of_a_kept_language_is_compared() {
     let lines = parse_text(EMPTY_CSS_FENCE, "an empty css fence");
-    assert_eq!(unknown_fences(table("markdown"), &lines), [false, false]);
+    assert_eq!(
+        unknown_fences(table("markdown"), &lines, Embedding::Tables),
+        [false, false]
+    );
 }
 
 #[test]
@@ -1330,6 +1369,8 @@ fn work_per_line() {
 
 #[cfg(feature = "json")]
 mod fidelity;
+#[cfg(all(feature = "json", feature = "lang-javascript", feature = "lang-css"))]
+mod loaded;
 
 /// A grammar of one rule that names its forty-second group, as C++'s
 /// function definitions name a group far into their pattern.

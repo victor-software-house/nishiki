@@ -1,0 +1,7 @@
+query Items {
+  ${ fields({ limit: 10 }) }
+  items {
+    ${`id ${extra}`}
+    name
+  }
+}

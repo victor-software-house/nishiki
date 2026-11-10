@@ -30,6 +30,7 @@ import erbCoverage from "./inputs/erb-coverage.erb" with { type: "text" };
 import gdscriptCoverage from "./inputs/gdscript-coverage.gd" with { type: "text" };
 import goCoverage from "./inputs/go-coverage.go" with { type: "text" };
 import graphqlCoverage from "./inputs/graphql-coverage.graphql" with { type: "text" };
+import graphqlInterpolation from "./inputs/graphql-interpolation.graphql" with { type: "text" };
 import hackCoverage from "./inputs/hack-coverage.hack" with { type: "text" };
 import hamlCoverage from "./inputs/haml-coverage.haml" with { type: "text" };
 import hamlFilters from "./inputs/haml-filters.haml" with { type: "text" };
@@ -55,6 +56,7 @@ import markdownInvalidTags from "./inputs/markdown-invalid-tags.md" with { type:
 import markdownLessPop from "./inputs/markdown-less-pop.md" with { type: "text" };
 import markdownPerlHeredocTags1 from "./inputs/markdown-perl-heredoc-tags-1.md" with { type: "text" };
 import markdownPerlHeredocTags2 from "./inputs/markdown-perl-heredoc-tags-2.md" with { type: "text" };
+import markdownPhpFence from "./inputs/markdown-php-fence.md" with { type: "text" };
 import matlabCoverage from "./inputs/matlab-coverage.m" with { type: "text" };
 import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" };
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
@@ -832,6 +834,7 @@ export const inputs: Input[] = [
   { lang: "graphql", name: "graphiql-schema-kitchen-sink", url: `${graphiql}/packages/codemirror-graphql/src/__tests__/schema-kitchen-sink.graphql` },
   { lang: "graphql", name: "graphiql-star-wars", url: `${graphiql}/packages/graphql-language-service-server/src/__tests__/__schema__/StarWarsSchema.graphql` },
   { lang: "graphql", name: "graphql-js-kitchen-sink", url: `${graphqlJs}/benchmark/kitchen-sink.graphql` },
+  { lang: "graphql", name: "interpolation", text: graphqlInterpolation },
   { lang: "graphql", name: "sample", url: `${samples}/graphql.sample` },
   // Shiki's Markdown grammar has no Hack fence, so no Markdown input embeds
   // Hack.
@@ -1256,6 +1259,7 @@ export const inputs: Input[] = [
   { lang: "markdown", name: "perl-heredoc-tags-1", text: markdownPerlHeredocTags1 },
   { lang: "markdown", name: "perl-heredoc-tags-2", text: markdownPerlHeredocTags2 },
   { lang: "markdown", name: "pgvector-readme", url: `${pgvector}/README.md` },
+  { lang: "markdown", name: "php-fence", text: markdownPhpFence },
   { lang: "markdown", name: "poetry-faq", url: `${poetry}/docs/faq.md` },
   { lang: "markdown", name: "powershell-releasing", url: `${powershell}/docs/maintainers/releasing.md` },
   { lang: "markdown", name: "powershell-windows-build", url: `${powershell}/docs/building/windows-core.md` },
