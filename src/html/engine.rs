@@ -284,14 +284,15 @@ pub(crate) struct Scratch {
     /// Buffers of frames for HTML lexers that run while another holds
     /// `frames`, one for each level of nesting.
     /// One such lexer runs a heredoc's HTML inside a Blade document's PHP.
-    #[cfg(feature = "lang-blade")]
+    /// Another runs the HTML of a Markdown block in a Vue component.
+    #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
     spare: Vec<Vec<Frame>>,
     chain: Vec<(u32, crate::arena::Frame)>,
     /// The text of a scope name being built.
     name: String,
 }
 
-#[cfg(feature = "lang-blade")]
+#[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
 impl Scratch {
     /// A spare buffer for an HTML lexer that starts while another holds
     /// `frames`.
@@ -385,7 +386,7 @@ impl<'a> Lexer<'a> {
         let s = line.text.as_bytes();
         let steps = Steps::new(cx.limits, s.len());
         let mut frames = std::mem::take(&mut cx.scratch.html.frames);
-        #[cfg(feature = "lang-blade")]
+        #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
         if frames.capacity() == 0 {
             frames = cx.scratch.html.spare_frames();
         }
@@ -510,7 +511,7 @@ impl<'a> Lexer<'a> {
     /// this one goes to the spares.
     fn keep_frames(&mut self) {
         let frames = std::mem::take(&mut self.frames);
-        #[cfg(feature = "lang-blade")]
+        #[cfg(any(feature = "lang-blade", feature = "lang-vue"))]
         if self.scratch.html.frames.capacity() != 0 {
             self.scratch.html.keep_spare(frames);
             return;
