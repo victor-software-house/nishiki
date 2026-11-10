@@ -265,11 +265,11 @@ The release rules in `AGENTS.md` decide its version.
     `Lexer::retokenise` lexes a span again with another rule and serves a grammar's `tokenize_nested` hook.
   - `src/python/engine.rs`, `src/java/engine.rs`, `src/css/engine.rs`, `src/kotlin/engine.rs` and `src/make/engine.rs` show the shapes.
   - Such a language does not copy the loop.
-- A language with no lexer of its own runs on nishiki's `TextMate` engine (`src/textmate.rs`), which interprets Shiki's grammar as Shiki does.
-  - Its row in `languages!` (`src/language.rs`) names its table as `engine: crate::<language>::grammar::GRAMMAR`, and the three entry points call `crate::textmate` with it.
-  - Its module `src/<language>.rs` holds only its doc comment and `pub(crate) mod grammar;`, the tables `oracle/engine-tables.ts` writes into `src/<language>/grammar.rs`.
-  - Its scopes are named at run time, so it has no scope table, frame tag or `Scratch` field of its own.
-  - Its `lang-*` feature turns on `_textmate` and sits in the `textmate` tier, not in `all`, so the default build carries no grammar tables.
+- No language runs on nishiki's `TextMate` engine (`src/textmate.rs`): every language has a lexer of its own.
+  - The engine runs a grammar a caller brings, through the grammar API that the `textmate` feature builds.
+  - `src/textmate/compile/` links a grammar's JSON into the engine's tables when the caller loads it.
+  - `oracle/engine-tables.ts` writes the same tables as JSON, as the oracle for that compiler.
+  - The engine interprets a grammar as Shiki does, so it also checks the hand-written lexers.
   - The two engines are different things: `src/rules.rs` runs hand-written matchers over generated tables, and the `TextMate` engine runs the grammar's own regular expressions.
 
 ### 3.8 Shared primitives

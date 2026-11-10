@@ -12,6 +12,7 @@
 # src/shaderlab/words.rs spells out ColorMask's `[ABGR]{1,3}`, such as `ba`.
 # Each src/<language>/grammar.rs listed here is generated from that
 # language's grammar and keeps the grammar's own words.
+# tests/engine/grammars/ holds Shiki's grammars as Shiki ships them.
 extend-exclude = [
   "*.lock",
   "src/asm/grammar.rs",
@@ -39,6 +40,7 @@ extend-exclude = [
   "src/php/words.rs",
   "src/shaderlab/words.rs",
   "src/svelte/grammar.rs",
+  "tests/engine/grammars/*.json",
 ]
 
 # Unicode general-category codes, such as Nd, which are not words.

@@ -1,10 +1,11 @@
-//! nishiki's own `TextMate` engine, which runs the grammars that Shiki bundles.
+//! nishiki's own `TextMate` engine, which runs a `TextMate` grammar as Shiki
+//! does.
 //!
-//! It runs them for the languages that have no hand-written lexer, and checks
-//! the ones that have.
+//! It runs the grammars a caller brings through the grammar API, and checks
+//! the hand-written lexers.
 //!
-//! - A grammar is a set of static tables that `oracle/engine-tables.ts` writes
-//!   from Shiki's grammar.
+//! - A grammar is a set of tables that the compiler in [`compile`] links from a
+//!   grammar's JSON.
 //! - The tokenizer walks them a line at a time over the arena's states.
 //! - The regular-expression machine in [`regex`] runs the patterns.
 

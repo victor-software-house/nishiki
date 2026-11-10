@@ -1,11 +1,10 @@
-// The licence of every grammar `engine-tables.ts` compiles into tables, keyed
-// by Shiki's name, read at its source.
+// The licence of every Shiki grammar the oracle reads, keyed by Shiki's name,
+// read at its source.
 //
 // Invariant 2 (AGENTS.md): every grammar is read as its language's reference,
-// whatever its licence, but a grammar is bundled only when its licence permits
-// it. Tables under `src/` ship in the crate, so they hold only `allowed`
-// grammars whose origin THIRD-PARTY-NOTICES.md names; test tables may also
-// hold `refused` ones. The generator checks both.
+// whatever its licence. A grammar enters the repository only when its licence
+// permits it. `engine-grammars.ts` commits the engine's test grammars, and
+// refuses any grammar this list refuses or lacks.
 
 /** A grammar whose licence was read at its source. */
 type Allowed = {
@@ -125,6 +124,12 @@ export const allowed: Record<string, Allowed> = {
     file: "LICENSE.txt",
   },
   jinja: {
+    bundled: "samuelcolvin/jinjahtml-vscode@be729c88f723602e7b5df2e9dc5e8c016c31c38f",
+    origin: "samuelcolvin/jinjahtml-vscode",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  "jinja-html": {
     bundled: "samuelcolvin/jinjahtml-vscode@be729c88f723602e7b5df2e9dc5e8c016c31c38f",
     origin: "samuelcolvin/jinjahtml-vscode",
     licence: "MIT",

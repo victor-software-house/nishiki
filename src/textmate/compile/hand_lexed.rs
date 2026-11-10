@@ -22,6 +22,8 @@ static HAND_LEXED: &[(&str, Language)] = &[
     ("source.json", Language::Json),
     #[cfg(feature = "lang-markdown")]
     ("text.html.markdown", Language::Markdown),
+    #[cfg(feature = "lang-r")]
+    ("source.r", Language::R),
     #[cfg(feature = "lang-ruby")]
     ("source.ruby", Language::Ruby),
     #[cfg(feature = "lang-sass")]

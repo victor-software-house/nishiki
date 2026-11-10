@@ -26,8 +26,7 @@
 // hand-lexed grammar, the reachable expressions and captures the fixtures
 // exercise, those only the fuzz corpus exercises, and the units no root
 // reaches, to tests/oracle/COVERAGE.md. Every loaded grammar must
-// be listed as hand-lexed or have engine tables under src/, so a new hand
-// lexer cannot drop out of the count. The run fails after writing the report
+// be listed as hand-lexed, so a new hand lexer cannot drop out of the count. The run fails after writing the report
 // when a waiver in oracle/coverage-waivers.ts is wrong, or when a grammar
 // listed complete there has a unit that neither a fixture nor a waiver covers.
 import { mkdtempSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
@@ -223,31 +222,16 @@ function walk(rule: Rule, path: string, place: Place, tag: boolean): void {
 
 const root = new URL("..", import.meta.url).pathname;
 
-/** The languages on nishiki's TextMate engine, by Shiki's name: each has a
- * `src/<id>/grammar.rs` that `oracle/engine-tables.ts` wrote, whose header
- * names the spec it was made from, such as `julia~cpp~r` or `haml>ruby`. */
-const header = /^\/\/! The tables of Shiki \S+'s `([^`]+)`(?: |\n\/\/! )grammar,(?: |\n\/\/! )made(?: |\n\/\/! )by(?: |\n\/\/! )`oracle\/engine-tables\.ts`/;
-const engineLanguages = new Set<string>();
-for (const path of new Bun.Glob("src/*/grammar.rs").scanSync(root)) {
-  const spec = header.exec(readFileSync(`${root}${path}`, "utf8"))?.[1];
-  if (spec !== undefined) engineLanguages.add(spec.split(/[+~>]/)[0] ?? spec);
-}
-
 const loaded = structuredClone(grammars) as unknown as Grammar[];
 for (const name of handLexed.keys()) {
   if (!loaded.some((grammar) => grammar.name === name)) {
     throw new Error(`${name}: listed as hand-lexed, but the oracle does not load it`);
   }
-  if (engineLanguages.has(name)) {
-    throw new Error(`${name}: listed as hand-lexed, but it runs on the TextMate engine`);
-  }
 }
-const unlisted = loaded.filter(
-  (grammar) => !handLexed.has(grammar.name) && !engineLanguages.has(grammar.name),
-);
+const unlisted = loaded.filter((grammar) => !handLexed.has(grammar.name));
 if (unlisted.length > 0) {
   const names = unlisted.map((grammar) => grammar.name).join(", ");
-  throw new Error(`${names}: loaded, but neither listed as hand-lexed nor on the TextMate engine`);
+  throw new Error(`${names}: loaded, but not listed as hand-lexed`);
 }
 for (const grammar of loaded) {
   walk(grammar, "", { grammar, repositories: [] }, handLexed.has(grammar.name));

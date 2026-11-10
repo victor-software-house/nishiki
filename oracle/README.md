@@ -27,6 +27,9 @@ The rules for working here are in [AGENTS.md](AGENTS.md).
   [`coverage-waivers.ts`](coverage-waivers.ts) lists the waivers and the complete grammars.
 - [`fidelity.ts`](fidelity.ts): writes every grammar Shiki bundles, and Shiki's scopes for its sample and for a few extra inputs, into `target/fidelity/`.
   `mise run check:fidelity` compares the engine with Shiki there, and the Shiki fidelity workflow runs it on every pull request.
+- [`engine-tables.ts`](engine-tables.ts): writes the engine's tables for Shiki's grammars as JSON, the oracle for the Rust compiler.
+  `link_survey` in `src/textmate/compile/tests.rs` checks that the compiler writes the same tables.
+  [`hand-lexed.ts`](hand-lexed.ts) lists the hand-lexed languages a table can hand a region to.
 - [`fence-stops.ts`](fence-stops.ts): checks that `Language::pops_fence` names every Markdown fence grammar whose root can stop without advancing.
   `mise run check:rule-grammars` runs it.
 
@@ -39,7 +42,7 @@ The file it writes marks itself as generated in its first line; edit the script,
 |:--|:--|
 | `<language>-grammar.ts` | `src/<language>/scope.rs` and `grammar.rs` for a language on the rule engine. [`rule-grammar.ts`](rule-grammar.ts) holds what they share, and [`rule-grammar.test.ts`](rule-grammar.test.ts) tests its pattern analysis. |
 | `<language>-words.ts` | `src/<language>/words.rs`: the words of a grammar's large alternations. [`alternation.ts`](alternation.ts) expands them. |
-| [`engine-tables.ts`](engine-tables.ts) | The tables of a language on nishiki's TextMate engine, from the two lists below the table. |
+| [`engine-grammars.ts`](engine-grammars.ts) | `tests/engine/grammars/`: the Shiki grammars the engine's tests link into tables, with what each table links and where each grammar comes from. |
 | [`classes.ts`](classes.ts) | `src/classes/table.rs`: Oniguruma's character classes. |
 | [`unicode-tables.ts`](unicode-tables.ts) | `src/textmate/regex/unicode.rs`: Oniguruma's Unicode sets. |
 | [`absent-probe.ts`](absent-probe.ts) | `tests/engine/absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which test how `src/textmate/regex/parse.rs` reads it. |
@@ -47,7 +50,5 @@ The file it writes marks itself as generated in its first line; edit the script,
 
 Both regex probes read each Oniguruma answer with [`oniguruma-answer.ts`](oniguruma-answer.ts).
 
-`engine-tables.ts` reads two lists:
-
-- [`licences.ts`](licences.ts) records each grammar's licence, read at its source;
-- [`hand-lexed.ts`](hand-lexed.ts) lists the hand-lexed languages a table can hand a region to.
+[`licences.ts`](licences.ts) records each grammar's licence, read at its source.
+`engine-grammars.ts` refuses a grammar that list refuses or lacks.

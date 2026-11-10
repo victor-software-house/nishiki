@@ -1,5 +1,5 @@
-//! The compiled form of a `TextMate` grammar: static tables that
-//! `oracle/engine-tables.ts` writes, with the includes already followed.
+//! The compiled form of a `TextMate` grammar: tables that the linker writes,
+//! with the includes already followed.
 //!
 //! Nothing is parsed at run time. A pattern's text is compiled to a regular
 //! expression the first time a search needs it.
@@ -261,17 +261,13 @@ pub(crate) struct Grammar {
     /// A cache grows only as the searches need states.
     /// Past it, the lazy DFA clears and builds its states again, and each new
     /// state allocates.
-    /// `oracle/engine-tables.ts` writes it.
-    /// A grammar takes 4 MiB unless its fixtures need more.
-    /// The generator's comment then records the measurement.
+    /// The linker gives every grammar 4 MiB.
     pub(crate) dfa_cache: usize,
     /// Whether some pattern compiles to another program for a lean line than
     /// for a full one.
     ///
     /// Only the Rust parser can tell.
     /// The linker computes it from the patterns.
-    /// `oracle/engine-tables.ts` writes it from a list kept by hand, which
-    /// `the_folding_table_matches_the_patterns` checks.
     pub(crate) folding: Folding,
     /// The cells a search fills on [`Programs::Lean`] lines: see
     /// [`Grammar::cells`].

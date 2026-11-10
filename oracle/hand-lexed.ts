@@ -26,6 +26,7 @@ export const handLexed: Record<string, HandLexed> = {
   javascript: { scope: "source.js", variant: "JavaScript", feature: "lang-javascript" },
   json: { scope: "source.json", variant: "Json", feature: "lang-json" },
   markdown: { scope: "text.html.markdown", variant: "Markdown", feature: "lang-markdown" },
+  r: { scope: "source.r", variant: "R", feature: "lang-r" },
   ruby: { scope: "source.ruby", variant: "Ruby", feature: "lang-ruby" },
   sass: { scope: "source.sass", variant: "Sass", feature: "lang-sass" },
   sql: { scope: "source.sql", variant: "Sql", feature: "lang-sql" },
