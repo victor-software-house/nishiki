@@ -13,8 +13,8 @@ crate::tag::frame_rules! {
         Root,
         Alias,
         Argument,
-        ArithDouble,
-        ArithSingle,
+        ArithmeticDouble,
+        ArithmeticSingle,
         ArrayValue,
         Case,
         CasePattern,
@@ -60,21 +60,21 @@ crate::tag::frame_rules! {
         StringDouble,
         StringAnsi,
         Subshell,
-        VarPositional,
-        VarBrace,
+        VariablePositional,
+        VariableBrace,
         While,
         /// A capture of an argument, retokenised.
-        RetokArgument,
+        RetokenisedArgument,
         /// The options of an `alias`, retokenised.
-        RetokOptions,
+        RetokenisedOptions,
         /// A capture retokenised with the whole top-level rule list.
-        RetokInitial,
+        RetokenisedInitial,
         /// A capture retokenised with the string rules.
-        RetokString,
+        RetokenisedString,
         /// The `[…]` of an expansion, retokenised.
-        RetokArrayAccess,
+        RetokenisedArrayAccess,
         /// The rest of a line after a here-document delimiter, retokenised.
-        RetokHeredocRest,
+        RetokenisedHeredocRest,
     }
 }
 

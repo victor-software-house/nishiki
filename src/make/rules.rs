@@ -33,16 +33,16 @@ pub(crate) enum Pattern {
     // Begins.
     Comment,
     CommentHash,
-    VarParen,
-    VarBrace,
-    FuncParen,
-    FuncBrace,
+    VariableParen,
+    VariableBrace,
+    FunctionParen,
+    FunctionBrace,
     FlavorParen,
     FlavorBrace,
-    AnotherParen,
-    AnotherBrace,
-    InterpParen,
-    InterpBrace,
+    VariableNameParen,
+    VariableNameBrace,
+    NestedParen,
+    NestedBrace,
     Include,
     Vpath,
     Define,
@@ -54,10 +54,10 @@ pub(crate) enum Pattern {
     Condition,
     Else,
     Target,
-    Prereq,
+    Prerequisites,
     TargetName,
     Recipe,
-    Assign,
+    Assignment,
 }
 
 impl Pattern {
@@ -77,16 +77,16 @@ impl Pattern {
             | Pattern::SpecialTarget => None,
             Pattern::Comment => Some(Rule::Comment),
             Pattern::CommentHash => Some(Rule::CommentHash),
-            Pattern::VarParen => Some(Rule::VarParen),
-            Pattern::VarBrace => Some(Rule::VarBrace),
-            Pattern::FuncParen => Some(Rule::FuncParen),
-            Pattern::FuncBrace => Some(Rule::FuncBrace),
+            Pattern::VariableParen => Some(Rule::VariableParen),
+            Pattern::VariableBrace => Some(Rule::VariableBrace),
+            Pattern::FunctionParen => Some(Rule::FunctionParen),
+            Pattern::FunctionBrace => Some(Rule::FunctionBrace),
             Pattern::FlavorParen => Some(Rule::FlavorParen),
             Pattern::FlavorBrace => Some(Rule::FlavorBrace),
-            Pattern::AnotherParen => Some(Rule::AnotherParen),
-            Pattern::AnotherBrace => Some(Rule::AnotherBrace),
-            Pattern::InterpParen => Some(Rule::InterpParen),
-            Pattern::InterpBrace => Some(Rule::InterpBrace),
+            Pattern::VariableNameParen => Some(Rule::VariableNameParen),
+            Pattern::VariableNameBrace => Some(Rule::VariableNameBrace),
+            Pattern::NestedParen => Some(Rule::NestedParen),
+            Pattern::NestedBrace => Some(Rule::NestedBrace),
             Pattern::Include => Some(Rule::Include),
             Pattern::Vpath => Some(Rule::Vpath),
             Pattern::Define => Some(Rule::Define),
@@ -98,10 +98,10 @@ impl Pattern {
             Pattern::Condition => Some(Rule::Condition),
             Pattern::Else => Some(Rule::Else),
             Pattern::Target => Some(Rule::Target),
-            Pattern::Prereq => Some(Rule::Prereq),
+            Pattern::Prerequisites => Some(Rule::Prerequisites),
             Pattern::TargetName => Some(Rule::TargetName),
             Pattern::Recipe => Some(Rule::Recipe),
-            Pattern::Assign => Some(Rule::Assign),
+            Pattern::Assignment => Some(Rule::Assignment),
         }
     }
 
@@ -119,16 +119,16 @@ impl Pattern {
             | Pattern::SpecialTarget
             | Pattern::Comment
             | Pattern::CommentHash
-            | Pattern::VarParen
-            | Pattern::VarBrace
-            | Pattern::FuncParen
-            | Pattern::FuncBrace
+            | Pattern::VariableParen
+            | Pattern::VariableBrace
+            | Pattern::FunctionParen
+            | Pattern::FunctionBrace
             | Pattern::FlavorParen
             | Pattern::FlavorBrace
-            | Pattern::AnotherParen
-            | Pattern::AnotherBrace
-            | Pattern::InterpParen
-            | Pattern::InterpBrace
+            | Pattern::VariableNameParen
+            | Pattern::VariableNameBrace
+            | Pattern::NestedParen
+            | Pattern::NestedBrace
             | Pattern::Include
             | Pattern::Vpath
             | Pattern::Define
@@ -140,25 +140,29 @@ impl Pattern {
             | Pattern::Condition
             | Pattern::Else
             | Pattern::Target
-            | Pattern::Prereq
+            | Pattern::Prerequisites
             | Pattern::TargetName
             | Pattern::Recipe
-            | Pattern::Assign => S::NO_SCOPES,
+            | Pattern::Assignment => S::NO_SCOPES,
         }
     }
 }
 
 /// `#variables`
-const VARS: [Pattern; 3] = [Pattern::SimpleVar, Pattern::VarParen, Pattern::VarBrace];
+const VARS: [Pattern; 3] = [
+    Pattern::SimpleVar,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
+];
 
 /// The grammar's top-level patterns.
 /// `$self` includes them.
 const TOP: &[Pattern] = &[
     Pattern::Comment,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
-    Pattern::Assign,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
+    Pattern::Assignment,
     Pattern::Include,
     Pattern::Vpath,
     Pattern::Define,
@@ -173,16 +177,16 @@ const TOP: &[Pattern] = &[
 const INCLUDE: &[Pattern] = &[
     Pattern::Comment,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
     Pattern::Percent,
 ];
 
 const DEFINE: &[Pattern] = &[
     Pattern::DefineHead,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
     Pattern::Include,
     Pattern::Vpath,
     Pattern::Define,
@@ -197,9 +201,9 @@ const CONDITIONAL: &[Pattern] = &[
     Pattern::Else,
     Pattern::Comment,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
-    Pattern::Assign,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
+    Pattern::Assignment,
     Pattern::Include,
     Pattern::Vpath,
     Pattern::Define,
@@ -214,8 +218,8 @@ const CONDITIONAL: &[Pattern] = &[
 const CONDITION: &[Pattern] = &[
     Pattern::Comma,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
     Pattern::Comment,
 ];
 
@@ -224,76 +228,76 @@ const PREREQ: &[Pattern] = &[
     Pattern::PercentStar,
     Pattern::Comment,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
 ];
 
 const TARGET_NAME: &[Pattern] = &[
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
     Pattern::Percent,
 ];
 
 const RECIPE: &[Pattern] = &[
     Pattern::Continuation,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
 ];
 
 const ASSIGN: &[Pattern] = &[
     Pattern::Continuation,
     Pattern::Comment,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
 ];
 
 const VAR_PAREN: &[Pattern] = &[
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
     Pattern::BuiltinParen,
-    Pattern::FuncParen,
+    Pattern::FunctionParen,
     Pattern::FlavorParen,
-    Pattern::AnotherParen,
+    Pattern::VariableNameParen,
 ];
 
 const VAR_BRACE: &[Pattern] = &[
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
     Pattern::BuiltinBrace,
-    Pattern::FuncBrace,
+    Pattern::FunctionBrace,
     Pattern::FlavorBrace,
-    Pattern::AnotherBrace,
+    Pattern::VariableNameBrace,
 ];
 
 const FUNC: &[Pattern] = &[
     Pattern::Comma,
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
-    Pattern::InterpParen,
-    Pattern::InterpBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
+    Pattern::NestedParen,
+    Pattern::NestedBrace,
     Pattern::PercentStar,
     Pattern::Continuation,
 ];
 
 const ANOTHER: &[Pattern] = &[
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
     Pattern::Continuation,
 ];
 
 const INTERP: &[Pattern] = &[
     Pattern::SimpleVar,
-    Pattern::VarParen,
-    Pattern::VarBrace,
-    Pattern::InterpParen,
-    Pattern::InterpBrace,
+    Pattern::VariableParen,
+    Pattern::VariableBrace,
+    Pattern::NestedParen,
+    Pattern::NestedBrace,
 ];
 
 /// The patterns a rule tries, after its end pattern.
@@ -305,22 +309,22 @@ pub(crate) fn patterns(rule: Rule) -> &'static [Pattern] {
         Rule::Include | Rule::Vpath => INCLUDE,
         Rule::Define => DEFINE,
         Rule::DefineHead => &[Pattern::Comment],
-        Rule::Export => &[Pattern::Comment, Pattern::Assign, Pattern::AnyWord],
-        Rule::OverridePrivate => &[Pattern::Comment, Pattern::Assign],
+        Rule::Export => &[Pattern::Comment, Pattern::Assignment, Pattern::AnyWord],
+        Rule::OverridePrivate => &[Pattern::Comment, Pattern::Assignment],
         Rule::Unexport => &[Pattern::Comment, Pattern::AnyWord],
         Rule::Conditional => CONDITIONAL,
         Rule::Condition | Rule::Else => CONDITION,
-        Rule::Target => &[Pattern::Prereq],
-        Rule::Prereq => PREREQ,
+        Rule::Target => &[Pattern::Prerequisites],
+        Rule::Prerequisites => PREREQ,
         Rule::TargetName => TARGET_NAME,
         Rule::Recipe => RECIPE,
-        Rule::Assign => ASSIGN,
-        Rule::VarParen => VAR_PAREN,
-        Rule::VarBrace => VAR_BRACE,
-        Rule::FuncParen | Rule::FuncBrace => FUNC,
-        Rule::FlavorParen | Rule::FlavorBrace | Rule::RetokVars => &VARS,
-        Rule::AnotherParen | Rule::AnotherBrace => ANOTHER,
-        Rule::InterpParen | Rule::InterpBrace => INTERP,
-        Rule::RetokTarget => &[Pattern::SpecialTarget, Pattern::TargetName],
+        Rule::Assignment => ASSIGN,
+        Rule::VariableParen => VAR_PAREN,
+        Rule::VariableBrace => VAR_BRACE,
+        Rule::FunctionParen | Rule::FunctionBrace => FUNC,
+        Rule::FlavorParen | Rule::FlavorBrace | Rule::RetokenisedVariable => &VARS,
+        Rule::VariableNameParen | Rule::VariableNameBrace => ANOTHER,
+        Rule::NestedParen | Rule::NestedBrace => INTERP,
+        Rule::RetokenisedTargets => &[Pattern::SpecialTarget, Pattern::TargetName],
     }
 }

@@ -100,7 +100,7 @@ impl Lexer<'_> {
         })?;
         let q = self.skip_space(e);
         self.span(p, p + 3, scopes![S::KeywordControl]);
-        self.span_retok(w, e, scopes![S::VariableOtherLoop], Rule::RetokString);
+        self.span_retok(w, e, scopes![S::VariableOtherLoop], Rule::RetokenisedString);
         self.span(q, q + 2, scopes![S::KeywordControl]);
         Some(q + 2)
     }
@@ -188,7 +188,7 @@ impl Lexer<'_> {
         })?;
         let i = self.blanks(e);
         self.span(p, p + 4, scopes![S::KeywordControlCase]);
-        self.span_retok(w, e, S::NO_SCOPES, Rule::RetokInitial);
+        self.span_retok(w, e, S::NO_SCOPES, Rule::RetokenisedInitial);
         self.span(i, i + 2, scopes![S::KeywordControlIn]);
         Some(i + 2)
     }
@@ -485,7 +485,7 @@ impl Lexer<'_> {
             e + 1,
             scopes![S::PunctuationDefinitionStringHeredocQuote],
         );
-        self.span_retok(e + 1, self.lim, S::NO_SCOPES, Rule::RetokHeredocRest);
+        self.span_retok(e + 1, self.lim, S::NO_SCOPES, Rule::RetokenisedHeredocRest);
         Some(self.lim)
     }
 
@@ -517,7 +517,7 @@ impl Lexer<'_> {
             e,
             scopes![S::PunctuationDefinitionStringHeredocDelimiter],
         );
-        self.span_retok(e, self.lim, S::NO_SCOPES, Rule::RetokHeredocRest);
+        self.span_retok(e, self.lim, S::NO_SCOPES, Rule::RetokenisedHeredocRest);
         Some(self.lim)
     }
 

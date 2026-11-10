@@ -237,7 +237,7 @@ impl Lexer<'_> {
             w,
             e,
             scopes![S::StringUnquotedArgument],
-            Rule::RetokArgument,
+            Rule::RetokenisedArgument,
         );
         Some(e)
     }
@@ -597,7 +597,7 @@ impl Lexer<'_> {
             self.clear_spans();
             self.span(a, a + 5, scopes![S::StorageTypeAlias]);
             if used > 0 {
-                self.span_retok(options_start, name, S::NO_SCOPES, Rule::RetokOptions);
+                self.span_retok(options_start, name, S::NO_SCOPES, Rule::RetokenisedOptions);
             }
             if let Some(e) = self.assignment_head(name, Operator::Required) {
                 found = Some(e);

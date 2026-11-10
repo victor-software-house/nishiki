@@ -43,37 +43,37 @@ crate::tag::frame_rules! {
         /// A target, up to the end of its last prerequisite line.
         Target,
         /// The prerequisites after the `:`.
-        Prereq,
+        Prerequisites,
         /// One word of the targets.
         TargetName,
         /// A recipe line, up to the end of the line it continues to.
         Recipe,
         /// A variable assignment, up to the end of its line.
-        Assign,
+        Assignment,
         /// `$(` up to `)`.
-        VarParen,
+        VariableParen,
         /// `${` up to `}`.
-        VarBrace,
+        VariableBrace,
         /// A function call inside `$(`.
-        FuncParen,
+        FunctionParen,
         /// A function call inside `${`.
-        FuncBrace,
+        FunctionBrace,
         /// `origin` and `flavor` inside `$(`.
         FlavorParen,
         /// `origin` and `flavor` inside `${`.
         FlavorBrace,
         /// A variable name inside `$(`.
-        AnotherParen,
+        VariableNameParen,
         /// A variable name inside `${`.
-        AnotherBrace,
+        VariableNameBrace,
         /// A `(`...`)` inside a function call.
-        InterpParen,
+        NestedParen,
         /// A `{`...`}` inside a function call.
-        InterpBrace,
+        NestedBrace,
         /// The patterns that lex the targets of a rule again.
-        RetokTarget,
+        RetokenisedTargets,
         /// The patterns that lex a variable's name again.
-        RetokVars,
+        RetokenisedVariable,
     }
 }
 
@@ -85,14 +85,14 @@ impl Rule {
             Rule::Define | Rule::Conditional => scopes![S::MetaConditional],
             Rule::Condition => scopes![S::MetaCondition],
             Rule::Target => scopes![S::MetaTarget],
-            Rule::Prereq => scopes![S::MetaPrereq],
+            Rule::Prerequisites => scopes![S::MetaPrereq],
             Rule::TargetName => scopes![S::TargetName],
             Rule::Recipe => scopes![S::MetaRecipe],
-            Rule::VarParen | Rule::VarBrace => scopes![S::StringInterp],
-            Rule::FuncParen | Rule::FuncBrace | Rule::FlavorParen | Rule::FlavorBrace => {
+            Rule::VariableParen | Rule::VariableBrace => scopes![S::StringInterp],
+            Rule::FunctionParen | Rule::FunctionBrace | Rule::FlavorParen | Rule::FlavorBrace => {
                 scopes![S::MetaFunc]
             }
-            Rule::AnotherParen | Rule::AnotherBrace => scopes![S::VarOther],
+            Rule::VariableNameParen | Rule::VariableNameBrace => scopes![S::VarOther],
             Rule::Root
             | Rule::Comment
             | Rule::Include
@@ -102,11 +102,11 @@ impl Rule {
             | Rule::OverridePrivate
             | Rule::Unexport
             | Rule::Else
-            | Rule::Assign
-            | Rule::InterpParen
-            | Rule::InterpBrace
-            | Rule::RetokTarget
-            | Rule::RetokVars => S::NO_SCOPES,
+            | Rule::Assignment
+            | Rule::NestedParen
+            | Rule::NestedBrace
+            | Rule::RetokenisedTargets
+            | Rule::RetokenisedVariable => S::NO_SCOPES,
         }
     }
 
@@ -128,20 +128,20 @@ impl Rule {
             | Rule::Condition
             | Rule::Else
             | Rule::Target
-            | Rule::Prereq
+            | Rule::Prerequisites
             | Rule::TargetName
             | Rule::Recipe
-            | Rule::Assign
-            | Rule::VarParen
-            | Rule::VarBrace
-            | Rule::FuncParen
-            | Rule::FuncBrace
-            | Rule::AnotherParen
-            | Rule::AnotherBrace
-            | Rule::InterpParen
-            | Rule::InterpBrace
-            | Rule::RetokTarget
-            | Rule::RetokVars => S::NO_SCOPES,
+            | Rule::Assignment
+            | Rule::VariableParen
+            | Rule::VariableBrace
+            | Rule::FunctionParen
+            | Rule::FunctionBrace
+            | Rule::VariableNameParen
+            | Rule::VariableNameBrace
+            | Rule::NestedParen
+            | Rule::NestedBrace
+            | Rule::RetokenisedTargets
+            | Rule::RetokenisedVariable => S::NO_SCOPES,
         }
     }
 }

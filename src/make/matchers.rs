@@ -118,17 +118,18 @@ impl Lexer<'_> {
     ///
     /// The arms match, in order:
     /// - `Comment`: `(?!\G)`, anywhere `\G` does not;
-    /// - `CommentHash` and `Prereq`: `(?=[^\\])$`;
+    /// - `CommentHash` and `Prerequisites`: `(?=[^\\])$`;
     /// - the one-line heads, from `Include` to `Else`: `^`;
     /// - `Define` and `Conditional`: their closing keyword;
     /// - `Target` and `Recipe`: `[^\\]$`;
     /// - `TargetName`: `(?=\s|$)`;
-    /// - `Assign`: `\n`;
-    /// - `VarParen` and `VarBrace`: `\)|((?<!\\)\n)`, with `}` for a brace;
+    /// - `Assignment`: `\n`;
+    /// - `VariableParen` and `VariableBrace`: `\)|((?<!\\)\n)`, with `}` for a
+    ///   brace;
     /// - the function calls and their inner groups: `(?=\)|((?<!\\)\n))`, with
     ///   `}` for a brace;
     /// - `FlavorParen` and `FlavorBrace`: `(?=\))`, with `}` for a brace;
-    /// - `InterpParen` and `InterpBrace`: `\)`, with `}` for a brace.
+    /// - `NestedParen` and `NestedBrace`: `\)`, with `}` for a brace.
     #[expect(
         clippy::inline_always,
         reason = "measured: the matchers are the hot loop"
@@ -137,9 +138,9 @@ impl Lexer<'_> {
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let zero = || Hit::new(p, p);
         match rule {
-            Rule::Root | Rule::RetokTarget | Rule::RetokVars => None,
+            Rule::Root | Rule::RetokenisedTargets | Rule::RetokenisedVariable => None,
             Rule::Comment => (!self.g || p != self.pos).then(zero),
-            Rule::CommentHash | Rule::Prereq => (p == self.lim() && self.nl).then(zero),
+            Rule::CommentHash | Rule::Prerequisites => (p == self.lim() && self.nl).then(zero),
             Rule::Include
             | Rule::Vpath
             | Rule::Export
@@ -162,22 +163,26 @@ impl Lexer<'_> {
                 self.at_eol(p + width).then(|| Hit::new(p, p + width))
             }
             Rule::TargetName => (self.space_w(p) > 0 || self.at_eol(p)).then(zero),
-            Rule::Assign => (p == self.lim() && self.nl).then(|| Hit::new(p, p + 1)),
-            Rule::VarParen | Rule::VarBrace => {
-                let close = if rule == Rule::VarParen { b')' } else { b'}' };
+            Rule::Assignment => (p == self.lim() && self.nl).then(|| Hit::new(p, p + 1)),
+            Rule::VariableParen | Rule::VariableBrace => {
+                let close = if rule == Rule::VariableParen {
+                    b')'
+                } else {
+                    b'}'
+                };
                 ((p < self.lim() && self.s[p] == close) || self.plain_newline(p))
                     .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::PunctVar))
             }
-            Rule::FuncParen | Rule::AnotherParen => {
+            Rule::FunctionParen | Rule::VariableNameParen => {
                 ((p < self.lim() && self.s[p] == b')') || self.plain_newline(p)).then(zero)
             }
-            Rule::FuncBrace | Rule::AnotherBrace => {
+            Rule::FunctionBrace | Rule::VariableNameBrace => {
                 ((p < self.lim() && self.s[p] == b'}') || self.plain_newline(p)).then(zero)
             }
             Rule::FlavorParen => (p < self.lim() && self.s[p] == b')').then(zero),
             Rule::FlavorBrace => (p < self.lim() && self.s[p] == b'}').then(zero),
-            Rule::InterpParen => (p < self.lim() && self.s[p] == b')').then(|| Hit::new(p, p + 1)),
-            Rule::InterpBrace => (p < self.lim() && self.s[p] == b'}').then(|| Hit::new(p, p + 1)),
+            Rule::NestedParen => (p < self.lim() && self.s[p] == b')').then(|| Hit::new(p, p + 1)),
+            Rule::NestedBrace => (p < self.lim() && self.s[p] == b'}').then(|| Hit::new(p, p + 1)),
         }
     }
 
@@ -222,16 +227,16 @@ impl Lexer<'_> {
             Pattern::Comment => self.comment(p),
             Pattern::CommentHash => (p < self.lim() && self.s[p] == b'#')
                 .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::PunctComment)),
-            Pattern::VarParen => self.dollar(p, b'('),
-            Pattern::VarBrace => self.dollar(p, b'{'),
-            Pattern::FuncParen => self.function(p, b'('),
-            Pattern::FuncBrace => self.function(p, b'{'),
+            Pattern::VariableParen => self.dollar(p, b'('),
+            Pattern::VariableBrace => self.dollar(p, b'{'),
+            Pattern::FunctionParen => self.function(p, b'('),
+            Pattern::FunctionBrace => self.function(p, b'{'),
             Pattern::FlavorParen => self.flavor(p, b'('),
             Pattern::FlavorBrace => self.flavor(p, b'{'),
-            Pattern::AnotherParen => self.another(p, b'('),
-            Pattern::AnotherBrace => self.another(p, b'{'),
-            Pattern::InterpParen => self.single(p, b'('),
-            Pattern::InterpBrace => self.single(p, b'{'),
+            Pattern::VariableNameParen => self.another(p, b'('),
+            Pattern::VariableNameBrace => self.another(p, b'{'),
+            Pattern::NestedParen => self.single(p, b'('),
+            Pattern::NestedBrace => self.single(p, b'{'),
             Pattern::Include => self.keyword_line(p, true),
             Pattern::Vpath => self.keyword_line(p, false),
             Pattern::Define => self.define(p),
@@ -248,12 +253,12 @@ impl Lexer<'_> {
                 &[(b"unexport", S::KwUnexport), (b"undefine", S::KwUndefine)],
             ),
             Pattern::Conditional => self.conditional(p),
-            Pattern::Condition | Pattern::Prereq => self.at_g(p).then(|| Hit::new(p, p)),
+            Pattern::Condition | Pattern::Prerequisites => self.at_g(p).then(|| Hit::new(p, p)),
             Pattern::Else => self.else_line(p),
             Pattern::Target => self.target(p),
             Pattern::TargetName => (self.nonspace_w(p) > 0).then(|| Hit::new(p, p)),
             Pattern::Recipe => self.recipe(p),
-            Pattern::Assign => self.assign(p),
+            Pattern::Assignment => self.assign(p),
         }
     }
 
@@ -553,7 +558,13 @@ impl Lexer<'_> {
             return None;
         }
         let hit = Hit::new(0, colon + 1);
-        let hit = hit.group(0, 0, colon, CaptureName::None, Some(Rule::RetokTarget));
+        let hit = hit.group(
+            0,
+            0,
+            colon,
+            CaptureName::None,
+            Some(Rule::RetokenisedTargets),
+        );
         Some(hit.capture(1, colon, colon + 1, S::KeyValue))
     }
 
@@ -625,7 +636,7 @@ impl Lexer<'_> {
                             from,
                             end,
                             CaptureName::One(S::VarOther),
-                            Some(Rule::RetokVars),
+                            Some(Rule::RetokenisedVariable),
                         )
                         .capture(1, after, after + width, S::KeyValue),
                 );

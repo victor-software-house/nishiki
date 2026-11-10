@@ -29,10 +29,10 @@ pub(crate) enum Pattern {
     PipeOp,
     Sep,
     LineCont,
-    VarAt,
-    VarDigit,
-    VarSpecial,
-    VarName,
+    VariableAt,
+    VariableDigit,
+    VariableSpecial,
+    VariableName,
     HerestringWord,
     RedirectOp,
     RedirectNum,
@@ -87,8 +87,8 @@ pub(crate) enum Pattern {
     // Begins of rules.
     AliasB,
     ArgB,
-    ArithDoubleB,
-    ArithSingleB,
+    ArithmeticDoubleB,
+    ArithmeticSingleB,
     ArrayValueB,
     CaseB,
     CasePatternB,
@@ -133,15 +133,15 @@ pub(crate) enum Pattern {
     StringDoubleB,
     StringAnsiB,
     SubshellB,
-    VarPositionalB,
-    VarBraceB,
+    VariablePositionalB,
+    VariableBraceB,
     WhileB,
     // Ends of rules.
     EndStatement,
     EndOption,
     EndArg,
     EndAlias,
-    EndArithDouble,
+    EndArithmeticDouble,
     EndCase,
     EndCasePattern,
     EndCaseBody,
@@ -182,8 +182,8 @@ impl Pattern {
             Pattern::RedirectOp => Match(scopes![S::KeywordOperatorRedirect]),
             Pattern::AliasB => Begin(Rule::Alias),
             Pattern::ArgB => Begin(Rule::Argument),
-            Pattern::ArithDoubleB => Begin(Rule::ArithDouble),
-            Pattern::ArithSingleB => Begin(Rule::ArithSingle),
+            Pattern::ArithmeticDoubleB => Begin(Rule::ArithmeticDouble),
+            Pattern::ArithmeticSingleB => Begin(Rule::ArithmeticSingle),
             Pattern::ArrayValueB => Begin(Rule::ArrayValue),
             Pattern::CaseB => Begin(Rule::Case),
             Pattern::CasePatternB => Begin(Rule::CasePattern),
@@ -228,14 +228,14 @@ impl Pattern {
             Pattern::StringDoubleB => Begin(Rule::StringDouble),
             Pattern::StringAnsiB => Begin(Rule::StringAnsi),
             Pattern::SubshellB => Begin(Rule::Subshell),
-            Pattern::VarPositionalB => Begin(Rule::VarPositional),
-            Pattern::VarBraceB => Begin(Rule::VarBrace),
+            Pattern::VariablePositionalB => Begin(Rule::VariablePositional),
+            Pattern::VariableBraceB => Begin(Rule::VariableBrace),
             Pattern::WhileB => Begin(Rule::While),
             Pattern::EndStatement
             | Pattern::EndOption
             | Pattern::EndArg
             | Pattern::EndAlias
-            | Pattern::EndArithDouble
+            | Pattern::EndArithmeticDouble
             | Pattern::EndCase
             | Pattern::EndCasePattern
             | Pattern::EndCaseBody
@@ -254,10 +254,10 @@ impl Pattern {
             | Pattern::PipeOp
             | Pattern::Sep
             | Pattern::LineCont
-            | Pattern::VarAt
-            | Pattern::VarDigit
-            | Pattern::VarSpecial
-            | Pattern::VarName
+            | Pattern::VariableAt
+            | Pattern::VariableDigit
+            | Pattern::VariableSpecial
+            | Pattern::VariableName
             | Pattern::RedirectNum
             | Pattern::Tilde
             | Pattern::Glob
@@ -436,14 +436,14 @@ impl Pattern {
             | Pattern::AnsiOctal
             | Pattern::AnsiHex
             | Pattern::AnsiControl => Bytes(b"\\"),
-            Pattern::VarAt
-            | Pattern::VarDigit
-            | Pattern::VarSpecial
-            | Pattern::VarName
+            Pattern::VariableAt
+            | Pattern::VariableDigit
+            | Pattern::VariableSpecial
+            | Pattern::VariableName
             | Pattern::StringAnsiB
             | Pattern::SubshellB
-            | Pattern::VarPositionalB
-            | Pattern::VarBraceB => Bytes(b"$"),
+            | Pattern::VariablePositionalB
+            | Pattern::VariableBraceB => Bytes(b"$"),
             Pattern::HerestringWord
             | Pattern::HeredocQuotedIndentB
             | Pattern::HeredocQuotedB
@@ -469,8 +469,8 @@ impl Pattern {
             Pattern::CasePipe => Bytes(b"|"),
             Pattern::CaseParenOpen
             | Pattern::CaseGroupB
-            | Pattern::ArithDoubleB
-            | Pattern::ArithSingleB
+            | Pattern::ArithmeticDoubleB
+            | Pattern::ArithmeticSingleB
             | Pattern::FuncParenB
             | Pattern::ParenB => Bytes(b"("),
             Pattern::CaseChar => Class(case_char),
@@ -525,7 +525,7 @@ impl Pattern {
             Pattern::EndStatement | Pattern::EndOption => Bytes(b"\n&);`{|}] \t#"),
             Pattern::EndArg => Bytes(b" \t&;|\n)`"),
             Pattern::EndAlias => Bytes(b" \t;&|\n"),
-            Pattern::EndArithDouble => Bytes(b")"),
+            Pattern::EndArithmeticDouble => Bytes(b")"),
             Pattern::EndCase => Bytes(b"e"),
             Pattern::EndCasePattern => Bytes(b"e)"),
             Pattern::EndCaseBody => Bytes(b";e"),
@@ -609,7 +609,7 @@ const LOOP: Group = &[
 ];
 const FUNCTION: Group = &[Pattern::FunctionB];
 const LINE_CONTINUATION: Group = &[Pattern::LineCont];
-const ARITH_DOUBLE: Group = &[Pattern::ArithDoubleB];
+const ARITH_DOUBLE: Group = &[Pattern::ArithmeticDoubleB];
 const MISC_RANGES: Group = &[
     Pattern::LogicalSingleB,
     Pattern::LogicalDoubleB,
@@ -617,12 +617,12 @@ const MISC_RANGES: Group = &[
     Pattern::GroupB,
 ];
 const VARIABLE: Group = &[
-    Pattern::VarAt,
-    Pattern::VarDigit,
-    Pattern::VarSpecial,
-    Pattern::VarPositionalB,
-    Pattern::VarBraceB,
-    Pattern::VarName,
+    Pattern::VariableAt,
+    Pattern::VariableDigit,
+    Pattern::VariableSpecial,
+    Pattern::VariablePositionalB,
+    Pattern::VariableBraceB,
+    Pattern::VariableName,
 ];
 const INTERPOLATION: Group = &[Pattern::SubshellB, Pattern::BacktickB];
 const HEREDOC: Group = &[
@@ -763,9 +763,9 @@ const TYPICAL_STATEMENTS: &[Group] = &[
 
 const LOGICAL_CONTEXT: &[Group] = &[
     &[Pattern::RegexCompare],
-    &[Pattern::ArithSingleB],
+    &[Pattern::ArithmeticSingleB],
     &[
-        Pattern::ArithSingleB,
+        Pattern::ArithmeticSingleB,
         Pattern::LogicalOp,
         Pattern::LogicalTest,
     ],
@@ -865,7 +865,9 @@ fn build(rule: Rule) -> RuleDefinition {
     const LOGICAL: &[&[Pattern]] = LOGICAL_CONTEXT;
     const OPTION: &[&[Pattern]] = OPTION_CONTEXT;
     match rule {
-        Rule::Root | Rule::RetokInitial => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[INITIAL]),
+        Rule::Root | Rule::RetokenisedInitial => {
+            definition(S::NO_SCOPES, S::NO_SCOPES, None, &[INITIAL])
+        }
         Rule::Alias => definition(
             scopes![S::MetaExpressionAssignmentAlias],
             S::NO_SCOPES,
@@ -878,13 +880,13 @@ fn build(rule: Rule) -> RuleDefinition {
             Some(Pattern::EndArg),
             &[&[ARGUMENT_MATCH], NORMAL, &[LINE_CONTINUATION]],
         ),
-        Rule::ArithDouble => definition(
+        Rule::ArithmeticDouble => definition(
             scopes![S::MetaArithmetic],
             S::NO_SCOPES,
-            Some(Pattern::EndArithDouble),
+            Some(Pattern::EndArithmeticDouble),
             &[&[VARIABLE, MATH, STRING]],
         ),
-        Rule::ArithSingle => lit(
+        Rule::ArithmeticSingle => lit(
             scopes![S::MetaArithmetic],
             S::NO_SCOPES,
             b")",
@@ -1248,7 +1250,7 @@ fn build(rule: Rule) -> RuleDefinition {
             scopes![S::PunctuationDefinitionSubshellSingle],
             &[&[PAREN], INITIAL],
         ),
-        Rule::VarPositional => lit(
+        Rule::VariablePositional => lit(
             S::NO_SCOPES,
             scopes![S::MetaParameterExpansion],
             b"}",
@@ -1268,7 +1270,7 @@ fn build(rule: Rule) -> RuleDefinition {
                 STRING,
             ]],
         ),
-        Rule::VarBrace => lit(
+        Rule::VariableBrace => lit(
             S::NO_SCOPES,
             scopes![S::MetaParameterExpansion],
             b"}",
@@ -1296,7 +1298,7 @@ fn build(rule: Rule) -> RuleDefinition {
                 &[STRING],
             ],
         ),
-        Rule::RetokArgument => definition(
+        Rule::RetokenisedArgument => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
@@ -1307,20 +1309,20 @@ fn build(rule: Rule) -> RuleDefinition {
                 &[Pattern::BoolArg],
             ]],
         ),
-        Rule::RetokOptions => definition(
+        Rule::RetokenisedOptions => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
             &[&[&[Pattern::ModOption]]],
         ),
-        Rule::RetokString => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[&[STRING]]),
-        Rule::RetokArrayAccess => definition(
+        Rule::RetokenisedString => definition(S::NO_SCOPES, S::NO_SCOPES, None, &[&[STRING]]),
+        Rule::RetokenisedArrayAccess => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
             &[&[&[Pattern::SpecialExpansion], STRING, VARIABLE]],
         ),
-        Rule::RetokHeredocRest => definition(
+        Rule::RetokenisedHeredocRest => definition(
             S::NO_SCOPES,
             S::NO_SCOPES,
             None,
