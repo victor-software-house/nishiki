@@ -13,6 +13,9 @@
 // bench/corpus, oracle/inputs and oracle/fuzz hold language text,
 // and tests/oracle holds the oracle's output.
 // dedent's own tests write escaped line feeds on purpose, to test how it reads them.
+// The Bun scripts that write Rust build it from templates with escaped line feeds,
+// so they are left alone until rust-codegen moves them to codegen/.
+// The Rust files they write are checked like any other.
 import { $ } from "bun";
 import { continuedLiterals } from "../lib/rust-literals.ts";
 import { rustWriterFiles } from "../lib/rust-writers.ts";
@@ -50,13 +53,13 @@ const files = (await $`git ls-files -- '*.rs' '*.ts' ${corpora} ${escapesOnPurpo
 const texts = new Map<string, string>();
 for (const file of files) texts.set(file, await Bun.file(file).text());
 
-const leftAlone = rustWriterFiles(texts);
+const writers = new Set([...rustWriterFiles(texts)].filter((file) => file.endsWith(".ts")));
 const problems = [...texts].flatMap(([file, text]) => {
-  if (leftAlone.has(file)) return [];
+  if (writers.has(file)) return [];
   return multilineLiterals(file, text, file.endsWith(".rs") ? ['"'] : ['"', "'", "`"]);
 });
 const continued = [...texts].flatMap(([file, text]) =>
-  leftAlone.has(file) || !file.endsWith(".rs") ? [] : continuedLiterals(file, text),
+  file.endsWith(".rs") ? continuedLiterals(file, text) : [],
 );
 if (problems.length > 0) {
   console.error(problems.join("\n"));

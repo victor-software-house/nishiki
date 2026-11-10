@@ -954,7 +954,9 @@ function wordFile(generator: string, wordLists: WordList[]): string {
     return `0x${digits.slice(0, 4)}_${digits.slice(4)}`;
   };
   // The words go end to end in one byte string, with where each ends, so the
-  // table holds no pointer per word.
+  // table holds no pointer per word. `concat!` joins one literal per line of
+  // whole words, so no literal continues through a backslash line break.
+  // rust-codegen moves this writer to codegen/ (CODING_STANDARDS 3.10).
   const blob = sorted.map(([word]) => word).join("");
   if (blob.length > 0xffff) throw new Error(`${blob.length} bytes of words do not fit u16 ends`);
   const ends: number[] = [];
@@ -965,7 +967,8 @@ function wordFile(generator: string, wordLists: WordList[]): string {
     if (lines.at(-1)!.length + word.length > 90) lines.push("");
     lines[lines.length - 1] += word;
   }
-  w += `\n/// Every word of the lists, sorted by its bytes, end to end.\npub(super) static WORD_BYTES: &[u8] = b"\\\n${lines.join("\\\n")}";\n`;
+  const literals = lines.map((line) => `"${line}",`).join("\n");
+  w += `\n/// Every word of the lists, sorted by its bytes, end to end.\npub(super) static WORD_BYTES: &[u8] = concat!(\n${literals}\n).as_bytes();\n`;
   w += `\n/// Where each word of [\`WORD_BYTES\`] ends: word \`k\` runs from the end of word \`k - 1\` to \`WORD_ENDS[k]\`.\npub(super) static WORD_ENDS: [u16; ${ends.length}] = [${ends.join(", ")}];\n`;
   w += `\n/// The lists each word of [\`WORD_BYTES\`] belongs to, in the same order.\npub(super) static WORD_LISTS: [u32; ${ends.length}] = [${sorted.map(([, mask]) => hex(mask)).join(", ")}];\n`;
   return w;
