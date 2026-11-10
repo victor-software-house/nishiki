@@ -239,13 +239,32 @@ The analysis proves a node unique given what can follow it:
 The sets hold code points, not UTF-8 lead bytes.
 `\w` and `\s` share every non-ASCII lead byte but no character.
 
+A generated matcher spends the line's work budget, `Limits::work`, as a hand matcher does (`AGENTS.md`, Limits rule 1):
+
+- Each byte it reads costs one step.
+  A byte read again after a give-back or a stack pop costs one more.
+- When the budget runs out, the matcher stops and reports no match, as the regex engine does.
+- The lexer then ends the line at the work limit.
+  The rest of the line is one token under the current scopes, and the line's report records `Limit::Work`.
+
+The regex engine, as the fallback, runs on the steps the line has left, and stops the same way.
+The two count in different units: a generated matcher counts bytes, and the engine counts instructions.
+On a line near the limit they can stop at different points.
+
 A differential test guards every generated language:
 
 - It runs each generated matcher and the regex engine on the same expression.
 - It tries every character of every oracle fixture line, with `\G` holding too where the expression holds it.
 - It adds fuzzed lines: random ones from the fixtures' characters, and fixture lines with ranges deleted, repeated or reversed.
+- It runs with no work limit, since the two count steps in different units.
 - It fails at the first differing end or group.
 - It runs in CI for every language `codegen/` writes.
+
+A hostile-line test runs in CI beside it, in the language's `tests/it/limits/` file:
+
+- Its lines drive each give-back loop and each stack the writer emits.
+  One such line is a long run of a repeat's body with no continuation.
+- Under the default limits, each line ends at the work limit, and its report records `Limit::Work`.
 
 ## 6. Facts
 
