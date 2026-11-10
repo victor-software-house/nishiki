@@ -184,7 +184,7 @@ The harness then needs github-dark, so both sides build with `json` too.
 - It allocates only when a new stack first appears, as the arena does.
 - `Theme::style` stays, for scopes that come from elsewhere.
 
-Agreed with the streaming design on 2026-11-05 (`openspec/changes/streaming/`):
+Agreed with the streaming design on 2026-11-05 (now `openspec/changes/document-styles/`):
 
 - `Document` owns its theme and calls `Highlighter::style` for every token of each line it lexes.
 - Its reads are `&self`, through one crate-internal method, `cached_style(&self, theme: &Theme, stack: Stack) -> Option<Style>`.

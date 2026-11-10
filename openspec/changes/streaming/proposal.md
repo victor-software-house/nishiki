@@ -33,13 +33,12 @@ nishiki's per-line steady cost is 0.1 to 3 µs at p50 ([box run][latency]), so t
   - `lex` lexes up to a line or to the end, so a caller can lex its viewport first.
   - `take_changes` reports the lines whose text or tokens changed since the last call.
   - `line` gives a line's text, tokens and kind: exact, provisional or stale.
-  - Each line's tokens come styled with the document's theme, through the [throughput change][throughput]'s per-stack style cache.
 - A completed line is lexed once.
   The line still being written is lexed again on each delta.
   Its tokens carry the offset where its last token starts, so a renderer can hold that token back.
 - After an edit, lexing runs from the first changed line until a line's end state equals its cached one, then stops.
-- Bench traces of model replies, tool-written files and edit sequences, and a harness that times nishiki, Shiki and Pierre on them.
-- What streaming needs from the lexers goes to the [throughput change][throughput] as hand-offs.
+- The [`document-styles` change][styles] styles each line's tokens with the document's theme.
+- The [`stream-benchmarks` change][bench] holds the delta traces, the stream harness and the hand-offs to the throughput change.
 
 The design, with its measurements, is in [design.md](design.md).
 The research note behind it is [2026-11-05-streaming][note].
@@ -50,27 +49,21 @@ The research note behind it is [2026-11-05-streaming][note].
 
 - `streaming`: a document highlighted as it arrives and as it is edited, whose final tokens equal those of lexing the whole text line by line.
 
-### Modified Capabilities
-
-- [`benchmarks`][benchmarks]: per-delta latency and final fidelity on delta traces, for nishiki, Shiki and Pierre.
-
 [`shiki-fidelity`][fidelity] holds as it is: a document's final tokens are the tokens `Highlighter::line` gives.
 
 ## Impact
 
-- New: `src/document.rs`, `bench/traces/`, `bench/traces.ts`, `bench/src/bin/stream.rs`, a stream mode in `bench/compare/shiki.ts`.
+- New: `src/document.rs`.
 - The public API gains `Document` and its types.
   The change is additive, so the release is a patch (invariant 6).
 - No crate dependency is added.
-- The comparison workspace would pin [`@shikijs/stream@4.6.0`][shiki-stream] (MIT), to drive Shiki as its users do.
-  The operator allowed it in `bench/compare` only, with its licence in that workspace's README (2026-11-05).
 - npm stays closed (invariant 8).
-  The design notes what a later WebAssembly or N-API binding needs, and builds none of it.
+  The [`document-styles` change][styles] notes what a later WebAssembly or N-API binding needs, and builds none of it.
 
 [highlighter]: https://github.com/victor-software-house/nishiki-archive/blob/68620d9ef4c7eb99a91c30f3a3d6788a2c4aaebf/src/highlighter.rs#L67-L100
 [shiki-stream]: https://www.npmjs.com/package/@shikijs/stream/v/4.6.0
 [latency]: ../../research/2026-11-05-streaming/latency-cold-68620d9e.txt
-[throughput]: https://github.com/victor-software-house/nishiki-archive/blob/99416359c42a215e43d27db1e9a950fe2b21fe25/openspec/changes/throughput/proposal.md
+[styles]: ../document-styles/proposal.md
+[bench]: ../stream-benchmarks/proposal.md
 [note]: ../../research/2026-11-05-streaming.md
 [fidelity]: ../../specs/shiki-fidelity/spec.md
-[benchmarks]: ../../specs/benchmarks/spec.md
