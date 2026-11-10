@@ -121,6 +121,74 @@ fn one_set_links_once() {
     assert_eq!(first.grammar(), grammar);
 }
 
+/// A grammar whose braces hold `source.inner`.
+const OUTER: &str = indoc! {r#"
+    {
+      "scopeName": "source.outer",
+      "patterns": [
+        { "match": "\\bouter\\b", "name": "keyword.outer" },
+        {
+          "begin": "\\{",
+          "end": "\\}",
+          "name": "meta.block.outer",
+          "patterns": [{ "include": "source.inner" }]
+        }
+      ]
+    }
+"#};
+
+/// A grammar whose parentheses hold `source.outer`.
+const INNER: &str = indoc! {r#"
+    {
+      "scopeName": "source.inner",
+      "patterns": [
+        { "match": "\\binner\\b", "name": "keyword.inner" },
+        {
+          "begin": "\\(",
+          "end": "\\)",
+          "name": "meta.group.inner",
+          "patterns": [{ "include": "source.outer" }]
+        }
+      ]
+    }
+"#};
+
+/// Task 2.3 of `openspec/changes/grammar-api`.
+///
+/// Each root links twice, once per insertion order, into two tables.
+/// Both tables lex its line the same.
+/// Each keyword gets its own grammar's scope, so each include resolved.
+#[test]
+fn two_grammars_that_include_each_other_link_in_either_order() {
+    let outer = Grammar::from_json(OUTER).unwrap();
+    let inner = Grammar::from_json(INNER).unwrap();
+    let in_order: Grammars = [outer, inner].into_iter().collect();
+    let reversed: Grammars = [inner, outer].into_iter().collect();
+    for (root, line) in [
+        (outer, "outer { inner ( outer { inner } ) }"),
+        (inner, "inner ( outer { inner ( outer ) } )"),
+    ] {
+        let mut first = Highlighter::for_grammar(root, &in_order).unwrap();
+        let mut second = Highlighter::for_grammar(root, &reversed).unwrap();
+        assert!(!std::ptr::eq(first.lexer().table, second.lexer().table));
+        let lexed = tokens(&mut first, line);
+        assert_eq!(lexed, tokens(&mut second, line), "{line}");
+        for word in ["outer", "inner"] {
+            let keyword = format!("keyword.{word}");
+            let found: Vec<&Vec<String>> = lexed
+                .iter()
+                .filter(|(text, _)| text == word)
+                .map(|(_, scopes)| scopes)
+                .collect();
+            assert_eq!(found.len(), 2, "{line}: {lexed:?}");
+            assert!(
+                found.iter().all(|scopes| scopes[0] == keyword),
+                "{line}: {lexed:?}"
+            );
+        }
+    }
+}
+
 #[test]
 fn links_of_one_set_on_many_threads_end_with_one_table() {
     let grammar =

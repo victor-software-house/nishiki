@@ -19,10 +19,16 @@
 - [x] 2.2 `Highlighter::for_grammar` and its limits variant.
   → verify: a doctest highlights a grammar loaded from JSON
   2026-11-10 UTC: the "Any language" doctest in `src/lib.rs` passes on a box.
-- [ ] 2.3 Includes across grammars, linked through the `Grammars` set when the highlighter is built, and hand-offs to hand lexers.
+- [x] 2.3 Includes across grammars, linked through the `Grammars` set when the highlighter is built, and hand-offs to hand lexers.
   → verify:
   - an HTML grammar loaded from JSON hands its `<style>` to the CSS lexer, and the fixture matches Shiki;
   - two grammars that include each other, loaded in either order, both match Shiki.
+  2026-11-10 UTC: on a box, `mise run verify` passes with both tests:
+  - `html_from_json_hands_its_style_to_the_css_lexer`, in `src/textmate/tests/fidelity.rs`, names `Language::Css` with `Grammars::hand_off`.
+    It matches Shiki on every non-whitespace byte of `tests/oracle/html/h5bp-404.txt`, whose CSS sits in a `<style>` element.
+  - `two_grammars_that_include_each_other_link_in_either_order`, in `src/grammar/tests.rs`, links each grammar from both insertion orders.
+    The two tables lex the line the same, and each keyword gets its own grammar's scope.
+    The two grammars are written for the test, so Shiki has no fixture for them.
 - [x] 2.4 `to_bytes` and `from_bytes`, with a versioned header.
   → verify:
   - a round trip gives the same output;
