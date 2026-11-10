@@ -1662,6 +1662,16 @@ impl Tokenizer<'_> {
     ///
     /// A match kept from an earlier search holds no groups, so it is found
     /// again from where it starts.
+    ///
+    /// In a hand-off region, the language lexes first at each place it has not
+    /// seen yet.
+    ///
+    /// - A rule of the embedding list that matches there applies only after the
+    ///   language halts there.
+    /// - The language halts only with no context of its own open. So the list
+    ///   applies only at the language's root, as in Shiki.
+    /// - The language's text ends at the end of the run or of the line. There
+    ///   it has no text to halt in, so a match applies at once.
     #[expect(
         clippy::inline_always,
         reason = "measured at one codegen unit: with `line_until` a second caller, it stopped being inlined, at a call once a step"
@@ -1722,7 +1732,8 @@ impl Tokenizer<'_> {
         }
         if H::HANDS_OFF
             && let Some(part) = handing
-            && best.is_none_or(|b| b.start != *pos)
+            && ((part.from == *pos && *pos < end.min(self.len))
+                || best.is_none_or(|b| b.start != *pos))
         {
             return self.hand_off_at(part, end, (pos, anchor, allow_a), top.content, frames);
         }

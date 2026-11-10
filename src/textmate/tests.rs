@@ -432,6 +432,17 @@ fn elixir_grammar_matches_shiki() {
     check(table("elixir"), "elixir", Scanners::On);
 }
 
+/// HTML has a hand lexer.
+/// The engine runs its grammar from a test table, which hands `<script>` to
+/// the JavaScript lexer and `<style>` to the CSS lexer.
+/// The script's own `//` comment rule applies only where no JavaScript
+/// context is open, as `mathjax-tex-mml.txt` checks.
+#[cfg(all(feature = "lang-javascript", feature = "lang-css"))]
+#[test]
+fn html_grammar_matches_shiki() {
+    check(table("html"), "html", Scanners::On);
+}
+
 /// Assembly has a hand lexer.
 /// The engine runs its grammar from a test table, as a second oracle.
 #[test]
