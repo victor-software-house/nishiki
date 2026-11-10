@@ -26,21 +26,10 @@ The hand lexers already embed one another the other way round:
 
 Each does it through the embedded language's `lex_until` and a `Halt` ([`src/language.rs`][language]).
 This change lets the engine be the embedding side of that same contract.
-It also gives every language one entry point for it.
+The [`halt-contract` change][contract] widens the contract itself: `Halts`, entries and one entry point for every language.
 
 ## Changes
 
-- One halt contract, `Halts`, holds three tests:
-  - `before`: the embedding rule's end and the patterns listed before the include;
-  - `after`: the patterns listed after the include;
-  - `any`: an injection at any depth, as ERB's `<%`.
-
-  Each test is a closure.
-  An engine end with back-references can then halt a hand lexer.
-- `Language::lex_until`, which [#159][pr159] adds, takes `&Halts`.
-  Every language whose row sets `halts: true` honours all three tests.
-- An embedded language can be entered at its root or at an entry it offers.
-  An example is TypeScript's `expression`, for Vue.
 - The table generator marks an include of a hand-lexed grammar as a hand-off to that language and entry.
   It no longer compiles the grammar's rules into the table.
 - The engine starts the embedded language on the rule's content stack.
@@ -63,13 +52,10 @@ It also gives every language one entry point for it.
 
 ## Impact
 
-- `src/language.rs`: `Halts`, `Entry`, `Language::lex_until` and `Language::start_embedded`.
-- The rule engine and TypeScript: all three tests, the comment skip for `any`, the full state at an `any` halt.
-- Each language module whose row sets `halts: true`: its `lex_until` on `&Halts`.
 - `src/textmate/`: the hand-off frame, the halt built from the end pattern, the resume.
 - `oracle/engine-tables.ts`: the hand-off entry in the tables.
 - Julia's table loses its engine copies of Python, JavaScript and SQL.
 
 [gate]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/oracle/licences.ts
-[pr159]: https://github.com/victor-software-house/nishiki-archive/pull/159
+[contract]: ../halt-contract/proposal.md
 [language]: https://github.com/victor-software-house/nishiki-archive/blob/8f346d8e/src/language.rs
