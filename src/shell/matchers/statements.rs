@@ -6,7 +6,7 @@ use crate::shell::engine::{Lazy, Lexer};
 use crate::shell::scope::S;
 use crate::shell::state::Rule;
 
-/// What `normal_statement` refuses to open before, as `kw\W`.
+/// What `normal_statement` refuses to open before, as `keyword\W`.
 const STATEMENT_KEYWORDS: &[&[u8]] = &[
     b"nocorrect",
     b"function",
@@ -34,7 +34,8 @@ const STATEMENT_KEYWORDS: &[&[u8]] = &[
     b"if",
 ];
 
-/// What `command_statement` refuses to open before, as `kw `, `kw\t`, `kw$`.
+/// What `command_statement` refuses to open before, as `keyword `, `keyword\t`,
+/// `keyword$`.
 const COMMAND_KEYWORDS: &[&[u8]] = &[
     b"nocorrect",
     b"readonly",
@@ -141,15 +142,15 @@ pub(in crate::shell) enum Operator {
 
 impl Lexer<'_> {
     /// `normal_statement`'s begin: an empty match where a statement may start.
-    pub(in crate::shell) fn m_normal_statement(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_normal_statement(&mut self, p: usize) -> Option<usize> {
         if p == 0 && self.at_eol(self.blanks(0)) {
             return None;
         }
-        let after_keyword = BLOCK_KEYWORDS.iter().any(|kw| {
-            let l = kw.len();
+        let after_keyword = BLOCK_KEYWORDS.iter().any(|keyword| {
+            let l = keyword.len();
             p > l
                 && self.s.get(p - 1..p) == Some(b" ")
-                && self.s.get(p - 1 - l..p - 1) == Some(*kw)
+                && self.s.get(p - 1 - l..p - 1) == Some(*keyword)
                 && (p - 1 - l == 0 || matches!(self.s[p - 2 - l], b' ' | b'\t'))
         });
         let after_mark = self
@@ -159,14 +160,16 @@ impl Lexer<'_> {
             return None;
         }
         let j = self.blanks(p);
-        let blocked = STATEMENT_KEYWORDS.iter().any(|kw| {
-            self.starts(j, kw) && self.avail(j + kw.len()) && !self.word_at(j + kw.len())
+        let blocked = STATEMENT_KEYWORDS.iter().any(|keyword| {
+            self.starts(j, keyword)
+                && self.avail(j + keyword.len())
+                && !self.word_at(j + keyword.len())
         });
         if blocked { None } else { Some(j) }
     }
 
     /// `command_statement`'s begin.
-    pub(in crate::shell) fn m_command_statement(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_command_statement(&mut self, p: usize) -> Option<usize> {
         let j = self.blanks(p);
         if !self.avail(j) {
             return None;
@@ -191,9 +194,9 @@ impl Lexer<'_> {
         ) {
             return None;
         }
-        let blocked = COMMAND_KEYWORDS.iter().any(|kw| {
-            let e = j + kw.len();
-            self.starts(j, kw)
+        let blocked = COMMAND_KEYWORDS.iter().any(|keyword| {
+            let e = j + keyword.len();
+            self.starts(j, keyword)
                 && (self.at_eol(e) || (self.avail(e) && matches!(self.at(e), b' ' | b'\t')))
         });
         if blocked || (c == b'\\' && j + 1 == self.lim) {
@@ -203,7 +206,7 @@ impl Lexer<'_> {
     }
 
     /// `[\t ]++(?![\n#\&(\[|]|$|;)`
-    pub(in crate::shell) fn m_argument_begin(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_argument_begin(&mut self, p: usize) -> Option<usize> {
         let j = self.blanks(p);
         if j == p || !self.avail(j) {
             return None;
@@ -217,7 +220,7 @@ impl Lexer<'_> {
     /// `` [\t ]*+([^\t\n "$\&-);<>\\`|]+(?!>)) ``.
     /// Before a `>`, the `+` gives back one character, so that `>` does not
     /// follow.
-    pub(in crate::shell) fn m_argument_word(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_argument_word(&mut self, p: usize) -> Option<usize> {
         let w = self.blanks(p);
         let mut e = self.skip(w, is_unquoted);
         if e == w {
@@ -243,7 +246,7 @@ impl Lexer<'_> {
     }
 
     /// `[\t ]++(-)((?![\n!#\&()<>\[{|]|$|[\t ;]))`
-    pub(in crate::shell) fn m_option_begin(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_option_begin(&mut self, p: usize) -> Option<usize> {
         let j = self.blanks(p);
         if j == p || self.at(j) != b'-' || !self.avail(j) || !self.avail(j + 1) {
             return None;
@@ -276,7 +279,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<!\w)-\w+\b`
-    pub(in crate::shell) fn m_option_word(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_option_word(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'-' || !self.avail(p) || !self.not_after_word(p) {
             return None;
         }
@@ -295,7 +298,7 @@ impl Lexer<'_> {
     // Command names.
 
     /// `(?<!\w)(?:continue|return|break)(?!\w)`
-    pub(in crate::shell) fn m_command_keyword(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_command_keyword(&mut self, p: usize) -> Option<usize> {
         if !self.not_after_word(p) {
             return None;
         }
@@ -326,7 +329,7 @@ impl Lexer<'_> {
     }
 
     /// The builtin list of `command_name_range`.
-    pub(in crate::shell) fn m_command_builtin(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_command_builtin(&mut self, p: usize) -> Option<usize> {
         if !self.not_after_word(p) {
             return None;
         }
@@ -355,7 +358,7 @@ impl Lexer<'_> {
     }
 
     /// `` (?<!\w)(?<=\G|["')}])([^\t\n\r "\&');->`{|]+) ``
-    pub(in crate::shell) fn m_command_name(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_command_name(&mut self, p: usize) -> Option<usize> {
         if !self.not_after_word(p)
             || !(self.at_g(p) || matches!(self.prev(p), Some(b'"' | b'\'' | b')' | b'}')))
         {
@@ -374,7 +377,7 @@ impl Lexer<'_> {
     }
 
     /// `(?:\G|(?<![\t\n #\&;{|]))(\$?)((")|('))`
-    pub(in crate::shell) fn m_command_quoted(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_command_quoted(&mut self, p: usize) -> Option<usize> {
         if !self.at_g(p)
             && matches!(
                 self.prev(p),
@@ -430,7 +433,7 @@ impl Lexer<'_> {
     // Ends.
 
     /// `` (?=[\n\&);`{|}]|[\t ]*#|])(?<!\\) ``
-    pub(in crate::shell) fn m_end_statement(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_statement(&mut self, p: usize) -> Option<usize> {
         let ahead = (self.avail(p)
             && matches!(
                 self.at(p),
@@ -448,15 +451,15 @@ impl Lexer<'_> {
     }
 
     /// `(?=[\t ])|` the statement end.
-    pub(in crate::shell) fn m_end_option(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_option(&mut self, p: usize) -> Option<usize> {
         if self.avail(p) && is_blank(self.at(p)) {
             return Some(p);
         }
-        self.m_end_statement(p)
+        self.match_end_statement(p)
     }
 
     /// `` (?=[\t \&;|]|$|[\n)`]) ``
-    pub(in crate::shell) fn m_end_argument(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_argument(&mut self, p: usize) -> Option<usize> {
         let ahead = self.at_eol(p)
             || (self.avail(p)
                 && matches!(
@@ -467,23 +470,27 @@ impl Lexer<'_> {
     }
 
     /// `` (?=[\t \&;|]|$|[\n)`])|(?=<) ``
-    pub(in crate::shell) fn m_end_command_name(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_command_name(&mut self, p: usize) -> Option<usize> {
         if self.avail(p) && self.at(p) == b'<' {
             return Some(p);
         }
-        self.m_end_argument(p)
+        self.match_end_argument(p)
     }
 
     /// `(?=[\t ]|$)|(?:(?:(?:(;)|(&&))|(\|\|))|(&))`
-    pub(in crate::shell) fn m_end_alias(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_alias(&mut self, p: usize) -> Option<usize> {
         if self.at_eol(p) || (self.avail(p) && is_blank(self.at(p))) {
             return Some(p);
         }
-        self.m_separator(p)
+        self.match_separator(p)
     }
 
     /// `(?<!\G)(?<=")` and its single-quote twin.
-    pub(in crate::shell) fn m_end_command_quoted(&mut self, p: usize, quote: u8) -> Option<usize> {
+    pub(in crate::shell) fn match_end_command_quoted(
+        &mut self,
+        p: usize,
+        quote: u8,
+    ) -> Option<usize> {
         (!self.at_g(p) && self.prev(p) == Some(quote)).then_some(p)
     }
 
@@ -552,13 +559,13 @@ impl Lexer<'_> {
     }
 
     /// `normal_assignment_statement`'s begin.
-    pub(in crate::shell) fn m_normal_assign(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_normal_assign(&mut self, p: usize) -> Option<usize> {
         let w = self.blanks(p);
         self.assignment_head(w, Operator::Required)
     }
 
     /// `array_value`'s begin: an assignment whose value opens a parenthesis.
-    pub(in crate::shell) fn m_array_value(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_array_value(&mut self, p: usize) -> Option<usize> {
         let w = self.blanks(p);
         let e = self.assignment_head(w, Operator::Required)?;
         let open = self.blanks(e);
@@ -572,7 +579,7 @@ impl Lexer<'_> {
     /// `alias_statement`'s begin.
     /// The options, each `-\w+` and its blanks, are greedy.
     /// They give back options when the rest then fails.
-    pub(in crate::shell) fn m_alias(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_alias(&mut self, p: usize) -> Option<usize> {
         let a = self.blanks(p);
         if !self.starts(a, b"alias") {
             return None;
@@ -610,7 +617,7 @@ impl Lexer<'_> {
 
     /// `modifiers` inside a declaration: `readonly`, `declare`, `typeset`,
     /// `export` or `local`.
-    pub(in crate::shell) fn m_modified(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_modified(&mut self, p: usize) -> Option<usize> {
         if !self.after_terminator(p) {
             return None;
         }
@@ -625,7 +632,7 @@ impl Lexer<'_> {
 
     /// The match of `modified_assignment_statement`: a name, perhaps an
     /// operator, perhaps a number.
-    pub(in crate::shell) fn m_modified_match(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_modified_match(&mut self, p: usize) -> Option<usize> {
         let e = self.assignment_head(p, Operator::Optional)?;
         if self.after_number_start(e)
             && let Some((end, scopes)) = self.number_at(e)
@@ -637,7 +644,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<=[\t ])(?![\t ]|\w+=)`: where a command follows an assignment.
-    pub(in crate::shell) fn m_env_command(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_env_command(&mut self, p: usize) -> Option<usize> {
         if !self.prev(p).is_some_and(is_blank) {
             return None;
         }
@@ -652,7 +659,7 @@ impl Lexer<'_> {
     }
 
     /// `((?<!\w)[-0-9A-Z_a-z]+(?!\w))(=)` in an array.
-    pub(in crate::shell) fn m_array_name_eq(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_array_name_equals(&mut self, p: usize) -> Option<usize> {
         let e = self.name_run(p)?;
         if self.at(e) != b'=' || !self.avail(e) {
             return None;
@@ -676,7 +683,7 @@ impl Lexer<'_> {
     /// `(\[)(.+?)(])(=)` in an array.
     /// The text between the brackets is lazy.
     /// It ends at the first `]=`.
-    pub(in crate::shell) fn m_array_bracket_eq(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_array_bracket_equals(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'[' || !self.avail(p) {
             return None;
         }

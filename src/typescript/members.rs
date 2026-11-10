@@ -47,105 +47,116 @@ struct MethodPrefix {
 
 impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn class_body_rules(&mut self, p: usize) -> Option<usize> {
-        if let Some(r) = self.comment(p) {
-            return Some(r);
+        self.comment(p)
+            .or_else(|| self.decorator(p))
+            .or_else(|| self.class_colon(p))
+            .or_else(|| {
+                self.only(
+                    "c.method_declaration",
+                    MEMBER_START,
+                    p,
+                    Self::method_declaration,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "c.indexer_declaration",
+                    BLANK.with(b'r').with(b'['),
+                    p,
+                    Self::indexer_declaration,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "c.field_declaration",
+                    MEMBER_START,
+                    p,
+                    Self::field_declaration,
+                )
+            })
+            .or_else(|| self.only("c.string", STRING_START, p, Self::string))
+            .or_else(|| {
+                self.only(
+                    "c.type_annotation",
+                    Bytes::of(b":"),
+                    p,
+                    Self::type_annotation,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "c.variable_initializer",
+                    Bytes::of(b"="),
+                    p,
+                    Self::variable_initializer,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "c.access_modifier",
+                    Bytes::of(b"adoprs"),
+                    p,
+                    Self::access_modifier,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "c.property_accessor",
+                    Bytes::of(b"a\x67s"),
+                    p,
+                    Self::property_accessor,
+                )
+            })
+            .or_else(|| self.only("c.async_modifier", Bytes::of(b"a"), p, Self::async_modifier))
+            .or_else(|| {
+                self.only(
+                    "c.after_operator_block_as_object_literal",
+                    BLANK.with(b'{'),
+                    p,
+                    Self::after_operator_block_as_object_literal,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "c.declaration_block",
+                    Bytes::of(b"{"),
+                    p,
+                    Self::declaration_block,
+                )
+            })
+            .or_else(|| self.only("c.expression", ANY, p, Self::expression))
+            .or_else(|| {
+                self.only(
+                    "c.punctuation_comma",
+                    Bytes::of(b","),
+                    p,
+                    Self::punctuation_comma,
+                )
+            })
+            .or_else(|| {
+                self.only(
+                    "c.punctuation_semicolon",
+                    Bytes::of(b";"),
+                    p,
+                    Self::punctuation_semicolon,
+                )
+            })
+    }
+
+    /// The white space after a colon in a class body, in a `ClassColon` frame.
+    fn class_colon(&mut self, p: usize) -> Option<usize> {
+        if self.prev_char(p) != Some(':') || self.full() {
+            return None;
         }
-        if let Some(r) = self.decorator(p) {
-            return Some(r);
-        }
-        if self.prev_char(p) == Some(':') && !self.full() {
-            let j = self.ws(p);
-            self.flush(p);
-            self.finish(Rule::ClassColon, j);
-            self.push(Rule::ClassColon);
-            return Some(j);
-        }
-        self.only(
-            "c.method_declaration",
-            MEMBER_START,
-            p,
-            Self::method_declaration,
-        )
-        .or_else(|| {
-            self.only(
-                "c.indexer_declaration",
-                BLANK.with(b'r').with(b'['),
-                p,
-                Self::indexer_declaration,
-            )
-        })
-        .or_else(|| {
-            self.only(
-                "c.field_declaration",
-                MEMBER_START,
-                p,
-                Self::field_declaration,
-            )
-        })
-        .or_else(|| self.only("c.string", STRING_START, p, Self::string))
-        .or_else(|| {
-            self.only(
-                "c.type_annotation",
-                Bytes::of(b":"),
-                p,
-                Self::type_annotation,
-            )
-        })
-        .or_else(|| {
-            self.only(
-                "c.variable_initializer",
-                Bytes::of(b"="),
-                p,
-                Self::variable_initializer,
-            )
-        })
-        .or_else(|| {
-            self.only(
-                "c.access_modifier",
-                Bytes::of(b"adoprs"),
-                p,
-                Self::access_modifier,
-            )
-        })
-        .or_else(|| {
-            self.only(
-                "c.property_accessor",
-                Bytes::of(b"a\x67s"),
-                p,
-                Self::property_accessor,
-            )
-        })
-        .or_else(|| self.only("c.async_modifier", Bytes::of(b"a"), p, Self::async_modifier))
-        .or_else(|| {
-            self.only(
-                "c.after_operator_block_as_object_literal",
-                BLANK.with(b'{'),
-                p,
-                Self::after_operator_block_as_object_literal,
-            )
-        })
-        .or_else(|| self.only("c.decl_block", Bytes::of(b"{"), p, Self::decl_block))
-        .or_else(|| self.only("c.expression", ANY, p, Self::expression))
-        .or_else(|| {
-            self.only(
-                "c.punctuation_comma",
-                Bytes::of(b","),
-                p,
-                Self::punctuation_comma,
-            )
-        })
-        .or_else(|| {
-            self.only(
-                "c.punctuation_semicolon",
-                Bytes::of(b";"),
-                p,
-                Self::punctuation_semicolon,
-            )
-        })
+        let j = self.ws(p);
+        self.flush(p);
+        self.finish(Rule::ClassColon, j);
+        self.push(Rule::ClassColon);
+        Some(j)
     }
 
     fn access_modifier(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw_of(
+        let e = self.keyword_of(
             p,
             &[
                 "abstract",
@@ -162,12 +173,12 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn property_accessor(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw_of(p, &["accessor", "get", "set"])?;
+        let e = self.keyword_of(p, &["accessor", "get", "set"])?;
         self.token_rule(p, e, S::StorageTypeProperty)
     }
 
     fn async_modifier(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw(p, "async")?;
+        let e = self.keyword(p, "async")?;
         self.token_rule(p, e, S::StorageModifierAsync)
     }
 
@@ -175,7 +186,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// `override`, a visibility, `abstract` and `async`, each followed by
     /// blanks, after the keyword guard at `p`.
     fn method_prefix(&self, p: usize) -> Option<MethodPrefix> {
-        if !self.kw_before(p) {
+        if !self.keyword_before(p) {
             return None;
         }
         let mut prefix = MethodPrefix {
@@ -248,7 +259,7 @@ impl<const D: u8> Lexer<'_, D> {
             && self.boundary(k)
             && self.boundary(k + "constructor".len())
             && self.byte(k + "constructor".len()) != b':'
-            && self.kw_after(k + "constructor".len())
+            && self.keyword_after(k + "constructor".len())
         {
             self.flush(p);
             for &(a, b, s) in prefix.captures.items() {
@@ -265,7 +276,7 @@ impl<const D: u8> Lexer<'_, D> {
             && self.boundary(k)
             && self.boundary(k + "new".len())
             && self.byte(k + "new".len()) != b':'
-            && self.kw_after(k + "new".len())
+            && self.keyword_after(k + "new".len())
         {
             new_capture = Some((k, k + "new".len()));
             sig = k + "new".len();
@@ -274,7 +285,7 @@ impl<const D: u8> Lexer<'_, D> {
             sig = self.ws(at + 1);
         }
         let la = self.ws(sig);
-        if self.tp_paren(la).is_some() {
+        if self.type_parameters_paren(la).is_some() {
             self.flush(p);
             for &(a, b, s) in prefix.captures.items() {
                 self.capture(Rule::Method, a, b, &[s]);
@@ -353,7 +364,7 @@ impl<const D: u8> Lexer<'_, D> {
             m += 1;
         }
         let m = self.ws(m);
-        self.tp_paren(m).is_some()
+        self.type_parameters_paren(m).is_some()
     }
 
     /// `(?=(KEY)\s*(\??)\s*[(<])` begins the name of a method.
@@ -402,7 +413,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let mut j = p;
         let mut readonly = None;
-        if self.kw(p, "readonly").is_some() {
+        if self.keyword(p, "readonly").is_some() {
             let e = p + 8;
             readonly = Some((p, e));
             j = e;
@@ -440,7 +451,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = p;
         let mut sign = None;
         let mut readonly = None;
-        if self.kw_before(p) {
+        if self.keyword_before(p) {
             let mut k = p;
             if matches!(self.byte(k), b'-' | b'+') {
                 sign = Some((k, k + 1));
@@ -507,7 +518,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let mut readonly = None;
         let mut j = p;
-        if self.kw_before(p) && self.starts(p, "readonly") {
+        if self.keyword_before(p) && self.starts(p, "readonly") {
             let e = p + "readonly".len();
             let k = self.ws(e);
             if k > e && self.field_ahead(k) {
@@ -593,7 +604,7 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 _ => {}
             }
-            if self.named_fn_ahead(k) {
+            if self.named_function_ahead(k) {
                 self.flush(p);
                 self.capture(
                     Rule::Top,
@@ -681,7 +692,8 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) == b':' {
             return self.object_value_begin(p);
         }
-        self.punctuation_comma(p).or_else(|| self.decl_block(p))
+        self.punctuation_comma(p)
+            .or_else(|| self.declaration_block(p))
     }
 
     /// `B(?:\b(async)\s+)?(?:\b([gs]et)\s+)?(?:(\*)\s*)?(?=…\()`.
@@ -692,7 +704,7 @@ impl<const D: u8> Lexer<'_, D> {
         p: usize,
         rule: Rule,
     ) -> Option<usize> {
-        if !self.kw_before(p) || self.full() {
+        if !self.keyword_before(p) || self.full() {
             return None;
         }
         let mut at = p;
@@ -785,7 +797,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let v = self.ws_comments(after + 1);
-        if self.fn_value_ahead(v) {
+        if self.function_value_ahead(v) {
             self.flush(p);
             self.capture(
                 Rule::ObjectMember,
@@ -803,10 +815,10 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `B(as)\s+(const)(?=\s*([,}]|$))` and `as`/`satisfies` types.
     fn object_as(&mut self, p: usize) -> Option<usize> {
-        if let Some(e) = self.kw(p, "as") {
+        if let Some(e) = self.keyword(p, "as") {
             let j = self.ws(e);
             if j > e {
-                if let Some(c) = self.kw(j, "const") {
+                if let Some(c) = self.keyword(j, "const") {
                     let k = self.ws(c);
                     if matches!(self.byte(k), b',' | b'}') || self.eol(k) {
                         self.flush(p);
@@ -824,7 +836,7 @@ impl<const D: u8> Lexer<'_, D> {
                 }
             }
         }
-        if let Some(e) = self.kw(p, "satisfies") {
+        if let Some(e) = self.keyword(p, "satisfies") {
             let j = self.ws(e);
             if j > e && !self.full() {
                 self.flush(p);
@@ -885,7 +897,7 @@ impl<const D: u8> Lexer<'_, D> {
                 let k = self.ws(e);
                 if self.byte(k) == b'<'
                     && self
-                        .arrow_type_params(k)
+                        .arrow_type_parameters(k)
                         .is_some_and(|t| self.byte(t) == b'(')
                     && self.paren_open_ahead(k)
                 {
@@ -945,10 +957,10 @@ impl<const D: u8> Lexer<'_, D> {
         match self.byte(m) {
             b'{' => self
                 .balanced(m, b'{', b'}')
-                .is_some_and(|e| self.param_default_tail(e, b'{')),
+                .is_some_and(|e| self.parameter_default_tail(e, b'{')),
             b'[' => self
                 .balanced(m, b'[', b']')
-                .is_some_and(|e| self.param_default_tail(e, b'[')),
+                .is_some_and(|e| self.parameter_default_tail(e, b'[')),
             _ => false,
         }
     }
@@ -980,7 +992,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(r) = self.destructuring_parameter(p) {
             return Some(r);
         }
-        if let Some(e) = self.kw_of(
+        if let Some(e) = self.keyword_of(
             p,
             &["override", "public", "protected", "private", "readonly"],
         ) {
@@ -994,7 +1006,9 @@ impl<const D: u8> Lexer<'_, D> {
                 return Some(j);
             }
         }
-        if let Some(r) = self.parameter_like(p, super::functions::ParamStyle::ExpressionParameter) {
+        if let Some(r) =
+            self.parameter_like(p, super::functions::ParameterStyle::ExpressionParameter)
+        {
             return Some(r);
         }
         self.type_annotation(p)

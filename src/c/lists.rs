@@ -9,7 +9,7 @@ use super::state::Rule;
 /// A pattern of the grammar: a `match` rule or the begin of a begin/end rule.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(u8)]
-pub(crate) enum P {
+pub(crate) enum Pattern {
     DocLine,
     DocBlockOne,
     DocBlockBegin,
@@ -50,7 +50,7 @@ pub(crate) enum P {
     Shift,
     Compare,
     Logical,
-    BitOp,
+    BitOperator,
     Assign,
     Arith,
     Ternary,
@@ -106,8 +106,8 @@ pub(crate) enum P {
     PragmaDirectiveBegin,
     DefineBlockBegin,
     DefineBlockInnerBegin,
-    DefineLParen,
-    DefineRParen,
+    DefineLeftParen,
+    DefineRightParen,
     DefineFunctionBegin,
     DefineCallBegin,
     DefineParensBegin,
@@ -188,204 +188,217 @@ pub(crate) enum P {
 /// includes.
 #[derive(Clone, Copy, Debug)]
 pub(super) enum Entry {
-    P(P),
-    G(&'static [Entry]),
+    Pattern(Pattern),
+    Group(&'static [Entry]),
 }
 
-use Entry::{G, P as I};
-
 pub(super) const COMMENTS: &[Entry] = &[
-    I(P::DocLine),
-    I(P::DocBlockOne),
-    I(P::DocBlockBegin),
-    I(P::BannerBlock),
-    I(P::BlockComment),
-    I(P::BannerLine),
-    I(P::LineLeading),
-    I(P::LineComment),
+    Entry::Pattern(Pattern::DocLine),
+    Entry::Pattern(Pattern::DocBlockOne),
+    Entry::Pattern(Pattern::DocBlockBegin),
+    Entry::Pattern(Pattern::BannerBlock),
+    Entry::Pattern(Pattern::BlockComment),
+    Entry::Pattern(Pattern::BannerLine),
+    Entry::Pattern(Pattern::LineLeading),
+    Entry::Pattern(Pattern::LineComment),
 ];
 
 pub(super) const STORAGE_TYPES: &[Entry] = &[
-    I(P::Primitive),
-    I(P::BuiltIn),
-    I(P::EnumStructUnion),
-    I(P::AsmBegin),
+    Entry::Pattern(Pattern::Primitive),
+    Entry::Pattern(Pattern::BuiltIn),
+    Entry::Pattern(Pattern::EnumStructUnion),
+    Entry::Pattern(Pattern::AsmBegin),
 ];
 
 pub(super) const OPERATORS: &[Entry] = &[
-    I(P::Sizeof),
-    I(P::Decrement),
-    I(P::Increment),
-    I(P::CompoundAssign),
-    I(P::BitwiseAssign),
-    I(P::Shift),
-    I(P::Compare),
-    I(P::Logical),
-    I(P::BitOp),
-    I(P::Assign),
-    I(P::Arith),
-    I(P::Ternary),
+    Entry::Pattern(Pattern::Sizeof),
+    Entry::Pattern(Pattern::Decrement),
+    Entry::Pattern(Pattern::Increment),
+    Entry::Pattern(Pattern::CompoundAssign),
+    Entry::Pattern(Pattern::BitwiseAssign),
+    Entry::Pattern(Pattern::Shift),
+    Entry::Pattern(Pattern::Compare),
+    Entry::Pattern(Pattern::Logical),
+    Entry::Pattern(Pattern::BitOperator),
+    Entry::Pattern(Pattern::Assign),
+    Entry::Pattern(Pattern::Arith),
+    Entry::Pattern(Pattern::Ternary),
 ];
 
-const STRINGS: &[Entry] = &[I(P::DoubleQuote), I(P::SingleQuote)];
-
-pub(super) const DOXY: &[Entry] = &[
-    I(P::DoxygenBare),
-    I(P::DoxygenItalic),
-    I(P::DoxygenBold),
-    I(P::DoxygenRaw),
-    I(P::DoxygenWordA),
-    I(P::DoxygenWordB),
-    I(P::DoxygenParameter),
-    I(P::DoxygenWordC),
-    I(P::DoxygenWordD),
-    I(P::Gtkdoc),
+const STRINGS: &[Entry] = &[
+    Entry::Pattern(Pattern::DoubleQuote),
+    Entry::Pattern(Pattern::SingleQuote),
 ];
 
-pub(super) const INLINE: &[Entry] = &[I(P::InlineComment)];
-pub(super) const INLINE_CLOSE: &[Entry] = &[I(P::InlineEnd), I(P::InlineStar)];
-pub(super) const ACCESS: &[Entry] = &[I(P::MemberAccess), I(P::PlainAccess)];
-pub(super) const DEFINE_PARAMS: &[Entry] = &[
-    I(P::DefineParameterName),
-    I(P::DefineParameterComma),
-    I(P::DefineParameterEllipsis),
+pub(super) const DOXYGEN: &[Entry] = &[
+    Entry::Pattern(Pattern::DoxygenBare),
+    Entry::Pattern(Pattern::DoxygenItalic),
+    Entry::Pattern(Pattern::DoxygenBold),
+    Entry::Pattern(Pattern::DoxygenRaw),
+    Entry::Pattern(Pattern::DoxygenWordA),
+    Entry::Pattern(Pattern::DoxygenWordB),
+    Entry::Pattern(Pattern::DoxygenParameter),
+    Entry::Pattern(Pattern::DoxygenWordC),
+    Entry::Pattern(Pattern::DoxygenWordD),
+    Entry::Pattern(Pattern::Gtkdoc),
 ];
-pub(super) const PARAM_DIR: &[Entry] = &[I(P::ParameterDirections)];
-pub(super) const NUM_SEP: &[Entry] = &[I(P::NumberSeparator)];
+
+pub(super) const INLINE: &[Entry] = &[Entry::Pattern(Pattern::InlineComment)];
+pub(super) const INLINE_CLOSE: &[Entry] = &[
+    Entry::Pattern(Pattern::InlineEnd),
+    Entry::Pattern(Pattern::InlineStar),
+];
+pub(super) const ACCESS: &[Entry] = &[
+    Entry::Pattern(Pattern::MemberAccess),
+    Entry::Pattern(Pattern::PlainAccess),
+];
+pub(super) const DEFINE_PARAMETERS: &[Entry] = &[
+    Entry::Pattern(Pattern::DefineParameterName),
+    Entry::Pattern(Pattern::DefineParameterComma),
+    Entry::Pattern(Pattern::DefineParameterEllipsis),
+];
+pub(super) const PARAMETER_DIRECTIONS: &[Entry] = &[Entry::Pattern(Pattern::ParameterDirections)];
+pub(super) const NUMBER_SEPARATOR: &[Entry] = &[Entry::Pattern(Pattern::NumberSeparator)];
 /// The patterns a number-like run is lexed again with.
 /// Each of the first six must take the whole run from its start.
 /// The last marks what none takes.
 const NUMBER: &[Entry] = &[
-    I(P::HexFloat),
-    I(P::DecFloat),
-    I(P::Binary),
-    I(P::Octal),
-    I(P::HexInt),
-    I(P::DecInt),
-    I(P::InvalidNumber),
+    Entry::Pattern(Pattern::HexFloat),
+    Entry::Pattern(Pattern::DecFloat),
+    Entry::Pattern(Pattern::Binary),
+    Entry::Pattern(Pattern::Octal),
+    Entry::Pattern(Pattern::HexInt),
+    Entry::Pattern(Pattern::DecInt),
+    Entry::Pattern(Pattern::InvalidNumber),
 ];
 
-const DISABLED_ENTRIES: &[Entry] = &[I(P::NestBegin), I(P::PragmaMark)];
+const DISABLED_ENTRIES: &[Entry] = &[
+    Entry::Pattern(Pattern::NestBegin),
+    Entry::Pattern(Pattern::PragmaMark),
+];
 
 /// The top-level patterns.
 /// `$self` includes them.
 const SELF: &[Entry] = &[
-    I(P::EnabledIfBegin),
-    I(P::DisabledIfBegin),
-    I(P::ConditionalIfBegin),
-    I(P::Stray),
-    I(P::Predefined),
-    I(P::PredefinedProbably),
-    G(COMMENTS),
-    I(P::SwitchBegin),
-    I(P::KeywordControl),
-    G(STORAGE_TYPES),
-    I(P::Typedef),
-    I(P::Modifier),
-    I(P::MacK),
-    I(P::MacG),
-    I(P::MacS),
-    I(P::ConstLang),
-    G(OPERATORS),
-    I(P::Number),
-    G(STRINGS),
-    I(P::DefineBegin),
-    I(P::DiagnosticBegin),
-    I(P::IncludeBegin),
-    I(P::PragmaMark),
-    I(P::LineDirectiveBegin),
-    I(P::UndefBegin),
-    I(P::PragmaDirectiveBegin),
-    I(P::SysTypes),
-    I(P::Pthread),
-    I(P::Stdint),
-    I(P::MacConst),
-    I(P::MacType),
-    I(P::PosixReserved),
-    I(P::BlockBegin),
-    I(P::ParensBegin),
-    I(P::FunctionDefinitionBegin),
-    I(P::LineContinuation),
-    I(P::BracketBegin),
-    I(P::BracketEmpty),
-    I(P::Semi),
-    I(P::Comma),
+    Entry::Pattern(Pattern::EnabledIfBegin),
+    Entry::Pattern(Pattern::DisabledIfBegin),
+    Entry::Pattern(Pattern::ConditionalIfBegin),
+    Entry::Pattern(Pattern::Stray),
+    Entry::Pattern(Pattern::Predefined),
+    Entry::Pattern(Pattern::PredefinedProbably),
+    Entry::Group(COMMENTS),
+    Entry::Pattern(Pattern::SwitchBegin),
+    Entry::Pattern(Pattern::KeywordControl),
+    Entry::Group(STORAGE_TYPES),
+    Entry::Pattern(Pattern::Typedef),
+    Entry::Pattern(Pattern::Modifier),
+    Entry::Pattern(Pattern::MacK),
+    Entry::Pattern(Pattern::MacG),
+    Entry::Pattern(Pattern::MacS),
+    Entry::Pattern(Pattern::ConstLang),
+    Entry::Group(OPERATORS),
+    Entry::Pattern(Pattern::Number),
+    Entry::Group(STRINGS),
+    Entry::Pattern(Pattern::DefineBegin),
+    Entry::Pattern(Pattern::DiagnosticBegin),
+    Entry::Pattern(Pattern::IncludeBegin),
+    Entry::Pattern(Pattern::PragmaMark),
+    Entry::Pattern(Pattern::LineDirectiveBegin),
+    Entry::Pattern(Pattern::UndefBegin),
+    Entry::Pattern(Pattern::PragmaDirectiveBegin),
+    Entry::Pattern(Pattern::SysTypes),
+    Entry::Pattern(Pattern::Pthread),
+    Entry::Pattern(Pattern::Stdint),
+    Entry::Pattern(Pattern::MacConst),
+    Entry::Pattern(Pattern::MacType),
+    Entry::Pattern(Pattern::PosixReserved),
+    Entry::Pattern(Pattern::BlockBegin),
+    Entry::Pattern(Pattern::ParensBegin),
+    Entry::Pattern(Pattern::FunctionDefinitionBegin),
+    Entry::Pattern(Pattern::LineContinuation),
+    Entry::Pattern(Pattern::BracketBegin),
+    Entry::Pattern(Pattern::BracketEmpty),
+    Entry::Pattern(Pattern::Semi),
+    Entry::Pattern(Pattern::Comma),
 ];
 
 const BLOCK_INNARDS: &[Entry] = &[
-    I(P::EnabledIfBlockBegin),
-    I(P::DisabledIfBlockBegin),
-    I(P::ConditionalIfBlockBegin),
-    I(P::Stray),
-    I(P::MethodAccess),
-    I(P::MemberAccess),
-    I(P::CFunctionCall),
-    I(P::InitializationBegin),
-    I(P::BlockInnerBegin),
-    I(P::ParensBlockBegin),
-    G(SELF),
+    Entry::Pattern(Pattern::EnabledIfBlockBegin),
+    Entry::Pattern(Pattern::DisabledIfBlockBegin),
+    Entry::Pattern(Pattern::ConditionalIfBlockBegin),
+    Entry::Pattern(Pattern::Stray),
+    Entry::Pattern(Pattern::MethodAccess),
+    Entry::Pattern(Pattern::MemberAccess),
+    Entry::Pattern(Pattern::CFunctionCall),
+    Entry::Pattern(Pattern::InitializationBegin),
+    Entry::Pattern(Pattern::BlockInnerBegin),
+    Entry::Pattern(Pattern::ParensBlockBegin),
+    Entry::Group(SELF),
 ];
 
-const FUNC_INNARDS: &[Entry] = &[
-    G(COMMENTS),
-    G(STORAGE_TYPES),
-    G(OPERATORS),
-    I(P::Vararg),
-    I(P::FunctionParametersBegin),
-    I(P::FunctionParensBegin),
-    G(SELF),
+const FUNCTION_INNARDS: &[Entry] = &[
+    Entry::Group(COMMENTS),
+    Entry::Group(STORAGE_TYPES),
+    Entry::Group(OPERATORS),
+    Entry::Pattern(Pattern::Vararg),
+    Entry::Pattern(Pattern::FunctionParametersBegin),
+    Entry::Pattern(Pattern::FunctionParensBegin),
+    Entry::Group(SELF),
 ];
 
 const CALL_INNARDS: &[Entry] = &[
-    G(COMMENTS),
-    G(STORAGE_TYPES),
-    I(P::MethodAccess),
-    I(P::MemberAccess),
-    G(OPERATORS),
-    I(P::CallBegin),
-    I(P::CallParensBegin),
-    G(BLOCK_INNARDS),
+    Entry::Group(COMMENTS),
+    Entry::Group(STORAGE_TYPES),
+    Entry::Pattern(Pattern::MethodAccess),
+    Entry::Pattern(Pattern::MemberAccess),
+    Entry::Group(OPERATORS),
+    Entry::Pattern(Pattern::CallBegin),
+    Entry::Pattern(Pattern::CallParensBegin),
+    Entry::Group(BLOCK_INNARDS),
 ];
 
-const COND_LINE: &[Entry] = &[
-    I(P::ConditionalDefinedKeyword),
-    I(P::ConditionalDefinedInvalid),
-    G(COMMENTS),
-    G(STRINGS),
-    I(P::Number),
-    I(P::ConditionalTernaryBegin),
-    G(OPERATORS),
-    I(P::ConditionalConstant),
-    I(P::ConditionalNamed),
-    I(P::LineContinuation),
-    I(P::ConditionalParensBegin),
+const CONDITIONAL_LINE: &[Entry] = &[
+    Entry::Pattern(Pattern::ConditionalDefinedKeyword),
+    Entry::Pattern(Pattern::ConditionalDefinedInvalid),
+    Entry::Group(COMMENTS),
+    Entry::Group(STRINGS),
+    Entry::Pattern(Pattern::Number),
+    Entry::Pattern(Pattern::ConditionalTernaryBegin),
+    Entry::Group(OPERATORS),
+    Entry::Pattern(Pattern::ConditionalConstant),
+    Entry::Pattern(Pattern::ConditionalNamed),
+    Entry::Pattern(Pattern::LineContinuation),
+    Entry::Pattern(Pattern::ConditionalParensBegin),
 ];
 
 const DEFINE_CONTENTS: &[Entry] = &[
-    I(P::Vararg),
-    I(P::DefineBlockBegin),
-    I(P::DefineLParen),
-    I(P::DefineRParen),
-    I(P::DefineFunctionBegin),
-    I(P::DefineDoubleQuoteBegin),
-    I(P::DefineSingleQuoteBegin),
-    I(P::MethodAccess),
-    I(P::MemberAccess),
-    G(SELF),
+    Entry::Pattern(Pattern::Vararg),
+    Entry::Pattern(Pattern::DefineBlockBegin),
+    Entry::Pattern(Pattern::DefineLeftParen),
+    Entry::Pattern(Pattern::DefineRightParen),
+    Entry::Pattern(Pattern::DefineFunctionBegin),
+    Entry::Pattern(Pattern::DefineDoubleQuoteBegin),
+    Entry::Pattern(Pattern::DefineSingleQuoteBegin),
+    Entry::Pattern(Pattern::MethodAccess),
+    Entry::Pattern(Pattern::MemberAccess),
+    Entry::Group(SELF),
 ];
 
-const DEFINE_BLOCKS: &[Entry] = &[I(P::DefineBlockInnerBegin), G(DEFINE_CONTENTS)];
+const DEFINE_BLOCKS: &[Entry] = &[
+    Entry::Pattern(Pattern::DefineBlockInnerBegin),
+    Entry::Group(DEFINE_CONTENTS),
+];
 
 const DEFINE_FUNCTIONS: &[Entry] = &[
-    G(COMMENTS),
-    G(STORAGE_TYPES),
-    I(P::Vararg),
-    I(P::MethodAccess),
-    I(P::MemberAccess),
-    G(OPERATORS),
-    I(P::DefineCallBegin),
-    I(P::DefineParensBegin),
-    G(DEFINE_CONTENTS),
+    Entry::Group(COMMENTS),
+    Entry::Group(STORAGE_TYPES),
+    Entry::Pattern(Pattern::Vararg),
+    Entry::Pattern(Pattern::MethodAccess),
+    Entry::Pattern(Pattern::MemberAccess),
+    Entry::Group(OPERATORS),
+    Entry::Pattern(Pattern::DefineCallBegin),
+    Entry::Pattern(Pattern::DefineParensBegin),
+    Entry::Group(DEFINE_CONTENTS),
 ];
 
 impl Rule {
@@ -402,9 +415,9 @@ impl Rule {
             Rule::Block | Rule::BlockInner | Rule::LiveElseBlock | Rule::EnabledBodyBlock => {
                 &[BLOCK_INNARDS]
             }
-            Rule::ParensBlock => &[BLOCK_INNARDS, &[I(P::RangeColon)]],
-            Rule::FunctionDefinition | Rule::FunctionParens => &[FUNC_INNARDS],
-            Rule::FunctionParameters => &[&[I(P::Probably)], FUNC_INNARDS],
+            Rule::ParensBlock => &[BLOCK_INNARDS, &[Entry::Pattern(Pattern::RangeColon)]],
+            Rule::FunctionDefinition | Rule::FunctionParens => &[FUNCTION_INNARDS],
+            Rule::FunctionParameters => &[&[Entry::Pattern(Pattern::Probably)], FUNCTION_INNARDS],
             Rule::FunctionCall
             | Rule::CallArguments
             | Rule::CallParens
@@ -412,123 +425,147 @@ impl Rule {
             | Rule::Initialization
             | Rule::Bracket => &[CALL_INNARDS],
             Rule::Ternary | Rule::AsmInner => &[CALL_INNARDS, SELF],
-            Rule::DocLine => &[&[I(P::LineContinuation)], DOXY],
-            Rule::DocBlock | Rule::Doxygen => &[DOXY],
+            Rule::DocLine => &[&[Entry::Pattern(Pattern::LineContinuation)], DOXYGEN],
+            Rule::DocBlock | Rule::Doxygen => &[DOXYGEN],
             Rule::BlockComment | Rule::IncludeDoubleQuote | Rule::IncludeAngle => &[],
-            Rule::LineLeading => &[&[I(P::LineSlash)]],
+            Rule::LineLeading => &[&[Entry::Pattern(Pattern::LineSlash)]],
             Rule::LineSlash
             | Rule::LineComment
             | Rule::DiagnosticDoubleQuote
-            | Rule::DiagnosticSingleQuote => &[&[I(P::LineContinuation)]],
+            | Rule::DiagnosticSingleQuote => &[&[Entry::Pattern(Pattern::LineContinuation)]],
             Rule::DoubleQuote | Rule::DefineDoubleQuote => &[&[
-                I(P::EscChar),
-                I(P::EscInvalid),
-                I(P::Placeholder),
-                I(P::PlaceholderBad),
-                I(P::LineContinuation),
+                Entry::Pattern(Pattern::EscChar),
+                Entry::Pattern(Pattern::EscInvalid),
+                Entry::Pattern(Pattern::Placeholder),
+                Entry::Pattern(Pattern::PlaceholderBad),
+                Entry::Pattern(Pattern::LineContinuation),
             ]],
-            Rule::SingleQuote | Rule::DefineSingleQuote => {
-                &[&[I(P::EscChar), I(P::EscInvalid), I(P::LineContinuation)]]
-            }
+            Rule::SingleQuote | Rule::DefineSingleQuote => &[&[
+                Entry::Pattern(Pattern::EscChar),
+                Entry::Pattern(Pattern::EscInvalid),
+                Entry::Pattern(Pattern::LineContinuation),
+            ]],
             Rule::Define => &[DEFINE_CONTENTS],
             Rule::DefineBlock => &[DEFINE_BLOCKS],
             Rule::DefineBlockInner => &[DEFINE_BLOCKS, DEFINE_CONTENTS],
             Rule::DefineFunction | Rule::DefineCall | Rule::DefineParens => &[DEFINE_FUNCTIONS],
             Rule::Diagnostic => &[&[
-                I(P::DiagnosticDoubleQuoteBegin),
-                I(P::DiagnosticSingleQuoteBegin),
-                I(P::DiagnosticTextBegin),
+                Entry::Pattern(Pattern::DiagnosticDoubleQuoteBegin),
+                Entry::Pattern(Pattern::DiagnosticSingleQuoteBegin),
+                Entry::Pattern(Pattern::DiagnosticTextBegin),
             ]],
-            Rule::DiagnosticText => &[&[I(P::LineContinuation)], COMMENTS],
+            Rule::DiagnosticText => &[&[Entry::Pattern(Pattern::LineContinuation)], COMMENTS],
             Rule::Include => &[&[
-                I(P::LineContinuation),
-                I(P::IncludeDoubleQuoteBegin),
-                I(P::IncludeAngleBegin),
+                Entry::Pattern(Pattern::LineContinuation),
+                Entry::Pattern(Pattern::IncludeDoubleQuoteBegin),
+                Entry::Pattern(Pattern::IncludeAngleBegin),
             ]],
-            Rule::LineDirective => &[STRINGS, &[I(P::Number), I(P::LineContinuation)]],
-            Rule::Undef => &[&[I(P::UndefName), I(P::LineContinuation)]],
+            Rule::LineDirective => &[
+                STRINGS,
+                &[
+                    Entry::Pattern(Pattern::Number),
+                    Entry::Pattern(Pattern::LineContinuation),
+                ],
+            ],
+            Rule::Undef => &[&[
+                Entry::Pattern(Pattern::UndefName),
+                Entry::Pattern(Pattern::LineContinuation),
+            ]],
             Rule::PragmaDirective => &[
                 STRINGS,
-                &[I(P::PragmaName), I(P::Number), I(P::LineContinuation)],
+                &[
+                    Entry::Pattern(Pattern::PragmaName),
+                    Entry::Pattern(Pattern::Number),
+                    Entry::Pattern(Pattern::LineContinuation),
+                ],
             ],
             Rule::ConditionalIf => &[
                 &[
-                    I(P::HeadContinuationBegin),
-                    I(P::LiveElifBegin),
-                    I(P::LiveElseBegin),
-                    I(P::DisabledElifBegin),
-                    I(P::ConditionalElifBegin),
+                    Entry::Pattern(Pattern::HeadContinuationBegin),
+                    Entry::Pattern(Pattern::LiveElifBegin),
+                    Entry::Pattern(Pattern::LiveElseBegin),
+                    Entry::Pattern(Pattern::DisabledElifBegin),
+                    Entry::Pattern(Pattern::ConditionalElifBegin),
                 ],
                 SELF,
             ],
             Rule::ConditionalIfBlock => &[
                 &[
-                    I(P::HeadContinuationBegin),
-                    I(P::LiveElifBlockBegin),
-                    I(P::LiveElseBlockBegin),
-                    I(P::DisabledElifBegin),
-                    I(P::ConditionalElifBegin),
+                    Entry::Pattern(Pattern::HeadContinuationBegin),
+                    Entry::Pattern(Pattern::LiveElifBlockBegin),
+                    Entry::Pattern(Pattern::LiveElseBlockBegin),
+                    Entry::Pattern(Pattern::DisabledElifBegin),
+                    Entry::Pattern(Pattern::ConditionalElifBegin),
                 ],
                 BLOCK_INNARDS,
             ],
             Rule::EnabledIf => &[
-                &[I(P::HeadPlainBegin)],
+                &[Entry::Pattern(Pattern::HeadPlainBegin)],
                 COMMENTS,
                 &[
-                    I(P::ElseBranchBegin),
-                    I(P::ElifBranchBegin),
-                    I(P::EnabledBodyBegin),
+                    Entry::Pattern(Pattern::ElseBranchBegin),
+                    Entry::Pattern(Pattern::ElifBranchBegin),
+                    Entry::Pattern(Pattern::EnabledBodyBegin),
                 ],
             ],
             Rule::EnabledIfBlock => &[
-                &[I(P::HeadPlainBegin)],
+                &[Entry::Pattern(Pattern::HeadPlainBegin)],
                 COMMENTS,
                 &[
-                    I(P::ElseBranchBlockBegin),
-                    I(P::ElifBranchBlockBegin),
-                    I(P::EnabledBodyBlockBegin),
+                    Entry::Pattern(Pattern::ElseBranchBlockBegin),
+                    Entry::Pattern(Pattern::ElifBranchBlockBegin),
+                    Entry::Pattern(Pattern::EnabledBodyBlockBegin),
                 ],
             ],
             Rule::DisabledIf => &[
-                &[I(P::HeadPlainBegin)],
+                &[Entry::Pattern(Pattern::HeadPlainBegin)],
                 COMMENTS,
                 &[
-                    I(P::LiveElifBegin),
-                    I(P::LiveElseBegin),
-                    I(P::DisabledElifBegin),
-                    I(P::DisabledElifOtherBegin),
-                    I(P::DisabledBodyBegin),
+                    Entry::Pattern(Pattern::LiveElifBegin),
+                    Entry::Pattern(Pattern::LiveElseBegin),
+                    Entry::Pattern(Pattern::DisabledElifBegin),
+                    Entry::Pattern(Pattern::DisabledElifOtherBegin),
+                    Entry::Pattern(Pattern::DisabledBodyBegin),
                 ],
             ],
             Rule::DisabledIfBlock => &[
-                &[I(P::HeadPlainBegin)],
+                &[Entry::Pattern(Pattern::HeadPlainBegin)],
                 COMMENTS,
                 &[
-                    I(P::LiveElifBlockBegin),
-                    I(P::LiveElseBlockBegin),
-                    I(P::DisabledElifBegin),
-                    I(P::DisabledElifOtherBlockBegin),
-                    I(P::DisabledBodyBlockBegin),
+                    Entry::Pattern(Pattern::LiveElifBlockBegin),
+                    Entry::Pattern(Pattern::LiveElseBlockBegin),
+                    Entry::Pattern(Pattern::DisabledElifBegin),
+                    Entry::Pattern(Pattern::DisabledElifOtherBlockBegin),
+                    Entry::Pattern(Pattern::DisabledBodyBlockBegin),
                 ],
             ],
             Rule::HeadContinuation
             | Rule::HeadPlain
             | Rule::ConditionalElif
             | Rule::ConditionalTernary
-            | Rule::ConditionalParens => &[COND_LINE],
+            | Rule::ConditionalParens => &[CONDITIONAL_LINE],
             Rule::LiveElif => &[
-                &[I(P::HeadContinuationBegin)],
+                &[Entry::Pattern(Pattern::HeadContinuationBegin)],
                 COMMENTS,
-                &[I(P::ElifTailBegin)],
+                &[Entry::Pattern(Pattern::ElifTailBegin)],
             ],
             Rule::LiveElifBlock => &[
-                &[I(P::HeadContinuationBegin)],
+                &[Entry::Pattern(Pattern::HeadContinuationBegin)],
                 COMMENTS,
-                &[I(P::ElifTailBlockBegin)],
+                &[Entry::Pattern(Pattern::ElifTailBlockBegin)],
             ],
-            Rule::ElifTail => &[&[I(P::ElifElseBegin), I(P::ElifElifBegin)], SELF],
+            Rule::ElifTail => &[
+                &[
+                    Entry::Pattern(Pattern::ElifElseBegin),
+                    Entry::Pattern(Pattern::ElifElifBegin),
+                ],
+                SELF,
+            ],
             Rule::ElifTailBlock => &[
-                &[I(P::ElifElseBlockBegin), I(P::ElifElifBegin)],
+                &[
+                    Entry::Pattern(Pattern::ElifElseBlockBegin),
+                    Entry::Pattern(Pattern::ElifElifBegin),
+                ],
                 BLOCK_INNARDS,
             ],
             Rule::ElifElse
@@ -543,39 +580,57 @@ impl Rule {
             | Rule::ElifBranchBlock
             | Rule::Nest => &[DISABLED_ENTRIES],
             Rule::DisabledElif => &[
-                &[I(P::HeadContinuationBegin)],
+                &[Entry::Pattern(Pattern::HeadContinuationBegin)],
                 COMMENTS,
-                &[I(P::DisabledElifBodyBegin)],
+                &[Entry::Pattern(Pattern::DisabledElifBodyBegin)],
             ],
-            Rule::DisabledElifOther => &[&[I(P::HeadContinuationBegin)], SELF],
-            Rule::DisabledElifOtherBlock => &[&[I(P::HeadContinuationBegin)], BLOCK_INNARDS],
+            Rule::DisabledElifOther => &[&[Entry::Pattern(Pattern::HeadContinuationBegin)], SELF],
+            Rule::DisabledElifOtherBlock => &[
+                &[Entry::Pattern(Pattern::HeadContinuationBegin)],
+                BLOCK_INNARDS,
+            ],
             Rule::Switch => &[&[
-                I(P::SwitchHeadBegin),
-                I(P::SwitchBodyBegin),
-                I(P::SwitchTailBegin),
+                Entry::Pattern(Pattern::SwitchHeadBegin),
+                Entry::Pattern(Pattern::SwitchBodyBegin),
+                Entry::Pattern(Pattern::SwitchTailBegin),
             ]],
-            Rule::SwitchHead => &[&[I(P::SwitchParensBegin)], SELF],
-            Rule::SwitchBody => &[&[I(P::DefaultBegin), I(P::CaseBegin)], SELF, BLOCK_INNARDS],
+            Rule::SwitchHead => &[&[Entry::Pattern(Pattern::SwitchParensBegin)], SELF],
+            Rule::SwitchBody => &[
+                &[
+                    Entry::Pattern(Pattern::DefaultBegin),
+                    Entry::Pattern(Pattern::CaseBegin),
+                ],
+                SELF,
+                BLOCK_INNARDS,
+            ],
             Rule::SwitchParens | Rule::Case | Rule::Default => {
                 &[CALL_INNARDS, SELF, SELF, BLOCK_INNARDS]
             }
-            Rule::Asm => &[&[I(P::AsmLineEnd)], COMMENTS, &[I(P::AsmParensBegin)]],
+            Rule::Asm => &[
+                &[Entry::Pattern(Pattern::AsmLineEnd)],
+                COMMENTS,
+                &[Entry::Pattern(Pattern::AsmParensBegin)],
+            ],
             Rule::AsmParens => &[
                 &[
-                    I(P::AsmStringBegin),
-                    I(P::AsmInnerBegin),
-                    I(P::AsmLabel),
-                    I(P::AsmColon),
+                    Entry::Pattern(Pattern::AsmStringBegin),
+                    Entry::Pattern(Pattern::AsmInnerBegin),
+                    Entry::Pattern(Pattern::AsmLabel),
+                    Entry::Pattern(Pattern::AsmColon),
                 ],
                 COMMENTS,
             ],
-            Rule::AsmString => &[&[I(P::EscBackslash), I(P::EscChar), I(P::EscInvalid)]],
+            Rule::AsmString => &[&[
+                Entry::Pattern(Pattern::EscBackslash),
+                Entry::Pattern(Pattern::EscChar),
+                Entry::Pattern(Pattern::EscInvalid),
+            ]],
             Rule::Inline => &[INLINE],
             Rule::InlineClose => &[INLINE_CLOSE],
             Rule::Access => &[ACCESS],
-            Rule::DefineParameters => &[DEFINE_PARAMS],
-            Rule::ParameterDirections => &[PARAM_DIR],
-            Rule::NumberSeparator => &[NUM_SEP],
+            Rule::DefineParameters => &[DEFINE_PARAMETERS],
+            Rule::ParameterDirections => &[PARAMETER_DIRECTIONS],
+            Rule::NumberSeparator => &[NUMBER_SEPARATOR],
             Rule::Number => &[NUMBER],
         }
     }
@@ -600,251 +655,264 @@ fn is_ident(b: u8) -> bool {
     clippy::too_many_lines,
     reason = "one arm per pattern, the table of first bytes"
 )]
-fn starts(p: P, b: u8) -> bool {
+fn starts(p: Pattern, b: u8) -> bool {
     let call = is_ident(b)
         || matches!(
             b,
             b':' | b'-' | b'!' | b'&' | b'*' | b'+' | b'<' | b'=' | b'>' | b'(' | b'['
         );
     match p {
-        P::DocLine | P::DocBlockBegin | P::BlockComment | P::LineComment => is_ws(b) || b == b'/',
-        P::DocBlockOne | P::BannerBlock | P::BannerLine | P::InlineComment | P::LineSlash => {
-            b == b'/'
-        }
-        P::LineLeading => matches!(b, b' ' | b'\t' | b'/'),
-        P::DoxygenBare
-        | P::DoxygenItalic
-        | P::DoxygenBold
-        | P::DoxygenRaw
-        | P::DoxygenWordA
-        | P::DoxygenWordB
-        | P::DoxygenParameter
-        | P::DoxygenWordC
-        | P::DoxygenWordD => matches!(b, b'@' | b'\\'),
-        P::Gtkdoc => b == b'@' || b.is_ascii_uppercase(),
-        P::InlineEnd | P::InlineStar => b == b'*',
-        P::DoubleQuote
-        | P::DefineDoubleQuoteBegin
-        | P::DiagnosticDoubleQuoteBegin
-        | P::IncludeDoubleQuoteBegin => b == b'"',
-        P::SingleQuote
-        | P::DefineSingleQuoteBegin
-        | P::DiagnosticSingleQuoteBegin
-        | P::NumberSeparator => b == b'\'',
-        P::EscChar | P::EscBackslash | P::EscInvalid | P::LineContinuation => b == b'\\',
-        P::Placeholder | P::PlaceholderBad => b == b'%',
-        P::Number => b == b'.' || b.is_ascii_digit() || b >= 0x80,
-        P::Typedef => b == b't',
-        P::Sizeof
-        | P::Primitive
-        | P::BuiltIn
-        | P::EnumStructUnion
-        | P::AsmBegin
-        | P::Modifier
-        | P::ConstLang
-        | P::SysTypes
-        | P::Pthread
-        | P::Stdint
-        | P::MacConst
-        | P::MacType
-        | P::PosixReserved
-        | P::Predefined
-        | P::KeywordControl
-        | P::ConditionalConstant
-        | P::FunctionDefinitionBegin => is_ident(b),
-        P::Decrement => b == b'-',
-        P::Increment => b == b'+',
-        P::CompoundAssign | P::Arith => matches!(b, b'-' | b'%' | b'*' | b'+' | b'/'),
-        P::BitwiseAssign => matches!(b, b'&' | b'^' | b'<' | b'>' | b'|'),
-        P::Shift => matches!(b, b'<' | b'>'),
-        P::Compare => matches!(b, b'!' | b'<' | b'>' | b'='),
-        P::Logical => matches!(b, b'&' | b'!' | b'|'),
-        P::BitOp => matches!(b, b'&' | b'^' | b'|' | b'~'),
-        P::Assign => b == b'=',
-        P::Ternary | P::ConditionalTernaryBegin => b == b'?',
-        P::MacK => b == b'k',
-        P::MacG => b == b'g',
-        P::MacS => b == b's',
-        P::PredefinedProbably => b == b'_',
-        P::Semi => b == b';',
-        P::Comma | P::DefineParameterComma => b == b',',
-        P::BracketBegin => is_ident(b) || b == b'[' || b >= 0x80,
-        P::BracketEmpty | P::AsmLabel => b == b'[',
-        P::Vararg | P::DefineParameterEllipsis => b == b'.',
-        P::BlockBegin | P::BlockInnerBegin | P::DefineBlockBegin | P::DefineBlockInnerBegin => {
-            b == b'{'
-        }
-        P::ParensBegin
-        | P::ParensBlockBegin
-        | P::FunctionParensBegin
-        | P::CallParensBegin
-        | P::DefineLParen
-        | P::ConditionalParensBegin
-        | P::DefineParensBegin
-        | P::AsmInnerBegin => b == b'(',
-        P::DefineRParen => b == b')',
-        P::RangeColon | P::AsmColon => b == b':',
-        P::FunctionParametersBegin
-        | P::CallBegin
-        | P::CFunctionCall
-        | P::DefineFunctionBegin
-        | P::DefineCallBegin => call,
-        P::MethodAccess | P::MemberAccess | P::PlainAccess => {
+        Pattern::DocLine
+        | Pattern::DocBlockBegin
+        | Pattern::BlockComment
+        | Pattern::LineComment => is_ws(b) || b == b'/',
+        Pattern::DocBlockOne
+        | Pattern::BannerBlock
+        | Pattern::BannerLine
+        | Pattern::InlineComment
+        | Pattern::LineSlash => b == b'/',
+        Pattern::LineLeading => matches!(b, b' ' | b'\t' | b'/'),
+        Pattern::DoxygenBare
+        | Pattern::DoxygenItalic
+        | Pattern::DoxygenBold
+        | Pattern::DoxygenRaw
+        | Pattern::DoxygenWordA
+        | Pattern::DoxygenWordB
+        | Pattern::DoxygenParameter
+        | Pattern::DoxygenWordC
+        | Pattern::DoxygenWordD => matches!(b, b'@' | b'\\'),
+        Pattern::Gtkdoc => b == b'@' || b.is_ascii_uppercase(),
+        Pattern::InlineEnd | Pattern::InlineStar => b == b'*',
+        Pattern::DoubleQuote
+        | Pattern::DefineDoubleQuoteBegin
+        | Pattern::DiagnosticDoubleQuoteBegin
+        | Pattern::IncludeDoubleQuoteBegin => b == b'"',
+        Pattern::SingleQuote
+        | Pattern::DefineSingleQuoteBegin
+        | Pattern::DiagnosticSingleQuoteBegin
+        | Pattern::NumberSeparator => b == b'\'',
+        Pattern::EscChar
+        | Pattern::EscBackslash
+        | Pattern::EscInvalid
+        | Pattern::LineContinuation => b == b'\\',
+        Pattern::Placeholder | Pattern::PlaceholderBad => b == b'%',
+        Pattern::Number => b == b'.' || b.is_ascii_digit() || b >= 0x80,
+        Pattern::Typedef => b == b't',
+        Pattern::Sizeof
+        | Pattern::Primitive
+        | Pattern::BuiltIn
+        | Pattern::EnumStructUnion
+        | Pattern::AsmBegin
+        | Pattern::Modifier
+        | Pattern::ConstLang
+        | Pattern::SysTypes
+        | Pattern::Pthread
+        | Pattern::Stdint
+        | Pattern::MacConst
+        | Pattern::MacType
+        | Pattern::PosixReserved
+        | Pattern::Predefined
+        | Pattern::KeywordControl
+        | Pattern::ConditionalConstant
+        | Pattern::FunctionDefinitionBegin => is_ident(b),
+        Pattern::Decrement => b == b'-',
+        Pattern::Increment => b == b'+',
+        Pattern::CompoundAssign | Pattern::Arith => matches!(b, b'-' | b'%' | b'*' | b'+' | b'/'),
+        Pattern::BitwiseAssign => matches!(b, b'&' | b'^' | b'<' | b'>' | b'|'),
+        Pattern::Shift => matches!(b, b'<' | b'>'),
+        Pattern::Compare => matches!(b, b'!' | b'<' | b'>' | b'='),
+        Pattern::Logical => matches!(b, b'&' | b'!' | b'|'),
+        Pattern::BitOperator => matches!(b, b'&' | b'^' | b'|' | b'~'),
+        Pattern::Assign => b == b'=',
+        Pattern::Ternary | Pattern::ConditionalTernaryBegin => b == b'?',
+        Pattern::MacK => b == b'k',
+        Pattern::MacG => b == b'g',
+        Pattern::MacS => b == b's',
+        Pattern::PredefinedProbably => b == b'_',
+        Pattern::Semi => b == b';',
+        Pattern::Comma | Pattern::DefineParameterComma => b == b',',
+        Pattern::BracketBegin => is_ident(b) || b == b'[' || b >= 0x80,
+        Pattern::BracketEmpty | Pattern::AsmLabel => b == b'[',
+        Pattern::Vararg | Pattern::DefineParameterEllipsis => b == b'.',
+        Pattern::BlockBegin
+        | Pattern::BlockInnerBegin
+        | Pattern::DefineBlockBegin
+        | Pattern::DefineBlockInnerBegin => b == b'{',
+        Pattern::ParensBegin
+        | Pattern::ParensBlockBegin
+        | Pattern::FunctionParensBegin
+        | Pattern::CallParensBegin
+        | Pattern::DefineLeftParen
+        | Pattern::ConditionalParensBegin
+        | Pattern::DefineParensBegin
+        | Pattern::AsmInnerBegin => b == b'(',
+        Pattern::DefineRightParen => b == b')',
+        Pattern::RangeColon | Pattern::AsmColon => b == b':',
+        Pattern::FunctionParametersBegin
+        | Pattern::CallBegin
+        | Pattern::CFunctionCall
+        | Pattern::DefineFunctionBegin
+        | Pattern::DefineCallBegin => call,
+        Pattern::MethodAccess | Pattern::MemberAccess | Pattern::PlainAccess => {
             is_ident(b) || is_ws(b) || matches!(b, b'.' | b'-')
         }
-        P::InitializationBegin => is_ws(b),
-        P::Probably | P::DefineParameterName => is_ws(b) || is_ident(b) || b >= 0x80,
-        P::DefineBegin => is_ws(b) || matches!(b, b'/' | b'#'),
-        P::DiagnosticBegin
-        | P::IncludeBegin
-        | P::PragmaMark
-        | P::LineDirectiveBegin
-        | P::UndefBegin
-        | P::PragmaDirectiveBegin
-        | P::ConditionalIfBegin
-        | P::ConditionalIfBlockBegin
-        | P::EnabledIfBegin
-        | P::EnabledIfBlockBegin
-        | P::DisabledIfBegin
-        | P::DisabledIfBlockBegin
-        | P::Stray
-        | P::ConditionalElifBegin
-        | P::LiveElifBegin
-        | P::LiveElifBlockBegin
-        | P::LiveElseBegin
-        | P::LiveElseBlockBegin
-        | P::DisabledElifBegin
-        | P::DisabledElifOtherBegin
-        | P::DisabledElifOtherBlockBegin
-        | P::ElseBranchBegin
-        | P::ElseBranchBlockBegin
-        | P::ElifBranchBegin
-        | P::ElifBranchBlockBegin
-        | P::ElifElseBegin
-        | P::ElifElseBlockBegin
-        | P::ElifElifBegin
-        | P::NestBegin => is_ws(b) || b == b'#',
-        P::EnabledBodyBegin
-        | P::EnabledBodyBlockBegin
-        | P::DisabledBodyBegin
-        | P::DisabledBodyBlockBegin
-        | P::DisabledElifBodyBegin
-        | P::ElifTailBegin
-        | P::ElifTailBlockBegin => b == b'\n',
-        P::UndefName | P::PragmaName | P::ConditionalNamed => is_ident(b) || b == b'$' || b >= 0x80,
-        P::ConditionalDefinedKeyword | P::ConditionalDefinedInvalid => b == b'd',
-        P::IncludeAngleBegin => b == b'<',
-        P::DiagnosticTextBegin => b != b'"' && b != b'\'',
-        P::SwitchBegin => is_ws(b) || matches!(b, b'/' | b's'),
-        P::CaseBegin | P::DefaultBegin => is_ws(b) || matches!(b, b'/' | b'c' | b'd'),
-        P::SwitchParensBegin | P::AsmParensBegin => is_ws(b) || matches!(b, b'/' | b'('),
-        P::AsmStringBegin => matches!(b, b'R' | b'"'),
-        P::ParameterDirections => matches!(b, b'i' | b'o'),
-        P::HeadContinuationBegin
-        | P::HeadPlainBegin
-        | P::SwitchHeadBegin
-        | P::SwitchBodyBegin
-        | P::SwitchTailBegin
-        | P::AsmLineEnd
-        | P::End => true,
-        P::HexFloat | P::Binary | P::Octal | P::HexInt => b == b'0',
-        P::DecFloat => b == b'.' || b.is_ascii_digit(),
-        P::DecInt => b.is_ascii_digit(),
-        P::InvalidNumber => {
+        Pattern::InitializationBegin => is_ws(b),
+        Pattern::Probably | Pattern::DefineParameterName => is_ws(b) || is_ident(b) || b >= 0x80,
+        Pattern::DefineBegin => is_ws(b) || matches!(b, b'/' | b'#'),
+        Pattern::DiagnosticBegin
+        | Pattern::IncludeBegin
+        | Pattern::PragmaMark
+        | Pattern::LineDirectiveBegin
+        | Pattern::UndefBegin
+        | Pattern::PragmaDirectiveBegin
+        | Pattern::ConditionalIfBegin
+        | Pattern::ConditionalIfBlockBegin
+        | Pattern::EnabledIfBegin
+        | Pattern::EnabledIfBlockBegin
+        | Pattern::DisabledIfBegin
+        | Pattern::DisabledIfBlockBegin
+        | Pattern::Stray
+        | Pattern::ConditionalElifBegin
+        | Pattern::LiveElifBegin
+        | Pattern::LiveElifBlockBegin
+        | Pattern::LiveElseBegin
+        | Pattern::LiveElseBlockBegin
+        | Pattern::DisabledElifBegin
+        | Pattern::DisabledElifOtherBegin
+        | Pattern::DisabledElifOtherBlockBegin
+        | Pattern::ElseBranchBegin
+        | Pattern::ElseBranchBlockBegin
+        | Pattern::ElifBranchBegin
+        | Pattern::ElifBranchBlockBegin
+        | Pattern::ElifElseBegin
+        | Pattern::ElifElseBlockBegin
+        | Pattern::ElifElifBegin
+        | Pattern::NestBegin => is_ws(b) || b == b'#',
+        Pattern::EnabledBodyBegin
+        | Pattern::EnabledBodyBlockBegin
+        | Pattern::DisabledBodyBegin
+        | Pattern::DisabledBodyBlockBegin
+        | Pattern::DisabledElifBodyBegin
+        | Pattern::ElifTailBegin
+        | Pattern::ElifTailBlockBegin => b == b'\n',
+        Pattern::UndefName | Pattern::PragmaName | Pattern::ConditionalNamed => {
+            is_ident(b) || b == b'$' || b >= 0x80
+        }
+        Pattern::ConditionalDefinedKeyword | Pattern::ConditionalDefinedInvalid => b == b'd',
+        Pattern::IncludeAngleBegin => b == b'<',
+        Pattern::DiagnosticTextBegin => b != b'"' && b != b'\'',
+        Pattern::SwitchBegin => is_ws(b) || matches!(b, b'/' | b's'),
+        Pattern::CaseBegin | Pattern::DefaultBegin => is_ws(b) || matches!(b, b'/' | b'c' | b'd'),
+        Pattern::SwitchParensBegin | Pattern::AsmParensBegin => {
+            is_ws(b) || matches!(b, b'/' | b'(')
+        }
+        Pattern::AsmStringBegin => matches!(b, b'R' | b'"'),
+        Pattern::ParameterDirections => matches!(b, b'i' | b'o'),
+        Pattern::HeadContinuationBegin
+        | Pattern::HeadPlainBegin
+        | Pattern::SwitchHeadBegin
+        | Pattern::SwitchBodyBegin
+        | Pattern::SwitchTailBegin
+        | Pattern::AsmLineEnd
+        | Pattern::End => true,
+        Pattern::HexFloat | Pattern::Binary | Pattern::Octal | Pattern::HexInt => b == b'0',
+        Pattern::DecFloat => b == b'.' || b.is_ascii_digit(),
+        Pattern::DecInt => b.is_ascii_digit(),
+        Pattern::InvalidNumber => {
             b.is_ascii_alphanumeric() || matches!(b, b'\'' | b'.' | b'_' | b'-' | b'+')
         }
     }
 }
 
 /// Whether `p` can match only at the start of the line, where `^` does.
-fn start_only(p: P) -> bool {
+fn start_only(p: Pattern) -> bool {
     matches!(
         p,
-        P::DocLine
-            | P::BannerBlock
-            | P::BannerLine
-            | P::AsmLineEnd
-            | P::DiagnosticBegin
-            | P::IncludeBegin
-            | P::PragmaMark
-            | P::LineDirectiveBegin
-            | P::UndefBegin
-            | P::PragmaDirectiveBegin
-            | P::ConditionalIfBegin
-            | P::ConditionalIfBlockBegin
-            | P::EnabledIfBegin
-            | P::EnabledIfBlockBegin
-            | P::DisabledIfBegin
-            | P::DisabledIfBlockBegin
-            | P::Stray
-            | P::ConditionalElifBegin
-            | P::LiveElifBegin
-            | P::LiveElifBlockBegin
-            | P::LiveElseBegin
-            | P::LiveElseBlockBegin
-            | P::DisabledElifBegin
-            | P::DisabledElifOtherBegin
-            | P::DisabledElifOtherBlockBegin
-            | P::ElseBranchBegin
-            | P::ElseBranchBlockBegin
-            | P::ElifBranchBegin
-            | P::ElifBranchBlockBegin
-            | P::ElifElseBegin
-            | P::ElifElseBlockBegin
-            | P::ElifElifBegin
-            | P::NestBegin
+        Pattern::DocLine
+            | Pattern::BannerBlock
+            | Pattern::BannerLine
+            | Pattern::AsmLineEnd
+            | Pattern::DiagnosticBegin
+            | Pattern::IncludeBegin
+            | Pattern::PragmaMark
+            | Pattern::LineDirectiveBegin
+            | Pattern::UndefBegin
+            | Pattern::PragmaDirectiveBegin
+            | Pattern::ConditionalIfBegin
+            | Pattern::ConditionalIfBlockBegin
+            | Pattern::EnabledIfBegin
+            | Pattern::EnabledIfBlockBegin
+            | Pattern::DisabledIfBegin
+            | Pattern::DisabledIfBlockBegin
+            | Pattern::Stray
+            | Pattern::ConditionalElifBegin
+            | Pattern::LiveElifBegin
+            | Pattern::LiveElifBlockBegin
+            | Pattern::LiveElseBegin
+            | Pattern::LiveElseBlockBegin
+            | Pattern::DisabledElifBegin
+            | Pattern::DisabledElifOtherBegin
+            | Pattern::DisabledElifOtherBlockBegin
+            | Pattern::ElseBranchBegin
+            | Pattern::ElseBranchBlockBegin
+            | Pattern::ElifBranchBegin
+            | Pattern::ElifBranchBlockBegin
+            | Pattern::ElifElseBegin
+            | Pattern::ElifElseBlockBegin
+            | Pattern::ElifElifBegin
+            | Pattern::NestBegin
     )
 }
 
 /// Whether `p` can match only where no word character comes before it.
 /// Each of these patterns first looks at the character before.
-fn word_start(p: P) -> bool {
+fn word_start(p: Pattern) -> bool {
     matches!(
         p,
-        P::KeywordControl
-            | P::Primitive
-            | P::BuiltIn
-            | P::EnumStructUnion
-            | P::AsmBegin
-            | P::Modifier
-            | P::MacK
-            | P::MacG
-            | P::MacS
-            | P::ConstLang
-            | P::ConditionalConstant
-            | P::SysTypes
-            | P::Pthread
-            | P::Stdint
-            | P::MacConst
-            | P::MacType
-            | P::PosixReserved
-            | P::Predefined
-            | P::PredefinedProbably
-            | P::Number
-            | P::FunctionDefinitionBegin
-            | P::ConditionalDefinedKeyword
-            | P::ConditionalDefinedInvalid
-            | P::Sizeof
+        Pattern::KeywordControl
+            | Pattern::Primitive
+            | Pattern::BuiltIn
+            | Pattern::EnumStructUnion
+            | Pattern::AsmBegin
+            | Pattern::Modifier
+            | Pattern::MacK
+            | Pattern::MacG
+            | Pattern::MacS
+            | Pattern::ConstLang
+            | Pattern::ConditionalConstant
+            | Pattern::SysTypes
+            | Pattern::Pthread
+            | Pattern::Stdint
+            | Pattern::MacConst
+            | Pattern::MacType
+            | Pattern::PosixReserved
+            | Pattern::Predefined
+            | Pattern::PredefinedProbably
+            | Pattern::Number
+            | Pattern::FunctionDefinitionBegin
+            | Pattern::ConditionalDefinedKeyword
+            | Pattern::ConditionalDefinedInvalid
+            | Pattern::Sizeof
     )
 }
 
 /// Whether `p` reads only white space and comments from its position.
 /// Inside a run of white space, such a pattern fails wherever it failed at
 /// the first position of the run that the search tried.
-fn run_start_only(p: P) -> bool {
+fn run_start_only(p: Pattern) -> bool {
     matches!(
         p,
-        P::DocBlockBegin
-            | P::BlockComment
-            | P::LineComment
-            | P::LineLeading
-            | P::DefineBegin
-            | P::InitializationBegin
-            | P::SwitchBegin
-            | P::SwitchParensBegin
-            | P::AsmParensBegin
-            | P::CaseBegin
-            | P::DefaultBegin
+        Pattern::DocBlockBegin
+            | Pattern::BlockComment
+            | Pattern::LineComment
+            | Pattern::LineLeading
+            | Pattern::DefineBegin
+            | Pattern::InitializationBegin
+            | Pattern::SwitchBegin
+            | Pattern::SwitchParensBegin
+            | Pattern::AsmParensBegin
+            | Pattern::CaseBegin
+            | Pattern::DefaultBegin
     )
 }
 
@@ -872,31 +940,37 @@ pub(super) fn blank_run_live(b: u8) -> bool {
 /// Take a word that starts with a letter, where the search tried such a
 /// pattern at the word's start.
 /// Inside that word, the pattern fails wherever it failed at the start.
-fn word_tail_only(p: P) -> bool {
+fn word_tail_only(p: Pattern) -> bool {
     matches!(
         p,
-        P::MethodAccess | P::MemberAccess | P::PlainAccess | P::BracketBegin
+        Pattern::MethodAccess
+            | Pattern::MemberAccess
+            | Pattern::PlainAccess
+            | Pattern::BracketBegin
     )
 }
 
 /// Whether `p` starts only at a name that a `(` follows.
 /// The one exception is a list of words it excludes.
 /// Those words may match inside a word.
-fn call_only(p: P) -> bool {
+fn call_only(p: Pattern) -> bool {
     matches!(
         p,
-        P::FunctionParametersBegin
-            | P::CallBegin
-            | P::CFunctionCall
-            | P::DefineFunctionBegin
-            | P::DefineCallBegin
+        Pattern::FunctionParametersBegin
+            | Pattern::CallBegin
+            | Pattern::CFunctionCall
+            | Pattern::DefineFunctionBegin
+            | Pattern::DefineCallBegin
     )
 }
 
 /// Whether `p` starts only at a name and then an operator that names an
 /// object: after one of `])`, or at a letter.
-fn object_only(p: P) -> bool {
-    matches!(p, P::MethodAccess | P::MemberAccess | P::PlainAccess)
+fn object_only(p: Pattern) -> bool {
+    matches!(
+        p,
+        Pattern::MethodAccess | Pattern::MemberAccess | Pattern::PlainAccess
+    )
 }
 
 /// The places a position can be, as bits. Each excludes the patterns that
@@ -921,7 +995,7 @@ use place::COUNT as PLACES;
 
 /// Whether the pattern `p` can match at a position whose `place` flags are
 /// `flags`.
-fn allowed(flags: usize, p: P) -> bool {
+fn allowed(flags: usize, p: Pattern) -> bool {
     if flags & place::START == 0 && start_only(p) {
         return false;
     }
@@ -949,7 +1023,7 @@ pub(super) struct Table {
     classes: usize,
     /// For each `place` and class, the list that applies.
     ids: Vec<u16>,
-    lists: Vec<Vec<P>>,
+    lists: Vec<Vec<Pattern>>,
 }
 
 impl Table {
@@ -982,7 +1056,7 @@ impl Table {
             flatten(list, &mut flat);
         }
         let words = flat.len().div_ceil(64).max(1);
-        let set = |keep: &dyn Fn(P) -> bool| {
+        let set = |keep: &dyn Fn(Pattern) -> bool| {
             let mut bits = vec![0_u64; words];
             for (i, &p) in flat.iter().enumerate() {
                 if keep(p) {
@@ -1004,7 +1078,7 @@ impl Table {
                 });
             *class = u8::try_from(index).unwrap_or(u8::MAX);
         }
-        let mut lists: Vec<Vec<P>> = Vec::new();
+        let mut lists: Vec<Vec<Pattern>> = Vec::new();
         let mut seen: HashMap<Vec<u64>, u16> = HashMap::new();
         let mut ids = Vec::with_capacity(PLACES * signatures.len());
         let mut key = vec![0_u64; words];
@@ -1039,7 +1113,7 @@ impl Table {
         }
     }
 
-    pub(super) fn candidates(&self, place: usize, index: usize) -> &[P] {
+    pub(super) fn candidates(&self, place: usize, index: usize) -> &[Pattern] {
         let class = self
             .class_of
             .get(index)
@@ -1051,11 +1125,11 @@ impl Table {
     }
 }
 
-fn flatten(list: &[Entry], out: &mut Vec<P>) {
+fn flatten(list: &[Entry], out: &mut Vec<Pattern>) {
     for item in list {
         match *item {
-            Entry::P(p) => out.push(p),
-            Entry::G(group) => flatten(group, out),
+            Entry::Pattern(p) => out.push(p),
+            Entry::Group(group) => flatten(group, out),
         }
     }
 }

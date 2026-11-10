@@ -15,7 +15,7 @@ use super::captures::{Captures, NESTING};
 #[cfg(feature = "lang-html-derivative")]
 use super::html;
 use super::inline::Emphasis;
-use super::rules::{self, Capture, End, List, P};
+use super::rules::{self, Capture, End, List, Pattern};
 use super::runs::Runs;
 use super::scope::S;
 use super::state::{Container, Fence};
@@ -175,7 +175,7 @@ const INLINE_START: [bool; 256] = {
 /// A rule that matched.
 struct Hit {
     /// Which rule, or none for the closing rule of the innermost container.
-    rule: Option<P>,
+    rule: Option<Pattern>,
     start: usize,
     end: usize,
 }
@@ -527,7 +527,9 @@ impl<'a> Lexer<'a> {
             };
             let node = self.frames[index].content;
             self.emit(pos, node);
-            self.captures(node, end, captures, |group| rules::capture(P::Quote, group));
+            self.captures(node, end, captures, |group| {
+                rules::capture(Pattern::Quote, group)
+            });
             self.emit(end, node);
             self.pos = self.pos.max(end);
             self.anchor = Some(end);
@@ -690,10 +692,10 @@ impl<'a> Lexer<'a> {
         clippy::too_many_lines,
         reason = "one arm per rule; the tables are borrowed in the arms that read them"
     )]
-    fn try_rule(&mut self, rule: P, start: usize, captures: &mut Captures) -> Option<Hit> {
+    fn try_rule(&mut self, rule: Pattern, start: usize, captures: &mut Captures) -> Option<Hit> {
         captures.clear();
         #[cfg(feature = "lang-html-derivative")]
-        if rule == P::Html {
+        if rule == Pattern::Html {
             return self.html_opens(start).then_some(Hit {
                 rule: Some(rule),
                 start,
@@ -703,95 +705,95 @@ impl<'a> Lexer<'a> {
         let cx = cx!(self);
         let mut rule = rule;
         let end = match rule {
-            P::FrontMatter => {
+            Pattern::FrontMatter => {
                 if !self.first_line || self.frames.len() != 1 {
                     return None;
                 }
                 block::front_matter_open(&cx, start)
             }
-            P::FrontMatterBegin => block::front_matter_begin(&cx, start, captures),
-            P::Separator => block::separator(&cx, start),
-            P::Heading => block::heading(&cx, start, captures),
-            P::Quote => block::quote(&cx, start, captures),
-            P::Bullet => block::bullet(&cx, start, captures),
-            P::Ordered => block::ordered(&cx, start, captures),
-            P::Fence => {
+            Pattern::FrontMatterBegin => block::front_matter_begin(&cx, start, captures),
+            Pattern::Separator => block::separator(&cx, start),
+            Pattern::Heading => block::heading(&cx, start, captures),
+            Pattern::Quote => block::quote(&cx, start, captures),
+            Pattern::Bullet => block::bullet(&cx, start, captures),
+            Pattern::Ordered => block::ordered(&cx, start, captures),
+            Pattern::Fence => {
                 let open = block::fence_open(&cx, start, captures)?;
                 let end = open.end;
                 rule = if open.embed.is_none() {
-                    P::FencePlain
+                    Pattern::FencePlain
                 } else {
-                    P::FenceLanguage
+                    Pattern::FenceLanguage
                 };
                 self.opened = Some(open);
                 Some(end)
             }
-            P::RawBlock => block::raw_block(&cx, start),
-            P::LinkDef => {
+            Pattern::RawBlock => block::raw_block(&cx, start),
+            Pattern::LinkDefinition => {
                 if start > self.pos && cx.space_before(start) > 0 {
                     return None;
                 }
-                block::link_def(&cx, start, captures)
+                block::link_definition(&cx, start, captures)
             }
-            P::Comment => block::comment_open(&cx, start, captures),
-            P::Table => block::table(&cx, start, captures),
-            P::Paragraph => block::paragraph(&cx, start),
-            P::EmbedBegin => embed_begin(&cx, start),
-            P::TablePipe => (cx.get(start) == Some(b'|')).then_some(start + 1),
-            P::TableSeparator => block::table_separator(&cx, start, captures),
-            P::TableCell => block::table_cell(&cx, start, captures),
-            P::Setext1 => block::setext(&cx, start, b'='),
-            P::Setext2 => block::setext(&cx, start, b'-'),
-            P::Level1 => block::heading_part(&cx, start, 1, captures),
-            P::Level2 => block::heading_part(&cx, start, 2, captures),
-            P::Level3 => block::heading_part(&cx, start, 3, captures),
-            P::Level4 => block::heading_part(&cx, start, 4, captures),
-            P::Level5 => block::heading_part(&cx, start, 5, captures),
-            P::Level6 => block::heading_part(&cx, start, 6, captures),
-            P::Ampersand => inline::ampersand(&cx, start),
-            P::Bracket => inline::bracket(&cx, start),
-            P::Bold => inline::emphasis_open(
+            Pattern::Comment => block::comment_open(&cx, start, captures),
+            Pattern::Table => block::table(&cx, start, captures),
+            Pattern::Paragraph => block::paragraph(&cx, start),
+            Pattern::EmbedBegin => embed_begin(&cx, start),
+            Pattern::TablePipe => (cx.get(start) == Some(b'|')).then_some(start + 1),
+            Pattern::TableSeparator => block::table_separator(&cx, start, captures),
+            Pattern::TableCell => block::table_cell(&cx, start, captures),
+            Pattern::Setext1 => block::setext(&cx, start, b'='),
+            Pattern::Setext2 => block::setext(&cx, start, b'-'),
+            Pattern::Level1 => block::heading_part(&cx, start, 1, captures),
+            Pattern::Level2 => block::heading_part(&cx, start, 2, captures),
+            Pattern::Level3 => block::heading_part(&cx, start, 3, captures),
+            Pattern::Level4 => block::heading_part(&cx, start, 4, captures),
+            Pattern::Level5 => block::heading_part(&cx, start, 5, captures),
+            Pattern::Level6 => block::heading_part(&cx, start, 6, captures),
+            Pattern::Ampersand => inline::ampersand(&cx, start),
+            Pattern::Bracket => inline::bracket(&cx, start),
+            Pattern::Bold => inline::emphasis_open(
                 &cx,
                 &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Bold,
                 captures,
             ),
-            P::Italic => inline::emphasis_open(
+            Pattern::Italic => inline::emphasis_open(
                 &cx,
                 &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Italic,
                 captures,
             ),
-            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, captures),
-            P::Strike => {
+            Pattern::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, captures),
+            Pattern::Strike => {
                 inline::strikethrough(&cx, &mut self.scratch.markdown.runs, start, captures)
             }
-            P::Escape => inline::escape(&cx, start),
-            P::ImageInline => {
+            Pattern::Escape => inline::escape(&cx, start),
+            Pattern::ImageInline => {
                 inline::image_inline(&cx, &mut self.scratch.markdown.runs, start, captures)
             }
-            P::ImageRef => inline::image_reference(&cx, start, captures),
-            P::LinkEmail => inline::link_email(&cx, start, captures),
-            P::LinkInet => inline::link_inet(&cx, start, captures),
-            P::LinkInline => {
+            Pattern::ImageReference => inline::image_reference(&cx, start, captures),
+            Pattern::LinkEmail => inline::link_email(&cx, start, captures),
+            Pattern::LinkInternet => inline::link_internet(&cx, start, captures),
+            Pattern::LinkInline => {
                 inline::link_inline(&cx, &mut self.scratch.markdown.runs, start, captures)
             }
-            P::LinkRef => inline::link_reference(&cx, start, captures),
-            P::LinkRefLiteral => inline::link_reference_literal(&cx, start, captures),
-            P::LinkRefShortcut => inline::link_reference_shortcut(&cx, start, captures),
-            P::FenceLanguage | P::FencePlain => None,
+            Pattern::LinkReference => inline::link_reference(&cx, start, captures),
+            Pattern::LinkReferenceLiteral => inline::link_reference_literal(&cx, start, captures),
+            Pattern::LinkReferenceShortcut => inline::link_reference_shortcut(&cx, start, captures),
+            Pattern::FenceLanguage | Pattern::FencePlain => None,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRaw => html::raw_open(&cx, start),
+            Pattern::HtmlRaw => html::raw_open(&cx, start),
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRawBody => Some(cx.skip_space(start)),
+            Pattern::HtmlRawBody => Some(cx.skip_space(start)),
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlBlock => html::block_open(&cx, start),
+            Pattern::HtmlBlock => html::block_open(&cx, start),
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlWrap => html::wrap_open(&cx, start),
+            Pattern::HtmlWrap => html::wrap_open(&cx, start),
             #[cfg(feature = "lang-html-derivative")]
-            P::Html => None,
+            Pattern::Html => None,
         }?;
         Some(Hit {
             rule: Some(rule),
@@ -817,68 +819,68 @@ impl<'a> Lexer<'a> {
     }
 
     /// The container a rule opens, or none for a rule that only scopes text.
-    fn opens(&self, rule: P, start: usize) -> Option<Container> {
+    fn opens(&self, rule: Pattern, start: usize) -> Option<Container> {
         let byte = self.line.as_bytes().get(start).copied();
         Some(match rule {
-            P::FrontMatter => Container::FrontMatter,
-            P::FrontMatterBegin => Container::FrontMatterBody,
-            P::Quote => Container::Quote,
-            P::Bullet => Container::ListBullet,
-            P::Ordered => Container::ListOrdered,
-            P::FenceLanguage => self.opened.as_ref().and_then(|open| open.embed)?.fence(),
-            P::FencePlain => Container::FencePlain,
-            P::EmbedBegin => match self.frames.last()?.rule {
+            Pattern::FrontMatter => Container::FrontMatter,
+            Pattern::FrontMatterBegin => Container::FrontMatterBody,
+            Pattern::Quote => Container::Quote,
+            Pattern::Bullet => Container::ListBullet,
+            Pattern::Ordered => Container::ListOrdered,
+            Pattern::FenceLanguage => self.opened.as_ref().and_then(|open| open.embed)?.fence(),
+            Pattern::FencePlain => Container::FencePlain,
+            Pattern::EmbedBegin => match self.frames.last()?.rule {
                 Rule::Open(Container::Fence(lang)) => Container::Body(lang),
                 #[cfg(feature = "lang-html")]
                 Rule::Open(Container::FencePhp) => Container::BodyPhp,
                 Rule::Open(_) | Rule::Capture(_) => return None,
             },
-            P::RawBlock => Container::RawBlock,
-            P::Comment => Container::Comment,
-            P::Table => Container::Table,
-            P::Paragraph => Container::Paragraph,
-            P::Bold if byte == Some(b'*') => Container::BoldStar,
-            P::Bold => Container::BoldUnder,
-            P::Italic if byte == Some(b'*') => Container::ItalicStar,
-            P::Italic => Container::ItalicUnder,
+            Pattern::RawBlock => Container::RawBlock,
+            Pattern::Comment => Container::Comment,
+            Pattern::Table => Container::Table,
+            Pattern::Paragraph => Container::Paragraph,
+            Pattern::Bold if byte == Some(b'*') => Container::BoldStar,
+            Pattern::Bold => Container::BoldUnder,
+            Pattern::Italic if byte == Some(b'*') => Container::ItalicStar,
+            Pattern::Italic => Container::ItalicUnder,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRaw => Container::HtmlRaw,
+            Pattern::HtmlRaw => Container::HtmlRaw,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRawBody => Container::HtmlRawBody,
+            Pattern::HtmlRawBody => Container::HtmlRawBody,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlBlock => Container::HtmlBlock,
+            Pattern::HtmlBlock => Container::HtmlBlock,
             #[cfg(feature = "lang-html-derivative")]
-            P::Html => Container::HtmlInline,
+            Pattern::Html => Container::HtmlInline,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlWrap => Container::HtmlWrap,
-            P::Separator
-            | P::Heading
-            | P::Fence
-            | P::LinkDef
-            | P::TablePipe
-            | P::TableSeparator
-            | P::TableCell
-            | P::Setext1
-            | P::Setext2
-            | P::Level1
-            | P::Level2
-            | P::Level3
-            | P::Level4
-            | P::Level5
-            | P::Level6
-            | P::Ampersand
-            | P::Bracket
-            | P::Raw
-            | P::Strike
-            | P::Escape
-            | P::ImageInline
-            | P::ImageRef
-            | P::LinkEmail
-            | P::LinkInet
-            | P::LinkInline
-            | P::LinkRef
-            | P::LinkRefLiteral
-            | P::LinkRefShortcut => return None,
+            Pattern::HtmlWrap => Container::HtmlWrap,
+            Pattern::Separator
+            | Pattern::Heading
+            | Pattern::Fence
+            | Pattern::LinkDefinition
+            | Pattern::TablePipe
+            | Pattern::TableSeparator
+            | Pattern::TableCell
+            | Pattern::Setext1
+            | Pattern::Setext2
+            | Pattern::Level1
+            | Pattern::Level2
+            | Pattern::Level3
+            | Pattern::Level4
+            | Pattern::Level5
+            | Pattern::Level6
+            | Pattern::Ampersand
+            | Pattern::Bracket
+            | Pattern::Raw
+            | Pattern::Strike
+            | Pattern::Escape
+            | Pattern::ImageInline
+            | Pattern::ImageReference
+            | Pattern::LinkEmail
+            | Pattern::LinkInternet
+            | Pattern::LinkInline
+            | Pattern::LinkReference
+            | Pattern::LinkReferenceLiteral
+            | Pattern::LinkReferenceShortcut => return None,
         })
     }
 
@@ -910,7 +912,7 @@ impl<'a> Lexer<'a> {
     /// A container opened outside a capture group stays open between lines,
     /// so it is a state. A paragraph opens on nearly every line in the same
     /// state, so the last one opened is reused.
-    fn open(&mut self, container: Container, rule: P, hit: &Hit, captures: &Captures) {
+    fn open(&mut self, container: Container, rule: Pattern, hit: &Hit, captures: &Captures) {
         let parent = self.content();
         self.emit(hit.start, parent);
         let opened = self.opened.take();
@@ -1066,7 +1068,7 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    fn scope_match(&mut self, rule: P, hit: &Hit, captures: &Captures) {
+    fn scope_match(&mut self, rule: Pattern, hit: &Hit, captures: &Captures) {
         let parent = self.content();
         self.emit(hit.start, parent);
         let node = match rules::match_name(rule) {

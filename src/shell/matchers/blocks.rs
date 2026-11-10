@@ -32,7 +32,7 @@ pub(in crate::shell) enum Heredoc {
 
 impl Lexer<'_> {
     /// `(?<=^|[\&;\s])WORD` and then what `follow` allows.
-    pub(in crate::shell) fn m_keyword_between(
+    pub(in crate::shell) fn match_keyword_between(
         &mut self,
         p: usize,
         word: &[u8],
@@ -52,7 +52,7 @@ impl Lexer<'_> {
     }
 
     /// `\bWORD\b`
-    pub(in crate::shell) fn m_keyword_word(
+    pub(in crate::shell) fn match_keyword_word(
         &mut self,
         p: usize,
         word: &[u8],
@@ -66,8 +66,8 @@ impl Lexer<'_> {
     }
 
     /// `done` ending a loop.
-    pub(in crate::shell) fn m_end_done(&mut self, p: usize) -> Option<usize> {
-        self.m_keyword_between(
+    pub(in crate::shell) fn match_end_done(&mut self, p: usize) -> Option<usize> {
+        self.match_keyword_between(
             p,
             b"done",
             scopes![S::KeywordControl],
@@ -76,17 +76,22 @@ impl Lexer<'_> {
     }
 
     /// `(?<=^|[\&;\s])(while|until)(?=[\&;\s]|$)`
-    pub(in crate::shell) fn m_loop_while(&mut self, p: usize) -> Option<usize> {
-        self.m_keyword_between(p, b"while", scopes![S::KeywordControl], Follow::Separator)
+    pub(in crate::shell) fn match_loop_while(&mut self, p: usize) -> Option<usize> {
+        self.match_keyword_between(p, b"while", scopes![S::KeywordControl], Follow::Separator)
             .or_else(|| {
-                self.m_keyword_between(p, b"until", scopes![S::KeywordControl], Follow::Separator)
+                self.match_keyword_between(
+                    p,
+                    b"until",
+                    scopes![S::KeywordControl],
+                    Follow::Separator,
+                )
             })
     }
 
     /// `(?<=^|[\&;\s])(for)\s+(.+?)\s+(in)(?=[\&;\s]|$)`.
     /// The variable is lazy.
     /// It ends where white space and `in` follow.
-    pub(in crate::shell) fn m_loop_for(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_loop_for(&mut self, p: usize) -> Option<usize> {
         if !self.after_separator(p) || !self.starts(p, b"for") {
             return None;
         }
@@ -106,7 +111,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<=^|[\&;\s])(select)\s+((?:[^\\\s]|\\.)+)(?=[\&;\s]|$)`
-    pub(in crate::shell) fn m_loop_select(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_loop_select(&mut self, p: usize) -> Option<usize> {
         if !self.after_separator(p) || !self.starts(p, b"select") {
             return None;
         }
@@ -144,7 +149,7 @@ impl Lexer<'_> {
     }
 
     /// `\b(for)\b[\t ]*+(name)[\t ]*+\b(in)\b`
-    pub(in crate::shell) fn m_for_in(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_for_in(&mut self, p: usize) -> Option<usize> {
         if !self.not_after_word(p) || !self.starts(p, b"for") || self.word_at(p + 3) {
             return None;
         }
@@ -161,7 +166,7 @@ impl Lexer<'_> {
     }
 
     /// `\b(for)\b`
-    pub(in crate::shell) fn m_for(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_for(&mut self, p: usize) -> Option<usize> {
         if !self.not_after_word(p) || !self.starts(p, b"for") || self.word_at(p + 3) {
             return None;
         }
@@ -174,7 +179,7 @@ impl Lexer<'_> {
     /// `\b(case)\b[\t ]*+(.+?)[\t ]*+\b(in)\b`
     ///
     /// The expression is lazy: it ends where `in` follows.
-    pub(in crate::shell) fn m_case(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_case(&mut self, p: usize) -> Option<usize> {
         if !self.not_after_word(p) || !self.starts(p, b"case") || self.word_at(p + 4) {
             return None;
         }
@@ -194,7 +199,7 @@ impl Lexer<'_> {
     }
 
     /// `[\t ]*+(\* *\))`
-    pub(in crate::shell) fn m_case_default(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_case_default(&mut self, p: usize) -> Option<usize> {
         let j = self.blanks(p);
         if self.at(j) != b'*' || !self.avail(j) {
             return None;
@@ -213,7 +218,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<!\))(?![\t ]*+(?:esac\b|$))`
-    pub(in crate::shell) fn m_case_pattern_begin(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_case_pattern_begin(&mut self, p: usize) -> Option<usize> {
         if self.prev(p) == Some(b')') {
             return None;
         }
@@ -225,7 +230,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<=\S)(\()`
-    pub(in crate::shell) fn m_case_group(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_case_group(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'(' || !self.avail(p) || self.prev(p).is_none() || self.space_before(p) {
             return None;
         }
@@ -241,7 +246,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<=\tin| in|[\t ]|;;)\(`
-    pub(in crate::shell) fn m_case_paren_open(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_case_paren_open(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'(' || !self.avail(p) {
             return None;
         }
@@ -255,7 +260,7 @@ impl Lexer<'_> {
     }
 
     /// `[^\t\n )*?@\[|]`
-    pub(in crate::shell) fn m_case_char(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_case_char(&mut self, p: usize) -> Option<usize> {
         if p >= self.lim
             || matches!(
                 self.s[p],
@@ -274,7 +279,7 @@ impl Lexer<'_> {
     }
 
     /// `\besac\b`
-    pub(in crate::shell) fn m_end_case(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_case(&mut self, p: usize) -> Option<usize> {
         if !self.esac_ahead(p) {
             return None;
         }
@@ -283,15 +288,15 @@ impl Lexer<'_> {
     }
 
     /// `(?=\besac\b)|(\))`
-    pub(in crate::shell) fn m_end_case_pattern(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_case_pattern(&mut self, p: usize) -> Option<usize> {
         if self.esac_ahead(p) {
             return Some(p);
         }
-        self.m_single(p, b')', scopes![S::KeywordOperatorPatternCase])
+        self.match_single(p, b')', scopes![S::KeywordOperatorPatternCase])
     }
 
     /// `(;;)|(?=\besac\b)`
-    pub(in crate::shell) fn m_end_case_body(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_case_body(&mut self, p: usize) -> Option<usize> {
         if self.starts(p, b";;") {
             self.span(p, p + 2, scopes![S::PunctuationTerminatorStatementCase]);
             return Some(p + 2);
@@ -328,7 +333,7 @@ impl Lexer<'_> {
     }
 
     /// `function_definition`'s begin.
-    pub(in crate::shell) fn m_function(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_function(&mut self, p: usize) -> Option<usize> {
         let j = self.blanks(p);
         if self.starts(j, b"function") && self.not_after_word(j) && !self.word_at(j + 8) {
             let n0 = self.blanks(j + 8);
@@ -367,13 +372,13 @@ impl Lexer<'_> {
     }
 
     /// `\G[\t\n ]`
-    pub(in crate::shell) fn m_function_blank(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_function_blank(&mut self, p: usize) -> Option<usize> {
         (self.at_g(p) && self.avail(p) && matches!(self.at(p), b'\t' | b'\n' | b' '))
             .then_some(p + 1)
     }
 
     /// `(?<![^\t ])(\{)(?![$\w])`
-    pub(in crate::shell) fn m_group(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_group(&mut self, p: usize) -> Option<usize> {
         if !self.prev(p).is_none_or(is_blank) || self.at(p) != b'{' || !self.avail(p) {
             return None;
         }
@@ -387,7 +392,7 @@ impl Lexer<'_> {
     // Tests.
 
     /// `=[=~]?|!=?|[<>]|&&|\|\|`
-    pub(in crate::shell) fn m_logical_op(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_logical_operator(&mut self, p: usize) -> Option<usize> {
         if !self.avail(p) {
             return None;
         }
@@ -407,7 +412,7 @@ impl Lexer<'_> {
 
     /// A `[ ]` test such as `-eq` or `-f`:
     /// `(?<!\S)-(nt|…|[GLNOSa-hknopr-uwxz])\b`
-    pub(in crate::shell) fn m_logical_test(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_logical_test(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'-' || !self.avail(p) || !(p == 0 || self.space_before(p)) {
             return None;
         }
@@ -448,7 +453,7 @@ impl Lexer<'_> {
     }
 
     /// `<<`, a quote, the delimiter and the quote again.
-    pub(in crate::shell) fn m_heredoc_quoted(
+    pub(in crate::shell) fn match_heredoc_quoted(
         &mut self,
         p: usize,
         heredoc: Heredoc,
@@ -493,7 +498,7 @@ impl Lexer<'_> {
     /// Where no line feed follows, the lookahead after the delimiter needs one
     /// of `&;<`.
     /// The delimiter therefore ends before the last of them.
-    pub(in crate::shell) fn m_heredoc_plain(
+    pub(in crate::shell) fn match_heredoc_plain(
         &mut self,
         p: usize,
         heredoc: Heredoc,
@@ -522,7 +527,7 @@ impl Lexer<'_> {
     }
 
     /// `^\t*DELIMITER(?=[\&;\s]|$)` ends a here-document.
-    pub(in crate::shell) fn m_end_heredoc(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_heredoc(&mut self, p: usize) -> Option<usize> {
         if p != 0 {
             return None;
         }
@@ -562,7 +567,7 @@ impl Lexer<'_> {
     // Other ends.
 
     /// `(?<=\W)(?=#)(?!#\{)`
-    pub(in crate::shell) fn m_backtick_comment(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_backtick_comment(&mut self, p: usize) -> Option<usize> {
         let after_nonword = p > 0 && !self.word_before(p);
         let hash = self.at(p) == b'#' && self.avail(p);
         let brace = self.at(p + 1) == b'{' && self.avail(p + 1);
@@ -570,7 +575,7 @@ impl Lexer<'_> {
     }
 
     /// `\)\s*\)`
-    pub(in crate::shell) fn m_end_arith_double(&mut self, p: usize) -> Option<usize> {
+    pub(in crate::shell) fn match_end_arithmetic_double(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b')' || !self.avail(p) {
             return None;
         }
@@ -583,8 +588,8 @@ impl Lexer<'_> {
     }
 
     /// The literal that ends the innermost rule.
-    pub(in crate::shell) fn m_end_lit(&mut self, p: usize) -> Option<usize> {
-        let (text, scopes) = self.top_end_lit();
+    pub(in crate::shell) fn match_end_literal(&mut self, p: usize) -> Option<usize> {
+        let (text, scopes) = self.top_end_literal();
         if !self.starts(p, text) {
             return None;
         }

@@ -112,7 +112,7 @@ impl<const D: u8> Lexer<'_, D> {
             })
             .or_else(|| {
                 self.only("f.import", Bytes::of(b"i"), p, |s, p| {
-                    let e = s.kw(p, "import")?;
+                    let e = s.keyword(p, "import")?;
                     let j = s.ws(e);
                     let quoted = matches!(s.byte(s.ws(j + 1)), b'"' | b'\'' | b'`');
                     (s.byte(j) == b'(' && quoted)
@@ -144,7 +144,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `async? name =>`.
     fn arrow_single_parameter(&mut self, p: usize) -> Option<usize> {
-        if self.starts(p, "async") && self.kw_before(p) && self.boundary(p) {
+        if self.starts(p, "async") && self.keyword_before(p) && self.boundary(p) {
             let e = p + "async".len();
             let j = self.ws(e);
             if j > e
@@ -175,7 +175,7 @@ impl<const D: u8> Lexer<'_, D> {
     fn arrow_head(&mut self, p: usize) -> Option<usize> {
         let mut j = p;
         let mut async_end = None;
-        if self.starts(p, "async") && self.kw_before(p) && self.boundary(p) {
+        if self.starts(p, "async") && self.keyword_before(p) && self.boundary(p) {
             j = p + "async".len();
             async_end = Some(j);
         }
@@ -282,10 +282,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// `(<…>)?\(` then the line ends, or a destructured parameter leaves it
     /// open.
     fn line_open_ahead(&self, i: usize) -> bool {
-        let at_paren = self.tp_paren(i).is_some_and(|j| self.eol(self.ws(j)));
+        let at_paren = self
+            .type_parameters_paren(i)
+            .is_some_and(|j| self.eol(self.ws(j)));
         let lone = self.byte(i) == b'<' && self.eol(self.ws(i + 1));
         let generic =
-            self.byte(i) == b'<' && self.arrow_type_params(i).is_some_and(|e| self.eol(e));
+            self.byte(i) == b'<' && self.arrow_type_parameters(i).is_some_and(|e| self.eol(e));
         at_paren || lone || generic
     }
 
@@ -395,13 +397,13 @@ impl<const D: u8> Lexer<'_, D> {
         self.open_token(Rule::Ternary, p, p + 1, &[S::KeywordOperatorTernary])
     }
 
-    pub(crate) fn new_expr(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw(p, "new")?;
+    pub(crate) fn new_expression(&mut self, p: usize) -> Option<usize> {
+        let e = self.keyword(p, "new")?;
         self.open_token(Rule::NewExpression, p, e, &[S::KeywordOperatorNew])
     }
 
-    pub(crate) fn instanceof_expr(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw(p, "instanceof")?;
+    pub(crate) fn instanceof_expression(&mut self, p: usize) -> Option<usize> {
+        let e = self.keyword(p, "instanceof")?;
         self.open_token(
             Rule::InstanceOf,
             p,

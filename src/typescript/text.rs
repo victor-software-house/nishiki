@@ -84,7 +84,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let tag = self.ident(p);
         let j = self.ws(tag.unwrap_or(p));
-        let end = self.type_args(j).filter(|_| self.byte(j) == b'<')?;
+        let end = self
+            .type_arguments_end(j)
+            .filter(|_| self.byte(j) == b'<')?;
         if self.byte(self.ws(end)) != b'`' {
             return None;
         }
@@ -175,7 +177,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
             if self.byte(e) == b'<'
                 && self
-                    .type_args(e)
+                    .type_arguments_end(e)
                     .is_some_and(|t| self.byte(self.ws(t)) == b'`')
             {
                 return true;

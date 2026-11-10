@@ -93,98 +93,102 @@ impl Lexer<'_> {
     #[expect(clippy::too_many_lines, reason = "one arm per pattern, a table")]
     pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
         match pattern {
-            Pattern::Comment => self.m_comment(p),
+            Pattern::Comment => self.match_comment(p),
             Pattern::PipeTime => {
-                self.m_keyword_between(p, b"time", scopes![S::KeywordOther], Follow::Separator)
+                self.match_keyword_between(p, b"time", scopes![S::KeywordOther], Follow::Separator)
             }
-            Pattern::PipeOp => self.m_pipe(p),
-            Pattern::Sep => self.m_separator(p),
-            Pattern::LineCont => self.m_line_continuation(p),
-            Pattern::VariableAt => self.m_var_at(p),
-            Pattern::VariableDigit => self.m_var_digit(p),
-            Pattern::VariableSpecial => self.m_var_special(p),
-            Pattern::VariableName => self.m_var_name(p),
-            Pattern::HerestringWord => self.m_herestring_word(p),
-            Pattern::RedirectOp => self.m_redirect_op(p),
-            Pattern::RedirectNum => self.m_redirect_number(p),
-            Pattern::Tilde => self.m_tilde(p),
-            Pattern::Glob => self.m_glob(p),
-            Pattern::FloatKw => self.m_floating_keyword(p),
-            Pattern::Support => self.m_support(p),
-            Pattern::Escape => self.m_escape(p),
-            Pattern::Boolean | Pattern::BoolArg => self.m_boolean(p),
-            Pattern::Numeric => self.m_numeric(p),
-            Pattern::Unquoted => self.m_unquoted(p),
-            Pattern::DqEscape => self.m_escape_in(p, b"\n\"$\\`"),
-            Pattern::BtEscape => self.m_escape_in(p, b"$\\`"),
-            Pattern::CaseDefault => self.m_case_default(p),
-            Pattern::CaseStar => self.m_single(p, b'*', CASE_STAR),
-            Pattern::CasePlus => self.m_single(p, b'+', CASE_PLUS),
-            Pattern::CaseQuestion => self.m_single(p, b'?', CASE_QUESTION),
-            Pattern::CaseAt => self.m_single(p, b'@', CASE_AT),
-            Pattern::CasePipe => self.m_single(p, b'|', CASE_PIPE),
-            Pattern::CaseParenOpen => self.m_case_paren_open(p),
-            Pattern::CaseChar => self.m_case_char(p),
-            Pattern::AnsiEscape => self.m_ansi_escape(p),
-            Pattern::AnsiOctal => self.m_ansi_octal(p),
-            Pattern::AnsiHex => self.m_ansi_hex(p),
-            Pattern::AnsiControl => self.m_ansi_control(p),
-            Pattern::MathOp => self.m_math_op(p),
-            Pattern::MathHex => self.m_hex(p),
-            Pattern::MathSemi => self.m_single(p, b';', scopes![S::PunctuationSeparatorSemicolon]),
-            Pattern::MathOctal => self.m_octal(p, scopes![S::ConstantNumericOctal]),
-            Pattern::MathOther => self.m_other_base(p, scopes![S::ConstantNumericOther]),
-            Pattern::MathInt => self.m_integer(p),
-            Pattern::MathName => self.m_math_name(p),
-            Pattern::SpecialExpansion => self.m_special_expansion(p),
-            Pattern::ArrayAccess => self.m_array_access_inline(p),
-            Pattern::ParamDigits => self.m_param_digits(p),
-            Pattern::ParamName => self.m_param_name(p),
-            Pattern::ArgMatch => self.m_argument_word(p),
+            Pattern::PipeOperator => self.match_pipe(p),
+            Pattern::Separator => self.match_separator(p),
+            Pattern::LineContinuation => self.match_line_continuation(p),
+            Pattern::VariableAt => self.match_variable_at(p),
+            Pattern::VariableDigit => self.match_variable_digit(p),
+            Pattern::VariableSpecial => self.match_variable_special(p),
+            Pattern::VariableName => self.match_variable_name(p),
+            Pattern::HerestringWord => self.match_herestring_word(p),
+            Pattern::RedirectOperator => self.match_redirect_operator(p),
+            Pattern::RedirectNumber => self.match_redirect_number(p),
+            Pattern::Tilde => self.match_tilde(p),
+            Pattern::Glob => self.match_glob(p),
+            Pattern::FloatingKeyword => self.match_floating_keyword(p),
+            Pattern::Support => self.match_support(p),
+            Pattern::Escape => self.match_escape(p),
+            Pattern::Boolean | Pattern::BooleanArgument => self.match_boolean(p),
+            Pattern::Numeric => self.match_numeric(p),
+            Pattern::Unquoted => self.match_unquoted(p),
+            Pattern::DoubleQuoteEscape => self.match_escape_in(p, b"\n\"$\\`"),
+            Pattern::BacktickEscape => self.match_escape_in(p, b"$\\`"),
+            Pattern::CaseDefault => self.match_case_default(p),
+            Pattern::CaseStar => self.match_single(p, b'*', CASE_STAR),
+            Pattern::CasePlus => self.match_single(p, b'+', CASE_PLUS),
+            Pattern::CaseQuestion => self.match_single(p, b'?', CASE_QUESTION),
+            Pattern::CaseAt => self.match_single(p, b'@', CASE_AT),
+            Pattern::CasePipe => self.match_single(p, b'|', CASE_PIPE),
+            Pattern::CaseParenOpen => self.match_case_paren_open(p),
+            Pattern::CaseChar => self.match_case_char(p),
+            Pattern::AnsiEscape => self.match_ansi_escape(p),
+            Pattern::AnsiOctal => self.match_ansi_octal(p),
+            Pattern::AnsiHex => self.match_ansi_hex(p),
+            Pattern::AnsiControl => self.match_ansi_control(p),
+            Pattern::MathOperator => self.match_math_operator(p),
+            Pattern::MathHex => self.match_hex(p),
+            Pattern::MathSemicolon => {
+                self.match_single(p, b';', scopes![S::PunctuationSeparatorSemicolon])
+            }
+            Pattern::MathOctal => self.match_octal(p, scopes![S::ConstantNumericOctal]),
+            Pattern::MathOther => self.match_other_base(p, scopes![S::ConstantNumericOther]),
+            Pattern::MathInteger => self.match_integer(p),
+            Pattern::MathName => self.match_math_name(p),
+            Pattern::SpecialExpansion => self.match_special_expansion(p),
+            Pattern::ArrayAccess => self.match_array_access_inline(p),
+            Pattern::ParameterDigits => self.match_parameter_digits(p),
+            Pattern::ParameterName => self.match_parameter_name(p),
+            Pattern::ArgumentMatch => self.match_argument_word(p),
             Pattern::WildcardStar => {
-                self.m_single(p, b'*', scopes![S::VariableLanguageSpecialWildcard])
+                self.match_single(p, b'*', scopes![S::VariableLanguageSpecialWildcard])
             }
-            Pattern::CmdKeyword => self.m_command_keyword(p),
-            Pattern::CmdBuiltin => self.m_command_builtin(p),
-            Pattern::CmdName => self.m_command_name(p),
-            Pattern::ArrayNameEq => self.m_array_name_eq(p),
-            Pattern::ArrayBracketEq => self.m_array_bracket_eq(p),
-            Pattern::ModOption => self.m_option_word(p),
-            Pattern::ModMatch => self.m_modified_match(p),
-            Pattern::LogicalOp => self.m_logical_op(p),
-            Pattern::LogicalTest => self.m_logical_test(p),
-            Pattern::RegexCompare => self.m_text(p, b"=~", scopes![S::KeywordOperatorLogicalRegex]),
-            Pattern::FuncBlank => self.m_function_blank(p),
-            Pattern::RedirectFix => self.m_redirect_fix(p),
-            Pattern::AliasB => self.m_alias(p),
-            Pattern::ArgB => self.m_argument_begin(p),
-            Pattern::ArithmeticDoubleB => {
-                self.m_text(p, b"((", scopes![S::PunctuationSectionArithmeticDouble])
+            Pattern::CommandKeyword => self.match_command_keyword(p),
+            Pattern::CommandBuiltin => self.match_command_builtin(p),
+            Pattern::CommandName => self.match_command_name(p),
+            Pattern::ArrayNameEquals => self.match_array_name_equals(p),
+            Pattern::ArrayBracketEquals => self.match_array_bracket_equals(p),
+            Pattern::ModifiedOption => self.match_option_word(p),
+            Pattern::ModifiedMatch => self.match_modified_match(p),
+            Pattern::LogicalOperator => self.match_logical_operator(p),
+            Pattern::LogicalTest => self.match_logical_test(p),
+            Pattern::RegexCompare => {
+                self.match_text(p, b"=~", scopes![S::KeywordOperatorLogicalRegex])
             }
-            Pattern::ArithmeticSingleB => {
-                self.m_single(p, b'(', scopes![S::PunctuationSectionArithmeticSingle])
+            Pattern::FunctionBlank => self.match_function_blank(p),
+            Pattern::RedirectFix => self.match_redirect_fix(p),
+            Pattern::AliasBegin => self.match_alias(p),
+            Pattern::ArgumentBegin => self.match_argument_begin(p),
+            Pattern::ArithmeticDoubleBegin => {
+                self.match_text(p, b"((", scopes![S::PunctuationSectionArithmeticDouble])
             }
-            Pattern::ArrayValueB => self.m_array_value(p),
-            Pattern::CaseB => self.m_case(p),
-            Pattern::CasePatternB => self.m_case_pattern_begin(p),
-            Pattern::CaseBodyB => self.m_after(p, b')'),
-            Pattern::CaseGroupB => self.m_case_group(p),
-            Pattern::CaseClassB => {
-                self.m_single(p, b'[', scopes![S::PunctuationDefinitionCharacterClass])
+            Pattern::ArithmeticSingleBegin => {
+                self.match_single(p, b'(', scopes![S::PunctuationSectionArithmeticSingle])
             }
-            Pattern::CmdStatementB => self.m_command_statement(p),
-            Pattern::CmdNameB => self.at_g(p).then_some(p),
-            Pattern::CmdQuotedB => self.m_command_quoted(p),
-            Pattern::ContinuationDoubleB => {
+            Pattern::ArrayValueBegin => self.match_array_value(p),
+            Pattern::CaseBegin => self.match_case(p),
+            Pattern::CasePatternBegin => self.match_case_pattern_begin(p),
+            Pattern::CaseBodyBegin => self.match_after(p, b')'),
+            Pattern::CaseGroupBegin => self.match_case_group(p),
+            Pattern::CaseClassBegin => {
+                self.match_single(p, b'[', scopes![S::PunctuationDefinitionCharacterClass])
+            }
+            Pattern::CommandStatementBegin => self.match_command_statement(p),
+            Pattern::CommandNameBegin => self.at_g(p).then_some(p),
+            Pattern::CommandQuotedBegin => self.match_command_quoted(p),
+            Pattern::ContinuationDoubleBegin => {
                 (self.at_g(p) && self.prev(p) == Some(b'"')).then_some(p)
             }
-            Pattern::ContinuationSingleB => {
+            Pattern::ContinuationSingleBegin => {
                 (self.at_g(p) && self.prev(p) == Some(b'\'')).then_some(p)
             }
-            Pattern::ForInB => self.m_for_in(p),
-            Pattern::ForB => self.m_for(p),
-            Pattern::FunctionB => self.m_function(p),
-            Pattern::FuncBraceB => self.m_single(
+            Pattern::ForInBegin => self.match_for_in(p),
+            Pattern::ForBegin => self.match_for(p),
+            Pattern::FunctionBegin => self.match_function(p),
+            Pattern::FunctionBraceBegin => self.match_single(
                 p,
                 b'{',
                 scopes![
@@ -192,7 +196,7 @@ impl Lexer<'_> {
                     S::PunctuationSectionFunctionDefinition,
                 ],
             ),
-            Pattern::FuncParenB => self.m_single(
+            Pattern::FunctionParenBegin => self.match_single(
                 p,
                 b'(',
                 scopes![
@@ -200,83 +204,91 @@ impl Lexer<'_> {
                     S::PunctuationSectionFunctionDefinition,
                 ],
             ),
-            Pattern::HeredocQuotedIndentB => self.m_heredoc_quoted(p, Heredoc::Indented),
-            Pattern::HeredocQuotedB => self.m_heredoc_quoted(p, Heredoc::Plain),
-            Pattern::HeredocIndentB => self.m_heredoc_plain(p, Heredoc::Indented),
-            Pattern::HeredocB => self.m_heredoc_plain(p, Heredoc::Plain),
-            Pattern::HerestringSingleB => self.m_herestring_quote(
+            Pattern::HeredocQuotedIndentBegin => self.match_heredoc_quoted(p, Heredoc::Indented),
+            Pattern::HeredocQuotedBegin => self.match_heredoc_quoted(p, Heredoc::Plain),
+            Pattern::HeredocIndentBegin => self.match_heredoc_plain(p, Heredoc::Indented),
+            Pattern::HeredocBegin => self.match_heredoc_plain(p, Heredoc::Plain),
+            Pattern::HerestringSingleBegin => self.match_herestring_quote(
                 p,
                 b'\'',
                 scopes![S::StringQuotedSingle, S::PunctuationDefinitionStringBegin],
             ),
-            Pattern::HerestringDoubleB => self.m_herestring_quote(
+            Pattern::HerestringDoubleBegin => self.match_herestring_quote(
                 p,
                 b'"',
                 scopes![S::StringQuotedDouble, S::PunctuationDefinitionStringBegin],
             ),
-            Pattern::BacktickB => self.m_single(
+            Pattern::BacktickBegin => self.match_single(
                 p,
                 b'`',
                 scopes![S::PunctuationDefinitionEvaluationBackticks],
             ),
-            Pattern::BacktickCommentB => self.m_backtick_comment(p),
-            Pattern::BacktickCommentLineB => {
-                self.m_single(p, b'#', scopes![S::PunctuationDefinitionComment])
+            Pattern::BacktickCommentBegin => self.match_backtick_comment(p),
+            Pattern::BacktickCommentLineBegin => {
+                self.match_single(p, b'#', scopes![S::PunctuationDefinitionComment])
             }
-            Pattern::LogicalDoubleB => {
-                self.m_text(p, b"[[", scopes![S::PunctuationDefinitionLogicalExpression])
+            Pattern::LogicalDoubleBegin => {
+                self.match_text(p, b"[[", scopes![S::PunctuationDefinitionLogicalExpression])
             }
-            Pattern::LogicalSingleB => {
-                self.m_single(p, b'[', scopes![S::PunctuationDefinitionLogicalExpression])
+            Pattern::LogicalSingleBegin => {
+                self.match_single(p, b'[', scopes![S::PunctuationDefinitionLogicalExpression])
             }
-            Pattern::LoopForB => self.m_loop_for(p),
-            Pattern::LoopWhileB => self.m_loop_while(p),
-            Pattern::LoopSelectB => self.m_loop_select(p),
-            Pattern::LoopIfB => {
-                self.m_keyword_between(p, b"if", scopes![S::KeywordControlIf], Follow::Separator)
+            Pattern::LoopForBegin => self.match_loop_for(p),
+            Pattern::LoopWhileBegin => self.match_loop_while(p),
+            Pattern::LoopSelectBegin => self.match_loop_select(p),
+            Pattern::LoopIfBegin => self.match_keyword_between(
+                p,
+                b"if",
+                scopes![S::KeywordControlIf],
+                Follow::Separator,
+            ),
+            Pattern::GroupBegin => self.match_group(p),
+            Pattern::ModifiedBegin => self.match_modified(p),
+            Pattern::NormalAssignBegin => self.match_normal_assign(p),
+            Pattern::EnvCommandBegin => self.match_env_command(p),
+            Pattern::NormalStatementBegin => self.match_normal_statement(p),
+            Pattern::OptionBegin => self.match_option_begin(p),
+            Pattern::ParenBegin => self.match_single(p, b'(', scopes![S::PunctuationSectionParen]),
+            Pattern::ExtglobBegin => self.match_extglob(p),
+            Pattern::ProcessSubstitutionBegin => self.match_process_substitution(p),
+            Pattern::StringSingleBegin => {
+                self.match_single(p, b'\'', scopes![S::PunctuationDefinitionStringBegin])
             }
-            Pattern::GroupB => self.m_group(p),
-            Pattern::ModifiedB => self.m_modified(p),
-            Pattern::NormalAssignB => self.m_normal_assign(p),
-            Pattern::EnvCommandB => self.m_env_command(p),
-            Pattern::NormalStatementB => self.m_normal_statement(p),
-            Pattern::OptionB => self.m_option_begin(p),
-            Pattern::ParenB => self.m_single(p, b'(', scopes![S::PunctuationSectionParen]),
-            Pattern::ExtglobB => self.m_extglob(p),
-            Pattern::ProcessSubstitutionB => self.m_process_substitution(p),
-            Pattern::StringSingleB => {
-                self.m_single(p, b'\'', scopes![S::PunctuationDefinitionStringBegin])
+            Pattern::StringDoubleBegin => self.match_string_double(p),
+            Pattern::StringAnsiBegin => {
+                self.match_text(p, b"$'", scopes![S::PunctuationDefinitionStringBegin])
             }
-            Pattern::StringDoubleB => self.m_string_double(p),
-            Pattern::StringAnsiB => {
-                self.m_text(p, b"$'", scopes![S::PunctuationDefinitionStringBegin])
+            Pattern::SubshellBegin => {
+                self.match_text(p, b"$(", scopes![S::PunctuationDefinitionSubshellSingle])
             }
-            Pattern::SubshellB => {
-                self.m_text(p, b"$(", scopes![S::PunctuationDefinitionSubshellSingle])
+            Pattern::VariablePositionalBegin => self.match_variable_positional_begin(p),
+            Pattern::VariableBraceBegin => self.match_variable_brace_begin(p),
+            Pattern::WhileBegin => {
+                self.match_keyword_word(p, b"while", scopes![S::KeywordControlWhile])
             }
-            Pattern::VariablePositionalB => self.m_var_positional_begin(p),
-            Pattern::VariableBraceB => self.m_var_brace_begin(p),
-            Pattern::WhileB => self.m_keyword_word(p, b"while", scopes![S::KeywordControlWhile]),
-            Pattern::EndStatement => self.m_end_statement(p),
-            Pattern::EndOption => self.m_end_option(p),
-            Pattern::EndArg => self.m_end_argument(p),
-            Pattern::EndAlias => self.m_end_alias(p),
-            Pattern::EndArithmeticDouble => self.m_end_arith_double(p),
-            Pattern::EndCase => self.m_end_case(p),
-            Pattern::EndCasePattern => self.m_end_case_pattern(p),
-            Pattern::EndCaseBody => self.m_end_case_body(p),
-            Pattern::EndCmdName => self.m_end_command_name(p),
-            Pattern::EndCmdQuotedDouble => self.m_end_command_quoted(p, b'"'),
-            Pattern::EndCmdQuotedSingle => self.m_end_command_quoted(p, b'\''),
+            Pattern::EndStatement => self.match_end_statement(p),
+            Pattern::EndOption => self.match_end_option(p),
+            Pattern::EndArgument => self.match_end_argument(p),
+            Pattern::EndAlias => self.match_end_alias(p),
+            Pattern::EndArithmeticDouble => self.match_end_arithmetic_double(p),
+            Pattern::EndCase => self.match_end_case(p),
+            Pattern::EndCasePattern => self.match_end_case_pattern(p),
+            Pattern::EndCaseBody => self.match_end_case_body(p),
+            Pattern::EndCommandName => self.match_end_command_name(p),
+            Pattern::EndCommandQuotedDouble => self.match_end_command_quoted(p, b'"'),
+            Pattern::EndCommandQuotedSingle => self.match_end_command_quoted(p, b'\''),
             Pattern::EndFunction => matches!(self.prev(p), Some(b')' | b'}')).then_some(p),
-            Pattern::EndHeredoc => self.m_end_heredoc(p),
-            Pattern::EndDone => self.m_end_done(p),
-            Pattern::EndFi => {
-                self.m_keyword_between(p, b"fi", scopes![S::KeywordControlFi], Follow::Separator)
-            }
+            Pattern::EndHeredoc => self.match_end_heredoc(p),
+            Pattern::EndDone => self.match_end_done(p),
+            Pattern::EndFi => self.match_keyword_between(
+                p,
+                b"fi",
+                scopes![S::KeywordControlFi],
+                Follow::Separator,
+            ),
             Pattern::EndBacktickComment => (!self.at_g(p)).then_some(p),
             Pattern::EndBacktickCommentLine => (self.at(p) == b'`').then_some(p),
-            Pattern::EndLit => self.m_end_lit(p),
+            Pattern::EndLiteral => self.match_end_literal(p),
         }
     }
 
@@ -439,7 +451,7 @@ impl Lexer<'_> {
     }
 
     /// Matches the literal `text`, naming it `scopes`.
-    pub(super) fn m_text(&mut self, p: usize, text: &[u8], scopes: Scopes<S>) -> Option<usize> {
+    pub(super) fn match_text(&mut self, p: usize, text: &[u8], scopes: Scopes<S>) -> Option<usize> {
         if !self.starts(p, text) {
             return None;
         }
@@ -448,7 +460,7 @@ impl Lexer<'_> {
     }
 
     /// Matches the byte `b`, naming it `scopes`.
-    pub(super) fn m_single(&mut self, p: usize, b: u8, scopes: Scopes<S>) -> Option<usize> {
+    pub(super) fn match_single(&mut self, p: usize, b: u8, scopes: Scopes<S>) -> Option<usize> {
         if self.at(p) != b || !self.avail(p) {
             return None;
         }
@@ -457,7 +469,7 @@ impl Lexer<'_> {
     }
 
     /// A zero-width match after `b`: `(?<=\))`.
-    pub(super) fn m_after(&mut self, p: usize, b: u8) -> Option<usize> {
+    pub(super) fn match_after(&mut self, p: usize, b: u8) -> Option<usize> {
         (self.prev(p) == Some(b)).then_some(p)
     }
 }

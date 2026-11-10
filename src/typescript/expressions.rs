@@ -57,13 +57,13 @@ impl<const D: u8> Lexer<'_, D> {
                     Self::ternary_expression,
                 )
             })
-            .or_else(|| self.only("e.new_expr", Bytes::of(b"n"), p, Self::new_expr))
+            .or_else(|| self.only("e.new_expression", Bytes::of(b"n"), p, Self::new_expression))
             .or_else(|| {
                 self.only(
-                    "e.instanceof_expr",
+                    "e.instanceof_expression",
                     Bytes::of(b"i"),
                     p,
-                    Self::instanceof_expr,
+                    Self::instanceof_expression,
                 )
             })
             .or_else(|| self.only("e.object_literal", Bytes::of(b"{"), p, Self::object_literal))
@@ -121,10 +121,10 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn expression_operators(&mut self, p: usize) -> Option<usize> {
         let b = self.byte(p);
         if b.is_ascii_lowercase() {
-            if let Some(e) = self.kw(p, "await") {
+            if let Some(e) = self.keyword(p, "await") {
                 return self.token_rule(p, e, S::KeywordControlFlow);
             }
-            if let Some(e) = self.kw(p, "yield") {
+            if let Some(e) = self.keyword(p, "yield") {
                 let j = self.ws(e);
                 if let Some(c) = self.block_comment(j)
                     && self.byte(self.ws(c)) == b'*'
@@ -146,7 +146,7 @@ impl<const D: u8> Lexer<'_, D> {
                 ("instanceof", S::KeywordOperatorExpressionInstanceof),
                 ("new", S::KeywordOperatorNew),
             ] {
-                if let Some(e) = self.kw(p, word) {
+                if let Some(e) = self.keyword(p, word) {
                     if (word == "in" || word == "of") && self.byte(e) == b'(' {
                         continue;
                     }
@@ -156,7 +156,7 @@ impl<const D: u8> Lexer<'_, D> {
             if let Some(r) = self.typeof_operator(p) {
                 return Some(r);
             }
-            if let Some(e) = self.kw(p, "void") {
+            if let Some(e) = self.keyword(p, "void") {
                 return self.token_rule(p, e, S::KeywordOperatorExpressionVoid);
             }
             if let Some(r) = self.as_expression(p) {
@@ -169,10 +169,10 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `as const`, `as Type` and `satisfies Type`.
     fn as_expression(&mut self, p: usize) -> Option<usize> {
-        if let Some(e) = self.kw(p, "as") {
+        if let Some(e) = self.keyword(p, "as") {
             let j = self.ws(e);
             if j > e {
-                if let Some(c) = self.kw(j, "const") {
+                if let Some(c) = self.keyword(j, "const") {
                     let k = self.ws(c);
                     if matches!(self.byte(k), b']' | b')' | b',' | b':' | b';' | b'}')
                         || self.eol(k)
@@ -192,7 +192,7 @@ impl<const D: u8> Lexer<'_, D> {
                 return Some(j);
             }
         }
-        if let Some(e) = self.kw(p, "satisfies") {
+        if let Some(e) = self.keyword(p, "satisfies") {
             let j = self.ws(e);
             if j > e && !self.full() {
                 self.flush(p);
@@ -331,7 +331,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `typeof` up to the end of its operand.
     pub(crate) fn typeof_operator(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw(p, "typeof")?;
+        let e = self.keyword(p, "typeof")?;
         self.open_token(Rule::Typeof, p, e, &[S::KeywordOperatorExpressionTypeof])
     }
 
@@ -353,19 +353,19 @@ impl<const D: u8> Lexer<'_, D> {
             ("NaN", S::ConstantLanguageNan),
             ("Infinity", S::ConstantLanguageInfinity),
         ] {
-            if let Some(e) = self.kw(p, word) {
+            if let Some(e) = self.keyword(p, word) {
                 return self.token_rule(p, e, scope);
             }
         }
         if self.starts(p, "this") {
             let e = p + "this".len();
-            if self.kw_before(p) && self.boundary(e) && self.byte(e) != b'$' {
+            if self.keyword_before(p) && self.boundary(e) && self.byte(e) != b'$' {
                 return self.token_rule(p, e, S::VariableLanguageThis);
             }
         }
         if self.starts(p, "super") {
             let e = p + "super".len();
-            if self.kw_before(p) && self.boundary(e) && self.byte(e) != b'$' {
+            if self.keyword_before(p) && self.boundary(e) && self.byte(e) != b'$' {
                 return self.token_rule(p, e, S::VariableLanguageSuper);
             }
         }
@@ -459,7 +459,7 @@ impl<const D: u8> Lexer<'_, D> {
                 if self.starts(k, word)
                     && self.boundary(k + word.len())
                     && self.byte(k + word.len()) != b'$'
-                    && !self.call_after_type_args(k + word.len())
+                    && !self.call_after_type_arguments(k + word.len())
                 {
                     self.token(p, a, &[Self::accessor_scope(p, a)]);
                     self.capture(Rule::Top, k, k + word.len(), &[S::SupportVariableProperty]);
@@ -489,15 +489,15 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `\s*(<…>\s*)?\(` after a name: the negative lookahead that keeps a
     /// method named `length` from being the property.
-    fn call_after_type_args(&self, e: usize) -> bool {
+    fn call_after_type_arguments(&self, e: usize) -> bool {
         let j = self.ws(e);
-        self.tp_paren(j).is_some()
+        self.type_parameters_paren(j).is_some()
     }
 
     /// `B word \b (?!\$)`.
     fn word_guard(&self, p: usize, word: &str) -> Option<usize> {
         let e = p + word.len();
-        (self.starts(p, word) && self.kw_before(p) && self.boundary(e) && self.byte(e) != b'$')
+        (self.starts(p, word) && self.keyword_before(p) && self.boundary(e) && self.byte(e) != b'$')
             .then_some(e)
     }
 
@@ -604,7 +604,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(j) != b'=' {
             return None;
         }
-        if !self.fn_value_ahead(self.ws(j + 1)) {
+        if !self.function_value_ahead(self.ws(j + 1)) {
             return None;
         }
         if let Some(a) = accessor {

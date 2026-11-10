@@ -355,11 +355,11 @@ impl Lexer<'_> {
     /// `^\s*(#)(if|elseif)\s+(false)\b.*?(?=$|//|/\*)`, for
     /// `CompilerControlAt0`.
     pub(in crate::swift) fn rx_compiler_control_at_0(&mut self, p: usize) -> Option<usize> {
-        let (hash, kw, sp, f) = self.compiler_control_head(p, Condition::False)?;
+        let (hash, keyword, sp, f) = self.compiler_control_head(p, Condition::False)?;
         let end = self.comment_or_eol(f);
         self.capture(0, p, end);
         self.capture(1, hash, hash + 1);
-        self.capture(2, hash + 1, kw);
+        self.capture(2, hash + 1, keyword);
         self.capture(3, sp, f);
         Some(end)
     }
@@ -373,9 +373,9 @@ impl Lexer<'_> {
 
     /// `^\s*(#)(if|elseif)\s+`, for `CompilerControlAt1`.
     pub(in crate::swift) fn rx_compiler_control_at_1(&mut self, p: usize) -> Option<usize> {
-        let (hash, kw, sp, _) = self.compiler_control_head(p, Condition::Any)?;
+        let (hash, keyword, sp, _) = self.compiler_control_head(p, Condition::Any)?;
         self.capture(1, hash, hash + 1);
-        self.capture(2, hash + 1, kw);
+        self.capture(2, hash + 1, keyword);
         Some(sp)
     }
 

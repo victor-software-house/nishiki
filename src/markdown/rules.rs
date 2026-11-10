@@ -9,7 +9,7 @@ use crate::Language;
 /// opens a container.
 /// The closing rules ([`End`]) are separate.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum P {
+pub(crate) enum Pattern {
     // Blocks.
     /// The zero-width beginning of front matter: `\A(?=(-{3,}))`.
     FrontMatter,
@@ -24,7 +24,7 @@ pub(crate) enum P {
     FenceLanguage,
     FencePlain,
     RawBlock,
-    LinkDef,
+    LinkDefinition,
     Comment,
     /// A raw HTML block: `<script>`, `<style>` or `<pre>`.
     /// Its line does not close it.
@@ -66,13 +66,13 @@ pub(crate) enum P {
     Strike,
     Escape,
     ImageInline,
-    ImageRef,
+    ImageReference,
     LinkEmail,
-    LinkInet,
+    LinkInternet,
     LinkInline,
-    LinkRef,
-    LinkRefLiteral,
-    LinkRefShortcut,
+    LinkReference,
+    LinkReferenceLiteral,
+    LinkReferenceShortcut,
     /// The root patterns of html-derivative.
     /// A paragraph and a heading include them after the inline rules.
     #[cfg(feature = "lang-html-derivative")]
@@ -83,7 +83,7 @@ pub(crate) enum P {
     HtmlWrap,
 }
 
-impl P {
+impl Pattern {
     /// Whether a block rule can match at a position.
     ///
     /// It takes the byte there (`at`) and the first byte after the blanks that
@@ -95,55 +95,55 @@ impl P {
     /// failed.
     pub(crate) fn opens_block(self, anchored: bool, at: u8, first: u8) -> bool {
         if !anchored {
-            return self == P::LinkDef;
+            return self == Pattern::LinkDefinition;
         }
         match self {
-            P::FrontMatter => at == b'-',
-            P::Separator => matches!(first, b'-' | b'*' | b'_'),
-            P::Heading => first == b'#',
-            P::Quote => first == b'>',
-            P::Bullet => matches!(first, b'-' | b'*' | b'+'),
-            P::Ordered => first.is_ascii_digit(),
-            P::Fence => matches!(first, b'`' | b'~'),
-            P::RawBlock => matches!(at, b' ' | b'\t'),
-            P::LinkDef => first == b'[',
-            P::Comment => first == b'<',
+            Pattern::FrontMatter => at == b'-',
+            Pattern::Separator => matches!(first, b'-' | b'*' | b'_'),
+            Pattern::Heading => first == b'#',
+            Pattern::Quote => first == b'>',
+            Pattern::Bullet => matches!(first, b'-' | b'*' | b'+'),
+            Pattern::Ordered => first.is_ascii_digit(),
+            Pattern::Fence => matches!(first, b'`' | b'~'),
+            Pattern::RawBlock => matches!(at, b' ' | b'\t'),
+            Pattern::LinkDefinition => first == b'[',
+            Pattern::Comment => first == b'<',
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRaw | P::HtmlBlock => first == b'<',
+            Pattern::HtmlRaw | Pattern::HtmlBlock => first == b'<',
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRawBody | P::Html | P::HtmlWrap => true,
-            P::Table => at == b'|',
-            P::Paragraph
-            | P::FenceLanguage
-            | P::FencePlain
-            | P::EmbedBegin
-            | P::FrontMatterBegin
-            | P::TablePipe
-            | P::TableSeparator
-            | P::TableCell
-            | P::Setext1
-            | P::Setext2
-            | P::Level1
-            | P::Level2
-            | P::Level3
-            | P::Level4
-            | P::Level5
-            | P::Level6
-            | P::Ampersand
-            | P::Bracket
-            | P::Bold
-            | P::Italic
-            | P::Raw
-            | P::Strike
-            | P::Escape
-            | P::ImageInline
-            | P::ImageRef
-            | P::LinkEmail
-            | P::LinkInet
-            | P::LinkInline
-            | P::LinkRef
-            | P::LinkRefLiteral
-            | P::LinkRefShortcut => true,
+            Pattern::HtmlRawBody | Pattern::Html | Pattern::HtmlWrap => true,
+            Pattern::Table => at == b'|',
+            Pattern::Paragraph
+            | Pattern::FenceLanguage
+            | Pattern::FencePlain
+            | Pattern::EmbedBegin
+            | Pattern::FrontMatterBegin
+            | Pattern::TablePipe
+            | Pattern::TableSeparator
+            | Pattern::TableCell
+            | Pattern::Setext1
+            | Pattern::Setext2
+            | Pattern::Level1
+            | Pattern::Level2
+            | Pattern::Level3
+            | Pattern::Level4
+            | Pattern::Level5
+            | Pattern::Level6
+            | Pattern::Ampersand
+            | Pattern::Bracket
+            | Pattern::Bold
+            | Pattern::Italic
+            | Pattern::Raw
+            | Pattern::Strike
+            | Pattern::Escape
+            | Pattern::ImageInline
+            | Pattern::ImageReference
+            | Pattern::LinkEmail
+            | Pattern::LinkInternet
+            | Pattern::LinkInline
+            | Pattern::LinkReference
+            | Pattern::LinkReferenceLiteral
+            | Pattern::LinkReferenceShortcut => true,
         }
     }
 
@@ -153,47 +153,50 @@ impl P {
     /// byte.
     pub(crate) fn opens_with(self, byte: u8) -> bool {
         match self {
-            P::Ampersand => byte == b'&',
-            P::Bracket | P::LinkEmail | P::LinkInet => byte == b'<',
-            P::Bold | P::Italic => matches!(byte, b'*' | b'_'),
-            P::Raw => byte == b'`',
-            P::Strike => byte == b'~',
-            P::Escape => byte == b'\\',
-            P::ImageInline | P::ImageRef => byte == b'!',
-            P::LinkInline | P::LinkRef | P::LinkRefLiteral | P::LinkRefShortcut => byte == b'[',
-            P::Setext1 => byte == b'=',
-            P::Setext2 => byte == b'-',
+            Pattern::Ampersand => byte == b'&',
+            Pattern::Bracket | Pattern::LinkEmail | Pattern::LinkInternet => byte == b'<',
+            Pattern::Bold | Pattern::Italic => matches!(byte, b'*' | b'_'),
+            Pattern::Raw => byte == b'`',
+            Pattern::Strike => byte == b'~',
+            Pattern::Escape => byte == b'\\',
+            Pattern::ImageInline | Pattern::ImageReference => byte == b'!',
+            Pattern::LinkInline
+            | Pattern::LinkReference
+            | Pattern::LinkReferenceLiteral
+            | Pattern::LinkReferenceShortcut => byte == b'[',
+            Pattern::Setext1 => byte == b'=',
+            Pattern::Setext2 => byte == b'-',
             #[cfg(feature = "lang-html-derivative")]
-            P::Html => matches!(byte, b'<' | b'&'),
+            Pattern::Html => matches!(byte, b'<' | b'&'),
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlWrap => byte == b'<',
+            Pattern::HtmlWrap => byte == b'<',
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRaw | P::HtmlRawBody | P::HtmlBlock => true,
-            P::FrontMatter
-            | P::FrontMatterBegin
-            | P::Separator
-            | P::Heading
-            | P::Quote
-            | P::Bullet
-            | P::Ordered
-            | P::Fence
-            | P::FenceLanguage
-            | P::FencePlain
-            | P::RawBlock
-            | P::LinkDef
-            | P::Comment
-            | P::Table
-            | P::Paragraph
-            | P::EmbedBegin
-            | P::TablePipe
-            | P::TableSeparator
-            | P::TableCell
-            | P::Level1
-            | P::Level2
-            | P::Level3
-            | P::Level4
-            | P::Level5
-            | P::Level6 => true,
+            Pattern::HtmlRaw | Pattern::HtmlRawBody | Pattern::HtmlBlock => true,
+            Pattern::FrontMatter
+            | Pattern::FrontMatterBegin
+            | Pattern::Separator
+            | Pattern::Heading
+            | Pattern::Quote
+            | Pattern::Bullet
+            | Pattern::Ordered
+            | Pattern::Fence
+            | Pattern::FenceLanguage
+            | Pattern::FencePlain
+            | Pattern::RawBlock
+            | Pattern::LinkDefinition
+            | Pattern::Comment
+            | Pattern::Table
+            | Pattern::Paragraph
+            | Pattern::EmbedBegin
+            | Pattern::TablePipe
+            | Pattern::TableSeparator
+            | Pattern::TableCell
+            | Pattern::Level1
+            | Pattern::Level2
+            | Pattern::Level3
+            | Pattern::Level4
+            | Pattern::Level5
+            | Pattern::Level6 => true,
         }
     }
 }
@@ -227,170 +230,180 @@ pub(crate) enum List {
     StrikeText,
 }
 
-const BLOCK: &[P] = &[
-    P::FrontMatter,
-    P::Separator,
-    P::Heading,
-    P::Quote,
-    P::Bullet,
-    P::Ordered,
-    P::Fence,
-    P::RawBlock,
-    P::LinkDef,
-    P::Comment,
+const BLOCK: &[Pattern] = &[
+    Pattern::FrontMatter,
+    Pattern::Separator,
+    Pattern::Heading,
+    Pattern::Quote,
+    Pattern::Bullet,
+    Pattern::Ordered,
+    Pattern::Fence,
+    Pattern::RawBlock,
+    Pattern::LinkDefinition,
+    Pattern::Comment,
     #[cfg(feature = "lang-html-derivative")]
-    P::HtmlRaw,
+    Pattern::HtmlRaw,
     #[cfg(feature = "lang-html-derivative")]
-    P::HtmlBlock,
-    P::Table,
-    P::Paragraph,
+    Pattern::HtmlBlock,
+    Pattern::Table,
+    Pattern::Paragraph,
 ];
 
-const INLINE: &[P] = &[
-    P::Ampersand,
-    P::Bracket,
-    P::Bold,
-    P::Italic,
-    P::Raw,
-    P::Strike,
-    P::Escape,
-    P::ImageInline,
-    P::ImageRef,
-    P::LinkEmail,
-    P::LinkInet,
-    P::LinkInline,
-    P::LinkRef,
-    P::LinkRefLiteral,
-    P::LinkRefShortcut,
+const INLINE: &[Pattern] = &[
+    Pattern::Ampersand,
+    Pattern::Bracket,
+    Pattern::Bold,
+    Pattern::Italic,
+    Pattern::Raw,
+    Pattern::Strike,
+    Pattern::Escape,
+    Pattern::ImageInline,
+    Pattern::ImageReference,
+    Pattern::LinkEmail,
+    Pattern::LinkInternet,
+    Pattern::LinkInline,
+    Pattern::LinkReference,
+    Pattern::LinkReferenceLiteral,
+    Pattern::LinkReferenceShortcut,
 ];
 
-const HEADING_TEXT: &[P] = &[
-    P::Ampersand,
-    P::Bracket,
-    P::Bold,
-    P::Italic,
-    P::Raw,
-    P::Strike,
-    P::Escape,
-    P::ImageInline,
-    P::ImageRef,
-    P::LinkEmail,
-    P::LinkInet,
-    P::LinkInline,
-    P::LinkRef,
-    P::LinkRefLiteral,
-    P::LinkRefShortcut,
+const HEADING_TEXT: &[Pattern] = &[
+    Pattern::Ampersand,
+    Pattern::Bracket,
+    Pattern::Bold,
+    Pattern::Italic,
+    Pattern::Raw,
+    Pattern::Strike,
+    Pattern::Escape,
+    Pattern::ImageInline,
+    Pattern::ImageReference,
+    Pattern::LinkEmail,
+    Pattern::LinkInternet,
+    Pattern::LinkInline,
+    Pattern::LinkReference,
+    Pattern::LinkReferenceLiteral,
+    Pattern::LinkReferenceShortcut,
     #[cfg(feature = "lang-html-derivative")]
-    P::Html,
+    Pattern::Html,
 ];
 
-const PARAGRAPH: &[P] = &[
-    P::Ampersand,
-    P::Bracket,
-    P::Bold,
-    P::Italic,
-    P::Raw,
-    P::Strike,
-    P::Escape,
-    P::ImageInline,
-    P::ImageRef,
-    P::LinkEmail,
-    P::LinkInet,
-    P::LinkInline,
-    P::LinkRef,
-    P::LinkRefLiteral,
-    P::LinkRefShortcut,
+const PARAGRAPH: &[Pattern] = &[
+    Pattern::Ampersand,
+    Pattern::Bracket,
+    Pattern::Bold,
+    Pattern::Italic,
+    Pattern::Raw,
+    Pattern::Strike,
+    Pattern::Escape,
+    Pattern::ImageInline,
+    Pattern::ImageReference,
+    Pattern::LinkEmail,
+    Pattern::LinkInternet,
+    Pattern::LinkInline,
+    Pattern::LinkReference,
+    Pattern::LinkReferenceLiteral,
+    Pattern::LinkReferenceShortcut,
     #[cfg(feature = "lang-html-derivative")]
-    P::Html,
-    P::Setext1,
-    P::Setext2,
+    Pattern::Html,
+    Pattern::Setext1,
+    Pattern::Setext2,
 ];
 
-const BOLD: &[P] = &[
+const BOLD: &[Pattern] = &[
     #[cfg(feature = "lang-html-derivative")]
-    P::HtmlWrap,
-    P::Escape,
-    P::Ampersand,
-    P::Bracket,
-    P::Raw,
-    P::Bold,
-    P::Italic,
-    P::ImageInline,
-    P::LinkInline,
-    P::LinkInet,
-    P::LinkEmail,
-    P::ImageRef,
-    P::LinkRefLiteral,
-    P::LinkRef,
-    P::LinkRefShortcut,
-    P::Strike,
+    Pattern::HtmlWrap,
+    Pattern::Escape,
+    Pattern::Ampersand,
+    Pattern::Bracket,
+    Pattern::Raw,
+    Pattern::Bold,
+    Pattern::Italic,
+    Pattern::ImageInline,
+    Pattern::LinkInline,
+    Pattern::LinkInternet,
+    Pattern::LinkEmail,
+    Pattern::ImageReference,
+    Pattern::LinkReferenceLiteral,
+    Pattern::LinkReference,
+    Pattern::LinkReferenceShortcut,
+    Pattern::Strike,
 ];
 
-const ITALIC: &[P] = &[
+const ITALIC: &[Pattern] = &[
     #[cfg(feature = "lang-html-derivative")]
-    P::HtmlWrap,
-    P::Escape,
-    P::Ampersand,
-    P::Bracket,
-    P::Raw,
-    P::Bold,
-    P::ImageInline,
-    P::LinkInline,
-    P::LinkInet,
-    P::LinkEmail,
-    P::ImageRef,
-    P::LinkRefLiteral,
-    P::LinkRef,
-    P::LinkRefShortcut,
-    P::Strike,
+    Pattern::HtmlWrap,
+    Pattern::Escape,
+    Pattern::Ampersand,
+    Pattern::Bracket,
+    Pattern::Raw,
+    Pattern::Bold,
+    Pattern::ImageInline,
+    Pattern::LinkInline,
+    Pattern::LinkInternet,
+    Pattern::LinkEmail,
+    Pattern::ImageReference,
+    Pattern::LinkReferenceLiteral,
+    Pattern::LinkReference,
+    Pattern::LinkReferenceShortcut,
+    Pattern::Strike,
 ];
 
-const STRIKE_TEXT: &[P] = &[
+const STRIKE_TEXT: &[Pattern] = &[
     #[cfg(feature = "lang-html-derivative")]
-    P::HtmlWrap,
-    P::Escape,
-    P::Ampersand,
-    P::Bracket,
-    P::Raw,
-    P::Bold,
-    P::Italic,
-    P::ImageInline,
-    P::LinkInline,
-    P::LinkInet,
-    P::LinkEmail,
-    P::ImageRef,
-    P::LinkRefLiteral,
-    P::LinkRef,
-    P::LinkRefShortcut,
+    Pattern::HtmlWrap,
+    Pattern::Escape,
+    Pattern::Ampersand,
+    Pattern::Bracket,
+    Pattern::Raw,
+    Pattern::Bold,
+    Pattern::Italic,
+    Pattern::ImageInline,
+    Pattern::LinkInline,
+    Pattern::LinkInternet,
+    Pattern::LinkEmail,
+    Pattern::ImageReference,
+    Pattern::LinkReferenceLiteral,
+    Pattern::LinkReference,
+    Pattern::LinkReferenceShortcut,
 ];
 
-const LINK_TEXT: &[P] = &[P::Raw, P::Bold, P::Italic, P::Strike, P::ImageInline];
-
-const HEADING: &[P] = &[
-    P::Level6,
-    P::Level5,
-    P::Level4,
-    P::Level3,
-    P::Level2,
-    P::Level1,
+const LINK_TEXT: &[Pattern] = &[
+    Pattern::Raw,
+    Pattern::Bold,
+    Pattern::Italic,
+    Pattern::Strike,
+    Pattern::ImageInline,
 ];
 
-const TABLE: &[P] = &[P::TablePipe, P::TableSeparator, P::TableCell];
+const HEADING: &[Pattern] = &[
+    Pattern::Level6,
+    Pattern::Level5,
+    Pattern::Level4,
+    Pattern::Level3,
+    Pattern::Level2,
+    Pattern::Level1,
+];
+
+const TABLE: &[Pattern] = &[
+    Pattern::TablePipe,
+    Pattern::TableSeparator,
+    Pattern::TableCell,
+];
 
 /// The rules that apply inside a container.
-pub(crate) fn patterns(container: Container) -> &'static [P] {
+pub(crate) fn patterns(container: Container) -> &'static [Pattern] {
     match container {
-        Container::Fence(_) => &[P::EmbedBegin],
+        Container::Fence(_) => &[Pattern::EmbedBegin],
         #[cfg(feature = "lang-html")]
-        Container::FencePhp => &[P::EmbedBegin],
+        Container::FencePhp => &[Pattern::EmbedBegin],
         #[cfg(feature = "lang-html")]
         Container::BodyPhp => &[],
-        Container::FrontMatter => &[P::FrontMatterBegin],
+        Container::FrontMatter => &[Pattern::FrontMatterBegin],
         Container::Base | Container::Quote | Container::ListBullet | Container::ListOrdered => {
             BLOCK
         }
         #[cfg(feature = "lang-vue")]
-        Container::Body(Language::Vue) => &[P::Fence],
+        Container::Body(Language::Vue) => &[Pattern::Fence],
         Container::Body(language) => {
             if language == Language::Markdown {
                 BLOCK
@@ -403,7 +416,7 @@ pub(crate) fn patterns(container: Container) -> &'static [P] {
         | Container::RawBlock
         | Container::Comment => &[],
         #[cfg(feature = "lang-html-derivative")]
-        Container::HtmlRaw => &[P::HtmlRawBody],
+        Container::HtmlRaw => &[Pattern::HtmlRawBody],
         #[cfg(not(feature = "lang-html-derivative"))]
         Container::HtmlRaw => &[],
         Container::HtmlRawBody
@@ -418,7 +431,7 @@ pub(crate) fn patterns(container: Container) -> &'static [P] {
 }
 
 /// The rules that a capture group's text is handed to.
-pub(crate) fn list_patterns(list: List) -> &'static [P] {
+pub(crate) fn list_patterns(list: List) -> &'static [Pattern] {
     match list {
         List::Heading => HEADING,
         List::Inline => INLINE,
@@ -630,51 +643,55 @@ pub(crate) fn content_name(container: Container) -> &'static [S] {
 }
 
 /// The scope of a rule that matches text and opens no container.
-pub(crate) fn match_name(rule: P) -> Option<S> {
+pub(crate) fn match_name(rule: Pattern) -> Option<S> {
     Some(match rule {
-        P::Separator => S::Separator,
-        P::Heading => S::Heading,
-        P::Level1 => S::Heading1,
-        P::Level2 => S::Heading2,
-        P::Level3 => S::Heading3,
-        P::Level4 => S::Heading4,
-        P::Level5 => S::Heading5,
-        P::Level6 => S::Heading6,
-        P::LinkDef => S::LinkDef,
-        P::TablePipe => S::TablePunct,
-        P::Setext1 => S::Setext1,
-        P::Setext2 => S::Setext2,
-        P::Ampersand => S::Ampersand,
-        P::Bracket => S::Bracket,
-        P::Raw => S::InlineRaw,
-        P::Strike => S::Strike,
-        P::Escape => S::Escape,
-        P::ImageInline => S::ImageInline,
-        P::ImageRef => S::ImageRef,
-        P::LinkEmail => S::LinkEmail,
-        P::LinkInet => S::LinkInet,
-        P::LinkInline => S::LinkInline,
-        P::LinkRef | P::LinkRefShortcut => S::LinkRef,
-        P::LinkRefLiteral => S::LinkRefLiteral,
-        P::Quote
-        | P::Bullet
-        | P::Ordered
-        | P::Fence
-        | P::FenceLanguage
-        | P::FencePlain
-        | P::RawBlock
-        | P::Comment
-        | P::Table
-        | P::Paragraph
-        | P::EmbedBegin
-        | P::FrontMatter
-        | P::FrontMatterBegin
-        | P::TableSeparator
-        | P::TableCell
-        | P::Bold
-        | P::Italic => return None,
+        Pattern::Separator => S::Separator,
+        Pattern::Heading => S::Heading,
+        Pattern::Level1 => S::Heading1,
+        Pattern::Level2 => S::Heading2,
+        Pattern::Level3 => S::Heading3,
+        Pattern::Level4 => S::Heading4,
+        Pattern::Level5 => S::Heading5,
+        Pattern::Level6 => S::Heading6,
+        Pattern::LinkDefinition => S::LinkDef,
+        Pattern::TablePipe => S::TablePunct,
+        Pattern::Setext1 => S::Setext1,
+        Pattern::Setext2 => S::Setext2,
+        Pattern::Ampersand => S::Ampersand,
+        Pattern::Bracket => S::Bracket,
+        Pattern::Raw => S::InlineRaw,
+        Pattern::Strike => S::Strike,
+        Pattern::Escape => S::Escape,
+        Pattern::ImageInline => S::ImageInline,
+        Pattern::ImageReference => S::ImageRef,
+        Pattern::LinkEmail => S::LinkEmail,
+        Pattern::LinkInternet => S::LinkInet,
+        Pattern::LinkInline => S::LinkInline,
+        Pattern::LinkReference | Pattern::LinkReferenceShortcut => S::LinkRef,
+        Pattern::LinkReferenceLiteral => S::LinkRefLiteral,
+        Pattern::Quote
+        | Pattern::Bullet
+        | Pattern::Ordered
+        | Pattern::Fence
+        | Pattern::FenceLanguage
+        | Pattern::FencePlain
+        | Pattern::RawBlock
+        | Pattern::Comment
+        | Pattern::Table
+        | Pattern::Paragraph
+        | Pattern::EmbedBegin
+        | Pattern::FrontMatter
+        | Pattern::FrontMatterBegin
+        | Pattern::TableSeparator
+        | Pattern::TableCell
+        | Pattern::Bold
+        | Pattern::Italic => return None,
         #[cfg(feature = "lang-html-derivative")]
-        P::HtmlRaw | P::HtmlRawBody | P::HtmlBlock | P::Html | P::HtmlWrap => return None,
+        Pattern::HtmlRaw
+        | Pattern::HtmlRawBody
+        | Pattern::HtmlBlock
+        | Pattern::Html
+        | Pattern::HtmlWrap => return None,
     })
 }
 
@@ -738,37 +755,42 @@ fn title(group: usize, first: usize) -> Capture {
 }
 
 /// The scope or rules of group `group` of `rule`'s match.
-pub(crate) fn capture(rule: P, group: usize) -> Capture {
+pub(crate) fn capture(rule: Pattern, group: usize) -> Capture {
     match rule {
-        P::Heading => only(group, 1, list(List::Heading)),
-        P::Level1 | P::Level2 | P::Level3 | P::Level4 | P::Level5 | P::Level6 => match group {
+        Pattern::Heading => only(group, 1, list(List::Heading)),
+        Pattern::Level1
+        | Pattern::Level2
+        | Pattern::Level3
+        | Pattern::Level4
+        | Pattern::Level5
+        | Pattern::Level6 => match group {
             1 | 3 => scope(S::HeadingPunct),
             2 => both(S::HeadingName, List::HeadingText),
             _ => NONE,
         },
-        P::Quote => only(group, 2, scope(S::QuotePunct)),
-        P::Bullet | P::Ordered => only(group, 3, scope(S::ListPunct)),
-        P::FenceLanguage => match group {
+        Pattern::Quote => only(group, 2, scope(S::QuotePunct)),
+        Pattern::Bullet | Pattern::Ordered => only(group, 3, scope(S::ListPunct)),
+        Pattern::FenceLanguage => match group {
             3 => scope(S::FencePunct),
             4 => scope(S::FenceLang),
             5 => scope(S::FenceAttrs),
             _ => NONE,
         },
-        P::FencePlain => match group {
+        Pattern::FencePlain => match group {
             3 => scope(S::FencePunct),
             4 => scope(S::FenceInfo),
             _ => NONE,
         },
-        P::FrontMatterBegin => match group {
+        Pattern::FrontMatterBegin => match group {
             1 => scope(S::FrontMatterBegin),
             2 => scope(S::FrontMatterComment),
             _ => NONE,
         },
-        P::Comment => only(group, 2, scope(S::CommentHtmlPunct)),
-        P::Table => only(group, 2, scope(S::TablePunct)),
-        P::TableSeparator => only(group, 1, scope(S::TableSeparator)),
-        P::TableCell => only(group, 1, list(List::Inline)),
-        P::LinkDef => match group {
+        Pattern::Comment => only(group, 2, scope(S::CommentHtmlPunct)),
+        Pattern::Table => only(group, 2, scope(S::TablePunct)),
+        Pattern::TableSeparator => only(group, 1, scope(S::TableSeparator)),
+        Pattern::TableCell => only(group, 1, list(List::Inline)),
+        Pattern::LinkDefinition => match group {
             1 | 3 => scope(S::ConstPunct),
             2 => scope(S::ConstRef),
             4 => scope(S::KeyValue),
@@ -776,32 +798,36 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
             6 | 8 => scope(S::UnderlineLink),
             _ => title(group, 9),
         },
-        P::FrontMatter
-        | P::Separator
-        | P::Fence
-        | P::RawBlock
-        | P::Paragraph
-        | P::EmbedBegin
-        | P::TablePipe
-        | P::Setext1
-        | P::Setext2
-        | P::Ampersand
-        | P::Bracket
-        | P::Escape => NONE,
+        Pattern::FrontMatter
+        | Pattern::Separator
+        | Pattern::Fence
+        | Pattern::RawBlock
+        | Pattern::Paragraph
+        | Pattern::EmbedBegin
+        | Pattern::TablePipe
+        | Pattern::Setext1
+        | Pattern::Setext2
+        | Pattern::Ampersand
+        | Pattern::Bracket
+        | Pattern::Escape => NONE,
         #[cfg(feature = "lang-html-derivative")]
-        P::HtmlRaw | P::HtmlRawBody | P::HtmlBlock | P::Html | P::HtmlWrap => NONE,
-        P::Bold
-        | P::Italic
-        | P::Raw
-        | P::Strike
-        | P::ImageInline
-        | P::ImageRef
-        | P::LinkEmail
-        | P::LinkInet
-        | P::LinkInline
-        | P::LinkRef
-        | P::LinkRefLiteral
-        | P::LinkRefShortcut => inline_capture(rule, group),
+        Pattern::HtmlRaw
+        | Pattern::HtmlRawBody
+        | Pattern::HtmlBlock
+        | Pattern::Html
+        | Pattern::HtmlWrap => NONE,
+        Pattern::Bold
+        | Pattern::Italic
+        | Pattern::Raw
+        | Pattern::Strike
+        | Pattern::ImageInline
+        | Pattern::ImageReference
+        | Pattern::LinkEmail
+        | Pattern::LinkInternet
+        | Pattern::LinkInline
+        | Pattern::LinkReference
+        | Pattern::LinkReferenceLiteral
+        | Pattern::LinkReferenceShortcut => inline_capture(rule, group),
     }
 }
 
@@ -813,20 +839,20 @@ pub(crate) fn capture(rule: P, group: usize) -> Capture {
     clippy::wildcard_enum_match_arm,
     reason = "`capture` handles every rule that is not inline"
 )]
-fn inline_capture(rule: P, group: usize) -> Capture {
+fn inline_capture(rule: Pattern, group: usize) -> Capture {
     match rule {
-        P::Bold => only(group, 1, scope(S::BoldPunct)),
-        P::Italic => only(group, 1, scope(S::ItalicPunct)),
-        P::Raw => match group {
+        Pattern::Bold => only(group, 1, scope(S::BoldPunct)),
+        Pattern::Italic => only(group, 1, scope(S::ItalicPunct)),
+        Pattern::Raw => match group {
             1 | 3 => scope(S::RawPunct),
             _ => NONE,
         },
-        P::Strike => match group {
+        Pattern::Strike => match group {
             1 | 3 => scope(S::StrikePunct),
             2 => list(List::StrikeText),
             _ => NONE,
         },
-        P::ImageInline => match group {
+        Pattern::ImageInline => match group {
             1 => scope(S::DescBegin),
             2 => scope(S::DescName),
             4 => scope(S::DescEnd),
@@ -835,7 +861,7 @@ fn inline_capture(rule: P, group: usize) -> Capture {
             8 | 10 => scope(S::UnderlineImage),
             _ => title(group, 12),
         },
-        P::ImageRef => match group {
+        Pattern::ImageReference => match group {
             1 => scope(S::DescBegin),
             2 => scope(S::DescName),
             4 => scope(S::DescEnd),
@@ -843,17 +869,17 @@ fn inline_capture(rule: P, group: usize) -> Capture {
             6 => scope(S::ConstRef),
             _ => NONE,
         },
-        P::LinkEmail => match group {
+        Pattern::LinkEmail => match group {
             1 => scope(S::LinkPunct),
             2 => scope(S::UnderlineLink),
             _ => NONE,
         },
-        P::LinkInet => match group {
+        Pattern::LinkInternet => match group {
             1 | 3 => scope(S::LinkPunct),
             2 => scope(S::UnderlineLink),
             _ => NONE,
         },
-        P::LinkInline => match group {
+        Pattern::LinkInline => match group {
             1 => scope(S::TitleBeginLink),
             2 => both(S::LinkTitle, List::LinkText),
             4 => scope(S::TitleEndLink),
@@ -862,7 +888,7 @@ fn inline_capture(rule: P, group: usize) -> Capture {
             8 | 10 => scope(S::UnderlineLink),
             _ => title(group, 12),
         },
-        P::LinkRef => match group {
+        Pattern::LinkReference => match group {
             1 => scope(S::TitleBeginLink),
             2 => both(S::LinkTitle, List::LinkText),
             4 => scope(S::TitleEndLink),
@@ -871,7 +897,7 @@ fn inline_capture(rule: P, group: usize) -> Capture {
             7 => scope(S::ConstEnd),
             _ => NONE,
         },
-        P::LinkRefLiteral => match group {
+        Pattern::LinkReferenceLiteral => match group {
             1 => scope(S::TitleBeginLink),
             2 => scope(S::LinkTitle),
             4 => scope(S::TitleEndLink),
@@ -879,7 +905,7 @@ fn inline_capture(rule: P, group: usize) -> Capture {
             6 => scope(S::ConstEnd),
             _ => NONE,
         },
-        P::LinkRefShortcut => match group {
+        Pattern::LinkReferenceShortcut => match group {
             1 => scope(S::TitleBeginLink),
             2 => scope(S::LinkTitle),
             3 => scope(S::TitleEndLink),

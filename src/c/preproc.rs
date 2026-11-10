@@ -9,10 +9,10 @@ use crate::scope::{Scopes, scopes};
 
 /// A directive line, `^\s*(#)\s*keyword\b`.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Dir {
+pub(super) struct Directive {
     pub(super) hash: usize,
     /// Where the keyword starts and ends.
-    pub(super) kw: (usize, usize),
+    pub(super) keyword: (usize, usize),
 }
 
 /// What follows a conditional directive for it to be live or dead code.
@@ -38,8 +38,8 @@ const IF_FAMILY: &[&str] = &["ifndef", "ifdef", "if"];
 
 impl Lexer<'_> {
     /// `^\s*(#)\s*KEYWORD\b` at the start of the line, for the first of
-    /// `kws` that matches.
-    pub(super) fn directive(&self, p: usize, kws: &[&str]) -> Option<Dir> {
+    /// `keywords` that matches.
+    pub(super) fn directive(&self, p: usize, keywords: &[&str]) -> Option<Directive> {
         if p != 0 {
             return None;
         }
@@ -57,10 +57,12 @@ impl Lexer<'_> {
                 (hash, word)
             }
         };
-        kws.iter().find_map(|kw| {
-            let end = k + kw.len();
-            (self.starts(k, kw.as_bytes()) && self.word_at(end) == 0)
-                .then_some(Dir { hash, kw: (k, end) })
+        keywords.iter().find_map(|keyword| {
+            let end = k + keyword.len();
+            (self.starts(k, keyword.as_bytes()) && self.word_at(end) == 0).then_some(Directive {
+                hash,
+                keyword: (k, end),
+            })
         })
     }
 
@@ -111,43 +113,62 @@ impl Lexer<'_> {
 
     /// The captures of a conditional directive: the whole directive, the
     /// word and the `#`.
-    fn directive_captures(&mut self, dir: Dir, meta: Meta) {
+    fn directive_captures(&mut self, directive: Directive, meta: Meta) {
         if meta == Meta::Whole {
-            self.span(0, dir.kw.1, scopes![S::MetaPreprocessor]);
+            self.span(0, directive.keyword.1, scopes![S::MetaPreprocessor]);
         }
-        self.span(dir.hash, dir.kw.1, scopes![S::DirectiveConditional]);
-        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
+        self.span(
+            directive.hash,
+            directive.keyword.1,
+            scopes![S::DirectiveConditional],
+        );
+        self.span(
+            directive.hash,
+            directive.hash + 1,
+            scopes![S::PunctDirective],
+        );
     }
 
     /// The begin of a conditional rule.
-    pub(super) fn cond_begin(&mut self, p: usize, kws: &[&str], look: Look, meta: Meta) -> bool {
-        let Some(dir) = self.directive(p, kws) else {
+    pub(super) fn conditional_begin(
+        &mut self,
+        p: usize,
+        keywords: &[&str],
+        look: Look,
+        meta: Meta,
+    ) -> bool {
+        let Some(directive) = self.directive(p, keywords) else {
             return false;
         };
-        if !self.look_ahead(dir.kw.1, look) {
+        if !self.look_ahead(directive.keyword.1, look) {
             return false;
         }
-        self.directive_captures(dir, meta);
-        self.begin(0, dir.kw.1)
+        self.directive_captures(directive, meta);
+        self.begin(0, directive.keyword.1)
     }
 
     /// `#if`, `#ifdef` and `#ifndef`.
-    pub(super) fn cond_if(&mut self, p: usize) -> bool {
-        self.cond_begin(p, IF_FAMILY, Look::No, Meta::Whole)
+    pub(super) fn conditional_if(&mut self, p: usize) -> bool {
+        self.conditional_begin(p, IF_FAMILY, Look::No, Meta::Whole)
     }
 
     /// The `#if` of a branch the grammar reads as live or dead.
-    pub(super) fn cond_if_look(&mut self, p: usize, look: Look) -> bool {
-        self.cond_begin(p, &["if"], look, Meta::Whole)
+    pub(super) fn conditional_if_look(&mut self, p: usize, look: Look) -> bool {
+        self.conditional_begin(p, &["if"], look, Meta::Whole)
     }
 
     /// `^\s*#\s*(e(?:lse|lif|ndif))\b`.
     pub(super) fn stray(&mut self, p: usize) -> bool {
-        let Some(dir) = self.directive(p, &["else", "elif", "endif"]) else {
+        let Some(directive) = self.directive(p, &["else", "elif", "endif"]) else {
             return false;
         };
-        self.capture_dyn(0, dir.kw.1, "invalid.illegal.stray-", dir.kw);
-        self.plain(0, dir.kw.1)
+        self.capture_dyn(
+            0,
+            directive.keyword.1,
+            "invalid.illegal.stray-",
+            directive.keyword,
+        );
+        self.plain(0, directive.keyword.1)
     }
 
     /// `^\s*#\s*if(n?def)?\b.*$`: a conditional inside a dead branch.
@@ -194,7 +215,7 @@ impl Lexer<'_> {
     }
 
     /// `\bdefined\b` with the lookahead that makes it a directive keyword.
-    pub(super) fn cond_defined(&mut self, p: usize) -> bool {
+    pub(super) fn conditional_defined(&mut self, p: usize) -> bool {
         if !self.starts(p, b"defined") || self.word_before(p) || self.word_at(p + 7) > 0 {
             return false;
         }
@@ -267,7 +288,7 @@ impl Lexer<'_> {
     }
 
     /// `\bdefined\b` that no directive keyword lookahead takes.
-    pub(super) fn cond_defined_invalid(&mut self, p: usize) -> bool {
+    pub(super) fn conditional_defined_invalid(&mut self, p: usize) -> bool {
         self.starts(p, b"defined")
             && !self.word_before(p)
             && self.word_at(p + 7) == 0
@@ -300,32 +321,50 @@ impl Lexer<'_> {
     /// A one-word directive with `scope` on its word:
     /// `^\s*((#)\s*word)\b`.
     pub(super) fn line_directive(&mut self, p: usize, word: &str, scope: Scopes<S>) -> bool {
-        let Some(dir) = self.directive(p, &[word]) else {
+        let Some(directive) = self.directive(p, &[word]) else {
             return false;
         };
-        self.span(dir.hash, dir.kw.1, scope);
-        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
-        self.begin(0, dir.kw.1)
+        self.span(directive.hash, directive.keyword.1, scope);
+        self.span(
+            directive.hash,
+            directive.hash + 1,
+            scopes![S::PunctDirective],
+        );
+        self.begin(0, directive.keyword.1)
     }
 
     /// `^\s*((#)\s*(error|warning))\b\s*` and the include directives.
     /// Each directive's word names the scope.
-    pub(super) fn named_directive(&mut self, p: usize, kws: &[&str], prefix: &'static str) -> bool {
-        let Some(dir) = self.directive(p, kws) else {
+    pub(super) fn named_directive(
+        &mut self,
+        p: usize,
+        keywords: &[&str],
+        prefix: &'static str,
+    ) -> bool {
+        let Some(directive) = self.directive(p, keywords) else {
             return false;
         };
-        self.capture_dyn(dir.hash, dir.kw.1, prefix, dir.kw);
-        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
-        let end = self.skip_space(dir.kw.1);
+        self.capture_dyn(
+            directive.hash,
+            directive.keyword.1,
+            prefix,
+            directive.keyword,
+        );
+        self.span(
+            directive.hash,
+            directive.hash + 1,
+            scopes![S::PunctDirective],
+        );
+        let end = self.skip_space(directive.keyword.1);
         self.begin(0, end)
     }
 
     /// `^\s*(((#)\s*pragma\s+mark)\s+(.*))`.
     pub(super) fn pragma_mark(&mut self, p: usize) -> bool {
-        let Some(dir) = self.directive(p, &["pragma"]) else {
+        let Some(directive) = self.directive(p, &["pragma"]) else {
             return false;
         };
-        let after = dir.kw.1;
+        let after = directive.keyword.1;
         let m = self.skip_space(after);
         if m == after || !self.starts(m, b"mark") {
             return false;
@@ -341,9 +380,13 @@ impl Lexer<'_> {
         }
         self.spend(end - t);
         let text_start = t.min(end);
-        self.span(dir.hash, end, scopes![S::MetaPreprocessorPragma]);
-        self.span(dir.hash, mark_end, scopes![S::DirectivePragmaMark]);
-        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
+        self.span(directive.hash, end, scopes![S::MetaPreprocessorPragma]);
+        self.span(directive.hash, mark_end, scopes![S::DirectivePragmaMark]);
+        self.span(
+            directive.hash,
+            directive.hash + 1,
+            scopes![S::PunctDirective],
+        );
         self.span(text_start, end, scopes![S::EntityTagPragmaMark]);
         self.plain(0, end.max(t))
     }
@@ -412,7 +455,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<=[(,])\s*(name)\s*` in the parameters of a macro.
-    pub(super) fn define_param(&mut self, p: usize) -> bool {
+    pub(super) fn define_parameter(&mut self, p: usize) -> bool {
         if !matches!(self.prev(p), Some(b'(' | b',')) {
             return false;
         }
@@ -427,7 +470,7 @@ impl Lexer<'_> {
 
     /// The lookahead that starts a call inside a macro:
     /// `(?!(?:…)\s*\()(?=name\s*\()`.
-    pub(super) fn define_func(&mut self, p: usize) -> bool {
+    pub(super) fn define_function(&mut self, p: usize) -> bool {
         self.call_target(p, wordset::DEFINE_EXCL).is_some() && self.begin(p, p)
     }
 

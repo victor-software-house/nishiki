@@ -67,7 +67,7 @@ impl<const D: u8> Lexer<'_, D> {
         Some(r0)
     }
 
-    pub(crate) fn import_eq_int_rules(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn import_equals_internal_rules(&mut self, p: usize) -> Option<usize> {
         if let Some(r) = self.single_line_comment_consuming_line_ending(p) {
             return Some(r);
         }
@@ -110,7 +110,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
         }
         let nxt = self.ws(e);
-        if matches!(self.byte(nxt), b'(' | b':') || !self.kw_after(e) {
+        if matches!(self.byte(nxt), b'(' | b':') || !self.keyword_after(e) {
             return None;
         }
         self.flush(p);
@@ -170,7 +170,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn import_export_assert_clause(&mut self, p: usize) -> Option<usize> {
-        if !self.kw_before(p) || self.full() {
+        if !self.keyword_before(p) || self.full() {
             return None;
         }
         let (e, scope) = if self.starts(p, "with") {
@@ -238,7 +238,7 @@ impl<const D: u8> Lexer<'_, D> {
     ///
     /// The grammar tries `type` as the optional modifier first, then as a name.
     fn import_alias(&mut self, p: usize) -> Option<usize> {
-        if !self.kw_before(p) {
+        if !self.keyword_before(p) {
             return None;
         }
         let mut j = p;
@@ -302,7 +302,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         let (second_end, second_scope): (usize, S) =
-            if self.starts(m, "default") && self.kw_after(m + "default".len()) {
+            if self.starts(m, "default") && self.keyword_after(m + "default".len()) {
                 (m + "default".len(), S::KeywordControlDefault)
             } else if let Some(e) = self.ident(m) {
                 (e, S::VariableOtherReadwriteAlias)

@@ -45,7 +45,7 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) == b'=' && !self.full() {
             let j = self.ws(p + 1);
             let mut intrinsic = None;
-            if self.starts(j, "intrinsic") && self.kw_after(j + "intrinsic".len()) {
+            if self.starts(j, "intrinsic") && self.keyword_after(j + "intrinsic".len()) {
                 intrinsic = Some((j, j + "intrinsic".len()));
             }
             self.flush(p);

@@ -12,7 +12,7 @@ impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn namespace_declaration(&mut self, p: usize) -> Option<usize> {
         let pre = self.declaration_start(p)?;
         let k = pre.at;
-        let e = self.kw_of_boundary(k, &["namespace", "module"])?;
+        let e = self.keyword_of_boundary(k, &["namespace", "module"])?;
         if self.full() {
             return None;
         }
@@ -34,7 +34,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// A word with `\b` on both sides.
-    fn kw_of_boundary(&self, k: usize, words: &[&str]) -> Option<usize> {
+    fn keyword_of_boundary(&self, k: usize, words: &[&str]) -> Option<usize> {
         words
             .iter()
             .find(|w| self.starts(k, w) && self.boundary(k) && self.boundary(k + w.len()))
@@ -51,6 +51,7 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some(e) = self.ident(p) {
             return self.token_rule(p, e, S::EntityNameTypeModule);
         }
-        self.punctuation_accessor(p).or_else(|| self.decl_block(p))
+        self.punctuation_accessor(p)
+            .or_else(|| self.declaration_block(p))
     }
 }

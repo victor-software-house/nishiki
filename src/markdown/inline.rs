@@ -778,7 +778,7 @@ pub(crate) fn link_email(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Opti
 }
 
 /// `(<)((?:https?|ftp)://.*?)(>)`
-pub(crate) fn link_inet(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
+pub(crate) fn link_internet(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if cx.get(p) != Some(b'<') {
         return None;
     }

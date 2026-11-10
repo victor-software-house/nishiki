@@ -120,16 +120,16 @@ impl Lexer<'_> {
     }
 
     /// An operator at `p`: the scope of the first alternative that matches.
-    pub(super) fn op_dec(&mut self, p: usize) -> bool {
+    pub(super) fn operator_decrement(&mut self, p: usize) -> bool {
         self.starts(p, b"--") && self.plain(p, p + 2)
     }
 
-    pub(super) fn op_inc(&mut self, p: usize) -> bool {
+    pub(super) fn operator_increment(&mut self, p: usize) -> bool {
         self.starts(p, b"++") && self.plain(p, p + 2)
     }
 
     /// `(?:[-%*+]|(?<!\()/)=`.
-    pub(super) fn op_compound(&mut self, p: usize) -> bool {
+    pub(super) fn operator_compound(&mut self, p: usize) -> bool {
         let lead = self.b(p);
         let ok = matches!(lead, b'-' | b'%' | b'*' | b'+')
             || (lead == b'/' && self.prev(p) != Some(b'('));
@@ -137,7 +137,7 @@ impl Lexer<'_> {
     }
 
     /// `(?:[&^]|<<|>>|\|)=`.
-    pub(super) fn op_bitwise_assign(&mut self, p: usize) -> bool {
+    pub(super) fn operator_bitwise_assignment(&mut self, p: usize) -> bool {
         let len = if self.starts(p, b"<<") || self.starts(p, b">>") {
             2
         } else if matches!(self.b(p), b'&' | b'^' | b'|') {
@@ -148,12 +148,12 @@ impl Lexer<'_> {
         self.b(p + len) == b'=' && self.plain(p, p + len + 1)
     }
 
-    pub(super) fn op_shift(&mut self, p: usize) -> bool {
+    pub(super) fn operator_shift(&mut self, p: usize) -> bool {
         (self.starts(p, b"<<") || self.starts(p, b">>")) && self.plain(p, p + 2)
     }
 
     /// `!=|<=|>=|==|[<>]`.
-    pub(super) fn op_compare(&mut self, p: usize) -> bool {
+    pub(super) fn operator_comparison(&mut self, p: usize) -> bool {
         let lead = self.b(p);
         if matches!(lead, b'!' | b'<' | b'>' | b'=') && self.b(p + 1) == b'=' {
             return self.plain(p, p + 2);
@@ -162,22 +162,22 @@ impl Lexer<'_> {
     }
 
     /// `&&|!|\|\|`.
-    pub(super) fn op_logical(&mut self, p: usize) -> bool {
+    pub(super) fn operator_logical(&mut self, p: usize) -> bool {
         if self.starts(p, b"&&") || self.starts(p, b"||") {
             return self.plain(p, p + 2);
         }
         self.b(p) == b'!' && self.plain(p, p + 1)
     }
 
-    pub(super) fn op_bit(&mut self, p: usize) -> bool {
+    pub(super) fn operator_bitwise(&mut self, p: usize) -> bool {
         matches!(self.b(p), b'&' | b'^' | b'|' | b'~') && self.plain(p, p + 1)
     }
 
-    pub(super) fn op_assign(&mut self, p: usize) -> bool {
+    pub(super) fn operator_assignment(&mut self, p: usize) -> bool {
         self.b(p) == b'=' && self.plain(p, p + 1)
     }
 
-    pub(super) fn op_arith(&mut self, p: usize) -> bool {
+    pub(super) fn operator_arithmetic(&mut self, p: usize) -> bool {
         matches!(self.b(p), b'-' | b'%' | b'*' | b'+' | b'/') && self.plain(p, p + 1)
     }
 

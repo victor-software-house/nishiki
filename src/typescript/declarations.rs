@@ -17,7 +17,7 @@ pub(crate) struct Prefix {
 /// Whether the names a binding pattern declares are constants.
 /// The grammar scopes constants apart.
 /// A `using` declaration has no patterns.
-/// A [`VarKeyword`] would therefore carry a case no pattern meets.
+/// A [`DeclarationKeyword`] would therefore carry a case no pattern meets.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Binding {
     /// `let`, `var` and parameters.
@@ -47,7 +47,7 @@ impl Pattern {
 
 /// The three declaration keyword forms the grammar keeps apart.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum VarKeyword {
+pub(crate) enum DeclarationKeyword {
     Let,
     Const,
     Using,
@@ -72,7 +72,7 @@ impl<const D: u8> Lexer<'_, D> {
                     Self::after_operator_block_as_object_literal,
                 )
             })
-            .or_else(|| self.only("s.block", Bytes::of(b"{"), p, Self::decl_block))
+            .or_else(|| self.only("s.block", Bytes::of(b"{"), p, Self::declaration_block))
             .or_else(|| self.only("s.label", NAME_START, p, Self::label))
             .or_else(|| self.only("s.expression", ANY, p, Self::expression))
             .or_else(|| {
@@ -89,7 +89,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn declaration(&mut self, p: usize) -> Option<usize> {
         self.only("d.decorator", Bytes::of(b"@"), p, Self::decorator)
-            .or_else(|| self.only("d.var", Bytes::of(b"vlcuaed"), p, Self::var_expr))
+            .or_else(|| self.only("d.var", Bytes::of(b"vlcuaed"), p, Self::variable_expression))
             .or_else(|| {
                 self.only(
                     "d.function",
@@ -129,20 +129,20 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.only("d.export", Bytes::of(b"e"), p, Self::export_declaration))
             .or_else(|| {
                 self.only("d.modifier", Bytes::of(b"de"), p, |s, p| {
-                    let e = s.kw_of(p, &["declare", "export"])?;
+                    let e = s.keyword_of(p, &["declare", "export"])?;
                     s.token_rule(p, e, S::StorageModifier)
                 })
             })
     }
 
     pub(crate) fn decorator(&mut self, p: usize) -> Option<usize> {
-        if self.byte(p) != b'@' || !self.kw_before(p) {
+        if self.byte(p) != b'@' || !self.keyword_before(p) {
             return None;
         }
         self.open_token(Rule::Decorator, p, p + 1, &[S::PunctuationDecorator])
     }
 
-    pub(crate) fn decl_block(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn declaration_block(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) != b'{' {
             return None;
         }
@@ -196,7 +196,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(?:\b(export)\s+)?(?:\b(declare)\s+)?` at `p`.
-    pub(crate) fn decl_prefix(&self, p: usize) -> Prefix {
+    pub(crate) fn declaration_prefix(&self, p: usize) -> Prefix {
         let mut at = p;
         let mut export = None;
         let mut declare = None;
@@ -235,23 +235,29 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The prefix of a declaration begin, once the guard at `p` holds.
     pub(crate) fn declaration_start(&self, p: usize) -> Option<Prefix> {
-        if !self.byte(p).is_ascii_lowercase() || !self.kw_before(p) {
+        if !self.byte(p).is_ascii_lowercase() || !self.keyword_before(p) {
             return None;
         }
-        Some(self.decl_prefix(p))
+        Some(self.declaration_prefix(p))
     }
 
-    pub(crate) fn var_expr(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn variable_expression(&mut self, p: usize) -> Option<usize> {
         if !self.byte(p).is_ascii_lowercase() {
             return None;
         }
-        if self.var_keyword(p, VarKeyword::Let).is_some() {
+        if self.variable_keyword(p, DeclarationKeyword::Let).is_some() {
             return self.open_empty(Rule::VariableLet, p);
         }
-        if self.var_keyword(p, VarKeyword::Const).is_some() {
+        if self
+            .variable_keyword(p, DeclarationKeyword::Const)
+            .is_some()
+        {
             return self.open_empty(Rule::VariableConst, p);
         }
-        if self.var_keyword(p, VarKeyword::Using).is_some() {
+        if self
+            .variable_keyword(p, DeclarationKeyword::Using)
+            .is_some()
+        {
             return self.open_empty(Rule::VariableUsing, p);
         }
         None
@@ -259,11 +265,15 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// `B(?:\b(export)\s+)?(?:\b(declare)\s+)?\b(var|let)E` and its `const`
     /// and `using` forms: the prefix and the end of the keyword.
-    pub(crate) fn var_keyword(&self, p: usize, which: VarKeyword) -> Option<(Prefix, usize)> {
+    pub(crate) fn variable_keyword(
+        &self,
+        p: usize,
+        which: DeclarationKeyword,
+    ) -> Option<(Prefix, usize)> {
         let pre = self.declaration_start(p)?;
         let k = pre.at;
         let e = match which {
-            VarKeyword::Let => {
+            DeclarationKeyword::Let => {
                 if !self.boundary(k) {
                     return None;
                 }
@@ -273,7 +283,7 @@ impl<const D: u8> Lexer<'_, D> {
                     return None;
                 }
             }
-            VarKeyword::Const => {
+            DeclarationKeyword::Const => {
                 if !self.starts(k, "const") || !self.boundary(k) {
                     return None;
                 }
@@ -284,14 +294,14 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 e
             }
-            VarKeyword::Using => self.await_using_end(k).or_else(|| self.using_end(k))?,
+            DeclarationKeyword::Using => self.await_using_end(k).or_else(|| self.using_end(k))?,
         };
-        self.kw_after(e).then_some((pre, e))
+        self.keyword_after(e).then_some((pre, e))
     }
 
     /// `B (of|in)\s+`.
     pub(crate) fn of_in_ahead(&self, p: usize) -> bool {
-        if !self.kw_before(p) {
+        if !self.keyword_before(p) {
             return false;
         }
         ["of", "in"]
@@ -301,8 +311,12 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The `var`, `let` or `const` keyword that begins a declaration, with its
     /// trailing blanks.
-    pub(crate) fn var_kw_rule(&mut self, p: usize, which: VarKeyword) -> Option<usize> {
-        let (pre, e) = self.var_keyword(p, which)?;
+    pub(crate) fn variable_keyword_rule(
+        &mut self,
+        p: usize,
+        which: DeclarationKeyword,
+    ) -> Option<usize> {
+        let (pre, e) = self.variable_keyword(p, which)?;
         if self.full() {
             return None;
         }
@@ -316,7 +330,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `(,)\s*(?=$|//)` after a declaration.
-    pub(crate) fn var_comma(&mut self, p: usize, rule: Rule) -> Option<usize> {
+    pub(crate) fn variable_comma(&mut self, p: usize, rule: Rule) -> Option<usize> {
         if self.byte(p) != b',' || self.full() {
             return None;
         }
@@ -333,7 +347,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The name rules of a `let` or `var` declaration.
-    pub(crate) fn var_single_variable(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn variable_single_variable(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;
         }
@@ -344,8 +358,8 @@ impl<const D: u8> Lexer<'_, D> {
             bang = Some(k);
             k += 1;
         }
-        if self.named_fn_ahead(k) {
-            return Some(self.var_single_begin(
+        if self.named_function_ahead(k) {
+            return Some(self.variable_single_begin(
                 p,
                 e,
                 bang,
@@ -360,7 +374,7 @@ impl<const D: u8> Lexer<'_, D> {
                 bang = Some(k);
                 k += 1;
             }
-            return Some(self.var_single_begin(
+            return Some(self.variable_single_begin(
                 p,
                 c,
                 bang,
@@ -368,7 +382,7 @@ impl<const D: u8> Lexer<'_, D> {
                 &[S::MetaDefinitionVariable, S::VariableOtherConstant],
             ));
         }
-        Some(self.var_single_begin(
+        Some(self.variable_single_begin(
             p,
             e,
             bang,
@@ -378,13 +392,13 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The name rule of a `const` declaration.
-    pub(crate) fn var_single_const(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn variable_single_const(&mut self, p: usize) -> Option<usize> {
         if self.full() {
             return None;
         }
         let e = self.ident(p)?;
-        if self.named_fn_ahead(e) {
-            return Some(self.var_single_begin(
+        if self.named_function_ahead(e) {
+            return Some(self.variable_single_begin(
                 p,
                 e,
                 None,
@@ -396,7 +410,7 @@ impl<const D: u8> Lexer<'_, D> {
                 ],
             ));
         }
-        Some(self.var_single_begin(
+        Some(self.variable_single_begin(
             p,
             e,
             None,
@@ -405,7 +419,7 @@ impl<const D: u8> Lexer<'_, D> {
         ))
     }
 
-    fn var_single_begin(
+    fn variable_single_begin(
         &mut self,
         p: usize,
         e: usize,

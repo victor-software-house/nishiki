@@ -7,7 +7,7 @@ use super::state::Rule;
 use crate::classes;
 
 /// The pieces of an optional parameter, `[name=default]`.
-struct OptionalParam {
+struct OptionalParameter {
     /// The `=`, the start of the default and its end.
     default: Option<(usize, usize, usize)>,
     /// The closing bracket, when there is one.
@@ -54,7 +54,7 @@ impl<const D: u8> Lexer<'_, D> {
         clippy::many_single_char_names,
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
     )]
-    fn optional_param_ahead(&self, p: usize) -> Option<OptionalParam> {
+    fn optional_parameter_ahead(&self, p: usize) -> Option<OptionalParameter> {
         let name_char = |b: u8| b == b'$' || b == b'_' || b.is_ascii_alphanumeric();
         let mut j = self.ws(p + 1);
         let name_start = j;
@@ -120,24 +120,24 @@ impl<const D: u8> Lexer<'_, D> {
                 t += self.char_len(t);
             }
             self.spend(t - m);
-            return Some(OptionalParam {
+            return Some(OptionalParameter {
                 default,
                 close: Some(m),
                 end: t,
             });
         }
-        self.starts(m, "*/").then_some(OptionalParam {
+        self.starts(m, "*/").then_some(OptionalParameter {
             default,
             close: None,
             end: m,
         })
     }
 
-    pub(crate) fn doc_optional_param(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn doc_optional_parameter(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) != b'[' {
             return None;
         }
-        let found = self.optional_param_ahead(p)?;
+        let found = self.optional_parameter_ahead(p)?;
         let scope = S::VariableOtherJsdoc;
         self.flush(p);
         self.capture(

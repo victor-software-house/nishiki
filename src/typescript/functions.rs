@@ -1,7 +1,7 @@
 //! Function declarations and expressions, their parameters and return types.
 
 use super::bytes::{BLANK, Bytes, NAME_START, STRING_START};
-use super::decl::Pattern;
+use super::declarations::Pattern;
 use super::lexer::Lexer;
 use super::scope::S;
 use super::state::Rule;
@@ -23,7 +23,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.starts(j, "function") || !self.boundary(j + "function".len()) {
             return None;
         }
-        let kw = (j, j + "function".len());
+        let keyword = (j, j + "function".len());
         let mut e = j + "function".len();
         let mut star = None;
         let k = self.ws(e);
@@ -42,7 +42,7 @@ impl<const D: u8> Lexer<'_, D> {
         let end = self.ws(e);
         Some(FunctionHead {
             async_capture,
-            kw,
+            keyword,
             star,
             name,
             end,
@@ -53,7 +53,12 @@ impl<const D: u8> Lexer<'_, D> {
         if let Some((a, b)) = head.async_capture {
             self.capture(rule, a, b, &[S::StorageModifierAsync]);
         }
-        self.capture(rule, head.kw.0, head.kw.1, &[S::StorageTypeFunction]);
+        self.capture(
+            rule,
+            head.keyword.0,
+            head.keyword.1,
+            &[S::StorageTypeFunction],
+        );
         if let Some((a, b)) = head.star {
             self.capture(rule, a, b, &[S::KeywordGeneratorAsterisk]);
         }
@@ -82,7 +87,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     pub(crate) fn function_expression(&mut self, p: usize) -> Option<usize> {
-        if !self.byte(p).is_ascii_lowercase() || !self.kw_before(p) {
+        if !self.byte(p).is_ascii_lowercase() || !self.keyword_before(p) {
             return None;
         }
         let head = self.function_head(p)?;
@@ -109,7 +114,7 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.function_parameters(p))
             .or_else(|| self.return_type(p))
             .or_else(|| self.type_function_return_type(p))
-            .or_else(|| self.decl_block(p))
+            .or_else(|| self.declaration_block(p))
             .or_else(|| {
                 (self.byte(p) == b'*')
                     .then(|| self.token_rule(p, p + 1, S::KeywordGeneratorAsterisk))?
@@ -221,7 +226,7 @@ impl<const D: u8> Lexer<'_, D> {
     ///
     /// `public readonly x`: a modifier followed by another modifier.
     pub(crate) fn parameter_name(&mut self, p: usize) -> Option<usize> {
-        if let Some(e) = self.kw_of(
+        if let Some(e) = self.keyword_of(
             p,
             &["override", "public", "protected", "private", "readonly"],
         ) {
@@ -236,7 +241,7 @@ impl<const D: u8> Lexer<'_, D> {
                     .map(|r| self.fin_ws(r));
             }
         }
-        self.parameter_like(p, ParamStyle::Parameter)
+        self.parameter_like(p, ParameterStyle::Parameter)
     }
 
     fn fin_ws(&mut self, e: usize) -> usize {
@@ -247,8 +252,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// The grammar's modifier group is optional.
     /// When the rest fails after a modifier, the modifier word is tried as the
     /// name, as in `(readonly 42`.
-    pub(crate) fn parameter_like(&mut self, p: usize, style: ParamStyle) -> Option<usize> {
-        if let Some(e) = self.kw_of(
+    pub(crate) fn parameter_like(&mut self, p: usize, style: ParameterStyle) -> Option<usize> {
+        if let Some(e) = self.keyword_of(
             p,
             &["override", "public", "private", "protected", "readonly"],
         ) {
@@ -269,7 +274,7 @@ impl<const D: u8> Lexer<'_, D> {
         p: usize,
         mut j: usize,
         modifier: Option<(usize, usize)>,
-        style: ParamStyle,
+        style: ParameterStyle,
     ) -> Option<usize> {
         let mut rest = None;
         if self.starts(j, "...") {
@@ -279,14 +284,14 @@ impl<const D: u8> Lexer<'_, D> {
         if matches!(self.prev_char(j), Some(':' | '=')) {
             return None;
         }
-        if !self.kw_before(j) {
+        if !self.keyword_before(j) {
             return None;
         }
-        let (name_end, this) = if let Some(e) = self.kw_this(j) {
+        let (name_end, this) = if let Some(e) = self.keyword_this(j) {
             (e, true)
         } else {
             let e = self.ident(j)?;
-            if !self.kw_after(e) {
+            if !self.keyword_after(e) {
                 return None;
             }
             (e, false)
@@ -299,10 +304,10 @@ impl<const D: u8> Lexer<'_, D> {
         } else {
             None
         };
-        let function = self.named_fn_ahead(k);
+        let function = self.named_function_ahead(k);
         let lookahead_ok = match style {
-            ParamStyle::Parameter => true,
-            ParamStyle::ExpressionParameter => {
+            ParameterStyle::Parameter => true,
+            ParameterStyle::ExpressionParameter => {
                 function
                     || self.byte(self.ws(k)) == b','
                     || self.byte(self.ws(k)) == b':'
@@ -333,8 +338,8 @@ impl<const D: u8> Lexer<'_, D> {
         Some(name_end)
     }
 
-    fn kw_this(&self, j: usize) -> Option<usize> {
-        (self.starts(j, "this") && self.kw_after(j + "this".len())).then_some(j + "this".len())
+    fn keyword_this(&self, j: usize) -> Option<usize> {
+        (self.starts(j, "this") && self.keyword_after(j + "this".len())).then_some(j + "this".len())
     }
 
     pub(crate) fn parameter_binding_element(&mut self, p: usize) -> Option<usize> {
@@ -411,7 +416,7 @@ impl<const D: u8> Lexer<'_, D> {
 /// The pieces of `function name` that begin a function.
 pub(crate) struct FunctionHead {
     async_capture: Option<(usize, usize)>,
-    kw: (usize, usize),
+    keyword: (usize, usize),
     star: Option<(usize, usize)>,
     name: Option<(usize, usize)>,
     end: usize,
@@ -419,7 +424,7 @@ pub(crate) struct FunctionHead {
 
 /// How a parameter-like name decides whether it names a function.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum ParamStyle {
+pub(crate) enum ParameterStyle {
     /// A parameter of a function.
     Parameter,
     /// A parameter inside parentheses that may turn out to be arrow

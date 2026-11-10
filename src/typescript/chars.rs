@@ -178,13 +178,13 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// `(?<![$_[:alnum:]])(?:(?<=\.\.\.)|(?<!\.))`, the grammar's guard before
     /// a keyword: not inside a name and not a property after a dot.
-    pub(crate) fn kw_before(&self, i: usize) -> bool {
+    pub(crate) fn keyword_before(&self, i: usize) -> bool {
         !self.alnum_before(i)
             && (self.bytes[..i.min(self.len)].ends_with(b"...") || !self.after_dot(i))
     }
 
     /// `(?![$_[:alnum:]])(?:(?=\.\.\.)|(?!\.))`, the guard after a keyword.
-    pub(crate) fn kw_after(&self, i: usize) -> bool {
+    pub(crate) fn keyword_after(&self, i: usize) -> bool {
         !self.alnum_at(i) && (self.starts(i, "...") || self.byte(i) != b'.')
     }
 
@@ -196,7 +196,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     ///
     /// Most calls fail on the first byte.
     /// That byte is therefore checked alone first.
-    pub(crate) fn kw(&self, p: usize, word: &str) -> Option<usize> {
+    pub(crate) fn keyword(&self, p: usize, word: &str) -> Option<usize> {
         let word = word.as_bytes();
         let e = p + word.len();
         if self.bytes.get(p) != word.first()
@@ -208,12 +208,12 @@ impl<'a, const D: u8> Lexer<'a, D> {
         {
             return None;
         }
-        (self.kw_before(p) && self.kw_after(e)).then_some(e)
+        (self.keyword_before(p) && self.keyword_after(e)).then_some(e)
     }
 
     /// The first of `words` that is a keyword at `p`: its end.
-    pub(crate) fn kw_of(&self, p: usize, words: &[&str]) -> Option<usize> {
-        words.iter().find_map(|word| self.kw(p, word))
+    pub(crate) fn keyword_of(&self, p: usize, words: &[&str]) -> Option<usize> {
+        words.iter().find_map(|word| self.keyword(p, word))
     }
 
     /// The source from `a` to `b`, or nothing when that is not a slice of

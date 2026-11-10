@@ -1175,9 +1175,9 @@ impl<'a> Lexer<'a> {
     }
 
     /// The text that ends the innermost rule when it is a literal.
-    pub(crate) fn top_end_lit(&self) -> (&'static [u8], Scopes<S>) {
+    pub(crate) fn top_end_literal(&self) -> (&'static [u8], Scopes<S>) {
         let definition = rule_definition(self.top().rule);
-        (definition.end_lit, definition.end_scopes)
+        (definition.end_literal, definition.end_scopes)
     }
 
     /// The innermost rule.

@@ -38,7 +38,7 @@ struct Chain {
 
 impl Lexer<'_> {
     /// `[.]\*?` or `->\*?` at `i`: where it ends, and whether it is the arrow.
-    fn access_op(&self, i: usize) -> Option<(usize, bool)> {
+    fn access_operator(&self, i: usize) -> Option<(usize, bool)> {
         if i >= self.len_all() {
             return None;
         }
@@ -70,7 +70,7 @@ impl Lexer<'_> {
     /// One walk forward finds it.
     fn access_chain(&mut self, p: usize, last: Last) -> Option<Chain> {
         let object_end = self.access_object(p)?;
-        let (op_end, _) = self.access_op(object_end)?;
+        let (op_end, _) = self.access_operator(object_end)?;
         let arrow = self.b(object_end) == b'-';
         let mut found = None;
         let mut end = op_end;
@@ -92,7 +92,7 @@ impl Lexer<'_> {
                 break;
             };
             let after = self.skip_space(next);
-            let Some((rep_end, _)) = self.access_op(after) else {
+            let Some((rep_end, _)) = self.access_operator(after) else {
                 break;
             };
             end = self.skip_space(rep_end);
@@ -159,7 +159,7 @@ impl Lexer<'_> {
         let Some(object_end) = self.access_object(p) else {
             return false;
         };
-        let Some((op_end, arrow)) = self.access_op(object_end) else {
+        let Some((op_end, arrow)) = self.access_operator(object_end) else {
             return false;
         };
         self.span(p, object_end, scopes![S::VariableObjectAccess]);
@@ -300,7 +300,7 @@ impl Lexer<'_> {
 
     /// `(?<!\w)(?!\s*(?:…)\s*\()(?=[A-Za-z_]\w*\s*\()`: a function
     /// definition or declaration.
-    pub(super) fn func_def(&mut self, p: usize) -> bool {
+    pub(super) fn function_definition(&mut self, p: usize) -> bool {
         if self.word_before(p) {
             return false;
         }
@@ -376,7 +376,7 @@ impl Lexer<'_> {
     /// The begin of an initialization, `x or_eq(`: after a word and
     /// white space, a command word that the grammar reads as an operator and
     /// a call.
-    pub(super) fn init_begin(&mut self, p: usize) -> bool {
+    pub(super) fn initialization_begin(&mut self, p: usize) -> bool {
         const WORDS: &[&str] = &[
             "and", "and_eq", "bitand", "bitor", "compl", "not", "not_eq", "or", "or_eq", "typeid",
             "xor", "xor_eq", "alignof", "alignas",

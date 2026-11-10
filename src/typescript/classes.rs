@@ -38,7 +38,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     pub(crate) fn class_expression(&mut self, p: usize) -> Option<usize> {
-        if !self.byte(p).is_ascii_lowercase() || !self.kw_before(p) {
+        if !self.byte(p).is_ascii_lowercase() || !self.keyword_before(p) {
             return None;
         }
         let mut k = p;
@@ -139,8 +139,8 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn class_or_interface_heritage(&mut self, p: usize) -> Option<usize> {
         let e = self
-            .kw_before(p)
-            .then(|| self.kw_of(p, &["extends", "implements"]))
+            .keyword_before(p)
+            .then(|| self.keyword_of(p, &["extends", "implements"]))
             .flatten()?;
         if !self.boundary(p) {
             return None;

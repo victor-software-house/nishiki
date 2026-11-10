@@ -13,7 +13,7 @@
 
 use std::cell::Cell;
 
-use super::lists::{EOT, P, Table, blank_run_live, place};
+use super::lists::{EOT, Pattern, Table, blank_run_live, place};
 use super::scope::S;
 use super::state::Rule;
 use crate::language::{Halts, NO_HALTS};
@@ -154,7 +154,7 @@ impl Grammar for C {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pattern = P;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -186,19 +186,19 @@ impl Grammar for C {
         rule.content()
     }
 
-    fn pattern_act(pattern: P) -> Act<Self> {
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
         pattern.act()
     }
 
-    fn pattern_captures(_: P) -> Captures<Self> {
+    fn pattern_captures(_: Pattern) -> Captures<Self> {
         (&[], &[])
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, P, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         lexer.find()
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pattern: P, p: usize) -> Option<usize> {
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
         lexer.match_pattern(pattern, p).then_some(lexer.x.end)
     }
 
@@ -225,7 +225,7 @@ impl Lexer<'_> {
 
     /// The first match from the cursor on: see `find_from`. A language that
     /// embeds C has the search test its halts while only the root is open.
-    pub(super) fn find(&mut self) -> Option<(usize, P, usize)> {
+    pub(super) fn find(&mut self) -> Option<(usize, Pattern, usize)> {
         match self.root_halts() {
             Some(halts) => self.find_from::<true>(halts),
             None => self.find_from::<false>(&NO_HALTS),
@@ -255,7 +255,10 @@ impl Lexer<'_> {
     /// It calls the matchers itself, not through the engine's `try_pattern`.
     /// C's matchers read no capture groups.
     /// A try then clears only the spans the last one left.
-    fn find_from<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, P, usize)> {
+    fn find_from<const HALTING: bool>(
+        &mut self,
+        halts: &Halts<'_>,
+    ) -> Option<(usize, Pattern, usize)> {
         self.fresh();
         let rule = self.top_rule();
         let table = Table::of(rule)?;
@@ -284,7 +287,7 @@ impl Lexer<'_> {
             };
             self.clear_spans();
             if self.try_end(rule, p) {
-                return Some((self.x.start, P::End, self.x.end));
+                return Some((self.x.start, Pattern::End, self.x.end));
             }
             let lead = self.b(p);
             let letter = lead.is_ascii_alphabetic() || lead == b'_';

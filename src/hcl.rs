@@ -14,7 +14,7 @@
 
 mod bytes;
 mod contexts;
-mod expr;
+mod expressions;
 mod header;
 mod lexer;
 mod scope;

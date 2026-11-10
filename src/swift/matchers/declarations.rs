@@ -267,10 +267,10 @@ impl Lexer<'_> {
     /// Before the end of the run, only a `<` can follow it, since the next
     /// character is an operator one.
     pub(in crate::swift) fn rx_declarations_function(&mut self, p: usize) -> Option<usize> {
-        let kw = self.keyword(p, b"func")?;
-        self.capture(1, p, kw);
-        let name = self.blank_end(kw);
-        if name == kw {
+        let keyword = self.keyword(p, b"func")?;
+        self.capture(1, p, keyword);
+        let name = self.blank_end(keyword);
+        if name == keyword {
             return None;
         }
         if let Some(id) = self.ident_at(name) {

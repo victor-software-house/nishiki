@@ -63,10 +63,10 @@ impl<const D: u8> Lexer<'_, D> {
             })
             .or_else(|| {
                 self.only(
-                    "t.type_fn_type_parameters",
+                    "t.type_function_type_parameters",
                     Bytes::of(b"an("),
                     p,
-                    Self::type_fn_type_parameters,
+                    Self::type_function_type_parameters,
                 )
             })
             .or_else(|| {
@@ -108,7 +108,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn type_primitive(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw_of(
+        let e = self.keyword_of(
             p,
             &[
                 "string", "number", "bigint", "boolean", "symbol", "any", "void", "never",
@@ -119,7 +119,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn type_builtin_literals(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw_of(p, &["this", "true", "false", "undefined", "null", "object"])?;
+        let e = self.keyword_of(p, &["this", "true", "false", "undefined", "null", "object"])?;
         self.token_rule(p, e, S::SupportTypeBuiltin)
     }
 
@@ -167,13 +167,13 @@ impl<const D: u8> Lexer<'_, D> {
             };
             return self.open_token(rule, p, p + 1, &[S::KeywordOperatorType]);
         }
-        if let Some(e) = self.kw(p, "keyof") {
+        if let Some(e) = self.keyword(p, "keyof") {
             return self.token_rule(p, e, S::KeywordOperatorExpressionKeyof);
         }
         if b == b':' || b == b'?' {
             return self.token_rule(p, p + 1, S::KeywordOperatorTernary);
         }
-        if let Some(e) = self.kw(p, "import")
+        if let Some(e) = self.keyword(p, "import")
             && self.byte(self.ws(e)) == b'('
         {
             return self.token_rule(p, e, S::KeywordOperatorExpressionImport);
@@ -187,13 +187,13 @@ impl<const D: u8> Lexer<'_, D> {
         reason = "positions are named by role: `p` where the rule starts, `e` where a part ends, `j` and `k` for the cursor"
     )]
     fn type_infer(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw_of(p, &["infer"])?;
+        let e = self.keyword_of(p, &["infer"])?;
         let j = self.ws(e);
         if j == e {
             return None;
         }
         let n = self.ident(j)?;
-        if !self.kw_after(n) {
+        if !self.keyword_after(n) {
             return None;
         }
         self.flush(p);
@@ -202,7 +202,7 @@ impl<const D: u8> Lexer<'_, D> {
         self.capture(Rule::Top, e, j, &[meta]);
         self.capture(Rule::Top, j, n, &[meta, S::EntityNameType]);
         let m = self.ws(n);
-        if m > n && self.starts(m, "extends") && self.kw_after(m + "extends".len()) {
+        if m > n && self.starts(m, "extends") && self.keyword_after(m + "extends".len()) {
             self.capture(Rule::Top, n, m, &[meta]);
             self.capture(
                 Rule::Top,
@@ -216,7 +216,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn type_conditional(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw(p, "extends")?;
+        let e = self.keyword(p, "extends")?;
         let j = self.ws(e);
         if j == e || self.full() {
             return None;
@@ -229,15 +229,16 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// `abstract? new` then `<` or `(`.
-    fn type_fn_type_parameters(&mut self, p: usize) -> Option<usize> {
+    fn type_function_type_parameters(&mut self, p: usize) -> Option<usize> {
         let mut start = p;
         let mut abstract_end = None;
-        if self.kw(p, "abstract").is_some_and(|e| self.ws(e) > e) {
+        if self.keyword(p, "abstract").is_some_and(|e| self.ws(e) > e) {
             let e = p + 8;
             abstract_end = Some(e);
             start = self.ws(e);
         }
-        if self.starts(start, "new") && self.kw_before(p) && self.boundary(start + "new".len()) {
+        if self.starts(start, "new") && self.keyword_before(p) && self.boundary(start + "new".len())
+        {
             let e = start + "new".len();
             let after = self.ws(e);
             if self.byte(after) == b'<' && !self.full() {
@@ -306,7 +307,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     fn type_readonly(&mut self, p: usize) -> Option<usize> {
-        let e = self.kw(p, "readonly")?;
+        let e = self.keyword(p, "readonly")?;
         let j = self.ws(e);
         self.token(p, e, &[S::StorageModifier]);
         self.finish(Rule::Top, j);
@@ -386,17 +387,17 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     pub(crate) fn type_arguments_body(&mut self, p: usize) -> Option<usize> {
-        if let Some(e) = self.kw(p, "_") {
+        if let Some(e) = self.keyword(p, "_") {
             return self.token_rule(p, e, S::KeywordOperatorType);
         }
         self.type_(p).or_else(|| self.punctuation_comma(p))
     }
 
-    pub(crate) fn type_params_rules(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn type_parameters_rules(&mut self, p: usize) -> Option<usize> {
         if let Some(r) = self.comment(p) {
             return Some(r);
         }
-        if let Some(e) = self.kw_of(p, &["extends", "in", "out", "const"]) {
+        if let Some(e) = self.keyword_of(p, &["extends", "in", "out", "const"]) {
             return self.token_rule(p, e, S::StorageModifier);
         }
         self.type_(p)
@@ -412,7 +413,7 @@ impl<const D: u8> Lexer<'_, D> {
             return self.token_rule(p, p + 3, S::KeywordOperatorRest);
         }
         if let Some(e) = self.ident(p)
-            && self.kw_before(p)
+            && self.keyword_before(p)
         {
             let mut j = self.ws(e);
             let opt = if self.byte(j) == b'?' {
@@ -454,7 +455,7 @@ impl<const D: u8> Lexer<'_, D> {
         let mut j = p;
         let mut modifier = None;
         for word in ["public", "private", "protected", "readonly"] {
-            if let Some(e) = self.kw(p, word) {
+            if let Some(e) = self.keyword(p, word) {
                 let k = self.ws(e);
                 if k > e {
                     modifier = Some((p, e));
@@ -471,15 +472,15 @@ impl<const D: u8> Lexer<'_, D> {
         if matches!(self.prev_char(j), Some(':' | '=')) {
             return None;
         }
-        if !self.kw_before(j) {
+        if !self.keyword_before(j) {
             return None;
         }
-        let (name_end, this) = if let Some(e) = self.kw(j, "this") {
+        let (name_end, this) = if let Some(e) = self.keyword(j, "this") {
             (e, true)
         } else {
             (self.ident(j)?, false)
         };
-        if !self.kw_after(name_end) {
+        if !self.keyword_after(name_end) {
             return None;
         }
         let mut k = self.ws(name_end);
@@ -490,7 +491,7 @@ impl<const D: u8> Lexer<'_, D> {
         } else {
             None
         };
-        let is_fn = self.colon_fn_ahead(k, Annotation::FunctionType);
+        let is_fn = self.colon_function_ahead(k, Annotation::FunctionType);
         let is_param = self.byte(k) == b':';
         if !is_fn && !is_param {
             return None;
@@ -569,12 +570,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// a name that starts with `asserts` is not one, and `asserts x` is
     /// tried after it.
     fn type_predicate_operator(&mut self, p: usize) -> Option<usize> {
-        if !self.kw_before(p) {
+        if !self.keyword_before(p) {
             return None;
         }
         let mut j = p;
         let mut asserts = None;
-        if let Some(e) = self.kw(p, "asserts") {
+        if let Some(e) = self.keyword(p, "asserts") {
             let k = self.ws(e);
             if k > e {
                 asserts = Some((p, e));
@@ -586,7 +587,7 @@ impl<const D: u8> Lexer<'_, D> {
             && self.space_at(name_end)
         {
             let m = self.ws(name_end);
-            if self.starts(m, "is") && self.kw_after(m + 2) {
+            if self.starts(m, "is") && self.keyword_after(m + 2) {
                 self.flush(p);
                 if let Some((a, b)) = asserts {
                     self.capture(Rule::Top, a, b, &[S::KeywordOperatorTypeAsserts]);
@@ -605,12 +606,12 @@ impl<const D: u8> Lexer<'_, D> {
                 return Some(m + 2);
             }
         }
-        if let Some(e) = self.kw(p, "asserts") {
+        if let Some(e) = self.keyword(p, "asserts") {
             let k = self.ws(e);
             if k > e
                 && !self.starts(k, "is")
                 && let Some((name_end, this)) = self.predicate_name(k)
-                && self.kw_after(name_end)
+                && self.keyword_after(name_end)
             {
                 self.flush(p);
                 self.capture(Rule::Top, p, e, &[S::KeywordOperatorTypeAsserts]);
@@ -628,7 +629,7 @@ impl<const D: u8> Lexer<'_, D> {
             }
             return self.token_rule(p, e, S::KeywordOperatorTypeAsserts);
         }
-        if let Some(e) = self.kw(p, "is") {
+        if let Some(e) = self.keyword(p, "is") {
             return self.token_rule(p, e, S::KeywordOperatorExpressionIs);
         }
         None
@@ -638,11 +639,11 @@ impl<const D: u8> Lexer<'_, D> {
     fn predicate_name(&self, j: usize) -> Option<(usize, bool)> {
         if self.starts(j, "this")
             && !self.alnum_at(j + "this".len())
-            && self.kw_after(j + "this".len())
+            && self.keyword_after(j + "this".len())
         {
             return Some((j + "this".len(), true));
         }
         let e = self.ident(j)?;
-        self.kw_after(e).then_some((e, false))
+        self.keyword_after(e).then_some((e, false))
     }
 }
