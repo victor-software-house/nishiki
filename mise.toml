@@ -56,6 +56,29 @@ depends = [
   "check:repo",
 ]
 
+# Each compile of the whole crate takes about 2 GiB.
+# verify ran four at once, which overran the 8 GiB CI runner.
+# The shared catalog defines lint, test and test:doc.
+# mise merges each table below into the catalog's task, so its run, env and
+# timeout stay the catalog's.
+#
+# lint and test share target/, so cargo's lock already keeps their compiles
+# apart.
+# Each still compiled three copies at once: the library, its unit tests, and
+# the library again as the build-script example's build dependency.
+# Two jobs keep that to two.
+[tasks.lint]
+env = { CARGO_BUILD_JOBS = "2" }
+
+[tasks.test]
+env = { CARGO_BUILD_JOBS = "2" }
+
+# check:size waits for lint, in its own file, and test:doc waits for
+# check:size.
+# That chain ends before test, which runs the longest.
+[tasks."test:doc"]
+wait_for = ["check:size"]
+
 # Bun's auto-install takes the whole npm tree of every script in this
 # repository from bun.lock: the oracle, bench/compare and the research probes.
 # This fails when package.json names a version the lockfile lacks.

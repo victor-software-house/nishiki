@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="Fail when the size example's sections at a tier grow past its budgets"
+#MISE wait_for=["lint"]
 # Builds the `size` example with the release profile at each tier in
 # [workspace.metadata.size] of the root Cargo.toml.
 # It reads the sections with binutils' size.
@@ -8,6 +9,9 @@
 # A tier fails when either one exceeds its budget by more than
 # tolerance-percent.
 # The budgets are linux-x64 numbers, so other platforms skip the check.
+# It waits for lint when verify runs both, so their compiles of the whole crate
+# do not overlap.
+# mise.toml says why, beside test:doc, which waits for this task.
 set -euo pipefail
 platform="$(uname -s)-$(uname -m)"
 if [[ "${platform}" != "Linux-x86_64" ]]; then
