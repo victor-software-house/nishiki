@@ -109,7 +109,8 @@ use crate::language::Stopped;
 use crate::limits::Finished;
 
 /// The scope that a Markdown document's stack starts with.
-#[cfg(feature = "lang-html")]
+/// HTML matches it by name; a test checks that name.
+#[cfg(all(test, feature = "lang-html", feature = "lang-svelte"))]
 pub(crate) const DOCUMENT: crate::scope::Scope = S::Root.scope();
 
 /// The state at the start of a Markdown document whose scopes sit on the

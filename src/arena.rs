@@ -261,6 +261,7 @@ impl Arena {
     }
 
     /// The name of `scope`, whether a table or this arena made it.
+    #[cfg(feature = "lang-html")]
     #[inline]
     pub(crate) fn scope_name(&self, scope: Scope) -> &str {
         match scope.dynamic_index() {

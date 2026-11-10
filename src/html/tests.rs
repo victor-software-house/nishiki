@@ -408,3 +408,33 @@ fn a_case_fold_stands_for_its_letters_in_attribute_literals() {
         ],
     )]);
 }
+
+/// A Markdown grammar loaded at run time embeds HTML in Shiki's Markdown
+/// order, with or without nishiki's own Markdown lexer.
+/// Its document scope is one the arena made, so only its name matches.
+#[cfg(feature = "_textmate")]
+#[test]
+fn html_in_a_loaded_markdown_grammar_reads_derivative_first() {
+    let mut arena = crate::arena::Arena::new(None);
+    let markdown = arena.named_scope("text.html.markdown").unwrap();
+    let base = arena.child(crate::arena::ROOT, markdown).unwrap();
+    let state = super::start_embedded(&mut arena, base);
+    assert_eq!(
+        arena.frame(state).payload,
+        super::state::ROOT_DERIVATIVE_FIRST
+    );
+}
+
+/// The names in `DERIVATIVE_FIRST` are the document scopes of nishiki's own
+/// Markdown and Svelte lexers.
+#[cfg(all(feature = "lang-markdown", feature = "lang-svelte"))]
+#[test]
+fn the_derivative_first_names_are_the_lexers_documents() {
+    assert_eq!(
+        super::DERIVATIVE_FIRST,
+        [
+            crate::markdown::DOCUMENT.name(),
+            crate::svelte::DOCUMENT.name()
+        ]
+    );
+}

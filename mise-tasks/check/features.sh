@@ -94,3 +94,6 @@ RUSTFLAGS="-D warnings" cargo check --locked --no-default-features --features te
 RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features textmate
 cargo check --locked --tests --no-default-features --features web
 cargo test --locked --lib --no-default-features --features lang-markdown
+# HTML with the engine for loaded grammars and without Markdown's lexer: a
+# loaded Markdown grammar still embeds HTML in Shiki's Markdown order.
+cargo test --locked --lib --no-default-features --features lang-html --features textmate html::tests::html_in_a_loaded_markdown_grammar
