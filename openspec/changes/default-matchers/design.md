@@ -147,20 +147,9 @@ The first finding is Protocol Buffers' field pattern (lead, 2026-11-10):
   So the line costs more than `L²` steps.
 - Shiki 4.6.0 lexes the line uncut, as one token, in under a millisecond at 101 and at 12,001 bytes.
 
-Under the default limits, on a box:
-
-| Line | Hand matcher, at base | Generated matcher, step 2b |
-|:--|:--|:--|
-| 101 bytes, one short of the longest fixture line (102) | uncut | ends at `Limit::Work` |
-| 12,001 bytes | ends at `Limit::Work` | ends at `Limit::Work` |
-
-So the generated matcher cuts a 101-byte line that the hand matcher lexes whole.
+The generated matcher cuts a 101-byte line that the hand matcher lexes whole.
 The 12,001-byte line is the pattern's limit line.
-
-A 102-byte line was not measured.
-From 101 bytes, its work grows by about `2L`, some 200 steps, and the budget by 64.
-So it would end at the limit too.
-The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 bytes.
+[The research][research], section 4, has the measurements.
 
 Two fixes follow, in order.
 Both keep the match exact (lead, 2026-11-10).
@@ -197,10 +186,14 @@ Dropping the arm halves the work at a dot.
 
 A skip in the generated scan makes the line linear.
 The pattern is a prefix `P`, then `R`, the `[.\w]+` that takes a run, then a suffix `S`.
-`codegen/` writes the skip only when the expression meets three conditions, and writes none otherwise:
+`codegen/` writes the skip only when the expression meets four conditions, and writes none otherwise:
 
-- `P` can match empty.
-  The field pattern's `P` can, at any start inside a run.
+- `P` has an empty path with no assertion on it, so it matches empty at every start.
+  An assertion is `\b`, `^`, `$`, `\G` or a lookaround: each holds at some positions only.
+  With `P` of `(?!a)`, `P` has no empty match before an `a`, so `R` never starts there.
+  The field pattern's `\s*(…)?\s*` has such a path.
+- `P` holds no lookbehind.
+  With one, the run bytes that begin a match of `P` depend on the bytes before the start, and so does `k`.
 - `R` is one class under a `+` that gives back: greedy or lazy, not possessive, and not inside an atomic group.
 - `S` holds no back-reference and no conditional `(?(n)…)` on a group of `P` or `R`.
 
@@ -231,8 +224,10 @@ After the failure, the scan goes on at `r − k`, or at `p + 1` when that is lat
 `codegen/` proves `k` from the expression.
 When `k` has no bound, as for a `P` of `\w*`, it writes no skip.
 
-In the field pattern, `P` takes nothing or one keyword from the run: `optional`, `repeated` or `required`.
+In the field pattern after fix 1, `P` takes nothing or one keyword from the run: `optional`, `repeated` or `required`.
 So `k` is 8.
+Without fix 1, `\.?` belongs to `P`, and `optional.` makes `k` 9.
+
 On `xoptional foo bar = 1`, start 0 fails and start 1 matches, as on the regex machine.
 A skip to the run's end would have missed that match.
 With the skip, the 12,001-byte line no longer reaches the limit, and the pattern needs no limit line.

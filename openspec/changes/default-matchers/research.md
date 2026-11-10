@@ -67,5 +67,24 @@ Five Lua end patterns have neither generated code nor a regex engine path: the e
 Each reads a group of its begin pattern through a back-reference, such as `]\1]`.
 They keep their hand code, a coverage gap that task 1.3 closes.
 
+## 4. The field line under the limits
+
+These lines test Protocol Buffers' field pattern on step 2b ([design][design], section 2.5).
+Under the default limits, on a box:
+
+| Line | Hand matcher, at base | Generated matcher, step 2b |
+|:--|:--|:--|
+| 101 bytes, one short of the longest fixture line (102) | uncut | ends at `Limit::Work` |
+| 12,001 bytes | ends at `Limit::Work` | ends at `Limit::Work` |
+
+So the generated matcher cuts a 101-byte line that the hand matcher lexes whole.
+The 12,001-byte line is the pattern's limit line.
+
+A 102-byte line was not measured.
+From 101 bytes, its work grows by about `2L`, some 200 steps, and the budget by 64.
+So it would end at the limit too.
+The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 bytes.
+
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [design]: design.md
+[rule-table-codegen]: ../rule-table-codegen/tasks.md
