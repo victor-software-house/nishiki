@@ -283,7 +283,8 @@ export const probe = {
     '@"a \\" b"',
     'NSPredicate predicateWithFormat:@"a CONTAINS[cd] %@ AND b BETWEEN %@"',
     'NSPredicate predicateWithFormat:@"ANY a IN %@" argumentArray:x',
-    "NSPredicate predicateWithFormat:@\"SUBQUERY(x, $y, $y.z == 1) OR CAST(1, 'NSDate')\" arguments:a",
+    'NSPredicate predicateWithFormat:@"SUBQUERY(x, $y, $y.z == 1) OR CAST(1, ' +
+      "'NSDate')\" arguments:a",
     '@"x MATCHES y CI ANYKEY \\n"',
     "0x1.8p3",
     "0x1.p-2f",

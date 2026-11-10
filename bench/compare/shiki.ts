@@ -523,7 +523,8 @@ if (mode === "reference") {
   await sample(engine as EngineName, file);
 } else {
   console.error(
-    "usage: shiki.ts reference | time [--rounds N] [--cold N] [--tier T]... [--tsv] | sample <engine> <file> | stream-reference | stream [--passes N]",
+    "usage: shiki.ts reference | time [--rounds N] [--cold N] [--tier T]... [--tsv] | sample " +
+      "<engine> <file> | stream-reference | stream [--passes N]",
   );
   process.exit(1);
 }

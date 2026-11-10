@@ -75,7 +75,8 @@ const unloadedFences = [
  * `#block_comment` or `#inline_comment` also starts there.
  * One of them comes first in every list that holds the expression. */
 const leadingGap =
-  "the gap opens the expression, so a comment there starts a comment rule at the same place, and such a rule comes before the expression in every list that holds it";
+  "the gap opens the expression, so a comment there starts a comment rule at the same place, " +
+  "and such a rule comes before the expression in every list that holds it";
 
 /** A group of the gap that opens `#member_access` or `#method_access`.
  * A comment rule comes first in every list that holds them, with one
@@ -84,7 +85,8 @@ const leadingGap =
  * and `#method_access.beginCaptures[13]`.
  * The text of those captures is names, dots, arrows and blanks only. */
 const leadingGapChain =
-  "the gap opens the expression, and a comment rule comes before it in every list but the chain captures of `#member_access` and `#method_access`, whose text holds no comment";
+  "the gap opens the expression, and a comment rule comes before it in every list but the " +
+  "chain captures of `#member_access` and `#method_access`, whose text holds no comment";
 
 /** A group of the gap that opens `#typename`. A comment rule comes first in
  * every list that holds it except the patterns of type captures. In a type
@@ -92,7 +94,9 @@ const leadingGapChain =
  * `#template_call_range`, which starts at the `<` and lists a comment rule
  * first. */
 const leadingGapTypename =
-  "the gap opens the expression; a comment rule comes before it in every list but those of type captures, where names and scopes exclude `typename` and template arguments go to `#template_call_range`, which starts at the `<` and lists a comment rule first";
+  "the gap opens the expression; a comment rule comes before it in every list but those of " +
+  "type captures, where names and scopes exclude `typename` and template arguments go to " +
+  "`#template_call_range`, which starts at the `<` and lists a comment rule first";
 
 /** An expression that only scans one group of its owner.
  * That group is a gap that opens the owner's expression.
@@ -113,13 +117,15 @@ const scansNeverMatching = "it scans a group of an expression that never matches
 /** An expression that scans group 16 of `#simple_constructor_call`.
  * Group 16 sits in a lookahead after the end of the match. */
 const pastMatchEnd =
-  "it scans group 16, which sits in a lookahead past the end of the match, and vscode-textmate applies no capture that starts after the match ends";
+  "it scans group 16, which sits in a lookahead past the end of the match, " +
+  "and vscode-textmate applies no capture that starts after the match ends";
 
 /** The begin of a block's tail rule, `patterns[2]`.
  * It starts right after the body's closing brace.
  * The block's own end matches there too. */
 const tailBegin =
-  "the rule's own end, `(?<=}|%>|\\?\\?>)`, matches at the same place wherever this begin's lookbehind holds, and an end is tried before the patterns";
+  "the rule's own end, `(?<=}|%>|\\?\\?>)`, matches at the same place wherever this begin's " +
+  "lookbehind holds, and an end is tried before the patterns";
 
 /** The end of a block's tail rule, whose begin never matches. */
 const tailEnd = "its begin never matches";
@@ -137,7 +143,8 @@ const negativeLookahead = "the group sits inside a negative lookahead, so it nev
 /** A group of the gap that follows the specifiers of a function pointer, after
  * a lookahead that allows only blanks before `;`, `=`, `{` or the line end. */
 const blanksLookahead =
-  "the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, so the gap never holds a comment";
+  "the lookahead before it allows only blanks up to `;`, `=`, `{` or the line end, " +
+  "so the gap never holds a comment";
 
 /** A group of a gap in the pattern that scans a member chain, the names before
  * the last `.` or `->` of `#member_access` and `#method_access`. */
@@ -147,11 +154,14 @@ const chainNoComment =
 /** The second pattern of a member chain's capture, the first pattern without
  * its lookbehind for `.` or `->`. */
 const chainLookbehind =
-  "`patterns[0]` is the same expression behind a lookbehind for `.` or `->`, which holds at the start of every element of the chain, so it starts at the same place and comes first";
+  "`patterns[0]` is the same expression behind a lookbehind for `.` or `->`, " +
+  "which holds at the start of every element of the chain, " +
+  "so it starts at the same place and comes first";
 
 /** `#exception_keywords`, whose keywords `#control_flow_keywords` also lists. */
 const exceptionShadow =
-  "`#control_flow_keywords` has the same gap, lists `throw`, `catch` and `try` too, and comes before it in every list that holds it";
+  "`#control_flow_keywords` has the same gap, lists `throw`, `catch` and `try` too, " +
+  "and comes before it in every list that holds it";
 
 /** `#string_escaped_char`, a copy of `#backslash_escapes`. */
 const escapeShadow =
@@ -159,17 +169,21 @@ const escapeShadow =
 
 /** Group 2 of `#operators.patterns[12]`, the compound bitwise assignments. */
 const operatorShadow =
-  "`patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters of each of its alternatives at the same place, earlier in the same list";
+  "`patterns[8]` (`<<|>>`) and `patterns[11]` (`[&^|~]`) match the first characters of each of " +
+  "its alternatives at the same place, earlier in the same list";
 
 /** The pattern of `#assembly` for a line that holds only a gap, in a macro
  * body. */
 const macroAsmLine =
-  "in a macro body a `\\` or the macro's end follows `asm`, so the begin never reaches the line end, the next line starts without `\\G`, and `(?!\\G)` ends the rule before this `^` pattern";
+  "in a macro body a `\\` or the macro's end follows `asm`, " +
+  "so the begin never reaches the line end, the next line starts without `\\G`, " +
+  "and `(?!\\G)` ends the rule before this `^` pattern";
 
 /** A type list of C's root list: `anon_pattern_8` (36 words), `_9` (10) or
  * `_10` (28). */
 const cTypeShadow =
-  "every word of it is in `#storage_types.patterns[1]`, which matches it at the same place and comes earlier in the only list that includes it";
+  "every word of it is in `#storage_types.patterns[1]`, " +
+  "which matches it at the same place and comes earlier in the only list that includes it";
 
 /** The second rule of C's `#block_comment` or `#line_comment`, a copy of the
  * first. */
@@ -180,7 +194,8 @@ const beginNeverMatches = "its begin never matches";
 
 /** A copy of C's inline comment expression. */
 const inlineEquivalent =
-  "it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of atomic groups, so it matches the same text, and that pattern comes first";
+  "it is `#inline_comment.patterns[0].patterns[0]` with possessive quantifiers in place of " +
+  "atomic groups, so it matches the same text, and that pattern comes first";
 
 /** One C or C++ waiver row: the groups waived, or `null` for the whole
  * expression, and the oracle/onig.ts probe where the grammar has one. */
@@ -506,7 +521,9 @@ const cFamily: [reason: string, rows: CRow[]][] = [
 /** A group of the alternative of Go's number pattern that starts with a
  * point, as `.5` does. Its first group is that point. */
 const goLeadingPoint =
-  "the alternative starts at a `.` before a digit, where `#delimiters`, before `#numeric_literals` in every list that holds it, matches `\\.(?!\\.\\.)` first, and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow";
+  "the alternative starts at a `.` before a digit, where `#delimiters`, " +
+  "before `#numeric_literals` in every list that holds it, matches `\\.(?!\\.\\.)` first, " +
+  "and the ellipsis rule of `#operators`, also earlier, takes a `.` that two more follow";
 
 /** Why a GraphQL end lacks the groups its rule names: the rule gives one
  * `captures` for its begin and its end. */
@@ -579,7 +596,8 @@ export const waivers: Waiver[] = [
     path: "#numeric-literal.captures[0].patterns[0].patterns[1].match",
     group: 3,
     reason:
-      "`[01_]`, the first alternative of the repetition, takes every `_`, so the separator group never takes part",
+      "`[01_]`, the first alternative of the repetition, takes every `_`, " +
+      "so the separator group never takes part",
     probe: "NumericLiteral",
   },
   {
@@ -593,7 +611,8 @@ export const waivers: Waiver[] = [
     grammar: "csharp",
     path: "#relational-pattern.begin",
     reason:
-      "`#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, whose `<=|>=|[<>]` and `\\\\.\\\\.` match first at every position this does",
+      "`#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, " +
+      "whose `<=|>=|[<>]` and `\\\\.\\\\.` match first at every position this does",
     probe: "RelationalPattern",
   },
   {
@@ -606,7 +625,8 @@ export const waivers: Waiver[] = [
     grammar: "csharp",
     path: "#slice-pattern.match",
     reason:
-      "`#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, whose `<=|>=|[<>]` and `\\\\.\\\\.` match first at every position this does",
+      "`#constant-pattern`, earlier in `#pattern`, includes `#expression-operators`, " +
+      "whose `<=|>=|[<>]` and `\\\\.\\\\.` match first at every position this does",
     probe: "SlicePattern",
   },
   ...typescriptFamily.flatMap((grammar): Waiver[] => [
@@ -628,34 +648,40 @@ export const waivers: Waiver[] = [
       grammar,
       path: "#expression-operators.patterns[6].match",
       reason:
-        "`#instanceof-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it",
+        "`#instanceof-expr` begins with the same expression and comes before " +
+        "`#expression-operators` in `#expressionWithoutIdentifiers`, " +
+        "the only rule that includes it",
     },
     {
       grammar,
       path: "#expression-operators.patterns[7].match",
       reason:
-        "`#new-expr` begins with the same expression and comes before `#expression-operators` in `#expressionWithoutIdentifiers`, the only rule that includes it",
+        "`#new-expr` begins with the same expression and comes before `#expression-operators` " +
+        "in `#expressionWithoutIdentifiers`, the only rule that includes it",
     },
     {
       grammar,
       path: "#support-objects.patterns[4].match",
       group: 4,
       reason:
-        "the group sits inside the negative lookahead after the property names, so it never holds text; the constant names are group 53",
+        "the group sits inside the negative lookahead after the property names, " +
+        "so it never holds text; the constant names are group 53",
     },
     {
       grammar,
       path: "#template.patterns[1].begin",
       group: 1,
       reason:
-        "`#template-call`, the pattern before it, starts at the same name wherever this group would match one",
+        "`#template-call`, the pattern before it, starts at the same name wherever this " +
+        "group would match one",
     },
     {
       grammar,
       path: "#template-type.patterns[1].begin",
       group: 1,
       reason:
-        "`#template-call`, the pattern before it, starts at the same name wherever this group would match one",
+        "`#template-call`, the pattern before it, starts at the same name wherever this " +
+        "group would match one",
     },
   ]),
   { grammar: "css", path: "#at-rules.patterns[0].patterns[0].match", group: 2, reason: blanks },
@@ -681,7 +707,8 @@ export const waivers: Waiver[] = [
     grammar: "css",
     path: "#escapes.patterns[1].end",
     reason:
-      "the begin, `\\\\$\\s*`, takes the line feed, so `\\G` stands at the start of the next line and `^(?<!\\G)` never holds",
+      "the begin, `\\\\$\\s*`, takes the line feed, " +
+      "so `\\G` stands at the start of the next line and `^(?<!\\G)` never holds",
   },
   { grammar: "less", path: "#at-container.patterns[0].begin", group: 3, reason: missing(2) },
   {
@@ -842,21 +869,24 @@ export const waivers: Waiver[] = [
     grammar: "scss",
     path: "#comment_docblock.begin",
     reason:
-      "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   {
     grammar: "scss",
     path: "#comment_docblock.end",
     reason:
-      "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `source.sassdoc`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   {
     grammar: "scss",
     path: "#constant_sass_functions.begin",
     reason:
-      "`#constant_functions`, before it in `#property_values`, the only rule that includes it, matches every `name(` this does",
+      "`#constant_functions`, before it in `#property_values`, the only rule that includes it, " +
+      "matches every `name(` this does",
   },
   { grammar: "scss", path: "#constant_sass_functions.end", reason: "its begin never matches" },
   { grammar: "scss", path: "#parent_selector_suffix.match", group: 2, reason: missing(1) },
@@ -955,7 +985,8 @@ export const waivers: Waiver[] = [
     grammar: "python",
     path: "#impossible.match",
     reason:
-      "`$.^` needs a character between the end of a line and the start of one, and `.` takes no line feed",
+      "`$.^` needs a character between the end of a line and the start of one, " +
+      "and `.` takes no line feed",
   },
   { grammar: "python", path: "#regexp-double-one-line.end", group: 2, reason: lineFeed },
   { grammar: "python", path: "#regexp-double-three-line.end", group: 2, reason: missing(1) },
@@ -1054,7 +1085,8 @@ export const waivers: Waiver[] = [
     grammar: "markdown",
     path: "#list_paragraph.begin",
     reason:
-      "`#paragraph`, which `#block` includes before it in both list rules, begins at every position this does",
+      "`#paragraph`, which `#block` includes before it in both list rules, " +
+      "begins at every position this does",
   },
   { grammar: "markdown", path: "#list_paragraph.while", reason: "its begin never matches" },
   {
@@ -1133,7 +1165,8 @@ export const waivers: Waiver[] = [
     grammar: "latex",
     path: "#embedded-code-env.patterns[16].patterns[3].begin",
     reason:
-      "`c(?:|pp)`, earlier in the same list, matches the `c` that starts every `css`, so this begin never wins",
+      "`c(?:|pp)`, earlier in the same list, matches the `c` that starts every `css`, " +
+      "so this begin never wins",
     probe: "EmbeddedCodeEnvAt16At3",
   },
   ...(
@@ -1167,7 +1200,8 @@ export const waivers: Waiver[] = [
     path: "#hyperref-macro.patterns[0].patterns[2].begin",
     group,
     reason:
-      "the pattern before it matches wherever this optional group can, so the group never takes part",
+      "the pattern before it matches wherever this optional group can, " +
+      "so the group never takes part",
     probe: "HyperrefMacroAt0At2",
   })),
   ...(
@@ -1220,7 +1254,8 @@ export const waivers: Waiver[] = [
     grammar: "yaml",
     path: "#flow-pair.patterns[0].patterns[3].begin",
     reason:
-      "`#flow-pair`, earlier in the same list, includes `#flow-pair.patterns[3]`, whose begin is the same expression",
+      "`#flow-pair`, earlier in the same list, includes `#flow-pair.patterns[3]`, " +
+      "whose begin is the same expression",
   },
   {
     grammar: "yaml",
@@ -1238,28 +1273,32 @@ export const waivers: Waiver[] = [
     grammar: "svelte",
     path: "injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].begin",
     reason:
-      "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `source.stylus`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   {
     grammar: "svelte",
     path: "injections[L:meta.style.svelte meta.lang.stylus - (meta source)].patterns[0].end",
     reason:
-      "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `source.stylus`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   {
     grammar: "svelte",
     path: "injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].begin",
     reason:
-      "the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `text.pug`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   {
     grammar: "svelte",
     path: "injections[L:meta.template.svelte meta.lang.pug - (meta source)].patterns[0].end",
     reason:
-      "the rule's only pattern includes `text.pug`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `text.pug`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   {
@@ -1287,7 +1326,8 @@ export const waivers: Waiver[] = [
     grammar: "swift",
     path: "#declarations-import.patterns[0].patterns[2].captures[1].patterns[0].match",
     reason:
-      "group 1 is a run of operator heads and combining marks, none of them `.`, so the pattern never finds one in it",
+      "group 1 is a run of operator heads and combining marks, none of them `.`, " +
+      "so the pattern never finds one in it",
     probe: "DeclarationsImportAt0At2",
   },
   {
@@ -1328,7 +1368,8 @@ export const waivers: Waiver[] = [
       grammar: "swift",
       path: `#${rule}.patterns[2].patterns[1].begin`,
       reason:
-        "`$self`, before it in the same list, holds `#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\\(` matches every `(`",
+        "`$self`, before it in the same list, holds " +
+        "`#expressions-without-trailing-closures-or-member-references-parenthesized-expression`, whose begin `\\(` matches every `(`",
       probe,
     },
     {
@@ -1350,7 +1391,8 @@ export const waivers: Waiver[] = [
       grammar: "swift",
       path: `#operators.patterns[1].patterns[${rule}].captures[0].patterns[${pattern}].match`,
       reason:
-        "vscode-textmate tokenizes a capture's patterns with no anchor, so `\\G` never matches there and the operator falls to the `.+` pattern after it",
+        "vscode-textmate tokenizes a capture's patterns with no anchor, " +
+        "so `\\G` never matches there and the operator falls to the `.+` pattern after it",
       probe: `OperatorsAt1At${rule}`,
     })),
   ),
@@ -1364,13 +1406,15 @@ export const waivers: Waiver[] = [
     grammar: "go",
     path: "#map_types.patterns[3].match",
     reason:
-      "`#parameter-variable-types`, before it in its only list, opens `([*.\\w]+)?(\\[)` at every `[`",
+      "`#parameter-variable-types`, before it in its only list, " +
+      "opens `([*.\\w]+)?(\\[)` at every `[`",
   },
   {
     grammar: "go",
     path: "#map_types.patterns[4].match",
     reason:
-      "the rule's end, `(])`, matches at every `]` the rules inside it leave, and an end is tried before the patterns",
+      "the rule's end, `(])`, matches at every `]` the rules inside it leave, " +
+      "and an end is tried before the patterns",
   },
   ...[5, 6, 7].map((pattern): Waiver => ({
     grammar: "go",
@@ -1392,26 +1436,32 @@ export const waivers: Waiver[] = [
     grammar: "go",
     path: `#single_type.patterns[1].patterns[${pattern}].match`,
     reason:
-      "the begin stops before the `[` its lookahead requires, where `#parameter-variable-types`, earlier in the list, opens `([*.\\w]+)?(\\[)` and runs to the matching `]`; right after it the end, `(?<=])` with an optional group, matches, and an end is tried before the patterns",
+      "the begin stops before the `[` its lookahead requires, " +
+      "where `#parameter-variable-types`, earlier in the list, " +
+      "opens `([*.\\w]+)?(\\[)` and runs to the matching `]`; right after it the end, " +
+      "`(?<=])` with an optional group, matches, and an end is tried before the patterns",
   })),
   {
     grammar: "go",
     path: "#support_functions.captures[2].patterns[1].match",
     reason:
-      "`#type-declarations`, before it in the list, holds `#numeric_literals`, whose `(?<!\\w)\\.?\\d` matches at every digit that starts the group",
+      "`#type-declarations`, before it in the list, holds `#numeric_literals`, " +
+      "whose `(?<!\\w)\\.?\\d` matches at every digit that starts the group",
   },
   {
     grammar: "go",
     path: "#switch_types.beginCaptures[3].patterns[2].match",
     reason:
-      "group 3 is `.(type)`, and `#brackets`, before it in the list, opens `\\(` at its `(` and closes after `type`",
+      "group 3 is `.(type)`, and `#brackets`, before it in the list, " +
+      "opens `\\(` at its `(` and closes after `type`",
   },
   { grammar: "go", path: "#syntax_errors.patterns[0].match", group: 1, reason: blanks },
   ...[1, 2].map((pattern): Waiver => ({
     grammar: "go",
     path: `#type_assertion_inline.captures[2].patterns[${pattern}].match`,
     reason:
-      "group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, never `(` or `)`",
+      "group 2 holds only blanks, brackets, `*`, `.`, `<-`, braces, commas and words, " +
+      "never `(` or `)`",
   })),
   { grammar: "ruby", path: "patterns[21].end", group: 1, reason: missing(0) },
   { grammar: "ruby", path: "patterns[86].begin", group: 1, reason: blanks },
@@ -1419,7 +1469,8 @@ export const waivers: Waiver[] = [
     grammar: "ruby",
     path: "patterns[88].begin",
     reason:
-      "`patterns[29]` (`\\b[A-Z_]\\w*\\b`), earlier in the same list, takes `__END__` as a constant at the same place",
+      "`patterns[29]` (`\\b[A-Z_]\\w*\\b`), earlier in the same list, " +
+      "takes `__END__` as a constant at the same place",
   },
   { grammar: "ruby", path: "patterns[88].end", reason: "its begin never matches" },
   {
@@ -1469,7 +1520,8 @@ export const waivers: Waiver[] = [
     grammar: "lua",
     path: "patterns[17].match",
     reason:
-      "`patterns[0]`, the function rule before it, begins with `(function)` under the same lookahead, so it matches wherever this does",
+      "`patterns[0]`, the function rule before it, " +
+      "begins with `(function)` under the same lookahead, so it matches wherever this does",
     probe: "RootAt17",
   },
   {
@@ -1503,7 +1555,8 @@ export const waivers: Waiver[] = [
     grammar: "docker",
     path: "patterns[2].match",
     reason:
-      "`patterns[1]`, before it, lists `CMD` and `ENTRYPOINT` after the same optional `ONBUILD`, so it matches wherever this does",
+      "`patterns[1]`, before it, lists `CMD` and `ENTRYPOINT` after the same optional " +
+      "`ONBUILD`, so it matches wherever this does",
   },
   ...["patterns[4].begin", "patterns[4].end", "patterns[5].begin", "patterns[5].end"].map(
     (path): Waiver => ({ grammar: "docker", path, group: 1, reason: missing(0) }),
@@ -1523,7 +1576,8 @@ export const waivers: Waiver[] = [
     grammar: "dart",
     path: "#operators.patterns[3].match",
     reason:
-      "`#operators.patterns[2]`, `(<<|>>>?|[\\&^|~])`, before it, matches at the start of every one of its operators",
+      "`#operators.patterns[2]`, `(<<|>>>?|[\\&^|~])`, before it, " +
+      "matches at the start of every one of its operators",
   },
   {
     grammar: "julia",
@@ -1535,19 +1589,22 @@ export const waivers: Waiver[] = [
     grammar: "nix",
     path: `#attrset-or-function.patterns[3].patterns[3].patterns[1].${key}`,
     reason:
-      "the enclosing rule's end, `(?=([]),;}]|\\b(else|then)\\b))`, matches before every `,`, and an end is tried before the patterns",
+      "the enclosing rule's end, `(?=([]),;}]|\\b(else|then)\\b))`, matches before every `,`, " +
+      "and an end is tried before the patterns",
   })),
   {
     grammar: "zig",
     path: "#numbers.patterns[2].match",
     reason:
-      "`#numbers.patterns[1]`, before it, matches every one of its matches, since its fraction and exponent are optional",
+      "`#numbers.patterns[1]`, before it, matches every one of its matches, " +
+      "since its fraction and exponent are optional",
   },
   {
     grammar: "zig",
     path: "#operators.patterns[4].match",
     reason:
-      "the comparison and arithmetic rules before it match the first byte of `==`, `++`, `**` and `->`",
+      "the comparison and arithmetic rules before it match the first byte of `==`, `++`, " +
+      "`**` and `->`",
   },
   { grammar: "powershell", path: "#commentLine.end", group: 1, reason: missing(0) },
   ...[1, 2, 3].map((index): Waiver => ({
@@ -1566,7 +1623,8 @@ export const waivers: Waiver[] = [
     grammar: "kotlin",
     path: "#operators.patterns[5].match",
     reason:
-      "`#operators.patterns[3]`, `([-%*+/])`, before it, takes the first character of every `--` and `++`",
+      "`#operators.patterns[3]`, `([-%*+/])`, before it, " +
+      "takes the first character of every `--` and `++`",
   },
   {
     grammar: "kotlin",
@@ -1579,14 +1637,16 @@ export const waivers: Waiver[] = [
       path: `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[${index}].begin`,
       group: 0,
       reason:
-        "the match is only the blanks that lead the line, before the lookahead, and the oracle compares no blank",
+        "the match is only the blanks that lead the line, before the lookahead, " +
+        "and the oracle compares no blank",
     },
     {
       grammar: "erb",
       path: `injections[text.html.erb - (meta.embedded.block.erb | meta.embedded.line.erb | comment)].patterns[${index}].end`,
       group: 0,
       reason:
-        "the match is only blanks and the line feed that end the line, and the oracle compares no blank",
+        "the match is only blanks and the line feed that end the line, " +
+        "and the oracle compares no blank",
     },
   ]),
   ...[
@@ -1600,7 +1660,8 @@ export const waivers: Waiver[] = [
       path,
       group,
       reason:
-        "the rule's `captures` name the group for its end too, and the end's expression has one group",
+        "the rule's `captures` name the group for its end too, " +
+        "and the end's expression has one group",
     })),
   ),
   { grammar: "graphql", path: "#graphql-comment.patterns[0].match", group: 1, reason: blanks },
@@ -1619,7 +1680,8 @@ export const waivers: Waiver[] = [
     grammar: "graphql",
     path: "#graphql-description-singleline.match",
     reason:
-      "`#graphql-comment`, before it in every list that holds it, matches `(\\s*)(#).*` at or before every `#`",
+      "`#graphql-comment`, before it in every list that holds it, " +
+      "matches `(\\s*)(#).*` at or before every `#`",
   },
   ...[
     {
@@ -1662,7 +1724,8 @@ export const waivers: Waiver[] = [
     grammar: "graphql",
     path: "#graphql-type-interface.end",
     reason:
-      "the rule's last pattern, `#graphql-ignore-spaces`, matches `\\s*` at every place, and the rule tries its end after its patterns",
+      "the rule's last pattern, `#graphql-ignore-spaces`, matches `\\s*` at every place, " +
+      "and the rule tries its end after its patterns",
   },
   {
     grammar: "sql",
@@ -1680,7 +1743,8 @@ export const waivers: Waiver[] = [
     grammar: "sql",
     path: "#regexps.patterns[0].begin",
     reason:
-      "`patterns[21]`, `[-+/]`, before `#regexps` in the only list that holds it, matches every `/`",
+      "`patterns[21]`, `[-+/]`, before `#regexps` in the only list that holds it, " +
+      "matches every `/`",
   },
   {
     grammar: "sql",
@@ -1702,7 +1766,8 @@ export const waivers: Waiver[] = [
     path,
     group,
     reason:
-      "the alternative before it in the index, `\\$?(?<!\\w)[-0-9A-Z_a-z]+(?!\\w)`, matches every text this group's `-?\\d+` can",
+      "the alternative before it in the index, `\\$?(?<!\\w)[-0-9A-Z_a-z]+(?!\\w)`, " +
+      "matches every text this group's `-?\\d+` can",
   })),
   {
     grammar: "shellscript",
@@ -1714,20 +1779,23 @@ export const waivers: Waiver[] = [
     grammar: "shellscript",
     path: "#loop.patterns[0].begin",
     reason:
-      "`#for_statement`, before `#loop` in `#initial_context`, matches `\\bfor\\b` wherever this does",
+      "`#for_statement`, before `#loop` in `#initial_context`, " +
+      "matches `\\bfor\\b` wherever this does",
   },
   {
     grammar: "shellscript",
     path: "#loop.patterns[0].end",
     reason:
-      "its begin never matches, since `#for_statement`, before `#loop` in `#initial_context`, takes every `for`",
+      "its begin never matches, since `#for_statement`, before `#loop` in `#initial_context`, " +
+      "takes every `for`",
   },
   {
     grammar: "shellscript",
     path: "#normal_statement_seperator.match",
     group: 3,
     reason:
-      "`#pipeline`, before it in every context that includes both, takes the first `|` of every `||` with `[!|]`",
+      "`#pipeline`, before it in every context that includes both, " +
+      "takes the first `|` of every `||` with `[!|]`",
   },
   { grammar: "shellscript", path: "#option.begin", group: 2, reason: lookahead },
   ...[1, 2, 3].map((group): Waiver => ({
@@ -1741,7 +1809,8 @@ export const waivers: Waiver[] = [
     path: "patterns[9].end",
     group: 0,
     reason:
-      "the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank",
+      "the end matches only the line feed, or nothing before a lookahead, " +
+      "and the oracle compares no blank",
   },
   { grammar: "sass", path: "patterns[17].end", group: 0, reason: lookahead },
   { grammar: "sass", path: "patterns[18].end", group: 0, reason: lookahead },
@@ -1756,7 +1825,8 @@ export const waivers: Waiver[] = [
     path: "patterns[20].end",
     group: 0,
     reason:
-      "the end matches only the line feed, or nothing before a lookahead, and the oracle compares no blank",
+      "the end matches only the line feed, or nothing before a lookahead, " +
+      "and the oracle compares no blank",
   },
   { grammar: "scala", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   ...["#exports.patterns[5].patterns[2].match", "#imports.patterns[6].patterns[2].match"].map(
@@ -1765,14 +1835,16 @@ export const waivers: Waiver[] = [
       path,
       group: 1,
       reason:
-        "`\\b(given)\\b`, before it in the same list, matches at every `given` that would start the group",
+        "`\\b(given)\\b`, before it in the same list, " +
+        "matches at every `given` that would start the group",
     }),
   ),
   {
     grammar: "scala",
     path: "#meta-bounds.match",
     reason:
-      "`#keywords`, before it in `#code`, takes every run of two or more operator characters, and each bound is such a run",
+      "`#keywords`, before it in `#code`, takes every run of two or more operator characters, " +
+      "and each bound is such a run",
   },
   {
     grammar: "scala",
@@ -1784,7 +1856,8 @@ export const waivers: Waiver[] = [
     path: "#xml-literal.patterns[1].end",
     group,
     reason:
-      "the rule's `captures` name the begin's groups for its end too, and the end's expression has one group",
+      "the rule's `captures` name the begin's groups for its end too, " +
+      "and the end's expression has one group",
   })),
   { grammar: "astro", path: "#entities.patterns[1].match", group: 3, reason: missing(2) },
   { grammar: "astro", path: "#entities.patterns[2].match", group: 3, reason: missing(2) },
@@ -1792,14 +1865,16 @@ export const waivers: Waiver[] = [
     grammar: "astro",
     path: "injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].begin",
     reason:
-      "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `source.stylus`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   {
     grammar: "astro",
     path: "injections[L:meta.style.astro meta.lang.stylus - (meta source)].patterns[0].end",
     reason:
-      "the rule's only pattern includes `source.stylus`, which Shiki does not load, so vscode-textmate drops the rule",
+      "the rule's only pattern includes `source.stylus`, which Shiki does not load, " +
+      "so vscode-textmate drops the rule",
     dropped: true,
   },
   { grammar: "bat", path: "#strings.patterns[0].end", group: 2, reason: lineFeed },
@@ -1812,7 +1887,8 @@ export const waivers: Waiver[] = [
     grammar: "mermaid",
     path: `${rule}.match`,
     reason:
-      "the boundary's long form, the pattern before it, makes every part after the word optional, so it matches wherever this one does",
+      "the boundary's long form, the pattern before it, " +
+      "makes every part after the word optional, so it matches wherever this one does",
   })),
   {
     grammar: "mermaid",
@@ -1839,7 +1915,8 @@ export const waivers: Waiver[] = [
     grammar: "coffee",
     path,
     reason:
-      "the regular expression rule includes only `source.js.regexp`, which no grammar provides, so vscode-textmate skips it",
+      "the regular expression rule includes only `source.js.regexp`, " +
+      "which no grammar provides, so vscode-textmate skips it",
   })),
   ...[
     "patterns[27].match",
@@ -1851,7 +1928,8 @@ export const waivers: Waiver[] = [
     grammar: "coffee",
     path,
     reason:
-      "the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, and a property or call match takes that `.` first, since no match ends at it",
+      "the method must follow `console.`, `Array.`, `Object.`, `Math.` or `Number.`, " +
+      "and a property or call match takes that `.` first, since no match ends at it",
   })),
   { grammar: "elixir", path: "patterns[7].begin", group: 1, reason: lookahead },
   { grammar: "elixir", path: "#core_syntax.patterns[21].match", group: 1, reason: missing(0) },
@@ -1861,13 +1939,15 @@ export const waivers: Waiver[] = [
     grammar: "gdscript",
     path: "#annotated_parameter.patterns[1].match",
     reason:
-      "`#expression`, before it in its only list, holds `#assignment_operator`, whose `=` matches at every `=` this does",
+      "`#expression`, before it in its only list, holds `#assignment_operator`, " +
+      "whose `=` matches at every `=` this does",
   },
   {
     grammar: "gdscript",
     path: "#any_method.match",
     reason:
-      "`#function_call` has the same test, `(?=\\b[A-Z_a-z]\\w*\\b\\s*\\()`, and `#base_expression` holds it before it in `#expression`, its only list",
+      "`#function_call` has the same test, `(?=\\b[A-Z_a-z]\\w*\\b\\s*\\()`, " +
+      "and `#base_expression` holds it before it in `#expression`, its only list",
   },
   {
     grammar: "gdscript",
@@ -1883,14 +1963,16 @@ export const waivers: Waiver[] = [
     grammar: "gdscript",
     path: "#statement_keyword.patterns[1].match",
     reason:
-      "`#keywords`, before it in `#base_expression`, its only list, matches `class` with the same `\\b` on each side",
+      "`#keywords`, before it in `#base_expression`, its only list, " +
+      "matches `class` with the same `\\b` on each side",
   },
   { grammar: "pascal", path: "patterns[12].begin", group: 1, reason: blanks },
   {
     grammar: "pascal",
     path: "patterns[15].patterns[0].match",
     reason:
-      "the string's end `'` is tried before its patterns at every quote, so `''` ends the string and the next quote starts another",
+      "the string's end `'` is tried before its patterns at every quote, " +
+      "so `''` ends the string and the next quote starts another",
   },
   ...[1, 2].flatMap((group): Waiver[] => [
     { grammar: "vb", path: "patterns[2].patterns[0].match", group, reason: blanks },
@@ -1908,7 +1990,8 @@ export const waivers: Waiver[] = [
       grammar: "haml",
       path: `${rule}.${part}`,
       reason:
-        "the first `:ruby` filter, `^(\\s*):ruby`, needs nothing after the name, so it always matches first",
+        "the first `:ruby` filter, `^(\\s*):ruby`, needs nothing after the name, " +
+        "so it always matches first",
     })),
   ),
   ...["patterns[13]", "patterns[17]", "patterns[20]", "patterns[24]"].flatMap((rule) =>
@@ -1916,7 +1999,8 @@ export const waivers: Waiver[] = [
       grammar: "haml",
       path: `${rule}.${part}`,
       reason:
-        "the rule's only pattern includes a grammar that Shiki's `haml` does not load, so vscode-textmate drops the rule",
+        "the rule's only pattern includes a grammar that Shiki's `haml` does not load, " +
+        "so vscode-textmate drops the rule",
     })),
   ),
   ...["begin", "end"].map((part): Waiver => ({
@@ -1944,13 +2028,16 @@ export const waivers: Waiver[] = [
     grammar: "haml",
     path: "#continuation.match",
     reason:
-      "every rule that lists it lists `source.ruby` or the block opener `([,<|]|do|\\{)\\s*(#.*)?$\\n*` first, and those take the `|`",
+      "every rule that lists it lists `source.ruby` or the block opener " +
+      "`([,<|]|do|\\{)\\s*(#.*)?$\\n*` first, and those take the `|`",
   },
   {
     grammar: "haml",
     path: "#rubyline.patterns[4].match",
     reason:
-      "the keyword pattern before it, `\\s+((elseif|foreach|switch|declare|default|use))(?=[(\\s])`, takes `use` before `(` or a blank first",
+      "the keyword pattern before it, " +
+      "`\\s+((elseif|foreach|switch|declare|default|use))(?=[(\\s])`, " +
+      "takes `use` before `(` or a blank first",
   },
   { grammar: "haskell", path: "#comments.patterns[1].begin", group: 1, reason: blanks },
   { grammar: "haskell", path: "#comments.patterns[3].begin", group: 1, reason: blanks },
@@ -1959,7 +2046,8 @@ export const waivers: Waiver[] = [
     path: "patterns[17].end",
     group: 1,
     reason:
-      "the rule's `captures` name the begin's group for its end too, and the end's expression has no group",
+      "the rule's `captures` name the begin's group for its end too, " +
+      "and the end's expression has no group",
   },
   {
     grammar: "haskell",
@@ -1970,7 +2058,8 @@ export const waivers: Waiver[] = [
     grammar: "objective-c",
     path: "#c_lang.patterns[36].match",
     reason:
-      "the root tries `#bracketed_content`, whose begin is `\\[`, before `#c_lang`, so it takes every `[` first",
+      "the root tries `#bracketed_content`, whose begin is `\\[`, before `#c_lang`, " +
+      "so it takes every `[` first",
     probe: "CLangAt36",
   },
   // Objective-C++ repeats Objective-C's expressions, so these hold for both.
@@ -2002,7 +2091,8 @@ export const waivers: Waiver[] = [
       path: path as string,
       group: group as number,
       reason:
-        "the rule's `captures` name the begin's groups for its end too, and the end's expression has two groups",
+        "the rule's `captures` name the begin's groups for its end too, " +
+        "and the end's expression has two groups",
       probe: "AnonymousPattern1End",
     })),
     {
@@ -2089,7 +2179,8 @@ export const waivers: Waiver[] = [
       grammar,
       path: `#c_lang.repository.#switch_statement.patterns[2].${part}`,
       reason:
-        "the switch's end `(?<=})` holds where this begin could, and a rule's end comes before its patterns",
+        "the switch's end `(?<=})` holds where this begin could, " +
+        "and a rule's end comes before its patterns",
       probe,
     })),
     ...[
@@ -2133,7 +2224,8 @@ export const waivers: Waiver[] = [
     grammar: "objective-cpp",
     path,
     reason:
-      "the root reaches `#c_lang` first, through `#cpp_lang`, and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`",
+      "the root reaches `#c_lang` first, through `#cpp_lang`, " +
+      "and its `patterns[35]` and `patterns[36]` take every `[` before `#bracketed_content`",
   })),
   ...[
     "#c_functions.patterns[0].match",
@@ -2144,7 +2236,9 @@ export const waivers: Waiver[] = [
     grammar: "objective-cpp",
     path,
     reason:
-      "the root reaches `#c_lang` first, through `#cpp_lang`, and its function rule `patterns[33]` takes a name before `(`, as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`",
+      "the root reaches `#c_lang` first, through `#cpp_lang`, " +
+      "and its function rule `patterns[33]` takes a name before `(`, " +
+      "as in `sqrt(4)` and `API_AVAILABLE(ios(13.0))`",
   })),
   ...["begin", "end"].map((part): Waiver => ({
     grammar: "objective-cpp",
@@ -2155,7 +2249,8 @@ export const waivers: Waiver[] = [
     grammar: "objective-cpp",
     path: `#cpp_lang.repository.#constructor.patterns[0].${part}`,
     reason:
-      "vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and `function-innards`, which no repository in its reach defines",
+      "vscode-textmate drops the rule: its only patterns include `probably_a_parameter` and " +
+      "`function-innards`, which no repository in its reach defines",
     dropped: true,
   })),
   {
@@ -2163,7 +2258,8 @@ export const waivers: Waiver[] = [
     path: "#cpp_lang.repository.#special_block.patterns[2].patterns[1].end",
     group: 2,
     reason:
-      "the group matches only blanks and the line feed that ends the line, and the oracle compares no blank",
+      "the group matches only blanks and the line feed that ends the line, " +
+      "and the oracle compares no blank",
   },
   ...[0, 1, 2, 3, 4, 5, 6, 7, 8].flatMap((n): Waiver[] => [
     { grammar: "php", path: `#heredoc_interior.patterns[${n}].begin`, group: 5, reason: blanks },
@@ -2198,14 +2294,16 @@ export const waivers: Waiver[] = [
     grammar: "hack",
     path: "#support.patterns[101].match",
     reason:
-      "its words, `is_int` and `is_integer`, are in `patterns[93]`, which comes first and takes them",
+      "its words, `is_int` and `is_integer`, are in `patterns[93]`, " +
+      "which comes first and takes them",
     probe: "SupportAt0",
   },
   {
     grammar: "perl",
     path: "patterns[17].end",
     reason:
-      "vscode-textmate rewrites `\\z` so that it never matches a line, so the data section runs to the document's end",
+      "vscode-textmate rewrites `\\z` so that it never matches a line, " +
+      "so the data section runs to the document's end",
     probe: "RootAt17End",
   },
   ...[
@@ -2217,14 +2315,16 @@ export const waivers: Waiver[] = [
     grammar: "perl",
     path,
     reason:
-      "the rule's only pattern includes `source.postscript`, which Shiki lacks, so vscode-textmate drops it, and the quoted heredoc after it takes the label",
+      "the rule's only pattern includes `source.postscript`, which Shiki lacks, " +
+      "so vscode-textmate drops it, and the quoted heredoc after it takes the label",
     probe: "HeredocAt6",
   })),
   ...["#heredoc.patterns[22].begin", "#heredoc.patterns[22].end"].map((path): Waiver => ({
     grammar: "perl",
     path,
     reason:
-      "the bare heredoc before it matches first at `<<`, with an empty label, since a bare label stops at the backtick",
+      "the bare heredoc before it matches first at `<<`, with an empty label, " +
+      "since a bare label stops at the backtick",
     probe: "HeredocAt21",
   })),
   ...[
@@ -2315,14 +2415,16 @@ export const waivers: Waiver[] = [
     grammar: "common-lisp",
     path: "#variable.patterns[0].match",
     reason:
-      "`#style-guide`'s `(\\*[^*\\s]+\\*)`, before it in the root, matches every `*name*` it does, after a lookbehind that holds wherever its own does",
+      "`#style-guide`'s `(\\*[^*\\s]+\\*)`, before it in the root, " +
+      "matches every `*name*` it does, after a lookbehind that holds wherever its own does",
     probe: "VariableAt0",
   },
   {
     grammar: "common-lisp",
     path: "#punctuation.patterns[10].match",
     reason:
-      "`#package`, before it in the root, matches the same `#` before a `:` after the same lookbehind",
+      "`#package`, before it in the root, matches the same `#` before a `:` " +
+      "after the same lookbehind",
     probe: "PunctuationAt10",
   },
   ...[2, 3, 4].map((group): Waiver => ({
@@ -2330,14 +2432,17 @@ export const waivers: Waiver[] = [
     path: "#punctuation.patterns[11].match",
     group,
     reason:
-      "`#punctuation`'s first pattern, before this one, matches every backquote before a `\\S`, after a lookbehind that holds wherever this one's does",
+      "`#punctuation`'s first pattern, before this one, " +
+      "matches every backquote before a `\\S`, after a lookbehind that holds " +
+      "wherever this one's does",
     probe: "PunctuationAt11",
   })),
   {
     grammar: "r",
     path: "#basic-roxygen-example.patterns[0].match",
     reason:
-      "`#roxygen-example.patterns[0]`, the same expression, comes before it in the one list that holds it",
+      "`#roxygen-example.patterns[0]`, the same expression, " +
+      "comes before it in the one list that holds it",
     probe: "MarkdownAt0At0",
   },
   { grammar: "hcl", path: "#double_slash_line_comments.end", group: 0, reason: lineFeed },
@@ -2346,7 +2451,8 @@ export const waivers: Waiver[] = [
     grammar: "asm",
     path: "#mnemonics-sgx.patterns[2].match",
     reason:
-      "every word it lists, such as `eadd`, an earlier mnemonic list holds too, and the first list that holds a word wins",
+      "every word it lists, such as `eadd`, an earlier mnemonic list holds too, " +
+      "and the first list that holds a word wins",
     probe: "MnemonicsSgxAt2",
   },
   ...[0, 1, 2, 3].map((n): Waiver => ({
@@ -2368,7 +2474,8 @@ export const waivers: Waiver[] = [
       grammar: "asm",
       path: `#strings.patterns[${n}].${side}`,
       reason:
-        "vscode-textmate drops the string rule: its only patterns include `#string_escaped_char` and `#string_placeholder`, which the grammar never defines",
+        "vscode-textmate drops the string rule: its only patterns include " +
+        "`#string_escaped_char` and `#string_placeholder`, which the grammar never defines",
       dropped: true,
     })),
   ),

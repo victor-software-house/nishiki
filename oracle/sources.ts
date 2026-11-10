@@ -57,7 +57,8 @@ export const keptOut: Record<string, KeptOut> = {
     {
       fixture: "xml/rome-slashdot.txt",
       header:
-        "    <dc:rights>Copyright 1997-2005, OSTG - Open Source Technology Group, Inc.  All Rights Reserved.</dc:rights>",
+        "    <dc:rights>Copyright 1997-2005, OSTG - Open Source Technology Group, " +
+        "Inc.  All Rights Reserved.</dc:rights>",
       reason: "a Slashdot feed in an Apache-2.0 repository, whose publisher reserves all rights",
     },
 };
@@ -184,7 +185,8 @@ function mirrorDirectory(): string {
   const directory = Bun.env["NISHIKI_SOURCES"];
   if (!directory) {
     throw new Error(
-      "set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources (oracle/AGENTS.md)",
+      "set NISHIKI_SOURCES to a checkout of " +
+        "victor-software-house/nishiki-sources (oracle/AGENTS.md)",
     );
   }
   return directory;

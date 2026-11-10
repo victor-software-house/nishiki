@@ -196,7 +196,8 @@ export function renderRecord(record: BenchRecord, stem: string): string {
     `| Compute | ${compute} |`,
     "",
     `The harness output, unchanged, is in [\`${stem}.txt\`](${stem}.txt).`,
-    "Each figure is the median over the rounds; spread is the largest round minus the smallest, over the median.",
+    "Each figure is the median over the rounds; spread is the largest round minus the " +
+      "smallest, over the median.",
     "",
     "## Criterion",
     "",
@@ -214,9 +215,11 @@ export function renderRecord(record: BenchRecord, stem: string): string {
     "",
     "## Latency",
     "",
-    "µs per line; steady figures are each line's median over the passes after the first, then p50, p99 and the maximum over lines.",
+    "µs per line; steady figures are each line's median over the passes after the first, " +
+      "then p50, p99 and the maximum over lines.",
     "",
-    "| language | tier | lines | steady p50 | steady p99 | steady max | first-contact max | p99 spread |",
+    "| language | tier | lines | steady p50 | steady p99 | steady max | " +
+      "first-contact max | p99 spread |",
     "|:--|:--|--:|--:|--:|--:|--:|--:|",
   );
   for (const f of record.latency) {
@@ -335,7 +338,8 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
   const out: string[] = [
     `# ${record.date}, commit ${sha8}: comparison with other highlighters`,
     "",
-    "A recorded comparison under the `bench-methodology` method, rendered from its JSON by `mise run bench:report`.",
+    "A recorded comparison under the `bench-methodology` method, " +
+      "rendered from its JSON by `mise run bench:report`.",
     standing(record, `../../../../${PROBE}`),
     "",
     "## Session",
@@ -366,7 +370,8 @@ export function renderCompareRecord(record: CompareRecord, stem: string): string
     "## Results",
     "",
     "Setup and first document are medians over the fresh processes.",
-    "Warm throughput is the median over the rounds, and its spread is the largest round minus the smallest, over the median.",
+    "Warm throughput is the median over the rounds, " +
+      "and its spread is the largest round minus the smallest, over the median.",
     "Fidelity is the share of non-whitespace bytes whose colour matches Shiki's, in percent.",
     "",
     "| file | engine | setup ms | first document ms | warm MiB/s | spread | tokens | fidelity |",
@@ -541,7 +546,8 @@ async function main(): Promise<void> {
     }
     default:
       throw new Error(
-        "usage: report.ts render [record.json...] | compute <record.json> <seconds> <unit-minutes> <usd> | summary | check",
+        "usage: report.ts render [record.json...] | compute <record.json> <seconds> " +
+          "<unit-minutes> <usd> | summary | check",
       );
   }
 }

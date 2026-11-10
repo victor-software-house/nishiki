@@ -385,6 +385,7 @@ export const allowed: Record<string, Allowed> = {
 export const refused: Record<string, string> = {
   glsl: "polym0rph/GLSL.tmbundle states no licence, in a file or its README",
   groovy:
-    "textmate/groovy.tmbundle, which VS Code converted it from, states no licence in a file or its README; only VS Code's notices do",
+    "textmate/groovy.tmbundle, which VS Code converted it from, " +
+    "states no licence in a file or its README; only VS Code's notices do",
   r: "posit-dev/positron, where Shiki takes it from, is under the Elastic License 2.0",
 };
