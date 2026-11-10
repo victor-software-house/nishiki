@@ -504,7 +504,7 @@ pub(crate) fn table_cell(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Opti
 /// `\s*(\[)([^]]+?)(])(:)[\t ]*(?:(<)((?:\\[<>]|[^\n<>])*)(>)|(\S+?))[\t ]*
 /// (?:((\().+?(\)))|((").+?("))|((').+?(')))?\s*$`, a link reference
 /// definition such as `[label]: https://example.com "title"`.
-pub(crate) fn link_def(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
+pub(crate) fn link_definition(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     let open = cx.skip_space(p);
     if cx.get(open) != Some(b'[') {
         return None;
@@ -541,7 +541,7 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option
                 with_angle.set(6, url + 1, i);
             }
             with_angle.set(7, i, i + 1);
-            if link_def_tail(cx, i + 1, blank_end, &mut with_angle, 9) {
+            if link_definition_tail(cx, i + 1, blank_end, &mut with_angle, 9) {
                 *captures = with_angle;
                 return Some(cx.end);
             }
@@ -560,7 +560,7 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option
         }
         let mut plain = *captures;
         plain.set(8, url, end);
-        if link_def_tail(cx, end, blank_end, &mut plain, 9) {
+        if link_definition_tail(cx, end, blank_end, &mut plain, 9) {
             *captures = plain;
             return Some(cx.end);
         }
@@ -589,7 +589,7 @@ fn trailing_space_start(cx: &Cx<'_>) -> usize {
 /// per definition. A title's closer must have only whitespace after it, so
 /// it is the byte just before `blank_end`. Checking a title therefore costs
 /// the same wherever it opens, and a line of many openers stays linear.
-fn link_def_tail(
+fn link_definition_tail(
     cx: &Cx<'_>,
     p: usize,
     blank_end: usize,
