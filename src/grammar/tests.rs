@@ -239,6 +239,23 @@ fn a_rule_named_twice_fails() {
 }
 
 #[test]
+fn a_repository_out_of_order_fails() {
+    let mut grammar = compile(DEMO).unwrap();
+    grammar
+        .repository
+        .push(("a".to_owned(), grammar.rules.len()));
+    grammar.rules.push(RawRule::default());
+    assert!(matches!(
+        bytes::read(&bytes::write(&grammar)),
+        Err(Reason::Malformed { .. })
+    ));
+    grammar
+        .repository
+        .sort_unstable_by(|(a, _), (b, _)| a.cmp(b));
+    assert!(bytes::read(&bytes::write(&grammar)).is_ok());
+}
+
+#[test]
 fn a_rule_that_names_itself_fails() {
     let grammar = grammar_of(vec![RawRule {
         patterns: vec![0],

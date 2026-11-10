@@ -809,10 +809,10 @@ fn expand(rules: &[Draft<'_>], list: &[Entry], out: &mut Vec<Entry>, seen: &mut 
 
 /// The rule named `name` in `repository`.
 fn lookup(repository: &Repository, name: &str) -> Option<RuleId> {
-    repository
-        .iter()
-        .find(|(key, _)| key == name)
-        .map(|&(_, rule)| rule)
+    let at = repository
+        .binary_search_by(|(key, _)| key.as_str().cmp(name))
+        .ok()?;
+    repository.get(at).map(|&(_, rule)| rule)
 }
 
 /// The interned names, lists and hand-offs, as `oracle/engine-tables.ts`

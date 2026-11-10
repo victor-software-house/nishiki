@@ -229,7 +229,7 @@ impl Reader<'_> {
             rules,
             patterns: self.ids()?,
             repository: self.repository()?,
-            injections: self.repository()?,
+            injections: self.entries()?,
             injection_selector: self.option(Reader::string)?,
             inject_to: self.strings()?,
         })
@@ -268,13 +268,27 @@ impl Reader<'_> {
         Ok(captures)
     }
 
-    /// A repository: each entry takes at least a string's length and a rule
+    /// Named rules: each entry takes at least a string's length and a rule
     /// index.
-    fn repository(&mut self) -> Result<Repository, Reason> {
+    fn entries(&mut self) -> Result<Repository, Reason> {
         let count = self.count(4 + 4)?;
         let mut entries = Vec::with_capacity(count);
         for _ in 0..count {
             entries.push((self.string()?, self.length()?));
+        }
+        Ok(entries)
+    }
+
+    /// A repository, which the linker searches by name.
+    /// Its names must be sorted, each once, as the compiler writes them.
+    fn repository(&mut self) -> Result<Repository, Reason> {
+        let start = self.at;
+        let entries = self.entries()?;
+        if entries.windows(2).any(|pair| match pair {
+            [(a, _), (b, _)] => a >= b,
+            _ => false,
+        }) {
+            return Err(Reason::Malformed { at: start });
         }
         Ok(entries)
     }

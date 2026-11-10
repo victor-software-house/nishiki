@@ -30,7 +30,8 @@ use json::Json;
 /// The index of a rule in [`Compiled::rules`].
 pub(crate) type RuleId = usize;
 
-/// Named rules, in the order of the grammar's text.
+/// Named rules, sorted by name, so an include finds one by binary search.
+/// Each name is there once.
 pub(crate) type Repository = Vec<(String, RuleId)>;
 
 /// One grammar, read from its JSON and not yet linked.
@@ -187,19 +188,23 @@ impl Reader {
         }
     }
 
-    /// The truthy entries of a `repository` object.
+    /// The truthy entries of a `repository` object, sorted by name.
     ///
     /// A falsy entry is left out, as the linker's lookup passes over it to an
     /// outer repository.
+    /// The rules are read in the order of the text, so their numbers follow
+    /// it.
     fn repository(&mut self, value: Option<&Json>) -> Repository {
-        match value {
+        let mut repository: Repository = match value {
             Some(Json::Object(entries)) => entries
                 .iter()
                 .filter(|(_, rule)| rule.is_truthy())
                 .map(|(name, rule)| (name.clone(), self.rule(rule)))
                 .collect(),
             Some(_) | None => Vec::new(),
-        }
+        };
+        repository.sort_unstable_by(|(a, _), (b, _)| a.cmp(b));
+        repository
     }
 
     /// Reads one rule object, and the rules inside it, depth first.
