@@ -1,11 +1,15 @@
 //! The syntax tree of a pattern, and the character classes in it.
+//!
+//! The tree is visible to the whole crate.
+//! Code that reads a pattern outside the regex engine reads this tree, so
+//! the crate has one parser.
 
 use super::analysis::{first_bytes, lead_byte};
 use super::folds::{LARGEST_ORBIT, MULTI, NEXT, UNFOLD};
 
 /// A position the engine can test without consuming text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Anchor {
+pub(crate) enum Anchor {
     /// `^`: the start of the text, or after a newline that is not its end.
     Caret,
     /// `$`: the end of the text, or before a newline.
@@ -29,7 +33,7 @@ pub(super) enum Anchor {
 /// Characters and classes take it in when the pattern parses.
 /// A back-reference keeps it, because it compares two pieces of the text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Case {
+pub(crate) enum Case {
     /// Only in the pattern's case.
     Sensitive,
     /// In any case.
@@ -39,7 +43,7 @@ pub(super) enum Case {
 /// Whether a set of characters matches its members or every other
 /// character, as `\d` and `\D` differ.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Polarity {
+pub(crate) enum Polarity {
     /// Its members.
     Positive,
     /// Every character but its members.
@@ -58,7 +62,7 @@ impl Polarity {
 
 /// How a repeat takes its iterations.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Greediness {
+pub(crate) enum Greediness {
     /// As many as it can, giving back on failure.
     Greedy,
     /// As few as it can, taking more on failure.
@@ -69,7 +73,7 @@ pub(super) enum Greediness {
 
 /// One member of a class.
 #[derive(Clone, Debug)]
-pub(super) enum Member {
+pub(crate) enum Member {
     /// `a-z`, or a single character as `a-a`.
     Range(char, char),
     /// `\d`, `[:alpha:]` or `\p{Lu}`, negated or not.
@@ -108,14 +112,17 @@ fn ascii_range(first: u32, last: u32) -> u128 {
 
 /// A character class: the intersection of unions of items, negated or not.
 #[derive(Clone, Debug)]
-pub(super) struct Class {
-    pub(super) negated: bool,
-    pub(super) parts: Vec<Vec<Member>>,
+pub(crate) struct Class {
+    /// Whether the class matches every character outside its members.
+    pub(crate) negated: bool,
+    /// The sets the class intersects, each a union of its members.
+    /// `[a-z&&[^aeiou]]` has two.
+    pub(crate) parts: Vec<Vec<Member>>,
 }
 
 /// A named set of characters: ranges of code points, ascending.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Property(&'static [(u32, u32)]);
+pub(crate) struct Property(&'static [(u32, u32)]);
 
 impl Property {
     /// Every character.
@@ -774,7 +781,7 @@ impl Class {
 
 /// A node of the tree.
 #[derive(Clone, Debug)]
-pub(super) enum Node {
+pub(crate) enum Node {
     /// Nothing: an empty pattern or alternative.
     Empty,
     /// A character.

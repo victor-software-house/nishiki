@@ -21,9 +21,9 @@
 //! Both are decided when the pattern compiles.
 
 mod analysis;
-mod ast;
+pub(crate) mod ast;
 mod folds;
-mod parse;
+pub(crate) mod parse;
 mod program;
 mod relax;
 mod unicode;
