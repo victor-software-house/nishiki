@@ -401,15 +401,15 @@ impl<'a> Lexer<'a> {
                 self.ws(p).max(p + 1)
             }
             Rule::Root
-            | Rule::Pi
+            | Rule::Instruction
             | Rule::Subset
-            | Rule::EntityDecl
+            | Rule::EntityDeclaration
             | Rule::Comment
             | Rule::CommentBad
             | Rule::CommentJsp
             | Rule::NoContent
             | Rule::Tag
-            | Rule::JspProps
+            | Rule::JspDirective
             | Rule::Jsp
             | Rule::Cdata
             | Rule::Doctype

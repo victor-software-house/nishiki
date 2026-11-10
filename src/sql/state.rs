@@ -26,15 +26,15 @@ crate::tag::frame_rules! {
         /// It nests.
         BlockComment,
         /// `'` up to `'`.
-        StrSingle,
+        StringSingle,
         /// `` ` `` up to `` ` ``.
-        StrBacktick,
+        StringBacktick,
         /// `"` up to `"`.
-        StrDouble,
+        StringDouble,
         /// `%{` up to `}`.
-        StrBrace,
+        StringBrace,
         /// `%r{` up to `}`.
-        StrModr,
+        StringRegex,
     }
 }
 
@@ -45,11 +45,11 @@ impl Rule {
             Rule::Bracket => scopes![S::Bracketed],
             Rule::LineComment => scopes![S::CommentDash],
             Rule::BlockComment => scopes![S::CommentBlock],
-            Rule::StrSingle => scopes![S::StrSingle],
-            Rule::StrBacktick => scopes![S::StrBacktick],
-            Rule::StrDouble => scopes![S::StrDouble],
-            Rule::StrBrace => scopes![S::StrBraces],
-            Rule::StrModr => scopes![S::StrModr],
+            Rule::StringSingle => scopes![S::StrSingle],
+            Rule::StringBacktick => scopes![S::StrBacktick],
+            Rule::StringDouble => scopes![S::StrDouble],
+            Rule::StringBrace => scopes![S::StrBraces],
+            Rule::StringRegex => scopes![S::StrModr],
             Rule::Root | Rule::CommentDash | Rule::CommentHash => S::NO_SCOPES,
         }
     }

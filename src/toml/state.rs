@@ -16,15 +16,15 @@ crate::tag::frame_rules! {
         Array,
         /// `{` up to `}`.
         /// The payload is an [`InlineComments`].
-        Inline,
+        InlineTable,
         /// `"` up to `"`.
         Basic,
         /// `'` up to `'`.
         Literal,
         /// `"""` up to `"""`.
-        BasicMulti,
+        MultilineBasic,
         /// `'''` up to `'''`.
-        LiteralMulti,
+        MultilineLiteral,
     }
 }
 
@@ -35,11 +35,11 @@ impl Rule {
         match self {
             Rule::Top => None,
             Rule::Array => Some(S::MetaArray),
-            Rule::Inline => Some(S::MetaInline),
+            Rule::InlineTable => Some(S::MetaInline),
             Rule::Basic => Some(S::StrDouble),
             Rule::Literal => Some(S::StrSingle),
-            Rule::BasicMulti => Some(S::StrTripleDouble),
-            Rule::LiteralMulti => Some(S::StrTripleSingle),
+            Rule::MultilineBasic => Some(S::StrTripleDouble),
+            Rule::MultilineLiteral => Some(S::StrTripleSingle),
         }
     }
 }

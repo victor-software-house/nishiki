@@ -169,7 +169,7 @@ fn unterminated_string_runs_to_the_end() {
         still string
         let t"},
     );
-    assert_eq!(top(&h, states[0]), Rule::Str);
+    assert_eq!(top(&h, states[0]), Rule::String);
     assert_eq!(rows[1][0].1, "string.quoted.double.rust");
     assert_eq!(rows[2][0].1, "string.quoted.double.rust", "never recovers");
 }

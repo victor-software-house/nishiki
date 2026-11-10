@@ -14,13 +14,13 @@ pub(crate) enum Rule {
     /// Outside every rule.
     Root,
     /// `<?name` up to `?>`.
-    Pi,
+    Instruction,
     /// `<!DOCTYPE name` up to `>`.
     Doctype,
     /// `[` of a doctype up to `]`.
     Subset,
     /// `<!ENTITY name` up to `>`.
-    EntityDecl,
+    EntityDeclaration,
     /// `<!--` up to `-->`.
     Comment,
     /// A `--` inside a comment.
@@ -34,7 +34,7 @@ pub(crate) enum Rule {
     /// `<name` and `</name` up to `>`.
     Tag,
     /// `<%@` up to `%>`.
-    JspProps,
+    JspDirective,
     /// `<%` up to `%>`, around Java.
     Jsp,
     /// `<![CDATA[` up to `]]>`.
@@ -50,16 +50,16 @@ impl Rule {
     /// [`Rule::code`] numbers them.
     const ALL: [Rule; 15] = [
         Rule::Root,
-        Rule::Pi,
+        Rule::Instruction,
         Rule::Doctype,
         Rule::Subset,
-        Rule::EntityDecl,
+        Rule::EntityDeclaration,
         Rule::Comment,
         Rule::CommentBad,
         Rule::CommentJsp,
         Rule::NoContent,
         Rule::Tag,
-        Rule::JspProps,
+        Rule::JspDirective,
         Rule::Jsp,
         Rule::Cdata,
         Rule::Double,
@@ -91,18 +91,18 @@ impl Rule {
     /// The scope the rule adds to its begin, its content and its end.
     pub(crate) fn name(self) -> Option<S> {
         match self {
-            Rule::Pi => Some(S::MetaPreprocessor),
+            Rule::Instruction => Some(S::MetaPreprocessor),
             Rule::Doctype => Some(S::MetaDoctype),
             Rule::Subset => Some(S::MetaSubset),
             Rule::Comment => Some(S::CommentBlock),
             Rule::NoContent => Some(S::MetaNoContent),
             Rule::Tag => Some(S::MetaTag),
-            Rule::JspProps => Some(S::JavaProps),
+            Rule::JspDirective => Some(S::JavaProps),
             Rule::Jsp => Some(S::JavaEmbedded),
             Rule::Cdata => Some(S::Cdata),
             Rule::Double => Some(S::StringDouble),
             Rule::Single => Some(S::StringSingle),
-            Rule::Root | Rule::EntityDecl | Rule::CommentBad | Rule::CommentJsp => None,
+            Rule::Root | Rule::EntityDeclaration | Rule::CommentBad | Rule::CommentJsp => None,
         }
     }
 }

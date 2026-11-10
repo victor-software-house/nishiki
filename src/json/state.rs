@@ -20,7 +20,7 @@ crate::tag::frame_rules! {
         /// A property name: `"` up to `"`.
         Key,
         /// A string value: `"` up to `"`.
-        Str,
+        String,
         /// `/*` up to `*/`.
         Block,
         /// `/**` up to `*/`.
@@ -38,7 +38,7 @@ impl Rule {
             Rule::Object => &[S::MetaDict],
             Rule::Pair => &[S::MetaPair],
             Rule::Key => &[S::KeyString, S::KeyName],
-            Rule::Str => &[S::StrQuoted],
+            Rule::String => &[S::StrQuoted],
             Rule::Block => &[S::CommentBlock],
             Rule::Doc => &[S::CommentDoc],
         }

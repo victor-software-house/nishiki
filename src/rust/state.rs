@@ -15,13 +15,13 @@ pub(crate) enum Rule {
     /// Outside any context.
     Top,
     /// `fn name(` up to `{` or `;`.
-    FnDef,
+    FunctionDefinition,
     /// `name(` up to `)`.
     Call,
     /// `Type<` up to `>`.
     Generic,
     /// `<[` up to `>`.
-    AngleSq,
+    AngleSquare,
     /// `#[` up to `]`.
     Attribute,
     /// `use ` up to `;`.
@@ -29,7 +29,7 @@ pub(crate) enum Rule {
     /// `extern crate` up to `;`.
     Import,
     /// `"` or `b"` up to `"`.
-    Str,
+    String,
     /// `r#"` up to `"#`.
     /// The hash count is the frame's payload.
     Raw,
@@ -69,14 +69,14 @@ impl Rule {
 
     const ALL: [Rule; 13] = [
         Rule::Top,
-        Rule::FnDef,
+        Rule::FunctionDefinition,
         Rule::Call,
         Rule::Generic,
-        Rule::AngleSq,
+        Rule::AngleSquare,
         Rule::Attribute,
         Rule::Use,
         Rule::Import,
-        Rule::Str,
+        Rule::String,
         Rule::Raw,
         Rule::Char,
         Rule::Block,
@@ -87,13 +87,13 @@ impl Rule {
     /// included.
     pub(crate) fn scope(self) -> Option<S> {
         match self {
-            Rule::Top | Rule::Generic | Rule::AngleSq => None,
-            Rule::FnDef => Some(S::MetaFnDef),
+            Rule::Top | Rule::Generic | Rule::AngleSquare => None,
+            Rule::FunctionDefinition => Some(S::MetaFnDef),
             Rule::Call => Some(S::MetaFnCall),
             Rule::Attribute => Some(S::MetaAttr),
             Rule::Use => Some(S::MetaUse),
             Rule::Import => Some(S::MetaImport),
-            Rule::Str | Rule::Raw => Some(S::StrDouble),
+            Rule::String | Rule::Raw => Some(S::StrDouble),
             Rule::Char => Some(S::StrChar),
             Rule::Block => Some(S::CommentBlock),
             Rule::Doc => Some(S::CommentBlockDoc),

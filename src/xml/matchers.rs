@@ -198,7 +198,7 @@ impl Lexer<'_> {
     /// The end pattern of `rule` at `p`.
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         match rule {
-            Rule::Pi => self
+            Rule::Instruction => self
                 .lit(p, b"?>")
                 .then(|| Hit::new(p, p + 2).capture(p, p + 2, S::PunctTag)),
             Rule::Doctype => {
@@ -208,7 +208,7 @@ impl Lexer<'_> {
             Rule::Subset => {
                 (self.at(p) == b']').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::PunctConstant))
             }
-            Rule::EntityDecl => {
+            Rule::EntityDeclaration => {
                 (self.at(p) == b'>').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::PunctTag))
             }
             Rule::Comment => self
@@ -222,7 +222,7 @@ impl Lexer<'_> {
                 }
                 _ => None,
             },
-            Rule::JspProps | Rule::Jsp => self
+            Rule::JspDirective | Rule::Jsp => self
                 .lit(p, b"%>")
                 .then(|| Hit::new(p, p + 2).capture(p, p + 2, S::EmbeddedEnd)),
             Rule::Cdata => self
@@ -263,7 +263,7 @@ impl Lexer<'_> {
     /// The pattern `pattern` at `p`.
     pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
         match pattern {
-            Pattern::Pi => self.pi(p),
+            Pattern::Instruction => self.pi(p),
             Pattern::Doctype => self.doctype(p),
             Pattern::CommentJsp => self
                 .lit(p, b"<%--")
@@ -275,7 +275,7 @@ impl Lexer<'_> {
             Pattern::Tag => self.tag(p),
             Pattern::Entity => self.entity(p),
             Pattern::Ampersand => (self.at(p) == b'&').then(|| Hit::new(p, p + 1)),
-            Pattern::JspProps => self
+            Pattern::JspDirective => self
                 .lit(p, b"<%@")
                 .then(|| Hit::new(p, p + 3).capture(p, p + 3, S::EmbeddedBegin)),
             Pattern::Jsp => self.jsp_begin(p),
@@ -292,7 +292,7 @@ impl Lexer<'_> {
             Pattern::Subset => {
                 (self.at(p) == b'[').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::PunctConstant))
             }
-            Pattern::EntityDecl => self.entity_declaration(p),
+            Pattern::EntityDeclaration => self.entity_declaration(p),
             Pattern::ParameterEntity => self.parameter_entity(p),
             Pattern::CommentBad => (self.lit(p, b"--") && self.at(p + 2) != b'>')
                 .then(|| Hit::new(p, p + 2).capture(p, p + 2, S::InvalidComment)),

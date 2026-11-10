@@ -147,7 +147,7 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
             }
             let from = p;
             p = match self.top() {
-                Rule::Str | Rule::Key => self.in_string(p),
+                Rule::String | Rule::Key => self.in_string(p),
                 Rule::Block | Rule::Doc => self.in_comment(p),
                 Rule::Top if H::HALTS => match self.at_top(p) {
                     Some(next) => next,
@@ -292,7 +292,7 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
             Rule::Top => self.value(p, b).unwrap_or(p + self.width_at(p)),
             Rule::Array => self.in_array(p, b),
             Rule::Object => self.in_object(p, b),
-            Rule::Pair | Rule::Key | Rule::Str | Rule::Block | Rule::Doc => self.in_pair(p, b),
+            Rule::Pair | Rule::Key | Rule::String | Rule::Block | Rule::Doc => self.in_pair(p, b),
         }
     }
 
@@ -367,7 +367,7 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
     /// string, array, object or comment.
     fn value(&mut self, p: usize, b: u8) -> Option<usize> {
         match b {
-            b'"' => Some(self.begin(p, p + 1, Rule::Str, S::PunctStrBegin)),
+            b'"' => Some(self.begin(p, p + 1, Rule::String, S::PunctStrBegin)),
             b'[' => Some(self.begin(p, p + 1, Rule::Array, S::PunctArrayBegin)),
             b'{' => Some(self.begin(p, p + 1, Rule::Object, S::PunctDictBegin)),
             b'/' => self.comment(p),

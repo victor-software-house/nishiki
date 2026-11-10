@@ -37,9 +37,9 @@ impl Lexer<'_> {
                 let multi = self.at(p + 1) == quote && self.at(p + 2) == quote;
                 let rule = match (quote, multi) {
                     (b'"', false) => Rule::Basic,
-                    (b'"', true) => Rule::BasicMulti,
+                    (b'"', true) => Rule::MultilineBasic,
                     (_, false) => Rule::Literal,
-                    (_, true) => Rule::LiteralMulti,
+                    (_, true) => Rule::MultilineLiteral,
                 };
                 self.value_starts();
                 Some(self.begin(p, p + if multi { 3 } else { 1 }, rule, S::PunctStrBegin))
@@ -50,7 +50,7 @@ impl Lexer<'_> {
             }
             b'{' => {
                 self.value_starts();
-                Some(self.begin(p, p + 1, Rule::Inline, S::PunctInlineBegin))
+                Some(self.begin(p, p + 1, Rule::InlineTable, S::PunctInlineBegin))
             }
             _ => {
                 let (end, scope) = self.scalar(p)?;
