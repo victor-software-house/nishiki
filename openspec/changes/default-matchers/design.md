@@ -164,24 +164,43 @@ The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 byt
 
 Two fixes, in order:
 
-1. `codegen/` drops a repeat's arm when the other arm gives the same match.
+1. `codegen/` drops a repeat's arm when the arm it keeps gives the same match.
    Both fixes keep the match exact (lead, 2026-11-10).
-   Before it drops an arm, `codegen/` checks that at every position:
-   - both arms give the same set of ends;
-   - each end has the same group spans in both;
-   - each end comes in the same order of preference, so leftmost-first picks the same one.
+   An arm gives its ends in its order of preference, each with its group spans.
+   `codegen/` drops an arm only when, at every position:
+   - the kept arm gives every end the dropped arm gives, with the same group spans;
+   - when the dropped arm is preferred, its ends are the kept arm's first ends, in the same order.
 
-   `\.?` before `[.\w]+` passes the check, because `.` is in `[.\w]`.
-   The arm that takes the dot and the arm that leaves it to `[.\w]+` give the same ends.
-   Both put the whole run in the one group around them.
+   At a shared end, what follows sees the same position and spans, so it succeeds or fails the same way.
+   So the first end where it succeeds is the same with the dropped arm or without it.
+   A dropped arm tried second only repeats ends already tried.
+
+   `\.?` before `[.\w]+` passes at a dot:
+   - `\.?` is greedy, so the arm that takes the dot is preferred.
+   - That arm gives the ends from the run's end down to two bytes after the dot.
+   - The arm that leaves the dot to `[.\w]+` gives the same ends in the same order, then one byte after the dot.
+   - Both put the whole match in the one group around them.
+
+   A check for equal sets of ends would refuse this case, because the preferred arm cannot end one byte after the dot.
    Dropping the arm halves the work at a dot.
-2. A skip in the generated scan makes the line linear:
-   - the pattern fails after taking a run of `[.\w]`;
-   - every later start inside that run then fails too, since the run and what follows it stay the same;
-   - the scan then goes on from the run's end.
+2. A skip in the generated scan makes the line linear.
+   The pattern is a prefix `P`, then `R`, the `[.\w]+` that takes a run, then a suffix `S`.
+   Say the pattern fails at a start `p` in a run that ends at `r`, where `P` matched nothing:
+   - `R` started at `p` and was tried at every end up to `r`, since `+` has no upper bound;
+   - a later start `q` before `r` puts `R`'s start inside the run when `P`'s match from `q` ends before `r`;
+   - `R`'s ends are then ends already tried from `p`;
+   - `S` holds no back-reference to a group of `P` or `R`, so it fails from each of them again.
 
-   `codegen/` proves that skip from the expression, so it holds for any grammar.
-   With it, the 12,001-byte line no longer reaches the limit, and the pattern needs no limit line.
+   So the scan skips every start before `r` from which no match of `P` reaches `r`.
+   A start whose `P` can reach `r` is still tried.
+
+   `codegen/` proves how far `P` reaches from inside a run.
+   There `P` takes nothing or one keyword: `optional`, `repeated` or `required`, 8 bytes each.
+   So after the failure, the scan goes on at `r − 8`, or at `p + 1` when that is later.
+
+   On `xoptional foo bar = 1`, start 0 fails and start 1 matches, as on the regex machine.
+   A skip to the run's end would have missed that match.
+   With the skip, the 12,001-byte line no longer reaches the limit, and the pattern needs no limit line.
 
 Until both land, a caller that needs such lines uncut raises `Limits::work`.
 Protocol Buffers moves to generated matchers only after them, since Identity and the hostile-line tests must hold.
