@@ -584,10 +584,15 @@ const failures: string[] = [];
 const unitAt = new Map(
   expressions.map((expression, unit) => [`${expression.grammar} ${expression.path}`, unit]),
 );
+/** " group N" after a unit's path for a capture group, or nothing for an expression. */
+function groupSuffix(group: number | undefined): string {
+  return group === undefined ? "" : ` group ${group}`;
+}
+
 /** Each waived unit, by its key, with its reason. */
 const waived = new Map<string, string>();
 for (const waiver of waivers) {
-  const where = `${waiver.grammar} ${waiver.path}${waiver.group === undefined ? "" : ` group ${waiver.group}`}`;
+  const where = `${waiver.grammar} ${waiver.path}${groupSuffix(waiver.group)}`;
   const unit = unitAt.get(`${waiver.grammar} ${waiver.path}`);
   const counted =
     unit !== undefined &&
@@ -633,9 +638,7 @@ for (const name of [...handLexed.keys()].sort()) {
   const open = missing.filter((u) => !isWaived(u));
   const listed = complete.includes(name);
   if (listed && open.length > 0) {
-    const paths = open.map(
-      (u) => `${expressions[u.unit]?.path}${u.group === undefined ? "" : ` group ${u.group}`}`,
-    );
+    const paths = open.map((u) => `${expressions[u.unit]?.path}${groupSuffix(u.group)}`);
     failures.push(
       `${name} is listed complete, but no fixture or waiver covers ${paths.join(", ")}`,
     );
