@@ -62,6 +62,7 @@ pub(crate) fn lexer<G: Grammar, R>(
         bytes: case.text.as_bytes(),
         start: 0,
         anchored: false,
+        anchored_at_root: false,
     };
     let mut lexer = Lexer::new(parts, text, ROOT, &mut scratch);
     lexer.nl = matches!(case.after, After::LineFeed);

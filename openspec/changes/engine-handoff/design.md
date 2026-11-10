@@ -404,6 +404,12 @@ impl Halt for fn(&[u8], usize) -> bool { /* today's per-place loop */ }
      - Hand-lexed tokens do not move it either.
      - So `\G` halts where Shiki matches it, in the `before` and `after` patterns and in the embedding rule's end.
      - Vue's nested `<template>` rule needs this: its first pattern, `tag-stuff`, begins with `\G`.
+   - On a later line, `\G` matches at the line's start when the embedding rule's begin took the line feed.
+     - vscode-textmate reads that flag, `beginRuleCapturedEOL`, from the innermost open rule.
+     - That rule is the embedding one only while the language has its root alone open.
+     - So the engine passes the flag as `Line::anchored_at_root`, apart from the `embedded` anchor a `while` rule leaves.
+     - The rule engine and the engine apply it at their root only.
+       In an open context, the context's own begin decides, which the rule engine tracks (`Grammar::CAPTURED_EOL`).
 4. The step calls the target in place, in the cold `Tokenizer::run_language`.
    The step then goes on where the target halted.
    - At a halt the engine runs its own step.

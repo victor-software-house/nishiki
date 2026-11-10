@@ -742,6 +742,7 @@ fn scoped_tokens(
                 bytes: b"a = 1",
                 start: 0,
                 anchored: false,
+                anchored_at_root: false,
             };
             tokenizer::line(
                 &mut scratch,
@@ -759,6 +760,7 @@ fn scoped_tokens(
             bytes: line.text.as_bytes(),
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         };
         state = tokenizer::line(
             &mut scratch,
@@ -885,6 +887,7 @@ fn lines_beyond_ascii_lex_within_the_work_limit() {
                     bytes: line.as_bytes(),
                     start: 0,
                     anchored: false,
+                    anchored_at_root: false,
                 },
                 state,
                 &mut out,
@@ -1232,6 +1235,7 @@ fn speed(grammar: &'static Grammar, language: &str, limits: &Limits, scanners: S
                         bytes: line.text.as_bytes(),
                         start: 0,
                         anchored: false,
+                        anchored_at_root: false,
                     },
                     state,
                     &mut out,
@@ -1308,6 +1312,7 @@ fn an_embedded_line_is_lexed_from_its_start_with_absolute_ends() {
             bytes: line,
             start: 2,
             anchored: true,
+            anchored_at_root: false,
         },
         state,
         &mut out,
@@ -1360,6 +1365,7 @@ fn work_per_line() {
                         bytes: line.text.as_bytes(),
                         start: 0,
                         anchored: false,
+                        anchored_at_root: false,
                     },
                     state,
                     &mut out,
@@ -1461,6 +1467,7 @@ fn a_group_far_into_a_pattern_is_named() {
             bytes: b"ax",
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         },
         state,
         &mut out,
@@ -1567,6 +1574,7 @@ fn nested_captures_stop_at_their_bound() {
             bytes: line.as_bytes(),
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         },
         state,
         &mut out,
@@ -1663,6 +1671,7 @@ fn an_injection_wins_a_tie_where_its_selector_matches() {
             bytes: line.as_bytes(),
             start: 0,
             anchored: false,
+            anchored_at_root: false,
         },
         state,
         &mut out,
@@ -1760,6 +1769,7 @@ mod halts {
                         bytes: line.as_bytes(),
                         start: 0,
                         anchored: false,
+                        anchored_at_root: false,
                     },
                     state,
                     &mut out,
@@ -1865,6 +1875,7 @@ mod halts {
             text: line,
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         let (finished, _) = crate::textmate::lex_until(&mut cx, grammar, text, state, &never, None);
         steps.take_back(finished);
@@ -2001,6 +2012,7 @@ mod hand_offs {
                     text: line,
                     start: 0,
                     embedded: false,
+                    anchored_at_root: false,
                 };
                 state = crate::textmate::lex_handing(&mut cx, self.grammar, text, state);
                 each(line, &self.tokens, &self.arena);
@@ -2278,6 +2290,7 @@ mod hand_offs {
                 text: line,
                 start: 0,
                 embedded: false,
+                anchored_at_root: false,
             };
             let finished =
                 crate::textmate::lex_handing_embedded(&mut cx, table("haml"), text, state);

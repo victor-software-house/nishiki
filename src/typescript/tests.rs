@@ -675,6 +675,7 @@ fn until_in(
             text,
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         let (next, stopped) = super::lex_until(&mut cx, dialect, line, state, end, after);
         let halt = stopped.map(|stopped| stopped.at);

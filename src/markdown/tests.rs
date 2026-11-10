@@ -2354,6 +2354,7 @@ fn a_lookbehind_at_an_embedded_start_reads_the_line_before_it() {
         text: "@component*{x}* ",
         start: 10,
         embedded: false,
+        anchored_at_root: false,
     };
     let (_, halt) = super::lex_until(&mut cx, line, state, &never, None);
     assert_eq!(halt, None);

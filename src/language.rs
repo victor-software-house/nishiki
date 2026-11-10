@@ -2295,7 +2295,20 @@ pub(crate) struct Line<'a> {
     pub(crate) start: usize,
     /// Whether the anchor `\G` sits at `start`, as a Markdown fence's `while`
     /// rule leaves it in Shiki.
+    /// It holds whatever contexts of the language are open.
     pub(crate) embedded: bool,
+    /// Whether `\G` sits at `start` while only the language's root is open.
+    ///
+    /// The engine sets it at the start of a line when the rule that embeds
+    /// the language took the line feed with its begin match.
+    /// vscode-textmate reads that flag from the innermost open rule.
+    /// So when a context of the language is open, that context's begin
+    /// decides instead, as the language tracks it.
+    ///
+    /// Only the rule engine and nishiki's own engine read it.
+    /// The other lexers' grammars have no `\G` at their root that `^` does not
+    /// already match at a line's start.
+    pub(crate) anchored_at_root: bool,
 }
 
 #[cfg(feature = "_language")]

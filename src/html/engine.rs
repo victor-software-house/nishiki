@@ -1044,6 +1044,7 @@ impl<'a> Lexer<'a> {
             text: self.text,
             start: pos,
             embedded: false,
+            anchored_at_root: false,
         };
         let script = match self.document {
             Document::Erb => Script::Erb,
@@ -1134,6 +1135,7 @@ impl<'a> Lexer<'a> {
             text: self.text,
             start: pos,
             embedded: false,
+            anchored_at_root: false,
         };
         let (next, stopped) = vue_lex(&mut cx, lexed, line, inner, end);
         let next = self.steps.take_back(next);
@@ -1301,6 +1303,7 @@ impl<'a> Lexer<'a> {
             text: self.text.get(..self.lim).unwrap_or(self.text),
             start: pos,
             embedded: false,
+            anchored_at_root: false,
         };
         let (next, halt) = Self::lex_erb_ruby(&mut cx, line, inner);
         let next = self.steps.take_back(next);
@@ -1368,6 +1371,7 @@ impl<'a> Lexer<'a> {
             text: self.text.get(..self.lim).unwrap_or(self.text),
             start: pos,
             embedded: false,
+            anchored_at_root: false,
         };
         let (next, halt) = Self::lex_blade_php(&mut cx, line, inner, rule, top.injection);
         let next = self.steps.take_back(next);
@@ -1738,6 +1742,7 @@ impl<'a> Lexer<'a> {
             text,
             start: from,
             embedded: false,
+            anchored_at_root: false,
         };
         let finished = crate::typescript::lex_capture(&mut cx, line, state);
         self.steps.take_back(finished);

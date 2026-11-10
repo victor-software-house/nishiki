@@ -152,6 +152,15 @@ The engine's logic does not change when they do.
   - The engine now lexes such a region with the TypeScript lexer's Svelte dialect, when the root grammar is `source.svelte`.
     vscode-textmate applies the injections of the grammar it lexes with, so only the root's count.
   - The dialect and HTML's Svelte root are now built with the engine too, not only with `lang-svelte`.
+- [x] 5.8 Take `\G` at a line's start from the rule that embeds a hand-off's language.
+  → verify: `make_reads_the_anchor_of_a_begin_that_took_the_line_feed` passes, with the scopes Shiki gives
+  - The hand-off frame kept no begin-at-EOL flag, so `\G` never matched at a later line's start.
+  - vscode-textmate reads the flag from the innermost open rule.
+    While the language has only its root open, that is the embedding rule.
+    With a context of the language open, that context's begin decides.
+  - Of the hand-lexed grammars, only Markdown, Make and C++ have `\G` among their root patterns.
+    At a line's start, only Make's `(^ *|\G\s*)` matches where `^` does not.
+  - The test checks Make at its root, Make inside `ifdef`, and a begin that stops before the line feed.
 
 ## 6. The engine as an embedded language
 

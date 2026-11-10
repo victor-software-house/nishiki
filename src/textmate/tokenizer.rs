@@ -98,7 +98,12 @@ enum Entry {
     /// At the start of a line, where the open `while` rules are checked.
     /// `anchored` when `\G` matches at the line's start, as a fence's `while`
     /// rule leaves it.
-    Line { anchored: bool },
+    /// `anchored_at_root` when it matches there only while the root rule is
+    /// the innermost open, as [`Line::anchored_at_root`] says.
+    Line {
+        anchored: bool,
+        anchored_at_root: bool,
+    },
     /// Inside a capture group whose text rules lex again.
     Capture,
 }
@@ -308,6 +313,16 @@ fn svelte_dialect(
         return Some(crate::typescript::Dialect::JavaScript);
     }
     None
+}
+
+/// Whether a hand-off frame is the innermost of `frames` and the rule that
+/// embeds its language took the line feed with its begin match.
+/// Then `\G` matches at the next line's start while the language has only
+/// its root open, as vscode-textmate's `beginRuleCapturedEOL` of that rule
+/// says.
+/// The hand-off frame stores no flag of its own.
+fn embedding_took_line_feed(frames: &[Frame]) -> bool {
+    matches!(frames, [.., embedding, top] if top.rule == HANDED && embedding.eol)
 }
 
 /// What one step of the loop leaves.
@@ -755,6 +770,9 @@ pub(crate) struct Text<'a> {
     /// Whether `\G` matches at `start`, as the `while` rule of a fence leaves
     /// it.
     pub(crate) anchored: bool,
+    /// Whether `\G` matches at `start` while only the root rule is open
+    /// ([`Line::anchored_at_root`]).
+    pub(crate) anchored_at_root: bool,
 }
 
 /// Lexes one line of a grammar from `state`, appending its tokens, and
@@ -812,6 +830,7 @@ pub(crate) fn line_until<H: Halting>(
         bytes: line,
         start,
         anchored,
+        anchored_at_root,
     } = text;
     scratch.spent = 0;
     if line.len() <= start {
@@ -838,6 +857,7 @@ pub(crate) fn line_until<H: Halting>(
         cells,
         hand: None,
         nested: 0,
+        root_anchor: usize::MAX,
     };
     let halted = match tokenizer.tokenize_string(
         line.len() + 1,
@@ -848,7 +868,10 @@ pub(crate) fn line_until<H: Halting>(
         },
         start,
         &mut frames,
-        Entry::Line { anchored },
+        Entry::Line {
+            anchored,
+            anchored_at_root,
+        },
         halt,
     ) {
         Stop::Halted(at) => Some(at),
@@ -931,6 +954,7 @@ pub(crate) fn line_handing(
             first_token,
         }),
         nested: 0,
+        root_anchor: usize::MAX,
     };
     let halted = match tokenizer.tokenize_string(
         len + 1,
@@ -943,6 +967,7 @@ pub(crate) fn line_handing(
         &mut frames,
         Entry::Line {
             anchored: line.embedded,
+            anchored_at_root: line.anchored_at_root,
         },
         Handing { halts },
     ) {
@@ -1184,6 +1209,11 @@ struct Tokenizer<'a> {
     /// How many capture groups are running their rules inside one another,
     /// bounded by [`MAX_NESTED_CAPTURES`].
     nested: usize,
+    /// Where `\G` matches at the line's start only while the hand-off's
+    /// language has its root alone open, or `usize::MAX`.
+    /// It is set when the rule that embeds the language took the line feed
+    /// with its begin match ([`Line::anchored_at_root`]).
+    root_anchor: usize,
 }
 
 impl Tokenizer<'_> {
@@ -1679,11 +1709,21 @@ impl Tokenizer<'_> {
         let mut pos = start;
         let mut anchor = usize::MAX;
         let mut allow_a = first_line;
-        if let Entry::Line { anchored } = entry {
+        if let Entry::Line {
+            anchored,
+            anchored_at_root,
+        } = entry
+        {
+            self.root_anchor = usize::MAX;
             if anchored {
                 anchor = start;
             } else if frames.last().is_some_and(|f| f.eol) {
                 anchor = 0;
+            } else if H::HANDS_OFF && embedding_took_line_feed(frames) {
+                anchor = 0;
+                self.root_anchor = 0;
+            } else if anchored_at_root && frames.len() == 1 {
+                anchor = start;
             }
             let mut next = 0;
             while let Some(&i) = self.s.whiles.get(next) {
@@ -1701,6 +1741,7 @@ impl Tokenizer<'_> {
                     self.s.caps.push(caps);
                     self.produce(frame.content, e);
                     anchor = e;
+                    self.root_anchor = usize::MAX;
                     if e > pos {
                         pos = e;
                         allow_a = DocStart::Passed;
@@ -1981,7 +2022,8 @@ impl Tokenizer<'_> {
         let part = Line {
             text,
             start: from.at.min(cut),
-            embedded: from.anchor == from.at,
+            embedded: from.anchor == from.at && from.anchor != self.root_anchor,
+            anchored_at_root: from.anchor == from.at && from.anchor == self.root_anchor,
         };
         let state = frames[top].end;
         let (finished, halted) = {

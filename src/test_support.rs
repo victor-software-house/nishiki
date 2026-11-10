@@ -205,6 +205,7 @@ pub(crate) fn lex_embedded_stops(
             text,
             start: 0,
             embedded: false,
+            anchored_at_root: false,
         };
         let (next, stopped) = match halts {
             Some((end, after)) => (language.lex_until)(&mut cx, line, state, end, after),

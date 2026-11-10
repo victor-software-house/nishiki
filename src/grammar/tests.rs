@@ -29,18 +29,33 @@ const DEMO: &str = indoc! {r##"
 
 /// Each token of `line`: its text and its scopes, innermost first.
 fn tokens(highlighter: &mut Highlighter<Grammar>, line: &str) -> Vec<(String, Vec<String>)> {
-    let mut out = Vec::new();
-    let _ = highlighter.line(line, &mut State::default(), &mut out);
-    let mut start = 0;
-    out.iter()
-        .map(|token| {
-            let text = line[start..token.end()].to_owned();
-            start = token.end();
-            let scopes = highlighter
-                .scopes(token.stack())
-                .map(str::to_owned)
-                .collect();
-            (text, scopes)
+    document_tokens(highlighter, &[line]).swap_remove(0)
+}
+
+/// The tokens of each of `lines`, lexed in order from the document's start,
+/// as [`tokens`] gives them.
+fn document_tokens(
+    highlighter: &mut Highlighter<Grammar>,
+    lines: &[&str],
+) -> Vec<Vec<(String, Vec<String>)>> {
+    let mut state = State::default();
+    lines
+        .iter()
+        .map(|line| {
+            let mut out = Vec::new();
+            let _ = highlighter.line(line, &mut state, &mut out);
+            let mut start = 0;
+            out.iter()
+                .map(|token| {
+                    let text = line[start..token.end()].to_owned();
+                    start = token.end();
+                    let scopes = highlighter
+                        .scopes(token.stack())
+                        .map(str::to_owned)
+                        .collect();
+                    (text, scopes)
+                })
+                .collect()
         })
         .collect()
 }
@@ -349,6 +364,61 @@ fn javascript_in_a_loaded_svelte_grammar_takes_the_dollar_prefixes() {
             .and_then(|(_, scopes)| scopes.first())
             .map(String::as_str),
         Some("punctuation.definition.variable.svelte")
+    );
+}
+
+/// Make in a region whose begin took the line feed, with Shiki's scopes.
+///
+/// The region has no end, because Make's lexer cannot halt.
+/// A begin with no end never closes, in Shiki as here.
+///
+/// - The begin `^<<$\n?` leaves `\G` at the start of each later line while Make
+///   has only its root open. So the tab before `FOO = bar` starts an
+///   assignment, by `(^ *|\G\s*)`.
+/// - Inside `ifdef X`, the conditional is the innermost rule. Its begin stopped
+///   before the line feed, so `\G` does not match there, and the tab starts a
+///   recipe.
+/// - The begin `^<<` stops before the line feed, so it leaves no `\G` on the
+///   next line.
+#[cfg(feature = "lang-make")]
+#[test]
+fn make_reads_the_anchor_of_a_begin_that_took_the_line_feed() {
+    let lines = ["<<", "\tFOO = bar", "ifdef X", "\tBAR = baz", "endif"];
+    let lexed = |begin: &str| {
+        let json = indoc! {r#"
+            {
+              "scopeName": "source.wrap",
+              "patterns": [
+                {
+                  "begin": "BEGIN",
+                  "name": "meta.wrap",
+                  "patterns": [{ "include": "source.makefile" }]
+                }
+              ]
+            }
+        "#}
+        .replace("BEGIN", begin);
+        document_tokens(&mut highlighter(Grammar::from_json(&json).unwrap()), &lines)
+    };
+    let innermost = |rows: &[Vec<(String, Vec<String>)>], line: usize, word: &str| {
+        rows[line]
+            .iter()
+            .find(|(text, _)| text.contains(word))
+            .and_then(|(_, scopes)| scopes.first().cloned())
+    };
+    let took_line_feed = lexed(r"^<<$\\n?");
+    assert_eq!(
+        innermost(&took_line_feed, 1, "FOO").as_deref(),
+        Some("variable.other.makefile")
+    );
+    assert_eq!(
+        innermost(&took_line_feed, 3, "BAR").as_deref(),
+        Some("meta.scope.recipe.makefile")
+    );
+    let stopped_before = lexed("^<<");
+    assert_eq!(
+        innermost(&stopped_before, 1, "FOO").as_deref(),
+        Some("meta.scope.recipe.makefile")
     );
 }
 

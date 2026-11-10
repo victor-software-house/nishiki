@@ -1198,6 +1198,7 @@ impl<'a> Lexer<'a> {
             text,
             start,
             embedded: true,
+            anchored_at_root: false,
         };
         let (opens, spent) = crate::html::derivative_opens_at(&mut cx, line, state, span);
         self.facts.steps.add(spent);
@@ -1258,6 +1259,7 @@ impl<'a> Lexer<'a> {
                 text: &self.line[..close],
                 start: text,
                 embedded: false,
+                anchored_at_root: false,
             };
             let (finished, _) = crate::html::lex_derivative_until(
                 &mut cx,
@@ -1396,6 +1398,7 @@ impl<'a> Lexer<'a> {
             text: &self.line[..end],
             start,
             embedded: anchored,
+            anchored_at_root: false,
         };
         #[cfg(feature = "lang-html-derivative")]
         let ((state, popped), back) = match html_give_back(container) {
