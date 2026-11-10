@@ -31,16 +31,8 @@ use crate::scratch::Scratch;
 /// - whether its rules end at the line feed of a line that the containers
 ///   around a Markdown fence took whole.
 ///
-/// A hand-written lexer is a `module`, optionally with the dialect the module
-/// is told.
-/// A language that nishiki's `TextMate` engine runs names its grammar table as
-/// `engine`, and the three entry points call the engine with it.
-/// An engine grammar that hands regions to languages lexed by hand marks
-/// `hands_off: true`, and its entry points call the engine's handing loop.
-///
-/// An engine row may name an `embedded` table root.
-/// A language that embeds it starts it at that root.
-/// PHP's names the root of a Markdown `php` fence, which tries HTML and PHP.
+/// A row's `module` is its hand-written lexer, optionally with the dialect
+/// the module is told.
 ///
 /// A module that lexes the text from the line's start marks
 /// `from_start: true`.
@@ -60,87 +52,46 @@ use crate::scratch::Scratch;
 /// - its fence names in `src/markdown/fence.rs`;
 /// - its field in `src/scratch.rs` when it keeps buffers;
 /// - its `lang-*` feature in `Cargo.toml`, with a `cfg` on each of these.
-///
-/// A new engine language needs no scope table, frame tag or field.
-/// Its module holds only the generated `grammar.rs`.
 macro_rules! languages {
     (@flag) => { false };
     (@flag $flag:literal) => { $flag };
-    (@pick [$grammar:path] []) => { $grammar };
-    (@pick [$grammar:path] [$embedded:path]) => { $embedded };
-    (@start [$module:ident] [] [$($dialect:expr)?] $arena:ident $base:ident) => {
+    (@start [$module:ident] [$($dialect:expr)?] $arena:ident $base:ident) => {
         crate::$module::start($arena, $base $(, $dialect)?)
     };
-    (@start [] [$grammar:path] [] $arena:ident $base:ident) => {
-        crate::textmate::start($arena, &$grammar, $base)
-    };
-    (@start_embedded [$module:ident] [] [] $arena:ident $base:ident) => {
-        crate::$module::start_embedded($arena, $base)
-    };
-    (@start_embedded [] [$grammar:path] [$($embedded:path)?] $arena:ident $base:ident) => {
-        crate::textmate::start_embedded($arena, &languages!(@pick [$grammar] [$($embedded)?]), $base)
-    };
-    (@lex [] [$module:ident] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
+    (@lex [] [$module:ident] [$($dialect:expr)?] $cx:ident $line:ident $state:ident) => {
         crate::$module::lex($cx, $($dialect,)? $line, $state)
     };
-    (@lex [true] [$module:ident] [] [] [] $cx:ident $line:ident $state:ident) => {
+    (@lex [true] [$module:ident] [] $cx:ident $line:ident $state:ident) => {
         $cx.lex_from_start($line, |cx, rest| crate::$module::line(cx, rest, $state))
     };
-    (@lex [] [] [$grammar:path] [] [] $cx:ident $line:ident $state:ident) => {
-        crate::limits::Finished::unspent(crate::textmate::lex($cx, &$grammar, $line, $state))
+    (@inlined [true] $from_start:tt $module:tt $dialect:tt $cx:ident $line:ident $state:ident) => {
+        languages!(@lex $from_start $module $dialect $cx $line $state).state()
     };
-    (@inlined [true] $from_start:tt $module:tt $grammar:tt $dialect:tt $hands_off:tt $cx:ident $line:ident $state:ident) => {
-        languages!(@lex $from_start $module $grammar $dialect $hands_off $cx $line $state).state()
-    };
-    (@inlined [] $from_start:tt $module:tt $grammar:tt $dialect:tt $hands_off:tt $cx:ident $line:ident $state:ident) => {{
+    (@inlined [] $from_start:tt $module:tt $dialect:tt $cx:ident $line:ident $state:ident) => {{
         /// The language's lexer, called from its arm of [`Language::lex`]
         /// alone.
         #[inline]
         fn lex_arm(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
-            languages!(@lex $from_start $module $grammar $dialect $hands_off cx line state).state()
+            languages!(@lex $from_start $module $dialect cx line state).state()
         }
         lex_arm($cx, $line, $state)
     }};
-    (@lex [] [] [$grammar:path] [] [true] $cx:ident $line:ident $state:ident) => {
-        crate::limits::Finished::unspent(crate::textmate::lex_handing($cx, &$grammar, $line, $state))
-    };
-    (@embedded [] [$module:ident] [] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident) => {
-        crate::$module::lex($cx, $($dialect,)? $line, $state)
-    };
-    (@embedded [true] [$module:ident] [] [] [] [] $cx:ident $line:ident $state:ident) => {
-        $cx.lex_from_start($line, |cx, rest| crate::$module::line(cx, rest, $state))
-    };
-    (@embedded [] [] [$grammar:path] [$($embedded:path)?] [] [] $cx:ident $line:ident $state:ident) => {
-        crate::textmate::lex_embedded($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state)
-    };
-    (@embedded [] [] [$grammar:path] [$($embedded:path)?] [] [true] $cx:ident $line:ident $state:ident) => {
-        crate::textmate::lex_handing_embedded($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state)
-    };
-    (@until [] [$($module:ident)?] [$($grammar:path)?] [$($embedded:path)?] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
+    (@until [] [$module:ident] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {{
         let _ = ($cx, $line, $state, $end, $after);
         None
     }};
-    (@until [true] [$module:ident] [] [] [$($dialect:expr)?] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
+    (@until [true] [$module:ident] [$($dialect:expr)?] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
         Some(crate::$module::lex_until($cx, $($dialect,)? $line, $state, $end, $after))
-    };
-    (@until [true] [] [$grammar:path] [$($embedded:path)?] [] [] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
-        Some(crate::textmate::lex_until($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state, $end, $after))
-    };
-    (@until [true] [] [$grammar:path] [$($embedded:path)?] [] [true] $cx:ident $line:ident $state:ident $end:ident $after:ident) => {
-        Some(crate::textmate::lex_handing_until($cx, &languages!(@pick [$grammar] [$($embedded)?]), $line, $state, $end, $after))
     };
     ($(
         $(#[$meta:meta])*
         $variant:ident {
             feature: $feature:literal,
             names: [$id:literal $(, $alias:literal)*],
-            $(module: $module:ident)?
-            $(engine: $grammar:path)?
-            $(, embedded: $embedded:path)?
+            module: $module:ident
             $(, dialect: $dialect:expr)?
             $(, reads_line_feed: $line_feed:literal)?
             $(, halts: $halts:tt)?
-            $(, hands_off: $hands_off:tt)?
             $(, from_start: $from_start:tt)?
             $(, inlined: $inlined:tt)?
             $(,)?
@@ -223,7 +174,7 @@ macro_rules! languages {
                     $(#[cfg(feature = $feature)] Language::$variant => {
                         /// This arm's start, with the arm as its one caller.
                         fn start_arm(arena: &mut Arena, base: u32) -> u32 {
-                            languages!(@start [$($module)?] [$($grammar)?] [$($dialect)?] arena base)
+                            languages!(@start [$module] [$($dialect)?] arena base)
                         }
                         start_arm(arena, base)
                     })*
@@ -244,7 +195,7 @@ macro_rules! languages {
             )]
             pub(crate) fn start_embedded(self, arena: &mut Arena, base: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@start_embedded [$($module)?] [$($grammar)?] [$($embedded)?] arena base),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => crate::$module::start_embedded(arena, base),)*
                 }
             }
 
@@ -265,7 +216,7 @@ macro_rules! languages {
             #[inline(always)]
             pub(crate) fn lex(self, cx: &mut Context<'_>, line: Line<'_>, state: u32) -> u32 {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@inlined [$($inlined)?] [$($from_start)?] [$($module)?] [$($grammar)?] [$($dialect)?] [$($hands_off)?] cx line state),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@inlined [$($inlined)?] [$($from_start)?] [$module] [$($dialect)?] cx line state),)*
                 }
             }
 
@@ -305,7 +256,7 @@ macro_rules! languages {
                     $(#[cfg(feature = $feature)] Language::$variant => {
                         /// This arm's lexer, with the arm as its one caller.
                         fn embedded_arm(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
-                            languages!(@embedded [$($from_start)?] [$($module)?] [$($grammar)?] [$($embedded)?] [$($dialect)?] [$($hands_off)?] cx line state)
+                            languages!(@lex [$($from_start)?] [$module] [$($dialect)?] cx line state)
                         }
                         embedded_arm(cx, line, state)
                     })*
@@ -344,7 +295,7 @@ macro_rules! languages {
                 after: Option<&dyn Halt>,
             ) -> Option<(Finished, Option<Stopped>)> {
                 match self {
-                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$($module)?] [$($grammar)?] [$($embedded)?] [$($dialect)?] [$($hands_off)?] cx line state end after),)*
+                    $(#[cfg(feature = $feature)] Language::$variant => languages!(@until [$($halts)?] [$module] [$($dialect)?] cx line state end after),)*
                 }
             }
         }
