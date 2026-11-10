@@ -12,7 +12,12 @@ mod table;
 use crate::utf8::{char_start, multibyte_at};
 
 /// The regex `\s` for a character: the table measured on Shiki.
-pub(crate) fn is_space(c: char) -> bool {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+#[must_use]
+pub fn is_space(c: char) -> bool {
     if c.is_ascii() {
         matches!(c, ' ' | '\t' | '\n' | '\u{b}' | '\u{c}' | '\r')
     } else {
@@ -21,7 +26,12 @@ pub(crate) fn is_space(c: char) -> bool {
 }
 
 /// The regex `\w` for a character, from the same measured table.
-pub(crate) fn is_word(c: char) -> bool {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+#[must_use]
+pub fn is_word(c: char) -> bool {
     if c.is_ascii() {
         c.is_ascii_alphanumeric() || c == '_'
     } else {

@@ -1,6 +1,7 @@
 //! The syntax tree of a pattern, and the character classes in it.
 //!
-//! The tree is visible to the whole crate.
+//! The tree is visible to the whole crate, and public through
+//! `nishiki::unstable::regex`.
 //! Code that reads a pattern outside the regex engine reads this tree, so
 //! the crate has one parser.
 
@@ -9,19 +10,23 @@ use super::folds::{LARGEST_ORBIT, MULTI, NEXT, UNFOLD};
 
 /// A position the engine can test without consuming text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Anchor {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Anchor {
     /// `^`: the start of the text, or after a newline that is not its end.
-    Caret,
+    LineStart,
     /// `$`: the end of the text, or before a newline.
-    Dollar,
+    LineEnd,
     /// `\A`: the start of the document, where the caller marks it.
-    StartText,
+    TextStart,
     /// `\z`: the end of the text.
-    EndText,
+    TextEnd,
     /// `\Z`: the end of the text, or before a final newline.
-    EndTextNewline,
+    TextEndOrFinalNewline,
     /// `\G`: where the last match of the grammar ended.
-    Search,
+    LastMatchEnd,
     /// `\b`.
     WordBoundary,
     /// `\B`.
@@ -33,7 +38,11 @@ pub(crate) enum Anchor {
 /// Characters and classes take it in when the pattern parses.
 /// A back-reference keeps it, because it compares two pieces of the text.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Case {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Case {
     /// Only in the pattern's case.
     Sensitive,
     /// In any case.
@@ -43,7 +52,11 @@ pub(crate) enum Case {
 /// Whether a set of characters matches its members or every other
 /// character, as `\d` and `\D` differ.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Polarity {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Polarity {
     /// Its members.
     Positive,
     /// Every character but its members.
@@ -62,7 +75,11 @@ impl Polarity {
 
 /// How a repeat takes its iterations.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Greediness {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Greediness {
     /// As many as it can, giving back on failure.
     Greedy,
     /// As few as it can, taking more on failure.
@@ -73,7 +90,11 @@ pub(crate) enum Greediness {
 
 /// One member of a class.
 #[derive(Clone, Debug)]
-pub(crate) enum Member {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Member {
     /// `a-z`, or a single character as `a-a`.
     Range(char, char),
     /// `\d`, `[:alpha:]` or `\p{Lu}`, negated or not.
@@ -112,17 +133,25 @@ fn ascii_range(first: u32, last: u32) -> u128 {
 
 /// A character class: the intersection of unions of items, negated or not.
 #[derive(Clone, Debug)]
-pub(crate) struct Class {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Class {
     /// Whether the class matches every character outside its members.
-    pub(crate) negated: bool,
+    pub negated: bool,
     /// The sets the class intersects, each a union of its members.
     /// `[a-z&&[^aeiou]]` has two.
-    pub(crate) parts: Vec<Vec<Member>>,
+    pub unions: Vec<Vec<Member>>,
 }
 
 /// A named set of characters: ranges of code points, ascending.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct Property(&'static [(u32, u32)]);
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Property(&'static [(u32, u32)]);
 
 impl Property {
     /// Every character.
@@ -262,7 +291,7 @@ fn insensitive_char(c: char) -> Node {
 fn members_class(members: impl Iterator<Item = char>) -> Node {
     Node::Class(Box::new(Class {
         negated: false,
-        parts: vec![members.map(|m| Member::Range(m, m)).collect()],
+        unions: vec![members.map(|m| Member::Range(m, m)).collect()],
     }))
 }
 
@@ -291,7 +320,7 @@ fn unfold(fold: &[u32]) -> Option<&'static [u32]> {
 
 /// A fold string as `(?i)` reads it: its characters in turn, each in any case.
 fn fold_string(fold: &[u32]) -> Node {
-    Node::Seq(
+    Node::Sequence(
         fold.iter()
             .filter_map(|&code| char::from_u32(code))
             .map(insensitive_char)
@@ -328,7 +357,7 @@ pub(super) fn insensitive_run(run: &[char], lookbehind: bool) -> Vec<Node> {
         });
         if let Some((slice, chars)) = spelled {
             out.push(Node::Folds(vec![
-                Node::Seq(slice.iter().map(|&s| insensitive_char(s)).collect()),
+                Node::Sequence(slice.iter().map(|&s| insensitive_char(s)).collect()),
                 members_class(chars.iter().filter_map(|&code| char::from_u32(code))),
             ]));
             at += slice.len();
@@ -403,19 +432,19 @@ pub(super) fn prune_repeated_folds(node: &mut Node) {
         }
         Node::Repeat { node: inner, .. }
         | Node::Group { node: inner, .. }
-        | Node::Look { node: inner, .. }
+        | Node::Lookaround { node: inner, .. }
         | Node::Atomic(inner) => prune_repeated_folds(inner),
-        Node::Seq(items) | Node::Alt(items) | Node::Folds(items) => {
+        Node::Sequence(items) | Node::Alternation(items) | Node::Folds(items) => {
             items.iter_mut().for_each(prune_repeated_folds);
         }
         Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => {}
     }
 }
@@ -428,12 +457,12 @@ fn prune_loop_body(body: &mut Node) {
     match body {
         Node::Group { index: None, node } => prune_loop_body(node),
         Node::Folds(_) => prune_class_folds(body, &[]),
-        Node::Seq(items) => {
+        Node::Sequence(items) => {
             if let Some((last, looks)) = items.split_last_mut()
                 && looks.iter().all(|look| {
                     matches!(
                         look,
-                        Node::Look {
+                        Node::Lookaround {
                             ahead: true,
                             negative: true,
                             ..
@@ -446,17 +475,17 @@ fn prune_loop_body(body: &mut Node) {
         }
         Node::Empty
         | Node::Char(_)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(_)
-        | Node::Alt(_)
+        | Node::Alternation(_)
         | Node::Repeat { .. }
         | Node::Group { .. }
-        | Node::Look { .. }
+        | Node::Lookaround { .. }
         | Node::Atomic(_)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => {}
     }
 }
@@ -471,7 +500,7 @@ fn prune_class_folds(node: &mut Node, looks: &[Node]) {
     };
     let mut starts = [false; 256];
     for look in looks {
-        if let Node::Look { node: body, .. } = look
+        if let Node::Lookaround { node: body, .. } = look
             && first_bytes(body, &mut starts)
         {
             return;
@@ -527,19 +556,19 @@ fn has_wide_folds(node: &Node) -> bool {
             let ascii = alts.iter().filter(|alt| reaches_ascii(alt)).count();
             (ascii != 0 && ascii != alts.len()) || alts.iter().any(has_wide_folds)
         }
-        Node::Seq(nodes) | Node::Alt(nodes) => nodes.iter().any(has_wide_folds),
+        Node::Sequence(nodes) | Node::Alternation(nodes) => nodes.iter().any(has_wide_folds),
         Node::Repeat { node: inner, .. }
         | Node::Group { node: inner, .. }
-        | Node::Look { node: inner, .. }
+        | Node::Lookaround { node: inner, .. }
         | Node::Atomic(inner) => has_wide_folds(inner),
         Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => false,
     }
 }
@@ -569,8 +598,8 @@ fn strip_wide_folds(node: &Node, changed: &mut bool) -> Node {
                 Err(kept) => Node::Folds(kept),
             }
         }
-        Node::Seq(items) => Node::Seq(strip(items, changed)),
-        Node::Alt(alts) => Node::Alt(strip(alts, changed)),
+        Node::Sequence(items) => Node::Sequence(strip(items, changed)),
+        Node::Alternation(alts) => Node::Alternation(strip(alts, changed)),
         Node::Repeat {
             node: inner,
             min,
@@ -586,11 +615,11 @@ fn strip_wide_folds(node: &Node, changed: &mut bool) -> Node {
             index: *index,
             node: Box::new(strip_wide_folds(inner, changed)),
         },
-        Node::Look {
+        Node::Lookaround {
             ahead,
             negative,
             node: inner,
-        } => Node::Look {
+        } => Node::Lookaround {
             ahead: *ahead,
             negative: *negative,
             node: Box::new(strip_wide_folds(inner, changed)),
@@ -598,12 +627,12 @@ fn strip_wide_folds(node: &Node, changed: &mut bool) -> Node {
         Node::Atomic(inner) => Node::Atomic(Box::new(strip_wide_folds(inner, changed))),
         Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => node.clone(),
     }
 }
@@ -614,17 +643,17 @@ fn reaches_ascii(node: &Node) -> bool {
     match node {
         Node::Char(c) => c.is_ascii(),
         Node::Class(class) => (0..128_u8).any(|b| class.matches(char::from(b))),
-        Node::Seq(items) => items.iter().all(reaches_ascii),
-        Node::Alt(alts) | Node::Folds(alts) => alts.iter().any(reaches_ascii),
+        Node::Sequence(items) => items.iter().all(reaches_ascii),
+        Node::Alternation(alts) | Node::Folds(alts) => alts.iter().any(reaches_ascii),
         Node::Repeat { node, min, .. } => *min == 0 || reaches_ascii(node),
         Node::Group { node, .. } | Node::Atomic(node) => reaches_ascii(node),
         Node::Empty
-        | Node::Any(_)
-        | Node::Look { .. }
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::Any { .. }
+        | Node::Lookaround { .. }
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => true,
     }
 }
@@ -661,7 +690,7 @@ fn fold_trie(strings: &[&[u32]]) -> Node {
         alts.push(if matches!(tail, Node::Empty) {
             head
         } else {
-            Node::Seq(vec![head, tail])
+            Node::Sequence(vec![head, tail])
         });
     }
     match alts.len() {
@@ -673,8 +702,13 @@ fn fold_trie(strings: &[&[u32]]) -> Node {
 
 impl Class {
     /// Whether `c` is in the class.
-    pub(super) fn matches(&self, c: char) -> bool {
-        let found = self.parts.iter().all(|union| {
+    #[cfg_attr(
+        not(all(nishiki_unstable, feature = "_rule-engine")),
+        expect(unreachable_pub, reason = "public only through nishiki::unstable")
+    )]
+    #[must_use]
+    pub fn matches(&self, c: char) -> bool {
+        let found = self.unions.iter().all(|union| {
             union.iter().any(|item| match item {
                 Member::Range(lo, hi) => (*lo..=*hi).contains(&c),
                 Member::Property(prop, polarity) => {
@@ -690,8 +724,13 @@ impl Class {
     /// [`Class::matches`] decides them.
     /// They come from its ranges and sets rather than a test of each
     /// character.
-    pub(super) fn ascii(&self) -> u128 {
-        let found = self.parts.iter().fold(u128::MAX, |all, union| {
+    #[cfg_attr(
+        not(all(nishiki_unstable, feature = "_rule-engine")),
+        expect(unreachable_pub, reason = "public only through nishiki::unstable")
+    )]
+    #[must_use]
+    pub fn ascii(&self) -> u128 {
+        let found = self.unions.iter().fold(u128::MAX, |all, union| {
             all & union.iter().fold(0, |any, item| any | item.ascii())
         });
         if self.negated { !found } else { found }
@@ -699,7 +738,7 @@ impl Class {
 
     /// The class's members when it is one union of ranges, not negated.
     pub(super) fn ranges(&self) -> Option<&[Member]> {
-        match self.parts.as_slice() {
+        match self.unions.as_slice() {
             [union]
                 if !self.negated && union.iter().all(|item| matches!(item, Member::Range(..))) =>
             {
@@ -737,10 +776,10 @@ impl Class {
         let negated = self.negated;
         let positive = Class {
             negated: false,
-            parts: self.parts,
+            unions: self.unions,
         };
         let ascii = positive
-            .parts
+            .unions
             .iter()
             .flatten()
             .all(|item| matches!(item, Member::Range(_, hi) if hi.is_ascii()));
@@ -762,12 +801,12 @@ impl Class {
         if added.is_empty() {
             return Class {
                 negated,
-                parts: positive.parts,
+                unions: positive.unions,
             };
         }
         let extra = added.into_iter().map(|m| Member::Range(m, m));
         let parts = if positive.ranges().is_some() {
-            vec![positive.parts.into_iter().flatten().chain(extra).collect()]
+            vec![positive.unions.into_iter().flatten().chain(extra).collect()]
         } else {
             vec![
                 std::iter::once(Member::Nested(positive))
@@ -775,30 +814,40 @@ impl Class {
                     .collect(),
             ]
         };
-        Class { negated, parts }
+        Class {
+            negated,
+            unions: parts,
+        }
     }
 }
 
 /// A node of the tree.
 #[derive(Clone, Debug)]
-pub(crate) enum Node {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Node {
     /// Nothing: an empty pattern or alternative.
     Empty,
     /// A character.
     /// Under `(?i)`, the parser writes a character that folds with others as
     /// the class of its orbit.
     Char(char),
-    /// `.`, matching a newline when the flag is set.
-    Any(bool),
+    /// `.`: any character.
+    Any {
+        /// Whether it matches a newline too, as the `m` flag sets.
+        newline: bool,
+    },
     /// A class.
     /// Under `(?i)`, the parser has already widened it to the orbits of its
     /// members.
     Class(Box<Class>),
     /// The nodes in order.
-    Seq(Vec<Node>),
+    Sequence(Vec<Node>),
     /// The nodes as alternatives, the first that matches taken.
-    Alt(Vec<Node>),
-    /// The alternatives a case fold adds under `(?i)`, as [`Node::Alt`]
+    Alternation(Vec<Node>),
+    /// The alternatives a case fold adds under `(?i)`, as [`Node::Alternation`]
     /// reads them.
     /// Each is compiled to a split that reads the next byte first.
     /// The split tries only the alternatives that can start with that byte.
@@ -806,32 +855,41 @@ pub(crate) enum Node {
     Folds(Vec<Node>),
     /// A node repeated between `min` and `max` times.
     Repeat {
+        /// The node repeated.
         node: Box<Node>,
+        /// The fewest times it matches.
         min: u32,
+        /// The most times it matches, or none for no limit.
         max: Option<u32>,
+        /// How it takes its iterations.
         greediness: Greediness,
     },
     /// A group: capturing when it has an index.
     Group {
+        /// The capture group's number, counted from 1, when it captures.
         index: Option<usize>,
+        /// The node inside the group.
         node: Box<Node>,
     },
     /// A lookahead or lookbehind.
-    Look {
+    Lookaround {
+        /// Whether it looks ahead of the position; otherwise behind it.
         ahead: bool,
+        /// Whether it matches where `node` does not.
         negative: bool,
+        /// The node it tests.
         node: Box<Node>,
     },
     /// `(?>..)`.
     Atomic(Box<Node>),
     /// `\1`, case-insensitive when the flag is set.
-    Backref(usize, Case),
+    BackReference(usize, Case),
     /// `\k<name>`.
-    NamedBackref(String, Case),
+    NamedBackReference(String, Case),
     /// `\g<1>`.
-    Call(usize),
+    Subroutine(usize),
     /// `\g<name>`.
-    NamedCall(String),
+    NamedSubroutine(String),
     /// An anchor.
     Anchor(Anchor),
 }

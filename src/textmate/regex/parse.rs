@@ -12,7 +12,14 @@ use super::ast::{
 
 /// A pattern that does not compile: what is wrong with it.
 #[derive(Clone, Debug, PartialEq, Eq)]
-pub(crate) struct Error(pub(crate) String);
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct Error(
+    /// What is wrong with the pattern.
+    pub String,
+);
 
 type Result<T> = std::result::Result<T, Error>;
 
@@ -26,17 +33,26 @@ pub(super) const CALLOUTS: &str = "callouts are not supported";
 
 /// A parsed pattern.
 #[derive(Debug)]
-pub(crate) struct Parsed {
-    pub(crate) root: Node,
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub struct ParsedPattern {
+    /// The tree of the whole pattern.
+    pub root: Node,
     /// How many capture groups the pattern has.
-    pub(crate) groups: usize,
+    pub groups: usize,
     /// The index of each named group.
-    pub(crate) names: HashMap<String, usize>,
+    pub names: HashMap<String, usize>,
 }
 
 /// Which reading of a pattern applies.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Dialect {
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub enum Dialect {
     /// Oniguruma's own.
     /// Only the tests read it.
     #[cfg(test)]
@@ -45,8 +61,17 @@ pub(crate) enum Dialect {
     Grammar,
 }
 
-/// Parses `pattern`.
-pub(crate) fn parse(pattern: &str, dialect: Dialect) -> Result<Parsed> {
+/// Parses `pattern` into its tree.
+///
+/// # Errors
+///
+/// Returns an [`Error`] when the pattern is not valid in `dialect`, or uses
+/// syntax the engine refuses, such as a callout.
+#[cfg_attr(
+    not(all(nishiki_unstable, feature = "_rule-engine")),
+    expect(unreachable_pub, reason = "public only through nishiki::unstable")
+)]
+pub fn parse(pattern: &str, dialect: Dialect) -> std::result::Result<ParsedPattern, Error> {
     let mut parser = Parser {
         dialect,
         chars: pattern.chars().collect(),
@@ -67,7 +92,7 @@ pub(crate) fn parse(pattern: &str, dialect: Dialect) -> Result<Parsed> {
         return err("unbalanced parenthesis");
     }
     prune_repeated_folds(&mut root);
-    Ok(Parsed {
+    Ok(ParsedPattern {
         root,
         groups: parser.groups,
         names: parser.names,
@@ -134,7 +159,7 @@ impl Parser {
         Ok(if alts.len() == 1 {
             alts.pop().unwrap_or(Node::Empty)
         } else {
-            Node::Alt(alts)
+            Node::Alternation(alts)
         })
     }
 
@@ -182,7 +207,7 @@ impl Parser {
                     let single = insensitive_run(&[c], self.lookbehind);
                     let node = match <[Node; 1]>::try_from(single) {
                         Ok([node]) => node,
-                        Err(nodes) => Node::Seq(nodes),
+                        Err(nodes) => Node::Sequence(nodes),
                     };
                     items.push(self.quantified(node)?);
                 }
@@ -196,7 +221,7 @@ impl Parser {
         Ok(match items.len() {
             0 => Node::Empty,
             1 => items.pop().unwrap_or(Node::Empty),
-            _ => Node::Seq(items),
+            _ => Node::Sequence(items),
         })
     }
 
@@ -320,9 +345,11 @@ impl Parser {
                 let class = self.class()?;
                 Atom::Node(self.class_node(class))
             }
-            '.' => Atom::Node(Node::Any(self.flags.dotall)),
-            '^' => Atom::Node(Node::Anchor(Anchor::Caret)),
-            '$' => Atom::Node(Node::Anchor(Anchor::Dollar)),
+            '.' => Atom::Node(Node::Any {
+                newline: self.flags.dotall,
+            }),
+            '^' => Atom::Node(Node::Anchor(Anchor::LineStart)),
+            '$' => Atom::Node(Node::Anchor(Anchor::LineEnd)),
             '\\' => self.escape()?,
             c => self.char_atom(c),
         }))
@@ -383,7 +410,7 @@ impl Parser {
                     self.at += 1;
                     let inner = self.alternation()?;
                     self.expect_close()?;
-                    Node::Look {
+                    Node::Lookaround {
                         ahead: true,
                         negative,
                         node: Box::new(inner),
@@ -411,7 +438,7 @@ impl Parser {
                     self.lookbehind = outer_lookbehind;
                     let inner = inner?;
                     self.expect_close()?;
-                    Node::Look {
+                    Node::Lookaround {
                         ahead: false,
                         negative,
                         node: Box::new(inner),
@@ -505,7 +532,7 @@ impl Parser {
         let prop_class = |prop: Property, polarity: Polarity| {
             Node::Class(Box::new(Class {
                 negated: false,
-                parts: vec![vec![Member::Property(prop, polarity)]],
+                unions: vec![vec![Member::Property(prop, polarity)]],
             }))
         };
         Ok(Atom::Node(match c {
@@ -517,11 +544,11 @@ impl Parser {
             'S' => prop_class(builtin("space"), Polarity::Negated),
             'h' => prop_class(builtin("xdigit"), Polarity::Positive),
             'H' => prop_class(builtin("xdigit"), Polarity::Negated),
-            'N' => Node::Any(false),
-            'O' => Node::Any(true),
+            'N' => Node::Any { newline: false },
+            'O' => Node::Any { newline: true },
             'R' => line_break(),
-            'X' => Node::Atomic(Box::new(Node::Seq(vec![
-                Node::Any(true),
+            'X' => Node::Atomic(Box::new(Node::Sequence(vec![
+                Node::Any { newline: true },
                 Node::Repeat {
                     node: Box::new(prop_class(builtin("m"), Polarity::Positive)),
                     min: 0,
@@ -531,15 +558,15 @@ impl Parser {
             ]))),
             'b' => Node::Anchor(Anchor::WordBoundary),
             'B' => Node::Anchor(Anchor::NotWordBoundary),
-            'A' => Node::Anchor(Anchor::StartText),
-            'z' if self.dialect == Dialect::Grammar => Node::Look {
+            'A' => Node::Anchor(Anchor::TextStart),
+            'z' if self.dialect == Dialect::Grammar => Node::Lookaround {
                 ahead: true,
                 negative: true,
                 node: Box::new(Node::Empty),
             },
-            'z' => Node::Anchor(Anchor::EndText),
-            'Z' => Node::Anchor(Anchor::EndTextNewline),
-            'G' => Node::Anchor(Anchor::Search),
+            'z' => Node::Anchor(Anchor::TextEnd),
+            'Z' => Node::Anchor(Anchor::TextEndOrFinalNewline),
+            'G' => Node::Anchor(Anchor::LastMatchEnd),
             'p' | 'P' => {
                 let (prop, polarity) = self.property(if c == 'P' {
                     Polarity::Negated
@@ -557,8 +584,8 @@ impl Parser {
                 self.at += 1;
                 let name = self.name_until(close)?;
                 match name.parse::<usize>() {
-                    Ok(n) => Node::Backref(n, case),
-                    Err(_) => Node::NamedBackref(name, case),
+                    Ok(n) => Node::BackReference(n, case),
+                    Err(_) => Node::NamedBackReference(name, case),
                 }
             }
             'g' => {
@@ -570,11 +597,11 @@ impl Parser {
                 self.at += 1;
                 let name = self.name_until(close)?;
                 match name.parse::<usize>() {
-                    Ok(n) => Node::Call(n),
-                    Err(_) => Node::NamedCall(name),
+                    Ok(n) => Node::Subroutine(n),
+                    Err(_) => Node::NamedSubroutine(name),
                 }
             }
-            '1'..='9' => Node::Backref(
+            '1'..='9' => Node::BackReference(
                 c.to_digit(10)
                     .map_or(0, |d| usize::try_from(d).unwrap_or(0)),
                 case,
@@ -722,7 +749,10 @@ impl Parser {
                 part.push(item);
             }
         }
-        Ok(Class { negated, parts })
+        Ok(Class {
+            negated,
+            unions: parts,
+        })
     }
 
     /// `lo` alone, or `lo-hi` when a range follows.
@@ -766,13 +796,13 @@ impl Parser {
 /// `tests/engine/absent/` holds its answers for the regex tests.
 fn absent(body: Node) -> Node {
     Node::Repeat {
-        node: Box::new(Node::Seq(vec![
-            Node::Look {
+        node: Box::new(Node::Sequence(vec![
+            Node::Lookaround {
                 ahead: true,
                 negative: true,
                 node: Box::new(body),
             },
-            Node::Any(true),
+            Node::Any { newline: true },
         ])),
         min: 0,
         max: None,
@@ -783,11 +813,11 @@ fn absent(body: Node) -> Node {
 /// `\R`: a line ending, `\r\n` or any one character that ends a line.
 fn line_break() -> Node {
     let separator = |code: u32| char::from_u32(code).unwrap_or('\n');
-    Node::Atomic(Box::new(Node::Alt(vec![
-        Node::Seq(vec![Node::Char('\r'), Node::Char('\n')]),
+    Node::Atomic(Box::new(Node::Alternation(vec![
+        Node::Sequence(vec![Node::Char('\r'), Node::Char('\n')]),
         Node::Class(Box::new(Class {
             negated: false,
-            parts: vec![vec![
+            unions: vec![vec![
                 Member::Range('\n', '\r'),
                 Member::Range(separator(0x85), separator(0x85)),
                 Member::Range(separator(0x2028), separator(0x2029)),

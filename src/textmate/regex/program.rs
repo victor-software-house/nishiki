@@ -9,7 +9,7 @@ use std::collections::HashMap;
 
 use super::analysis::{first_bytes, second_bytes, width};
 use super::ast::{Anchor, Case, Class, Greediness, Member, Node};
-use super::parse::{Error, Parsed};
+use super::parse::{Error, ParsedPattern};
 
 /// The most instructions a pattern may compile to.
 /// It bounds the cost of unrolling counted repeats.
@@ -161,42 +161,42 @@ fn leading_class(node: &Node) -> Option<(Class, &[Node])> {
         Node::Class(class) => Some((**class).clone()),
         Node::Char(c) => Some(Class {
             negated: false,
-            parts: vec![vec![Member::Range(*c, *c)]],
+            unions: vec![vec![Member::Range(*c, *c)]],
         }),
         Node::Empty
-        | Node::Any(_)
-        | Node::Seq(_)
-        | Node::Alt(_)
+        | Node::Any { .. }
+        | Node::Sequence(_)
+        | Node::Alternation(_)
         | Node::Folds(_)
         | Node::Repeat { .. }
         | Node::Group { .. }
-        | Node::Look { .. }
+        | Node::Lookaround { .. }
         | Node::Atomic(_)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => None,
     };
     match node {
-        Node::Seq(items) => {
+        Node::Sequence(items) => {
             let (first, rest) = items.split_first()?;
             one(first).map(|class| (class, rest))
         }
         Node::Empty
         | Node::Char(_)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(_)
-        | Node::Alt(_)
+        | Node::Alternation(_)
         | Node::Folds(_)
         | Node::Repeat { .. }
         | Node::Group { .. }
-        | Node::Look { .. }
+        | Node::Lookaround { .. }
         | Node::Atomic(_)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => one(node).map(|class| (class, &[][..])),
     }
 }
@@ -247,7 +247,7 @@ pub(super) struct Program {
 }
 
 /// Compiles a parsed pattern.
-pub(super) fn compile(parsed: &Parsed) -> Result<Program, Error> {
+pub(super) fn compile(parsed: &ParsedPattern) -> Result<Program, Error> {
     let mut compiler = Compiler {
         insts: Vec::new(),
         classes: Vec::new(),
@@ -281,18 +281,20 @@ pub(super) fn compile(parsed: &Parsed) -> Result<Program, Error> {
 /// Groups then need their return.
 fn has_calls(node: &Node) -> bool {
     match node {
-        Node::Call(_) | Node::NamedCall(_) => true,
-        Node::Seq(items) | Node::Alt(items) | Node::Folds(items) => items.iter().any(has_calls),
+        Node::Subroutine(_) | Node::NamedSubroutine(_) => true,
+        Node::Sequence(items) | Node::Alternation(items) | Node::Folds(items) => {
+            items.iter().any(has_calls)
+        }
         Node::Repeat { node, .. }
-        | Node::Look { node, .. }
+        | Node::Lookaround { node, .. }
         | Node::Group { node, .. }
         | Node::Atomic(node) => has_calls(node),
         Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
         | Node::Anchor(_) => false,
     }
 }
@@ -384,13 +386,13 @@ impl Compiler<'_> {
         match node {
             Node::Empty => Ok(()),
             Node::Char(..) => self.seq(std::slice::from_ref(node)),
-            Node::Any(dotall) => self.push(Instruction::Any(*dotall)).map(drop),
+            Node::Any { newline } => self.push(Instruction::Any(*newline)).map(drop),
             Node::Class(class) => {
                 let id = self.class_table((**class).clone());
                 self.push(Instruction::Class(id)).map(drop)
             }
-            Node::Seq(items) => self.seq(items),
-            Node::Alt(alts) => self.alt(alts),
+            Node::Sequence(items) => self.seq(items),
+            Node::Alternation(alts) => self.alt(alts),
             Node::Folds(alts) => self.fold_chain(alts, &suffix_leads(alts)),
             Node::Repeat {
                 node,
@@ -399,7 +401,7 @@ impl Compiler<'_> {
                 greediness,
             } => self.repeat(node, *min, *max, *greediness),
             Node::Group { index, node } => self.group(*index, node),
-            Node::Look {
+            Node::Lookaround {
                 ahead,
                 negative,
                 node,
@@ -419,19 +421,19 @@ impl Compiler<'_> {
                 Ok(())
             }
             Node::Atomic(node) => self.atomic(node),
-            Node::Backref(group, case) => {
+            Node::BackReference(group, case) => {
                 let group = u32::try_from(*group).unwrap_or(u32::MAX);
                 self.backref(group, *case)
             }
-            Node::NamedBackref(name, case) => {
+            Node::NamedBackReference(name, case) => {
                 let group = self.group_number(name)?;
                 self.backref(group, *case)
             }
-            Node::Call(group) => {
+            Node::Subroutine(group) => {
                 let group = u32::try_from(*group).unwrap_or(u32::MAX);
                 self.call(group)
             }
-            Node::NamedCall(name) => {
+            Node::NamedSubroutine(name) => {
                 let group = self.group_number(name)?;
                 self.call(group)
             }

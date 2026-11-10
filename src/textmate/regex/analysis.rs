@@ -19,21 +19,25 @@ pub(super) struct Starts {
 /// of `node` takes.
 pub(super) fn width(node: &Node) -> (usize, Option<usize>) {
     match node {
-        Node::Empty | Node::Anchor(_) | Node::Look { .. } | Node::Call(_) | Node::NamedCall(_) => (
+        Node::Empty
+        | Node::Anchor(_)
+        | Node::Lookaround { .. }
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_) => (
             0,
-            if matches!(node, Node::Call(_) | Node::NamedCall(_)) {
+            if matches!(node, Node::Subroutine(_) | Node::NamedSubroutine(_)) {
                 None
             } else {
                 Some(0)
             },
         ),
-        Node::Char(..) | Node::Any(_) | Node::Class(..) => (1, Some(1)),
-        Node::Backref(..) | Node::NamedBackref(..) => (0, None),
-        Node::Seq(items) => items.iter().fold((0, Some(0)), |(lo, hi), item| {
+        Node::Char(..) | Node::Any { .. } | Node::Class(..) => (1, Some(1)),
+        Node::BackReference(..) | Node::NamedBackReference(..) => (0, None),
+        Node::Sequence(items) => items.iter().fold((0, Some(0)), |(lo, hi), item| {
             let (a, b) = width(item);
             (lo + a, hi.zip(b).map(|(x, y)| x + y))
         }),
-        Node::Alt(alts) | Node::Folds(alts) => {
+        Node::Alternation(alts) | Node::Folds(alts) => {
             let mut lo = usize::MAX;
             let mut hi = Some(0);
             for alt in alts {
@@ -72,7 +76,7 @@ pub(super) fn width(node: &Node) -> (usize, Option<usize>) {
 pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
     let all = |set: &mut [bool; 256]| set.iter_mut().for_each(|b| *b = true);
     match node {
-        Node::Look {
+        Node::Lookaround {
             ahead: true,
             negative: false,
             node,
@@ -86,7 +90,7 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
             }
             false
         }
-        Node::Empty | Node::Anchor(_) | Node::Look { .. } => true,
+        Node::Empty | Node::Anchor(_) | Node::Lookaround { .. } => true,
         Node::Char(c) => {
             set[usize::from(lead_byte(*c))] = true;
             false
@@ -104,15 +108,18 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
             }
             false
         }
-        Node::Any(_) => {
+        Node::Any { .. } => {
             all(set);
             false
         }
-        Node::Backref(..) | Node::NamedBackref(..) | Node::Call(_) | Node::NamedCall(_) => {
+        Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_) => {
             all(set);
             true
         }
-        Node::Seq(items) => {
+        Node::Sequence(items) => {
             for item in items {
                 if !first_bytes(item, set) {
                     return false;
@@ -120,7 +127,7 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
             }
             true
         }
-        Node::Alt(alts) | Node::Folds(alts) => {
+        Node::Alternation(alts) | Node::Folds(alts) => {
             let mut nullable = false;
             for alt in alts {
                 nullable |= first_bytes(alt, set);
@@ -142,25 +149,27 @@ pub(super) fn first_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
 /// An example is `i` followed by a combining mark.
 pub(super) fn second_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
     match node {
-        Node::Seq(items) => match items.split_first() {
+        Node::Sequence(items) => match items.split_first() {
             Some((Node::Char(_) | Node::Class(_), rest)) => {
                 rest.iter().any(|item| !first_bytes(item, set))
             }
             _ => false,
         },
-        Node::Alt(alts) | Node::Folds(alts) => alts.iter().all(|alt| second_bytes(alt, set)),
+        Node::Alternation(alts) | Node::Folds(alts) => {
+            alts.iter().all(|alt| second_bytes(alt, set))
+        }
         Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
         | Node::Repeat { .. }
         | Node::Group { .. }
-        | Node::Look { .. }
+        | Node::Lookaround { .. }
         | Node::Atomic(_)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => false,
     }
 }
@@ -168,21 +177,21 @@ pub(super) fn second_bytes(node: &Node, set: &mut [bool; 256]) -> bool {
 /// The anchors every match of `node` begins at, when it has some.
 pub(super) fn anchors(node: &Node) -> Option<Starts> {
     match node {
-        Node::Anchor(Anchor::Caret) => Some(Starts {
+        Node::Anchor(Anchor::LineStart) => Some(Starts {
             caret: true,
             ..Starts::default()
         }),
-        Node::Anchor(Anchor::StartText) => Some(Starts {
+        Node::Anchor(Anchor::TextStart) => Some(Starts {
             text: true,
             ..Starts::default()
         }),
-        Node::Anchor(Anchor::Search) => Some(Starts {
+        Node::Anchor(Anchor::LastMatchEnd) => Some(Starts {
             search: true,
             ..Starts::default()
         }),
-        Node::Seq(items) => items.first().and_then(anchors),
+        Node::Sequence(items) => items.first().and_then(anchors),
         Node::Group { node, .. } | Node::Atomic(node) => anchors(node),
-        Node::Alt(alts) | Node::Folds(alts) => {
+        Node::Alternation(alts) | Node::Folds(alts) => {
             let mut all = Starts::default();
             for alt in alts {
                 let one = anchors(alt)?;
@@ -194,14 +203,14 @@ pub(super) fn anchors(node: &Node) -> Option<Starts> {
         }
         Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
         | Node::Repeat { .. }
-        | Node::Look { .. }
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::Lookaround { .. }
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => None,
     }
 }
@@ -223,20 +232,20 @@ fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
             out.extend_from_slice(c.encode_utf8(&mut buffer).as_bytes());
             true
         }
-        Node::Seq(items) => items.iter().all(|item| collect_prefix(item, out)),
+        Node::Sequence(items) => items.iter().all(|item| collect_prefix(item, out)),
         Node::Group { node, .. } => collect_prefix(node, out),
         Node::Empty => true,
-        Node::Any(_)
+        Node::Any { .. }
         | Node::Class(..)
-        | Node::Alt(_)
+        | Node::Alternation(_)
         | Node::Folds(_)
         | Node::Repeat { .. }
-        | Node::Look { .. }
+        | Node::Lookaround { .. }
         | Node::Atomic(_)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => false,
     }
 }
@@ -245,27 +254,29 @@ fn collect_prefix(node: &Node, out: &mut Vec<u8>) -> bool {
 /// starts: `\A` and `\G` read what the caller passes in about the document.
 pub(super) fn uses_context(node: &Node) -> bool {
     match node {
-        Node::Anchor(Anchor::StartText | Anchor::Search) => true,
+        Node::Anchor(Anchor::TextStart | Anchor::LastMatchEnd) => true,
         Node::Anchor(
-            Anchor::Caret
-            | Anchor::Dollar
-            | Anchor::EndText
-            | Anchor::EndTextNewline
+            Anchor::LineStart
+            | Anchor::LineEnd
+            | Anchor::TextEnd
+            | Anchor::TextEndOrFinalNewline
             | Anchor::WordBoundary
             | Anchor::NotWordBoundary,
         )
         | Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_) => false,
-        Node::Seq(items) | Node::Alt(items) | Node::Folds(items) => items.iter().any(uses_context),
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_) => false,
+        Node::Sequence(items) | Node::Alternation(items) | Node::Folds(items) => {
+            items.iter().any(uses_context)
+        }
         Node::Repeat { node, .. }
         | Node::Group { node, .. }
-        | Node::Look { node, .. }
+        | Node::Lookaround { node, .. }
         | Node::Atomic(node) => uses_context(node),
     }
 }
@@ -295,10 +306,10 @@ fn collect_required(node: &Node, out: &mut Vec<u8>) {
             let mut buffer = [0; 4];
             out.extend(c.encode_utf8(&mut buffer).bytes());
         }
-        Node::Seq(items) => items.iter().for_each(|item| collect_required(item, out)),
+        Node::Sequence(items) => items.iter().for_each(|item| collect_required(item, out)),
         Node::Group { node, .. }
         | Node::Atomic(node)
-        | Node::Look {
+        | Node::Lookaround {
             ahead: true,
             negative: false,
             node,
@@ -307,15 +318,15 @@ fn collect_required(node: &Node, out: &mut Vec<u8>) {
         Node::Repeat { .. }
         | Node::Empty
         | Node::Char(..)
-        | Node::Any(_)
+        | Node::Any { .. }
         | Node::Class(..)
-        | Node::Alt(_)
+        | Node::Alternation(_)
         | Node::Folds(_)
-        | Node::Look { .. }
-        | Node::Backref(..)
-        | Node::NamedBackref(..)
-        | Node::Call(_)
-        | Node::NamedCall(_)
+        | Node::Lookaround { .. }
+        | Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_)
         | Node::Anchor(_) => {}
     }
 }
