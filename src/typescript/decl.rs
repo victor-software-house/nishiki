@@ -591,7 +591,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.key_colon_ahead(p) {
             return None;
         }
-        self.open_empty(Rule::ObjBindProp, p)
+        self.open_empty(Rule::ObjectBindingProperty, p)
     }
 
     /// `variable-initializer`: `=` and what it assigns.

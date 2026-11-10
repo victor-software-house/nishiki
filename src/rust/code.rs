@@ -126,7 +126,7 @@ pub(crate) fn groups(rule: Rule) -> &'static [Group] {
             Punctuation,
             Types,
         ],
-        Rule::Attr => &[
+        Rule::Attribute => &[
             BlockComments,
             Comments,
             Keywords,
@@ -488,7 +488,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push(Rule::Attr) {
+        if !self.push(Rule::Attribute) {
             return None;
         }
         self.tok(p + 1, &[S::PunctDefAttr]);

@@ -172,7 +172,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let q = self.ws(p);
         if self.tag_without_attributes_at(q).is_some() {
-            return self.open_empty(Rule::JsxExprNoAttrs, q);
+            return self.open_empty(Rule::JsxExpressionNoAttributes, q);
         }
         if !self.generic_head_at(q) && self.tag_start_at(q).is_some() {
             return self.open_empty(Rule::JsxExprTag, q);
@@ -208,14 +208,14 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.tag_start_tokens(Rule::JsxNoAttrs, &tag);
+        self.tag_start_tokens(Rule::JsxNoAttributes, &tag);
         self.capture(
-            Rule::JsxNoAttrs,
+            Rule::JsxNoAttributes,
             gt,
             gt + 1,
             &[S::PunctuationDefinitionTagEnd],
         );
-        self.push(Rule::JsxNoAttrs);
+        self.push(Rule::JsxNoAttributes);
         Some(gt + 1)
     }
 
@@ -455,7 +455,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The end of `jsx-tag-without-attributes-in-expression`: the position
     /// where the lookahead for such a tag no longer holds.
-    pub(crate) fn jsx_expr_no_attrs_ends(&self, p: usize) -> bool {
+    pub(crate) fn jsx_expression_no_attributes_ends(&self, p: usize) -> bool {
         self.tag_without_attributes_at(p).is_none()
     }
 
@@ -476,7 +476,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// Ends `jsx-tag-without-attributes` at a closing tag.
-    pub(crate) fn jsx_no_attrs_end(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn jsx_no_attributes_end(&mut self, p: usize) -> Option<usize> {
         let (name, gt) = self.closing_tag_at(p)?;
         Some(self.close_tag(p, &name, gt, &[]))
     }

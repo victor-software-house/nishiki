@@ -32,7 +32,7 @@ pub(super) enum Pattern {
     /// `<![CDATA[`.
     Cdata,
     /// A space and a name in a processing instruction.
-    PiAttr,
+    InstructionAttribute,
     /// `"`.
     Double,
     /// `'`.
@@ -48,7 +48,7 @@ pub(super) enum Pattern {
     /// `name=` in a tag.
     Attribute,
     /// `page`, `include` and `taglib` in a page directive.
-    PageProp,
+    PageDirective,
 }
 
 impl Pattern {
@@ -72,10 +72,10 @@ impl Pattern {
             Pattern::CommentBad => Some(Rule::CommentBad),
             Pattern::Entity
             | Pattern::Ampersand
-            | Pattern::PiAttr
+            | Pattern::InstructionAttribute
             | Pattern::ParameterEntity
             | Pattern::Attribute
-            | Pattern::PageProp => None,
+            | Pattern::PageDirective => None,
         }
     }
 
@@ -84,9 +84,9 @@ impl Pattern {
         match self {
             Pattern::Entity => Some(S::ConstantEntity),
             Pattern::Ampersand => Some(S::InvalidAmpersand),
-            Pattern::PiAttr => Some(S::AttrName),
+            Pattern::InstructionAttribute => Some(S::AttrName),
             Pattern::ParameterEntity => Some(S::ConstantParameterEntity),
-            Pattern::PageProp => Some(S::PageProps),
+            Pattern::PageDirective => Some(S::PageProps),
             Pattern::Attribute
             | Pattern::Pi
             | Pattern::Doctype
@@ -122,7 +122,11 @@ pub(super) fn patterns(rule: Rule) -> &'static [Pattern] {
             Pattern::Jsp,
             Pattern::Cdata,
         ],
-        Rule::Pi => &[Pattern::PiAttr, Pattern::Double, Pattern::Single],
+        Rule::Pi => &[
+            Pattern::InstructionAttribute,
+            Pattern::Double,
+            Pattern::Single,
+        ],
         Rule::Doctype => &[Pattern::Subset],
         Rule::Subset => &[
             Pattern::EntityDecl,
@@ -133,7 +137,7 @@ pub(super) fn patterns(rule: Rule) -> &'static [Pattern] {
         Rule::EntityDecl => &[Pattern::Double, Pattern::Single],
         Rule::Comment => &[Pattern::CommentBad],
         Rule::NoContent | Rule::Tag => &[Pattern::Attribute, Pattern::Double, Pattern::Single],
-        Rule::JspProps => &[Pattern::PageProp],
+        Rule::JspProps => &[Pattern::PageDirective],
         Rule::Double | Rule::Single => &[Pattern::Entity, Pattern::Ampersand],
         Rule::CommentBad | Rule::CommentJsp | Rule::Jsp | Rule::Cdata => &[],
     }

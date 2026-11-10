@@ -997,17 +997,22 @@ impl Lexer<'_> {
     fn element_begin_captures(&mut self, hit: &Hit, frame: &super::engine::Frame) {
         let base = frame.name;
         let element = ElementClass::from_bits(hit.bits);
-        let [name_start, name_end, attrs_start, attrs_end, _] = hit.at;
+        let [name_start, name_end, attributes_start, attributes_end, _] = hit.at;
         let word = name(frame.payload);
         let tag = self.element_tag(base, element, word, "start");
         let bracket = self.path(tag, &[S::TagBegin]);
         self.capture_stack(base, hit.start, name_start, bracket);
         let name_stack = self.element_name(tag, element);
         self.capture_stack(base, name_start, name_end, name_stack);
-        if attrs_start != usize::MAX {
-            self.region(attrs_start, attrs_end, base, Self::region_payload(element));
+        if attributes_start != usize::MAX {
+            self.region(
+                attributes_start,
+                attributes_end,
+                base,
+                Self::region_payload(element),
+            );
             let close = self.path(tag, &[S::TagEnd]);
-            self.capture_stack(base, attrs_end, hit.end, close);
+            self.capture_stack(base, attributes_end, hit.end, close);
         }
     }
 
@@ -1017,7 +1022,7 @@ impl Lexer<'_> {
         let top = *self.top();
         self.tok(top.content, hit.start);
         let element = ElementClass::from_bits(hit.bits);
-        let [name_start, name_end, attrs_start, attrs_end, _] = hit.at;
+        let [name_start, name_end, attributes_start, attributes_end, _] = hit.at;
         let word = self.intern(name_start, name_end);
         let base = self.name_stack(top.content, Rule::Element, packed(hit.bits, word));
         let tag = self.element_tag(base, element, word, "void");
@@ -1025,9 +1030,14 @@ impl Lexer<'_> {
         self.capture_stack(base, hit.start, name_start, bracket);
         let name_stack = self.element_name(tag, element);
         self.capture_stack(base, name_start, name_end, name_stack);
-        self.region(attrs_start, attrs_end, base, Self::region_payload(element));
+        self.region(
+            attributes_start,
+            attributes_end,
+            base,
+            Self::region_payload(element),
+        );
         let close = self.path(tag, &[S::TagEnd]);
-        self.capture_stack(base, attrs_end, hit.end, close);
+        self.capture_stack(base, attributes_end, hit.end, close);
         self.pos = self.pos.max(hit.end);
         false
     }

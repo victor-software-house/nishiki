@@ -37,7 +37,7 @@ impl<const D: u8> Lexer<'_, D> {
             return false;
         };
         let mut j = i + 1 + name.len();
-        let mut attrs = 0;
+        let mut attributes = 0;
         loop {
             let k = self.ws(j);
             if k == j {
@@ -55,9 +55,9 @@ impl<const D: u8> Lexer<'_, D> {
                 break;
             };
             j = e;
-            attrs += 1;
+            attributes += 1;
         }
-        if attrs == 0 {
+        if attributes == 0 {
             return false;
         }
         let k = self.ws(j);

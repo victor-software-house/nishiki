@@ -45,8 +45,8 @@ impl<const D: u8> Lexer<'_, D> {
         match rule {
             Rule::Top | Rule::Started => self.top_rules(p),
             Rule::Script => self.script_comment(p).or_else(|| self.top_rules(p)),
-            Rule::JsxExprNoAttrs => self.jsx_tag_without_attributes(p),
-            Rule::JsxNoAttrs | Rule::JsxTagBody => self.jsx_children(p),
+            Rule::JsxExpressionNoAttributes => self.jsx_tag_without_attributes(p),
+            Rule::JsxNoAttributes | Rule::JsxTagBody => self.jsx_children(p),
             Rule::JsxExprTag => self.jsx_tag(p),
             Rule::JsxTag => self.jsx_tag_rules(p),
             Rule::JsxTagOpen => self.jsx_tag_open_rules(p),
@@ -95,7 +95,7 @@ impl<const D: u8> Lexer<'_, D> {
             Rule::ObjBindElemConst => self
                 .object_binding_element_property_name(p)
                 .or_else(|| self.binding_element(p, Binding::Constant)),
-            Rule::ObjBindProp => self.object_binding_prop_rules(p),
+            Rule::ObjectBindingProperty => self.object_binding_property_rules(p),
             Rule::ParamObjElem => self
                 .object_binding_element_property_name(p)
                 .or_else(|| self.parameter_binding_element(p))
@@ -334,7 +334,7 @@ impl<const D: u8> Lexer<'_, D> {
         Some(j + 1)
     }
 
-    fn object_binding_prop_rules(&mut self, p: usize) -> Option<usize> {
+    fn object_binding_property_rules(&mut self, p: usize) -> Option<usize> {
         if let Some(r) = self.string(p) {
             return Some(r);
         }

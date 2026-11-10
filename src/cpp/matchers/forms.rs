@@ -679,8 +679,8 @@ impl Lexer<'_> {
                 continue;
             }
             for after in spaces(self, name) {
-                for attr in self.attribute_options(after) {
-                    for from in spaces(self, attr.unwrap_or(after)) {
+                for attribute in self.attribute_options(after) {
+                    for from in spaces(self, attribute.unwrap_or(after)) {
                         if self.at(from) == b'=' && from < self.lim() {
                             for start in spaces(self, from + 1) {
                                 for k in start + 1..=self.lim() {
@@ -689,7 +689,7 @@ impl Lexer<'_> {
                                             continue;
                                         };
                                         self.capture(1, p, name);
-                                        if let Some(a) = attr {
+                                        if let Some(a) = attribute {
                                             self.capture(2, after, a);
                                         }
                                         self.capture(3, from, from + 1);
@@ -704,7 +704,7 @@ impl Lexer<'_> {
                         }
                         if let Some((end, terminator)) = tail(self, from) {
                             self.capture(1, p, name);
-                            if let Some(a) = attr {
+                            if let Some(a) = attribute {
                                 self.capture(2, after, a);
                             }
                             if let Some(t) = terminator {

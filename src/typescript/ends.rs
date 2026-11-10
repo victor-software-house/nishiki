@@ -47,8 +47,10 @@ impl<const D: u8> Lexer<'_, D> {
             | Rule::EntryArrBindConst
             | Rule::EntryTypeParams
             | Rule::EntryTemplate => None,
-            Rule::JsxExprNoAttrs => self.end_zero(self.jsx_expr_no_attrs_ends(p), p),
-            Rule::JsxNoAttrs => self.jsx_no_attrs_end(p),
+            Rule::JsxExpressionNoAttributes => {
+                self.end_zero(self.jsx_expression_no_attributes_ends(p), p)
+            }
+            Rule::JsxNoAttributes => self.jsx_no_attributes_end(p),
             Rule::JsxExprTag => self.end_zero(self.jsx_expr_tag_ends(p), p),
             Rule::JsxTag => self.jsx_tag_end(p),
             Rule::JsxTagOpen | Rule::JsxAttributes => self.end_zero(self.jsx_open_ends(p), p),
@@ -307,7 +309,7 @@ impl<const D: u8> Lexer<'_, D> {
                 self.end_zero(matches!(self.byte(p), b',' | b'}'), p)
             }
             Rule::ObjValue => self.end_zero(matches!(self.byte(p), b',' | b'}'), p),
-            Rule::ObjBindProp => self.end_char(p, b':', S::PunctuationDestructuring),
+            Rule::ObjectBindingProperty => self.end_char(p, b':', S::PunctuationDestructuring),
             Rule::ObjKeyBracket => self.end_zero(
                 self.byte(p) == b':'
                     || (self.prev_char(p) == Some(']')

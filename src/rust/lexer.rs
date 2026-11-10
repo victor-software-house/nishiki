@@ -95,7 +95,7 @@ impl<'a> Lexer<'a> {
                 | Rule::Call
                 | Rule::Generic
                 | Rule::AngleSq
-                | Rule::Attr
+                | Rule::Attribute
                 | Rule::Use
                 | Rule::Import => self.in_code(p),
             };
@@ -364,7 +364,7 @@ impl<'a> Lexer<'a> {
             (Rule::FnDef | Rule::Use | Rule::Import, b';') => S::Semi,
             (Rule::Call, b')') => S::Round,
             (Rule::Generic | Rule::AngleSq, b'>') => S::Angle,
-            (Rule::Attr, b']') => S::AttrBracket,
+            (Rule::Attribute, b']') => S::AttrBracket,
             _ => return None,
         };
         self.gap(p);

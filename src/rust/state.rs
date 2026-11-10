@@ -23,7 +23,7 @@ pub(crate) enum Rule {
     /// `<[` up to `>`.
     AngleSq,
     /// `#[` up to `]`.
-    Attr,
+    Attribute,
     /// `use ` up to `;`.
     Use,
     /// `extern crate` up to `;`.
@@ -73,7 +73,7 @@ impl Rule {
         Rule::Call,
         Rule::Generic,
         Rule::AngleSq,
-        Rule::Attr,
+        Rule::Attribute,
         Rule::Use,
         Rule::Import,
         Rule::Str,
@@ -90,7 +90,7 @@ impl Rule {
             Rule::Top | Rule::Generic | Rule::AngleSq => None,
             Rule::FnDef => Some(S::MetaFnDef),
             Rule::Call => Some(S::MetaFnCall),
-            Rule::Attr => Some(S::MetaAttr),
+            Rule::Attribute => Some(S::MetaAttr),
             Rule::Use => Some(S::MetaUse),
             Rule::Import => Some(S::MetaImport),
             Rule::Str | Rule::Raw => Some(S::StrDouble),

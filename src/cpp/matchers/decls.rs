@@ -111,10 +111,10 @@ impl Lexer<'_> {
         if self.at(pos) == b'{' && pos < self.lim() {
             return Some(pos);
         }
-        if let Some(&attr) = self.attribute_ends(pos).first() {
-            let gap = self.gaps(attr).next()?;
-            self.capture(6, pos, attr);
-            self.put_gap(7, GapForm::Parts, attr, &gap);
+        if let Some(&attribute) = self.attribute_ends(pos).first() {
+            let gap = self.gaps(attribute).next()?;
+            self.capture(6, pos, attribute);
+            self.put_gap(7, GapForm::Parts, attribute, &gap);
             pos = gap.end;
         }
         let names = pos;

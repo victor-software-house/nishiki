@@ -282,7 +282,7 @@ impl Lexer<'_> {
             Pattern::Cdata => self
                 .lit(p, b"<![CDATA[")
                 .then(|| Hit::new(p, p + 9).capture(p, p + 9, S::StringBegin)),
-            Pattern::PiAttr => self.pi_attribute(p),
+            Pattern::InstructionAttribute => self.pi_attribute(p),
             Pattern::Double => {
                 (self.at(p) == b'"').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::StringBegin))
             }
@@ -297,7 +297,7 @@ impl Lexer<'_> {
             Pattern::CommentBad => (self.lit(p, b"--") && self.at(p + 2) != b'>')
                 .then(|| Hit::new(p, p + 2).capture(p, p + 2, S::InvalidComment)),
             Pattern::Attribute => self.attribute(p),
-            Pattern::PageProp => ["page", "include", "taglib"]
+            Pattern::PageDirective => ["page", "include", "taglib"]
                 .iter()
                 .find(|word| self.lit(p, word.as_bytes()))
                 .map(|word| Hit::new(p, p + word.len())),

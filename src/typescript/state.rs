@@ -139,7 +139,7 @@ rules! {
     NewExpr [S::NewExpr] [];
     ObjBindElem [] [];
     ObjBindElemConst [] [];
-    ObjBindProp [] [];
+    ObjectBindingProperty [] [];
     ParamObjElem [] [];
     ObjKeyBracket [S::MetaObjectMember, S::MetaObjectLiteralKey] [];
     ObjKeyStr [S::MetaObjectMember, S::MetaObjectLiteralKey] [];
@@ -207,8 +207,8 @@ rules! {
     VarSingle [S::MetaVarSingleVariableExpr] [];
     VarInit1 [] [];
     VarInit2 [] [];
-    JsxExprNoAttrs [] [];
-    JsxNoAttrs [S::MetaTagWithoutAttributes] [S::MetaJsxChildren];
+    JsxExpressionNoAttributes [] [];
+    JsxNoAttributes [S::MetaTagWithoutAttributes] [S::MetaJsxChildren];
     JsxExprTag [] [];
     JsxTag [S::MetaTag] [];
     JsxTagOpen [] [];
