@@ -128,8 +128,10 @@ The engine's logic does not change when they do.
     - The hand-off now ends the region where its language pops it, as vscode-textmate does.
     - Both fixtures left the gap lists, and the loaded tests pass.
   - [ ] 5.6.3 Attribute names in an HTML fence differ from Shiki's: `markdown/invalid-tags` and both `markdown/perl-heredoc-tags-*`.
-  - [ ] 5.6.4 `markdown/vitepress-runtime-api` holds a `vue` fence from markdown-vue's injection, which a Markdown-only set lacks.
+  - [x] 5.6.4 `markdown/vitepress-runtime-api` holds a `vue` fence from markdown-vue's injection, which a Markdown-only set lacks.
     Its block should be left out, as other fences of missing languages are.
+    - A blank line in the fence's body ended the block early, so the rest of the body was compared.
+    - A block now runs over blank lines and ends at its closing fence.
 
 ## 6. The engine as an embedded language
 

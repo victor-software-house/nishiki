@@ -86,10 +86,6 @@ fn markdown_alone_matches_shiki() {
             fixture: "perl-heredoc-tags-2",
             cause: attributes,
         },
-        Gap {
-            fixture: "vitepress-runtime-api",
-            cause: "its `vue` fence comes from markdown-vue's injection, which the set lacks",
-        },
     ];
     matches_shiki(&["markdown"], "text.html.markdown", "markdown", &gaps);
 }
