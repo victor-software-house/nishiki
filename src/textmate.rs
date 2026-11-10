@@ -160,10 +160,10 @@ pub(crate) fn lex_handing(
 /// Lexes `line` like [`lex_embedded`], for a grammar that hands regions to
 /// languages lexed by hand.
 #[cfg_attr(
-    not(test),
+    any(not(test), not(feature = "_hand-lexers")),
     expect(
         dead_code,
-        reason = "no language embeds an engine grammar now; its hand-off tests do"
+        reason = "no language embeds an engine grammar now; its hand-off tests do, with a hand-written lexer on"
     )
 )]
 pub(crate) fn lex_handing_embedded(

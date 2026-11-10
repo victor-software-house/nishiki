@@ -512,7 +512,7 @@ mod svelte;
 mod swift;
 mod tag;
 #[cfg(test)]
-#[cfg(feature = "_language")]
+#[cfg(feature = "_hand-lexers")]
 mod test_support;
 #[cfg(feature = "lang-tex")]
 mod tex;

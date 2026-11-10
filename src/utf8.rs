@@ -16,12 +16,26 @@ pub(crate) fn char_len(lead: u8) -> usize {
 
 /// Whether `b` continues a multibyte character rather than starting one.
 #[inline]
+#[cfg_attr(
+    all(not(feature = "_hand-lexers"), not(test)),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+    )
+)]
 pub(crate) const fn is_continuation(b: u8) -> bool {
     b & 0xc0 == 0x80
 }
 
 /// The start of the character that holds byte `i` of `s`: `i` itself unless
 /// it continues a character, and never before 0.
+#[cfg_attr(
+    all(not(feature = "_hand-lexers"), not(test)),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+    )
+)]
 pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
     while i > 0 && s.get(i).is_some_and(|&b| is_continuation(b)) {
         i -= 1;
@@ -45,6 +59,13 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
 /// A multibyte character goes to [`multibyte_at`], which is out of line.
 /// A caller that has already tested for ASCII calls [`multibyte_at`] directly.
 #[inline]
+#[cfg_attr(
+    all(not(feature = "_hand-lexers"), not(test)),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+    )
+)]
 pub(crate) fn char_at(s: &[u8], i: usize) -> Option<(char, usize)> {
     let lead = *s.get(i)?;
     if lead.is_ascii() {
@@ -58,6 +79,13 @@ pub(crate) fn char_at(s: &[u8], i: usize) -> Option<(char, usize)> {
 /// It is `#[cold]`.
 /// The caller's ASCII path then saves no registers for this call.
 #[cold]
+#[cfg_attr(
+    all(not(feature = "_hand-lexers"), not(test)),
+    expect(
+        dead_code,
+        reason = "only hand-written lexers and the engine tests use it, and the TextMate engine alone turns no lexer on"
+    )
+)]
 pub(crate) fn multibyte_at(s: &[u8], i: usize, lead: u8) -> Option<(char, usize)> {
     let (width, bits) = match lead {
         0xc2..=0xdf => (2, lead & 0x1f),

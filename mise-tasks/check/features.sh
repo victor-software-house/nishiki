@@ -9,6 +9,8 @@
 # The code only languages use sits behind the private `_language` feature,
 # so the empty set warns of nothing, dead code included.
 # So does `json`, which is the theme files feature, not the JSON language.
+# So does `textmate`, the engine alone: code only the hand-written lexers use
+# carries an expectation under `not(feature = "_hand-lexers")`.
 set -euo pipefail
 RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features
 # Markdown alone: its own tests, which need no other language.
@@ -88,6 +90,7 @@ cargo check --locked --tests --no-default-features --features lang-xml
 cargo check --locked --tests --no-default-features --features lang-yaml
 cargo check --locked --tests --no-default-features --features lang-zig
 cargo check --locked --tests --no-default-features --features systems
-cargo check --locked --tests --no-default-features --features textmate
+RUSTFLAGS="-D warnings" cargo check --locked --no-default-features --features textmate
+RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features textmate
 cargo check --locked --tests --no-default-features --features web
 cargo test --locked --lib --no-default-features --features lang-markdown
