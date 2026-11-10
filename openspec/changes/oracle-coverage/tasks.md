@@ -137,6 +137,8 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
   - 2026-11-04 UTC, [PR 320][pr320]: a written input per language added.
     The four grammars are complete with 1, 8, 2 and 4 waived units.
     On `3de20c2f` the [oracle test][run-320-ci] and the [coverage check][run-320-cov] passed.
+- [ ] 3.22 Vue and its Markdown injection: `vue`, `markdown-vue`
+- [ ] 3.23 Blade: `blade`
 
 [checks]: ../../research/2026-11-10-oracle-coverage-gate-checks.md
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238

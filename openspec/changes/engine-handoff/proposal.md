@@ -48,7 +48,8 @@ The [`halt-contract` change][contract] widens the contract itself: `Halts`, entr
 
 ### Modified Capabilities
 
-- `textmate-engine`: an include of a hand-lexed grammar is no longer compiled into the table.
+None.
+No `textmate-engine` requirement covers how an include is compiled, so the new capability changes none of them.
 
 ## Impact
 
