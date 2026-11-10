@@ -106,8 +106,8 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, name);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, name);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 
@@ -122,9 +122,9 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, name, name_end);
-        self.cap(3, open, open + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, name, name_end);
+        self.capture(3, open, open + 1);
         Some(open + 1)
     }
 
@@ -143,13 +143,13 @@ impl Lexer<'_> {
     }
 
     /// `(\.)\s*(new)`, and the property patterns `(\.)\s*(name)`, with the
-    /// kind of name that follows the dot.
-    pub(super) fn property(&mut self, p: usize, kind: Property) -> Option<usize> {
+    /// `property`, the name that follows the dot.
+    pub(super) fn property(&mut self, p: usize, property: Property) -> Option<usize> {
         if self.at(p) != b'.' {
             return None;
         }
         let name = self.space_end(p + 1);
-        let end = match kind {
+        let end = match property {
             Property::New => self.lit(name, b"new")?,
             Property::Chained | Property::Plain => self.ident_end(name)?,
             Property::Digit => {
@@ -159,7 +159,7 @@ impl Lexer<'_> {
                 self.name_end(name + 1)
             }
         };
-        if kind == Property::Chained {
+        if property == Property::Chained {
             let dot = self.space_end(end);
             if self.at(dot) != b'.' {
                 return None;
@@ -167,8 +167,8 @@ impl Lexer<'_> {
             let next = self.space_end(dot + 1);
             self.ident_end(next)?;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, name, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -183,7 +183,7 @@ impl Lexer<'_> {
         }
         i = self.space_end(i);
         self.one_of(i, terminators)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -194,7 +194,7 @@ impl Lexer<'_> {
         if width == 0 {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end + width)
     }
 

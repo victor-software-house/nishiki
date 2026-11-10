@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -13,7 +13,7 @@
 //! [`crate::classes`].
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// The keywords of `Keywords` that are one word, in the grammar's order.
@@ -30,44 +30,46 @@ const KEYWORDS: &[&[u8]] = &[
 ];
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Raw => self.raw_tag(p, b"raw"),
-            Pat::RawEnd => self.raw_tag(p, b"endraw"),
-            Pat::Comments => self.opener(p, b"{#"),
-            Pat::CommentsEnd => self.closer(p, b"#}"),
-            Pat::Output => self.opener(p, b"{{"),
-            Pat::OutputEnd => self.closer(p, b"}}"),
-            Pat::Statement => self.opener(p, b"{%"),
-            Pat::StatementEnd => self.closer(p, b"%}"),
-            Pat::Block => self.keyword_and_name(p, b"block"),
-            Pat::Filter => self.keyword_and_name(p, b"filter"),
-            Pat::Is => self.keyword_and_name(p, b"is"),
-            Pat::TagName => self.tag_name(p),
-            Pat::Keywords => self.keyword(p),
-            Pat::Constants => self.word_in(p, &[b"true", b"false", b"none"]),
-            Pat::Builtins => self.word_in(p, &[b"loop", b"super", b"self", b"varargs", b"kwargs"]),
-            Pat::Name => self.name(p),
-            Pat::Arithmetic => self.arithmetic(p),
-            Pat::FilterCall => self.mark_and_name(p, b"|"),
-            Pat::Member => self.mark_and_name(p, b"."),
-            Pat::Brackets => self.lit(p, b"["),
-            Pat::BracketsEnd => self.lit(p, b"]"),
-            Pat::Parens => self.lit(p, b"("),
-            Pat::ParensEnd => self.lit(p, b")"),
-            Pat::Braces => self.lit(p, b"{"),
-            Pat::BracesEnd => self.lit(p, b"}"),
-            Pat::Punctuation => self.punctuation(p),
-            Pat::Comparison => self.comparison(p),
-            Pat::Assignment => self.lit(p, b"="),
-            Pat::DoubleString | Pat::DoubleStringEnd => self.lit(p, b"\""),
-            Pat::SingleString | Pat::SingleStringEnd => self.lit(p, b"'"),
-            Pat::Regex => self.lit(p, b"@/"),
-            Pat::RegexEnd => self.lit(p, b"/"),
-            Pat::SimpleEscapes => self.simple_escape(p),
-            Pat::EscapedChar => self.hex_escape(p),
-            Pat::EscapedUnicodeChar => self.unicode_escape(p),
+    /// Whether `pattern` matches at `p`, and where its match ends.
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Raw => self.raw_tag(p, b"raw"),
+            Pattern::RawEnd => self.raw_tag(p, b"endraw"),
+            Pattern::Comments => self.opener(p, b"{#"),
+            Pattern::CommentsEnd => self.closer(p, b"#}"),
+            Pattern::Output => self.opener(p, b"{{"),
+            Pattern::OutputEnd => self.closer(p, b"}}"),
+            Pattern::Statement => self.opener(p, b"{%"),
+            Pattern::StatementEnd => self.closer(p, b"%}"),
+            Pattern::Block => self.keyword_and_name(p, b"block"),
+            Pattern::Filter => self.keyword_and_name(p, b"filter"),
+            Pattern::Is => self.keyword_and_name(p, b"is"),
+            Pattern::TagName => self.tag_name(p),
+            Pattern::Keywords => self.keyword(p),
+            Pattern::Constants => self.word_in(p, &[b"true", b"false", b"none"]),
+            Pattern::Builtins => {
+                self.word_in(p, &[b"loop", b"super", b"self", b"varargs", b"kwargs"])
+            }
+            Pattern::Name => self.name(p),
+            Pattern::Arithmetic => self.arithmetic(p),
+            Pattern::FilterCall => self.mark_and_name(p, b"|"),
+            Pattern::Member => self.mark_and_name(p, b"."),
+            Pattern::Brackets => self.lit(p, b"["),
+            Pattern::BracketsEnd => self.lit(p, b"]"),
+            Pattern::Parens => self.lit(p, b"("),
+            Pattern::ParensEnd => self.lit(p, b")"),
+            Pattern::Braces => self.lit(p, b"{"),
+            Pattern::BracesEnd => self.lit(p, b"}"),
+            Pattern::Punctuation => self.punctuation(p),
+            Pattern::Comparison => self.comparison(p),
+            Pattern::Assignment => self.lit(p, b"="),
+            Pattern::DoubleString | Pattern::DoubleStringEnd => self.lit(p, b"\""),
+            Pattern::SingleString | Pattern::SingleStringEnd => self.lit(p, b"'"),
+            Pattern::Regex => self.lit(p, b"@/"),
+            Pattern::RegexEnd => self.lit(p, b"/"),
+            Pattern::SimpleEscapes => self.simple_escape(p),
+            Pattern::EscapedChar => self.hex_escape(p),
+            Pattern::EscapedUnicodeChar => self.unicode_escape(p),
         }
     }
 
@@ -94,9 +96,9 @@ impl Lexer<'_> {
         let word_end = self.lit(word_start, word)?;
         let close = self.space_end(word_end);
         let end = self.lit(close, b"%}")?;
-        self.cap(1, p, open);
-        self.cap(2, word_start, word_end);
-        self.cap(3, close, end);
+        self.capture(1, p, open);
+        self.capture(2, word_start, word_end);
+        self.capture(3, close, end);
         Some(end)
     }
 
@@ -130,8 +132,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.bounded_name(name)?;
-        self.cap(1, start, keyword_end);
-        self.cap(2, name, end);
+        self.capture(1, start, keyword_end);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -154,7 +156,7 @@ impl Lexer<'_> {
         if self.starts(next, b",") || self.starts(next, b"=") {
             return None;
         }
-        self.cap(1, name, end);
+        self.capture(1, name, end);
         Some(end)
     }
 
@@ -198,7 +200,7 @@ impl Lexer<'_> {
             }
             _ => return None,
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -207,8 +209,8 @@ impl Lexer<'_> {
     fn mark_and_name(&mut self, p: usize, mark: &[u8]) -> Option<usize> {
         let name = self.lit(p, mark)?;
         let end = self.name(name)?;
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -217,7 +219,7 @@ impl Lexer<'_> {
         if !(p < self.lim() && matches!(self.at(p), b',' | b'.' | b':' | b'|')) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -229,7 +231,7 @@ impl Lexer<'_> {
             .or_else(|| self.lit(p, b"=>"))
             .or_else(|| (p < self.lim() && matches!(self.at(p), b'<' | b'>')).then_some(p + 1))
             .or_else(|| self.lit(p, b"!="))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -255,7 +257,7 @@ impl Lexer<'_> {
             b'v' => 11,
             _ => return None,
         };
-        self.cap(group, p, after + 1);
+        self.capture(group, p, after + 1);
         Some(after + 1)
     }
 
@@ -280,11 +282,11 @@ impl Lexer<'_> {
                 .then_some(end)
         };
         if let Some(end) = self.lit(p, b"\\U").and_then(|start| hex(start, 8)) {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         if let Some(end) = self.lit(p, b"\\u").and_then(|start| hex(start, 4)) {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         let name = self.lit(p, b"\\N{")?;
@@ -293,7 +295,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(close, b"}")?;
-        self.cap(3, p, end);
+        self.capture(3, p, end);
         Some(end)
     }
 }

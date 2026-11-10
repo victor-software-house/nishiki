@@ -5,7 +5,7 @@ use memchr::{memchr, memchr2, memchr3};
 
 use super::lexer::Lexer;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::utf8;
 
 impl Lexer<'_> {
@@ -39,8 +39,8 @@ impl Lexer<'_> {
         }
         let doc = self.at(p + 2) == b'*';
         let width = if doc { 3 } else { 2 };
-        if !self.push(if doc { Kind::Doc } else { Kind::Block })
-            && matches!(self.top(), Kind::Block | Kind::Doc)
+        if !self.push(if doc { Rule::Doc } else { Rule::Block })
+            && matches!(self.top(), Rule::Block | Rule::Doc)
         {
             self.set_payload(self.payload().saturating_add(1));
         }
@@ -54,7 +54,7 @@ impl Lexer<'_> {
         match self.at(p + prefix) {
             b'"' => {
                 self.gap(p);
-                if !self.push(Kind::Str) {
+                if !self.push(Rule::Str) {
                     return None;
                 }
                 self.tok(p + prefix, &[S::StrByteRaw]);
@@ -63,7 +63,7 @@ impl Lexer<'_> {
             }
             b'\'' => {
                 self.gap(p);
-                if !self.push(Kind::Char) {
+                if !self.push(Rule::Char) {
                     return None;
                 }
                 self.tok(p + prefix, &[S::StrByteRaw]);
@@ -83,7 +83,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push_with(Kind::Raw, hashes) {
+        if !self.push_with(Rule::Raw, hashes) {
             return None;
         }
         self.tok(r_end, &[S::StrByteRaw]);

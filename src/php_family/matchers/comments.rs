@@ -21,7 +21,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if p == 0 {
             let end = self.space_end(0);
             if end > 0 && opens(self, end) {
-                self.cap(1, 0, end);
+                self.capture(1, 0, end);
                 return Some(end);
             }
         }
@@ -108,7 +108,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
             .iter()
             .find_map(|word| self.lit(p + 2, word))?;
         let close = (tag + 1..self.lim()).find(|&at| self.at(at) == b'}')?;
-        self.cap(1, p + 1, tag);
+        self.capture(1, p + 1, tag);
         Some(close + 1)
     }
 }

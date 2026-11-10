@@ -28,8 +28,8 @@ impl Lexer<'_> {
         if self.word_at(end).is_some() {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, p, p + 1);
+        self.capture(1, p, end);
+        self.capture(2, p, p + 1);
         Some(end)
     }
 
@@ -73,8 +73,8 @@ impl Lexer<'_> {
         let word = self.lit(at + 1, b"else")?;
         let spaces = self.spaces(word);
         let keyword = self.lit(spaces, b"if").unwrap_or(spaces);
-        self.cap(1, at, keyword);
-        self.cap(2, at, at + 1);
+        self.capture(1, at, keyword);
+        self.capture(2, at, at + 1);
         Some(self.spaces(keyword))
     }
 
@@ -89,8 +89,8 @@ impl Lexer<'_> {
         if after == end && !self.at_eol(end) {
             return None;
         }
-        self.cap(1, at, end);
-        self.cap(2, at, at + 1);
+        self.capture(1, at, end);
+        self.capture(2, at, at + 1);
         Some(after)
     }
 
@@ -119,9 +119,9 @@ impl Lexer<'_> {
             }
         }
         self.spend(stop - at);
-        self.cap(1, at, end);
-        self.cap(2, at, at + 1);
-        self.cap(3, name, stop);
+        self.capture(1, at, end);
+        self.capture(2, at, at + 1);
+        self.capture(3, name, stop);
         Some(stop)
     }
 
@@ -165,13 +165,13 @@ impl Lexer<'_> {
             None
         };
         if let Some((module_end, dot)) = module_name {
-            self.cap(1, start, module_end);
-            self.cap(2, dot, dot + 1);
+            self.capture(1, start, module_end);
+            self.capture(2, dot, dot + 1);
         }
-        self.cap(3, name, name_end);
+        self.capture(3, name, name_end);
         Some(match paren {
             Some(paren) => {
-                self.cap(4, paren, paren + 1);
+                self.capture(4, paren, paren + 1);
                 paren + 1
             }
             None => name_end,
@@ -199,8 +199,8 @@ impl Lexer<'_> {
         if self.at(paren) != b'(' {
             return None;
         }
-        self.cap(1, name, name_end);
-        self.cap(2, paren, paren + 1);
+        self.capture(1, name, name_end);
+        self.capture(2, paren, paren + 1);
         Some(paren + 1)
     }
 
@@ -211,7 +211,7 @@ impl Lexer<'_> {
         }
         let name = self.spaces_run(p)?;
         let name_end = self.dash_word_run(name)?;
-        self.cap(1, name, name_end);
+        self.capture(1, name, name_end);
         Some(name_end)
     }
 
@@ -231,7 +231,7 @@ impl Lexer<'_> {
         }
         let name = self.spaces_run(p)?;
         let end = self.dash_word_end(name);
-        self.cap(1, name, end);
+        self.capture(1, name, end);
         Some(end)
     }
 
@@ -256,7 +256,7 @@ impl Lexer<'_> {
             .flatten()
             .find_map(|from| self.lit(from, b"keyframes"))
             .filter(|&end| self.word_at(end).is_none())?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -283,7 +283,7 @@ impl Lexer<'_> {
             second + self.word_at(second).unwrap_or(1)
         };
         let end = self.dash_word_end(rest);
-        self.cap(1, name, end);
+        self.capture(1, name, end);
         Some(end)
     }
 
@@ -296,7 +296,7 @@ impl Lexer<'_> {
         if self.at(at) != quote {
             return None;
         }
-        self.cap(1, at, at + 1);
+        self.capture(1, at, at + 1);
         Some(at + 1)
     }
 
@@ -334,7 +334,7 @@ impl Lexer<'_> {
         if self.word_at(end).is_some() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -373,8 +373,8 @@ impl Lexer<'_> {
         if self.at(end) != b'*' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, end, end + 1);
+        self.capture(1, p, end);
+        self.capture(2, end, end + 1);
         Some(end + 1)
     }
 

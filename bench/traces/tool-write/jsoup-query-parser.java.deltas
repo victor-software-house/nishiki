@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language java
 source bench/corpus/java/medium/jsoup-query-parser.java
 url https://raw.githubusercontent.com/jhy/jsoup/b85c4ab23020632871216a3be9925e99bdead540/src/main/java/org/jsoup/select/QueryParser.java

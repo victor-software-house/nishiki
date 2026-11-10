@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language json
 source bench/corpus/json/medium/schemastore-package.json
 url https://raw.githubusercontent.com/SchemaStore/schemastore/71738b637c9abb9acadd932f4202a0fd4f6b8afd/src/schemas/json/package.json

@@ -215,17 +215,17 @@ impl<'a> Lexer<'a> {
     /// `form` of the expression.
     /// The match started at `p`.
     pub(crate) fn put_gap(&mut self, base: usize, form: GapForm, p: usize, gap: &Gap) {
-        self.cap(base, p, gap.end);
+        self.capture(base, p, gap.end);
         match form {
             GapForm::Plain => {
                 if gap.run {
-                    self.cap(base + 1, p, gap.end);
+                    self.capture(base + 1, p, gap.end);
                 }
             }
             GapForm::Parts => {
                 if let Some(parts) = gap.comment {
                     for (i, (a, b)) in parts.iter().enumerate() {
-                        self.cap(base + 1 + i, *a, *b);
+                        self.capture(base + 1 + i, *a, *b);
                     }
                 }
             }

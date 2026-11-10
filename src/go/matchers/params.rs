@@ -88,7 +88,7 @@ impl Lexer<'_> {
             let word = lx.word_in(lx.marks(q), &[b"interface", b"struct"])?;
             lx.opens_curly(lx.spaces(word)).then_some(())
         })?;
-        self.cap(1, p, names);
+        self.capture(1, p, names);
         Some(blank)
     }
 
@@ -117,7 +117,7 @@ impl Lexer<'_> {
         if !self.at_eol(end) {
             return None;
         }
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -153,8 +153,8 @@ impl Lexer<'_> {
                 Params::Function => lx.function_param_type(q),
             })
         })?;
-        self.cap(1, p, names);
-        self.cap(2, start, end);
+        self.capture(1, p, names);
+        self.capture(2, start, end);
         Some(end)
     }
 
@@ -246,7 +246,7 @@ impl Lexer<'_> {
     pub(in crate::go) fn function_param_types_at8(&mut self, p: usize) -> Option<usize> {
         let end = self.dot_words(p);
         (end > p).then(|| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         })
     }

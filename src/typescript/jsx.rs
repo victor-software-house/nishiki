@@ -8,9 +8,9 @@
 
 use super::bytes::Bytes;
 use super::chars::{Before, is_alnum_char};
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 /// A tag name, `(?:(ns)(:))?(tag)?`, with the pieces that carry scopes.
 #[derive(Clone, Copy)]
@@ -140,27 +140,27 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// Emits the captures of a tag start: the `<`, the namespace and its
     /// colon, and the name.
-    fn tag_start_tokens(&mut self, kind: Kind, tag: &TagStart) {
+    fn tag_start_tokens(&mut self, rule: Rule, tag: &TagStart) {
         self.capture(
-            kind,
+            rule,
             tag.lt,
             tag.lt + 1,
             &[S::PunctuationDefinitionTagBegin],
         );
-        self.tag_name_tokens(kind, &tag.name);
+        self.tag_name_tokens(rule, &tag.name);
     }
 
     /// Emits the captures of a tag name.
-    fn tag_name_tokens(&mut self, kind: Kind, name: &TagName) {
+    fn tag_name_tokens(&mut self, rule: Rule, name: &TagName) {
         if let Some((a, e)) = name.namespace {
-            self.capture(kind, a, e, &[S::EntityNameTagNamespace]);
-            self.capture(kind, e, e + 1, &[S::PunctuationSeparatorNamespace]);
+            self.capture(rule, a, e, &[S::EntityNameTagNamespace]);
+            self.capture(rule, e, e + 1, &[S::PunctuationSeparatorNamespace]);
         }
         if let Some((a, e, component)) = name.name {
             if component {
-                self.capture(kind, a, e, &[S::EntityNameTag, S::SupportClassComponent]);
+                self.capture(rule, a, e, &[S::EntityNameTag, S::SupportClassComponent]);
             } else {
-                self.capture(kind, a, e, &[S::EntityNameTag]);
+                self.capture(rule, a, e, &[S::EntityNameTag]);
             }
         }
     }
@@ -172,10 +172,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let q = self.ws(p);
         if self.tag_without_attributes_at(q).is_some() {
-            return self.open_empty(Kind::JsxExprNoAttrs, q);
+            return self.open_empty(Rule::JsxExpressionNoAttributes, q);
         }
         if !self.generic_head_at(q) && self.tag_start_at(q).is_some() {
-            return self.open_empty(Kind::JsxExprTag, q);
+            return self.open_empty(Rule::JsxExprTag, q);
         }
         None
     }
@@ -208,14 +208,14 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.tag_start_tokens(Kind::JsxNoAttrs, &tag);
+        self.tag_start_tokens(Rule::JsxNoAttributes, &tag);
         self.capture(
-            Kind::JsxNoAttrs,
+            Rule::JsxNoAttributes,
             gt,
             gt + 1,
             &[S::PunctuationDefinitionTagEnd],
         );
-        self.push(Kind::JsxNoAttrs);
+        self.push(Rule::JsxNoAttributes);
         Some(gt + 1)
     }
 
@@ -223,7 +223,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// attributes.
     pub(crate) fn jsx_tag(&mut self, p: usize) -> Option<usize> {
         self.tag_start_at(p)?;
-        self.open_empty(Kind::JsxTag, p)
+        self.open_empty(Rule::JsxTag, p)
     }
 
     /// The rules of `jsx-children`.
@@ -240,7 +240,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Kind::JsxEval,
+            Rule::JsxEval,
             p,
             p + 1,
             &[S::PunctuationSectionEmbeddedBegin],
@@ -283,14 +283,14 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.capture(
-            Kind::Top,
+            Rule::Top,
             p,
             p + 1,
             &[S::ConstantCharacterEntity, S::PunctuationDefinitionEntity],
         );
-        self.capture(Kind::Top, p + 1, e, &[S::ConstantCharacterEntity]);
+        self.capture(Rule::Top, p + 1, e, &[S::ConstantCharacterEntity]);
         self.capture(
-            Kind::Top,
+            Rule::Top,
             e,
             e + 1,
             &[S::ConstantCharacterEntity, S::PunctuationDefinitionEntity],
@@ -304,13 +304,13 @@ impl<const D: u8> Lexer<'_, D> {
             && !self.full()
         {
             self.flush(p);
-            self.tag_start_tokens(Kind::JsxTagOpen, &tag);
-            self.push(Kind::JsxTagOpen);
+            self.tag_start_tokens(Rule::JsxTagOpen, &tag);
+            self.push(Rule::JsxTagOpen);
             return Some(tag.name.end);
         }
         if self.byte(p) == b'>' && !self.full() {
             return self.open_token(
-                Kind::JsxTagBody,
+                Rule::JsxTagBody,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionTagEnd],
@@ -331,8 +331,8 @@ impl<const D: u8> Lexer<'_, D> {
         let j = self.ws(p);
         if j > p && !self.full() {
             self.flush(p);
-            self.capture(Kind::JsxAttributes, p, j, &[]);
-            self.push(Kind::JsxAttributes);
+            self.capture(Rule::JsxAttributes, p, j, &[]);
+            self.push(Rule::JsxAttributes);
             return Some(j);
         }
         None
@@ -351,7 +351,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.byte(p) == b'"' && !self.full() {
             return self.open_token(
-                Kind::JsxStrDouble,
+                Rule::JsxStrDouble,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
@@ -359,7 +359,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if self.byte(p) == b'\'' && !self.full() {
             return self.open_token(
-                Kind::JsxStrSingle,
+                Rule::JsxStrSingle,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
@@ -423,19 +423,19 @@ impl<const D: u8> Lexer<'_, D> {
         self.flush(p);
         if let Some((a, ns_end)) = namespace {
             self.capture(
-                Kind::Top,
+                Rule::Top,
                 a,
                 ns_end,
                 &[S::EntityOtherAttributeNameNamespace],
             );
             self.capture(
-                Kind::Top,
+                Rule::Top,
                 ns_end,
                 ns_end + 1,
                 &[S::PunctuationSeparatorNamespace],
             );
         }
-        self.capture(Kind::Top, name_start, e, &[S::EntityOtherAttributeName]);
+        self.capture(Rule::Top, name_start, e, &[S::EntityOtherAttributeName]);
         Some(e)
     }
 
@@ -455,7 +455,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The end of `jsx-tag-without-attributes-in-expression`: the position
     /// where the lookahead for such a tag no longer holds.
-    pub(crate) fn jsx_expr_no_attrs_ends(&self, p: usize) -> bool {
+    pub(crate) fn jsx_expression_no_attributes_ends(&self, p: usize) -> bool {
         self.tag_without_attributes_at(p).is_none()
     }
 
@@ -476,7 +476,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// Ends `jsx-tag-without-attributes` at a closing tag.
-    pub(crate) fn jsx_no_attrs_end(&mut self, p: usize) -> Option<usize> {
+    pub(crate) fn jsx_no_attributes_end(&mut self, p: usize) -> Option<usize> {
         let (name, gt) = self.closing_tag_at(p)?;
         Some(self.close_tag(p, &name, gt, &[]))
     }
@@ -492,12 +492,12 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// Ends the innermost tag context with the captures of a closing tag.
     fn close_tag(&mut self, p: usize, name: &TagName, gt: usize, _leaf: &[S]) -> usize {
-        let kind = self.top();
+        let rule = self.top();
         self.flush(p);
         self.pop();
-        self.capture(kind, p, p + 2, &[S::PunctuationDefinitionTagBegin]);
-        self.tag_name_tokens(kind, name);
-        self.capture(kind, gt, gt + 1, &[S::PunctuationDefinitionTagEnd]);
+        self.capture(rule, p, p + 2, &[S::PunctuationDefinitionTagBegin]);
+        self.tag_name_tokens(rule, name);
+        self.capture(rule, gt, gt + 1, &[S::PunctuationDefinitionTagEnd]);
         gt + 1
     }
 

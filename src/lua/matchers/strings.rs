@@ -19,7 +19,7 @@ impl Lexer<'_> {
         let open = self.lit(p, b"[")?;
         let equals = self.skip(open, |b| b == b'=');
         let end = self.lit(equals, b"[")?;
-        self.cap(group, open, equals);
+        self.capture(group, open, equals);
         Some(end)
     }
 
@@ -49,7 +49,7 @@ impl Lexer<'_> {
         }
         let open = self.space_end(p);
         let end = self.long_bracket(open, 2)?;
-        self.cap(1, open, end);
+        self.capture(1, open, end);
         Some(end)
     }
 
@@ -63,7 +63,7 @@ impl Lexer<'_> {
     /// `(]\2])[\t ]*`
     pub(super) fn cdef_close(&mut self, p: usize) -> Option<usize> {
         let end = self.long_bracket_close(p)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.tabs(end))
     }
 

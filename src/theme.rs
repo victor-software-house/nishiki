@@ -147,7 +147,7 @@ impl std::ops::BitOr for FontStyle {
 
 /// Whether a theme is meant for a light or a dark background.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Hash)]
-pub enum ThemeKind {
+pub enum ColorScheme {
     /// A light background.
     Light,
     /// A dark background, Shiki's default when a theme names neither.
@@ -203,7 +203,7 @@ pub struct ThemeSource {
     /// The theme's name.
     pub name: Option<String>,
     /// Light or dark; dark when unset.
-    pub kind: Option<ThemeKind>,
+    pub color_scheme: Option<ColorScheme>,
     /// The editor's text colour, `colors["editor.foreground"]` in the file.
     pub editor_foreground: Option<String>,
     /// The editor's background, `colors["editor.background"]` in the file.
@@ -237,7 +237,7 @@ pub struct ThemeSource {
 #[derive(Clone, Debug)]
 pub struct Theme {
     name: Option<String>,
-    kind: ThemeKind,
+    color_scheme: ColorScheme,
     defaults: Style,
     rules: trie::Trie,
     /// Unique to the [`Theme::new`] call that built the theme; a clone keeps
@@ -277,17 +277,17 @@ impl Theme {
     ///
     /// - its first rule with no name and no scope;
     /// - the editor colours;
-    /// - VS Code's fallbacks for its [`ThemeKind`].
+    /// - VS Code's fallbacks for its [`ColorScheme`].
     #[must_use]
     pub fn new(source: ThemeSource) -> Theme {
-        let kind = source.kind.unwrap_or_default();
+        let color_scheme = source.color_scheme.unwrap_or_default();
         let global = source
             .rules
             .iter()
             .find(|rule| rule.name.as_deref().is_none_or(str::is_empty) && rule.scope.is_absent());
-        let fallback = match kind {
-            ThemeKind::Light => FALLBACK_LIGHT,
-            ThemeKind::Dark => FALLBACK_DARK,
+        let fallback = match color_scheme {
+            ColorScheme::Light => FALLBACK_LIGHT,
+            ColorScheme::Dark => FALLBACK_DARK,
         };
         let pick = |from_rule: Option<&String>, editor: Option<&String>, fallback: &str| {
             from_rule
@@ -319,7 +319,7 @@ impl Theme {
         let (defaults, rules) = trie::Trie::build(&rules);
         Theme {
             name: source.name,
-            kind,
+            color_scheme,
             defaults,
             rules,
             id: NEXT_THEME.fetch_add(1, Ordering::Relaxed),
@@ -345,8 +345,8 @@ impl Theme {
 
     /// Whether the theme is light or dark.
     #[must_use]
-    pub fn kind(&self) -> ThemeKind {
-        self.kind
+    pub fn color_scheme(&self) -> ColorScheme {
+        self.color_scheme
     }
 
     /// The style of text no rule matches.
@@ -505,7 +505,7 @@ mod tests {
     #[test]
     fn defaults_follow_shiki_when_a_theme_names_no_colours() {
         let light = Theme::new(ThemeSource {
-            kind: Some(ThemeKind::Light),
+            color_scheme: Some(ColorScheme::Light),
             ..ThemeSource::default()
         });
         assert_eq!(light.defaults().foreground.to_string(), "#333333");

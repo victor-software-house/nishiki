@@ -63,30 +63,30 @@ impl Lexer<'_> {
             }
             let prefix = self.space_end(head);
             if let Some((name, end)) = self.prefixed_symbol(prefix) {
-                self.cap(3, inner, head);
+                self.capture(3, inner, head);
                 if name > prefix {
-                    self.cap(4, prefix, name);
+                    self.capture(4, prefix, name);
                 }
-                self.cap(6, name, end);
+                self.capture(6, name, end);
                 end
             } else {
                 let last = self.char_start_before(head);
                 if last == inner || !self.delimiter(head) {
                     return None;
                 }
-                self.cap(3, inner, last);
-                self.cap(6, last, head);
+                self.capture(3, inner, last);
+                self.capture(6, last, head);
                 head
             }
         } else {
             let (name, end) = self.prefixed_symbol(blanks)?;
             if name > blanks {
-                self.cap(7, blanks, name);
+                self.capture(7, blanks, name);
             }
-            self.cap(9, name, end);
+            self.capture(9, name, end);
             end
         };
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         Some(end)
     }
 
@@ -96,8 +96,8 @@ impl Lexer<'_> {
     pub(super) fn def_named(&mut self, p: usize, list: &[&[u8]]) -> Option<usize> {
         let (word, blanks) = self.head(p, list)?;
         let end = self.delimited_symbol(blanks)?;
-        self.cap(1, p, word);
-        self.cap(2, blanks, end);
+        self.capture(1, p, word);
+        self.capture(2, blanks, end);
         Some(end)
     }
 
@@ -122,7 +122,7 @@ impl Lexer<'_> {
             }
             last
         };
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         Some(end)
     }
 
@@ -139,8 +139,8 @@ impl Lexer<'_> {
             blanks
         };
         let end = self.delimited_symbol(name)?;
-        self.cap(1, p, word);
-        self.cap(2, name, end);
+        self.capture(1, p, word);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -153,8 +153,8 @@ impl Lexer<'_> {
         let inner = self.lit(self.space_end(outer), b"(")?;
         let name = self.space_end(inner);
         let end = self.delimited_symbol(name)?;
-        self.cap(1, p, word);
-        self.cap(2, name, end);
+        self.capture(1, p, word);
+        self.capture(2, name, end);
         Some(end)
     }
 }

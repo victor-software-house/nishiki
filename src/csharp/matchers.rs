@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -28,7 +28,7 @@ mod types;
 use strings::Literal;
 
 use super::engine::Lexer;
-use super::grammar::{Fn, How, Pat};
+use super::grammar::{Fn, How, Pattern};
 use crate::rules::Chars;
 
 /// The capture groups of a probe's answer, by group number.
@@ -37,21 +37,21 @@ pub(super) type ProbeGroups =
     [Option<(usize, usize)>; <super::engine::CSharp as crate::rules::Grammar>::GROUPS];
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// It has no `#[inline]`, as Java's matcher has none.
     /// The rule engine's scan then calls it, and `try_match` and `hand` inline
     /// into it here, in the same codegen unit.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        self.try_match(pat, p)
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        self.try_match(pattern, p)
     }
 
-    fn try_match(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat.how() {
+    fn try_match(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern.how() {
             How::Lit(text) => self.lit(p, text),
             How::Group(text) => {
                 let end = self.lit(p, text)?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             How::Word { word, dot, group } => {
@@ -61,7 +61,7 @@ impl Lexer<'_> {
                     self.keyword(p, word)?
                 };
                 if group {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                 }
                 Some(end)
             }
@@ -75,21 +75,21 @@ impl Lexer<'_> {
                     }
                 })
                 .then_some(p),
-            How::Hand(f) => self.hand(f, pat, p),
+            How::Hand(f) => self.hand(f, pattern, p),
         }
     }
 
-    /// The answer of `pat` at `p` with its capture groups, for the probe test
-    /// that compares the matchers with Oniguruma.
+    /// The answer of `pattern` at `p` with its capture groups, for the probe
+    /// test that compares the matchers with Oniguruma.
     #[cfg(test)]
-    pub(super) fn probe(&mut self, pat: Pat, p: usize) -> Option<(usize, ProbeGroups)> {
-        let end = self.try_match(pat, p)?;
-        let mut caps: ProbeGroups =
+    pub(super) fn probe(&mut self, pattern: Pattern, p: usize) -> Option<(usize, ProbeGroups)> {
+        let end = self.try_match(pattern, p)?;
+        let mut captures: ProbeGroups =
             [None; <super::engine::CSharp as crate::rules::Grammar>::GROUPS];
-        for (group, cap) in caps.iter_mut().enumerate().skip(1) {
-            *cap = self.cap_span(group);
+        for (group, capture) in captures.iter_mut().enumerate().skip(1) {
+            *capture = self.capture_span(group);
         }
-        Some((end, caps))
+        Some((end, captures))
     }
 
     /// The matcher of one expression that is not generated: one arm for each.
@@ -97,8 +97,8 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm for each expression of the grammar"
     )]
-    fn hand(&mut self, f: Fn, pat: Pat, p: usize) -> Option<usize> {
-        let word = pat.word();
+    fn hand(&mut self, f: Fn, pattern: Pattern, p: usize) -> Option<usize> {
+        let word = pattern.word();
         match f {
             // Preprocessor.
             Fn::Preprocessor => self.preprocessor(p),
@@ -236,7 +236,7 @@ impl Lexer<'_> {
             Fn::SubpatternAt0 => self.subpattern(p),
             Fn::SwitchLabelEnd => {
                 if let Some(end) = self.lit(p, b":") {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     return Some(end);
                 }
                 self.ahead_of_class(p, b"}")

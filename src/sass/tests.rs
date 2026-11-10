@@ -135,7 +135,7 @@ fn a_vue_style_closes_only_with_no_sass_rule_open() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::sass::engine::Sass;
-    use crate::sass::grammar::Pat;
+    use crate::sass::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with Sass's matchers (see
@@ -144,10 +144,10 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Sass, _>(arena, case, |lexer| {
                 lexer.first_line = true;
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

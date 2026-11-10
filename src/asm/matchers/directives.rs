@@ -75,7 +75,7 @@ impl Lexer<'_> {
         if end == word || words.binary_search(&self.text(word, end)).is_err() {
             return None;
         }
-        self.cap(1, word, end);
+        self.capture(1, word, end);
         match after {
             After::Boundary => Some(end),
             After::Blanks => {
@@ -142,7 +142,7 @@ impl Lexer<'_> {
             return None;
         }
         let open = self.lit(self.space_end(end), b"(")?;
-        self.cap(3, name, end);
+        self.capture(3, name, end);
         Some(open)
     }
 
@@ -150,7 +150,7 @@ impl Lexer<'_> {
     /// the end of the line.
     pub(super) fn function_end(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b')' {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         self.at_eol(p).then_some(p)

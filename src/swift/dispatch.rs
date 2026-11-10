@@ -3,472 +3,472 @@
 //! matcher.
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     #[expect(clippy::too_many_lines, reason = "one arm for each regular expression")]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::CompilerControlAt0 => self.rx_compiler_control_at_0(p),
-            Pat::CompilerControlAt0End => self.rx_compiler_control_at_0_end(p),
-            Pat::CompilerControlAt1 => self.rx_compiler_control_at_1(p),
-            Pat::CompilerControlAt1End => self.rx_compiler_control_at_1_end(p),
-            Pat::CompilerControlAt1At0 => self.rx_compiler_control_at_1_at_0(p),
-            Pat::CompilerControlAt1At1
-            | Pat::LiteralsBoolean => self.rx_compiler_control_at_1_at_1(p),
-            Pat::CompilerControlAt1At2 => self.rx_compiler_control_at_1_at_2(p),
-            Pat::CompilerControlAt1At3 => self.rx_compiler_control_at_1_at_3(p),
-            Pat::CompilerControlAt1At4 => self.rx_compiler_control_at_1_at_4(p),
-            Pat::CompilerControlAt1At5 => self.rx_compiler_control_at_1_at_5(p),
-            Pat::CompilerControlAt1At5End
-            | Pat::CompilerControlAt1At6End => self.rx_compiler_control_at_1_at_5_end(p),
-            Pat::CompilerControlAt1At5At0 => self.rx_compiler_control_at_1_at_5_at_0(p),
-            Pat::CompilerControlAt1At6 => self.rx_compiler_control_at_1_at_6(p),
-            Pat::CompilerControlAt1At6At0 => self.rx_compiler_control_at_1_at_6_at_0(p),
-            Pat::CompilerControlAt1At6At1
-            | Pat::AttributesAt0At1At0 => self.rx_compiler_control_at_1_at_6_at_1(p),
-            Pat::Nested0At0
-            | Pat::Nested1At3 => self.rx_nested_0_at_0(p),
-            Pat::CompilerControlAt2 => self.rx_compiler_control_at_2(p),
-            Pat::Nested1At0 => self.rx_nested_1_at_0(p),
-            Pat::Nested1At0End
-            | Pat::CommentsAt5End
-            | Pat::AttributesAt0At1End
-            | Pat::AttributesAt0At2End
-            | Pat::DeclarationsPrecedencegroupEnd
-            | Pat::DeclarationsInheritanceClauseInheritedTypeEnd
-            | Pat::DeclarationsTypeIdentifierAt0End
-            | Pat::DeclarationsTypeEnumRawValueAssignmentEnd
-            | Pat::OperatorsAt1End
-            | Pat::DeclarationsTypealiasAt0End => self.rx_nested_1_at_0_end(p),
-            Pat::LiteralsNumericAt0 => self.rx_literals_numeric_at_0(p),
-            Pat::LiteralsNumericAt1 => self.rx_literals_numeric_at_1(p),
-            Pat::LiteralsNumericAt2 => self.rx_literals_numeric_at_2(p),
-            Pat::LiteralsNumericAt3 => self.rx_literals_numeric_at_3(p),
-            Pat::LiteralsNumericAt4 => self.rx_literals_numeric_at_4(p),
-            Pat::LiteralsNumericAt5 => self.rx_literals_numeric_at_5(p),
-            Pat::LiteralsNumericAt6 => self.rx_literals_numeric_at_6(p),
-            Pat::LiteralsNumericAt7 => self.rx_literals_numeric_at_7(p),
-            Pat::LiteralsNumericAt8 => self.rx_literals_numeric_at_8(p),
-            Pat::LiteralsNumericAt9 => self.rx_literals_numeric_at_9(p),
-            Pat::LiteralsNumericAt10 => self.rx_literals_numeric_at_10(p),
-            Pat::LiteralsNumericAt11 => self.rx_literals_numeric_at_11(p),
-            Pat::LiteralsStringAt0 => self.rx_literals_string_at_0(p),
-            Pat::LiteralsStringAt0End => self.rx_literals_string_at_0_end(p),
-            Pat::LiteralsStringAt0At0
-            | Pat::LiteralsStringAt1At0
-            | Pat::LiteralsStringAt2At0 => self.rx_literals_string_at_0_at_0(p),
-            Pat::LiteralsStringAt0At1 => self.rx_literals_string_at_0_at_1(p),
-            Pat::LiteralsStringStringGutsAt0 => self.rx_literals_string_string_guts_at_0(p),
-            Pat::LiteralsStringStringGutsAt1 => self.rx_literals_string_string_guts_at_1(p),
-            Pat::LiteralsStringStringGutsAt2 => self.rx_literals_string_string_guts_at_2(p),
-            Pat::LiteralsStringStringGutsAt2End
-            | Pat::AttributesAt0End
-            | Pat::LiteralsStringRawStringGutsAt2End
-            | Pat::AttributesAt1End
-            | Pat::AttributesAt2At0End
-            | Pat::DeclarationsTypeEnumAssociatedValuesEnd
-            | Pat::LiteralsAt7End
-            | Pat::LiteralsRegularExpressionLiteralRegexGutsAt1End
-            | Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0End
-            | Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1End
-            | Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2End
-            | Pat::BuiltinGlobalFunctionsAt0End
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionEnd
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0End
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1End
-            | Pat::LiteralsStringRawStringGutsAt2At1End
-            | Pat::LiteralsStringStringGutsAt2At1End => self.rx_literals_string_string_guts_at_2_end(p),
-            Pat::CompilerControlAt3 => self.rx_compiler_control_at_3(p),
-            Pat::DeclarationsFunction
-            | Pat::DeclarationsProtocolProtocolMethod => self.rx_declarations_function(p),
-            Pat::DeclarationsFunctionEnd
-            | Pat::DeclarationsFunctionInitializerEnd
-            | Pat::DeclarationsFunctionSubscriptEnd => self.rx_declarations_function_end(p),
-            Pat::CommentsAt0 => self.rx_comments_at_0(p),
-            Pat::CommentsAt1 => self.rx_comments_at_1(p),
-            Pat::CommentsAt1End
-            | Pat::CommentsNestedEnd
-            | Pat::CommentsAt2End
-            | Pat::CommentsAt3End
-            | Pat::CommentsAt4 => self.rx_comments_at_1_end(p),
-            Pat::CommentsNested
-            | Pat::CommentsAt3 => self.rx_comments_nested(p),
-            Pat::CommentsAt2 => self.rx_comments_at_2(p),
-            Pat::CommentsAt5 => self.rx_comments_at_5(p),
-            Pat::CommentsAt5At0 => self.rx_comments_at_5_at_0(p),
-            Pat::CommentsAt5At0End
-            | Pat::CommentsAt5At1End
-            | Pat::CommentsAt5At2End => self.rx_comments_at_5_at_0_end(p),
-            Pat::CommentsAt5At1 => self.rx_comments_at_5_at_1(p),
-            Pat::CommentsAt5At2 => self.rx_comments_at_5_at_2(p),
-            Pat::DeclarationsGenericParameterClause
-            | Pat::DeclarationsGenericArgumentClause => self.rx_declarations_generic_parameter_clause(p),
-            Pat::DeclarationsGenericParameterClauseEnd => self.rx_declarations_generic_parameter_clause_end(p),
-            Pat::DeclarationsGenericWhereClause => self.rx_declarations_generic_where_clause(p),
-            Pat::DeclarationsGenericWhereClauseEnd => self.rx_declarations_generic_where_clause_end(p),
-            Pat::DeclarationsGenericWhereClauseRequirementList => self.rx_declarations_generic_where_clause_requirement_list(p),
-            Pat::DeclarationsGenericWhereClauseRequirementListEnd => self.rx_declarations_generic_where_clause_requirement_list_end(p),
-            Pat::BuiltinTypesBuiltinClassType => self.rx_builtin_types_builtin_class_type(p),
-            Pat::BuiltinTypesBuiltinEnumTypeAt0 => self.rx_builtin_types_builtin_enum_type_at_0(p),
-            Pat::BuiltinTypesBuiltinEnumTypeAt1 => self.rx_builtin_types_builtin_enum_type_at_1(p),
-            Pat::BuiltinTypesBuiltinEnumTypeAt2 => self.rx_builtin_types_builtin_enum_type_at_2(p),
-            Pat::BuiltinTypesBuiltinEnumTypeAt3 => self.rx_builtin_types_builtin_enum_type_at_3(p),
-            Pat::BuiltinTypesBuiltinProtocolTypeAt0 => self.rx_builtin_types_builtin_protocol_type_at_0(p),
-            Pat::BuiltinTypesBuiltinProtocolTypeAt1 => self.rx_builtin_types_builtin_protocol_type_at_1(p),
-            Pat::BuiltinTypesBuiltinProtocolTypeAt2 => self.rx_builtin_types_builtin_protocol_type_at_2(p),
-            Pat::BuiltinTypesBuiltinStructTypeAt0 => self.rx_builtin_types_builtin_struct_type_at_0(p),
-            Pat::BuiltinTypesBuiltinStructTypeAt1 => self.rx_builtin_types_builtin_struct_type_at_1(p),
-            Pat::BuiltinTypesBuiltinTypealiasAt0 => self.rx_builtin_types_builtin_typealias_at_0(p),
-            Pat::BuiltinTypesBuiltinTypealiasAt1 => self.rx_builtin_types_builtin_typealias_at_1(p),
-            Pat::BuiltinTypesAt5 => self.rx_builtin_types_at_5(p),
-            Pat::AttributesAt0 => self.rx_attributes_at_0(p),
-            Pat::AttributesAt0At0 => self.rx_attributes_at_0_at_0(p),
-            Pat::AttributesAt0At1 => self.rx_attributes_at_0_at_1(p),
-            Pat::AttributesAt0At2 => self.rx_attributes_at_0_at_2(p),
-            Pat::LiteralsStringAt1 => self.rx_literals_string_at_1(p),
-            Pat::LiteralsStringAt1End => self.rx_literals_string_at_1_end(p),
-            Pat::LiteralsStringAt1At1 => self.rx_literals_string_at_1_at_1(p),
-            Pat::LiteralsStringRawStringGutsAt0 => self.rx_literals_string_raw_string_guts_at_0(p),
-            Pat::LiteralsStringRawStringGutsAt1 => self.rx_literals_string_raw_string_guts_at_1(p),
-            Pat::LiteralsStringRawStringGutsAt2 => self.rx_literals_string_raw_string_guts_at_2(p),
-            Pat::Nested2At0 => self.rx_nested_2_at_0(p),
-            Pat::DeclarationsFunctionInitializer
-            | Pat::DeclarationsProtocolProtocolInitializer => self.rx_declarations_function_initializer(p),
-            Pat::DeclarationsParameterClause => self.rx_declarations_parameter_clause(p),
-            Pat::DeclarationsParameterClauseEnd => self.rx_declarations_parameter_clause_end(p),
-            Pat::DeclarationsParameterListAt0 => self.rx_declarations_parameter_list_at_0(p),
-            Pat::DeclarationsParameterListAt1 => self.rx_declarations_parameter_list_at_1(p),
-            Pat::DeclarationsParameterListAt2 => self.rx_declarations_parameter_list_at_2(p),
-            Pat::DeclarationsParameterListAt2End
-            | Pat::DeclarationsParameterListAt2At3End => self.rx_declarations_parameter_list_at_2_end(p),
-            Pat::DeclarationsParameterListAt2At0
-            | Pat::DeclarationsFunctionResultAt0 => self.rx_declarations_parameter_list_at_2_at_0(p),
-            Pat::AttributesAt1 => self.rx_attributes_at_1(p),
-            Pat::AttributesAt1At0 => self.rx_attributes_at_1_at_0(p),
-            Pat::AttributesAt2 => self.rx_attributes_at_2(p),
-            Pat::AttributesAt2End => self.rx_attributes_at_2_end(p),
-            Pat::AttributesAt2At0
-            | Pat::DeclarationsAvailableTypesTupleType
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression
-            | Pat::LiteralsStringRawStringGutsAt2At1
-            | Pat::LiteralsStringStringGutsAt2At1 => self.rx_attributes_at_2_at_0(p),
-            Pat::CodeBlock
-            | Pat::DeclarationsPrecedencegroupAt0
-            | Pat::DeclarationsProtocolProtocolAt3
-            | Pat::DeclarationsProtocolProtocolMethodAt6
-            | Pat::DeclarationsTypeAt0ClassAt4
-            | Pat::DeclarationsTypeAt0StructAt4
-            | Pat::DeclarationsTypeAt0ActorAt4
-            | Pat::DeclarationsTypeEnumEnumAt4
-            | Pat::DeclarationsExtensionExtensionAt4
-            | Pat::DeclarationsProtocolProtocolInitializerAt5 => self.rx_code_block(p),
-            Pat::CodeBlockEnd
-            | Pat::DeclarationsPrecedencegroupAt0End
-            | Pat::DeclarationsProtocolProtocolAt3End
-            | Pat::DeclarationsProtocolProtocolMethodAt6End
-            | Pat::DeclarationsTypeAt0ClassAt4End
-            | Pat::DeclarationsTypeAt0StructAt4End
-            | Pat::DeclarationsTypeAt0ActorAt4End
-            | Pat::DeclarationsTypeEnumEnumAt4End
-            | Pat::DeclarationsExtensionExtensionAt4End
-            | Pat::DeclarationsProtocolProtocolInitializerAt5End => self.rx_code_block_end(p),
-            Pat::DeclarationsFunctionSubscript => self.rx_declarations_function_subscript(p),
-            Pat::DeclarationsFunctionResult => self.rx_declarations_function_result(p),
-            Pat::DeclarationsFunctionResultEnd => self.rx_declarations_function_result_end(p),
-            Pat::DeclarationsAvailableTypesAt3 => self.rx_declarations_available_types_at_3(p),
-            Pat::DeclarationsAvailableTypesAt4 => self.rx_declarations_available_types_at_4(p),
-            Pat::DeclarationsAvailableTypesAt5 => self.rx_declarations_available_types_at_5(p),
-            Pat::DeclarationsAvailableTypesAt6 => self.rx_declarations_available_types_at_6(p),
-            Pat::DeclarationsAvailableTypesAt7 => self.rx_declarations_available_types_at_7(p),
-            Pat::DeclarationsAvailableTypesAt8 => self.rx_declarations_available_types_at_8(p),
-            Pat::DeclarationsAvailableTypesAt9 => self.rx_declarations_available_types_at_9(p),
-            Pat::DeclarationsAvailableTypesAt10 => self.rx_declarations_available_types_at_10(p),
-            Pat::DeclarationsAvailableTypesAt11 => self.rx_declarations_available_types_at_11(p),
-            Pat::DeclarationsAvailableTypesAt12
-            | Pat::DeclarationsTypeOperatorsAt0 => self.rx_declarations_available_types_at_12(p),
-            Pat::DeclarationsAvailableTypesAt13 => self.rx_declarations_available_types_at_13(p),
-            Pat::DeclarationsAvailableTypesAt14 => self.rx_declarations_available_types_at_14(p),
-            Pat::DeclarationsAvailableTypesAt15 => self.rx_declarations_available_types_at_15(p),
-            Pat::DeclarationsAvailableTypesAt16 => self.rx_declarations_available_types_at_16(p),
-            Pat::DeclarationsAvailableTypesTupleTypeEnd => self.rx_declarations_available_types_tuple_type_end(p),
-            Pat::DeclarationsAvailableTypesCollectionType => self.rx_declarations_available_types_collection_type(p),
-            Pat::DeclarationsAvailableTypesCollectionTypeEnd => self.rx_declarations_available_types_collection_type_end(p),
-            Pat::DeclarationsGenericArgumentClauseEnd => self.rx_declarations_generic_argument_clause_end(p),
-            Pat::DeclarationsAvailableTypesCollectionTypeAt2
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18 => self.rx_declarations_available_types_collection_type_at_2(p),
-            Pat::DeclarationsAvailableTypesCollectionTypeAt3
-            | Pat::KeywordsAt3 => self.rx_declarations_available_types_collection_type_at_3(p),
-            Pat::DeclarationsAvailableTypesCollectionTypeAt4
-            | Pat::DeclarationsAvailableTypesCollectionTypeAt4At0
-            | Pat::DeclarationsTypeEnumAssociatedValuesAt3At1
-            | Pat::OperatorsAt2
-            | Pat::DeclarationsParameterListAt2At2 => self.rx_declarations_available_types_collection_type_at_4(p),
-            Pat::DeclarationsAvailableTypesCollectionTypeAt4End => self.rx_declarations_available_types_collection_type_at_4_end(p),
-            Pat::AsyncThrows => self.rx_async_throws(p),
-            Pat::DeclarationsFunctionSubscriptAt6
-            | Pat::DeclarationsFunctionInitializerAt5
-            | Pat::DeclarationsFunctionAt6 => self.rx_declarations_function_subscript_at_6(p),
-            Pat::DeclarationsFunctionSubscriptAt6End
-            | Pat::DeclarationsOperatorSwift2End
-            | Pat::DeclarationsFunctionInitializerAt5End
-            | Pat::DeclarationsFunctionAt6End => self.rx_declarations_function_subscript_at_6_end(p),
-            Pat::DeclarationsTypedVariableDeclaration => self.rx_declarations_typed_variable_declaration(p),
-            Pat::DeclarationsTypedVariableDeclarationEnd => self.rx_declarations_typed_variable_declaration_end(p),
-            Pat::DeclarationsImport => self.rx_declarations_import(p),
-            Pat::DeclarationsImportEnd
-            | Pat::DeclarationsOperatorEnd => self.rx_declarations_import_end(p),
-            Pat::DeclarationsImportAt0 => self.rx_declarations_import_at_0(p),
-            Pat::DeclarationsImportAt0End => self.rx_declarations_import_at_0_end(p),
-            Pat::DeclarationsImportAt0At0 => self.rx_declarations_import_at_0_at_0(p),
-            Pat::DeclarationsImportAt0At1 => self.rx_declarations_import_at_0_at_1(p),
-            Pat::Nested3At0
-            | Pat::DeclarationsImportAt0At3 => self.rx_nested_3_at_0(p),
-            Pat::DeclarationsImportAt0At2 => self.rx_declarations_import_at_0_at_2(p),
-            Pat::DeclarationsImportAt0At4 => self.rx_declarations_import_at_0_at_4(p),
-            Pat::DeclarationsImportAt0At4End => self.rx_declarations_import_at_0_at_4_end(p),
-            Pat::DeclarationsOperator => self.rx_declarations_operator(p),
-            Pat::DeclarationsOperatorSwift2 => self.rx_declarations_operator_swift_2(p),
-            Pat::DeclarationsOperatorSwift2At1 => self.rx_declarations_operator_swift_2_at_1(p),
-            Pat::DeclarationsOperatorSwift2At2 => self.rx_declarations_operator_swift_2_at_2(p),
-            Pat::DeclarationsOperatorSwift2At3 => self.rx_declarations_operator_swift_2_at_3(p),
-            Pat::DeclarationsTypesPrecedencegroupAt0 => self.rx_declarations_types_precedencegroup_at_0(p),
-            Pat::DeclarationsOperatorSwift3 => self.rx_declarations_operator_swift_3(p),
-            Pat::DeclarationsOperatorAt2 => self.rx_declarations_operator_at_2(p),
-            Pat::DeclarationsPrecedencegroup => self.rx_declarations_precedencegroup(p),
-            Pat::DeclarationsPrecedencegroupAt0At1 => self.rx_declarations_precedencegroup_at_0_at_1(p),
-            Pat::DeclarationsPrecedencegroupAt0At2 => self.rx_declarations_precedencegroup_at_0_at_2(p),
-            Pat::DeclarationsPrecedencegroupAt0At3 => self.rx_declarations_precedencegroup_at_0_at_3(p),
-            Pat::DeclarationsProtocolProtocol => self.rx_declarations_protocol_protocol(p),
-            Pat::DeclarationsProtocolProtocolEnd
-            | Pat::DeclarationsTypeAt0ClassEnd
-            | Pat::DeclarationsTypeAt0StructEnd
-            | Pat::DeclarationsTypeAt0ActorEnd
-            | Pat::DeclarationsTypeEnumEnumEnd
-            | Pat::DeclarationsExtensionExtensionEnd => self.rx_declarations_protocol_protocol_end(p),
-            Pat::DeclarationsInheritanceClause => self.rx_declarations_inheritance_clause(p),
-            Pat::DeclarationsInheritanceClauseEnd
-            | Pat::DeclarationsInheritanceClauseAt1End => self.rx_declarations_inheritance_clause_end(p),
-            Pat::DeclarationsInheritanceClauseAt0 => self.rx_declarations_inheritance_clause_at_0(p),
-            Pat::DeclarationsInheritanceClauseAt0End => self.rx_declarations_inheritance_clause_at_0_end(p),
-            Pat::DeclarationsInheritanceClauseMoreTypes
-            | Pat::DeclarationsTypeEnumMoreCases => self.rx_declarations_inheritance_clause_more_types(p),
-            Pat::DeclarationsInheritanceClauseMoreTypesEnd => self.rx_declarations_inheritance_clause_more_types_end(p),
-            Pat::DeclarationsInheritanceClauseInheritedType => self.rx_declarations_inheritance_clause_inherited_type(p),
-            Pat::DeclarationsTypeIdentifier
-            | Pat::DeclarationsTypeEnumEnumCase => self.rx_declarations_type_identifier(p),
-            Pat::DeclarationsTypeIdentifierEnd => self.rx_declarations_type_identifier_end(p),
-            Pat::DeclarationsTypeIdentifierAt0 => self.rx_declarations_type_identifier_at_0(p),
-            Pat::DeclarationsTypeOperatorsAt1 => self.rx_declarations_type_operators_at_1(p),
-            Pat::DeclarationsInheritanceClauseAt1
-            | Pat::DeclarationsGenericParameterClauseAt6At0 => self.rx_declarations_inheritance_clause_at_1(p),
-            Pat::DeclarationsProtocolProtocolMethodEnd
-            | Pat::DeclarationsProtocolProtocolInitializerEnd => self.rx_declarations_protocol_protocol_method_end(p),
-            Pat::DeclarationsTypeAt0Class => self.rx_declarations_type_at_0_class(p),
-            Pat::DeclarationsTypeAt0Struct => self.rx_declarations_type_at_0_struct(p),
-            Pat::DeclarationsTypeAt0Actor => self.rx_declarations_type_at_0_actor(p),
-            Pat::DeclarationsTypeEnumEnum => self.rx_declarations_type_enum_enum(p),
-            Pat::DeclarationsTypeEnumEnumCaseClause => self.rx_declarations_type_enum_enum_case_clause(p),
-            Pat::DeclarationsTypeEnumEnumCaseClauseEnd => self.rx_declarations_type_enum_enum_case_clause_end(p),
-            Pat::DeclarationsTypeEnumEnumCaseEnd => self.rx_declarations_type_enum_enum_case_end(p),
-            Pat::DeclarationsTypeEnumAssociatedValues => self.rx_declarations_type_enum_associated_values(p),
-            Pat::DeclarationsTypeEnumAssociatedValuesAt1 => self.rx_declarations_type_enum_associated_values_at_1(p),
-            Pat::DeclarationsTypeEnumAssociatedValuesAt1End
-            | Pat::DeclarationsTypeEnumAssociatedValuesAt2End
-            | Pat::DeclarationsTypeEnumAssociatedValuesAt3End
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1End
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2End => self.rx_declarations_type_enum_associated_values_at_1_end(p),
-            Pat::DeclarationsTypeEnumAssociatedValuesAt2 => self.rx_declarations_type_enum_associated_values_at_2(p),
-            Pat::DeclarationsTypeEnumAssociatedValuesAt3
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2 => self.rx_declarations_type_enum_associated_values_at_3(p),
-            Pat::DeclarationsTypeEnumRawValueAssignment
-            | Pat::DeclarationsTypealiasAssignment => self.rx_declarations_type_enum_raw_value_assignment(p),
-            Pat::LiteralsStringAt2 => self.rx_literals_string_at_2(p),
-            Pat::LiteralsStringAt2End => self.rx_literals_string_at_2_end(p),
-            Pat::LiteralsStringAt3 => self.rx_literals_string_at_3(p),
-            Pat::LiteralsStringAt3End => self.rx_literals_string_at_3_end(p),
-            Pat::LiteralsStringAt3At0
-            | Pat::LiteralsStringAt4At0
-            | Pat::LiteralsStringAt5At0 => self.rx_literals_string_at_3_at_0(p),
-            Pat::LiteralsStringStringGutsAt3 => self.rx_literals_string_string_guts_at_3(p),
-            Pat::LiteralsStringAt4 => self.rx_literals_string_at_4(p),
-            Pat::LiteralsStringAt4End => self.rx_literals_string_at_4_end(p),
-            Pat::LiteralsStringAt5 => self.rx_literals_string_at_5(p),
-            Pat::LiteralsStringAt5End => self.rx_literals_string_at_5_end(p),
-            Pat::LiteralsStringRawStringGutsAt3 => self.rx_literals_string_raw_string_guts_at_3(p),
-            Pat::LiteralsAt3 => self.rx_literals_at_3(p),
-            Pat::LiteralsAt4 => self.rx_literals_at_4(p),
-            Pat::LiteralsAt5 => self.rx_literals_at_5(p),
-            Pat::LiteralsAt6 => self.rx_literals_at_6(p),
-            Pat::LiteralsAt7 => self.rx_literals_at_7(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter => self.rx_expressions_without_trailing_closures_or_member_references_closure_parameter(p),
-            Pat::LiteralsRegularExpressionLiteralAt0 => self.rx_literals_regular_expression_literal_at_0(p),
-            Pat::LiteralsRegularExpressionLiteralAt0End => self.rx_literals_regular_expression_literal_at_0_end(p),
-            Pat::LiteralsRegularExpressionLiteralQuote => self.rx_literals_regular_expression_literal_quote(p),
-            Pat::LiteralsRegularExpressionLiteralQuoteEnd => self.rx_literals_regular_expression_literal_quote_end(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt1 => self.rx_literals_regular_expression_literal_regex_guts_at_1(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt2 => self.rx_literals_regular_expression_literal_regex_guts_at_2(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt2End => self.rx_literals_regular_expression_literal_regex_guts_at_2_end(p),
-            Pat::LiteralsRegularExpressionLiteralUnicodeScalars => self.rx_literals_regular_expression_literal_unicode_scalars(p),
-            Pat::LiteralsRegularExpressionLiteralCharacterProperties => self.rx_literals_regular_expression_literal_character_properties(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt5 => self.rx_literals_regular_expression_literal_regex_guts_at_5(p),
-            Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption => self.rx_literals_regular_expression_literal_backtracking_directive_or_global_matching_option(p),
-            Pat::LiteralsRegularExpressionLiteralCallout => self.rx_literals_regular_expression_literal_callout(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_0(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_1(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_2(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_3(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_4(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_5(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_6(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_7(p),
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_8(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt9 => self.rx_literals_regular_expression_literal_regex_guts_at_9(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt10 => self.rx_literals_regular_expression_literal_regex_guts_at_10(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt11 => self.rx_literals_regular_expression_literal_regex_guts_at_11(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt12 => self.rx_literals_regular_expression_literal_regex_guts_at_12(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt13 => self.rx_literals_regular_expression_literal_regex_guts_at_13(p),
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt14 => self.rx_literals_regular_expression_literal_regex_guts_at_14(p),
-            Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0 => self.rx_literals_regular_expression_literal_custom_char_class_at_0(p),
-            Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0End
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpressionEnd => self.rx_literals_regular_expression_literal_custom_char_class_at_0_end(p),
-            Pat::LiteralsRegularExpressionLiteralCustomCharClassMembersAt0 => self.rx_literals_regular_expression_literal_custom_char_class_members_at_0(p),
-            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt0 => self.rx_literals_regular_expression_literal_set_operators_at_0(p),
-            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt1 => self.rx_literals_regular_expression_literal_set_operators_at_1(p),
-            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt2 => self.rx_literals_regular_expression_literal_set_operators_at_2(p),
-            Pat::LiteralsRegularExpressionLiteralGroupOptionToggle => self.rx_literals_regular_expression_literal_group_option_toggle(p),
-            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0 => self.rx_literals_regular_expression_literal_group_or_conditional_at_0(p),
-            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1 => self.rx_literals_regular_expression_literal_group_or_conditional_at_1(p),
-            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2 => self.rx_literals_regular_expression_literal_group_or_conditional_at_2(p),
-            Pat::LiteralsRegularExpressionLiteralLineComment => self.rx_literals_regular_expression_literal_line_comment(p),
-            Pat::LiteralsRegularExpressionLiteralAt1 => self.rx_literals_regular_expression_literal_at_1(p),
-            Pat::LiteralsRegularExpressionLiteralAt2 => self.rx_literals_regular_expression_literal_at_2(p),
-            Pat::OperatorsAt0 => self.rx_operators_at_0(p),
-            Pat::OperatorsAt1 => self.rx_operators_at_1(p),
-            Pat::Nested7At0
-            | Pat::Nested8At0 => self.rx_nested_7_at_0(p),
-            Pat::Nested7At1 => self.rx_nested_7_at_1(p),
-            Pat::Nested7At2
-            | Pat::Nested8At1 => self.rx_nested_7_at_2(p),
-            Pat::Nested7At3 => self.rx_nested_7_at_3(p),
-            Pat::Nested7At4
-            | Pat::Nested8At2
-            | Pat::Nested9At11
-            | Pat::Nested10At0
-            | Pat::Nested11At0
-            | Pat::Nested12At1 => self.rx_nested_7_at_4(p),
-            Pat::OperatorsAt1At0 => self.rx_operators_at_1_at_0(p),
-            Pat::OperatorsAt1At1 => self.rx_operators_at_1_at_1(p),
-            Pat::Nested9At0 => self.rx_nested_9_at_0(p),
-            Pat::Nested9At1 => self.rx_nested_9_at_1(p),
-            Pat::Nested9At2 => self.rx_nested_9_at_2(p),
-            Pat::Nested9At3 => self.rx_nested_9_at_3(p),
-            Pat::Nested9At4 => self.rx_nested_9_at_4(p),
-            Pat::Nested9At5 => self.rx_nested_9_at_5(p),
-            Pat::Nested9At6 => self.rx_nested_9_at_6(p),
-            Pat::Nested9At7 => self.rx_nested_9_at_7(p),
-            Pat::Nested9At8 => self.rx_nested_9_at_8(p),
-            Pat::Nested9At9 => self.rx_nested_9_at_9(p),
-            Pat::Nested9At10 => self.rx_nested_9_at_10(p),
-            Pat::OperatorsAt1At2 => self.rx_operators_at_1_at_2(p),
-            Pat::OperatorsAt1At3 => self.rx_operators_at_1_at_3(p),
-            Pat::OperatorsAt1At4 => self.rx_operators_at_1_at_4(p),
-            Pat::Nested12At0 => self.rx_nested_12_at_0(p),
-            Pat::OperatorsAt1At5 => self.rx_operators_at_1_at_5(p),
-            Pat::BuiltinFunctionsAt0 => self.rx_builtin_functions_at_0(p),
-            Pat::BuiltinFunctionsAt1 => self.rx_builtin_functions_at_1(p),
-            Pat::BuiltinFunctionsAt2 => self.rx_builtin_functions_at_2(p),
-            Pat::BuiltinGlobalFunctionsAt0 => self.rx_builtin_global_functions_at_0(p),
-            Pat::BuiltinGlobalFunctionsAt1 => self.rx_builtin_global_functions_at_1(p),
-            Pat::BuiltinGlobalFunctionsAt2 => self.rx_builtin_global_functions_at_2(p),
-            Pat::BuiltinGlobalFunctionsAt3 => self.rx_builtin_global_functions_at_3(p),
-            Pat::BuiltinPropertiesAt0 => self.rx_builtin_properties_at_0(p),
-            Pat::BuiltinPropertiesAt1 => self.rx_builtin_properties_at_1(p),
-            Pat::BuiltinPropertiesAt2 => self.rx_builtin_properties_at_2(p),
-            Pat::BuiltinPropertiesAt3 => self.rx_builtin_properties_at_3(p),
-            Pat::Nested13At0 => self.rx_nested_13_at_0(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName => self.rx_expressions_without_trailing_closures_or_member_references_compound_name(p),
-            Pat::KeywordsAt0 => self.rx_keywords_at_0(p),
-            Pat::KeywordsAt1 => self.rx_keywords_at_1(p),
-            Pat::KeywordsAt2 => self.rx_keywords_at_2(p),
-            Pat::KeywordsAt4 => self.rx_keywords_at_4(p),
-            Pat::KeywordsAt5 => self.rx_keywords_at_5(p),
-            Pat::KeywordsAt6 => self.rx_keywords_at_6(p),
-            Pat::KeywordsAt7 => self.rx_keywords_at_7(p),
-            Pat::KeywordsAt8 => self.rx_keywords_at_8(p),
-            Pat::KeywordsAt9 => self.rx_keywords_at_9(p),
-            Pat::KeywordsAt10 => self.rx_keywords_at_10(p),
-            Pat::KeywordsAt11 => self.rx_keywords_at_11(p),
-            Pat::KeywordsAt12 => self.rx_keywords_at_12(p),
-            Pat::KeywordsAt13Class => self.rx_keywords_at_13_class(p),
-            Pat::KeywordsAt13Enum => self.rx_keywords_at_13_enum(p),
-            Pat::KeywordsAt13Extension => self.rx_keywords_at_13_extension(p),
-            Pat::KeywordsAt13Precedencegroup => self.rx_keywords_at_13_precedencegroup(p),
-            Pat::KeywordsAt13Protocol => self.rx_keywords_at_13_protocol(p),
-            Pat::KeywordsAt13Struct => self.rx_keywords_at_13_struct(p),
-            Pat::KeywordsAt13Actor => self.rx_keywords_at_13_actor(p),
-            Pat::KeywordsAt14 => self.rx_keywords_at_14(p),
-            Pat::KeywordsAt15 => self.rx_keywords_at_15(p),
-            Pat::KeywordsAt16 => self.rx_keywords_at_16(p),
-            Pat::KeywordsAt17 => self.rx_keywords_at_17(p),
-            Pat::KeywordsAt18 => self.rx_keywords_at_18(p),
-            Pat::KeywordsAt19 => self.rx_keywords_at_19(p),
-            Pat::KeywordsAt20 => self.rx_keywords_at_20(p),
-            Pat::KeywordsAt21 => self.rx_keywords_at_21(p),
-            Pat::KeywordsAt22 => self.rx_keywords_at_22(p),
-            Pat::KeywordsAt23 => self.rx_keywords_at_23(p),
-            Pat::KeywordsAt24 => self.rx_keywords_at_24(p),
-            Pat::KeywordsAt25 => self.rx_keywords_at_25(p),
-            Pat::ConditionalsAt0 => self.rx_conditionals_at_0(p),
-            Pat::ConditionalsAt0End => self.rx_conditionals_at_0_end(p),
-            Pat::ConditionalsAt1 => self.rx_conditionals_at_1(p),
-            Pat::ConditionalsAt1End => self.rx_conditionals_at_1_end(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt0 => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition_at_0(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt1 => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition_at_1(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt2 => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition_at_2(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0 => self.rx_expressions_without_trailing_closures_or_member_references_function_or_macro_call_expression_at_0(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1 => self.rx_expressions_without_trailing_closures_or_member_references_expression_element_list_at_1(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => self.rx_expressions_without_trailing_closures_or_member_references_function_or_macro_call_expression_at_1(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => self.rx_expressions_without_trailing_closures_or_member_references_macro_expansion(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => self.rx_expressions_without_trailing_closures_or_member_references_subscript_expression(p),
-            Pat::Nested15At0 => self.rx_nested_15_at_0(p),
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpressionEnd => self.rx_expressions_without_trailing_closures_or_member_references_parenthesized_expression_end(p),
-            Pat::ExpressionsTrailingClosureAt0 => self.rx_expressions_trailing_closure_at_0(p),
-            Pat::ExpressionsTrailingClosureAt1 => self.rx_expressions_trailing_closure_at_1(p),
-            Pat::MemberReferenceAt0 => self.rx_member_reference_at_0(p),
-            Pat::DeclarationsTypeEnumMoreCasesEnd => self.rx_declarations_type_enum_more_cases_end(p),
-            Pat::DeclarationsExtensionExtension => self.rx_declarations_extension_extension(p),
-            Pat::DeclarationsExtensionExtensionAt0 => self.rx_declarations_extension_extension_at_0(p),
-            Pat::DeclarationsExtensionExtensionAt0End => self.rx_declarations_extension_extension_at_0_end(p),
-            Pat::DeclarationsTypealias => self.rx_declarations_typealias(p),
-            Pat::DeclarationsTypealiasEnd
-            | Pat::DeclarationsTypealiasAssignmentEnd => self.rx_declarations_typealias_end(p),
-            Pat::DeclarationsTypealiasAt0 => self.rx_declarations_typealias_at_0(p),
-            Pat::DeclarationsMacro => self.rx_declarations_macro(p),
-            Pat::DeclarationsMacroEnd => self.rx_declarations_macro_end(p),
-            Pat::DeclarationsProtocolAssociatedType => self.rx_declarations_protocol_associated_type(p),
-            Pat::DeclarationsProtocolAssociatedTypeEnd => self.rx_declarations_protocol_associated_type_end(p),
-            Pat::DeclarationsParameterListAt2At3 => self.rx_declarations_parameter_list_at_2_at_3(p),
-            Pat::LiteralsStringAt1At3 => self.rx_literals_string_at_1_at_3(p),
-            Pat::AttributesAt0At3 => self.rx_attributes_at_0_at_3(p),
-            Pat::DeclarationsGenericWhereClauseRequirementListAt3 => self.rx_declarations_generic_where_clause_requirement_list_at_3(p),
-            Pat::DeclarationsGenericWhereClauseRequirementListAt3End
-            | Pat::DeclarationsGenericWhereClauseRequirementListAt4End
-            | Pat::DeclarationsGenericWhereClauseRequirementListAt4At0End => self.rx_declarations_generic_where_clause_requirement_list_at_3_end(p),
-            Pat::DeclarationsGenericWhereClauseRequirementListAt4 => self.rx_declarations_generic_where_clause_requirement_list_at_4(p),
-            Pat::DeclarationsGenericWhereClauseRequirementListAt4At0 => self.rx_declarations_generic_where_clause_requirement_list_at_4_at_0(p),
-            Pat::DeclarationsGenericParameterClauseAt2 => self.rx_declarations_generic_parameter_clause_at_2(p),
-            Pat::DeclarationsGenericParameterClauseAt3 => self.rx_declarations_generic_parameter_clause_at_3(p),
-            Pat::DeclarationsGenericParameterClauseAt4 => self.rx_declarations_generic_parameter_clause_at_4(p),
-            Pat::DeclarationsGenericParameterClauseAt5
-            | Pat::Nested1At2 => self.rx_declarations_generic_parameter_clause_at_5(p),
-            Pat::DeclarationsGenericParameterClauseAt6 => self.rx_declarations_generic_parameter_clause_at_6(p),
-            Pat::DeclarationsGenericParameterClauseAt6End
-            | Pat::DeclarationsGenericParameterClauseAt6At0End => self.rx_declarations_generic_parameter_clause_at_6_end(p),
-            Pat::LiteralsStringAt0At3 => self.rx_literals_string_at_0_at_3(p),
-            Pat::Nested1At1 => self.rx_nested_1_at_1(p),
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::CompilerControlAt0 => self.rx_compiler_control_at_0(p),
+            Pattern::CompilerControlAt0End => self.rx_compiler_control_at_0_end(p),
+            Pattern::CompilerControlAt1 => self.rx_compiler_control_at_1(p),
+            Pattern::CompilerControlAt1End => self.rx_compiler_control_at_1_end(p),
+            Pattern::CompilerControlAt1At0 => self.rx_compiler_control_at_1_at_0(p),
+            Pattern::CompilerControlAt1At1
+            | Pattern::LiteralsBoolean => self.rx_compiler_control_at_1_at_1(p),
+            Pattern::CompilerControlAt1At2 => self.rx_compiler_control_at_1_at_2(p),
+            Pattern::CompilerControlAt1At3 => self.rx_compiler_control_at_1_at_3(p),
+            Pattern::CompilerControlAt1At4 => self.rx_compiler_control_at_1_at_4(p),
+            Pattern::CompilerControlAt1At5 => self.rx_compiler_control_at_1_at_5(p),
+            Pattern::CompilerControlAt1At5End
+            | Pattern::CompilerControlAt1At6End => self.rx_compiler_control_at_1_at_5_end(p),
+            Pattern::CompilerControlAt1At5At0 => self.rx_compiler_control_at_1_at_5_at_0(p),
+            Pattern::CompilerControlAt1At6 => self.rx_compiler_control_at_1_at_6(p),
+            Pattern::CompilerControlAt1At6At0 => self.rx_compiler_control_at_1_at_6_at_0(p),
+            Pattern::CompilerControlAt1At6At1
+            | Pattern::AttributesAt0At1At0 => self.rx_compiler_control_at_1_at_6_at_1(p),
+            Pattern::Nested0At0
+            | Pattern::Nested1At3 => self.rx_nested_0_at_0(p),
+            Pattern::CompilerControlAt2 => self.rx_compiler_control_at_2(p),
+            Pattern::Nested1At0 => self.rx_nested_1_at_0(p),
+            Pattern::Nested1At0End
+            | Pattern::CommentsAt5End
+            | Pattern::AttributesAt0At1End
+            | Pattern::AttributesAt0At2End
+            | Pattern::DeclarationsPrecedencegroupEnd
+            | Pattern::DeclarationsInheritanceClauseInheritedTypeEnd
+            | Pattern::DeclarationsTypeIdentifierAt0End
+            | Pattern::DeclarationsTypeEnumRawValueAssignmentEnd
+            | Pattern::OperatorsAt1End
+            | Pattern::DeclarationsTypealiasAt0End => self.rx_nested_1_at_0_end(p),
+            Pattern::LiteralsNumericAt0 => self.rx_literals_numeric_at_0(p),
+            Pattern::LiteralsNumericAt1 => self.rx_literals_numeric_at_1(p),
+            Pattern::LiteralsNumericAt2 => self.rx_literals_numeric_at_2(p),
+            Pattern::LiteralsNumericAt3 => self.rx_literals_numeric_at_3(p),
+            Pattern::LiteralsNumericAt4 => self.rx_literals_numeric_at_4(p),
+            Pattern::LiteralsNumericAt5 => self.rx_literals_numeric_at_5(p),
+            Pattern::LiteralsNumericAt6 => self.rx_literals_numeric_at_6(p),
+            Pattern::LiteralsNumericAt7 => self.rx_literals_numeric_at_7(p),
+            Pattern::LiteralsNumericAt8 => self.rx_literals_numeric_at_8(p),
+            Pattern::LiteralsNumericAt9 => self.rx_literals_numeric_at_9(p),
+            Pattern::LiteralsNumericAt10 => self.rx_literals_numeric_at_10(p),
+            Pattern::LiteralsNumericAt11 => self.rx_literals_numeric_at_11(p),
+            Pattern::LiteralsStringAt0 => self.rx_literals_string_at_0(p),
+            Pattern::LiteralsStringAt0End => self.rx_literals_string_at_0_end(p),
+            Pattern::LiteralsStringAt0At0
+            | Pattern::LiteralsStringAt1At0
+            | Pattern::LiteralsStringAt2At0 => self.rx_literals_string_at_0_at_0(p),
+            Pattern::LiteralsStringAt0At1 => self.rx_literals_string_at_0_at_1(p),
+            Pattern::LiteralsStringStringGutsAt0 => self.rx_literals_string_string_guts_at_0(p),
+            Pattern::LiteralsStringStringGutsAt1 => self.rx_literals_string_string_guts_at_1(p),
+            Pattern::LiteralsStringStringGutsAt2 => self.rx_literals_string_string_guts_at_2(p),
+            Pattern::LiteralsStringStringGutsAt2End
+            | Pattern::AttributesAt0End
+            | Pattern::LiteralsStringRawStringGutsAt2End
+            | Pattern::AttributesAt1End
+            | Pattern::AttributesAt2At0End
+            | Pattern::DeclarationsTypeEnumAssociatedValuesEnd
+            | Pattern::LiteralsAt7End
+            | Pattern::LiteralsRegularExpressionLiteralRegexGutsAt1End
+            | Pattern::LiteralsRegularExpressionLiteralGroupOrConditionalAt0End
+            | Pattern::LiteralsRegularExpressionLiteralGroupOrConditionalAt1End
+            | Pattern::LiteralsRegularExpressionLiteralGroupOrConditionalAt2End
+            | Pattern::BuiltinGlobalFunctionsAt0End
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionEnd
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0End
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1End
+            | Pattern::LiteralsStringRawStringGutsAt2At1End
+            | Pattern::LiteralsStringStringGutsAt2At1End => self.rx_literals_string_string_guts_at_2_end(p),
+            Pattern::CompilerControlAt3 => self.rx_compiler_control_at_3(p),
+            Pattern::DeclarationsFunction
+            | Pattern::DeclarationsProtocolProtocolMethod => self.rx_declarations_function(p),
+            Pattern::DeclarationsFunctionEnd
+            | Pattern::DeclarationsFunctionInitializerEnd
+            | Pattern::DeclarationsFunctionSubscriptEnd => self.rx_declarations_function_end(p),
+            Pattern::CommentsAt0 => self.rx_comments_at_0(p),
+            Pattern::CommentsAt1 => self.rx_comments_at_1(p),
+            Pattern::CommentsAt1End
+            | Pattern::CommentsNestedEnd
+            | Pattern::CommentsAt2End
+            | Pattern::CommentsAt3End
+            | Pattern::CommentsAt4 => self.rx_comments_at_1_end(p),
+            Pattern::CommentsNested
+            | Pattern::CommentsAt3 => self.rx_comments_nested(p),
+            Pattern::CommentsAt2 => self.rx_comments_at_2(p),
+            Pattern::CommentsAt5 => self.rx_comments_at_5(p),
+            Pattern::CommentsAt5At0 => self.rx_comments_at_5_at_0(p),
+            Pattern::CommentsAt5At0End
+            | Pattern::CommentsAt5At1End
+            | Pattern::CommentsAt5At2End => self.rx_comments_at_5_at_0_end(p),
+            Pattern::CommentsAt5At1 => self.rx_comments_at_5_at_1(p),
+            Pattern::CommentsAt5At2 => self.rx_comments_at_5_at_2(p),
+            Pattern::DeclarationsGenericParameterClause
+            | Pattern::DeclarationsGenericArgumentClause => self.rx_declarations_generic_parameter_clause(p),
+            Pattern::DeclarationsGenericParameterClauseEnd => self.rx_declarations_generic_parameter_clause_end(p),
+            Pattern::DeclarationsGenericWhereClause => self.rx_declarations_generic_where_clause(p),
+            Pattern::DeclarationsGenericWhereClauseEnd => self.rx_declarations_generic_where_clause_end(p),
+            Pattern::DeclarationsGenericWhereClauseRequirementList => self.rx_declarations_generic_where_clause_requirement_list(p),
+            Pattern::DeclarationsGenericWhereClauseRequirementListEnd => self.rx_declarations_generic_where_clause_requirement_list_end(p),
+            Pattern::BuiltinTypesBuiltinClassType => self.rx_builtin_types_builtin_class_type(p),
+            Pattern::BuiltinTypesBuiltinEnumTypeAt0 => self.rx_builtin_types_builtin_enum_type_at_0(p),
+            Pattern::BuiltinTypesBuiltinEnumTypeAt1 => self.rx_builtin_types_builtin_enum_type_at_1(p),
+            Pattern::BuiltinTypesBuiltinEnumTypeAt2 => self.rx_builtin_types_builtin_enum_type_at_2(p),
+            Pattern::BuiltinTypesBuiltinEnumTypeAt3 => self.rx_builtin_types_builtin_enum_type_at_3(p),
+            Pattern::BuiltinTypesBuiltinProtocolTypeAt0 => self.rx_builtin_types_builtin_protocol_type_at_0(p),
+            Pattern::BuiltinTypesBuiltinProtocolTypeAt1 => self.rx_builtin_types_builtin_protocol_type_at_1(p),
+            Pattern::BuiltinTypesBuiltinProtocolTypeAt2 => self.rx_builtin_types_builtin_protocol_type_at_2(p),
+            Pattern::BuiltinTypesBuiltinStructTypeAt0 => self.rx_builtin_types_builtin_struct_type_at_0(p),
+            Pattern::BuiltinTypesBuiltinStructTypeAt1 => self.rx_builtin_types_builtin_struct_type_at_1(p),
+            Pattern::BuiltinTypesBuiltinTypealiasAt0 => self.rx_builtin_types_builtin_typealias_at_0(p),
+            Pattern::BuiltinTypesBuiltinTypealiasAt1 => self.rx_builtin_types_builtin_typealias_at_1(p),
+            Pattern::BuiltinTypesAt5 => self.rx_builtin_types_at_5(p),
+            Pattern::AttributesAt0 => self.rx_attributes_at_0(p),
+            Pattern::AttributesAt0At0 => self.rx_attributes_at_0_at_0(p),
+            Pattern::AttributesAt0At1 => self.rx_attributes_at_0_at_1(p),
+            Pattern::AttributesAt0At2 => self.rx_attributes_at_0_at_2(p),
+            Pattern::LiteralsStringAt1 => self.rx_literals_string_at_1(p),
+            Pattern::LiteralsStringAt1End => self.rx_literals_string_at_1_end(p),
+            Pattern::LiteralsStringAt1At1 => self.rx_literals_string_at_1_at_1(p),
+            Pattern::LiteralsStringRawStringGutsAt0 => self.rx_literals_string_raw_string_guts_at_0(p),
+            Pattern::LiteralsStringRawStringGutsAt1 => self.rx_literals_string_raw_string_guts_at_1(p),
+            Pattern::LiteralsStringRawStringGutsAt2 => self.rx_literals_string_raw_string_guts_at_2(p),
+            Pattern::Nested2At0 => self.rx_nested_2_at_0(p),
+            Pattern::DeclarationsFunctionInitializer
+            | Pattern::DeclarationsProtocolProtocolInitializer => self.rx_declarations_function_initializer(p),
+            Pattern::DeclarationsParameterClause => self.rx_declarations_parameter_clause(p),
+            Pattern::DeclarationsParameterClauseEnd => self.rx_declarations_parameter_clause_end(p),
+            Pattern::DeclarationsParameterListAt0 => self.rx_declarations_parameter_list_at_0(p),
+            Pattern::DeclarationsParameterListAt1 => self.rx_declarations_parameter_list_at_1(p),
+            Pattern::DeclarationsParameterListAt2 => self.rx_declarations_parameter_list_at_2(p),
+            Pattern::DeclarationsParameterListAt2End
+            | Pattern::DeclarationsParameterListAt2At3End => self.rx_declarations_parameter_list_at_2_end(p),
+            Pattern::DeclarationsParameterListAt2At0
+            | Pattern::DeclarationsFunctionResultAt0 => self.rx_declarations_parameter_list_at_2_at_0(p),
+            Pattern::AttributesAt1 => self.rx_attributes_at_1(p),
+            Pattern::AttributesAt1At0 => self.rx_attributes_at_1_at_0(p),
+            Pattern::AttributesAt2 => self.rx_attributes_at_2(p),
+            Pattern::AttributesAt2End => self.rx_attributes_at_2_end(p),
+            Pattern::AttributesAt2At0
+            | Pattern::DeclarationsAvailableTypesTupleType
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression
+            | Pattern::LiteralsStringRawStringGutsAt2At1
+            | Pattern::LiteralsStringStringGutsAt2At1 => self.rx_attributes_at_2_at_0(p),
+            Pattern::CodeBlock
+            | Pattern::DeclarationsPrecedencegroupAt0
+            | Pattern::DeclarationsProtocolProtocolAt3
+            | Pattern::DeclarationsProtocolProtocolMethodAt6
+            | Pattern::DeclarationsTypeAt0ClassAt4
+            | Pattern::DeclarationsTypeAt0StructAt4
+            | Pattern::DeclarationsTypeAt0ActorAt4
+            | Pattern::DeclarationsTypeEnumEnumAt4
+            | Pattern::DeclarationsExtensionExtensionAt4
+            | Pattern::DeclarationsProtocolProtocolInitializerAt5 => self.rx_code_block(p),
+            Pattern::CodeBlockEnd
+            | Pattern::DeclarationsPrecedencegroupAt0End
+            | Pattern::DeclarationsProtocolProtocolAt3End
+            | Pattern::DeclarationsProtocolProtocolMethodAt6End
+            | Pattern::DeclarationsTypeAt0ClassAt4End
+            | Pattern::DeclarationsTypeAt0StructAt4End
+            | Pattern::DeclarationsTypeAt0ActorAt4End
+            | Pattern::DeclarationsTypeEnumEnumAt4End
+            | Pattern::DeclarationsExtensionExtensionAt4End
+            | Pattern::DeclarationsProtocolProtocolInitializerAt5End => self.rx_code_block_end(p),
+            Pattern::DeclarationsFunctionSubscript => self.rx_declarations_function_subscript(p),
+            Pattern::DeclarationsFunctionResult => self.rx_declarations_function_result(p),
+            Pattern::DeclarationsFunctionResultEnd => self.rx_declarations_function_result_end(p),
+            Pattern::DeclarationsAvailableTypesAt3 => self.rx_declarations_available_types_at_3(p),
+            Pattern::DeclarationsAvailableTypesAt4 => self.rx_declarations_available_types_at_4(p),
+            Pattern::DeclarationsAvailableTypesAt5 => self.rx_declarations_available_types_at_5(p),
+            Pattern::DeclarationsAvailableTypesAt6 => self.rx_declarations_available_types_at_6(p),
+            Pattern::DeclarationsAvailableTypesAt7 => self.rx_declarations_available_types_at_7(p),
+            Pattern::DeclarationsAvailableTypesAt8 => self.rx_declarations_available_types_at_8(p),
+            Pattern::DeclarationsAvailableTypesAt9 => self.rx_declarations_available_types_at_9(p),
+            Pattern::DeclarationsAvailableTypesAt10 => self.rx_declarations_available_types_at_10(p),
+            Pattern::DeclarationsAvailableTypesAt11 => self.rx_declarations_available_types_at_11(p),
+            Pattern::DeclarationsAvailableTypesAt12
+            | Pattern::DeclarationsTypeOperatorsAt0 => self.rx_declarations_available_types_at_12(p),
+            Pattern::DeclarationsAvailableTypesAt13 => self.rx_declarations_available_types_at_13(p),
+            Pattern::DeclarationsAvailableTypesAt14 => self.rx_declarations_available_types_at_14(p),
+            Pattern::DeclarationsAvailableTypesAt15 => self.rx_declarations_available_types_at_15(p),
+            Pattern::DeclarationsAvailableTypesAt16 => self.rx_declarations_available_types_at_16(p),
+            Pattern::DeclarationsAvailableTypesTupleTypeEnd => self.rx_declarations_available_types_tuple_type_end(p),
+            Pattern::DeclarationsAvailableTypesCollectionType => self.rx_declarations_available_types_collection_type(p),
+            Pattern::DeclarationsAvailableTypesCollectionTypeEnd => self.rx_declarations_available_types_collection_type_end(p),
+            Pattern::DeclarationsGenericArgumentClauseEnd => self.rx_declarations_generic_argument_clause_end(p),
+            Pattern::DeclarationsAvailableTypesCollectionTypeAt2
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18 => self.rx_declarations_available_types_collection_type_at_2(p),
+            Pattern::DeclarationsAvailableTypesCollectionTypeAt3
+            | Pattern::KeywordsAt3 => self.rx_declarations_available_types_collection_type_at_3(p),
+            Pattern::DeclarationsAvailableTypesCollectionTypeAt4
+            | Pattern::DeclarationsAvailableTypesCollectionTypeAt4At0
+            | Pattern::DeclarationsTypeEnumAssociatedValuesAt3At1
+            | Pattern::OperatorsAt2
+            | Pattern::DeclarationsParameterListAt2At2 => self.rx_declarations_available_types_collection_type_at_4(p),
+            Pattern::DeclarationsAvailableTypesCollectionTypeAt4End => self.rx_declarations_available_types_collection_type_at_4_end(p),
+            Pattern::AsyncThrows => self.rx_async_throws(p),
+            Pattern::DeclarationsFunctionSubscriptAt6
+            | Pattern::DeclarationsFunctionInitializerAt5
+            | Pattern::DeclarationsFunctionAt6 => self.rx_declarations_function_subscript_at_6(p),
+            Pattern::DeclarationsFunctionSubscriptAt6End
+            | Pattern::DeclarationsOperatorSwift2End
+            | Pattern::DeclarationsFunctionInitializerAt5End
+            | Pattern::DeclarationsFunctionAt6End => self.rx_declarations_function_subscript_at_6_end(p),
+            Pattern::DeclarationsTypedVariableDeclaration => self.rx_declarations_typed_variable_declaration(p),
+            Pattern::DeclarationsTypedVariableDeclarationEnd => self.rx_declarations_typed_variable_declaration_end(p),
+            Pattern::DeclarationsImport => self.rx_declarations_import(p),
+            Pattern::DeclarationsImportEnd
+            | Pattern::DeclarationsOperatorEnd => self.rx_declarations_import_end(p),
+            Pattern::DeclarationsImportAt0 => self.rx_declarations_import_at_0(p),
+            Pattern::DeclarationsImportAt0End => self.rx_declarations_import_at_0_end(p),
+            Pattern::DeclarationsImportAt0At0 => self.rx_declarations_import_at_0_at_0(p),
+            Pattern::DeclarationsImportAt0At1 => self.rx_declarations_import_at_0_at_1(p),
+            Pattern::Nested3At0
+            | Pattern::DeclarationsImportAt0At3 => self.rx_nested_3_at_0(p),
+            Pattern::DeclarationsImportAt0At2 => self.rx_declarations_import_at_0_at_2(p),
+            Pattern::DeclarationsImportAt0At4 => self.rx_declarations_import_at_0_at_4(p),
+            Pattern::DeclarationsImportAt0At4End => self.rx_declarations_import_at_0_at_4_end(p),
+            Pattern::DeclarationsOperator => self.rx_declarations_operator(p),
+            Pattern::DeclarationsOperatorSwift2 => self.rx_declarations_operator_swift_2(p),
+            Pattern::DeclarationsOperatorSwift2At1 => self.rx_declarations_operator_swift_2_at_1(p),
+            Pattern::DeclarationsOperatorSwift2At2 => self.rx_declarations_operator_swift_2_at_2(p),
+            Pattern::DeclarationsOperatorSwift2At3 => self.rx_declarations_operator_swift_2_at_3(p),
+            Pattern::DeclarationsTypesPrecedencegroupAt0 => self.rx_declarations_types_precedencegroup_at_0(p),
+            Pattern::DeclarationsOperatorSwift3 => self.rx_declarations_operator_swift_3(p),
+            Pattern::DeclarationsOperatorAt2 => self.rx_declarations_operator_at_2(p),
+            Pattern::DeclarationsPrecedencegroup => self.rx_declarations_precedencegroup(p),
+            Pattern::DeclarationsPrecedencegroupAt0At1 => self.rx_declarations_precedencegroup_at_0_at_1(p),
+            Pattern::DeclarationsPrecedencegroupAt0At2 => self.rx_declarations_precedencegroup_at_0_at_2(p),
+            Pattern::DeclarationsPrecedencegroupAt0At3 => self.rx_declarations_precedencegroup_at_0_at_3(p),
+            Pattern::DeclarationsProtocolProtocol => self.rx_declarations_protocol_protocol(p),
+            Pattern::DeclarationsProtocolProtocolEnd
+            | Pattern::DeclarationsTypeAt0ClassEnd
+            | Pattern::DeclarationsTypeAt0StructEnd
+            | Pattern::DeclarationsTypeAt0ActorEnd
+            | Pattern::DeclarationsTypeEnumEnumEnd
+            | Pattern::DeclarationsExtensionExtensionEnd => self.rx_declarations_protocol_protocol_end(p),
+            Pattern::DeclarationsInheritanceClause => self.rx_declarations_inheritance_clause(p),
+            Pattern::DeclarationsInheritanceClauseEnd
+            | Pattern::DeclarationsInheritanceClauseAt1End => self.rx_declarations_inheritance_clause_end(p),
+            Pattern::DeclarationsInheritanceClauseAt0 => self.rx_declarations_inheritance_clause_at_0(p),
+            Pattern::DeclarationsInheritanceClauseAt0End => self.rx_declarations_inheritance_clause_at_0_end(p),
+            Pattern::DeclarationsInheritanceClauseMoreTypes
+            | Pattern::DeclarationsTypeEnumMoreCases => self.rx_declarations_inheritance_clause_more_types(p),
+            Pattern::DeclarationsInheritanceClauseMoreTypesEnd => self.rx_declarations_inheritance_clause_more_types_end(p),
+            Pattern::DeclarationsInheritanceClauseInheritedType => self.rx_declarations_inheritance_clause_inherited_type(p),
+            Pattern::DeclarationsTypeIdentifier
+            | Pattern::DeclarationsTypeEnumEnumCase => self.rx_declarations_type_identifier(p),
+            Pattern::DeclarationsTypeIdentifierEnd => self.rx_declarations_type_identifier_end(p),
+            Pattern::DeclarationsTypeIdentifierAt0 => self.rx_declarations_type_identifier_at_0(p),
+            Pattern::DeclarationsTypeOperatorsAt1 => self.rx_declarations_type_operators_at_1(p),
+            Pattern::DeclarationsInheritanceClauseAt1
+            | Pattern::DeclarationsGenericParameterClauseAt6At0 => self.rx_declarations_inheritance_clause_at_1(p),
+            Pattern::DeclarationsProtocolProtocolMethodEnd
+            | Pattern::DeclarationsProtocolProtocolInitializerEnd => self.rx_declarations_protocol_protocol_method_end(p),
+            Pattern::DeclarationsTypeAt0Class => self.rx_declarations_type_at_0_class(p),
+            Pattern::DeclarationsTypeAt0Struct => self.rx_declarations_type_at_0_struct(p),
+            Pattern::DeclarationsTypeAt0Actor => self.rx_declarations_type_at_0_actor(p),
+            Pattern::DeclarationsTypeEnumEnum => self.rx_declarations_type_enum_enum(p),
+            Pattern::DeclarationsTypeEnumEnumCaseClause => self.rx_declarations_type_enum_enum_case_clause(p),
+            Pattern::DeclarationsTypeEnumEnumCaseClauseEnd => self.rx_declarations_type_enum_enum_case_clause_end(p),
+            Pattern::DeclarationsTypeEnumEnumCaseEnd => self.rx_declarations_type_enum_enum_case_end(p),
+            Pattern::DeclarationsTypeEnumAssociatedValues => self.rx_declarations_type_enum_associated_values(p),
+            Pattern::DeclarationsTypeEnumAssociatedValuesAt1 => self.rx_declarations_type_enum_associated_values_at_1(p),
+            Pattern::DeclarationsTypeEnumAssociatedValuesAt1End
+            | Pattern::DeclarationsTypeEnumAssociatedValuesAt2End
+            | Pattern::DeclarationsTypeEnumAssociatedValuesAt3End
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1End
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2End => self.rx_declarations_type_enum_associated_values_at_1_end(p),
+            Pattern::DeclarationsTypeEnumAssociatedValuesAt2 => self.rx_declarations_type_enum_associated_values_at_2(p),
+            Pattern::DeclarationsTypeEnumAssociatedValuesAt3
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2 => self.rx_declarations_type_enum_associated_values_at_3(p),
+            Pattern::DeclarationsTypeEnumRawValueAssignment
+            | Pattern::DeclarationsTypealiasAssignment => self.rx_declarations_type_enum_raw_value_assignment(p),
+            Pattern::LiteralsStringAt2 => self.rx_literals_string_at_2(p),
+            Pattern::LiteralsStringAt2End => self.rx_literals_string_at_2_end(p),
+            Pattern::LiteralsStringAt3 => self.rx_literals_string_at_3(p),
+            Pattern::LiteralsStringAt3End => self.rx_literals_string_at_3_end(p),
+            Pattern::LiteralsStringAt3At0
+            | Pattern::LiteralsStringAt4At0
+            | Pattern::LiteralsStringAt5At0 => self.rx_literals_string_at_3_at_0(p),
+            Pattern::LiteralsStringStringGutsAt3 => self.rx_literals_string_string_guts_at_3(p),
+            Pattern::LiteralsStringAt4 => self.rx_literals_string_at_4(p),
+            Pattern::LiteralsStringAt4End => self.rx_literals_string_at_4_end(p),
+            Pattern::LiteralsStringAt5 => self.rx_literals_string_at_5(p),
+            Pattern::LiteralsStringAt5End => self.rx_literals_string_at_5_end(p),
+            Pattern::LiteralsStringRawStringGutsAt3 => self.rx_literals_string_raw_string_guts_at_3(p),
+            Pattern::LiteralsAt3 => self.rx_literals_at_3(p),
+            Pattern::LiteralsAt4 => self.rx_literals_at_4(p),
+            Pattern::LiteralsAt5 => self.rx_literals_at_5(p),
+            Pattern::LiteralsAt6 => self.rx_literals_at_6(p),
+            Pattern::LiteralsAt7 => self.rx_literals_at_7(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter => self.rx_expressions_without_trailing_closures_or_member_references_closure_parameter(p),
+            Pattern::LiteralsRegularExpressionLiteralAt0 => self.rx_literals_regular_expression_literal_at_0(p),
+            Pattern::LiteralsRegularExpressionLiteralAt0End => self.rx_literals_regular_expression_literal_at_0_end(p),
+            Pattern::LiteralsRegularExpressionLiteralQuote => self.rx_literals_regular_expression_literal_quote(p),
+            Pattern::LiteralsRegularExpressionLiteralQuoteEnd => self.rx_literals_regular_expression_literal_quote_end(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt1 => self.rx_literals_regular_expression_literal_regex_guts_at_1(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt2 => self.rx_literals_regular_expression_literal_regex_guts_at_2(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt2End => self.rx_literals_regular_expression_literal_regex_guts_at_2_end(p),
+            Pattern::LiteralsRegularExpressionLiteralUnicodeScalars => self.rx_literals_regular_expression_literal_unicode_scalars(p),
+            Pattern::LiteralsRegularExpressionLiteralCharacterProperties => self.rx_literals_regular_expression_literal_character_properties(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt5 => self.rx_literals_regular_expression_literal_regex_guts_at_5(p),
+            Pattern::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption => self.rx_literals_regular_expression_literal_backtracking_directive_or_global_matching_option(p),
+            Pattern::LiteralsRegularExpressionLiteralCallout => self.rx_literals_regular_expression_literal_callout(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_0(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_1(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_2(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_3(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_4(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_5(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_6(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_7(p),
+            Pattern::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8 => self.rx_literals_regular_expression_literal_backreference_or_subpattern_at_8(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt9 => self.rx_literals_regular_expression_literal_regex_guts_at_9(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt10 => self.rx_literals_regular_expression_literal_regex_guts_at_10(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt11 => self.rx_literals_regular_expression_literal_regex_guts_at_11(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt12 => self.rx_literals_regular_expression_literal_regex_guts_at_12(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt13 => self.rx_literals_regular_expression_literal_regex_guts_at_13(p),
+            Pattern::LiteralsRegularExpressionLiteralRegexGutsAt14 => self.rx_literals_regular_expression_literal_regex_guts_at_14(p),
+            Pattern::LiteralsRegularExpressionLiteralCustomCharClassAt0 => self.rx_literals_regular_expression_literal_custom_char_class_at_0(p),
+            Pattern::LiteralsRegularExpressionLiteralCustomCharClassAt0End
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpressionEnd => self.rx_literals_regular_expression_literal_custom_char_class_at_0_end(p),
+            Pattern::LiteralsRegularExpressionLiteralCustomCharClassMembersAt0 => self.rx_literals_regular_expression_literal_custom_char_class_members_at_0(p),
+            Pattern::LiteralsRegularExpressionLiteralSetOperatorsAt0 => self.rx_literals_regular_expression_literal_set_operators_at_0(p),
+            Pattern::LiteralsRegularExpressionLiteralSetOperatorsAt1 => self.rx_literals_regular_expression_literal_set_operators_at_1(p),
+            Pattern::LiteralsRegularExpressionLiteralSetOperatorsAt2 => self.rx_literals_regular_expression_literal_set_operators_at_2(p),
+            Pattern::LiteralsRegularExpressionLiteralGroupOptionToggle => self.rx_literals_regular_expression_literal_group_option_toggle(p),
+            Pattern::LiteralsRegularExpressionLiteralGroupOrConditionalAt0 => self.rx_literals_regular_expression_literal_group_or_conditional_at_0(p),
+            Pattern::LiteralsRegularExpressionLiteralGroupOrConditionalAt1 => self.rx_literals_regular_expression_literal_group_or_conditional_at_1(p),
+            Pattern::LiteralsRegularExpressionLiteralGroupOrConditionalAt2 => self.rx_literals_regular_expression_literal_group_or_conditional_at_2(p),
+            Pattern::LiteralsRegularExpressionLiteralLineComment => self.rx_literals_regular_expression_literal_line_comment(p),
+            Pattern::LiteralsRegularExpressionLiteralAt1 => self.rx_literals_regular_expression_literal_at_1(p),
+            Pattern::LiteralsRegularExpressionLiteralAt2 => self.rx_literals_regular_expression_literal_at_2(p),
+            Pattern::OperatorsAt0 => self.rx_operators_at_0(p),
+            Pattern::OperatorsAt1 => self.rx_operators_at_1(p),
+            Pattern::Nested7At0
+            | Pattern::Nested8At0 => self.rx_nested_7_at_0(p),
+            Pattern::Nested7At1 => self.rx_nested_7_at_1(p),
+            Pattern::Nested7At2
+            | Pattern::Nested8At1 => self.rx_nested_7_at_2(p),
+            Pattern::Nested7At3 => self.rx_nested_7_at_3(p),
+            Pattern::Nested7At4
+            | Pattern::Nested8At2
+            | Pattern::Nested9At11
+            | Pattern::Nested10At0
+            | Pattern::Nested11At0
+            | Pattern::Nested12At1 => self.rx_nested_7_at_4(p),
+            Pattern::OperatorsAt1At0 => self.rx_operators_at_1_at_0(p),
+            Pattern::OperatorsAt1At1 => self.rx_operators_at_1_at_1(p),
+            Pattern::Nested9At0 => self.rx_nested_9_at_0(p),
+            Pattern::Nested9At1 => self.rx_nested_9_at_1(p),
+            Pattern::Nested9At2 => self.rx_nested_9_at_2(p),
+            Pattern::Nested9At3 => self.rx_nested_9_at_3(p),
+            Pattern::Nested9At4 => self.rx_nested_9_at_4(p),
+            Pattern::Nested9At5 => self.rx_nested_9_at_5(p),
+            Pattern::Nested9At6 => self.rx_nested_9_at_6(p),
+            Pattern::Nested9At7 => self.rx_nested_9_at_7(p),
+            Pattern::Nested9At8 => self.rx_nested_9_at_8(p),
+            Pattern::Nested9At9 => self.rx_nested_9_at_9(p),
+            Pattern::Nested9At10 => self.rx_nested_9_at_10(p),
+            Pattern::OperatorsAt1At2 => self.rx_operators_at_1_at_2(p),
+            Pattern::OperatorsAt1At3 => self.rx_operators_at_1_at_3(p),
+            Pattern::OperatorsAt1At4 => self.rx_operators_at_1_at_4(p),
+            Pattern::Nested12At0 => self.rx_nested_12_at_0(p),
+            Pattern::OperatorsAt1At5 => self.rx_operators_at_1_at_5(p),
+            Pattern::BuiltinFunctionsAt0 => self.rx_builtin_functions_at_0(p),
+            Pattern::BuiltinFunctionsAt1 => self.rx_builtin_functions_at_1(p),
+            Pattern::BuiltinFunctionsAt2 => self.rx_builtin_functions_at_2(p),
+            Pattern::BuiltinGlobalFunctionsAt0 => self.rx_builtin_global_functions_at_0(p),
+            Pattern::BuiltinGlobalFunctionsAt1 => self.rx_builtin_global_functions_at_1(p),
+            Pattern::BuiltinGlobalFunctionsAt2 => self.rx_builtin_global_functions_at_2(p),
+            Pattern::BuiltinGlobalFunctionsAt3 => self.rx_builtin_global_functions_at_3(p),
+            Pattern::BuiltinPropertiesAt0 => self.rx_builtin_properties_at_0(p),
+            Pattern::BuiltinPropertiesAt1 => self.rx_builtin_properties_at_1(p),
+            Pattern::BuiltinPropertiesAt2 => self.rx_builtin_properties_at_2(p),
+            Pattern::BuiltinPropertiesAt3 => self.rx_builtin_properties_at_3(p),
+            Pattern::Nested13At0 => self.rx_nested_13_at_0(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName => self.rx_expressions_without_trailing_closures_or_member_references_compound_name(p),
+            Pattern::KeywordsAt0 => self.rx_keywords_at_0(p),
+            Pattern::KeywordsAt1 => self.rx_keywords_at_1(p),
+            Pattern::KeywordsAt2 => self.rx_keywords_at_2(p),
+            Pattern::KeywordsAt4 => self.rx_keywords_at_4(p),
+            Pattern::KeywordsAt5 => self.rx_keywords_at_5(p),
+            Pattern::KeywordsAt6 => self.rx_keywords_at_6(p),
+            Pattern::KeywordsAt7 => self.rx_keywords_at_7(p),
+            Pattern::KeywordsAt8 => self.rx_keywords_at_8(p),
+            Pattern::KeywordsAt9 => self.rx_keywords_at_9(p),
+            Pattern::KeywordsAt10 => self.rx_keywords_at_10(p),
+            Pattern::KeywordsAt11 => self.rx_keywords_at_11(p),
+            Pattern::KeywordsAt12 => self.rx_keywords_at_12(p),
+            Pattern::KeywordsAt13Class => self.rx_keywords_at_13_class(p),
+            Pattern::KeywordsAt13Enum => self.rx_keywords_at_13_enum(p),
+            Pattern::KeywordsAt13Extension => self.rx_keywords_at_13_extension(p),
+            Pattern::KeywordsAt13Precedencegroup => self.rx_keywords_at_13_precedencegroup(p),
+            Pattern::KeywordsAt13Protocol => self.rx_keywords_at_13_protocol(p),
+            Pattern::KeywordsAt13Struct => self.rx_keywords_at_13_struct(p),
+            Pattern::KeywordsAt13Actor => self.rx_keywords_at_13_actor(p),
+            Pattern::KeywordsAt14 => self.rx_keywords_at_14(p),
+            Pattern::KeywordsAt15 => self.rx_keywords_at_15(p),
+            Pattern::KeywordsAt16 => self.rx_keywords_at_16(p),
+            Pattern::KeywordsAt17 => self.rx_keywords_at_17(p),
+            Pattern::KeywordsAt18 => self.rx_keywords_at_18(p),
+            Pattern::KeywordsAt19 => self.rx_keywords_at_19(p),
+            Pattern::KeywordsAt20 => self.rx_keywords_at_20(p),
+            Pattern::KeywordsAt21 => self.rx_keywords_at_21(p),
+            Pattern::KeywordsAt22 => self.rx_keywords_at_22(p),
+            Pattern::KeywordsAt23 => self.rx_keywords_at_23(p),
+            Pattern::KeywordsAt24 => self.rx_keywords_at_24(p),
+            Pattern::KeywordsAt25 => self.rx_keywords_at_25(p),
+            Pattern::ConditionalsAt0 => self.rx_conditionals_at_0(p),
+            Pattern::ConditionalsAt0End => self.rx_conditionals_at_0_end(p),
+            Pattern::ConditionalsAt1 => self.rx_conditionals_at_1(p),
+            Pattern::ConditionalsAt1End => self.rx_conditionals_at_1_end(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt0 => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition_at_0(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt1 => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition_at_1(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt2 => self.rx_expressions_without_trailing_closures_or_member_references_availability_condition_at_2(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0 => self.rx_expressions_without_trailing_closures_or_member_references_function_or_macro_call_expression_at_0(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1 => self.rx_expressions_without_trailing_closures_or_member_references_expression_element_list_at_1(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => self.rx_expressions_without_trailing_closures_or_member_references_function_or_macro_call_expression_at_1(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => self.rx_expressions_without_trailing_closures_or_member_references_macro_expansion(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => self.rx_expressions_without_trailing_closures_or_member_references_subscript_expression(p),
+            Pattern::Nested15At0 => self.rx_nested_15_at_0(p),
+            Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpressionEnd => self.rx_expressions_without_trailing_closures_or_member_references_parenthesized_expression_end(p),
+            Pattern::ExpressionsTrailingClosureAt0 => self.rx_expressions_trailing_closure_at_0(p),
+            Pattern::ExpressionsTrailingClosureAt1 => self.rx_expressions_trailing_closure_at_1(p),
+            Pattern::MemberReferenceAt0 => self.rx_member_reference_at_0(p),
+            Pattern::DeclarationsTypeEnumMoreCasesEnd => self.rx_declarations_type_enum_more_cases_end(p),
+            Pattern::DeclarationsExtensionExtension => self.rx_declarations_extension_extension(p),
+            Pattern::DeclarationsExtensionExtensionAt0 => self.rx_declarations_extension_extension_at_0(p),
+            Pattern::DeclarationsExtensionExtensionAt0End => self.rx_declarations_extension_extension_at_0_end(p),
+            Pattern::DeclarationsTypealias => self.rx_declarations_typealias(p),
+            Pattern::DeclarationsTypealiasEnd
+            | Pattern::DeclarationsTypealiasAssignmentEnd => self.rx_declarations_typealias_end(p),
+            Pattern::DeclarationsTypealiasAt0 => self.rx_declarations_typealias_at_0(p),
+            Pattern::DeclarationsMacro => self.rx_declarations_macro(p),
+            Pattern::DeclarationsMacroEnd => self.rx_declarations_macro_end(p),
+            Pattern::DeclarationsProtocolAssociatedType => self.rx_declarations_protocol_associated_type(p),
+            Pattern::DeclarationsProtocolAssociatedTypeEnd => self.rx_declarations_protocol_associated_type_end(p),
+            Pattern::DeclarationsParameterListAt2At3 => self.rx_declarations_parameter_list_at_2_at_3(p),
+            Pattern::LiteralsStringAt1At3 => self.rx_literals_string_at_1_at_3(p),
+            Pattern::AttributesAt0At3 => self.rx_attributes_at_0_at_3(p),
+            Pattern::DeclarationsGenericWhereClauseRequirementListAt3 => self.rx_declarations_generic_where_clause_requirement_list_at_3(p),
+            Pattern::DeclarationsGenericWhereClauseRequirementListAt3End
+            | Pattern::DeclarationsGenericWhereClauseRequirementListAt4End
+            | Pattern::DeclarationsGenericWhereClauseRequirementListAt4At0End => self.rx_declarations_generic_where_clause_requirement_list_at_3_end(p),
+            Pattern::DeclarationsGenericWhereClauseRequirementListAt4 => self.rx_declarations_generic_where_clause_requirement_list_at_4(p),
+            Pattern::DeclarationsGenericWhereClauseRequirementListAt4At0 => self.rx_declarations_generic_where_clause_requirement_list_at_4_at_0(p),
+            Pattern::DeclarationsGenericParameterClauseAt2 => self.rx_declarations_generic_parameter_clause_at_2(p),
+            Pattern::DeclarationsGenericParameterClauseAt3 => self.rx_declarations_generic_parameter_clause_at_3(p),
+            Pattern::DeclarationsGenericParameterClauseAt4 => self.rx_declarations_generic_parameter_clause_at_4(p),
+            Pattern::DeclarationsGenericParameterClauseAt5
+            | Pattern::Nested1At2 => self.rx_declarations_generic_parameter_clause_at_5(p),
+            Pattern::DeclarationsGenericParameterClauseAt6 => self.rx_declarations_generic_parameter_clause_at_6(p),
+            Pattern::DeclarationsGenericParameterClauseAt6End
+            | Pattern::DeclarationsGenericParameterClauseAt6At0End => self.rx_declarations_generic_parameter_clause_at_6_end(p),
+            Pattern::LiteralsStringAt0At3 => self.rx_literals_string_at_0_at_3(p),
+            Pattern::Nested1At1 => self.rx_nested_1_at_1(p),
         }
     }
 }

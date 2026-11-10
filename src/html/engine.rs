@@ -31,11 +31,11 @@ use super::scope::S;
 use super::state::{self, Injection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, ROOT_SVELTE, Rule};
 #[cfg(feature = "lang-vue")]
 use super::vue as vue_rules;
-use super::vue::VuePat;
+use super::vue::VuePattern;
 use crate::arena::{Arena, ROOT};
 #[cfg(feature = "lang-vue")]
 use crate::language::cut_tokens;
-use crate::language::{Context, Halt, Line, StopKind, Stopped};
+use crate::language::{Context, Halt, Line, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch as AllScratch;
 use crate::{Stack, Token, case_fold};
@@ -50,7 +50,7 @@ pub(super) enum Part<'a> {
 /// What a match is: the begin of a rule, a match rule, an end, or the
 /// injection.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Pat {
+pub(super) enum Pattern {
     /// The end of the innermost rule.
     End,
     /// The injection: a `<` that no rule claims.
@@ -69,7 +69,7 @@ pub(super) enum Pat {
     StyleWrap,
     /// The blanks before a `<script>` element and the lookahead for it.
     ScriptWrap,
-    /// A tag: `<`, the name, and the rule's kind in `info`.
+    /// A tag: `<`, the name, and the tag's class in `bits`.
     Tag,
     /// An element of an `svg` or `math` tree that opens a rule.
     Element,
@@ -125,7 +125,7 @@ pub(super) enum Pat {
     /// ERB: `(#).*?(?=-?%>)` in code, a comment up to the code's end.
     ErbHash,
     /// A pattern of Vue's rules.
-    Vue(VuePat),
+    Vue(VuePattern),
     /// A pattern of Blade's injection or of Blade's rules that opens a rule.
     Blade(Blade),
     /// A pattern of Blade's injection or of Blade's rules that opens none.
@@ -226,27 +226,27 @@ pub(crate) enum GiveBack<'a> {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) pat: Pat,
+    pub(super) pattern: Pattern,
     /// Positions inside the match, by pattern.
     pub(super) at: [usize; 5],
-    /// Bits of the pattern's kind.
-    pub(super) info: u32,
+    /// The bits the match carries, such as a tag's class.
+    pub(super) bits: u32,
 }
 
 impl Hit {
-    pub(super) fn new(pat: Pat, start: usize, end: usize) -> Hit {
+    pub(super) fn new(pattern: Pattern, start: usize, end: usize) -> Hit {
         Hit {
             start,
             end,
-            pat,
+            pattern,
             at: [0; 5],
-            info: 0,
+            bits: 0,
         }
     }
 
-    pub(super) fn with(mut self, at: [usize; 5], info: u32) -> Hit {
+    pub(super) fn with(mut self, at: [usize; 5], bits: u32) -> Hit {
         self.at = at;
-        self.info = info;
+        self.bits = bits;
         self
     }
 }
@@ -419,7 +419,7 @@ impl<'a> Lexer<'a> {
         loop {
             let frame = lexer.arena.frame(id);
             chain.push((id, frame));
-            if Rule::from_code(frame.kind) == Rule::Root || frame.parent == ROOT {
+            if Rule::from_code(frame.rule) == Rule::Root || frame.parent == ROOT {
                 break;
             }
             id = frame.parent;
@@ -452,7 +452,7 @@ impl<'a> Lexer<'a> {
                 });
                 continue;
             }
-            let rule = Rule::from_code(frame.kind);
+            let rule = Rule::from_code(frame.rule);
             let top = *lexer.top();
             let (parent, injection) = lexer.frame_links(&top, rule);
             let no_inject = lexer.top().no_inject || rule.shuts_out_injection();
@@ -585,7 +585,7 @@ impl<'a> Lexer<'a> {
 
     /// The match of ERB's injection at `at`, which [`Lexer::find_erb`] found.
     fn erb_hit(&self, at: usize) -> Option<Hit> {
-        erb::at(&self.s[..self.lim], at).map(|(kind, end)| Hit::new(Pat::Erb(kind), at, end))
+        erb::at(&self.s[..self.lim], at).map(|(erb, end)| Hit::new(Pattern::Erb(erb), at, end))
     }
 
     /// The first place at or after the position where Blade's injection
@@ -620,7 +620,7 @@ impl<'a> Lexer<'a> {
         } else {
             blade::at(text, at)
         };
-        found.map(|(kind, end)| Hit::new(Pat::blade(kind), at, end))
+        found.map(|(blade, end)| Hit::new(Pattern::blade(blade), at, end))
     }
 
     /// Whether only the root of a Blade heredoc is open
@@ -717,7 +717,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Emits the text `from..to` under `base` with `scopes` on top.
-    pub(super) fn cap(&mut self, base: u32, from: usize, to: usize, scopes: &[S]) {
+    pub(super) fn capture(&mut self, base: u32, from: usize, to: usize, scopes: &[S]) {
         if from >= to {
             return;
         }
@@ -727,7 +727,7 @@ impl<'a> Lexer<'a> {
     }
 
     /// Emits the text `from..to` under the stack `stack`.
-    pub(super) fn cap_stack(&mut self, base: u32, from: usize, to: usize, stack: u32) {
+    pub(super) fn capture_stack(&mut self, base: u32, from: usize, to: usize, stack: u32) {
         if from >= to {
             return;
         }
@@ -1004,7 +1004,7 @@ impl<'a> Lexer<'a> {
             Document::Erb => self.erb_hit(at),
             Document::Blade => self.blade_hit(at),
             Document::Html | Document::DerivativeFirst | Document::Derivative => {
-                Some(Hit::new(Pat::Inject, at, at + 1))
+                Some(Hit::new(Pattern::Inject, at, at + 1))
             }
             Document::Vue => None,
         }
@@ -1077,7 +1077,7 @@ impl<'a> Lexer<'a> {
         };
         let end_tag = if css { style_end } else { script_end };
         if end_tag(self.s, at) {
-            return Some(Hit::new(Pat::End, at, at));
+            return Some(Hit::new(Pattern::End, at, at));
         }
         self.keep_inner(next);
         self.erb_hit(at)
@@ -1111,7 +1111,7 @@ impl<'a> Lexer<'a> {
             };
             self.tok(top.content, at);
             self.pos = at;
-            return Some(Hit::new(Pat::End, at, at));
+            return Some(Hit::new(Pattern::End, at, at));
         };
         let mut inner = self.arena.frame(top.state).payload;
         if inner == 0 {
@@ -1139,14 +1139,14 @@ impl<'a> Lexer<'a> {
         match stopped {
             Some(Stopped {
                 at,
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
             }) => {
                 self.advance_to(pos, Some(at));
-                Some(Hit::new(Pat::End, at, at))
+                Some(Hit::new(Pattern::End, at, at))
             }
             Some(Stopped {
                 at,
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
             }) => {
                 self.advance_to(pos, None);
                 self.pop_body(at);
@@ -1162,7 +1162,7 @@ impl<'a> Lexer<'a> {
 
     /// Pops the Vue body on top, as vscode-textmate does where the language
     /// it embeds matched an empty text at its root without advancing
-    /// ([`StopKind::PopHost`]).
+    /// ([`StopReason::PopHost`]).
     /// The rest of the line from `at` sits on the rule below, in place of the
     /// tokens the language gave it.
     /// The line stops there.
@@ -1310,11 +1310,11 @@ impl<'a> Lexer<'a> {
             return None;
         };
         if let Some(end) = erb::code_end(text, at) {
-            return Some(Hit::new(Pat::End, at, end).with([end - 1, 0, 0, 0, 0], 0));
+            return Some(Hit::new(Pattern::End, at, end).with([end - 1, 0, 0, 0, 0], 0));
         }
         self.keep_inner(next);
         let to = erb::hash_comment_end(text, at)?;
-        Some(Hit::new(Pat::ErbHash, at, to))
+        Some(Hit::new(Pattern::ErbHash, at, to))
     }
 
     /// Lexes the PHP of a Blade rule up to its halts: the rule's end, and
@@ -1377,13 +1377,13 @@ impl<'a> Lexer<'a> {
         };
         let text = &self.s[..self.lim];
         if top.injection != Injection::ShutOut
-            && let Some((kind, end)) = blade::at(text, at)
+            && let Some((blade, end)) = blade::at(text, at)
         {
             self.keep_inner(next);
-            return Some(Hit::new(Pat::blade(kind), at, end));
+            return Some(Hit::new(Pattern::blade(blade), at, end));
         }
         rule.php_end(text, at)
-            .map(|end| Hit::new(Pat::End, at, end))
+            .map(|end| Hit::new(Pattern::End, at, end))
     }
 
     /// The stack a rule opened inside `top` sits on in a Blade document.
@@ -1406,61 +1406,61 @@ impl<'a> Lexer<'a> {
 
     /// Applies a match; true when the line stops.
     fn apply(&mut self, hit: Hit) -> bool {
-        match hit.pat {
-            Pat::End => self.close(&hit),
-            Pat::Inject => self.inject(&hit),
-            Pat::ElementVoid => self.element_void(&hit),
-            Pat::EntityNamed
-            | Pat::EntityDecimal
-            | Pat::EntityHexadecimal
-            | Pat::EntityAmbiguous
-            | Pat::AttributeIllegal
-            | Pat::EqualsIllegal
-            | Pat::CommentIllegal
-            | Pat::DoctypeKeyword
-            | Pat::DoctypeWord
-            | Pat::Unquoted
-            | Pat::UnquotedCss
-            | Pat::UnquotedJs
-            | Pat::JsText
-            | Pat::ErbHash
-            | Pat::BladeMatch(_)
-            | Pat::Vue(VuePat::Modifier) => self.match_rule(&hit),
-            Pat::Zero(_)
-            | Pat::Processing
-            | Pat::Comment
-            | Pat::Doctype
-            | Pat::Cdata
-            | Pat::StyleWrap
-            | Pat::ScriptWrap
-            | Pat::Tag
-            | Pat::Element
-            | Pat::StyleTag
-            | Pat::ScriptTag
-            | Pat::ScriptJs
-            | Pat::Attribute
-            | Pat::Equals
-            | Pat::Quote
-            | Pat::DoctypeQuote
-            | Pat::JsLine
-            | Pat::JsBlock
-            | Pat::Erb(_)
-            | Pat::Vue(
-                VuePat::CommentKv
-                | VuePat::Comment
-                | VuePat::SelfClosing
-                | VuePat::Block
-                | VuePat::Element
-                | VuePat::LangGroup
-                | VuePat::TemplateTag
-                | VuePat::TemplateTagEnd
-                | VuePat::Capitalized
-                | VuePat::DirectiveControl
-                | VuePat::DirectiveOriginal
-                | VuePat::ExprString
-                | VuePat::ExprBare,
+        match hit.pattern {
+            Pattern::End => self.close(&hit),
+            Pattern::Inject => self.inject(&hit),
+            Pattern::ElementVoid => self.element_void(&hit),
+            Pattern::EntityNamed
+            | Pattern::EntityDecimal
+            | Pattern::EntityHexadecimal
+            | Pattern::EntityAmbiguous
+            | Pattern::AttributeIllegal
+            | Pattern::EqualsIllegal
+            | Pattern::CommentIllegal
+            | Pattern::DoctypeKeyword
+            | Pattern::DoctypeWord
+            | Pattern::Unquoted
+            | Pattern::UnquotedCss
+            | Pattern::UnquotedJs
+            | Pattern::JsText
+            | Pattern::ErbHash
+            | Pattern::BladeMatch(_)
+            | Pattern::Vue(VuePattern::Modifier) => self.match_rule(&hit),
+            Pattern::Zero(_)
+            | Pattern::Processing
+            | Pattern::Comment
+            | Pattern::Doctype
+            | Pattern::Cdata
+            | Pattern::StyleWrap
+            | Pattern::ScriptWrap
+            | Pattern::Tag
+            | Pattern::Element
+            | Pattern::StyleTag
+            | Pattern::ScriptTag
+            | Pattern::ScriptJs
+            | Pattern::Attribute
+            | Pattern::Equals
+            | Pattern::Quote
+            | Pattern::DoctypeQuote
+            | Pattern::JsLine
+            | Pattern::JsBlock
+            | Pattern::Erb(_)
+            | Pattern::Vue(
+                VuePattern::CommentKv
+                | VuePattern::Comment
+                | VuePattern::SelfClosing
+                | VuePattern::Block
+                | VuePattern::Element
+                | VuePattern::LangGroup
+                | VuePattern::TemplateTag
+                | VuePattern::TemplateTagEnd
+                | VuePattern::Capitalized
+                | VuePattern::DirectiveControl
+                | VuePattern::DirectiveOriginal
+                | VuePattern::ExprString
+                | VuePattern::ExprBare,
             )
-            | Pat::Blade(_) => self.open(&hit),
+            | Pattern::Blade(_) => self.open(&hit),
         }
     }
 
@@ -1468,7 +1468,7 @@ impl<'a> Lexer<'a> {
     fn inject(&mut self, hit: &Hit) -> bool {
         let top = *self.top();
         self.tok(top.content, hit.start);
-        self.cap(top.content, hit.start, hit.end, &[S::BadAngleBracket]);
+        self.capture(top.content, hit.start, hit.end, &[S::BadAngleBracket]);
         self.pos = self.pos.max(hit.end);
         false
     }
@@ -1831,10 +1831,10 @@ fn resumes_at(stopped: Option<Stopped>) -> Option<usize> {
     match stopped {
         Some(Stopped {
             at,
-            kind: StopKind::Halt,
+            reason: StopReason::Halt,
         }) => Some(at),
         Some(Stopped {
-            kind: StopKind::PopHost,
+            reason: StopReason::PopHost,
             ..
         })
         | None => None,
@@ -1876,6 +1876,6 @@ fn folded_end_tag_at(s: &[u8], p: usize, tag: &[u8]) -> bool {
 }
 
 /// Packs a name's interned id with the bits that say how to spell it.
-pub(super) fn packed(info: u32, name: u32) -> u32 {
-    state::pack(info, name)
+pub(super) fn packed(bits: u32, name: u32) -> u32 {
+    state::pack(bits, name)
 }

@@ -246,23 +246,23 @@ impl Lexer<'_> {
     /// Records the groups of a head that began at `p`.
     pub(super) fn put_head(&mut self, p: usize, shape: &Shape, head: &Head) {
         if let (Some(storage), Some(stored)) = (shape.storage, &head.storage) {
-            self.cap(storage.group, p, stored.end);
+            self.capture(storage.group, p, stored.end);
             let Iteration { from, gap } = stored.last;
             if storage.parts {
                 if let Some(parts) = gap.comment {
                     for (i, (a, b)) in parts.iter().enumerate() {
-                        self.cap(storage.inline + i, *a, *b);
+                        self.capture(storage.inline + i, *a, *b);
                     }
                 }
             } else if gap.run {
-                self.cap(storage.inline, from, gap.end);
+                self.capture(storage.inline, from, gap.end);
             }
             if let (Some(base), Some(gap)) = (storage.after, &stored.after) {
                 self.put_gap(base, shape.layout.gap_form, stored.end, gap);
             }
         }
         if let Some(outer) = shape.outer {
-            self.cap(outer, head.from, head.found.end);
+            self.capture(outer, head.from, head.found.end);
         }
         self.put_type(&shape.layout, &head.found);
         if let Some(run) = head.run {
@@ -273,7 +273,7 @@ impl Lexer<'_> {
     /// Records the groups of pointer marks that began at `after`.
     pub(super) fn put_pointer(&mut self, pointer: &Pointer, after: usize, run: &Reference) {
         let (end, first, last) = *run;
-        self.cap(pointer.outer, after, end);
+        self.capture(pointer.outer, after, end);
         if let Some(gap) = first {
             self.put_gap(pointer.first, pointer.gap_form, after, &gap);
         }

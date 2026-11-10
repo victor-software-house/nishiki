@@ -20,15 +20,15 @@ impl Lexer<'_> {
             return None;
         }
         let name = self.name(p + 1)?;
-        self.cap(1, p, name);
-        self.cap(2, p, p + 1);
+        self.capture(1, p, name);
+        self.capture(2, p, p + 1);
         let at = self.space_end(name);
         let arrow = at + usize::from(self.at(at) == b'?');
         if let Some(arrow_end) = self.lit(arrow, b"->") {
             let member = self.space_end(arrow_end);
             if let Some(end) = self.name(member) {
-                self.cap(4, at, arrow_end);
-                self.cap(5, member, end);
+                self.capture(4, at, arrow_end);
+                self.capture(5, member, end);
                 return Some(end);
             }
         }
@@ -36,27 +36,27 @@ impl Lexer<'_> {
             let index = at + 1;
             let digits = self.digit_end(index);
             if digits > index && self.at(digits) == b']' {
-                self.cap(6, at, index);
-                self.cap(7, index, digits);
-                self.cap(11, digits, digits + 1);
+                self.capture(6, at, index);
+                self.capture(7, index, digits);
+                self.capture(11, digits, digits + 1);
                 return Some(digits + 1);
             }
             if self.at(index) == b'$'
                 && let Some(end) = self.name(index + 1)
                 && self.at(end) == b']'
             {
-                self.cap(6, at, index);
-                self.cap(8, index, end);
-                self.cap(9, index, index + 1);
-                self.cap(11, end, end + 1);
+                self.capture(6, at, index);
+                self.capture(8, index, end);
+                self.capture(9, index, index + 1);
+                self.capture(11, end, end + 1);
                 return Some(end + 1);
             }
             if let Some(end) = self.name(index)
                 && self.at(end) == b']'
             {
-                self.cap(6, at, index);
-                self.cap(10, index, end);
-                self.cap(11, end, end + 1);
+                self.capture(6, at, index);
+                self.capture(10, index, end);
+                self.capture(11, end, end + 1);
                 return Some(end + 1);
             }
         }
@@ -70,9 +70,9 @@ impl Lexer<'_> {
         if self.at(name) != b'}' {
             return None;
         }
-        self.cap(1, p, name + 1);
-        self.cap(2, p, open);
-        self.cap(4, name, name + 1);
+        self.capture(1, p, name + 1);
+        self.capture(2, p, open);
+        self.capture(4, name, name + 1);
         Some(name + 1)
     }
 
@@ -83,7 +83,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.name(at)?;
-        self.cap(1, p, at);
+        self.capture(1, p, at);
         Some(end)
     }
 
@@ -97,7 +97,7 @@ impl Lexer<'_> {
         if !self.starts(self.space_end(end), b"::") {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -110,9 +110,9 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, colons);
-        self.cap(2, at, name);
-        self.cap(3, open, open + 1);
+        self.capture(1, p, colons);
+        self.capture(2, at, name);
+        self.capture(3, open, open + 1);
         Some(open + 1)
     }
 
@@ -120,19 +120,19 @@ impl Lexer<'_> {
     pub(super) fn static_access(&mut self, p: usize) -> Option<usize> {
         let colons = self.lit(p, b"::")?;
         let at = self.space_end(colons);
-        self.cap(1, p, colons);
+        self.capture(1, p, colons);
         let dollars = self.skip(at, |b| b == b'$');
         if dollars > at {
             if let Some(end) = self.name(dollars) {
-                self.cap(2, at, end);
-                self.cap(3, at, dollars);
+                self.capture(2, at, end);
+                self.capture(3, at, dollars);
                 return Some(end);
             }
             return Some(at);
         }
         match self.name(at) {
             Some(end) => {
-                self.cap(4, at, end);
+                self.capture(4, at, end);
                 Some(end)
             }
             None => Some(at),
@@ -150,9 +150,9 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, p, at);
-        self.cap(3, open, open + 1);
+        self.capture(1, p, end);
+        self.capture(2, p, at);
+        self.capture(3, open, open + 1);
         Some(open + 1)
     }
 
@@ -173,12 +173,12 @@ impl Lexer<'_> {
             if let Some(end) = self.ilit(at, word) {
                 let close = self.space_end(end);
                 if self.at(close) == b')' {
-                    self.cap(1, p, p + 1);
-                    self.cap(2, at, end);
+                    self.capture(1, p, p + 1);
+                    self.capture(2, at, end);
                     if k < 6 {
-                        self.cap(3, at, end);
+                        self.capture(3, at, end);
                     }
-                    self.cap(5, close, close + 1);
+                    self.capture(5, close, close + 1);
                     return Some(close + 1);
                 }
             }
@@ -196,7 +196,7 @@ impl Lexer<'_> {
         let (end, group) = groups
             .iter()
             .find_map(|&(word, group)| self.ikeyword(p, word).map(|end| (end, group)))?;
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -210,8 +210,8 @@ impl Lexer<'_> {
         let arrow = self.arrow(p)?;
         let at = self.space_end(arrow);
         let end = self.lit(at, b"${").or_else(|| self.lit(at, b"{"))?;
-        self.cap(1, p, arrow);
-        self.cap(2, at, end);
+        self.capture(1, p, arrow);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -224,9 +224,9 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, arrow);
-        self.cap(2, at, name);
-        self.cap(3, open, open + 1);
+        self.capture(1, p, arrow);
+        self.capture(2, at, name);
+        self.capture(3, open, open + 1);
         Some(open + 1)
     }
 
@@ -234,15 +234,15 @@ impl Lexer<'_> {
     pub(super) fn property_access(&mut self, p: usize) -> Option<usize> {
         let arrow = self.arrow(p)?;
         let at = self.space_end(arrow);
-        self.cap(1, p, arrow);
+        self.capture(1, p, arrow);
         let dollars = self.skip(at, |b| b == b'$');
         let Some(end) = self.name(dollars) else {
             return Some(at);
         };
         if dollars > at {
-            self.cap(3, at, dollars);
+            self.capture(3, at, dollars);
         }
-        self.cap(2, at, end);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -308,8 +308,8 @@ impl Lexer<'_> {
         if parts == 0 || self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, end);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 
@@ -326,10 +326,10 @@ impl Lexer<'_> {
             return None;
         }
         if slash {
-            self.cap(1, p, at);
+            self.capture(1, p, at);
         }
-        self.cap(2, at, end);
-        self.cap(3, open, open + 1);
+        self.capture(2, at, end);
+        self.capture(3, open, open + 1);
         Some(open + 1)
     }
 
@@ -359,9 +359,9 @@ impl Lexer<'_> {
             if self.at(open) != b'(' {
                 return None;
             }
-            self.cap(1, p, new_end);
-            self.cap(2, at, end);
-            self.cap(3, open, open + 1);
+            self.capture(1, p, new_end);
+            self.capture(2, at, end);
+            self.capture(3, open, open + 1);
             return Some(open + 1);
         }
         let free = |b: u8, at_end: bool| at_end || !(b == b'(' || is_qualified(b));
@@ -370,8 +370,8 @@ impl Lexer<'_> {
         } else {
             (at + 1..end).rev().find(|&k| self.at(k) == b'$')?
         };
-        self.cap(1, p, new_end);
-        self.cap(2, at, end);
+        self.capture(1, p, new_end);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -392,7 +392,7 @@ impl Lexer<'_> {
         if self.at(colon) != b':' || self.at(colon + 1) == b':' {
             return None;
         }
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(colon + 1)
     }
 
@@ -407,7 +407,7 @@ impl Lexer<'_> {
         if self.at(colon) != b':' || self.at(colon + 1) == b':' {
             return None;
         }
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(colon)
     }
 
@@ -426,7 +426,7 @@ impl Lexer<'_> {
         if self.word_at(end).is_some() {
             return None;
         }
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 
@@ -461,7 +461,7 @@ impl Lexer<'_> {
                 b"yield",
             ],
         )?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -479,11 +479,11 @@ impl Lexer<'_> {
         {
             let spaces = self.space_end(end);
             if spaces > end {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(spaces);
             }
             if self.at(end) == b'(' {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
         }
@@ -504,14 +504,14 @@ impl Lexer<'_> {
                 None => break,
             }
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         let at = self.space_end(end);
         let dollars = self.skip(at, |b| b == b'$');
         if dollars > at
             && let Some(name) = self.name(dollars)
         {
-            self.cap(2, at, name);
-            self.cap(3, at, dollars);
+            self.capture(2, at, name);
+            self.capture(3, at, dollars);
             return Some(name);
         }
         Some(at)
@@ -582,13 +582,13 @@ impl Lexer<'_> {
         if self.at(point) == b'.'
             && let Some(fraction) = self.digit_groups(point + 1, digits)
         {
-            self.cap(1, point, point + 1);
+            self.capture(1, point, point + 1);
             return Some(self.exponent(fraction).unwrap_or(fraction));
         }
         let whole = whole?;
         if self.at(whole) == b'.' {
             let fraction = self.digit_groups(whole + 1, digits).unwrap_or(whole + 1);
-            self.cap(2, whole, whole + 1);
+            self.capture(2, whole, whole + 1);
             return Some(self.exponent(fraction).unwrap_or(fraction));
         }
         self.exponent(whole)

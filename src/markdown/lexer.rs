@@ -11,18 +11,18 @@
 //! among matches that start together the rule listed first. A match opens a
 //! container, closes one, or only scopes text.
 
-use super::caps::{Caps, NESTING};
+use super::captures::{Captures, NESTING};
 #[cfg(feature = "lang-html-derivative")]
 use super::html;
 use super::inline::Emphasis;
 use super::rules::{self, Capture, End, List, P};
 use super::runs::Runs;
 use super::scope::S;
-use super::state::{Fence, Kind};
+use super::state::{Container, Fence};
 use super::text::{Cx, LineFacts};
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
-use crate::language::{Context, Line, Parts, StopKind, Stopped};
+use crate::language::{Context, Line, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
@@ -43,7 +43,7 @@ macro_rules! cx {
 #[derive(Clone, Copy, Debug)]
 enum Rule {
     /// An open container, which the state keeps between lines.
-    Open(Kind),
+    Open(Container),
     /// The text of a capture group, which hands it to a list of rules and is
     /// gone when the group's text ends.
     Capture(List),
@@ -90,36 +90,40 @@ enum Starts {
 }
 
 impl Starts {
-    fn of(kind: Kind) -> Starts {
-        match kind {
-            Kind::Base | Kind::Quote | Kind::ListBullet | Kind::ListOrdered => Starts::Block,
+    fn of(container: Container) -> Starts {
+        match container {
+            Container::Base | Container::Quote | Container::ListBullet | Container::ListOrdered => {
+                Starts::Block
+            }
             #[cfg(feature = "lang-vue")]
-            Kind::Body(Language::Vue) => Starts::Anchored,
-            Kind::Body(language) => {
+            Container::Body(Language::Vue) => Starts::Anchored,
+            Container::Body(language) => {
                 if language == Language::Markdown {
                     Starts::Block
                 } else {
                     Starts::Nowhere
                 }
             }
-            Kind::Fence(_) | Kind::FencePlain | Kind::FrontMatter => Starts::Anchored,
+            Container::Fence(_) | Container::FencePlain | Container::FrontMatter => {
+                Starts::Anchored
+            }
             #[cfg(feature = "lang-html")]
-            Kind::FencePhp => Starts::Anchored,
+            Container::FencePhp => Starts::Anchored,
             #[cfg(feature = "lang-html")]
-            Kind::BodyPhp => Starts::Nowhere,
-            Kind::FrontMatterBody
-            | Kind::RawBlock
-            | Kind::HtmlRawBody
-            | Kind::HtmlBlock
-            | Kind::HtmlInline
-            | Kind::HtmlWrap => Starts::Nowhere,
-            Kind::Comment => Starts::Dash,
-            Kind::HtmlRaw | Kind::Table => Starts::Anywhere,
-            Kind::Paragraph
-            | Kind::BoldStar
-            | Kind::BoldUnder
-            | Kind::ItalicStar
-            | Kind::ItalicUnder => Starts::Inline,
+            Container::BodyPhp => Starts::Nowhere,
+            Container::FrontMatterBody
+            | Container::RawBlock
+            | Container::HtmlRawBody
+            | Container::HtmlBlock
+            | Container::HtmlInline
+            | Container::HtmlWrap => Starts::Nowhere,
+            Container::Comment => Starts::Dash,
+            Container::HtmlRaw | Container::Table => Starts::Anywhere,
+            Container::Paragraph
+            | Container::BoldStar
+            | Container::BoldUnder
+            | Container::ItalicStar
+            | Container::ItalicUnder => Starts::Inline,
         }
     }
 
@@ -274,14 +278,14 @@ impl<'a> Lexer<'a> {
             let mut at = state;
             while at != ROOT {
                 let frame = arena.frame(at);
-                let kind = Kind::from_code(frame.kind);
-                let name = if rules::content_name(kind).is_empty() {
+                let container = Container::from_code(frame.rule);
+                let name = if rules::content_name(container).is_empty() {
                     frame.stack
                 } else {
                     arena.frame(frame.parent).stack
                 };
                 frames.push(Frame {
-                    rule: Rule::Open(kind),
+                    rule: Rule::Open(container),
                     name,
                     content: frame.stack,
                     saved_anchor: None,
@@ -292,9 +296,9 @@ impl<'a> Lexer<'a> {
             }
             frames.reverse();
         }
-        let first_line = frames
-            .first()
-            .is_some_and(|root| matches!(root.rule, Rule::Open(Kind::Base)) && root.payload == 1);
+        let first_line = frames.first().is_some_and(|root| {
+            matches!(root.rule, Rule::Open(Container::Base)) && root.payload == 1
+        });
         Lexer {
             arena,
             limits,
@@ -370,8 +374,8 @@ impl<'a> Lexer<'a> {
     /// `while` rules, which read nothing before the start.
     /// A document's line reads only the one test it read before.
     pub(crate) fn run(&mut self) {
-        let mut caps = Caps::new();
-        self.check_whiles(&mut caps);
+        let mut captures = Captures::new();
+        self.check_whiles(&mut captures);
         if let Start::Embedded { stop, before } = self.scratch.markdown.start {
             if stop && self.frames.len() == 1 {
                 self.scratch.markdown.stopped = true;
@@ -379,7 +383,7 @@ impl<'a> Lexer<'a> {
             }
             self.facts.before_start = before;
         }
-        while self.step(&mut caps) {}
+        while self.step(&mut captures) {}
         if self.facts.steps.exhausted() {
             self.report.record(Limit::Work);
         }
@@ -443,30 +447,30 @@ impl<'a> Lexer<'a> {
     /// Runs the `while` rule of each open container, outermost first. The
     /// first that fails closes its container and everything inside it. Only
     /// a quote's rule has capture groups.
-    fn check_whiles(&mut self, caps: &mut Caps) {
+    fn check_whiles(&mut self, captures: &mut Captures) {
         let mut index = 0;
         while index < self.frames.len() {
-            let Rule::Open(kind) = self.frames[index].rule else {
+            let Rule::Open(container) = self.frames[index].rule else {
                 break;
             };
-            caps.clear();
+            captures.clear();
             let cx = cx!(self);
             let pos = self.pos;
-            let end = match kind {
-                Kind::Quote => block::quote_while(&cx, pos, caps),
-                Kind::ListBullet | Kind::ListOrdered => block::list_while(&cx, pos),
-                Kind::FrontMatterBody => {
+            let end = match container {
+                Container::Quote => block::quote_while(&cx, pos, captures),
+                Container::ListBullet | Container::ListOrdered => block::list_while(&cx, pos),
+                Container::FrontMatterBody => {
                     let dashes = index
                         .checked_sub(1)
                         .and_then(|outer| self.frames.get(outer))
                         .map_or(3, |outer| usize::try_from(outer.payload).unwrap_or(3));
-                    let mut caps = Caps::new();
-                    block::front_matter_close(&cx, pos, dashes, &mut caps)
+                    let mut captures = Captures::new();
+                    block::front_matter_close(&cx, pos, dashes, &mut captures)
                         .is_none()
                         .then_some(pos)
                 }
                 #[cfg(feature = "lang-vue")]
-                Kind::Body(Language::Vue) => {
+                Container::Body(Language::Vue) => {
                     if vue_body_line(
                         &cx,
                         self.arena,
@@ -480,39 +484,39 @@ impl<'a> Lexer<'a> {
                     }
                     None
                 }
-                Kind::Body(_) => {
+                Container::Body(_) => {
                     (cx.at_start(pos) && !block::is_fence_line(&cx, pos)).then_some(pos)
                 }
                 #[cfg(feature = "lang-html")]
-                Kind::BodyPhp => {
+                Container::BodyPhp => {
                     (cx.at_start(pos) && !block::is_fence_line(&cx, pos)).then_some(pos)
                 }
-                Kind::RawBlock => block::raw_block(&cx, pos),
-                Kind::Table => block::table_while(&cx, pos).then_some(pos),
-                Kind::Paragraph => block::paragraph_while(&cx, pos),
+                Container::RawBlock => block::raw_block(&cx, pos),
+                Container::Table => block::table_while(&cx, pos).then_some(pos),
+                Container::Paragraph => block::paragraph_while(&cx, pos),
                 #[cfg(feature = "lang-html-derivative")]
-                Kind::HtmlRawBody => html::raw_while(&cx, pos),
+                Container::HtmlRawBody => html::raw_while(&cx, pos),
                 #[cfg(feature = "lang-html-derivative")]
-                Kind::HtmlBlock => html::block_while(&cx, pos),
+                Container::HtmlBlock => html::block_while(&cx, pos),
                 #[cfg(not(feature = "lang-html-derivative"))]
-                Kind::HtmlRawBody | Kind::HtmlBlock => None,
+                Container::HtmlRawBody | Container::HtmlBlock => None,
                 #[cfg(feature = "lang-html")]
-                Kind::FencePhp => {
+                Container::FencePhp => {
                     index += 1;
                     continue;
                 }
-                Kind::Base
-                | Kind::Fence(_)
-                | Kind::FencePlain
-                | Kind::FrontMatter
-                | Kind::Comment
-                | Kind::BoldStar
-                | Kind::BoldUnder
-                | Kind::ItalicStar
-                | Kind::ItalicUnder
-                | Kind::HtmlRaw
-                | Kind::HtmlInline
-                | Kind::HtmlWrap => {
+                Container::Base
+                | Container::Fence(_)
+                | Container::FencePlain
+                | Container::FrontMatter
+                | Container::Comment
+                | Container::BoldStar
+                | Container::BoldUnder
+                | Container::ItalicStar
+                | Container::ItalicUnder
+                | Container::HtmlRaw
+                | Container::HtmlInline
+                | Container::HtmlWrap => {
                     index += 1;
                     continue;
                 }
@@ -523,7 +527,7 @@ impl<'a> Lexer<'a> {
             };
             let node = self.frames[index].content;
             self.emit(pos, node);
-            self.captures(node, end, caps, |group| rules::capture(P::Quote, group));
+            self.captures(node, end, captures, |group| rules::capture(P::Quote, group));
             self.emit(end, node);
             self.pos = self.pos.max(end);
             self.anchor = Some(end);
@@ -535,7 +539,7 @@ impl<'a> Lexer<'a> {
 
     /// Takes the next match from the cursor. False when nothing matches, or
     /// the line has spent its work.
-    fn step(&mut self, caps: &mut Caps) -> bool {
+    fn step(&mut self, captures: &mut Captures) -> bool {
         if self.facts.steps.step() {
             self.report.record(Limit::Work);
             return false;
@@ -544,10 +548,10 @@ impl<'a> Lexer<'a> {
         if self.frames.last().is_some_and(|frame| embeds(frame.rule)) {
             self.embedded();
         }
-        let Some(hit) = self.find(caps) else {
+        let Some(hit) = self.find(captures) else {
             return false;
         };
-        self.apply(&hit, caps);
+        self.apply(&hit, captures);
         debug_assert!(
             (self.pos, self.frames.len()) != from,
             "the Markdown lexer made no progress at byte {}",
@@ -561,14 +565,14 @@ impl<'a> Lexer<'a> {
     ///
     /// In inline text it skips to the next byte that opens an inline rule.
     /// The first byte of the line may also start a setext underline.
-    fn find(&mut self, caps: &mut Caps) -> Option<Hit> {
+    fn find(&mut self, captures: &mut Captures) -> Option<Hit> {
         let (end, list, starts) = match self.frames.last() {
-            None => (None, rules::patterns(Kind::Base), Starts::Block),
+            None => (None, rules::patterns(Container::Base), Starts::Block),
             Some(frame) => match frame.rule {
-                Rule::Open(kind) => (
-                    rules::end(kind).map(|end| (end, kind)),
-                    rules::patterns(kind),
-                    Starts::of(kind),
+                Rule::Open(container) => (
+                    rules::end(container).map(|end| (end, container)),
+                    rules::patterns(container),
+                    Starts::of(container),
                 ),
                 Rule::Capture(list) => (None, rules::list_patterns(list), Starts::of_list(list)),
             },
@@ -591,8 +595,8 @@ impl<'a> Lexer<'a> {
                 start += 1;
                 continue;
             }
-            if let Some((end, kind)) = end
-                && let Some(hit) = self.try_end(end, kind, start, caps)
+            if let Some((end, container)) = end
+                && let Some(hit) = self.try_end(end, container, start, captures)
             {
                 return Some(hit);
             }
@@ -611,12 +615,12 @@ impl<'a> Lexer<'a> {
                 };
                 if skip {
                     debug_assert!(
-                        self.try_rule(rule, start, caps).is_none(),
+                        self.try_rule(rule, start, captures).is_none(),
                         "{rule:?} matches at byte {start} outside the bytes it opens with"
                     );
                     continue;
                 }
-                if let Some(hit) = self.try_rule(rule, start, caps) {
+                if let Some(hit) = self.try_rule(rule, start, captures) {
                     return Some(hit);
                 }
             }
@@ -629,13 +633,19 @@ impl<'a> Lexer<'a> {
     ///
     /// Front matter's closing rule applies last, so on the first line, which
     /// it would close, the front matter begins instead.
-    fn try_end(&mut self, end: End, kind: Kind, start: usize, caps: &mut Caps) -> Option<Hit> {
-        caps.clear();
+    fn try_end(
+        &mut self,
+        end: End,
+        container: Container,
+        start: usize,
+        captures: &mut Captures,
+    ) -> Option<Hit> {
+        captures.clear();
         let cx = cx!(self);
         let end_pos = match end {
             End::Fence => {
                 let payload = self.frames.last().map_or(0, |frame| frame.payload);
-                block::fence_close(&cx, start, Fence::from_payload(payload), caps)
+                block::fence_close(&cx, start, Fence::from_payload(payload), captures)
             }
             End::FrontMatter => {
                 if self.first_line {
@@ -643,18 +653,26 @@ impl<'a> Lexer<'a> {
                 }
                 let payload = self.frames.last().map_or(3, |frame| frame.payload);
                 let dashes = usize::try_from(payload).unwrap_or(3);
-                block::front_matter_close(&cx, start, dashes, caps)
+                block::front_matter_close(&cx, start, dashes, captures)
             }
-            End::Comment => block::comment_close(&cx, start, caps),
+            End::Comment => block::comment_close(&cx, start, captures),
             #[cfg(feature = "lang-html-derivative")]
-            End::HtmlRaw => html::raw_close(&cx, start, caps),
+            End::HtmlRaw => html::raw_close(&cx, start, captures),
             End::Bold => {
-                let mark = if kind == Kind::BoldStar { b'*' } else { b'_' };
-                inline::bold_close(&cx, start, mark, caps)
+                let mark = if container == Container::BoldStar {
+                    b'*'
+                } else {
+                    b'_'
+                };
+                inline::bold_close(&cx, start, mark, captures)
             }
             End::Italic => {
-                let mark = if kind == Kind::ItalicStar { b'*' } else { b'_' };
-                inline::italic_close(&cx, start, mark, caps)
+                let mark = if container == Container::ItalicStar {
+                    b'*'
+                } else {
+                    b'_'
+                };
+                inline::italic_close(&cx, start, mark, captures)
             }
         }?;
         Some(Hit {
@@ -672,8 +690,8 @@ impl<'a> Lexer<'a> {
         clippy::too_many_lines,
         reason = "one arm per rule; the tables are borrowed in the arms that read them"
     )]
-    fn try_rule(&mut self, rule: P, start: usize, caps: &mut Caps) -> Option<Hit> {
-        caps.clear();
+    fn try_rule(&mut self, rule: P, start: usize, captures: &mut Captures) -> Option<Hit> {
+        captures.clear();
         #[cfg(feature = "lang-html-derivative")]
         if rule == P::Html {
             return self.html_opens(start).then_some(Hit {
@@ -691,14 +709,14 @@ impl<'a> Lexer<'a> {
                 }
                 block::front_matter_open(&cx, start)
             }
-            P::FrontMatterBegin => block::front_matter_begin(&cx, start, caps),
+            P::FrontMatterBegin => block::front_matter_begin(&cx, start, captures),
             P::Separator => block::separator(&cx, start),
-            P::Heading => block::heading(&cx, start, caps),
-            P::Quote => block::quote(&cx, start, caps),
-            P::Bullet => block::bullet(&cx, start, caps),
-            P::Ordered => block::ordered(&cx, start, caps),
+            P::Heading => block::heading(&cx, start, captures),
+            P::Quote => block::quote(&cx, start, captures),
+            P::Bullet => block::bullet(&cx, start, captures),
+            P::Ordered => block::ordered(&cx, start, captures),
             P::Fence => {
-                let open = block::fence_open(&cx, start, caps)?;
+                let open = block::fence_open(&cx, start, captures)?;
                 let end = open.end;
                 rule = if open.embed.is_none() {
                     P::FencePlain
@@ -713,23 +731,23 @@ impl<'a> Lexer<'a> {
                 if start > self.pos && cx.space_before(start) > 0 {
                     return None;
                 }
-                block::link_def(&cx, start, caps)
+                block::link_def(&cx, start, captures)
             }
-            P::Comment => block::comment_open(&cx, start, caps),
-            P::Table => block::table(&cx, start, caps),
+            P::Comment => block::comment_open(&cx, start, captures),
+            P::Table => block::table(&cx, start, captures),
             P::Paragraph => block::paragraph(&cx, start),
             P::EmbedBegin => embed_begin(&cx, start),
             P::TablePipe => (cx.get(start) == Some(b'|')).then_some(start + 1),
-            P::TableSeparator => block::table_separator(&cx, start, caps),
-            P::TableCell => block::table_cell(&cx, start, caps),
+            P::TableSeparator => block::table_separator(&cx, start, captures),
+            P::TableCell => block::table_cell(&cx, start, captures),
             P::Setext1 => block::setext(&cx, start, b'='),
             P::Setext2 => block::setext(&cx, start, b'-'),
-            P::Level1 => block::heading_part(&cx, start, 1, caps),
-            P::Level2 => block::heading_part(&cx, start, 2, caps),
-            P::Level3 => block::heading_part(&cx, start, 3, caps),
-            P::Level4 => block::heading_part(&cx, start, 4, caps),
-            P::Level5 => block::heading_part(&cx, start, 5, caps),
-            P::Level6 => block::heading_part(&cx, start, 6, caps),
+            P::Level1 => block::heading_part(&cx, start, 1, captures),
+            P::Level2 => block::heading_part(&cx, start, 2, captures),
+            P::Level3 => block::heading_part(&cx, start, 3, captures),
+            P::Level4 => block::heading_part(&cx, start, 4, captures),
+            P::Level5 => block::heading_part(&cx, start, 5, captures),
+            P::Level6 => block::heading_part(&cx, start, 6, captures),
             P::Ampersand => inline::ampersand(&cx, start),
             P::Bracket => inline::bracket(&cx, start),
             P::Bold => inline::emphasis_open(
@@ -737,28 +755,32 @@ impl<'a> Lexer<'a> {
                 &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Bold,
-                caps,
+                captures,
             ),
             P::Italic => inline::emphasis_open(
                 &cx,
                 &mut self.scratch.markdown.runs,
                 start,
                 Emphasis::Italic,
-                caps,
+                captures,
             ),
-            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, caps),
-            P::Strike => inline::strikethrough(&cx, &mut self.scratch.markdown.runs, start, caps),
+            P::Raw => inline::raw(&cx, &mut self.scratch.markdown.runs, start, captures),
+            P::Strike => {
+                inline::strikethrough(&cx, &mut self.scratch.markdown.runs, start, captures)
+            }
             P::Escape => inline::escape(&cx, start),
             P::ImageInline => {
-                inline::image_inline(&cx, &mut self.scratch.markdown.runs, start, caps)
+                inline::image_inline(&cx, &mut self.scratch.markdown.runs, start, captures)
             }
-            P::ImageRef => inline::image_reference(&cx, start, caps),
-            P::LinkEmail => inline::link_email(&cx, start, caps),
-            P::LinkInet => inline::link_inet(&cx, start, caps),
-            P::LinkInline => inline::link_inline(&cx, &mut self.scratch.markdown.runs, start, caps),
-            P::LinkRef => inline::link_reference(&cx, start, caps),
-            P::LinkRefLiteral => inline::link_reference_literal(&cx, start, caps),
-            P::LinkRefShortcut => inline::link_reference_shortcut(&cx, start, caps),
+            P::ImageRef => inline::image_reference(&cx, start, captures),
+            P::LinkEmail => inline::link_email(&cx, start, captures),
+            P::LinkInet => inline::link_inet(&cx, start, captures),
+            P::LinkInline => {
+                inline::link_inline(&cx, &mut self.scratch.markdown.runs, start, captures)
+            }
+            P::LinkRef => inline::link_reference(&cx, start, captures),
+            P::LinkRefLiteral => inline::link_reference_literal(&cx, start, captures),
+            P::LinkRefShortcut => inline::link_reference_shortcut(&cx, start, captures),
             P::FenceLanguage | P::FencePlain => None,
             #[cfg(feature = "lang-html-derivative")]
             P::HtmlRaw => html::raw_open(&cx, start),
@@ -781,54 +803,54 @@ impl<'a> Lexer<'a> {
     // Matches.
 
     /// Applies a match: closes, opens or scopes.
-    /// `caps` holds the match's capture groups.
+    /// `captures` holds the match's capture groups.
     /// The rules that a group hands text to fill groups of their own, in
-    /// [`Lexer::subrun`], so `caps` stays as the match left it.
-    fn apply(&mut self, hit: &Hit, caps: &Caps) {
+    /// [`Lexer::subrun`], so `captures` stays as the match left it.
+    fn apply(&mut self, hit: &Hit, captures: &Captures) {
         match hit.rule {
-            None => self.close(hit, caps),
-            Some(rule) => match self.container(rule, hit.start) {
-                Some(kind) => self.open(kind, rule, hit, caps),
-                None => self.scope_match(rule, hit, caps),
+            None => self.close(hit, captures),
+            Some(rule) => match self.opens(rule, hit.start) {
+                Some(container) => self.open(container, rule, hit, captures),
+                None => self.scope_match(rule, hit, captures),
             },
         }
     }
 
     /// The container a rule opens, or none for a rule that only scopes text.
-    fn container(&self, rule: P, start: usize) -> Option<Kind> {
+    fn opens(&self, rule: P, start: usize) -> Option<Container> {
         let byte = self.line.as_bytes().get(start).copied();
         Some(match rule {
-            P::FrontMatter => Kind::FrontMatter,
-            P::FrontMatterBegin => Kind::FrontMatterBody,
-            P::Quote => Kind::Quote,
-            P::Bullet => Kind::ListBullet,
-            P::Ordered => Kind::ListOrdered,
+            P::FrontMatter => Container::FrontMatter,
+            P::FrontMatterBegin => Container::FrontMatterBody,
+            P::Quote => Container::Quote,
+            P::Bullet => Container::ListBullet,
+            P::Ordered => Container::ListOrdered,
             P::FenceLanguage => self.opened.as_ref().and_then(|open| open.embed)?.fence(),
-            P::FencePlain => Kind::FencePlain,
+            P::FencePlain => Container::FencePlain,
             P::EmbedBegin => match self.frames.last()?.rule {
-                Rule::Open(Kind::Fence(lang)) => Kind::Body(lang),
+                Rule::Open(Container::Fence(lang)) => Container::Body(lang),
                 #[cfg(feature = "lang-html")]
-                Rule::Open(Kind::FencePhp) => Kind::BodyPhp,
+                Rule::Open(Container::FencePhp) => Container::BodyPhp,
                 Rule::Open(_) | Rule::Capture(_) => return None,
             },
-            P::RawBlock => Kind::RawBlock,
-            P::Comment => Kind::Comment,
-            P::Table => Kind::Table,
-            P::Paragraph => Kind::Paragraph,
-            P::Bold if byte == Some(b'*') => Kind::BoldStar,
-            P::Bold => Kind::BoldUnder,
-            P::Italic if byte == Some(b'*') => Kind::ItalicStar,
-            P::Italic => Kind::ItalicUnder,
+            P::RawBlock => Container::RawBlock,
+            P::Comment => Container::Comment,
+            P::Table => Container::Table,
+            P::Paragraph => Container::Paragraph,
+            P::Bold if byte == Some(b'*') => Container::BoldStar,
+            P::Bold => Container::BoldUnder,
+            P::Italic if byte == Some(b'*') => Container::ItalicStar,
+            P::Italic => Container::ItalicUnder,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRaw => Kind::HtmlRaw,
+            P::HtmlRaw => Container::HtmlRaw,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlRawBody => Kind::HtmlRawBody,
+            P::HtmlRawBody => Container::HtmlRawBody,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlBlock => Kind::HtmlBlock,
+            P::HtmlBlock => Container::HtmlBlock,
             #[cfg(feature = "lang-html-derivative")]
-            P::Html => Kind::HtmlInline,
+            P::Html => Container::HtmlInline,
             #[cfg(feature = "lang-html-derivative")]
-            P::HtmlWrap => Kind::HtmlWrap,
+            P::HtmlWrap => Container::HtmlWrap,
             P::Separator
             | P::Heading
             | P::Fence
@@ -883,12 +905,12 @@ impl<'a> Lexer<'a> {
         }
     }
 
-    /// Opens a container of `kind` for a match of `rule`.
+    /// Opens `container` for a match of `rule`.
     ///
     /// A container opened outside a capture group stays open between lines,
     /// so it is a state. A paragraph opens on nearly every line in the same
     /// state, so the last one opened is reused.
-    fn open(&mut self, kind: Kind, rule: P, hit: &Hit, caps: &Caps) {
+    fn open(&mut self, container: Container, rule: P, hit: &Hit, captures: &Captures) {
         let parent = self.content();
         self.emit(hit.start, parent);
         let opened = self.opened.take();
@@ -906,8 +928,8 @@ impl<'a> Lexer<'a> {
         } else {
             self.frames.iter().rev().find_map(|frame| frame.state)
         };
-        let cached = match (kind, parent_state, self.scratch.markdown.paragraph) {
-            (Kind::Paragraph, Some(from), Some((was, stack, state))) if from == was => {
+        let cached = match (container, parent_state, self.scratch.markdown.paragraph) {
+            (Container::Paragraph, Some(from), Some((was, stack, state))) if from == was => {
                 Some((stack, state))
             }
             _ => None,
@@ -915,58 +937,23 @@ impl<'a> Lexer<'a> {
         let (name, content, payload, state) = if let Some((stack, state)) = cached {
             (stack, stack, 0, Some(state))
         } else {
-            let name = self.path(parent, rules::names(kind));
-            let content = self.path(name, rules::content_name(kind));
-            let payload = match kind {
-                Kind::Fence(_) | Kind::FencePlain => opened.map_or(0, |open| open.fence.payload()),
-                Kind::Body(lang) if lang != Language::Markdown => {
-                    lang.start_embedded(self.arena, content)
-                }
-                #[cfg(feature = "lang-html")]
-                Kind::FencePhp => opened.map_or(0, |open| open.fence.payload()),
-                #[cfg(feature = "lang-html")]
-                Kind::BodyPhp => Language::Html.start_embedded(self.arena, content),
-                #[cfg(feature = "lang-yaml")]
-                Kind::FrontMatterBody => Language::Yaml.start_embedded(self.arena, content),
-                #[cfg(not(feature = "lang-yaml"))]
-                Kind::FrontMatterBody => 0,
-                #[cfg(feature = "lang-html-derivative")]
-                Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => {
-                    Language::HtmlDerivative.start_embedded(self.arena, content)
-                }
-                #[cfg(not(feature = "lang-html-derivative"))]
-                Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => 0,
-                Kind::FrontMatter => {
-                    let dashes = self.line.bytes().take_while(|&b| b == b'-').count();
-                    u32::try_from(dashes).unwrap_or(u32::MAX)
-                }
-                Kind::Base
-                | Kind::Quote
-                | Kind::ListBullet
-                | Kind::ListOrdered
-                | Kind::Body(_)
-                | Kind::RawBlock
-                | Kind::Table
-                | Kind::Paragraph
-                | Kind::Comment
-                | Kind::BoldStar
-                | Kind::BoldUnder
-                | Kind::ItalicStar
-                | Kind::ItalicUnder
-                | Kind::HtmlRaw => 0,
-            };
+            let name = self.path(parent, rules::names(container));
+            let content = self.path(name, rules::content_name(container));
+            let payload = self.payload(container, opened, content);
             let state = if in_capture {
                 None
             } else {
-                let Some(state) =
-                    self.arena
-                        .push(parent_state.unwrap_or(ROOT), kind.code(), payload, content)
-                else {
+                let Some(state) = self.arena.push(
+                    parent_state.unwrap_or(ROOT),
+                    container.code(),
+                    payload,
+                    content,
+                ) else {
                     self.report.record(Limit::Nodes);
                     self.refuse(hit, parent);
                     return;
                 };
-                if let (Kind::Paragraph, Some(from)) = (kind, parent_state) {
+                if let (Container::Paragraph, Some(from)) = (container, parent_state) {
                     self.scratch.markdown.paragraph = Some((from, content, state));
                 }
                 Some(state)
@@ -975,14 +962,14 @@ impl<'a> Lexer<'a> {
         };
         self.anchored = self.anchored.min(self.frames.len());
         self.frames.push(Frame {
-            rule: Rule::Open(kind),
+            rule: Rule::Open(container),
             name,
             content: name,
             saved_anchor: self.anchor,
             payload,
             state,
         });
-        self.captures(name, hit.end, caps, |group| rules::capture(rule, group));
+        self.captures(name, hit.end, captures, |group| rules::capture(rule, group));
         self.emit(hit.end, name);
         if let Some(frame) = self.frames.last_mut() {
             frame.content = content;
@@ -991,16 +978,74 @@ impl<'a> Lexer<'a> {
         self.pos = self.pos.max(hit.end);
     }
 
-    fn close(&mut self, hit: &Hit, caps: &Caps) {
+    /// The payload of a frame that opens `container`, whose content scopes are
+    /// `content`.
+    ///
+    /// A fence keeps what its opening line held in `opened`.
+    /// A body that another language lexes keeps that language's first state.
+    /// Front matter keeps the number of its dashes.
+    fn payload(
+        &mut self,
+        container: Container,
+        opened: Option<block::FenceOpen>,
+        content: u32,
+    ) -> u32 {
+        match container {
+            Container::Fence(_) | Container::FencePlain => {
+                opened.map_or(0, |open| open.fence.payload())
+            }
+            Container::Body(lang) if lang != Language::Markdown => {
+                lang.start_embedded(self.arena, content)
+            }
+            #[cfg(feature = "lang-html")]
+            Container::FencePhp => opened.map_or(0, |open| open.fence.payload()),
+            #[cfg(feature = "lang-html")]
+            Container::BodyPhp => Language::Html.start_embedded(self.arena, content),
+            #[cfg(feature = "lang-yaml")]
+            Container::FrontMatterBody => Language::Yaml.start_embedded(self.arena, content),
+            #[cfg(not(feature = "lang-yaml"))]
+            Container::FrontMatterBody => 0,
+            #[cfg(feature = "lang-html-derivative")]
+            Container::HtmlRawBody
+            | Container::HtmlBlock
+            | Container::HtmlInline
+            | Container::HtmlWrap => Language::HtmlDerivative.start_embedded(self.arena, content),
+            #[cfg(not(feature = "lang-html-derivative"))]
+            Container::HtmlRawBody
+            | Container::HtmlBlock
+            | Container::HtmlInline
+            | Container::HtmlWrap => 0,
+            Container::FrontMatter => {
+                let dashes = self.line.bytes().take_while(|&b| b == b'-').count();
+                u32::try_from(dashes).unwrap_or(u32::MAX)
+            }
+            Container::Base
+            | Container::Quote
+            | Container::ListBullet
+            | Container::ListOrdered
+            | Container::Body(_)
+            | Container::RawBlock
+            | Container::Table
+            | Container::Paragraph
+            | Container::Comment
+            | Container::BoldStar
+            | Container::BoldUnder
+            | Container::ItalicStar
+            | Container::ItalicUnder
+            | Container::HtmlRaw => 0,
+        }
+    }
+
+    fn close(&mut self, hit: &Hit, captures: &Captures) {
         let Some(frame) = self.frames.last().copied() else {
             return;
         };
-        let Rule::Open(kind) = frame.rule else {
+        let Rule::Open(container) = frame.rule else {
             return;
         };
         self.emit(hit.start, frame.content);
-        if let Some(end) = rules::end(kind) {
-            self.end_captures(end, frame.name, hit.end, caps);
+        if let Some(end) = rules::end(container) {
+            self.end_captures(end, frame.name, hit.end, captures);
         }
         self.emit(hit.end, frame.name);
         self.frames.pop();
@@ -1009,26 +1054,26 @@ impl<'a> Lexer<'a> {
     }
 
     /// The capture groups of `end`'s match, which ends at `match_end`.
-    fn end_captures(&mut self, end: End, base: u32, match_end: usize, caps: &Caps) {
+    fn end_captures(&mut self, end: End, base: u32, match_end: usize, captures: &Captures) {
         match end {
             #[cfg(feature = "lang-html-derivative")]
-            End::HtmlRaw => self.html_raw_end(base, caps),
+            End::HtmlRaw => self.html_raw_end(base, captures),
             End::FrontMatter | End::Fence | End::Comment | End::Bold | End::Italic => {
-                self.captures(base, match_end, caps, |group| {
+                self.captures(base, match_end, captures, |group| {
                     rules::end_capture(end, group)
                 });
             }
         }
     }
 
-    fn scope_match(&mut self, rule: P, hit: &Hit, caps: &Caps) {
+    fn scope_match(&mut self, rule: P, hit: &Hit, captures: &Captures) {
         let parent = self.content();
         self.emit(hit.start, parent);
         let node = match rules::match_name(rule) {
             Some(scope) => self.child(parent, scope),
             None => parent,
         };
-        self.captures(node, hit.end, caps, |group| rules::capture(rule, group));
+        self.captures(node, hit.end, captures, |group| rules::capture(rule, group));
         self.emit(hit.end, node);
         self.pos = self.pos.max(hit.end);
     }
@@ -1042,12 +1087,12 @@ impl<'a> Lexer<'a> {
         &mut self,
         base: u32,
         match_end: usize,
-        caps: &Caps,
+        captures: &Captures,
         capture: impl Fn(usize) -> Capture,
     ) {
         let mut open = [(0_u32, 0_usize); NESTING];
         let mut depth = 0;
-        for (group, (start, end)) in caps.iter() {
+        for (group, (start, end)) in captures.iter() {
             let capture = capture(group);
             if capture.is_none() || start == end {
                 continue;
@@ -1106,8 +1151,8 @@ impl<'a> Lexer<'a> {
         self.limit = end;
         self.pos = start;
         self.anchor = None;
-        let mut caps = Caps::new();
-        while self.step(&mut caps) {}
+        let mut captures = Captures::new();
+        while self.step(&mut captures) {}
         let top = self.content();
         self.emit(end, top);
         self.frames.truncate(floor - 1);
@@ -1159,9 +1204,16 @@ impl<'a> Lexer<'a> {
     /// open again there, so, as in `TextMate`, it stays open and takes the
     /// rest of the text.
     #[cfg(feature = "lang-html-derivative")]
-    fn give_back_at(&mut self, at: usize, start: usize, end: usize, kind: Kind, content: u32) {
+    fn give_back_at(
+        &mut self,
+        at: usize,
+        start: usize,
+        end: usize,
+        container: Container,
+        content: u32,
+    ) {
         self.last = self.last.max(at);
-        if at == start && matches!(kind, Kind::HtmlWrap) {
+        if at == start && matches!(container, Container::HtmlWrap) {
             self.emit(end, content);
             self.pos = self.limit + 1;
             return;
@@ -1178,9 +1230,9 @@ impl<'a> Lexer<'a> {
     /// start, as a capture group. The tag is named after its own spelling, as
     /// `$4` names it.
     #[cfg(feature = "lang-html-derivative")]
-    fn html_raw_end(&mut self, base: u32, caps: &Caps) {
+    fn html_raw_end(&mut self, base: u32, captures: &Captures) {
         let mut groups = [(0, 0); 6];
-        for (group, range) in caps.iter() {
+        for (group, range) in captures.iter() {
             if let Some(slot) = groups.get_mut(group) {
                 *slot = range;
             }
@@ -1261,9 +1313,9 @@ impl<'a> Lexer<'a> {
         let Some(body) = self.frames.len().checked_sub(1) else {
             return false;
         };
-        let mut caps = Caps::new();
+        let mut captures = Captures::new();
         let cx = cx!(self);
-        if block::vue_fence_open(&cx, self.pos, &mut caps).is_none() {
+        if block::vue_fence_open(&cx, self.pos, &mut captures).is_none() {
             return false;
         }
         self.frames[body].content =
@@ -1305,7 +1357,7 @@ impl<'a> Lexer<'a> {
         else {
             return;
         };
-        let (Rule::Open(kind), Some(lang)) = (rule, embedded_language(rule)) else {
+        let (Rule::Open(container), Some(lang)) = (rule, embedded_language(rule)) else {
             return;
         };
         #[cfg(feature = "lang-vue")]
@@ -1341,7 +1393,7 @@ impl<'a> Lexer<'a> {
             embedded: anchored,
         };
         #[cfg(feature = "lang-html-derivative")]
-        let ((state, popped), back) = match html_give_back(kind) {
+        let ((state, popped), back) = match html_give_back(container) {
             Some(give_back) => {
                 let (state, back) = crate::html::lex_derivative_until(
                     &mut cx,
@@ -1358,7 +1410,7 @@ impl<'a> Lexer<'a> {
         let state = self.facts.steps.take_back(state);
         #[cfg(feature = "lang-html-derivative")]
         if let Some(at) = back {
-            self.give_back_at(at, start, end, kind, content);
+            self.give_back_at(at, start, end, container, content);
             return;
         }
         #[cfg(not(feature = "lang-html-derivative"))]
@@ -1371,10 +1423,10 @@ impl<'a> Lexer<'a> {
         }
         self.last = end;
         self.pos = self.limit;
-        self.keep_body_state(kind, content, payload, kept, state);
+        self.keep_body_state(container, content, payload, kept, state);
     }
 
-    /// Keeps `state`, the state the body of `kind` reached, in the body's
+    /// Keeps `state`, the state the body of `container` reached, in the body's
     /// frame.
     /// It goes in the frame's payload, and in a state of its own where the
     /// frame keeps one (`kept`).
@@ -1385,7 +1437,7 @@ impl<'a> Lexer<'a> {
     #[inline(always)]
     fn keep_body_state(
         &mut self,
-        kind: Kind,
+        container: Container,
         content: u32,
         payload: u32,
         kept: Option<u32>,
@@ -1408,7 +1460,7 @@ impl<'a> Lexer<'a> {
             .find_map(|frame| frame.state);
         let pushed = self
             .arena
-            .push(below.unwrap_or(ROOT), kind.code(), state, content);
+            .push(below.unwrap_or(ROOT), container.code(), state, content);
         let Some(pushed) = pushed else {
             self.report.record(Limit::Nodes);
             return;
@@ -1463,7 +1515,7 @@ fn lex_fence(
 
 /// Lexes a fence's line in a language that can pop the fence's body, through
 /// [`Language::lex_until`] with a halt that never holds.
-/// The halt lets the language report the pop ([`StopKind::PopHost`]).
+/// The halt lets the language report the pop ([`StopReason::PopHost`]).
 /// It costs a call at each byte the language tries at its root.
 #[cold]
 #[inline(never)]
@@ -1479,13 +1531,13 @@ fn lex_popping(
             finished,
             Some(Stopped {
                 at,
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
             }),
         )) => (finished, Some(at)),
         Some((
             finished,
             Some(Stopped {
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
                 ..
             })
             | None,
@@ -1497,7 +1549,7 @@ fn lex_popping(
 /// Whether a language's lexer takes the rest of each line inside `rule`.
 /// Its answer matches [`embedded_language`].
 ///
-/// It reads only the rule's kind and builds no `Language`.
+/// It reads only the rule's container and builds no `Language`.
 /// `step` tests it before every match.
 /// Its lowering must not depend on the `Language` table.
 /// With `embedded_language` there, one `Language` row's flags could change
@@ -1506,13 +1558,18 @@ fn lex_popping(
 /// `step` then ran 2.2% more of its own instructions.
 const fn embeds(rule: Rule) -> bool {
     match rule {
-        Rule::Open(Kind::Body(lang)) => !matches!(lang, Language::Markdown),
+        Rule::Open(Container::Body(lang)) => !matches!(lang, Language::Markdown),
         #[cfg(feature = "lang-html")]
-        Rule::Open(Kind::BodyPhp) => true,
+        Rule::Open(Container::BodyPhp) => true,
         #[cfg(feature = "lang-yaml")]
-        Rule::Open(Kind::FrontMatterBody) => true,
+        Rule::Open(Container::FrontMatterBody) => true,
         #[cfg(feature = "lang-html-derivative")]
-        Rule::Open(Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap) => true,
+        Rule::Open(
+            Container::HtmlRawBody
+            | Container::HtmlBlock
+            | Container::HtmlInline
+            | Container::HtmlWrap,
+        ) => true,
         Rule::Open(_) | Rule::Capture(_) => false,
     }
 }
@@ -1522,48 +1579,51 @@ const fn embeds(rule: Rule) -> bool {
 /// `markdown` fence takes Markdown's own rules instead.
 fn embedded_language(rule: Rule) -> Option<Language> {
     match rule {
-        Rule::Open(Kind::Body(lang)) => (lang != Language::Markdown).then_some(lang),
+        Rule::Open(Container::Body(lang)) => (lang != Language::Markdown).then_some(lang),
         #[cfg(feature = "lang-html")]
-        Rule::Open(Kind::BodyPhp) => Some(Language::Html),
+        Rule::Open(Container::BodyPhp) => Some(Language::Html),
         #[cfg(feature = "lang-yaml")]
-        Rule::Open(Kind::FrontMatterBody) => Some(Language::Yaml),
+        Rule::Open(Container::FrontMatterBody) => Some(Language::Yaml),
         #[cfg(feature = "lang-html-derivative")]
-        Rule::Open(Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap) => {
-            Some(Language::HtmlDerivative)
-        }
+        Rule::Open(
+            Container::HtmlRawBody
+            | Container::HtmlBlock
+            | Container::HtmlInline
+            | Container::HtmlWrap,
+        ) => Some(Language::HtmlDerivative),
         Rule::Open(_) | Rule::Capture(_) => None,
     }
 }
 
-/// Where html-derivative gives the line back inside a container of `kind`:
+/// Where html-derivative gives the line back inside `container`:
 /// none where it takes whole lines.
 #[cfg(feature = "lang-html-derivative")]
-fn html_give_back(kind: Kind) -> Option<crate::html::GiveBack<'static>> {
-    match kind {
-        Kind::HtmlInline => Some(crate::html::GiveBack::AtRoot),
-        Kind::HtmlWrap => Some(crate::html::GiveBack::AfterTag),
-        Kind::Base
-        | Kind::Quote
-        | Kind::ListBullet
-        | Kind::ListOrdered
-        | Kind::Fence(_)
-        | Kind::FencePlain
-        | Kind::FencePhp
-        | Kind::Body(_)
-        | Kind::BodyPhp
-        | Kind::RawBlock
-        | Kind::Table
-        | Kind::Paragraph
-        | Kind::Comment
-        | Kind::BoldStar
-        | Kind::BoldUnder
-        | Kind::ItalicStar
-        | Kind::ItalicUnder
-        | Kind::FrontMatter
-        | Kind::FrontMatterBody
-        | Kind::HtmlRaw
-        | Kind::HtmlRawBody
-        | Kind::HtmlBlock => None,
+fn html_give_back(container: Container) -> Option<crate::html::GiveBack<'static>> {
+    match container {
+        Container::HtmlInline => Some(crate::html::GiveBack::AtRoot),
+        Container::HtmlWrap => Some(crate::html::GiveBack::AfterTag),
+        Container::Base
+        | Container::Quote
+        | Container::ListBullet
+        | Container::ListOrdered
+        | Container::Fence(_)
+        | Container::FencePlain
+        | Container::FencePhp
+        | Container::Body(_)
+        | Container::BodyPhp
+        | Container::RawBlock
+        | Container::Table
+        | Container::Paragraph
+        | Container::Comment
+        | Container::BoldStar
+        | Container::BoldUnder
+        | Container::ItalicStar
+        | Container::ItalicUnder
+        | Container::FrontMatter
+        | Container::FrontMatterBody
+        | Container::HtmlRaw
+        | Container::HtmlRawBody
+        | Container::HtmlBlock => None,
     }
 }
 
@@ -1602,7 +1662,7 @@ fn vue_body_line(
     body.content = body.name;
     let payload = body.payload;
     let anchored = frames.last().is_some_and(|top| {
-        matches!(top.rule, Rule::Open(Kind::Body(Language::Vue)))
+        matches!(top.rule, Rule::Open(Container::Body(Language::Vue)))
             && crate::vue::at_root(arena, top.payload)
     });
     if anchored && anchor.is_none() {
@@ -1621,8 +1681,8 @@ fn vue_body_line(
         .checked_sub(1)
         .and_then(|outer| frames.get(outer))
         .map_or(0, |outer| outer.payload);
-    let mut caps = Caps::new();
-    block::fence_close(cx, pos, Fence::from_payload(fence), &mut caps).is_none()
+    let mut captures = Captures::new();
+    block::fence_close(cx, pos, Fence::from_payload(fence), &mut captures).is_none()
 }
 
 /// `(^|\G)(\s*)(.*)`, the rule that starts the lines of an embedded
@@ -1654,28 +1714,28 @@ fn after_first_line(arena: &mut Arena, chain: &mut Vec<ArenaFrame>, state: u32) 
         at = frame.parent;
     }
     let root = chain.pop()?;
-    let mut rebuilt = arena.push(ROOT, root.kind, 0, root.stack)?;
+    let mut rebuilt = arena.push(ROOT, root.rule, 0, root.stack)?;
     while let Some(frame) = chain.pop() {
-        rebuilt = arena.push(rebuilt, frame.kind, frame.payload, frame.stack)?;
+        rebuilt = arena.push(rebuilt, frame.rule, frame.payload, frame.stack)?;
     }
     Some(rebuilt)
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{Kind, Language, List, Rule, embedded_language, embeds};
+    use super::{Container, Language, List, Rule, embedded_language, embeds};
 
     /// `step`'s guard and `embedded` give the same answer on every rule a
     /// frame can hold.
     ///
-    /// The rules are each fixed `Kind`, a fence and a body for every language
-    /// in the build, and a capture group.
+    /// The rules are each fixed container, a fence and a body for every
+    /// language in the build, and a capture group.
     #[test]
     fn embeds_agrees_with_embedded_language() {
         let languages = Language::ALL
             .iter()
-            .flat_map(|&lang| [Kind::Fence(lang), Kind::Body(lang)]);
-        let rules = Kind::FIXED
+            .flat_map(|&lang| [Container::Fence(lang), Container::Body(lang)]);
+        let rules = Container::FIXED
             .iter()
             .copied()
             .chain(languages)

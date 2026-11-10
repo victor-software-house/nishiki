@@ -3,7 +3,7 @@
 use super::lexer::Lexer;
 use super::numbers::NUMERIC;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::classes::is_ascii_word;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -55,9 +55,9 @@ impl Group {
 }
 
 /// The rules active in a context, in the grammar's priority order.
-pub(crate) fn groups(kind: Kind) -> &'static [Group] {
-    match kind {
-        Kind::Top => &[
+pub(crate) fn groups(rule: Rule) -> &'static [Group] {
+    match rule {
+        Rule::Top => &[
             BlockComments,
             Comments,
             Attributes,
@@ -74,7 +74,7 @@ pub(crate) fn groups(kind: Kind) -> &'static [Group] {
             Strings,
             Variables,
         ],
-        Kind::FnDef => &[
+        Rule::FnDef => &[
             BlockComments,
             Comments,
             Keywords,
@@ -90,7 +90,7 @@ pub(crate) fn groups(kind: Kind) -> &'static [Group] {
             Types,
             Variables,
         ],
-        Kind::Call => &[
+        Rule::Call => &[
             BlockComments,
             Comments,
             Attributes,
@@ -107,7 +107,7 @@ pub(crate) fn groups(kind: Kind) -> &'static [Group] {
             Types,
             Variables,
         ],
-        Kind::Generic => &[
+        Rule::Generic => &[
             BlockComments,
             Comments,
             Keywords,
@@ -117,7 +117,7 @@ pub(crate) fn groups(kind: Kind) -> &'static [Group] {
             Types,
             Variables,
         ],
-        Kind::AngleSq => &[
+        Rule::AngleSq => &[
             BlockComments,
             Comments,
             Gtypes,
@@ -126,7 +126,7 @@ pub(crate) fn groups(kind: Kind) -> &'static [Group] {
             Punctuation,
             Types,
         ],
-        Kind::Attr => &[
+        Rule::Attribute => &[
             BlockComments,
             Comments,
             Keywords,
@@ -136,7 +136,7 @@ pub(crate) fn groups(kind: Kind) -> &'static [Group] {
             Gtypes,
             Types,
         ],
-        Kind::Use => &[
+        Rule::Use => &[
             BlockComments,
             Comments,
             Keywords,
@@ -145,8 +145,8 @@ pub(crate) fn groups(kind: Kind) -> &'static [Group] {
             Types,
             Lvariables,
         ],
-        Kind::Import => &[BlockComments, Comments, Keywords, Punctuation],
-        Kind::Str | Kind::Raw | Kind::Char | Kind::Block | Kind::Doc => &[],
+        Rule::Import => &[BlockComments, Comments, Keywords, Punctuation],
+        Rule::Str | Rule::Raw | Rule::Char | Rule::Block | Rule::Doc => &[],
     }
 }
 
@@ -195,7 +195,7 @@ impl Lexer<'_> {
         match b {
             b'<' if self.at(p + 1) == b'[' => {
                 self.gap(p);
-                if !self.push(Kind::AngleSq) {
+                if !self.push(Rule::AngleSq) {
                     return None;
                 }
                 self.tok(p + 1, &[S::Angle]);
@@ -305,7 +305,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push(Kind::Import) {
+        if !self.push(Rule::Import) {
             return None;
         }
         self.tok(p + 6, &[S::StorageType]);
@@ -322,7 +322,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push(Kind::Use) {
+        if !self.push(Rule::Use) {
             return None;
         }
         self.tok(p + 3, &[S::KwOther]);
@@ -488,7 +488,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push(Kind::Attr) {
+        if !self.push(Rule::Attribute) {
             return None;
         }
         self.tok(p + 1, &[S::PunctDefAttr]);
@@ -554,7 +554,7 @@ impl Lexer<'_> {
                 && matches!(self.at(end), b'(' | b'<')
             {
                 self.gap(p);
-                if self.push(Kind::FnDef) {
+                if self.push(Rule::FnDef) {
                     let open = if self.at(end) == b'(' {
                         S::Round
                     } else {
@@ -575,7 +575,7 @@ impl Lexer<'_> {
             return None;
         }
         self.gap(p);
-        if !self.push(Kind::Call) {
+        if !self.push(Rule::Call) {
             return None;
         }
         self.tok(end, &[S::EntFunction]);
@@ -610,7 +610,7 @@ impl Lexer<'_> {
             let end = self.skip(start, is_ascii_word);
             if self.at(end) == b'<' && self.boundary(end) {
                 self.gap(p);
-                if !self.push(Kind::Generic) {
+                if !self.push(Rule::Generic) {
                     return None;
                 }
                 self.tok(end, &[S::EntType]);

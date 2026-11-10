@@ -2,9 +2,9 @@
 
 use super::bytes::Bytes;
 use super::chars::Before;
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 /// Which of the grammar's two regular-expression rules a lookahead follows.
 #[derive(Clone, Copy, Debug)]
@@ -18,7 +18,7 @@ pub(crate) enum RegexForm {
 
 /// Which end of a character-class range an item is.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum RangeItem {
+enum RangeBound {
     /// The item before `-`.
     Low,
     /// The item after `-`.
@@ -33,12 +33,12 @@ impl<const D: u8> Lexer<'_, D> {
         let q = self.regex_start(p)?;
         self.flush(p);
         self.capture(
-            Kind::Regex,
+            Rule::Regex,
             q,
             q + 1,
             &[S::PunctuationDefinitionStringBegin],
         );
-        self.push(Kind::Regex);
+        self.push(Rule::Regex);
         Some(q + 1)
     }
 
@@ -226,12 +226,12 @@ impl<const D: u8> Lexer<'_, D> {
             {
                 self.token(p, p + 3, &[S::KeywordOtherBackReferenceRegexp]);
                 self.capture(
-                    Kind::Top,
+                    Rule::Top,
                     p + 3,
                     n,
                     &[S::KeywordOtherBackReferenceRegexp, S::VariableOtherRegexp],
                 );
-                self.capture(Kind::Top, n, n + 1, &[S::KeywordOtherBackReferenceRegexp]);
+                self.capture(Rule::Top, n, n + 1, &[S::KeywordOtherBackReferenceRegexp]);
                 return Some(n + 1);
             }
         }
@@ -256,7 +256,7 @@ impl<const D: u8> Lexer<'_, D> {
             let neg = b1 == b'^';
             self.flush(p);
             self.capture(
-                Kind::RxSet,
+                Rule::RxSet,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionCharacterClassRegexp],
@@ -264,14 +264,14 @@ impl<const D: u8> Lexer<'_, D> {
             let mut e = p + 1;
             if neg {
                 self.capture(
-                    Kind::RxSet,
+                    Rule::RxSet,
                     p + 1,
                     p + 2,
                     &[S::KeywordOperatorNegationRegexp],
                 );
                 e = p + 2;
             }
-            self.push(Kind::RxSet);
+            self.push(Rule::RxSet);
             return Some(e);
         }
         self.regex_character_class(p)
@@ -322,29 +322,29 @@ impl<const D: u8> Lexer<'_, D> {
             };
             if let Some((len, scope)) = assertion {
                 self.capture(
-                    Kind::RxAssert,
+                    Rule::RxAssert,
                     p,
                     p + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Kind::RxAssert,
+                    Rule::RxAssert,
                     p + 1,
                     p + len,
                     &[S::PunctuationDefinitionGroupAssertionRegexp, scope],
                 );
-                self.push(Kind::RxAssert);
+                self.push(Rule::RxAssert);
                 return Some(p + len);
             }
             if b2 == b':' {
                 self.capture(
-                    Kind::RxGroup,
+                    Rule::RxGroup,
                     p,
                     p + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Kind::RxGroup,
+                    Rule::RxGroup,
                     p + 1,
                     p + 3,
                     &[
@@ -352,7 +352,7 @@ impl<const D: u8> Lexer<'_, D> {
                         S::PunctuationDefinitionGroupNoCaptureRegexp,
                     ],
                 );
-                self.push(Kind::RxGroup);
+                self.push(Rule::RxGroup);
                 return Some(p + 3);
             }
             if b2 == b'<'
@@ -360,40 +360,40 @@ impl<const D: u8> Lexer<'_, D> {
                 && self.byte(n) == b'>'
             {
                 self.capture(
-                    Kind::RxGroup,
+                    Rule::RxGroup,
                     p,
                     p + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Kind::RxGroup,
+                    Rule::RxGroup,
                     p + 1,
                     p + 3,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
                 self.capture(
-                    Kind::RxGroup,
+                    Rule::RxGroup,
                     p + 3,
                     n,
                     &[S::PunctuationDefinitionGroupRegexp, S::VariableOtherRegexp],
                 );
                 self.capture(
-                    Kind::RxGroup,
+                    Rule::RxGroup,
                     n,
                     n + 1,
                     &[S::PunctuationDefinitionGroupRegexp],
                 );
-                self.push(Kind::RxGroup);
+                self.push(Rule::RxGroup);
                 return Some(n + 1);
             }
         }
         self.capture(
-            Kind::RxGroup,
+            Rule::RxGroup,
             p,
             p + 1,
             &[S::PunctuationDefinitionGroupRegexp],
         );
-        self.push(Kind::RxGroup);
+        self.push(Rule::RxGroup);
         Some(p + 1)
     }
 
@@ -456,8 +456,8 @@ impl<const D: u8> Lexer<'_, D> {
     /// 2. a numeric escape;
     /// 3. a control escape;
     /// 4. any other escape.
-    fn range_items(&self, i: usize, item: RangeItem) -> [Option<(usize, Option<S>)>; 4] {
-        let any = item == RangeItem::Low;
+    fn range_items(&self, i: usize, bound: RangeBound) -> [Option<(usize, Option<S>)>; 4] {
+        let any = bound == RangeBound::Low;
         let plain = (i < self.len && (any || !matches!(self.byte(i), b']' | b'\\')))
             .then(|| (i + self.char_len(i), None));
         let numeric = self
@@ -479,12 +479,12 @@ impl<const D: u8> Lexer<'_, D> {
     /// `ITEM-ITEM` inside a character class.
     fn regex_range(&mut self, p: usize) -> Option<usize> {
         let (a_end, a_scope, b_end, b_scope) = self
-            .range_items(p, RangeItem::Low)
+            .range_items(p, RangeBound::Low)
             .into_iter()
             .flatten()
             .filter(|&(a_end, _)| self.byte(a_end) == b'-')
             .find_map(|(a_end, a_scope)| {
-                self.range_items(a_end + 1, RangeItem::High)
+                self.range_items(a_end + 1, RangeBound::High)
                     .into_iter()
                     .flatten()
                     .next()
@@ -493,13 +493,13 @@ impl<const D: u8> Lexer<'_, D> {
         self.flush(p);
         let range = S::ConstantOtherCharacterClassRangeRegexp;
         match a_scope {
-            Some(s) => self.capture(Kind::Top, p, a_end, &[range, s]),
-            None => self.capture(Kind::Top, p, a_end, &[range]),
+            Some(s) => self.capture(Rule::Top, p, a_end, &[range, s]),
+            None => self.capture(Rule::Top, p, a_end, &[range]),
         }
-        self.capture(Kind::Top, a_end, a_end + 1, &[range]);
+        self.capture(Rule::Top, a_end, a_end + 1, &[range]);
         match b_scope {
-            Some(s) => self.capture(Kind::Top, a_end + 1, b_end, &[range, s]),
-            None => self.capture(Kind::Top, a_end + 1, b_end, &[range]),
+            Some(s) => self.capture(Rule::Top, a_end + 1, b_end, &[range, s]),
+            None => self.capture(Rule::Top, a_end + 1, b_end, &[range]),
         }
         Some(b_end)
     }

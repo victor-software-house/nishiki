@@ -111,7 +111,7 @@ impl Lexer<'_> {
 
     /// The captures of a conditional directive: the whole directive, the
     /// word and the `#`.
-    fn directive_caps(&mut self, dir: Dir, meta: Meta) {
+    fn directive_captures(&mut self, dir: Dir, meta: Meta) {
         if meta == Meta::Whole {
             self.span(0, dir.kw.1, scopes![S::MetaPreprocessor]);
         }
@@ -127,7 +127,7 @@ impl Lexer<'_> {
         if !self.look_ahead(dir.kw.1, look) {
             return false;
         }
-        self.directive_caps(dir, meta);
+        self.directive_captures(dir, meta);
         self.begin(0, dir.kw.1)
     }
 
@@ -146,7 +146,7 @@ impl Lexer<'_> {
         let Some(dir) = self.directive(p, &["else", "elif", "endif"]) else {
             return false;
         };
-        self.cap_dyn(0, dir.kw.1, "invalid.illegal.stray-", dir.kw);
+        self.capture_dyn(0, dir.kw.1, "invalid.illegal.stray-", dir.kw);
         self.plain(0, dir.kw.1)
     }
 
@@ -314,7 +314,7 @@ impl Lexer<'_> {
         let Some(dir) = self.directive(p, kws) else {
             return false;
         };
-        self.cap_dyn(dir.hash, dir.kw.1, prefix, dir.kw);
+        self.capture_dyn(dir.hash, dir.kw.1, prefix, dir.kw);
         self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
         let end = self.skip_space(dir.kw.1);
         self.begin(0, end)

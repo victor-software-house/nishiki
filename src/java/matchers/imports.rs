@@ -70,7 +70,7 @@ impl Lexer<'_> {
     /// `\b(package)\b\s*`.
     pub(super) fn package_begin(&mut self, p: usize) -> Option<usize> {
         let end = self.keyword(p, b"package")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.space_end(end))
     }
 
@@ -78,7 +78,7 @@ impl Lexer<'_> {
     pub(super) fn terminator(&mut self, p: usize) -> Option<usize> {
         let semicolon = self.space_end(p);
         (self.at(semicolon) == b';' && semicolon < self.lim()).then(|| {
-            self.cap(1, semicolon, semicolon + 1);
+            self.capture(1, semicolon, semicolon + 1);
             semicolon + 1
         })
     }
@@ -115,9 +115,9 @@ impl Lexer<'_> {
             t += self.space_at(t).max(1);
         }
         let (_, end, modifier) = best?;
-        self.cap(1, p, word_end);
+        self.capture(1, p, word_end);
         if let Some((from, to)) = modifier {
-            self.cap(2, from, to);
+            self.capture(2, from, to);
         }
         Some(end)
     }

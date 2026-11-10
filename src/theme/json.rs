@@ -9,7 +9,7 @@ use std::{error, fmt};
 
 use serde_json::{Map, Value};
 
-use super::{RuleScope, ThemeKind, ThemeRule, ThemeSource};
+use super::{ColorScheme, RuleScope, ThemeRule, ThemeSource};
 
 /// A theme file that could not be read.
 #[derive(Debug)]
@@ -81,9 +81,9 @@ pub(super) fn source(json: &str) -> Result<ThemeSource, ThemeError> {
         .unwrap_or_default();
     Ok(ThemeSource {
         name: text(theme, "name"),
-        kind: match theme.get("type").and_then(Value::as_str) {
-            Some("light") => Some(ThemeKind::Light),
-            Some("dark") => Some(ThemeKind::Dark),
+        color_scheme: match theme.get("type").and_then(Value::as_str) {
+            Some("light") => Some(ColorScheme::Light),
+            Some("dark") => Some(ColorScheme::Dark),
             _ => None,
         },
         editor_foreground: colors.and_then(|colors| text(colors, "editor.foreground")),

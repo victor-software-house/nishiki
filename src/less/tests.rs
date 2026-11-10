@@ -1,5 +1,5 @@
 use crate::Language;
-use crate::language::{StopKind, Stopped};
+use crate::language::{StopReason, Stopped};
 use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf, scopes_of};
 
 fn lex(line: &str) -> LeafRow {
@@ -155,7 +155,7 @@ fn an_embedded_line_halts_at_the_hosts_end() {
         stops(&[line]),
         [Some(Stopped {
             at: line.find("</style").expect("the end tag"),
-            kind: StopKind::Halt,
+            reason: StopReason::Halt,
         })]
     );
 }
@@ -171,7 +171,7 @@ fn an_embedded_line_pops_the_host_at_a_root_close() {
         [
             Some(Stopped {
                 at: 0,
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
             }),
             None,
         ]
@@ -187,7 +187,7 @@ fn an_embedded_line_pops_the_host_at_a_root_close_mid_line() {
         stops(&[line]),
         [Some(Stopped {
             at: line.rfind('}').expect("the second close"),
-            kind: StopKind::PopHost,
+            reason: StopReason::PopHost,
         })]
     );
 }

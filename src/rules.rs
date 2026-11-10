@@ -82,7 +82,7 @@ use crate::Language;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, Stopped};
 #[cfg(feature = "_embedding")]
-use crate::language::{Halts, Parts, StopKind, cut_tokens};
+use crate::language::{Halts, Parts, StopReason, cut_tokens};
 use crate::limits::Finished;
 #[cfg(feature = "_embedding")]
 use crate::limits::{Limit, Steps};
@@ -100,9 +100,9 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// A rule of the grammar that can be open at the end of a line.
     type Rule: Copy + Debug + PartialEq + 'static;
     /// One regular expression of the grammar.
-    type Pat: Copy + Debug + 'static;
-    /// A kind of capture group that the grammar tokenizes with patterns of
-    /// its own.
+    type Pattern: Copy + Debug + 'static;
+    /// What a capture group holds that the grammar tokenizes with patterns
+    /// of its own.
     type Nested: Copy + Debug + 'static;
     /// What the language's matchers remember about the line being lexed.
     type Extra: Default;
@@ -163,7 +163,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn rule_content(rule: Self::Rule) -> Scopes<Self::Scope>;
     /// The `while` pattern of a rule that has one: the rule stays open on a
     /// later line only when the pattern matches at its start.
-    fn rule_while(_rule: Self::Rule) -> Option<Self::Pat> {
+    fn rule_while(_rule: Self::Rule) -> Option<Self::Pattern> {
         None
     }
     /// Whether a rule of the grammar has a `while` pattern
@@ -176,13 +176,13 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// What the scan does with the rest of a run of spaces and tabs where no
     /// pattern matched at its first byte ([`BlankRuns`]).
     const BLANK_RUNS: BlankRuns = BlankRuns::Skip;
-    /// Whether `pat` takes exactly one blank and then requires a character
+    /// Whether `pattern` takes exactly one blank and then requires a character
     /// that is not a blank.
     /// A [`BlankRuns::ToLast`] grammar tries these patterns at the last blank
     /// of a run.
     /// Its generator writes them from `oracle/rule-grammar.ts`'s
     /// `takesOneBlank`.
-    fn takes_one_blank(_pat: Self::Pat) -> bool {
+    fn takes_one_blank(_pattern: Self::Pattern) -> bool {
         false
     }
     /// Whether the loop tests at each step whether the innermost rule embeds
@@ -236,29 +236,29 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn embed_start(_rule: Self::Rule) -> Option<fn(&mut Arena, u32) -> u32> {
         None
     }
-    /// What `pat` does when it matches.
-    fn pat_act(pat: Self::Pat) -> Act<Self>;
-    /// The scopes of the capture groups of `pat`, and the groups the grammar
-    /// tokenizes with patterns of their own.
-    fn pat_captures(pat: Self::Pat) -> Captures<Self>;
-    /// Both answers about `pat` that the engine needs for each match; a
+    /// What `pattern` does when it matches.
+    fn pattern_act(pattern: Self::Pattern) -> Act<Self>;
+    /// The scopes of the capture groups of `pattern`, and the groups the
+    /// grammar tokenizes with patterns of their own.
+    fn pattern_captures(pattern: Self::Pattern) -> Captures<Self>;
+    /// Both answers about `pattern` that the engine needs for each match; a
     /// grammar whose table holds them together answers with one lookup.
-    fn pat_data(pat: Self::Pat) -> (Act<Self>, Captures<Self>) {
-        (Self::pat_act(pat), Self::pat_captures(pat))
+    fn pattern_definition(pattern: Self::Pattern) -> (Act<Self>, Captures<Self>) {
+        (Self::pattern_act(pattern), Self::pattern_captures(pattern))
     }
     /// The first pattern of the innermost rule that matches at or after the
     /// cursor, with where its match starts and ends. At the first place where
     /// [`Lexer::root_halts`] holds it calls [`Lexer::halt_here`] and returns
     /// `None`. A language that keeps the candidate tables of [`Tabled`] calls
     /// [`table_scan`].
-    fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Self::Pat, usize)>;
-    /// Whether `pat` matches at `p`, and where it ends.
-    fn matcher(lexer: &mut Lexer<'_, Self>, pat: Self::Pat, p: usize) -> Option<usize>;
+    fn scan(lexer: &mut Lexer<'_, Self>) -> Option<(usize, Self::Pattern, usize)>;
+    /// Whether `pattern` matches at `p`, and where it ends.
+    fn matcher(lexer: &mut Lexer<'_, Self>, pattern: Self::Pattern, p: usize) -> Option<usize>;
     /// Emits the tokens of the capture group text `from..to` that sits under
     /// the stack `base`, and leaves the cursor at `to`.
     fn tokenize_nested(
         lexer: &mut Lexer<'_, Self>,
-        kind: Self::Nested,
+        nested: Self::Nested,
         from: usize,
         to: usize,
         base: u32,
@@ -327,14 +327,14 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     /// grammar ([`Grammar::defers_nested`]).
     /// Only a grammar that embeds languages ([`Embeds`]) sets it.
     const DEFERS_NESTED: bool = false;
-    /// The language that lexes the capture groups of kind `kind` again, if
-    /// one does.
+    /// The language that lexes the `nested` capture groups again, if one
+    /// does.
     /// The engine then emits such a group as one placeholder token and
     /// defers it.
     /// Where the line hands control back, [`Embeds::lex_nested`] lexes it in
     /// place of the placeholder.
     /// It is read only where [`Grammar::DEFERS_NESTED`] is set.
-    fn defers_nested(_kind: Self::Nested) -> Option<Language> {
+    fn defers_nested(_nested: Self::Nested) -> Option<Language> {
         None
     }
     /// Where the line being lexed notes its deferred capture groups, in the
@@ -433,7 +433,7 @@ pub(crate) fn lex<G: Grammar>(
 ///
 /// The second value holds where the line halted.
 /// It also holds where a pattern matched an empty text at the root without
-/// advancing ([`StopKind::PopHost`]); the grammar lexes the rest of the line.
+/// advancing ([`StopReason::PopHost`]); the grammar lexes the rest of the line.
 /// Without one, the state resumes on the next line.
 #[inline]
 pub(crate) fn lex_until<G: Grammar>(
@@ -936,7 +936,7 @@ fn lex_again<G: Embeds>(
     };
     let state = lex_embedding::<G>(&mut again, line, state, scratch);
     let state = steps.take_back(state);
-    let rule = G::rule_from_code(cx.arena.frame(state).kind);
+    let rule = G::rule_from_code(cx.arena.frame(state).rule);
     if matches!(G::rule_payload(rule), Payload::Embed(_)) {
         scratch(cx.scratch).forget_resume();
     }
@@ -992,7 +992,7 @@ fn hand_over<G: Embeds>(
             break (next, None);
         }
         let language = embedding.language;
-        let rule = G::rule_from_code(cx.arena.frame(next).kind);
+        let rule = G::rule_from_code(cx.arena.frame(next).rule);
         let inner = match embedding.state {
             0 => match G::embed_start(rule) {
                 Some(start) => start(cx.arena, embedding.base),
@@ -1045,7 +1045,7 @@ fn hand_over<G: Embeds>(
                 Finished::unspent(inner),
                 Some(Stopped {
                     at,
-                    kind: StopKind::Halt,
+                    reason: StopReason::Halt,
                 }),
             ))
         } else {
@@ -1190,11 +1190,11 @@ fn resume_at<G: Grammar>(
     match stopped {
         Some(Stopped {
             at,
-            kind: StopKind::Halt,
+            reason: StopReason::Halt,
         }) => ControlFlow::Continue((at, resumed_with(cx, scratch, embedding, inner))),
         Some(Stopped {
             at,
-            kind: StopKind::PopHost,
+            reason: StopReason::PopHost,
         }) => ControlFlow::Break(pop_host(cx, line, scratch, embedding, at)),
         None => ControlFlow::Break(resumed_with(cx, scratch, embedding, inner)),
     }
@@ -1230,7 +1230,7 @@ fn with_inner(cx: &mut Context<'_>, embedding: u32, inner: u32) -> u32 {
 /// Pops the embedding rule on top of `state`, and returns the state below it.
 ///
 /// vscode-textmate pops it where the language it embeds matched an empty text
-/// at its root without advancing ([`StopKind::PopHost`]).
+/// at its root without advancing ([`StopReason::PopHost`]).
 /// The rest of the line from `at` sits on that state's content scopes, in
 /// place of the tokens the language gave it.
 /// The line stops there.
@@ -1322,8 +1322,8 @@ pub(crate) trait Tabled: Grammar {
     /// It compiles that step out where no pattern needs it.
     const WORDS_AT_START: bool;
 
-    /// The bytes `pat` can start at.
-    fn pat_start(pat: Self::Pat) -> Start;
+    /// The bytes `pattern` can start at.
+    fn pattern_start(pattern: Self::Pattern) -> Start;
     /// The tables of `rule`, built on first use.
     fn tables(rule: Self::Rule) -> &'static Tables<Self>;
 }
@@ -1489,9 +1489,9 @@ impl<G: Grammar> Act<G> {
     }
 }
 
-/// The data of one pattern.
+/// What one pattern does when it matches, and the scopes of its captures.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct PatData<G: Grammar> {
+pub(crate) struct PatternDefinition<G: Grammar> {
     pub(crate) act: Act<G>,
     /// The scopes of the match's capture groups, by group number; group 0 is
     /// the whole match.
@@ -1501,9 +1501,9 @@ pub(crate) struct PatData<G: Grammar> {
     pub(crate) nested: &'static [(u8, G::Nested)],
 }
 
-/// The data of one rule.
+/// The scopes and patterns of one rule.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct RuleData<G: Grammar> {
+pub(crate) struct RuleDefinition<G: Grammar> {
     /// The scopes of its begin and end text and everything between.
     pub(crate) name: Scopes<G::Scope>,
     /// The scopes of what lies between its begin and end text.
@@ -1513,11 +1513,11 @@ pub(crate) struct RuleData<G: Grammar> {
     /// A rule whose `L:` injections win a tie with its end lists the end
     /// among its patterns instead, after them, as Svelte's language tags do.
     /// The engine knows an end pattern by its act, not by this field.
-    pub(crate) end: Option<G::Pat>,
+    pub(crate) end: Option<G::Pattern>,
     /// The begin capture group that the end pattern repeats, when it does.
     pub(crate) backref: Option<u8>,
     /// The patterns it tries, in order, after `end`.
-    pub(crate) patterns: &'static [G::Pat],
+    pub(crate) patterns: &'static [G::Pattern],
 }
 
 /// The bytes a pattern can start at.

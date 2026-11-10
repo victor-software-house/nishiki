@@ -277,7 +277,7 @@ impl Lexer<'_> {
         if p >= self.lim() || self.at(p) != b']' {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         let value = self.after_chans(p + 1, Lead::Tight, |lx, q, _| {
             if !lx.not_marked_word(q, &[b"func", b"map", b"struct"]) {
                 return None;
@@ -287,7 +287,7 @@ impl Lexer<'_> {
             (end > name).then(|| lx.after_type_args(end, |_, at| Some(at)).unwrap_or(end))
         });
         Some(value.map_or(p + 1, |end| {
-            self.cap(2, p + 1, end);
+            self.capture(2, p + 1, end);
             end
         }))
     }
@@ -314,8 +314,8 @@ impl Lexer<'_> {
         if at >= self.lim() || self.at(at) != open {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, at, at + 1);
+        self.capture(1, p, end);
+        self.capture(2, at, at + 1);
         Some(at + 1)
     }
 
@@ -326,9 +326,9 @@ impl Lexer<'_> {
             return None;
         }
         if end > p {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
         }
-        self.cap(2, end, end + 1);
+        self.capture(2, end, end + 1);
         Some(end + 1)
     }
 
@@ -341,7 +341,7 @@ impl Lexer<'_> {
             && end < self.lim()
             && self.at(end) == b')'
         {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let end = self.after_chans(p, Lead::Spaces, |lx, q, _| {
@@ -354,7 +354,7 @@ impl Lexer<'_> {
                 (at < lx.lim() && lx.at(at) == b')').then_some(at)
             })
         })?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -396,9 +396,9 @@ impl Lexer<'_> {
         if start == name_end {
             return None;
         }
-        self.cap(1, word, end);
-        self.cap(2, name, name_end);
-        self.cap(3, start, self.text_end());
+        self.capture(1, word, end);
+        self.capture(2, name, name_end);
+        self.capture(3, start, self.text_end());
         Some(self.text_end())
     }
 
@@ -419,8 +419,8 @@ impl Lexer<'_> {
         if name_end == name || name_end >= self.lim() || self.at(name_end) != b'[' {
             return None;
         }
-        self.cap(1, word, end);
-        self.cap(2, name, name_end);
+        self.capture(1, word, end);
+        self.capture(2, name, name_end);
         Some(name_end)
     }
 
@@ -459,7 +459,7 @@ impl Lexer<'_> {
             Some(end)
         });
         Some(end.map_or(p, |end| {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             end
         }))
     }
@@ -476,8 +476,8 @@ impl Lexer<'_> {
         if name_end == name {
             return None;
         }
-        self.cap(1, word, end);
-        self.cap(2, name, name_end);
+        self.capture(1, word, end);
+        self.capture(2, name, name_end);
         Some(name_end)
     }
 
@@ -495,7 +495,7 @@ impl Lexer<'_> {
             let closed = at + 1 < lx.lim() && lx.at(at) == b')' && lx.at(at + 1) == b'(';
             closed.then_some(at + 1)
         })?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -506,8 +506,8 @@ impl Lexer<'_> {
             return None;
         }
         let close = self.find_byte(name_end + 1, b']')?;
-        self.cap(1, p, name_end);
-        self.cap(2, name_end, close + 1);
+        self.capture(1, p, name_end);
+        self.capture(2, name_end, close + 1);
         Some(close + 1)
     }
 }

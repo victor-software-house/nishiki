@@ -6,9 +6,9 @@ use super::scope::S;
 /// The high byte that marks a frame as one of JSON's.
 const TAG: u16 = crate::tag::JSON;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// An open context: a begin/end rule of the JSON grammar.
-    pub(crate) enum Kind: TAG {
+    pub(crate) enum Rule: TAG {
         /// Outside every context.
         Top,
         /// `[` up to `]`.
@@ -28,19 +28,19 @@ crate::tag::frame_kinds! {
     }
 }
 
-impl Kind {
+impl Rule {
     /// The scopes the context adds to every token inside it, begin and end
     /// included.
     pub(crate) fn scopes(self) -> &'static [S] {
         match self {
-            Kind::Top => &[],
-            Kind::Array => &[S::MetaArray],
-            Kind::Object => &[S::MetaDict],
-            Kind::Pair => &[S::MetaPair],
-            Kind::Key => &[S::KeyString, S::KeyName],
-            Kind::Str => &[S::StrQuoted],
-            Kind::Block => &[S::CommentBlock],
-            Kind::Doc => &[S::CommentDoc],
+            Rule::Top => &[],
+            Rule::Array => &[S::MetaArray],
+            Rule::Object => &[S::MetaDict],
+            Rule::Pair => &[S::MetaPair],
+            Rule::Key => &[S::KeyString, S::KeyName],
+            Rule::Str => &[S::StrQuoted],
+            Rule::Block => &[S::CommentBlock],
+            Rule::Doc => &[S::CommentDoc],
         }
     }
 }

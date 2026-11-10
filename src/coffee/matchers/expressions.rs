@@ -54,11 +54,11 @@ where
         let from = self.lit(p, b"@").unwrap_or(p);
         let name = self.ident(from)?;
         let (sign, end) = self.assigned_function(name)?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         if from > p {
-            self.cap(2, p, from);
+            self.capture(2, p, from);
         }
-        self.cap(3, sign, sign + 1);
+        self.capture(3, sign, sign + 1);
         Some(end)
     }
 
@@ -87,18 +87,18 @@ where
         };
         let close = p + 1 + memchr::memchr(quote, self.text(p + 1, self.lim()))?;
         let (sign, end) = self.assigned_function(close + 1)?;
-        self.cap(first, p, close + 1);
-        self.cap(first + 1, p, p + 1);
-        self.cap(first + 2, p + 1, close);
-        self.cap(first + 3, close, close + 1);
-        self.cap(9, sign, sign + 1);
+        self.capture(first, p, close + 1);
+        self.capture(first + 1, p, p + 1);
+        self.capture(first + 2, p + 1, close);
+        self.capture(first + 3, close, close + 1);
+        self.capture(9, sign, sign + 1);
         Some(end)
     }
 
     /// `([$A-Z_a-z][$\w]*)(\.\.\.)?`.
     pub(super) fn param(&mut self, p: usize) -> Option<usize> {
         let name = self.ident(p)?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(self.splat_after(name))
     }
 
@@ -106,7 +106,7 @@ where
     pub(super) fn instance_param(&mut self, p: usize) -> Option<usize> {
         let at = self.lit(p, b"@")?;
         let name = self.ident(at).unwrap_or(at);
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(self.splat_after(name))
     }
 
@@ -115,7 +115,7 @@ where
         let Some(end) = self.lit(p, b"...") else {
             return p;
         };
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         end
     }
 
@@ -144,7 +144,7 @@ where
             }
             let run = self.closing_run(candidate + 1);
             if self.at(run) == b'=' {
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 return Some(p + 1);
             }
             next = run;
@@ -189,8 +189,8 @@ where
         if self.at(end) != b'(' {
             return None;
         }
-        self.cap(group, p, sign);
-        self.cap(3, from, name);
+        self.capture(group, p, sign);
+        self.capture(3, from, name);
         Some(end)
     }
 
@@ -204,8 +204,8 @@ where
             return None;
         }
         let end = self.bare_arguments_ahead(name, LoneAt::Taken)?;
-        self.cap(group, p, sign);
-        self.cap(3, from, name);
+        self.capture(group, p, sign);
+        self.capture(3, from, name);
         Some(end)
     }
 
@@ -258,9 +258,9 @@ where
             return None;
         }
         if from > p {
-            self.cap(1, p, from);
+            self.capture(1, p, from);
         }
-        self.cap(2, from, name);
+        self.capture(2, from, name);
         Some(name)
     }
 
@@ -275,9 +275,9 @@ where
         }
         let end = self.bare_arguments_ahead(name, LoneAt::Refused)?;
         if from > p {
-            self.cap(1, p, from);
+            self.capture(1, p, from);
         }
-        self.cap(2, from, name);
+        self.capture(2, from, name);
         Some(end)
     }
 
@@ -378,7 +378,7 @@ where
                 .map(|end| (end, dot))
         })?;
         if let Some((group, at)) = dot {
-            self.cap(group, at, at + 1);
+            self.capture(group, at, at + 1);
         }
         Some(end)
     }
@@ -450,8 +450,8 @@ where
             let end = self.run_of(cut, b'$');
             (ahead == Ahead::Any || self.object_ahead(end)).then_some(end)
         })?;
-        self.cap(group, p, sign);
-        self.cap(3, from, end);
+        self.capture(group, p, sign);
+        self.capture(3, from, end);
         Some(end)
     }
 
@@ -466,8 +466,8 @@ where
         if ahead == Ahead::Member && !self.object_ahead(end) {
             return None;
         }
-        self.cap(group, p, sign);
-        self.cap(3, from, end);
+        self.capture(group, p, sign);
+        self.capture(3, from, end);
         Some(end)
     }
 
@@ -479,8 +479,8 @@ where
             return None;
         }
         let end = self.dollar_word_end(from);
-        self.cap(group, p, sign);
-        self.cap(3, from, end);
+        self.capture(group, p, sign);
+        self.capture(3, from, end);
         Some(end)
     }
 
@@ -500,16 +500,16 @@ where
             && let Some(end) = self.word_assigner(blank)
         {
             if let Some(name) = name {
-                self.cap(1, p, name);
+                self.capture(1, p, name);
             }
-            self.cap(2, blank, end);
+            self.capture(2, blank, end);
             return Some(end);
         }
         if self.dollar_word_before(p) {
             return None;
         }
         let end = self.word_assigner(p)?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -530,9 +530,9 @@ where
         let from = self.space_end(name.unwrap_or(p));
         let end = operator(self, from)?;
         if let Some(name) = name {
-            self.cap(1, p, name);
+            self.capture(1, p, name);
         }
-        self.cap(2, from, end);
+        self.capture(2, from, end);
         Some(end)
     }
 

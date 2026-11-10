@@ -33,9 +33,9 @@ use crate::{Stack, Token};
 /// The high byte that marks a frame as one of the Dockerfile lexer's.
 const TAG: u16 = crate::tag::DOCKERFILE;
 
-crate::tag::frame_kinds! {
+crate::tag::frame_rules! {
     /// What a frame is.
-    enum Kind: TAG {
+    enum Rule: TAG {
         /// Outside a string.
         Top,
         /// Inside `"`.
@@ -45,13 +45,13 @@ crate::tag::frame_kinds! {
     }
 }
 
-impl Kind {
+impl Rule {
     /// The quote that ends the string.
     fn string(self) -> Option<u8> {
         match self {
-            Kind::Top => None,
-            Kind::Double => Some(b'"'),
-            Kind::Single => Some(b'\''),
+            Rule::Top => None,
+            Rule::Double => Some(b'"'),
+            Rule::Single => Some(b'\''),
         }
     }
 }
@@ -60,14 +60,14 @@ impl Kind {
 /// `base`: one context with `source.dockerfile` on top.
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena.child(base, S::Source.scope()).unwrap_or(base);
-    arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
 /// The state at the start of the Dockerfile lines of a Markdown fence.
 /// Their text sits on the stack `base` with no `source.dockerfile` of its
 /// own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
 /// Lexes `line` from `state` under the crate's one lexer contract
@@ -116,7 +116,7 @@ impl Lexer<'_> {
         let mut text = rules::Line::new(self.bytes, &steps);
         let mut pos = start;
         if start == 0
-            && Kind::from_code(self.frame.kind) == Kind::Top
+            && Rule::from_code(self.frame.rule) == Rule::Top
             && let Some(hit) = text.at_start()
         {
             self.hit(&hit);
@@ -129,7 +129,7 @@ impl Lexer<'_> {
                 break;
             }
             let from = pos;
-            pos = match Kind::from_code(self.frame.kind).string() {
+            pos = match Rule::from_code(self.frame.rule).string() {
                 None => self.top(pos),
                 Some(quote) => self.string(pos, quote),
             };
@@ -191,14 +191,14 @@ impl Lexer<'_> {
             self.report.record(Limit::Depth);
             return at + 1;
         }
-        let (kind, scope) = if quote == b'"' {
-            (Kind::Double, S::Double)
+        let (rule, scope) = if quote == b'"' {
+            (Rule::Double, S::Double)
         } else {
-            (Kind::Single, S::Single)
+            (Rule::Single, S::Single)
         };
         let stack = self.arena.child(self.frame.stack, scope.scope());
         let Some(state) =
-            stack.and_then(|stack| self.arena.push(self.state, kind.code(), 0, stack))
+            stack.and_then(|stack| self.arena.push(self.state, rule.code(), 0, stack))
         else {
             self.report.record(Limit::Nodes);
             return at + 1;

@@ -11,7 +11,7 @@ const TAG: u16 = crate::tag::RUST;
 /// It adds a scope, though some add none, and limits which rules apply.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
-pub(crate) enum Kind {
+pub(crate) enum Rule {
     /// Outside any context.
     Top,
     /// `fn name(` up to `{` or `;`.
@@ -23,7 +23,7 @@ pub(crate) enum Kind {
     /// `<[` up to `>`.
     AngleSq,
     /// `#[` up to `]`.
-    Attr,
+    Attribute,
     /// `use ` up to `;`.
     Use,
     /// `extern crate` up to `;`.
@@ -43,8 +43,8 @@ pub(crate) enum Kind {
     Doc,
 }
 
-impl Kind {
-    /// The `Kind` as a frame stores it: the Rust tag in the high byte, the
+impl Rule {
+    /// The `Rule` as a frame stores it: the Rust tag in the high byte, the
     /// discriminant in the low one.
     #[expect(
         clippy::as_conversions,
@@ -54,49 +54,49 @@ impl Kind {
         TAG | self as u16
     }
 
-    /// The `Kind` a frame's code names.
-    /// It is [`Kind::Top`] for a code that is not Rust's, such as the empty
+    /// The `Rule` a frame's code names.
+    /// It is [`Rule::Top`] for a code that is not Rust's, such as the empty
     /// state's.
-    pub(crate) fn from_code(code: u16) -> Kind {
+    pub(crate) fn from_code(code: u16) -> Rule {
         if code & 0xff00 != TAG {
-            return Kind::Top;
+            return Rule::Top;
         }
-        Kind::ALL
+        Rule::ALL
             .get(usize::from(code & 0xff))
             .copied()
-            .unwrap_or(Kind::Top)
+            .unwrap_or(Rule::Top)
     }
 
-    const ALL: [Kind; 13] = [
-        Kind::Top,
-        Kind::FnDef,
-        Kind::Call,
-        Kind::Generic,
-        Kind::AngleSq,
-        Kind::Attr,
-        Kind::Use,
-        Kind::Import,
-        Kind::Str,
-        Kind::Raw,
-        Kind::Char,
-        Kind::Block,
-        Kind::Doc,
+    const ALL: [Rule; 13] = [
+        Rule::Top,
+        Rule::FnDef,
+        Rule::Call,
+        Rule::Generic,
+        Rule::AngleSq,
+        Rule::Attribute,
+        Rule::Use,
+        Rule::Import,
+        Rule::Str,
+        Rule::Raw,
+        Rule::Char,
+        Rule::Block,
+        Rule::Doc,
     ];
 
     /// The scope the context adds to every token inside it, begin and end
     /// included.
     pub(crate) fn scope(self) -> Option<S> {
         match self {
-            Kind::Top | Kind::Generic | Kind::AngleSq => None,
-            Kind::FnDef => Some(S::MetaFnDef),
-            Kind::Call => Some(S::MetaFnCall),
-            Kind::Attr => Some(S::MetaAttr),
-            Kind::Use => Some(S::MetaUse),
-            Kind::Import => Some(S::MetaImport),
-            Kind::Str | Kind::Raw => Some(S::StrDouble),
-            Kind::Char => Some(S::StrChar),
-            Kind::Block => Some(S::CommentBlock),
-            Kind::Doc => Some(S::CommentBlockDoc),
+            Rule::Top | Rule::Generic | Rule::AngleSq => None,
+            Rule::FnDef => Some(S::MetaFnDef),
+            Rule::Call => Some(S::MetaFnCall),
+            Rule::Attribute => Some(S::MetaAttr),
+            Rule::Use => Some(S::MetaUse),
+            Rule::Import => Some(S::MetaImport),
+            Rule::Str | Rule::Raw => Some(S::StrDouble),
+            Rule::Char => Some(S::StrChar),
+            Rule::Block => Some(S::CommentBlock),
+            Rule::Doc => Some(S::CommentBlockDoc),
         }
     }
 }
@@ -105,13 +105,13 @@ impl Kind {
 mod tests {
     use super::*;
 
-    /// `Kind::ALL` is a hand copy of the enum: each entry must sit at its own
-    /// discriminant, or a frame's code reads back as another kind.
+    /// `Rule::ALL` is a hand copy of the enum: each entry must sit at its own
+    /// discriminant, or a frame's code reads back as another rule.
     #[test]
-    fn every_kind_round_trips_through_its_code() {
-        for (index, kind) in Kind::ALL.iter().enumerate() {
-            assert_eq!(usize::from(kind.code() & 0xff), index, "{kind:?}");
-            assert_eq!(Kind::from_code(kind.code()), *kind);
+    fn every_rule_round_trips_through_its_code() {
+        for (index, rule) in Rule::ALL.iter().enumerate() {
+            assert_eq!(usize::from(rule.code() & 0xff), index, "{rule:?}");
+            assert_eq!(Rule::from_code(rule.code()), *rule);
         }
     }
 }

@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language shellscript
 source bench/corpus/shellscript/medium/docker-install-install.sh
 url https://raw.githubusercontent.com/docker/docker-install/ada7a567e59b3935bd601bb21e422da50e80e376/install.sh

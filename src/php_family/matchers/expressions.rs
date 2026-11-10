@@ -25,22 +25,22 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if self.word_at(end).is_some() {
             return None;
         }
-        self.cap(1, p, colons);
-        self.cap(2, at, end);
+        self.capture(1, p, colons);
+        self.capture(2, at, end);
         Some(end)
     }
 
     /// `(?i)(=)(&)|(&)(?=[$_a-z])`.
     pub(crate) fn reference(&mut self, p: usize) -> Option<usize> {
         if self.starts(p, b"=&") {
-            self.cap(1, p, p + 1);
-            self.cap(2, p + 1, p + 2);
+            self.capture(1, p, p + 1);
+            self.capture(2, p + 1, p + 2);
             return Some(p + 2);
         }
         if self.at(p) != b'&' || !self.char_at(p + 1).is_some_and(|(c, _)| starts_word(c)) {
             return None;
         }
-        self.cap(3, p, p + 1);
+        self.capture(3, p, p + 1);
         Some(p + 1)
     }
 
@@ -74,7 +74,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if at == end || !next {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(at)
     }
 

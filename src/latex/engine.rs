@@ -3,11 +3,11 @@
 //! It holds the grammar's types, what its matchers remember about a line, and
 //! where an embedded language hands the line back.
 
-use super::grammar::{Expr, Nested, Pat, Rule, Sc};
+use super::grammar::{Expr, Nested, Pattern, Rule, Sc};
 use super::scope::S;
 use crate::arena::Arena;
 use crate::classes::space_width;
-use crate::language::{Context, Halt, Language, Line, StopKind, Stopped};
+use crate::language::{Context, Halt, Language, Line, StopReason, Stopped};
 use crate::limits::Finished;
 use crate::rules::{self, Act, Captures, FnHalt, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -42,7 +42,7 @@ impl Grammar for Latex {
     type Scope = Sc;
     const NO_SCOPES: Scopes<Sc> = Sc::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = Option<Box<rules::Deferrals>>;
@@ -79,11 +79,11 @@ impl Grammar for Latex {
         if matches!(rule, Rule::SectionsMacro) {
             return Sc::NO_SCOPES;
         }
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<Sc> {
-        rule.data().content
+        rule.definition().content
     }
 
     /// A code environment's rule carries the language it embeds, and an
@@ -109,28 +109,28 @@ impl Grammar for Latex {
         }
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
     /// TeX's matchers answer the expressions of the TeX rules the grammar
     /// includes; this module's answer the rest.
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        match pat.expr() {
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern.expr() {
             Expr::Shared(rx) => lexer.tex_matcher(rx, p),
             Expr::Own(rx) => lexer.matcher(rx, p),
         }
@@ -140,8 +140,8 @@ impl Grammar for Latex {
     /// ([`rules::Embeds::lex_nested`]).
     const DEFERS_NESTED: bool = true;
 
-    fn defers_nested(kind: Nested) -> Option<Language> {
-        kind.rule.deferred()
+    fn defers_nested(nested: Nested) -> Option<Language> {
+        nested.rule.deferred()
     }
 
     /// The deferrals' buffers go from line to line; the depth starts at 0.
@@ -169,15 +169,15 @@ impl Grammar for Latex {
     /// Past [`MAX_NESTED`] groups lexed again around it, the text keeps the
     /// group's scopes alone.
     /// The line then reports the depth limit.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        let inner = lexer.path(base, kind.scopes);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        let inner = lexer.path(base, nested.scopes);
         if lexer.x.nested >= MAX_NESTED {
             lexer.record_depth();
             lexer.emit(to, inner);
             return;
         }
         lexer.x.nested += 1;
-        lexer.retokenise(kind.rule, from, to, inner);
+        lexer.retokenise(nested.rule, from, to, inner);
         lexer.x.nested -= 1;
     }
 }
@@ -240,7 +240,7 @@ impl rules::Embeds for Latex {
             finished,
             Some(Stopped {
                 at,
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
             }),
         ))
     }

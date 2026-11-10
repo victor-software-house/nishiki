@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language ruby
 source bench/corpus/ruby/medium/hanami-router-router.rb
 url https://raw.githubusercontent.com/hanami/router/c276720a84805809f76a7699d39ba0a6eb48e171/lib/hanami/router.rb

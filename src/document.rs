@@ -69,7 +69,7 @@ pub struct Document {
     dirty: Option<Dirty>,
     /// The line count at the last [`Document::take_changes`].
     taken_lines: usize,
-    /// How many times each kind of line was lexed, for the tests.
+    /// How many completed lines and last lines were lexed, for the tests.
     #[cfg(test)]
     counts: Counts,
 }
@@ -246,7 +246,7 @@ impl std::error::Error for EditError {}
 /// How final a line's tokens are.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[non_exhaustive]
-pub enum LineKind {
+pub enum Freshness {
     /// Lexed from the exact state before it: final unless an edit reaches it.
     Exact,
     /// The last line of an open document, lexed as if it ended there.
@@ -268,7 +268,7 @@ pub enum LineKind {
 pub struct DocumentLine<'a> {
     text: &'a str,
     tokens: &'a [Token],
-    kind: LineKind,
+    freshness: Freshness,
     report: LineReport,
     highlighter: &'a Highlighter,
     theme: &'a Theme,
@@ -290,8 +290,8 @@ impl<'a> DocumentLine<'a> {
 
     /// How final the tokens are.
     #[must_use]
-    pub fn kind(&self) -> LineKind {
-        self.kind
+    pub fn freshness(&self) -> Freshness {
+        self.freshness
     }
 
     /// The limits lexing the line reached.
@@ -524,10 +524,10 @@ impl Document {
         self.mark(0, self.line_count());
     }
 
-    /// The lines whose text, tokens, kind or styles changed since the last
+    /// The lines whose text, tokens, freshness or styles changed since the last
     /// call, or `None` when no line changed.
     ///
-    /// A lex can change only a line's kind.
+    /// A lex can change only a line's freshness.
     /// A last line whose lexing [`Tail`] defers turns from stale to
     /// provisional, with the tokens it had.
     pub fn take_changes(&mut self) -> Option<Changes> {
@@ -871,7 +871,7 @@ impl Document {
             return Some(DocumentLine {
                 text,
                 tokens,
-                kind: LineKind::Exact,
+                freshness: Freshness::Exact,
                 report: entry.report,
                 highlighter: &self.highlighter,
                 theme: &self.theme,
@@ -880,7 +880,7 @@ impl Document {
         Some(DocumentLine {
             text,
             tokens,
-            kind: LineKind::Stale,
+            freshness: Freshness::Stale,
             report: LineReport::default(),
             highlighter: &self.highlighter,
             theme: &self.theme,
@@ -898,7 +898,7 @@ impl Document {
             return DocumentLine {
                 text,
                 tokens: &[],
-                kind: LineKind::Stale,
+                freshness: Freshness::Stale,
                 report: LineReport::default(),
                 highlighter: &self.highlighter,
                 theme: &self.theme,
@@ -907,12 +907,12 @@ impl Document {
         let current = lexed.seen == len && lexed.from == from && self.lexed == index;
         let whole = lexed.len == len;
         let tokens = self.tail.tokens.as_slice();
-        let kind = match (current, self.stream, whole) {
+        let freshness = match (current, self.stream, whole) {
             (false, Stream::Open | Stream::Finished, _) | (true, Stream::Finished, false) => {
-                LineKind::Stale
+                Freshness::Stale
             }
-            (true, Stream::Finished, true) => LineKind::Exact,
-            (true, Stream::Open, _) => LineKind::Provisional {
+            (true, Stream::Finished, true) => Freshness::Exact,
+            (true, Stream::Open, _) => Freshness::Provisional {
                 stable: tokens
                     .len()
                     .checked_sub(2)
@@ -923,7 +923,7 @@ impl Document {
         DocumentLine {
             text,
             tokens,
-            kind,
+            freshness,
             report: lexed.report,
             highlighter: &self.highlighter,
             theme: &self.theme,

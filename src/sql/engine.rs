@@ -9,7 +9,7 @@
 
 use std::cell::Cell;
 
-use super::rules::{Pat, patterns};
+use super::rules::{Pattern, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::language::{Halts, NO_HALTS};
@@ -59,7 +59,7 @@ impl Default for Extra {
 
 /// A capture group of a match that adds a scope.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
     pub(super) scope: S,
@@ -70,7 +70,7 @@ pub(super) struct Cap {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) caps: [Option<Cap>; 4],
+    pub(super) captures: [Option<Capture>; 4],
 }
 
 impl Hit {
@@ -78,13 +78,13 @@ impl Hit {
         Hit {
             start,
             end,
-            caps: [None; 4],
+            captures: [None; 4],
         }
     }
 
     /// The match with a group `from..to` that adds `scope`, in slot `slot`.
-    pub(super) fn cap(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
-        self.caps[slot] = Some(Cap { from, to, scope });
+    pub(super) fn capture(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
+        self.captures[slot] = Some(Capture { from, to, scope });
         self
     }
 }
@@ -118,21 +118,21 @@ impl Lexer<'_> {
         found
     }
 
-    /// Tries `pat` at `p`.
+    /// Tries `pattern` at `p`.
     /// On a match, it records the capture groups as spans and returns where
     /// the match ends.
     ///
-    /// It is `#[inline]`, as `pat_at` is.
+    /// It is `#[inline]`, as `pattern_at` is.
     /// The scan's whole dispatch for a candidate pattern then inlines at the
     /// default sixteen codegen units (`bench/AGENTS.md` rule 13).
     #[inline]
-    fn hit(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        let hit = self.pat_at(pat, p)?;
+    fn hit(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        let hit = self.pattern_at(pattern, p)?;
         self.x.start = hit.start;
         self.clear_spans();
-        for cap in hit.caps.iter().flatten() {
-            if cap.from < cap.to {
-                self.span_one(cap.from, cap.to, Some(cap.scope), None);
+        for capture in hit.captures.iter().flatten() {
+            if capture.from < capture.to {
+                self.span_one(capture.from, capture.to, Some(capture.scope), None);
             }
         }
         Some(hit.end)
@@ -145,19 +145,19 @@ impl Lexer<'_> {
         reason = "measured at one codegen unit: called from both instances of the scan, the halting one and the plain one, it stopped being inlined, at a call per place"
     )]
     #[inline(always)]
-    fn first_at(&mut self, rule: Rule, p: usize) -> Option<(Pat, usize)> {
+    fn first_at(&mut self, rule: Rule, p: usize) -> Option<(Pattern, usize)> {
         if rule != Rule::Bracket
-            && let Some(end) = self.hit(Pat::End, p)
+            && let Some(end) = self.hit(Pattern::End, p)
         {
-            return Some((Pat::End, end));
+            return Some((Pattern::End, end));
         }
-        for &pat in patterns(rule) {
-            if let Some(end) = self.hit(pat, p) {
-                return Some((pat, end));
+        for &pattern in patterns(rule) {
+            if let Some(end) = self.hit(pattern, p) {
+                return Some((pattern, end));
             }
         }
         if rule == Rule::Bracket {
-            return self.hit(Pat::End, p).map(|end| (Pat::End, end));
+            return self.hit(Pattern::End, p).map(|end| (Pattern::End, end));
         }
         None
     }
@@ -167,7 +167,7 @@ impl Grammar for Sql {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -196,32 +196,32 @@ impl Grammar for Sql {
         S::NO_SCOPES
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        match (pat, pat.opens()) {
-            (Pat::End, _) => Act::End,
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        match (pattern, pattern.opens()) {
+            (Pattern::End, _) => Act::End,
             (_, Some(rule)) => Act::Begin(rule),
-            (_, None) => Act::Match(pat.name()),
+            (_, None) => Act::Match(pattern.name()),
         }
     }
 
-    fn pat_captures(_: Pat) -> Captures<Self> {
+    fn pattern_captures(_: Pattern) -> Captures<Self> {
         (&[], &[])
     }
 
     /// The first match from the position: see `search`.
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         match lexer.root_halts() {
             Some(halts) => lexer.search::<true>(halts),
             None => lexer.search::<false>(&NO_HALTS),
         }
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.hit(pat, p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.hit(pattern, p)
     }
 
-    fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
-        match kind {}
+    fn tokenize_nested(_: &mut Lexer<'_>, nested: Nested, _: usize, _: usize, _: u32) {
+        match nested {}
     }
 }
 
@@ -240,7 +240,10 @@ impl Lexer<'_> {
     /// Only the root is open then.
     /// Without `HALTING` the tests compile out.
     /// SQL that nothing embeds pays nothing for them.
-    fn search<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, Pat, usize)> {
+    fn search<const HALTING: bool>(
+        &mut self,
+        halts: &Halts<'_>,
+    ) -> Option<(usize, Pattern, usize)> {
         let rule = self.top_rule();
         let end = self.lim() + usize::from(self.nl);
         let mut p = self.pos;
@@ -262,8 +265,8 @@ impl Lexer<'_> {
                 self.halt_here(p);
                 return None;
             }
-            if boundary && let Some((pat, hit_end)) = self.first_at(rule, p) {
-                if pat.opens().is_some() && self.at_depth_limit() {
+            if boundary && let Some((pattern, hit_end)) = self.first_at(rule, p) {
+                if pattern.opens().is_some() && self.at_depth_limit() {
                     self.record_depth();
                     let start = self.x.start;
                     let next = if hit_end > start {
@@ -275,7 +278,7 @@ impl Lexer<'_> {
                     p = self.pos;
                     continue 'search;
                 }
-                return Some((self.x.start, pat, hit_end));
+                return Some((self.x.start, pattern, hit_end));
             }
             if HALTING && boundary && halts.1.is_some_and(|after| after.holds(self.s, p)) {
                 self.halt_here(p);

@@ -210,7 +210,7 @@ lang-dockerfile = [
   "_scope-table",
   "_classes",
   "_utf8",
-  "_frame-kinds",
+  "_frame-rules",
 ]
 lang-elixir = [
   "_hand-lexers",
@@ -231,7 +231,7 @@ lang-graphql = [
   "lang-javascript",
   "_classes",
   "_utf8",
-  "_frame-kinds",
+  "_frame-rules",
 ]
 lang-hack = [
   "_hand-lexers",
@@ -258,7 +258,7 @@ lang-haml = [
   "lang-sass",
 ]
 lang-haskell = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-hcl = ["_hand-lexers", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-hcl = ["_hand-lexers", "_scope-table", "_classes", "_utf8", "_frame-rules"]
 lang-hlsl = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-html = [
   "_hand-lexers",
@@ -269,13 +269,13 @@ lang-html = [
   "_html-words",
 ]
 lang-html-derivative = ["_hand-lexers", "lang-html"]
-lang-ini = ["_hand-lexers", "_scope-table", "_classes", "_utf8", "_frame-kinds"]
+lang-ini = ["_hand-lexers", "_scope-table", "_classes", "_utf8", "_frame-rules"]
 lang-java = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 # The typescript module lexes four dialects, lang-javascript, lang-jsx,
 # lang-tsx and lang-typescript, each a copy of the lexer.
 lang-javascript = ["_hand-lexers", "_classes", "_space"]
 lang-jinja = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-json = ["_hand-lexers", "_classes", "_utf8", "_frame-kinds"]
+lang-json = ["_hand-lexers", "_classes", "_utf8", "_frame-rules"]
 lang-jsx = ["_hand-lexers", "_classes", "_space"]
 lang-julia = [
   "_hand-lexers",
@@ -312,7 +312,7 @@ lang-make = [
   "_rule-engine",
   "_classes",
   "_utf8",
-  "_frame-kinds",
+  "_frame-rules",
 ]
 lang-markdown = ["_hand-lexers", "_scope-table", "_classes", "_utf8"]
 lang-matlab = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
@@ -377,7 +377,7 @@ lang-shell = [
   "_scope-table",
   "_classes",
   "_utf8",
-  "_frame-kinds",
+  "_frame-rules",
 ]
 lang-sql = [
   "_hand-lexers",
@@ -385,7 +385,7 @@ lang-sql = [
   "_rule-engine",
   "_classes",
   "_utf8",
-  "_frame-kinds",
+  "_frame-rules",
 ]
 lang-svelte = [
   "_hand-lexers",
@@ -415,7 +415,7 @@ lang-toml = [
   "_scope-table",
   "_classes",
   "_utf8",
-  "_frame-kinds",
+  "_frame-rules",
 ]
 lang-tsx = ["_hand-lexers", "_classes", "_space"]
 lang-typescript = ["_hand-lexers", "_classes", "_space"]
@@ -433,7 +433,7 @@ lang-vue = [
   "lang-graphql",
 ]
 lang-xml = ["_hand-lexers", "_scope-table", "lang-java", "_classes", "_utf8"]
-lang-yaml = ["_hand-lexers", "_scope-table", "_utf8", "_space", "_frame-kinds"]
+lang-yaml = ["_hand-lexers", "_scope-table", "_utf8", "_space", "_frame-rules"]
 lang-zig = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 
 # Shared code that only some languages use; not for callers.
@@ -463,8 +463,8 @@ _identifier-classes = ["_classes"]
 # The matchers and word tables that PHP's and Hack's grammars share.
 _php-family = ["_rule-tables"]
 _scope-table = []
-# tag::frame_kinds!, for the lexers that declare their frame kinds with it.
-_frame-kinds = []
+# tag::frame_rules!, for the lexers that declare their frame rules with it.
+_frame-rules = []
 _rule-engine = ["_classes"]
 # The engine's candidate tables and shared character classes, for a language
 # whose matchers come from a grammar's generated tables; Makefiles use neither.

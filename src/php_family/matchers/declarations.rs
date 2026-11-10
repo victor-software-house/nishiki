@@ -18,15 +18,15 @@ impl<G: PhpFamily> Lexer<'_, G> {
             return None;
         }
         if !named {
-            self.cap(1, word, word_end);
+            self.capture(1, word, word_end);
             return Some(at);
         }
         let end = self.qualified(at)?;
         if self.at(self.space_end(end)) != b';' {
             return None;
         }
-        self.cap(1, word, word_end);
-        self.cap(2, at, end);
+        self.capture(1, word, word_end);
+        self.capture(2, at, end);
         Some(end)
     }
 
@@ -45,8 +45,8 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, end);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 }

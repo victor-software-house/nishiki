@@ -55,15 +55,15 @@ impl Lexer<'_> {
             && matches!(self.at(b), b'b' | b'B')
             && self.boundary(b + 1)
         {
-            self.cap(1, p, number);
-            self.cap(2, number, b + 1);
+            self.capture(1, p, number);
+            self.capture(2, number, b + 1);
             return Some(b + 1);
         }
         if !self.boundary(number) {
             return None;
         }
-        self.cap(1, p, number);
-        self.cap(2, number, number);
+        self.capture(1, p, number);
+        self.capture(2, number, number);
         Some(number)
     }
 

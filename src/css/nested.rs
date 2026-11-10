@@ -10,8 +10,8 @@ impl<G: CssLike> Lexer<'_, G> {
     /// Emits the tokens of capture group text `from..to`, and leaves the
     /// cursor at `to`.
     /// The text sits under the stack `base`.
-    pub(crate) fn css_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
-        match kind {
+    pub(crate) fn css_capture(&mut self, nested: Nested, from: usize, to: usize, base: u32) {
+        match nested {
             Nested::Escapes => self.escapes(from, to, base),
             Nested::CommentBlock => self.comments(from, to, base),
         }

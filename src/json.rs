@@ -23,7 +23,7 @@ mod state;
 
 pub(crate) use scope::NAMES;
 use scope::S;
-use state::Kind;
+use state::Rule;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, Stopped};
@@ -56,14 +56,14 @@ impl Dialect {
 /// `base`: one context with `source.json` (in `dialect`'s spelling) on top.
 pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
     let stack = arena.child(base, S::Source.scope(dialect)).unwrap_or(base);
-    arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
 /// The state at the start of the JSON lines of a fenced code block.
 /// The block's text sits on the stack `base` with no `source.json` of its
 /// own, as in Shiki's embedding.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, Kind::Top.code(), 0, base).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, base).unwrap_or(ROOT)
 }
 
 /// Lexes `line` in `dialect` from `state` and returns the state after it.

@@ -35,7 +35,7 @@ impl Lexer<'_> {
         }
         let slash = self.space_end(p);
         let end = self.lit(slash, b"/*")?;
-        self.cap(1, p, slash);
+        self.capture(1, p, slash);
         Some(end)
     }
 
@@ -88,9 +88,9 @@ impl Lexer<'_> {
         let variables_end = self.lit(variables, b"css-variables")?;
         let from = self.skip(variables_end, is_tab_or_space);
         let end = self.lit(from, b"from")?;
-        self.cap(1, import, import_end);
-        self.cap(2, variables, variables_end);
-        self.cap(3, from, end);
+        self.capture(1, import, import_end);
+        self.capture(2, variables, variables_end);
+        self.capture(3, from, end);
         Some(end)
     }
 
@@ -142,9 +142,9 @@ impl Lexer<'_> {
         let lim = self.lim();
         let alias = (path..lim).find(|&i| self.starts(i, b" as"));
         self.spend(alias.unwrap_or(lim) - path);
-        self.cap(1, path, alias.unwrap_or(lim));
+        self.capture(1, path, alias.unwrap_or(lim));
         if let Some(start) = alias {
-            self.cap(2, start, lim);
+            self.capture(2, start, lim);
         }
         Some(lim)
     }

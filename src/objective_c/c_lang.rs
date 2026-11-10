@@ -100,8 +100,8 @@ where
     pub(super) fn spaced_word(&mut self, p: usize, mask: u32) -> Option<usize> {
         let start = self.space_end(p);
         let end = self.listed_word(start, mask)?;
-        self.cap(1, p, start);
-        self.cap(2, start, end);
+        self.capture(1, p, start);
+        self.capture(2, start, end);
         Some(end)
     }
 
@@ -215,10 +215,10 @@ where
             end = self.space_end(rep_end);
         }
         let (middle_end, name_start, name_end) = found?;
-        self.cap(1, p, object_end);
-        self.cap(if arrow { 3 } else { 2 }, object_end, op_end);
-        self.cap(4, op_end, middle_end);
-        self.cap(5, name_start, name_end);
+        self.capture(1, p, object_end);
+        self.capture(if arrow { 3 } else { 2 }, object_end, op_end);
+        self.capture(4, op_end, middle_end);
+        self.capture(5, name_start, name_end);
         Some(name_end)
     }
 
@@ -226,8 +226,8 @@ where
     pub(super) fn access_head(&mut self, p: usize) -> Option<usize> {
         let object_end = self.access_object(p)?;
         let (op_end, arrow) = self.access_op(object_end)?;
-        self.cap(1, p, object_end);
-        self.cap(if arrow { 3 } else { 2 }, object_end, op_end);
+        self.capture(1, p, object_end);
+        self.capture(if arrow { 3 } else { 2 }, object_end, op_end);
         Some(op_end)
     }
 
@@ -295,8 +295,8 @@ where
     /// group 2.
     pub(super) fn call_innards(&mut self, p: usize) -> Option<usize> {
         let (name_end, paren) = self.call_target(p, words::FUNCTION_EXCLUDED)?;
-        self.cap(1, p, name_end);
-        self.cap(2, paren, paren + 1);
+        self.capture(1, p, name_end);
+        self.capture(2, paren, paren + 1);
         Some(paren + 1)
     }
 
@@ -348,10 +348,10 @@ where
             return None;
         }
         if start > p {
-            self.cap(1, p, start);
+            self.capture(1, p, start);
         }
-        self.cap(2, start, j);
-        self.cap(4, paren, paren + 1);
+        self.capture(2, start, j);
+        self.capture(4, paren, paren + 1);
         Some(paren + 1)
     }
 
@@ -379,8 +379,8 @@ where
             };
             let paren = self.space_end(name_end);
             if self.at(paren) == b'(' && paren < self.lim() {
-                self.cap(1, start, name);
-                self.cap(2, name, name_end);
+                self.capture(1, start, name);
+                self.capture(2, name, name_end);
                 return Some(paren + 1);
             }
         }
@@ -424,7 +424,7 @@ where
         if !ok {
             return None;
         }
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(after)
     }
 
@@ -435,9 +435,9 @@ where
             return None;
         }
         if open > p || matches!(self.prev(p), Some(b']' | b')')) {
-            self.cap(1, p, open);
+            self.capture(1, p, open);
         }
-        self.cap(2, open, open + 1);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 
@@ -468,7 +468,7 @@ where
         }
         let inner = self.blank_end(4).min(close);
         let trailing = self.blank_start_before(close).max(inner);
-        self.cap(1, 4, trailing);
+        self.capture(1, 4, trailing);
         Some(self.space_end(self.lim()).min(self.lim() + 1))
     }
 
@@ -484,7 +484,7 @@ where
         let close = last - 1;
         let inner = self.blank_end(4).min(close);
         let trailing = self.blank_start_before(close).max(inner);
-        self.cap(1, 4, trailing);
+        self.capture(1, 4, trailing);
         Some(self.space_end(close + 1))
     }
 

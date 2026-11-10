@@ -2,9 +2,9 @@
 
 use super::bytes::{ANY, BLANK, Bytes, COMMENT_START, LOWER, NAME_START, STRING_START};
 use super::chars::Before;
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 /// `(?:\b(export)\s+)?(?:\b(declare)\s+)?` at a position.
 pub(crate) struct Prefix {
@@ -17,7 +17,7 @@ pub(crate) struct Prefix {
 /// Whether the names a binding pattern declares are constants.
 /// The grammar scopes constants apart.
 /// A `using` declaration has no patterns.
-/// A [`VarKind`] would therefore carry a case no pattern meets.
+/// A [`VarKeyword`] would therefore carry a case no pattern meets.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Binding {
     /// `let`, `var` and parameters.
@@ -47,7 +47,7 @@ impl Pattern {
 
 /// The three declaration keyword forms the grammar keeps apart.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum VarKind {
+pub(crate) enum VarKeyword {
     Let,
     Const,
     Using,
@@ -139,14 +139,14 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) != b'@' || !self.kw_before(p) {
             return None;
         }
-        self.open_token(Kind::Decorator, p, p + 1, &[S::PunctuationDecorator])
+        self.open_token(Rule::Decorator, p, p + 1, &[S::PunctuationDecorator])
     }
 
     pub(crate) fn decl_block(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) != b'{' {
             return None;
         }
-        self.open_token(Kind::Block, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Rule::Block, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     /// `(?<!\+\+|--)(?<=[!(+,:=>?\[]|^await|…|&&|\|\||\*)\s*(\{)`.
@@ -156,8 +156,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Kind::ObjLit, j, j + 1, &[S::PunctuationDefinitionBlock]);
-        self.push(Kind::ObjLit);
+        self.capture(Rule::ObjLit, j, j + 1, &[S::PunctuationDefinitionBlock]);
+        self.push(Rule::ObjLit);
         Some(j + 1)
     }
 
@@ -180,13 +180,13 @@ impl<const D: u8> Lexer<'_, D> {
         let k = self.ws(j + 1);
         if self.byte(k) == b'{' && !self.full() {
             self.flush(p);
-            self.capture(Kind::LabelBlock, p, e, &[S::EntityNameLabel]);
-            self.capture(Kind::LabelBlock, j, j + 1, &[S::PunctuationSeparatorLabel]);
-            self.push(Kind::LabelBlock);
+            self.capture(Rule::LabelBlock, p, e, &[S::EntityNameLabel]);
+            self.capture(Rule::LabelBlock, j, j + 1, &[S::PunctuationSeparatorLabel]);
+            self.push(Rule::LabelBlock);
             return Some(j + 1);
         }
         self.token(p, e, &[S::EntityNameLabel]);
-        self.capture(Kind::Top, j, j + 1, &[S::PunctuationSeparatorLabel]);
+        self.capture(Rule::Top, j, j + 1, &[S::PunctuationSeparatorLabel]);
         Some(j + 1)
     }
 
@@ -219,12 +219,12 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// Emits the `export` and `declare` captures of a begin match.
-    pub(crate) fn prefix_tokens(&mut self, kind: Kind, pre: &Prefix) {
+    pub(crate) fn prefix_tokens(&mut self, rule: Rule, pre: &Prefix) {
         if let Some((a, b)) = pre.export {
-            self.capture(kind, a, b, &[S::KeywordControlExport]);
+            self.capture(rule, a, b, &[S::KeywordControlExport]);
         }
         if let Some((a, b)) = pre.declare {
-            self.capture(kind, a, b, &[S::StorageModifier]);
+            self.capture(rule, a, b, &[S::StorageModifier]);
         }
     }
 
@@ -240,25 +240,25 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.byte(p).is_ascii_lowercase() {
             return None;
         }
-        if self.var_keyword(p, VarKind::Let).is_some() {
-            return self.open_empty(Kind::VarLet, p);
+        if self.var_keyword(p, VarKeyword::Let).is_some() {
+            return self.open_empty(Rule::VarLet, p);
         }
-        if self.var_keyword(p, VarKind::Const).is_some() {
-            return self.open_empty(Kind::VarConst, p);
+        if self.var_keyword(p, VarKeyword::Const).is_some() {
+            return self.open_empty(Rule::VarConst, p);
         }
-        if self.var_keyword(p, VarKind::Using).is_some() {
-            return self.open_empty(Kind::VarUsing, p);
+        if self.var_keyword(p, VarKeyword::Using).is_some() {
+            return self.open_empty(Rule::VarUsing, p);
         }
         None
     }
 
     /// `B(?:\b(export)\s+)?(?:\b(declare)\s+)?\b(var|let)E` and its `const`
     /// and `using` forms: the prefix and the end of the keyword.
-    pub(crate) fn var_keyword(&self, p: usize, which: VarKind) -> Option<(Prefix, usize)> {
+    pub(crate) fn var_keyword(&self, p: usize, which: VarKeyword) -> Option<(Prefix, usize)> {
         let pre = self.declaration_start(p)?;
         let k = pre.at;
         let e = match which {
-            VarKind::Let => {
+            VarKeyword::Let => {
                 if !self.boundary(k) {
                     return None;
                 }
@@ -268,7 +268,7 @@ impl<const D: u8> Lexer<'_, D> {
                     return None;
                 }
             }
-            VarKind::Const => {
+            VarKeyword::Const => {
                 if !self.starts(k, "const") || !self.boundary(k) {
                     return None;
                 }
@@ -279,7 +279,7 @@ impl<const D: u8> Lexer<'_, D> {
                 }
                 e
             }
-            VarKind::Using => self.await_using_end(k).or_else(|| self.using_end(k))?,
+            VarKeyword::Using => self.await_using_end(k).or_else(|| self.using_end(k))?,
         };
         self.kw_after(e).then_some((pre, e))
     }
@@ -296,22 +296,22 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The `var`, `let` or `const` keyword that begins a declaration, with its
     /// trailing blanks.
-    pub(crate) fn var_kw_rule(&mut self, p: usize, which: VarKind) -> Option<usize> {
+    pub(crate) fn var_kw_rule(&mut self, p: usize, which: VarKeyword) -> Option<usize> {
         let (pre, e) = self.var_keyword(p, which)?;
         if self.full() {
             return None;
         }
         self.flush(p);
-        self.prefix_tokens(Kind::VarKw, &pre);
-        self.capture(Kind::VarKw, pre.at, e, &[S::StorageType]);
+        self.prefix_tokens(Rule::VarKw, &pre);
+        self.capture(Rule::VarKw, pre.at, e, &[S::StorageType]);
         let j = self.ws(e);
-        self.finish(Kind::VarKw, j);
-        self.push(Kind::VarKw);
+        self.finish(Rule::VarKw, j);
+        self.push(Rule::VarKw);
         Some(j)
     }
 
     /// `(,)\s*(?=$|//)` after a declaration.
-    pub(crate) fn var_comma(&mut self, p: usize, kind: Kind) -> Option<usize> {
+    pub(crate) fn var_comma(&mut self, p: usize, rule: Rule) -> Option<usize> {
         if self.byte(p) != b',' || self.full() {
             return None;
         }
@@ -321,9 +321,9 @@ impl<const D: u8> Lexer<'_, D> {
         }
         let end = if self.eol(j) { p + 1 } else { j };
         self.flush(p);
-        self.capture(kind, p, p + 1, &[S::PunctuationSeparatorComma]);
-        self.finish(kind, end);
-        self.push(kind);
+        self.capture(rule, p, p + 1, &[S::PunctuationSeparatorComma]);
+        self.finish(rule, end);
+        self.push(rule);
         Some(end)
     }
 
@@ -409,16 +409,16 @@ impl<const D: u8> Lexer<'_, D> {
         scopes: &[S],
     ) -> usize {
         self.flush(p);
-        self.capture(Kind::VarSingle, p, e, scopes);
+        self.capture(Rule::VarSingle, p, e, scopes);
         if let Some(b) = bang {
             self.capture(
-                Kind::VarSingle,
+                Rule::VarSingle,
                 b,
                 b + 1,
                 &[S::KeywordOperatorDefiniteassignment],
             );
         }
-        self.push(Kind::VarSingle);
+        self.push(Rule::VarSingle);
         end
     }
 
@@ -436,15 +436,15 @@ impl<const D: u8> Lexer<'_, D> {
         {
             return None;
         }
-        let kind = match (open, binding) {
-            (b'{', Binding::Variable) => Kind::ObjBindVar,
-            (b'{', Binding::Constant) => Kind::ObjBindVarConst,
-            (_, Binding::Variable) => Kind::ArrBindVar,
-            (_, Binding::Constant) => Kind::ArrBindVarConst,
+        let rule = match (open, binding) {
+            (b'{', Binding::Variable) => Rule::ObjBindVar,
+            (b'{', Binding::Constant) => Rule::ObjBindVarConst,
+            (_, Binding::Variable) => Rule::ArrBindVar,
+            (_, Binding::Constant) => Rule::ArrBindVarConst,
         };
         self.flush(p);
-        self.finish(kind, j);
-        self.push(kind);
+        self.finish(rule, j);
+        self.push(rule);
         Some(j)
     }
 
@@ -466,26 +466,26 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Rule::Top, a, b, &[S::KeywordOperatorRest]);
         }
-        let (kind, scope) = match (pattern, binding) {
+        let (rule, scope) = match (pattern, binding) {
             (Pattern::Object, Binding::Variable) => {
-                (Kind::ObjBind, S::PunctuationDefinitionBindingPatternObject)
+                (Rule::ObjBind, S::PunctuationDefinitionBindingPatternObject)
             }
             (Pattern::Object, Binding::Constant) => (
-                Kind::ObjBindConst,
+                Rule::ObjBindConst,
                 S::PunctuationDefinitionBindingPatternObject,
             ),
             (Pattern::Array, Binding::Variable) => {
-                (Kind::ArrBind, S::PunctuationDefinitionBindingPatternArray)
+                (Rule::ArrBind, S::PunctuationDefinitionBindingPatternArray)
             }
             (Pattern::Array, Binding::Constant) => (
-                Kind::ArrBindConst,
+                Rule::ArrBindConst,
                 S::PunctuationDefinitionBindingPatternArray,
             ),
         };
-        self.capture(kind, j, j + 1, &[scope]);
-        self.push(kind);
+        self.capture(rule, j, j + 1, &[scope]);
+        self.push(rule);
         Some(j + 1)
     }
 
@@ -504,13 +504,13 @@ impl<const D: u8> Lexer<'_, D> {
         let e = self.ident(j)?;
         self.flush(p);
         if let Some((a, b)) = rest {
-            self.capture(Kind::Top, a, b, &[S::KeywordOperatorRest]);
+            self.capture(Rule::Top, a, b, &[S::KeywordOperatorRest]);
         }
         let name = match binding {
             Binding::Constant => S::VariableOtherConstant,
             Binding::Variable => S::VariableOtherReadwrite,
         };
-        self.capture(Kind::Top, j, e, &[S::MetaDefinitionVariable, name]);
+        self.capture(Rule::Top, j, e, &[S::MetaDefinitionVariable, name]);
         Some(e)
     }
 
@@ -531,11 +531,11 @@ impl<const D: u8> Lexer<'_, D> {
             return Some(r);
         }
         if self.key_colon_ahead(p) {
-            let kind = match binding {
-                Binding::Constant => Kind::ObjBindElemConst,
-                Binding::Variable => Kind::ObjBindElem,
+            let rule = match binding {
+                Binding::Constant => Rule::ObjBindElemConst,
+                Binding::Variable => Rule::ObjBindElem,
             };
-            return self.open_empty(kind, p);
+            return self.open_empty(rule, p);
         }
         self.binding_pattern(p, Pattern::Object, binding)
             .or_else(|| self.destructuring_variable_rest(p, binding))
@@ -591,7 +591,7 @@ impl<const D: u8> Lexer<'_, D> {
         if !self.key_colon_ahead(p) {
             return None;
         }
-        self.open_empty(Kind::ObjBindProp, p)
+        self.open_empty(Rule::ObjectBindingProperty, p)
     }
 
     /// `variable-initializer`: `=` and what it assigns.
@@ -605,12 +605,12 @@ impl<const D: u8> Lexer<'_, D> {
         let j = self.ws(p + 1);
         let nonblank = !self.eol(j);
         let ends_with_arrow = self.arrow_ends_line_after(p + 1);
-        let kind = if nonblank && !ends_with_arrow {
-            Kind::VarInit1
+        let rule = if nonblank && !ends_with_arrow {
+            Rule::VarInit1
         } else {
-            Kind::VarInit2
+            Rule::VarInit2
         };
-        self.open_token(kind, p, p + 1, &[S::KeywordOperatorAssignment])
+        self.open_token(rule, p, p + 1, &[S::KeywordOperatorAssignment])
     }
 
     /// `^\s*` followed by one of the statement keywords the grammar treats as

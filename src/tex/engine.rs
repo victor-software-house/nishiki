@@ -1,7 +1,7 @@
 //! TeX on the shared rule engine ([`crate::rules`]): the grammar's types,
 //! and where R, which `\Sexpr{…}` embeds, hands the line back.
 
-use super::grammar::{Nested, Pat, Rule, Sc};
+use super::grammar::{Nested, Pattern, Rule, Sc};
 use super::scope::S;
 use crate::arena::Arena;
 use crate::rules::{self, Act, Captures, FnHalt, Grammar, Payload, ScopeName, table_scan};
@@ -20,7 +20,7 @@ impl Grammar for Tex {
     type Scope = Sc;
     const NO_SCOPES: Scopes<Sc> = Sc::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = ();
     type Kept = ();
@@ -45,11 +45,11 @@ impl Grammar for Tex {
     }
 
     fn rule_name(rule: Rule) -> Scopes<Sc> {
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<Sc> {
-        rule.data().content
+        rule.definition().content
     }
 
     /// Math carries the `$` or `$$` that opened it, which its end repeats.
@@ -58,34 +58,34 @@ impl Grammar for Tex {
         rule.payload()
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.tex_matcher(pat.rx(), p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.tex_matcher(pattern.rx(), p)
     }
 
     /// Lexes the group again with its rule, under the stack the engine gives
     /// and the group's own scopes.
     /// TeX's tables name no such group, so the engine never calls it.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        let inner = lexer.path(base, kind.scopes);
-        lexer.retokenise(kind.rule, from, to, inner);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        let inner = lexer.path(base, nested.scopes);
+        lexer.retokenise(nested.rule, from, to, inner);
     }
 }
 

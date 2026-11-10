@@ -61,7 +61,7 @@ impl Lexer<'_> {
         if !self.at_eol(end) {
             return None;
         }
-        self.cap(1, p, quoted);
+        self.capture(1, p, quoted);
         Some(end)
     }
 
@@ -182,8 +182,8 @@ impl Lexer<'_> {
         if self.at(p) != sigil || self.at(p + 1) != open {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, p + 2);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, p + 2);
         Some(p + 2)
     }
 
@@ -198,9 +198,9 @@ impl Lexer<'_> {
         let dollar = groups.div_ceil(2);
         for group in 1..=groups {
             if group <= dollar {
-                self.cap(group, p, p + 1);
+                self.capture(group, p, p + 1);
             } else {
-                self.cap(group, p + 1, p + 2);
+                self.capture(group, p + 1, p + 2);
             }
         }
         Some(p + 2)

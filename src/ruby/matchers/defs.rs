@@ -41,9 +41,9 @@ impl Lexer<'_> {
         start: usize,
         (end, last): (usize, Option<usize>),
     ) {
-        self.cap(group, start, end);
+        self.capture(group, start, end);
         if let Some(at) = last {
-            self.cap(separator, at, at + 2);
+            self.capture(separator, at, at + 2);
         }
     }
 
@@ -59,7 +59,7 @@ impl Lexer<'_> {
             return None;
         }
         let path = self.class_path(name)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         self.record_path(2, 5, name, path);
         Some((name, path))
     }
@@ -71,7 +71,7 @@ impl Lexer<'_> {
         if self.byte_in(blank, |b| b == b'<') {
             let parent = self.space_end(blank + 1);
             if let Some(path) = self.class_path(parent) {
-                self.cap(7, blank, blank + 1);
+                self.capture(7, blank, blank + 1);
                 self.record_path(8, 11, parent, path);
                 return Some(path.0);
             }
@@ -90,8 +90,8 @@ impl Lexer<'_> {
         let word = self.word_then(p, b"class")?;
         let open = self.space_end(word);
         let end = self.lit(open, b"<<")?;
-        self.cap(1, p, word);
-        self.cap(2, open, end);
+        self.capture(1, p, word);
+        self.capture(2, open, end);
         Some(self.space_end(end))
     }
 
@@ -192,10 +192,10 @@ impl Lexer<'_> {
                 params.then_some((end, next))
             }
         })?;
-        self.cap(1, p, word);
-        self.cap(2, name, name_end);
+        self.capture(1, p, word);
+        self.capture(2, name, name_end);
         if after == After::Paren {
-            self.cap(3, end - 1, end);
+            self.capture(3, end - 1, end);
         }
         Some(end)
     }
@@ -213,12 +213,12 @@ impl Lexer<'_> {
     /// `(?=def\b)(?<=^|\s)(def)\b(\s+(name))?`
     pub(in crate::ruby) fn def_without_params(&mut self, p: usize) -> Option<usize> {
         let word = self.def_word(p)?;
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         let name = self.space_end(word);
         if name > word
             && let Some(end) = self.after_method_name(name, |_, end| Some(end))
         {
-            self.cap(3, name, end);
+            self.capture(3, name, end);
             return Some(end);
         }
         Some(word)
@@ -271,15 +271,15 @@ impl Lexer<'_> {
         let name = self.splat_end(p);
         let end = self.name_end(name)?;
         if name > p {
-            self.cap(1, p, name);
+            self.capture(1, p, name);
         }
         let mark = end + usize::from(self.byte_in(end, |b| b == b'!' || b == b'?'));
         if self.byte_in(mark, |b| b == b':') {
-            self.cap(2, name, mark + 1);
-            self.cap(3, mark, mark + 1);
+            self.capture(2, name, mark + 1);
+            self.capture(3, mark, mark + 1);
             return Some(mark + 1);
         }
-        self.cap(4, name, end);
+        self.capture(4, name, end);
         Some(end)
     }
 
@@ -298,7 +298,7 @@ impl Lexer<'_> {
     pub(in crate::ruby) fn lambda_parens(&mut self, p: usize) -> Option<usize> {
         let arrow = self.lit(p, b"->")?;
         let end = self.lit(arrow, b"(")?;
-        self.cap(1, p, arrow);
+        self.capture(1, p, arrow);
         Some(end)
     }
 
@@ -324,7 +324,7 @@ impl Lexer<'_> {
                     |b| matches!(b, b'$' | b'0'..=b':' | b'@'..=b'Z' | b'_' | b'a'..=b'z'),
                 ));
         (brace || word).then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         })
     }
@@ -335,7 +335,7 @@ impl Lexer<'_> {
             && !self.prev_is(p, b'|')
             && !self.byte_in(p + 1, |b| b == b'|'))
         .then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 1
         })
     }
@@ -359,8 +359,8 @@ impl Lexer<'_> {
         }
         let name = self.splat_end(p);
         let end = self.name_end(name)?;
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -400,7 +400,7 @@ impl Lexer<'_> {
     /// `([A-Za-z][!0-9?A-Z_a-z]*)(?=[^!0-9?A-Z_a-z])`
     pub(in crate::ruby) fn method_call_name(&mut self, p: usize) -> Option<usize> {
         let end = self.called_name_end(p)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -412,8 +412,8 @@ impl Lexer<'_> {
         let end = self.word_run(p + 1);
         let name = end + usize::from(self.byte_in(end, |b| b == b'!' || b == b'?'));
         self.byte_in(name, |b| b == b'(').then(|| {
-            self.cap(1, p, name);
-            self.cap(2, name, name + 1);
+            self.capture(1, p, name);
+            self.capture(2, name, name + 1);
             name + 1
         })
     }

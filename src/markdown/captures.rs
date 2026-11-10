@@ -16,14 +16,14 @@ pub(crate) const NESTING: usize = 4;
 /// A lexer therefore keeps one table and clears it before each rule it tries,
 /// instead of building a table per attempt.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct Caps {
+pub(crate) struct Captures {
     len: usize,
     groups: [(u8, u32, u32); GROUPS],
 }
 
-impl Caps {
+impl Captures {
     pub(crate) fn new() -> Self {
-        Caps {
+        Captures {
             len: 0,
             groups: [(0, 0, 0); GROUPS],
         }

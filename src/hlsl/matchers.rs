@@ -15,7 +15,7 @@
 //! `(?i)` compares words through [`crate::case_fold`].
 
 use super::engine::{Lexer, Word};
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use super::words;
 use crate::rules::Chars;
 use crate::{bytes, case_fold};
@@ -42,67 +42,67 @@ fn holds(words: &[&[u8]], word: &[u8]) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::BlockComment => self.lit(p, b"/*"),
-            Pat::BlockCommentEnd => self.lit(p, b"*/"),
-            Pat::LineComment => self.lit(p, b"//"),
-            Pat::LineCommentEnd => self.at_eol(p).then_some(p),
-            Pat::Float => self.float(p),
-            Pat::Fraction => self.fraction(p),
-            Pat::Integer => self.integer(p),
-            Pat::Hex => self.hex(p),
-            Pat::Preprocessor => self.directive(p),
-            Pat::Function => self.function(p),
-            Pat::Semantic => self.semantic(p, words::SEMANTIC_WORDS, words::SEMANTIC_DIGITS),
-            Pat::SemanticSm4 => {
+    /// Whether `pattern` matches at `p`, and where its match ends.
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::BlockComment => self.lit(p, b"/*"),
+            Pattern::BlockCommentEnd => self.lit(p, b"*/"),
+            Pattern::LineComment => self.lit(p, b"//"),
+            Pattern::LineCommentEnd => self.at_eol(p).then_some(p),
+            Pattern::Float => self.float(p),
+            Pattern::Fraction => self.fraction(p),
+            Pattern::Integer => self.integer(p),
+            Pattern::Hex => self.hex(p),
+            Pattern::Preprocessor => self.directive(p),
+            Pattern::Function => self.function(p),
+            Pattern::Semantic => self.semantic(p, words::SEMANTIC_WORDS, words::SEMANTIC_DIGITS),
+            Pattern::SemanticSm4 => {
                 self.semantic(p, words::SEMANTIC_SM4_WORDS, words::SEMANTIC_SM4_DIGITS)
             }
-            Pat::SemanticSm5 => {
+            Pattern::SemanticSm5 => {
                 self.semantic(p, words::SEMANTIC_SM5_WORDS, words::SEMANTIC_SM5_DIGITS)
             }
-            Pat::SemanticSm51 => {
+            Pattern::SemanticSm51 => {
                 self.semantic(p, words::SEMANTIC_SM51_WORDS, words::SEMANTIC_SM51_DIGITS)
             }
-            Pat::Bool
-            | Pat::Control
-            | Pat::Compile
-            | Pat::Typedef
-            | Pat::BasicType
-            | Pat::Modifier
-            | Pat::FloatModifier
-            | Pat::PostfixModifier
-            | Pat::Interpolation
-            | Pat::GeometryModifier
-            | Pat::StringType
-            | Pat::ObjectType
-            | Pat::RasterizerOrderedType
-            | Pat::RwType
-            | Pat::StreamType
-            | Pat::LegacySampler
-            | Pat::Sampler
-            | Pat::LegacyTexture
-            | Pat::Texture
-            | Pat::Structured
-            | Pat::FxConstant
-            | Pat::FxStateType
-            | Pat::Technique
-            | Pat::BlendStateKey
-            | Pat::DepthStencilStateKey
-            | Pat::RasterizerStateKey
-            | Pat::SamplerStateKey
-            | Pat::Blend
-            | Pat::BlendOp
-            | Pat::DepthWriteMask
-            | Pat::ComparisonFunc
-            | Pat::StencilOp
-            | Pat::FillMode
-            | Pat::CullMode
-            | Pat::Filter
-            | Pat::AddressMode => self.listed(p, words::bit(pat)),
-            Pat::String | Pat::StringEnd => self.lit(p, b"\""),
-            Pat::StringAt0 => self.escape(p),
+            Pattern::Bool
+            | Pattern::Control
+            | Pattern::Compile
+            | Pattern::Typedef
+            | Pattern::BasicType
+            | Pattern::Modifier
+            | Pattern::FloatModifier
+            | Pattern::PostfixModifier
+            | Pattern::Interpolation
+            | Pattern::GeometryModifier
+            | Pattern::StringType
+            | Pattern::ObjectType
+            | Pattern::RasterizerOrderedType
+            | Pattern::RwType
+            | Pattern::StreamType
+            | Pattern::LegacySampler
+            | Pattern::Sampler
+            | Pattern::LegacyTexture
+            | Pattern::Texture
+            | Pattern::Structured
+            | Pattern::FxConstant
+            | Pattern::FxStateType
+            | Pattern::Technique
+            | Pattern::BlendStateKey
+            | Pattern::DepthStencilStateKey
+            | Pattern::RasterizerStateKey
+            | Pattern::SamplerStateKey
+            | Pattern::Blend
+            | Pattern::BlendOp
+            | Pattern::DepthWriteMask
+            | Pattern::ComparisonFunc
+            | Pattern::StencilOp
+            | Pattern::FillMode
+            | Pattern::CullMode
+            | Pattern::Filter
+            | Pattern::AddressMode => self.listed(p, words::bit(pattern)),
+            Pattern::String | Pattern::StringEnd => self.lit(p, b"\""),
+            Pattern::StringAt0 => self.escape(p),
         }
     }
 

@@ -76,18 +76,18 @@ impl Lexer<'_> {
         if text == tag_end || text >= self.lim() {
             return None;
         }
-        self.cap(1, tag, tag_end);
+        self.capture(1, tag, tag_end);
         let words: [&[u8]; 4] = [b"public", b"private", b"protected", b"internal"];
         for word in words {
             if let Some(end) = self.lit(text, word) {
                 let after = self.space_end(end);
                 if self.at_eol(after) {
-                    self.cap(3, text, end);
+                    self.capture(3, text, end);
                     return Some(after);
                 }
             }
         }
-        self.cap(4, text, self.lim());
+        self.capture(4, text, self.lim());
         Some(self.space_end(self.lim()))
     }
 
@@ -109,7 +109,7 @@ impl Lexer<'_> {
             return None;
         }
         let close = memchr::memchr(b'}', self.text(at + 1, self.lim()))?;
-        self.cap(1, p + 1, at);
+        self.capture(1, p + 1, at);
         Some(at + 1 + close + 1)
     }
 
@@ -122,7 +122,7 @@ impl Lexer<'_> {
                 if !self.starts(blanks, b"//") {
                     return None;
                 }
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }
@@ -144,7 +144,7 @@ impl Lexer<'_> {
         if self.at(end) == b'<' {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -267,7 +267,7 @@ impl Lexer<'_> {
         if !self.at_eol(end) {
             return None;
         }
-        self.cap(2, label, label_end);
+        self.capture(2, label, label_end);
         Some(end)
     }
 
@@ -282,7 +282,7 @@ impl Lexer<'_> {
         if !closes {
             return None;
         }
-        self.cap(1, 0, end);
+        self.capture(1, 0, end);
         Some(end)
     }
 }

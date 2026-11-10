@@ -239,7 +239,7 @@ fn a_long_cdef_body_under_a_tight_work_limit_still_covers_its_lines() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::lua::engine::Lua;
-    use crate::lua::grammar::Pat;
+    use crate::lua::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with Lua's matchers (see
@@ -248,10 +248,10 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Lua, _>(arena, case, |lexer| {
                 lexer.first_line = true;
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

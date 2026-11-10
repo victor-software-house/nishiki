@@ -1,6 +1,6 @@
 use indoc::indoc;
 
-use super::state::Kind;
+use super::state::Rule;
 use crate::{Highlighter, Language, State};
 
 fn highlighter() -> Highlighter {
@@ -8,8 +8,8 @@ fn highlighter() -> Highlighter {
 }
 
 /// The innermost open context after a line, and how many are open.
-fn top(h: &Highlighter, state: State) -> Kind {
-    Kind::from_code(h.frame(state).kind)
+fn top(h: &Highlighter, state: State) -> Rule {
+    Rule::from_code(h.frame(state).rule)
 }
 
 fn depth(h: &Highlighter, state: State) -> u32 {
@@ -127,8 +127,8 @@ fn raw_strings_resume_across_lines() {
     let mut h = highlighter();
     let (rows, states) = lex_with(&mut h, text);
     assert_eq!(rows[0].last().unwrap().1, "string.quoted.double.rust");
-    assert_eq!(top(&h, states[0]), Kind::Raw);
-    assert_eq!(top(&h, states[1]), Kind::Top);
+    assert_eq!(top(&h, states[0]), Rule::Raw);
+    assert_eq!(top(&h, states[1]), Rule::Top);
     assert_eq!(scope_of(text, "r"), "string.quoted.byte.raw.rust");
     assert_eq!(
         scope_of(text, "#"),
@@ -169,7 +169,7 @@ fn unterminated_string_runs_to_the_end() {
         still string
         let t"},
     );
-    assert_eq!(top(&h, states[0]), Kind::Str);
+    assert_eq!(top(&h, states[0]), Rule::Str);
     assert_eq!(rows[1][0].1, "string.quoted.double.rust");
     assert_eq!(rows[2][0].1, "string.quoted.double.rust", "never recovers");
 }

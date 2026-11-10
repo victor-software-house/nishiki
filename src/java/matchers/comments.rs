@@ -9,7 +9,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.blank_end(0);
             if blanks > 0 && self.starts(blanks, b"//") {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }
@@ -36,7 +36,7 @@ impl Lexer<'_> {
         if self.at(end) == b'/' {
             return None;
         }
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -73,8 +73,8 @@ impl Lexer<'_> {
         if end == name {
             return None;
         }
-        self.cap(1, p, tag_end);
-        self.cap(2, name, end);
+        self.capture(1, p, tag_end);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -112,11 +112,11 @@ impl Lexer<'_> {
                 && let Some(end) = self.link_member(h + 1)
             {
                 let close = self.s[end..self.lim()].iter().position(|&b| b == b'}')?;
-                self.cap(1, p + 1, tag_end);
+                self.capture(1, p + 1, tag_end);
                 if h > first {
-                    self.cap(2, first, h);
+                    self.capture(2, first, h);
                 }
-                self.cap(3, h + 1, end);
+                self.capture(3, h + 1, end);
                 return Some(end + close + 1);
             }
             if hash <= first {

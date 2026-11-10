@@ -25,16 +25,16 @@ impl<G: Grammar> Lexer<'_, G> {
             Rx::IffalseBlock => {
                 let end = self.tex_line_start_command(p, b"\\iffalse")?;
                 (!self.tex_fi_follows(end)).then(|| {
-                    self.cap(1, p, end);
-                    self.cap(2, p, p + 1);
+                    self.capture(1, p, end);
+                    self.capture(2, p, p + 1);
                     end
                 })
             }
             Rx::IffalseBlockEnd => {
                 let end = self.lit(p, b"\\else").or_else(|| self.lit(p, b"\\fi"))?;
                 self.boundary(end).then(|| {
-                    self.cap(1, p, end);
-                    self.cap(2, p, p + 1);
+                    self.capture(1, p, end);
+                    self.capture(2, p, p + 1);
                     end
                 })
             }
@@ -42,7 +42,7 @@ impl<G: Grammar> Lexer<'_, G> {
                 if p == 0 {
                     let blanks = self.skip(0, |b| b == b' ' || b == b'\t');
                     if blanks > 0 && self.at(blanks) == b'%' && blanks < self.lim() {
-                        self.cap(1, 0, blanks);
+                        self.capture(1, 0, blanks);
                         return Some(blanks);
                     }
                 }
@@ -61,7 +61,7 @@ impl<G: Grammar> Lexer<'_, G> {
                 let name = self.lit(0, b"%!TEX ")?;
                 let value = self.tex_non_space_run(name);
                 let end = self.lit(value, b" =")?;
-                self.cap(1, 0, name - 1);
+                self.capture(1, 0, name - 1);
                 Some(end)
             }
             Rx::Braces => self.tex_unescaped(p, b'{'),
@@ -87,31 +87,31 @@ impl<G: Grammar> Lexer<'_, G> {
                         (digits > equals).then_some((char_end, equals, digits))
                     });
                 let (char_end, equals, digits) = code?;
-                self.cap(1, p, name - 1);
-                self.cap(2, p, p + 1);
-                self.cap(3, char_end, equals);
-                self.cap(4, equals, digits);
+                self.capture(1, p, name - 1);
+                self.capture(2, p, p + 1);
+                self.capture(3, char_end, equals);
+                self.capture(4, equals, digits);
                 Some(digits)
             }
             Rx::RootAt4 => (matches!(self.at(p), b'[' | b']') && p < self.lim()).then_some(p + 1),
             Rx::DollarMath => {
                 let end = self.lit(p, b"$")?;
                 let end = self.lit(end, b"$").unwrap_or(end);
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::DollarMathEnd => {
                 let end = p + self.payload_at(p)?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::DollarMathAt0 => self.lit(p, b"\\$"),
             Rx::MathContentAt0 => {
                 let name = self.lit(p, b"\\text").or_else(|| self.lit(p, b"\\mbox"))?;
                 let end = self.lit(name, b"{")?;
-                self.cap(1, p, name);
-                self.cap(2, p, p + 1);
-                self.cap(3, name, end);
+                self.capture(1, p, name);
+                self.capture(2, p, p + 1);
+                self.capture(3, name, end);
                 Some(end)
             }
             Rx::MathContentAt0End => self.lit(p, b"}"),
@@ -130,7 +130,7 @@ impl<G: Grammar> Lexer<'_, G> {
                     self.tex_letter_run(name)
                 };
                 (end > name).then(|| {
-                    self.cap(1, p, name);
+                    self.capture(1, p, name);
                     end
                 })
             }
@@ -142,7 +142,7 @@ impl<G: Grammar> Lexer<'_, G> {
                     let (c, end) = self.char_at(name)?;
                     (!c.is_ascii() || !Self::tex_command_letter(self.at(name))).then_some(end)?
                 };
-                self.cap(1, p, name);
+                self.capture(1, p, name);
                 Some(end)
             }
             Rx::MathContentAt1 => {
@@ -155,16 +155,16 @@ impl<G: Grammar> Lexer<'_, G> {
             Rx::MathContentAt5 => self.tex_listed_word(p, FUNCTION),
             Rx::MathContentAt6 => {
                 let end = self.lit(p, b"\\Sexpr{")?;
-                self.cap(1, p, end);
-                self.cap(2, p, p + 1);
-                self.cap(3, end - 1, end);
+                self.capture(1, p, end);
+                self.capture(2, p, p + 1);
+                self.capture(3, end - 1, end);
                 Some(end)
             }
             Rx::MathContentAt6End => {
                 let end = self.lit(p, b"}")?;
-                self.cap(1, p, end);
-                self.cap(2, p, end);
-                self.cap(3, p, end);
+                self.capture(1, p, end);
+                self.capture(2, p, end);
+                self.capture(3, p, end);
                 Some(end)
             }
             Rx::MathContentAt6At0 => {
@@ -179,7 +179,7 @@ impl<G: Grammar> Lexer<'_, G> {
                 }
                 let end = self.skip(name, |b| b.is_ascii_alphabetic());
                 (end > name).then(|| {
-                    self.cap(1, p, name);
+                    self.capture(1, p, name);
                     end
                 })
             }
@@ -281,7 +281,7 @@ impl<G: Grammar> Lexer<'_, G> {
         let name = self.lit(p, b"\\")?;
         let end = self.skip(name, Self::tex_command_letter);
         (listed(self.text(name, end), WORD_BYTES, &WORD_ENDS, &WORD_LISTS) & list != 0).then(|| {
-            self.cap(1, p, name);
+            self.capture(1, p, name);
             end
         })
     }
@@ -292,7 +292,7 @@ impl<G: Grammar> Lexer<'_, G> {
         let name = self.lit(p, b"\\")?;
         let end = self.word_end(name);
         (listed(self.text(name, end), WORD_BYTES, &WORD_ENDS, &WORD_LISTS) & list != 0).then(|| {
-            self.cap(1, p, name);
+            self.capture(1, p, name);
             end
         })
     }
@@ -317,7 +317,7 @@ impl<G: Grammar> Lexer<'_, G> {
         }
         i = self.lit(run, b":")?;
         let end = self.skip(i, |b| ARGUMENT_TYPES.contains(&b));
-        self.cap(1, p, start);
+        self.capture(1, p, start);
         Some(end)
     }
 

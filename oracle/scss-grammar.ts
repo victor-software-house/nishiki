@@ -70,8 +70,8 @@ function scopeIdent(name: string): string {
   let out = "";
   parts.forEach((part, index) => {
     for (const piece of part.split(/[-_]/)) {
-      const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-      out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+      const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+      out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
     }
   });
   return out + suffix;
@@ -99,10 +99,10 @@ const pascal = (key: string) =>
     .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
     .join("");
 
-type Pat = {
+type Pattern = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
   /** Capture groups that the grammar tokenizes with patterns of their own,
    * as the \`Nested\` value that does. */
@@ -118,7 +118,7 @@ type Rule = {
   patterns: string[];
 };
 
-const pats = new Map<string, Pat>();
+const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
 /** The rule that tokenizes the text of a capture group with the patterns `list`, one per distinct list. */
@@ -161,14 +161,14 @@ function allMissing(list: Node[]): boolean {
 /** Registers a match or begin/end rule under `id`; returns its pattern ids,
  * none for a rule dropped for missing patterns. */
 function register(node: Node, id: string): string[] {
-  const clash = pats.get(id);
+  const clash = patternById.get(id);
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (node.match !== undefined) {
-    if (!pats.has(id)) {
-      pats.set(id, {
+    if (!patternById.has(id)) {
+      patternById.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
         nested: nestedList(node.captures),
         css: null,
@@ -178,19 +178,19 @@ function register(node: Node, id: string): string[] {
   }
   if (node.begin !== undefined && node.end !== undefined) {
     if (allMissing(node.patterns ?? [])) return [];
-    if (!pats.has(id)) {
-      pats.set(id, {
+    if (!patternById.has(id)) {
+      patternById.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
         nested: nestedList(node.beginCaptures ?? node.captures),
         css: null,
       });
-      pats.set(`${id}End`, {
+      patternById.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
         nested: nestedList(node.endCaptures ?? node.captures),
         css: null,
@@ -212,25 +212,25 @@ function register(node: Node, id: string): string[] {
 
 /** The SCSS id of CSS pattern `id`, registering it, and the CSS rule it
  * opens with that rule's patterns, on first use. */
-function fromCssPat(id: string): string {
+function fromCssPattern(id: string): string {
   const own = `Css${id}`;
-  if (pats.has(own)) return own;
-  const pat = css.pats.get(id)!;
-  const act: Pat["act"] =
-    pat.act.kind === "match"
-      ? { kind: "match", name: pat.act.name.map(fromCss) }
-      : pat.act.kind === "begin"
-        ? { kind: "begin", rule: `Css${pat.act.rule}` }
-        : { kind: "end" };
-  pats.set(own, {
+  if (patternById.has(own)) return own;
+  const pattern = css.patternById.get(id)!;
+  const act: Pattern["act"] =
+    pattern.act.role === "match"
+      ? { role: "match", name: pattern.act.name.map(fromCss) }
+      : pattern.act.role === "begin"
+        ? { role: "begin", rule: `Css${pattern.act.rule}` }
+        : { role: "end" };
+  patternById.set(own, {
     id: own,
-    regex: pat.regex,
+    regex: pattern.regex,
     act,
-    captures: pat.captures.map(([n, names]): [number, string[]] => [n, names.map(fromCss)]),
-    nested: pat.nested.map(([n, kind]): [number, string] => [n, `Css(CssNested::${kind})`]),
+    captures: pattern.captures.map(([n, names]): [number, string[]] => [n, names.map(fromCss)]),
+    nested: pattern.nested.map(([n, name]): [number, string] => [n, `Css(CssNested::${name})`]),
     css: id,
   });
-  if (pat.act.kind === "begin") fromCssRule(pat.act.rule);
+  if (pattern.act.role === "begin") fromCssRule(pattern.act.rule);
   return own;
 }
 
@@ -246,8 +246,8 @@ function fromCssRule(id: string): void {
     patterns: [],
   };
   rules.set(own, mine);
-  fromCssPat(rule.end);
-  mine.patterns = rule.patterns.map(fromCssPat);
+  fromCssPattern(rule.end);
+  mine.patterns = rule.patterns.map(fromCssPattern);
 }
 
 /** The pattern ids a pattern list expands to, `include`s flattened. */
@@ -262,7 +262,7 @@ function flatten(list: Node[], context: string): string[] {
       const key = node.include.slice("source.css#".length);
       const target = css.repository[key];
       if (!target) throw new Error(`unknown CSS include ${key}`);
-      out.push(...css.expand(target, css.pascal(key), key).map(fromCssPat));
+      out.push(...css.expand(target, css.pascal(key), key).map(fromCssPattern));
     } else if (node.include !== undefined) {
       if (!node.include.startsWith("#")) throw new Error(`external include ${node.include}`);
       const key = node.include.slice(1);
@@ -292,7 +292,7 @@ const list = (names: string[]) => (names.length ? `scopes![${names.map((n) => `S
 let g = `//! The grammar's rules as tables. Generated by \`oracle/scss-grammar.ts\` from
 //! the \`scss\` grammar Shiki 4.6.0 bundles; do not edit.
 //!
-//! A [\`Pat\`] is one regular expression of the grammar; its doc comment shows
+//! A [\`Pattern\`] is one regular expression of the grammar; its doc comment shows
 //! which.
 //! Each rule lists the patterns it tries, in the grammar's order with its
 //! \`include\`s flattened.
@@ -304,12 +304,12 @@ let g = `//! The grammar's rules as tables. Generated by \`oracle/scss-grammar.t
 use super::engine::Scss;
 use super::scope::S;
 use crate::scope::scopes;
-use crate::css::{Nested as CssNested, Pat as CssPat};
+use crate::css::{Nested as CssNested, Pattern as CssPattern};
 use crate::rules;
 
 pub(crate) type Act = rules::Act<Scss>;
-pub(crate) type PatData = rules::PatData<Scss>;
-pub(crate) type RuleData = rules::RuleData<Scss>;
+pub(crate) type PatternDefinition = rules::PatternDefinition<Scss>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Scss>;
 pub(crate) use crate::rules::Start;
 
 /// What tokenizes a capture group: a rule of the grammar, or one of CSS's
@@ -323,51 +323,51 @@ pub(crate) enum Nested {
 `;
 
 const ruleList = [...rules.values()];
-const patList = [...pats.values()];
+const patternList = [...patternById.values()];
 
 g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u8)]\npub(crate) enum Rule {\n`;
 for (const r of ruleList) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
 for (const r of ruleList) g += `        Rule::${r.id},\n`;
-g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    `RuleData {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end ? `Some(Pattern::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pattern::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
 g += `        }\n    }\n}\n\n`;
 
-g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
+g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 const docs = (s: string) => {
   const one = s.replace(/\n/g, "\\n");
   return one.length > 56 ? `…` : one;
 };
-for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+for (const p of patternList) {
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pattern {\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
-  patList.map((p): [string, string] => {
+  patternList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
-    const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    const nested = p.nested.map(([n, kind]) => `(${n}, Nested::${kind})`).join(", ");
-    return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+    const captures = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
+    const nested = p.nested.map(([n, name]) => `(${n}, Nested::${name})`).join(", ");
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
   }),
-  "Pat",
+  "Pattern",
 );
 g += `        }\n    }\n\n`;
-g += `    /// The CSS pattern this one is, for one that \`source.css#…\` brings in.\n${tooLong}    #[inline]\n    pub(crate) fn css(self) -> Option<CssPat> {\n        match self {\n`;
+g += `    /// The CSS pattern this one is, for one that \`source.css#…\` brings in.\n${tooLong}    #[inline]\n    pub(crate) fn css(self) -> Option<CssPattern> {\n        match self {\n`;
 g += arms(
-  patList.map((p): [string, string] => [p.id, p.css === null ? "None" : `Some(CssPat::${p.css})`]),
-  "Pat",
+  patternList.map((p): [string, string] => [p.id, p.css === null ? "None" : `Some(CssPattern::${p.css})`]),
+  "Pattern",
 );
 g += `        }\n    }\n}\n`;
 
@@ -375,13 +375,13 @@ g += `
 /// The scope that names each of CSS's units, in the order of CSS's \`UNITS\`.
 pub(crate) const UNIT_SCOPES: [S; ${css.unitScopes.length}] = [${css.unitScopes.map((u) => `S::${fromCss(u)}`).join(", ")}];
 `;
-g += startTable(patList);
+g += startTable(patternList);
 g += ruleCodes("Scss", "SCSS");
-g += groupsCheck("Scss", patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+g += groupsCheck("Scss", patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
 await writeRust(`${root_dir}src/scss/grammar.rs`, g);
 
 const s = scopeFile("scss-grammar.ts", "SCSS", scopes);
 await writeRust(`${root_dir}src/scss/scope.rs`, s);
-if (Bun.env.SCSS_DUMP) await Bun.write(Bun.env.SCSS_DUMP, JSON.stringify(patList.map((p) => ({ id: p.id, kind: p.act.kind, regex: p.regex, captures: p.captures, nested: p.nested, css: p.css })), null, 0));
-console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);
+if (Bun.env.SCSS_DUMP) await Bun.write(Bun.env.SCSS_DUMP, JSON.stringify(patternList.map((p) => ({ id: p.id, role: p.act.role, regex: p.regex, captures: p.captures, nested: p.nested, css: p.css })), null, 0));
+console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes`);

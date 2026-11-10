@@ -1,9 +1,9 @@
 //! The `@typedef` name and optional `[name=default]` parameters of doc
 //! comments.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 use crate::classes;
 
 /// The pieces of an optional parameter, `[name=default]`.
@@ -141,7 +141,7 @@ impl<const D: u8> Lexer<'_, D> {
         let scope = S::VariableOtherJsdoc;
         self.flush(p);
         self.capture(
-            Kind::Top,
+            Rule::Top,
             p,
             p + 1,
             &[
@@ -150,20 +150,20 @@ impl<const D: u8> Lexer<'_, D> {
             ],
         );
         if let Some((eq, value, value_end)) = found.default {
-            self.capture(Kind::Top, p + 1, eq, &[scope]);
+            self.capture(Rule::Top, p + 1, eq, &[scope]);
             self.capture(
-                Kind::Top,
+                Rule::Top,
                 eq,
                 eq + 1,
                 &[scope, S::KeywordOperatorAssignmentJsdoc],
             );
-            self.capture(Kind::Top, eq + 1, value, &[scope]);
-            self.capture(Kind::Top, value, value_end, &[scope, S::SourceEmbedded]);
+            self.capture(Rule::Top, eq + 1, value, &[scope]);
+            self.capture(Rule::Top, value, value_end, &[scope, S::SourceEmbedded]);
         }
         if let Some(close) = found.close {
-            self.fill(Kind::Top, close, &[scope]);
+            self.fill(Rule::Top, close, &[scope]);
             self.capture(
-                Kind::Top,
+                Rule::Top,
                 close,
                 close + 1,
                 &[
@@ -173,14 +173,14 @@ impl<const D: u8> Lexer<'_, D> {
             );
             if found.end > close + 1 {
                 self.capture(
-                    Kind::Top,
+                    Rule::Top,
                     close + 1,
                     found.end,
                     &[scope, S::InvalidIllegalSyntaxJsdoc],
                 );
             }
         } else {
-            self.fill(Kind::Top, found.end, &[scope]);
+            self.fill(Rule::Top, found.end, &[scope]);
         }
         Some(found.end)
     }

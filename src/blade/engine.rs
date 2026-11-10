@@ -3,7 +3,7 @@
 
 use std::num::NonZeroU32;
 
-use super::grammar::{Pat, Rule, Sc};
+use super::grammar::{Pattern, Rule, Sc};
 use super::matchers::{name_char_at, name_start_at};
 use super::scope::S;
 use crate::arena::Arena;
@@ -25,7 +25,7 @@ impl Grammar for Blade {
     type Scope = Sc;
     const NO_SCOPES: Scopes<Sc> = Sc::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Rule;
     /// The place of the open rule nearest the root that shuts Blade's
     /// injection out ([`shuts_out`]).
@@ -68,11 +68,11 @@ impl Grammar for Blade {
     }
 
     fn rule_name(rule: Rule) -> Scopes<Sc> {
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<Sc> {
-        rule.data().content
+        rule.definition().content
     }
 
     const EMBEDS: bool = true;
@@ -81,39 +81,39 @@ impl Grammar for Blade {
         rule.payload()
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
     /// The scan of the pattern tables.
     /// A match of a word table's head is the list that holds the word first.
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
-        let (start, pat, end) = table_scan(lexer)?;
-        match pat.words() {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
+        let (start, pattern, end) = table_scan(lexer)?;
+        match pattern.words() {
             Some((table, 0)) => {
                 let list = lexer.word_list(table.words(), start)?;
-                Some((start, Pat::of_list(table, list), end))
+                Some((start, Pattern::of_list(table, list), end))
             }
-            Some(_) | None => Some((start, pat, end)),
+            Some(_) | None => Some((start, pattern, end)),
         }
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat, p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.matcher(pattern, p)
     }
 
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Rule, from: usize, to: usize, base: u32) {
-        lexer.tokenize_capture(kind, from, to, base);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Rule, from: usize, to: usize, base: u32) {
+        lexer.tokenize_capture(nested, from, to, base);
     }
 
     fn extra(kept: Option<NonZeroU32>) -> Option<NonZeroU32> {

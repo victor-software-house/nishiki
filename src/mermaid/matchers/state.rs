@@ -18,7 +18,7 @@ impl Lexer<'_> {
         let word = self.ws1(p)?;
         let word_end = self.lit(word, literal)?;
         let end = self.ws1(word_end)?;
-        self.cap(1, word, word_end);
+        self.capture(1, word, word_end);
         Some(end)
     }
 
@@ -32,7 +32,7 @@ impl Lexer<'_> {
         if !self.at_eol(end) {
             return None;
         }
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -45,9 +45,9 @@ impl Lexer<'_> {
         let colon = self.ws(name);
         let colon_end = self.lit(colon, b":")?;
         let (text, end) = self.spaced_run(colon_end, 0, |c| c != ':')?;
-        self.cap(1, p, name);
-        self.cap(2, colon, colon_end);
-        self.cap(3, text, end);
+        self.capture(1, p, name);
+        self.capture(2, colon, colon_end);
+        self.capture(3, text, end);
         Some(end)
     }
 
@@ -59,7 +59,7 @@ impl Lexer<'_> {
         let start = self.ws(p);
         let word = self.ci(start, b"state")?;
         let end = self.ws1(word)?;
-        self.cap(1, start, word);
+        self.capture(1, start, word);
         Some(end)
     }
 
@@ -84,7 +84,7 @@ impl Lexer<'_> {
             (3, name, name_end),
             (4, brace, end),
         ] {
-            self.cap(group, from, to);
+            self.capture(group, from, to);
         }
         Some(end)
     }
@@ -95,8 +95,8 @@ impl Lexer<'_> {
         let name_end = self.class_run1(name, is_dash_word)?;
         let brace = self.ws1(name_end)?;
         let end = self.lit(brace, b"{")?;
-        self.cap(1, name, name_end);
-        self.cap(2, brace, end);
+        self.capture(1, name, name_end);
+        self.capture(2, brace, end);
         Some(end)
     }
 
@@ -108,8 +108,8 @@ impl Lexer<'_> {
         let open = self.lit(mark, b"<<")?;
         let word = self.ci(open, b"fork").or_else(|| self.ci(open, b"join"))?;
         let end = self.lit(word, b">>")?;
-        self.cap(1, name, name_end);
-        self.cap(2, mark, end);
+        self.capture(1, name, name_end);
+        self.capture(2, mark, end);
         Some(end)
     }
 
@@ -121,8 +121,8 @@ impl Lexer<'_> {
         loop {
             let arrow = self.ws(name);
             if let Some(end) = self.lit(arrow, b"-->") {
-                self.cap(1, p, name);
-                self.cap(2, arrow, end);
+                self.capture(1, p, name);
+                self.capture(2, arrow, end);
                 return Some(end);
             }
             name = self.char_start_before(name);
@@ -140,10 +140,10 @@ impl Lexer<'_> {
         let mut q = colon;
         if self.at(colon) == b':' {
             q = self.ws(colon + 1);
-            self.cap(group, colon, colon + 1);
+            self.capture(group, colon, colon + 1);
         }
         let end = self.class_run(q, is_description);
-        self.cap(group + 1, q, end);
+        self.capture(group + 1, q, end);
         end
     }
 
@@ -151,7 +151,7 @@ impl Lexer<'_> {
     pub(super) fn transition_target(&mut self, p: usize) -> Option<usize> {
         let name = self.ws(p);
         let name_end = self.class_run1(name, is_dash_word)?;
-        self.cap(1, name, name_end);
+        self.capture(1, name, name_end);
         Some(self.transition_label(2, name_end))
     }
 
@@ -169,9 +169,9 @@ impl Lexer<'_> {
         let arrow_end = self.lit(arrow, b"-->")?;
         let name = self.ws(arrow_end);
         let name_end = self.class_run1(name, is_dash_word)?;
-        self.cap(1, p, star);
-        self.cap(2, arrow, arrow_end);
-        self.cap(3, name, name_end);
+        self.capture(1, p, star);
+        self.capture(2, arrow, arrow_end);
+        self.capture(3, name, name_end);
         Some(self.transition_label(4, name_end))
     }
 
@@ -204,10 +204,10 @@ impl Lexer<'_> {
         let colon = self.ws(name_end);
         let colon_end = self.lit(colon, b":")?;
         let (text, end) = self.spaced_run(colon_end, 0, is_description)?;
-        self.cap(1, start, words);
-        self.cap(2, name, name_end);
-        self.cap(3, colon, colon_end);
-        self.cap(4, text, end);
+        self.capture(1, start, words);
+        self.capture(2, name, name_end);
+        self.capture(3, colon, colon_end);
+        self.capture(4, text, end);
         Some(end)
     }
 
@@ -227,16 +227,16 @@ impl Lexer<'_> {
             }
             (last, greedy)
         };
-        self.cap(1, start, words);
-        self.cap(2, name, name_end);
-        self.cap(3, name_end, end);
+        self.capture(1, start, words);
+        self.capture(2, name, name_end);
+        self.capture(3, name_end, end);
         Some(end)
     }
 
     /// `(?i)(end note)`.
     pub(super) fn state_note_end(&mut self, p: usize) -> Option<usize> {
         let end = self.ci(p, b"end note")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 }

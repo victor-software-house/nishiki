@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language css
 source bench/corpus/css/medium/pdf-js-viewer.css
 url https://raw.githubusercontent.com/mozilla/pdf.js/d2d5bea26f6ce9d647cc09cce1f61d47a2244f7e/web/viewer.css

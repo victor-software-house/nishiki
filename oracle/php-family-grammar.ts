@@ -7,7 +7,7 @@
 // and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
 // A pattern or rule that repeats another, with the same scopes, is the same
-// `Pat` or `Rule`, so it has one matcher.
+// `Pattern` or `Rule`, so it has one matcher.
 //
 // The grammar's word lists, such as `(?i)\bcurl_(close|…)\b`, are words.rs:
 // each list's words, written out, lowercased where the list ignores case.
@@ -131,8 +131,8 @@ export async function generate(cfg: Family): Promise<void> {
     let out = "";
     parts.forEach((part, index) => {
       for (const piece of part.split(/[-_]/)) {
-        const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-        out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+        const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+        out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
       }
     });
     return out + suffix;
@@ -253,10 +253,10 @@ export async function generate(cfg: Family): Promise<void> {
       .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
       .join("");
 
-  type Pat = {
+  type Pattern = {
     id: string;
     regex: string;
-    act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+    act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
     captures: [number, string[]][];
     /** Capture groups that the grammar tokenizes with patterns of their own. */
     nested: [number, string][];
@@ -282,7 +282,7 @@ export async function generate(cfg: Family): Promise<void> {
 
   const embeddable = cfg.embeddable;
 
-  const pats = new Map<string, Pat>();
+  const patternById = new Map<string, Pattern>();
   const rules = new Map<string, Rule>();
   /** The id each node registered under, by the node's text. */
   const seen = new Map<string, string>();
@@ -328,14 +328,14 @@ export async function generate(cfg: Family): Promise<void> {
     const key = JSON.stringify(node);
     const known = seen.get(key);
     if (known !== undefined) return known;
-    if (pats.has(id)) throw new Error(`${id} names two rules`);
+    if (patternById.has(id)) throw new Error(`${id} names two rules`);
     seen.set(key, id);
     if (node.while !== undefined) throw new Error(`${id}: while`);
     if (node.match !== undefined) {
-      pats.set(id, {
+      patternById.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
         nested: nestedList(node.captures),
         words: wordList(node.match),
@@ -343,20 +343,20 @@ export async function generate(cfg: Family): Promise<void> {
       return id;
     }
     if (node.begin !== undefined && node.end !== undefined) {
-      pats.set(id, {
+      patternById.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
         nested: nestedList(node.beginCaptures ?? node.captures),
         words: null,
       });
       const end = `${id}End`;
       const endCaptures = node.endCaptures ?? node.captures;
-      pats.set(end, {
+      patternById.set(end, {
         id: end,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(endCaptures),
         nested: nestedList(endCaptures),
         words: null,
@@ -477,17 +477,17 @@ export async function generate(cfg: Family): Promise<void> {
   });
 
   const ruleList = [...rules.values()];
-  const patList = [...pats.values()];
+  const patternList = [...patternById.values()];
 
   /** A table of word lists: the long lists of one repository key that share a
    * form. Shorter lists stay hand matchers. */
-  type Table = { name: string; key: string; fold: boolean; slash: boolean; lists: Pat[] };
+  type Table = { name: string; key: string; fold: boolean; slash: boolean; lists: Pattern[] };
   const tables: Table[] = cfg.tables.map((t) => ({ ...t, lists: [] }));
   /** The table and the place in it of each pattern that is a listed word list. */
   const tableOf = new Map<string, [Table, number]>();
   for (const table of tables) {
     const own = new RegExp(`^${pascal(table.key)}(At\\d+)${table.deep ? "*" : "?"}$`);
-    table.lists = patList.filter((p) => own.test(p.id) && p.words?.fold === table.fold && p.words.slash === table.slash);
+    table.lists = patternList.filter((p) => own.test(p.id) && p.words?.fold === table.fold && p.words.slash === table.slash);
     if (table.lists.length === 0) throw new Error(`${table.name}: no lists`);
     table.lists.forEach((p, k) => tableOf.set(p.id, [table, k]));
   }
@@ -527,7 +527,7 @@ export async function generate(cfg: Family): Promise<void> {
 
   /** The regex the start table reads for a pattern: a table's head starts
    * where any of its lists can. */
-  const startRegex = (p: Pat): string => {
+  const startRegex = (p: Pattern): string => {
     const place = tableOf.get(p.id);
     if (!place || place[1] !== 0) return p.regex;
     const lead = p.regex.slice(0, p.regex.length - p.words!.body.length - 2);
@@ -557,7 +557,7 @@ export async function generate(cfg: Family): Promise<void> {
   let g = `//! The grammar's rules as tables. Generated by \`oracle/${cfg.script}\`
   //! from the \`${cfg.name}\` grammar Shiki 4.6.0 bundles; do not edit.
   //!
-  //! A [\`Pat\`] is one regular expression of the grammar; its doc comment shows
+  //! A [\`Pattern\`] is one regular expression of the grammar; its doc comment shows
   //! which.
   //! Each rule lists the patterns it tries, in the grammar's order with its
   //! \`include\`s flattened.
@@ -570,8 +570,8 @@ export async function generate(cfg: Family): Promise<void> {
   use crate::scope::scopes;
 
   pub(crate) type Act = rules::Act<${cfg.engine}>;
-  pub(crate) type PatData = rules::PatData<${cfg.engine}>;
-  pub(crate) type RuleData = rules::RuleData<${cfg.engine}>;
+  pub(crate) type PatternDefinition = rules::PatternDefinition<${cfg.engine}>;
+  pub(crate) type RuleDefinition = rules::RuleDefinition<${cfg.engine}>;
   pub(crate) use crate::rules::Start;
 
   `;
@@ -610,11 +610,11 @@ export async function generate(cfg: Family): Promise<void> {
   for (const r of ruleList) g += `    ${r.id},\n`;
   g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
   for (const r of ruleList) g += `        Rule::${r.id},\n`;
-  g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+  g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
   g += arms(
     ruleList.map((r): [string, string] => [
       r.id,
-      `RuleData {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end && !r.endLast ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${[...r.patterns, ...(r.endLast ? [r.end] : [])].map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+      `RuleDefinition {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end && !r.endLast ? `Some(Pattern::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${[...r.patterns, ...(r.endLast ? [r.end] : [])].map((p) => `Pattern::${p}`).join(", ")}],\n            }`,
     ]),
     "Rule",
   );
@@ -636,7 +636,7 @@ export async function generate(cfg: Family): Promise<void> {
     if (r.id === cfg.htmlFirst || r.id === "Root") return "End::Never";
     if (r.id === "SqlStringDoubleQuoted") return "End::DoubleSql";
     if (r.id === "SqlStringSingleQuoted") return "End::SingleSql";
-    const label = /^\^\\s\*\(([A-Z]+)\)(?:\(\?!|\\b)/.exec(pats.get(r.end)?.regex ?? "")?.[1];
+    const label = /^\^\\s\*\(([A-Z]+)\)(?:\(\?!|\\b)/.exec(patternById.get(r.end)?.regex ?? "")?.[1];
     if (label === undefined) throw new Error(`${r.id}: an embedding rule whose end is not a label`);
     if (r.id.startsWith("HeredocInterior")) return `End::Heredoc(b"${label}")`;
     if (r.id.startsWith("NowdocInterior")) return `End::Nowdoc(b"${label}")`;
@@ -651,73 +651,73 @@ export async function generate(cfg: Family): Promise<void> {
   }
   g += "}\n\n";
 
-  g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
+  g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
   const docs = (s: string) => {
     const one = s.replace(/\n/g, "\\n");
     return one.length > 56 || /[^\x20-\x7e]/.test(one) ? `…` : one;
   };
-  for (const p of patList) {
-    g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  for (const p of patternList) {
+    g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
   }
-  g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+  g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
   g += arms(
-    patList.map((p): [string, string] => {
+    patternList.map((p): [string, string] => {
       const act =
-        p.act.kind === "match"
+        p.act.role === "match"
           ? `Act::Match(${list(p.act.name)})`
-          : p.act.kind === "begin"
+          : p.act.role === "begin"
             ? `Act::Begin(Rule::${p.act.rule})`
             : "Act::End";
-      const caps = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
+      const captures = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
       const nested = p.nested.map(([n, rule]) => `(${n}, Rule::${rule})`).join(", ");
-      return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+      return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
     }),
-    "Pat",
+    "Pattern",
   );
   g += `        }\n    }\n\n    /// The word list a pattern is, as its table and its place in the table.\n${tooLong}    pub(crate) fn words(self) -> Option<(super::words::Table, u8)> {\n        match self {\n`;
   g += arms(
-    patList.map((p): [string, string] => {
+    patternList.map((p): [string, string] => {
       const place = tableOf.get(p.id);
       return [p.id, place ? `Some((super::words::Table::${place[0].name}, ${place[1]}))` : "None"];
     }),
-    "Pat",
+    "Pattern",
   );
   g += `        }\n    }\n}\n`;
 
-  for (const p of patList) {
+  for (const p of patternList) {
     if (startOf(p.regex).any && !p.regex.includes("\\G")) {
       throw new Error(`${p.id}: the first-byte analysis does not read ${p.regex}`);
     }
   }
   g += `
   /// Every pattern that is a list of a word table, as a match arm.
-  macro_rules! table_pats {
+  macro_rules! table_patterns {
       () => {
-  ${tables.flatMap((x) => x.lists).map((p, k) => `        ${k === 0 ? "" : "| "}Pat::${p.id}\n`).join("")}    };
+  ${tables.flatMap((x) => x.lists).map((p, k) => `        ${k === 0 ? "" : "| "}Pattern::${p.id}\n`).join("")}    };
   }
-  pub(crate) use table_pats;
+  pub(crate) use table_patterns;
   `;
-  g += startTable(patList.map((p) => ({ id: p.id, regex: startRegex(p) })), "any");
+  g += startTable(patternList.map((p) => ({ id: p.id, regex: startRegex(p) })), "any");
   g += `
-  impl Pat {
+  impl Pattern {
       /// The pattern of a table's list, by its place in the table.
-      pub(crate) fn of_list(table: super::words::Table, list: u8) -> Pat {
-          let lists: &[Pat] = match table {
+      pub(crate) fn of_list(table: super::words::Table, list: u8) -> Pattern {
+          let lists: &[Pattern] = match table {
   ${tables.map((x) => `            super::words::Table::${x.name} => &${x.name.toUpperCase()}_LISTS,\n`).join("")}        };
           lists[usize::from(list)]
       }
   }
   ${tables.map((x) => `
   /// The patterns of the \`${x.key}\` lists, in table order.
-  static ${x.name.toUpperCase()}_LISTS: [Pat; ${x.lists.length}] = [${x.lists.map((p) => `Pat::${p.id}`).join(", ")}];
+  static ${x.name.toUpperCase()}_LISTS: [Pattern; ${x.lists.length}] = [${x.lists.map((p) => `Pattern::${p.id}`).join(", ")}];
   `).join("")}`;
   g += ruleCodes(cfg.engine, cfg.display);
-  g += groupsCheck(cfg.engine, patList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+  g += groupsCheck(cfg.engine, patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
 
   // Output: the words.
 
   /** A table's words, sorted, each with the first list that holds it. */
-  function wordTable(lists: Pat[]): [string, number][] {
+  function wordTable(lists: Pattern[]): [string, number][] {
     const first = new Map<string, number>();
     lists.forEach((p, k) => {
       for (const word of p.words!.words) if (!first.has(word)) first.set(word, k);
@@ -777,15 +777,15 @@ export async function generate(cfg: Family): Promise<void> {
   if (Bun.env["RX_DUMP"]) {
     const held = new Set(ruleList.flatMap((r) => r.patterns));
     const dynamic = (ids: string[]) => ids.flatMap((id) => (id.includes("|") ? [Number(id.split("|")[1])] : []));
-    const groupsOf = (p: Pat) => [
+    const groupsOf = (p: Pattern) => [
       ...new Set([
         ...p.captures.flatMap(([n, ids]) => [n, ...dynamic(ids)]),
         ...p.nested.map(([n]) => n),
-        ...(p.act.kind === "match" ? dynamic(p.act.name) : []),
+        ...(p.act.role === "match" ? dynamic(p.act.name) : []),
       ]),
     ];
-    const probed = patList.filter((p) => {
-      if (p.act.kind === "end" && /\\[1-9]/.test(p.regex)) return false;
+    const probed = patternList.filter((p) => {
+      if (p.act.role === "end" && /\\[1-9]/.test(p.regex)) return false;
       return !tableOf.has(p.id) || held.has(p.id);
     });
     await Bun.write(
@@ -795,7 +795,7 @@ export async function generate(cfg: Family): Promise<void> {
   }
 
   console.log(
-    `${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes, ${tables.map((x) => `${x.lists.length} ${x.name}`).join(", ")} word lists`,
+    `${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${tables.map((x) => `${x.lists.length} ${x.name}`).join(", ")} word lists`,
   );
 
 }

@@ -16,7 +16,7 @@ impl Lexer<'_> {
         if after == 0 {
             return None;
         }
-        self.cap(1, p + before, word);
+        self.capture(1, p + before, word);
         Some(word + after)
     }
 
@@ -45,9 +45,9 @@ impl Lexer<'_> {
             None => (None, self.selector_name(p)?),
         };
         if let Some(given) = given {
-            self.cap(1, p, given);
+            self.capture(1, p, given);
         }
-        self.cap(group, start, end);
+        self.capture(group, start, end);
         Some(end)
     }
 
@@ -92,11 +92,11 @@ impl Lexer<'_> {
         let (to_group, to_end) = self.renamed_to(target)?;
         let end = self.space_end(to_end);
         if let Some(given) = given {
-            self.cap(1, p, given);
+            self.capture(1, p, given);
         }
-        self.cap(group, start, name_end);
-        self.cap(4, arrow, arrow + 2);
-        self.cap(to_group, target, to_end);
+        self.capture(group, start, name_end);
+        self.capture(4, arrow, arrow + 2);
+        self.capture(to_group, target, to_end);
         Some(end)
     }
 

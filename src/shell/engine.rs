@@ -15,7 +15,7 @@
 
 use std::cell::Cell;
 
-use super::rules::{Act, Pat, rule_info};
+use super::rules::{Act, Pattern, rule_definition};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
@@ -92,7 +92,7 @@ pub(crate) enum Lazy {
     ArrayIndex,
 }
 
-/// The last search of each [`Lazy`] kind.
+/// The last search of each [`Lazy`] variant.
 #[derive(Debug)]
 struct Finds {
     case_word: Cell<Find>,
@@ -397,7 +397,7 @@ impl<'a> Lexer<'a> {
             loop {
                 let frame = lexer.arena.frame(id);
                 chain.push((id, frame));
-                if Rule::from_code(frame.kind) == Rule::Root || frame.parent == ROOT {
+                if Rule::from_code(frame.rule) == Rule::Root || frame.parent == ROOT {
                     break;
                 }
                 id = frame.parent;
@@ -415,9 +415,9 @@ impl<'a> Lexer<'a> {
                     });
                     continue;
                 }
-                let rule = Rule::from_code(frame.kind);
+                let rule = Rule::from_code(frame.rule);
                 let parent = lexer.top().content;
-                let name = lexer.path(parent, rule_info(rule).name);
+                let name = lexer.path(parent, rule_definition(rule).name);
                 lexer.frames.push(Frame {
                     rule,
                     enter: None,
@@ -790,10 +790,10 @@ impl<'a> Lexer<'a> {
             return;
         }
         self.flags.failed = false;
-        let info = rule_info(rule);
+        let definition = rule_definition(rule);
         let parent = self.top().content;
-        let name = self.path(parent, info.name);
-        let content = match info.content_delimiter {
+        let name = self.path(parent, definition.name);
+        let content = match definition.content_delimiter {
             Some(prefix) => {
                 self.name.clear();
                 self.name.push_str(prefix);
@@ -801,7 +801,7 @@ impl<'a> Lexer<'a> {
                     .push_str(self.arena.string(payload).trim_start_matches('.'));
                 self.spelled_path(name)
             }
-            None => self.path(name, info.content),
+            None => self.path(name, definition.content),
         };
         let state = self
             .arena
@@ -941,13 +941,13 @@ impl<'a> Lexer<'a> {
                 return;
             }
             self.g = self.anchor == Some(self.pos);
-            let Some((start, pat, end)) = self.scan() else {
+            let Some((start, pattern, end)) = self.scan() else {
                 let node = self.top().content;
                 self.emit(self.halted.unwrap_or(line_length), node);
                 return;
             };
             let advanced = end > self.pos;
-            match pat.act() {
+            match pattern.act() {
                 Act::End => {
                     if self.end_rule(start, end, advanced, line_length) {
                         return;
@@ -1087,7 +1087,7 @@ impl<'a> Lexer<'a> {
 
     /// The first match at the earliest position from `pos`: its start, pattern
     /// and end, with the match's spans in `self.spans`.
-    fn scan(&mut self) -> Option<(usize, Pat, usize)> {
+    fn scan(&mut self) -> Option<(usize, Pattern, usize)> {
         let mut visited = 0;
         let found = match self.root_halts() {
             Some(&(halt, after)) => self.scan_positions::<true>(&mut visited, halt, after),
@@ -1121,8 +1121,8 @@ impl<'a> Lexer<'a> {
         visited: &mut usize,
         halt: &dyn Halt,
         after: Option<&dyn Halt>,
-    ) -> Option<(usize, Pat, usize)> {
-        let info = rule_info(self.top().rule);
+    ) -> Option<(usize, Pattern, usize)> {
+        let definition = rule_definition(self.top().rule);
         let full = self.at_depth_limit();
         let mut p = self.pos;
         while p <= self.lim {
@@ -1131,29 +1131,29 @@ impl<'a> Lexer<'a> {
                 self.halted = Some(p);
                 return None;
             }
-            let list: &[Pat] = if p < self.lim || self.nl {
+            let list: &[Pattern] = if p < self.lim || self.nl {
                 let byte = if p < self.lim { self.s[p] } else { b'\n' };
                 let prev = if p > 0 { self.s[p - 1] } else { 0 };
-                info.candidates(p == self.pos, p == 0, prev, byte)
+                definition.candidates(p == self.pos, p == 0, prev, byte)
             } else {
-                &info.order
+                &definition.order
             };
-            for &pat in list {
-                if full && matches!(pat.act(), Act::Begin(_) | Act::BeginChosen) {
-                    if self.try_pat(pat, p).is_some() {
+            for &pattern in list {
+                if full && matches!(pattern.act(), Act::Begin(_) | Act::BeginChosen) {
+                    if self.try_pattern(pattern, p).is_some() {
                         self.report.record(Limit::Depth);
                     }
                     continue;
                 }
-                if let Some(end) = self.try_pat(pat, p) {
-                    return Some((p, pat, end));
+                if let Some(end) = self.try_pattern(pattern, p) {
+                    return Some((p, pattern, end));
                 }
             }
             if HALTING && after.is_some_and(|after| after.holds(self.s, p)) {
                 self.halted = Some(p);
                 return None;
             }
-            if info.skip_blanks
+            if definition.skip_blanks
                 && p < self.lim
                 && matches!(self.s[p], b' ' | b'\t')
                 && p > 0
@@ -1169,15 +1169,15 @@ impl<'a> Lexer<'a> {
         None
     }
 
-    fn try_pat(&mut self, pat: Pat, p: usize) -> Option<usize> {
+    fn try_pattern(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
         self.spans.truncate(self.span_base);
-        self.matcher(pat, p)
+        self.matcher(pattern, p)
     }
 
     /// The text that ends the innermost rule when it is a literal.
     pub(crate) fn top_end_lit(&self) -> (&'static [u8], Scopes<S>) {
-        let info = rule_info(self.top().rule);
-        (info.end_lit, info.end_scopes)
+        let definition = rule_definition(self.top().rule);
+        (definition.end_lit, definition.end_scopes)
     }
 
     /// The innermost rule.

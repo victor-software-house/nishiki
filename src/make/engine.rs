@@ -2,7 +2,7 @@
 //! The matchers answer with a [`Hit`].
 //! The glue here turns each hit into the spans the engine emits.
 
-use super::rules::{Pat, patterns};
+use super::rules::{Pattern, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::language::{Halts, NO_HALTS};
@@ -33,7 +33,7 @@ pub(crate) struct Extra {
 
 /// The scope a capture group adds.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum CapName {
+pub(super) enum CaptureName {
     /// The group has no scope of its own.
     /// It is lexed again.
     None,
@@ -45,10 +45,10 @@ pub(super) enum CapName {
 
 /// A capture group of a match that carries a scope or is lexed again.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
-    pub(super) name: CapName,
+    pub(super) name: CaptureName,
     pub(super) again: Option<Rule>,
 }
 
@@ -57,7 +57,7 @@ pub(super) struct Cap {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) caps: [Option<Cap>; 4],
+    pub(super) captures: [Option<Capture>; 4],
 }
 
 impl Hit {
@@ -65,16 +65,16 @@ impl Hit {
         Hit {
             start,
             end,
-            caps: [None; 4],
+            captures: [None; 4],
         }
     }
 
     /// The match with a group `from..to` that adds `scope`, in slot `slot`.
-    pub(super) fn cap(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
-        self.caps[slot] = Some(Cap {
+    pub(super) fn capture(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
+        self.captures[slot] = Some(Capture {
             from,
             to,
-            name: CapName::One(scope),
+            name: CaptureName::One(scope),
             again: None,
         });
         self
@@ -87,10 +87,10 @@ impl Hit {
         slot: usize,
         from: usize,
         to: usize,
-        name: CapName,
+        name: CaptureName,
         again: Option<Rule>,
     ) -> Hit {
-        self.caps[slot] = Some(Cap {
+        self.captures[slot] = Some(Capture {
             from,
             to,
             name,
@@ -101,7 +101,7 @@ impl Hit {
 }
 
 impl Lexer<'_> {
-    /// Tries `pat` at `p`.
+    /// Tries `pattern` at `p`.
     /// On a match, it records the capture groups as spans and returns where
     /// the match ends.
     #[expect(
@@ -109,35 +109,35 @@ impl Lexer<'_> {
         reason = "measured: the matchers are the hot loop"
     )]
     #[inline(always)]
-    fn hit(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        let hit = if pat == Pat::End {
+    fn hit(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        let hit = if pattern == Pattern::End {
             self.end_at(self.top_rule(), p)?
         } else {
-            self.pat_at(pat, p)?
+            self.pattern_at(pattern, p)?
         };
         self.x.start = hit.start;
         self.clear_spans();
-        for cap in hit.caps.iter().flatten() {
-            if cap.from >= cap.to {
+        for capture in hit.captures.iter().flatten() {
+            if capture.from >= capture.to {
                 continue;
             }
-            if cap.name == CapName::Flags && cap.again.is_none() {
+            if capture.name == CaptureName::Flags && capture.again.is_none() {
                 self.span_dyn(
-                    cap.from,
-                    cap.to,
+                    capture.from,
+                    capture.to,
                     DynName {
                         prefix: "keyword.control.",
-                        start: cap.from,
-                        end: cap.to,
+                        start: capture.from,
+                        end: capture.to,
                         suffix: ".makefile",
                     },
                 );
             } else {
-                let one = match cap.name {
-                    CapName::One(scope) => Some(scope),
-                    CapName::None | CapName::Flags => None,
+                let one = match capture.name {
+                    CaptureName::One(scope) => Some(scope),
+                    CaptureName::None | CaptureName::Flags => None,
                 };
-                self.span_one(cap.from, cap.to, one, cap.again);
+                self.span_one(capture.from, capture.to, one, capture.again);
             }
         }
         Some(hit.end)
@@ -148,7 +148,7 @@ impl Grammar for Make {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -177,32 +177,32 @@ impl Grammar for Make {
         rule.content()
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        match (pat, pat.opens()) {
-            (Pat::End, _) => Act::End,
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        match (pattern, pattern.opens()) {
+            (Pattern::End, _) => Act::End,
             (_, Some(rule)) => Act::Begin(rule),
-            (_, None) => Act::Match(pat.name()),
+            (_, None) => Act::Match(pattern.name()),
         }
     }
 
-    fn pat_captures(_: Pat) -> Captures<Self> {
+    fn pattern_captures(_: Pattern) -> Captures<Self> {
         (&[], &[])
     }
 
     /// The first match from the position (see [`scan`]).
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         match lexer.root_halts() {
             Some(halts) => scan::<true>(lexer, halts),
             None => scan::<false>(lexer, &NO_HALTS),
         }
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.hit(pat, p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.hit(pattern, p)
     }
 
-    fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
-        match kind {}
+    fn tokenize_nested(_: &mut Lexer<'_>, nested: Nested, _: usize, _: usize, _: u32) {
+        match nested {}
     }
 }
 
@@ -219,7 +219,7 @@ impl Grammar for Make {
 fn scan<const HALTING: bool>(
     lexer: &mut Lexer<'_>,
     halts: &Halts<'_>,
-) -> Option<(usize, Pat, usize)> {
+) -> Option<(usize, Pattern, usize)> {
     let rule = lexer.top_rule();
     let end = lexer.lim() + usize::from(lexer.nl);
     let mut p = lexer.pos;
@@ -233,14 +233,14 @@ fn scan<const HALTING: bool>(
             return None;
         }
         if p >= lexer.lim() || lexer.s[p] & 0xc0 != 0x80 {
-            if let Some(end) = lexer.hit(Pat::End, p) {
-                return Some((lexer.x.start, Pat::End, end));
+            if let Some(end) = lexer.hit(Pattern::End, p) {
+                return Some((lexer.x.start, Pattern::End, end));
             }
-            for &pat in patterns(rule) {
-                let Some(hit_end) = lexer.hit(pat, p) else {
+            for &pattern in patterns(rule) {
+                let Some(hit_end) = lexer.hit(pattern, p) else {
                     continue;
                 };
-                if pat.opens().is_some() && lexer.at_depth_limit() {
+                if pattern.opens().is_some() && lexer.at_depth_limit() {
                     lexer.record_depth();
                     let start = lexer.x.start;
                     let next = if hit_end > start {
@@ -256,7 +256,7 @@ fn scan<const HALTING: bool>(
                     p = lexer.pos;
                     continue 'search;
                 }
-                return Some((lexer.x.start, pat, hit_end));
+                return Some((lexer.x.start, pattern, hit_end));
             }
         }
         p += 1;

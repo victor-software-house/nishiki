@@ -4,7 +4,7 @@
 // The matchers that decide whether a pattern matches are written by hand in src/latex.
 //
 // The grammar includes `text.tex`, the TeX grammar, as its last root pattern and in places.
-// TeX's matchers answer those expressions, so `Pat::expr` sends them to `crate::tex::grammar::Rx`.
+// TeX's matchers answer those expressions, so `Pattern::expr` sends them to `crate::tex::grammar::Rx`.
 // Code environments include other grammars.
 // A language nishiki lexes takes their text; the others, which Shiki does not load with LaTeX, resolve to nothing.
 //

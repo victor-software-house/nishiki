@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -9,7 +9,7 @@
 //! cannot matter.
 
 use super::engine::{Lexer, closing_tag};
-use super::grammar::{Pat, Rule};
+use super::grammar::{Pattern, Rule};
 use crate::classes::{is_alnum, is_alpha};
 use crate::rules::Chars;
 
@@ -54,7 +54,7 @@ enum Body {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms follow the grammar's order: bodies, comments, special tags,
     /// tags, attributes and text.
@@ -62,54 +62,56 @@ impl Lexer<'_> {
     /// (`bench/AGENTS.md` rule 13).
     #[expect(clippy::too_many_lines, reason = "one arm per pattern of the grammar")]
     #[inline]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::BodyJavaScript => self.body_opens(p, Body::JavaScript),
-            Pat::BodyTypeScriptBlock => self.body_opens(p, Body::TypeScript),
-            Pat::BodyCss => self.body_opens(p, Body::Css),
-            Pat::BodyPostCss => self.body_opens(p, Body::PostCss),
-            Pat::BodyCoffeeScript => self.body_opens(p, Body::CoffeeScript),
-            Pat::BodyScss => self.body_opens(p, Body::Scss),
-            Pat::BodyLess => self.body_opens(p, Body::Less),
-            Pat::BodySass => self.body_opens(p, Body::Sass),
-            Pat::BodyTypeScriptLine => (self.prev(p) == Some(b'>')
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::BodyJavaScript => self.body_opens(p, Body::JavaScript),
+            Pattern::BodyTypeScriptBlock => self.body_opens(p, Body::TypeScript),
+            Pattern::BodyCss => self.body_opens(p, Body::Css),
+            Pattern::BodyPostCss => self.body_opens(p, Body::PostCss),
+            Pattern::BodyCoffeeScript => self.body_opens(p, Body::CoffeeScript),
+            Pattern::BodyScss => self.body_opens(p, Body::Scss),
+            Pattern::BodyLess => self.body_opens(p, Body::Less),
+            Pattern::BodySass => self.body_opens(p, Body::Sass),
+            Pattern::BodyTypeScriptLine => (self.prev(p) == Some(b'>')
                 && self.body() == Body::TypeScript
                 && (p + 1..self.lim()).any(|q| closing_tag(self.text(q, self.lim()))))
             .then_some(p),
-            Pat::BodyTemplate => {
+            Pattern::BodyTemplate => {
                 (self.prev(p) == Some(b'>') && self.space_at(p) > 0 && self.in_template())
                     .then(|| p + self.space_at(p))
             }
-            Pat::BodyJavaScriptEnd
-            | Pat::BodyCssEnd
-            | Pat::BodyPostCssEnd
-            | Pat::BodyCoffeeScriptEnd
-            | Pat::BodyScssEnd
-            | Pat::BodyLessEnd
-            | Pat::BodySassEnd => self.starts(p, b"</").then_some(p),
-            Pat::TagsLangAt0End => (self.starts(p, b"</") || self.starts(p, b"/>")).then_some(p),
-            Pat::BodyTypeScriptLineEnd => closing_tag(self.text(p, self.lim())).then_some(p),
-            Pat::BodyTypeScriptBlockWhile => {
+            Pattern::BodyJavaScriptEnd
+            | Pattern::BodyCssEnd
+            | Pattern::BodyPostCssEnd
+            | Pattern::BodyCoffeeScriptEnd
+            | Pattern::BodyScssEnd
+            | Pattern::BodyLessEnd
+            | Pattern::BodySassEnd => self.starts(p, b"</").then_some(p),
+            Pattern::TagsLangAt0End => {
+                (self.starts(p, b"</") || self.starts(p, b"/>")).then_some(p)
+            }
+            Pattern::BodyTypeScriptLineEnd => closing_tag(self.text(p, self.lim())).then_some(p),
+            Pattern::BodyTypeScriptBlockWhile => {
                 let blanks = self.space_end(p);
                 (p == 0 && !closing_tag(self.text(blanks, self.lim()))).then_some(p)
             }
-            Pat::BodyTemplateEnd => self.starts(p, b"</template").then_some(p),
+            Pattern::BodyTemplateEnd => self.starts(p, b"</template").then_some(p),
 
-            Pat::Comments => self.lit(p, b"<!--"),
-            Pat::CommentsEnd => self.lit(p, b"-->"),
-            Pat::CommentsAt0 => {
+            Pattern::Comments => self.lit(p, b"<!--"),
+            Pattern::CommentsEnd => self.lit(p, b"-->"),
+            Pattern::CommentsAt0 => {
                 let end = self.lit(p, b"@component")?;
-                self.cap(1, p, p + 1);
-                self.cap(2, p + 1, end);
+                self.capture(1, p, p + 1);
+                self.capture(2, p + 1, end);
                 Some(end)
             }
-            Pat::CommentsAt0End => self.starts(p, b"-->").then_some(p),
-            Pat::CommentsAt0At0 => (p..self.lim())
+            Pattern::CommentsAt0End => self.starts(p, b"-->").then_some(p),
+            Pattern::CommentsAt0At0 => (p..self.lim())
                 .find(|&q| self.starts(q, b"-->"))
                 .filter(|&q| q > p),
-            Pat::CommentsAt1 => self.comment_invalid(p),
+            Pattern::CommentsAt1 => self.comment_invalid(p),
 
-            Pat::NestedSpecialTagsKeywordsGroup2At0 => {
+            Pattern::NestedSpecialTagsKeywordsGroup2At0 => {
                 if self.starts(p, b"if") {
                     return Some(p + 2);
                 }
@@ -120,51 +122,51 @@ impl Lexer<'_> {
                 }
                 Some(end)
             }
-            Pat::NestedSpecialTagsKeywordsGroup2At1 => self.lit_in(p, &[b"each", b"key"]),
-            Pat::NestedSpecialTagsKeywordsGroup2At2 => {
+            Pattern::NestedSpecialTagsKeywordsGroup2At1 => self.lit_in(p, &[b"each", b"key"]),
+            Pattern::NestedSpecialTagsKeywordsGroup2At2 => {
                 self.lit_in(p, &[b"await", b"then", b"catch"])
             }
-            Pat::NestedSpecialTagsKeywordsGroup2At3 => self.lit(p, b"snippet"),
-            Pat::NestedSpecialTagsKeywordsGroup2At4 => self.lit(p, b"html"),
-            Pat::NestedSpecialTagsKeywordsGroup2At5 => self.lit(p, b"render"),
-            Pat::NestedSpecialTagsKeywordsGroup2At6 => self.lit(p, b"debug"),
-            Pat::NestedSpecialTagsKeywordsGroup2At7 => self.lit(p, b"const"),
-            Pat::SpecialTagsKeywords => {
+            Pattern::NestedSpecialTagsKeywordsGroup2At3 => self.lit(p, b"snippet"),
+            Pattern::NestedSpecialTagsKeywordsGroup2At4 => self.lit(p, b"html"),
+            Pattern::NestedSpecialTagsKeywordsGroup2At5 => self.lit(p, b"render"),
+            Pattern::NestedSpecialTagsKeywordsGroup2At6 => self.lit(p, b"debug"),
+            Pattern::NestedSpecialTagsKeywordsGroup2At7 => self.lit(p, b"const"),
+            Pattern::SpecialTagsKeywords => {
                 if !matches!(self.at(p), b'#' | b'/' | b':' | b'@') || p >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 let end = self.tag_keyword(p + 1);
-                self.cap(2, p + 1, end);
+                self.capture(2, p + 1, end);
                 Some(end)
             }
-            Pat::SpecialTagsVoid => self.special_tag(p, |b| b == b':' || b == b'@'),
-            Pat::SpecialTagsBlockBegin => self.special_tag(p, |b| b == b'#'),
-            Pat::SpecialTagsBlockEnd => self.special_tag(p, |b| b == b'/'),
-            Pat::SpecialTagsBlockBeginEnd | Pat::SpecialTagsBlockEndEnd => {
+            Pattern::SpecialTagsVoid => self.special_tag(p, |b| b == b':' || b == b'@'),
+            Pattern::SpecialTagsBlockBegin => self.special_tag(p, |b| b == b'#'),
+            Pattern::SpecialTagsBlockEnd => self.special_tag(p, |b| b == b'/'),
+            Pattern::SpecialTagsBlockBeginEnd | Pattern::SpecialTagsBlockEndEnd => {
                 let end = self.lit(p, b"}")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
 
-            Pat::SpecialTagsModesAt0 => self.mode(p, PLAIN_MODES),
-            Pat::SpecialTagsModesAt1 => self.mode(p, &[b"snippet"]),
-            Pat::SpecialTagsModesAt2 => self.mode(p, &[b"const"]),
-            Pat::SpecialTagsModesAt3 => self.mode(p, &[b"each"]),
-            Pat::SpecialTagsModesAt4 => self.mode(p, &[b"await"]),
-            Pat::SpecialTagsModesAt5 => self.mode(p, &[b"debug"]),
-            Pat::SpecialTagsModesAt0End
-            | Pat::SpecialTagsModesAt1End
-            | Pat::SpecialTagsModesAt1At2End
-            | Pat::SpecialTagsModesAt1At3End
-            | Pat::SpecialTagsModesAt2End
-            | Pat::SpecialTagsModesAt2At3End
-            | Pat::SpecialTagsModesAt3End
-            | Pat::SpecialTagsModesAt3At1End
-            | Pat::SpecialTagsModesAt4End
-            | Pat::SpecialTagsModesAt4At1End
-            | Pat::SpecialTagsModesAt5End => (self.at(p) == b'}').then_some(p),
-            Pat::SpecialTagsModesAt1At0 => {
+            Pattern::SpecialTagsModesAt0 => self.mode(p, PLAIN_MODES),
+            Pattern::SpecialTagsModesAt1 => self.mode(p, &[b"snippet"]),
+            Pattern::SpecialTagsModesAt2 => self.mode(p, &[b"const"]),
+            Pattern::SpecialTagsModesAt3 => self.mode(p, &[b"each"]),
+            Pattern::SpecialTagsModesAt4 => self.mode(p, &[b"await"]),
+            Pattern::SpecialTagsModesAt5 => self.mode(p, &[b"debug"]),
+            Pattern::SpecialTagsModesAt0End
+            | Pattern::SpecialTagsModesAt1End
+            | Pattern::SpecialTagsModesAt1At2End
+            | Pattern::SpecialTagsModesAt1At3End
+            | Pattern::SpecialTagsModesAt2End
+            | Pattern::SpecialTagsModesAt2At3End
+            | Pattern::SpecialTagsModesAt3End
+            | Pattern::SpecialTagsModesAt3At1End
+            | Pattern::SpecialTagsModesAt4End
+            | Pattern::SpecialTagsModesAt4At1End
+            | Pattern::SpecialTagsModesAt5End => (self.at(p) == b'}').then_some(p),
+            Pattern::SpecialTagsModesAt1At0 => {
                 if !self.at_g(p) {
                     return None;
                 }
@@ -172,14 +174,14 @@ impl Lexer<'_> {
                 let name = self.ident(start)?;
                 let end = self.space_end(name);
                 (self.at(end) == b'<').then(|| {
-                    self.cap(1, start, name);
+                    self.capture(1, start, name);
                     end
                 })
             }
-            Pat::SpecialTagsModesAt1At1 => (self.prev(p) == Some(b'<')).then_some(p),
-            Pat::SpecialTagsModesAt1At1End => (self.at(p) == b'>').then_some(p),
-            Pat::SpecialTagsModesAt1At2 => self.after_type_parameters(p).then_some(p),
-            Pat::SpecialTagsModesAt2At1 => {
+            Pattern::SpecialTagsModesAt1At1 => (self.prev(p) == Some(b'<')).then_some(p),
+            Pattern::SpecialTagsModesAt1At1End => (self.at(p) == b'>').then_some(p),
+            Pattern::SpecialTagsModesAt1At2 => self.after_type_parameters(p).then_some(p),
+            Pattern::SpecialTagsModesAt2At1 => {
                 if !self.at_g(p) {
                     return None;
                 }
@@ -187,70 +189,76 @@ impl Lexer<'_> {
                 let first = self.ident_start(start)?;
                 let name = self.ident_end(start + first);
                 (name > start + first).then(|| {
-                    self.cap(1, start, name);
+                    self.capture(1, start, name);
                     self.space_end(name)
                 })
             }
-            Pat::SpecialTagsModesAt2At1End => matches!(self.at(p), b':' | b'=').then_some(p),
-            Pat::SpecialTagsModesAt2At2 => (self.at(p) == b':').then_some(p),
-            Pat::SpecialTagsModesAt2At2End | Pat::SpecialTagsModesAt2At3 => {
+            Pattern::SpecialTagsModesAt2At1End => matches!(self.at(p), b':' | b'=').then_some(p),
+            Pattern::SpecialTagsModesAt2At2 => (self.at(p) == b':').then_some(p),
+            Pattern::SpecialTagsModesAt2At2End | Pattern::SpecialTagsModesAt2At3 => {
                 (self.at(p) == b'=').then_some(p)
             }
-            Pat::DestructuringConstAt0 | Pat::DestructuringAt0 => (self.at(p) == b'{').then_some(p),
-            Pat::DestructuringConstAt0End
-            | Pat::DestructuringAt0End
-            | Pat::InterpolationAt0At0End => (self.prev(p) == Some(b'}')).then_some(p),
-            Pat::DestructuringConstAt1 | Pat::DestructuringAt1 => (self.at(p) == b'[').then_some(p),
-            Pat::DestructuringConstAt1End | Pat::DestructuringAt1End => {
+            Pattern::DestructuringConstAt0 | Pattern::DestructuringAt0 => {
+                (self.at(p) == b'{').then_some(p)
+            }
+            Pattern::DestructuringConstAt0End
+            | Pattern::DestructuringAt0End
+            | Pattern::InterpolationAt0At0End => (self.prev(p) == Some(b'}')).then_some(p),
+            Pattern::DestructuringConstAt1 | Pattern::DestructuringAt1 => {
+                (self.at(p) == b'[').then_some(p)
+            }
+            Pattern::DestructuringConstAt1End | Pattern::DestructuringAt1End => {
                 (self.prev(p) == Some(b']')).then_some(p)
             }
-            Pat::SpecialTagsModesAt3At0 | Pat::SpecialTagsModesAt4At0 => {
+            Pattern::SpecialTagsModesAt3At0 | Pattern::SpecialTagsModesAt4At0 => {
                 if !self.at_g(p) {
                     return None;
                 }
                 let end = self.space_end(p);
                 (end < self.lim()).then_some(end)
             }
-            Pat::SpecialTagsModesAt3At0End => self.each_expression_ends(p).then_some(p),
-            Pat::SpecialTagsModesAt3At1 => {
+            Pattern::SpecialTagsModesAt3At0End => self.each_expression_ends(p).then_some(p),
+            Pattern::SpecialTagsModesAt3At1 => {
                 if let Some(end) = self.lit(p, b"as") {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     return Some(end);
                 }
                 matches!(self.at(p), b',' | b'}').then_some(p)
             }
-            Pat::SpecialTagsModesAt3At1At1 => self.lit(p, b"("),
-            Pat::SpecialTagsModesAt3At1At1End => {
+            Pattern::SpecialTagsModesAt3At1At1 => self.lit(p, b"("),
+            Pattern::SpecialTagsModesAt3At1At1End => {
                 if self.at(p) == b')' {
                     return Some(p + 1);
                 }
                 (self.at(p) == b'}').then_some(p)
             }
-            Pat::SpecialTagsModesAt3At1At2 => {
+            Pattern::SpecialTagsModesAt3At1At2 => {
                 let start = self.space_end(p);
                 let name = self.ident(start)?;
                 let end = self.space_end(name);
-                self.cap(1, p, end);
-                self.cap(2, start, name);
+                self.capture(1, p, end);
+                self.capture(2, start, name);
                 Some(end)
             }
-            Pat::SpecialTagsModesAt3At1At3 | Pat::SpecialTagsModesAt5At1 => self.lit(p, b","),
-            Pat::SpecialTagsModesAt4At0End => {
+            Pattern::SpecialTagsModesAt3At1At3 | Pattern::SpecialTagsModesAt5At1 => {
+                self.lit(p, b",")
+            }
+            Pattern::SpecialTagsModesAt4At0End => {
                 let blanks = self.space_end(p);
                 if blanks > p
                     && let Some(end) = self.lit(blanks, b"then")
                 {
-                    self.cap(1, blanks, end);
+                    self.capture(1, blanks, end);
                     return Some(end);
                 }
                 (self.at(p) == b'}').then_some(p)
             }
-            Pat::SpecialTagsModesAt4At1 => {
+            Pattern::SpecialTagsModesAt4At1 => {
                 (p >= 4 && self.text(p - 4, p) == b"then" && self.word_at(p).is_none()).then_some(p)
             }
-            Pat::SpecialTagsModesAt5At0 => self.ident(p),
+            Pattern::SpecialTagsModesAt5At0 => self.ident(p),
 
-            Pat::TagsNameAt0 => {
+            Pattern::TagsNameAt0 => {
                 let colon = self.lit(p, b"svelte:")?;
                 if !self.at(colon).is_ascii_lowercase() {
                     return None;
@@ -258,14 +266,14 @@ impl Lexer<'_> {
                 let end = self.skip_chars(colon + 1, |c| {
                     c == '-' || c == ':' || crate::classes::is_word(c)
                 });
-                self.cap(1, p, colon - 1);
-                self.cap(2, colon - 1, colon);
-                self.cap(3, colon, end);
+                self.capture(1, p, colon - 1);
+                self.capture(2, colon - 1, colon);
+                self.capture(3, colon, end);
                 Some(end)
             }
-            Pat::TagsNameAt1 => self.lit(p, b"slot"),
-            Pat::TagsNameAt2 => self.component_name(p),
-            Pat::TagsNameAt3 => {
+            Pattern::TagsNameAt1 => self.lit(p, b"slot"),
+            Pattern::TagsNameAt2 => self.component_name(p),
+            Pattern::TagsNameAt3 => {
                 if !self.at(p).is_ascii_lowercase() {
                     return None;
                 }
@@ -279,7 +287,7 @@ impl Lexer<'_> {
                     c == '-' || matches!(c, '0'..=':') || crate::classes::is_word(c)
                 }))
             }
-            Pat::TagsNameAt4 => {
+            Pattern::TagsNameAt4 => {
                 if !self.at(p).is_ascii_lowercase() {
                     return None;
                 }
@@ -287,98 +295,101 @@ impl Lexer<'_> {
                     c == '-' || matches!(c, '0'..=':') || crate::classes::is_word(c)
                 }))
             }
-            Pat::NestedTagsNameAt2Group1At1 => self.lit(p, b"."),
-            Pat::TagsStartNode | Pat::TagsGeneralStart => {
+            Pattern::NestedTagsNameAt2Group1At1 => self.lit(p, b"."),
+            Pattern::TagsStartNode | Pattern::TagsGeneralStart => {
                 let name = self.lit(p, b"<")?;
                 let end = self.tag_name_end(name);
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
-            Pat::TagsGeneralEnd => {
+            Pattern::TagsGeneralEnd => {
                 let name = self.lit(p, b"</")?;
                 let end = self.tag_name_end(name);
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
-            Pat::TagsEndNode => self.end_node(p),
-            Pat::TagsLang => {
+            Pattern::TagsEndNode => self.end_node(p),
+            Pattern::TagsLang => {
                 let name = self.lit(p, b"<")?;
                 let end = self.lit_in(name, &[b"script", b"style", b"template"])?;
-                self.cap(1, name, end);
+                self.capture(1, name, end);
                 Some(end)
             }
-            Pat::TagsLangEnd => self.tag_lang_end(p),
-            Pat::TagsLangAt0 => self.at_g(p).then(|| self.lang_attribute(p)).flatten(),
-            Pat::SpecialTagsModesAt1At3
-            | Pat::TagsLangStartAttributes
-            | Pat::TagsStartAttributes => self.at_g(p).then_some(p),
-            Pat::TagsLangStartAttributesEnd => {
+            Pattern::TagsLangEnd => self.tag_lang_end(p),
+            Pattern::TagsLangAt0 => self.at_g(p).then(|| self.lang_attribute(p)).flatten(),
+            Pattern::SpecialTagsModesAt1At3
+            | Pattern::TagsLangStartAttributes
+            | Pattern::TagsStartAttributes => self.at_g(p).then_some(p),
+            Pattern::TagsLangStartAttributesEnd => {
                 if self.starts(p, b"/>") {
                     return Some(p);
                 }
                 self.lit(p, b">")
             }
-            Pat::GenericsDoubleQuoted => self.generics(p, b'"'),
-            Pat::GenericsSingleQuoted => self.generics(p, b'\''),
-            Pat::GenericsDoubleQuotedEnd => self.lit_cap1(p, b"\""),
-            Pat::GenericsSingleQuotedEnd => self.lit_cap1(p, b"'"),
+            Pattern::GenericsDoubleQuoted => self.generics(p, b'"'),
+            Pattern::GenericsSingleQuoted => self.generics(p, b'\''),
+            Pattern::GenericsDoubleQuotedEnd => self.lit_capture1(p, b"\""),
+            Pattern::GenericsSingleQuotedEnd => self.lit_capture1(p, b"'"),
 
-            Pat::AttributesCommentsAt0 => self.lit(p, b"//").map(|_| self.lim()),
-            Pat::AttributesCommentsAt1 => self.lit(p, b"/*"),
-            Pat::AttributesCommentsAt1End => self.lit(p, b"*/"),
-            Pat::AttributesDirectivesKeywordsAt0 => self.lit_in(p, &[b"on", b"use", b"bind"]),
-            Pat::AttributesDirectivesKeywordsAt1 => {
+            Pattern::AttributesCommentsAt0 => self.lit(p, b"//").map(|_| self.lim()),
+            Pattern::AttributesCommentsAt1 => self.lit(p, b"/*"),
+            Pattern::AttributesCommentsAt1End => self.lit(p, b"*/"),
+            Pattern::AttributesDirectivesKeywordsAt0 => self.lit_in(p, &[b"on", b"use", b"bind"]),
+            Pattern::AttributesDirectivesKeywordsAt1 => {
                 self.lit_in(p, &[b"transition", b"in", b"out", b"animate"])
             }
-            Pat::AttributesDirectivesKeywordsAt2 => self.lit(p, b"let"),
-            Pat::AttributesDirectivesKeywordsAt3 => self.lit_in(p, &[b"class", b"style"]),
-            Pat::AttributesDirectivesTypesAssignedAt0 => {
+            Pattern::AttributesDirectivesKeywordsAt2 => self.lit(p, b"let"),
+            Pattern::AttributesDirectivesKeywordsAt3 => self.lit_in(p, &[b"class", b"style"]),
+            Pattern::AttributesDirectivesTypesAssignedAt0 => {
                 let end = self.lit(p, b"this")?;
                 (self.after_word(p, &[b"bind"]) && self.at_eol(end)).then_some(end)
             }
-            Pat::AttributesDirectivesTypesAssignedAt1 | Pat::AttributesDirectivesTypesAt1 => {
+            Pattern::AttributesDirectivesTypesAssignedAt1
+            | Pattern::AttributesDirectivesTypesAt1 => {
                 self.after_word(p, &[b"bind"]).then(|| self.lim())
             }
-            Pat::AttributesDirectivesTypesAssignedAt2 => {
+            Pattern::AttributesDirectivesTypesAssignedAt2 => {
                 self.after_word(p, &[b"class"]).then(|| self.lim())
             }
-            Pat::AttributesDirectivesTypesAssignedAt3 => {
+            Pattern::AttributesDirectivesTypesAssignedAt3 => {
                 self.after_word(p, &[b"style"]).then(|| self.lim())
             }
-            Pat::AttributesDirectivesTypesAt0 => self.after_word(p, &[b"on"]).then(|| self.lim()),
-            Pat::AttributesDirectivesTypesAt2 => self
+            Pattern::AttributesDirectivesTypesAt0 => {
+                self.after_word(p, &[b"on"]).then(|| self.lim())
+            }
+            Pattern::AttributesDirectivesTypesAt2 => self
                 .after_word(p, &[b"use", b"transition", b"in", b"out", b"animate"])
                 .then(|| self.lim()),
-            Pat::AttributesDirectivesTypesAt3 => self
+            Pattern::AttributesDirectivesTypesAt3 => self
                 .after_word(p, &[b"let", b"class", b"style"])
                 .then(|| self.lim()),
-            Pat::NestedTagsNameAt2Group1At0 | Pat::NestedAttributesDirectivesGroup5At0 => {
+            Pattern::NestedTagsNameAt2Group1At0 | Pattern::NestedAttributesDirectivesGroup5At0 => {
                 let end = self.word_end(p);
                 (end > p).then_some(end)
             }
-            Pat::NestedAttributesDirectivesGroup5At1 => self.lit(p, b"|"),
-            Pat::AttributesDirectives => self.directive(p),
-            Pat::AttributesDirectivesEnd | Pat::AttributesKeyvalueEnd => {
+            Pattern::NestedAttributesDirectivesGroup5At1 => self.lit(p, b"|"),
+            Pattern::AttributesDirectives => self.directive(p),
+            Pattern::AttributesDirectivesEnd | Pattern::AttributesKeyvalueEnd => {
                 let next = self.space_end(p);
                 (next < self.lim() && self.at(next) != b'=').then_some(p)
             }
-            Pat::AttributesDirectivesAt0 | Pat::AttributesKeyvalueAt0 => self.lit(p, b"="),
-            Pat::AttributesDirectivesAt0End | Pat::AttributesKeyvalueAt0End => {
+            Pattern::AttributesDirectivesAt0 | Pattern::AttributesKeyvalueAt0 => self.lit(p, b"="),
+            Pattern::AttributesDirectivesAt0End | Pattern::AttributesKeyvalueAt0End => {
                 let ended = self
                     .prev(p)
                     .is_some_and(|b| b != b'=' && !b.is_ascii_whitespace())
                     && self.at(self.space_end(p)) != b'=';
                 (ended || self.starts(p, b"/>") || self.at(p) == b'>').then_some(p)
             }
-            Pat::InterpolationAt0 => self.lit(p, b"{"),
-            Pat::SpecialTagsVoidEnd | Pat::InterpolationAt0End => self.lit(p, b"}"),
-            Pat::InterpolationAt0At0 => {
+            Pattern::InterpolationAt0 => self.lit(p, b"{"),
+            Pattern::SpecialTagsVoidEnd | Pattern::InterpolationAt0End => self.lit(p, b"}"),
+            Pattern::InterpolationAt0At0 => {
                 (self.at_g(p) && self.at(self.space_end(p)) == b'{').then(|| self.space_end(p))
             }
-            Pat::AttributesValueAt1 => self.number_value(p),
-            Pat::AttributesValueAt2 => {
+            Pattern::AttributesValueAt1 => self.number_value(p),
+            Pattern::AttributesValueAt2 => {
                 let mut end = p;
                 loop {
                     let b = self.at(end);
@@ -398,22 +409,22 @@ impl Lexer<'_> {
                 }
                 (end > p).then_some(end)
             }
-            Pat::AttributesValueAt3 => {
+            Pattern::AttributesValueAt3 => {
                 if !matches!(self.at(p), b'"' | b'\'') || p >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, p + 1);
+                self.capture(1, p, p + 1);
                 Some(p + 1)
             }
-            Pat::AttributesValueAt3End => self.payload_at(p).map(|width| p + width),
-            Pat::NestedAttributesKeyvalueGroup0At0 => self.lit(p, b"--").map(|_| self.lim()),
-            Pat::NestedAttributesKeyvalueGroup0At1 => Some(self.lim()).filter(|&end| end > p),
-            Pat::AttributesKeyvalue => {
+            Pattern::AttributesValueAt3End => self.payload_at(p).map(|width| p + width),
+            Pattern::NestedAttributesKeyvalueGroup0At0 => self.lit(p, b"--").map(|_| self.lim()),
+            Pattern::NestedAttributesKeyvalueGroup0At1 => Some(self.lim()).filter(|&end| end > p),
+            Pattern::AttributesKeyvalue => {
                 let end = self.attribute_name(p)?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
-            Pat::AttributesAttach => {
+            Pattern::AttributesAttach => {
                 if self.prev(p).is_some_and(|b| b == b':' || b == b'=') {
                     return None;
                 }
@@ -421,53 +432,55 @@ impl Lexer<'_> {
                 let at = self.lit(start, b"{@attach")?;
                 let width = self.space_at(at);
                 (width > 0).then(|| {
-                    self.cap(1, start, at + width);
+                    self.capture(1, start, at + width);
                     at + width
                 })
             }
-            Pat::AttributesInterpolated => {
+            Pattern::AttributesInterpolated => {
                 if self.prev(p).is_some_and(|b| b == b':' || b == b'=') {
                     return None;
                 }
                 let start = self.space_end(p);
                 let end = self.lit(start, b"{")?;
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
-            Pat::AttributesAttachEnd | Pat::AttributesInterpolatedEnd => self.lit_cap1(p, b"}"),
-            Pat::TagsVoid => {
+            Pattern::AttributesAttachEnd | Pattern::AttributesInterpolatedEnd => {
+                self.lit_capture1(p, b"}")
+            }
+            Pattern::TagsVoid => {
                 let name = self.lit(p, b"<")?;
                 let end = self.lit_in(name, VOID_TAGS)?;
                 let next = self.at(end);
                 if !(self.space_at(end) > 0 || next == b'>' || self.starts(end, b"/>")) {
                     return None;
                 }
-                self.cap(1, p, name);
-                self.cap(2, name, end);
+                self.capture(1, p, name);
+                self.capture(2, name, end);
                 Some(end)
             }
-            Pat::TagsVoidEnd => {
+            Pattern::TagsVoidEnd => {
                 let start = if self.at(p) == b'/' { p + 1 } else { p };
                 self.lit(start, b">")
             }
-            Pat::TagsGeneralEndEnd | Pat::TagsGeneralStartEnd => {
-                let start = if pat == Pat::TagsGeneralStartEnd && self.at(p) == b'/' {
+            Pattern::TagsGeneralEndEnd | Pattern::TagsGeneralStartEnd => {
+                let start = if pattern == Pattern::TagsGeneralStartEnd && self.at(p) == b'/' {
                     p + 1
                 } else {
                     p
                 };
                 let end = self.lit(start, b">")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
-            Pat::TagsStartAttributesEnd => {
+            Pattern::TagsStartAttributesEnd => {
                 (self.at(p) == b'>' || self.starts(p, b"/>")).then_some(p)
             }
-            Pat::ScopeAt4 => self
+            Pattern::ScopeAt4 => self
                 .prev(p)
                 .is_some_and(|b| b == b'>' || b == b'}')
                 .then_some(p),
-            Pat::ScopeAt4End => matches!(self.at(p), b'<' | b'{').then_some(p),
+            Pattern::ScopeAt4End => matches!(self.at(p), b'<' | b'{').then_some(p),
         }
     }
 
@@ -546,9 +559,9 @@ impl Lexer<'_> {
     }
 
     /// `(text)`, the whole match as group 1.
-    fn lit_cap1(&mut self, p: usize, text: &[u8]) -> Option<usize> {
+    fn lit_capture1(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -575,9 +588,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.tag_keyword(at + 1);
-        self.cap(1, p, open);
-        self.cap(2, at, end);
-        self.cap(3, at + 1, end);
+        self.capture(1, p, open);
+        self.capture(2, at, end);
+        self.capture(3, at + 1, end);
         Some(end)
     }
 
@@ -667,14 +680,14 @@ impl Lexer<'_> {
                 end = next;
             }
             if end > first {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
         }
         if !self.at(p).is_ascii_uppercase() {
             return None;
         }
-        self.cap(2, p, first);
+        self.capture(2, p, first);
         Some(first)
     }
 
@@ -685,14 +698,14 @@ impl Lexer<'_> {
             if let Some(close) = close {
                 let text = self.text(name, close);
                 let trimmed = name + text.trim_ascii_end().len();
-                self.cap(1, p, name);
-                self.cap(2, name, trimmed);
-                self.cap(3, close, close + 1);
+                self.capture(1, p, name);
+                self.capture(2, name, trimmed);
+                self.capture(3, close, close + 1);
                 return Some(close + 1);
             }
         }
         let end = self.lit(p, b"/>")?;
-        self.cap(4, p, end);
+        self.capture(4, p, end);
         Some(end)
     }
 
@@ -719,9 +732,9 @@ impl Lexer<'_> {
             if let Some(name) = name
                 && let Some((quote, value, end)) = self.lang_value(name)
             {
-                self.cap(1, q, name);
-                self.cap(2, quote.0, quote.1);
-                self.cap(3, value, end);
+                self.capture(1, q, name);
+                self.capture(2, quote.0, quote.1);
+                self.capture(3, value, end);
                 return Some(p);
             }
             q = self.char_end(q);
@@ -767,9 +780,9 @@ impl Lexer<'_> {
         let eq = self.lit(p, b"generics")?;
         let open = self.lit(eq, b"=")?;
         (self.at(open) == quote && open < self.lim()).then(|| {
-            self.cap(1, p, eq);
-            self.cap(2, eq, open);
-            self.cap(3, open, open + 1);
+            self.capture(1, p, eq);
+            self.capture(2, eq, open);
+            self.capture(3, open, open + 1);
             open + 1
         })
     }
@@ -805,12 +818,12 @@ impl Lexer<'_> {
             (self.at(end) == b':').then_some((end, end + 1))
         })?;
         let name = self.attribute_name(colon)?;
-        self.cap(1, p, keyword);
-        self.cap(2, keyword, colon);
+        self.capture(1, p, keyword);
+        self.capture(2, keyword, colon);
         if self.at(self.space_end(name)) == b'=' {
-            self.cap(3, colon, name);
+            self.capture(3, colon, name);
         } else {
-            self.cap(4, colon, name);
+            self.capture(4, colon, name);
         }
         let mut end = name;
         while self.at(end) == b'|' {
@@ -818,10 +831,10 @@ impl Lexer<'_> {
             if word == end + 1 {
                 break;
             }
-            self.cap(6, end, word);
+            self.capture(6, end, word);
             end = word;
         }
-        self.cap(5, name, end);
+        self.capture(5, name, end);
         Some(end)
     }
 
@@ -848,14 +861,14 @@ impl Lexer<'_> {
             if self.at(end) != quote || end >= self.lim() {
                 return None;
             }
-            self.cap(1, p, p + 1);
-            self.cap(2, start, end);
-            self.cap(3, end, end + 1);
+            self.capture(1, p, p + 1);
+            self.capture(2, start, end);
+            self.capture(3, end, end + 1);
             return Some(end + 1);
         }
         let follows = self.space_at(end) > 0 || self.at(end) == b'>' || self.starts(end, b"/>");
         follows.then(|| {
-            self.cap(4, start, end);
+            self.capture(4, start, end);
             end
         })
     }

@@ -221,13 +221,13 @@ impl Lexer<'_> {
             if at > local
                 && let Some(end) = self.function_word(at)
             {
-                self.cap(1, p, local);
-                self.cap(2, at, end);
+                self.capture(1, p, local);
+                self.capture(2, at, end);
                 return Some(end);
             }
         }
         let end = self.function_word(p)?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -251,7 +251,7 @@ impl Lexer<'_> {
     /// capture group 1, or where the parameters end without one.
     pub(super) fn parameters_end(&mut self, p: usize) -> Option<usize> {
         if let Some(end) = self.lit(p, b")") {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         if self.ahead_in(p, b"-]\"'[{}") {
@@ -267,8 +267,8 @@ impl Lexer<'_> {
         let dots = self.lit(p, b"...")?;
         let name = self.space_end(dots);
         let end = self.ascii_name(name)?;
-        self.cap(1, p, dots);
-        self.cap(2, name, end);
+        self.capture(1, p, dots);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -291,8 +291,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.ascii_name(name)?;
-        self.cap(1, p, word);
-        self.cap(2, name, end);
+        self.capture(1, p, word);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -303,8 +303,8 @@ impl Lexer<'_> {
         let open = self.lit(p, b"::")?;
         let close = self.space_end(self.ascii_name(self.space_end(open))?);
         let end = self.lit(close, b"::")?;
-        self.cap(1, p, open);
-        self.cap(2, close, end);
+        self.capture(1, p, open);
+        self.capture(2, close, end);
         Some(end)
     }
 
@@ -332,7 +332,7 @@ impl Lexer<'_> {
         if self.at(after) == b'=' && after < self.lim() {
             return None;
         }
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 

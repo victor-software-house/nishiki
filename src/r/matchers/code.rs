@@ -79,7 +79,7 @@ impl Lexer<'_> {
         if self.at(blanks) != b'=' || !self.avail(blanks + 1) || self.at(blanks + 1) == b'=' {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(blanks)
     }
 
@@ -91,8 +91,8 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, word);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 
@@ -145,8 +145,8 @@ impl Lexer<'_> {
         let name = self.skip(p, dotted);
         let colons = self.lit(name, b"::")?;
         let end = self.lit(colons, b":").unwrap_or(colons);
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -157,7 +157,7 @@ impl Lexer<'_> {
         if end == p || self.at(end) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

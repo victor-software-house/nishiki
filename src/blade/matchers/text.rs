@@ -24,15 +24,15 @@ impl Lexer<'_> {
                 if let Some(end) = self.lit(at, word) {
                     let rest = self.space_end(end);
                     if self.at_eol(rest) {
-                        self.cap(1, tag, tag_end);
-                        self.cap(3, at, end);
+                        self.capture(1, tag, tag_end);
+                        self.capture(3, at, end);
                         return Some(rest);
                     }
                 }
             }
             if at < self.lim() {
-                self.cap(1, tag, tag_end);
-                self.cap(4, at, self.lim());
+                self.capture(1, tag, tag_end);
+                self.capture(4, at, self.lim());
                 return Some(self.space_end(self.lim()));
             }
             at = self.char_start_before(at);
@@ -85,7 +85,7 @@ impl Lexer<'_> {
             if at <= end {
                 continue;
             }
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(at);
         }
         None
@@ -94,8 +94,8 @@ impl Lexer<'_> {
     /// `(\))(\[])|(?=\*/)`.
     pub(super) fn doc_types_close(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b')' && self.starts(p + 1, b"[]") {
-            self.cap(1, p, p + 1);
-            self.cap(2, p + 1, p + 3);
+            self.capture(1, p, p + 1);
+            self.capture(2, p + 1, p + 3);
             return Some(p + 3);
         }
         self.starts(p, b"*/").then_some(p)
@@ -119,8 +119,8 @@ impl Lexer<'_> {
         if !self.starts(end, b"[]") {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, end, end + 2);
+        self.capture(1, p, end);
+        self.capture(2, end, end + 2);
         Some(end + 2)
     }
 
@@ -135,7 +135,7 @@ impl Lexer<'_> {
         if p == 0 {
             let end = self.space_end(0);
             if end > 0 && self.at(end) == b'#' && end < self.lim() {
-                self.cap(1, 0, end);
+                self.capture(1, 0, end);
                 return Some(end);
             }
         }
@@ -205,11 +205,11 @@ impl Lexer<'_> {
         if self.at(whole) == b'.' && whole < self.lim() {
             let fraction = self.skip(whole + 1, digits);
             if fraction > whole + 1 {
-                self.cap(1, whole, whole + 1);
+                self.capture(1, whole, whole + 1);
                 return Some(self.exponent(fraction).unwrap_or(fraction));
             }
             if whole > p {
-                self.cap(2, whole, whole + 1);
+                self.capture(2, whole, whole + 1);
                 return Some(self.exponent(whole + 1).unwrap_or(whole + 1));
             }
             return None;
@@ -282,9 +282,9 @@ impl Lexer<'_> {
             }
             let spaces = end + usize::from(quoted);
             let line_end = self.space_end(spaces);
-            self.cap(1, p, arrows);
-            self.cap(3, from, end);
-            self.cap(5, spaces, line_end);
+            self.capture(1, p, arrows);
+            self.capture(3, from, end);
+            self.capture(5, spaces, line_end);
             return Some(line_end);
         }
         None
@@ -302,9 +302,9 @@ impl Lexer<'_> {
             return None;
         }
         let line_end = self.space_end(end + 1);
-        self.cap(1, p, arrows);
-        self.cap(2, at + 1, end);
-        self.cap(3, end + 1, line_end);
+        self.capture(1, p, arrows);
+        self.capture(2, at + 1, end);
+        self.capture(3, end + 1, line_end);
         Some(line_end)
     }
 
@@ -324,7 +324,7 @@ impl Lexer<'_> {
         if !self.boundary(end) {
             return None;
         }
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 
@@ -354,7 +354,7 @@ impl Lexer<'_> {
             }
             at += 1;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(rest)
     }
 

@@ -161,7 +161,7 @@ fn a_vue_script_closes_with_no_coffee_rule_open() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::coffee::engine::Coffee;
-    use crate::coffee::grammar::Pat;
+    use crate::coffee::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with CoffeeScript's matchers
@@ -169,9 +169,11 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Coffee, _>(arena, case, |lexer| {
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.pat_matches(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| {
+                    lexer.pattern_matches(pattern, p)
+                })
             })
         });
     }

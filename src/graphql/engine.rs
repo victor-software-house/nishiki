@@ -13,7 +13,7 @@
 
 use std::cell::Cell;
 
-use super::rules::{Pat, patterns};
+use super::rules::{Pattern, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::Language;
@@ -50,7 +50,7 @@ pub(crate) struct Extra {
 /// A capture group that carries a scope.
 /// `inner` is a second group over the same bytes, nested in it.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Cap {
+pub(super) struct Capture {
     pub(super) from: usize,
     pub(super) to: usize,
     pub(super) scope: S,
@@ -62,7 +62,7 @@ pub(super) struct Cap {
 pub(super) struct Hit {
     pub(super) start: usize,
     pub(super) end: usize,
-    pub(super) caps: [Option<Cap>; 5],
+    pub(super) captures: [Option<Capture>; 5],
 }
 
 impl Hit {
@@ -70,13 +70,13 @@ impl Hit {
         Hit {
             start,
             end,
-            caps: [None; 5],
+            captures: [None; 5],
         }
     }
 
     /// The match with a group `from..to` that adds `scope`, in slot `slot`.
-    pub(super) fn cap(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
-        self.caps[slot] = Some(Cap {
+    pub(super) fn capture(mut self, slot: usize, from: usize, to: usize, scope: S) -> Hit {
+        self.captures[slot] = Some(Capture {
             from,
             to,
             scope,
@@ -88,7 +88,7 @@ impl Hit {
     /// The match with a group `from..to` that adds `scope`.
     /// A nested group over the same bytes adds `inner`.
     pub(super) fn nested(mut self, slot: usize, from: usize, to: usize, scope: S, inner: S) -> Hit {
-        self.caps[slot] = Some(Cap {
+        self.captures[slot] = Some(Capture {
             from,
             to,
             scope,
@@ -105,11 +105,11 @@ impl Lexer<'_> {
     #[inline]
     fn record(&mut self, hit: &Hit) -> (usize, usize) {
         self.clear_spans();
-        for cap in hit.caps.iter().flatten() {
-            if cap.from < cap.to {
-                self.span_one(cap.from, cap.to, Some(cap.scope), None);
-                if cap.inner.is_some() {
-                    self.span_one(cap.from, cap.to, cap.inner, None);
+        for capture in hit.captures.iter().flatten() {
+            if capture.from < capture.to {
+                self.span_one(capture.from, capture.to, Some(capture.scope), None);
+                if capture.inner.is_some() {
+                    self.span_one(capture.from, capture.to, capture.inner, None);
                 }
             }
         }
@@ -118,29 +118,29 @@ impl Lexer<'_> {
 
     /// The first pattern of `rule` that matches at `p`, with where its match
     /// starts and ends.
-    /// The end pattern comes before the patterns `pats`.
+    /// The end pattern comes before the patterns `patterns`.
     /// With `end_last`, it comes after them.
     #[inline]
     fn first_at(
         &mut self,
         rule: Rule,
         end_last: bool,
-        pats: &'static [Pat],
+        patterns: &'static [Pattern],
         p: usize,
-    ) -> Option<(Pat, usize, usize)> {
+    ) -> Option<(Pattern, usize, usize)> {
         if !end_last && let Some(hit) = &self.end_at(rule, p) {
             let (start, end) = self.record(hit);
-            return Some((Pat::End, start, end));
+            return Some((Pattern::End, start, end));
         }
-        for &pat in pats {
-            if let Some(hit) = &self.pat_at(pat, p) {
+        for &pattern in patterns {
+            if let Some(hit) = &self.pattern_at(pattern, p) {
                 let (start, end) = self.record(hit);
-                return Some((pat, start, end));
+                return Some((pattern, start, end));
             }
         }
         if end_last && let Some(hit) = &self.end_at(rule, p) {
             let (start, end) = self.record(hit);
-            return Some((Pat::End, start, end));
+            return Some((Pattern::End, start, end));
         }
         None
     }
@@ -157,10 +157,13 @@ impl Lexer<'_> {
     /// An empty match would match again at the same place, so the search
     /// then goes on one character later.
     /// A scan for GraphQL that nothing embeds compiles without the halts.
-    fn search<const HALTING: bool>(&mut self, halts: &Halts<'_>) -> Option<(usize, Pat, usize)> {
+    fn search<const HALTING: bool>(
+        &mut self,
+        halts: &Halts<'_>,
+    ) -> Option<(usize, Pattern, usize)> {
         let rule = self.top_rule();
         let end_last = Lexer::end_last(rule);
-        let pats = patterns(rule);
+        let patterns = patterns(rule);
         let end = self.lim() + usize::from(self.nl);
         let mut p = self.pos;
         'search: while p <= end {
@@ -173,9 +176,10 @@ impl Lexer<'_> {
                 self.halt_here(p);
                 return None;
             }
-            if boundary && let Some((pat, start, hit_end)) = self.first_at(rule, end_last, pats, p)
+            if boundary
+                && let Some((pattern, start, hit_end)) = self.first_at(rule, end_last, patterns, p)
             {
-                if pat.opens().is_some() && self.at_depth_limit() {
+                if pattern.opens().is_some() && self.at_depth_limit() {
                     self.record_depth();
                     let next = if hit_end > start {
                         hit_end
@@ -186,7 +190,7 @@ impl Lexer<'_> {
                     p = self.pos;
                     continue 'search;
                 }
-                return Some((start, pat, hit_end));
+                return Some((start, pattern, hit_end));
             }
             if HALTING && boundary && halts.1.is_some_and(|after| after.holds(self.s, p)) {
                 self.halt_here(p);
@@ -202,7 +206,7 @@ impl Grammar for GraphQl {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -243,33 +247,33 @@ impl Grammar for GraphQl {
         }
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        match (pat, pat.opens()) {
-            (Pat::End, _) => Act::End,
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        match (pattern, pattern.opens()) {
+            (Pattern::End, _) => Act::End,
             (_, Some(rule)) => Act::Begin(rule),
-            (_, None) => Act::Match(pat.name()),
+            (_, None) => Act::Match(pattern.name()),
         }
     }
 
-    fn pat_captures(_: Pat) -> Captures<Self> {
+    fn pattern_captures(_: Pattern) -> Captures<Self> {
         (&[], &[])
     }
 
     /// The first match from the position: see `search`.
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         match lexer.root_halts() {
             Some(halts) => lexer.search::<true>(halts),
             None => lexer.search::<false>(&NO_HALTS),
         }
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        let hit = lexer.pat_at(pat, p)?;
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        let hit = lexer.pattern_at(pattern, p)?;
         Some(lexer.record(&hit).1)
     }
 
-    fn tokenize_nested(_: &mut Lexer<'_>, kind: Nested, _: usize, _: usize, _: u32) {
-        match kind {}
+    fn tokenize_nested(_: &mut Lexer<'_>, nested: Nested, _: usize, _: usize, _: u32) {
+        match nested {}
     }
 }
 

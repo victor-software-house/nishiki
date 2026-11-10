@@ -2,14 +2,14 @@
 
 use crate::arena::Arena;
 use crate::csharp::engine::CSharp;
-use crate::csharp::grammar::Pat;
+use crate::csharp::grammar::Pattern;
 use crate::csharp::matchers::ProbeGroups;
 use crate::test_support::probe::{After, Anchor, Case, lexer};
 
-/// What `pat` answers on `case`: where its match ends and the span of each
+/// What `pattern` answers on `case`: where its match ends and the span of each
 /// capture group, or `None` where it does not match.
-fn answer(arena: &mut Arena, pat: Pat, case: &Case<'_>) -> Option<(usize, ProbeGroups)> {
-    lexer::<CSharp, _>(arena, case, |lexer| lexer.probe(pat, case.p))
+fn answer(arena: &mut Arena, pattern: Pattern, case: &Case<'_>) -> Option<(usize, ProbeGroups)> {
+    lexer::<CSharp, _>(arena, case, |lexer| lexer.probe(pattern, case.p))
 }
 
 /// The type and the name in `foreach` split the blanks between them as
@@ -35,16 +35,20 @@ fn a_foreach_type_keeps_all_but_the_last_blank_before_the_name() {
             anchor: Anchor::Free,
             after: After::LineFeed,
         };
-        let (_, caps) = answer(&mut arena, Pat::ForeachStatementAt1At1, &case)
+        let (_, captures) = answer(&mut arena, Pattern::ForeachStatementAt1At1, &case)
             .unwrap_or_else(|| panic!("no match in {text:?}"));
-        assert_eq!((caps[3], caps[8]), (Some(ty), Some(name)), "{text:?}");
+        assert_eq!(
+            (captures[3], captures[8]),
+            (Some(ty), Some(name)),
+            "{text:?}"
+        );
     }
 }
 
 #[cfg(feature = "json")]
 mod probe {
     use super::answer;
-    use crate::csharp::grammar::Pat;
+    use crate::csharp::grammar::Pattern;
     use crate::test_support::probe::answer_cases;
 
     /// Answers the cases of `oracle/onig.ts` with C#'s matchers (see
@@ -52,8 +56,8 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
-            answer(arena, pat, case).map(|(end, caps)| (end, caps.to_vec()))
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
+            answer(arena, pattern, case).map(|(end, captures)| (end, captures.to_vec()))
         });
     }
 }
@@ -150,7 +154,7 @@ fn the_while_flag_matches_the_rules() {
     use crate::csharp::grammar::Rule;
     use crate::rules::Grammar;
 
-    let any = Rule::ALL.iter().any(|rule| rule.while_pat().is_some());
+    let any = Rule::ALL.iter().any(|rule| rule.while_pattern().is_some());
     assert_eq!(Rule::HAS_WHILE, any);
     assert_eq!(CSharp::WHILES, any);
 }

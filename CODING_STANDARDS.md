@@ -74,7 +74,7 @@ and lets one language embed another on the same arena.
 
 - A lexer's open contexts are frames of the shared arena (`src/arena.rs`).
   They are pushed and popped through the lexer's `push`, `push_with`, `pop`, `set_payload` and `payload`.
-- A frame's kind is the language's context enum, tagged with the language's own high byte.
+- A frame's `rule` names the open context, as a variant of the language's enum tagged with its own high byte.
 - Every tag is a constant in `src/tag.rs`.
   A compile-time check fails when two ranges overlap,
   including a lexer that claims a wider range for flag bits.
@@ -133,8 +133,8 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
   - The embedding lexer adds that to its own count (`Steps::take_back`).
 - It counts only its own contexts against the depth limit.
   A pinned depth then gives it the same output wherever it is embedded.
-- A fence's `Kind` holds the embedded `Language`.
-  Markdown numbers the `Kind` codes of fences from `Language::ALL`.
+- A fence's `Container` holds the embedded `Language`.
+  Markdown numbers the `Container` codes of fences from `Language::ALL`.
   Adding a fence language is one entry in the fence table and its embedded scope in `rules::content_name`.
 
 ## 2. Speed
@@ -279,6 +279,23 @@ The release rules in `AGENTS.md` decide its version.
 - A helper a second lexer needs moves to a shared module named for its concern.
   It moves in the pull request that needs it, and is never copied.
 - Lexers are written in parallel, so this is how duplication stays out.
+
+### 3.9 Names are prose
+
+The prose rules in `AGENTS.md` cover identifiers too (operator, 2026-11-10).
+This holds for types, variants, fields, functions, locals, modules, files and tests.
+
+- A name is the plainest word a reader of the domain would use for its value.
+- A name never uses a word that fits anything:
+  `Kind`, `Type`, `Info`, `Data`, `Item`, `Value`, `Helper`, `Util` or `Manager`.
+- A name never uses a coined word, or a rare word where a common one does.
+- To name a set of variants or fields, ask what they have in common, and name that.
+  - `LineKind` became `Freshness`: its variants say whether a line's tokens are final or may still change.
+  - `TagInfo` became `TagClass`: it holds the category and the rule the HTML grammar gives a tag.
+- One concept keeps one word across languages.
+  Every language's frame enum is its `Rule`, and a frame's field is `rule`.
+- Names other crates and Shiki spell stay as they are, such as `HirKind` or a scope name.
+- A scope id abbreviates the scope string in its `scope_table!` row, and the row is its definition.
 
 ## 4. Tests
 

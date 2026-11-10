@@ -25,7 +25,7 @@
 //! The directives 6 to 14 need no word character, `[0-9@-Z_a-z]`, before
 //! their `@`.
 
-use super::engine::{Hit, Lexer, Part, Pat};
+use super::engine::{Hit, Lexer, Part, Pattern};
 use super::scope::S;
 use super::state::{Injection, Rule};
 use crate::language::Halt;
@@ -705,16 +705,16 @@ impl Halt for PhpHalt {
     }
 }
 
-impl Pat {
-    /// The pattern of a Blade match of `kind`: [`Pat::Blade`] where it opens
-    /// a rule, [`Pat::BladeMatch`] where it opens none.
+impl Pattern {
+    /// The pattern of a match of `blade`: [`Pattern::Blade`] where it opens
+    /// a rule, [`Pattern::BladeMatch`] where it opens none.
     /// The two join the arms of the other patterns that open a rule or not,
     /// so the HTML engine calls each step from one place.
-    pub(super) fn blade(kind: Blade) -> Self {
-        if Lexer::blade_opens(kind).is_some() {
-            Pat::Blade(kind)
+    pub(super) fn blade(blade: Blade) -> Self {
+        if Lexer::blade_opens(blade).is_some() {
+            Pattern::Blade(blade)
         } else {
-            Pat::BladeMatch(kind)
+            Pattern::BladeMatch(blade)
         }
     }
 }
@@ -843,7 +843,7 @@ impl Lexer<'_> {
     #[inline(never)]
     pub(super) fn blade_end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let rule = rule.blade()?;
-        let one = |len: usize| Hit::new(Pat::End, p, p + len);
+        let one = |len: usize| Hit::new(Pattern::End, p, p + len);
         match rule {
             BladeRule::Comment => self.starts(p, b"--}}").then(|| one(4)),
             BladeRule::CommentPhpWrap | BladeRule::PhpWrap => self.erb_wrap_end(p),
@@ -870,7 +870,7 @@ impl Lexer<'_> {
     pub(super) fn blade_patterns_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let rule = rule.blade()?;
         let text = &self.s[..self.lim];
-        let hit = |(kind, end): (Blade, usize)| Hit::new(Pat::blade(kind), p, end);
+        let hit = |(blade, end): (Blade, usize)| Hit::new(Pattern::blade(blade), p, end);
         match rule {
             BladeRule::Comment => comment_php(text, p).map(hit),
             BladeRule::CommentPhpWrap | BladeRule::PhpWrap => {
@@ -906,8 +906,8 @@ impl Lexer<'_> {
     }
 
     /// The rule that a pattern of Blade's opens, or `None` for a match rule.
-    pub(super) fn blade_opens(kind: Blade) -> Option<Rule> {
-        Some(match kind {
+    pub(super) fn blade_opens(blade: Blade) -> Option<Rule> {
+        Some(match blade {
             Blade::Comment => Rule::BladeComment,
             Blade::EchoTriple => Rule::BladeEchoTriple,
             Blade::Echo => Rule::BladeEcho,
@@ -941,37 +941,37 @@ impl Lexer<'_> {
     pub(super) fn blade_begin_captures(
         &mut self,
         base: u32,
-        kind: Blade,
+        blade: Blade,
         start: usize,
         end: usize,
     ) {
-        match kind {
-            Blade::Comment => self.cap(base, start, end, &[S::BladeCommentBegin]),
+        match blade {
+            Blade::Comment => self.capture(base, start, end, &[S::BladeCommentBegin]),
             Blade::EchoTriple | Blade::Echo | Blade::EchoRaw => {
-                self.cap(base, start, end, &[S::BladeConstructBegin]);
+                self.capture(base, start, end, &[S::BladeConstructBegin]);
             }
             Blade::EchoEscaped => {
-                self.cap(base, start, start + 1, &[S::BladeRoundBegin, S::BladeIndex]);
-                self.cap(base, start + 1, end, &[S::BladeRoundBegin]);
+                self.capture(base, start, start + 1, &[S::BladeRoundBegin, S::BladeIndex]);
+                self.capture(base, start + 1, end, &[S::BladeRoundBegin]);
             }
             Blade::Directive(paren)
             | Blade::ArgsComment {
                 paren,
                 ends_php: false,
             } => {
-                self.cap(base, start, paren, &[S::BladeKeyword]);
-                self.cap(base, paren, end, &[S::BladeArgsBegin]);
+                self.capture(base, start, paren, &[S::BladeKeyword]);
+                self.capture(base, paren, end, &[S::BladeArgsBegin]);
             }
             Blade::ArgsComment {
                 paren,
                 ends_php: true,
             } => {
-                self.cap(base, start, paren, &[S::PhpEnd]);
-                self.cap(base, paren, end, &[S::BladeArgsBegin]);
+                self.capture(base, start, paren, &[S::PhpEnd]);
+                self.capture(base, paren, end, &[S::BladeArgsBegin]);
             }
             Blade::Custom(paren) => {
-                self.cap(base, start, paren, &[S::BladeFunction]);
-                self.cap(base, paren, end, &[S::BladeArgsBegin]);
+                self.capture(base, start, paren, &[S::BladeFunction]);
+                self.capture(base, paren, end, &[S::BladeArgsBegin]);
             }
             Blade::Attribute(equals) => {
                 let word = self.intern(start, equals);
@@ -984,20 +984,20 @@ impl Lexer<'_> {
                     ],
                 );
                 let name = self.path(attribute, &[S::AttributeName]);
-                self.cap_stack(base, start, equals, name);
+                self.capture_stack(base, start, equals, name);
                 let separator = self.path(attribute, &[S::KeyValue]);
-                self.cap_stack(base, equals, equals + 1, separator);
+                self.capture_stack(base, equals, equals + 1, separator);
                 let quote = self.path(attribute, &[S::StringDouble]);
-                self.cap_stack(base, equals + 1, end, quote);
+                self.capture_stack(base, equals + 1, end, quote);
             }
             Blade::PhpWrap | Blade::CommentPhpWrap => {
-                self.cap(base, start, end, &[S::PhpLeading]);
+                self.capture(base, start, end, &[S::PhpLeading]);
             }
             Blade::PhpSection
             | Blade::PhpBlock
             | Blade::PhpLine
             | Blade::CommentPhpBlock
-            | Blade::CommentPhpLine => self.cap(base, start, end, &[S::PhpBegin]),
+            | Blade::CommentPhpLine => self.capture(base, start, end, &[S::PhpBegin]),
             Blade::Paren
             | Blade::LineCode
             | Blade::Keyword
@@ -1015,20 +1015,20 @@ impl Lexer<'_> {
     pub(super) fn blade_match_captures(
         &mut self,
         base: u32,
-        kind: Blade,
+        blade: Blade,
         start: usize,
         end: usize,
     ) {
-        match kind {
-            Blade::Keyword => self.cap(base, start, end, &[S::BladeKeyword]),
-            Blade::EndPhp => self.cap(base, start, end, &[S::PhpEnd]),
-            Blade::Function => self.cap(base, start, end, &[S::BladeFunction]),
+        match blade {
+            Blade::Keyword => self.capture(base, start, end, &[S::BladeKeyword]),
+            Blade::EndPhp => self.capture(base, start, end, &[S::PhpEnd]),
+            Blade::Function => self.capture(base, start, end, &[S::BladeFunction]),
             Blade::EmptyTag(question) => {
                 let tag = self.path(base, &[S::PhpEmptyTag]);
                 let code = self.path(tag, &[S::SourcePhp]);
-                self.cap_stack(base, start, question, code);
+                self.capture_stack(base, start, question, code);
                 let punctuation = self.path(tag, &[S::PhpEnd, S::SourcePhp]);
-                self.cap_stack(base, question, end, punctuation);
+                self.capture_stack(base, question, end, punctuation);
             }
             Blade::ArgsText => self.tok(base, end),
             Blade::Comment
@@ -1061,26 +1061,28 @@ impl Lexer<'_> {
             return;
         };
         match rule {
-            BladeRule::Comment => self.cap(base, start, end, &[S::BladeCommentEnd]),
+            BladeRule::Comment => self.capture(base, start, end, &[S::BladeCommentEnd]),
             BladeRule::CommentPhpWrap | BladeRule::PhpWrap if end > start => {
-                self.cap(base, start, end, &[S::PhpTrailing]);
+                self.capture(base, start, end, &[S::PhpTrailing]);
             }
             BladeRule::CommentPhpBlock | BladeRule::PhpBlock => {
-                self.cap(base, start, start + 1, &[S::PhpEnd, S::SourcePhp]);
-                self.cap(base, start + 1, end, &[S::PhpEnd]);
+                self.capture(base, start, start + 1, &[S::PhpEnd, S::SourcePhp]);
+                self.capture(base, start + 1, end, &[S::PhpEnd]);
             }
-            BladeRule::PhpLineCode => self.cap(base, start, end, &[S::PhpEnd, S::SourcePhp]),
+            BladeRule::PhpLineCode => self.capture(base, start, end, &[S::PhpEnd, S::SourcePhp]),
             BladeRule::CommentPhpLine | BladeRule::PhpLine => {
-                self.cap(base, start, end, &[S::PhpEnd]);
+                self.capture(base, start, end, &[S::PhpEnd]);
             }
             BladeRule::EchoTriple | BladeRule::Echo | BladeRule::EchoRaw => {
-                self.cap(base, start, end, &[S::BladeConstructEnd]);
+                self.capture(base, start, end, &[S::BladeConstructEnd]);
             }
-            BladeRule::EchoEscaped => self.cap(base, start, end, &[S::BladeRoundEnd]),
+            BladeRule::EchoEscaped => self.capture(base, start, end, &[S::BladeRoundEnd]),
             BladeRule::Directive | BladeRule::DirectiveCustom | BladeRule::ArgsComment => {
-                self.cap(base, start, end, &[S::BladeArgsEnd]);
+                self.capture(base, start, end, &[S::BladeArgsEnd]);
             }
-            BladeRule::Attribute => self.cap(base, start, end, &[S::StringDouble, S::StringEnd]),
+            BladeRule::Attribute => {
+                self.capture(base, start, end, &[S::StringDouble, S::StringEnd]);
+            }
             BladeRule::CommentPhpWrap
             | BladeRule::PhpWrap
             | BladeRule::Balance
@@ -1093,7 +1095,8 @@ impl Lexer<'_> {
 /// The rules are the injection's patterns without the PHP tags, as a Blade
 /// heredoc includes them (see [`super::state::ROOT_BLADE_HEREDOC`]).
 pub(super) fn rules_at(s: &[u8], p: usize) -> Option<(Blade, usize)> {
-    at(s, p).filter(|&(kind, _)| !matches!(kind, Blade::PhpWrap | Blade::PhpBlock | Blade::PhpLine))
+    at(s, p)
+        .filter(|&(blade, _)| !matches!(blade, Blade::PhpWrap | Blade::PhpBlock | Blade::PhpLine))
 }
 
 /// The first place at or after `from` where one of Blade's own rules

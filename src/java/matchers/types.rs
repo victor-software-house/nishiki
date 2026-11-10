@@ -36,7 +36,7 @@ impl Lexer<'_> {
         if self.at(angle) != b'<' {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -59,7 +59,7 @@ impl Lexer<'_> {
         if self.at(bracket) != b'[' {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(bracket)
     }
 
@@ -116,8 +116,8 @@ impl Lexer<'_> {
             let bracket = self.space_end(end);
             (self.at(bracket) == b'[').then_some(bracket)
         })?;
-        self.cap(1, p, last);
-        self.cap(2, last, end);
+        self.capture(1, p, last);
+        self.capture(2, last, end);
         Some(after)
     }
 
@@ -127,7 +127,7 @@ impl Lexer<'_> {
             let angle = self.space_end(end);
             (self.at(angle) == b'<').then_some(angle)
         })?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(after)
     }
 
@@ -141,7 +141,7 @@ impl Lexer<'_> {
                     && (self.s[next].is_ascii_alphabetic() || matches!(self.s[next], b'$' | b'_')));
             (name_follows || self.starts(next, b"...")).then_some(end)
         })?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -166,7 +166,7 @@ impl Lexer<'_> {
         }
         let (end, dot) = best?;
         if let Some(dot) = dot {
-            self.cap(1, dot, dot + 1);
+            self.capture(1, dot, dot + 1);
         }
         Some(end)
     }

@@ -130,7 +130,7 @@ impl Lexer<'_> {
         let end = self.first_folded(p + 1, &[b"False", b"Null", b"True"], |lexer, at| {
             lexer.word_at(at).is_none()
         })?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -163,7 +163,7 @@ impl Lexer<'_> {
             Members::Never => name,
             Members::Kept => match self.members(name) {
                 Some(end) => {
-                    self.cap(group, name, end);
+                    self.capture(group, name, end);
                     end
                 }
                 None => name,
@@ -193,10 +193,10 @@ impl Lexer<'_> {
                 Members::Never => self.boundary(name).then_some((name, name)),
             }
         })?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, name);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, name);
         if members == Members::Kept {
-            self.cap(3, name, end);
+            self.capture(3, name, end);
         }
         Some(end)
     }
@@ -212,8 +212,8 @@ impl Lexer<'_> {
             b'$' | b'?' | b'^' => p + 2,
             _ => self.first_folded(p + 1, AUTOMATIC, Chars::boundary)?,
         };
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, name);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, name);
         Some(self.with_members(name, members, 3))
     }
 
@@ -231,9 +231,9 @@ impl Lexer<'_> {
         if name == scope + 1 {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, scope);
-        self.cap(3, scope + 1, name);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, scope);
+        self.capture(3, scope + 1, name);
         Some(self.with_members(name, members, 4))
     }
 
@@ -264,11 +264,11 @@ impl Lexer<'_> {
         }
         let scope = self.first_folded(p + 2, SCOPES, |lexer, at| lexer.at(at) == b':')?;
         let close = self.braced_text(scope + 1)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, p + 2);
-        self.cap(3, p + 2, scope);
-        self.cap(4, scope + 1, close);
-        self.cap(5, close, close + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, p + 2);
+        self.capture(3, p + 2, scope);
+        self.capture(4, scope + 1, close);
+        self.capture(5, close, close + 1);
         Some(self.with_members(close + 1, members, 6))
     }
 
@@ -293,13 +293,13 @@ impl Lexer<'_> {
             .filter(|&(_, name)| name > first + 1);
         let (name_at, name) = match drive {
             Some((colon, name)) => {
-                self.cap(2, p + 1, colon + 1);
+                self.capture(2, p + 1, colon + 1);
                 (colon + 1, name)
             }
             None => (p + 1, first),
         };
-        self.cap(1, p, p + 1);
-        self.cap(3, name_at, name);
+        self.capture(1, p, p + 1);
+        self.capture(3, name_at, name);
         Some(self.with_members(name, members, 4))
     }
 
@@ -321,15 +321,15 @@ impl Lexer<'_> {
             .flatten();
         let (text_at, close) = match drive {
             Some((text_at, close)) => {
-                self.cap(3, p + 2, text_at);
+                self.capture(3, p + 2, text_at);
                 (text_at, close)
             }
             None => (p + 2, self.braced_text(p + 2)?),
         };
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, p + 2);
-        self.cap(4, text_at, close);
-        self.cap(5, close, close + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, p + 2);
+        self.capture(4, text_at, close);
+        self.capture(5, close, close + 1);
         Some(self.with_members(close + 1, members, 6))
     }
 }

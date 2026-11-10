@@ -10,7 +10,7 @@
 //! The memo keeps, for each position a long look-ahead passed, where it
 //! stopped.
 //! A later look-ahead that reaches such a position jumps to the stop.
-//! Each position is then walked once per emphasis `Kind` on the line.
+//! Each position is then walked once per emphasis `Opener` on the line.
 
 /// The steps a look-ahead takes before it uses the memo.
 /// Most look-aheads stop sooner and never touch it.
@@ -24,22 +24,22 @@
 /// At 256, a long line of `*a ` runs out of work.
 pub(crate) const PLAIN_STEPS: usize = 128;
 
-/// One kind of emphasis: its delimiter and whether it is bold or italic.
+/// The delimiter that opens an emphasis, and whether it is bold or italic.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Kind {
+pub(crate) enum Opener {
     BoldStar,
     BoldUnderscore,
     ItalicStar,
     ItalicUnderscore,
 }
 
-impl Kind {
+impl Opener {
     const fn index(self) -> usize {
         match self {
-            Kind::BoldStar => 0,
-            Kind::BoldUnderscore => 1,
-            Kind::ItalicStar => 2,
-            Kind::ItalicUnderscore => 3,
+            Opener::BoldStar => 0,
+            Opener::BoldUnderscore => 1,
+            Opener::ItalicStar => 2,
+            Opener::ItalicUnderscore => 3,
         }
     }
 }
@@ -67,7 +67,7 @@ pub(crate) struct Stops {
     /// Bumped whenever `text` changes.
     /// Old entries therefore need no clearing.
     generation: u32,
-    /// For each `Kind`, for each position, the generation and the stop.
+    /// For each `Opener`, for each position, the generation and the stop.
     memo: [Vec<(u32, usize)>; 4],
     /// The positions the current look-ahead passed.
     path: Vec<usize>,
@@ -87,7 +87,7 @@ impl Stops {
     pub(crate) fn walk(
         &mut self,
         text: (usize, usize, usize),
-        kind: Kind,
+        opener: Opener,
         start: usize,
         mut step: impl FnMut(usize) -> Step,
     ) -> Option<usize> {
@@ -103,7 +103,7 @@ impl Stops {
         }
         let generation = self.generation;
         let Stops { memo, path, .. } = self;
-        let memo = &mut memo[kind.index()];
+        let memo = &mut memo[opener.index()];
         path.clear();
         let mut q = start;
         let found = loop {

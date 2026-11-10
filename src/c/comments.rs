@@ -554,7 +554,7 @@ impl Lexer<'_> {
     pub(super) fn param_dir(&mut self, p: usize) -> bool {
         for word in ["in", "out"] {
             if self.starts(p, word.as_bytes()) {
-                self.cap_dyn(
+                self.capture_dyn(
                     p,
                     p + word.len(),
                     "keyword.other.parameter.direction.",

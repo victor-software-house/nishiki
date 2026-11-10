@@ -89,7 +89,7 @@ impl Lexer<'_> {
     /// The groups in `whole` each get its text.
     /// `ticks` is the pair of groups that hold the opening and the closing
     /// backtick, empty when there are none.
-    pub(in crate::swift) fn cap_ident(
+    pub(in crate::swift) fn capture_ident(
         &mut self,
         p: usize,
         id: Ident,
@@ -97,12 +97,12 @@ impl Lexer<'_> {
         ticks: Option<(usize, usize)>,
     ) {
         for &group in whole {
-            self.cap(group, p, id.end);
+            self.capture(group, p, id.end);
         }
         if let Some((open, close)) = ticks {
             let width = id.quote();
-            self.cap(open, p, p + width);
-            self.cap(close, id.end - width, id.end);
+            self.capture(open, p, p + width);
+            self.capture(close, id.end - width, id.end);
         }
     }
 
@@ -116,8 +116,8 @@ impl Lexer<'_> {
             return None;
         }
         let id = self.ident_at(name)?;
-        self.cap(1, p, keyword_end);
-        self.cap_ident(name, id, &[2], Some((3, 4)));
+        self.capture(1, p, keyword_end);
+        self.capture_ident(name, id, &[2], Some((3, 4)));
         Some(match tail {
             Tail::Blanks => self.space_end(id.end),
             Tail::Bare => id.end,
@@ -143,7 +143,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"<")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -157,7 +157,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         if let Some(end) = self.lit(p, b">") {
-            self.cap(0, p, end);
+            self.capture(0, p, end);
             return Some(end);
         }
         if p >= self.lim() || self.at_in(p, b"&,:<=>`") {
@@ -167,7 +167,7 @@ impl Lexer<'_> {
         if self.word_at(p).is_some() || is_digit(c) || self.space_at(p) > 0 {
             return None;
         }
-        self.cap(0, p, p);
+        self.capture(0, p, p);
         Some(p)
     }
 
@@ -177,7 +177,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.keyword(p, b"where")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.space_end(end))
     }
 
@@ -218,11 +218,11 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         if let Some(end) = self.lit(p, b">") {
-            self.cap(0, p, end);
+            self.capture(0, p, end);
             return Some(end);
         }
         if self.at_in(p, b"]){}") {
-            self.cap(0, p, p);
+            self.capture(0, p, p);
             return Some(p);
         }
         None
@@ -263,9 +263,9 @@ impl Lexer<'_> {
             return None;
         }
         if let Some((a, b)) = asynchronous {
-            self.cap(1, a, b);
+            self.capture(1, a, b);
         }
-        self.cap(2, at, end);
+        self.capture(2, at, end);
         Some(colon + 1)
     }
 
@@ -341,10 +341,10 @@ impl Lexer<'_> {
         let colon = self.lit(p, b":")?;
         let blanks = self.space_end(colon);
         if self.at_in(blanks, b"{") && blanks < self.lim() {
-            self.cap(1, p, colon);
+            self.capture(1, p, colon);
             return Some(colon);
         }
-        self.cap(2, p, colon);
+        self.capture(2, p, colon);
         Some(blanks)
     }
 
@@ -364,7 +364,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.keyword(p, b"class")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -412,7 +412,7 @@ impl Lexer<'_> {
     /// `DeclarationsTypeIdentifier`, `DeclarationsTypeEnumEnumCase`.
     pub(in crate::swift) fn rx_declarations_type_identifier(&mut self, p: usize) -> Option<usize> {
         let id = self.ident_at(p)?;
-        self.cap_ident(p, id, &[1], Some((2, 3)));
+        self.capture_ident(p, id, &[1], Some((2, 3)));
         Some(self.space_end(id.end))
     }
 
@@ -449,7 +449,7 @@ impl Lexer<'_> {
         if before.is_some_and(|&b| is_op_ascii(b)) || is_op_ascii(self.at(end)) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -510,7 +510,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.keyword(p, b"case")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.space_end(end))
     }
 
@@ -551,7 +551,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(p, b"(")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -578,9 +578,9 @@ impl Lexer<'_> {
             return None;
         }
         let underscore = label.end == p + 1 && self.at(p) == b'_';
-        self.cap(if underscore { 1 } else { 2 }, p, label.end);
-        self.cap(5, name, local.end);
-        self.cap(7, colon, colon + 1);
+        self.capture(if underscore { 1 } else { 2 }, p, label.end);
+        self.capture(5, name, local.end);
+        self.capture(7, colon, colon + 1);
         Some(colon + 1)
     }
 
@@ -607,8 +607,8 @@ impl Lexer<'_> {
         if colon >= self.lim() || self.at(colon) != b':' {
             return None;
         }
-        self.cap_ident(p, id, &[1, 2], None);
-        self.cap(4, colon, colon + 1);
+        self.capture_ident(p, id, &[1, 2], None);
+        self.capture(4, colon, colon + 1);
         Some(colon + 1)
     }
 
@@ -628,7 +628,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"=")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.space_end(end))
     }
 
@@ -654,7 +654,7 @@ impl Lexer<'_> {
         if blanks == end {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(blanks)
     }
 
@@ -785,7 +785,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_end(p);
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -803,7 +803,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b":")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.space_end(end))
     }
 

@@ -64,7 +64,7 @@ const [out, ...only] = process.argv.slice(2);
 if (!out) throw new Error("usage: fidelity.ts <out dir> [<language id>...]");
 for (const dir of ["grammars", "samples"]) mkdirSync(`${out}/${dir}`, { recursive: true });
 
-const ids = only.length > 0 ? only : bundledLanguagesInfo.map((info) => info.id);
+const ids = only.length > 0 ? only : bundledLanguagesInfo.map((language) => language.id);
 const repository = fileURLToPath(new URL("..", import.meta.url));
 
 /** Each input to check: its language, its file name in `samples/`, and its
@@ -87,14 +87,14 @@ async function fetchText(input: string): Promise<string> {
   return (await response.text()).replaceAll("\r\n", "\n");
 }
 
-/** Runs `task` on every item, `width` at a time, and keeps the order. */
-async function pool<T, R>(items: T[], width: number, task: (item: T) => Promise<R>): Promise<R[]> {
-  const results: R[] = new Array(items.length);
+/** Runs `task` on every job, `width` at a time, and keeps the order. */
+async function pool<T, R>(jobs: T[], width: number, task: (job: T) => Promise<R>): Promise<R[]> {
+  const results: R[] = new Array(jobs.length);
   let next = 0;
   const worker = async () => {
-    while (next < items.length) {
+    while (next < jobs.length) {
       const at = next++;
-      results[at] = await task(items[at]);
+      results[at] = await task(jobs[at]);
     }
   };
   await Promise.all(Array.from({ length: width }, worker));

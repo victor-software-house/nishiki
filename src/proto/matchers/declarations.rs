@@ -35,10 +35,10 @@ impl Lexer<'_> {
         }
         let semicolon = self.space_end(value_end + 2);
         let end = self.lit(semicolon, b";")?;
-        self.cap(1, keyword, keyword_end);
-        self.cap(2, equals, equals_end);
-        self.cap(3, value, value_end + 2);
-        self.cap(4, semicolon, end);
+        self.capture(1, keyword, keyword_end);
+        self.capture(2, equals, equals_end);
+        self.capture(3, value, value_end + 2);
+        self.capture(4, semicolon, end);
         Some(end)
     }
 
@@ -53,9 +53,9 @@ impl Lexer<'_> {
         }
         let semicolon = self.space_end(name_end);
         let end = self.lit(semicolon, b";")?;
-        self.cap(1, keyword, keyword_end);
-        self.cap(2, name, name_end);
-        self.cap(3, semicolon, end);
+        self.capture(1, keyword, keyword_end);
+        self.capture(2, name, name_end);
+        self.capture(3, semicolon, end);
         Some(end)
     }
 
@@ -84,12 +84,12 @@ impl Lexer<'_> {
         }
         let semicolon = self.space_end(close + 1);
         let end = self.lit(semicolon, b";")?;
-        self.cap(1, keyword, keyword_end);
+        self.capture(1, keyword, keyword_end);
         if let Some(modifier_end) = modifier {
-            self.cap(2, after, modifier_end);
+            self.capture(2, after, modifier_end);
         }
-        self.cap(3, path, close + 1);
-        self.cap(4, semicolon, end);
+        self.capture(3, path, close + 1);
+        self.capture(4, semicolon, end);
         Some(end)
     }
 
@@ -103,15 +103,15 @@ impl Lexer<'_> {
         let name = self.option_name(name_start)?;
         let equals = self.space_end(name.end);
         let end = self.lit(equals, b"=")?;
-        self.cap(1, p, keyword_end);
-        self.cap(2, name_start, name.first);
+        self.capture(1, p, keyword_end);
+        self.capture(2, name_start, name.first);
         if let Some((start, stop)) = name.inner {
-            self.cap(3, start, stop);
+            self.capture(3, start, stop);
         }
         if let Some((start, stop)) = name.outer {
-            self.cap(4, start, stop);
+            self.capture(4, start, stop);
         }
-        self.cap(5, equals, end);
+        self.capture(5, equals, end);
         Some(end)
     }
 
@@ -181,8 +181,8 @@ impl Lexer<'_> {
                 .then(|| self.skip(name + 1, is_name)),
         }?;
         let brace = self.space_end(name_end);
-        self.cap(1, p, keyword_end);
-        self.cap(3, name, name_end);
+        self.capture(1, p, keyword_end);
+        self.capture(3, name, name_end);
         Some(if self.at(brace) == b'{' {
             brace + 1
         } else {
@@ -205,8 +205,8 @@ impl Lexer<'_> {
         }
         let name_end = self.skip(name + 1, class);
         let brace = self.space_end(name_end);
-        self.cap(1, p, keyword_end);
-        self.cap(2, name, name_end);
+        self.capture(1, p, keyword_end);
+        self.capture(2, name, name_end);
         Some(if self.at(brace) == b'{' {
             brace + 1
         } else {
@@ -221,7 +221,7 @@ impl Lexer<'_> {
         if first == p {
             return None;
         }
-        self.cap(1, p, first);
+        self.capture(1, p, first);
         let to = self.space_end(first);
         let Some(to_end) = self.lit(to, b"to").filter(|_| to > first) else {
             return Some(first);
@@ -231,8 +231,8 @@ impl Lexer<'_> {
         if last == to_end || last_end == last {
             return Some(first);
         }
-        self.cap(3, to, to_end);
-        self.cap(4, last, last_end);
+        self.capture(3, to, to_end);
+        self.capture(4, last, last_end);
         Some(last_end)
     }
 
@@ -252,9 +252,9 @@ impl Lexer<'_> {
             value
         };
         let end = self.integer(digits)?;
-        self.cap(1, p, name_end);
-        self.cap(2, equals, equals_end);
-        self.cap(3, value, end);
+        self.capture(1, p, name_end);
+        self.capture(2, equals, equals_end);
+        self.capture(3, value, end);
         Some(end)
     }
 
@@ -292,23 +292,23 @@ impl Lexer<'_> {
             None => (None, self.field_rest(label)?),
         };
         if let Some(label_end) = label_end {
-            self.cap(1, label, label_end);
+            self.capture(1, label, label_end);
         }
-        let [kind, name, equals, number] = rest;
-        self.cap(2, kind.0, kind.1);
-        self.cap(3, name.0, name.1);
-        self.cap(4, equals.0, equals.1);
-        self.cap(5, number.0, number.1);
+        let [field_type, name, equals, number] = rest;
+        self.capture(2, field_type.0, field_type.1);
+        self.capture(3, name.0, name.1);
+        self.capture(4, equals.0, equals.1);
+        self.capture(5, number.0, number.1);
         Some(number.1)
     }
 
     /// `(\.?[.\w]+)\s+(\w+)\s*(=)\s*(0[Xx]\h+|[0-9]+)` from `i`: the spans of
     /// its four groups.
     fn field_rest(&self, i: usize) -> Option<[(usize, usize); 4]> {
-        let kind_end = self.dotted_word_end(i);
-        let name = self.space_end(kind_end);
+        let type_end = self.dotted_word_end(i);
+        let name = self.space_end(type_end);
         let name_end = self.word_end(name);
-        if kind_end == i || name == kind_end || name_end == name {
+        if type_end == i || name == type_end || name_end == name {
             return None;
         }
         let equals = self.space_end(name_end);
@@ -316,7 +316,7 @@ impl Lexer<'_> {
         let number = self.space_end(equals_end);
         let number_end = self.integer(number)?;
         Some([
-            (i, kind_end),
+            (i, type_end),
             (name, name_end),
             (equals, equals_end),
             (number, number_end),
@@ -350,14 +350,14 @@ impl Lexer<'_> {
         if number_end == number {
             return None;
         }
-        self.cap(1, keyword, keyword_end);
-        self.cap(2, open, open_end);
-        self.cap(3, key, key_end);
-        self.cap(4, value, value_end);
-        self.cap(5, close, close_end);
-        self.cap(6, name, name_end);
-        self.cap(7, equals, equals_end);
-        self.cap(8, number, number_end);
+        self.capture(1, keyword, keyword_end);
+        self.capture(2, open, open_end);
+        self.capture(3, key, key_end);
+        self.capture(4, value, value_end);
+        self.capture(5, close, close_end);
+        self.capture(6, name, name_end);
+        self.capture(7, equals, equals_end);
+        self.capture(8, number, number_end);
         Some(number_end)
     }
 }

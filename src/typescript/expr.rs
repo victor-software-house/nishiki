@@ -5,9 +5,9 @@ use super::bytes::{
     ANY, ARROW_START, BLANK, Bytes, CALL_START, COMMENT_START, DIGIT, LITERAL_START, NAME_START,
     OPERATOR_START, STRING_START,
 };
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     /// The `expression` rule group: everything that is not an identifier,
@@ -129,12 +129,12 @@ impl<const D: u8> Lexer<'_, D> {
                 if let Some(c) = self.block_comment(j)
                     && self.byte(self.ws(c)) == b'*'
                 {
-                    return self.open_token(Kind::YieldComment, p, e, &[S::KeywordControlFlow]);
+                    return self.open_token(Rule::YieldComment, p, e, &[S::KeywordControlFlow]);
                 }
                 self.token(p, e, &[S::KeywordControlFlow]);
                 let j = self.ws(e);
                 if self.byte(j) == b'*' {
-                    self.capture(Kind::Top, j, j + 1, &[S::KeywordGeneratorAsterisk]);
+                    self.capture(Rule::Top, j, j + 1, &[S::KeywordGeneratorAsterisk]);
                     return Some(j + 1);
                 }
                 return Some(e);
@@ -178,7 +178,7 @@ impl<const D: u8> Lexer<'_, D> {
                         || self.eol(k)
                     {
                         self.token(p, e, &[S::KeywordControlAs]);
-                        self.capture(Kind::Top, j, c, &[S::StorageModifier]);
+                        self.capture(Rule::Top, j, c, &[S::StorageModifier]);
                         return Some(c);
                     }
                 }
@@ -186,9 +186,9 @@ impl<const D: u8> Lexer<'_, D> {
                     return None;
                 }
                 self.flush(p);
-                self.capture(Kind::Top, p, e, &[S::KeywordControlAs]);
-                self.finish(Kind::Top, j);
-                self.push(Kind::AsType);
+                self.capture(Rule::Top, p, e, &[S::KeywordControlAs]);
+                self.finish(Rule::Top, j);
+                self.push(Rule::AsType);
                 return Some(j);
             }
         }
@@ -196,9 +196,9 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(e);
             if j > e && !self.full() {
                 self.flush(p);
-                self.capture(Kind::Top, p, e, &[S::KeywordControlSatisfies]);
-                self.finish(Kind::Top, j);
-                self.push(Kind::AsType);
+                self.capture(Rule::Top, p, e, &[S::KeywordControlSatisfies]);
+                self.finish(Rule::Top, j);
+                self.push(Rule::AsType);
                 return Some(j);
             }
         }
@@ -259,12 +259,12 @@ impl<const D: u8> Lexer<'_, D> {
             let j = self.ws(p + 1);
             if self.starts(j, "/=") {
                 self.token(p, p + 1, &[S::KeywordOperatorLogical]);
-                self.capture(Kind::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
+                self.capture(Rule::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
                 return Some(j + 2);
             }
             if self.byte(j) == b'/' && !matches!(self.byte(j + 1), b'*' | b'/') {
                 self.token(p, p + 1, &[S::KeywordOperatorLogical]);
-                self.capture(Kind::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
+                self.capture(Rule::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
                 return Some(j + 1);
             }
         }
@@ -322,17 +322,17 @@ impl<const D: u8> Lexer<'_, D> {
     fn divide_with_blanks(&mut self, p: usize) -> usize {
         let j = self.ws(p);
         if self.starts(j, "/=") {
-            self.capture(Kind::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
+            self.capture(Rule::Top, j, j + 2, &[S::KeywordOperatorAssignmentCompound]);
             return j + 2;
         }
-        self.capture(Kind::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
+        self.capture(Rule::Top, j, j + 1, &[S::KeywordOperatorArithmetic]);
         j + 1
     }
 
     /// `typeof` up to the end of its operand.
     pub(crate) fn typeof_operator(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "typeof")?;
-        self.open_token(Kind::Typeof, p, e, &[S::KeywordOperatorExpressionTypeof])
+        self.open_token(Rule::Typeof, p, e, &[S::KeywordOperatorExpressionTypeof])
     }
 
     pub(crate) fn literal(&mut self, p: usize) -> Option<usize> {
@@ -379,8 +379,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Kind::ArrLit, j, j + 1, &[S::MetaBraceSquare]);
-        self.push(Kind::ArrLit);
+        self.capture(Rule::ArrLit, j, j + 1, &[S::MetaBraceSquare]);
+        self.push(Rule::ArrLit);
         Some(j + 1)
     }
 
@@ -388,14 +388,14 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p) != b'{' {
             return None;
         }
-        self.open_token(Kind::ObjLit, p, p + 1, &[S::PunctuationDefinitionBlock])
+        self.open_token(Rule::ObjLit, p, p + 1, &[S::PunctuationDefinitionBlock])
     }
 
     pub(crate) fn paren_expression(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) != b'(' {
             return None;
         }
-        self.open_token(Kind::ParenExpr, p, p + 1, &[S::MetaBraceRound])
+        self.open_token(Rule::ParenExpr, p, p + 1, &[S::MetaBraceRound])
     }
 
     /// The built-in objects and their members, such as `arguments`, `Promise`
@@ -437,8 +437,8 @@ impl<const D: u8> Lexer<'_, D> {
                             && self.byte(k + member.len()) != b'$'
                         {
                             self.token(p, e, &[scope]);
-                            self.capture(Kind::Top, j, a, &[Self::accessor_scope(j, a)]);
-                            self.capture(Kind::Top, k, k + member.len(), &[member_scope]);
+                            self.capture(Rule::Top, j, a, &[Self::accessor_scope(j, a)]);
+                            self.capture(Rule::Top, k, k + member.len(), &[member_scope]);
                             return Some(k + member.len());
                         }
                     }
@@ -457,7 +457,7 @@ impl<const D: u8> Lexer<'_, D> {
                     && !self.call_after_type_args(k + word.len())
                 {
                     self.token(p, a, &[Self::accessor_scope(p, a)]);
-                    self.capture(Kind::Top, k, k + word.len(), &[S::SupportVariableProperty]);
+                    self.capture(Rule::Top, k, k + word.len(), &[S::SupportVariableProperty]);
                     return Some(k + word.len());
                 }
             }
@@ -511,8 +511,8 @@ impl<const D: u8> Lexer<'_, D> {
                     && self.byte(k + word.len()) != b'$'
                 {
                     self.token(p, e, &[S::SupportTypeObjectModule]);
-                    self.capture(Kind::Top, at, a, &[Self::accessor_scope(at, a)]);
-                    self.capture(Kind::Top, k, k + word.len(), &[S::SupportTypeObjectModule]);
+                    self.capture(Rule::Top, at, a, &[Self::accessor_scope(at, a)]);
+                    self.capture(Rule::Top, k, k + word.len(), &[S::SupportTypeObjectModule]);
                     return Some(k + word.len());
                 }
             }
@@ -566,7 +566,7 @@ impl<const D: u8> Lexer<'_, D> {
             };
             if self.member_ahead(name_end) {
                 self.token(p, a, &[Self::accessor_scope(p, a)]);
-                self.capture(Kind::Top, k, name_end, &[scope]);
+                self.capture(Rule::Top, k, name_end, &[scope]);
                 return Some(name_end);
             }
             return None;
@@ -604,7 +604,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         if let Some(a) = accessor {
             self.token(p, a, &[Self::accessor_scope(p, a)]);
-            self.capture(Kind::Top, start, e, &[S::EntityNameFunction]);
+            self.capture(Rule::Top, start, e, &[S::EntityNameFunction]);
         } else {
             self.token(start, e, &[S::EntityNameFunction]);
         }
@@ -620,7 +620,7 @@ impl<const D: u8> Lexer<'_, D> {
             None => (self.hash_ident(k)?, S::VariableOtherProperty),
         };
         self.token(p, a, &[Self::accessor_scope(p, a)]);
-        self.capture(Kind::Top, k, e, &[scope]);
+        self.capture(Rule::Top, k, e, &[scope]);
         Some(e)
     }
 

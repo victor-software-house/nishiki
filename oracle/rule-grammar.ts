@@ -51,12 +51,12 @@ const range = (lo: number, hi: number): Set => {
 const complement = (a: Set): Set => a.map((w) => ~w & 0xffffffffffffffffn);
 
 /** The analysis of a regex fragment.
- * `safe` says that a match of the item cannot start inside a word, or, if
+ * `safe` says that a match of the fragment cannot start inside a word, or, if
  * it does, can start one byte earlier, so a scan that reaches the word's
  * start first never needs it. Left out, it follows from `set` and `wb`.
  * `moves` says that `safe` holds only because a run of a class with every
  * ASCII word character can move a match's start back to the word's start. */
-type Info = {
+type Analysis = {
   set: Set;
   empty: Set | null;
   bol: boolean;
@@ -67,24 +67,24 @@ type Info = {
   moves?: boolean;
 };
 
-/** Whether a match of `item` that starts inside a word is impossible or can
- * start earlier: the item consumes no ASCII word character first, or passes
+/** Whether a match of `fragment` that starts inside a word is impossible or can
+ * start earlier: the fragment consumes no ASCII word character first, or passes
  * a word boundary before, or says so itself. */
-const safeInWord = (item: Info): boolean =>
-  item.safe ?? (item.wb || intersect(item.set, ASCII_WORD()).every((w) => w === 0n));
+const safeInWord = (fragment: Analysis): boolean =>
+  fragment.safe ?? (fragment.wb || intersect(fragment.set, ASCII_WORD()).every((w) => w === 0n));
 
-/** Whether `item` can match empty only where a condition holds, beside paths
+/** Whether `fragment` can match empty only where a condition holds, beside paths
  * that consume: a lookaround, an anchor or `\b` on its empty path, as in
  * `(?:(?=b)|-)` or `-?(?=b)` (Kody, #632).
  * The flags may come from a consuming path too, which only makes the answer
  * stricter. */
-const conditionedEmpty = (item: Info): boolean =>
-  item.empty !== null &&
-  (!item.empty.every((w) => w === 0xffffffffffffffffn) || item.bol || item.wb || item.behind);
+const conditionedEmpty = (fragment: Analysis): boolean =>
+  fragment.empty !== null &&
+  (!fragment.empty.every((w) => w === 0xffffffffffffffffn) || fragment.bol || fragment.wb || fragment.behind);
 
 /** One character: a literal, an escape, a class or `.`, perhaps in a group. */
 const ONE_CHAR = /^(?:\((?:\?:)?)?(?:\\p\{[^}]*\}|\\.|\[(?:\\.|\[:[a-z]+:\]|[^\]\\])*\]|[^\\()[\]|*+?{])\)?$/;
-const info = (set: Set, empty: Set | null = null, bol = false, any = false, wb = false, behind = false): Info => ({
+const analysis = (set: Set, empty: Set | null = null, bol = false, any = false, wb = false, behind = false): Analysis => ({
   set,
   empty,
   bol,
@@ -128,14 +128,14 @@ class RegexParser {
     return this.refsMayBeEmpty ? FULL() : null;
   }
 
-  parse(): Info {
+  parse(): Analysis {
     const result = this.alternation();
     if (this.pos !== this.src.length) throw new Error(`regex ${this.src}: stopped at ${this.pos}`);
     return result;
   }
 
-  alternation(): Info {
-    const branches: Info[] = [this.sequence()];
+  alternation(): Analysis {
+    const branches: Analysis[] = [this.sequence()];
     while (this.src[this.pos] === "|") {
       this.pos++;
       branches.push(this.sequence());
@@ -150,7 +150,7 @@ class RegexParser {
       any = any || b.any;
     }
     return {
-      ...info(
+      ...analysis(
         set,
         empty,
         branches.every((b) => b.bol),
@@ -163,27 +163,27 @@ class RegexParser {
     };
   }
 
-  /** A run of items.
-   * A lookbehind counts toward `behind` only while no item before it can
+  /** A run of parts.
+   * A lookbehind counts toward `behind` only while no part before it can
    * consume a byte.
    * In `x?(?<=x)y` a match can start at `x`, where the lookbehind does not
    * apply.
-   * A `\b` or a lookbehind counts toward `wb` only while every item before it
+   * A `\b` or a lookbehind counts toward `wb` only while every part before it
    * is safe inside a word (`safeInWord`).
    * Inside a word the next byte is a word character, so `\s*` in `\s*\bx`
    * must match empty there.
    * In `(?:[-\w]*\\)?\bx` a match inside a word can start at the word's
    * start instead.
-   * That move fails after a zero-width item, which consumes nothing: a
+   * That move fails after a zero-width part, which consumes nothing: a
    * lookaround or an anchor that holds at the match's start inside the word
    * need not hold at the word's start, as `(?=b)` in `(?=b)\w*\b-` does
    * not on "ab-".
-   * A `\G` counts toward `any` only while every item before it can match
+   * A `\G` counts toward `any` only while every part before it can match
    * empty.
    * A match starts at or after the search start, so a `\G` after a consumed
    * byte never holds: Hack's class list writes `Gender\Gender` with one
    * backslash. */
-  sequence(): Info {
+  sequence(): Analysis {
     let set = EMPTY();
     let empty: Set | null = FULL(); // the empty path's constraint, while it lasts
     let bol = false;
@@ -195,30 +195,30 @@ class RegexParser {
     let moves = false;
     let any = false;
     while (this.pos < this.src.length && this.src[this.pos] !== "|" && this.src[this.pos] !== ")") {
-      const item = this.quantified();
+      const part = this.quantified();
       if (empty !== null) {
-        if (item.any) any = true;
+        if (part.any) any = true;
         const first = set.every((w) => w === 0n);
-        set = union(set, item.set);
-        if (item.bol) bol = true;
-        if (item.wb && safe) wb = true;
-        if (item.wb && safe) guarded = true;
-        const safeHere = safeInWord(item) && !(item.moves === true && conditioned);
+        set = union(set, part.set);
+        if (part.bol) bol = true;
+        if (part.wb && safe) wb = true;
+        if (part.wb && safe) guarded = true;
+        const safeHere = safeInWord(part) && !(part.moves === true && conditioned);
         if (!guarded && !safeHere) safe = false;
-        if (!guarded && item.moves === true && safeHere) moves = true;
-        if (item.set.every((w) => w === 0n) || conditionedEmpty(item)) conditioned = true;
-        if (item.behind && first) behind = true;
-        if (item.empty === null) empty = null;
-        else empty = intersect(empty, item.empty);
+        if (!guarded && part.moves === true && safeHere) moves = true;
+        if (part.set.every((w) => w === 0n) || conditionedEmpty(part)) conditioned = true;
+        if (part.behind && first) behind = true;
+        if (part.empty === null) empty = null;
+        else empty = intersect(empty, part.empty);
       }
     }
-    return { ...info(set, empty, bol, any, wb, behind), safe, moves };
+    return { ...analysis(set, empty, bol, any, wb, behind), safe, moves };
   }
 
   /** An atom and its quantifiers. An interval can be optional three ways in
    * Oniguruma: `{0,m}`, `{,m}`, and `{n,m}` with n above m, which it reads as
    * `{m,n}` (C++'s doc comments open with `\s+{1,0}`). */
-  quantified(): Info {
+  quantified(): Analysis {
     const start = this.pos;
     const atom = this.atom();
     const one = ONE_CHAR.test(this.src.slice(start, this.pos));
@@ -254,35 +254,35 @@ class RegexParser {
     const alone = safeInWord(atom);
     const safe = extends_ || alone;
     const moves = alone ? atom.moves === true : extends_;
-    if (min === 0) return { ...info(atom.set, FULL(), false, atom.any), safe, moves };
+    if (min === 0) return { ...analysis(atom.set, FULL(), false, atom.any), safe, moves };
     return { ...atom, safe, moves };
   }
 
-  atom(): Info {
+  atom(): Analysis {
     const c = this.src[this.pos]!;
     if (c === "(") return this.group();
     if (c === "[") return this.charClass();
     if (c === "^") {
       this.pos++;
-      return info(EMPTY(), FULL(), true);
+      return analysis(EMPTY(), FULL(), true);
     }
     if (c === "$") {
       this.pos++;
-      return info(EMPTY(), FULL());
+      return analysis(EMPTY(), FULL());
     }
     if (c === ".") {
       this.pos++;
-      return info(complement(single(10)));
+      return analysis(complement(single(10)));
     }
     if (c === "\\") return this.escape();
     this.pos++;
     const bytes = new TextEncoder().encode(c);
-    return info(single(bytes[0]!));
+    return analysis(single(bytes[0]!));
   }
 
-  group(): Info {
+  group(): Analysis {
     this.pos++; // (
-    let kind = "capture";
+    let form = "capture";
     if (this.src[this.pos] === "?") {
       const rest = this.src.slice(this.pos);
       // A flag group such as `(?i)` in the middle of the expression matches
@@ -290,26 +290,26 @@ class RegexParser {
       const flags = /^\?[imx-]+\)/.exec(rest);
       if (flags) {
         this.pos += flags[0].length;
-        return info(EMPTY(), FULL());
+        return analysis(EMPTY(), FULL());
       }
       const scoped = /^\?[imx-]+:/.exec(rest);
       if (scoped) {
-        kind = "plain";
+        form = "plain";
         this.pos += scoped[0].length;
       } else if (rest.startsWith("?:") || rest.startsWith("?>")) {
-        kind = "plain";
+        form = "plain";
         this.pos += 2;
       } else if (rest.startsWith("?=")) {
-        kind = "ahead";
+        form = "ahead";
         this.pos += 2;
       } else if (rest.startsWith("?!")) {
-        kind = "not-ahead";
+        form = "not-ahead";
         this.pos += 2;
       } else if (rest.startsWith("?<=")) {
-        kind = "behind";
+        form = "behind";
         this.pos += 3;
       } else if (rest.startsWith("?<!")) {
-        kind = "not-behind";
+        form = "not-behind";
         this.pos += 3;
       } else if (/^\?<\w+>/.test(rest)) {
         this.pos += /^\?<\w+>/.exec(rest)![0].length;
@@ -317,104 +317,104 @@ class RegexParser {
         throw new Error(`regex ${this.src}: group ${rest.slice(0, 4)}`);
       }
     }
-    if (kind === "capture") this.groups++;
+    if (form === "capture") this.groups++;
     const bodyStart = this.pos;
     const body = this.alternation();
     const bodySource = this.src.slice(bodyStart, this.pos);
     if (this.src[this.pos] !== ")") throw new Error(`regex ${this.src}: unclosed group`);
     this.pos++;
-    switch (kind) {
+    switch (form) {
       case "ahead": {
         // Zero-width; where the body cannot be empty, its first bytes are a
         // condition on the position.
         const constraint = body.empty === null ? union(body.set, EMPTY()) : FULL();
-        return info(EMPTY(), constraint, false, body.any && body.empty !== null);
+        return analysis(EMPTY(), constraint, false, body.any && body.empty !== null);
       }
       case "not-behind":
         // `(?<!\\w)` and its kin fail after a word character.
-        return info(EMPTY(), FULL(), false, false, /^(\\w|\[[^\]]*\\w[^\]]*\])$/.test(bodySource));
+        return analysis(EMPTY(), FULL(), false, false, /^(\\w|\[[^\]]*\\w[^\]]*\])$/.test(bodySource));
       case "behind": {
         // A body that cannot be empty needs a byte before the match, which
         // the start of the line lacks. A body of one character with no ASCII
         // word character also fails inside a word.
         const one = /^(?:\\.|\[(?:\\.|\[:[a-z]+:\]|[^\]\\])*\]|[^\\()[\]|*+?{.])$/.test(bodySource);
         const word = intersect(body.set, ASCII_WORD()).some((w) => w !== 0n);
-        return info(EMPTY(), FULL(), false, false, one && !word, body.empty === null);
+        return analysis(EMPTY(), FULL(), false, false, one && !word, body.empty === null);
       }
       case "not-ahead":
-        return info(EMPTY(), FULL());
+        return analysis(EMPTY(), FULL());
       default:
         return body;
     }
   }
 
-  escape(): Info {
+  escape(): Analysis {
     this.pos++; // backslash
     const c = this.src[this.pos++]!;
     switch (c) {
       case "b":
-        return info(EMPTY(), FULL(), false, false, true);
+        return analysis(EMPTY(), FULL(), false, false, true);
       // `\B` and the string anchors `\A`, `\z` and `\Z` match no character.
       case "B":
       case "A":
       case "z":
       case "Z":
-        return info(EMPTY(), FULL());
+        return analysis(EMPTY(), FULL());
       case "G":
-        return info(EMPTY(), FULL(), false, true);
+        return analysis(EMPTY(), FULL(), false, true);
       case "w":
-        return info(WORD());
+        return analysis(WORD());
       case "W":
       case "S":
       case "D":
-        return info(FULL());
+        return analysis(FULL());
       case "s":
-        return info(SPACE());
+        return analysis(SPACE());
       case "d":
-        return info(DIGIT());
+        return analysis(DIGIT());
       case "h":
-        return info(union(union(range(48, 57), range(65, 70)), range(97, 102)));
+        return analysis(union(union(range(48, 57), range(65, 70)), range(97, 102)));
       case "N":
-        return info(complement(single(10)));
+        return analysis(complement(single(10)));
       case "n":
-        return info(single(10));
+        return analysis(single(10));
       case "t":
-        return info(single(9));
+        return analysis(single(9));
       case "g": {
         // A call of a named group, which recurses: any byte can start it.
         const m = /^<\w+>/.exec(this.src.slice(this.pos));
         if (!m) throw new Error(`regex ${this.src}: \\g`);
         this.pos += m[0].length;
-        return info(FULL(), this.refEmpty());
+        return analysis(FULL(), this.refEmpty());
       }
       case "p": {
         const m = /^\{(\^?)(\w+)\}/.exec(this.src.slice(this.pos));
         if (!m) throw new Error(`regex ${this.src}: \\p`);
         this.pos += m[0].length;
-        return info(propertySet(m[1] === "^", m[2]!));
+        return analysis(propertySet(m[1] === "^", m[2]!));
       }
       case "P": {
         this.pos += /^\{[^}]*\}/.exec(this.src.slice(this.pos))![0].length;
-        return info(FULL());
+        return analysis(FULL());
       }
       case "x":
       case "u": {
         const m = /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{2,4}))/.exec(this.src.slice(this.pos));
-        if (!m) return info(single(c.charCodeAt(0)));
+        if (!m) return analysis(single(c.charCodeAt(0)));
         this.pos += m[0].length;
         const cp = parseInt((m[1] ?? m[2])!, 16);
-        return info(codePoints(cp, cp));
+        return analysis(codePoints(cp, cp));
       }
       case "k": {
         // A back reference to a named group repeats text the group matched.
         const m = /^<\w+>/.exec(this.src.slice(this.pos));
         if (!m) throw new Error(`regex ${this.src}: \\k`);
         this.pos += m[0].length;
-        return info(FULL(), this.refEmpty());
+        return analysis(FULL(), this.refEmpty());
       }
       default:
-        if (/[1-9]/.test(c)) return info(this.backref === "quote" ? union(single(39), single(34)) : FULL(), this.refEmpty());
-        return info(single(c.charCodeAt(0)));
+        if (/[1-9]/.test(c)) return analysis(this.backref === "quote" ? union(single(39), single(34)) : FULL(), this.refEmpty());
+        return analysis(single(c.charCodeAt(0)));
     }
   }
 
@@ -482,7 +482,7 @@ class RegexParser {
 
   /** A class, with whether its set is exact on ASCII bytes, which a
    * negated class needs to take the complement. */
-  charClass(): Info & { exact: boolean } {
+  charClass(): Analysis & { exact: boolean } {
     this.pos++; // [
     let negated = false;
     if (this.src[this.pos] === "^") {
@@ -526,9 +526,9 @@ class RegexParser {
     this.pos++; // ]
     // A negated class matches every non-ASCII character its members leave
     // out, so its first bytes are the ASCII complement plus every lead byte.
-    if (!negated) return { ...info(into.set), exact: into.exact };
+    if (!negated) return { ...analysis(into.set), exact: into.exact };
     const set = into.exact ? union(complement(into.set), nonAscii()) : FULL();
-    return { ...info(set), exact: into.exact };
+    return { ...analysis(set), exact: into.exact };
   }
 }
 
@@ -570,7 +570,7 @@ export function startOf(
   regex: string,
   backref: Backref = "quote",
 ): { set: Set; bol: boolean; any: boolean; wb: boolean; behind: boolean; atEnd: boolean; inWordFirst: boolean } {
-  let result: Info;
+  let result: Analysis;
   let ci = false;
   let source = regex;
   if (source.startsWith("(?i)")) {
@@ -825,14 +825,14 @@ function closingParen(regex: string): number {
   return -1;
 }
 
-/** `Pat::takes_one_blank`, from [`takesOneBlank`], for a grammar on
+/** `Pattern::takes_one_blank`, from [`takesOneBlank`], for a grammar on
  * `BlankRuns::ToLast`. */
-export function oneBlankTable(pats: { id: string; regex: string }[], backref: Backref = "quote"): string {
-  const ids = pats.filter((p) => takesOneBlank(p.regex, backref)).map((p) => `Pat::${p.id}`);
+export function oneBlankTable(patternById: { id: string; regex: string }[], backref: Backref = "quote"): string {
+  const ids = patternById.filter((p) => takesOneBlank(p.regex, backref)).map((p) => `Pattern::${p.id}`);
   if (ids.length === 0) throw new Error("a BlankRuns::ToLast grammar with no pattern that takes one blank");
   return `
 
-impl Pat {
+impl Pattern {
     /// Whether the pattern takes exactly one blank and then requires a
     /// character that is not a blank, as \`oracle/rule-grammar.ts\`'s
     /// \`takesOneBlank\` reads its expression.
@@ -862,18 +862,18 @@ const hex = (w: bigint) => {
   return `0x${digits.match(/.{4}/g)!.join("_")}`;
 };
 
-/** `Pat::start`: the bytes each pattern can start at, and its anchors. */
-export function startTable(pats: { id: string; regex: string }[], backref: Backref = "quote"): string {
+/** `Pattern::start`: the bytes each pattern can start at, and its anchors. */
+export function startTable(patternById: { id: string; regex: string }[], backref: Backref = "quote"): string {
   let starts = `
 
-impl Pat {
+impl Pattern {
 ${tooLong}    pub(crate) fn start(self) -> Start {
         use crate::rules::{Place, PlaceSet};
         match self {
 `;
   let wordsAtStart = false;
   starts += arms(
-    pats.map((p): [string, string] => {
+    patternById.map((p): [string, string] => {
       const { set, bol, any, wb, behind, atEnd, inWordFirst } = startOf(p.regex, backref);
       wordsAtStart ||= inWordFirst;
       const words = (any ? FULL() : set).map(hex).join(", ");
@@ -895,7 +895,7 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
         `Start {\n                bytes: [${words}],\n                places: PlaceSet::of(&[${places.join(", ")}]),\n                matches_at_end: ${atEnd},\n            }`,
       ];
     }),
-    "Pat",
+    "Pattern",
   );
   starts += `        }\n    }\n\n`;
   starts += `    /// Whether a pattern is tried inside a word at a scan's first position\n`;
@@ -941,10 +941,10 @@ impl Rule {
 }
 
 impl rules::Tabled for ${engine} {
-    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+    const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
 
-    fn pat_start(pat: Pat) -> rules::Start {
-        pat.start()
+    fn pattern_start(pattern: Pattern) -> rules::Start {
+        pattern.start()
     }
 
     fn tables(rule: Rule) -> &'static rules::Tables<Self> {
@@ -955,7 +955,7 @@ impl rules::Tabled for ${engine} {
             reason = "a fieldless \`repr(${repr})\` enum has no \`From\` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 `;

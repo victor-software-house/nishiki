@@ -3,7 +3,7 @@
 
 use std::cell::Cell;
 
-use super::grammar::{Nested, Pat, Rule};
+use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, BlankRuns, Captures, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -18,7 +18,7 @@ pub(crate) const PLAIN: u8 = 0;
 /// The lexer's const parameter for the CoffeeScript that Svelte embeds.
 /// Svelte's grammar injects its `$` prefixes there
 /// (`L:(source.ts, source.js, source.coffee)`).
-/// Each rule then tries the two patterns of [`Pat::SVELTE`] first, before
+/// Each rule then tries the two patterns of [`Pattern::SVELTE`] first, before
 /// its end pattern.
 #[cfg(feature = "lang-svelte")]
 pub(crate) const SVELTE: u8 = 1;
@@ -72,15 +72,18 @@ impl Run {
 /// matchers, `impl<G: Grammar> Lexer<'_, G> where G::Extra: ObjcMemory`.
 /// So no CoffeeScript matcher shares a name with one of theirs.
 pub(crate) trait Dialect:
-    Grammar<Scope = S, Rule = Rule, Pat = Pat, Nested = Nested, Extra = Extra>
+    Grammar<Scope = S, Rule = Rule, Pattern = Pattern, Nested = Nested, Extra = Extra>
 {
 }
 
-impl<G: Grammar<Scope = S, Rule = Rule, Pat = Pat, Nested = Nested, Extra = Extra>> Dialect for G {}
+impl<G: Grammar<Scope = S, Rule = Rule, Pattern = Pattern, Nested = Nested, Extra = Extra>> Dialect
+    for G
+{
+}
 
 /// The grammar's impl for one dialect.
 /// Each dialect has an impl of its own, and the dialects share the grammar's
-/// data: an act converts to the dialect's type unchanged.
+/// definitions: an act converts to the dialect's type unchanged.
 ///
 /// A generic impl would let rustc export every function its body reaches.
 /// Every caller of `Arena::child` and `Language::lex_embedded` would then
@@ -92,7 +95,7 @@ macro_rules! dialect {
             type Scope = S;
             const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
             type Rule = Rule;
-            type Pat = Pat;
+            type Pattern = Pattern;
             type Nested = Nested;
             type Extra = Extra;
             type Kept = Option<Box<rules::Deferrals>>;
@@ -102,12 +105,12 @@ macro_rules! dialect {
             const SOURCE: crate::scope::Scope = S::Source.scope();
             const GROUPS: usize = 10;
             /// A heregex's character range, `(?:.|\\.)-…`, takes one blank with its
-            /// `.` and then requires `-` ([`Pat::takes_one_blank`]).
+            /// `.` and then requires `-` ([`Pattern::takes_one_blank`]).
             /// It matches only at the last blank of a run.
             const BLANK_RUNS: BlankRuns = BlankRuns::ToLast;
 
-            fn takes_one_blank(pat: Pat) -> bool {
-                pat.takes_one_blank()
+            fn takes_one_blank(pattern: Pattern) -> bool {
+                pattern.takes_one_blank()
             }
 
             fn scope(scope: S) -> ScopeName {
@@ -123,28 +126,31 @@ macro_rules! dialect {
             }
 
             fn rule_name(rule: Rule) -> Scopes<S> {
-                rule.data().name
+                rule.definition().name
             }
 
             fn rule_content(rule: Rule) -> Scopes<S> {
-                rule.data().content
+                rule.definition().content
             }
 
-            fn pat_act(pat: Pat) -> Act<Self> {
-                pat.data().act.dialect()
+            fn pattern_act(pattern: Pattern) -> Act<Self> {
+                pattern.definition().act.dialect()
             }
 
-            fn pat_captures(pat: Pat) -> Captures<Self> {
-                let data = pat.data();
-                (data.captures, data.nested)
+            fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+                let definition = pattern.definition();
+                (definition.captures, definition.nested)
             }
 
-            fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-                let data = pat.data();
-                (data.act.dialect(), (data.captures, data.nested))
+            fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+                let definition = pattern.definition();
+                (
+                    definition.act.dialect(),
+                    (definition.captures, definition.nested),
+                )
             }
 
-            fn scan(lexer: &mut Lexer<'_, $dialect>) -> Option<(usize, Pat, usize)> {
+            fn scan(lexer: &mut Lexer<'_, $dialect>) -> Option<(usize, Pattern, usize)> {
                 table_scan(lexer)
             }
 
@@ -152,8 +158,8 @@ macro_rules! dialect {
             /// ([`rules::Embeds::lex_nested`]).
             const DEFERS_NESTED: bool = true;
 
-            fn defers_nested(kind: Nested) -> Option<crate::Language> {
-                (kind == Rule::Javascript).then_some(crate::Language::JavaScript)
+            fn defers_nested(nested: Nested) -> Option<crate::Language> {
+                (nested == Rule::Javascript).then_some(crate::Language::JavaScript)
             }
 
             /// The deferrals' buffers go from line to line; the runs start empty.
@@ -182,18 +188,22 @@ macro_rules! dialect {
                 lexer.after_missed_word(p)
             }
 
-            fn matcher(lexer: &mut Lexer<'_, $dialect>, pat: Pat, p: usize) -> Option<usize> {
-                lexer.pat_matches(pat, p)
+            fn matcher(
+                lexer: &mut Lexer<'_, $dialect>,
+                pattern: Pattern,
+                p: usize,
+            ) -> Option<usize> {
+                lexer.pattern_matches(pattern, p)
             }
 
             fn tokenize_nested(
                 lexer: &mut Lexer<'_, $dialect>,
-                kind: Nested,
+                nested: Nested,
                 from: usize,
                 to: usize,
                 base: u32,
             ) {
-                lexer.retokenise(kind, from, to, base);
+                lexer.retokenise(nested, from, to, base);
                 lexer.emit(to, base);
             }
         }

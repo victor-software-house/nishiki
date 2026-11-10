@@ -89,11 +89,11 @@ impl Lexer<'_> {
         let params = self.lit(open, b"(")?;
         let close = self.skip(params, |b| b != b')');
         let after = self.lit(close, b")")?;
-        self.cap(1, keyword, keyword_end);
-        self.cap(2, name, name_end);
-        self.cap(3, open, params);
-        self.cap(4, params, close);
-        self.cap(5, close, after);
+        self.capture(1, keyword, keyword_end);
+        self.capture(2, name, name_end);
+        self.capture(3, open, params);
+        self.capture(4, params, close);
+        self.capture(5, close, after);
         let end = self.lim();
         Some(if self.at(end) == b'\n' { end + 1 } else { end })
     }
@@ -117,9 +117,9 @@ impl Lexer<'_> {
         } else {
             comma
         };
-        self.cap(1, p, keyword);
-        self.cap(2, name, name_end);
-        self.cap(3, comma, end);
+        self.capture(1, p, keyword);
+        self.capture(2, name, name_end);
+        self.capture(3, comma, end);
         Some(end)
     }
 
@@ -128,7 +128,7 @@ impl Lexer<'_> {
     pub(super) fn dollar_variable(&mut self, p: usize) -> Option<usize> {
         let name = self.lit(p, b"$")?;
         let name_end = self.lazy_name(name, Class::Ascii)?;
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(self.space_end(name_end))
     }
 
@@ -145,7 +145,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.bounded_name(p)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -155,7 +155,7 @@ impl Lexer<'_> {
         if !self.starts(end, b"(") {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

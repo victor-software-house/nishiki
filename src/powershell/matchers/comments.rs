@@ -45,7 +45,7 @@ impl Lexer<'_> {
         if self.at(p) != b'#' || matches!(self.prev(p), Some(b'-' | b'\\' | b'`')) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(self.skip(p + 1, |b| b == b'#'))
     }
 
@@ -82,8 +82,8 @@ impl Lexer<'_> {
             let end = self.space_end(word);
             self.at_eol(end).then_some((word, end))
         })?;
-        self.cap(1, dot, dot + 1);
-        self.cap(2, dot + 1, word);
+        self.capture(1, dot, dot + 1);
+        self.capture(2, dot + 1, word);
         Some(end)
     }
 
@@ -96,9 +96,9 @@ impl Lexer<'_> {
             let word = self.folded(dot + 1, word)?;
             self.help_argument(word).map(|argument| (word, argument))
         })?;
-        self.cap(1, dot, dot + 1);
-        self.cap(2, dot + 1, word);
-        self.cap(3, argument.0, argument.1);
+        self.capture(1, dot, dot + 1);
+        self.capture(2, dot + 1, word);
+        self.capture(3, argument.0, argument.1);
         Some(self.space_end(argument.1))
     }
 
@@ -136,7 +136,7 @@ impl Lexer<'_> {
         if blank == 0 {
             return None;
         }
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         Some(word + blank)
     }
 

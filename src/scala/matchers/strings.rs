@@ -28,8 +28,8 @@ impl Lexer<'_> {
         }
         let name = self.lit(p, b"raw")?;
         let end = self.lit(name, quote)?;
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -45,8 +45,8 @@ impl Lexer<'_> {
         }
         let name = self.plain_name(p)?;
         let end = self.lit(name, quote)?;
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -58,7 +58,7 @@ impl Lexer<'_> {
     pub(super) fn interpolated_string_end(&mut self, p: usize, quote: &[u8]) -> Option<usize> {
         if let Some(end) = self.lit(p, quote) {
             if quote.len() == 1 || self.at(end) != b'"' {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
             return None;
@@ -73,7 +73,7 @@ impl Lexer<'_> {
         if may_follow_dollar(c) {
             return None;
         }
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -92,7 +92,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.chars_while(next, |c| c != '$' && is_name_rest(c));
-        self.cap(1, p, dollar);
+        self.capture(1, p, dollar);
         Some(end)
     }
 
@@ -185,8 +185,8 @@ impl Lexer<'_> {
     /// `(')'(')`.
     pub(super) fn quote_char(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"'''")?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 2, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 2, end);
         Some(end)
     }
 }

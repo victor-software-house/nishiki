@@ -111,7 +111,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
             }
         }
         self.spend(at - p);
-        self.cap(1, p, p + mark.len());
+        self.capture(1, p, p + mark.len());
         Some(at)
     }
 
@@ -133,9 +133,9 @@ impl<G: PhpFamily> Lexer<'_, G> {
             let spaces = end + usize::from(quoted);
             let line_end = self.space_end(spaces);
             if self.at_eol(line_end) {
-                self.cap(1, p, arrows);
-                self.cap(3, from, end);
-                self.cap(5, spaces, line_end);
+                self.capture(1, p, arrows);
+                self.capture(3, from, end);
+                self.capture(5, spaces, line_end);
                 return Some(line_end);
             }
         }
@@ -159,9 +159,9 @@ impl<G: PhpFamily> Lexer<'_, G> {
             }
             let line_end = self.space_end(end + 1);
             if self.at_eol(line_end) {
-                self.cap(1, p, arrows);
-                self.cap(2, at + 1, end);
-                self.cap(3, end + 1, line_end);
+                self.capture(1, p, arrows);
+                self.capture(2, at + 1, end);
+                self.capture(3, end + 1, line_end);
                 return Some(line_end);
             }
         }

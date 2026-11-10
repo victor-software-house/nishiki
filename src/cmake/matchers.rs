@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Most of the grammar is `\b(?i:…)\b` alternations of words, some with `\w+`
@@ -9,41 +9,41 @@
 //! `(?i)` compares words through [`crate::case_fold`].
 
 use super::engine::{LONGEST_WORD, Lexer, Lowered};
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use super::words::{self, Words};
 use crate::rules::Chars;
 use crate::{bytes, case_fold};
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Constants => self.listed(p, &words::CONSTANTS),
-            Pat::Keywords => self.listed(p, &words::KEYWORDS),
-            Pat::Commands => self.command(p),
-            Pat::Variables => self.listed(p, &words::VARIABLES),
-            Pat::TargetVariables => self.listed(p, &words::TARGET_VARIABLES),
-            Pat::CmakeVariables => self.listed(p, &words::CMAKE_VARIABLES),
-            Pat::CacheProperties => self.listed(p, &words::CACHE_PROPERTIES),
-            Pat::SourceProperties => self.listed(p, &words::SOURCE_PROPERTIES),
-            Pat::TestProperties => self.listed(p, &words::TEST_PROPERTIES),
-            Pat::DirectoryProperties => self.listed(p, &words::DIRECTORY_PROPERTIES),
-            Pat::GlobalProperties => self.listed(p, &words::GLOBAL_PROPERTIES),
-            Pat::TargetProperties => self.listed(p, &words::TARGET_PROPERTIES),
-            Pat::CxxFlags => self.listed(p, &words::CXX_FLAGS),
-            Pat::BuildName => self.keyword(p, b"BUILD_NAME"),
-            Pat::Expansion => self.expansion(p, b"${"),
-            Pat::EnvExpansion => self.expansion(p, b"$ENV{"),
-            Pat::BracketComment => self.bracket_open(p, b"#["),
-            Pat::BracketArgument => self.bracket_open(p, b"["),
-            Pat::BracketCommentEnd | Pat::BracketArgumentEnd => self.bracket_close(p),
-            Pat::BracketCommentAt0
-            | Pat::BracketArgumentAt0
-            | Pat::EscapedStringAt0
-            | Pat::StringAt0 => self.escape(p),
-            Pat::LineComment => (self.at(p) == b'#').then(|| self.lim()),
-            Pat::EscapedString | Pat::EscapedStringEnd => self.lit(p, b"\\\""),
-            Pat::String | Pat::StringEnd => self.lit(p, b"\""),
+    /// Whether `pattern` matches at `p`, and where its match ends.
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Constants => self.listed(p, &words::CONSTANTS),
+            Pattern::Keywords => self.listed(p, &words::KEYWORDS),
+            Pattern::Commands => self.command(p),
+            Pattern::Variables => self.listed(p, &words::VARIABLES),
+            Pattern::TargetVariables => self.listed(p, &words::TARGET_VARIABLES),
+            Pattern::CmakeVariables => self.listed(p, &words::CMAKE_VARIABLES),
+            Pattern::CacheProperties => self.listed(p, &words::CACHE_PROPERTIES),
+            Pattern::SourceProperties => self.listed(p, &words::SOURCE_PROPERTIES),
+            Pattern::TestProperties => self.listed(p, &words::TEST_PROPERTIES),
+            Pattern::DirectoryProperties => self.listed(p, &words::DIRECTORY_PROPERTIES),
+            Pattern::GlobalProperties => self.listed(p, &words::GLOBAL_PROPERTIES),
+            Pattern::TargetProperties => self.listed(p, &words::TARGET_PROPERTIES),
+            Pattern::CxxFlags => self.listed(p, &words::CXX_FLAGS),
+            Pattern::BuildName => self.keyword(p, b"BUILD_NAME"),
+            Pattern::Expansion => self.expansion(p, b"${"),
+            Pattern::EnvExpansion => self.expansion(p, b"$ENV{"),
+            Pattern::BracketComment => self.bracket_open(p, b"#["),
+            Pattern::BracketArgument => self.bracket_open(p, b"["),
+            Pattern::BracketCommentEnd | Pattern::BracketArgumentEnd => self.bracket_close(p),
+            Pattern::BracketCommentAt0
+            | Pattern::BracketArgumentAt0
+            | Pattern::EscapedStringAt0
+            | Pattern::StringAt0 => self.escape(p),
+            Pattern::LineComment => (self.at(p) == b'#').then(|| self.lim()),
+            Pattern::EscapedString | Pattern::EscapedStringEnd => self.lit(p, b"\\\""),
+            Pattern::String | Pattern::StringEnd => self.lit(p, b"\""),
         }
     }
 
@@ -158,7 +158,7 @@ impl Lexer<'_> {
         if self.at(run) != b'[' {
             return None;
         }
-        self.cap(1, equals, run);
+        self.capture(1, equals, run);
         Some(run + 1)
     }
 

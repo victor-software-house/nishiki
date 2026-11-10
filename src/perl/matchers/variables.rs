@@ -18,7 +18,7 @@ impl Lexer<'_> {
             && p + 1 < self.lim()
             && self.no_ascii_word(p + 2))
         .then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 2
         })
     }
@@ -30,7 +30,7 @@ impl Lexer<'_> {
             && p + 1 < self.lim()
             && self.no_ascii_word(p + 2))
         .then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             p + 2
         })
     }
@@ -43,7 +43,7 @@ impl Lexer<'_> {
         }
         let end = self.skip(p + 1, |b| b.is_ascii_digit());
         (end > p + 1 && self.no_ascii_word(end)).then(|| {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             end
         })
     }
@@ -100,7 +100,7 @@ impl Lexer<'_> {
         let (sigil, hash) = self.sigil(p)?;
         let sigil = hash.unwrap_or(sigil);
         let end = self.name_to_boundary(sigil)?;
-        self.cap(1, p, sigil);
+        self.capture(1, p, sigil);
         Some(end)
     }
 
@@ -116,8 +116,8 @@ impl Lexer<'_> {
         }
         self.spend(at - p);
         (self.at(at) == b'}' && at < self.lim()).then(|| {
-            self.cap(1, p, p + 2);
-            self.cap(2, at, at + 1);
+            self.capture(1, p, p + 2);
+            self.capture(2, at, at + 1);
             at + 1
         })
     }
@@ -130,7 +130,7 @@ impl Lexer<'_> {
             return None;
         }
         self.boundary(sigil + 1).then(|| {
-            self.cap(1, p, sigil);
+            self.capture(1, p, sigil);
             sigil + 1
         })
     }

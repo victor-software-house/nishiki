@@ -54,7 +54,7 @@ A delta that adds no line ending SHALL lex no line but the provisional one.
 
 While a document is not finished, its last line SHALL be provisional.
 Its tokens SHALL be those of the line lexed as if it ended there.
-Its `LineKind` SHALL give the byte where its last token starts.
+Its `Freshness` SHALL give the byte where its last token starts.
 
 #### Scenario: A keyword still being written
 
@@ -96,7 +96,7 @@ Past them, it SHALL stop at the first line whose end state equals the end state 
 
 Mutations SHALL mark lines stale without lexing them.
 `lex` SHALL lex stale lines in order up to the line the caller names, or to the end.
-A stale line SHALL keep the tokens it had, and its `LineKind` SHALL mark it stale.
+A stale line SHALL keep the tokens it had, and its `Freshness` SHALL mark it stale.
 
 #### Scenario: A viewport lexed first
 

@@ -176,12 +176,12 @@ impl Lexer<'_> {
         prefix: &'static str,
         text: (usize, usize),
     ) -> bool {
-        self.cap_dyn(start, end, prefix, text);
+        self.capture_dyn(start, end, prefix, text);
         self.plain(start, end)
     }
 
     /// A capture whose name is `prefix`, the text `text` and `.c`.
-    pub(super) fn cap_dyn(
+    pub(super) fn capture_dyn(
         &mut self,
         start: usize,
         end: usize,

@@ -2,10 +2,10 @@
 
 use super::bytes::{Bytes, LITERAL_START, NAME_START};
 use super::chars::Before;
-use super::kind::Kind;
 use super::lexer::Lexer;
-use super::look::CallKind;
+use super::look::CallLookahead;
 use super::scope::S;
+use super::state::Rule;
 
 /// The declaration keywords that end the head of an arrow function at the start
 /// of a line.
@@ -28,9 +28,9 @@ const ARROW_END_WORDS: [&str; 14] = [
 
 impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn function_call(&mut self, p: usize) -> Option<usize> {
-        match self.call_kind(p)? {
-            CallKind::Call => self.open_empty(Kind::CallOuter, p),
-            CallKind::Open => self.open_empty(Kind::Call2Outer, p),
+        match self.call_lookahead(p)? {
+            CallLookahead::Call => self.open_empty(Rule::CallOuter, p),
+            CallLookahead::Open => self.open_empty(Rule::Call2Outer, p),
         }
     }
 
@@ -38,7 +38,7 @@ impl<const D: u8> Lexer<'_, D> {
     /// type arguments and the argument list.
     pub(crate) fn call_outer_rules(&mut self, p: usize) -> Option<usize> {
         if self.call_target_start(p) {
-            return self.open_empty(Kind::CallTarget, p);
+            return self.open_empty(Rule::CallTarget, p);
         }
         self.comment(p)
             .or_else(|| self.call_optionals(p))
@@ -48,7 +48,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn call2_outer_rules(&mut self, p: usize) -> Option<usize> {
         if self.call_target_start(p) {
-            return self.open_empty(Kind::Call2Target, p);
+            return self.open_empty(Rule::Call2Target, p);
         }
         self.comment(p)
             .or_else(|| self.call_optionals(p))
@@ -127,7 +127,7 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.open_token(
-            Kind::TypeArgs,
+            Rule::TypeArgs,
             p,
             p + 1,
             &[S::PunctuationDefinitionTypeparametersBegin],
@@ -136,7 +136,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     pub(crate) fn arrow_function(&mut self, p: usize) -> Option<usize> {
         if self.byte(p) == b'=' && self.byte(p + 1) == b'>' {
-            return self.open_token(Kind::ArrowBody, p, p + 2, &[S::StorageTypeFunctionArrow]);
+            return self.open_token(Rule::ArrowBody, p, p + 2, &[S::StorageTypeFunctionArrow]);
         }
         self.arrow_single_parameter(p)
             .or_else(|| self.arrow_head(p))
@@ -153,9 +153,9 @@ impl<const D: u8> Lexer<'_, D> {
                 let k = self.ws(ie);
                 if self.starts(k, "=>") {
                     self.flush(p);
-                    self.capture(Kind::ArrowHead, p, e, &[S::StorageModifierAsync]);
-                    self.capture(Kind::ArrowHead, j, ie, &[S::VariableParameter]);
-                    self.finish(Kind::ArrowHead, k);
+                    self.capture(Rule::ArrowHead, p, e, &[S::StorageModifierAsync]);
+                    self.capture(Rule::ArrowHead, j, ie, &[S::VariableParameter]);
+                    self.finish(Rule::ArrowHead, k);
                     return Some(k);
                 }
             }
@@ -166,8 +166,8 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(p);
-        self.capture(Kind::ArrowHead, p, ie, &[S::VariableParameter]);
-        self.finish(Kind::ArrowHead, k);
+        self.capture(Rule::ArrowHead, p, ie, &[S::VariableParameter]);
+        self.finish(Rule::ArrowHead, k);
         Some(k)
     }
 
@@ -189,10 +189,10 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some(e) = async_end {
-            self.capture(Kind::ArrowHead, p, e, &[S::StorageModifierAsync]);
+            self.capture(Rule::ArrowHead, p, e, &[S::StorageModifierAsync]);
         }
-        self.finish(Kind::ArrowHead, k);
-        self.push(Kind::ArrowHead);
+        self.finish(Rule::ArrowHead, k);
+        self.push(Rule::ArrowHead);
         Some(k)
     }
 
@@ -273,9 +273,9 @@ impl<const D: u8> Lexer<'_, D> {
     fn possibly_arrow_open(&mut self, p: usize, j: usize, e: usize) -> usize {
         self.flush(p);
         if e > j {
-            self.capture(Kind::Top, j, e, &[S::StorageModifierAsync]);
+            self.capture(Rule::Top, j, e, &[S::StorageModifierAsync]);
         }
-        self.push(Kind::PossArrow);
+        self.push(Rule::PossArrow);
         e
     }
 
@@ -309,7 +309,7 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         self.capture(
-            Kind::PossArrowRet,
+            Rule::PossArrowRet,
             j,
             j + 1,
             &[
@@ -318,7 +318,7 @@ impl<const D: u8> Lexer<'_, D> {
                 S::KeywordOperatorTypeAnnotation,
             ],
         );
-        self.push(Kind::PossArrowRet);
+        self.push(Rule::PossArrowRet);
         Some(j + 1)
     }
 
@@ -339,9 +339,9 @@ impl<const D: u8> Lexer<'_, D> {
             let m = self.ws(k + "const".len());
             if self.byte(m) == b'>' {
                 self.flush(p);
-                self.capture(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
-                self.capture(Kind::Cast, k, k + "const".len(), &[S::StorageModifier]);
-                self.capture(Kind::Cast, m, m + 1, &[S::MetaBraceAngle]);
+                self.capture(Rule::Cast, j, j + 1, &[S::MetaBraceAngle]);
+                self.capture(Rule::Cast, k, k + "const".len(), &[S::StorageModifier]);
+                self.capture(Rule::Cast, m, m + 1, &[S::MetaBraceAngle]);
                 return Some(m + 1);
             }
         }
@@ -352,16 +352,16 @@ impl<const D: u8> Lexer<'_, D> {
             self.byte(j + 1) != b'=' && !self.starts(j + 1, "<=") && !self.eol(self.ws(j + 1));
         if open && self.cast_before(p) {
             self.flush(p);
-            self.capture(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
-            self.push(Kind::Cast);
+            self.capture(Rule::Cast, j, j + 1, &[S::MetaBraceAngle]);
+            self.push(Rule::Cast);
             return Some(j + 1);
         }
         if Self::bol(p) {
             let e = self.ident(j + 1);
             if e.is_some_and(|e| self.byte(self.ws(e)) == b'>') {
                 self.flush(p);
-                self.capture(Kind::Cast, j, j + 1, &[S::MetaBraceAngle]);
-                self.push(Kind::Cast);
+                self.capture(Rule::Cast, j, j + 1, &[S::MetaBraceAngle]);
+                self.push(Rule::Cast);
                 return Some(j + 1);
             }
         }
@@ -392,18 +392,18 @@ impl<const D: u8> Lexer<'_, D> {
         if self.byte(p + 1) == b'.' && !self.byte(p + 2).is_ascii_digit() {
             return None;
         }
-        self.open_token(Kind::Ternary, p, p + 1, &[S::KeywordOperatorTernary])
+        self.open_token(Rule::Ternary, p, p + 1, &[S::KeywordOperatorTernary])
     }
 
     pub(crate) fn new_expr(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "new")?;
-        self.open_token(Kind::NewExpr, p, e, &[S::KeywordOperatorNew])
+        self.open_token(Rule::NewExpr, p, e, &[S::KeywordOperatorNew])
     }
 
     pub(crate) fn instanceof_expr(&mut self, p: usize) -> Option<usize> {
         let e = self.kw(p, "instanceof")?;
         self.open_token(
-            Kind::InstanceOf,
+            Rule::InstanceOf,
             p,
             e,
             &[S::KeywordOperatorExpressionInstanceof],

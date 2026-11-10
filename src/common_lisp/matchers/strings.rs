@@ -50,7 +50,7 @@ impl Lexer<'_> {
     }
 
     /// `(?i)(~)(((([-+]?[0-9]+)|('.)|[#V])*?(,)?)*?)((:@|@:|[:@])?)` and the
-    /// directive of `kind`: `~` as group 1, the parameters as group 2, the
+    /// `directive`: `~` as group 1, the parameters as group 2, the
     /// modifiers as group 8, and the directive.
     ///
     /// The lazy loops try the modifiers and the directive at each place
@@ -70,22 +70,22 @@ impl Lexer<'_> {
     /// A search from that tilde therefore starts on the path, and fails where
     /// the first did.
     /// A line of many such tildes is then lexed in linear time.
-    pub(super) fn directive(&mut self, p: usize, kind: Directive) -> Option<usize> {
+    pub(super) fn directive(&mut self, p: usize, directive: Directive) -> Option<usize> {
         if self.at(p) != b'~' {
             return None;
         }
         let mut chains = self.x.chains.get();
-        let slot = kind.slot();
+        let slot = directive.slot();
         let kept = chains[slot];
         if kept.text == self.lim() && kept.tilde < p && p < kept.fail {
             return None;
         }
         let mut q = p + 1;
         loop {
-            if let Some(end) = self.directive_at(q, kind) {
-                self.cap(1, p, p + 1);
+            if let Some(end) = self.directive_at(q, directive) {
+                self.capture(1, p, p + 1);
                 if q > p + 1 {
-                    self.cap(2, p + 1, q);
+                    self.capture(2, p + 1, q);
                 }
                 return Some(end);
             }
@@ -120,9 +120,9 @@ impl Lexer<'_> {
         self.skip(i, |b| b.is_ascii_digit())
     }
 
-    /// `((:@|@:|[:@])?)` and the directive of `kind` at `q`, trying the
+    /// `((:@|@:|[:@])?)` and the `directive` at `q`, trying the
     /// modifiers in the grammar's order and then none.
-    fn directive_at(&mut self, q: usize, kind: Directive) -> Option<usize> {
+    fn directive_at(&mut self, q: usize, directive: Directive) -> Option<usize> {
         let tries = [
             self.lit(q, b":@"),
             self.lit(q, b"@:"),
@@ -130,9 +130,9 @@ impl Lexer<'_> {
             Some(q),
         ];
         for modifiers in tries.into_iter().flatten() {
-            if let Some(end) = self.directive_end(modifiers, kind) {
+            if let Some(end) = self.directive_end(modifiers, directive) {
                 if modifiers > q {
-                    self.cap(8, q, modifiers);
+                    self.capture(8, q, modifiers);
                 }
                 return Some(end);
             }
@@ -140,9 +140,9 @@ impl Lexer<'_> {
         None
     }
 
-    /// The directive of `kind` at `m`, with its groups.
-    fn directive_end(&mut self, m: usize, kind: Directive) -> Option<usize> {
-        let end = match kind {
+    /// The `directive` at `m`, with its groups.
+    fn directive_end(&mut self, m: usize, directive: Directive) -> Option<usize> {
+        let end = match directive {
             Directive::Bracket => matches!(
                 self.at(m),
                 b']' | b'(' | b')' | b';' | b'<' | b'>' | b'[' | b'^' | b'{' | b'}'
@@ -151,7 +151,7 @@ impl Lexer<'_> {
             Directive::Letter => self.letter_directive_end(m)?,
             Directive::Call => return self.call(m),
         };
-        self.cap(10, m, end);
+        self.capture(10, m, end);
         Some(end)
     }
 
@@ -183,9 +183,9 @@ impl Lexer<'_> {
         if self.symbol_end_before(first, close) != close {
             return None;
         }
-        self.cap(10, m, name);
-        self.cap(11, name, close);
-        self.cap(12, close, close + 1);
+        self.capture(10, m, name);
+        self.capture(11, name, close);
+        self.capture(12, close, close + 1);
         Some(close + 1)
     }
 }

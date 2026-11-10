@@ -69,11 +69,11 @@ impl Lexer<'_> {
             .and_then(|value| self.type_switch_value(value).map(|found| (value, found)))
             .or_else(|| self.type_switch_value(start).map(|found| (start, found)))?;
         if let Some(end) = binding.filter(|_| value != start) {
-            self.cap(1, start, end);
+            self.capture(1, start, end);
         }
-        self.cap(2, value, assertion);
-        self.cap(3, assertion, brace);
-        self.cap(4, brace, brace + 1);
+        self.capture(2, value, assertion);
+        self.capture(3, assertion, brace);
+        self.capture(4, brace, brace + 1);
         Some(brace + 1)
     }
 
@@ -150,11 +150,11 @@ impl Lexer<'_> {
             None if self.at_eol(after) => after,
             None => return None,
         };
-        self.cap(1, word, end);
-        self.cap(2, start, run);
-        self.cap(3, run, after);
+        self.capture(1, word, end);
+        self.capture(2, start, run);
+        self.capture(3, run, after);
         if comment.is_some() {
-            self.cap(4, after, finish);
+            self.capture(4, after, finish);
         }
         Some(finish)
     }
@@ -179,8 +179,8 @@ impl Lexer<'_> {
         {
             self.spend(limit - colon);
             if let Some(finish) = after_colon(self, colon) {
-                self.cap(1, word, end);
-                self.cap(2, blank, finish);
+                self.capture(1, word, end);
+                self.capture(2, blank, finish);
                 return Some(finish);
             }
             limit = colon;
@@ -190,8 +190,8 @@ impl Lexer<'_> {
             return None;
         }
         let finish = after_colon(self, blank)?;
-        self.cap(1, word, end);
-        self.cap(2, last, finish);
+        self.capture(1, word, end);
+        self.capture(2, last, finish);
         Some(finish)
     }
 
@@ -211,8 +211,8 @@ impl Lexer<'_> {
         if !self.switch_header(start, brace) {
             return None;
         }
-        self.cap(1, start, brace);
-        self.cap(2, brace, brace + 1);
+        self.capture(1, start, brace);
+        self.capture(2, brace, brace + 1);
         Some(brace + 1)
     }
 
@@ -306,9 +306,9 @@ impl Lexer<'_> {
                 .or_else(|| lx.assigned_type(q)),
             Prefix::Empty => lx.assigned_type(q),
         });
-        self.cap(1, start, names);
+        self.capture(1, start, names);
         Some(value.map_or(blank, |end| {
-            self.cap(2, blank, end);
+            self.capture(2, blank, end);
             end
         }))
     }
@@ -354,7 +354,7 @@ impl Lexer<'_> {
     fn group_open(&mut self, p: usize) -> Option<usize> {
         let open = self.spaces(p);
         (open < self.lim() && self.at(open) == b'(').then(|| {
-            self.cap(1, open, open + 1);
+            self.capture(1, open, open + 1);
             open + 1
         })
     }
@@ -369,7 +369,7 @@ impl Lexer<'_> {
         if label > start && label < self.lim() && self.at(label) == b':' {
             let end = self.spaces(label + 1);
             if self.at_eol(end) {
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 return Some(end);
             }
         }
@@ -384,7 +384,7 @@ impl Lexer<'_> {
             None if self.at_eol(name_end) => name_end,
             None => return None,
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -430,7 +430,7 @@ impl Lexer<'_> {
         if end >= self.lim() || self.at(end) != b']' {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 }

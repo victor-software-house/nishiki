@@ -3,7 +3,7 @@
 // into word lists.
 
 /** The strings a regular expression made of literals, classes, groups, `|` and `?` spells,
- * in the order a backtracking matcher tries them: a greedy `?` tries its item first, a lazy
+ * in the order a backtracking matcher tries them: a greedy `?` tries its atom first, a lazy
  * `??` the empty string first. */
 export function expand(src: string): string[] {
   let pos = 0;
@@ -18,26 +18,26 @@ export function expand(src: string): string[] {
   function sequence(): string[] {
     let out = [""];
     while (pos < src.length && src[pos] !== "|" && src[pos] !== ")") {
-      let item = atom();
+      let strings = atom();
       for (;;) {
         if (src[pos] === "?") {
           pos++;
           if (src[pos] === "?") {
             pos++;
-            item = ["", ...item];
-          } else item = [...item, ""];
+            strings = ["", ...strings];
+          } else strings = [...strings, ""];
         } else if (src[pos] === "{") {
           // A greedy `{m,n}` tries the most repetitions first.
           const close = src.indexOf("}", pos);
           const [lo, hi] = src.slice(pos + 1, close).split(",").map(Number) as [number, number];
           pos = close + 1;
-          const once = item;
+          const once = strings;
           const times = (n: number): string[] => (n === 0 ? [""] : times(n - 1).flatMap((a) => once.map((b) => a + b)));
-          item = [];
-          for (let n = hi; n >= lo; n--) item.push(...times(n));
+          strings = [];
+          for (let n = hi; n >= lo; n--) strings.push(...times(n));
         } else break;
       }
-      out = out.flatMap((a) => item.map((b) => a + b));
+      out = out.flatMap((a) => strings.map((b) => a + b));
     }
     return out;
   }

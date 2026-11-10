@@ -6,7 +6,7 @@
 
 use crate::classes;
 use crate::python::engine::{Ahead, Lexer};
-use crate::python::grammar::{Flavour, Re, RegexpPat};
+use crate::python::grammar::{Flavour, Re, RegexpPattern};
 use crate::rules::Chars;
 
 impl Flavour {
@@ -27,68 +27,72 @@ impl Flavour {
 }
 
 impl Lexer<'_> {
-    pub(super) fn regexp_matcher(&mut self, pat: RegexpPat, p: usize) -> Option<usize> {
-        match pat {
-            RegexpPat::RegexpSingleOneLine => self.regexp_begin(p, Flavour::SingleOne),
-            RegexpPat::RegexpDoubleOneLine => self.regexp_begin(p, Flavour::DoubleOne),
-            RegexpPat::RegexpSingleThreeLine => self.regexp_begin(p, Flavour::SingleThree),
-            RegexpPat::RegexpDoubleThreeLine => self.regexp_begin(p, Flavour::DoubleThree),
-            RegexpPat::RegexpSingleOneLineEnd => self.regexp_line_end(p, Flavour::SingleOne),
-            RegexpPat::RegexpDoubleOneLineEnd => self.regexp_line_end(p, Flavour::DoubleOne),
-            RegexpPat::RegexpSingleThreeLineEnd => self.regexp_line_end(p, Flavour::SingleThree),
-            RegexpPat::RegexpDoubleThreeLineEnd => self.regexp_line_end(p, Flavour::DoubleThree),
-            RegexpPat::CommentsStringSingleThree | RegexpPat::CommentsStringDoubleThree => {
-                self.cap_hash(p)
+    pub(super) fn regexp_matcher(&mut self, pattern: RegexpPattern, p: usize) -> Option<usize> {
+        match pattern {
+            RegexpPattern::RegexpSingleOneLine => self.regexp_begin(p, Flavour::SingleOne),
+            RegexpPattern::RegexpDoubleOneLine => self.regexp_begin(p, Flavour::DoubleOne),
+            RegexpPattern::RegexpSingleThreeLine => self.regexp_begin(p, Flavour::SingleThree),
+            RegexpPattern::RegexpDoubleThreeLine => self.regexp_begin(p, Flavour::DoubleThree),
+            RegexpPattern::RegexpSingleOneLineEnd => self.regexp_line_end(p, Flavour::SingleOne),
+            RegexpPattern::RegexpDoubleOneLineEnd => self.regexp_line_end(p, Flavour::DoubleOne),
+            RegexpPattern::RegexpSingleThreeLineEnd => {
+                self.regexp_line_end(p, Flavour::SingleThree)
             }
-            RegexpPat::CommentsStringSingleThreeEnd => {
+            RegexpPattern::RegexpDoubleThreeLineEnd => {
+                self.regexp_line_end(p, Flavour::DoubleThree)
+            }
+            RegexpPattern::CommentsStringSingleThree | RegexpPattern::CommentsStringDoubleThree => {
+                self.capture_hash(p)
+            }
+            RegexpPattern::CommentsStringSingleThreeEnd => {
                 (self.at_eol(p) || self.starts(p, b"'''")).then_some(p)
             }
-            RegexpPat::CommentsStringDoubleThreeEnd => {
+            RegexpPattern::CommentsStringDoubleThreeEnd => {
                 (self.at_eol(p) || self.starts(p, b"\"\"\"")).then_some(p)
             }
-            RegexpPat::RegexpQuantifier => self.quantifier(p),
-            RegexpPat::RegexpBaseCommonAt0 => {
+            RegexpPattern::RegexpQuantifier => self.quantifier(p),
+            RegexpPattern::RegexpBaseCommonAt0 => {
                 (self.at(p) == b'.' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpBaseCommonAt1 => {
+            RegexpPattern::RegexpBaseCommonAt1 => {
                 (self.at(p) == b'^' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpBaseCommonAt2 => {
+            RegexpPattern::RegexpBaseCommonAt2 => {
                 (self.at(p) == b'$' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpBaseCommonAt3 => {
+            RegexpPattern::RegexpBaseCommonAt3 => {
                 if !matches!(self.at(p), b'*' | b'+' | b'?') || p >= self.lim() {
                     return None;
                 }
                 Some(p + 1 + usize::from(self.at(p + 1) == b'?' && p + 1 < self.lim()))
             }
-            RegexpPat::RegexpBaseCommonAt4 => {
+            RegexpPattern::RegexpBaseCommonAt4 => {
                 (self.at(p) == b'|' && p < self.lim()).then_some(p + 1)
             }
-            RegexpPat::RegexpEscapeSpecial => (self.at(p) == b'\\'
+            RegexpPattern::RegexpEscapeSpecial => (self.at(p) == b'\\'
                 && b"ABDSWZbdsw".contains(&self.at(p + 1))
                 && p + 1 < self.lim())
             .then_some(p + 2),
-            RegexpPat::RegexpEscapeCharacter => self.escape_character(p),
-            RegexpPat::RegexpEscapeUnicode => self.escape_unicode(p),
-            RegexpPat::RegexpBackreferenceNumber => self.backreference_number(p),
-            RegexpPat::RegexpEscapeCatchall => self.escape_catchall(p),
-            RegexpPat::RegexpFlags => self.flags(p),
-            RegexpPat::RegexpBackreference => self.named_backreference(p),
-            RegexpPat::RegexpCharacterSetEscapesAt0 => (self.at(p) == b'\\'
+            RegexpPattern::RegexpEscapeCharacter => self.escape_character(p),
+            RegexpPattern::RegexpEscapeUnicode => self.escape_unicode(p),
+            RegexpPattern::RegexpBackreferenceNumber => self.backreference_number(p),
+            RegexpPattern::RegexpEscapeCatchall => self.escape_catchall(p),
+            RegexpPattern::RegexpFlags => self.flags(p),
+            RegexpPattern::RegexpBackreference => self.named_backreference(p),
+            RegexpPattern::RegexpCharacterSetEscapesAt0 => (self.at(p) == b'\\'
                 && b"\\abfnrtv".contains(&self.at(p + 1))
                 && p + 1 < self.lim())
             .then_some(p + 2),
-            RegexpPat::RegexpCharacterSetEscapesAt2 => self.octal_escape(p),
+            RegexpPattern::RegexpCharacterSetEscapesAt2 => self.octal_escape(p),
         }
     }
 
     /// The regex `(#)`.
-    fn cap_hash(&mut self, p: usize) -> Option<usize> {
+    fn capture_hash(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'#' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -120,8 +124,8 @@ impl Lexer<'_> {
         if !self.starts(end, quote) {
             return None;
         }
-        self.cap(group, p, end);
-        self.cap(5, end, end + quote.len());
+        self.capture(group, p, end);
+        self.capture(5, end, end + quote.len());
         Some(end + quote.len())
     }
 
@@ -129,11 +133,11 @@ impl Lexer<'_> {
     fn regexp_line_end(&mut self, p: usize, flavour: Flavour) -> Option<usize> {
         let quote = flavour.quote();
         if self.starts(p, quote) {
-            self.cap(1, p, p + quote.len());
+            self.capture(1, p, p + quote.len());
             return Some(p + quote.len());
         }
         if !flavour.three() && p == self.lim() && !self.prev_is(p, b'\\') {
-            self.cap(2, p, p + 1);
+            self.capture(2, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -145,7 +149,7 @@ impl Lexer<'_> {
     /// The string's end or a line feed ends it before them.
     fn regexp_close(&mut self, p: usize, flavour: Flavour, close: u8) -> Option<usize> {
         if self.at(p) == close && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         if self.starts(p, flavour.quote()) {
@@ -155,8 +159,8 @@ impl Lexer<'_> {
     }
 
     /// The patterns written once for each quote style.
-    pub(super) fn flavoured(&mut self, flavour: Flavour, kind: Re, p: usize) -> Option<usize> {
-        match kind {
+    pub(super) fn flavoured(&mut self, flavour: Flavour, re: Re, p: usize) -> Option<usize> {
+        match re {
             Re::CharacterSetAt0 => self.empty_set(p),
             Re::CharacterSetAt1 => self.set_begin(p),
             Re::CharacterSetAt1End => self.regexp_close(p, flavour, b']'),
@@ -201,14 +205,14 @@ impl Lexer<'_> {
         if self.at(p) != b'[' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         let mut q = p + 1;
         if self.at(q) == b'^' && q < self.lim() {
-            self.cap(2, q, q + 1);
+            self.capture(2, q, q + 1);
             q += 1;
         }
         if self.at(q) == b']' && q < self.lim() {
-            self.cap(3, q, q + 1);
+            self.capture(3, q, q + 1);
             q += 1;
         }
         Some(q)
@@ -244,8 +248,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_and_alnum(p + 4, b'>')?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -254,7 +258,7 @@ impl Lexer<'_> {
         if !self.starts(p, open) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + open.len())
     }
 
@@ -264,7 +268,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_and_alnum(p + 3, b')')?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -336,7 +340,7 @@ impl Lexer<'_> {
             Some((c, next)) if p + 2 < self.lim() && classes::is_digit(c) => next,
             _ => p + 2,
         };
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -369,9 +373,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_and_alnum(p + 4, b')')?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end - 1);
-        self.cap(3, end - 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end - 1);
+        self.capture(3, end - 1, end);
         Some(end)
     }
 

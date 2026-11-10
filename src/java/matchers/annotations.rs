@@ -14,10 +14,10 @@ impl Lexer<'_> {
         if end == name || self.at(end) != b'(' || end >= self.lim() {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, p, p + 1);
-        self.cap(3, name, end);
-        self.cap(4, end, end + 1);
+        self.capture(1, p, end);
+        self.capture(2, p, p + 1);
+        self.capture(3, name, end);
+        self.capture(4, end, end + 1);
         Some(end + 1)
     }
 
@@ -46,8 +46,8 @@ impl Lexer<'_> {
         if self.at(equals) != b'=' || equals >= self.lim() {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, equals, equals + 1);
+        self.capture(1, p, word);
+        self.capture(2, equals, equals + 1);
         Some(equals + 1)
     }
 
@@ -61,9 +61,9 @@ impl Lexer<'_> {
             let name = self.space_end(end);
             if name > end {
                 let name_end = self.word_end(name);
-                self.cap(1, p, p + 1);
-                self.cap(2, p + 1, end);
-                self.cap(3, name, name_end);
+                self.capture(1, p, p + 1);
+                self.capture(2, p + 1, end);
+                self.capture(3, name, name_end);
                 return Some(name_end);
             }
         }
@@ -72,9 +72,9 @@ impl Lexer<'_> {
         if end == name {
             return None;
         }
-        self.cap(4, p, end);
-        self.cap(5, p, p + 1);
-        self.cap(6, name, end);
+        self.capture(4, p, end);
+        self.capture(5, p, p + 1);
+        self.capture(6, name, end);
         Some(end)
     }
 }

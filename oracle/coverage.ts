@@ -160,7 +160,7 @@ type Expression = { grammar: string; path: string; groups: number[] };
  * innermost last, against which its `#name` includes resolve. */
 type Place = { grammar: Grammar; repositories: Record<string, Rule>[] };
 
-const kinds = ["match", "begin", "end", "while"] as const;
+const roles = ["match", "begin", "end", "while"] as const;
 const captureKeys = ["captures", "beginCaptures", "endCaptures", "whileCaptures"] as const;
 
 /** The groups of `captures` with their rules. vscode-textmate reads only
@@ -172,13 +172,13 @@ const groupsIn = (captures: Captures | undefined): [number, Rule][] =>
   );
 /** The captures that apply to each kind of expression: its own, or the
  * rule's `captures`, as vscode-textmate reads them. */
-const capturesOf = (rule: Rule, kind: (typeof kinds)[number]): Captures | undefined =>
+const capturesOf = (rule: Rule, role: (typeof roles)[number]): Captures | undefined =>
   ({
     match: rule.captures,
     begin: rule.beginCaptures ?? rule.captures,
     end: rule.endCaptures ?? rule.captures,
     while: rule.whileCaptures ?? rule.captures,
-  })[kind];
+  })[role];
 
 const expressions: Expression[] = [];
 /** The expressions each rule holds, by unit number. */
@@ -193,15 +193,15 @@ const under = (path: string, part: string) => (path === "" ? part : `${path}.${p
 function walk(rule: Rule, path: string, place: Place, tag: boolean): void {
   places.set(rule, place);
   const units: number[] = [];
-  for (const kind of kinds) {
-    const source = rule[kind];
+  for (const role of roles) {
+    const source = rule[role];
     if (source === undefined || !tag) continue;
-    const groups = groupsIn(capturesOf(rule, kind))
+    const groups = groupsIn(capturesOf(rule, role))
       .filter(([, capture]) => capture.name !== undefined || capture.patterns !== undefined)
       .map(([group]) => group);
     units.push(expressions.length);
-    rule[kind] = `(?#u${expressions.length})${source}`;
-    expressions.push({ grammar: place.grammar.name, path: under(path, kind), groups });
+    rule[role] = `(?#u${expressions.length})${source}`;
+    expressions.push({ grammar: place.grammar.name, path: under(path, role), groups });
   }
   unitsOf.set(rule, units);
   const inner: Place = rule.repository
@@ -358,8 +358,8 @@ function settle(): void {
   }
 }
 
-const tagged = (source: string | RegExp, kind: "u" | "i") =>
-  typeof source === "string" ? new RegExp(`^\\(\\?#${kind}(\\d+)\\)`).exec(source)?.[1] : undefined;
+const tagged = (source: string | RegExp, letter: "u" | "i") =>
+  typeof source === "string" ? new RegExp(`^\\(\\?#${letter}(\\d+)\\)`).exec(source)?.[1] : undefined;
 const base = await createOnigurumaEngine(import("shiki@4.6.0/wasm"));
 const engine: RegexEngine = {
   createString: (text) => base.createString(text),
@@ -559,9 +559,9 @@ const excerpt = (source: string) => {
 };
 const sourceOf = new Map<number, string>();
 for (const rule of places.keys()) {
-  for (const kind of kinds) {
-    const unit = /^\(\?#u(\d+)\)/.exec(rule[kind] ?? "")?.[1];
-    if (unit !== undefined) sourceOf.set(Number(unit), rule[kind] ?? "");
+  for (const role of roles) {
+    const unit = /^\(\?#u(\d+)\)/.exec(rule[role] ?? "")?.[1];
+    if (unit !== undefined) sourceOf.set(Number(unit), rule[role] ?? "");
   }
 }
 

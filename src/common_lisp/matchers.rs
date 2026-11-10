@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -21,7 +21,7 @@ mod marks;
 mod strings;
 
 use super::engine::{Lexer, Lowered, Run};
-use super::grammar::{Pat, Rule};
+use super::grammar::{Pattern, Rule};
 use super::words;
 use crate::classes::{is_ascii_space, is_space};
 use crate::rules::Chars;
@@ -71,73 +71,75 @@ fn folds_to_letter(c: char) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in the grammar's order.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Comment => self.comment(p),
-            Pat::CommentEnd => (!self.at_g(p)).then_some(p),
-            Pat::CommentAt0 => self.lit(p, b";"),
-            Pat::CommentAt0End => self.line_feed(p),
-            Pat::BlockComment => self.lit(p, b"#|"),
-            Pat::BlockCommentEnd => self.lit(p, b"|#"),
-            Pat::String | Pat::StringEnd => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Comment => self.comment(p),
+            Pattern::CommentEnd => (!self.at_g(p)).then_some(p),
+            Pattern::CommentAt0 => self.lit(p, b";"),
+            Pattern::CommentAt0End => self.line_feed(p),
+            Pattern::BlockComment => self.lit(p, b"#|"),
+            Pattern::BlockCommentEnd => self.lit(p, b"|#"),
+            Pattern::String | Pattern::StringEnd => {
                 let end = self.lit(p, b"\"")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
-            Pat::StringAt0 => self.escaped(p),
-            Pat::StringAt1 => self.directive(p, strings::Directive::Bracket),
-            Pat::StringAt2 => self.directive(p, strings::Directive::Letter),
-            Pat::StringAt3 => self.directive(p, strings::Directive::Call),
-            Pat::StringAt4 => self.tilde_line_feed(p),
-            Pat::Escape => self.character(p),
-            Pat::ConstantAt0 => self.listed(p, self.after_form(p), words::CONSTANTS),
-            Pat::ConstantAt1 => self.number(p, marks::Number::Rational),
-            Pat::ConstantAt2 => self.dot(p),
-            Pat::ConstantAt3 => self.number(p, marks::Number::Float),
-            Pat::LambdaList => self.marked_symbol(p, b'&', self.after_open(p)),
-            Pat::FunctionAt0 => self.listed(p, self.after_function(p), words::ACCESSORS),
-            Pat::FunctionAt1 => self.listed(p, self.after_function(p), words::SIDE_EFFECTS),
-            Pat::FunctionAt2 => self.listed(p, self.after_function(p), words::FUNCTIONS),
-            Pat::FunctionAt3 => self.listed(p, self.after_function(p), words::GENERICS),
-            Pat::FunctionAt4 => self.listed(p, self.after_function(p), words::REINITIALIZE),
-            Pat::FunctionAt5 => self.listed(p, self.after_function(p), words::TYPE_SPECIFIERS),
-            Pat::StyleGuideAt0 => self.quoted_earmuffs(p),
-            Pat::StyleGuideAt1 => self.earmuffs_after(p, b'+'),
-            Pat::StyleGuideAt2 => self.earmuffs_after(p, b'*'),
-            Pat::PackageAt0 => self.package(p),
-            Pat::Nested0At1 | Pat::Nested1At1 => self.non_space(p).then(|| self.char_end(p)),
-            Pat::DefNameAt0 => self.def_function(p),
-            Pat::DefNameAt1 => self.def_named(p, words::DEF_TYPES),
-            Pat::DefNameAt2 => self.def_named(p, words::DEF_CONSTANT),
-            Pat::DefNameAt3 => self.def_variable(p),
-            Pat::DefNameAt4 => self.def_struct(p),
-            Pat::DefNameAt5 => self.local_function(p),
-            Pat::MacroAt0 => self.listed(p, self.after_open(p), words::PURE_MACROS),
-            Pat::MacroAt1 => self.listed(p, self.after_open(p), words::MACROS),
-            Pat::MacroAt2 => self.listed(p, self.after_open(p), words::SPECIAL_FORMS),
-            Pat::Symbol => self.listed(p, self.after_open(p), words::SYMBOLS),
-            Pat::SpecialOperator => self.special_operator(p),
-            Pat::Declaration => self.listed(p, self.after_open(p), words::DECLARATIONS),
-            Pat::Type => self.listed(p, self.after_open(p), words::TYPES),
-            Pat::Class => self.listed(p, self.after_open(p), words::CLASSES),
-            Pat::ConditionType => self.listed(p, self.after_open(p), words::CONDITIONS),
-            Pat::VariableAt0 => self.listed(p, self.after_form(p), words::GLOBALS),
-            Pat::VariableAt1 => self.listed(p, self.after_form(p), words::REPL),
-            Pat::PunctuationAt0 => self.quote(p),
-            Pat::PunctuationAt1 => self.marked_symbol(p, b':', self.after_form(p)),
-            Pat::PunctuationAt2 => self.sharp_digits(p, marks::Sharp::Paren),
-            Pat::PunctuationAt3 => self.sharp_digits(p, marks::Sharp::Bits),
-            Pat::PunctuationAt4 => self.sharp_star(p),
-            Pat::PunctuationAt5 => self.sharp_digits(p, marks::Sharp::Array),
-            Pat::PunctuationAt6 => self.sharp_digits(p, marks::Sharp::Label),
-            Pat::PunctuationAt7 => self.sharp_digits(p, marks::Sharp::Reference),
-            Pat::PunctuationAt8 => self.sharp_sign(p),
-            Pat::PunctuationAt9 => self.sharp_reader(p),
-            Pat::PunctuationAt10 => self.sharp_keyword(p),
-            Pat::PunctuationAt11 => self.backquote(p),
+            Pattern::StringAt0 => self.escaped(p),
+            Pattern::StringAt1 => self.directive(p, strings::Directive::Bracket),
+            Pattern::StringAt2 => self.directive(p, strings::Directive::Letter),
+            Pattern::StringAt3 => self.directive(p, strings::Directive::Call),
+            Pattern::StringAt4 => self.tilde_line_feed(p),
+            Pattern::Escape => self.character(p),
+            Pattern::ConstantAt0 => self.listed(p, self.after_form(p), words::CONSTANTS),
+            Pattern::ConstantAt1 => self.number(p, marks::Number::Rational),
+            Pattern::ConstantAt2 => self.dot(p),
+            Pattern::ConstantAt3 => self.number(p, marks::Number::Float),
+            Pattern::LambdaList => self.marked_symbol(p, b'&', self.after_open(p)),
+            Pattern::FunctionAt0 => self.listed(p, self.after_function(p), words::ACCESSORS),
+            Pattern::FunctionAt1 => self.listed(p, self.after_function(p), words::SIDE_EFFECTS),
+            Pattern::FunctionAt2 => self.listed(p, self.after_function(p), words::FUNCTIONS),
+            Pattern::FunctionAt3 => self.listed(p, self.after_function(p), words::GENERICS),
+            Pattern::FunctionAt4 => self.listed(p, self.after_function(p), words::REINITIALIZE),
+            Pattern::FunctionAt5 => self.listed(p, self.after_function(p), words::TYPE_SPECIFIERS),
+            Pattern::StyleGuideAt0 => self.quoted_earmuffs(p),
+            Pattern::StyleGuideAt1 => self.earmuffs_after(p, b'+'),
+            Pattern::StyleGuideAt2 => self.earmuffs_after(p, b'*'),
+            Pattern::PackageAt0 => self.package(p),
+            Pattern::Nested0At1 | Pattern::Nested1At1 => {
+                self.non_space(p).then(|| self.char_end(p))
+            }
+            Pattern::DefNameAt0 => self.def_function(p),
+            Pattern::DefNameAt1 => self.def_named(p, words::DEF_TYPES),
+            Pattern::DefNameAt2 => self.def_named(p, words::DEF_CONSTANT),
+            Pattern::DefNameAt3 => self.def_variable(p),
+            Pattern::DefNameAt4 => self.def_struct(p),
+            Pattern::DefNameAt5 => self.local_function(p),
+            Pattern::MacroAt0 => self.listed(p, self.after_open(p), words::PURE_MACROS),
+            Pattern::MacroAt1 => self.listed(p, self.after_open(p), words::MACROS),
+            Pattern::MacroAt2 => self.listed(p, self.after_open(p), words::SPECIAL_FORMS),
+            Pattern::Symbol => self.listed(p, self.after_open(p), words::SYMBOLS),
+            Pattern::SpecialOperator => self.special_operator(p),
+            Pattern::Declaration => self.listed(p, self.after_open(p), words::DECLARATIONS),
+            Pattern::Type => self.listed(p, self.after_open(p), words::TYPES),
+            Pattern::Class => self.listed(p, self.after_open(p), words::CLASSES),
+            Pattern::ConditionType => self.listed(p, self.after_open(p), words::CONDITIONS),
+            Pattern::VariableAt0 => self.listed(p, self.after_form(p), words::GLOBALS),
+            Pattern::VariableAt1 => self.listed(p, self.after_form(p), words::REPL),
+            Pattern::PunctuationAt0 => self.quote(p),
+            Pattern::PunctuationAt1 => self.marked_symbol(p, b':', self.after_form(p)),
+            Pattern::PunctuationAt2 => self.sharp_digits(p, marks::Sharp::Paren),
+            Pattern::PunctuationAt3 => self.sharp_digits(p, marks::Sharp::Bits),
+            Pattern::PunctuationAt4 => self.sharp_star(p),
+            Pattern::PunctuationAt5 => self.sharp_digits(p, marks::Sharp::Array),
+            Pattern::PunctuationAt6 => self.sharp_digits(p, marks::Sharp::Label),
+            Pattern::PunctuationAt7 => self.sharp_digits(p, marks::Sharp::Reference),
+            Pattern::PunctuationAt8 => self.sharp_sign(p),
+            Pattern::PunctuationAt9 => self.sharp_reader(p),
+            Pattern::PunctuationAt10 => self.sharp_keyword(p),
+            Pattern::PunctuationAt11 => self.backquote(p),
         }
     }
 
@@ -313,11 +315,11 @@ impl Lexer<'_> {
         }
         let end = self.class_end(p, self.lim(), package_byte);
         if end > p && self.at(end) == b':' {
-            self.cap(2, p, end);
+            self.capture(2, p, end);
             return Some(end);
         }
         if self.at(p) == b'#' && self.at(p + 1) == b':' {
-            self.cap(3, p, p + 1);
+            self.capture(3, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -331,7 +333,7 @@ impl Lexer<'_> {
         let open = self.lit(p, b"(")?;
         let word = self.space_end(open);
         let end = self.listed(word, true, words::SPECIAL_OPERATORS)?;
-        self.cap(2, word, end);
+        self.capture(2, word, end);
         Some(end)
     }
 
@@ -343,7 +345,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.skip(0, |b| b == b' ' || b == b'\t');
             if blanks > 0 && self.at(blanks) == b';' {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }

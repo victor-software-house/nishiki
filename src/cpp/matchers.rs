@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -162,22 +162,22 @@ impl Lexer<'_> {
             return None;
         }
         match rx {
-            Rx::CommentsAt0At7Cap3At1 => self.lit(p, b","),
+            Rx::CommentsAt0At7Capture3At1 => self.lit(p, b","),
             Rx::DiagnosticAt1 => self.lit(p, b"\""),
             Rx::DiagnosticAt2 => self.lit(p, b"'"),
             Rx::CppAttributesAt4 => self.lit(p, b":"),
             Rx::TemplateCallRange => self.lit(p, b"<"),
             Rx::TemplateCallRangeEnd => self.lit(p, b">"),
-            Rx::SimpleArrayAssignmentCap13At2 => self.lit(p, b"&"),
+            Rx::SimpleArrayAssignmentCapture13At2 => self.lit(p, b"&"),
             Rx::ParameterAt10 => self.lit(p, b"="),
             Rx::ParameterAt13End => self.lit(p, b"]"),
             Rx::LambdasAt3End => self.lit(p, b"}"),
             Rx::UsingNamespaceEnd => self.lit(p, b";"),
             Rx::OperatorsAt0End => self.lit(p, b")"),
             Rx::CppAttributesAt1 => self.lit(p, b"("),
-            Rx::ConstructorBracketCallCap1At0 => self.lit(p, b"::"),
+            Rx::ConstructorBracketCallCapture1At0 => self.lit(p, b"::"),
             Rx::CppAttributesEnd => self.lit(p, b"]]"),
-            Rx::SimpleArrayAssignmentCap13At0 => self.lit(p, b"*"),
+            Rx::SimpleArrayAssignmentCapture13At0 => self.lit(p, b"*"),
             Rx::ParameterAt13 => self.lit(p, b"["),
             Rx::LambdasAt2 => self.lit(p, b"->"),
             Rx::LambdasAt3 => self.lit(p, b"{"),
@@ -188,11 +188,11 @@ impl Lexer<'_> {
             Rx::CppAttributes => self.lit(p, b"[["),
             Rx::OperatorsAt7 => self.lit(p, b"++"),
             Rx::OperatorsAt8 => self.lit_any(p, &[b"<<", b">>"]),
-            Rx::MacroAt0Cap2At2 => self.lit(p, b"..."),
+            Rx::MacroAt0Capture2At2 => self.lit(p, b"..."),
             Rx::AlignasAttribute => self.lit(p, b"alignas("),
             Rx::MsAttributes => self.lit(p, b"__declspec("),
-            Rx::TypedefClassAt0Cap11At2 => self.lit(p, b"DLLEXPORT"),
-            Rx::CommentsAt0At7Cap2At0 => self.lit_any(p, &[b"in", b"out"]),
+            Rx::TypedefClassAt0Capture11At2 => self.lit(p, b"DLLEXPORT"),
+            Rx::CommentsAt0At7Capture2At0 => self.lit_any(p, &[b"in", b"out"]),
             Rx::OperatorsAt9 => self.compare_operator(p),
             Rx::OperatorsAt10 => self.lit_any(p, &[b"&&", b"!", b"||"]),
             Rx::OperatorsAt11 => self.one_of(p, b"&^|~"),
@@ -204,8 +204,8 @@ impl Lexer<'_> {
             Rx::StringContextAt3End => self.lit_any(p, &[b")glsl\"", b")GLSL\""]),
             Rx::StringContextAt2End => self.lit_any(p, &[b")_r\"", b")re\"", b")regex\""]),
 
-            Rx::PreprocessorNumberLiteralCap0At0End => self.at_eol(p).then_some(p),
-            Rx::PreprocessorNumberLiteralCap0At0 => (p < self.lim()).then_some(p),
+            Rx::PreprocessorNumberLiteralCapture0At0End => self.at_eol(p).then_some(p),
+            Rx::PreprocessorNumberLiteralCapture0At0 => (p < self.lim()).then_some(p),
             Rx::NormalVariableAssignmentEnd => self.ahead(p, b';').then_some(p),
             Rx::LambdasAt2End => self.ahead(p, b'{').then_some(p),
             Rx::StaticAssertAt0End => self.ahead(p, b')').then_some(p),
@@ -240,7 +240,7 @@ impl Lexer<'_> {
             Rx::BlockComment => self.lead_slashes(p, b"/*"),
             Rx::ConstructorRootAt2End => self.spaces_then(p, b';'),
             Rx::ConstructorRootAt2 => self.after_close_spaces(p),
-            Rx::PreprocessorNumberLiteralCap0At0At0Cap2At0 => self.digit_separator(p),
+            Rx::PreprocessorNumberLiteralCapture0At0At0Capture2At0 => self.digit_separator(p),
             Rx::TemplateDefinitionAt0 => self.word_spaces_angle(p),
             Rx::StringContextAt0 => self.string_prefix_quote(p, b'"'),
             Rx::PragmaAt2 => self.pragma_name(p),
@@ -278,17 +278,17 @@ impl Lexer<'_> {
             Rx::StringContextAt2 => self.raw_tagged(p, &[b"_r", b"re", b"regex"]),
             Rx::InlineComment => self.inline_comment(p),
             Rx::CommentsAt2 => self.doc_block_begin(p),
-            Rx::PreprocessorNumberLiteralCap0At0At6 => self.number_tail(p),
+            Rx::PreprocessorNumberLiteralCapture0At0At6 => self.number_tail(p),
             Rx::StaticAssertAt0 => self.static_assert_comma(p),
             Rx::TemplateExplicitInstantiation => self.explicit_instantiation(p),
             Rx::InheritanceContextAt2 => self.word_in(p, &[b"protected", b"private", b"public"]),
             Rx::LanguageConstants => self.word_in(p, &[b"nullptr", b"false", b"NULL", b"true"]),
-            Rx::ConstructorBracketCallCap1At1 => {
+            Rx::ConstructorBracketCallCapture1At1 => {
                 self.word_in(p, &[b"struct", b"class", b"union", b"enum"])
             }
             Rx::LambdasAt1 => self.word_in(p, &[b"constexpr", b"consteval", b"mutable"]),
             Rx::Assembly => self.asm_begin(p),
-            Rx::PragmaMarkCap3At0 => self.spaced_comment(p),
+            Rx::PragmaMarkCapture3At0 => self.spaced_comment(p),
             Rx::PragmaEnd => self.logical_line_end(p).then_some(p),
             Rx::PreprocessorConditionalDefinedEnd => self
                 .lit(p, b")")
@@ -308,7 +308,7 @@ impl Lexer<'_> {
             Rx::TypedefUnion => self.typedef_before(p, b"union"),
             Rx::TypedefStruct => self.typedef_before(p, b"struct"),
             Rx::StringContextAt5 => self.raw_delimited(p),
-            Rx::QualifiedTypeCap0At9 => self.ident_ucn(p),
+            Rx::QualifiedTypeCapture0At9 => self.ident_ucn(p),
             Rx::StringEscapesContextCAt0 => self.escaped_char(p),
 
             Rx::AssemblyAt2 => self.gap_paren(p, Paren::Plain),
@@ -319,7 +319,7 @@ impl Lexer<'_> {
             Rx::CaseStatement => self.gap4_word(p, &[b"case"]),
             Rx::SwitchStatement => self.gap4_word(p, &[b"switch"]),
             Rx::DefaultStatement => self.gap4_word(p, &[b"default"]),
-            Rx::QualifiersAndSpecifiersPostParametersAt1Cap1At0 => self.gap4_word(
+            Rx::QualifiersAndSpecifiersPostParametersAt1Capture1At0 => self.gap4_word(
                 p,
                 &[b"override", b"volatile", b"noexcept", b"final", b"const"],
             ),
@@ -327,7 +327,7 @@ impl Lexer<'_> {
             Rx::Line => self.directive_head(p, b"line"),
             Rx::Pragma => self.directive_head(p, b"pragma"),
             Rx::PreprocessorConditionalRange => self.conditional_head(p),
-            Rx::TypedefClassAt0Cap11At0 => self.final_gap(p),
+            Rx::TypedefClassAt0Capture11At0 => self.final_gap(p),
             Rx::OperatorsAt5 => self.sizeof_pack(p),
             Rx::OperatorsAt0 => self.word_gap_paren(p, b"sizeof"),
             Rx::OperatorsAt1 => self.word_gap_paren(p, b"alignof"),
@@ -404,12 +404,12 @@ impl Lexer<'_> {
                     b"friend",
                 ],
             ),
-            Rx::ConstructorRootCap9At0 => self.ident_ahead_colon(p),
-            Rx::ConstructorRootCap9At1 => self.after_colon_ident(p),
-            Rx::DestructorRootCap13At1 => self.after_colon_destructor(p),
+            Rx::ConstructorRootCapture9At0 => self.ident_ahead_colon(p),
+            Rx::ConstructorRootCapture9At1 => self.after_colon_ident(p),
+            Rx::DestructorRootCapture13At1 => self.after_colon_destructor(p),
             Rx::CurlyInitializerAt0 => self.dot_ident(p),
             Rx::MacroArgument => self.macro_argument(p),
-            Rx::CommentsAt0At7Cap3At0 => self.word_ident(p),
+            Rx::CommentsAt0At7Capture3At0 => self.word_ident(p),
             Rx::CppAttributesAt5 => self.ident_ahead_scope(p),
             Rx::ConstructorInlineAt0At3At1 => self.ident_brace(p),
             Rx::WordlikeOperatorsAt0 => self.word_in(
@@ -432,11 +432,11 @@ impl Lexer<'_> {
                 ],
             ),
             Rx::CppAttributesAt2 => self.using_alias(p),
-            Rx::MacroAt0Cap2At0 => self.macro_parameter(p),
+            Rx::MacroAt0Capture2At0 => self.macro_parameter(p),
             Rx::ParameterAt14 => self.parameter_name(p),
             Rx::StringContextAt0End => self.literal_end(p, b'"'),
             Rx::StringContextAt1End => self.literal_end(p, b'\''),
-            Rx::LambdasCap2At1 => self.lambda_capture(p),
+            Rx::LambdasCapture2At1 => self.lambda_capture(p),
             Rx::TemplateArgumentDefaulted => self.template_default(p),
             Rx::AssemblyAt2At2 => self.bracketed_name(p),
             Rx::ParameterAt11 => self.parameter_name_gap(p, Self::ahead_parameter_end),
@@ -447,8 +447,8 @@ impl Lexer<'_> {
             Rx::Macro => self.macro_define(p),
             Rx::GotoStatement => self.goto_statement(p),
             Rx::Label => self.label(p),
-            Rx::TypedefClassAt0Cap11At1 => self.class_name_final(p),
-            Rx::FunctionDefinitionCap7At0 => self.specifier_gap(p),
+            Rx::TypedefClassAt0Capture11At1 => self.class_name_final(p),
+            Rx::FunctionDefinitionCapture7At0 => self.specifier_gap(p),
             Rx::PragmaMark => self.pragma_mark(p),
             Rx::AccessControlKeywords => self.access_label(p),
             Rx::Diagnostic => self.diagnostic(p),
@@ -458,42 +458,42 @@ impl Lexer<'_> {
             Rx::TemplateCallRangeHelperAt1 => self.number_angle(p, b"<"),
             Rx::QualifiersAndSpecifiersPostParametersAt1 => self.trailing_qualifiers(p),
             Rx::ParameterAt16 => self.reference_chain(p),
-            Rx::SimpleArrayAssignmentCap13At1 => self.ampersand_run(p),
+            Rx::SimpleArrayAssignmentCapture13At1 => self.ampersand_run(p),
             Rx::UnknownVariable => self.unknown_variable(p),
             Rx::TemplateCallInnards => self.template_call_innards(p),
             Rx::StringEscapesContextCAt2 => self.placeholder(p),
-            Rx::PreprocessorNumberLiteralCap0At0At0 => {
+            Rx::PreprocessorNumberLiteralCapture0At0At0 => {
                 self.number_shape(p, 0, NumberIn::Preprocessor)
             }
-            Rx::NumberLiteralCap0At0At0 => self.number_shape(p, 0, NumberIn::Code),
-            Rx::PreprocessorNumberLiteralCap0At0At1 => {
+            Rx::NumberLiteralCapture0At0At0 => self.number_shape(p, 0, NumberIn::Code),
+            Rx::PreprocessorNumberLiteralCapture0At0At1 => {
                 self.number_shape(p, 1, NumberIn::Preprocessor)
             }
-            Rx::NumberLiteralCap0At0At1 => self.number_shape(p, 1, NumberIn::Code),
-            Rx::PreprocessorNumberLiteralCap0At0At2 => {
+            Rx::NumberLiteralCapture0At0At1 => self.number_shape(p, 1, NumberIn::Code),
+            Rx::PreprocessorNumberLiteralCapture0At0At2 => {
                 self.number_shape(p, 2, NumberIn::Preprocessor)
             }
-            Rx::NumberLiteralCap0At0At2 => self.number_shape(p, 2, NumberIn::Code),
-            Rx::PreprocessorNumberLiteralCap0At0At3 => {
+            Rx::NumberLiteralCapture0At0At2 => self.number_shape(p, 2, NumberIn::Code),
+            Rx::PreprocessorNumberLiteralCapture0At0At3 => {
                 self.number_shape(p, 3, NumberIn::Preprocessor)
             }
-            Rx::NumberLiteralCap0At0At3 => self.number_shape(p, 3, NumberIn::Code),
-            Rx::PreprocessorNumberLiteralCap0At0At4 => {
+            Rx::NumberLiteralCapture0At0At3 => self.number_shape(p, 3, NumberIn::Code),
+            Rx::PreprocessorNumberLiteralCapture0At0At4 => {
                 self.number_shape(p, 4, NumberIn::Preprocessor)
             }
-            Rx::NumberLiteralCap0At0At4 => self.number_shape(p, 4, NumberIn::Code),
-            Rx::PreprocessorNumberLiteralCap0At0At5 => {
+            Rx::NumberLiteralCapture0At0At4 => self.number_shape(p, 4, NumberIn::Code),
+            Rx::PreprocessorNumberLiteralCapture0At0At5 => {
                 self.number_shape(p, 5, NumberIn::Preprocessor)
             }
-            Rx::NumberLiteralCap0At0At5 => self.number_shape(p, 5, NumberIn::Code),
+            Rx::NumberLiteralCapture0At0At5 => self.number_shape(p, 5, NumberIn::Code),
             Rx::CommentsAt0At1 => self.doc_plain(p),
             Rx::CommentsAt0At5 => self.doc_word(p),
             Rx::CommentsAt0At6 => self.doc_decl(p),
             Rx::CommentsAt0At8 => self.doc_text(p),
             Rx::CommentsAt0At9 => self.doc_block(p),
             Rx::CommentsAt0At7 => self.doc_param(p),
-            Rx::MethodAccessCap13At1 => self.object_operator(p, OperatorAt::AfterObject),
-            Rx::MethodAccessCap13At0 => self.object_operator(p, OperatorAt::Before),
+            Rx::MethodAccessCapture13At1 => self.object_operator(p, OperatorAt::AfterObject),
+            Rx::MethodAccessCapture13At0 => self.object_operator(p, OperatorAt::Before),
             Rx::MethodAccess => self.method_access(p),
             Rx::MemberAccess => self.member_access(p),
             Rx::TypedefClassAt0 => self.typedef_tag(p, b"class"),

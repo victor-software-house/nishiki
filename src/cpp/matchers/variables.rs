@@ -128,29 +128,30 @@ impl Lexer<'_> {
         if p != 0 || !self.may_start_declaration(0, Pointers::Continue) {
             return None;
         }
-        let (first, head, second, kind, name, third, end, op) = self.gaps(p).find_map(|first| {
-            self.find_head(first.end, &NORMAL, |lexer, head| {
-                lexer.gaps(head.end).find_map(|second| {
-                    lexer
-                        .variable_names(second.end)
-                        .into_iter()
-                        .find_map(|(kind, name)| {
-                            lexer.gaps(name).find_map(|third| {
-                                let (end, op) = lexer.variable_end(third.end, form)?;
-                                Some((first, *head, second, kind, name, third, end, op))
+        let (first, head, second, style, name, third, end, op) =
+            self.gaps(p).find_map(|first| {
+                self.find_head(first.end, &NORMAL, |lexer, head| {
+                    lexer.gaps(head.end).find_map(|second| {
+                        lexer
+                            .variable_names(second.end)
+                            .into_iter()
+                            .find_map(|(style, name)| {
+                                lexer.gaps(name).find_map(|third| {
+                                    let (end, op) = lexer.variable_end(third.end, form)?;
+                                    Some((first, *head, second, style, name, third, end, op))
+                                })
                             })
-                        })
+                    })
                 })
-            })
-        })?;
+            })?;
         self.put_gap(1, GapForm::Parts, p, &first);
-        self.cap(5, first.end, end);
+        self.capture(5, first.end, end);
         self.put_head(first.end, &NORMAL, &head);
         self.put_gap(41, GapForm::Parts, head.end, &second);
-        self.cap(44 + kind, second.end, name);
+        self.capture(44 + style, second.end, name);
         self.put_gap(50, GapForm::Parts, name, &third);
         if let Some(group) = op {
-            self.cap(group, third.end, end);
+            self.capture(group, third.end, end);
         }
         Some(end)
     }
@@ -185,37 +186,37 @@ impl Lexer<'_> {
         if !self.may_start_declaration(p, Pointers::Continue) {
             return None;
         }
-        let (head, second, kind, name, third, op, end) =
+        let (head, second, style, name, third, op, end) =
             self.find_head(p, &ASSIGNED, |lexer, head| {
                 lexer.gaps(head.end).find_map(|second| {
                     lexer
                         .variable_names(second.end)
                         .into_iter()
-                        .find_map(|(kind, name)| {
+                        .find_map(|(style, name)| {
                             lexer.gaps(name).find_map(|third| {
                                 let (op, end) = lexer.assign_op(third.end)?;
-                                Some((*head, second, kind, name, third, op, end))
+                                Some((*head, second, style, name, third, op, end))
                             })
                         })
                 })
             })?;
         self.put_head(p, &ASSIGNED, &head);
         self.put_gap(22, GapForm::Plain, head.end, &second);
-        self.cap(23 + kind, second.end, name);
+        self.capture(23 + style, second.end, name);
         self.put_gap(29, GapForm::Plain, name, &third);
-        self.cap(31 + op, third.end, end);
+        self.capture(31 + op, third.end, end);
         Some(end)
     }
 
     /// `(TYPE)(POINTER)?GAP name(\[) *(\])GAP op`: an assignment to an array.
     pub(super) fn simple_array_assignment(&mut self, p: usize) -> Option<usize> {
-        let (head, second, kind, name, close, third, op, end) =
+        let (head, second, style, name, close, third, op, end) =
             self.find_head(p, &ARRAY, |lexer, head| {
                 lexer.gaps(head.end).find_map(|second| {
                     lexer
                         .variable_names(second.end)
                         .into_iter()
-                        .find_map(|(kind, name)| {
+                        .find_map(|(style, name)| {
                             if lexer.at(name) != b'[' || name >= lexer.lim() {
                                 return None;
                             }
@@ -228,18 +229,18 @@ impl Lexer<'_> {
                             }
                             lexer.gaps(close + 1).find_map(|third| {
                                 let (op, end) = lexer.assign_op(third.end)?;
-                                Some((*head, second, kind, name, close, third, op, end))
+                                Some((*head, second, style, name, close, third, op, end))
                             })
                         })
                 })
             })?;
         self.put_head(p, &ARRAY, &head);
         self.put_gap(18, GapForm::Plain, head.end, &second);
-        self.cap(19 + kind, second.end, name);
-        self.cap(25, name, name + 1);
-        self.cap(26, close, close + 1);
+        self.capture(19 + style, second.end, name);
+        self.capture(25, name, name + 1);
+        self.capture(26, close, close + 1);
         self.put_gap(27, GapForm::Plain, close + 1, &third);
-        self.cap(29 + op, third.end, end);
+        self.capture(29 + op, third.end, end);
         Some(end)
     }
 
@@ -259,12 +260,12 @@ impl Lexer<'_> {
             })
         })?;
         let colon = third.end;
-        self.cap(1, p, head.end);
+        self.capture(1, p, head.end);
         self.put_head(p, &RANGE, &head);
         self.put_gap(37, GapForm::Parts, head.end, &second);
-        self.cap(41, second.end, name);
+        self.capture(41, second.end, name);
         self.put_gap(42, GapForm::Parts, name, &third);
-        self.cap(46, colon, colon + 1);
+        self.capture(46, colon, colon + 1);
         Some(colon + 1)
     }
 }
@@ -364,22 +365,22 @@ impl Lexer<'_> {
             })
         })?;
         let open = second.end;
-        self.cap(1, p, head.end);
+        self.capture(1, p, head.end);
         self.put_head(p, &RANGE, &head);
         self.put_gap(37, GapForm::Parts, head.end, &second);
-        self.cap(41, open, open + 1);
+        self.capture(41, open, open + 1);
         self.put_gap(42, GapForm::Parts, open + 1, &third);
-        self.cap(46, third.end, first);
+        self.capture(46, third.end, first);
         if let Some((at, comma, gap_a, gap_b, id, id_end)) = found.last {
             self.put_gap(47, GapForm::Parts, at, &gap_a);
-            self.cap(51, comma, comma + 1);
+            self.capture(51, comma, comma + 1);
             self.put_gap(52, GapForm::Parts, comma + 1, &gap_b);
-            self.cap(56, id, id_end);
+            self.capture(56, id, id_end);
         }
         self.put_gap(57, GapForm::Parts, found.close_gap.0, &found.close_gap.1);
-        self.cap(61, found.close, found.close + 1);
+        self.capture(61, found.close, found.close + 1);
         self.put_gap(62, GapForm::Parts, found.close + 1, &found.colon_gap);
-        self.cap(66, found.colon, found.colon + 1);
+        self.capture(66, found.colon, found.colon + 1);
         Some(found.colon + 1)
     }
 }
@@ -460,7 +461,7 @@ impl Lexer<'_> {
     /// Records the groups of an alias tail whose type ended at `after`.
     fn put_tail(&mut self, after: usize, tail: &Tail) {
         if let Some((run, gap)) = &tail.pointer {
-            self.cap(21, after, run.0);
+            self.capture(21, after, run.0);
             if let Some(first) = run.1 {
                 self.put_gap(22, GapForm::Plain, after, &first);
             }
@@ -470,12 +471,12 @@ impl Lexer<'_> {
             self.put_gap(26, GapForm::Plain, run.0, gap);
         }
         if let Some((open, close)) = tail.brackets {
-            self.cap(28, open, open + 1);
-            self.cap(29, open + 1, close);
-            self.cap(30, close, close + 1);
+            self.capture(28, open, open + 1);
+            self.capture(29, open + 1, close);
+            self.capture(30, close, close + 1);
         }
         if let Some(q) = tail.semicolon {
-            self.cap(31, q, q + 1);
+            self.capture(31, q, q + 1);
         }
     }
 
@@ -533,17 +534,17 @@ impl Lexer<'_> {
                         })
                 })
         })?;
-        self.cap(1, p, using);
-        self.cap(2, name_at, name);
+        self.capture(1, p, using);
+        self.capture(2, name_at, name);
         if let Some(end) = attribute {
-            self.cap(3, after_name, end);
+            self.capture(3, after_name, end);
         }
-        self.cap(4, equals, equals + 1);
-        self.cap(5, keyword_at, keyword.unwrap_or(keyword_at));
+        self.capture(4, equals, equals + 1);
+        self.capture(5, keyword_at, keyword.unwrap_or(keyword_at));
         if let Some((stored, iteration)) = storage {
-            self.cap(6, type_at, stored);
+            self.capture(6, type_at, stored);
             if iteration.gap.run {
-                self.cap(7, iteration.from, iteration.gap.end);
+                self.capture(7, iteration.from, iteration.gap.end);
             }
         }
         match target {
@@ -552,9 +553,9 @@ impl Lexer<'_> {
                 self.put_tail(head.type_end(), &tail);
             }
             Target::Text(text_end, semicolon) => {
-                self.cap(20, at, text_end);
+                self.capture(20, at, text_end);
                 if let Some(q) = semicolon {
-                    self.cap(31, q, q + 1);
+                    self.capture(31, q, q + 1);
                 }
             }
         }

@@ -2,7 +2,7 @@
 //! document, and reading back each token's text and scope names.
 
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halt, Line, StopKind, Stopped};
+use crate::language::{Context, Halt, Line, StopReason, Stopped};
 use crate::limits::Finished;
 use crate::scratch::Scratch;
 use crate::{Highlighter, Language, Limits, LineReport, State, Token};
@@ -223,10 +223,10 @@ pub(crate) fn lex_embedded_stops(
         let end = match stopped {
             Some(Stopped {
                 at,
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
             }) => at,
             Some(Stopped {
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
                 ..
             })
             | None => text.len(),

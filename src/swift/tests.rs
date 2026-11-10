@@ -5,7 +5,7 @@ use indoc::indoc;
 use crate::arena::Arena;
 use crate::rules::Grammar;
 use crate::swift::engine::Swift;
-use crate::swift::grammar::Pat;
+use crate::swift::grammar::Pattern;
 use crate::test_support::probe::{After, Anchor, Case, lexer};
 use crate::test_support::{leaf_in, merge_by_leaf};
 use crate::{Highlighter, Language, State};
@@ -248,13 +248,13 @@ fn an_operator_that_ends_a_capture_lexed_again_is_postfix() {
 /// not take part.
 type Groups = Vec<Option<(usize, usize)>>;
 
-/// What `pat` answers on `case`: where its match ends and the span of each
+/// What `pattern` answers on `case`: where its match ends and the span of each
 /// capture group, or `None` where it does not match.
-fn answer(arena: &mut Arena, pat: Pat, case: &Case<'_>) -> Option<(usize, Groups)> {
+fn answer(arena: &mut Arena, pattern: Pattern, case: &Case<'_>) -> Option<(usize, Groups)> {
     lexer::<Swift, _>(arena, case, |lexer| {
-        let end = lexer.probe(pat, case.p)?;
-        let caps = (0..Swift::GROUPS).map(|group| lexer.cap_span(group));
-        Some((end, caps.collect()))
+        let end = lexer.probe(pattern, case.p)?;
+        let captures = (0..Swift::GROUPS).map(|group| lexer.capture_span(group));
+        Some((end, captures.collect()))
     })
 }
 
@@ -266,7 +266,7 @@ fn answer(arena: &mut Arena, pat: Pat, case: &Case<'_>) -> Option<(usize, Groups
 fn the_matchers_answer_as_oniguruma_where_the_text_ends() {
     use After::{LineFeed, Nothing};
     use Anchor::{Free, G};
-    use Pat::{
+    use Pattern::{
         DeclarationsExtensionExtensionAt0 as Name, DeclarationsExtensionExtensionAt0End as NameEnd,
         DeclarationsGenericWhereClauseRequirementListAt3End as SameTypeEnd,
         DeclarationsImportEnd as ImportEnd, LiteralsRegularExpressionLiteralQuoteEnd as QuoteEnd,
@@ -293,17 +293,17 @@ fn the_matchers_answer_as_oniguruma_where_the_text_ends() {
         (SameTypeEnd, "T == U", 6, Free, LineFeed, Some(6)),
         (SameTypeEnd, "T == U {", 6, Free, Nothing, Some(6)),
     ];
-    for (pat, text, p, anchor, after, want) in cases {
+    for (pattern, text, p, anchor, after, want) in cases {
         let case = Case {
             text,
             p,
             anchor,
             after,
         };
-        let got = answer(&mut arena, pat, &case).map(|(end, _)| end);
+        let got = answer(&mut arena, pattern, &case).map(|(end, _)| end);
         assert_eq!(
             got, want,
-            "{pat:?} on {text:?} at {p}, {anchor:?}, {after:?}"
+            "{pattern:?} on {text:?} at {p}, {anchor:?}, {after:?}"
         );
     }
 }
@@ -311,7 +311,7 @@ fn the_matchers_answer_as_oniguruma_where_the_text_ends() {
 #[cfg(feature = "json")]
 mod probe {
     use super::answer;
-    use crate::swift::grammar::Pat;
+    use crate::swift::grammar::Pattern;
     use crate::test_support::probe::answer_cases;
 
     /// Answers the cases of `oracle/onig.ts` with Swift's matchers (see
@@ -319,6 +319,6 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, answer);
+        answer_cases(&Pattern::ALL, answer);
     }
 }

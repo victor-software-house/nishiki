@@ -4,7 +4,7 @@
 //! Each function matches one rule at `p`. html-derivative takes the text they
 //! hold.
 
-use super::caps::Caps;
+use super::captures::Captures;
 use super::text::Cx;
 use crate::case_fold;
 
@@ -52,14 +52,14 @@ pub(crate) fn raw_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
 
 /// `(?i)(.*)((</)(script|style|pre)(>))`.
 /// It closes a raw HTML block at the last closing tag of the line.
-pub(crate) fn raw_close(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn raw_close(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     let at = raw_closes(cx, p).last()?;
     let end = raw_tag(cx, at + 2)? + 1;
-    caps.set(1, p, at);
-    caps.set(2, at, end);
-    caps.set(3, at, at + 2);
-    caps.set(4, at + 2, end - 1);
-    caps.set(5, end - 1, end);
+    captures.set(1, p, at);
+    captures.set(2, at, end);
+    captures.set(3, at, at + 2);
+    captures.set(4, at + 2, end - 1);
+    captures.set(5, end - 1, end);
     Some(end)
 }
 

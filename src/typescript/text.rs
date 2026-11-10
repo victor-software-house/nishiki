@@ -1,20 +1,20 @@
 //! Strings, template literals, regular expressions and comments.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     pub(crate) fn string(&mut self, p: usize) -> Option<usize> {
         match self.byte(p) {
             b'\'' => self.open_token(
-                Kind::StrSingle,
+                Rule::StrSingle,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
             ),
             b'"' => self.open_token(
-                Kind::StrDouble,
+                Rule::StrDouble,
                 p,
                 p + 1,
                 &[S::PunctuationDefinitionStringBegin],
@@ -70,10 +70,10 @@ impl<const D: u8> Lexer<'_, D> {
     /// A template literal, with or without a tag.
     fn template(&mut self, p: usize) -> Option<usize> {
         if self.tagged_template_ahead(p) && !self.full() {
-            return self.open_empty(Kind::TemplateCall, p);
+            return self.open_empty(Rule::TemplateCall, p);
         }
         self.template_type_arguments(p)
-            .or_else(|| self.template_begin(p, Kind::Template))
+            .or_else(|| self.template_begin(p, Rule::Template))
     }
 
     /// A template tag whose type arguments follow blanks, or that has no name:
@@ -90,16 +90,16 @@ impl<const D: u8> Lexer<'_, D> {
         }
         self.flush(p);
         if let Some(e) = tag {
-            self.capture(Kind::Top, p, e, &[S::EntityNameFunctionTaggedTemplate]);
+            self.capture(Rule::Top, p, e, &[S::EntityNameFunctionTaggedTemplate]);
         }
-        self.finish(Kind::TemplateCall2, j);
-        self.push(Kind::TemplateCall2);
+        self.finish(Rule::TemplateCall2, j);
+        self.push(Rule::TemplateCall2);
         Some(j)
     }
 
     /// The opening of a template literal, with an optional tag name before the
     /// backtick.
-    fn template_begin(&mut self, p: usize, kind: Kind) -> Option<usize> {
+    fn template_begin(&mut self, p: usize, rule: Rule) -> Option<usize> {
         if self.full() {
             return None;
         }
@@ -110,10 +110,10 @@ impl<const D: u8> Lexer<'_, D> {
         };
         self.flush(p);
         if let Some(e) = tag_end {
-            self.capture(Kind::Top, p, e, &[S::EntityNameFunctionTaggedTemplate]);
+            self.capture(Rule::Top, p, e, &[S::EntityNameFunctionTaggedTemplate]);
         }
         self.capture(
-            Kind::Top,
+            Rule::Top,
             tick,
             tick + 1,
             &[
@@ -121,26 +121,26 @@ impl<const D: u8> Lexer<'_, D> {
                 S::PunctuationDefinitionStringTemplateBegin,
             ],
         );
-        self.push(kind);
+        self.push(rule);
         Some(tick + 1)
     }
 
     /// A template literal in a type position.
     pub(crate) fn template_type(&mut self, p: usize) -> Option<usize> {
         if self.tagged_template_ahead(p) && !self.full() {
-            return self.open_empty(Kind::TemplateCall, p);
+            return self.open_empty(Rule::TemplateCall, p);
         }
         self.template_type_arguments(p)
-            .or_else(|| self.template_begin(p, Kind::TemplateType))
+            .or_else(|| self.template_begin(p, Rule::TemplateType))
     }
 
     /// `${` inside a template.
-    pub(crate) fn template_substitution(&mut self, p: usize, kind: Kind) -> Option<usize> {
+    pub(crate) fn template_substitution(&mut self, p: usize, rule: Rule) -> Option<usize> {
         if self.byte(p) != b'$' || self.byte(p + 1) != b'{' {
             return None;
         }
         self.open_token(
-            kind,
+            rule,
             p,
             p + 2,
             &[S::PunctuationDefinitionTemplateExpressionBegin],

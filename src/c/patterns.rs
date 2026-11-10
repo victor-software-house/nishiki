@@ -1,7 +1,7 @@
 //! The patterns of the grammar, by name: what each one does when it matches,
 //! and what decides where it matches.
 
-use super::access::CallKind;
+use super::access::List;
 use super::engine::{C, Lexer};
 use super::lists::P;
 use super::preproc::{Look, Meta};
@@ -191,7 +191,7 @@ impl P {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`.
+    /// Whether `pattern` matches at `p`.
     /// The match's start and end are in `x`, and its parts are in the spans.
     ///
     /// It is `#[inline]` because `find`, in another module, calls it for every
@@ -204,8 +204,8 @@ impl Lexer<'_> {
         clippy::too_many_lines,
         reason = "one arm per pattern: the table of what each pattern matches"
     )]
-    pub(super) fn match_pat(&mut self, pat: P, p: usize) -> bool {
-        match pat {
+    pub(super) fn match_pattern(&mut self, pattern: P, p: usize) -> bool {
+        match pattern {
             P::DocLine => self.doc_line(p),
             P::DocBlockOne => self.doc_block_one(p),
             P::DocBlockBegin => self.doc_block_begin(p),
@@ -287,9 +287,9 @@ impl Lexer<'_> {
             | P::CondParensBegin => self.paren(p),
             P::RangeColon => self.range_colon(p),
             P::FuncDefBegin => self.func_def(p),
-            P::FuncParamsBegin => self.call_like(p, CallKind::Params),
+            P::FuncParamsBegin => self.call_like(p, List::Parameters),
             P::Probably => self.probably(p),
-            P::CallBegin | P::DefineCallBegin => self.call_like(p, CallKind::Args),
+            P::CallBegin | P::DefineCallBegin => self.call_like(p, List::Arguments),
             P::CFunctionCall => self.function_call(p),
             P::MethodAccess => self.method_access(p),
             P::MemberAccess => self.member_access(p),

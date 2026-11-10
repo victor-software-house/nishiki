@@ -13,7 +13,7 @@
 //! When the first run of a length fails strikethrough's check, no run of that
 //! length closes.
 
-use super::stops::{Kind, Step, Stops};
+use super::stops::{Opener, Step, Stops};
 use super::titles::{Shut, Titles};
 
 /// A delimiter whose runs open and close a span.
@@ -177,12 +177,12 @@ impl Runs {
     pub(crate) fn walk_long(
         &mut self,
         text: (usize, usize, usize),
-        kind: Kind,
+        opener: Opener,
         start: usize,
         mut step: impl FnMut(&mut Runs, usize) -> Step,
     ) -> Option<usize> {
         let mut stops = std::mem::take(&mut self.held.get_or_insert_with(Box::default).stops);
-        let found = stops.walk(text, kind, start, |q| step(self, q));
+        let found = stops.walk(text, opener, start, |q| step(self, q));
         self.held.get_or_insert_with(Box::default).stops = stops;
         found
     }
@@ -413,7 +413,7 @@ impl Table {
 mod tests {
     use super::Runs;
     use crate::limits::{Limits, Steps};
-    use crate::markdown::caps::Caps;
+    use crate::markdown::captures::Captures;
     use crate::markdown::inline::{code_span, strikethrough};
     use crate::markdown::text::{Cx, LineFacts};
 
@@ -503,10 +503,11 @@ mod tests {
 
     /// The strikethrough at `p`, found by the rule, as its spans.
     fn strike_found(cx: &Cx<'_>, runs: &mut Runs, p: usize) -> Option<(usize, usize, usize)> {
-        let mut caps = Caps::new();
-        let end = strikethrough(cx, runs, p, &mut caps)?;
+        let mut captures = Captures::new();
+        let end = strikethrough(cx, runs, p, &mut captures)?;
         let group = |index: usize| {
-            caps.iter()
+            captures
+                .iter()
                 .find_map(|(group, span)| (group == index).then_some(span))
         };
         let (_, open_end) = group(1)?;

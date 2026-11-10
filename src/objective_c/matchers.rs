@@ -219,22 +219,22 @@ where
             Rx::AnonymousPattern1End => {
                 let end = self.lit(p, b"@end")?;
                 self.boundary(end).then_some(())?;
-                self.cap(1, p, end);
-                self.cap(2, p, p + 1);
+                self.capture(1, p, end);
+                self.capture(2, p, p + 1);
                 Some(end)
             }
             Rx::PreprocessorRuleEnabledInterface => {
                 let (hash, digits, end) = self.interface_if(p, Truth::One)?;
-                self.cap(1, hash, end);
-                self.cap(2, hash + 1, hash + 3);
-                self.cap(3, digits, end);
+                self.capture(1, hash, end);
+                self.capture(2, hash + 1, hash + 3);
+                self.capture(3, digits, end);
                 Some(end)
             }
             Rx::PreprocessorRuleEnabledInterfaceEnd => {
                 let (hash, start, end) = self.directive_one(p, b"endif")?;
                 let stop = self.to_comment(end);
-                self.cap(1, hash, stop);
-                self.cap(2, start, end);
+                self.capture(1, hash, stop);
+                self.capture(2, start, end);
                 Some(stop)
             }
             Rx::PreprocessorRuleEnabledInterfaceAt0 => {
@@ -251,17 +251,17 @@ where
             Rx::PreprocessorRuleEnabledInterfaceAt1End => self.directive(p, ELSE_ENDIF).map(|_| p),
             Rx::PreprocessorRuleDisabledInterface => {
                 let (hash, digits, end) = self.interface_if(p, Truth::Zero)?;
-                self.cap(1, hash, end);
-                self.cap(2, hash + 1, hash + 3);
-                self.cap(3, digits, end);
+                self.capture(1, hash, end);
+                self.capture(2, hash + 1, hash + 3);
+                self.capture(3, digits, end);
                 Some(self.lim())
             }
             Rx::PreprocessorRuleDisabledInterfaceAt0 => self.hash_word_inner(p, &[b"else"]),
             Rx::PreprocessorRuleOtherInterface => {
                 let (hash, start, end) = self.directive(p, IF_WORDS)?;
                 let stop = self.to_comment(end);
-                self.cap(1, hash, stop);
-                self.cap(2, start, end);
+                self.capture(1, hash, stop);
+                self.capture(2, start, end);
                 Some(stop)
             }
             Rx::PreprocessorRuleOtherInterfaceEnd => {
@@ -274,9 +274,9 @@ where
                 if self.at(paren) != b'(' || paren >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, end);
-                self.cap(2, p, p + 1);
-                self.cap(3, paren, paren + 1);
+                self.capture(1, p, end);
+                self.capture(2, p, p + 1);
+                self.capture(3, paren, paren + 1);
                 Some(paren + 1)
             }
             Rx::PropertiesAt0End | Rx::MethodAt0End => {
@@ -286,8 +286,8 @@ where
             Rx::PropertiesAt1 => {
                 let end = self.lit(p, b"@property")?;
                 self.boundary(end).then_some(())?;
-                self.cap(1, p, end);
-                self.cap(2, p, p + 1);
+                self.capture(1, p, end);
+                self.capture(2, p, p + 1);
                 Some(end)
             }
             Rx::ProtocolList => self.one_char(p, b'<'),
@@ -326,7 +326,7 @@ where
                         return None;
                     }
                 }
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::AnonymousPattern4 => {
@@ -338,7 +338,7 @@ where
                 if self.at(q) != b'<' || q >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(q)
             }
             Rx::AnonymousPattern4End => self.prev_is(p, b'>').then_some(p),
@@ -357,8 +357,8 @@ where
                 if self.at(paren) != b'(' || paren >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, end);
-                self.cap(2, paren, paren + 1);
+                self.capture(1, p, end);
+                self.capture(2, paren, paren + 1);
                 Some(paren + 1)
             }
             Rx::AppleFoundationFunctionalMacrosEnd => self.lit(p, b")"),
@@ -386,7 +386,7 @@ where
                 if p == 0 {
                     let q = self.skip(0, |b| b == b' ' || b == b'\t');
                     if q > 0 && self.starts(q, b"//") {
-                        self.cap(1, 0, q);
+                        self.capture(1, 0, q);
                         return Some(q);
                     }
                 }
@@ -397,7 +397,7 @@ where
             Rx::CCommentsAt3At0End => (p == self.lim() && self.at(p) == b'\n').then_some(p),
             Rx::CLineContinuationCharacterAt0 => {
                 if self.at(p) == b'\\' && p + 1 == self.lim() && self.at(p + 1) == b'\n' {
-                    self.cap(1, p, p + 1);
+                    self.capture(1, p, p + 1);
                     return Some(p + 2);
                 }
                 None
@@ -406,7 +406,7 @@ where
             Rx::CNumbers => self.number_begin(p),
             Rx::CNumbersEnd => (!self.number_char(p)).then_some(p),
             Rx::CNumbersAt0 => self.number_pattern(p, Self::hex_float),
-            Rx::CNumbersAt0Cap2At0 => self.digit_sep(p).then_some(p + 1),
+            Rx::CNumbersAt0Capture2At0 => self.digit_sep(p).then_some(p + 1),
             Rx::CNumbersAt1 => self.number_pattern(p, Self::dec_float),
             Rx::CNumbersAt2 => self.number_pattern(p, Self::binary),
             Rx::CNumbersAt3 => self.number_pattern(p, Self::octal),
@@ -473,19 +473,19 @@ where
             }
             Rx::CStorageTypesAt2 => {
                 let end = self.word_in(p, &[b"asm", b"__asm__", b"enum", b"struct", b"union"])?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::CMethodAccess => {
                 let end = self.access_chain(p, Last::Method)?;
-                self.cap(6, end, end + 1);
+                self.capture(6, end, end + 1);
                 Some(end + 1)
             }
             Rx::SpecialVariablesAt0 => self.keyword(p, b"_cmd"),
             Rx::SpecialVariablesAt1 => self.word_in(p, &[b"self", b"super"]),
-            Rx::CMethodAccessCap1At1 => (p < self.lim()).then(|| self.lim()),
+            Rx::CMethodAccessCapture1At1 => (p < self.lim()).then(|| self.lim()),
             Rx::CMemberAccess => self.access_chain(p, Last::Member),
-            Rx::CMemberAccessCap4At2 => self.access_head(p),
+            Rx::CMemberAccessCapture4At2 => self.access_head(p),
             Rx::CFunctionCallInnardsAt5 => self.call_innards(p),
             Rx::CFunctionCallInnardsAt6 => self.lit(p, b"("),
             Rx::CPreprocessorRuleEnabledBlockAt0At2 => {
@@ -520,12 +520,12 @@ where
             }
             Rx::CPreprocessorRuleEnabledElifBlockAt2At0 => {
                 let (start, end) = self.hash_word(p, &[b"else"])?;
-                self.cap(3, start, end);
+                self.capture(3, start, end);
                 Some(end)
             }
             Rx::CPreprocessorRuleEnabledElifBlockAt2At1 => {
                 let (start, end) = self.hash_word(p, &[b"elif"])?;
-                self.cap(3, start, end);
+                self.capture(3, start, end);
                 Some(end)
             }
             Rx::CPreprocessorRuleDisabledElif => self.hash_word_if(p, b"elif", Truth::Zero),
@@ -534,7 +534,7 @@ where
             }
             Rx::CPreprocessorRuleConditionalBlockAt1 => {
                 let (_, start, end) = self.directive(p, ELSE_ELIF_ENDIF)?;
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
             Rx::CCFunctionCall => self.call_target(p, words::FUNCTION_EXCLUDED).map(|_| p),
@@ -564,8 +564,8 @@ where
             Rx::CPreprocessorRuleConditionalLineAt8 => self.dollar_name(p, false),
             Rx::CSwitchStatement => {
                 let end = self.free_word_in(p, &[b"switch"])?;
-                self.cap(1, p, end);
-                self.cap(2, p, end);
+                self.capture(1, p, end);
+                self.capture(2, p, end);
                 Some(end)
             }
             Rx::CSwitchStatementEnd => (self.prev_is(p, b'}')
@@ -581,11 +581,11 @@ where
             }
             Rx::CSwitchStatementAt0End => {
                 if self.at(p) == b'{' && p < self.lim() {
-                    self.cap(1, p, p + 1);
+                    self.capture(1, p, p + 1);
                     return Some(p + 1);
                 }
                 if self.at(p) == b';' && p < self.lim() {
-                    self.cap(1, p, p);
+                    self.capture(1, p, p);
                     return Some(p);
                 }
                 None
@@ -594,12 +594,12 @@ where
             Rx::CSwitchStatementAt1End => self.one_char(p, b'}'),
             Rx::CDefaultStatement => {
                 let end = self.free_word_in(p, &[b"default"])?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::CCaseStatement => {
                 let end = self.free_word_in(p, &[b"case"])?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::CSwitchStatementAt2 => self.prev_is(p, b'}').then(|| self.space_end(p)),
@@ -632,7 +632,7 @@ where
             }
             Rx::CPreprocessorRuleDefineLineFunctionsAt6End => {
                 if self.at(p) == b')' && p < self.lim() {
-                    self.cap(1, p, p + 1);
+                    self.capture(1, p, p + 1);
                     return Some(p + 1);
                 }
                 self.blank_to_line_feed(p).then_some(p)
@@ -710,9 +710,9 @@ where
                 if self.at(paren) != b'(' || paren >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, end);
-                self.cap(2, p, p + 1);
-                self.cap(3, paren, paren + 1);
+                self.capture(1, p, end);
+                self.capture(2, p, p + 1);
+                self.capture(3, paren, paren + 1);
                 Some(paren + 1)
             }
             Rx::AnonymousPattern14At0 => {
@@ -767,7 +767,7 @@ where
                 if p < 12 || self.text(p - 12, p) != b"NSPredicate " {
                     return None;
                 }
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::BracketedContentAt0End => (self.at(p) == b']' && p < self.lim()).then_some(p),
@@ -780,8 +780,8 @@ where
                 if self.at(end) != b':' || end >= self.lim() {
                     return None;
                 }
-                self.cap(1, word, end);
-                self.cap(2, end, end + 1);
+                self.capture(1, word, end);
+                self.capture(2, end, end + 1);
                 Some(end + 1)
             }
             Rx::BracketedContentAt0At1 => {
@@ -792,7 +792,7 @@ where
                 if self.at(end) != b':' || end >= self.lim() {
                     return None;
                 }
-                self.cap(1, end, end + 1);
+                self.capture(1, end, end + 1);
                 Some(end + 1)
             }
             Rx::BracketedContentAt0At2At0 => self.word_in(p, &[b"AND", b"OR", b"NOT", b"IN"]),
@@ -840,12 +840,12 @@ where
                 }
                 let end = self.word_end(p);
                 if self.at(end) == b':' && end < self.lim() {
-                    self.cap(1, p, end + 1);
-                    self.cap(2, end, end + 1);
+                    self.capture(1, p, end + 1);
+                    self.capture(2, end, end + 1);
                     return Some(end + 1);
                 }
                 if self.at(end) == b']' && end < self.lim() {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     return Some(end);
                 }
                 None
@@ -863,18 +863,18 @@ where
                 if self.at(paren) != b'(' || paren >= self.lim() {
                     return None;
                 }
-                self.cap(1, p, end);
-                self.cap(2, p, end);
-                self.cap(3, paren, paren + 1);
+                self.capture(1, p, end);
+                self.capture(2, p, end);
+                self.capture(3, paren, paren + 1);
                 Some(paren + 1)
             }
             Rx::MethodAt2End => {
                 let end = self.lit(p, b")")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 let word = self.space_end(end);
                 if self.word_at(word).is_some() {
                     let word_end = self.word_end(word);
-                    self.cap(2, word, word_end);
+                    self.capture(2, word, word_end);
                     return Some(word_end);
                 }
                 Some(word)
@@ -894,7 +894,7 @@ where
         if self.at(p) != byte || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -902,14 +902,14 @@ where
     fn close_paren_word(&mut self, p: usize, word: bool) -> Option<usize> {
         let end = self.lit(p, b")")?;
         if !word {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let start = self.space_end(end);
         self.word_at(start)?;
         let word_end = self.word_end(start);
-        self.cap(1, p, end);
-        self.cap(2, start, word_end);
+        self.capture(1, p, end);
+        self.capture(2, start, word_end);
         Some(word_end)
     }
 
@@ -921,7 +921,7 @@ where
         if !crate::bytes::contains(words, self.text(start, end)) {
             return None;
         }
-        self.cap(1, p, start);
+        self.capture(1, p, start);
         Some(end)
     }
 
@@ -971,7 +971,7 @@ where
     /// end of the blanks after it.
     fn directive_with_word(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let (start, end) = self.hash_word(p, words)?;
-        self.cap(3, start, end);
+        self.capture(3, start, end);
         Some(self.space_end(end))
     }
 
@@ -1141,21 +1141,21 @@ where
             return None;
         }
         let name_end = self.ascii_ident_end(name)?;
-        self.cap(1, p, word);
-        self.cap(2, p, start);
-        self.cap(3, start, word);
-        self.cap(4, name, name_end);
+        self.capture(1, p, word);
+        self.capture(2, p, start);
+        self.capture(3, start, word);
+        self.capture(4, name, name_end);
         let colon = self.space_end(name_end);
         if self.at(colon) == b':' && colon < self.lim() {
             let parent = self.space_end(colon + 1);
             if self.at(parent).is_ascii_alphabetic() && parent < self.lim() {
                 let parent_end = self.skip(parent + 1, |b| b.is_ascii_alphanumeric());
-                self.cap(5, colon, parent_end);
-                self.cap(6, colon, colon + 1);
-                self.cap(7, parent, parent_end);
+                self.capture(5, colon, parent_end);
+                self.capture(6, colon, colon + 1);
+                self.capture(7, parent, parent_end);
                 let width = self.space_at(parent_end);
                 if width > 0 {
-                    self.cap(8, parent_end, parent_end + width);
+                    self.capture(8, parent_end, parent_end + width);
                 }
                 return Some(parent_end + width);
             }
@@ -1173,16 +1173,16 @@ where
             return None;
         }
         let name_end = self.ascii_ident_end(name)?;
-        self.cap(1, p, word);
-        self.cap(2, p, start);
-        self.cap(3, start, word);
-        self.cap(4, name, name_end);
+        self.capture(1, p, word);
+        self.capture(2, p, start);
+        self.capture(3, start, word);
+        self.capture(4, name, name_end);
         let colon = self.space_end(name_end);
         if self.at(colon) == b':' && colon < self.lim() {
             let parent = self.space_end(colon + 1);
             if self.at(parent).is_ascii_alphabetic() && parent < self.lim() {
                 let parent_end = self.skip(parent + 1, |b| b.is_ascii_alphanumeric());
-                self.cap(5, parent, parent_end);
+                self.capture(5, parent, parent_end);
                 return Some(parent_end);
             }
         }
@@ -1198,8 +1198,8 @@ where
             return None;
         }
         let name_end = self.dollar_name(name, false)?;
-        self.cap(3, name, name_end);
-        self.cap(4, name, name_end);
+        self.capture(3, name, name_end);
+        self.capture(4, name, name_end);
         if self.at(name_end) != b'(' || name_end >= self.lim() {
             return Some(name_end);
         }
@@ -1227,14 +1227,14 @@ where
         if self.at(i) != b')' || i >= self.lim() {
             return Some(name_end);
         }
-        self.cap(4, last_id.0, last_id.1);
-        self.cap(5, open, open + 1);
-        self.cap(6, open + 1, i);
+        self.capture(4, last_id.0, last_id.1);
+        self.capture(5, open, open + 1);
+        self.capture(6, open + 1, i);
         if let Some((at, after)) = comma {
-            self.cap(7, at, after);
-            self.cap(8, at, at + 1);
+            self.capture(7, at, after);
+            self.capture(8, at, at + 1);
         }
-        self.cap(9, i, i + 1);
+        self.capture(9, i, i + 1);
         Some(i + 1)
     }
 }

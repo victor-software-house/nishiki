@@ -31,7 +31,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.keyword(p, b"await")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -45,8 +45,8 @@ impl Lexer<'_> {
         if self.at(paren) != b'(' || paren >= self.lim() {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, paren, paren + 1);
+        self.capture(1, p, end);
+        self.capture(2, paren, paren + 1);
         Some(paren + 1)
     }
 

@@ -10,7 +10,7 @@ use crate::rules::Chars;
 
 /// A way a part of a template parameter matches: where it ends and the
 /// groups it records, each with its start and end.
-type Caps = (usize, Few<(usize, usize, usize), 7>);
+type Captures = (usize, Few<(usize, usize, usize), 7>);
 
 /// What follows a template parameter's first part: where the match ends, the
 /// `=` of a default and the `,` after it.
@@ -97,9 +97,9 @@ impl Lexer<'_> {
     ) -> Option<usize> {
         let head = |lexer: &mut Self| {
             lexer.put_gap(1, GapForm::Plain, 0, first);
-            lexer.cap(3, hash, end);
-            lexer.cap(4, hash, hash + 1);
-            lexer.cap(5, name, end);
+            lexer.capture(3, hash, end);
+            lexer.capture(4, hash, hash + 1);
+            lexer.capture(5, name, end);
         };
         for (open, limit, group, gap_base) in [(b'<', b'>', 6, 9), (b'"', b'"', 11, 14)] {
             if self.at(rest) != open || rest >= self.lim() {
@@ -120,10 +120,10 @@ impl Lexer<'_> {
                             continue;
                         };
                         head(self);
-                        self.cap(group, rest, tail);
-                        self.cap(group + 1, rest, rest + 1);
+                        self.capture(group, rest, tail);
+                        self.capture(group + 1, rest, rest + 1);
                         if after > k {
-                            self.cap(group + 2, k, k + 1);
+                            self.capture(group + 2, k, k + 1);
                         }
                         self.put_gap(gap_base, GapForm::Plain, after, &gap);
                         return Some(tail);
@@ -144,7 +144,7 @@ impl Lexer<'_> {
             for second in self.gaps(stop) {
                 if let Some(tail) = self.directive_tail(second.end, TailEnd::LineOrSemicolon) {
                     head(self);
-                    self.cap(16, rest, tail);
+                    self.capture(16, rest, tail);
                     self.put_gap(17, GapForm::Plain, rest, &gap);
                     self.put_gap(19, GapForm::Plain, stop, &second);
                     return Some(tail);
@@ -177,18 +177,18 @@ impl Lexer<'_> {
     /// - as a template template parameter.
     pub(super) fn template_parameter(&mut self, p: usize) -> Option<usize> {
         for gap in self.gaps(p) {
-            let Some(((_, caps), tail)) = self.template_parameter_head(gap.end) else {
+            let Some(((_, captures), tail)) = self.template_parameter_head(gap.end) else {
                 continue;
             };
             self.put_gap(1, GapForm::Plain, p, &gap);
-            for (g, x, y) in caps {
-                self.cap(g, x, y);
+            for (g, x, y) in captures {
+                self.capture(g, x, y);
             }
             if let Some(equals) = tail.equals {
-                self.cap(16, equals, equals + 1);
+                self.capture(16, equals, equals + 1);
             }
             if let Some(comma) = tail.comma {
-                self.cap(17, comma, comma + 1);
+                self.capture(17, comma, comma + 1);
             }
             return Some(tail.end);
         }
@@ -202,8 +202,8 @@ impl Lexer<'_> {
     /// The run of words is followed forward, keeping the last stop that
     /// matches.
     /// That stop is the longest the greedy `(?:ID\s+)+` gives.
-    fn template_parameter_head(&self, at: usize) -> Option<(Caps, ParamTail)> {
-        let with_tail = |part: Caps| Some((part, self.template_parameter_tail(part.0)?));
+    fn template_parameter_head(&self, at: usize) -> Option<(Captures, ParamTail)> {
+        let with_tail = |part: Captures| Some((part, self.template_parameter_tail(part.0)?));
         let name = self
             .ident_ends(at)
             .find_map(|end| with_tail((end, [(3, at, end)].into_iter().collect())));
@@ -233,8 +233,8 @@ impl Lexer<'_> {
             if let Some(after) = self.lit(dots, b"...") {
                 let target = self.skip_space(after);
                 let pack = self.ident_ends(target).find_map(|end| {
-                    let caps = [(6, at, name), (7, dots, after), (8, target, end)];
-                    with_tail((end, caps.into_iter().collect()))
+                    let captures = [(6, at, name), (7, dots, after), (8, target, end)];
+                    with_tail((end, captures.into_iter().collect()))
                 });
                 if pack.is_some() {
                     return pack;
@@ -275,7 +275,7 @@ impl Lexer<'_> {
 
     /// `(?<!\w)(template)\s*(<)\s*(ID)\s*((?:ID)?)\s*(>)\s*(class|typename)(?:\
     /// s+(ID))?`.
-    fn template_template(&self, at: usize) -> Option<Caps> {
+    fn template_template(&self, at: usize) -> Option<Captures> {
         if self.word_before(at) {
             return None;
         }
@@ -292,26 +292,26 @@ impl Lexer<'_> {
         if self.at(close) != b'>' || close >= self.lim() {
             return None;
         }
-        let kind_at = self.skip_space(close + 1);
-        let kind = self.lit_any(kind_at, &[b"class", b"typename"])?;
-        let mut caps: Few<_, 7> = [
+        let keyword_at = self.skip_space(close + 1);
+        let keyword = self.lit_any(keyword_at, &[b"class", b"typename"])?;
+        let mut captures: Few<_, 7> = [
             (9, at, word),
             (10, open, open + 1),
             (11, first_at, first),
             (12, second_at, second),
             (13, close, close + 1),
-            (14, kind_at, kind),
+            (14, keyword_at, keyword),
         ]
         .into_iter()
         .collect();
-        let name_at = self.skip_space(kind);
-        if name_at > kind
+        let name_at = self.skip_space(keyword);
+        if name_at > keyword
             && let Some(name) = self.plain_ident(name_at)
         {
-            caps.push((15, name_at, name));
-            return Some((name, caps));
+            captures.push((15, name_at, name));
+            return Some((name, captures));
         }
-        Some((kind, caps))
+        Some((keyword, captures))
     }
 
     /// `\b(KW)GAP((?<!\w)ID(?!\w))GAP(?:(CHAIN)GAP)?((?:(?<!\w)ID(?!\w))?)GAP(?
@@ -346,12 +346,12 @@ impl Lexer<'_> {
                     let Some((chain, after, tail)) = found else {
                         continue;
                     };
-                    self.cap(1, p, word);
+                    self.capture(1, p, word);
                     self.put_gap(2, GapForm::Plain, word, &first);
-                    self.cap(4, first.end, ty);
+                    self.capture(4, first.end, ty);
                     self.put_gap(5, GapForm::Plain, ty, &second);
                     if let Some(((cend, f, l), gap)) = chain {
-                        self.cap(7, second.end, cend);
+                        self.capture(7, second.end, cend);
                         if let Some(g) = f {
                             self.put_gap(8, GapForm::Plain, second.end, &g);
                         }
@@ -360,7 +360,7 @@ impl Lexer<'_> {
                         }
                         self.put_gap(12, GapForm::Plain, cend, &gap);
                     }
-                    self.cap(14, after, tail.name);
+                    self.capture(14, after, tail.name);
                     self.put_gap(15, GapForm::Plain, tail.name, &tail.gap);
                     if let Some((inner, last)) = tail.brackets {
                         self.put_gap(17, GapForm::Plain, tail.gap.end + 1, &inner);
@@ -481,7 +481,7 @@ impl Lexer<'_> {
     /// `\s*+(?<!\w)(?:…)(?!\w)`.
     pub(super) fn inline_builtin_type(&mut self, p: usize) -> Option<usize> {
         let (group, start, end) = *self.builtin_types(p).first()?;
-        self.cap(group, start, end);
+        self.capture(group, start, end);
         Some(end)
     }
 
@@ -490,8 +490,8 @@ impl Lexer<'_> {
         for (group, start, end) in self.builtin_types(p) {
             let open = self.skip_space(end);
             if self.at(open) == b'(' && open < self.lim() && !self.word_before(open) {
-                self.cap(group, start, end);
-                self.cap(5, open, open + 1);
+                self.capture(group, start, end);
+                self.capture(5, open, open + 1);
                 return Some(open + 1);
             }
         }
@@ -515,7 +515,7 @@ impl Lexer<'_> {
             })
             .or_else(|| Some((None, p, declarator(self, p)?)))?;
         if let Some((cend, f, l)) = chain {
-            self.cap(1, p, cend);
+            self.capture(1, p, cend);
             if let Some(g) = f {
                 self.put_gap(2, GapForm::Parts, p, &g);
             }
@@ -524,7 +524,7 @@ impl Lexer<'_> {
             }
         }
         self.put_gap(10, GapForm::Parts, from, &gap);
-        self.cap(14, gap.end, end);
+        self.capture(14, gap.end, end);
         Some(end)
     }
 
@@ -540,21 +540,21 @@ impl Lexer<'_> {
             if let Some((end, comment)) = self.template_args(name) {
                 let after = self.skip_space(end);
                 if self.at(after) == b'(' && after < self.lim() {
-                    self.cap(1, p, name);
-                    self.cap(2, name, after);
-                    self.cap(3, name, end);
+                    self.capture(1, p, name);
+                    self.capture(2, name, after);
+                    self.capture(3, name, end);
                     if let Some(parts) = comment {
                         for (i, (a, b)) in parts.iter().enumerate() {
-                            self.cap(4 + i, *a, *b);
+                            self.capture(4 + i, *a, *b);
                         }
                     }
-                    self.cap(7, after, after + 1);
+                    self.capture(7, after, after + 1);
                     return Some(after + 1);
                 }
             }
             if self.at(name) == b'(' && name < self.lim() {
-                self.cap(1, p, name);
-                self.cap(7, name, name + 1);
+                self.capture(1, p, name);
+                self.capture(7, name, name + 1);
                 return Some(name + 1);
             }
         }
@@ -641,9 +641,9 @@ impl Lexer<'_> {
         if blocked {
             return None;
         }
-        self.cap(1, open, open + 1);
-        self.cap(2, open + 1, at);
-        self.cap(4, at, at + 1);
+        self.capture(1, open, open + 1);
+        self.capture(2, open + 1, at);
+        self.capture(4, at, at + 1);
         Some(at + 1)
     }
 
@@ -679,8 +679,8 @@ impl Lexer<'_> {
                 continue;
             }
             for after in spaces(self, name) {
-                for attr in self.attribute_options(after) {
-                    for from in spaces(self, attr.unwrap_or(after)) {
+                for attribute in self.attribute_options(after) {
+                    for from in spaces(self, attribute.unwrap_or(after)) {
                         if self.at(from) == b'=' && from < self.lim() {
                             for start in spaces(self, from + 1) {
                                 for k in start + 1..=self.lim() {
@@ -688,14 +688,14 @@ impl Lexer<'_> {
                                         let Some((end, terminator)) = tail(self, q) else {
                                             continue;
                                         };
-                                        self.cap(1, p, name);
-                                        if let Some(a) = attr {
-                                            self.cap(2, after, a);
+                                        self.capture(1, p, name);
+                                        if let Some(a) = attribute {
+                                            self.capture(2, after, a);
                                         }
-                                        self.cap(3, from, from + 1);
-                                        self.cap(4, start, k);
+                                        self.capture(3, from, from + 1);
+                                        self.capture(4, start, k);
                                         if let Some(t) = terminator {
-                                            self.cap(5, t, end);
+                                            self.capture(5, t, end);
                                         }
                                         return Some(end);
                                     }
@@ -703,12 +703,12 @@ impl Lexer<'_> {
                             }
                         }
                         if let Some((end, terminator)) = tail(self, from) {
-                            self.cap(1, p, name);
-                            if let Some(a) = attr {
-                                self.cap(2, after, a);
+                            self.capture(1, p, name);
+                            if let Some(a) = attribute {
+                                self.capture(2, after, a);
                             }
                             if let Some(t) = terminator {
-                                self.cap(5, t, end);
+                                self.capture(5, t, end);
                             }
                             return Some(end);
                         }
@@ -771,10 +771,10 @@ impl Lexer<'_> {
                 }
             }
             let Some(end) = found else { continue };
-            self.cap(groups.0, 0, end);
-            self.cap(groups.1, lead, end);
-            self.cap(groups.2, lead, after);
-            self.cap(groups.3, run_start, run_end);
+            self.capture(groups.0, 0, end);
+            self.capture(groups.1, lead, end);
+            self.capture(groups.2, lead, after);
+            self.capture(groups.3, run_start, run_end);
             return Some(end);
         }
         None

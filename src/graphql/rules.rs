@@ -12,7 +12,7 @@ use crate::scope::{Scopes, scopes};
 
 /// A pattern of a rule: a match rule, or the begin of a rule it opens.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) enum Pat {
+pub(crate) enum Pattern {
     Open(Rule),
     /// `(\s*)(#).*`
     Hash,
@@ -68,10 +68,10 @@ pub(crate) enum Pat {
     End,
 }
 
-impl Pat {
+impl Pattern {
     /// The rule the pattern opens, when it is a begin.
     pub(super) fn opens(self) -> Option<Rule> {
-        if let Pat::Open(rule) = self {
+        if let Pattern::Open(rule) = self {
             Some(rule)
         } else {
             None
@@ -81,43 +81,43 @@ impl Pat {
     /// The scopes a match rule adds to its whole match.
     pub(super) fn name(self) -> Scopes<S> {
         match self {
-            Pat::Hash => scopes![S::CommentLine],
-            Pat::EnumValue => scopes![S::EnumValue],
-            Pat::EscapeSimple | Pat::EscapeUnicode => scopes![S::Escape],
-            Pat::Open(_)
-            | Pat::Ampersand
-            | Pat::Boolean
-            | Pat::Colon
-            | Pat::Comma
-            | Pat::Alias
-            | Pat::Field
-            | Pat::Float
-            | Pat::Name
-            | Pat::Null
-            | Pat::ObjectField
-            | Pat::Operation
-            | Pat::Scalar
-            | Pat::BuiltinType
-            | Pat::TypeName
-            | Pat::SkipNewlines
-            | Pat::VariableName
-            | Pat::Implemented
-            | Pat::UnionMember
-            | Pat::Location
-            | Pat::SchemaType
-            | Pat::Spaces
-            | Pat::End => S::NO_SCOPES,
+            Pattern::Hash => scopes![S::CommentLine],
+            Pattern::EnumValue => scopes![S::EnumValue],
+            Pattern::EscapeSimple | Pattern::EscapeUnicode => scopes![S::Escape],
+            Pattern::Open(_)
+            | Pattern::Ampersand
+            | Pattern::Boolean
+            | Pattern::Colon
+            | Pattern::Comma
+            | Pattern::Alias
+            | Pattern::Field
+            | Pattern::Float
+            | Pattern::Name
+            | Pattern::Null
+            | Pattern::ObjectField
+            | Pattern::Operation
+            | Pattern::Scalar
+            | Pattern::BuiltinType
+            | Pattern::TypeName
+            | Pattern::SkipNewlines
+            | Pattern::VariableName
+            | Pattern::Implemented
+            | Pattern::UnionMember
+            | Pattern::Location
+            | Pattern::SchemaType
+            | Pattern::Spaces
+            | Pattern::End => S::NO_SCOPES,
         }
     }
 }
 
-use Pat::{
+use Pattern::{
     Alias, Ampersand, Boolean, BuiltinType, Colon, Comma, EnumValue, EscapeSimple, EscapeUnicode,
     Field, Float, Hash, Implemented, Location, Name, Null, ObjectField, Open, Operation, Scalar,
     SchemaType, SkipNewlines, Spaces, TypeName, UnionMember, VariableName,
 };
 
-const ROOT: &[Pat] = &[
+const ROOT: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -136,9 +136,9 @@ const ROOT: &[Pat] = &[
 ];
 
 /// A rule that only has an end pattern, or whose text is not lexed by patterns.
-const NONE: &[Pat] = &[];
+const NONE: &[Pattern] = &[];
 
-const FRAGMENT: &[Pat] = &[
+const FRAGMENT: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -147,7 +147,7 @@ const FRAGMENT: &[Pat] = &[
     SkipNewlines,
 ];
 
-const DIRECTIVE_DEFINITION: &[Pat] = &[
+const DIRECTIVE_DEFINITION: &[Pattern] = &[
     Open(Rule::Variables),
     Open(Rule::DirectiveLocations),
     SkipNewlines,
@@ -156,7 +156,7 @@ const DIRECTIVE_DEFINITION: &[Pat] = &[
     Open(Rule::CommentSingle),
 ];
 
-const DIRECTIVE_LOCATIONS: &[Pat] = &[
+const DIRECTIVE_LOCATIONS: &[Pattern] = &[
     SkipNewlines,
     Hash,
     Open(Rule::CommentTriple),
@@ -164,7 +164,7 @@ const DIRECTIVE_LOCATIONS: &[Pat] = &[
     Location,
 ];
 
-const TYPE_INTERFACE: &[Pat] = &[
+const TYPE_INTERFACE: &[Pattern] = &[
     Open(Rule::Implements),
     Hash,
     Open(Rule::CommentTriple),
@@ -174,7 +174,7 @@ const TYPE_INTERFACE: &[Pat] = &[
     Spaces,
 ];
 
-const IMPLEMENTS: &[Pat] = &[
+const IMPLEMENTS: &[Pattern] = &[
     Implemented,
     Hash,
     Open(Rule::CommentTriple),
@@ -184,7 +184,7 @@ const IMPLEMENTS: &[Pat] = &[
     Comma,
 ];
 
-const ENUM: &[Pat] = &[
+const ENUM: &[Pattern] = &[
     Open(Rule::EnumBody),
     Hash,
     Open(Rule::CommentTriple),
@@ -192,7 +192,7 @@ const ENUM: &[Pat] = &[
     Open(Rule::Directive),
 ];
 
-const ENUM_BODY: &[Pat] = &[
+const ENUM_BODY: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -200,7 +200,7 @@ const ENUM_BODY: &[Pat] = &[
     EnumValue,
 ];
 
-const SCHEMA: &[Pat] = &[
+const SCHEMA: &[Pattern] = &[
     Open(Rule::SchemaBody),
     Hash,
     Open(Rule::CommentTriple),
@@ -209,7 +209,7 @@ const SCHEMA: &[Pat] = &[
     SkipNewlines,
 ];
 
-const SCHEMA_BODY: &[Pat] = &[
+const SCHEMA_BODY: &[Pattern] = &[
     Open(Rule::SchemaField),
     Hash,
     Open(Rule::CommentTriple),
@@ -217,7 +217,7 @@ const SCHEMA_BODY: &[Pat] = &[
     SkipNewlines,
 ];
 
-const SCHEMA_FIELD: &[Pat] = &[
+const SCHEMA_FIELD: &[Pattern] = &[
     SchemaType,
     Hash,
     Open(Rule::CommentTriple),
@@ -226,7 +226,7 @@ const SCHEMA_FIELD: &[Pat] = &[
     SkipNewlines,
 ];
 
-const UNION: &[Pat] = &[
+const UNION: &[Pattern] = &[
     Open(Rule::UnionMembers),
     Hash,
     Open(Rule::CommentTriple),
@@ -234,7 +234,7 @@ const UNION: &[Pat] = &[
     SkipNewlines,
 ];
 
-const UNION_MEMBERS: &[Pat] = &[
+const UNION_MEMBERS: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -242,7 +242,7 @@ const UNION_MEMBERS: &[Pat] = &[
     UnionMember,
 ];
 
-const DIRECTIVE: &[Pat] = &[
+const DIRECTIVE: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -250,14 +250,14 @@ const DIRECTIVE: &[Pat] = &[
     SkipNewlines,
 ];
 
-const ARGUMENTS: &[Pat] = &[
+const ARGUMENTS: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
     Open(Rule::Argument),
 ];
 
-const ARGUMENT: &[Pat] = &[
+const ARGUMENT: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -273,9 +273,9 @@ const ARGUMENT: &[Pat] = &[
     SkipNewlines,
 ];
 
-const STRING: &[Pat] = &[EscapeSimple, EscapeUnicode];
+const STRING: &[Pattern] = &[EscapeSimple, EscapeUnicode];
 
-const LIST: &[Pat] = &[
+const LIST: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -289,7 +289,7 @@ const LIST: &[Pat] = &[
     Open(Rule::Object),
 ];
 
-const OBJECT: &[Pat] = &[
+const OBJECT: &[Pattern] = &[
     ObjectField,
     Hash,
     Open(Rule::CommentTriple),
@@ -304,14 +304,14 @@ const OBJECT: &[Pat] = &[
     Open(Rule::Object),
 ];
 
-const VARIABLES: &[Pat] = &[
+const VARIABLES: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
     Open(Rule::Variable),
 ];
 
-const VARIABLE: &[Pat] = &[
+const VARIABLE: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -324,7 +324,7 @@ const VARIABLE: &[Pat] = &[
     SkipNewlines,
 ];
 
-const TYPE_LIST: &[Pat] = &[
+const TYPE_LIST: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -334,7 +334,7 @@ const TYPE_LIST: &[Pat] = &[
     Comma,
 ];
 
-const SELECTION: &[Pat] = &[
+const SELECTION: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -350,14 +350,14 @@ const SELECTION: &[Pat] = &[
     Open(Rule::Interpolation),
 ];
 
-const TYPE_OBJECT: &[Pat] = &[
+const TYPE_OBJECT: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
     Open(Rule::TypeField),
 ];
 
-const TYPE_FIELD: &[Pat] = &[
+const TYPE_FIELD: &[Pattern] = &[
     Hash,
     Open(Rule::CommentTriple),
     Open(Rule::CommentSingle),
@@ -371,7 +371,7 @@ const TYPE_FIELD: &[Pat] = &[
 ];
 
 /// The patterns of `rule`, in the order the grammar tries them.
-pub(super) fn patterns(rule: Rule) -> &'static [Pat] {
+pub(super) fn patterns(rule: Rule) -> &'static [Pattern] {
     match rule {
         Rule::Root => ROOT,
         Rule::CommentTriple | Rule::CommentSingle | Rule::Interpolation => NONE,

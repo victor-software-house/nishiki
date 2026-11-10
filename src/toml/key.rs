@@ -28,7 +28,7 @@ struct Key {
 
 /// Whether a key's names are all bare or one of them opens with a quote.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum NameKind {
+enum Quoting {
     Bare,
     Quoted,
 }
@@ -74,7 +74,7 @@ impl Lexer<'_> {
             self.skip_failed_name(p);
             return None;
         }
-        let (mut kind, mut end) = self.name(p);
+        let (mut quoting, mut end) = self.name(p);
         let mut names = usize::from(end.is_some());
         let mut key_end = end?;
         let mut second = usize::MAX;
@@ -84,9 +84,9 @@ impl Lexer<'_> {
                 break;
             }
             let next = self.skip_space(dot + 1);
-            let (next_kind, next_end) = self.name(next);
-            if next_kind == NameKind::Quoted {
-                kind = NameKind::Quoted;
+            let (next_quoting, next_end) = self.name(next);
+            if next_quoting == Quoting::Quoted {
+                quoting = Quoting::Quoted;
             }
             end = next_end;
             match end {
@@ -112,10 +112,10 @@ impl Lexer<'_> {
                 block: false,
             });
         }
-        match kind {
-            NameKind::Bare => self.no_key_before = key_end,
-            NameKind::Quoted if second != usize::MAX => self.failed_chain.set((second, key_end)),
-            NameKind::Quoted => {}
+        match quoting {
+            Quoting::Bare => self.no_key_before = key_end,
+            Quoting::Quoted if second != usize::MAX => self.failed_chain.set((second, key_end)),
+            Quoting::Quoted => {}
         }
         None
     }
@@ -141,13 +141,13 @@ impl Lexer<'_> {
     /// whole name.
     /// A quote that never closes still makes the name quoted.
     /// That decides what a failed key remembers.
-    fn name(&self, i: usize) -> (NameKind, Option<usize>) {
-        let kind = if matches!(self.at(i), b'"' | b'\'') {
-            NameKind::Quoted
+    fn name(&self, i: usize) -> (Quoting, Option<usize>) {
+        let quoting = if matches!(self.at(i), b'"' | b'\'') {
+            Quoting::Quoted
         } else {
-            NameKind::Bare
+            Quoting::Bare
         };
-        (kind, self.name_end(i))
+        (quoting, self.name_end(i))
     }
 
     /// The end of the bare or quoted name at `i`, if one starts there.

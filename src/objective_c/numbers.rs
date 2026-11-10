@@ -202,10 +202,10 @@ where
 
     /// Records digits as group `group` and their last separator as
     /// `group + 1`.
-    fn cap_digits(&mut self, group: usize, start: usize, (end, sep): (usize, Option<usize>)) {
-        self.cap(group, start, end);
+    fn capture_digits(&mut self, group: usize, start: usize, (end, sep): (usize, Option<usize>)) {
+        self.capture(group, start, end);
         if let Some(sep) = sep {
-            self.cap(group + 1, sep, sep + 1);
+            self.capture(group + 1, sep, sep + 1);
         }
     }
 
@@ -233,19 +233,19 @@ where
 
     /// The groups of the exponent `i..end`; `whole` is the group around it,
     /// when the pattern names one.
-    fn exponent_caps(&mut self, i: usize, end: usize, groups: ExpGroups, whole: usize) {
-        self.cap(whole, i, end);
-        self.cap(groups.letter, i, i + 1);
+    fn exponent_captures(&mut self, i: usize, end: usize, groups: ExpGroups, whole: usize) {
+        self.capture(whole, i, end);
+        self.capture(groups.letter, i, i + 1);
         let mut j = i + 1;
         if self.at(j) == b'+' {
-            self.cap(groups.plus, j, j + 1);
+            self.capture(groups.plus, j, j + 1);
             j += 1;
         }
         if self.at(j) == b'-' {
-            self.cap(groups.minus, j, j + 1);
+            self.capture(groups.minus, j, j + 1);
             j += 1;
         }
-        self.cap(groups.digits, j, end);
+        self.capture(groups.digits, j, end);
     }
 
     /// Whether what follows the digits from `i` to `b` is nothing, or a
@@ -269,7 +269,7 @@ where
             return false;
         }
         if i < b {
-            self.cap(group, i, b);
+            self.capture(group, i, b);
         }
         true
     }
@@ -285,7 +285,7 @@ where
         if let Some(end) = self.exponent_end(i, shape.exp)
             && self.suffix_ok(end, b, shape.suffix)
         {
-            self.exponent_caps(i, end, shape.groups, shape.whole);
+            self.exponent_captures(i, end, shape.groups, shape.whole);
             return self.tail(end, b, shape.suffix, shape.last);
         }
         self.tail(i, b, shape.suffix, shape.last)
@@ -307,14 +307,14 @@ where
         if !dot {
             return false;
         }
-        self.cap(1, a, a + 2);
+        self.capture(1, a, a + 2);
         if let Some(run) = before {
-            self.cap_digits(2, i, run);
+            self.capture_digits(2, i, run);
         }
-        self.cap(4, dot_at, dot_at + 1);
+        self.capture(4, dot_at, dot_at + 1);
         i = dot_at + 1;
         if let Some(run) = self.run_digits(i, |c| c.is_ascii_hexdigit()) {
-            self.cap_digits(5, i, run);
+            self.capture_digits(5, i, run);
             i = run.0;
         }
         self.exponent_tail(i, b, HEX_FLOAT)
@@ -343,14 +343,14 @@ where
         if !dot {
             return false;
         }
-        self.cap(1, a, a);
+        self.capture(1, a, a);
         if let Some(run) = before {
-            self.cap_digits(2, a, run);
+            self.capture_digits(2, a, run);
         }
-        self.cap(4, dot_at, dot_at + 1);
+        self.capture(4, dot_at, dot_at + 1);
         let mut i = dot_at + 1;
         if let Some(run) = self.run_digits(i, |c| c.is_ascii_digit()) {
-            self.cap_digits(5, i, run);
+            self.capture_digits(5, i, run);
             i = run.0;
         }
         self.exponent_tail(i, b, DEC_FLOAT)
@@ -367,8 +367,8 @@ where
         if !self.suffix_ok(run.0, b, Suffix::Int) {
             return false;
         }
-        self.cap(1, a, a + 2);
-        self.cap_digits(2, a + 2, run);
+        self.capture(1, a, a + 2);
+        self.capture_digits(2, a + 2, run);
         self.tail(run.0, b, Suffix::Int, 4)
     }
 
@@ -381,8 +381,8 @@ where
         if run.0 == a + 1 || !self.suffix_ok(run.0, b, Suffix::Int) {
             return false;
         }
-        self.cap(1, a, a + 1);
-        self.cap_digits(2, a + 1, run);
+        self.capture(1, a, a + 1);
+        self.capture_digits(2, a + 1, run);
         self.tail(run.0, b, Suffix::Int, 4)
     }
 
@@ -401,8 +401,8 @@ where
         if !fits {
             return false;
         }
-        self.cap(1, a, a + 2);
-        self.cap_digits(2, a + 2, run);
+        self.capture(1, a, a + 2);
+        self.capture_digits(2, a + 2, run);
         self.exponent_tail(run.0, b, HEX_INT)
     }
 
@@ -422,8 +422,8 @@ where
         if !fits {
             return false;
         }
-        self.cap(1, a, a);
-        self.cap_digits(2, a, run);
+        self.capture(1, a, a);
+        self.capture_digits(2, a, run);
         self.exponent_tail(run.0, b, DEC_INT)
     }
 }

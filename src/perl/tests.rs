@@ -149,7 +149,7 @@ fn the_data_section_is_a_comment_to_the_end() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::perl::engine::Perl;
-    use crate::perl::grammar::Pat;
+    use crate::perl::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with Perl's matchers (see
@@ -157,9 +157,9 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Perl, _>(arena, case, |lexer| {
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

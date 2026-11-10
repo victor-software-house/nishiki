@@ -187,14 +187,14 @@ pub(crate) enum P {
 /// One entry of a pattern list: a pattern, or a group of entries a rule
 /// includes.
 #[derive(Clone, Copy, Debug)]
-pub(super) enum Item {
+pub(super) enum Entry {
     P(P),
-    G(&'static [Item]),
+    G(&'static [Entry]),
 }
 
-use Item::{G, P as I};
+use Entry::{G, P as I};
 
-pub(super) const COMMENTS: &[Item] = &[
+pub(super) const COMMENTS: &[Entry] = &[
     I(P::DocLine),
     I(P::DocBlockOne),
     I(P::DocBlockBegin),
@@ -205,14 +205,14 @@ pub(super) const COMMENTS: &[Item] = &[
     I(P::LineComment),
 ];
 
-pub(super) const STORAGE_TYPES: &[Item] = &[
+pub(super) const STORAGE_TYPES: &[Entry] = &[
     I(P::Primitive),
     I(P::BuiltIn),
     I(P::EnumStructUnion),
     I(P::AsmBegin),
 ];
 
-pub(super) const OPERATORS: &[Item] = &[
+pub(super) const OPERATORS: &[Entry] = &[
     I(P::Sizeof),
     I(P::Decrement),
     I(P::Increment),
@@ -227,9 +227,9 @@ pub(super) const OPERATORS: &[Item] = &[
     I(P::Ternary),
 ];
 
-const STRINGS: &[Item] = &[I(P::DQuote), I(P::SQuote)];
+const STRINGS: &[Entry] = &[I(P::DQuote), I(P::SQuote)];
 
-pub(super) const DOXY: &[Item] = &[
+pub(super) const DOXY: &[Entry] = &[
     I(P::DoxyBare),
     I(P::DoxyItalic),
     I(P::DoxyBold),
@@ -242,20 +242,20 @@ pub(super) const DOXY: &[Item] = &[
     I(P::Gtkdoc),
 ];
 
-pub(super) const INLINE: &[Item] = &[I(P::InlineComment)];
-pub(super) const INLINE_CLOSE: &[Item] = &[I(P::InlineEnd), I(P::InlineStar)];
-pub(super) const ACCESS: &[Item] = &[I(P::MemberAccess), I(P::PlainAccess)];
-pub(super) const DEFINE_PARAMS: &[Item] = &[
+pub(super) const INLINE: &[Entry] = &[I(P::InlineComment)];
+pub(super) const INLINE_CLOSE: &[Entry] = &[I(P::InlineEnd), I(P::InlineStar)];
+pub(super) const ACCESS: &[Entry] = &[I(P::MemberAccess), I(P::PlainAccess)];
+pub(super) const DEFINE_PARAMS: &[Entry] = &[
     I(P::DefineParamName),
     I(P::DefineParamComma),
     I(P::DefineParamEllipsis),
 ];
-pub(super) const PARAM_DIR: &[Item] = &[I(P::ParamDir)];
-pub(super) const NUM_SEP: &[Item] = &[I(P::NumSep)];
+pub(super) const PARAM_DIR: &[Entry] = &[I(P::ParamDir)];
+pub(super) const NUM_SEP: &[Entry] = &[I(P::NumSep)];
 /// The patterns a number-like run is lexed again with.
 /// Each of the first six must take the whole run from its start.
 /// The last marks what none takes.
-const NUMBER: &[Item] = &[
+const NUMBER: &[Entry] = &[
     I(P::HexFloat),
     I(P::DecFloat),
     I(P::Binary),
@@ -265,11 +265,11 @@ const NUMBER: &[Item] = &[
     I(P::InvalidNumber),
 ];
 
-const DISABLED_ITEMS: &[Item] = &[I(P::NestBegin), I(P::PragmaMark)];
+const DISABLED_ENTRIES: &[Entry] = &[I(P::NestBegin), I(P::PragmaMark)];
 
 /// The top-level patterns.
 /// `$self` includes them.
-const SELF: &[Item] = &[
+const SELF: &[Entry] = &[
     I(P::EnabledIfBegin),
     I(P::DisabledIfBegin),
     I(P::CondIfBegin),
@@ -312,7 +312,7 @@ const SELF: &[Item] = &[
     I(P::Comma),
 ];
 
-const BLOCK_INNARDS: &[Item] = &[
+const BLOCK_INNARDS: &[Entry] = &[
     I(P::EnabledIfBBegin),
     I(P::DisabledIfBBegin),
     I(P::CondIfBBegin),
@@ -326,7 +326,7 @@ const BLOCK_INNARDS: &[Item] = &[
     G(SELF),
 ];
 
-const FUNC_INNARDS: &[Item] = &[
+const FUNC_INNARDS: &[Entry] = &[
     G(COMMENTS),
     G(STORAGE_TYPES),
     G(OPERATORS),
@@ -336,7 +336,7 @@ const FUNC_INNARDS: &[Item] = &[
     G(SELF),
 ];
 
-const CALL_INNARDS: &[Item] = &[
+const CALL_INNARDS: &[Entry] = &[
     G(COMMENTS),
     G(STORAGE_TYPES),
     I(P::MethodAccess),
@@ -347,7 +347,7 @@ const CALL_INNARDS: &[Item] = &[
     G(BLOCK_INNARDS),
 ];
 
-const COND_LINE: &[Item] = &[
+const COND_LINE: &[Entry] = &[
     I(P::CondDefinedKeyword),
     I(P::CondDefinedInvalid),
     G(COMMENTS),
@@ -361,7 +361,7 @@ const COND_LINE: &[Item] = &[
     I(P::CondParensBegin),
 ];
 
-const DEFINE_CONTENTS: &[Item] = &[
+const DEFINE_CONTENTS: &[Entry] = &[
     I(P::Vararg),
     I(P::DefineBlockBegin),
     I(P::DefineLParen),
@@ -374,9 +374,9 @@ const DEFINE_CONTENTS: &[Item] = &[
     G(SELF),
 ];
 
-const DEFINE_BLOCKS: &[Item] = &[I(P::DefineBlockInnerBegin), G(DEFINE_CONTENTS)];
+const DEFINE_BLOCKS: &[Entry] = &[I(P::DefineBlockInnerBegin), G(DEFINE_CONTENTS)];
 
-const DEFINE_FUNCTIONS: &[Item] = &[
+const DEFINE_FUNCTIONS: &[Entry] = &[
     G(COMMENTS),
     G(STORAGE_TYPES),
     I(P::Vararg),
@@ -394,7 +394,7 @@ impl R {
         clippy::too_many_lines,
         reason = "one arm per context: the table of pattern lists"
     )]
-    fn items(self) -> &'static [&'static [Item]] {
+    fn items(self) -> &'static [&'static [Entry]] {
         match self {
             R::Top | R::Parens | R::LiveElse | R::EnabledBody | R::SwitchTail => &[SELF],
             R::Block | R::BlockInner | R::LiveElseB | R::EnabledBodyB => &[BLOCK_INNARDS],
@@ -509,7 +509,7 @@ impl R {
             | R::ElseBranchB
             | R::ElifBranch
             | R::ElifBranchB
-            | R::Nest => &[DISABLED_ITEMS],
+            | R::Nest => &[DISABLED_ENTRIES],
             R::DisabledElif => &[
                 &[I(P::HeadContBegin)],
                 COMMENTS,
@@ -859,9 +859,9 @@ fn object_only(p: P) -> bool {
     matches!(p, P::MethodAccess | P::MemberAccess | P::PlainAccess)
 }
 
-/// The kinds of position, as bits. Each excludes the patterns that cannot
-/// match there.
-pub(super) mod kind {
+/// The places a position can be, as bits. Each excludes the patterns that
+/// cannot match there.
+pub(super) mod place {
     /// The start of the line.
     pub(in crate::c) const START: usize = 1;
     /// After a word character.
@@ -874,40 +874,40 @@ pub(super) mod kind {
     pub(in crate::c) const NO_CALL: usize = 16;
     /// Neither a letter nor after `]` or `)`.
     pub(in crate::c) const NO_OBJECT: usize = 32;
-    /// How many kinds there are.
+    /// How many sets of these bits there are.
     pub(in crate::c) const COUNT: usize = 64;
 }
-use kind::COUNT as KINDS;
+use place::COUNT as PLACES;
 
-/// Whether the pattern `p` can match at a position whose `kind` flags are
+/// Whether the pattern `p` can match at a position whose `place` flags are
 /// `flags`.
 fn allowed(flags: usize, p: P) -> bool {
-    if flags & kind::START == 0 && start_only(p) {
+    if flags & place::START == 0 && start_only(p) {
         return false;
     }
-    if flags & kind::AFTER_WORD != 0 && word_start(p) {
+    if flags & place::AFTER_WORD != 0 && word_start(p) {
         return false;
     }
-    if flags & kind::BLANK_DEAD != 0 && run_start_only(p) {
+    if flags & place::BLANK_DEAD != 0 && run_start_only(p) {
         return false;
     }
-    if flags & kind::IN_WORD != 0 && word_tail_only(p) {
+    if flags & place::IN_WORD != 0 && word_tail_only(p) {
         return false;
     }
-    if flags & kind::NO_CALL != 0 && call_only(p) {
+    if flags & place::NO_CALL != 0 && call_only(p) {
         return false;
     }
-    flags & kind::NO_OBJECT == 0 || !object_only(p)
+    flags & place::NO_OBJECT == 0 || !object_only(p)
 }
 
-/// One context's patterns by the position's `kind` and first byte, in the
+/// One context's patterns by the position's `place` and first byte, in the
 /// order the context tries them.
 pub(super) struct Table {
     /// The class of each byte, and of the end of text.
     class_of: [u8; EOT + 1],
     /// How many classes the context has.
     classes: usize,
-    /// For each `kind` and class, the list that applies.
+    /// For each `place` and class, the list that applies.
     ids: Vec<u16>,
     lists: Vec<Vec<P>>,
 }
@@ -917,7 +917,7 @@ impl Table {
     /// A line pays only for the contexts it opens.
     ///
     /// Bytes that start the same patterns share a class.
-    /// Each `kind` has a column per class.
+    /// Each `place` has a column per class.
     /// A class index fits a `u8`, and a list index fits a `u16`.
     /// `tables_fit_their_indices` checks both.
     /// The fallbacks therefore never apply.
@@ -933,7 +933,7 @@ impl Table {
     /// Builds the table over sets of the context's patterns.
     /// A set has one bit per pattern, in the order the context tries them.
     /// A class is the set of patterns a byte can start.
-    /// A `kind` is the set of patterns it allows.
+    /// A `place` is the set of patterns it allows.
     /// A list is made only for a set not seen before.
     fn build(r: R) -> Table {
         let mut flat = Vec::new();
@@ -965,9 +965,9 @@ impl Table {
         }
         let mut lists: Vec<Vec<P>> = Vec::new();
         let mut seen: HashMap<Vec<u64>, u16> = HashMap::new();
-        let mut ids = Vec::with_capacity(KINDS * signatures.len());
+        let mut ids = Vec::with_capacity(PLACES * signatures.len());
         let mut key = vec![0_u64; words];
-        for flags in 0..KINDS {
+        for flags in 0..PLACES {
             let allows = set(&|p| allowed(flags, p));
             for signature in &signatures {
                 for ((bits, starts), allows) in key.iter_mut().zip(signature).zip(&allows) {
@@ -998,23 +998,23 @@ impl Table {
         }
     }
 
-    pub(super) fn candidates(&self, kind: usize, index: usize) -> &[P] {
+    pub(super) fn candidates(&self, place: usize, index: usize) -> &[P] {
         let class = self
             .class_of
             .get(index)
             .map_or(0, |&class| usize::from(class));
         self.ids
-            .get(kind * self.classes + class)
+            .get(place * self.classes + class)
             .and_then(|&id| self.lists.get(usize::from(id)))
             .map_or(&[], Vec::as_slice)
     }
 }
 
-fn flatten(list: &[Item], out: &mut Vec<P>) {
+fn flatten(list: &[Entry], out: &mut Vec<P>) {
     for item in list {
         match *item {
-            Item::P(p) => out.push(p),
-            Item::G(group) => flatten(group, out),
+            Entry::P(p) => out.push(p),
+            Entry::G(group) => flatten(group, out),
         }
     }
 }

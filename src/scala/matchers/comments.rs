@@ -39,7 +39,7 @@ impl Lexer<'_> {
         if p == 0 {
             let blanks = self.blank_end(0);
             if blanks > 0 && self.starts(blanks, b"//") {
-                self.cap(1, 0, blanks);
+                self.capture(1, 0, blanks);
                 return Some(blanks);
             }
         }
@@ -73,7 +73,7 @@ impl Lexer<'_> {
         if self.at(end) == b'/' {
             return None;
         }
-        self.cap(1, open, end);
+        self.capture(1, open, end);
         Some(end)
     }
 
@@ -91,8 +91,8 @@ impl Lexer<'_> {
         if end == name {
             return None;
         }
-        self.cap(1, p, tag);
-        self.cap(2, name, end);
+        self.capture(1, p, tag);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -123,9 +123,9 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(close, b"]]")?;
-        self.cap(1, p, open);
-        self.cap(2, open, close);
-        self.cap(3, close, end);
+        self.capture(1, p, open);
+        self.capture(2, open, close);
+        self.capture(3, close, end);
         Some(end)
     }
 
@@ -136,7 +136,7 @@ impl Lexer<'_> {
         }
         let bang = self.lit(0, b"#!")?;
         let end = self.lim();
-        self.cap(1, bang, end);
+        self.capture(1, bang, end);
         Some(end)
     }
 
@@ -160,10 +160,10 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.non_space_end(blanks);
-        self.cap(1, open, marker);
-        self.cap(2, word, using);
+        self.capture(1, open, marker);
+        self.capture(2, word, using);
         if end > blanks {
-            self.cap(3, blanks, end);
+            self.capture(3, blanks, end);
         }
         Some(end)
     }

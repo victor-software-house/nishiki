@@ -1,6 +1,6 @@
-//! The high byte of every frame kind, one constant per lexer module.
+//! The high byte of every frame rule, one constant per lexer module.
 //!
-//! A frame of the shared arena (`src/arena.rs`) carries a `kind` code.
+//! A frame of the shared arena (`src/arena.rs`) carries a `rule` code.
 //! The tag in its high bits marks which lexer's enum the low bits belong to.
 //! Lexers are written in parallel, so the tags are allocated here and nowhere
 //! else.
@@ -281,10 +281,10 @@ const _: () = assert!(all_distinct(), "two lexers claim the same frame tag");
 
 /// The bits of a frame code that name the variant within a lexer's enum; the
 /// bits above them hold the lexer's tag.
-#[cfg(feature = "_frame-kinds")]
-pub(crate) const KIND_MASK: u16 = 0x00ff;
+#[cfg(feature = "_frame-rules")]
+pub(crate) const RULE_MASK: u16 = 0x00ff;
 
-/// Declares a lexer's frame kinds: a fieldless enum tagged with `$tag`.
+/// Declares a lexer's frame rules: a fieldless enum tagged with `$tag`.
 ///
 /// The enum gets `ALL`, `code` and `from_code`.
 /// A test checks that every variant survives the round trip through its code.
@@ -295,8 +295,8 @@ pub(crate) const KIND_MASK: u16 = 0x00ff;
 /// A lexer started on a foreign state therefore reads it as its top level.
 /// A variant's code is its position in the declaration, so variants are only
 /// ever added at the end.
-#[cfg(feature = "_frame-kinds")]
-macro_rules! frame_kinds {
+#[cfg(feature = "_frame-rules")]
+macro_rules! frame_rules {
     (
         $(#[$meta:meta])*
         $vis:vis enum $name:ident: $tag:ident {
@@ -334,26 +334,26 @@ macro_rules! frame_kinds {
             /// code that is not this lexer's.
             $vis fn from_code(code: u16) -> $name {
                 const TOP: $name = $name::ALL[0];
-                if code & !$crate::tag::KIND_MASK != $tag {
+                if code & !$crate::tag::RULE_MASK != $tag {
                     return TOP;
                 }
                 $name::ALL
-                    .get(usize::from(code & $crate::tag::KIND_MASK))
+                    .get(usize::from(code & $crate::tag::RULE_MASK))
                     .copied()
                     .unwrap_or(TOP)
             }
         }
 
         #[cfg(test)]
-        mod frame_kinds_round_trip {
+        mod frame_rules_round_trip {
             use super::$name;
 
             #[test]
-            fn every_kind_survives_its_code() {
-                for (index, &kind) in $name::ALL.iter().enumerate() {
-                    let code = kind.code();
-                    assert_eq!(usize::from(code & $crate::tag::KIND_MASK), index, "{kind:?}");
-                    assert_eq!($name::from_code(code), kind);
+            fn every_rule_survives_its_code() {
+                for (index, &rule) in $name::ALL.iter().enumerate() {
+                    let code = rule.code();
+                    assert_eq!(usize::from(code & $crate::tag::RULE_MASK), index, "{rule:?}");
+                    assert_eq!($name::from_code(code), rule);
                 }
                 assert_eq!($name::from_code(0), $name::ALL[0]);
             }
@@ -361,5 +361,5 @@ macro_rules! frame_kinds {
     };
 }
 
-#[cfg(feature = "_frame-kinds")]
-pub(crate) use frame_kinds;
+#[cfg(feature = "_frame-rules")]
+pub(crate) use frame_rules;

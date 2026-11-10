@@ -41,7 +41,7 @@ impl Lexer<'_> {
         if end == p + 1 {
             return None;
         }
-        self.cap(1, p + 1, end);
+        self.capture(1, p + 1, end);
         Some(end)
     }
 

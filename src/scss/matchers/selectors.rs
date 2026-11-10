@@ -26,7 +26,7 @@ pub(super) enum Sigil {
 
 /// The value of an attribute selector.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Value {
+enum AttributeValue {
     /// The name group, ending here.
     Bare(usize),
     /// A string in `quote`s, whose closing one is at `close`.
@@ -165,8 +165,8 @@ impl Lexer<'_> {
             self.x.name.set((byte, p, units, found));
             found
         }?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -180,7 +180,7 @@ impl Lexer<'_> {
         let end = self.name_greedy(p, DotDollar::Absent, &mut units, |lexer, k| {
             lexer.name_stop(k, b".")
         })?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -232,7 +232,7 @@ impl Lexer<'_> {
             self.x.custom.set((p, at, found));
             found
         }?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -242,20 +242,20 @@ impl Lexer<'_> {
             return None;
         }
         let nth = self.lit(p + 1, b"nth-")?;
-        let kind = [Some(nth), self.lit(nth, b"last-")]
+        let name_end = [Some(nth), self.lit(nth, b"last-")]
             .into_iter()
             .flatten()
             .find_map(|from| {
                 self.lit(from, b"child")
                     .or_else(|| self.lit(from, b"of-type"))
             })?;
-        if self.at(kind) != b'(' {
+        if self.at(name_end) != b'(' {
             return None;
         }
-        self.cap(1, p, kind);
-        self.cap(2, p, p + 1);
-        self.cap(3, kind, kind + 1);
-        Some(kind + 1)
+        self.capture(1, p, name_end);
+        self.capture(2, p, p + 1);
+        self.capture(3, name_end, name_end + 1);
+        Some(name_end + 1)
     }
 
     /// `\d+`.
@@ -279,19 +279,19 @@ impl Lexer<'_> {
     /// It is the name group, or a quoted string up to a quote that `\s*]`
     /// follows.
     /// The lazy `(.*?)` takes the first such quote.
-    fn attribute_value(&self, p: usize) -> Option<Value> {
+    fn attribute_value(&self, p: usize) -> Option<AttributeValue> {
         let quote = self.at(p);
         if quote == b'"' || quote == b'\'' {
             return self
                 .quote_bracket(quote, p + 1)
-                .map(|close| Value::Quoted { quote, close });
+                .map(|close| AttributeValue::Quoted { quote, close });
         }
         let mut at = p;
         while let Some(next) = self.name_unit(at, DotDollar::Allowed) {
             at = next;
         }
         self.spend(at - p);
-        (at > p).then_some(Value::Bare(at))
+        (at > p).then_some(AttributeValue::Bare(at))
     }
 
     /// The first `quote` at or after `from` that `\s*]` follows.
@@ -331,23 +331,23 @@ impl Lexer<'_> {
             let start = self.spaces(equals);
             if let Some(value) = self.attribute_value(start) {
                 let end = match value {
-                    Value::Bare(end) => end,
-                    Value::Quoted { close, .. } => close + 1,
+                    AttributeValue::Bare(end) => end,
+                    AttributeValue::Quoted { close, .. } => close + 1,
                 };
                 let bracket = self.spaces(end);
                 if self.at(bracket) == b']' {
-                    self.cap(3, op, equals);
+                    self.capture(3, op, equals);
                     match value {
-                        Value::Bare(end) => self.cap(4, start, end),
-                        Value::Quoted { quote, close } => {
+                        AttributeValue::Bare(end) => self.capture(4, start, end),
+                        AttributeValue::Quoted { quote, close } => {
                             let first = if quote == b'"' { 5 } else { 9 };
-                            self.cap(first, start, close + 1);
-                            self.cap(first + 1, start, start + 1);
-                            self.cap(first + 2, start + 1, close);
-                            self.cap(first + 3, close, close + 1);
+                            self.capture(first, start, close + 1);
+                            self.capture(first + 1, start, start + 1);
+                            self.capture(first + 2, start + 1, close);
+                            self.capture(first + 3, close, close + 1);
                         }
                     }
-                    self.cap(13, bracket, bracket + 1);
+                    self.capture(13, bracket, bracket + 1);
                     return Some(bracket + 1);
                 }
             }
@@ -356,7 +356,7 @@ impl Lexer<'_> {
         if self.at(bracket) != b']' {
             return None;
         }
-        self.cap(13, bracket, bracket + 1);
+        self.capture(13, bracket, bracket + 1);
         Some(bracket + 1)
     }
 
@@ -373,8 +373,8 @@ impl Lexer<'_> {
             at = next;
             if let Some(end) = self.attribute_rest(at) {
                 self.spend(at - name);
-                self.cap(1, p, p + 1);
-                self.cap(2, name, at);
+                self.capture(1, p, p + 1);
+                self.capture(2, name, at);
                 return Some(end);
             }
         }

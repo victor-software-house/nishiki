@@ -122,9 +122,9 @@ impl Emit<'_> {
     /// Each capture group's bytes go under that scope and the group's own.
     fn hit(&mut self, hit: &rules::Hit) {
         self.tok(hit.start, &[]);
-        for cap in hit.caps.iter().flatten() {
-            self.tok(cap.from, &[hit.scope]);
-            self.tok(cap.to, &[hit.scope, cap.scope]);
+        for capture in hit.captures.iter().flatten() {
+            self.tok(capture.from, &[hit.scope]);
+            self.tok(capture.to, &[hit.scope, capture.scope]);
         }
         self.tok(hit.end, &[hit.scope]);
     }

@@ -47,7 +47,7 @@ fn a_mode_reads_the_whole_line_before_the_tag() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::svelte::engine::Svelte;
-    use crate::svelte::grammar::Pat;
+    use crate::svelte::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with Svelte's matchers (see
@@ -55,9 +55,9 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Svelte, _>(arena, case, |lexer| {
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

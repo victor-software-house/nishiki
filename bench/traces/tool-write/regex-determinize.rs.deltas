@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language rust
 source bench/corpus/rust/medium/regex-determinize.rs
 url https://raw.githubusercontent.com/rust-lang/regex/94ac45b2a6e7b1c30927feb5b66c5ded5b7ad447/regex-automata/src/dfa/determinize.rs

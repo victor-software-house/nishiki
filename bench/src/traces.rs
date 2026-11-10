@@ -10,7 +10,7 @@ use nishiki::Language;
 
 /// What a trace stands for.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub enum Kind {
+pub enum Origin {
     /// A model's reply, in token-sized deltas.
     Reply,
     /// A file a tool writes, in token-sized deltas.
@@ -19,14 +19,14 @@ pub enum Kind {
     Edits,
 }
 
-impl Kind {
-    /// The folder name of this `Kind`.
+impl Origin {
+    /// The folder name of this `Origin`.
     #[must_use]
     pub fn name(self) -> &'static str {
         match self {
-            Kind::Reply => "reply",
-            Kind::ToolWrite => "tool-write",
-            Kind::Edits => "edits",
+            Origin::Reply => "reply",
+            Origin::ToolWrite => "tool-write",
+            Origin::Edits => "edits",
         }
     }
 }
@@ -45,10 +45,10 @@ pub enum Step {
 /// An edit trace starts from its text and replaces ranges.
 #[derive(Debug)]
 pub struct Trace {
-    /// `<kind>/<file>`.
+    /// `<origin>/<file>`.
     pub name: String,
     /// What the trace stands for.
-    pub kind: Kind,
+    pub origin: Origin,
     /// The language its header names.
     pub language: Language,
     /// The whole text an append trace pushes, or an edit trace's first text.
@@ -64,7 +64,7 @@ fn invalid(path: &Path, message: &str) -> Error {
     )
 }
 
-/// Every trace of `bench/traces/`, sorted by `Kind` folder and file name.
+/// Every trace of `bench/traces/`, sorted by `Origin` folder and file name.
 ///
 /// # Errors
 ///
@@ -72,20 +72,20 @@ fn invalid(path: &Path, message: &str) -> Error {
 pub fn traces() -> Result<Vec<Trace>> {
     let root = Path::new(env!("CARGO_MANIFEST_DIR"));
     let mut traces = Vec::new();
-    for kind in [Kind::Reply, Kind::ToolWrite, Kind::Edits] {
-        let mut files: Vec<_> = fs::read_dir(root.join("traces").join(kind.name()))?
+    for origin in [Origin::Reply, Origin::ToolWrite, Origin::Edits] {
+        let mut files: Vec<_> = fs::read_dir(root.join("traces").join(origin.name()))?
             .map(|entry| entry.map(|entry| entry.path()))
             .collect::<Result<_>>()?;
         files.sort();
         for path in files {
-            traces.push(read(root, &path, kind)?);
+            traces.push(read(root, &path, origin)?);
         }
     }
     Ok(traces)
 }
 
 /// Reads one trace.
-fn read(root: &Path, path: &Path, kind: Kind) -> Result<Trace> {
+fn read(root: &Path, path: &Path, origin: Origin) -> Result<Trace> {
     let bytes = fs::read(path)?;
     let mut at = 0;
     let mut language = None;
@@ -115,7 +115,7 @@ fn read(root: &Path, path: &Path, kind: Kind) -> Result<Trace> {
     let (appends, value) = body.ok_or_else(|| invalid(path, "no body"))?;
     let name = format!(
         "{}/{}",
-        kind.name(),
+        origin.name(),
         path.file_name()
             .and_then(|name| name.to_str())
             .unwrap_or_default()
@@ -127,7 +127,7 @@ fn read(root: &Path, path: &Path, kind: Kind) -> Result<Trace> {
         let steps = pushes(path, rest, &text)?;
         return Ok(Trace {
             name,
-            kind,
+            origin,
             language,
             text,
             steps,
@@ -162,7 +162,7 @@ fn read(root: &Path, path: &Path, kind: Kind) -> Result<Trace> {
     }
     Ok(Trace {
         name,
-        kind,
+        origin,
         language,
         text: base,
         steps,
@@ -212,7 +212,7 @@ mod tests {
     use std::io::Result;
     use std::path::PathBuf;
 
-    use super::{Kind, Step, read};
+    use super::{Origin, Step, read};
 
     /// A directory of its own for one test, with `src.md` holding `aé`, whose
     /// `é` takes bytes 1 and 2, and a trace `trace.deltas` with `deltas`.
@@ -225,7 +225,7 @@ mod tests {
         let trace = root.join("trace.deltas");
         fs::write(
             &trace,
-            format!("kind reply\nlanguage markdown\nsource src.md\ndeltas\n{deltas}\n"),
+            format!("origin reply\nlanguage markdown\nsource src.md\ndeltas\n{deltas}\n"),
         )?;
         Ok((root, trace))
     }
@@ -233,7 +233,7 @@ mod tests {
     #[test]
     fn a_delta_that_splits_a_character_is_an_error() -> Result<()> {
         let (root, trace) = setup("split", "2 1")?;
-        let error = read(&root, &trace, Kind::Reply).err();
+        let error = read(&root, &trace, Origin::Reply).err();
         assert!(
             error.is_some_and(|error| error.to_string().contains("splits a character")),
             "a split character must fail the read"
@@ -244,7 +244,7 @@ mod tests {
     #[test]
     fn deltas_on_character_boundaries_read() -> Result<()> {
         let (root, trace) = setup("whole", "1 2")?;
-        let steps = read(&root, &trace, Kind::Reply)?.steps;
+        let steps = read(&root, &trace, Origin::Reply)?.steps;
         assert_eq!(steps, [Step::Push(0..1), Step::Push(1..3)]);
         Ok(())
     }

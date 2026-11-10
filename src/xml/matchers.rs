@@ -9,7 +9,7 @@
 use memchr::memchr;
 
 use super::engine::{Hit, Lexer};
-use super::rules::Pat;
+use super::rules::Pattern;
 use super::scope::S;
 use super::state::Rule;
 use crate::classes::{self, is_ascii_space};
@@ -160,13 +160,13 @@ impl Lexer<'_> {
     }
 
     /// `hit` with the parts of the name `i..r` scoped as `names` says.
-    fn name_caps(&self, hit: Hit, i: usize, r: usize, names: Names) -> Hit {
+    fn name_captures(&self, hit: Hit, i: usize, r: usize, names: Names) -> Hit {
         let colon = self.colon(i, r);
         let local_from = colon.map_or(i, |at| at + 1);
         let mut hit = hit;
         if let Some(at) = colon {
             hit = match names {
-                Names::Tag => hit.cap(i, at, S::TagNamespace).nested(
+                Names::Tag => hit.capture(i, at, S::TagNamespace).nested(
                     at,
                     at + 1,
                     S::TagName,
@@ -178,7 +178,7 @@ impl Lexer<'_> {
                     S::TagName,
                     S::NamespaceSeparator,
                 ),
-                Names::Attribute => hit.cap(i, at, S::AttrNamespace).nested(
+                Names::Attribute => hit.capture(i, at, S::AttrNamespace).nested(
                     at,
                     at + 1,
                     S::AttrName,
@@ -187,9 +187,9 @@ impl Lexer<'_> {
             };
         }
         match names {
-            Names::Tag => hit.cap(local_from, r, S::TagLocal),
+            Names::Tag => hit.capture(local_from, r, S::TagLocal),
             Names::NoContent => hit.nested(local_from, r, S::TagName, S::TagLocal),
-            Names::Attribute => hit.cap(local_from, r, S::AttrLocal),
+            Names::Attribute => hit.capture(local_from, r, S::AttrLocal),
         }
     }
 
@@ -200,39 +200,39 @@ impl Lexer<'_> {
         match rule {
             Rule::Pi => self
                 .lit(p, b"?>")
-                .then(|| Hit::new(p, p + 2).cap(p, p + 2, S::PunctTag)),
+                .then(|| Hit::new(p, p + 2).capture(p, p + 2, S::PunctTag)),
             Rule::Doctype => {
                 let i = self.ws(p);
-                (self.at(i) == b'>').then(|| Hit::new(p, i + 1).cap(i, i + 1, S::PunctTag))
+                (self.at(i) == b'>').then(|| Hit::new(p, i + 1).capture(i, i + 1, S::PunctTag))
             }
             Rule::Subset => {
-                (self.at(p) == b']').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::PunctConstant))
+                (self.at(p) == b']').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::PunctConstant))
             }
             Rule::EntityDecl => {
-                (self.at(p) == b'>').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::PunctTag))
+                (self.at(p) == b'>').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::PunctTag))
             }
             Rule::Comment => self
                 .lit(p, b"-->")
-                .then(|| Hit::new(p, p + 3).cap(p, p + 3, S::PunctComment)),
+                .then(|| Hit::new(p, p + 3).capture(p, p + 3, S::PunctComment)),
             Rule::NoContent => self.no_content_end(p),
             Rule::Tag => match self.at(p) {
-                b'>' => Some(Hit::new(p, p + 1).cap(p, p + 1, S::PunctTag)),
+                b'>' => Some(Hit::new(p, p + 1).capture(p, p + 1, S::PunctTag)),
                 b'/' if self.at(p + 1) == b'>' => {
-                    Some(Hit::new(p, p + 2).cap(p, p + 2, S::PunctTag))
+                    Some(Hit::new(p, p + 2).capture(p, p + 2, S::PunctTag))
                 }
                 _ => None,
             },
             Rule::JspProps | Rule::Jsp => self
                 .lit(p, b"%>")
-                .then(|| Hit::new(p, p + 2).cap(p, p + 2, S::EmbeddedEnd)),
+                .then(|| Hit::new(p, p + 2).capture(p, p + 2, S::EmbeddedEnd)),
             Rule::Cdata => self
                 .lit(p, b"]]>")
-                .then(|| Hit::new(p, p + 3).cap(p, p + 3, S::StringEnd)),
+                .then(|| Hit::new(p, p + 3).capture(p, p + 3, S::StringEnd)),
             Rule::Double => {
-                (self.at(p) == b'"').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::StringEnd))
+                (self.at(p) == b'"').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::StringEnd))
             }
             Rule::Single => {
-                (self.at(p) == b'\'').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::StringEnd))
+                (self.at(p) == b'\'').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::StringEnd))
             }
             Rule::Root | Rule::CommentBad | Rule::CommentJsp => None,
         }
@@ -248,55 +248,56 @@ impl Lexer<'_> {
         if r == i || self.at(r) != b'>' {
             return None;
         }
-        let hit = Hit::new(p, r + 1)
-            .cap(p, p + 1, S::PunctTag)
-            .cap(p + 1, p + 3, S::PunctTag);
+        let hit =
+            Hit::new(p, r + 1)
+                .capture(p, p + 1, S::PunctTag)
+                .capture(p + 1, p + 3, S::PunctTag);
         Some(
-            self.name_caps(hit, i, r, Names::NoContent)
-                .cap(r, r + 1, S::PunctTag),
+            self.name_captures(hit, i, r, Names::NoContent)
+                .capture(r, r + 1, S::PunctTag),
         )
     }
 
     // Patterns.
 
-    /// The pattern `pat` at `p`.
-    pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
-        match pat {
-            Pat::Pi => self.pi(p),
-            Pat::Doctype => self.doctype(p),
-            Pat::CommentJsp => self
+    /// The pattern `pattern` at `p`.
+    pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
+        match pattern {
+            Pattern::Pi => self.pi(p),
+            Pattern::Doctype => self.doctype(p),
+            Pattern::CommentJsp => self
                 .lit(p, b"<%--")
-                .then(|| Hit::new(p, p + 4).cap(p, p + 4, S::PunctComment)),
-            Pat::Comment => self
+                .then(|| Hit::new(p, p + 4).capture(p, p + 4, S::PunctComment)),
+            Pattern::Comment => self
                 .lit(p, b"<!--")
-                .then(|| Hit::new(p, p + 4).cap(p, p + 4, S::PunctComment)),
-            Pat::NoContent => self.no_content(p),
-            Pat::Tag => self.tag(p),
-            Pat::Entity => self.entity(p),
-            Pat::Ampersand => (self.at(p) == b'&').then(|| Hit::new(p, p + 1)),
-            Pat::JspProps => self
+                .then(|| Hit::new(p, p + 4).capture(p, p + 4, S::PunctComment)),
+            Pattern::NoContent => self.no_content(p),
+            Pattern::Tag => self.tag(p),
+            Pattern::Entity => self.entity(p),
+            Pattern::Ampersand => (self.at(p) == b'&').then(|| Hit::new(p, p + 1)),
+            Pattern::JspProps => self
                 .lit(p, b"<%@")
-                .then(|| Hit::new(p, p + 3).cap(p, p + 3, S::EmbeddedBegin)),
-            Pat::Jsp => self.jsp_begin(p),
-            Pat::Cdata => self
+                .then(|| Hit::new(p, p + 3).capture(p, p + 3, S::EmbeddedBegin)),
+            Pattern::Jsp => self.jsp_begin(p),
+            Pattern::Cdata => self
                 .lit(p, b"<![CDATA[")
-                .then(|| Hit::new(p, p + 9).cap(p, p + 9, S::StringBegin)),
-            Pat::PiAttr => self.pi_attribute(p),
-            Pat::Double => {
-                (self.at(p) == b'"').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::StringBegin))
+                .then(|| Hit::new(p, p + 9).capture(p, p + 9, S::StringBegin)),
+            Pattern::InstructionAttribute => self.pi_attribute(p),
+            Pattern::Double => {
+                (self.at(p) == b'"').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::StringBegin))
             }
-            Pat::Single => {
-                (self.at(p) == b'\'').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::StringBegin))
+            Pattern::Single => {
+                (self.at(p) == b'\'').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::StringBegin))
             }
-            Pat::Subset => {
-                (self.at(p) == b'[').then(|| Hit::new(p, p + 1).cap(p, p + 1, S::PunctConstant))
+            Pattern::Subset => {
+                (self.at(p) == b'[').then(|| Hit::new(p, p + 1).capture(p, p + 1, S::PunctConstant))
             }
-            Pat::EntityDecl => self.entity_declaration(p),
-            Pat::ParameterEntity => self.parameter_entity(p),
-            Pat::CommentBad => (self.lit(p, b"--") && self.at(p + 2) != b'>')
-                .then(|| Hit::new(p, p + 2).cap(p, p + 2, S::InvalidComment)),
-            Pat::Attribute => self.attribute(p),
-            Pat::PageProp => ["page", "include", "taglib"]
+            Pattern::EntityDecl => self.entity_declaration(p),
+            Pattern::ParameterEntity => self.parameter_entity(p),
+            Pattern::CommentBad => (self.lit(p, b"--") && self.at(p + 2) != b'>')
+                .then(|| Hit::new(p, p + 2).capture(p, p + 2, S::InvalidComment)),
+            Pattern::Attribute => self.attribute(p),
+            Pattern::PageDirective => ["page", "include", "taglib"]
                 .iter()
                 .find(|word| self.lit(p, word.as_bytes()))
                 .map(|word| Hit::new(p, p + word.len())),
@@ -312,8 +313,8 @@ impl Lexer<'_> {
         let r = self.scan(i, is_pi_name);
         (r > i).then(|| {
             Hit::new(p, r)
-                .cap(p, p + 2, S::PunctTag)
-                .cap(i, r, S::TagName)
+                .capture(p, p + 2, S::PunctTag)
+                .capture(i, r, S::TagName)
         })
     }
 
@@ -329,9 +330,9 @@ impl Lexer<'_> {
         let r = self.document_name(i)?;
         Some(
             Hit::new(p, r)
-                .cap(p, p + 2, S::PunctTag)
-                .cap(p + 2, p + 9, S::KeywordDoctype)
-                .cap(i, r, S::DocumentRoot),
+                .capture(p, p + 2, S::PunctTag)
+                .capture(p + 2, p + 9, S::KeywordDoctype)
+                .capture(i, r, S::DocumentRoot),
         )
     }
 
@@ -365,8 +366,8 @@ impl Lexer<'_> {
             && self.lit(j + 3, name)
             && self.at(j + 3 + name.len()) == b'>';
         closes.then(|| {
-            let hit = Hit::new(p, r).cap(p, p + 1, S::PunctTag);
-            self.name_caps(hit, i, r, Names::NoContent)
+            let hit = Hit::new(p, r).capture(p, p + 1, S::PunctTag);
+            self.name_captures(hit, i, r, Names::NoContent)
         })
     }
 
@@ -378,8 +379,8 @@ impl Lexer<'_> {
         let i = if self.at(p + 1) == b'/' { p + 2 } else { p + 1 };
         let r = self.name_end(i);
         (r > i).then(|| {
-            let hit = Hit::new(p, r).cap(p, i, S::PunctTag);
-            self.name_caps(hit, i, r, Names::Tag)
+            let hit = Hit::new(p, r).capture(p, i, S::PunctTag);
+            self.name_captures(hit, i, r, Names::Tag)
         })
     }
 
@@ -409,8 +410,8 @@ impl Lexer<'_> {
         };
         (self.at(r) == b';').then(|| {
             Hit::new(p, r + 1)
-                .cap(p, p + 1, S::PunctConstant)
-                .cap(r, r + 1, S::PunctConstant)
+                .capture(p, p + 1, S::PunctConstant)
+                .capture(r, r + 1, S::PunctConstant)
         })
     }
 
@@ -428,7 +429,7 @@ impl Lexer<'_> {
         } else {
             i
         };
-        Some(Hit::new(p, end).cap(p, end, S::EmbeddedBegin))
+        Some(Hit::new(p, end).capture(p, end, S::EmbeddedBegin))
     }
 
     /// ` ([-A-Za-z]+)`: the whole match is the attribute.
@@ -449,18 +450,19 @@ impl Lexer<'_> {
         if i == p + 8 {
             return None;
         }
-        let mut hit = Hit::new(p, p)
-            .cap(p, p + 2, S::PunctTag)
-            .cap(p + 2, p + 8, S::KeywordEntity);
+        let mut hit =
+            Hit::new(p, p)
+                .capture(p, p + 2, S::PunctTag)
+                .capture(p + 2, p + 8, S::KeywordEntity);
         if self.at(i) == b'%' {
             let j = self.ws(i + 1);
             if j > i + 1 {
-                hit = hit.cap(i, j, S::PunctEntity);
+                hit = hit.capture(i, j, S::PunctEntity);
                 i = j;
             }
         }
         let r = self.document_name(i)?;
-        hit = hit.cap(i, r, S::EntityName);
+        hit = hit.capture(i, r, S::EntityName);
         let mut end = r;
         let after = self.ws(r);
         if after > r {
@@ -468,7 +470,7 @@ impl Lexer<'_> {
                 if self.lit(after, word.as_bytes()) {
                     let tail = self.ws(after + word.len());
                     if tail > after + word.len() {
-                        hit = hit.cap(r, tail, S::KeywordEntityType);
+                        hit = hit.capture(r, tail, S::KeywordEntityType);
                         end = tail;
                     }
                     break;
@@ -487,8 +489,8 @@ impl Lexer<'_> {
         let r = self.document_name(p + 1)?;
         (self.at(r) == b';').then(|| {
             Hit::new(p, r + 1)
-                .cap(p, p + 1, S::PunctConstant)
-                .cap(r, r + 1, S::PunctConstant)
+                .capture(p, p + 1, S::PunctConstant)
+                .capture(r, r + 1, S::PunctConstant)
         })
     }
 
@@ -509,6 +511,6 @@ impl Lexer<'_> {
         if self.at(e) != b'=' {
             return None;
         }
-        Some(self.name_caps(Hit::new(p, e + 1), i, r, Names::Attribute))
+        Some(self.name_captures(Hit::new(p, e + 1), i, r, Names::Attribute))
     }
 }

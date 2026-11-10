@@ -29,7 +29,7 @@ impl Lexer<'_> {
         if text < self.lim() && self.skip(text, plain) != self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(text)
     }
 
@@ -84,9 +84,9 @@ impl Lexer<'_> {
             }
             let spaces = end + usize::from(quoted);
             let line_end = self.space_end(spaces);
-            self.cap(1, p, arrows);
-            self.cap(3, from, end);
-            self.cap(5, spaces, line_end);
+            self.capture(1, p, arrows);
+            self.capture(3, from, end);
+            self.capture(5, spaces, line_end);
             return Some(line_end);
         }
         None
@@ -104,9 +104,9 @@ impl Lexer<'_> {
             return None;
         }
         let line_end = self.space_end(end + 1);
-        self.cap(1, p, arrows);
-        self.cap(2, at + 1, end);
-        self.cap(3, end + 1, line_end);
+        self.capture(1, p, arrows);
+        self.capture(2, at + 1, end);
+        self.capture(3, end + 1, line_end);
         Some(line_end)
     }
 
@@ -126,7 +126,7 @@ impl Lexer<'_> {
         if end < self.lim() && is_name(self.at(end)) {
             return None;
         }
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 }

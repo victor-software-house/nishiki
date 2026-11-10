@@ -60,8 +60,8 @@ impl Lexer<'_> {
         if !ahead || self.at(end - 1) == b':' {
             return None;
         }
-        self.cap(1, open, open + 1);
-        self.cap(2, open + 1, end);
+        self.capture(1, open, open + 1);
+        self.capture(2, open + 1, end);
         Some(end)
     }
 
@@ -79,12 +79,12 @@ impl Lexer<'_> {
             && let Some(name) = self.payload_at(p)
             && self.at(p + name) == b'>'
         {
-            self.cap(1, p, p + name);
-            self.cap(2, p + name, p + name + 1);
+            self.capture(1, p, p + name);
+            self.capture(2, p + name, p + name + 1);
             return Some(p + name + 1);
         }
         if let Some(end) = self.lit(p, b"/>") {
-            self.cap(3, p, end);
+            self.capture(3, p, end);
             return Some(end);
         }
         if !after_close {
@@ -93,7 +93,7 @@ impl Lexer<'_> {
         let mut q = p;
         while q < self.lim() {
             if self.at(q) == b'>' {
-                self.cap(4, p, q);
+                self.capture(4, p, q);
                 return Some(q + 1);
             }
             let (c, end) = self.char_at(q)?;
@@ -110,7 +110,7 @@ impl Lexer<'_> {
         if self.at(p) != b'>' || p >= self.lim() || p >= 2 && self.text(p - 2, p) == b"--" {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -136,9 +136,9 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, body);
-        self.cap(2, body, semi);
-        self.cap(3, semi, semi + 1);
+        self.capture(1, p, body);
+        self.capture(2, body, semi);
+        self.capture(3, semi, semi + 1);
         Some(semi + 1)
     }
 

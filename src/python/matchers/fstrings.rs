@@ -3,118 +3,115 @@
 
 use super::Quotes;
 use crate::python::engine::{Ahead, Lexer};
-use crate::python::grammar::FstringPat;
+use crate::python::grammar::FstringPattern;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    pub(super) fn fstring_matcher(&mut self, pat: FstringPat, p: usize) -> Option<usize> {
-        match pat {
-            FstringPat::FstringFnormQuotedMultiLine => self.fnorm_begin(p, Quotes::Three),
-            FstringPat::FstringFnormQuotedSingleLine => self.fnorm_begin(p, Quotes::One),
-            FstringPat::FstringNormfQuotedMultiLine => self.normf_begin(p, Quotes::Three),
-            FstringPat::FstringNormfQuotedSingleLine => self.normf_begin(p, Quotes::One),
-            FstringPat::FstringRawQuotedMultiLine => self.fraw_begin(p, Quotes::Three),
-            FstringPat::FstringRawQuotedSingleLine => self.fraw_begin(p, Quotes::One),
-            FstringPat::FstringFnormQuotedMultiLineEnd
-            | FstringPat::FstringNormfQuotedMultiLineEnd
-            | FstringPat::FstringRawQuotedMultiLineEnd => self.string_end_multi(p),
-            FstringPat::FstringFnormQuotedSingleLineEnd
-            | FstringPat::FstringNormfQuotedSingleLineEnd
-            | FstringPat::FstringRawQuotedSingleLineEnd => self.string_end_single(p),
-            FstringPat::FstringFormattingBracesAt0 => self.empty_placeholder(p),
-            FstringPat::FstringFormattingBracesAt1 => {
+    pub(super) fn fstring_matcher(&mut self, pattern: FstringPattern, p: usize) -> Option<usize> {
+        match pattern {
+            FstringPattern::FstringFnormQuotedMultiLine => self.fnorm_begin(p, Quotes::Three),
+            FstringPattern::FstringFnormQuotedSingleLine => self.fnorm_begin(p, Quotes::One),
+            FstringPattern::FstringNormfQuotedMultiLine => self.normf_begin(p, Quotes::Three),
+            FstringPattern::FstringNormfQuotedSingleLine => self.normf_begin(p, Quotes::One),
+            FstringPattern::FstringRawQuotedMultiLine => self.fraw_begin(p, Quotes::Three),
+            FstringPattern::FstringRawQuotedSingleLine => self.fraw_begin(p, Quotes::One),
+            FstringPattern::FstringFnormQuotedMultiLineEnd
+            | FstringPattern::FstringNormfQuotedMultiLineEnd
+            | FstringPattern::FstringRawQuotedMultiLineEnd => self.string_end_multi(p),
+            FstringPattern::FstringFnormQuotedSingleLineEnd
+            | FstringPattern::FstringNormfQuotedSingleLineEnd
+            | FstringPattern::FstringRawQuotedSingleLineEnd => self.string_end_single(p),
+            FstringPattern::FstringFormattingBracesAt0 => self.empty_placeholder(p),
+            FstringPattern::FstringFormattingBracesAt1 => {
                 (self.starts(p, b"{{") || self.starts(p, b"}}")).then_some(p + 2)
             }
-            FstringPat::FstringFormattingSingeBrace => (self.at(p) == b'}'
+            FstringPattern::FstringFormattingSingeBrace => (self.at(p) == b'}'
                 && p < self.lim()
                 && !(self.at(p + 1) == b'}' && p + 1 < self.lim()))
             .then_some(p + 1),
-            FstringPat::FstringMultiBrace | FstringPat::FstringSingleBrace => self.brace_cap(p),
-            FstringPat::FstringMultiBraceEnd => self.brace_close(p),
-            FstringPat::FstringSingleBraceEnd | FstringPat::FstringIllegalSingleBraceEnd => {
-                self.brace_close_or_feed(p)
+            FstringPattern::FstringMultiBrace | FstringPattern::FstringSingleBrace => {
+                self.brace_capture(p)
             }
-            FstringPat::FstringIllegalSingleBrace => self.illegal_single_brace(p),
-            FstringPat::FstringTerminatorMultiAt0 | FstringPat::FstringTerminatorSingleAt0 => {
-                self.terminator_equals(p)
-            }
-            FstringPat::FstringTerminatorMultiAt1 | FstringPat::FstringTerminatorSingleAt1 => {
-                self.terminator_conversion(p)
-            }
-            FstringPat::FstringTerminatorMultiAt2 | FstringPat::FstringTerminatorSingleAt2 => {
-                self.terminator_spec(p)
-            }
-            FstringPat::FstringTerminatorMultiTail | FstringPat::FstringTerminatorSingleTail => {
-                self.tail_begin(p)
-            }
-            FstringPat::FstringTerminatorMultiTailEnd => {
+            FstringPattern::FstringMultiBraceEnd => self.brace_close(p),
+            FstringPattern::FstringSingleBraceEnd
+            | FstringPattern::FstringIllegalSingleBraceEnd => self.brace_close_or_feed(p),
+            FstringPattern::FstringIllegalSingleBrace => self.illegal_single_brace(p),
+            FstringPattern::FstringTerminatorMultiAt0
+            | FstringPattern::FstringTerminatorSingleAt0 => self.terminator_equals(p),
+            FstringPattern::FstringTerminatorMultiAt1
+            | FstringPattern::FstringTerminatorSingleAt1 => self.terminator_conversion(p),
+            FstringPattern::FstringTerminatorMultiAt2
+            | FstringPattern::FstringTerminatorSingleAt2 => self.terminator_spec(p),
+            FstringPattern::FstringTerminatorMultiTail
+            | FstringPattern::FstringTerminatorSingleTail => self.tail_begin(p),
+            FstringPattern::FstringTerminatorMultiTailEnd => {
                 (self.at(p) == b'}' && p < self.lim()).then_some(p)
             }
-            FstringPat::FstringTerminatorSingleTailEnd => {
+            FstringPattern::FstringTerminatorSingleTailEnd => {
                 (self.at(p) == b'}' && p < self.lim() || p == self.lim()).then_some(p)
             }
-            FstringPat::FstringTerminatorMultiTailAt2
-            | FstringPat::FstringTerminatorSingleTailAt2 => (p < self.lim()
+            FstringPattern::FstringTerminatorMultiTailAt2
+            | FstringPattern::FstringTerminatorSingleTailAt2 => (p < self.lim()
                 && b"%EFGXbcdefgnosx".contains(&self.at(p))
                 && self.at(p + 1) == b'}'
                 && p + 1 < self.lim())
             .then_some(p + 1),
-            FstringPat::FstringTerminatorMultiTailAt3
-            | FstringPat::FstringTerminatorSingleTailAt3 => {
+            FstringPattern::FstringTerminatorMultiTailAt3
+            | FstringPattern::FstringTerminatorSingleTailAt3 => {
                 if self.at(p) != b'.' || p >= self.lim() {
                     return None;
                 }
                 let e = self.digit_end(p + 1);
                 (e > p + 1).then_some(e)
             }
-            FstringPat::FstringTerminatorMultiTailAt4
-            | FstringPat::FstringTerminatorSingleTailAt4 => {
+            FstringPattern::FstringTerminatorMultiTailAt4
+            | FstringPattern::FstringTerminatorSingleTailAt4 => {
                 (self.at(p) == b',' && p < self.lim()).then_some(p + 1)
             }
-            FstringPat::FstringTerminatorMultiTailAt5
-            | FstringPat::FstringTerminatorSingleTailAt5 => {
+            FstringPattern::FstringTerminatorMultiTailAt5
+            | FstringPattern::FstringTerminatorSingleTailAt5 => {
                 let e = self.digit_end(p);
                 (e > p).then_some(e)
             }
-            FstringPat::FstringTerminatorMultiTailAt6
-            | FstringPat::FstringTerminatorSingleTailAt6 => {
+            FstringPattern::FstringTerminatorMultiTailAt6
+            | FstringPattern::FstringTerminatorSingleTailAt6 => {
                 (self.at(p) == b'#' && p < self.lim()).then_some(p + 1)
             }
-            FstringPat::FstringTerminatorMultiTailAt7
-            | FstringPat::FstringTerminatorSingleTailAt7 => {
+            FstringPattern::FstringTerminatorMultiTailAt7
+            | FstringPattern::FstringTerminatorSingleTailAt7 => {
                 (matches!(self.at(p), b'-' | b' ' | b'+') && p < self.lim()).then_some(p + 1)
             }
-            FstringPat::FstringTerminatorMultiTailAt8
-            | FstringPat::FstringTerminatorSingleTailAt8 => {
+            FstringPattern::FstringTerminatorMultiTailAt8
+            | FstringPattern::FstringTerminatorSingleTailAt8 => {
                 (matches!(self.at(p), b'<' | b'=' | b'>' | b'^') && p < self.lim()).then_some(p + 1)
             }
-            FstringPat::FstringTerminatorMultiTailAt9
-            | FstringPat::FstringTerminatorSingleTailAt9 => self.word_at(p).map(|w| p + w),
-            FstringPat::FstringMultiCore | FstringPat::FstringRawMultiCore => {
+            FstringPattern::FstringTerminatorMultiTailAt9
+            | FstringPattern::FstringTerminatorSingleTailAt9 => self.word_at(p).map(|w| p + w),
+            FstringPattern::FstringMultiCore | FstringPattern::FstringRawMultiCore => {
                 self.core(p, Quotes::Three)
             }
-            FstringPat::FstringSingleCore | FstringPat::FstringRawSingleCore => {
+            FstringPattern::FstringSingleCore | FstringPattern::FstringRawSingleCore => {
                 self.core(p, Quotes::One)
             }
-            FstringPat::Impossible => None,
+            FstringPattern::Impossible => None,
         }
     }
 
     /// The end `(\3)` of a triple-quoted f-string.
     fn string_end_multi(&mut self, p: usize) -> Option<usize> {
         let width = self.payload_at(p)?;
-        self.cap(1, p, p + width);
+        self.capture(1, p, p + width);
         Some(p + width)
     }
 
     /// The end `(\3)|((?<!\\)\n)` of a single-line f-string.
     fn string_end_single(&mut self, p: usize) -> Option<usize> {
         if let Some(width) = self.payload_at(p) {
-            self.cap(1, p, p + width);
+            self.capture(1, p, p + width);
             return Some(p + width);
         }
         if p == self.lim() && !self.prev_is(p, b'\\') {
-            self.cap(2, p, p + 1);
+            self.capture(2, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -144,13 +141,13 @@ impl Lexer<'_> {
             q += 1;
         }
         let width = self.fquote(q, quotes)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         if let Some(s) = second {
-            self.cap(2, s, s + 1);
+            self.capture(2, s, s + 1);
         }
-        self.cap(3, q, q + width);
+        self.capture(3, q, q + width);
         if quotes == Quotes::One {
-            self.cap(4, q, q + width);
+            self.capture(4, q, q + width);
         }
         Some(q + width)
     }
@@ -165,11 +162,11 @@ impl Lexer<'_> {
             return None;
         }
         let width = self.fquote(p + 2, quotes)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, p + 2);
-        self.cap(3, p + 2, p + 2 + width);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, p + 2);
+        self.capture(3, p + 2, p + 2 + width);
         if quotes == Quotes::One {
-            self.cap(4, p + 2, p + 2 + width);
+            self.capture(4, p + 2, p + 2 + width);
         }
         Some(p + 2 + width)
     }
@@ -183,10 +180,10 @@ impl Lexer<'_> {
             return None;
         }
         let width = self.fquote(p + 2, quotes)?;
-        self.cap(1, p, p + 2);
-        self.cap(2, p + 2, p + 2 + width);
+        self.capture(1, p, p + 2);
+        self.capture(2, p + 2, p + 2 + width);
         if quotes == Quotes::One {
-            self.cap(3, p + 2, p + 2 + width);
+            self.capture(3, p + 2, p + 2 + width);
         }
         Some(p + 2 + width)
     }
@@ -199,9 +196,9 @@ impl Lexer<'_> {
         let mut q = p + 1;
         loop {
             if self.at(q) == b'}' && q < self.lim() {
-                self.cap(1, p, p + 1);
-                self.cap(2, p + 1, q);
-                self.cap(3, q, q + 1);
+                self.capture(1, p, p + 1);
+                self.capture(2, p + 1, q);
+                self.capture(3, q, q + 1);
                 return Some(q + 1);
             }
             let width = self.space_at(q);
@@ -213,11 +210,11 @@ impl Lexer<'_> {
     }
 
     /// The begin `(\{)`.
-    fn brace_cap(&mut self, p: usize) -> Option<usize> {
+    fn brace_capture(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b'{' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -226,7 +223,7 @@ impl Lexer<'_> {
         if self.at(p) != b'}' || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -247,7 +244,7 @@ impl Lexer<'_> {
         if self.last(Ahead::CloseBrace).is_some_and(|last| last > p) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 1)
     }
 
@@ -298,8 +295,8 @@ impl Lexer<'_> {
             return None;
         }
         let close = self.format_spec(head + 1)?;
-        self.cap(1, p, head);
-        self.cap(2, head, close);
+        self.capture(1, p, head);
+        self.capture(2, head, close);
         Some(close)
     }
 
@@ -312,8 +309,8 @@ impl Lexer<'_> {
         if self.last(Ahead::OpenBrace)? < head + 1 {
             return None;
         }
-        self.cap(1, p, head);
-        self.cap(2, head, head + 1);
+        self.capture(1, p, head);
+        self.capture(2, head, head + 1);
         Some(head + 1)
     }
 

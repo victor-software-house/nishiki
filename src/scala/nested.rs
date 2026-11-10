@@ -10,9 +10,9 @@ impl Lexer<'_> {
     /// Emits the tokens of capture group text `from..to`, and leaves the
     /// cursor at `to`.
     /// The text sits under the stack `base`.
-    pub(super) fn tokenize_capture(&mut self, kind: Nested, from: usize, to: usize, base: u32) {
+    pub(super) fn tokenize_capture(&mut self, nested: Nested, from: usize, to: usize, base: u32) {
         let to = to.min(self.s.len());
-        match kind {
+        match nested {
             Nested::Operators => self.operator_pairs(from, to, base),
             Nested::Operator => self.operator_one(from, to, base),
             Nested::UsingName => self.using_name(from, to, base),

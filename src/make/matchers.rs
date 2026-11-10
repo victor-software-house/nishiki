@@ -7,8 +7,8 @@
 
 use memchr::memchr;
 
-use super::engine::{CapName, Hit, Lexer};
-use super::rules::Pat;
+use super::engine::{CaptureName, Hit, Lexer};
+use super::rules::Pattern;
 use super::scope::{BUILTINS, FUNCTIONS, S, SPECIAL_TARGETS};
 use super::state::Rule;
 use crate::classes;
@@ -166,7 +166,7 @@ impl Lexer<'_> {
             Rule::VarParen | Rule::VarBrace => {
                 let close = if rule == Rule::VarParen { b')' } else { b'}' };
                 ((p < self.lim() && self.s[p] == close) || self.plain_newline(p))
-                    .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctVar))
+                    .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::PunctVar))
             }
             Rule::FuncParen | Rule::AnotherParen => {
                 ((p < self.lim() && self.s[p] == b')') || self.plain_newline(p)).then(zero)
@@ -189,12 +189,12 @@ impl Lexer<'_> {
         let from = self.spaces(0);
         let end = from + word.len();
         (self.starts(from, word) && self.boundary_after(end))
-            .then(|| Hit::new(0, end).cap(0, from, end, scope))
+            .then(|| Hit::new(0, end).capture(0, from, end, scope))
     }
 
     // Patterns.
 
-    /// The match of `pat` at `p`.
+    /// The match of `pattern` at `p`.
     /// The end pattern has no match here, because it depends on the rule.
     /// `Grammar::matcher` answers it.
     #[expect(
@@ -202,58 +202,58 @@ impl Lexer<'_> {
         reason = "measured: the matchers are the hot loop"
     )]
     #[inline(always)]
-    pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
-        match pat {
-            Pat::End => None,
-            Pat::SimpleVar => self.simple_var(p),
-            Pat::Comma => self.single(p, b','),
-            Pat::Percent => self.single(p, b'%'),
-            Pat::PercentStar => self.single(p, b'%').or_else(|| self.single(p, b'*')),
-            Pat::Continuation => {
+    pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
+        match pattern {
+            Pattern::End => None,
+            Pattern::SimpleVar => self.simple_var(p),
+            Pattern::Comma => self.single(p, b','),
+            Pattern::Percent => self.single(p, b'%'),
+            Pattern::PercentStar => self.single(p, b'%').or_else(|| self.single(p, b'*')),
+            Pattern::Continuation => {
                 (p + 1 == self.lim() && self.nl && self.s[p] == b'\\').then(|| Hit::new(p, p + 2))
             }
-            Pat::AnyWord => {
+            Pattern::AnyWord => {
                 let end = self.word_end(p);
                 (end > p).then(|| Hit::new(p, end))
             }
-            Pat::BuiltinParen => self.builtin(p, b'('),
-            Pat::BuiltinBrace => self.builtin(p, b'{'),
-            Pat::SpecialTarget => self.special_target(p),
-            Pat::Comment => self.comment(p),
-            Pat::CommentHash => (p < self.lim() && self.s[p] == b'#')
-                .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, S::PunctComment)),
-            Pat::VarParen => self.dollar(p, b'('),
-            Pat::VarBrace => self.dollar(p, b'{'),
-            Pat::FuncParen => self.function(p, b'('),
-            Pat::FuncBrace => self.function(p, b'{'),
-            Pat::FlavorParen => self.flavor(p, b'('),
-            Pat::FlavorBrace => self.flavor(p, b'{'),
-            Pat::AnotherParen => self.another(p, b'('),
-            Pat::AnotherBrace => self.another(p, b'{'),
-            Pat::InterpParen => self.single(p, b'('),
-            Pat::InterpBrace => self.single(p, b'{'),
-            Pat::Include => self.keyword_line(p, true),
-            Pat::Vpath => self.keyword_line(p, false),
-            Pat::Define => self.define(p),
-            Pat::DefineHead => {
+            Pattern::BuiltinParen => self.builtin(p, b'('),
+            Pattern::BuiltinBrace => self.builtin(p, b'{'),
+            Pattern::SpecialTarget => self.special_target(p),
+            Pattern::Comment => self.comment(p),
+            Pattern::CommentHash => (p < self.lim() && self.s[p] == b'#')
+                .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, S::PunctComment)),
+            Pattern::VarParen => self.dollar(p, b'('),
+            Pattern::VarBrace => self.dollar(p, b'{'),
+            Pattern::FuncParen => self.function(p, b'('),
+            Pattern::FuncBrace => self.function(p, b'{'),
+            Pattern::FlavorParen => self.flavor(p, b'('),
+            Pattern::FlavorBrace => self.flavor(p, b'{'),
+            Pattern::AnotherParen => self.another(p, b'('),
+            Pattern::AnotherBrace => self.another(p, b'{'),
+            Pattern::InterpParen => self.single(p, b'('),
+            Pattern::InterpBrace => self.single(p, b'{'),
+            Pattern::Include => self.keyword_line(p, true),
+            Pattern::Vpath => self.keyword_line(p, false),
+            Pattern::Define => self.define(p),
+            Pattern::DefineHead => {
                 (self.at_g(p) && !(p == self.lim() && self.nl)).then(|| Hit::new(p, p))
             }
-            Pat::Export => self.leading_word(p, &[(b"export", S::KwExport)]),
-            Pat::OverridePrivate => self.leading_word(
+            Pattern::Export => self.leading_word(p, &[(b"export", S::KwExport)]),
+            Pattern::OverridePrivate => self.leading_word(
                 p,
                 &[(b"override", S::KwOverride), (b"private", S::KwPrivate)],
             ),
-            Pat::Unexport => self.leading_word(
+            Pattern::Unexport => self.leading_word(
                 p,
                 &[(b"unexport", S::KwUnexport), (b"undefine", S::KwUndefine)],
             ),
-            Pat::Conditional => self.conditional(p),
-            Pat::Condition | Pat::Prereq => self.at_g(p).then(|| Hit::new(p, p)),
-            Pat::Else => self.else_line(p),
-            Pat::Target => self.target(p),
-            Pat::TargetName => (self.nonspace_w(p) > 0).then(|| Hit::new(p, p)),
-            Pat::Recipe => self.recipe(p),
-            Pat::Assign => self.assign(p),
+            Pattern::Conditional => self.conditional(p),
+            Pattern::Condition | Pattern::Prereq => self.at_g(p).then(|| Hit::new(p, p)),
+            Pattern::Else => self.else_line(p),
+            Pattern::Target => self.target(p),
+            Pattern::TargetName => (self.nonspace_w(p) > 0).then(|| Hit::new(p, p)),
+            Pattern::Recipe => self.recipe(p),
+            Pattern::Assign => self.assign(p),
         }
     }
 
@@ -282,7 +282,7 @@ impl Lexer<'_> {
     /// the variable's punctuation.
     fn dollar(&self, p: usize, open: u8) -> Option<Hit> {
         (p + 1 < self.lim() && self.s[p] == b'$' && self.s[p + 1] == open)
-            .then(|| Hit::new(p, p + 2).cap(0, p, p + 2, S::PunctVar))
+            .then(|| Hit::new(p, p + 2).capture(0, p, p + 2, S::PunctVar))
     }
 
     /// `(?<=\()(MAKEFILES|...)(?=\s*\))`
@@ -311,7 +311,7 @@ impl Lexer<'_> {
         let &(_, scope) = FUNCTIONS.iter().find(|(name, _)| name.as_bytes() == word)?;
         let end = p + run;
         let blank = self.space_w(end);
-        (blank > 0).then(|| Hit::new(p, end + blank).cap(0, p, end, scope))
+        (blank > 0).then(|| Hit::new(p, end + blank).capture(0, p, end, scope))
     }
 
     /// `(?<=\()(origin|flavor)\s(?=[^\s)]+\s*\))`
@@ -339,7 +339,7 @@ impl Lexer<'_> {
         }
         self.spend(i - from);
         (i > from && self.at(self.spaces(i)) == close)
-            .then(|| Hit::new(p, end + blank).cap(0, p, end, scope))
+            .then(|| Hit::new(p, end + blank).capture(0, p, end, scope))
     }
 
     /// `(?<=\()(?!\))`
@@ -353,7 +353,7 @@ impl Lexer<'_> {
             let from = self.blanks(0);
             return self
                 .even_backslashes(from)
-                .map(|end| Hit::new(0, end).cap(0, 0, from, S::LeadingSpace));
+                .map(|end| Hit::new(0, end).capture(0, 0, from, S::LeadingSpace));
         }
         if p > 0 && self.prev(p) == Some(b'\\') {
             return None;
@@ -390,7 +390,7 @@ impl Lexer<'_> {
         };
         let end = word_start + word.len();
         (self.starts(word_start, word) && self.boundary_after(end))
-            .then(|| Hit::new(0, end).cap(0, from, end, scope))
+            .then(|| Hit::new(0, end).capture(0, from, end, scope))
     }
 
     /// `^[ ]*(export)\b` and the like: the first of `words` that fits.
@@ -402,7 +402,7 @@ impl Lexer<'_> {
         words.iter().find_map(|&(word, scope)| {
             let end = from + word.len();
             (self.starts(from, word) && self.boundary_after(end))
-                .then(|| Hit::new(0, end).cap(0, from, end, scope))
+                .then(|| Hit::new(0, end).capture(0, from, end, scope))
         })
     }
 
@@ -448,12 +448,12 @@ impl Lexer<'_> {
         let (end, op) = found?;
         let mut hit = Hit::new(0, end);
         if let Some((from, to)) = over {
-            hit = hit.cap(0, from, to, S::KwOverride);
+            hit = hit.capture(0, from, to, S::KwOverride);
         }
-        hit = hit.cap(1, at, define_end, S::KwDefine);
-        hit = hit.cap(2, name, name_end, S::VarOther);
+        hit = hit.capture(1, at, define_end, S::KwDefine);
+        hit = hit.capture(2, name, name_end, S::VarOther);
         if let Some((from, to)) = op {
-            hit = hit.cap(3, from, to, S::KeyValue);
+            hit = hit.capture(3, from, to, S::KeyValue);
         }
         Some(hit)
     }
@@ -497,7 +497,7 @@ impl Lexer<'_> {
         words.iter().find_map(|&(word, scope)| {
             let end = from + word.len();
             (self.starts(from, word) && self.space_w(end) > 0)
-                .then(|| Hit::new(0, end).cap(0, from, end, scope))
+                .then(|| Hit::new(0, end).capture(0, from, end, scope))
         })
     }
 
@@ -539,7 +539,7 @@ impl Lexer<'_> {
             found = last_end(i).or(found);
         }
         let end = found?;
-        Some(Hit::new(0, end).cap(0, 0, end, S::KwElse))
+        Some(Hit::new(0, end).capture(0, 0, end, S::KwElse))
     }
 
     /// `^(?!\t)([^:]*)(:)(?!\=)`: the targets are lexed again.
@@ -553,8 +553,8 @@ impl Lexer<'_> {
             return None;
         }
         let hit = Hit::new(0, colon + 1);
-        let hit = hit.group(0, 0, colon, CapName::None, Some(Rule::RetokTarget));
-        Some(hit.cap(1, colon, colon + 1, S::KeyValue))
+        let hit = hit.group(0, 0, colon, CaptureName::None, Some(Rule::RetokTarget));
+        Some(hit.capture(1, colon, colon + 1, S::KeyValue))
     }
 
     /// `^\s*(\.(PHONY|...))\s*$`
@@ -566,7 +566,7 @@ impl Lexer<'_> {
         SPECIAL_TARGETS.iter().find_map(|&(name, scope)| {
             let end = from + name.len();
             (self.starts(from, name.as_bytes()) && self.at_eol(self.spaces(end)))
-                .then(|| Hit::new(0, self.spaces(end)).cap(0, from, end, scope))
+                .then(|| Hit::new(0, self.spaces(end)).capture(0, from, end, scope))
         })
     }
 
@@ -580,7 +580,7 @@ impl Lexer<'_> {
             end += 1;
         }
         self.spend(end);
-        Some(Hit::new(0, end).group(0, 1, end, CapName::Flags, None))
+        Some(Hit::new(0, end).group(0, 1, end, CaptureName::Flags, None))
     }
 
     /// `(^[ ]*|\G\s*)([^\s:#=]+)\s*((?<![?:+!])=|\?=|:=|\+=|!=)`
@@ -624,10 +624,10 @@ impl Lexer<'_> {
                             0,
                             from,
                             end,
-                            CapName::One(S::VarOther),
+                            CaptureName::One(S::VarOther),
                             Some(Rule::RetokVars),
                         )
-                        .cap(1, after, after + width, S::KeyValue),
+                        .capture(1, after, after + width, S::KeyValue),
                 );
             }
             end -= 1;

@@ -42,7 +42,6 @@ mod imports;
 mod jsdoc;
 mod jsdoc_params;
 mod jsx;
-mod kind;
 mod lexer;
 mod limits;
 mod look;
@@ -53,17 +52,18 @@ mod regex;
 mod rules;
 mod scope;
 mod searches;
+mod state;
 #[cfg(feature = "lang-svelte")]
 mod svelte;
 mod text;
 mod typ;
 mod type_aliases;
 
-use kind::Kind;
 use lexer::Halts;
 pub(crate) use scope::NAMES;
 use scope::S;
 pub(crate) use searches::Scratch;
+use state::Rule;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Halt, Stopped};
@@ -154,17 +154,17 @@ impl Dialect {
 /// one context with `source.ts` (in `dialect`'s spelling) on top of it.
 pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
     let stack = arena.child(base, S::Source.scope(dialect)).unwrap_or(base);
-    arena.push(ROOT, Kind::Top.code(), 0, stack).unwrap_or(ROOT)
+    arena.push(ROOT, Rule::Top.code(), 0, stack).unwrap_or(ROOT)
 }
 
 /// The state at the start of the TypeScript lines of a fenced code block.
 /// The block's text sits on the stack `base` with no `source.ts` of its own,
 /// as in Shiki's embedding.
-/// The marker kind keeps `\A`, which only the first line of
+/// The marker rule keeps `\A`, which only the first line of
 /// the document matches, from matching in a fence.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena
-        .push(ROOT, Kind::Started.code(), 0, base)
+        .push(ROOT, Rule::Started.code(), 0, base)
         .unwrap_or(ROOT)
 }
 
@@ -180,7 +180,7 @@ pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
         .child(base, S::Source.scope(Dialect::JavaScript))
         .unwrap_or(base);
     arena
-        .push(ROOT, Kind::Script.code(), 0, stack)
+        .push(ROOT, Rule::Script.code(), 0, stack)
         .unwrap_or(ROOT)
 }
 
@@ -191,7 +191,7 @@ pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
 #[cfg(feature = "lang-vue")]
 pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
     arena
-        .push(ROOT, Kind::Expression.code(), 0, base)
+        .push(ROOT, Rule::Expression.code(), 0, base)
         .unwrap_or(ROOT)
 }
 
@@ -200,15 +200,15 @@ pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
 /// It is a context that runs that entry's patterns only.
 /// Its text sits on `base`, which holds the embedding's own scope.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
-fn start_entry(arena: &mut Arena, base: u32, kind: Kind) -> u32 {
-    arena.push(ROOT, kind.code(), 0, base).unwrap_or(ROOT)
+fn start_entry(arena: &mut Arena, base: u32, rule: Rule) -> u32 {
+    arena.push(ROOT, rule.code(), 0, base).unwrap_or(ROOT)
 }
 
 /// The start of `source.ts#object-literal`, which Svelte's `{ {a: 1} }`
 /// includes, and of `source.tsx#object-literal`, which Astro's does.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
 pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Kind::EntryObjLit)
+    start_entry(arena, base, Rule::EntryObjLit)
 }
 
 /// The start of a template string's body, without its `string.template`
@@ -219,35 +219,35 @@ pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
 /// that embeds it, the closing backtick, ends it.
 #[cfg(feature = "lang-tsx")]
 pub(crate) fn start_template(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Kind::EntryTemplate)
+    start_entry(arena, base, Rule::EntryTemplate)
 }
 
 /// The start of `source.ts#object-binding-pattern`, which Svelte's
 /// `{#each xs as {a, b}}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_object_binding(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Kind::EntryObjBind)
+    start_entry(arena, base, Rule::EntryObjBind)
 }
 
 /// The start of `source.ts#object-binding-pattern-const`, which Svelte's
 /// `{@const {a, b} = x}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_object_binding_const(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Kind::EntryObjBindConst)
+    start_entry(arena, base, Rule::EntryObjBindConst)
 }
 
 /// The start of `source.ts#array-binding-pattern`, which Svelte's
 /// `{#each xs as [a, b]}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_array_binding(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Kind::EntryArrBind)
+    start_entry(arena, base, Rule::EntryArrBind)
 }
 
 /// The start of `source.ts#array-binding-pattern-const`, which Svelte's
 /// `{@const [a, b] = x}` includes.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_array_binding_const(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Kind::EntryArrBindConst)
+    start_entry(arena, base, Rule::EntryArrBindConst)
 }
 
 /// The start of the body of `source.ts#type-parameters`, which Svelte's
@@ -255,7 +255,7 @@ pub(crate) fn start_array_binding_const(arena: &mut Arena, base: u32) -> u32 {
 /// and `=`, with no `<` or `>`.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_type_parameters(arena: &mut Arena, base: u32) -> u32 {
-    start_entry(arena, base, Kind::EntryTypeParams)
+    start_entry(arena, base, Rule::EntryTypeParams)
 }
 
 /// Lexes the text of `line` from byte `from` and `state`, appending its

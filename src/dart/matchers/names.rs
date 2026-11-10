@@ -33,7 +33,7 @@ impl Lexer<'_> {
         factory: Factory,
     ) -> Option<usize> {
         let end = self.plain_word(p, words)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.factory(end, factory))
     }
 
@@ -52,7 +52,7 @@ impl Lexer<'_> {
         }
         let run = self.skip(upper + 1, is_ident);
         let end = (upper + 1..=run).rev().find(|&q| self.boundary(q))?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.factory(end, factory))
     }
 
@@ -64,7 +64,7 @@ impl Lexer<'_> {
                 let blanks = self.space_end(end);
                 match self.lit(blanks, b"factory") {
                     Some(word) if self.word_at(word).is_none() => {
-                        self.cap(2, blanks, word);
+                        self.capture(2, blanks, word);
                         word
                     }
                     _ => blanks,
@@ -98,12 +98,12 @@ impl Lexer<'_> {
         let name = self.skip(lower + 1, is_ident);
         let end = if self.at(name) == b'<' {
             let (close, end) = self.type_arguments(name + 1, true, 0)?;
-            self.cap(2, name, close + 1);
+            self.capture(2, name, close + 1);
             end
         } else {
             self.call(name)?
         };
-        self.cap(1, p, name);
+        self.capture(1, p, name);
         Some(end)
     }
 

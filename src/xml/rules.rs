@@ -8,7 +8,7 @@ use super::state::Rule;
 
 /// A pattern of the grammar: a rule it opens, or a match that adds a scope.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(super) enum Pat {
+pub(super) enum Pattern {
     /// `<?name`.
     Pi,
     /// `<!DOCTYPE name`.
@@ -32,7 +32,7 @@ pub(super) enum Pat {
     /// `<![CDATA[`.
     Cdata,
     /// A space and a name in a processing instruction.
-    PiAttr,
+    InstructionAttribute,
     /// `"`.
     Double,
     /// `'`.
@@ -48,93 +48,97 @@ pub(super) enum Pat {
     /// `name=` in a tag.
     Attribute,
     /// `page`, `include` and `taglib` in a page directive.
-    PageProp,
+    PageDirective,
 }
 
-impl Pat {
+impl Pattern {
     /// The rule the pattern opens.
     /// It is `None` for a match.
     pub(super) fn opens(self) -> Option<Rule> {
         match self {
-            Pat::Pi => Some(Rule::Pi),
-            Pat::Doctype => Some(Rule::Doctype),
-            Pat::CommentJsp => Some(Rule::CommentJsp),
-            Pat::Comment => Some(Rule::Comment),
-            Pat::NoContent => Some(Rule::NoContent),
-            Pat::Tag => Some(Rule::Tag),
-            Pat::JspProps => Some(Rule::JspProps),
-            Pat::Jsp => Some(Rule::Jsp),
-            Pat::Cdata => Some(Rule::Cdata),
-            Pat::Double => Some(Rule::Double),
-            Pat::Single => Some(Rule::Single),
-            Pat::Subset => Some(Rule::Subset),
-            Pat::EntityDecl => Some(Rule::EntityDecl),
-            Pat::CommentBad => Some(Rule::CommentBad),
-            Pat::Entity
-            | Pat::Ampersand
-            | Pat::PiAttr
-            | Pat::ParameterEntity
-            | Pat::Attribute
-            | Pat::PageProp => None,
+            Pattern::Pi => Some(Rule::Pi),
+            Pattern::Doctype => Some(Rule::Doctype),
+            Pattern::CommentJsp => Some(Rule::CommentJsp),
+            Pattern::Comment => Some(Rule::Comment),
+            Pattern::NoContent => Some(Rule::NoContent),
+            Pattern::Tag => Some(Rule::Tag),
+            Pattern::JspProps => Some(Rule::JspProps),
+            Pattern::Jsp => Some(Rule::Jsp),
+            Pattern::Cdata => Some(Rule::Cdata),
+            Pattern::Double => Some(Rule::Double),
+            Pattern::Single => Some(Rule::Single),
+            Pattern::Subset => Some(Rule::Subset),
+            Pattern::EntityDecl => Some(Rule::EntityDecl),
+            Pattern::CommentBad => Some(Rule::CommentBad),
+            Pattern::Entity
+            | Pattern::Ampersand
+            | Pattern::InstructionAttribute
+            | Pattern::ParameterEntity
+            | Pattern::Attribute
+            | Pattern::PageDirective => None,
         }
     }
 
     /// The scope a match adds to the whole of its text.
     pub(super) fn name(self) -> Option<S> {
         match self {
-            Pat::Entity => Some(S::ConstantEntity),
-            Pat::Ampersand => Some(S::InvalidAmpersand),
-            Pat::PiAttr => Some(S::AttrName),
-            Pat::ParameterEntity => Some(S::ConstantParameterEntity),
-            Pat::PageProp => Some(S::PageProps),
-            Pat::Attribute
-            | Pat::Pi
-            | Pat::Doctype
-            | Pat::CommentJsp
-            | Pat::Comment
-            | Pat::NoContent
-            | Pat::Tag
-            | Pat::JspProps
-            | Pat::Jsp
-            | Pat::Cdata
-            | Pat::Double
-            | Pat::Single
-            | Pat::Subset
-            | Pat::EntityDecl
-            | Pat::CommentBad => None,
+            Pattern::Entity => Some(S::ConstantEntity),
+            Pattern::Ampersand => Some(S::InvalidAmpersand),
+            Pattern::InstructionAttribute => Some(S::AttrName),
+            Pattern::ParameterEntity => Some(S::ConstantParameterEntity),
+            Pattern::PageDirective => Some(S::PageProps),
+            Pattern::Attribute
+            | Pattern::Pi
+            | Pattern::Doctype
+            | Pattern::CommentJsp
+            | Pattern::Comment
+            | Pattern::NoContent
+            | Pattern::Tag
+            | Pattern::JspProps
+            | Pattern::Jsp
+            | Pattern::Cdata
+            | Pattern::Double
+            | Pattern::Single
+            | Pattern::Subset
+            | Pattern::EntityDecl
+            | Pattern::CommentBad => None,
         }
     }
 }
 
 /// The patterns of `rule`, in the grammar's order.
-pub(super) fn patterns(rule: Rule) -> &'static [Pat] {
+pub(super) fn patterns(rule: Rule) -> &'static [Pattern] {
     match rule {
         Rule::Root => &[
-            Pat::Pi,
-            Pat::Doctype,
-            Pat::CommentJsp,
-            Pat::Comment,
-            Pat::NoContent,
-            Pat::Tag,
-            Pat::Entity,
-            Pat::Ampersand,
-            Pat::JspProps,
-            Pat::Jsp,
-            Pat::Cdata,
+            Pattern::Pi,
+            Pattern::Doctype,
+            Pattern::CommentJsp,
+            Pattern::Comment,
+            Pattern::NoContent,
+            Pattern::Tag,
+            Pattern::Entity,
+            Pattern::Ampersand,
+            Pattern::JspProps,
+            Pattern::Jsp,
+            Pattern::Cdata,
         ],
-        Rule::Pi => &[Pat::PiAttr, Pat::Double, Pat::Single],
-        Rule::Doctype => &[Pat::Subset],
+        Rule::Pi => &[
+            Pattern::InstructionAttribute,
+            Pattern::Double,
+            Pattern::Single,
+        ],
+        Rule::Doctype => &[Pattern::Subset],
         Rule::Subset => &[
-            Pat::EntityDecl,
-            Pat::ParameterEntity,
-            Pat::CommentJsp,
-            Pat::Comment,
+            Pattern::EntityDecl,
+            Pattern::ParameterEntity,
+            Pattern::CommentJsp,
+            Pattern::Comment,
         ],
-        Rule::EntityDecl => &[Pat::Double, Pat::Single],
-        Rule::Comment => &[Pat::CommentBad],
-        Rule::NoContent | Rule::Tag => &[Pat::Attribute, Pat::Double, Pat::Single],
-        Rule::JspProps => &[Pat::PageProp],
-        Rule::Double | Rule::Single => &[Pat::Entity, Pat::Ampersand],
+        Rule::EntityDecl => &[Pattern::Double, Pattern::Single],
+        Rule::Comment => &[Pattern::CommentBad],
+        Rule::NoContent | Rule::Tag => &[Pattern::Attribute, Pattern::Double, Pattern::Single],
+        Rule::JspProps => &[Pattern::PageDirective],
+        Rule::Double | Rule::Single => &[Pattern::Entity, Pattern::Ampersand],
         Rule::CommentBad | Rule::CommentJsp | Rule::Jsp | Rule::Cdata => &[],
     }
 }

@@ -1,7 +1,7 @@
 //! Objective-C++ on the shared rule engine ([`crate::rules`]): the grammar's
 //! types and what a line keeps for its matchers.
 
-use super::grammar::{Expr, Nested, Pat, Rule, Sc};
+use super::grammar::{Expr, Nested, Pattern, Rule, Sc};
 use super::scope::S;
 use crate::objective_c::{Memory, ObjcMemory};
 use crate::rules::{self, Act, BlankRuns, Captures, Grammar, Payload, ScopeName, table_scan};
@@ -43,7 +43,7 @@ impl Grammar for ObjectiveCpp {
     type Scope = Sc;
     const NO_SCOPES: Scopes<Sc> = Sc::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -77,40 +77,42 @@ impl Grammar for ObjectiveCpp {
     }
 
     fn rule_name(rule: Rule) -> Scopes<Sc> {
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<Sc> {
-        rule.data().content
+        rule.definition().content
     }
 
     /// A raw string keeps its delimiter, which its end repeats.
     fn rule_payload(rule: Rule) -> Payload {
-        rule.data().backref.map_or(Payload::None, Payload::Backref)
+        rule.definition()
+            .backref
+            .map_or(Payload::None, Payload::Backref)
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
     /// Objective-C's matchers answer the expressions the grammar shares with
     /// Objective-C; this module's answer the rest.
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        match pat.expr() {
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern.expr() {
             Expr::Shared(rx) => lexer.matcher(rx, p),
             Expr::Own(rx) => lexer.own_matcher(rx, p),
         }
@@ -121,15 +123,15 @@ impl Grammar for ObjectiveCpp {
     /// Past [`MAX_NESTED`] groups lexed again around it, the text keeps the
     /// group's scopes alone.
     /// The line then reports the depth limit.
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        let inner = lexer.path(base, kind.scopes);
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        let inner = lexer.path(base, nested.scopes);
         if lexer.x.nested >= MAX_NESTED {
             lexer.record_depth();
             lexer.emit(to, inner);
             return;
         }
         lexer.x.nested += 1;
-        lexer.retokenise(kind.rule, from, to, inner);
+        lexer.retokenise(nested.rule, from, to, inner);
         lexer.x.nested -= 1;
     }
 }

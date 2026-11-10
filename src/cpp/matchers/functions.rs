@@ -152,9 +152,9 @@ impl Lexer<'_> {
             let from = gap.end;
             let start = self.skip_space(from);
             if let Some(found) = self.first_type(start, &layout) {
-                self.cap(1, arrow, after);
+                self.capture(1, arrow, after);
                 self.put_gap(2, GapForm::Parts, after, &gap);
-                self.cap(6, from, found.end);
+                self.capture(6, from, found.end);
                 self.put_type(&layout, &found);
                 return Some(found.end);
             }
@@ -308,42 +308,42 @@ impl Lexer<'_> {
             self.put_head(first.end, &RETURN, head);
             self.put_gap(32, GapForm::Parts, head.end, gap);
         }
-        self.cap(36, found.start, found.convention);
+        self.capture(36, found.start, found.convention);
         self.put_gap(37, GapForm::Parts, found.convention, &found.second);
         self.put_gap(41, GapForm::Parts, found.second.end, &found.third);
         let (chain, template) = found.scope;
-        self.cap(45, found.third.end, chain);
+        self.capture(45, found.third.end, chain);
         if let Some((a, tpl_end, spaced)) = template {
-            self.cap(46, a, spaced);
-            self.cap(47, a, tpl_end);
+            self.capture(46, a, spaced);
+            self.capture(47, a, tpl_end);
         }
-        self.cap(48, chain, found.word);
+        self.capture(48, chain, found.word);
         if let Some((gap, e)) = found.konst {
             self.put_gap(49, GapForm::Parts, found.word, &gap);
-            self.cap(53, gap.end, e);
+            self.capture(53, gap.end, e);
         }
         self.put_gap(54, GapForm::Parts, found.after, &found.fourth);
         let (chain2, template2) = found.scope2;
-        self.cap(58, found.fourth.end, chain2);
+        self.capture(58, found.fourth.end, chain2);
         if let Some((a, tpl_end, spaced)) = template2 {
-            self.cap(59, a, spaced);
-            self.cap(60, a, tpl_end);
+            self.capture(59, a, spaced);
+            self.capture(60, a, tpl_end);
         }
         match found.named {
-            Named::Operator(end) => self.cap(61, chain2, end),
+            Named::Operator(end) => self.capture(61, chain2, end),
             Named::Conversion(id, run, gap, end) => {
-                self.cap(62, chain2, end);
+                self.capture(62, chain2, end);
                 let at = run.map_or(id, |r| r.0);
                 if let Some(run) = run {
                     self.put_pointer(&CONVERSION, id, &run);
                 }
                 self.put_gap(72, GapForm::Parts, at, &gap);
-                self.cap(76, gap.end, end);
+                self.capture(76, gap.end, end);
             }
             Named::Literal(gap, id) => {
-                self.cap(77, chain2, chain2 + 2);
+                self.capture(77, chain2, chain2 + 2);
                 self.put_gap(78, GapForm::Parts, chain2 + 2, &gap);
-                self.cap(82, gap.end, id);
+                self.capture(82, gap.end, id);
             }
         }
         self.put_gap(83, GapForm::Parts, found.name_end, &found.last);
@@ -421,32 +421,32 @@ impl Lexer<'_> {
                 })
         })?;
         if let Some((word, gap)) = found.template {
-            self.cap(1, start, word);
+            self.capture(1, start, word);
             self.put_gap(2, GapForm::Parts, word, &gap);
         }
         if let Some(end) = found.attribute {
-            self.cap(6, found.after, end);
+            self.capture(6, found.after, end);
         }
-        self.cap(7, found.loop_start, found.loop_end);
+        self.capture(7, found.loop_start, found.loop_end);
         if let Some((from, word, gap)) = found.last {
-            self.cap(8, from, word);
+            self.capture(8, from, word);
             self.put_gap(9, GapForm::Parts, word, &gap);
         }
         let head = found.head;
         let name = found.name;
         self.put_head(found.loop_end, &DEFINED, &head);
         self.put_gap(40, GapForm::Parts, head.end, &name.fifth);
-        self.cap(44, name.fifth.end, name.convention);
+        self.capture(44, name.fifth.end, name.convention);
         self.put_gap(45, GapForm::Parts, name.convention, &name.sixth);
-        self.cap(49, name.sixth.end, name.chain.end);
+        self.capture(49, name.sixth.end, name.chain.end);
         if let Some(at) = name.chain.colons {
-            self.cap(50, at, at + 2);
+            self.capture(50, at, at + 2);
         }
         if let Some((a, tpl_end, spaced)) = name.chain.template {
-            self.cap(51, a, spaced);
-            self.cap(52, a, tpl_end);
+            self.capture(51, a, spaced);
+            self.capture(52, a, tpl_end);
         }
-        self.cap(53, name.chain.end, name.end);
+        self.capture(53, name.chain.end, name.end);
         self.put_gap(54, GapForm::Parts, name.end, &name.seventh);
         Some(name.seventh.end)
     }

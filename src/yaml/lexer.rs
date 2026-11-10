@@ -6,7 +6,7 @@ use memchr::memchr2;
 
 use super::scalar;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::emit::Emitter;
 use crate::language::{Context, Halt};
 use crate::limits::{Finished, Limit, Steps};
@@ -78,7 +78,7 @@ fn is_flow_indicator(b: u8) -> bool {
     matches!(b, b',' | b'[' | b']' | b'{' | b'}')
 }
 
-/// The kinds of directive the grammar tells apart.
+/// The directives the grammar tells apart.
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Directive {
     Yaml,
@@ -173,15 +173,15 @@ impl<'a> Lexer<'a> {
     pub(crate) fn run(&mut self) {
         let len = self.s.len();
         let mut p = match self.top() {
-            Kind::Block => self.block_line(),
-            Kind::Double => self.double_body(0),
-            Kind::Single => self.single_body(0),
-            Kind::Top
-            | Kind::FlowSeq
-            | Kind::FlowMap
-            | Kind::Pair
-            | Kind::Complex
-            | Kind::Explicit => 0,
+            Rule::Block => self.block_line(),
+            Rule::Double => self.double_body(0),
+            Rule::Single => self.single_body(0),
+            Rule::Top
+            | Rule::FlowSeq
+            | Rule::FlowMap
+            | Rule::Pair
+            | Rule::Complex
+            | Rule::Explicit => 0,
         };
         while p < len {
             self.steps.spend(1);
@@ -196,11 +196,11 @@ impl<'a> Lexer<'a> {
             }
             let from = p;
             p = match self.top() {
-                Kind::Top | Kind::Complex => self.block_step(p),
-                Kind::FlowSeq | Kind::FlowMap | Kind::Pair | Kind::Explicit => self.flow_step(p),
-                Kind::Double => self.double_body(p),
-                Kind::Single => self.single_body(p),
-                Kind::Block => self.block_line(),
+                Rule::Top | Rule::Complex => self.block_step(p),
+                Rule::FlowSeq | Rule::FlowMap | Rule::Pair | Rule::Explicit => self.flow_step(p),
+                Rule::Double => self.double_body(p),
+                Rule::Single => self.single_body(p),
+                Rule::Block => self.block_line(),
             };
             debug_assert!(p > from, "the YAML lexer made no progress at byte {from}");
         }
@@ -278,15 +278,15 @@ impl<'a> Lexer<'a> {
 
     // Contexts.
 
-    fn top(&self) -> Kind {
-        Kind::from_code(self.em.frame.kind)
+    fn top(&self) -> Rule {
+        Rule::from_code(self.em.frame.rule)
     }
 
     /// Opens a context with `payload`.
     /// It returns false when a limit keeps the context closed.
-    fn push(&mut self, kind: Kind, payload: u32) -> bool {
-        let scopes = kind.scopes().iter().map(|scope| scope.scope());
-        self.em.push(kind.code(), payload, scopes)
+    fn push(&mut self, rule: Rule, payload: u32) -> bool {
+        let scopes = rule.scopes().iter().map(|scope| scope.scope());
+        self.em.push(rule.code(), payload, scopes)
     }
 
     // Block scalars.
@@ -324,7 +324,7 @@ impl<'a> Lexer<'a> {
                 let parent = self.em.frame.parent;
                 let stack = self.em.frame.stack;
                 let width = u32::try_from(indent).unwrap_or(u32::MAX);
-                if let Some(state) = self.em.arena.push(parent, Kind::Block.code(), width, stack) {
+                if let Some(state) = self.em.arena.push(parent, Rule::Block.code(), width, stack) {
                     self.em.enter(state);
                 }
             }
@@ -366,7 +366,7 @@ impl<'a> Lexer<'a> {
             self.token(at, len, &[S::InvalidCommentNewline]);
         }
         self.gap(len);
-        self.push(Kind::Block, 0);
+        self.push(Rule::Block, 0);
         len
     }
 
@@ -407,8 +407,8 @@ impl<'a> Lexer<'a> {
     fn quoted(&mut self, p: usize) -> usize {
         let double = self.s[p] == b'"';
         self.gap(p);
-        let kind = if double { Kind::Double } else { Kind::Single };
-        if !self.push(kind, 0) {
+        let rule = if double { Rule::Double } else { Rule::Single };
+        if !self.push(rule, 0) {
             return self.token(p, p + 1, &[]);
         }
         self.tok(p + 1, &[S::PunctStrBegin]);
@@ -518,7 +518,7 @@ impl<'a> Lexer<'a> {
     fn in_flow(&self) -> bool {
         matches!(
             self.top(),
-            Kind::FlowSeq | Kind::FlowMap | Kind::Pair | Kind::Explicit
+            Rule::FlowSeq | Rule::FlowMap | Rule::Pair | Rule::Explicit
         )
     }
 
@@ -650,7 +650,7 @@ impl<'a> Lexer<'a> {
             && (self.at(end) != b':'
                 || !(end > p && self.s[end - 1] == b':')
                 || self.colons_key(p, end, flow));
-        let key = key && self.top() != Kind::Pair;
+        let key = key && self.top() != Rule::Pair;
         let body = if flow { S::PlainIn } else { S::PlainOut };
         let end = end.max(p + char_len(self.s[p]).min(self.s.len() - p));
         let text = &self.s[p..end];
@@ -769,7 +769,7 @@ impl<'a> Lexer<'a> {
         let Some(halts) = self.halts else {
             return false;
         };
-        if self.top() != Kind::Top {
+        if self.top() != Rule::Top {
             return false;
         }
         let at = halts.start + p;
@@ -804,7 +804,7 @@ impl<'a> Lexer<'a> {
         if self.blank_at(p) > 0 {
             return self.skip_blanks(p);
         }
-        if p == 0 && self.text_start == TextStart::Line && self.top() == Kind::Top {
+        if p == 0 && self.text_start == TextStart::Line && self.top() == Rule::Top {
             if let Some(end) = self.document_marker() {
                 return end;
             }
@@ -816,7 +816,7 @@ impl<'a> Lexer<'a> {
             b'#' if self.comment_at(p) => self.comment(p),
             b'-' if self.blank_or_end(p + 1) => self.token(p, p + 1, &[S::PunctSeqItem]),
             b'?' => self.complex_key(p),
-            b':' if self.top() == Kind::Complex => {
+            b':' if self.top() == Rule::Complex => {
                 let leaf = if self.text_start == TextStart::Line && p <= self.lead_spaces {
                     S::PunctKeyValue
                 } else {
@@ -871,7 +871,7 @@ impl<'a> Lexer<'a> {
         let name_end = self.run_end(at, word_chars);
         let name = &self.s[at..name_end];
         let version = self.version_len(self.skip_ascii_blanks_unspent(name_end));
-        let kind = match name {
+        let directive = match name {
             b"YAML" if version > 0 => Directive::Yaml,
             b"TAG" => Directive::Tag,
             _ => Directive::Reserved,
@@ -879,7 +879,7 @@ impl<'a> Lexer<'a> {
         let mut bad = name_end == at;
         if bad {
         } else {
-            let leaf = match kind {
+            let leaf = match directive {
                 Directive::Yaml => S::DirectiveYaml,
                 Directive::Tag => S::DirectiveTag,
                 Directive::Reserved => S::DirectiveReserved,
@@ -903,7 +903,7 @@ impl<'a> Lexer<'a> {
             let mut end = word;
             let mut leaf = S::InvalidUnrecognized;
             if !bad {
-                (end, leaf) = match (kind, index) {
+                (end, leaf) = match (directive, index) {
                     (Directive::Yaml, 0) => (start + self.version_len(start), S::YamlVersion),
                     (Directive::Tag, 0) => match self.handle_len(start) {
                         0 => (word, S::InvalidUnrecognized),
@@ -1030,7 +1030,7 @@ impl<'a> Lexer<'a> {
     /// `? ` in a block mapping: the explicit key.
     fn complex_key(&mut self, p: usize) -> usize {
         self.gap(p);
-        if self.top() != Kind::Complex && !self.push(Kind::Complex, 0) {
+        if self.top() != Rule::Complex && !self.push(Rule::Complex, 0) {
             return self.token(p, p + 1, &[]);
         }
         self.tok(p + 1, &[]);
@@ -1042,8 +1042,8 @@ impl<'a> Lexer<'a> {
     fn open_flow(&mut self, p: usize) -> usize {
         let seq = self.s[p] == b'[';
         self.gap(p);
-        let kind = if seq { Kind::FlowSeq } else { Kind::FlowMap };
-        if !self.push(kind, 0) {
+        let rule = if seq { Rule::FlowSeq } else { Rule::FlowMap };
+        if !self.push(rule, 0) {
             return self.token(p, p + 1, &[]);
         }
         let leaf = if seq {
@@ -1065,7 +1065,7 @@ impl<'a> Lexer<'a> {
             b'[' | b'{' => self.open_flow(p),
             b']' | b'}' => self.close_flow(p),
             b'?' => {
-                if self.top() == Kind::Pair {
+                if self.top() == Rule::Pair {
                     let bare = self.blank_or_end(p + 1) || is_flow_indicator(self.at(p + 1));
                     return if bare {
                         self.token(p, p + 1, &[])
@@ -1074,7 +1074,7 @@ impl<'a> Lexer<'a> {
                     };
                 }
                 self.gap(p);
-                if self.push(Kind::Explicit, 0) {
+                if self.push(Rule::Explicit, 0) {
                     self.tok(p + 1, &[S::PunctKeyValueBegin]);
                     p + 1
                 } else {
@@ -1088,7 +1088,7 @@ impl<'a> Lexer<'a> {
             b',' => {
                 self.gap(p);
                 self.pop_pair_and_explicit();
-                let leaf = if self.top() == Kind::FlowMap {
+                let leaf = if self.top() == Rule::FlowMap {
                     S::PunctMapSep
                 } else {
                     S::PunctSeqSep
@@ -1111,19 +1111,19 @@ impl<'a> Lexer<'a> {
 
     /// `:` of a flow pair: it opens the pair's value.
     fn pair(&mut self, p: usize) -> usize {
-        if self.top() == Kind::Pair {
+        if self.top() == Rule::Pair {
             return self.token(p, p + 1, &[]);
         }
         self.gap(p);
         self.tok(p + 1, &[S::MetaFlowPair, S::PunctKeyValue]);
-        self.push(Kind::Pair, 0);
+        self.push(Rule::Pair, 0);
         p + 1
     }
 
     /// Closes the open pair and explicit key.
     /// They end where their collection's next entry, or its end, begins.
     fn pop_pair_and_explicit(&mut self) {
-        while matches!(self.top(), Kind::Pair | Kind::Explicit) {
+        while matches!(self.top(), Rule::Pair | Rule::Explicit) {
             self.em.pop();
         }
     }
@@ -1131,16 +1131,16 @@ impl<'a> Lexer<'a> {
     /// `]` or `}`: the end of the flow collection it matches.
     fn close_flow(&mut self, p: usize) -> usize {
         let want = if self.s[p] == b']' {
-            Kind::FlowSeq
+            Rule::FlowSeq
         } else {
-            Kind::FlowMap
+            Rule::FlowMap
         };
         self.gap(p);
         self.pop_pair_and_explicit();
         if self.top() != want {
             return self.token(p, p + 1, &[]);
         }
-        let leaf = if want == Kind::FlowSeq {
+        let leaf = if want == Rule::FlowSeq {
             S::PunctSeqEnd
         } else {
             S::PunctMapEnd

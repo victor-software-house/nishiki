@@ -111,7 +111,7 @@ enum Step {
 }
 
 /// The first alternative that starts a group with the options before a `:`.
-const GROUP_KINDS: [&[u8]; 17] = [
+const GROUP_NAMES: [&[u8]; 17] = [
     b"atomic",
     b"pla",
     b"positive_lookahead",
@@ -187,7 +187,7 @@ impl Lexer<'_> {
         if hashes == p || hashes + 1 != self.lim() || self.at(hashes) != b'/' {
             return None;
         }
-        self.cap(1, p, hashes);
+        self.capture(1, p, hashes);
         Some(hashes + 2)
     }
 
@@ -208,7 +208,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"\\Q")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -218,12 +218,12 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         if let Some(end) = self.lit(p, b"\\E") {
-            self.cap(0, p, end);
+            self.capture(0, p, end);
             return Some(end);
         }
         if p == self.lim() && self.nl {
-            self.cap(0, p, p + 1);
-            self.cap(1, p, p + 1);
+            self.capture(0, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         None
@@ -235,7 +235,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"(?#")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -245,7 +245,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"<{")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -255,7 +255,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"}>")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -298,16 +298,16 @@ impl Lexer<'_> {
             if self.at(body) != b'}' {
                 return None;
             }
-            self.cap(1, p + 3, body);
+            self.capture(1, p + 3, body);
             return Some(body + 1);
         }
         let body = self
             .lit(p, b"[:")
             .and_then(|open| self.property_end(open))?;
         let end = self.lit(body, b":]")?;
-        self.cap(2, p, p + 2);
-        self.cap(3, p + 2, body);
-        self.cap(4, body, end);
+        self.capture(2, p, p + 2);
+        self.capture(3, p + 2, body);
+        self.capture(4, body, end);
         Some(end)
     }
 
@@ -585,9 +585,9 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let a = self.lit(p, b"[")?;
-        self.cap(1, p, a);
+        self.capture(1, p, a);
         if self.at(a) == b'^' {
-            self.cap(2, a, a + 1);
+            self.capture(2, a, a + 1);
             return Some(a + 1);
         }
         Some(a)
@@ -600,7 +600,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"]")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -655,8 +655,8 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"(?~")?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -682,8 +682,8 @@ impl Lexer<'_> {
             }
         }
         if self.at(q) == b'?' && self.at(q + 1) == b'(' {
-            self.cap(22, p, q);
-            self.cap(23, q, q + 1);
+            self.capture(22, p, q);
+            self.capture(23, q, q + 1);
             return Some(q + 1);
         }
         None
@@ -715,7 +715,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let a = self.lit(p, b"#")?;
-        self.cap(1, p, a);
+        self.capture(1, p, a);
         Some(self.lim())
     }
 
@@ -739,9 +739,9 @@ impl Lexer<'_> {
         if self.at(a) == b'\\' {
             let close = a + 1 + self.space_at(a + 1);
             if close > a + 1 && self.at(close) == b'/' {
-                self.cap(0, p, close + 1);
-                self.cap(1, p, a);
-                self.cap(3, close, close + 1);
+                self.capture(0, p, close + 1);
+                self.capture(1, p, a);
+                self.capture(3, close, close + 1);
                 return Some(close + 1);
             }
         }
@@ -749,9 +749,9 @@ impl Lexer<'_> {
         if self.at(end) != b'/' || self.char_before(end).is_some_and(is_space) {
             return None;
         }
-        self.cap(0, p, end + 1);
-        self.cap(1, p, a);
-        self.cap(3, end, end + 1);
+        self.capture(0, p, end + 1);
+        self.capture(1, p, a);
+        self.capture(3, end, end + 1);
         Some(end + 1)
     }
 
@@ -777,14 +777,14 @@ impl Lexer<'_> {
             && self.closes(end, hashes)
         {
             let after = end + 1 + hashes.len();
-            self.cap(0, p, after);
-            self.cap(1, p, a);
-            self.cap(4, end, after);
+            self.capture(0, p, after);
+            self.capture(1, p, a);
+            self.capture(4, end, after);
             return Some(after);
         }
         if a < self.lim() {
-            self.cap(0, p, self.lim() + 1);
-            self.cap(5, self.lim(), self.lim() + 1);
+            self.capture(0, p, self.lim() + 1);
+            self.capture(5, self.lim(), self.lim() + 1);
             return Some(self.lim() + 1);
         }
         None
@@ -796,7 +796,7 @@ impl Lexer<'_> {
     /// Records the groups of a match.
     fn record(&mut self, spans: &Spans) {
         for &(group, start, end) in spans.list.iter().take(spans.len) {
-            self.cap(group, start, end);
+            self.capture(group, start, end);
         }
     }
 
@@ -1378,14 +1378,14 @@ impl Lexer<'_> {
         Some(minor)
     }
 
-    /// What follows `(` in a group: `(\?)(?:…)` or `\*(kind):`, from `q`.
+    /// What follows `(` in a group: `(\?)(?:…)` or `\*(name):`, from `q`.
     fn group_head(&self, q: usize, spans: &mut Spans) -> Option<usize> {
         if self.at(q) == b'*' {
-            let kind = GROUP_KINDS
+            let name_end = GROUP_NAMES
                 .iter()
-                .find_map(|kind| self.lit(q + 1, kind).filter(|&end| self.at(end) == b':'))?;
-            spans.push(2, q, kind + 1);
-            return Some(kind + 1);
+                .find_map(|name| self.lit(q + 1, name).filter(|&end| self.at(end) == b':'))?;
+            spans.push(2, q, name_end + 1);
+            return Some(name_end + 1);
         }
         if self.at(q) != b'?' {
             return None;
@@ -1393,14 +1393,14 @@ impl Lexer<'_> {
         let r = q + 1;
         let mut found = *spans;
         found.push(3, q, r);
-        let end = self.group_kind(r, &mut found)?;
+        let end = self.group_alternatives(r, &mut found)?;
         found.push(2, q, end);
         *spans = found;
         Some(end)
     }
 
     /// The alternatives after `(?` in a group, from `r`.
-    fn group_kind(&self, r: usize, spans: &mut Spans) -> Option<usize> {
+    fn group_alternatives(&self, r: usize, spans: &mut Spans) -> Option<usize> {
         if b"!*:=>|".contains(&self.at(r)) && r < self.lim() {
             spans.push(4, r, r + 1);
             return Some(r + 1);

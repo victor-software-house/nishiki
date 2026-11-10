@@ -238,7 +238,7 @@ Review asks more of every slice: every row at or below 1.000, and a per-function
 
 - Slices 1, 2 and 6 touch no lexer and no `Grammar` trait.
 - Slice 3 changes `Tables::build` only.
-  Its inputs, `Grammar::pat_start` and the rule data, keep their signatures.
+  Its inputs, `Grammar::pattern_start` and the rule definitions, keep their signatures.
   A language that lands first needs no change.
 - Slice 4 changes `rules::chars`, which every rule-engine matcher calls.
   Before it ships, every implementor on main and on the open language branches is checked.

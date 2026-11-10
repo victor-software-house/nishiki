@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language yaml
 source bench/corpus/yaml/medium/bitnami-charts-nginx-values.yaml
 url https://raw.githubusercontent.com/bitnami/charts/893617002038e004458bab28a14b126de43bc3e7/bitnami/nginx/values.yaml

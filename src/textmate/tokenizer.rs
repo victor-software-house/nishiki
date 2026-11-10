@@ -31,7 +31,7 @@ use super::regex::{self, Context, Programs, Regex};
 use super::scanner::Scanner;
 use super::selector::{self, Expr};
 use crate::arena::{Arena, IdMap, ROOT};
-use crate::language::{Context as Lexing, Halt, Line, StopKind, Stopped, halt_before};
+use crate::language::{Context as Lexing, Halt, Line, StopReason, Stopped, halt_before};
 use crate::limits::{Limit, Limits, LineReport, Steps, Work};
 use crate::scope::Scope;
 use crate::{Stack, Token};
@@ -925,7 +925,7 @@ fn rebuild<H: Halting>(
     let mut at = state;
     while at != ROOT {
         let f = arena.frame(at);
-        if H::HANDS_OFF && f.kind == HAND_OFF_TAG {
+        if H::HANDS_OFF && f.rule == HAND_OFF_TAG {
             frames.push(Frame {
                 rule: HANDED,
                 state: at,
@@ -1910,10 +1910,10 @@ impl Tokenizer<'_> {
         let halted = match halted {
             Some(Stopped {
                 at,
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
             }) => Some(at),
             Some(Stopped {
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
                 ..
             })
             | None => None,

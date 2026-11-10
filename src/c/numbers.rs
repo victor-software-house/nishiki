@@ -148,7 +148,7 @@ impl Lexer<'_> {
     }
 
     /// Digits with their separators, lexed again for the separators.
-    fn cap_digits(&mut self, start: usize, end: usize, scopes: Scopes<S>) {
+    fn capture_digits(&mut self, start: usize, end: usize, scopes: Scopes<S>) {
         self.span_retok(start, end, scopes, R::NumSep);
     }
 
@@ -189,7 +189,7 @@ impl Lexer<'_> {
             self.span(j, j + 1, scopes.minus);
             j += 1;
         }
-        self.cap_digits(j, end, scopes.digits);
+        self.capture_digits(j, end, scopes.digits);
     }
 
     /// Whether what follows the digits from `i` to `b` is nothing, or a
@@ -238,7 +238,7 @@ impl Lexer<'_> {
         self.span(a, a + 2, UNIT_HEX);
         let mut i = a + 2;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_hexdigit()) {
-            self.cap_digits(i, end, NUM_HEX);
+            self.capture_digits(i, end, NUM_HEX);
             i = end;
         }
         let dot = i < self.lim()
@@ -251,7 +251,7 @@ impl Lexer<'_> {
         self.span(i, i + 1, NUM_HEX);
         i += 1;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_hexdigit()) {
-            self.cap_digits(i, end, NUM_HEX);
+            self.capture_digits(i, end, NUM_HEX);
             i = end;
         }
         self.exponent_tail(i, b, Exp::Hex, Suffix::Float)
@@ -273,7 +273,7 @@ impl Lexer<'_> {
         }
         let mut i = a;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_digit()) {
-            self.cap_digits(i, end, NUM_DECIMAL);
+            self.capture_digits(i, end, NUM_DECIMAL);
             i = end;
         }
         let dot = i < self.lim()
@@ -286,7 +286,7 @@ impl Lexer<'_> {
         self.span(i, i + 1, POINT);
         i += 1;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_digit()) {
-            self.cap_digits(i, end, NUM_DECIMAL);
+            self.capture_digits(i, end, NUM_DECIMAL);
             i = end;
         }
         self.exponent_tail(i, b, Exp::Decimal, Suffix::Float)
@@ -301,7 +301,7 @@ impl Lexer<'_> {
             return false;
         };
         self.span(a, a + 2, UNIT_BINARY);
-        self.cap_digits(a + 2, end, NUM_BINARY);
+        self.capture_digits(a + 2, end, NUM_BINARY);
         self.tail(end, b, Suffix::Int)
     }
 
@@ -315,7 +315,7 @@ impl Lexer<'_> {
             return false;
         }
         self.span(a, a + 1, UNIT_OCTAL);
-        self.cap_digits(a + 1, end, NUM_OCTAL);
+        self.capture_digits(a + 1, end, NUM_OCTAL);
         self.tail(end, b, Suffix::Int)
     }
 
@@ -328,7 +328,7 @@ impl Lexer<'_> {
             return false;
         };
         self.span(a, a + 2, UNIT_HEX);
-        self.cap_digits(a + 2, end, NUM_HEX);
+        self.capture_digits(a + 2, end, NUM_HEX);
         self.exponent_tail(end, b, Exp::Hex, Suffix::Int)
     }
 
@@ -340,7 +340,7 @@ impl Lexer<'_> {
         let Some(end) = self.run_digits(a, |c| c.is_ascii_digit()) else {
             return false;
         };
-        self.cap_digits(a, end, NUM_DECIMAL);
+        self.capture_digits(a, end, NUM_DECIMAL);
         self.exponent_tail(end, b, Exp::Decimal, Suffix::Int)
     }
 }

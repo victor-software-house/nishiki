@@ -8,9 +8,9 @@
 //! To add one, add its names to [`NAMES`] and its embedded scope to
 //! `rules::content_name`. A rule that embeds a language under another
 //! language's name, as `php` embeds HTML, is an [`Embed`] of its own. It has
-//! a fence `Kind` and a body `Kind` of its own.
+//! a fence `Container` and a body `Container` of its own.
 
-use super::state::Kind;
+use super::state::Container;
 use super::text::Cx;
 use crate::{Language, case_fold};
 
@@ -37,13 +37,13 @@ pub(crate) enum Embed {
 
 impl Embed {
     /// The container the fence opens. The rule is resolved here, once per
-    /// fence, so the `Kind` values the lexer meets on every line stay keyed
-    /// by a [`Language`].
-    pub(crate) fn fence(self) -> Kind {
+    /// fence, so the `Container` values the lexer meets on every line stay
+    /// keyed by a [`Language`].
+    pub(crate) fn fence(self) -> Container {
         match self {
-            Embed::Lang(lang) => Kind::Fence(lang),
+            Embed::Lang(lang) => Container::Fence(lang),
             #[cfg(feature = "lang-html")]
-            Embed::Php => Kind::FencePhp,
+            Embed::Php => Container::FencePhp,
         }
     }
 }

@@ -35,7 +35,7 @@ fn a_function_definition_and_its_parameters() {
 }
 
 #[test]
-fn numbers_are_lexed_again_by_their_kind() {
+fn numbers_are_lexed_again_by_their_notation() {
     let text = "x = 0x1F + 1.5e-3f + 1'000 + 0b101 + 08 + 0x;";
     assert_eq!(scopes_of(text, "0x"), ["keyword.other.unit.hexadecimal.c"]);
     assert_eq!(scopes_of(text, "1F"), ["constant.numeric.hexadecimal.c"]);

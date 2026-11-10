@@ -1,6 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`].
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -16,7 +17,7 @@
 //! `(?i)` compares words through [`crate::case_fold`].
 
 use super::engine::{Lexer, Word};
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use super::words;
 use crate::rules::Chars;
 use crate::{bytes, case_fold};
@@ -41,47 +42,47 @@ fn bits_of(table: &[(&[u8], u64)], word: &[u8]) -> u64 {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::LineComment => self.lit(p, b"//"),
-            Pat::LineCommentEnd => self.at_eol(p).then_some(p),
-            Pat::Number => self.number(p),
-            Pat::Reference => self.reference(p),
-            Pat::Attribute => self.lit(p, b"["),
-            Pat::AttributeEnd => self.lit(p, b"]"),
-            Pat::AttributeAt0 => self.attribute_name(p),
-            Pat::Declaration => self.declaration(p),
-            Pat::CgBlock => self.block_keyword(p, b"CG"),
-            Pat::HlslBlock => self.block_keyword(p, b"HLSL"),
-            Pat::CgBlockEnd => self.end_keyword(p, b"ENDCG"),
-            Pat::HlslBlockEnd => self.end_keyword(p, b"ENDHLSL"),
-            Pat::String | Pat::StringEnd => self.lit(p, b"\""),
-            Pat::BasicType
-            | Pat::Structure
-            | Pat::PropertyName
-            | Pat::PropertyValue
-            | Pat::ComparisonFunction
-            | Pat::StencilOperation
-            | Pat::TextureCombiners
-            | Pat::Fog
-            | Pat::BindChannels
-            | Pat::BlendOperations
-            | Pat::BlendFactors
-            | Pat::Fixed
-            | Pat::Transformations
-            | Pat::Camera
-            | Pat::Time
-            | Pat::Lighting
-            | Pat::FogVariable
-            | Pat::Various
-            | Pat::TargetPlatform
-            | Pat::TargetModel
-            | Pat::UnityVersion
-            | Pat::PlatformDifference
-            | Pat::Texture2D
-            | Pat::Structures
-            | Pat::Surface => self.listed(p, words::bit(pat)),
+    /// Whether `pattern` matches at `p`, and where its match ends.
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::LineComment => self.lit(p, b"//"),
+            Pattern::LineCommentEnd => self.at_eol(p).then_some(p),
+            Pattern::Number => self.number(p),
+            Pattern::Reference => self.reference(p),
+            Pattern::Attribute => self.lit(p, b"["),
+            Pattern::AttributeEnd => self.lit(p, b"]"),
+            Pattern::AttributeAt0 => self.attribute_name(p),
+            Pattern::Declaration => self.declaration(p),
+            Pattern::CgBlock => self.block_keyword(p, b"CG"),
+            Pattern::HlslBlock => self.block_keyword(p, b"HLSL"),
+            Pattern::CgBlockEnd => self.end_keyword(p, b"ENDCG"),
+            Pattern::HlslBlockEnd => self.end_keyword(p, b"ENDHLSL"),
+            Pattern::String | Pattern::StringEnd => self.lit(p, b"\""),
+            Pattern::BasicType
+            | Pattern::Structure
+            | Pattern::PropertyName
+            | Pattern::PropertyValue
+            | Pattern::ComparisonFunction
+            | Pattern::StencilOperation
+            | Pattern::TextureCombiners
+            | Pattern::Fog
+            | Pattern::BindChannels
+            | Pattern::BlendOperations
+            | Pattern::BlendFactors
+            | Pattern::Fixed
+            | Pattern::Transformations
+            | Pattern::Camera
+            | Pattern::Time
+            | Pattern::Lighting
+            | Pattern::FogVariable
+            | Pattern::Various
+            | Pattern::TargetPlatform
+            | Pattern::TargetModel
+            | Pattern::UnityVersion
+            | Pattern::PlatformDifference
+            | Pattern::Texture2D
+            | Pattern::Structures
+            | Pattern::Surface => self.listed(p, words::bit(pattern)),
         }
     }
 
@@ -208,14 +209,14 @@ impl Lexer<'_> {
         if !self.boundary(end) {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `\b(<word>)\b`, the word as group 1.
     fn end_keyword(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.keyword(p, word)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -13,7 +13,7 @@ mod operators;
 mod strings;
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// Whether `b` can start a name: the grammar's `[A-Z_a-z]`.
@@ -59,7 +59,7 @@ enum Stop {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - the rules that run until a closing delimiter, and their ends;
@@ -70,171 +70,172 @@ impl Lexer<'_> {
     /// - names, constants and operators;
     /// - comments, blanks and what the grammar marks illegal.
     #[expect(clippy::too_many_lines, reason = "one arm per pattern of the grammar")]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::ExpressionCont
-            | Pat::FunctionDefinition
-            | Pat::AttrsetDefinitionBraceOpenedAt1
-            | Pat::FunctionDefinitionBraceOpened
-            | Pat::FunctionDefinitionBraceOpenedAt1
-            | Pat::FunctionDefinitionBraceOpenedAt1At1
-            | Pat::FunctionDefinitionAt1 => Some(p),
-            Pat::ParensAndContEnd
-            | Pat::ListAndContEnd
-            | Pat::StringAt0End
-            | Pat::StringAt1End
-            | Pat::ExpressionContEnd
-            | Pat::StringAt2End
-            | Pat::StringAt3End
-            | Pat::StringAt4End
-            | Pat::FunctionForSureAt0End
-            | Pat::FunctionDefinitionEnd
-            | Pat::FunctionBodyFromColonEnd
-            | Pat::AttrsetForSureAt0End
-            | Pat::AttrsetDefinitionEnd
-            | Pat::AttrsetForSureAt1End
-            | Pat::AttrsetOrFunctionAt0End
-            | Pat::AttrsetDefinitionBraceOpenedAt0End
-            | Pat::LetEnd
-            | Pat::LetAt0At0End
-            | Pat::LetAt0At0At1End
-            | Pat::LetAt1End
-            | Pat::IfEnd
-            | Pat::IfAt2End
-            | Pat::ConstantsAt0End
-            | Pat::ConstantsAt1End
-            | Pat::ConstantsAt2End
-            | Pat::ParameterNameAndContEnd
-            | Pat::AttrsetOrFunctionAt1End
-            | Pat::FunctionDefinitionBraceOpenedEnd
-            | Pat::AttrsetOrFunctionAt3At0End
-            | Pat::AttrsetOrFunctionAt3At1End
-            | Pat::AttrsetOrFunctionAt3At2End
-            | Pat::AttrsetOrFunctionAt3At3End
-            | Pat::AttrsetOrFunctionAt3At3At1End
-            | Pat::AttrsetDefinitionAt1End => self.stops_at(p, Stop::Close),
-            Pat::LetAt0End => self.stops_at(p, Stop::CloseOrIn),
-            Pat::AttrsetOrFunctionEnd | Pat::AttrsetOrFunctionAt3End => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::ExpressionCont
+            | Pattern::FunctionDefinition
+            | Pattern::AttrsetDefinitionBraceOpenedAt1
+            | Pattern::FunctionDefinitionBraceOpened
+            | Pattern::FunctionDefinitionBraceOpenedAt1
+            | Pattern::FunctionDefinitionBraceOpenedAt1At1
+            | Pattern::FunctionDefinitionAt1 => Some(p),
+            Pattern::ParensAndContEnd
+            | Pattern::ListAndContEnd
+            | Pattern::StringAt0End
+            | Pattern::StringAt1End
+            | Pattern::ExpressionContEnd
+            | Pattern::StringAt2End
+            | Pattern::StringAt3End
+            | Pattern::StringAt4End
+            | Pattern::FunctionForSureAt0End
+            | Pattern::FunctionDefinitionEnd
+            | Pattern::FunctionBodyFromColonEnd
+            | Pattern::AttrsetForSureAt0End
+            | Pattern::AttrsetDefinitionEnd
+            | Pattern::AttrsetForSureAt1End
+            | Pattern::AttrsetOrFunctionAt0End
+            | Pattern::AttrsetDefinitionBraceOpenedAt0End
+            | Pattern::LetEnd
+            | Pattern::LetAt0At0End
+            | Pattern::LetAt0At0At1End
+            | Pattern::LetAt1End
+            | Pattern::IfEnd
+            | Pattern::IfAt2End
+            | Pattern::ConstantsAt0End
+            | Pattern::ConstantsAt1End
+            | Pattern::ConstantsAt2End
+            | Pattern::ParameterNameAndContEnd
+            | Pattern::AttrsetOrFunctionAt1End
+            | Pattern::FunctionDefinitionBraceOpenedEnd
+            | Pattern::AttrsetOrFunctionAt3At0End
+            | Pattern::AttrsetOrFunctionAt3At1End
+            | Pattern::AttrsetOrFunctionAt3At2End
+            | Pattern::AttrsetOrFunctionAt3At3End
+            | Pattern::AttrsetOrFunctionAt3At3At1End
+            | Pattern::AttrsetDefinitionAt1End => self.stops_at(p, Stop::Close),
+            Pattern::LetAt0End => self.stops_at(p, Stop::CloseOrIn),
+            Pattern::AttrsetOrFunctionEnd | Pattern::AttrsetOrFunctionAt3End => {
                 self.stops_at(p, Stop::CloseNoComma)
             }
 
-            Pat::ParensAndCont => self.peek(p, b"("),
-            Pat::Parens | Pat::AttributeInheritAt0 => self.lit(p, b"("),
-            Pat::ParensEnd | Pat::AttributeInheritAt0At0 => self.lit(p, b")"),
-            Pat::ListAndCont => self.peek(p, b"["),
-            Pat::List => self.lit(p, b"["),
-            Pat::ListEnd => self.lit(p, b"]"),
-            Pat::AttrsetDefinition
-            | Pat::AttrsetForSureAt0At0End
-            | Pat::LetAt0At0
-            | Pat::FunctionHeaderUntilColonNoArg
-            | Pat::FunctionDefinitionAt1At1
-            | Pat::FunctionHeaderUntilColonWithArg => self.peek(p, b"{"),
-            Pat::AttrsetDefinitionAt0
-            | Pat::AttrsetOrFunction
-            | Pat::LetAt0At0At0
-            | Pat::FunctionHeaderOpenBrace => self.lit(p, b"{"),
-            Pat::AttrsetDefinitionAt0End
-            | Pat::AttrsetDefinitionBraceOpenedAt1End
-            | Pat::LetAt0At0At0End
-            | Pat::InterpolationEnd
-            | Pat::FunctionHeaderCloseBraceWithArg
-            | Pat::FunctionHeaderCloseBraceNoArg => self.lit(p, b"}"),
-            Pat::FunctionDefinitionBraceOpenedAt1At1End | Pat::FunctionHeaderOpenBraceEnd => {
-                self.peek(p, b"}")
-            }
-            Pat::AttrsetDefinitionBraceOpenedAt0 | Pat::AttrsetDefinitionAt1 => {
+            Pattern::ParensAndCont => self.peek(p, b"("),
+            Pattern::Parens | Pattern::AttributeInheritAt0 => self.lit(p, b"("),
+            Pattern::ParensEnd | Pattern::AttributeInheritAt0At0 => self.lit(p, b")"),
+            Pattern::ListAndCont => self.peek(p, b"["),
+            Pattern::List => self.lit(p, b"["),
+            Pattern::ListEnd => self.lit(p, b"]"),
+            Pattern::AttrsetDefinition
+            | Pattern::AttrsetForSureAt0At0End
+            | Pattern::LetAt0At0
+            | Pattern::FunctionHeaderUntilColonNoArg
+            | Pattern::FunctionDefinitionAt1At1
+            | Pattern::FunctionHeaderUntilColonWithArg => self.peek(p, b"{"),
+            Pattern::AttrsetDefinitionAt0
+            | Pattern::AttrsetOrFunction
+            | Pattern::LetAt0At0At0
+            | Pattern::FunctionHeaderOpenBrace => self.lit(p, b"{"),
+            Pattern::AttrsetDefinitionAt0End
+            | Pattern::AttrsetDefinitionBraceOpenedAt1End
+            | Pattern::LetAt0At0At0End
+            | Pattern::InterpolationEnd
+            | Pattern::FunctionHeaderCloseBraceWithArg
+            | Pattern::FunctionHeaderCloseBraceNoArg => self.lit(p, b"}"),
+            Pattern::FunctionDefinitionBraceOpenedAt1At1End
+            | Pattern::FunctionHeaderOpenBraceEnd => self.peek(p, b"}"),
+            Pattern::AttrsetDefinitionBraceOpenedAt0 | Pattern::AttrsetDefinitionAt1 => {
                 (self.prev(p) == Some(b'}')).then_some(p)
             }
-            Pat::AttrsetForSureAt0 => self.keyword(p, b"rec").map(|_| p),
-            Pat::AttrsetForSureAt0At0 => self.keyword(p, b"rec"),
-            Pat::AttrsetForSureAt1 => self.attrset_for_sure(p),
-            Pat::AttrsetOrFunctionAt0 => self.attrset_ahead(p),
-            Pat::AttrsetOrFunctionAt1 => self.parameters_ahead(p),
-            Pat::AttributeInherit => self.keyword(p, b"inherit"),
-            Pat::AttributeInheritEnd | Pat::AttributeBindFromEqualsEnd | Pat::WithAssertEnd => {
-                self.lit(p, b";")
-            }
-            Pat::AttributeInheritAt0End
-            | Pat::AttributeInheritAt0At0End
-            | Pat::AttributeInheritAt1End => self.peek(p, b";"),
-            Pat::AttributeInheritAt1 => is_name_start(self.at(p)).then_some(p),
-            Pat::AttributeNameAt1 => self.lit(p, b"."),
-            Pat::AttributeBindFromEquals => self.lit(p, b"="),
-            Pat::AttrsetOrFunctionAt3At0 => self.peek(p, b"."),
-            Pat::AttrsetOrFunctionAt3At1 => self.spaced_comma(p),
-            Pat::AttrsetOrFunctionAt3At2 => self.peek(p, b"="),
-            Pat::AttrsetOrFunctionAt3At3 => self.peek(p, b"?"),
-            Pat::AttrsetOrFunctionAt3At3At1 => self.lit(p, b","),
+            Pattern::AttrsetForSureAt0 => self.keyword(p, b"rec").map(|_| p),
+            Pattern::AttrsetForSureAt0At0 => self.keyword(p, b"rec"),
+            Pattern::AttrsetForSureAt1 => self.attrset_for_sure(p),
+            Pattern::AttrsetOrFunctionAt0 => self.attrset_ahead(p),
+            Pattern::AttrsetOrFunctionAt1 => self.parameters_ahead(p),
+            Pattern::AttributeInherit => self.keyword(p, b"inherit"),
+            Pattern::AttributeInheritEnd
+            | Pattern::AttributeBindFromEqualsEnd
+            | Pattern::WithAssertEnd => self.lit(p, b";"),
+            Pattern::AttributeInheritAt0End
+            | Pattern::AttributeInheritAt0At0End
+            | Pattern::AttributeInheritAt1End => self.peek(p, b";"),
+            Pattern::AttributeInheritAt1 => is_name_start(self.at(p)).then_some(p),
+            Pattern::AttributeNameAt1 => self.lit(p, b"."),
+            Pattern::AttributeBindFromEquals => self.lit(p, b"="),
+            Pattern::AttrsetOrFunctionAt3At0 => self.peek(p, b"."),
+            Pattern::AttrsetOrFunctionAt3At1 => self.spaced_comma(p),
+            Pattern::AttrsetOrFunctionAt3At2 => self.peek(p, b"="),
+            Pattern::AttrsetOrFunctionAt3At3 => self.peek(p, b"?"),
+            Pattern::AttrsetOrFunctionAt3At3At1 => self.lit(p, b","),
 
-            Pat::StringAt0 => self.starts(p, b"''").then_some(p),
-            Pat::StringAt0At0 => self.lit(p, b"''"),
-            Pat::StringAt0At0End => self.indented_close(p),
-            Pat::StringAt0At0At0 => self.indented_escape(p),
-            Pat::StringAt1 => self.peek(p, b"\""),
-            Pat::StringQuoted | Pat::StringQuotedEnd => self.lit(p, b"\""),
-            Pat::StringQuotedAt0 => self.escape(p),
-            Pat::Interpolation => self.lit(p, b"${"),
-            Pat::StringAt2 => self.path_text(p),
-            Pat::StringAt3 => self.search_path(p),
-            Pat::StringAt4 => self.uri(p),
+            Pattern::StringAt0 => self.starts(p, b"''").then_some(p),
+            Pattern::StringAt0At0 => self.lit(p, b"''"),
+            Pattern::StringAt0At0End => self.indented_close(p),
+            Pattern::StringAt0At0At0 => self.indented_escape(p),
+            Pattern::StringAt1 => self.peek(p, b"\""),
+            Pattern::StringQuoted | Pattern::StringQuotedEnd => self.lit(p, b"\""),
+            Pattern::StringQuotedAt0 => self.escape(p),
+            Pattern::Interpolation => self.lit(p, b"${"),
+            Pattern::StringAt2 => self.path_text(p),
+            Pattern::StringAt3 => self.search_path(p),
+            Pattern::StringAt4 => self.uri(p),
 
-            Pat::FunctionForSureAt0 => self.function_ahead(p),
-            Pat::FunctionBodyFromColon => self.lit(p, b":"),
-            Pat::FunctionDefinitionBraceOpenedAt1End
-            | Pat::FunctionHeaderCloseBraceWithArgEnd
-            | Pat::FunctionHeaderTerminalArgEnd
-            | Pat::FunctionHeaderTerminalArgAt0End
-            | Pat::FunctionHeaderTerminalArgAt0At0End
-            | Pat::FunctionDefinitionAt1End
-            | Pat::FunctionDefinitionAt1At0End
-            | Pat::FunctionDefinitionAt1At0At0End
-            | Pat::FunctionHeaderUntilColonNoArgEnd
-            | Pat::FunctionHeaderCloseBraceNoArgEnd
-            | Pat::FunctionDefinitionAt1At1End
-            | Pat::FunctionHeaderUntilColonWithArgEnd => self.peek(p, b":"),
-            Pat::FunctionHeaderTerminalArg => self.peek(p, b"@"),
-            Pat::FunctionHeaderTerminalArgAt0 | Pat::FunctionDefinitionAt1At0At0 => {
+            Pattern::FunctionForSureAt0 => self.function_ahead(p),
+            Pattern::FunctionBodyFromColon => self.lit(p, b":"),
+            Pattern::FunctionDefinitionBraceOpenedAt1End
+            | Pattern::FunctionHeaderCloseBraceWithArgEnd
+            | Pattern::FunctionHeaderTerminalArgEnd
+            | Pattern::FunctionHeaderTerminalArgAt0End
+            | Pattern::FunctionHeaderTerminalArgAt0At0End
+            | Pattern::FunctionDefinitionAt1End
+            | Pattern::FunctionDefinitionAt1At0End
+            | Pattern::FunctionDefinitionAt1At0At0End
+            | Pattern::FunctionHeaderUntilColonNoArgEnd
+            | Pattern::FunctionHeaderCloseBraceNoArgEnd
+            | Pattern::FunctionDefinitionAt1At1End
+            | Pattern::FunctionHeaderUntilColonWithArgEnd => self.peek(p, b":"),
+            Pattern::FunctionHeaderTerminalArg => self.peek(p, b"@"),
+            Pattern::FunctionHeaderTerminalArgAt0 | Pattern::FunctionDefinitionAt1At0At0 => {
                 self.lit(p, b"@")
             }
-            Pat::FunctionParameterAt0 => self.lit(p, b"..."),
-            Pat::FunctionParameterAt0End | Pat::FunctionParameterAt1End => self.parameter_end(p),
-            Pat::FunctionParameterDefault => self.lit(p, b"?"),
-            Pat::FunctionParameterDefaultEnd => self.peek(p, b",}"),
+            Pattern::FunctionParameterAt0 => self.lit(p, b"..."),
+            Pattern::FunctionParameterAt0End | Pattern::FunctionParameterAt1End => {
+                self.parameter_end(p)
+            }
+            Pattern::FunctionParameterDefault => self.lit(p, b"?"),
+            Pattern::FunctionParameterDefaultEnd => self.peek(p, b",}"),
 
-            Pat::Let => self.keyword(p, b"let").map(|_| p),
-            Pat::LetAt0 => self.keyword(p, b"let"),
-            Pat::LetAt0At0At1 => (p == 0 || self.prev(p) == Some(b'}')).then_some(p),
-            Pat::LetAt1 => self.keyword(p, b"in"),
-            Pat::If => self.keyword(p, b"if").map(|_| p),
-            Pat::IfAt0 => self.keyword(p, b"if"),
-            Pat::IfAt0End => self.keyword(p, b"then").map(|_| p + 2),
-            Pat::IfAt1 => self.keyword_tail(p, b"th", b"en"),
-            Pat::IfAt1End => self.keyword(p, b"else").map(|_| p + 2),
-            Pat::IfAt2 => self.keyword_tail(p, b"el", b"se"),
-            Pat::WithAssert => self.reserved(p, &[b"with", b"assert"]),
-            Pat::BadReserved => self.reserved(p, RESERVED),
+            Pattern::Let => self.keyword(p, b"let").map(|_| p),
+            Pattern::LetAt0 => self.keyword(p, b"let"),
+            Pattern::LetAt0At0At1 => (p == 0 || self.prev(p) == Some(b'}')).then_some(p),
+            Pattern::LetAt1 => self.keyword(p, b"in"),
+            Pattern::If => self.keyword(p, b"if").map(|_| p),
+            Pattern::IfAt0 => self.keyword(p, b"if"),
+            Pattern::IfAt0End => self.keyword(p, b"then").map(|_| p + 2),
+            Pattern::IfAt1 => self.keyword_tail(p, b"th", b"en"),
+            Pattern::IfAt1End => self.keyword(p, b"else").map(|_| p + 2),
+            Pattern::IfAt2 => self.keyword_tail(p, b"el", b"se"),
+            Pattern::WithAssert => self.reserved(p, &[b"with", b"assert"]),
+            Pattern::BadReserved => self.reserved(p, RESERVED),
 
-            Pat::AttributeNameSingle
-            | Pat::AttributeNameAt0
-            | Pat::ParameterNameAndCont
-            | Pat::FunctionParameterAt1
-            | Pat::AttrsetOrFunctionAt3
-            | Pat::FunctionHeaderTerminalArgAt0At0
-            | Pat::FunctionDefinitionAt1At0
-            | Pat::ParameterName => self.name(p),
-            Pat::ConstantsAt0 => self.word_in(p, &[b"builtins", b"true", b"false", b"null"]),
-            Pat::ConstantsAt1 => self.word_in(p, FUNCTIONS),
-            Pat::ConstantsAt2 => self.integer(p),
-            Pat::OperatorUnary => matches!(self.at(p), b'-' | b'!').then_some(p + 1),
-            Pat::OperatorBinary => self.binary_operator(p),
+            Pattern::AttributeNameSingle
+            | Pattern::AttributeNameAt0
+            | Pattern::ParameterNameAndCont
+            | Pattern::FunctionParameterAt1
+            | Pattern::AttrsetOrFunctionAt3
+            | Pattern::FunctionHeaderTerminalArgAt0At0
+            | Pattern::FunctionDefinitionAt1At0
+            | Pattern::ParameterName => self.name(p),
+            Pattern::ConstantsAt0 => self.word_in(p, &[b"builtins", b"true", b"false", b"null"]),
+            Pattern::ConstantsAt1 => self.word_in(p, FUNCTIONS),
+            Pattern::ConstantsAt2 => self.integer(p),
+            Pattern::OperatorUnary => matches!(self.at(p), b'-' | b'!').then_some(p + 1),
+            Pattern::OperatorBinary => self.binary_operator(p),
 
-            Pat::CommentAt0 => self.block_comment_open(p),
-            Pat::CommentAt0End => self.lit(p, b"*/"),
-            Pat::CommentAt1 => self.lit(p, b"#"),
-            Pat::CommentAt1End => self.at_eol(p).then_some(p),
-            Pat::Whitespace => Some(self.space_end(p)).filter(|&end| end > p),
-            Pat::Illegal => (p < self.lim()).then(|| self.char_end(p)),
+            Pattern::CommentAt0 => self.block_comment_open(p),
+            Pattern::CommentAt0End => self.lit(p, b"*/"),
+            Pattern::CommentAt1 => self.lit(p, b"#"),
+            Pattern::CommentAt1End => self.at_eol(p).then_some(p),
+            Pattern::Whitespace => Some(self.space_end(p)).filter(|&end| end > p),
+            Pattern::Illegal => (p < self.lim()).then(|| self.char_end(p)),
         }
     }
 
@@ -328,7 +329,7 @@ impl Lexer<'_> {
     fn spaced_comma(&mut self, p: usize) -> Option<usize> {
         let comma = self.space_end(p);
         let end = self.lit(comma, b",")?;
-        self.cap(1, comma, end);
+        self.capture(1, comma, end);
         Some(end)
     }
 

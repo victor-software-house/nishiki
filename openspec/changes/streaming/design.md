@@ -148,7 +148,7 @@ impl DocumentLine<'_> {
     pub fn styled(&self) -> impl Iterator<Item = (usize, Style)> + '_;
 }
 
-pub enum LineKind {
+pub enum Freshness {
     /// Lexed from the exact state before it; final unless an edit reaches it.
     Exact,
     /// The last line of an open stream; `stable` is the byte where its last token starts.
@@ -166,7 +166,7 @@ pub enum EditError { OutOfBounds, NotCharBoundary }
 - `take_changes` merges every change since the last call into one span, in line numbers before and after.
   A renderer calls it once a frame, whether one delta or ten arrived.
   The span is conservative: it may include lines that ended up unchanged.
-- `LineKind` is an enum, not flags, so a renderer matches every case.
+- `Freshness` is an enum, not flags, so a renderer matches every case.
 - Offsets are bytes.
   `replace` returns an error, never panics, on a range past the end or off a character boundary.
 - `push` keeps up to three bytes of an unfinished UTF-8 character apart from the text.
@@ -211,7 +211,7 @@ The flicker measurement decides it ([note][note], section 1):
 | Whole line held back | 0 | 29.16 |
 
 - `Document` gives every token of the provisional line, lexed as if the line ended.
-- `LineKind::Provisional { stable }` marks where the last token starts.
+- `Freshness::Provisional { stable }` marks where the last token starts.
   The crate docs advise showing the bytes from `stable` in the default colour.
 - Holding back one token removes 96.5% of the flicker and keeps 18 characters uncoloured.
   A second token removes a little more, at three more characters.

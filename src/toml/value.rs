@@ -3,7 +3,7 @@
 
 use super::lexer::Lexer;
 use super::scope::S;
-use super::state::Kind;
+use super::state::Rule;
 use crate::classes::space_width;
 
 /// Whether a byte is a digit of some radix.
@@ -35,22 +35,22 @@ impl Lexer<'_> {
         match self.s[p] {
             quote @ (b'"' | b'\'') => {
                 let multi = self.at(p + 1) == quote && self.at(p + 2) == quote;
-                let kind = match (quote, multi) {
-                    (b'"', false) => Kind::Basic,
-                    (b'"', true) => Kind::BasicMulti,
-                    (_, false) => Kind::Literal,
-                    (_, true) => Kind::LiteralMulti,
+                let rule = match (quote, multi) {
+                    (b'"', false) => Rule::Basic,
+                    (b'"', true) => Rule::BasicMulti,
+                    (_, false) => Rule::Literal,
+                    (_, true) => Rule::LiteralMulti,
                 };
                 self.value_starts();
-                Some(self.begin(p, p + if multi { 3 } else { 1 }, kind, S::PunctStrBegin))
+                Some(self.begin(p, p + if multi { 3 } else { 1 }, rule, S::PunctStrBegin))
             }
             b'[' => {
                 self.value_starts();
-                Some(self.begin(p, p + 1, Kind::Array, S::PunctArrayBegin))
+                Some(self.begin(p, p + 1, Rule::Array, S::PunctArrayBegin))
             }
             b'{' => {
                 self.value_starts();
-                Some(self.begin(p, p + 1, Kind::Inline, S::PunctInlineBegin))
+                Some(self.begin(p, p + 1, Rule::Inline, S::PunctInlineBegin))
             }
             _ => {
                 let (end, scope) = self.scalar(p)?;

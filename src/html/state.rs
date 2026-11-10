@@ -23,10 +23,10 @@ pub(crate) enum Rule {
     /// `<?xml` up to `?>`.
     Processing,
     /// A tag of the grammar's own list, a custom element or an unrecognized
-    /// tag, up to its `>`. The payload is a [`TagInfo`].
+    /// tag, up to its `>`. The payload is a [`TagClass`].
     Tag,
     /// An `svg` or `math` element, up to its end tag. The payload is an
-    /// [`ElementInfo`].
+    /// [`ElementClass`].
     Element,
     /// The start tag of an element whose attributes the line did not hold.
     ElementStart,
@@ -652,10 +652,10 @@ impl Category {
     }
 }
 
-/// Which tag rule matched.
+/// The tag rule that matched.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
-pub(crate) enum TagKind {
+pub(crate) enum TagRule {
     /// `<name`, ending at `>`.
     Start,
     /// `</name`, ending at `>`.
@@ -673,7 +673,7 @@ pub(crate) enum TagKind {
     Derivative,
 }
 
-impl TagKind {
+impl TagRule {
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
@@ -682,35 +682,36 @@ impl TagKind {
         self as u32
     }
 
-    const fn from_bits(bits: u32) -> TagKind {
+    const fn from_bits(bits: u32) -> TagRule {
         match bits {
-            0 => TagKind::Start,
-            1 => TagKind::End,
-            2 => TagKind::Void,
-            3 => TagKind::CustomStart,
-            4 => TagKind::CustomEnd,
-            5 => TagKind::Unrecognized,
-            _ => TagKind::Derivative,
+            0 => TagRule::Start,
+            1 => TagRule::End,
+            2 => TagRule::Void,
+            3 => TagRule::CustomStart,
+            4 => TagRule::CustomEnd,
+            5 => TagRule::Unrecognized,
+            _ => TagRule::Derivative,
         }
     }
 }
 
-/// What a [`Rule::Tag`] frame carries besides its name.
+/// How the grammar classes a tag: what a [`Rule::Tag`] frame carries besides
+/// its name.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) struct TagInfo {
+pub(crate) struct TagClass {
     pub(crate) category: Category,
-    pub(crate) kind: TagKind,
+    pub(crate) rule: TagRule,
 }
 
-impl TagInfo {
+impl TagClass {
     pub(crate) const fn bits(self) -> u32 {
-        self.category.bits() | self.kind.bits() << 3
+        self.category.bits() | self.rule.bits() << 3
     }
 
-    pub(crate) const fn from_bits(bits: u32) -> TagInfo {
-        TagInfo {
+    pub(crate) const fn from_bits(bits: u32) -> TagClass {
+        TagClass {
             category: Category::from_bits(bits & 7),
-            kind: TagKind::from_bits(bits >> 3 & 7),
+            rule: TagRule::from_bits(bits >> 3 & 7),
         }
     }
 }
@@ -742,10 +743,10 @@ pub(crate) enum Flavor {
     Invalid,
 }
 
-/// What a [`Rule::Element`] or [`Rule::ElementStart`] frame carries besides
-/// its name.
+/// How the grammar classes an element: what a [`Rule::Element`] or
+/// [`Rule::ElementStart`] frame carries besides its name.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-pub(crate) struct ElementInfo {
+pub(crate) struct ElementClass {
     pub(crate) namespace: Namespace,
     pub(crate) category: Category,
     pub(crate) flavor: Flavor,
@@ -754,7 +755,7 @@ pub(crate) struct ElementInfo {
     pub(crate) root: bool,
 }
 
-impl ElementInfo {
+impl ElementClass {
     #[expect(
         clippy::as_conversions,
         reason = "`From<bool>` is not callable in a `const fn`"
@@ -772,8 +773,8 @@ impl ElementInfo {
         namespace | self.category.bits() << 1 | flavor << 4 | (self.root as u32) << 6
     }
 
-    pub(crate) const fn from_bits(bits: u32) -> ElementInfo {
-        ElementInfo {
+    pub(crate) const fn from_bits(bits: u32) -> ElementClass {
+        ElementClass {
             namespace: if bits & 1 == 0 {
                 Namespace::Svg
             } else {
@@ -790,10 +791,10 @@ impl ElementInfo {
     }
 }
 
-/// Which attribute rule matched.
+/// The attribute rule that matched.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u8)]
-pub(crate) enum AttributeKind {
+pub(crate) enum AttributeRule {
     /// A name of the namespace's list.
     Known,
     /// `style`, whose value is CSS.
@@ -808,7 +809,7 @@ pub(crate) enum AttributeKind {
     Unrecognized,
 }
 
-impl AttributeKind {
+impl AttributeRule {
     #[expect(
         clippy::as_conversions,
         reason = "a fieldless `repr(u8)` enum has no `From` impl for its discriminant"
@@ -817,26 +818,26 @@ impl AttributeKind {
         self as u32
     }
 
-    pub(crate) const fn from_bits(bits: u32) -> AttributeKind {
+    pub(crate) const fn from_bits(bits: u32) -> AttributeRule {
         match bits {
-            0 => AttributeKind::Known,
-            1 => AttributeKind::Style,
-            2 => AttributeKind::Event,
-            3 => AttributeKind::Data,
-            4 => AttributeKind::Deprecated,
-            _ => AttributeKind::Unrecognized,
+            0 => AttributeRule::Known,
+            1 => AttributeRule::Style,
+            2 => AttributeRule::Event,
+            3 => AttributeRule::Data,
+            4 => AttributeRule::Deprecated,
+            _ => AttributeRule::Unrecognized,
         }
     }
 }
 
 /// Packs the bits a rule carries with the interned id of the name the
 /// rule's scope is built from.
-pub(crate) const fn pack(info: u32, name: u32) -> u32 {
-    info | name << 8
+pub(crate) const fn pack(bits: u32, name: u32) -> u32 {
+    bits | name << 8
 }
 
 /// The bits of a payload made by [`pack`].
-pub(crate) const fn info(payload: u32) -> u32 {
+pub(crate) const fn payload_bits(payload: u32) -> u32 {
     payload & 0xff
 }
 

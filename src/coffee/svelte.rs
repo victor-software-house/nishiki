@@ -6,18 +6,18 @@
 //! selector matches.
 //! Where both start at one place, it takes the injection over the rule's own
 //! match, the end pattern included.
-//! So each rule here tries [`Pat::SVELTE`] first, then its end pattern, then
-//! its own patterns.
+//! So each rule here tries [`Pattern::SVELTE`] first, then its end pattern,
+//! then its own patterns.
 
 use super::engine::{Coffee, SVELTE};
-use super::grammar::{Pat, Rule};
+use super::grammar::{Pattern, Rule};
 use crate::rules;
 
 impl rules::Tabled for Coffee<SVELTE> {
-    const WORDS_AT_START: bool = Pat::WORDS_AT_START;
+    const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
 
-    fn pat_start(pat: Pat) -> rules::Start {
-        pat.start()
+    fn pattern_start(pattern: Pattern) -> rules::Start {
+        pattern.start()
     }
 
     fn tables(rule: Rule) -> &'static rules::Tables<Self> {
@@ -28,20 +28,20 @@ impl rules::Tabled for Coffee<SVELTE> {
     }
 }
 
-/// The data of `rule` with Svelte's patterns first.
+/// The definition of `rule`, with Svelte's patterns first.
 /// The list lives as long as the program, as the tables built from it do.
-fn injected(rule: Rule) -> rules::RuleData<Coffee<SVELTE>> {
-    let data = rule.data();
-    let patterns: Vec<Pat> = Pat::SVELTE
+fn injected(rule: Rule) -> rules::RuleDefinition<Coffee<SVELTE>> {
+    let definition = rule.definition();
+    let patterns: Vec<Pattern> = Pattern::SVELTE
         .into_iter()
-        .chain(data.end)
-        .chain(data.patterns.iter().copied())
+        .chain(definition.end)
+        .chain(definition.patterns.iter().copied())
         .collect();
-    rules::RuleData {
-        name: data.name,
-        content: data.content,
+    rules::RuleDefinition {
+        name: definition.name,
+        content: definition.content,
         end: None,
-        backref: data.backref,
+        backref: definition.backref,
         patterns: Box::leak(patterns.into_boxed_slice()),
     }
 }

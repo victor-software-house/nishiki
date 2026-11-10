@@ -3,7 +3,7 @@
 //! It returns where the match ends, and fills in the capture groups the
 //! grammar gives scopes to.
 
-use super::caps::Caps;
+use super::captures::Captures;
 use super::fence::{self, Embed};
 use super::state::Fence;
 use super::text::Cx;
@@ -48,7 +48,7 @@ fn spaces(cx: &Cx<'_>, p: usize, max: usize) -> usize {
 
 /// `(?:^|\G) {0,3}(#{1,6}\s+(.*?)(\s+#{1,6})?\s*)$`: group 1 holds the
 /// heading, which [`heading_part`] splits up.
-pub(crate) fn heading(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn heading(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
     }
@@ -57,17 +57,22 @@ pub(crate) fn heading(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
     if !(1..=6).contains(&hashes) || cx.space_at(start + hashes) == 0 {
         return None;
     }
-    caps.set(1, start, cx.end);
+    captures.set(1, start, cx.end);
     Some(cx.end)
 }
 
 /// `(#{N})\s+(.*?)(?:\s+(#+))?\s*$`, the rule for a level-`level` heading,
 /// matched inside the first group of [`heading`].
-pub(crate) fn heading_part(cx: &Cx<'_>, p: usize, level: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn heading_part(
+    cx: &Cx<'_>,
+    p: usize,
+    level: usize,
+    captures: &mut Captures,
+) -> Option<usize> {
     if (0..level).any(|k| cx.get(p + k) != Some(b'#')) || cx.space_at(p + level) == 0 {
         return None;
     }
-    caps.set(1, p, p + level);
+    captures.set(1, p, p + level);
     let text_start = cx.skip_space(p + level);
     // The text ends where only blanks, or blanks and a closing run of `#`
     // that follows a blank, are left.
@@ -80,14 +85,14 @@ pub(crate) fn heading_part(cx: &Cx<'_>, p: usize, level: usize, caps: &mut Caps)
         run_start -= 1;
     }
     if run_start < text_end && run_start > text_start && cx.space_before(run_start) > 0 {
-        caps.set(3, run_start, text_end);
+        captures.set(3, run_start, text_end);
         text_end = run_start;
         while text_end > text_start && cx.space_before(text_end) > 0 {
             text_end -= cx.space_before(text_end);
         }
     }
     if text_end > text_start {
-        caps.set(2, text_start, text_end);
+        captures.set(2, text_start, text_end);
     }
     Some(cx.end)
 }
@@ -106,7 +111,7 @@ pub(crate) fn setext(cx: &Cx<'_>, p: usize, mark: u8) -> Option<usize> {
 }
 
 /// `(^|\G) {0,3}(>) ?`
-pub(crate) fn quote(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn quote(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
     }
@@ -114,7 +119,7 @@ pub(crate) fn quote(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
     if cx.get(i) != Some(b'>') {
         return None;
     }
-    caps.set(2, i, i + 1);
+    captures.set(2, i, i + 1);
     Some(if cx.get(i + 1) == Some(b' ') {
         i + 2
     } else {
@@ -123,7 +128,7 @@ pub(crate) fn quote(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
 }
 
 /// `(^|\G)\s*(>) ?`, which keeps a quote open.
-pub(crate) fn quote_while(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn quote_while(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
     }
@@ -131,7 +136,7 @@ pub(crate) fn quote_while(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usiz
     if cx.get(i) != Some(b'>') {
         return None;
     }
-    caps.set(2, i, i + 1);
+    captures.set(2, i, i + 1);
     Some(if cx.get(i + 1) == Some(b' ') {
         i + 2
     } else {
@@ -140,7 +145,7 @@ pub(crate) fn quote_while(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usiz
 }
 
 /// `(^|\G)( {0,3})([-*+])([\t ])`, a bullet list item.
-pub(crate) fn bullet(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn bullet(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
     }
@@ -150,12 +155,12 @@ pub(crate) fn bullet(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
     {
         return None;
     }
-    caps.set(3, i, i + 1);
+    captures.set(3, i, i + 1);
     Some(i + 2)
 }
 
 /// `(^|\G)( {0,3})([0-9]+[).])([\t ])`, a numbered list item.
-pub(crate) fn ordered(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn ordered(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
     }
@@ -167,7 +172,7 @@ pub(crate) fn ordered(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
     {
         return None;
     }
-    caps.set(3, i, digits + 1);
+    captures.set(3, i, digits + 1);
     Some(digits + 2)
 }
 
@@ -207,13 +212,13 @@ pub(crate) struct FenceOpen {
 /// The info string may not hold a backtick.
 ///
 /// Group 3 is the fence, 4 the language, 5 its attributes.
-pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<FenceOpen> {
+pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<FenceOpen> {
     let (fence, fence_start, fence_end) = fence_run(cx, p)?;
-    caps.set(3, fence_start, fence_end);
+    captures.set(3, fence_start, fence_end);
     let info = cx.skip_space(fence_end);
     if let Some(found) = fence::language(cx, info) {
-        caps.set(4, info, found.name_end);
-        caps.set(5, found.name_end, cx.end);
+        captures.set(4, info, found.name_end);
+        captures.set(5, found.name_end, cx.end);
         return Some(FenceOpen {
             end: cx.end,
             fence,
@@ -224,7 +229,7 @@ pub(crate) fn fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<Fence
         return None;
     }
     if info < cx.end {
-        caps.set(4, info, cx.end);
+        captures.set(4, info, cx.end);
     }
     Some(FenceOpen {
         end: info,
@@ -271,7 +276,7 @@ fn fence_run(cx: &Cx<'_>, p: usize) -> Option<(Fence, usize, usize)> {
 ///
 /// Group 3 is the fence, 4 the language, 5 its attributes.
 #[cfg(feature = "lang-vue")]
-pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<FenceOpen> {
+pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<FenceOpen> {
     let (fence, fence_start, fence_end) = fence_run(cx, p)?;
     let text = cx.line.get(..cx.end.min(cx.line.len()))?;
     let info = cx.skip_space(fence_end);
@@ -290,9 +295,9 @@ pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<F
     if !allowed {
         return None;
     }
-    caps.set(3, fence_start, fence_end);
-    caps.set(4, info, name_end);
-    caps.set(5, name_end, cx.end);
+    captures.set(3, fence_start, fence_end);
+    captures.set(4, info, name_end);
+    captures.set(5, name_end, cx.end);
     Some(FenceOpen {
         end: cx.end,
         fence,
@@ -307,7 +312,12 @@ pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<F
     reason = "measured at one codegen unit: with `vue_body_line` a second caller, it stopped being inlined, at a call once a fence line"
 )]
 #[inline(always)]
-pub(crate) fn fence_close(cx: &Cx<'_>, p: usize, fence: Fence, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn fence_close(
+    cx: &Cx<'_>,
+    p: usize,
+    fence: Fence,
+    captures: &mut Captures,
+) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
     }
@@ -329,7 +339,7 @@ pub(crate) fn fence_close(cx: &Cx<'_>, p: usize, fence: Fence, caps: &mut Caps) 
     if end - start != usize::from(fence.len) || !cx.only_space_after(end) {
         return None;
     }
-    caps.set(3, start, end);
+    captures.set(3, start, end);
     Some(cx.end)
 }
 
@@ -356,7 +366,7 @@ pub(crate) fn raw_block(cx: &Cx<'_>, p: usize) -> Option<usize> {
 }
 
 /// `(^|\G)\s*(<!--)`
-pub(crate) fn comment_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn comment_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
     }
@@ -364,14 +374,14 @@ pub(crate) fn comment_open(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usi
     if !cx.starts(i, b"<!--") {
         return None;
     }
-    caps.set(2, i, i + 4);
+    captures.set(2, i, i + 4);
     Some(i + 4)
 }
 
 /// `-->`, which closes a comment.
-pub(crate) fn comment_close(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn comment_close(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if cx.starts(p, b"-->") {
-        caps.set(1, p, p + 3);
+        captures.set(1, p, p + 3);
         Some(p + 3)
     } else {
         None
@@ -409,7 +419,7 @@ pub(crate) fn paragraph_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
 }
 
 /// `(^|\G)(\|)(?=[^|].+\|\s*$)`, which opens a table.
-pub(crate) fn table(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn table(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if !cx.at_start(p) || cx.get(p) != Some(b'|') {
         return None;
     }
@@ -423,7 +433,7 @@ pub(crate) fn table(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
     if last < p + 4 || cx.get(last - 1) != Some(b'|') {
         return None;
     }
-    caps.set(2, p, p + 1);
+    captures.set(2, p, p + 1);
     Some(p + 1)
 }
 
@@ -433,7 +443,7 @@ pub(crate) fn table_while(cx: &Cx<'_>, p: usize) -> bool {
 }
 
 /// `(?<=\|)\s*(:?-+:?)\s*(?=\|)`, the delimiter row of a table.
-pub(crate) fn table_separator(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn table_separator(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if cx.before(p) != Some(b'|') {
         return None;
     }
@@ -454,12 +464,12 @@ pub(crate) fn table_separator(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<
     if cx.get(end) != Some(b'|') {
         return None;
     }
-    caps.set(1, start, i);
+    captures.set(1, start, i);
     Some(end)
 }
 
 /// `(?<=\|)\s*(?=\S)((\\\||[^|])+)(?<=\S)\s*(?=\|)`, a table cell.
-pub(crate) fn table_cell(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn table_cell(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if cx.before(p) != Some(b'|') {
         return None;
     }
@@ -482,7 +492,7 @@ pub(crate) fn table_cell(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize
         if cx.non_space_before(cell_end) {
             let bar = cx.skip_space(cell_end);
             if cx.get(bar) == Some(b'|') {
-                caps.set(1, start, cell_end);
+                captures.set(1, start, cell_end);
                 return Some(bar);
             }
         }
@@ -494,7 +504,7 @@ pub(crate) fn table_cell(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize
 /// `\s*(\[)([^]]+?)(])(:)[\t ]*(?:(<)((?:\\[<>]|[^\n<>])*)(>)|(\S+?))[\t ]*
 /// (?:((\().+?(\)))|((").+?("))|((').+?(')))?\s*$`, a link reference
 /// definition such as `[label]: https://example.com "title"`.
-pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn link_def(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     let open = cx.skip_space(p);
     if cx.get(open) != Some(b'[') {
         return None;
@@ -505,10 +515,10 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
     if cx.get(open + 1) == Some(b']') || cx.get(close + 1) != Some(b':') {
         return None;
     }
-    caps.set(1, open, open + 1);
-    caps.set(2, open + 1, close);
-    caps.set(3, close, close + 1);
-    caps.set(4, close + 1, close + 2);
+    captures.set(1, open, open + 1);
+    captures.set(2, open + 1, close);
+    captures.set(3, close, close + 1);
+    captures.set(4, close + 1, close + 2);
     let url = cx.skip(close + 2, |b| matches!(b, b' ' | b'\t'));
     cx.spend(cx.end.saturating_sub(url));
     if cx.over() {
@@ -525,14 +535,14 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
             }
         }
         if cx.get(i) == Some(b'>') {
-            let mut with_angle = *caps;
+            let mut with_angle = *captures;
             with_angle.set(5, url, url + 1);
             if i > url + 1 {
                 with_angle.set(6, url + 1, i);
             }
             with_angle.set(7, i, i + 1);
             if link_def_tail(cx, i + 1, blank_end, &mut with_angle, 9) {
-                *caps = with_angle;
+                *captures = with_angle;
                 return Some(cx.end);
             }
         }
@@ -548,10 +558,10 @@ pub(crate) fn link_def(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> 
         if end != word_end && !matches!(cx.get(end), Some(b'(' | b'"' | b'\'')) {
             continue;
         }
-        let mut plain = *caps;
+        let mut plain = *captures;
         plain.set(8, url, end);
         if link_def_tail(cx, end, blank_end, &mut plain, 9) {
-            *caps = plain;
+            *captures = plain;
             return Some(cx.end);
         }
     }
@@ -579,7 +589,13 @@ fn trailing_space_start(cx: &Cx<'_>) -> usize {
 /// per definition. A title's closer must have only whitespace after it, so
 /// it is the byte just before `blank_end`. Checking a title therefore costs
 /// the same wherever it opens, and a line of many openers stays linear.
-fn link_def_tail(cx: &Cx<'_>, p: usize, blank_end: usize, caps: &mut Caps, first: usize) -> bool {
+fn link_def_tail(
+    cx: &Cx<'_>,
+    p: usize,
+    blank_end: usize,
+    captures: &mut Captures,
+    first: usize,
+) -> bool {
     let at = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
     if at >= blank_end {
         return true;
@@ -595,9 +611,9 @@ fn link_def_tail(cx: &Cx<'_>, p: usize, blank_end: usize, caps: &mut Caps, first
     if i < at + 2 || cx.get(i) != Some(close) {
         return false;
     }
-    caps.set(index, at, i + 1);
-    caps.set(index + 1, at, at + 1);
-    caps.set(index + 2, i, i + 1);
+    captures.set(index, at, i + 1);
+    captures.set(index + 1, at, at + 1);
+    captures.set(index + 2, i, i + 1);
     true
 }
 
@@ -609,13 +625,13 @@ pub(crate) fn front_matter_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
 
 /// `\A(-{3,})(.*)$`: the first line of front matter, whose dashes and the
 /// text after them are groups 1 and 2.
-pub(crate) fn front_matter_begin(cx: &Cx<'_>, p: usize, caps: &mut Caps) -> Option<usize> {
+pub(crate) fn front_matter_begin(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<usize> {
     if p != 0 || !cx.starts(0, b"---") {
         return None;
     }
     let dashes = cx.skip(0, |b| b == b'-');
-    caps.set(1, 0, dashes);
-    caps.set(2, dashes, cx.end);
+    captures.set(1, 0, dashes);
+    captures.set(2, dashes, cx.end);
     Some(cx.end)
 }
 
@@ -626,7 +642,7 @@ pub(crate) fn front_matter_close(
     cx: &Cx<'_>,
     p: usize,
     dashes: usize,
-    caps: &mut Caps,
+    captures: &mut Captures,
 ) -> Option<usize> {
     if p != 0 {
         return None;
@@ -643,6 +659,6 @@ pub(crate) fn front_matter_close(
     if !(with_dashes || with_dots) {
         return None;
     }
-    caps.set(0, 0, cx.end);
+    captures.set(0, 0, cx.end);
     Some(cx.end)
 }

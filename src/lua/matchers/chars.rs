@@ -62,7 +62,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.skip(p + 1, part);
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 

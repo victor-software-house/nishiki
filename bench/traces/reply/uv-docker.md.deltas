@@ -1,4 +1,4 @@
-kind reply
+origin reply
 language markdown
 source bench/corpus/markdown/reply/uv-docker.md
 url https://raw.githubusercontent.com/astral-sh/uv/d71db4f5a81972de58bcbff0338dd1d5e45b0021/docs/guides/integration/docker.md

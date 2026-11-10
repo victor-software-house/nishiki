@@ -28,7 +28,7 @@ impl Lexer<'_> {
             Spaces::None => p,
         };
         if self.at(at) == b';' && at < self.lim() {
-            self.cap(1, at, at + 1);
+            self.capture(1, at, at + 1);
             return Some(at + 1);
         }
         matches!(self.at(p), b')' | b'}').then_some(p)
@@ -56,14 +56,14 @@ impl Lexer<'_> {
     /// `(((\+_?)?):)`, the whole in group 1.
     pub(super) fn merge_colon(&mut self, p: usize) -> Option<usize> {
         let end = self.merge_colon_end(p)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
     /// `([\t\s]*)` from `p`, in group `group`.
-    pub(super) fn blanks_cap(&mut self, p: usize, group: usize) -> usize {
+    pub(super) fn blanks_capture(&mut self, p: usize, group: usize) -> usize {
         let end = self.blanks(p);
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         end
     }
 
@@ -73,7 +73,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.merge_colon(p)?;
-        Some(self.blanks_cap(end, 2))
+        Some(self.blanks_capture(end, 2))
     }
 
     /// `(?=(((\+_?)?):)[\t\s]*)`.
@@ -87,21 +87,21 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(self.spaces(p + 1), b"important")?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
     /// `(//).*$\n?`: the rest of the line and its line feed.
     pub(super) fn comment_line(&mut self, p: usize) -> Option<usize> {
         self.lit(p, b"//")?;
-        self.cap(1, p, p + 2);
+        self.capture(1, p, p + 2);
         Some(self.lim() + usize::from(self.nl))
     }
 
     /// `(")|(\n)` for the quote `quote`.
     pub(super) fn string_end(&mut self, p: usize, quote: u8) -> Option<usize> {
         if self.at(p) == quote && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         self.line_feed(p, 2)
@@ -110,7 +110,7 @@ impl Lexer<'_> {
     /// `(["'])|(\n)`.
     pub(super) fn string_end_any(&mut self, p: usize) -> Option<usize> {
         if matches!(self.at(p), b'"' | b'\'') && p < self.lim() {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         self.line_feed(p, 2)
@@ -119,7 +119,7 @@ impl Lexer<'_> {
     /// `(\n)`, in group `group`: the line feed that ends the line.
     fn line_feed(&mut self, p: usize, group: usize) -> Option<usize> {
         (p == self.lim() && self.nl).then(|| {
-            self.cap(group, p, p + 1);
+            self.capture(group, p, p + 1);
             p + 1
         })
     }
@@ -129,8 +129,8 @@ impl Lexer<'_> {
         if self.at(p) != b'~' || !matches!(self.at(p + 1), b'"' | b'\'') || p + 1 >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, p + 2);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, p + 2);
         Some(p + 2)
     }
 
@@ -204,7 +204,7 @@ impl Lexer<'_> {
         let end = self
             .number(p)
             .filter(|&end| self.at(end) == b'%' && end < self.lim())?;
-        self.cap(1, end, end + 1);
+        self.capture(1, end, end + 1);
         Some(end + 1)
     }
 
@@ -217,7 +217,7 @@ impl Lexer<'_> {
         ];
         let number = self.number(p)?;
         let unit = UNITS.iter().find_map(|unit| self.lit(number, unit))?;
-        self.cap(1, number, unit);
+        self.capture(1, number, unit);
         Some(unit)
     }
 
@@ -267,7 +267,7 @@ impl Lexer<'_> {
         let (from, to) = decimal
             .and_then(|end| self.unit_after(end, units))
             .or_else(|| integer.and_then(|end| self.unit_after(end, units)))?;
-        self.cap(1, from, to);
+        self.capture(1, from, to);
         Some(to)
     }
 
@@ -305,7 +305,7 @@ impl Lexer<'_> {
             .into_iter()
             .map(|n| p + 1 + n)
             .find(|&end| end <= run && self.boundary(end))?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -319,16 +319,16 @@ impl Lexer<'_> {
         if first == start {
             return None;
         }
-        self.cap(1, p, start);
+        self.capture(1, p, start);
         let mut end = first;
         if self.at(first) == b'-' {
             let second = self.bounded(first + 1, 6, |b| b.is_ascii_hexdigit());
             if second > first + 1 {
-                self.cap(3, first, first + 1);
+                self.capture(3, first, first + 1);
                 end = second;
             }
         }
-        self.cap(2, start, end);
+        self.capture(2, start, end);
         Some(end)
     }
 
@@ -340,15 +340,15 @@ impl Lexer<'_> {
         let a = self.digits(digits);
         if self.at(a) == b'n' && a < self.lim() {
             if digits > p {
-                self.cap(1, p, digits);
+                self.capture(1, p, digits);
             }
-            self.cap(2, a, a + 1);
+            self.capture(2, a, a + 1);
             let op = self.spaces(a + 1);
             if sign(self.at(op)) {
                 let b = self.spaces(op + 1);
                 let end = self.digits(b);
                 if end > b {
-                    self.cap(4, op, op + 1);
+                    self.capture(4, op, op + 1);
                     return Some(end);
                 }
             }
@@ -365,17 +365,17 @@ impl Lexer<'_> {
         if self.at(at) != b'%' || self.at(at + 1) != b'(' || at + 1 >= self.lim() {
             return None;
         }
-        self.cap(1, at, at + 1);
+        self.capture(1, at, at + 1);
         Some(at + 1)
     }
 
     /// `((pi)(\()(\)))`.
     pub(super) fn pi(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"pi()")?;
-        self.cap(1, p, end);
-        self.cap(2, p, p + 2);
-        self.cap(3, p + 2, p + 3);
-        self.cap(4, p + 3, end);
+        self.capture(1, p, end);
+        self.capture(2, p, p + 2);
+        self.capture(3, p + 2, p + 3);
+        self.capture(4, p + 3, end);
         Some(end)
     }
 
@@ -383,16 +383,16 @@ impl Lexer<'_> {
     pub(super) fn assignment_end(&mut self, p: usize) -> Option<usize> {
         let at = self.spaces(p);
         if self.at(at) == b';' && at < self.lim() {
-            self.cap(1, at, at + 1);
+            self.capture(1, at, at + 1);
             return Some(at + 1);
         }
         if let Some(end) = self.lit(at, b"...") {
-            self.cap(1, at, end);
-            self.cap(2, at, end);
+            self.capture(1, at, end);
+            self.capture(2, at, end);
             return Some(end);
         }
         (self.at(at) == b')').then(|| {
-            self.cap(1, at, at);
+            self.capture(1, at, at);
             at
         })
     }
@@ -411,7 +411,7 @@ impl Lexer<'_> {
             }
             _ => return None,
         };
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(self.spaces(end))
     }
 
@@ -477,10 +477,10 @@ impl Lexer<'_> {
         if self.at(name) != b'}' || name >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, p + 2);
-        self.cap(3, p + 2, name);
-        self.cap(4, name, name + 1);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, p + 2);
+        self.capture(3, p + 2, name);
+        self.capture(4, name, name + 1);
         Some(name + 1)
     }
 
@@ -496,8 +496,8 @@ impl Lexer<'_> {
             at + 1
         };
         let end = self.dash_word_run(sigil)?;
-        self.cap(1, at, sigil);
-        self.cap(2, sigil, end);
+        self.capture(1, at, sigil);
+        self.capture(2, sigil, end);
         Some(end)
     }
 }

@@ -3,7 +3,7 @@
 use std::cell::Cell;
 use std::convert::Infallible;
 
-use super::grammar::{Pat, Rule};
+use super::grammar::{Pattern, Rule};
 use super::scope::S;
 use crate::rules::{self, Act, Captures, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -44,7 +44,7 @@ impl Grammar for Julia {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Infallible;
     type Extra = Extra;
     type Kept = ();
@@ -67,11 +67,11 @@ impl Grammar for Julia {
     }
 
     fn rule_name(rule: Rule) -> Scopes<S> {
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<S> {
-        rule.data().content
+        rule.definition().content
     }
 
     const EMBEDS: bool = true;
@@ -80,21 +80,21 @@ impl Grammar for Julia {
         rule.payload()
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
@@ -104,11 +104,11 @@ impl Grammar for Julia {
         lexer.after_missed_word(p)
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        lexer.matcher(pat, p)
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        lexer.matcher(pattern, p)
     }
 
-    fn tokenize_nested(_: &mut Lexer<'_>, kind: Infallible, _: usize, _: usize, _: u32) {
-        match kind {}
+    fn tokenize_nested(_: &mut Lexer<'_>, nested: Infallible, _: usize, _: usize, _: u32) {
+        match nested {}
     }
 }

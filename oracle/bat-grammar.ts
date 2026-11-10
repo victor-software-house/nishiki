@@ -52,8 +52,8 @@ function scopeIdent(name: string): string {
   let out = "";
   parts.forEach((part, index) => {
     for (const piece of part.split(/[-_]/)) {
-      const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-      out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+      const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+      out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
     }
   });
   return out;
@@ -79,10 +79,10 @@ const pascal = (key: string) =>
     .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
     .join("");
 
-type Pat = {
+type Pattern = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = {
@@ -93,7 +93,7 @@ type Rule = {
   patterns: string[];
 };
 
-const pats = new Map<string, Pat>();
+const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
 function captureList(captures: Captures | undefined): [number, string[]][] {
@@ -109,31 +109,31 @@ function captureList(captures: Captures | undefined): [number, string[]][] {
 
 /** Registers a match or begin/end rule under `id`; returns the pattern id. */
 function register(node: Node, id: string): string {
-  const clash = pats.get(id);
+  const clash = patternById.get(id);
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (node.match !== undefined) {
-    if (!pats.has(id)) {
-      pats.set(id, {
+    if (!patternById.has(id)) {
+      patternById.set(id, {
         id,
         regex: node.match,
-        act: { kind: "match", name: scopeList(node.name) },
+        act: { role: "match", name: scopeList(node.name) },
         captures: captureList(node.captures),
       });
     }
     return id;
   }
   if (node.begin !== undefined && node.end !== undefined) {
-    if (!pats.has(id)) {
-      pats.set(id, {
+    if (!patternById.has(id)) {
+      patternById.set(id, {
         id,
         regex: node.begin,
-        act: { kind: "begin", rule: id },
+        act: { role: "begin", rule: id },
         captures: captureList(node.beginCaptures ?? node.captures),
       });
-      pats.set(`${id}End`, {
+      patternById.set(`${id}End`, {
         id: `${id}End`,
         regex: node.end,
-        act: { kind: "end" },
+        act: { role: "end" },
         captures: captureList(node.endCaptures ?? node.captures),
       });
       const rule: Rule = {
@@ -200,25 +200,25 @@ while (stack.length > 0) {
   if (reach.has(id)) continue;
   reach.add(id);
   for (const p of rules.get(id)!.patterns) {
-    const act = pats.get(p)!.act;
-    if (act.kind === "begin") stack.push(act.rule);
+    const act = patternById.get(p)!.act;
+    if (act.role === "begin") stack.push(act.rule);
   }
 }
 const inFor = (id: string) => (id === forRule ? id : `${id}InFor`);
 const opensCopy = (p: string) => {
-  const act = pats.get(p)!.act;
-  return act.kind === "begin" && act.rule !== forRule && reach.has(act.rule);
+  const act = patternById.get(p)!.act;
+  return act.role === "begin" && act.rule !== forRule && reach.has(act.rule);
 };
-for (const p of [...pats.values()]) {
-  if (opensCopy(p.id) && p.act.kind === "begin") {
-    pats.set(`${p.id}InFor`, { ...p, id: `${p.id}InFor`, act: { kind: "begin", rule: inFor(p.act.rule) } });
+for (const p of [...patternById.values()]) {
+  if (opensCopy(p.id) && p.act.role === "begin") {
+    patternById.set(`${p.id}InFor`, { ...p, id: `${p.id}InFor`, act: { role: "begin", rule: inFor(p.act.rule) } });
   }
 }
 for (const id of reach) {
   const rule = rules.get(id)!;
-  const end = pats.get(rule.end)!;
-  pats.set(`${rule.end}InFor`, { ...end, id: `${rule.end}InFor` });
-  if (id === forRule) pats.delete(rule.end);
+  const end = patternById.get(rule.end)!;
+  patternById.set(`${rule.end}InFor`, { ...end, id: `${rule.end}InFor` });
+  if (id === forRule) patternById.delete(rule.end);
   rules.set(inFor(id), {
     ...rule,
     id: inFor(id),
@@ -235,13 +235,13 @@ while (open.length > 0) {
   if (live.has(id)) continue;
   live.add(id);
   for (const p of rules.get(id)!.patterns) {
-    const act = pats.get(p)!.act;
-    if (act.kind === "begin") open.push(act.rule);
+    const act = patternById.get(p)!.act;
+    if (act.role === "begin") open.push(act.rule);
   }
 }
 for (const id of [...rules.keys()]) if (!live.has(id)) rules.delete(id);
 const used = new Set([...rules.values()].flatMap((r) => [...r.patterns, ...(r.end ? [r.end] : [])]));
-for (const id of [...pats.keys()]) if (!used.has(id)) pats.delete(id);
+for (const id of [...patternById.keys()]) if (!used.has(id)) patternById.delete(id);
 
 // Output.
 
@@ -250,7 +250,7 @@ const list = (names: string[]) => (names.length ? `scopes![${names.map((n) => `S
 let g = `//! The grammar's rules as tables. Generated by \`oracle/bat-grammar.ts\` from
 //! the \`bat\` grammar Shiki 4.6.0 bundles; do not edit.
 //!
-//! A [\`Pat\`] is one regular expression of the grammar; its doc comment shows
+//! A [\`Pattern\`] is one regular expression of the grammar; its doc comment shows
 //! which.
 //! Each rule lists the patterns it tries, in the grammar's order with its
 //! \`include\`s flattened.
@@ -263,53 +263,53 @@ use crate::scope::scopes;
 use crate::rules;
 
 pub(crate) type Act = rules::Act<Bat>;
-pub(crate) type PatData = rules::PatData<Bat>;
-pub(crate) type RuleData = rules::RuleData<Bat>;
+pub(crate) type PatternDefinition = rules::PatternDefinition<Bat>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Bat>;
 pub(crate) use crate::rules::Start;
 
 `;
 
 const ruleList = [...rules.values()];
-const patList = [...pats.values()];
+const patternList = [...patternById.values()];
 
 g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u8)]\npub(crate) enum Rule {\n`;
 for (const r of ruleList) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
 for (const r of ruleList) g += `        Rule::${r.id},\n`;
-g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    `RuleData {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${list(r.name)},\n                content: ${list(r.content)},\n                end: ${r.end ? `Some(Pattern::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pattern::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
 g += `        }\n    }\n}\n\n`;
 
-g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
+g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 // A regex that holds a word cut in two by an alternation is elided too: the
 // spelling check reads the second half as a typo.
 const docs = (s: string) => {
   const one = s.replace(/\n/g, "\\n");
   return one.length > 56 ? `…` : one;
 };
-for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+for (const p of patternList) {
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pattern {\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
-  patList.map((p): [string, string] => {
+  patternList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${list(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
-    const caps = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
+    const captures = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
   }),
-  "Pat",
+  "Pattern",
 );
 g += `        }\n    }\n}\n`;
 
@@ -317,7 +317,7 @@ g += `        }\n    }\n}\n`;
 // The lookahead makes an alternative match only a whole name or a whole name
 // pair, so the matcher looks names up instead of trying the alternatives in turn.
 // A pair such as `net user` comes before `net` in the grammar, so it wins.
-const commandsRegex = pats.get("CommandsAt0")!.regex;
+const commandsRegex = patternById.get("CommandsAt0")!.regex;
 const commandsBody = /^\(\?<=\^\|\[@\\s\]\)\(\?i:(.*)\)\(\?=\$\|\\s\)$/.exec(commandsRegex)?.[1];
 if (commandsBody === undefined) throw new Error("CommandsAt0 changed shape");
 const commandList = spell(commandsBody);
@@ -344,13 +344,13 @@ pub(crate) const COMMAND_PAIRS: &[&[u8]] = &[${pairs.map(bytes).join(", ")}];
 pub(crate) const LONGEST_COMMAND: usize = ${Math.max(...commandList.map((w) => w.length))};
 `;
 
-g += startTable(patList);
+g += startTable(patternList);
 g += ruleCodes("Bat", "BAT");
-g += groupsCheck("Bat", patList.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck("Bat", patternList.flatMap((p) => p.captures.map(([n]) => n)));
 
 await writeRust(`${root_dir}src/bat/grammar.rs`, g);
 
 // Scope table.
 const s = scopeFile("bat-grammar.ts", "BAT", scopes);
 await writeRust(`${root_dir}src/bat/scope.rs`, s);
-console.log(`${ruleList.length} rules, ${patList.length} patterns, ${scopes.size} scopes`);
+console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes`);

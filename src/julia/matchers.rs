@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -22,7 +22,7 @@ mod strings;
 use super::chars::{is_ident_rest, is_ident_start};
 use super::classes::{IDENT_REST_ASCII, IDENT_START_ASCII};
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// Whether ASCII byte `b` is in the class whose ASCII characters are the
@@ -32,7 +32,7 @@ fn in_ascii(mask: u128, b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms come in groups, in this order:
     /// - operators;
@@ -43,120 +43,122 @@ impl Lexer<'_> {
     /// - comments;
     /// - types, symbols and punctuation.
     #[expect(clippy::too_many_lines, reason = "one arm per pattern of the grammar")]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::Arrow => self.arrow(p),
-            Pat::Update => self.update(p),
-            Pat::Shift => self.shift(p),
-            Pat::TypeRelation => self.type_relation(p),
-            Pat::Relation => self.relation(p),
-            Pat::TernaryQuestion => self.between_spaces(p, b"?"),
-            Pat::TernaryColon => self.between_spaces(p, b":"),
-            Pat::Boolean => self.boolean(p),
-            Pat::RangeColon => self.range_colon(p),
-            Pat::Applies => self.lit(p, b"|>"),
-            Pat::Bitwise => self.bitwise(p),
-            Pat::Arithmetic => self.arithmetic(p),
-            Pat::Compose => self.lit(p, "∘".as_bytes()),
-            Pat::Isa => self
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::Arrow => self.arrow(p),
+            Pattern::Update => self.update(p),
+            Pattern::Shift => self.shift(p),
+            Pattern::TypeRelation => self.type_relation(p),
+            Pattern::Relation => self.relation(p),
+            Pattern::TernaryQuestion => self.between_spaces(p, b"?"),
+            Pattern::TernaryColon => self.between_spaces(p, b":"),
+            Pattern::Boolean => self.boolean(p),
+            Pattern::RangeColon => self.range_colon(p),
+            Pattern::Applies => self.lit(p, b"|>"),
+            Pattern::Bitwise => self.bitwise(p),
+            Pattern::Arithmetic => self.arithmetic(p),
+            Pattern::Compose => self.lit(p, "∘".as_bytes()),
+            Pattern::Isa => self
                 .lit(p, b"::")
                 .or_else(|| self.between_spaces(p, b"isa")),
-            Pat::In => self.between_spaces(p, b"in"),
-            Pat::Dots => self.dots(p),
-            Pat::InterpolationOperator => self.interpolation_operator(p),
-            Pat::TransposedVariable => self.transposed_variable(p),
-            Pat::TransposedMatrix => self.transposed(p, b']'),
-            Pat::TransposedParens => self.transposed(p, b')'),
+            Pattern::In => self.between_spaces(p, b"in"),
+            Pattern::Dots => self.dots(p),
+            Pattern::InterpolationOperator => self.interpolation_operator(p),
+            Pattern::TransposedVariable => self.transposed_variable(p),
+            Pattern::TransposedMatrix => self.transposed(p, b']'),
+            Pattern::TransposedParens => self.transposed(p, b')'),
 
-            Pat::Array => self.lit(p, b"["),
-            Pat::ArrayEnd => self.closer(p, b']'),
-            Pat::Parentheses => self.lit(p, b"("),
-            Pat::ParenthesesEnd => self.closer(p, b')'),
-            Pat::Bracket => self.lit(p, b"{"),
-            Pat::BracketEnd => self.closer(p, b'}'),
-            Pat::ArrayBegin => self.keyword(p, b"begin"),
-            Pat::ArrayEndWord => self.keyword(p, b"end"),
-            Pat::Interpolation => self.interpolation(p),
-            Pat::InterpolationEnd => self.lit(p, b")"),
-            Pat::InterpolatedName => self.interpolated_name(p),
+            Pattern::Array => self.lit(p, b"["),
+            Pattern::ArrayEnd => self.closer(p, b']'),
+            Pattern::Parentheses => self.lit(p, b"("),
+            Pattern::ParenthesesEnd => self.closer(p, b')'),
+            Pattern::Bracket => self.lit(p, b"{"),
+            Pattern::BracketEnd => self.closer(p, b'}'),
+            Pattern::ArrayBegin => self.keyword(p, b"begin"),
+            Pattern::ArrayEndWord => self.keyword(p, b"end"),
+            Pattern::Interpolation => self.interpolation(p),
+            Pattern::InterpolationEnd => self.lit(p, b")"),
+            Pattern::InterpolatedName => self.interpolated_name(p),
 
-            Pat::DocMacro => self.doc_macro(p),
-            Pat::DocMacroEnd => self.doc_macro_end(p),
-            Pat::Docstring => self.docstring(p),
-            Pat::DocstringEnd => self.group_one(p, b"\"\"\""),
-            Pat::StringEscapedChar => self.escape(p),
-            Pat::Cxx => self.cxx(p),
-            Pat::Py => self.prefixed(p, b"py", b"\"\"\""),
-            Pat::Js => self.prefixed(p, b"js", b"\"\"\""),
-            Pat::RMacro => self.prefixed(p, b"R", b"\"\"\""),
-            Pat::RawTriple => self.prefixed(p, b"raw", b"\"\"\""),
-            Pat::Raw => self.prefixed(p, b"raw", b"\""),
-            Pat::Sql => self.prefixed(p, b"sql", b"\"\"\""),
-            Pat::PyEnd => self.python_end(p),
-            Pat::CxxEnd
-            | Pat::JsEnd
-            | Pat::RMacroEnd
-            | Pat::RawTripleEnd
-            | Pat::SqlEnd
-            | Pat::VarTripleEnd
-            | Pat::Triple
-            | Pat::TripleEnd => self.lit(p, b"\"\"\""),
-            Pat::RawEnd | Pat::VarEnd | Pat::QuotedEnd => self.lit(p, b"\""),
-            Pat::RawEscapedQuote => self.raw_escaped_quote(p),
-            Pat::RawEscapedBackslashes => self.raw_escaped_backslashes(p),
-            Pat::VarTriple => self.lit(p, b"var\"\"\""),
-            Pat::Var => self.lit(p, b"var\""),
-            Pat::Char => self.lit(p, b"'"),
-            Pat::CharEnd => self.char_quote_end(p),
-            Pat::Quoted => self.quoted(p),
-            Pat::RegexTriple => self.lit(p, b"r\"\"\""),
-            Pat::Regex => self.lit(p, b"r\""),
-            Pat::RegexTripleEnd => self.regex_end(p, b"\"\"\""),
-            Pat::RegexEnd => self.regex_end(p, b"\""),
-            Pat::MacroTriple => self.string_macro(p, b"\"\"\""),
-            Pat::Macro => self.string_macro(p, b"\""),
-            Pat::MacroTripleEnd => self.macro_end(p, b"\"\"\""),
-            Pat::MacroEnd => self.escapable_macro_end(p, b'"'),
-            Pat::CommandTriple => self.command(p, b"```"),
-            Pat::Command => self.command(p, b"`"),
-            Pat::CommandTripleEnd => self.macro_end(p, b"```"),
-            Pat::CommandEnd => self.escapable_macro_end(p, b'`'),
+            Pattern::DocMacro => self.doc_macro(p),
+            Pattern::DocMacroEnd => self.doc_macro_end(p),
+            Pattern::Docstring => self.docstring(p),
+            Pattern::DocstringEnd => self.group_one(p, b"\"\"\""),
+            Pattern::StringEscapedChar => self.escape(p),
+            Pattern::Cxx => self.cxx(p),
+            Pattern::Py => self.prefixed(p, b"py", b"\"\"\""),
+            Pattern::Js => self.prefixed(p, b"js", b"\"\"\""),
+            Pattern::RMacro => self.prefixed(p, b"R", b"\"\"\""),
+            Pattern::RawTriple => self.prefixed(p, b"raw", b"\"\"\""),
+            Pattern::Raw => self.prefixed(p, b"raw", b"\""),
+            Pattern::Sql => self.prefixed(p, b"sql", b"\"\"\""),
+            Pattern::PyEnd => self.python_end(p),
+            Pattern::CxxEnd
+            | Pattern::JsEnd
+            | Pattern::RMacroEnd
+            | Pattern::RawTripleEnd
+            | Pattern::SqlEnd
+            | Pattern::VarTripleEnd
+            | Pattern::Triple
+            | Pattern::TripleEnd => self.lit(p, b"\"\"\""),
+            Pattern::RawEnd | Pattern::VarEnd | Pattern::QuotedEnd => self.lit(p, b"\""),
+            Pattern::RawEscapedQuote => self.raw_escaped_quote(p),
+            Pattern::RawEscapedBackslashes => self.raw_escaped_backslashes(p),
+            Pattern::VarTriple => self.lit(p, b"var\"\"\""),
+            Pattern::Var => self.lit(p, b"var\""),
+            Pattern::Char => self.lit(p, b"'"),
+            Pattern::CharEnd => self.char_quote_end(p),
+            Pattern::Quoted => self.quoted(p),
+            Pattern::RegexTriple => self.lit(p, b"r\"\"\""),
+            Pattern::Regex => self.lit(p, b"r\""),
+            Pattern::RegexTripleEnd => self.regex_end(p, b"\"\"\""),
+            Pattern::RegexEnd => self.regex_end(p, b"\""),
+            Pattern::MacroTriple => self.string_macro(p, b"\"\"\""),
+            Pattern::Macro => self.string_macro(p, b"\""),
+            Pattern::MacroTripleEnd => self.macro_end(p, b"\"\"\""),
+            Pattern::MacroEnd => self.escapable_macro_end(p, b'"'),
+            Pattern::CommandTriple => self.command(p, b"```"),
+            Pattern::Command => self.command(p, b"`"),
+            Pattern::CommandTripleEnd => self.macro_end(p, b"```"),
+            Pattern::CommandEnd => self.escapable_macro_end(p, b'`'),
 
-            Pat::FunctionAssignment => self.function_assignment(p),
-            Pat::FunctionKeyword => self.function_keyword(p),
-            Pat::FunctionCall => self.function_call(p),
-            Pat::FunctionCallEnd => self.function_call_end(p),
-            Pat::KeywordOther => self.keyword_other(p),
-            Pat::KeywordControl => self.keyword_in(p, names::CONTROL),
-            Pat::KeywordEnd => self.keyword_in(p, &[b"end"]),
-            Pat::StorageModifier => self.keyword_in(p, &[b"global", b"local", b"const"]),
-            Pat::Export => self.keyword_in(p, &[b"export"]),
-            Pat::Public => self.public(p),
-            Pat::Import => self.keyword_in(p, &[b"import"]),
-            Pat::Using => self.keyword_in(p, &[b"using"]),
-            Pat::As => self.as_keyword(p),
-            Pat::MacroName => self.macro_name(p),
+            Pattern::FunctionAssignment => self.function_assignment(p),
+            Pattern::FunctionKeyword => self.function_keyword(p),
+            Pattern::FunctionCall => self.function_call(p),
+            Pattern::FunctionCallEnd => self.function_call_end(p),
+            Pattern::KeywordOther => self.keyword_other(p),
+            Pattern::KeywordControl => self.keyword_in(p, names::CONTROL),
+            Pattern::KeywordEnd => self.keyword_in(p, &[b"end"]),
+            Pattern::StorageModifier => self.keyword_in(p, &[b"global", b"local", b"const"]),
+            Pattern::Export => self.keyword_in(p, &[b"export"]),
+            Pattern::Public => self.public(p),
+            Pattern::Import => self.keyword_in(p, &[b"import"]),
+            Pattern::Using => self.keyword_in(p, &[b"using"]),
+            Pattern::As => self.as_keyword(p),
+            Pattern::MacroName => self.macro_name(p),
 
-            Pat::Number => self.number(p),
-            Pat::GlobalConstant => self.word_in(p, numbers::GLOBALS),
-            Pat::LanguageConstant => self.word_in(p, &[b"true", b"false", b"nothing", b"missing"]),
+            Pattern::Number => self.number(p),
+            Pattern::GlobalConstant => self.word_in(p, numbers::GLOBALS),
+            Pattern::LanguageConstant => {
+                self.word_in(p, &[b"true", b"false", b"nothing", b"missing"])
+            }
 
-            Pat::CommentBlock => self.lit(p, b"#="),
-            Pat::CommentBlockEnd => self.lit(p, b"=#"),
-            Pat::Todo => self.keyword(p, b"TODO"),
-            Pat::Fixme => self.keyword(p, b"FIXME"),
-            Pat::Changed => self.keyword(p, b"CHANGED"),
-            Pat::Xxx => self.keyword(p, b"XXX"),
-            Pat::LineComment => self.lit(p, b"#"),
-            Pat::LineCommentEnd => (p == self.lim() && self.nl).then_some(p + 1),
+            Pattern::CommentBlock => self.lit(p, b"#="),
+            Pattern::CommentBlockEnd => self.lit(p, b"=#"),
+            Pattern::Todo => self.keyword(p, b"TODO"),
+            Pattern::Fixme => self.keyword(p, b"FIXME"),
+            Pattern::Changed => self.keyword(p, b"CHANGED"),
+            Pattern::Xxx => self.keyword(p, b"XXX"),
+            Pattern::LineComment => self.lit(p, b"#"),
+            Pattern::LineCommentEnd => (p == self.lim() && self.nl).then_some(p + 1),
 
-            Pat::TypeDecl => self.type_decl(p),
-            Pat::Symbol => self.symbol(p),
-            Pat::Comma => self.lit(p, b","),
-            Pat::Semicolon => self.lit(p, b";"),
-            Pat::ForBlock => self.keyword(p, b"for"),
-            Pat::ForBlockEnd => self.for_end(p),
-            Pat::Outer => self.keyword(p, b"outer"),
+            Pattern::TypeDecl => self.type_decl(p),
+            Pattern::Symbol => self.symbol(p),
+            Pattern::Comma => self.lit(p, b","),
+            Pattern::Semicolon => self.lit(p, b";"),
+            Pattern::ForBlock => self.keyword(p, b"for"),
+            Pattern::ForBlockEnd => self.for_end(p),
+            Pattern::Outer => self.keyword(p, b"outer"),
         }
     }
 
@@ -275,15 +277,15 @@ impl Lexer<'_> {
         }
         let dot = p + 1 + usize::from(self.at(p + 1) == b'.');
         let end = self.skip(dot, |b| b == b'\'');
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
     /// `(text)` at `p`, with the text its group 1.
     fn group_one(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let end = self.lit(p, text)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 }

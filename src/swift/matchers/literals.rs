@@ -68,9 +68,9 @@ enum AfterMember {
     Allowed,
 }
 
-/// The two kinds of string whose text stops before an interpolation.
+/// The two string literals whose text stops before an interpolation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum StringKind {
+enum StringLiteral {
     /// `"""`, interpolated with `\(`.
     Plain,
     /// `#"""`, interpolated with `\#(`.
@@ -278,21 +278,21 @@ impl Lexer<'_> {
     /// The star gives back to the last `"""` before the interpolation.
     /// Every start in a run asks about the same stop.
     /// The search is therefore kept.
-    fn string_text_before_triple(&self, p: usize, kind: StringKind) -> Option<usize> {
+    fn string_text_before_triple(&self, p: usize, literal: StringLiteral) -> Option<usize> {
         let (c, start) = self.char_at(p).filter(|_| p < self.lim())?;
         if is_space(c) {
             return None;
         }
-        let cell = match kind {
-            StringKind::Raw => &self.x.literals.raw,
-            StringKind::Plain => &self.x.literals.plain,
+        let cell = match literal {
+            StringLiteral::Raw => &self.x.literals.raw,
+            StringLiteral::Plain => &self.x.literals.plain,
         };
         let found = match cell.get() {
             Some(known) if known.from <= start && start <= known.end => known,
             _ => {
-                let interpolation: &[u8] = match kind {
-                    StringKind::Raw => b"\\#(",
-                    StringKind::Plain => b"\\(",
+                let interpolation: &[u8] = match literal {
+                    StringLiteral::Raw => b"\\#(",
+                    StringLiteral::Plain => b"\\(",
                 };
                 let stop = (start..self.lim())
                     .find(|&i| self.starts(i, interpolation))
@@ -491,7 +491,7 @@ impl Lexer<'_> {
     /// `"""`, for `LiteralsStringAt0`.
     pub(in crate::swift) fn rx_literals_string_at_0(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"\"\"\"")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -499,8 +499,8 @@ impl Lexer<'_> {
     pub(in crate::swift) fn rx_literals_string_at_0_end(&mut self, p: usize) -> Option<usize> {
         let quotes = self.lit(p, b"\"\"\"")?;
         let end = self.skip(quotes, |b| b == b'#');
-        self.cap(0, p, end);
-        self.cap(1, quotes, end);
+        self.capture(0, p, end);
+        self.capture(1, quotes, end);
         Some(end)
     }
 
@@ -549,7 +549,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"\\(")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -571,7 +571,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b")")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -581,7 +581,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(p, b"#!")?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(self.lim() + 1)
     }
 
@@ -591,7 +591,7 @@ impl Lexer<'_> {
         if self.at(end) == b'/' {
             return None;
         }
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -599,21 +599,21 @@ impl Lexer<'_> {
     /// `CommentsAt3End`, `CommentsAt4`.
     pub(in crate::swift) fn rx_comments_at_1_end(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"*/")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
     /// `/\*`, for `CommentsNested`, `CommentsAt3`.
     pub(in crate::swift) fn rx_comments_nested(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"/*")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
     /// `/\*:`, for `CommentsAt2`.
     pub(in crate::swift) fn rx_comments_at_2(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"/*:")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -622,7 +622,7 @@ impl Lexer<'_> {
         if p == 0 {
             let end = self.skip(0, |b| b == b' ' || b == b'\t');
             if end > 0 && self.starts(end, b"//") {
-                self.cap(1, 0, end);
+                self.capture(1, 0, end);
                 return Some(end);
             }
         }
@@ -632,7 +632,7 @@ impl Lexer<'_> {
     /// `///`, for `CommentsAt5At0`.
     pub(in crate::swift) fn rx_comments_at_5_at_0(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"///")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -644,14 +644,14 @@ impl Lexer<'_> {
     /// `//:`, for `CommentsAt5At1`.
     pub(in crate::swift) fn rx_comments_at_5_at_1(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"//:")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
     /// `//`, for `CommentsAt5At2`.
     pub(in crate::swift) fn rx_comments_at_5_at_2(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"//")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -661,7 +661,7 @@ impl Lexer<'_> {
         if self.at(end) == b'#' || self.quote_then_hashes(end, 1) {
             return None;
         }
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -669,8 +669,8 @@ impl Lexer<'_> {
     pub(in crate::swift) fn rx_literals_string_at_1_end(&mut self, p: usize) -> Option<usize> {
         let quotes = self.lit(p, b"\"\"\"#")?;
         let end = self.skip(quotes, |b| b == b'#');
-        self.cap(0, p, end);
-        self.cap(1, quotes, end);
+        self.capture(0, p, end);
+        self.capture(1, quotes, end);
         Some(end)
     }
 
@@ -703,7 +703,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         let end = self.lit(p, b"\\#(")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -723,8 +723,8 @@ impl Lexer<'_> {
         if self.skip(end, |b| b == b'#') - end >= hashes || self.quote_then_hashes(end, hashes) {
             return None;
         }
-        self.cap(0, p, end);
-        self.cap(1, p, quotes);
+        self.capture(0, p, end);
+        self.capture(1, p, quotes);
         Some(end)
     }
 
@@ -733,15 +733,15 @@ impl Lexer<'_> {
         let quotes = self.lit(p, b"\"\"\"")?;
         let hashes = quotes + self.payload_at(quotes)?;
         let end = self.skip(hashes, |b| b == b'#');
-        self.cap(0, p, end);
-        self.cap(1, hashes, end);
+        self.capture(0, p, end);
+        self.capture(1, hashes, end);
         Some(end)
     }
 
     /// `"`, for `LiteralsStringAt3`.
     pub(in crate::swift) fn rx_literals_string_at_3(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"\"")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -749,8 +749,8 @@ impl Lexer<'_> {
     pub(in crate::swift) fn rx_literals_string_at_3_end(&mut self, p: usize) -> Option<usize> {
         let quote = self.lit(p, b"\"")?;
         let end = self.skip(quote, |b| b == b'#');
-        self.cap(0, p, end);
-        self.cap(1, quote, end);
+        self.capture(0, p, end);
+        self.capture(1, quote, end);
         Some(end)
     }
 
@@ -779,8 +779,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.lit(quote, b"\"")?;
-        self.cap(0, p, end);
-        self.cap(1, p, quote);
+        self.capture(0, p, end);
+        self.capture(1, p, quote);
         Some(end)
     }
 
@@ -789,15 +789,15 @@ impl Lexer<'_> {
         let quote = self.lit(p, b"\"")?;
         let hashes = quote + self.payload_at(quote)?;
         let end = self.skip(hashes, |b| b == b'#');
-        self.cap(0, p, end);
-        self.cap(1, hashes, end);
+        self.capture(0, p, end);
+        self.capture(1, hashes, end);
         Some(end)
     }
 
     /// `#"`, for `LiteralsStringAt5`.
     pub(in crate::swift) fn rx_literals_string_at_5(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"#\"")?;
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 
@@ -805,8 +805,8 @@ impl Lexer<'_> {
     pub(in crate::swift) fn rx_literals_string_at_5_end(&mut self, p: usize) -> Option<usize> {
         let quote = self.lit(p, b"\"#")?;
         let end = self.skip(quote, |b| b == b'#');
-        self.cap(0, p, end);
-        self.cap(1, quote, end);
+        self.capture(0, p, end);
+        self.capture(1, quote, end);
         Some(end)
     }
 
@@ -832,8 +832,8 @@ impl Lexer<'_> {
         let name = self.lit(p, b"#")?;
         let end = self.word_end(name);
         let word = self.text(name, end);
-        let kind = word.strip_suffix(b"Literal")?;
-        matches!(kind, b"color" | b"image" | b"file").then_some(end)
+        let object = word.strip_suffix(b"Literal")?;
+        matches!(object, b"color" | b"image" | b"file").then_some(end)
     }
 
     /// `\B#externalMacro\b`, for `LiteralsAt5`.
@@ -861,15 +861,15 @@ impl Lexer<'_> {
         }
         let name = self.lit(p, b"#selector")?;
         let paren = self.lit(name, b"(")?;
-        self.cap(1, p, name);
-        self.cap(2, name, paren);
+        self.capture(1, p, name);
+        self.capture(2, name, paren);
         let accessor = self.space_end(paren);
-        let kind = accessor + 6;
-        let colon = self.space_end(kind);
-        let tail = self.text(accessor, kind);
+        let accessor_end = accessor + 6;
+        let colon = self.space_end(accessor_end);
+        let tail = self.text(accessor, accessor_end);
         if (tail == b"getter" || tail == b"setter") && self.at(colon) == b':' {
-            self.cap(3, accessor, kind);
-            self.cap(4, colon, colon + 1);
+            self.capture(3, accessor, accessor_end);
+            self.capture(4, colon, colon + 1);
             return Some(colon + 1);
         }
         Some(paren)
@@ -877,11 +877,11 @@ impl Lexer<'_> {
 
     /// `\S((?!\\#\().)*(?=""")`, for `LiteralsStringAt1At3`.
     pub(in crate::swift) fn rx_literals_string_at_1_at_3(&mut self, p: usize) -> Option<usize> {
-        self.string_text_before_triple(p, StringKind::Raw)
+        self.string_text_before_triple(p, StringLiteral::Raw)
     }
 
     /// `\S((?!\\\().)*(?=""")`, for `LiteralsStringAt0At3`.
     pub(in crate::swift) fn rx_literals_string_at_0_at_3(&mut self, p: usize) -> Option<usize> {
-        self.string_text_before_triple(p, StringKind::Plain)
+        self.string_text_before_triple(p, StringLiteral::Plain)
     }
 }

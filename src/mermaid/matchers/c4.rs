@@ -218,7 +218,7 @@ impl Lexer<'_> {
         if !words.iter().any(|word| self.ci(start, word) == Some(end)) {
             return None;
         }
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -248,7 +248,7 @@ impl Lexer<'_> {
             };
             match (found, need) {
                 (Some(after), _) => {
-                    self.cap(group, q, after);
+                    self.capture(group, q, after);
                     q = after;
                 }
                 (None, Must) => return None,

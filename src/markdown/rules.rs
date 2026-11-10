@@ -2,7 +2,7 @@
 //! scope each of a rule's capture groups gets.
 
 use super::scope::S;
-use super::state::Kind;
+use super::state::Container;
 use crate::Language;
 
 /// A rule that matches text: a `match` rule, or the `begin` of a rule that
@@ -378,34 +378,42 @@ const HEADING: &[P] = &[
 const TABLE: &[P] = &[P::TablePipe, P::TableSeparator, P::TableCell];
 
 /// The rules that apply inside a container.
-pub(crate) fn patterns(kind: Kind) -> &'static [P] {
-    match kind {
-        Kind::Fence(_) => &[P::EmbedBegin],
+pub(crate) fn patterns(container: Container) -> &'static [P] {
+    match container {
+        Container::Fence(_) => &[P::EmbedBegin],
         #[cfg(feature = "lang-html")]
-        Kind::FencePhp => &[P::EmbedBegin],
+        Container::FencePhp => &[P::EmbedBegin],
         #[cfg(feature = "lang-html")]
-        Kind::BodyPhp => &[],
-        Kind::FrontMatter => &[P::FrontMatterBegin],
-        Kind::Base | Kind::Quote | Kind::ListBullet | Kind::ListOrdered => BLOCK,
+        Container::BodyPhp => &[],
+        Container::FrontMatter => &[P::FrontMatterBegin],
+        Container::Base | Container::Quote | Container::ListBullet | Container::ListOrdered => {
+            BLOCK
+        }
         #[cfg(feature = "lang-vue")]
-        Kind::Body(Language::Vue) => &[P::Fence],
-        Kind::Body(language) => {
+        Container::Body(Language::Vue) => &[P::Fence],
+        Container::Body(language) => {
             if language == Language::Markdown {
                 BLOCK
             } else {
                 &[]
             }
         }
-        Kind::FencePlain | Kind::FrontMatterBody | Kind::RawBlock | Kind::Comment => &[],
+        Container::FencePlain
+        | Container::FrontMatterBody
+        | Container::RawBlock
+        | Container::Comment => &[],
         #[cfg(feature = "lang-html-derivative")]
-        Kind::HtmlRaw => &[P::HtmlRawBody],
+        Container::HtmlRaw => &[P::HtmlRawBody],
         #[cfg(not(feature = "lang-html-derivative"))]
-        Kind::HtmlRaw => &[],
-        Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => &[],
-        Kind::Table => TABLE,
-        Kind::Paragraph => PARAGRAPH,
-        Kind::BoldStar | Kind::BoldUnder => BOLD,
-        Kind::ItalicStar | Kind::ItalicUnder => ITALIC,
+        Container::HtmlRaw => &[],
+        Container::HtmlRawBody
+        | Container::HtmlBlock
+        | Container::HtmlInline
+        | Container::HtmlWrap => &[],
+        Container::Table => TABLE,
+        Container::Paragraph => PARAGRAPH,
+        Container::BoldStar | Container::BoldUnder => BOLD,
+        Container::ItalicStar | Container::ItalicUnder => ITALIC,
     }
 }
 
@@ -421,61 +429,64 @@ pub(crate) fn list_patterns(list: List) -> &'static [P] {
 }
 
 /// The rule that closes a container, if it has one.
-pub(crate) fn end(kind: Kind) -> Option<End> {
-    match kind {
-        Kind::FrontMatter => Some(End::FrontMatter),
-        Kind::Fence(_) | Kind::FencePlain => Some(End::Fence),
+pub(crate) fn end(container: Container) -> Option<End> {
+    match container {
+        Container::FrontMatter => Some(End::FrontMatter),
+        Container::Fence(_) | Container::FencePlain => Some(End::Fence),
         #[cfg(feature = "lang-html")]
-        Kind::FencePhp => Some(End::Fence),
+        Container::FencePhp => Some(End::Fence),
         #[cfg(feature = "lang-html")]
-        Kind::BodyPhp => None,
-        Kind::Comment => Some(End::Comment),
-        Kind::BoldStar | Kind::BoldUnder => Some(End::Bold),
-        Kind::ItalicStar | Kind::ItalicUnder => Some(End::Italic),
+        Container::BodyPhp => None,
+        Container::Comment => Some(End::Comment),
+        Container::BoldStar | Container::BoldUnder => Some(End::Bold),
+        Container::ItalicStar | Container::ItalicUnder => Some(End::Italic),
         #[cfg(feature = "lang-html-derivative")]
-        Kind::HtmlRaw => Some(End::HtmlRaw),
+        Container::HtmlRaw => Some(End::HtmlRaw),
         #[cfg(not(feature = "lang-html-derivative"))]
-        Kind::HtmlRaw => None,
-        Kind::HtmlRawBody | Kind::HtmlBlock | Kind::HtmlInline | Kind::HtmlWrap => None,
-        Kind::Base
-        | Kind::Quote
-        | Kind::ListBullet
-        | Kind::ListOrdered
-        | Kind::Body(_)
-        | Kind::FrontMatterBody
-        | Kind::RawBlock
-        | Kind::Table
-        | Kind::Paragraph => None,
+        Container::HtmlRaw => None,
+        Container::HtmlRawBody
+        | Container::HtmlBlock
+        | Container::HtmlInline
+        | Container::HtmlWrap => None,
+        Container::Base
+        | Container::Quote
+        | Container::ListBullet
+        | Container::ListOrdered
+        | Container::Body(_)
+        | Container::FrontMatterBody
+        | Container::RawBlock
+        | Container::Table
+        | Container::Paragraph => None,
     }
 }
 
 /// The scopes a container adds to everything inside it, the text that opens
 /// and closes it included.
-pub(crate) fn names(kind: Kind) -> &'static [S] {
-    match kind {
-        Kind::Base
-        | Kind::Body(_)
-        | Kind::FrontMatter
-        | Kind::FrontMatterBody
-        | Kind::HtmlRaw
-        | Kind::HtmlRawBody
-        | Kind::HtmlBlock
-        | Kind::HtmlInline
-        | Kind::HtmlWrap => &[],
-        Kind::Quote => &[S::Quote],
-        Kind::ListBullet => &[S::ListBullet],
-        Kind::ListOrdered => &[S::ListOrdered],
-        Kind::Fence(_) | Kind::FencePlain => &[S::Fence],
+pub(crate) fn names(container: Container) -> &'static [S] {
+    match container {
+        Container::Base
+        | Container::Body(_)
+        | Container::FrontMatter
+        | Container::FrontMatterBody
+        | Container::HtmlRaw
+        | Container::HtmlRawBody
+        | Container::HtmlBlock
+        | Container::HtmlInline
+        | Container::HtmlWrap => &[],
+        Container::Quote => &[S::Quote],
+        Container::ListBullet => &[S::ListBullet],
+        Container::ListOrdered => &[S::ListOrdered],
+        Container::Fence(_) | Container::FencePlain => &[S::Fence],
         #[cfg(feature = "lang-html")]
-        Kind::FencePhp => &[S::Fence],
+        Container::FencePhp => &[S::Fence],
         #[cfg(feature = "lang-html")]
-        Kind::BodyPhp => &[],
-        Kind::RawBlock => &[S::Raw],
-        Kind::Table => &[S::Table],
-        Kind::Paragraph => &[S::Paragraph],
-        Kind::Comment => &[S::CommentHtml],
-        Kind::BoldStar | Kind::BoldUnder => &[S::Bold],
-        Kind::ItalicStar | Kind::ItalicUnder => &[S::Italic],
+        Container::BodyPhp => &[],
+        Container::RawBlock => &[S::Raw],
+        Container::Table => &[S::Table],
+        Container::Paragraph => &[S::Paragraph],
+        Container::Comment => &[S::CommentHtml],
+        Container::BoldStar | Container::BoldUnder => &[S::Bold],
+        Container::ItalicStar | Container::ItalicUnder => &[S::Italic],
     }
 }
 
@@ -587,34 +598,34 @@ const BY_LANGUAGE: [&[S]; Language::ALL.len()] = {
 };
 
 /// The scopes a container adds to the text between its opening and closing.
-pub(crate) fn content_name(kind: Kind) -> &'static [S] {
-    match kind {
-        Kind::Body(language) => BY_LANGUAGE[language.index()],
+pub(crate) fn content_name(container: Container) -> &'static [S] {
+    match container {
+        Container::Body(language) => BY_LANGUAGE[language.index()],
         #[cfg(feature = "lang-html")]
-        Kind::BodyPhp => &[S::EmbeddedPhp],
+        Container::BodyPhp => &[S::EmbeddedPhp],
         #[cfg(feature = "lang-html")]
-        Kind::FencePhp => &[],
-        Kind::FrontMatterBody => &[S::EmbeddedFrontMatter],
-        Kind::Base
-        | Kind::Quote
-        | Kind::ListBullet
-        | Kind::ListOrdered
-        | Kind::Fence(_)
-        | Kind::FencePlain
-        | Kind::FrontMatter
-        | Kind::RawBlock
-        | Kind::Table
-        | Kind::Paragraph
-        | Kind::Comment
-        | Kind::BoldStar
-        | Kind::BoldUnder
-        | Kind::ItalicStar
-        | Kind::ItalicUnder
-        | Kind::HtmlRaw
-        | Kind::HtmlRawBody
-        | Kind::HtmlBlock
-        | Kind::HtmlInline
-        | Kind::HtmlWrap => &[],
+        Container::FencePhp => &[],
+        Container::FrontMatterBody => &[S::EmbeddedFrontMatter],
+        Container::Base
+        | Container::Quote
+        | Container::ListBullet
+        | Container::ListOrdered
+        | Container::Fence(_)
+        | Container::FencePlain
+        | Container::FrontMatter
+        | Container::RawBlock
+        | Container::Table
+        | Container::Paragraph
+        | Container::Comment
+        | Container::BoldStar
+        | Container::BoldUnder
+        | Container::ItalicStar
+        | Container::ItalicUnder
+        | Container::HtmlRaw
+        | Container::HtmlRawBody
+        | Container::HtmlBlock
+        | Container::HtmlInline
+        | Container::HtmlWrap => &[],
     }
 }
 

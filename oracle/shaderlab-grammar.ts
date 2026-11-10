@@ -4,7 +4,7 @@
 //
 // grammar.rs holds the scopes each rule and pattern adds, how each rule ends
 // and the patterns it tries, in the grammar's order.
-// The grammar's two `include`s of `#numbers` become one `Pat`.
+// The grammar's two `include`s of `#numbers` become one `Pattern`.
 //
 // A `CGPROGRAM` or `HLSLPROGRAM` block includes `#hlsl-embedded`: Shiki's
 // `source.hlsl`, then Unity's own patterns.
@@ -63,8 +63,8 @@ function scopeIdent(name: string): string {
     .filter((part) => part !== "shaderlab")
     .forEach((part, index) => {
       for (const piece of part.split(/[-_]/)) {
-        const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-        out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+        const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+        out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
       }
     });
   return out + (bare ? "Bare" : "");
@@ -127,15 +127,15 @@ const unityNames = [
   "Surface",
 ];
 
-type Pat = {
+type Pattern = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: string[] } | { kind: "begin"; rule: string } | { kind: "end" };
+  act: { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" };
   captures: [number, string[]][];
 };
 type Rule = { id: string; name: string[]; end: string; patterns: string[]; embeds: boolean };
 
-const pats: Pat[] = [];
+const patternById: Pattern[] = [];
 const rules: Rule[] = [{ id: "Root", name: [], end: "", patterns: [], embeds: false }];
 
 function captureList(captures: Node["captures"]): [number, string[]][] {
@@ -155,26 +155,26 @@ if (embedded[0]?.include !== "source.hlsl" || embedded.length !== unityNames.len
 /** Registers `node` under `id` and returns the ids of the patterns it adds. */
 function register(node: Node, id: string): string[] {
   if (node.include === "#numbers") {
-    if (!pats.some((p) => p.id === "Number")) {
-      pats.push({ id: "Number", regex: numbers![0]!.match!, act: { kind: "match", name: scopeList(numbers![0]!.name) }, captures: [] });
+    if (!patternById.some((p) => p.id === "Number")) {
+      patternById.push({ id: "Number", regex: numbers![0]!.match!, act: { role: "match", name: scopeList(numbers![0]!.name) }, captures: [] });
     }
     return ["Number"];
   }
   if (node.match !== undefined) {
-    pats.push({ id, regex: node.match, act: { kind: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.push({ id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
     return [id];
   }
   if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
   if (/\\[1-9]/.test(node.end)) throw new Error(`${id}: the end repeats a group`);
-  pats.push({ id, regex: node.begin, act: { kind: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
-  pats.push({ id: `${id}End`, regex: node.end, act: { kind: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
+  patternById.push({ id, regex: node.begin, act: { role: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
+  patternById.push({ id: `${id}End`, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
   const rule: Rule = { id, name: scopeList(node.name), end: `${id}End`, patterns: [], embeds: false };
   rules.push(rule);
   const inner = node.patterns ?? [];
   if (inner.length === 1 && inner[0]!.include === "#hlsl-embedded") {
     rule.embeds = true;
     rule.patterns = unityNames.map((unity, index) => {
-      if (!pats.some((p) => p.id === unity)) register(embedded[index + 1]!, unity);
+      if (!patternById.some((p) => p.id === unity)) register(embedded[index + 1]!, unity);
       return unity;
     });
     return [id];
@@ -186,7 +186,7 @@ function register(node: Node, id: string): string[] {
 rules[0]!.patterns = grammar.patterns.flatMap((node, index) => register(node, names[index]!));
 if (rules.filter((r) => r.embeds).map((r) => r.id).join() !== "CgBlock,HlslBlock") throw new Error("the embedding rules changed");
 
-for (const p of pats) {
+for (const p of patternById) {
   if (takesOneBlank(p.regex)) throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
 }
 
@@ -195,10 +195,10 @@ for (const p of pats) {
 /** The words of the `\b(…)\b` and `\b(?i:…)\b` alternations, by pattern.
  * Every word is made of `\w`, so the alternation between `\b` and `\b`
  * matches a whole word that is one of them, whatever their order. */
-type WordPat = { id: string; folded: boolean; words: string[] };
-const wordPats: WordPat[] = [];
-for (const p of pats) {
-  if (p.act.kind !== "match" || ["Number", "Reference", "Declaration"].includes(p.id)) continue;
+type WordPattern = { id: string; folded: boolean; words: string[] };
+const wordPats: WordPattern[] = [];
+for (const p of patternById) {
+  if (p.act.role !== "match" || ["Number", "Reference", "Declaration"].includes(p.id)) continue;
   const word = /^\\b\((\?i:)?(.*)\)\\b$/s.exec(p.regex);
   if (word === null) continue;
   const folded = word[1] !== undefined;
@@ -231,7 +231,7 @@ const list = (scopeNames: string[]) =>
 let g = `//! The grammar's rules as tables. Generated by \`oracle/shaderlab-grammar.ts\`
 //! from the \`shaderlab\` grammar Shiki 4.6.0 bundles; do not edit.
 //!
-//! A [\`Pat\`] is one regular expression of the grammar; its doc comment shows
+//! A [\`Pattern\`] is one regular expression of the grammar; its doc comment shows
 //! which.
 //! Each rule lists the patterns it tries, in the grammar's order.
 //! So the first that matches at the earliest position wins, as in a
@@ -245,8 +245,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<ShaderLab>;
-pub(crate) type PatData = rules::PatData<ShaderLab>;
-pub(crate) type RuleData = rules::RuleData<ShaderLab>;
+pub(crate) type PatternDefinition = rules::PatternDefinition<ShaderLab>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<ShaderLab>;
 pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with: none in this grammar.
@@ -259,11 +259,11 @@ g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive
 for (const r of rules) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${rules.length}] = [\n`;
 for (const r of rules) g += `        Rule::${r.id},\n`;
-g += `    ];\n\n    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+g += `    ];\n\n    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
 g += arms(
   rules.map((r): [string, string] => [
     r.id,
-    `RuleData {\n                name: ${list(r.name)},\n                content: S::NO_SCOPES,\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${list(r.name)},\n                content: S::NO_SCOPES,\n                end: ${r.end ? `Some(Pattern::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pattern::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
@@ -277,25 +277,25 @@ g += arms(
 );
 g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${rules.filter((r) => r.embeds).map((r) => `Rule::${r.id}`).join(" | ")})\n    }\n}\n\n`;
 
-g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
+g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 const docs = (s: string) => (s.length > 56 ? "…" : s);
-for (const p of pats) {
-  g += `    /// The ${p.act.kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+for (const p of patternById) {
+  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${pats.length}] = [\n${pats.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pattern; ${patternById.length}] = [\n${patternById.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
-  pats.map((p): [string, string] => {
+  patternById.map((p): [string, string] => {
     const act =
-      p.act.kind === "match" ? `Act::Match(${list(p.act.name)})` : p.act.kind === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
-    const caps = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
-    return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
+      p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+    const captures = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
   }),
-  "Pat",
+  "Pattern",
 );
 g += `        }\n    }\n}\n`;
-g += startTable(pats);
+g += startTable(patternById);
 g += ruleCodes("ShaderLab", "SHADERLAB");
-g += groupsCheck("ShaderLab", pats.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck("ShaderLab", patternById.flatMap((p) => p.captures.map(([n]) => n)));
 await writeRust(`${root_dir}src/shaderlab/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;
@@ -304,7 +304,7 @@ let w = `//! The words of the grammar's alternations. Generated by
 //! \`oracle/shaderlab-grammar.ts\` from the \`shaderlab\` grammar Shiki 4.6.0
 //! bundles; do not edit.
 
-use super::grammar::Pat;
+use super::grammar::Pattern;
 
 /// The longest lowercase word of [\`FOLDED\`].
 pub(super) const LONGEST_FOLDED: usize = ${longest};
@@ -319,16 +319,16 @@ pub(super) const FOLDED: &[(&[u8], u64)] = &[${folded.map(([word, bits]) => `(${
 
 /// The bit of a word pattern in [\`WORDS\`] and [\`FOLDED\`]; 0 for every other
 /// pattern.
-pub(super) fn bit(pat: Pat) -> u64 {
-    match pat {
+pub(super) fn bit(pattern: Pattern) -> u64 {
+    match pattern {
 `;
 const wordBits = new Map(wordPats.map((wp, index) => [wp.id, index]));
 w += arms(
-  pats.map((p): [string, string] => {
+  patternById.map((p): [string, string] => {
     const index = wordBits.get(p.id);
     return [p.id, index === undefined ? "0" : `1 << ${index}`];
   }),
-  "Pat",
+  "Pattern",
 ).replaceAll("            ", "        ");
 w += `    }\n}\n`;
 await writeRust(`${root_dir}src/shaderlab/words.rs`, w);
@@ -339,7 +339,7 @@ await writeRust(`${root_dir}src/shaderlab/scope.rs`, scopeFile("shaderlab-gramma
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
-    pats.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) })).join("\n") + "\n",
+    patternById.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) })).join("\n") + "\n",
   );
 }
-console.log(`${rules.length} rules, ${pats.length} patterns, ${scopes.size} scopes, ${wordPats.length} word patterns`);
+console.log(`${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${wordPats.length} word patterns`);

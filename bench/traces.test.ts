@@ -14,16 +14,16 @@ test("the file header before the first hunk adds no line", () => {
 });
 
 test("a last row with no line feed ends the header without looping", () => {
-  expect(() => split("kind edits\nlanguage rust", /^base \d+$/)).toThrow("the trace has no body");
+  expect(() => split("origin edits\nlanguage rust", /^base \d+$/)).toThrow("the trace has no body");
 });
 
 test("a header that no row ends is an error, not a loop", () => {
-  expect(() => split("kind edits\nlanguage rust\n", /^base \d+$/)).toThrow("the trace has no body");
+  expect(() => split("origin edits\nlanguage rust\n", /^base \d+$/)).toThrow("the trace has no body");
 });
 
 test("a body that starts on the last row, with no line feed, is found", () => {
-  const { fields, rest } = split("kind edits\nbase 0", /^base \d+$/);
-  expect(fields.get("kind")).toBe("edits");
+  const { fields, rest } = split("origin edits\nbase 0", /^base \d+$/);
+  expect(fields.get("origin")).toBe("edits");
   expect(rest).toBe("base 0");
 });
 

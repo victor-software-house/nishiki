@@ -1,4 +1,4 @@
-kind tool-write
+origin tool-write
 language python
 source bench/corpus/python/medium/httpx-models.py
 url https://raw.githubusercontent.com/encode/httpx/b5addb64f0161ff6bfe94c124ef76f6a1fba5254/httpx/_models.py

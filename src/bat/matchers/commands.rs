@@ -57,21 +57,21 @@ impl Lexer<'_> {
         }
         let word = self.folded(p, b"echo")?;
         if self.at_eol(word) || (word < self.lim() && matches!(self.at(word), b'.' | b':')) {
-            self.cap(1, p, word);
+            self.capture(1, p, word);
             return Some(word);
         }
         let blanks = self.space_end(word);
         if blanks == word {
             return None;
         }
-        self.cap(1, p, word);
+        self.capture(1, p, word);
         let state = self
             .folded(blanks, b"on")
             .or_else(|| self.folded(blanks, b"off"));
         if let Some(state) = state
             && self.at_eol(self.space_end(state))
         {
-            self.cap(2, blanks, state);
+            self.capture(2, blanks, state);
             return Some(state);
         }
         Some(blanks)
@@ -90,7 +90,7 @@ impl Lexer<'_> {
         let word = self.folded(p, b"setlocal")?;
         let blanks = self.space_end(word);
         if self.at_eol(blanks) {
-            self.cap(1, p, word);
+            self.capture(1, p, word);
             return Some(blanks);
         }
         if blanks == word {
@@ -106,8 +106,8 @@ impl Lexer<'_> {
         if !self.at_eol(self.space_end(option)) {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, blanks, option);
+        self.capture(1, p, word);
+        self.capture(2, blanks, option);
         Some(option)
     }
 
@@ -137,7 +137,7 @@ impl Lexer<'_> {
         }
         self.lit_byte(p, b'&')?;
         let end = comment_at(self, p + 1)?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -146,7 +146,7 @@ impl Lexer<'_> {
         if !(p + 1 < self.lim() && self.at(p) == b':' && is_comment_mark(self.at(p + 1))) {
             return None;
         }
-        self.cap(1, p, p + 2);
+        self.capture(1, p, p + 2);
         Some(p + 2)
     }
 
@@ -158,8 +158,8 @@ impl Lexer<'_> {
         }
         let word = self.folded(p, b"rem")?;
         self.lit_byte(word, b'.')?;
-        self.cap(1, p, word);
-        self.cap(2, word, word + 1);
+        self.capture(1, p, word);
+        self.capture(2, word, word + 1);
         Some(word + 1)
     }
 
@@ -215,15 +215,15 @@ impl Lexer<'_> {
             if test > not
                 && let Some(end) = self.test_word(test)
             {
-                self.cap(1, p, word);
-                self.cap(2, blanks, not);
-                self.cap(3, test, end);
+                self.capture(1, p, word);
+                self.capture(2, blanks, not);
+                self.capture(3, test, end);
                 return Some(end);
             }
         }
         let end = self.test_word(blanks)?;
-        self.cap(1, p, word);
-        self.cap(3, blanks, end);
+        self.capture(1, p, word);
+        self.capture(3, blanks, end);
         Some(end)
     }
 
@@ -303,8 +303,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.token_end(self.char_end(name));
-        self.cap(1, colon, name);
-        self.cap(2, name, end);
+        self.capture(1, colon, name);
+        self.capture(2, name, end);
         Some(end)
     }
 }

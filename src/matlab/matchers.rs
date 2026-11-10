@@ -143,27 +143,27 @@ impl Lexer<'_> {
             Rx::ClassdefAt0 => {
                 let (start, end) = self.line_word(p, b"classdef")?;
                 let rest = self.space_end(end);
-                self.cap(2, start, end);
+                self.capture(2, start, end);
                 if rest > self.lim() {
-                    self.cap(3, rest, rest);
+                    self.capture(3, rest, rest);
                     return Some(rest);
                 }
-                self.cap(3, rest, self.lim());
+                self.capture(3, rest, self.lim());
                 Some(self.lim())
             }
             Rx::ClassdefAt0End => self.block_word(p, &[b"end"]),
-            Rx::ClassdefAt0Cap3At0 => self.class_head(p),
-            Rx::ClassdefAt0Cap3At0Cap1At0 => self.ascii_ident(p),
-            Rx::ClassdefAt0Cap3At0Cap1At1 => {
+            Rx::ClassdefAt0Capture3At0 => self.class_head(p),
+            Rx::ClassdefAt0Capture3At0Capture1At0 => self.ascii_ident(p),
+            Rx::ClassdefAt0Capture3At0Capture1At1 => {
                 let end = self.lit(p, b"=")?;
                 Some(self.space_end(end))
             }
-            Rx::ClassdefAt0Cap3At0Cap1At1End => match self.at(p) {
+            Rx::ClassdefAt0Capture3At0Capture1At1End => match self.at(p) {
                 b',' if p < self.lim() => Some(p + 1),
                 b')' if p < self.lim() => Some(p),
                 _ => None,
             },
-            Rx::ClassdefAt0Cap3At0Cap1At1At0 => {
+            Rx::ClassdefAt0Capture3At0Capture1At1At0 => {
                 self.lit(p, b"true").or_else(|| self.lit(p, b"false"))
             }
             Rx::StringAt0 => {
@@ -175,8 +175,8 @@ impl Lexer<'_> {
                     return None;
                 }
                 let end = self.line_end_with_feed();
-                self.cap(1, bang, end);
-                self.cap(2, bang, bang + 1);
+                self.capture(1, bang, end);
+                self.capture(2, bang, bang + 1);
                 Some(end)
             }
             Rx::StringAt1 => self.open_quote(p, b'\''),
@@ -188,13 +188,13 @@ impl Lexer<'_> {
             Rx::StringAt1At1 => self.lone_quote(p, b'\''),
             Rx::StringAt2At1 => self.lone_quote(p, b'"'),
             Rx::StringAt1At2 => self.format_escape(p),
-            Rx::ClassdefAt0Cap3At0Cap5At0 => self.dotted_name(p),
-            Rx::ClassdefAt0Cap3At0Cap5At1 => self.lit(p, b"&"),
+            Rx::ClassdefAt0Capture3At0Capture5At0 => self.dotted_name(p),
+            Rx::ClassdefAt0Capture3At0Capture5At1 => self.lit(p, b"&"),
             Rx::CommandDual => self.command_dual(p),
             Rx::LineContinuation => {
                 let dots = self.lit(p, b"...")?;
-                self.cap(1, p, dots);
-                self.cap(2, dots, self.lim());
+                self.capture(1, p, dots);
+                self.capture(2, dots, self.lim());
                 Some(self.lim())
             }
             Rx::CommentsAt0 => self.comment_ahead(p, b"%%"),
@@ -222,7 +222,7 @@ impl Lexer<'_> {
                 let brace = self.lit(open, b"%{")?;
                 let feed = self.blanks(brace);
                 self.line_feed_at(feed).then(|| {
-                    self.cap(1, 0, open);
+                    self.capture(1, 0, open);
                     feed + 1
                 })
             }
@@ -254,7 +254,7 @@ impl Lexer<'_> {
             Rx::ClassdefAt0At2 => self.section(p, b"events"),
             Rx::ClassdefAt0At3 => self.section(p, b"enumeration"),
             Rx::FunctionAt0At1 => self.section(p, b"arguments"),
-            Rx::ClassdefAt0At0Cap3At1At1 => ACCESS.iter().find_map(|word| self.lit(p, word)),
+            Rx::ClassdefAt0At0Capture3At1At1 => ACCESS.iter().find_map(|word| self.lit(p, word)),
             Rx::Validators => {
                 let start = self.space_end(p);
                 if start > self.lim() {
@@ -275,27 +275,27 @@ impl Lexer<'_> {
                 } else {
                     return None;
                 };
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
-            Rx::ValidatorsEndCap1At0 => {
+            Rx::ValidatorsEndCapture1At0 => {
                 self.lit(p, b"%")?;
-                self.cap(1, p, self.lim());
+                self.capture(1, p, self.lim());
                 Some(self.lim())
             }
-            Rx::ValidatorsEndCap1At1 => {
+            Rx::ValidatorsEndCapture1At1 => {
                 let equals = self.lit(p, b"=")?;
                 let end = self.not_run(equals, b";");
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
-            Rx::ValidatorsEndCap1At2 => {
+            Rx::ValidatorsEndCapture1At2 => {
                 if !self.line_feed_at(p) && (self.at(p) != b';' || p >= self.lim()) {
                     return None;
                 }
                 let letter = self.space_end(p + 1);
                 (letter < self.lim() && self.at(letter).is_ascii_alphabetic()).then(|| {
-                    self.cap(1, p, self.lim());
+                    self.capture(1, p, self.lim());
                     self.lim()
                 })
             }
@@ -311,13 +311,13 @@ impl Lexer<'_> {
             Rx::BracedValidatorList => {
                 let open = self.space_end(p);
                 (self.at(open) == b'{' && open < self.lim()).then(|| {
-                    self.cap(1, open, open + 1);
+                    self.capture(1, open, open + 1);
                     self.space_end(open + 1)
                 })
             }
             Rx::BracedValidatorListEnd => {
                 let end = self.lit(p, b"}")?;
-                self.cap(1, p, end);
+                self.capture(1, p, end);
                 Some(end)
             }
             Rx::ValidatorStringsAt0At0At2 => {
@@ -331,7 +331,7 @@ impl Lexer<'_> {
             Rx::BracedValidatorListAt3 => {
                 let end = self.not_run(p, b"\"'.{}");
                 (end > p).then(|| {
-                    self.cap(1, p, end);
+                    self.capture(1, p, end);
                     end
                 })
             }
@@ -342,7 +342,7 @@ impl Lexer<'_> {
                 let feed = self.space_end(end);
                 Some(if feed > self.lim() { feed } else { end })
             }
-            Rx::FunctionAt0Cap4At0 => {
+            Rx::FunctionAt0Capture4At0 => {
                 let end = self.word_end(p);
                 (end > p).then_some(end)
             }
@@ -376,7 +376,7 @@ impl Lexer<'_> {
                     .lit(start, b"global")
                     .or_else(|| self.lit(start, b"persistent"))
                     .filter(|&end| self.boundary(end))?;
-                self.cap(1, start, end);
+                self.capture(1, start, end);
                 Some(end)
             }
             Rx::Parens => self.lit(p, b"("),
@@ -388,7 +388,7 @@ impl Lexer<'_> {
                 let name = self.name_run(p, NameClass::Dotted)?;
                 let open = self.space_end(name);
                 (self.at(open) == b'{' && open < self.lim()).then(|| {
-                    self.cap(1, p, open);
+                    self.capture(1, p, open);
                     open + 1
                 })
             }
@@ -445,7 +445,7 @@ impl Lexer<'_> {
     /// after the blanks, or after a `,` or `;` that follows them.
     fn block_word(&mut self, p: usize, words: &[&[u8]]) -> Option<usize> {
         let (start, end) = self.word_after_separator(p, words)?;
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 
@@ -480,8 +480,8 @@ impl Lexer<'_> {
     /// 2 and the rest of the line as group 3.
     fn clause(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let (start, end) = self.word_after_separator(p, &[word])?;
-        self.cap(2, start, end);
-        self.cap(3, end, self.lim());
+        self.capture(2, start, end);
+        self.capture(3, end, self.lim());
         Some(self.line_end_with_feed())
     }
 
@@ -492,8 +492,8 @@ impl Lexer<'_> {
     fn section(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let (start, end) = self.line_word(p, word)?;
         let rest = self.not_run(end, b"%");
-        self.cap(2, start, end);
-        self.cap(3, end, rest);
+        self.capture(2, start, end);
+        self.capture(3, end, rest);
         Some(rest)
     }
 
@@ -506,7 +506,7 @@ impl Lexer<'_> {
         if p == 0 {
             let indent = self.skip(0, |b| b == b'\t' || b == b' ');
             if indent > 0 && followed(indent) {
-                self.cap(1, 0, indent);
+                self.capture(1, 0, indent);
                 return Some(indent);
             }
         }
@@ -712,7 +712,7 @@ impl Lexer<'_> {
 
     // Classes and functions.
 
-    /// `ClassdefAt0Cap3At0`, the text after `classdef`:
+    /// `ClassdefAt0Capture3At0`, the text after `classdef`:
     /// `(\([^)]*\))?\s*(([A-Za-z][0-9A-Z_a-z]*)(?:\s*(<)\s*([^%]*))?)\s*
     /// ($|(?=(%|...)).*)`.
     /// The lookahead's `...` takes any three characters.
@@ -735,8 +735,8 @@ impl Lexer<'_> {
             let tail = self.space_end(supers_end);
             let end = self.class_tail(tail)?;
             self.class_groups(p, attributes, (start, supers_end, ident));
-            self.cap(4, less, less + 1);
-            self.cap(5, supers, supers_end);
+            self.capture(4, less, less + 1);
+            self.capture(5, supers, supers_end);
             return Some(end);
         }
         let mut at = less;
@@ -763,16 +763,16 @@ impl Lexer<'_> {
         (start, end, ident): (usize, usize, usize),
     ) {
         if let Some(close) = attributes {
-            self.cap(1, p, close);
+            self.capture(1, p, close);
         }
-        self.cap(2, start, end);
-        self.cap(3, start, ident);
+        self.capture(2, start, end);
+        self.capture(3, start, ident);
     }
 
     /// `($|(?=(%|...)).*)` at `at`, recorded as group 6: where the match ends.
     fn class_tail(&mut self, at: usize) -> Option<usize> {
         if self.at_eol(at) {
-            self.cap(6, at, at);
+            self.capture(6, at, at);
             return Some(at);
         }
         let mut chars = 0;
@@ -783,7 +783,7 @@ impl Lexer<'_> {
         }
         let ahead = (at < self.lim() && self.at(at) == b'%') || chars == 3;
         ahead.then(|| {
-            self.cap(6, at, self.lim());
+            self.capture(6, at, self.lim());
             self.lim()
         })
     }
@@ -814,24 +814,24 @@ impl Lexer<'_> {
                 && self.at(close) == b']'
                 && let Some((name, end)) = assigned(self, close + 1)
             {
-                self.cap(2, start, word);
-                self.cap(3, outputs, outputs + 1);
-                self.cap(4, outputs + 1, close);
-                self.cap(5, close, close + 1);
-                self.cap(7, name, end);
+                self.capture(2, start, word);
+                self.capture(3, outputs, outputs + 1);
+                self.capture(4, outputs + 1, close);
+                self.capture(5, close, close + 1);
+                self.capture(7, name, end);
                 return Some(self.space_end(end));
             }
         } else if let Some(output) = self.ascii_ident(outputs)
             && let Some((name, end)) = assigned(self, output)
         {
-            self.cap(2, start, word);
-            self.cap(6, outputs, output);
-            self.cap(7, name, end);
+            self.capture(2, start, word);
+            self.capture(6, outputs, output);
+            self.capture(7, name, end);
             return Some(self.space_end(end));
         }
         let end = self.dotted_name(outputs)?;
-        self.cap(2, start, word);
-        self.cap(7, outputs, end);
+        self.capture(2, start, word);
+        self.capture(7, outputs, end);
         Some(self.space_end(end))
     }
 
@@ -862,14 +862,14 @@ impl Lexer<'_> {
             Some(first) => self.next_percent(first).map_or(Tail::Line, Tail::Comment),
             None => self.dotted_arguments(args)?,
         };
-        self.cap(2, start, name);
+        self.capture(2, start, name);
         if let Tail::Comment(percent) = tail {
-            self.cap(1, start, percent);
-            self.cap(28, percent, self.lim());
+            self.capture(1, start, percent);
+            self.capture(28, percent, self.lim());
             return Some(self.lim());
         }
         let end = self.line_end_with_feed();
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(end)
     }
 

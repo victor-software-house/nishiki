@@ -313,15 +313,15 @@ impl Lexer<'_> {
             last_name = Some((name, stop));
             end = stop;
         }
-        self.cap(1, p, tag_end);
+        self.capture(1, p, tag_end);
         if let Some((a, b, _)) = direction {
-            self.cap(2, a, b);
+            self.capture(2, a, b);
         }
-        self.cap(3, after, end);
-        self.cap(4, names, first);
+        self.capture(3, after, end);
+        self.capture(4, names, first);
         if let (Some(comma), Some((a, b))) = (last_comma, last_name) {
-            self.cap(5, comma, comma + 1);
-            self.cap(6, a, b);
+            self.capture(5, comma, comma + 1);
+            self.capture(6, a, b);
         }
         Some(end)
     }

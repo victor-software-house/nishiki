@@ -1,5 +1,5 @@
 //! Numbers, the expression of
-//! [`Pat::Numbers`](super::super::grammar::Pat::Numbers).
+//! [`Pattern::Numbers`](super::super::grammar::Pattern::Numbers).
 
 use super::super::engine::Lexer;
 use crate::rules::Chars;

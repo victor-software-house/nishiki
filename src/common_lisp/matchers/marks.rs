@@ -62,8 +62,8 @@ fn exponent(t: &[u8], markers: &[u8]) -> bool {
 /// The last branch's class takes digits and `R`, so it holds exactly when a
 /// digit follows the `#` and at least one class character follows that.
 fn rational(t: &[u8]) -> bool {
-    if let [b'#', kind, rest @ ..] = t {
-        let class: fn(&u8) -> bool = match kind {
+    if let [b'#', radix, rest @ ..] = t {
+        let class: fn(&u8) -> bool = match radix {
             b'B' | b'b' => |b| matches!(b, b'-' | b'+' | b'/' | b'0' | b'1'),
             b'O' | b'o' => |b| matches!(b, b'-' | b'+' | b'/' | b'0'..=b'7'),
             b'X' | b'x' => |b| matches!(b, b'-' | b'+' | b'/') || b.is_ascii_hexdigit(),
@@ -126,7 +126,7 @@ impl Lexer<'_> {
     /// No branch holds a delimiter, so a match is the run up to the next one,
     /// and that delimiter must not be `(`.
     /// Every branch then reads the same text, so their order cannot matter.
-    pub(super) fn number(&self, p: usize, kind: Number) -> Option<usize> {
+    pub(super) fn number(&self, p: usize, number: Number) -> Option<usize> {
         if !self.after_form(p) {
             return None;
         }
@@ -135,7 +135,7 @@ impl Lexer<'_> {
             return None;
         }
         let text = self.text(p, end);
-        let found = match kind {
+        let found = match number {
             Number::Rational => rational(text),
             Number::Float => float(text),
         };
@@ -172,14 +172,14 @@ impl Lexer<'_> {
     ///
     /// The digits are greedy, and giving one back leaves a digit where the
     /// mark must stand.
-    pub(super) fn sharp_digits(&mut self, p: usize, kind: Sharp) -> Option<usize> {
+    pub(super) fn sharp_digits(&mut self, p: usize, sharp: Sharp) -> Option<usize> {
         if !self.after_form(p) || self.at(p) != b'#' {
             return None;
         }
         let digits = self.skip(p + 1, |b| b.is_ascii_digit());
         let some = digits > p + 1;
         let mark = self.at(digits);
-        let end = match kind {
+        let end = match sharp {
             Sharp::Paren => (mark == b'(').then_some(digits),
             Sharp::Bits => {
                 (mark == b'*' && matches!(self.at(digits + 1), b'0' | b'1')).then_some(digits + 1)
@@ -193,12 +193,12 @@ impl Lexer<'_> {
                 (some && mark == b'#' && self.any_char(digits + 1)).then_some(digits + 1)
             }
         }?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         if some {
-            self.cap(2, p + 1, digits);
+            self.capture(2, p + 1, digits);
         }
         if end > digits {
-            self.cap(3, digits, end);
+            self.capture(3, digits, end);
         }
         Some(end)
     }
@@ -255,7 +255,7 @@ impl Lexer<'_> {
         if !self.after_form(p) || self.lit(p, b"#:").is_none() || !self.non_space(p + 2) {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(p + 2)
     }
 
@@ -276,17 +276,17 @@ impl Lexer<'_> {
         match self.at(p) {
             b'`' => {
                 if self.at(p + 1) == b'#' && self.non_space(p + 2) {
-                    self.cap(2, p, p + 2);
+                    self.capture(2, p, p + 2);
                     return Some(p + 2);
                 }
                 if !self.non_space(p + 1) {
                     return None;
                 }
-                self.cap(3, p, p + 1);
+                self.capture(3, p, p + 1);
                 if self.at(p + 1) == b',' {
                     let end = self.comma(p + 1);
                     if self.non_space(end) {
-                        self.cap(4, p + 1, end);
+                        self.capture(4, p + 1, end);
                         return Some(end);
                     }
                 }
@@ -295,7 +295,7 @@ impl Lexer<'_> {
             b',' => {
                 let end = self.comma(p);
                 self.non_space(end).then(|| {
-                    self.cap(5, p, end);
+                    self.capture(5, p, end);
                     end
                 })
             }
@@ -377,9 +377,9 @@ impl Lexer<'_> {
             found
         };
         let (colons, muffs, end) = found?;
-        self.cap(1, p, colons);
-        self.cap(2, colons, muffs);
-        self.cap(3, muffs, end);
+        self.capture(1, p, colons);
+        self.capture(2, colons, muffs);
+        self.capture(3, muffs, end);
         Some(end)
     }
 

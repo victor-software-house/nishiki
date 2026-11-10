@@ -190,9 +190,9 @@ impl Lexer<'_> {
     }
 
     /// Records the groups of an identifier's opening and closing backtick.
-    fn cap_expr_quotes(&mut self, open: usize, id: Ident, quote: usize, close: usize) {
-        self.cap(quote, open, id.body);
-        self.cap(close, id.tail, id.end);
+    fn capture_expr_quotes(&mut self, open: usize, id: Ident, quote: usize, close: usize) {
+        self.capture(quote, open, id.body);
+        self.capture(close, id.tail, id.end);
     }
 
     /// The `#` of a line that starts with `^\s*#`.
@@ -254,12 +254,12 @@ impl Lexer<'_> {
         if self.at(close) != b')' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, word);
+        self.capture(2, open, open + 1);
         if words.contains(&self.text(arg, e)) {
-            self.cap(3, arg, e);
+            self.capture(3, arg, e);
         }
-        self.cap(4, close, close + 1);
+        self.capture(4, close, close + 1);
         Some(close + 1)
     }
 
@@ -273,8 +273,8 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, word);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 
@@ -284,9 +284,9 @@ impl Lexer<'_> {
         if self.at(e) != b'(' {
             return None;
         }
-        self.cap(1, p, e);
-        self.cap(2, p, p + 1);
-        self.cap(3, e, e + 1);
+        self.capture(1, p, e);
+        self.capture(2, p, p + 1);
+        self.capture(3, e, e + 1);
         Some(e + 1)
     }
 
@@ -346,7 +346,7 @@ impl Lexer<'_> {
             Spacing::Postfix if !self.before_close(end) => return None,
             Spacing::Prefix | Spacing::Postfix | Spacing::Any => {}
         }
-        self.cap(0, p, end);
+        self.capture(0, p, end);
         Some(end)
     }
 }
@@ -357,10 +357,10 @@ impl Lexer<'_> {
     pub(in crate::swift) fn rx_compiler_control_at_0(&mut self, p: usize) -> Option<usize> {
         let (hash, kw, sp, f) = self.compiler_control_head(p, Condition::False)?;
         let end = self.comment_or_eol(f);
-        self.cap(0, p, end);
-        self.cap(1, hash, hash + 1);
-        self.cap(2, hash + 1, kw);
-        self.cap(3, sp, f);
+        self.capture(0, p, end);
+        self.capture(1, hash, hash + 1);
+        self.capture(2, hash + 1, kw);
+        self.capture(3, sp, f);
         Some(end)
     }
 
@@ -374,8 +374,8 @@ impl Lexer<'_> {
     /// `^\s*(#)(if|elseif)\s+`, for `CompilerControlAt1`.
     pub(in crate::swift) fn rx_compiler_control_at_1(&mut self, p: usize) -> Option<usize> {
         let (hash, kw, sp, _) = self.compiler_control_head(p, Condition::Any)?;
-        self.cap(1, hash, hash + 1);
-        self.cap(2, hash + 1, kw);
+        self.capture(1, hash, hash + 1);
+        self.capture(2, hash + 1, kw);
         Some(sp)
     }
 
@@ -460,10 +460,10 @@ impl Lexer<'_> {
         if self.at(name_end) != b')' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, open, open + 1);
-        self.cap(3, open + 1, name_end);
-        self.cap(4, name_end, name_end + 1);
+        self.capture(1, p, word);
+        self.capture(2, open, open + 1);
+        self.capture(3, open + 1, name_end);
+        self.capture(4, name_end, name_end + 1);
         Some(name_end + 1)
     }
 
@@ -478,7 +478,7 @@ impl Lexer<'_> {
         p: usize,
     ) -> Option<usize> {
         if self.at(p) == b')' {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
             return Some(p + 1);
         }
         self.at_eol(p).then_some(p)
@@ -529,9 +529,9 @@ impl Lexer<'_> {
             .lit(hash + 1, b"else")
             .or_else(|| self.lit(hash + 1, b"endif"))?;
         let end = self.comment_or_eol(e);
-        self.cap(1, hash, hash + 1);
-        self.cap(2, hash + 1, e);
-        self.cap(3, e, end);
+        self.capture(1, hash, hash + 1);
+        self.capture(2, hash + 1, e);
+        self.capture(3, e, end);
         Some(end)
     }
 
@@ -548,12 +548,12 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.comment_or_eol(close + 1);
-        self.cap(1, hash, hash + 1);
-        self.cap(2, hash + 1, word);
-        self.cap(4, word, word + 1);
-        self.cap(5, word + 1, close);
-        self.cap(6, close, close + 1);
-        self.cap(7, close + 1, end);
+        self.capture(1, hash, hash + 1);
+        self.capture(2, hash + 1, word);
+        self.capture(4, word, word + 1);
+        self.capture(5, word + 1, close);
+        self.capture(6, close, close + 1);
+        self.capture(7, close + 1, end);
         Some(end)
     }
 
@@ -574,12 +574,12 @@ impl Lexer<'_> {
         if word != b"swift" && !is_platform(word) {
             return None;
         }
-        self.cap(1, p, e);
+        self.capture(1, p, e);
         let q = self.spaces(e);
         if q > e
             && let Some(v) = self.version_end(q)
         {
-            self.cap(2, q, v);
+            self.capture(2, q, v);
             return Some(v);
         }
         Some(e)
@@ -599,8 +599,8 @@ impl Lexer<'_> {
         if self.at(colon) != b':' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, colon, colon + 1);
+        self.capture(1, p, word);
+        self.capture(2, colon, colon + 1);
         Some(self.spaces(colon + 1))
     }
 
@@ -620,8 +620,8 @@ impl Lexer<'_> {
         if self.at(end) != b'"' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, colon, colon + 1);
+        self.capture(1, p, word);
+        self.capture(2, colon, colon + 1);
         Some(end)
     }
 
@@ -644,7 +644,7 @@ impl Lexer<'_> {
                 start = word + 1;
                 word = self.word_run(start);
             }
-            self.cap(1, start, word);
+            self.capture(1, start, word);
             end = word;
         }
         Some(end)
@@ -656,9 +656,9 @@ impl Lexer<'_> {
             return None;
         }
         let id = self.ident_at(p + 1)?;
-        self.cap(0, p, id.end);
-        self.cap(1, p, p + 1);
-        self.cap_expr_quotes(p + 1, id, 2, 3);
+        self.capture(0, p, id.end);
+        self.capture(1, p, p + 1);
+        self.capture_expr_quotes(p + 1, id, 2, 3);
         Some(id.end)
     }
 
@@ -672,7 +672,7 @@ impl Lexer<'_> {
     /// `LiteralsStringRawStringGutsAt2At1`, `LiteralsStringStringGutsAt2At1`.
     pub(in crate::swift) fn rx_attributes_at_2_at_0(&mut self, p: usize) -> Option<usize> {
         if self.at(p) == b'(' {
-            self.cap(0, p, p + 1);
+            self.capture(0, p, p + 1);
             Some(p + 1)
         } else {
             None
@@ -692,7 +692,7 @@ impl Lexer<'_> {
                     && let Some(a) = self.lit(q, b"async")
                     && self.word_at(a).is_none()
                 {
-                    self.cap(1, p, a);
+                    self.capture(1, p, a);
                     return Some(a);
                 }
             }
@@ -701,11 +701,11 @@ impl Lexer<'_> {
             .keyword(p, b"throws")
             .or_else(|| self.keyword(p, b"rethrows"))
         {
-            self.cap(2, p, e);
+            self.capture(2, p, e);
             return Some(e);
         }
         let e = self.keyword(p, b"async")?;
-        self.cap(3, p, e);
+        self.capture(3, p, e);
         Some(e)
     }
 
@@ -818,9 +818,9 @@ impl Lexer<'_> {
         if count == 0 || self.at(i) != b')' {
             return None;
         }
-        self.cap(1, p, id.end);
-        self.cap_expr_quotes(p, id, 2, 3);
-        self.cap(4, open + 1, i);
+        self.capture(1, p, id.end);
+        self.capture_expr_quotes(p, id, 2, 3);
+        self.capture(4, open + 1, i);
         Some(i + 1)
     }
 
@@ -830,7 +830,7 @@ impl Lexer<'_> {
             return None;
         }
         self.word_in(p, &[b"if", b"guard", b"switch", b"for"])
-            .inspect(|&e| self.cap(1, p, e))
+            .inspect(|&e| self.capture(1, p, e))
     }
 
     /// `(?=\{)`, for `ConditionalsAt0End`.
@@ -843,7 +843,8 @@ impl Lexer<'_> {
         if self.prev_is(p, b'.') {
             return None;
         }
-        self.keyword(p, b"while").inspect(|&e| self.cap(1, p, e))
+        self.keyword(p, b"while")
+            .inspect(|&e| self.capture(1, p, e))
     }
 
     /// `(?=\{)|$`, for `ConditionalsAt1End`.
@@ -866,8 +867,8 @@ impl Lexer<'_> {
         if self.at(word) != b'(' {
             return None;
         }
-        self.cap(1, p, word);
-        self.cap(2, word, word + 1);
+        self.capture(1, p, word);
+        self.capture(2, word, word + 1);
         Some(word + 1)
     }
 
@@ -891,8 +892,8 @@ impl Lexer<'_> {
             return None;
         }
         let v = self.version_end(q)?;
-        self.cap(1, start, e);
-        self.cap(2, q, v);
+        self.capture(1, start, e);
+        self.capture(2, q, v);
         Some(v)
     }
 
@@ -907,8 +908,8 @@ impl Lexer<'_> {
         }
         let e = self.spaces(p + 1);
         let q = self.close_from(e)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, e, q);
+        self.capture(1, p, p + 1);
+        self.capture(2, e, q);
         Some(q)
     }
 
@@ -933,9 +934,9 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, id.end);
-        self.cap_expr_quotes(s, id, 2, 3);
-        self.cap(4, open, open + 1);
+        self.capture(1, p, id.end);
+        self.capture_expr_quotes(s, id, 2, 3);
+        self.capture(4, open, open + 1);
         Some(open + 1)
     }
 
@@ -950,9 +951,9 @@ impl Lexer<'_> {
         if self.at(colon) != b':' {
             return None;
         }
-        self.cap(1, p, id.end);
-        self.cap_expr_quotes(p, id, 2, 3);
-        self.cap(4, colon, colon + 1);
+        self.capture(1, p, id.end);
+        self.capture_expr_quotes(p, id, 2, 3);
+        self.capture(4, colon, colon + 1);
         Some(colon + 1)
     }
 
@@ -974,7 +975,7 @@ impl Lexer<'_> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, open, open + 1);
+        self.capture(1, open, open + 1);
         Some(open + 1)
     }
 
@@ -1004,7 +1005,7 @@ impl Lexer<'_> {
         if self.at(open) != b'[' {
             return None;
         }
-        self.cap(1, open, open + 1);
+        self.capture(1, open, open + 1);
         Some(open + 1)
     }
 
@@ -1032,8 +1033,8 @@ impl Lexer<'_> {
             }
             end = word + width;
         }
-        self.cap(1, p, p + 1);
-        self.cap(2, from, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, from, end);
         Some(end)
     }
 
@@ -1048,8 +1049,8 @@ impl Lexer<'_> {
         if self.at(brace) != b'{' {
             return None;
         }
-        self.cap(1, p, id.end);
-        self.cap_expr_quotes(s, id, 2, 3);
+        self.capture(1, p, id.end);
+        self.capture_expr_quotes(s, id, 2, 3);
         Some(id.end)
     }
 
@@ -1068,9 +1069,9 @@ impl Lexer<'_> {
         if self.at(brace) != b'{' {
             return None;
         }
-        self.cap(1, p, id.end);
-        self.cap_expr_quotes(p, id, 2, 3);
-        self.cap(4, colon, colon + 1);
+        self.capture(1, p, id.end);
+        self.capture_expr_quotes(p, id, 2, 3);
+        self.capture(4, colon, colon + 1);
         Some(colon + 1)
     }
 
@@ -1081,8 +1082,8 @@ impl Lexer<'_> {
             return None;
         }
         let id = self.ident_at(p)?;
-        self.cap(1, p, id.end);
-        self.cap_expr_quotes(p, id, 2, 3);
+        self.capture(1, p, id.end);
+        self.capture_expr_quotes(p, id, 2, 3);
         Some(id.end)
     }
 
@@ -1097,11 +1098,11 @@ impl Lexer<'_> {
         let e = self.spaces(after);
         let q = self.close_from(e)?;
         if self.at(p) == b'*' {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
         } else {
-            self.cap(2, p, after);
+            self.capture(2, p, after);
         }
-        self.cap(3, e, q);
+        self.capture(3, e, q);
         Some(q)
     }
 }

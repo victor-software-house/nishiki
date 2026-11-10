@@ -73,8 +73,8 @@ function scopeIdent(name: string): string {
   let out = "";
   parts.forEach((part, index) => {
     for (const piece of part.split(/[-_()$]/)) {
-      const cap = piece.charAt(0).toUpperCase() + piece.slice(1);
-      out += index === 0 ? (abbreviations[piece] ?? cap) : cap;
+      const capture = piece.charAt(0).toUpperCase() + piece.slice(1);
+      out += index === 0 ? (abbreviations[piece] ?? capture) : capture;
     }
   });
   return out;
@@ -130,12 +130,12 @@ const pascal = (key: string) =>
     // The grammar's key has a misspelling that the identifiers do not keep.
     .replaceAll("Init" + "ilizer", "Initializer");
 
-type Cap = { group: number; scopes: Sc[]; nested: string | null };
-type Pat = {
+type Capture = { group: number; scopes: Sc[]; nested: string | null };
+type Pattern = {
   id: string;
   regex: string;
-  act: { kind: "match"; name: Sc[] } | { kind: "begin"; rule: string } | { kind: "end" };
-  captures: Cap[];
+  act: { role: "match"; name: Sc[] } | { role: "begin"; rule: string } | { role: "end" };
+  captures: Capture[];
 };
 type Rule = {
   id: string;
@@ -146,36 +146,36 @@ type Rule = {
   patterns: string[];
 };
 
-const pats = new Map<string, Pat>();
+const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 /** The captures that nest a pattern list, to expand their lists a second time. */
-const captureSources: { cap: Cap; g: Grammar; patterns: Node[]; name: string }[] = [];
+const captureSources: { capture: Capture; g: Grammar; patterns: Node[]; name: string }[] = [];
 /** Nested contexts by the patterns they try, so equal ones are one rule. */
 const contexts = new Map<string, string>();
 
-function captureList(g: Grammar, captures: Captures | undefined, owner: string, regex: string): Cap[] {
+function captureList(g: Grammar, captures: Captures | undefined, owner: string, regex: string): Capture[] {
   if (!captures) return [];
-  const out: Cap[] = [];
+  const out: Capture[] = [];
   for (const [group, value] of Object.entries(captures)) {
     const scopes = scopeList(value.name, regex);
     let nested: string | null = null;
     if (value.patterns) {
-      const list = flatten(g, value.patterns, `${owner}Cap${group}`);
+      const list = flatten(g, value.patterns, `${owner}Capture${group}`);
       const key = list.join(",");
       let id = contexts.get(key);
       if (id === undefined) {
-        id = `${owner}Cap${group}`;
+        id = `${owner}Capture${group}`;
         contexts.set(key, id);
         rules.set(id, { id, name: [], content: [], end: "", endLast: false, patterns: list });
       }
       nested = id;
     }
     if (scopes.length || nested) {
-      const cap: Cap = { group: Number(group), scopes, nested };
+      const capture: Capture = { group: Number(group), scopes, nested };
       if (value.patterns) {
-        captureSources.push({ cap, g, patterns: value.patterns, name: `${owner}Cap${group}` });
+        captureSources.push({ capture, g, patterns: value.patterns, name: `${owner}Capture${group}` });
       }
-      out.push(cap);
+      out.push(capture);
     }
   }
   return out.sort((a, b) => a.group - b.group);
@@ -189,22 +189,22 @@ const sources: { g: Grammar; node: Node; id: string }[] = [];
 
 /** Registers a match or begin/end rule under `id`; returns the pattern id. */
 function register(g: Grammar, node: Node, id: string): string {
-  const clash = pats.get(id);
+  const clash = patternById.get(id);
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (clash) return id;
   if (node.match !== undefined) {
-    pats.set(id, {
+    patternById.set(id, {
       id,
       regex: node.match,
-      act: { kind: "match", name: scopeList(node.name, node.match) },
+      act: { role: "match", name: scopeList(node.name, node.match) },
       captures: [],
     });
-    pats.get(id)!.captures = captureList(g, node.captures, id, node.match);
+    patternById.get(id)!.captures = captureList(g, node.captures, id, node.match);
     return id;
   }
   if (node.begin !== undefined && node.end !== undefined) {
-    pats.set(id, { id, regex: node.begin, act: { kind: "begin", rule: id }, captures: [] });
-    pats.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { kind: "end" }, captures: [] });
+    patternById.set(id, { id, regex: node.begin, act: { role: "begin", rule: id }, captures: [] });
+    patternById.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { role: "end" }, captures: [] });
     const rule: Rule = {
       id,
       name: scopeList(node.name, node.begin),
@@ -214,8 +214,8 @@ function register(g: Grammar, node: Node, id: string): string {
       patterns: [],
     };
     rules.set(id, rule);
-    pats.get(id)!.captures = captureList(g, node.beginCaptures ?? node.captures, id, node.begin);
-    pats.get(`${id}End`)!.captures = captureList(g, node.endCaptures ?? node.captures, `${id}End`, node.end);
+    patternById.get(id)!.captures = captureList(g, node.beginCaptures ?? node.captures, id, node.begin);
+    patternById.get(`${id}End`)!.captures = captureList(g, node.endCaptures ?? node.captures, `${id}End`, node.end);
     sources.push({ g, node, id });
     rule.patterns = flatten(g, node.patterns ?? [], id);
     return id;
@@ -297,13 +297,13 @@ for (let i = 0, j = 0; i < sources.length || j < captureSources.length; ) {
     rules.get(id)!.patterns = flatten(g, node.patterns ?? [], id);
     continue;
   }
-  const { cap, g, patterns, name } = captureSources[j++]!;
+  const { capture, g, patterns, name } = captureSources[j++]!;
   expanding.clear();
   const list = flatten(g, patterns, name);
   const key = list.join(",");
   let rule = fullContexts.get(key);
   if (rule === undefined) {
-    let id = cap.nested!;
+    let id = capture.nested!;
     if (claimed.has(id)) id = `${name}X${claimed.size}`;
     claimed.set(id, key);
     rule = rules.get(id) ?? { id, name: [], content: [], end: "", endLast: false, patterns: [] };
@@ -311,7 +311,7 @@ for (let i = 0, j = 0; i < sources.length || j < captureSources.length; ) {
     rules.set(id, rule);
     fullContexts.set(key, rule);
   }
-  cap.nested = rule.id;
+  capture.nested = rule.id;
 }
 
 // Output.
@@ -320,7 +320,7 @@ let g = `//! The grammar's rules as tables. Generated by \`oracle/cpp-grammar.ts
 //! the \`cpp\` grammar Shiki 4.6.0 bundles and the grammars it embeds; do not
 //! edit.
 //!
-//! A [\`Pat\`] is one regular expression of the grammar; its doc comment shows
+//! A [\`Pattern\`] is one regular expression of the grammar; its doc comment shows
 //! which.
 //! Each rule lists the patterns it tries, in the grammar's order with its
 //! \`include\`s flattened.
@@ -333,8 +333,8 @@ use crate::scope::scopes;
 use crate::rules;
 
 pub(crate) type Act = rules::Act<Cpp>;
-pub(crate) type PatData = rules::PatData<Cpp>;
-pub(crate) type RuleData = rules::RuleData<Cpp>;
+pub(crate) type PatternDefinition = rules::PatternDefinition<Cpp>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Cpp>;
 pub(crate) use crate::rules::Start;
 
 /// A scope of a rule or a capture group.
@@ -382,7 +382,7 @@ pub(crate) struct Nested {
 // Rules that a state can hold come first: their numbers are what a frame stores.
 const ruleList = [...rules.values()].sort((a, b) => Number(b.end !== "") - Number(a.end !== ""));
 const stateful = ruleList.filter((r) => r.end !== "").length;
-const patList = [...pats.values()];
+const patternList = [...patternById.values()];
 
 g += `/// A rule of the grammar.
 /// It is one that can be open at the end of a line, or a list of patterns
@@ -390,17 +390,17 @@ g += `/// A rule of the grammar.
 for (const r of ruleList) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
 for (const r of ruleList) g += `        Rule::${r.id},\n`;
-g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    `RuleData {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end && !r.endLast ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${[...r.patterns, ...(r.end && r.endLast ? [r.end] : [])].map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end && !r.endLast ? `Some(Pattern::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${[...r.patterns, ...(r.end && r.endLast ? [r.end] : [])].map((p) => `Pattern::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
 g += `        }\n    }\n}\n\n`;
 
-g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pat {\n`;
+g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 const docs = (s: string) => {
   // The grammar factors the access words as `p(?:rotected|rivate|ub` + `lic)`;
   // the documentation spells the alternation out, which matches the same text.
@@ -409,20 +409,20 @@ const docs = (s: string) => {
     .replaceAll("p(?:rotected|rivate|ub" + "lic)", "(?:protected|private|public)");
   return one.length > 56 ? `…` : one;
 };
-for (const p of patList) {
-  const kind = p.act.kind === "end" ? "end" : p.act.kind === "begin" ? "begin" : "match";
-  g += `    /// The ${kind} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+for (const p of patternList) {
+  const role = p.act.role === "end" ? "end" : p.act.role === "begin" ? "begin" : "match";
+  g += `    /// The ${role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pattern {\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
-  patList.map((p): [string, string] => {
+  patternList.map((p): [string, string] => {
     const act =
-      p.act.kind === "match"
+      p.act.role === "match"
         ? `Act::Match(${scText(p.act.name)})`
-        : p.act.kind === "begin"
+        : p.act.role === "begin"
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
-    const caps = p.captures
+    const captures = p.captures
       .filter((c) => !c.nested)
       .map((c) => `(${c.group}, ${scText(c.scopes)})`)
       .join(", ");
@@ -430,15 +430,15 @@ g += arms(
       .filter((c) => c.nested)
       .map((c) => `(${c.group}, Nested { rule: Rule::${c.nested}, scopes: ${scText(c.scopes)} })`)
       .join(", ");
-    return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
   }),
-  "Pat",
+  "Pattern",
 );
 g += `        }\n    }\n}\n`;
 
 // Patterns with the same regular expression share one matcher.
 const rxOf = new Map<string, string>();
-for (const p of patList) if (!rxOf.has(p.regex)) rxOf.set(p.regex, p.id);
+for (const p of patternList) if (!rxOf.has(p.regex)) rxOf.set(p.regex, p.id);
 g += `\n/// A regular expression of the grammar, which several patterns can share.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Rx {\n`;
 for (const [regex, id] of rxOf) g += `    /// \`${docs(regex).replaceAll("`", "'")}\`.\n    ${id},\n`;
 g += `}\n\nimpl Rx {\n    /// Every expression, in code order.\n    #[cfg(test)]\n    pub(crate) const ALL: [Rx; ${rxOf.size}] = [\n`;
@@ -470,15 +470,15 @@ g += `            _ => None,
     }
 }
 
-impl Pat {\n${tooLong}    pub(crate) fn rx(self) -> Rx {\n        match self {\n`;
-g += arms(patList.map((p): [string, string] => [p.id, `Rx::${rxOf.get(p.regex)}`]), "Pat");
+impl Pattern {\n${tooLong}    pub(crate) fn rx(self) -> Rx {\n        match self {\n`;
+g += arms(patternList.map((p): [string, string] => [p.id, `Rx::${rxOf.get(p.regex)}`]), "Pattern");
 g += `        }\n    }\n}\n`;
 
-g += startTable(patList);
+g += startTable(patternList);
 g += ruleCodes("Cpp", "CPP", 9);
 g += groupsCheck(
   "Cpp",
-  patList.flatMap((p) => p.captures.map((c) => c.group)),
+  patternList.flatMap((p) => p.captures.map((c) => c.group)),
 );
 
 await writeRust(`${root_dir}src/cpp/grammar.rs`, g);
@@ -486,7 +486,7 @@ await writeRust(`${root_dir}src/cpp/grammar.rs`, g);
 // Scope table.
 const s = scopeFile("cpp-grammar.ts", "CPP", scopes, "", false);
 await writeRust(`${root_dir}src/cpp/scope.rs`, s);
-console.log(`${ruleList.length} rules (${stateful} open across lines), ${patList.length} patterns, ${rxOf.size} expressions, ${scopes.size} scopes`);
+console.log(`${ruleList.length} rules (${stateful} open across lines), ${patternList.length} patterns, ${rxOf.size} expressions, ${scopes.size} scopes`);
 
 // The type names that a member access may not name: the alternation in the
 // negative lookahead of `MemberAccess`, spelled out.
@@ -565,7 +565,7 @@ await writeRust(`${root_dir}src/cpp/types.rs`, t);
 if (process.env["RX_DUMP"]) {
   const lines = [...rxOf].map(([regex, id]) => {
     const groups = new Set<number>();
-    for (const p of patList) if (p.regex === regex) for (const c of p.captures) groups.add(c.group);
+    for (const p of patternList) if (p.regex === regex) for (const c of p.captures) groups.add(c.group);
     return JSON.stringify({ id, regex, groups: [...groups].sort((a, b) => a - b) });
   });
   await Bun.write(process.env["RX_DUMP"], lines.join("\n") + "\n");

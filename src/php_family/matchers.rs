@@ -65,7 +65,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if at == end {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(at)
     }
 
@@ -96,8 +96,8 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if text <= tag_end || text >= self.lim() {
             return None;
         }
-        self.cap(1, p, tag_end);
-        self.cap(2, text, self.lim());
+        self.capture(1, p, tag_end);
+        self.capture(2, text, self.lim());
         Some(self.space_end(self.lim()))
     }
 
@@ -141,8 +141,8 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if self.at(close) != b'}' {
             return None;
         }
-        self.cap(1, p, p + 1);
-        self.cap(3, close, close + 1);
+        self.capture(1, p, p + 1);
+        self.capture(3, close, close + 1);
         Some(close + 1)
     }
 
@@ -210,7 +210,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
             self.lit(p + 1, name)
                 .filter(|&end| self.word_at(end).is_none())
         })?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -221,7 +221,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
         }
         let names: [&[u8]; 4] = [b"GLOBALS", b"_ENV", b"_SERVER", b"_SESSION"];
         let end = names.iter().find_map(|name| self.lit(p + 1, name))?;
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(end)
     }
 
@@ -242,8 +242,8 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, end);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
 
@@ -254,8 +254,8 @@ impl<G: PhpFamily> Lexer<'_, G> {
         if self.at(open) != b'(' {
             return None;
         }
-        self.cap(1, p, end);
-        self.cap(2, open, open + 1);
+        self.capture(1, p, end);
+        self.capture(2, open, open + 1);
         Some(open + 1)
     }
     /// `(?i)\bword\b`.
@@ -299,9 +299,9 @@ impl<G: PhpFamily> Lexer<'_, G> {
     #[inline(always)]
     pub(crate) fn empty_array(&mut self, p: usize) -> Option<usize> {
         let end = self.lit(p, b"array()")?;
-        self.cap(1, p, p + 5);
-        self.cap(2, p + 5, p + 6);
-        self.cap(3, p + 6, end);
+        self.capture(1, p, p + 5);
+        self.capture(2, p + 5, p + 6);
+        self.capture(3, p + 6, end);
         Some(end)
     }
 

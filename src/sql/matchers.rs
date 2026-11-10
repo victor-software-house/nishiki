@@ -9,7 +9,7 @@
 use memchr::memchr2;
 
 use super::engine::{Closer, Hit, Lexer};
-use super::rules::Pat;
+use super::rules::Pattern;
 use super::scope::S;
 use super::state::Rule;
 use super::words::{FUNCTIONS, GLOBALS, KEYWORDS};
@@ -271,7 +271,7 @@ impl Lexer<'_> {
     pub(super) fn end_at(&self, rule: Rule, p: usize) -> Option<Hit> {
         let one = |byte: u8, scope: S| {
             (p < self.lim() && self.s[p] == byte)
-                .then(|| Hit::new(p, p + 1).cap(0, p, p + 1, scope))
+                .then(|| Hit::new(p, p + 1).capture(0, p, p + 1, scope))
         };
         match rule {
             Rule::Root => None,
@@ -284,7 +284,7 @@ impl Lexer<'_> {
                 .s
                 .get(p..self.lim())
                 .is_some_and(|rest| rest.starts_with(b"*/"))
-                .then(|| Hit::new(p, p + 2).cap(0, p, p + 2, S::PunctComment)),
+                .then(|| Hit::new(p, p + 2).capture(0, p, p + 2, S::PunctComment)),
             Rule::StrSingle => one(b'\'', S::PunctStrEnd),
             Rule::StrBacktick => one(b'`', S::PunctStrEnd),
             Rule::StrDouble => one(b'"', S::PunctStrEnd),
@@ -294,7 +294,7 @@ impl Lexer<'_> {
 
     // Patterns.
 
-    /// The match of `pat` at `p`.
+    /// The match of `pattern` at `p`.
     ///
     /// It is `#[inline]` because `hit`, in the engine module, calls it for
     /// every candidate pattern.
@@ -304,53 +304,53 @@ impl Lexer<'_> {
     /// The matchers it calls that inline at one unit are `#[inline]` too.
     /// Without them, sixteen units ran 11% more instructions than one.
     #[inline]
-    pub(super) fn pat_at(&self, pat: Pat, p: usize) -> Option<Hit> {
-        match pat {
-            Pat::Variable => self.variable(p),
-            Pat::BracketChar => self.bracket_char(p),
-            Pat::Create => self.create(p),
-            Pat::Drop => self.drop_object(p),
-            Pat::DropTable => self.drop_table(p),
-            Pat::Alter => self.alter(p),
-            Pat::Types => self.types(p),
-            Pat::Modifier => self.modifier(p),
-            Pat::Number => self.number(p),
-            Pat::Dml => self.dml(p),
-            Pat::Ddl => self.ddl(p),
-            Pat::Values => self.plain_word(p, &["values"]),
-            Pat::Luw => self.luw(p),
-            Pat::Authorization => self.authorization(p),
-            Pat::In => self.plain_word(p, &["in"]),
-            Pat::CommentOn => self.comment_on(p),
-            Pat::As => self.plain_word(p, &["as"]),
-            Pat::Order => self.plain_word(p, &["desc", "asc"]),
-            Pat::Star => self.single(p, b'*'),
-            Pat::Comparison => self.comparison(p),
-            Pat::Math => self
+    pub(super) fn pattern_at(&self, pattern: Pattern, p: usize) -> Option<Hit> {
+        match pattern {
+            Pattern::Variable => self.variable(p),
+            Pattern::BracketChar => self.bracket_char(p),
+            Pattern::Create => self.create(p),
+            Pattern::Drop => self.drop_object(p),
+            Pattern::DropTable => self.drop_table(p),
+            Pattern::Alter => self.alter(p),
+            Pattern::Types => self.types(p),
+            Pattern::Modifier => self.modifier(p),
+            Pattern::Number => self.number(p),
+            Pattern::Dml => self.dml(p),
+            Pattern::Ddl => self.ddl(p),
+            Pattern::Values => self.plain_word(p, &["values"]),
+            Pattern::Luw => self.luw(p),
+            Pattern::Authorization => self.authorization(p),
+            Pattern::In => self.plain_word(p, &["in"]),
+            Pattern::CommentOn => self.comment_on(p),
+            Pattern::As => self.plain_word(p, &["as"]),
+            Pattern::Order => self.plain_word(p, &["desc", "asc"]),
+            Pattern::Star => self.single(p, b'*'),
+            Pattern::Comparison => self.comparison(p),
+            Pattern::Math => self
                 .single(p, b'-')
                 .or_else(|| self.single(p, b'+'))
                 .or_else(|| self.single(p, b'/')),
-            Pat::Concat => self.text_hit(p, b"||"),
-            Pat::Function => self.function(p),
-            Pat::DbTable => self.db_table(p),
-            Pat::StrSingleFull => self.single_quoted(p),
-            Pat::StrBacktickFull => self.closed(p, b'`', |b| b == b'`' || b == b'\\'),
-            Pat::StrDoubleFull => self.closed(p, b'"', |b| b == b'"' || b == b'#'),
-            Pat::Keyword => self.keyword(p),
-            Pat::Parens => self.parens(p),
-            Pat::Escape => self.escape(p),
-            Pat::Interpolation => self.interpolation(p),
-            Pat::BracketBegin => self.begin(p, b"[", S::PunctBracketBegin),
-            Pat::CommentDashBegin => self.comment_begin(p, b"--"),
-            Pat::CommentHashBegin => self.comment_begin(p, b"#"),
-            Pat::LineCommentBegin => self.begin(p, b"--", S::PunctComment),
-            Pat::BlockBegin => self.begin(p, b"/*", S::PunctComment),
-            Pat::StrSingleBegin => self.begin(p, b"'", S::PunctStrBegin),
-            Pat::StrBacktickBegin => self.begin(p, b"`", S::PunctStrBegin),
-            Pat::StrDoubleBegin => self.begin(p, b"\"", S::PunctStrBegin),
-            Pat::StrBraceBegin => self.begin(p, b"%{", S::PunctStrBegin),
-            Pat::StrModrBegin => self.begin(p, b"%r{", S::PunctStrBegin),
-            Pat::End => self.end_at(self.top_rule(), p),
+            Pattern::Concat => self.text_hit(p, b"||"),
+            Pattern::Function => self.function(p),
+            Pattern::DbTable => self.db_table(p),
+            Pattern::StrSingleFull => self.single_quoted(p),
+            Pattern::StrBacktickFull => self.closed(p, b'`', |b| b == b'`' || b == b'\\'),
+            Pattern::StrDoubleFull => self.closed(p, b'"', |b| b == b'"' || b == b'#'),
+            Pattern::Keyword => self.keyword(p),
+            Pattern::Parens => self.parens(p),
+            Pattern::Escape => self.escape(p),
+            Pattern::Interpolation => self.interpolation(p),
+            Pattern::BracketBegin => self.begin(p, b"[", S::PunctBracketBegin),
+            Pattern::CommentDashBegin => self.comment_begin(p, b"--"),
+            Pattern::CommentHashBegin => self.comment_begin(p, b"#"),
+            Pattern::LineCommentBegin => self.begin(p, b"--", S::PunctComment),
+            Pattern::BlockBegin => self.begin(p, b"/*", S::PunctComment),
+            Pattern::StrSingleBegin => self.begin(p, b"'", S::PunctStrBegin),
+            Pattern::StrBacktickBegin => self.begin(p, b"`", S::PunctStrBegin),
+            Pattern::StrDoubleBegin => self.begin(p, b"\"", S::PunctStrBegin),
+            Pattern::StrBraceBegin => self.begin(p, b"%{", S::PunctStrBegin),
+            Pattern::StrModrBegin => self.begin(p, b"%r{", S::PunctStrBegin),
+            Pattern::End => self.end_at(self.top_rule(), p),
         }
     }
 
@@ -370,7 +370,7 @@ impl Lexer<'_> {
     /// A rule's begin: `text`, scoped as its punctuation.
     fn begin(&self, p: usize, text: &[u8], scope: S) -> Option<Hit> {
         self.text_hit(p, text)
-            .map(|hit| hit.cap(0, p, p + text.len(), scope))
+            .map(|hit| hit.capture(0, p, p + text.len(), scope))
     }
 
     /// `[!<>]?=|<>|<|>`
@@ -408,8 +408,8 @@ impl Lexer<'_> {
     /// `(\()(\))`
     fn parens(&self, p: usize) -> Option<Hit> {
         self.text_hit(p, b"()").map(|hit| {
-            hit.cap(0, p, p + 1, S::PunctScopeBegin)
-                .cap(1, p + 1, p + 2, S::PunctScopeEnd)
+            hit.capture(0, p, p + 1, S::PunctScopeBegin)
+                .capture(1, p + 1, p + 2, S::PunctScopeEnd)
         })
     }
 
@@ -427,8 +427,8 @@ impl Lexer<'_> {
         let close = self.find_closer(Closer::Brace, p + 2)?;
         Some(
             Hit::new(p, close + 1)
-                .cap(0, p, p + 2, S::PunctStrBegin)
-                .cap(1, close, close + 1, S::PunctStrEnd),
+                .capture(0, p, p + 2, S::PunctStrBegin)
+                .capture(1, close, close + 1, S::PunctStrEnd),
         )
     }
 
@@ -450,8 +450,8 @@ impl Lexer<'_> {
         let close = self.find_closer(Closer::Quote, quote + 1)?;
         Some(
             Hit::new(p, close + 1)
-                .cap(0, quote, quote + 1, S::PunctStrBegin)
-                .cap(1, close, close + 1, S::PunctStrEnd),
+                .capture(0, quote, quote + 1, S::PunctStrBegin)
+                .capture(1, close, close + 1, S::PunctStrEnd),
         )
     }
 
@@ -466,8 +466,8 @@ impl Lexer<'_> {
         let close = p + 1 + body;
         (self.s[close] == quote).then(|| {
             Hit::new(p, close + 1)
-                .cap(0, p, p + 1, S::PunctStrBegin)
-                .cap(1, close, close + 1, S::PunctStrEnd)
+                .capture(0, p, p + 1, S::PunctStrBegin)
+                .capture(1, close, close + 1, S::PunctStrEnd)
         })
     }
 
@@ -483,7 +483,7 @@ impl Lexer<'_> {
                 .s
                 .get(end..self.lim())
                 .is_some_and(|rest| rest.starts_with(text))
-                .then(|| Hit::new(0, end).cap(0, 0, end, S::LeadingSpace));
+                .then(|| Hit::new(0, end).capture(0, 0, end, S::LeadingSpace));
         }
         self.s
             .get(p..self.lim())
@@ -565,13 +565,13 @@ impl Lexer<'_> {
             .and_then(|at| self.lit(at, "or"))
             .and_then(|at| self.spaces1(at))
             .and_then(|at| self.lit(at, "replace"));
-        let (phrase, kind_start, kind_end, name, name_end, end) = [replaced, Some(created)]
+        let (phrase, type_start, type_end, name, name_end, end) = [replaced, Some(created)]
             .into_iter()
             .flatten()
             .find_map(|phrase| {
                 let start = self.spaces1(phrase)?;
                 self.object_types(start, CREATE_TYPES, true)
-                    .find_map(|(kind_end, after)| {
+                    .find_map(|(type_end, after)| {
                         let (quote, name) = match self.at(after) {
                             q @ (b'\'' | b'"' | b'`') if after < self.lim() => (Some(q), after + 1),
                             _ => (None, after),
@@ -587,14 +587,14 @@ impl Lexer<'_> {
                             Some(_) => return None,
                             None => name_end,
                         };
-                        Some((phrase, start, kind_end, name, name_end, end))
+                        Some((phrase, start, type_end, name, name_end, end))
                     })
             })?;
         Some(
             Hit::new(0, end)
-                .cap(0, word, phrase, S::KwCreate)
-                .cap(1, kind_start, kind_end, S::KwOther)
-                .cap(2, name, name_end, S::EntityFunction),
+                .capture(0, word, phrase, S::KwCreate)
+                .capture(1, type_start, type_end, S::KwOther)
+                .capture(2, name, name_end, S::EntityFunction),
         )
     }
 
@@ -610,8 +610,8 @@ impl Lexer<'_> {
         let (end, _) = self.object_type(start, DROP_TYPES, false)?;
         Some(
             Hit::new(0, end)
-                .cap(0, word, dropped, S::KwCreate)
-                .cap(1, start, end, S::KwOther),
+                .capture(0, word, dropped, S::KwCreate)
+                .capture(1, start, end, S::KwOther),
         )
     }
 
@@ -640,11 +640,11 @@ impl Lexer<'_> {
             .filter(|&end| self.bnd(end));
         let end = cascade.unwrap_or(name_end);
         let mut hit = Hit::new(p, end)
-            .cap(0, word, dropped, S::KwCreate)
-            .cap(1, table, table_end, S::KwTable)
-            .cap(2, name, name_end, S::EntityFunction);
+            .capture(0, word, dropped, S::KwCreate)
+            .capture(1, table, table_end, S::KwTable)
+            .capture(2, name, name_end, S::EntityFunction);
         if let Some(cascade_end) = cascade {
-            hit = hit.cap(3, name_end, cascade_end, S::KwCascade);
+            hit = hit.capture(3, name_end, cascade_end, S::KwCascade);
         }
         Some(hit)
     }
@@ -661,8 +661,8 @@ impl Lexer<'_> {
         let (end, after) = self.object_type(start, ALTER_TYPES, true)?;
         Some(
             Hit::new(0, after)
-                .cap(0, word, altered, S::KwCreate)
-                .cap(1, start, end, S::KwTable),
+                .capture(0, word, altered, S::KwCreate)
+                .capture(1, start, end, S::KwTable),
         )
     }
 
@@ -718,7 +718,7 @@ impl Lexer<'_> {
         }?;
         let paren = self.spaces(end);
         (self.at(paren) == b'(' && paren < self.lim())
-            .then(|| Hit::new(p, paren + 1).cap(0, start, end, scope))
+            .then(|| Hit::new(p, paren + 1).capture(0, start, end, scope))
     }
 
     /// `(\w+?)\.(\w+)`
@@ -735,12 +735,11 @@ impl Lexer<'_> {
             return None;
         }
         let table = self.word_run(database + 1);
-        Some(Hit::new(p, table).cap(0, p, database, S::DatabaseName).cap(
-            1,
-            database + 1,
-            table,
-            S::TableName,
-        ))
+        Some(
+            Hit::new(p, table)
+                .capture(0, p, database, S::DatabaseName)
+                .capture(1, database + 1, table, S::TableName),
+        )
     }
 
     /// The keywords of the rule that closes the grammar's word rules.

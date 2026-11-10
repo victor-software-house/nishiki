@@ -11,8 +11,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.name(p + 1, Class::DashWord, Class::DashWord, Escape::Hex)?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -24,8 +24,8 @@ impl Lexer<'_> {
         }
         let sigil = if self.at(p + 1) == b'@' { p + 2 } else { p + 1 };
         let end = self.name(sigil, Class::Lower, Class::DashWord, Escape::Hex)?;
-        self.cap(1, p, sigil);
-        self.cap(2, sigil, end);
+        self.capture(1, p, sigil);
+        self.capture(2, sigil, end);
         Some(end)
     }
 
@@ -81,7 +81,7 @@ impl Lexer<'_> {
         ) else {
             return Some(at);
         };
-        self.cap(1, at, end);
+        self.capture(1, at, end);
         Some(end)
     }
 
@@ -93,8 +93,8 @@ impl Lexer<'_> {
         if end == at + 2 {
             return None;
         }
-        self.cap(1, at, at + 2);
-        self.cap(2, at + 2, end);
+        self.capture(1, at, at + 2);
+        self.capture(2, at + 2, end);
         Some(end)
     }
 
@@ -109,8 +109,8 @@ impl Lexer<'_> {
         if self.space_at(end) == 0 {
             return None;
         }
-        self.cap(1, p, name);
-        self.cap(2, name, end);
+        self.capture(1, p, name);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -128,7 +128,7 @@ impl Lexer<'_> {
             {
                 let end = self.units_end(head, Class::NameRest, Escape::Any);
                 if let Some(end) = self.boundary_back(dash + 1, end) {
-                    self.cap(1, p, dash + 1);
+                    self.capture(1, p, dash + 1);
                     return Some(end);
                 }
             }
@@ -234,19 +234,19 @@ impl Lexer<'_> {
         if let Some(name) = self.name(p, Class::DashWord, Class::Alpha, Escape::Hex)
             && let Some(at) = bar(self, name)
         {
-            self.cap(1, p, name);
-            self.cap(3, at, at + 1);
+            self.capture(1, p, name);
+            self.capture(3, at, at + 1);
             return Some(at + 1);
         }
         if self.at(p) == b'*'
             && let Some(at) = bar(self, p + 1)
         {
-            self.cap(2, p, p + 1);
-            self.cap(3, at, at + 1);
+            self.capture(2, p, p + 1);
+            self.capture(3, at, at + 1);
             return Some(at + 1);
         }
         let at = bar(self, p)?;
-        self.cap(3, at, at + 1);
+        self.capture(3, at, at + 1);
         Some(at + 1)
     }
 

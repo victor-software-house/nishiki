@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //! A filter's begin always records group 1, its indent, which its end repeats.
 //!
@@ -15,133 +15,133 @@
 //! languages HAML embeds, which stop where they hold.
 
 use super::engine::{Filter, Lexer};
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 pub(super) mod halts;
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     #[expect(clippy::too_many_lines, reason = "one arm per pattern of the grammar")]
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::InterpolatedText => self.indent_then(p, b"=="),
-            Pat::InterpolatedTextEnd | Pat::TagAt0End => self.line_end_and_feed(p),
-            Pat::InterpolatedRubyAt0 => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::InterpolatedText => self.indent_then(p, b"=="),
+            Pattern::InterpolatedTextEnd | Pattern::TagAt0End => self.line_end_and_feed(p),
+            Pattern::InterpolatedRubyAt0 => {
                 let end = self.lit(p, b"#{}")?;
-                self.cap(1, end - 1, end);
+                self.capture(1, end - 1, end);
                 Some(end)
             }
-            Pat::InterpolatedRubyAt1 => self.lit(p, b"#{"),
-            Pat::InterpolatedRubyAt1End | Pat::NestCurlyAndSelfEnd => self.lit(p, b"}"),
-            Pat::NestCurlyAndSelf => self.lit(p, b"{"),
-            Pat::VariablesAt0 => self.variable(p, b"#@"),
-            Pat::VariablesAt1 => self.variable(p, b"#@@"),
-            Pat::VariablesAt2 => self.variable(p, b"#$"),
-            Pat::RubyFilter => self.indent_then(p, b":ruby"),
-            Pat::JavascriptFilter => self.indent_then(p, b":javascript"),
-            Pat::Script => self.indent_then(p, b"%script"),
-            Pat::RubyFilterAlone => self.filter_alone(p, &[b":ruby"], None),
-            Pat::RubyOrOpalFilter => self.filter_alone(p, &[b":ruby", b":opal"], None),
-            Pat::SassStyleFilter => self.filter_alone(p, &[b":style", b":sass"], None),
-            Pat::SassStylesFilter => self.filter_alone(p, &[b":styles", b":sass"], None),
-            Pat::SassFilterAlone => self.filter_alone(p, &[b":sass"], Some(2)),
-            Pat::CssFilter => self.css_filter(p),
-            Pat::CoffeeFilter => {
+            Pattern::InterpolatedRubyAt1 => self.lit(p, b"#{"),
+            Pattern::InterpolatedRubyAt1End | Pattern::NestCurlyAndSelfEnd => self.lit(p, b"}"),
+            Pattern::NestCurlyAndSelf => self.lit(p, b"{"),
+            Pattern::VariablesAt0 => self.variable(p, b"#@"),
+            Pattern::VariablesAt1 => self.variable(p, b"#@@"),
+            Pattern::VariablesAt2 => self.variable(p, b"#$"),
+            Pattern::RubyFilter => self.indent_then(p, b":ruby"),
+            Pattern::JavascriptFilter => self.indent_then(p, b":javascript"),
+            Pattern::Script => self.indent_then(p, b"%script"),
+            Pattern::RubyFilterAlone => self.filter_alone(p, &[b":ruby"], None),
+            Pattern::RubyOrOpalFilter => self.filter_alone(p, &[b":ruby", b":opal"], None),
+            Pattern::SassStyleFilter => self.filter_alone(p, &[b":style", b":sass"], None),
+            Pattern::SassStylesFilter => self.filter_alone(p, &[b":styles", b":sass"], None),
+            Pattern::SassFilterAlone => self.filter_alone(p, &[b":sass"], Some(2)),
+            Pattern::CssFilter => self.css_filter(p),
+            Pattern::CoffeeFilter => {
                 let end = self.indent_then(p, b":coffee")?;
                 Some(self.lit(end, b"script").unwrap_or(end))
             }
-            Pat::RubyFilterKeyword => self.named_filter(p, b":ruby"),
-            Pat::SassFilter => self.named_filter(p, b":sass"),
-            Pat::MarkdownFilter => self.named_filter(p, b":markdown"),
-            Pat::RubyFilterEnd
-            | Pat::JavascriptFilterEnd
-            | Pat::ScriptEnd
-            | Pat::RubyFilterAloneEnd
-            | Pat::RubyOrOpalFilterEnd
-            | Pat::CoffeeFilterEnd
-            | Pat::SassFilterEnd
-            | Pat::MarkdownFilterEnd
-            | Pat::CssFilterEnd
-            | Pat::SassFilterAloneEnd => {
+            Pattern::RubyFilterKeyword => self.named_filter(p, b":ruby"),
+            Pattern::SassFilter => self.named_filter(p, b":sass"),
+            Pattern::MarkdownFilter => self.named_filter(p, b":markdown"),
+            Pattern::RubyFilterEnd
+            | Pattern::JavascriptFilterEnd
+            | Pattern::ScriptEnd
+            | Pattern::RubyFilterAloneEnd
+            | Pattern::RubyOrOpalFilterEnd
+            | Pattern::CoffeeFilterEnd
+            | Pattern::SassFilterEnd
+            | Pattern::MarkdownFilterEnd
+            | Pattern::CssFilterEnd
+            | Pattern::SassFilterAloneEnd => {
                 self.filter_end(p, Filter::Unindented, self.payload_text())
             }
-            Pat::SassStyleFilterEnd | Pat::SassStylesFilterEnd => {
+            Pattern::SassStyleFilterEnd | Pattern::SassStylesFilterEnd => {
                 self.filter_end(p, Filter::Indented, self.payload_text())
             }
-            Pat::RubyFilterKeywordEnd | Pat::RubyFilterKeywordBodyEnd => None,
-            Pat::RubyFilterBody
-            | Pat::JavascriptFilterBody
-            | Pat::ScriptBody
-            | Pat::RubyFilterAloneBody
-            | Pat::RubyOrOpalFilterBody
-            | Pat::SassStyleFilterBody
-            | Pat::CoffeeFilterBody
-            | Pat::RubyFilterKeywordBody
-            | Pat::SassFilterBody
-            | Pat::SassStylesFilterBody
-            | Pat::MarkdownFilterBody
-            | Pat::CssFilterBody
-            | Pat::SassFilterAloneBody => self.at_g(p).then_some(p),
-            Pat::RubyFilterBodyEnd
-            | Pat::JavascriptFilterBodyEnd
-            | Pat::ScriptBodyEnd
-            | Pat::RubyFilterAloneBodyEnd
-            | Pat::RubyOrOpalFilterBodyEnd
-            | Pat::CoffeeFilterBodyEnd
-            | Pat::SassFilterBodyEnd
-            | Pat::MarkdownFilterBodyEnd
-            | Pat::CssFilterBodyEnd
-            | Pat::SassFilterAloneBodyEnd => {
+            Pattern::RubyFilterKeywordEnd | Pattern::RubyFilterKeywordBodyEnd => None,
+            Pattern::RubyFilterBody
+            | Pattern::JavascriptFilterBody
+            | Pattern::ScriptBody
+            | Pattern::RubyFilterAloneBody
+            | Pattern::RubyOrOpalFilterBody
+            | Pattern::SassStyleFilterBody
+            | Pattern::CoffeeFilterBody
+            | Pattern::RubyFilterKeywordBody
+            | Pattern::SassFilterBody
+            | Pattern::SassStylesFilterBody
+            | Pattern::MarkdownFilterBody
+            | Pattern::CssFilterBody
+            | Pattern::SassFilterAloneBody => self.at_g(p).then_some(p),
+            Pattern::RubyFilterBodyEnd
+            | Pattern::JavascriptFilterBodyEnd
+            | Pattern::ScriptBodyEnd
+            | Pattern::RubyFilterAloneBodyEnd
+            | Pattern::RubyOrOpalFilterBodyEnd
+            | Pattern::CoffeeFilterBodyEnd
+            | Pattern::SassFilterBodyEnd
+            | Pattern::MarkdownFilterBodyEnd
+            | Pattern::CssFilterBodyEnd
+            | Pattern::SassFilterAloneBodyEnd => {
                 self.filter_end(p, Filter::Unindented, self.parent_payload_text())
             }
-            Pat::SassStyleFilterBodyEnd | Pat::SassStylesFilterBodyEnd => {
+            Pattern::SassStyleFilterBodyEnd | Pattern::SassStylesFilterBodyEnd => {
                 self.filter_end(p, Filter::Indented, self.parent_payload_text())
             }
-            Pat::Prolog => self.prolog(p),
-            Pat::ConditionalComment => self.conditional_comment(p),
-            Pat::Comment => self.comment(p),
-            Pat::CommentEnd => self.comment_end(p),
-            Pat::Tag => self.tag(p),
-            Pat::TagEnd => self.tag_end(p),
-            Pat::TagAt0 => self.lit(p, b"=="),
-            Pat::TagAt1 => self.selector(p, b'.', NameColon::Takes),
-            Pat::TagAt2 => self.selector(p, b'#', NameColon::Stops),
-            Pat::TagAt3 => halts::attributes_begin(self.s, p, self.nl).then_some(p + 1),
-            Pat::TagAt3End => halts::attributes_end_at(self.s, p),
-            Pat::Continuation => self.continuation(p),
-            Pat::Rubyline => self.rubyline(p),
-            Pat::RubylineEnd => self.rubyline_end(p),
-            Pat::RubylineAt0 => self.keyword_group(halts::php_keyword(self.s, p)),
-            Pat::RubylineAt1 => self.keyword_group(halts::php_include(self.s, p)),
-            Pat::RubylineAt2 => halts::php_exception(self.s, p),
-            Pat::RubylineAt3 => self.keyword_group(halts::php_call(self.s, p, b"function")),
-            Pat::RubylineAt4 => self.keyword_group(halts::php_call(self.s, p, b"use")),
-            Pat::RubylineAt5 => halts::block_opener(self.s, p),
-            Pat::RubylineAt6 => halts::comment(self.s, p),
-            Pat::TagAt4 => self.lit(p, b"("),
-            Pat::TagAt4End => self.lit(p, b")"),
-            Pat::TagAt4At0 => {
+            Pattern::Prolog => self.prolog(p),
+            Pattern::ConditionalComment => self.conditional_comment(p),
+            Pattern::Comment => self.comment(p),
+            Pattern::CommentEnd => self.comment_end(p),
+            Pattern::Tag => self.tag(p),
+            Pattern::TagEnd => self.tag_end(p),
+            Pattern::TagAt0 => self.lit(p, b"=="),
+            Pattern::TagAt1 => self.selector(p, b'.', NameColon::Takes),
+            Pattern::TagAt2 => self.selector(p, b'#', NameColon::Stops),
+            Pattern::TagAt3 => halts::attributes_begin(self.s, p, self.nl).then_some(p + 1),
+            Pattern::TagAt3End => halts::attributes_end_at(self.s, p),
+            Pattern::Continuation => self.continuation(p),
+            Pattern::Rubyline => self.rubyline(p),
+            Pattern::RubylineEnd => self.rubyline_end(p),
+            Pattern::RubylineAt0 => self.keyword_group(halts::php_keyword(self.s, p)),
+            Pattern::RubylineAt1 => self.keyword_group(halts::php_include(self.s, p)),
+            Pattern::RubylineAt2 => halts::php_exception(self.s, p),
+            Pattern::RubylineAt3 => self.keyword_group(halts::php_call(self.s, p, b"function")),
+            Pattern::RubylineAt4 => self.keyword_group(halts::php_call(self.s, p, b"use")),
+            Pattern::RubylineAt5 => halts::block_opener(self.s, p),
+            Pattern::RubylineAt6 => halts::comment(self.s, p),
+            Pattern::TagAt4 => self.lit(p, b"("),
+            Pattern::TagAt4End => self.lit(p, b")"),
+            Pattern::TagAt4At0 => {
                 let end = self.name_end(p, NameColon::Stops);
                 (end > p).then_some(end)
             }
-            Pat::TagAt4At1 => self.lit(p, b"="),
-            Pat::TagAt4At3 | Pat::TagAt4At3End => self.lit(p, b"\""),
-            Pat::TagAt4At3At0 => self.attribute_escape(p),
-            Pat::TagAt5 => halts::object_begin(self.s, p).then_some(p + 1),
-            Pat::TagAt5End => halts::object_end_at(self.s, p),
-            Pat::InterpolatedRubyLine => self.lit(p, b"!==").or_else(|| self.lit(p, b"==")),
-            Pat::InterpolatedRubyLineEnd | Pat::RubyStartEnd => self.at_eol(p).then_some(p),
-            Pat::RubyEscapedChar => self.ruby_escape(p),
-            Pat::TagAt8 => self.lit(p, b"/"),
-            Pat::Escape => {
+            Pattern::TagAt4At1 => self.lit(p, b"="),
+            Pattern::TagAt4At3 | Pattern::TagAt4At3End => self.lit(p, b"\""),
+            Pattern::TagAt4At3At0 => self.attribute_escape(p),
+            Pattern::TagAt5 => halts::object_begin(self.s, p).then_some(p + 1),
+            Pattern::TagAt5End => halts::object_end_at(self.s, p),
+            Pattern::InterpolatedRubyLine => self.lit(p, b"!==").or_else(|| self.lit(p, b"==")),
+            Pattern::InterpolatedRubyLineEnd | Pattern::RubyStartEnd => self.at_eol(p).then_some(p),
+            Pattern::RubyEscapedChar => self.ruby_escape(p),
+            Pattern::TagAt8 => self.lit(p, b"/"),
+            Pattern::Escape => {
                 let dot = self.line_indent(p)?;
                 (self.at(dot) == b'.').then(|| {
-                    self.cap(1, dot, dot + 1);
+                    self.capture(1, dot, dot + 1);
                     dot + 1
                 })
             }
-            Pat::RubyStart => {
+            Pattern::RubyStart => {
                 let at = self.line_indent(p)?;
                 let starts_ruby = matches!(self.at(at), b'-' | b'=' | b'~')
                     || self.lit(at, b"!=").is_some()
@@ -176,7 +176,7 @@ impl Lexer<'_> {
     fn indent_then(&mut self, p: usize, text: &[u8]) -> Option<usize> {
         let indent = self.line_indent(p)?;
         let end = self.lit(indent, text)?;
-        self.cap(1, 0, indent);
+        self.capture(1, 0, indent);
         Some(end)
     }
 
@@ -194,9 +194,9 @@ impl Lexer<'_> {
             .iter()
             .filter_map(|name| self.lit(indent, name))
             .find(|&end| self.at_eol(end))?;
-        self.cap(1, 0, indent);
+        self.capture(1, 0, indent);
         if let Some(group) = name_group {
-            self.cap(group, indent, end);
+            self.capture(group, indent, end);
         }
         Some(end)
     }
@@ -204,7 +204,7 @@ impl Lexer<'_> {
     /// `^(\s*)(:name)`, with group 2 around the name.
     fn named_filter(&mut self, p: usize, name: &[u8]) -> Option<usize> {
         let end = self.indent_then(p, name)?;
-        self.cap(2, end - name.len(), end);
+        self.capture(2, end - name.len(), end);
         Some(end)
     }
 
@@ -218,9 +218,9 @@ impl Lexer<'_> {
             .iter()
             .filter_map(|name| self.lit(colon, name))
             .find(|&end| self.at_eol(end))?;
-        self.cap(1, 0, indent);
-        self.cap(2, indent, end);
-        self.cap(3, colon, end);
+        self.capture(1, 0, indent);
+        self.capture(2, indent, end);
+        self.capture(3, colon, end);
         Some(end)
     }
 
@@ -228,12 +228,12 @@ impl Lexer<'_> {
     /// [`Filter::Unindented`] is `^(?!\1\s+|$\n*)`, and [`Filter::Indented`]
     /// is `^(?=\1\s+|$\n*)`; both hold only at the line's start and take no
     /// text.
-    fn filter_end(&self, p: usize, kind: Filter, indent: &str) -> Option<usize> {
+    fn filter_end(&self, p: usize, filter: Filter, indent: &str) -> Option<usize> {
         if p != 0 {
             return None;
         }
         let stays = self.stays_in_filter(indent.as_bytes());
-        let ends = match kind {
+        let ends = match filter {
             Filter::Unindented => !stays,
             Filter::Indented => stays,
             Filter::AfterLineFeed => false,
@@ -268,7 +268,7 @@ impl Lexer<'_> {
         if !(b.is_ascii_alphabetic() || b == b'_') {
             return None;
         }
-        self.cap(1, p, first);
+        self.capture(1, p, first);
         Some(self.word_end(first + 1))
     }
 
@@ -285,7 +285,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, 0, bangs);
+        self.capture(1, 0, bangs);
         Some(end)
     }
 
@@ -307,7 +307,7 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, 0, indent);
+        self.capture(1, 0, indent);
         Some(end)
     }
 
@@ -324,8 +324,8 @@ impl Lexer<'_> {
                 let end = self.skip(stars, |b| b == b'*');
                 (end > stars).then_some(end)
             })?;
-        self.cap(1, 0, indent);
-        self.cap(2, indent, end);
+        self.capture(1, 0, indent);
+        self.capture(2, indent, end);
         Some(end)
     }
 
@@ -350,9 +350,9 @@ impl Lexer<'_> {
                 if end == at + 1 {
                     return None;
                 }
-                self.cap(1, at, end);
-                self.cap(2, at, at + 1);
-                self.cap(3, at + 1, end);
+                self.capture(1, at, end);
+                self.capture(2, at, at + 1);
+                self.capture(3, at + 1, end);
                 Some(end)
             }
             b'#' | b'.' => Some(at),
@@ -399,7 +399,7 @@ impl Lexer<'_> {
         if end == p + 1 {
             return None;
         }
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -420,7 +420,7 @@ impl Lexer<'_> {
         if !self.nl {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         Some(at + 1)
     }
 
@@ -445,8 +445,8 @@ impl Lexer<'_> {
     /// first.
     fn rubyline_end(&mut self, p: usize) -> Option<usize> {
         if let Some((opener, end)) = halts::block_end(self.s, p) {
-            self.cap(1, p, end);
-            self.cap(2, p, opener);
+            self.capture(1, p, end);
+            self.capture(2, p, opener);
             return Some(end);
         }
         self.at_eol(p).then_some(p)
@@ -456,7 +456,7 @@ impl Lexer<'_> {
     /// its end and the match's end.
     fn keyword_group(&mut self, found: Option<(usize, usize, usize)>) -> Option<usize> {
         let (start, end, matched) = found?;
-        self.cap(1, start, end);
+        self.capture(1, start, end);
         Some(matched)
     }
 

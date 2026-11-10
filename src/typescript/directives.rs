@@ -1,8 +1,8 @@
 //! Triple-slash directives and the attributes they carry.
 
-use super::kind::Kind;
 use super::lexer::Lexer;
 use super::scope::S;
+use super::state::Rule;
 
 impl<const D: u8> Lexer<'_, D> {
     /// `^(///)\s*(?=<(reference|amd-dependency|amd-module)(…)+\s*/>\s*$)`.
@@ -15,9 +15,9 @@ impl<const D: u8> Lexer<'_, D> {
             return None;
         }
         self.flush(0);
-        self.capture(Kind::Directive, 0, 3, &[S::PunctuationDefinitionComment]);
-        self.finish(Kind::Directive, j);
-        self.push(Kind::Directive);
+        self.capture(Rule::Directive, 0, 3, &[S::PunctuationDefinitionComment]);
+        self.finish(Rule::Directive, j);
+        self.push(Rule::Directive);
         Some(j)
     }
 
@@ -37,7 +37,7 @@ impl<const D: u8> Lexer<'_, D> {
             return false;
         };
         let mut j = i + 1 + name.len();
-        let mut attrs = 0;
+        let mut attributes = 0;
         loop {
             let k = self.ws(j);
             if k == j {
@@ -55,9 +55,9 @@ impl<const D: u8> Lexer<'_, D> {
                 break;
             };
             j = e;
-            attrs += 1;
+            attributes += 1;
         }
-        if attrs == 0 {
+        if attributes == 0 {
             return false;
         }
         let k = self.ws(j);
@@ -88,13 +88,13 @@ impl<const D: u8> Lexer<'_, D> {
         let e = p + 1 + name.len();
         self.flush(p);
         self.capture(
-            Kind::DirectiveTag,
+            Rule::DirectiveTag,
             p,
             p + 1,
             &[S::PunctuationDefinitionTagDirective],
         );
-        self.capture(Kind::DirectiveTag, p + 1, e, &[S::EntityNameTagDirective]);
-        self.push(Kind::DirectiveTag);
+        self.capture(Rule::DirectiveTag, p + 1, e, &[S::EntityNameTagDirective]);
+        self.push(Rule::DirectiveTag);
         Some(e)
     }
 

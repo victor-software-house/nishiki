@@ -1,6 +1,6 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups of its match with [`Lexer::cap`].
+//! A matcher records the capture groups of its match with [`Lexer::capture`].
 //! The engine names those the grammar names.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
@@ -23,48 +23,48 @@ mod words;
 use super::engine::Lexer;
 use super::grammar::{
     ASP_CLASSES, ASP_COLLECTIONS, ASP_CONSTANTS, ASP_EVENTS, ASP_FUNCTIONS, CONTROL, FUNCTIONS,
-    MODIFIERS, OPERATORS, Pat, VB_CONSTANTS,
+    MODIFIERS, OPERATORS, Pattern, VB_CONSTANTS,
 };
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::LineFeed | Pat::CommentAt0End => self.line_feed(p),
-            Pat::RoundBrackets => self.lit(p, b"("),
-            Pat::RoundBracketsEnd => self.lit(p, b")"),
-            Pat::Tabs => (p == 0 && self.starts(p, b"\t")).then_some(p),
-            Pat::TabsEnd => (self.avail(p) && self.at(p) != b'\t').then_some(p),
-            Pat::TabsAt0 => self.pair(p, b"\t"),
-            Pat::Spaces => (p == 0 && self.starts(p, b" ")).then_some(p),
-            Pat::SpacesEnd => (self.avail(p) && self.at(p) != b' ').then_some(p),
-            Pat::SpacesAt0 => self.pair(p, b"  "),
-            Pat::FunctionHead => self.function_head(p),
-            Pat::Comment => self.comment(p),
-            Pat::CommentEnd => (!self.at_g(p)).then_some(p),
-            Pat::CommentAt0 => self.lit(p, b"'"),
-            Pat::Control => self.ordered(p, &CONTROL),
-            Pat::Operators => self.ordered(p, &OPERATORS),
-            Pat::DimName => self.dim_name(p),
-            Pat::Storage => self.storage(p),
-            Pat::Modifiers => self.ordered(p, &MODIFIERS),
-            Pat::Constants => self.constant(p),
-            Pat::String | Pat::StringEnd => self.lit(p, b"\""),
-            Pat::StringAt0 => self.lit(p, b"\"\""),
-            Pat::DollarVariable => self.dollar_variable(p),
-            Pat::AspClasses => self.ordered(p, &ASP_CLASSES),
-            Pat::AspCollections => self.ordered(p, &ASP_COLLECTIONS),
-            Pat::AspConstants => self.ordered(p, &ASP_CONSTANTS),
-            Pat::AspFunctions => self.ordered(p, &ASP_FUNCTIONS),
-            Pat::AspEvents => self.ordered(p, &ASP_EVENTS),
-            Pat::AsType => self.as_type(p),
-            Pat::Functions => self.ordered(p, &FUNCTIONS),
-            Pat::Numbers => self.number(p),
-            Pat::VbConstants => self.ordered(p, &VB_CONSTANTS),
-            Pat::FunctionCall => self.function_call(p),
-            Pat::Variable => self.variable(p),
-            Pat::JsOperators => self.js_operator(p),
+    /// Whether `pattern` matches at `p`, and where its match ends.
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::LineFeed | Pattern::CommentAt0End => self.line_feed(p),
+            Pattern::RoundBrackets => self.lit(p, b"("),
+            Pattern::RoundBracketsEnd => self.lit(p, b")"),
+            Pattern::Tabs => (p == 0 && self.starts(p, b"\t")).then_some(p),
+            Pattern::TabsEnd => (self.avail(p) && self.at(p) != b'\t').then_some(p),
+            Pattern::TabsAt0 => self.pair(p, b"\t"),
+            Pattern::Spaces => (p == 0 && self.starts(p, b" ")).then_some(p),
+            Pattern::SpacesEnd => (self.avail(p) && self.at(p) != b' ').then_some(p),
+            Pattern::SpacesAt0 => self.pair(p, b"  "),
+            Pattern::FunctionHead => self.function_head(p),
+            Pattern::Comment => self.comment(p),
+            Pattern::CommentEnd => (!self.at_g(p)).then_some(p),
+            Pattern::CommentAt0 => self.lit(p, b"'"),
+            Pattern::Control => self.ordered(p, &CONTROL),
+            Pattern::Operators => self.ordered(p, &OPERATORS),
+            Pattern::DimName => self.dim_name(p),
+            Pattern::Storage => self.storage(p),
+            Pattern::Modifiers => self.ordered(p, &MODIFIERS),
+            Pattern::Constants => self.constant(p),
+            Pattern::String | Pattern::StringEnd => self.lit(p, b"\""),
+            Pattern::StringAt0 => self.lit(p, b"\"\""),
+            Pattern::DollarVariable => self.dollar_variable(p),
+            Pattern::AspClasses => self.ordered(p, &ASP_CLASSES),
+            Pattern::AspCollections => self.ordered(p, &ASP_COLLECTIONS),
+            Pattern::AspConstants => self.ordered(p, &ASP_CONSTANTS),
+            Pattern::AspFunctions => self.ordered(p, &ASP_FUNCTIONS),
+            Pattern::AspEvents => self.ordered(p, &ASP_EVENTS),
+            Pattern::AsType => self.as_type(p),
+            Pattern::Functions => self.ordered(p, &FUNCTIONS),
+            Pattern::Numbers => self.number(p),
+            Pattern::VbConstants => self.ordered(p, &VB_CONSTANTS),
+            Pattern::FunctionCall => self.function_call(p),
+            Pattern::Variable => self.variable(p),
+            Pattern::JsOperators => self.js_operator(p),
         }
     }
 
@@ -76,10 +76,10 @@ impl Lexer<'_> {
     /// `(unit)(unit)?`: an odd and an even step of indentation.
     fn pair(&mut self, p: usize, unit: &[u8]) -> Option<usize> {
         let odd = self.lit(p, unit)?;
-        self.cap(1, p, odd);
+        self.capture(1, p, odd);
         match self.lit(odd, unit) {
             Some(even) => {
-                self.cap(2, odd, even);
+                self.capture(2, odd, even);
                 Some(even)
             }
             None => Some(odd),
@@ -100,7 +100,7 @@ impl Lexer<'_> {
             return None;
         }
         if blanks > p {
-            self.cap(1, p, blanks);
+            self.capture(1, p, blanks);
         }
         Some(blanks)
     }

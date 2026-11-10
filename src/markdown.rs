@@ -84,7 +84,7 @@
 //!    characters.
 
 mod block;
-mod caps;
+mod captures;
 mod fence;
 #[cfg(feature = "lang-html-derivative")]
 mod html;
@@ -102,7 +102,7 @@ mod titles;
 pub(crate) use lexer::Scratch;
 pub(crate) use scope::NAMES;
 use scope::S;
-use state::Kind;
+use state::Container;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::Stopped;
@@ -117,7 +117,7 @@ pub(crate) const DOCUMENT: crate::scope::Scope = S::Root.scope();
 pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena.child(base, S::Root.scope()).unwrap_or(base);
     arena
-        .push(ROOT, Kind::Base.code(), 1, stack)
+        .push(ROOT, Container::Base.code(), 1, stack)
         .unwrap_or(ROOT)
 }
 
@@ -128,7 +128,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// by the Markdown lexer's own rules. It completes the contract every
 /// language keeps.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
-    arena.push(ROOT, Kind::Base.code(), 1, base).unwrap_or(ROOT)
+    arena
+        .push(ROOT, Container::Base.code(), 1, base)
+        .unwrap_or(ROOT)
 }
 
 /// Lexes one line from `state`, appending its tokens, and returns the state
@@ -202,7 +204,7 @@ fn halt_after_block(
     state: u32,
 ) -> Option<usize> {
     let root = cx.arena.frame(state);
-    if Kind::from_code(root.kind) != Kind::Base || cx.out.len() < first + 2 {
+    if Container::from_code(root.rule) != Container::Base || cx.out.len() < first + 2 {
         return None;
     }
     let last = cx.out.len() - 1;

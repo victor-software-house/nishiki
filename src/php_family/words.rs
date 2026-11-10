@@ -120,7 +120,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
             return None;
         }
         if self.at(p) == b'\\' {
-            self.cap(1, p, p + 1);
+            self.capture(1, p, p + 1);
         }
         Some(end)
     }

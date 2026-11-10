@@ -74,11 +74,11 @@ impl Lexer<'_> {
                     Some((loop_end, last, second, lexer.parameter_type(second.end)?))
                 })
             })?;
-        self.cap(1, p, loop_end);
-        self.cap(2, last.0, last.1);
+        self.capture(1, p, loop_end);
+        self.capture(2, last.0, last.1);
         self.put_gap(3, GapForm::Parts, last.1, &last.2);
         self.put_gap(7, GapForm::Parts, loop_end, &second);
-        self.cap(group, a, e);
+        self.capture(group, a, e);
         self.put_gap(16, GapForm::Parts, e, &third);
         Some(third.end)
     }
@@ -134,9 +134,9 @@ impl Lexer<'_> {
         })?;
         let after = found.end;
         self.put_type(&layout, &found);
-        self.cap(1, p, after);
+        self.capture(1, p, after);
         if let Some((end, first, last)) = run {
-            self.cap(19, after, end);
+            self.capture(19, after, end);
             if let Some(g) = first {
                 self.put_gap(20, GapForm::Parts, after, &g);
             }
@@ -146,16 +146,16 @@ impl Lexer<'_> {
         }
         self.put_gap(28, GapForm::Parts, at, &gap);
         let open = tail.open;
-        self.cap(32, open, open + 1);
-        self.cap(33, open + 1, open + 2);
-        self.cap(34, tail.name_at, tail.name_end);
+        self.capture(32, open, open + 1);
+        self.capture(33, open + 1, open + 2);
+        self.capture(34, tail.name_at, tail.name_end);
         if let Some((a, z)) = tail.brackets {
-            self.cap(35, a, a + 1);
-            self.cap(36, a + 1, z);
-            self.cap(37, z, z + 1);
+            self.capture(35, a, a + 1);
+            self.capture(36, a + 1, z);
+            self.capture(37, z, z + 1);
         }
-        self.cap(38, tail.close, tail.close + 1);
-        self.cap(39, tail.call, tail.call + 1);
+        self.capture(38, tail.close, tail.close + 1);
+        self.capture(39, tail.call, tail.call + 1);
         Some(tail.call + 1)
     }
 

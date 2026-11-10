@@ -1,7 +1,7 @@
 //! The matchers: for each regular expression of the grammar, the function that
 //! decides whether it matches at a position and where.
-//! A matcher records the capture groups the grammar names with [`Lexer::cap`].
-//! The engine names them.
+//! A matcher records the capture groups the grammar names with
+//! [`Lexer::capture`]. The engine names them.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.
@@ -12,7 +12,7 @@ mod numbers;
 mod strings;
 
 use super::engine::Lexer;
-use super::grammar::Pat;
+use super::grammar::Pattern;
 use crate::rules::Chars;
 
 /// Whether `b` is in the grammar's `[0-9A-Z_a-z]`.
@@ -88,105 +88,105 @@ const C_TYPES: &[&[u8]] = &[
 ];
 
 impl Lexer<'_> {
-    /// Whether `pat` matches at `p`, and where its match ends.
+    /// Whether `pattern` matches at `p`, and where its match ends.
     ///
     /// The arms follow the grammar's order: comments, strings, keywords,
     /// operators, punctuation, numbers, builtins and names.
-    pub(super) fn matcher(&mut self, pat: Pat, p: usize) -> Option<usize> {
-        match pat {
-            Pat::CommentsAt0 => {
+    pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern {
+            Pattern::CommentsAt0 => {
                 let end = self.lit(p, b"//")?;
                 (matches!(self.at(end), b'!' | b'/')
                     && self.avail(end + 1)
                     && self.at(end + 1) != b'/')
                     .then_some(end + 1)
             }
-            Pat::CommentsAt0End | Pat::CommentsAt1End | Pat::StringsAt1End => {
+            Pattern::CommentsAt0End | Pattern::CommentsAt1End | Pattern::StringsAt1End => {
                 self.at_eol(p).then_some(p)
             }
-            Pat::CommentContentsAt0 => {
+            Pattern::CommentContentsAt0 => {
                 let end = self.word_in(p, TODO)?;
                 Some(if self.at(end) == b':' { end + 1 } else { end })
             }
-            Pat::CommentsAt1 => self.lit(p, b"//"),
-            Pat::StringsAt0
-            | Pat::StringsAt0End
-            | Pat::VariablesAt0At2End
-            | Pat::VariablesAt2At1End => self.lit(p, b"\""),
-            Pat::StringcontentAt0 => self.escape(p),
-            Pat::StringcontentAt1 => {
+            Pattern::CommentsAt1 => self.lit(p, b"//"),
+            Pattern::StringsAt0
+            | Pattern::StringsAt0End
+            | Pattern::VariablesAt0At2End
+            | Pattern::VariablesAt2At1End => self.lit(p, b"\""),
+            Pattern::StringcontentAt0 => self.escape(p),
+            Pattern::StringcontentAt1 => {
                 (self.at(p) == b'\\' && p + 1 < self.lim()).then(|| self.char_end(p + 1))
             }
-            Pat::StringsAt1 => self.lit(p, b"\\\\"),
-            Pat::StringsAt2 => self.char_literal(p),
-            Pat::KeywordsAt0 => {
+            Pattern::StringsAt1 => self.lit(p, b"\\\\"),
+            Pattern::StringsAt2 => self.char_literal(p),
+            Pattern::KeywordsAt0 => {
                 let end = self.keyword(p, b"inline")?;
                 self.keyword(self.space_end(end), b"fn")
                     .is_none()
                     .then_some(end)
             }
-            Pat::KeywordsAt1 => self.word_in(p, &[b"while", b"for"]),
-            Pat::KeywordsAt2 => self.word_in(p, STORAGE),
-            Pat::KeywordsAt3 => self.word_in(p, &[b"struct", b"enum", b"union", b"opaque"]),
-            Pat::KeywordsAt4 => self.word_in(p, &[b"asm", b"unreachable"]),
-            Pat::KeywordsAt5 => self.word_in(
+            Pattern::KeywordsAt1 => self.word_in(p, &[b"while", b"for"]),
+            Pattern::KeywordsAt2 => self.word_in(p, STORAGE),
+            Pattern::KeywordsAt3 => self.word_in(p, &[b"struct", b"enum", b"union", b"opaque"]),
+            Pattern::KeywordsAt4 => self.word_in(p, &[b"asm", b"unreachable"]),
+            Pattern::KeywordsAt5 => self.word_in(
                 p,
                 &[b"break", b"return", b"continue", b"defer", b"errdefer"],
             ),
-            Pat::KeywordsAt6 => self.word_in(p, &[b"resume", b"suspend", b"nosuspend"]),
-            Pat::KeywordsAt7 => self.word_in(p, &[b"try", b"catch"]),
-            Pat::KeywordsAt8 => self.word_in(p, &[b"if", b"else", b"switch", b"orelse"]),
-            Pat::KeywordsAt9 => self.word_in(p, &[b"null", b"undefined"]),
-            Pat::KeywordsAt10 => self.word_in(p, &[b"true", b"false"]),
-            Pat::KeywordsAt11 => self.word_in(p, &[b"test", b"and", b"or"]),
-            Pat::KeywordsAt12 => self.word_in(p, TYPES),
-            Pat::KeywordsAt13 => self.number_type(p),
-            Pat::KeywordsAt14 => self.word_in(p, C_TYPES),
-            Pat::OperatorsAt0 => {
+            Pattern::KeywordsAt6 => self.word_in(p, &[b"resume", b"suspend", b"nosuspend"]),
+            Pattern::KeywordsAt7 => self.word_in(p, &[b"try", b"catch"]),
+            Pattern::KeywordsAt8 => self.word_in(p, &[b"if", b"else", b"switch", b"orelse"]),
+            Pattern::KeywordsAt9 => self.word_in(p, &[b"null", b"undefined"]),
+            Pattern::KeywordsAt10 => self.word_in(p, &[b"true", b"false"]),
+            Pattern::KeywordsAt11 => self.word_in(p, &[b"test", b"and", b"or"]),
+            Pattern::KeywordsAt12 => self.word_in(p, TYPES),
+            Pattern::KeywordsAt13 => self.number_type(p),
+            Pattern::KeywordsAt14 => self.word_in(p, C_TYPES),
+            Pattern::OperatorsAt0 => {
                 (self.prev(p) == Some(b'[') && self.starts(p, b"*c") && self.at(p + 2) == b']')
                     .then_some(p + 2)
             }
-            Pat::OperatorsAt1 => self.comparison(p),
-            Pat::OperatorsAt2 => self.arithmetic(p),
-            Pat::OperatorsAt3 => self.bitwise(p),
-            Pat::OperatorsAt4 => [b"==".as_slice(), b"++", b"**", b"->"]
+            Pattern::OperatorsAt1 => self.comparison(p),
+            Pattern::OperatorsAt2 => self.arithmetic(p),
+            Pattern::OperatorsAt3 => self.bitwise(p),
+            Pattern::OperatorsAt4 => [b"==".as_slice(), b"++", b"**", b"->"]
                 .iter()
                 .any(|pair| self.starts(p, pair))
                 .then_some(p + 2),
-            Pat::OperatorsAt5 => self.lit(p, b"="),
-            Pat::OperatorsAt6 => self.lit(p, b"?"),
-            Pat::PunctuationAt0 => self.lit(p, b"."),
-            Pat::PunctuationAt1 => self.lit(p, b","),
-            Pat::PunctuationAt2 => self.lit(p, b":"),
-            Pat::PunctuationAt3 => self.lit(p, b";"),
-            Pat::NumbersAt0 => self.hex_float(p),
-            Pat::NumbersAt1 => self.float(p),
-            Pat::NumbersAt2 => self.decimal(p),
-            Pat::NumbersAt3 => self.prefixed(p, b"0x", |b| b.is_ascii_hexdigit()),
-            Pat::NumbersAt4 => self.prefixed(p, b"0o", |b| matches!(b, b'0'..=b'7')),
-            Pat::NumbersAt5 => self.prefixed(p, b"0b", |b| matches!(b, b'0' | b'1')),
-            Pat::NumbersAt6 => self.invalid_number(p),
-            Pat::SupportAt0 => (self.at(p) == b'@' && is_name_start(self.at(p + 1)))
+            Pattern::OperatorsAt5 => self.lit(p, b"="),
+            Pattern::OperatorsAt6 => self.lit(p, b"?"),
+            Pattern::PunctuationAt0 => self.lit(p, b"."),
+            Pattern::PunctuationAt1 => self.lit(p, b","),
+            Pattern::PunctuationAt2 => self.lit(p, b":"),
+            Pattern::PunctuationAt3 => self.lit(p, b";"),
+            Pattern::NumbersAt0 => self.hex_float(p),
+            Pattern::NumbersAt1 => self.float(p),
+            Pattern::NumbersAt2 => self.decimal(p),
+            Pattern::NumbersAt3 => self.prefixed(p, b"0x", |b| b.is_ascii_hexdigit()),
+            Pattern::NumbersAt4 => self.prefixed(p, b"0o", |b| matches!(b, b'0'..=b'7')),
+            Pattern::NumbersAt5 => self.prefixed(p, b"0b", |b| matches!(b, b'0' | b'1')),
+            Pattern::NumbersAt6 => self.invalid_number(p),
+            Pattern::SupportAt0 => (self.at(p) == b'@' && is_name_start(self.at(p + 1)))
                 .then(|| self.skip(p + 2, is_word)),
-            Pat::VariablesAt0At0 => self.function_name(p, NameStart::Upper),
-            Pat::VariablesAt0At1 => self.function_name(p, NameStart::Any),
-            Pat::VariablesAt0At2 => {
+            Pattern::VariablesAt0At0 => self.function_name(p, NameStart::Upper),
+            Pattern::VariablesAt0At1 => self.function_name(p, NameStart::Any),
+            Pattern::VariablesAt0At2 => {
                 let blanks = self.fn_blanks(p)?;
                 let end = self.lit(blanks, b"@\"")?;
-                self.cap(1, p, p + 2);
+                self.capture(1, p, p + 2);
                 Some(end)
             }
-            Pat::VariablesAt0At3 => self.word_in(p, &[b"const", b"var", b"fn"]),
-            Pat::VariablesAt1At0 => self.call_name(p, NameStart::Upper),
-            Pat::VariablesAt1At1 => self.call_name(p, NameStart::Any),
-            Pat::VariablesAt2At0 => {
+            Pattern::VariablesAt0At3 => self.word_in(p, &[b"const", b"var", b"fn"]),
+            Pattern::VariablesAt1At0 => self.call_name(p, NameStart::Upper),
+            Pattern::VariablesAt1At1 => self.call_name(p, NameStart::Any),
+            Pattern::VariablesAt2At0 => {
                 if !self.boundary(p) || !is_name_start(self.at(p)) {
                     return None;
                 }
                 let end = self.skip(p + 1, is_word);
                 self.boundary(end).then_some(end)
             }
-            Pat::VariablesAt2At1 => self.lit(p, b"@\""),
+            Pattern::VariablesAt2At1 => self.lit(p, b"@\""),
         }
     }
 
@@ -266,8 +266,8 @@ impl Lexer<'_> {
         if !self.boundary(end) {
             return None;
         }
-        self.cap(1, p, p + 2);
-        self.cap(2, name, end);
+        self.capture(1, p, p + 2);
+        self.capture(2, name, end);
         Some(end)
     }
 

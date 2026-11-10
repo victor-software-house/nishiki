@@ -5,7 +5,7 @@
 
 use std::cell::Cell;
 
-use super::grammar::{Nested, Pat, Rule};
+use super::grammar::{Nested, Pattern, Rule};
 use super::scope::S;
 use crate::css::CssLike;
 use crate::rules::{self, Act, Captures, Grammar, NameCase, Payload, ScopeName, table_scan};
@@ -56,7 +56,7 @@ impl Grammar for Scss {
     type Scope = S;
     const NO_SCOPES: Scopes<S> = S::NO_SCOPES;
     type Rule = Rule;
-    type Pat = Pat;
+    type Pattern = Pattern;
     type Nested = Nested;
     type Extra = Extra;
     type Kept = ();
@@ -84,44 +84,46 @@ impl Grammar for Scss {
     }
 
     fn rule_name(rule: Rule) -> Scopes<S> {
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<S> {
-        rule.data().content
+        rule.definition().content
     }
 
     fn rule_payload(rule: Rule) -> Payload {
-        rule.data().backref.map_or(Payload::None, Payload::Backref)
+        rule.definition()
+            .backref
+            .map_or(Payload::None, Payload::Backref)
     }
 
-    fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+    fn pattern_act(pattern: Pattern) -> Act<Self> {
+        pattern.definition().act
     }
 
-    fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+    fn pattern_captures(pattern: Pattern) -> Captures<Self> {
+        let definition = pattern.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pattern_definition(pattern: Pattern) -> (Act<Self>, Captures<Self>) {
+        let definition = pattern.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
-    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {
+    fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
         table_scan(lexer)
     }
 
-    fn matcher(lexer: &mut Lexer<'_>, pat: Pat, p: usize) -> Option<usize> {
-        match pat.css() {
+    fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {
+        match pattern.css() {
             Some(css) => lexer.css_matcher(css, p),
-            None => lexer.scss_matcher(pat, p),
+            None => lexer.scss_matcher(pattern, p),
         }
     }
 
-    fn tokenize_nested(lexer: &mut Lexer<'_>, kind: Nested, from: usize, to: usize, base: u32) {
-        match kind {
+    fn tokenize_nested(lexer: &mut Lexer<'_>, nested: Nested, from: usize, to: usize, base: u32) {
+        match nested {
             Nested::Rule(rule) => {
                 lexer.retokenise(rule, from, to, base);
                 lexer.emit(to, base);

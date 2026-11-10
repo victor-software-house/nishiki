@@ -231,10 +231,10 @@ impl Lexer<'_> {
         if self.at(equals) != b'=' {
             return None;
         }
-        self.cap(1, p, key_at);
-        self.cap(2, key_at, key);
-        self.cap(3, key, quoted);
-        self.cap(4, equals, equals + 1);
+        self.capture(1, p, key_at);
+        self.capture(2, key_at, key);
+        self.capture(3, key, quoted);
+        self.capture(4, equals, equals + 1);
         Some(self.space_end(equals + 1))
     }
 

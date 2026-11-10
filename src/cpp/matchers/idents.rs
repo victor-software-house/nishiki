@@ -139,8 +139,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.ident_ends(p + 1).longest()?;
-        self.cap(1, p, p + 1);
-        self.cap(2, p + 1, end);
+        self.capture(1, p, p + 1);
+        self.capture(2, p + 1, end);
         Some(end)
     }
 
@@ -179,8 +179,8 @@ impl Lexer<'_> {
         let end = self
             .ident_ends(p)
             .find(|&end| self.word_at(end).is_none() && self.at(end) == b'{' && end < self.lim())?;
-        self.cap(1, p, end);
-        self.cap(2, end, end + 1);
+        self.capture(1, p, end);
+        self.capture(2, end, end + 1);
         Some(end + 1)
     }
 
@@ -192,8 +192,8 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.word_ident(name)?;
-        self.cap(1, p, word);
-        self.cap(2, name, end);
+        self.capture(1, p, word);
+        self.capture(2, name, end);
         Some(end)
     }
 
@@ -204,7 +204,7 @@ impl Lexer<'_> {
         }
         let name = self.skip_space(p);
         let end = self.ident_ends(name).longest()?;
-        self.cap(1, name, end);
+        self.capture(1, name, end);
         Some(self.skip_space(end))
     }
 
@@ -232,17 +232,17 @@ impl Lexer<'_> {
         if self.at(p) != mark || p >= self.lim() {
             return None;
         }
-        self.cap(1, p, p + 1);
+        self.capture(1, p, p + 1);
         let start = p + 1;
         let first = self.at(start);
         if start < self.lim() && first.is_ascii_alphabetic() || self.ucn(start).is_some() {
             let end = self.ident_ends(start).longest()?;
-            self.cap(2, start, end);
+            self.capture(2, start, end);
             return Some(end);
         }
         if start < self.lim() && first == b'_' {
             let end = self.ident_ends(start).longest().unwrap_or(start + 1);
-            self.cap(3, start, end);
+            self.capture(3, start, end);
             return Some(end);
         }
         Some(start)
@@ -263,10 +263,10 @@ impl Lexer<'_> {
                 None
             };
             if let Some((end, group)) = found {
-                self.cap(1, p, name);
+                self.capture(1, p, name);
                 self.put_gap(2, GapForm::Parts, name, &gap);
                 if let Some(group) = group {
-                    self.cap(group, at, end);
+                    self.capture(group, at, end);
                 }
                 return Some(end);
             }
@@ -288,15 +288,15 @@ impl Lexer<'_> {
         if let Some(second) = self.ident_ends(spaces).longest() {
             let eq = self.skip_space(second);
             if self.at(eq) == b'=' && eq < self.lim() {
-                self.cap(1, first, name);
-                self.cap(2, spaces, second);
-                self.cap(3, eq, eq + 1);
+                self.capture(1, first, name);
+                self.capture(2, spaces, second);
+                self.capture(3, eq, eq + 1);
                 return Some(eq + 1);
             }
         }
         if self.at(spaces) == b'=' && spaces < self.lim() {
-            self.cap(1, first, name);
-            self.cap(3, spaces, spaces + 1);
+            self.capture(1, first, name);
+            self.capture(3, spaces, spaces + 1);
             return Some(spaces + 1);
         }
         None
@@ -314,7 +314,7 @@ impl Lexer<'_> {
             for second in self.gaps(name) {
                 if self.at(second.end) == b']' && second.end < self.lim() {
                     self.put_gap(1, GapForm::Parts, p + 1, &first);
-                    self.cap(5, first.end, name);
+                    self.capture(5, first.end, name);
                     self.put_gap(6, GapForm::Parts, name, &second);
                     return Some(second.end + 1);
                 }
@@ -342,7 +342,7 @@ impl Lexer<'_> {
             for second in self.gaps(name) {
                 if lookahead(self, second.end) {
                     self.put_gap(1, GapForm::Parts, p, &first);
-                    self.cap(5, first.end, name);
+                    self.capture(5, first.end, name);
                     self.put_gap(6, GapForm::Parts, name, &second);
                     return Some(second.end);
                 }
@@ -384,11 +384,11 @@ impl Lexer<'_> {
                 let Some(end) = self.word_ident(second.end) else {
                     continue;
                 };
-                self.cap(1, 0, word);
+                self.capture(1, 0, word);
                 self.put_gap(2, GapForm::Plain, 0, &first);
-                self.cap(4, first.end, first.end + 1);
+                self.capture(4, first.end, first.end + 1);
                 self.put_gap(5, GapForm::Plain, word, &second);
-                self.cap(7, second.end, end);
+                self.capture(7, second.end, end);
                 return Some(end);
             }
         }
@@ -416,10 +416,10 @@ impl Lexer<'_> {
             let Some(end) = self.word_ident(ident) else {
                 continue;
             };
-            self.cap(1, 0, word);
+            self.capture(1, 0, word);
             self.put_gap(2, GapForm::Parts, 0, &first);
-            self.cap(6, first.end, first.end + 1);
-            self.cap(7, ident, end);
+            self.capture(6, first.end, first.end + 1);
+            self.capture(7, ident, end);
             return Some(end);
         }
         None
@@ -434,9 +434,9 @@ impl Lexer<'_> {
             for second in self.gaps(word) {
                 if let Some(end) = self.ident_ends(second.end).longest() {
                     self.put_gap(1, GapForm::Plain, p, &first);
-                    self.cap(3, first.end, word);
+                    self.capture(3, first.end, word);
                     self.put_gap(4, GapForm::Plain, word, &second);
-                    self.cap(6, second.end, end);
+                    self.capture(6, second.end, end);
                     return Some(end);
                 }
             }
@@ -461,9 +461,9 @@ impl Lexer<'_> {
                     let at = second.end;
                     if self.at(at) == b':' && at < self.lim() && self.at(at + 1) != b':' {
                         self.put_gap(1, GapForm::Plain, p, &first);
-                        self.cap(3, first.end, name);
+                        self.capture(3, first.end, name);
                         self.put_gap(4, GapForm::Plain, name, &second);
-                        self.cap(6, at, at + 1);
+                        self.capture(6, at, at + 1);
                         return Some(at + 1);
                     }
                 }
@@ -487,16 +487,16 @@ impl Lexer<'_> {
                 if let Some(word) = self.word_lit(first.end, b"final") {
                     for second in self.gaps(word) {
                         if self.ahead_class_body(second.end) {
-                            self.cap(1, p, name);
+                            self.capture(1, p, name);
                             self.put_gap(2, GapForm::Parts, name, &first);
-                            self.cap(6, first.end, word);
+                            self.capture(6, first.end, word);
                             self.put_gap(7, GapForm::Parts, word, &second);
                             return Some(second.end);
                         }
                     }
                 }
                 if self.ahead_class_body(first.end) {
-                    self.cap(1, p, name);
+                    self.capture(1, p, name);
                     self.put_gap(2, GapForm::Parts, name, &first);
                     return Some(first.end);
                 }

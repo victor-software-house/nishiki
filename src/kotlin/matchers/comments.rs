@@ -73,8 +73,8 @@ impl Lexer<'_> {
         if end == start {
             return None;
         }
-        self.cap(1, p, tag);
-        self.cap(2, start, end);
+        self.capture(1, p, tag);
+        self.capture(2, start, end);
         Some(end)
     }
 
@@ -88,8 +88,8 @@ impl Lexer<'_> {
         self.non_space_end(open);
         let first = self.char_end(open);
         let close = self.x.run.get().2.filter(|&close| close >= first)?;
-        self.cap(1, p, tag);
-        self.cap(2, open, close);
+        self.capture(1, p, tag);
+        self.capture(2, open, close);
         Some(close + 1)
     }
 
@@ -125,11 +125,11 @@ impl Lexer<'_> {
             found = self.link_tail(start + 1).map(|tail| (start, tail));
         }
         let (mark, (close, brace)) = found?;
-        self.cap(1, p + 1, tag);
+        self.capture(1, p + 1, tag);
         if mark > start {
-            self.cap(2, start, mark);
+            self.capture(2, start, mark);
         }
-        self.cap(3, mark + 1, close);
+        self.capture(3, mark + 1, close);
         Some(brace)
     }
 

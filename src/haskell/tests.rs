@@ -170,7 +170,7 @@ fn a_string_gap_spans_lines() {
 }
 
 #[test]
-fn numbers_and_characters_take_their_kinds() {
+fn numbers_and_characters_take_their_scopes() {
     assert_eq!(
         leaf("x = 0x1F", "0x1F"),
         "constant.numeric.integral.hexadecimal.haskell"

@@ -179,7 +179,7 @@ impl Lexer<'_> {
             return None;
         }
         let end = self.listed_word(p, &[b"require", b"require_relative"], Dot::Allowed)?;
-        self.cap(1, p, end);
+        self.capture(1, p, end);
         Some(end)
     }
 
@@ -204,7 +204,7 @@ impl Lexer<'_> {
     pub(in crate::ruby) fn sigil_name(&mut self, p: usize, sigil: &[u8]) -> Option<usize> {
         let start = self.lit(p, sigil)?;
         let end = self.name_end(start)?;
-        self.cap(1, p, start);
+        self.capture(1, p, start);
         Some(end)
     }
 
@@ -239,14 +239,14 @@ impl Lexer<'_> {
         } else {
             return None;
         };
-        self.cap(1, p, next);
+        self.capture(1, p, next);
         Some(end)
     }
 
     /// `\b(ENV)\[`
     pub(in crate::ruby) fn env_index(&mut self, p: usize) -> Option<usize> {
         let end = self.word_then(p, b"ENV[")?;
-        self.cap(1, p, p + 3);
+        self.capture(1, p, p + 3);
         Some(end)
     }
 

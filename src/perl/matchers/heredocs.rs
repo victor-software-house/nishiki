@@ -72,12 +72,12 @@ impl Lexer<'_> {
             None => label_end,
         };
         let lim = self.lim();
-        self.cap(1, p, opener);
-        self.cap(2, p, opener);
-        self.cap(3, p, quoted);
-        self.cap(6, quoted, label_end);
-        self.cap(7, label_end, opener);
-        self.cap(8, opener, lim);
+        self.capture(1, p, opener);
+        self.capture(2, p, opener);
+        self.capture(3, p, quoted);
+        self.capture(6, quoted, label_end);
+        self.capture(7, label_end, opener);
+        self.capture(8, opener, lim);
         Some(if self.avail(lim) { lim + 1 } else { lim })
     }
 
@@ -124,10 +124,10 @@ impl Lexer<'_> {
                 && self.at_eol(end)
             {
                 if blanks > 0 {
-                    self.cap(1, 0, blanks);
+                    self.capture(1, 0, blanks);
                 }
-                self.cap(2, blanks, end);
-                self.cap(3, blanks, end);
+                self.capture(2, blanks, end);
+                self.capture(3, blanks, end);
                 return Some(end);
             }
             if blanks == 0 {

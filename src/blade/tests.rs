@@ -155,7 +155,7 @@ fn a_php_section_spans_lines() {
 #[cfg(feature = "json")]
 mod probe {
     use crate::blade::engine::Blade;
-    use crate::blade::grammar::Pat;
+    use crate::blade::grammar::Pattern;
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// Answers the cases of `oracle/onig.ts` with Blade's matchers (see
@@ -163,9 +163,9 @@ mod probe {
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {
-        answer_cases(&Pat::ALL, |arena, pat, case| {
+        answer_cases(&Pattern::ALL, |arena, pattern, case| {
             lexer::<Blade, _>(arena, case, |lexer| {
-                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pat, p))
+                lexer.probe_matcher(case.p, lexer.g, |lexer, p| lexer.matcher(pattern, p))
             })
         });
     }

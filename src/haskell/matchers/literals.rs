@@ -52,7 +52,7 @@ impl Lexer<'_> {
         }
         let decimal = self.digits(p, |b| b.is_ascii_digit())?;
         if self.number_after(decimal) {
-            self.cap(1, p, decimal);
+            self.capture(1, p, decimal);
             return Some(decimal);
         }
         if self.at(p) != b'0' {
@@ -68,7 +68,7 @@ impl Lexer<'_> {
         if !self.number_after(end) {
             return None;
         }
-        self.cap(group, p, end);
+        self.capture(group, p, end);
         Some(end)
     }
 
@@ -125,11 +125,11 @@ impl Lexer<'_> {
             return None;
         }
         if let Some(end) = self.decimal_float(p).filter(|&end| self.number_after(end)) {
-            self.cap(1, p, end);
+            self.capture(1, p, end);
             return Some(end);
         }
         let end = self.hex_float(p).filter(|&end| self.number_after(end))?;
-        self.cap(2, p, end);
+        self.capture(2, p, end);
         Some(end)
     }
 
@@ -181,11 +181,11 @@ impl Lexer<'_> {
             } else {
                 return None;
             };
-        self.cap(1, p, body);
+        self.capture(1, p, body);
         if let Some(group) = group {
-            self.cap(group, body, end);
+            self.capture(group, body, end);
         }
-        self.cap(6, end, end + 1);
+        self.capture(6, end, end + 1);
         Some(end + 1)
     }
 
@@ -194,7 +194,7 @@ impl Lexer<'_> {
     pub(super) fn named_escape(&mut self, p: usize) -> Option<usize> {
         let after = self.lit(p, b"\\")?;
         let end = self.escape_names(after).next()?;
-        self.cap(1, after, end);
+        self.capture(1, after, end);
         Some(end)
     }
 
