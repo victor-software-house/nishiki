@@ -564,6 +564,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `markdown/vite-ssr` | [`docs/guide/ssr.md`][vite-ssr] in vitejs/vite | [MIT][vite-licence] |
 | `markdown/vitepress-runtime-api` | [`docs/en/reference/runtime-api.md`][vitepress-runtime-api] in vuejs/vitepress | [MIT][vitepress-licence] |
 | `markdown/vitest-migration-jest` | [`docs/guide/migration/jest.md`][vitest-jest] in vitest-dev/vitest | [MIT][vitest-licence] |
+| `markdown/vue-fence` | `oracle/inputs/markdown-vue-fence.md`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `markdown/zod-api` | [`packages/docs/content/api.mdx`][zod-api] in colinhacks/zod | [MIT][zod-licence] |
 | `markdown/zod-readme` | [`packages/zod/README.md`][zod-readme] in colinhacks/zod | [MIT][zod-licence] |
 | `matlab/chebfun-chebop` | [`@chebop/chebop.m`][chebfun-chebop] in chebfun/chebfun | [BSD-3-Clause][chebfun-licence] |
@@ -874,6 +875,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `vb/roslyn-with-block-binder` | [`src/Compilers/VisualBasic/Portable/Binding/Binder_WithBlock.vb`][roslyn-with-block-binder] in dotnet/roslyn | [MIT][roslyn-licence] |
 | `vb/sample` | [`samples/vb.sample`][vb-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `vue/coverage` | `oracle/inputs/vue-coverage.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `vue/coverage-blocks` | `oracle/inputs/vue-coverage-blocks.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/less-pop` | `oracle/inputs/vue-less-pop.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/playground-app` | [`packages-private/sfc-playground/src/App.vue`][vue-playground-app] in vuejs/core | [MIT][vue-licence] |
 | `vue/playground-header` | [`packages-private/sfc-playground/src/Header.vue`][vue-playground-header] in vuejs/core | [MIT][vue-licence] |
@@ -881,6 +883,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `vue/playground-version-select` | [`packages-private/sfc-playground/src/VersionSelect.vue`][vue-playground-version-select] in vuejs/core | [MIT][vue-licence] |
 | `vue/sample` | [`samples/vue.sample`][vue-sample] in shikijs/textmate-grammars-themes | [MIT][shiki-samples-licence] |
 | `vue/script-close` | `oracle/inputs/vue-script-close.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `vue/ts-end-tag` | `oracle/inputs/vue-ts-end-tag.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/vitepress-badge` | [`src/client/theme-default/components/VPBadge.vue`][vitepress-badge] in vuejs/vitepress | [MIT][vitepress-licence] |
 | `vue/vitepress-carbon-ads` | [`src/client/theme-default/components/VPCarbonAds.vue`][vitepress-carbon-ads] in vuejs/vitepress | [MIT][vitepress-licence] |
 | `vue/vitepress-image` | [`src/client/theme-default/components/VPImage.vue`][vitepress-image] in vuejs/vitepress | [MIT][vitepress-licence] |
@@ -1099,8 +1102,11 @@ The three `css/charset-*` inputs are one line each, because the grammar's `@char
 They are Vue's examples: HTML with custom elements and components at the top level, and templates in `<script type="text/x-template">` blocks, which the HTML grammar reads as `text.html.basic`.
 
 `vue/sample`, `vue/playground-app`, `vue/playground-header`, `vue/vitepress-badge`, `vue/vitepress-nav-menu-group` and `vue/vitepress-switch` are the development inputs for Vue.
-The other `vue` inputs are held out, and `vue/coverage` was added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
+The other `vue` inputs are held out, and `vue/coverage` and `vue/coverage-blocks` were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/vitepress-runtime-api` is the development input for `vue` fences in Markdown.
+`markdown/vue-fence` was added to exercise the rest of the `markdown-vue` grammar.
+`vue/ts-end-tag` pins a block that Shiki runs past its end tag.
+It has an input of its own, so the rest of the document it takes is short.
 
 `postcss/sample`, `postcss/custom-media-basic`, `postcss/mixins-spaces`, `postcss/nesting-spec-examples` and `postcss/tailwind-preflight` are the development inputs for PostCSS.
 `postcss/custom-selectors-basic`, `postcss/mixins-arguments` and `postcss/nesting-at-nest` are held out: they were added after the development inputs passed.

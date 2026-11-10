@@ -59,6 +59,7 @@ import markdownLessPop from "./inputs/markdown-less-pop.md" with { type: "text" 
 import markdownPerlHeredocTags1 from "./inputs/markdown-perl-heredoc-tags-1.md" with { type: "text" };
 import markdownPerlHeredocTags2 from "./inputs/markdown-perl-heredoc-tags-2.md" with { type: "text" };
 import markdownPhpFence from "./inputs/markdown-php-fence.md" with { type: "text" };
+import markdownVueFence from "./inputs/markdown-vue-fence.md" with { type: "text" };
 import matlabCoverage from "./inputs/matlab-coverage.m" with { type: "text" };
 import mermaidCoverage from "./inputs/mermaid-coverage.mmd" with { type: "text" };
 import nixCoverage from "./inputs/nix-coverage.nix" with { type: "text" };
@@ -102,9 +103,11 @@ import texCoverage from "./inputs/tex-coverage.tex" with { type: "text" };
 import tomlCoverage from "./inputs/toml-coverage.toml" with { type: "text" };
 import typescriptCoverage from "./inputs/typescript-coverage.ts" with { type: "text" };
 import vueCoverage from "./inputs/vue-coverage.vue" with { type: "text" };
+import vueCoverageBlocks from "./inputs/vue-coverage-blocks.vue" with { type: "text" };
 import vbCoverage from "./inputs/vb-coverage.vb" with { type: "text" };
 import vueLessPop from "./inputs/vue-less-pop.vue" with { type: "text" };
 import vueScriptClose from "./inputs/vue-script-close.vue" with { type: "text" };
+import vueTsEndTag from "./inputs/vue-ts-end-tag.vue" with { type: "text" };
 import xmlCoverage from "./inputs/xml-coverage.xml" with { type: "text" };
 import xmlCoverageJspComment from "./inputs/xml-coverage-jsp-comment.xml" with { type: "text" };
 import yamlCoverage from "./inputs/yaml-coverage.yaml" with { type: "text" };
@@ -2218,6 +2221,7 @@ export const inputs: Input[] = [
     name: "vitest-migration-jest",
     url: `${vitest}/docs/guide/migration/jest.md`,
   },
+  { lang: "markdown", name: "vue-fence", text: markdownVueFence },
   {
     lang: "markdown",
     name: "zod-api",
@@ -3165,6 +3169,7 @@ export const inputs: Input[] = [
   },
   { lang: "vb", name: "sample", url: `${samples}/vb.sample` },
   { lang: "vue", name: "coverage", text: vueCoverage },
+  { lang: "vue", name: "coverage-blocks", text: vueCoverageBlocks },
   { lang: "vue", name: "less-pop", text: vueLessPop },
   {
     lang: "vue",
@@ -3188,6 +3193,7 @@ export const inputs: Input[] = [
   },
   { lang: "vue", name: "sample", url: `${samples}/vue.sample` },
   { lang: "vue", name: "script-close", text: vueScriptClose },
+  { lang: "vue", name: "ts-end-tag", text: vueTsEndTag },
   {
     lang: "vue",
     name: "vitepress-badge",
