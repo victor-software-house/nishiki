@@ -616,3 +616,25 @@ fn a_count_larger_than_the_bytes_fails_before_it_allocates() {
     bytes[rule_count_at..rule_count_at + 4].copy_from_slice(&u32::MAX.to_le_bytes());
     assert!(matches!(error(&bytes), Reason::Malformed { at } if at == rule_count_at));
 }
+
+/// Every grammar in `tests/engine/grammars/` writes a Rust file that `syn`
+/// reads, so [`Grammar::to_rust`] lays each one out with prettyplease.
+#[cfg(feature = "format")]
+#[test]
+fn every_engine_grammar_writes_rust_that_parses() {
+    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/grammars");
+    let mut grammars = 0;
+    for entry in std::fs::read_dir(dir).unwrap() {
+        let path = entry.unwrap().path();
+        if path.extension().is_none_or(|extension| extension != "json")
+            || path.file_name().is_some_and(|name| name == "tables.json")
+        {
+            continue;
+        }
+        let grammar = Grammar::from_json(&std::fs::read_to_string(&path).unwrap()).unwrap();
+        let file = super::tokens::static_file(grammar);
+        assert!(syn::parse2::<syn::File>(file).is_ok(), "{}", path.display());
+        grammars += 1;
+    }
+    assert_ne!(grammars, 0);
+}

@@ -3,7 +3,7 @@ name = "nishiki-build-script"
 version = "0.0.0"
 edition = "2024"
 rust-version = "1.99.1"
-description = "Compiles a TextMate grammar in its build script and highlights with it"
+description = "Compiles TextMate grammars in its build script and highlights with them"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/victor-software-house/nishiki"
 # Never published (CODING_STANDARDS 5.3).
@@ -18,10 +18,17 @@ build = "build.rs"
 name = "nishiki-build-script"
 path = "main.rs"
 
-# The build script compiles the grammar, and the program loads the bytes.
-# Both need nishiki's TextMate engine. Each asks for the default features too,
-# as the other members do: the engine alone leaves the hand lexers' shared code
-# unused.
+[[bin]]
+name = "nishiki-build-script-rust"
+path = "rust.rs"
+
+# The build script compiles the grammars, and the programs load the bytes or
+# include the Rust. Both need nishiki's TextMate engine. Each asks for the
+# default features too, as the other members do: the engine alone leaves the
+# hand lexers' shared code unused.
+# Only the build script writes Rust, so only its nishiki takes `format`.
+# Cargo does not unify a build dependency's features with a normal one's, so
+# the programs build nishiki without `codegen` and `format`.
 # `cargo package` keeps build and normal dependencies, and each needs a
 # version. The workspace entry is a path alone, so these two name the version
 # beside the path. `cargo package --workspace` packages nishiki first and
@@ -29,7 +36,7 @@ path = "main.rs"
 [build-dependencies]
 nishiki = { path = "../..", version = "0.1", default-features = false, features = [
   "default",
-  "textmate",
+  "format",
 ] }
 
 [dependencies]

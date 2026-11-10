@@ -30,18 +30,18 @@ use json::Json;
 
 /// Text a grammar holds.
 /// The compiler and the bytes reader own it; a `static` borrows it.
-pub(crate) type Text = Cow<'static, str>;
+pub type Text = Cow<'static, str>;
 
 /// A list a grammar holds.
 /// The compiler and the bytes reader own it; a `static` borrows it.
-pub(crate) type List<T> = Cow<'static, [T]>;
+pub type List<T> = Cow<'static, [T]>;
 
 /// The index of a rule in [`UnlinkedGrammar::rules`].
-pub(crate) type RuleId = usize;
+pub type RuleId = usize;
 
 /// Named rules, sorted by name, so an include finds one by binary search.
 /// Each name is there once.
-pub(crate) type Repository = List<(Text, RuleId)>;
+pub type Repository = List<(Text, RuleId)>;
 
 /// One grammar, read from its JSON and not yet linked.
 ///
@@ -52,24 +52,24 @@ pub(crate) type Repository = List<(Text, RuleId)>;
 /// A rule's identity is its index, as vscode-textmate keys a compiled rule on
 /// its JSON object.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) struct UnlinkedGrammar {
+pub struct UnlinkedGrammar {
     /// The grammar's `scopeName`, such as `source.rust`.
-    pub(crate) scope: Text,
+    pub scope: Text,
     /// Every rule object of the grammar.
-    pub(crate) rules: List<UnlinkedRule>,
+    pub rules: List<UnlinkedRule>,
     /// The grammar's top-level `patterns`.
-    pub(crate) patterns: List<RuleId>,
+    pub patterns: List<RuleId>,
     /// The grammar's top-level `repository`.
-    pub(crate) repository: Repository,
+    pub repository: Repository,
     /// The grammar's own `injections`: a scope selector and its rule, in the
     /// order of the text.
-    pub(crate) injections: List<(Text, RuleId)>,
+    pub injections: List<(Text, RuleId)>,
     /// The `injectionSelector` under which the grammar injects itself into
     /// others, when it has one.
-    pub(crate) injection_selector: Option<Text>,
+    pub injection_selector: Option<Text>,
     /// The scopes of the grammars the grammar injects itself into
     /// (`injectTo`).
-    pub(crate) inject_to: List<Text>,
+    pub inject_to: List<Text>,
 }
 
 /// One rule object of a grammar, as its JSON holds it.
@@ -77,51 +77,51 @@ pub(crate) struct UnlinkedGrammar {
 /// Each field records what the linker asks of the object, with JavaScript's
 /// reading of absent, `null` and empty values.
 #[derive(Debug, Clone, Default, PartialEq, Eq)]
-pub(crate) struct UnlinkedRule {
+pub struct UnlinkedRule {
     /// The `include`, when it is a string. In a list of patterns, such a rule
     /// is an include and nothing else.
-    pub(crate) include: Option<Text>,
+    pub include: Option<Text>,
     /// The scopes of `name`, split at blanks.
-    pub(crate) name: List<Text>,
+    pub name: List<Text>,
     /// The scopes of `contentName`, split at blanks.
-    pub(crate) content_name: List<Text>,
+    pub content_name: List<Text>,
     /// `match`, when it is truthy.
-    pub(crate) matched: Option<Text>,
+    pub matched: Option<Text>,
     /// `begin`, when the key is present, even as `null`.
-    pub(crate) begin: Option<Text>,
+    pub begin: Option<Text>,
     /// `end`, when it is truthy.
-    pub(crate) end: Option<Text>,
+    pub end: Option<Text>,
     /// `while`, when it is truthy.
-    pub(crate) until: Option<Text>,
+    pub until: Option<Text>,
     /// `captures`, unless missing or `null`.
-    pub(crate) captures: Option<List<UnlinkedCapture>>,
+    pub captures: Option<List<UnlinkedCapture>>,
     /// `beginCaptures`, unless missing or `null`.
-    pub(crate) begin_captures: Option<List<UnlinkedCapture>>,
+    pub begin_captures: Option<List<UnlinkedCapture>>,
     /// `endCaptures`, unless missing or `null`.
-    pub(crate) end_captures: Option<List<UnlinkedCapture>>,
+    pub end_captures: Option<List<UnlinkedCapture>>,
     /// `whileCaptures`, unless missing or `null`.
-    pub(crate) while_captures: Option<List<UnlinkedCapture>>,
+    pub while_captures: Option<List<UnlinkedCapture>>,
     /// Whether `applyEndPatternLast` is `1` or `true`.
-    pub(crate) apply_end_last: bool,
+    pub apply_end_last: bool,
     /// The rules of `patterns`.
     ///
     /// A rule with no `patterns`, `match` or `begin` and a string `include`
     /// holds that include as its one pattern, as vscode-textmate reads it.
-    pub(crate) patterns: List<RuleId>,
+    pub patterns: List<RuleId>,
     /// Whether `patterns` is truthy. Only such a capture lexes its text again.
-    pub(crate) has_patterns: bool,
+    pub has_patterns: bool,
     /// `repository`, when it is truthy.
-    pub(crate) repository: Option<Repository>,
+    pub repository: Option<Repository>,
 }
 
 /// One capture group of a rule.
 #[derive(Debug, Clone, PartialEq, Eq)]
-pub(crate) struct UnlinkedCapture {
+pub struct UnlinkedCapture {
     /// The group's number, or `None` for a negative key.
-    pub(crate) index: Option<usize>,
+    pub index: Option<usize>,
     /// The capture's object, read as a rule: its names, and its patterns
     /// when it has some.
-    pub(crate) rule: RuleId,
+    pub rule: RuleId,
 }
 
 /// Why a grammar did not compile.

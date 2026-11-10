@@ -92,6 +92,9 @@ cargo check --locked --tests --no-default-features --features lang-zig
 cargo check --locked --tests --no-default-features --features systems
 RUSTFLAGS="-D warnings" cargo check --locked --no-default-features --features textmate
 RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features textmate
+# The build-script features, each alone: tokens, then the formatted file.
+RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features codegen
+RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features format
 cargo check --locked --tests --no-default-features --features web
 # CoffeeScript with the engine and without Svelte's lexer: a loaded Svelte
 # grammar still gives the CoffeeScript it hands off Svelte's `$` prefixes.

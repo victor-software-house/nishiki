@@ -14,8 +14,13 @@
   - 2026-11-10: [#688][pr-688] gives `compile::UnlinkedGrammar` its `Cow` data.
   - 2026-11-10: [#701][pr-701] makes `regex::parse::parse`, `Parsed`, `Dialect` and `regex::ast::Node` `pub(crate)`.
     The types the tree holds become `pub(crate)` with it; their methods keep their visibility.
-- [ ] 2.2 The `codegen` and `format` features, `ToTokens` for `Grammar` and `Grammar::to_rust`, with doctests and a build-script example.
+- [x] 2.2 The `codegen` and `format` features, `ToTokens` for `Grammar` and `Grammar::to_rust`, with doctests and a build-script example.
   → verify: the doctests and the example run in CI, and `check:size` shows no change for any tier
+  - 2026-11-10: on a box, lint, tests, doctests, docs and `cargo deny` pass.
+    `syn` reads the file `to_rust` writes for every engine grammar.
+    The included Rust gives the same `to_bytes` as its JSON.
+    The `json` and `all` tiers stay byte for byte the same.
+    The two example programs become new tiers.
 
 [pr-688]: https://github.com/victor-software-house/nishiki-archive/pull/688
 [pr-701]: https://github.com/victor-software-house/nishiki-archive/pull/701

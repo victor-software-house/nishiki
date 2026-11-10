@@ -153,6 +153,11 @@ docs = ["config", "lang-latex", "lang-markdown", "lang-tex"]
 # nishiki's TextMate engine, and the grammars a caller loads into it.
 # `json` reads them in Shiki's JSON form. No bundled language runs on it now.
 textmate = ["_textmate", "json"]
+# A grammar as Rust, for a build script: `ToTokens` for `Grammar` with
+# `codegen`, and `Grammar::to_rust` with `format`. A caller turns them on for
+# its build-dependency only, so the program's own build gains nothing.
+codegen = ["textmate", "dep:proc-macro2", "dep:quote"]
+format = ["codegen", "dep:prettyplease", "dep:syn"]
 
 # One feature per lexer module. A language that embeds another needs it.
 lang-asm = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
@@ -500,6 +505,15 @@ serde = { version = "1.0.229", optional = true, default-features = false, featur
   "std",
 ] }
 serde_json = { version = "1.0.154", optional = true }
+# `codegen` writes a grammar as tokens; `format` lays them out as a file.
+# Each takes only the features it uses (rust-codegen design, section 10).
+proc-macro2 = { version = "1.0.107", optional = true, default-features = false }
+quote = { version = "1.0.47", optional = true, default-features = false }
+prettyplease = { version = "0.3.0", optional = true, default-features = false }
+syn = { version = "3.0.10", optional = true, default-features = false, features = [
+  "full",
+  "parsing",
+] }
 
 [dev-dependencies]
 indoc = { workspace = true }
@@ -543,6 +557,22 @@ tolerance-percent = 2
 json = { features = "nishiki/lang-json", text = 334243, data = 52060 }
 # Every language of the default tier.
 all = { features = "nishiki/all", text = 7375139, data = 2328348 }
+
+# The build-script example's programs, whose nishiki has the default
+# languages and `textmate` but neither `codegen` nor `format`.
+# This one loads the grammar's bytes.
+[workspace.metadata.size.tiers.build-script-bytes]
+package = "nishiki-build-script"
+bin = "nishiki-build-script"
+text = 8186659
+data = 2549244
+
+# This one includes the grammar as Rust.
+[workspace.metadata.size.tiers.build-script-rust]
+package = "nishiki-build-script"
+bin = "nishiki-build-script-rust"
+text = 8162339
+data = 2550644
 
 # Line tables keep backtraces readable at a fraction of full debug info.
 [profile.dev]
