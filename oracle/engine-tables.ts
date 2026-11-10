@@ -344,17 +344,6 @@ class Builder {
   }
 }
 
-/** Whether `source` uses `\G`, which matches where the last match ended. */
-function usesLastMatchEnd(source: string): boolean {
-  for (let i = 0; i + 1 < source.length; i++) {
-    if (source[i] === "\\") {
-      if (source[i + 1] === "G") return true;
-      i++;
-    }
-  }
-  return false;
-}
-
 function hasBackrefs(source: string): boolean {
   for (let i = 0; i + 1 < source.length; i++) {
     if (source[i] === "\\") {
@@ -447,15 +436,8 @@ async function write(id: string) {
     if (at < 0) return plain(patterns, NONE);
     const before = patterns.slice(0, at).filter((p) => p < HAND_OFF);
     const after = patterns.slice(at + 1).filter((p) => p < HAND_OFF);
-    // The tokenizer finds where these patterns start before the language
-    // runs. It searches from the region's start, then past each start. `\G`
-    // matches where the last match ended. A search from another place cannot
-    // know that place. The generator refuses `\G` in these patterns.
     const halting = [...before, ...after].map((r) => builder.rules[r].begin);
     if (owner.matching === "BeginEnd") halting.push(owner.end);
-    const anchored = halting.filter((p) => p !== NONE && usesLastMatchEnd(builder.patterns[p]));
-    if (anchored.length > 0)
-      throw new Error(`${id}: a hand-off whose halts use \\G: ${anchored.map((p) => builder.patterns[p]).join(", ")}`);
     // A lexer that cannot halt would run past these patterns.
     const variant = variantOf(patterns[at]);
     if (!halts.get(variant) && halting.some((p) => p !== NONE)) {

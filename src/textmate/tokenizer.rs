@@ -2021,9 +2021,10 @@ impl Tokenizer<'_> {
 
     /// Writes into `into` where the rules of `list` and the given end start
     /// on the rest of the line from `from`. It writes the first start, then
-    /// the first start past each one. The generator refuses `\G` in these
-    /// rules. A search from each place then finds what a search from the
-    /// region's start would.
+    /// the first start past each one.
+    /// `\G` in these rules matches only where the embedding rule's begin
+    /// ended, which hand-lexed tokens never move.
+    /// So a search from each place finds what Shiki finds there.
     fn collect_starts(
         &mut self,
         into: &mut Vec<usize>,

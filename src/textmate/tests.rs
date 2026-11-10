@@ -14,7 +14,7 @@ use serde_json::Value;
 
 use super::compile::link::link;
 use super::compile::{UnlinkedGrammar, compile};
-use super::grammar::{Grammar, Matching, NONE};
+use super::grammar::{Grammar, NONE};
 use super::regex::{self, Context, Programs, Regex, Sketch};
 use super::tokenizer::{self, Scratch, Text};
 use crate::arena::Arena;
@@ -1147,50 +1147,6 @@ fn the_handing_captures_are_the_captures_that_reach_a_hand_off() {
         wrong.is_empty(),
         "handing captures that differ from those that reach a hand-off: {}",
         wrong.join("; ")
-    );
-}
-
-/// No hand-off halt uses `\G`. The rule applies to the `before` and `after`
-/// rules and to the end of the rule that opens the region. The engine finds
-/// where the halts start before the language runs. `\G` matches where the
-/// last match ended, which those searches do not know.
-#[test]
-fn no_hand_off_halts_where_the_last_match_ended() {
-    let uses_last_match_end = |source: &str| {
-        let mut bytes = source.bytes();
-        while let Some(byte) = bytes.next() {
-            if byte == b'\\' && bytes.next() == Some(b'G') {
-                return true;
-            }
-        }
-        false
-    };
-    let mut wrong = Vec::new();
-    for grammar in every_table() {
-        for (list, index) in hand_off_lists(grammar) {
-            let hand_off = &grammar.hand_offs[index];
-            let parts = [hand_off.before, hand_off.after]
-                .into_iter()
-                .flat_map(|list| grammar.lists[list].rules)
-                .map(|&rule| grammar.rules[rule].begin);
-            let ends = grammar
-                .rules
-                .iter()
-                .filter(|rule| rule.list == list && rule.matching == Matching::BeginEnd)
-                .map(|rule| rule.end);
-            for pattern in parts.chain(ends) {
-                if let Some(pattern) = grammar.patterns.get(pattern)
-                    && uses_last_match_end(pattern.source)
-                {
-                    wrong.push(format!("{}: {}", grammar.scope, pattern.source));
-                }
-            }
-        }
-    }
-    assert!(
-        wrong.is_empty(),
-        "hand-off halts that use \\G: {}",
-        wrong.join(", ")
     );
 }
 

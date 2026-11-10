@@ -137,12 +137,6 @@ impl fmt::Debug for Grammar {
 /// Otherwise it is the first.
 /// The other includes match nothing.
 ///
-/// A region whose end pattern uses `\G` hands nothing off with no language
-/// named, and its include matches nothing.
-/// The engine finds where such an end starts before the language runs, from
-/// places where `\G` cannot be known.
-/// A language named with [`Grammars::hand_off`] makes such a grammar fail.
-///
 /// Some lexers, such as Rust's, cannot stop inside a line for the grammar.
 /// Such a language takes a region only when nothing there needs it to stop.
 /// The region then has no rules beside the include and no end pattern, as in
