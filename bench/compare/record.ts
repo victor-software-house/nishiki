@@ -20,6 +20,7 @@ import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { type BenchRecord, REFERENCE, referenceHost, type Summary, summary } from "../record.ts";
+import { dedent } from "../../oracle/dedent.ts";
 
 export const COMPARE_SCHEMA = 1;
 
@@ -138,10 +139,13 @@ async function main(): Promise<void> {
   const corpusVersion = Number(readFileSync("bench/corpus.toml", "utf8").match(/^version = (\d+)$/m)?.[1]);
   const cargo = ["cargo", "run", "--quiet", "--locked", "--release", "--manifest-path", MANIFEST, "--features", FEATURES, "--"];
 
-  let raw = `commit ${commit}\nstarted ${started.toISOString()}\n`;
+  let raw = dedent`
+    commit ${commit}
+    started ${started.toISOString()}
+    `;
   const run = async (title: string, command: string[]): Promise<string> => {
     const output = await $`${command}`.text();
-    raw += `\n## ${title}\n\n${output}`;
+    raw += ["", `## ${title}`, "", output].join("\n");
     return output;
   };
   await run("Shiki's reference colours", ["bun", "bench/compare/shiki.ts", "reference"]);

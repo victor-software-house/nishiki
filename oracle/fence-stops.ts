@@ -72,7 +72,9 @@ const stopping = [...fenced]
 
 const source = await Bun.file(new URL("../src/language.rs", import.meta.url)).text();
 const start = source.indexOf("fn pops_fence");
-const body = source.slice(start, source.indexOf("\n    }\n", start));
+/** The line that closes a method of the `impl Language` block. */
+const methodEnd = ["", "    }", ""].join("\n");
+const body = source.slice(start, source.indexOf(methodEnd, start));
 const named = [
   ...new Set(
     [...body.matchAll(/Language::(\w+)/g)].map(([, variant]) =>

@@ -6,6 +6,7 @@
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
 import { writeFileSync } from "node:fs";
+import { dedent } from "./dedent.ts";
 
 const engine = await createOnigurumaEngine(wasm as any);
 
@@ -71,31 +72,33 @@ for (const p of posix) tables.push([`posix_${p}`, ranges(`[[:${p}:]]`)]);
 tables.push(["ascii", [[0, 0x7f]]]);
 
 const ident = (key: string) => `SET_${key.toUpperCase()}`;
-let source = `//! Character sets.
-//! \`oracle/unicode-tables.ts\` measures them on Oniguruma as Shiki bundles it.
-//! Do not edit: regenerate with \`bun oracle/unicode-tables.ts\`.
+let source = dedent`
+  //! Character sets.
+  //! \`oracle/unicode-tables.ts\` measures them on Oniguruma as Shiki bundles it.
+  //! Do not edit: regenerate with \`bun oracle/unicode-tables.ts\`.
 
-#![cfg_attr(rustfmt, rustfmt::skip)]
-#![expect(clippy::unreadable_literal, reason = "generated tables of code points")]
+  #![cfg_attr(rustfmt, rustfmt::skip)]
+  #![expect(clippy::unreadable_literal, reason = "generated tables of code points")]
 
-`;
+  `;
 for (const [key, list] of tables) {
   source += `static ${ident(key)}: &[(u32, u32)] = &[${list.map(([a, b]) => `(0x${a.toString(16)}, 0x${b.toString(16)})`).join(", ")}];\n`;
 }
-source += `
-/// The set a normalized name stands for.
-/// A normalized name is lower case, without \`_\`, \`-\` or spaces.
-/// Returns \`None\` for a name this table lacks.
-pub(super) fn lookup(name: &str) -> Option<&'static [(u32, u32)]> {
-    Some(match name {
-${tables
+source += dedent`
+
+  /// The set a normalized name stands for.
+  /// A normalized name is lower case, without \`_\`, \`-\` or spaces.
+  /// Returns \`None\` for a name this table lacks.
+  pub(super) fn lookup(name: &str) -> Option<&'static [(u32, u32)]> {
+      Some(match name {
+  ${tables
   .filter(([key]) => !key.startsWith("posix_"))
   .map(([key]) => `        "${key}" => ${ident(key)},`)
   .join("\n")}
-${posix.map((p) => `        "${p}" => SET_POSIX_${p.toUpperCase()},`).join("\n")}
-        _ => return None,
-    })
-}
-`;
+  ${posix.map((p) => `        "${p}" => SET_POSIX_${p.toUpperCase()},`).join("\n")}
+          _ => return None,
+      })
+  }
+  `;
 writeFileSync(new URL("../src/textmate/regex/unicode.rs", import.meta.url).pathname, source);
 console.log(tables.map(([k, v]) => `${k}:${v.length}`).join(" "));

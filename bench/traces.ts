@@ -30,6 +30,7 @@
 import { $ } from "bun";
 import { mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { dedent } from "../oracle/dedent.ts";
 
 const root = new URL("..", import.meta.url).pathname;
 const corpus = join(root, "bench/corpus");
@@ -103,7 +104,10 @@ function appendTrace(origin: string, row: Row): string {
       ["url", row.source],
       ["licence", row.licence],
       ["sha256", sha256(bytes)],
-    ]) + `deltas\n${rows.join("\n")}\n`
+    ]) + dedent`
+      deltas
+      ${rows.join("\n")}
+      `
   );
 }
 
@@ -161,7 +165,10 @@ async function editTrace(path: string, language: string): Promise<string> {
   const commits = (await $`git -C ${root} log --format=%H --reverse ${HISTORY_END} -- ${path}`.text()).trim().split("\n");
   const base = await $`git -C ${root} show ${commits[0]}:${path}`.text();
   let lines = base.split("\n");
-  let body = `base ${encoder.encode(base).length}\n${base}\n`;
+  let body = dedent`
+    base ${encoder.encode(base).length}
+    ${base}
+    `;
   for (let c = 1; c < commits.length; c++) {
     const diff = await $`git -C ${root} diff --no-ext-diff -U0 ${commits[c - 1]} ${commits[c]} -- ${path}`.text();
     let shift = 0;
@@ -173,7 +180,10 @@ async function editTrace(path: string, language: string): Promise<string> {
       const start = Math.min(lineOffset(lines, first), oldBytes.length, newBytes.length);
       const suffix = oldBytes.length - Math.min(lineOffset(lines, first + h.count), oldBytes.length);
       const text = decoder.decode(newBytes.subarray(start, newBytes.length - suffix));
-      body += `replace ${start} ${oldBytes.length - suffix} ${encoder.encode(text).length}\n${text}\n`;
+      body += dedent`
+        replace ${start} ${oldBytes.length - suffix} ${encoder.encode(text).length}
+        ${text}
+        `;
       lines = next;
       shift += h.added.length - h.count;
     }

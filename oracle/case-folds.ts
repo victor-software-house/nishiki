@@ -16,6 +16,7 @@
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
 import { writeFileSync } from "node:fs";
+import { dedent } from "./dedent.ts";
 
 const output = process.argv[2] ?? new URL("../src/textmate/regex/folds.rs", import.meta.url).pathname;
 const engine = await createOnigurumaEngine(wasm as any);
@@ -128,47 +129,48 @@ const wideSecond = leads.map((lead) =>
 
 const hex = (n: number) => `0x${n.toString(16)}`;
 const list = (xs: readonly number[]) => `&[${xs.map(hex).join(", ")}]`;
-const source = `//! The characters \`(?i)\` takes as one, and the folds of more than one
-//! character.
-//! \`oracle/case-folds.ts\` measures them on Oniguruma as Shiki bundles it.
-//! Do not edit: regenerate with \`bun oracle/case-folds.ts\`.
+const source = dedent`
+  //! The characters \`(?i)\` takes as one, and the folds of more than one
+  //! character.
+  //! \`oracle/case-folds.ts\` measures them on Oniguruma as Shiki bundles it.
+  //! Do not edit: regenerate with \`bun oracle/case-folds.ts\`.
 
-#![cfg_attr(rustfmt, rustfmt::skip)]
+  #![cfg_attr(rustfmt, rustfmt::skip)]
 
-/// The most members an orbit has.
-pub(super) const LARGEST_ORBIT: usize = ${largest};
+  /// The most members an orbit has.
+  pub(super) const LARGEST_ORBIT: usize = ${largest};
 
-/// Every character that \`(?i)\` takes as another, and the next member of its
-/// orbit, by character.
-/// Following \`next\` from a member visits its whole orbit and comes back.
-pub(super) static NEXT: &[(u32, u32)] = &[${next.map(([a, b]) => `(${hex(a)}, ${hex(b)})`).join(", ")}];
+  /// Every character that \`(?i)\` takes as another, and the next member of its
+  /// orbit, by character.
+  /// Following \`next\` from a member visits its whole orbit and comes back.
+  pub(super) static NEXT: &[(u32, u32)] = &[${next.map(([a, b]) => `(${hex(a)}, ${hex(b)})`).join(", ")}];
 
-/// Every character whose fold is more than one character, with that fold, by
-/// character.
-/// A fold's characters are canonical.
-/// Each is the smallest member of its orbit.
-pub(super) static MULTI: &[(u32, &[u32])] = &[${multi.map(([cp, fold]) => `(${hex(cp)}, ${list(fold)})`).join(", ")}];
+  /// Every character whose fold is more than one character, with that fold, by
+  /// character.
+  /// A fold's characters are canonical.
+  /// Each is the smallest member of its orbit.
+  pub(super) static MULTI: &[(u32, &[u32])] = &[${multi.map(([cp, fold]) => `(${hex(cp)}, ${list(fold)})`).join(", ")}];
 
-/// Every fold of more than one character, with the characters that fold to
-/// it, by fold.
-pub(super) static UNFOLD: &[(&[u32], &[u32])] = &[${folds.map(([fold, chars]) => `(${list(fold)}, ${list(chars)})`).join(", ")}];
+  /// Every fold of more than one character, with the characters that fold to
+  /// it, by fold.
+  pub(super) static UNFOLD: &[(&[u32], &[u32])] = &[${folds.map(([fold, chars]) => `(${list(fold)}, ${list(chars)})`).join(", ")}];
 
-/// A value per byte.
-/// Some bytes start the UTF-8 form of a character beyond ASCII that a fold of
-/// more than one character involves.
-/// Such a byte holds one more than the index of its group in [\`WIDE_TAILS\`].
-/// Every other byte holds 0.
-pub(super) static WIDE_LEAD: [u8; 256] = [${wideLead.join(", ")}];
+  /// A value per byte.
+  /// Some bytes start the UTF-8 form of a character beyond ASCII that a fold of
+  /// more than one character involves.
+  /// Such a byte holds one more than the index of its group in [\`WIDE_TAILS\`].
+  /// Every other byte holds 0.
+  pub(super) static WIDE_LEAD: [u8; 256] = [${wideLead.join(", ")}];
 
-/// Per first byte of [\`WIDE_LEAD\`], the second bytes its characters can
-/// have, as a bit per value of the second byte's low six bits.
-pub(super) static WIDE_SECOND: &[u64] = &[${wideSecond.map((mask) => `0x${mask.toString(16).replace(/\B(?=(?:[0-9a-f]{4})+$)/g, "_")}`).join(", ")}];
+  /// Per first byte of [\`WIDE_LEAD\`], the second bytes its characters can
+  /// have, as a bit per value of the second byte's low six bits.
+  pub(super) static WIDE_SECOND: &[u64] = &[${wideSecond.map((mask) => `0x${mask.toString(16).replace(/\B(?=(?:[0-9a-f]{4})+$)/g, "_")}`).join(", ")}];
 
-/// Per first byte of [\`WIDE_LEAD\`], the bytes after it of each such
-/// character, ascending: the second byte of a two-byte form, or the second
-/// and third of a three-byte form as one number, the second high.
-pub(super) static WIDE_TAILS: &[&[u16]] = &[${wideTails.map((tails) => list(tails)).join(", ")}];
-`;
+  /// Per first byte of [\`WIDE_LEAD\`], the bytes after it of each such
+  /// character, ascending: the second byte of a two-byte form, or the second
+  /// and third of a three-byte form as one number, the second high.
+  pub(super) static WIDE_TAILS: &[&[u16]] = &[${wideTails.map((tails) => list(tails)).join(", ")}];
+  `;
 writeFileSync(output, source);
 console.log(
   `${candidates.length} candidates, ${orbits.size} orbits, ${next.length} members, largest ${largest}; ` +

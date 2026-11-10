@@ -2,6 +2,7 @@
 import { expect, test } from "bun:test";
 
 import { hunks, pushes, split } from "./traces.ts";
+import { dedent } from "../oracle/dedent.ts";
 
 test("an added line whose text starts with ++ stays in its hunk", () => {
   const diff = ["diff --git a/x b/x", "--- a/x", "+++ b/x", "@@ -2,0 +3,2 @@", "++= 1", "+++ y", ""].join("\n");
@@ -18,7 +19,10 @@ test("a last row with no line feed ends the header without looping", () => {
 });
 
 test("a header that no row ends is an error, not a loop", () => {
-  expect(() => split("origin edits\nlanguage rust\n", /^base \d+$/)).toThrow("the trace has no body");
+  expect(() => split(dedent`
+    origin edits
+    language rust
+    `, /^base \d+$/)).toThrow("the trace has no body");
 });
 
 test("a body that starts on the last row, with no line feed, is found", () => {
@@ -29,23 +33,38 @@ test("a body that starts on the last row, with no line feed, is found", () => {
 
 test("deltas that add up to the source make its pushes", () => {
   const bytes = new TextEncoder().encode("aé");
-  expect(pushes("t", bytes, "deltas\n1 2\n")).toEqual([{ push: "a" }, { push: "é" }]);
+  expect(pushes("t", bytes, dedent`
+    deltas
+    1 2
+    `)).toEqual([{ push: "a" }, { push: "é" }]);
 });
 
 test("deltas short of the source are an error", () => {
   const bytes = new TextEncoder().encode("abc");
-  expect(() => pushes("t", bytes, "deltas\n1 1\n")).toThrow("t: the deltas do not add up to the source");
+  expect(() => pushes("t", bytes, dedent`
+    deltas
+    1 1
+    `)).toThrow("t: the deltas do not add up to the source");
 });
 
 test("a delta past the source is an error", () => {
   const bytes = new TextEncoder().encode("abc");
-  expect(() => pushes("t", bytes, "deltas\n2 2\n")).toThrow("t: a delta is not a length or runs past the source");
+  expect(() => pushes("t", bytes, dedent`
+    deltas
+    2 2
+    `)).toThrow("t: a delta is not a length or runs past the source");
 });
 
 test("a delta that usize::parse refuses is an error, as in the Rust reader", () => {
   const bytes = new TextEncoder().encode("abc");
-  expect(pushes("t", bytes, "deltas\n+3\n")).toEqual([{ push: "abc" }]);
+  expect(pushes("t", bytes, dedent`
+    deltas
+    +3
+    `)).toEqual([{ push: "abc" }]);
   for (const delta of ["0x3", "0b11", "3e0", "3.0", "-3", "++3"]) {
-    expect(() => pushes("t", bytes, `deltas\n${delta}\n`)).toThrow("t: a delta is not a length or runs past the source");
+    expect(() => pushes("t", bytes, dedent`
+      deltas
+      ${delta}
+      `)).toThrow("t: a delta is not a length or runs past the source");
   }
 });

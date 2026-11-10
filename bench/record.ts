@@ -24,6 +24,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from "node:f
 import { availableParallelism, release } from "node:os";
 import { join } from "node:path";
 import { parseArgs } from "node:util";
+import { dedent } from "../oracle/dedent.ts";
 
 export const SCHEMA = 1;
 
@@ -224,10 +225,13 @@ async function main(): Promise<void> {
   const cold = bins.get("cold");
   if (!throughput || !styling || !latency || !cold) throw new Error("the bench workspace built without one of its programs");
 
-  let raw = `commit ${commit}\nstarted ${started.toISOString()}\n`;
+  let raw = dedent`
+    commit ${commit}
+    started ${started.toISOString()}
+    `;
   const run = async (title: string, command: string[]): Promise<string> => {
     const output = await $`${command}`.env(env).text();
-    raw += `\n## ${title}\n\n${output}`;
+    raw += ["", `## ${title}`, "", output].join("\n");
     return output;
   };
   const anchor = async (baseline: string): Promise<number> => {
