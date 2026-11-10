@@ -2,17 +2,25 @@
 
 ## Purpose
 
-Run Shiki's TextMate grammars with nishiki's own engine, with the contract of every other language and as fast as it can be made.
+Run the TextMate grammars a caller brings, such as Shiki's, with nishiki's own engine.
+Each runs with the contract of every other language, as fast as it can be made.
 
 ## Requirements
 
 ### Requirement: Output matches Shiki
 
-The engine SHALL give every non-whitespace byte of every oracle fixture of a language it runs the scope stack Shiki gives it.
+No language runs on the engine by default.
+It lexes the grammars a caller brings.
+The engine SHALL give every non-whitespace byte the scope stack Shiki gives it, for every grammar Shiki 4.6.0 bundles.
 
-#### Scenario: A grammar runs the oracle fixtures
+#### Scenario: The fidelity check runs every Shiki grammar
 
-- **WHEN** the engine lexes each oracle fixture of a language it runs
+- **WHEN** the Shiki fidelity check, `mise run check:fidelity`, loads each grammar Shiki 4.6.0 bundles through the public API and lexes its input
+- **THEN** no non-whitespace byte differs from Shiki's scopes
+
+#### Scenario: A test table runs the oracle fixtures
+
+- **WHEN** the engine's tests lex the oracle fixtures of a language with its test table, linked from the grammars in `tests/engine/grammars/`
 - **THEN** no non-whitespace byte differs from Shiki's scopes
 
 ### Requirement: Nothing is read or downloaded at run time
@@ -47,9 +55,11 @@ A test can then compare the two on the same lines.
 - **WHEN** a test lexes a fixture with a hand lexer and with the engine
 - **THEN** every line where their scope stacks differ is reported
 
-### Requirement: Speed is measured and bound
+### Requirement: Speed is measured
 
-The engine's per-line time on every oracle fixture SHALL meet `bench/targets.toml`, and each speed claim SHALL show its table before and after.
+The cost of loading a grammar SHALL be measured in a fresh process, by `mise run bench:cold`.
+It times `Grammar::from_json`, `Grammar::from_bytes` and the first `Highlighter::for_grammar`.
+Each speed claim SHALL show its table before and after.
 
 #### Scenario: A fast path is added
 
