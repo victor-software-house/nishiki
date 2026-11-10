@@ -30,19 +30,39 @@ Operator decisions, 2026-11-09:
 ### 1. One compiler, in Rust
 
 A Rust compiler turns a grammar's JSON into the engine's tables.
-It follows includes inside the grammar and interns scope names.
 It is written from scratch, with vscode-textmate's behaviour as the reference (invariant 1).
+It works in two steps.
 
-An include of another grammar stays a scope name in the compiled grammar.
-A compiled grammar therefore depends on no other grammar.
+`compile` reads one grammar into plain data.
 
-A linker resolves those names when a highlighter is built (operator, 2026-11-10).
+- Every rule object of the grammar is one rule, read once.
+- Includes stay names, both those of the grammar's own rules and those of other grammars.
+- A compiled grammar therefore depends on no other grammar.
+
+`link` resolves those names when a highlighter is built (operator, 2026-11-10).
 
 - It takes the root grammar and the caller's `Grammars` set.
+- It follows the includes from the root, depth first, and numbers each rule where it is first reached.
+- It interns patterns, scope names and lists.
 - It writes one flat table that the tokenizer runs as it runs any table.
 - It follows grammars that include each other once each, so they load in any order.
-- An include whose grammar the set lacks matches nothing, as `oracle/engine-tables.ts` drops it.
 - The tokenizer does not change, and keeps no set.
+
+Includes inside a grammar resolve when it is linked, not when it is compiled.
+vscode-textmate compiles a repository rule with the repositories in scope where the rule is first reached.
+With nested repositories, that place depends on the order the link visits rules in.
+
+An include of another grammar's scope resolves in this order (operator, 2026-11-10):
+
+1. a language lexed by hand that the caller names for hand-offs, even when the set holds its grammar;
+2. a grammar in the set;
+3. otherwise the rule is dropped, as `oracle/engine-tables.ts` drops it.
+
+With no languages named, they are every language lexed by hand whose grammar the set lacks.
+An include of one rule of another grammar, such as `source.ruby#escaped_char`, always resolves in the set.
+A named language's grammar then serves only such includes.
+
+The link reports which grammars of the set it read, for the cache of linked tables in decision 2.
 
 The run-time path and the build-script path both call the compiler.
 The TypeScript generator stays as its oracle.
