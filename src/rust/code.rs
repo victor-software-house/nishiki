@@ -336,7 +336,7 @@ impl Lexer<'_> {
         self.starts_with(i, b"r#")
             && ![&b"crate"[..], b"self", b"Self", b"super"]
                 .iter()
-                .any(|kw| self.starts_with(i + 2, kw))
+                .any(|keyword| self.starts_with(i + 2, keyword))
     }
 
     /// The end of `(r#)?[0-9A-Za-z_]+` at `i`.
@@ -634,14 +634,14 @@ impl Lexer<'_> {
             b"type" => Some((S::KwDeclType, S::EntTypeDecl)),
             _ => None,
         };
-        if let Some((kw, name_scope)) = declaration {
+        if let Some((keyword, name_scope)) = declaration {
             let name = self.blanks(self.word_end);
             let n = name + usize::from(self.at(name) == b'_');
             if name > self.word_end && self.at(n).is_ascii_uppercase() {
                 let end = self.skip(n, is_ascii_word);
                 if self.boundary(end) {
                     self.gap(p);
-                    self.tok(self.word_end, &[kw, S::StorageType]);
+                    self.tok(self.word_end, &[keyword, S::StorageType]);
                     self.tok(name, &[]);
                     self.tok(end, &[name_scope]);
                     return Some(end);

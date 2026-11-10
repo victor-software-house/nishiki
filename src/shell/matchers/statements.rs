@@ -6,7 +6,7 @@ use crate::shell::engine::{Lazy, Lexer};
 use crate::shell::scope::S;
 use crate::shell::state::Rule;
 
-/// What `normal_statement` refuses to open before, as `kw\W`.
+/// What `normal_statement` refuses to open before, as `keyword\W`.
 const STATEMENT_KEYWORDS: &[&[u8]] = &[
     b"nocorrect",
     b"function",
@@ -34,7 +34,8 @@ const STATEMENT_KEYWORDS: &[&[u8]] = &[
     b"if",
 ];
 
-/// What `command_statement` refuses to open before, as `kw `, `kw\t`, `kw$`.
+/// What `command_statement` refuses to open before, as `keyword `, `keyword\t`,
+/// `keyword$`.
 const COMMAND_KEYWORDS: &[&[u8]] = &[
     b"nocorrect",
     b"readonly",
@@ -145,11 +146,11 @@ impl Lexer<'_> {
         if p == 0 && self.at_eol(self.blanks(0)) {
             return None;
         }
-        let after_keyword = BLOCK_KEYWORDS.iter().any(|kw| {
-            let l = kw.len();
+        let after_keyword = BLOCK_KEYWORDS.iter().any(|keyword| {
+            let l = keyword.len();
             p > l
                 && self.s.get(p - 1..p) == Some(b" ")
-                && self.s.get(p - 1 - l..p - 1) == Some(*kw)
+                && self.s.get(p - 1 - l..p - 1) == Some(*keyword)
                 && (p - 1 - l == 0 || matches!(self.s[p - 2 - l], b' ' | b'\t'))
         });
         let after_mark = self
@@ -159,8 +160,10 @@ impl Lexer<'_> {
             return None;
         }
         let j = self.blanks(p);
-        let blocked = STATEMENT_KEYWORDS.iter().any(|kw| {
-            self.starts(j, kw) && self.avail(j + kw.len()) && !self.word_at(j + kw.len())
+        let blocked = STATEMENT_KEYWORDS.iter().any(|keyword| {
+            self.starts(j, keyword)
+                && self.avail(j + keyword.len())
+                && !self.word_at(j + keyword.len())
         });
         if blocked { None } else { Some(j) }
     }
@@ -191,9 +194,9 @@ impl Lexer<'_> {
         ) {
             return None;
         }
-        let blocked = COMMAND_KEYWORDS.iter().any(|kw| {
-            let e = j + kw.len();
-            self.starts(j, kw)
+        let blocked = COMMAND_KEYWORDS.iter().any(|keyword| {
+            let e = j + keyword.len();
+            self.starts(j, keyword)
                 && (self.at_eol(e) || (self.avail(e) && matches!(self.at(e), b' ' | b'\t')))
         });
         if blocked || (c == b'\\' && j + 1 == self.lim) {

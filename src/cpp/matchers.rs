@@ -491,7 +491,7 @@ impl Lexer<'_> {
             Rx::CommentsAt0At6 => self.doc_decl(p),
             Rx::CommentsAt0At8 => self.doc_text(p),
             Rx::CommentsAt0At9 => self.doc_block(p),
-            Rx::CommentsAt0At7 => self.doc_param(p),
+            Rx::CommentsAt0At7 => self.doc_parameter(p),
             Rx::MethodAccessCapture13At1 => self.object_operator(p, OperatorAt::AfterObject),
             Rx::MethodAccessCapture13At0 => self.object_operator(p, OperatorAt::Before),
             Rx::MethodAccess => self.method_access(p),

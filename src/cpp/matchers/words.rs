@@ -338,12 +338,12 @@ impl Lexer<'_> {
         }
     }
 
-    /// `(?<!\w)typedef(?!\w)` as group 1, white space, and `kw` ahead as a
+    /// `(?<!\w)typedef(?!\w)` as group 1, white space, and `keyword` ahead as a
     /// whole word.
-    pub(super) fn typedef_before(&mut self, p: usize, kw: &[u8]) -> Option<usize> {
+    pub(super) fn typedef_before(&mut self, p: usize, keyword: &[u8]) -> Option<usize> {
         let end = self.word_lit(p, b"typedef")?;
         let q = self.skip_space(end);
-        self.word_lit(q, kw)?;
+        self.word_lit(q, keyword)?;
         self.capture(1, p, end);
         Some(q)
     }
@@ -380,7 +380,7 @@ impl Lexer<'_> {
             .or_else(|| tail(self, word))
     }
 
-    /// `(?<!\w)(?:struct|class|union|enum)(?!\w)` and its kin are `kw_in`;
+    /// `(?<!\w)(?:struct|class|union|enum)(?!\w)` and its kin are `word_in`;
     /// `[A-Z]+:` and the like are in `basic`.
     pub(super) fn static_assert_comma(&mut self, p: usize) -> Option<usize> {
         if self.at(p) != b',' || p >= self.lim() {

@@ -263,7 +263,7 @@ impl Lexer<'_> {
     /// (\s+((?<!\w)ID(?!\w))(?:(,)\s+{0,1}((?<!\w)ID(?!\w)))*)`.
     ///
     /// The optional direction, `[in]` or `[in, out]`.
-    pub(super) fn doc_param(&mut self, p: usize) -> Option<usize> {
+    pub(super) fn doc_parameter(&mut self, p: usize) -> Option<usize> {
         let before_ok = self
             .ch_before(p)
             .is_some_and(|c| matches!(c, '!' | '*' | '/') || is_space(c));

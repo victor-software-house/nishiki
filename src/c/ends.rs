@@ -54,26 +54,34 @@ impl Lexer<'_> {
             return false;
         }
         let k = self.skip_space(q + 1);
-        let hit = ["elif", "else", "endif"]
-            .iter()
-            .any(|kw| self.starts(k, kw.as_bytes()) && self.word_at(k + kw.len()) == 0);
+        let hit = ["elif", "else", "endif"].iter().any(|keyword| {
+            self.starts(k, keyword.as_bytes()) && self.word_at(k + keyword.len()) == 0
+        });
         hit && self.end_at(p, p, None)
     }
 
     /// `(?=^\s*((#)\s*KEYWORD)\b)`: a directive at the start of the line.
-    fn end_look(&mut self, p: usize, kws: &[&str]) -> bool {
-        self.directive(p, kws).is_some() && self.end_at(p, p, None)
+    fn end_look(&mut self, p: usize, keywords: &[&str]) -> bool {
+        self.directive(p, keywords).is_some() && self.end_at(p, p, None)
     }
 
     /// `^\s*((#)\s*endif)\b`, with the directive's captures.
     fn end_endif(&mut self, p: usize) -> bool {
-        let Some(dir) = self.directive(p, &["endif"]) else {
+        let Some(directive) = self.directive(p, &["endif"]) else {
             return false;
         };
-        self.span(0, dir.kw.1, scopes![S::MetaPreprocessor]);
-        self.span(dir.hash, dir.kw.1, scopes![S::DirectiveConditional]);
-        self.span(dir.hash, dir.hash + 1, scopes![S::PunctDirective]);
-        self.end_at(0, dir.kw.1, None)
+        self.span(0, directive.keyword.1, scopes![S::MetaPreprocessor]);
+        self.span(
+            directive.hash,
+            directive.keyword.1,
+            scopes![S::DirectiveConditional],
+        );
+        self.span(
+            directive.hash,
+            directive.hash + 1,
+            scopes![S::PunctDirective],
+        );
+        self.end_at(0, directive.keyword.1, None)
     }
 
     /// `}|(?=\s*#\s*e(?:lif|lse|ndif)\b)` and the macro variants.
@@ -219,7 +227,7 @@ impl Lexer<'_> {
             | Rule::EnabledBodyBlock => self.end_look(p, &["else", "elif", "endif"]),
             Rule::Nest => self
                 .directive(p, &["endif"])
-                .is_some_and(|dir| self.end_at(0, dir.kw.1, None)),
+                .is_some_and(|directive| self.end_at(0, directive.keyword.1, None)),
             Rule::Switch => {
                 (self.after_close(p)
                     || (matches!(self.b(p), b']' | b';' | b'=' | b'>' | b'[')
