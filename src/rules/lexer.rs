@@ -528,6 +528,11 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Opens the rules of `state`, from its root down.
+    ///
+    /// The bottom frame keeps the rule its state names.
+    /// That is the grammar's root, except for an entry rule.
+    /// A language that embeds this one can start its text in such a rule.
+    /// The entry rule then runs at the root, with the line's halts.
     fn open_frames(&mut self, state: u32, chain: &mut Vec<(u32, crate::arena::Frame)>) {
         // The open rules of `state`, from its root down.
         chain.clear();
@@ -553,7 +558,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                         .unwrap_or(id);
                 }
                 self.frames.push(Frame {
-                    rule: G::ROOT,
+                    rule: G::rule_from_code(frame.rule),
                     enter: None,
                     anchor: None,
                     name: frame.stack,
