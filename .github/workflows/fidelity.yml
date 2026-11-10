@@ -4,7 +4,7 @@ name: Shiki fidelity
 # check:fidelity): Shiki's sample, or a stand-in for the four languages Shiki
 # has no sample for. It fails when any non-whitespace byte gets other scopes
 # than Shiki gives it. The grammars come from Shiki's npm packages, which
-# oracle/bun.lock pins. The inputs come from one pinned commit of the public
+# the root bun.lock pins. The inputs come from one pinned commit of the public
 # nishiki-sources mirror (oracle/AGENTS.md rule 9). Nothing from either is
 # committed here. The job summary holds a row per language, with its first
 # differing byte.

@@ -2,6 +2,7 @@
 #MISE description="Compare nishiki with syntect, tree-sitter-highlight, Shiki and Pierre on the benchmark corpus"
 #MISE tools={bun="1.4.4"}
 #MISE env={CARGO_TARGET_DIR = "target/compare"}
+#MISE depends=["check:bun-lockfile"]
 # Not part of verify, because timings depend on the machine.
 # The comparators also build C (bench/compare/README.md).
 # It writes Shiki's reference colours and github-dark as a Zed theme for

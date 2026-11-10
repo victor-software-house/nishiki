@@ -1,9 +1,11 @@
 {
-  "name": "nishiki-oracle",
+  "name": "nishiki-scripts",
   "private": true,
   "dependencies": {
+    "@pierre/highlights": "0.4.0",
     "@shikijs/engine-oniguruma": "4.6.0",
     "@shikijs/langs": "4.6.0",
+    "@shikijs/stream": "4.6.0",
     "shiki": "4.6.0"
   }
 }

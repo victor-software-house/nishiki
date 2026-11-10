@@ -31,11 +31,11 @@ Rules for the Shiki oracle, beside the root guide's invariants.
      Fidelity covers text being edited.
      A waiver is only for a unit no document can reach.
 7. Scripts are TypeScript run by Bun, with each import pinned to an exact version, such as `shiki@4.6.0`.
-   - [`package.json`](package.json) names each package the scripts import, at that version.
-   - [`bun.lock`](bun.lock) pins every package below them, such as Shiki's `@shikijs/vscode-textmate ^10.1.0`.
-     Bun's auto-install reads it, with no `node_modules`.
-   - A version change edits the imports and `package.json`, then runs `bun install --cwd oracle --lockfile-only`.
-   - `mise run check:oracle-lockfile` fails when the two differ; `oracle` and `oracle:fidelity` run it first.
+   - The repository's [`package.json`](../package.json) names each package any script imports, at that version.
+   - [`bun.lock`](../bun.lock) pins every package below them, such as Shiki's `@shikijs/vscode-textmate ^10.1.0`.
+     Bun's auto-install reads it for every script in the repository, with no `node_modules`.
+   - A new import or a version change edits the imports and `package.json`, then runs `bun install --lockfile-only` at the root.
+   - `mise run check:bun-lockfile` fails when the two differ; `oracle` and `oracle:fidelity` run it first.
 8. [`grammars.ts`](grammars.ts) makes one edit to Shiki's grammars, and no other.
    - In C++'s `string_context`, a rule whose patterns include only grammars the oracle leaves out keeps its match with no patterns inside.
    - vscode-textmate skips such a rule.
