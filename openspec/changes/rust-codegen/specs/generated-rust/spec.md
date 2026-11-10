@@ -49,7 +49,7 @@ It SHALL NOT call the system rustfmt.
 
 Moving a language from its script to the Rust writer SHALL leave each generated file's tokens unchanged, doc comments included.
 A first-byte start set MAY differ when the pull request lists it with its Identity result and its Callgrind rows.
-A generated name MAY change where the script's name breaks the naming rules; `codegen --compare` maps it by pattern id.
+A generated name MAY change to the name design section 8.4 derives; `codegen --compare` maps it by pattern id.
 
 #### Scenario: A family moves
 
@@ -67,6 +67,7 @@ A generated name MAY change where the script's name breaks the naming rules; `co
 
 Each generated identifier SHALL follow `CODING_STANDARDS.md` rule 3.9 and SHALL stay within 40 characters.
 The writer SHALL tell two equal names apart by the nearest enclosing repository key where their paths differ.
+Where no enclosing key differs, it SHALL add each pattern's place in its pattern list as a suffix.
 It SHALL NOT append a pattern's whole path.
 
 #### Scenario: Swift moves to the writer
@@ -79,3 +80,18 @@ It SHALL NOT append a pattern's whole path.
 
 - **WHEN** a derived name passes 40 characters and the language's `RuleTables` gives none
 - **THEN** the writer fails and names the pattern id
+
+### Requirement: Generated names are unique and checked
+
+Every generated name SHALL be unique within its language, whether derived or given in the language's `names`.
+A `names` entry SHALL name a pattern the grammar has, and SHALL follow the same naming rules.
+
+#### Scenario: Two patterns take the same name
+
+- **WHEN** two patterns end with the same name, derived or from `names`
+- **THEN** the writer fails and names both pattern ids
+
+#### Scenario: A names entry is stale or breaks the rules
+
+- **WHEN** a `names` entry names a pattern the grammar lacks, breaks rule 3.9, or passes 40 characters
+- **THEN** the writer fails and names that entry
