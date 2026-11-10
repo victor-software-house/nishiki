@@ -42,6 +42,7 @@ description = "Every offline check this repository runs"
 depends = [
   "check:toolchain",
   "format",
+  "format:ts",
   "lint",
   "check:features",
   "check:size",

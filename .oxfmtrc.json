@@ -1,0 +1,24 @@
+{
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "quoteProps": "as-needed",
+  "trailingComma": "all",
+  "semi": true,
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "ignorePatterns": [
+    "*.md",
+    "*.mdx",
+    "*.yml",
+    "*.yaml",
+    "*.toml",
+    "*.html",
+    "*.json",
+    "bench/corpus/**",
+    "oracle/inputs/**",
+    "tests/**"
+  ]
+}
