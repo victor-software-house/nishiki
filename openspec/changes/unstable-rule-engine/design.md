@@ -105,13 +105,21 @@ The rise sat in functions the change did not touch, around their calls to the ar
 | HCL | `hcl::Lexer::tok_at` | 558,124 | 585,469 |
 | HCL | `hcl::Lexer::tok` | 413,406 | 437,724 |
 
-`rules::syntax` and `rules::lex_with` therefore compile only with the cfg and in their test.
-The build without the cfg makes the same calls as before.
+`rules::syntax` and `rules::lex_with` therefore compile only with the cfg and in their test ([#727][pr727]).
+The build without the cfg, which Callgrind gates, makes the same calls as before.
 
-A build with the cfg still pays the GOT calls in every language.
-Task 1.3 removes that cost.
-Its proof is 550 and 196 direct calls in both builds, and Callgrind rows at or below 1.000 against the base.
+A build with the cfg still pays the GOT calls in every language: up to 0.65% in the lexing pass, as measured on [#724][pr724].
+nishiki accepts that cost.
+Only a caller who opts in to the semver-exempt cfg builds it.
 
+No code shape on stable rustc removes it without moving the build without the cfg ([research note][exports-note]).
+rustc emits a plain `R_X86_64_GOTPCREL` for each call to an exported function, and the linker cannot make that call direct.
+Two nightly flags fix it, `-Zrelax-elf-relocations=yes` and `-Zdefault-visibility=hidden`.
+Task 1.3 waits for stable rustc to do either by default.
+
+[exports-note]: ../../research/2026-11-10-rule-syntax-exports.md
+[pr724]: https://github.com/victor-software-house/nishiki-archive/pull/724
+[pr727]: https://github.com/victor-software-house/nishiki-archive/pull/727
 [proposal]: proposal.md
 [tokio-cfg-macro]: https://github.com/tokio-rs/tokio/blob/d6102c7e0a97b939c23d056122490faf777d2875/tokio/src/macros/cfg.rs#L278-L286
 [tokio-check-cfg]: https://github.com/tokio-rs/tokio/blob/d6102c7e0a97b939c23d056122490faf777d2875/Cargo.toml#L28-L38
