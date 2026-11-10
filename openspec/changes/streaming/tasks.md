@@ -40,7 +40,7 @@ Crate slices run the oracle, Identity and Callgrind workflows; none may change o
 
 ## 3. `Document`: appends
 
-- [x] 3.1 `Document` with `push`, `push_str`, `finish`, `lex`, `take_changes`, `line` and `LineKind`.
+- [x] 3.1 `Document` with `push`, `push_str`, `finish`, `lex`, `take_changes`, `line` and `Freshness`.
   → verify: a test streams every oracle fixture in token-sized deltas and in random byte splits, including splits inside characters.
   It finds every line's tokens equal to one-shot lexing.
 

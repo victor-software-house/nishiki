@@ -106,12 +106,12 @@
 //!   is lexed again on each delta.
 //!
 //! A later line never changes an earlier one, so a completed line is final.
-//! The last line is [`LineKind::Provisional`] until [`Document::finish`].
+//! The last line is [`Freshness::Provisional`] until [`Document::finish`].
 //! Its last token can still change, as `in` becomes `int`. Showing the bytes
 //! from its `stable` offset in the default colour avoids most flicker.
 //!
 //! ```
-//! use nishiki::{Document, Language, LineKind, Theme, ThemeSource, Until};
+//! use nishiki::{Document, Freshness, Language, Theme, ThemeSource, Until};
 //!
 //! let mut document = Document::new(Language::Rust, Theme::new(ThemeSource::default()));
 //! let mut redrawn = Vec::new();
@@ -124,19 +124,19 @@
 //! }
 //! assert_eq!(redrawn, [0, 0, 0, 1, 1]);
 //! assert_eq!(
-//!     document.line(0).map(|line| line.kind()),
-//!     Some(LineKind::Exact)
+//!     document.line(0).map(|line| line.freshness()),
+//!     Some(Freshness::Exact)
 //! );
 //! assert!(matches!(
-//!     document.line(1).map(|line| line.kind()),
-//!     Some(LineKind::Provisional { .. })
+//!     document.line(1).map(|line| line.freshness()),
+//!     Some(Freshness::Provisional { .. })
 //! ));
 //!
 //! document.finish();
 //! document.lex(Until::End);
 //! assert_eq!(
-//!     document.line(1).map(|line| line.kind()),
-//!     Some(LineKind::Exact)
+//!     document.line(1).map(|line| line.freshness()),
+//!     Some(Freshness::Exact)
 //! );
 //! if let Some(line) = document.line(1) {
 //!     let ends: Vec<usize> = line.styled().map(|(end, _style)| end).collect();
@@ -542,7 +542,7 @@ mod yaml;
 mod zig;
 
 pub use arena::Scopes;
-pub use document::{Changes, Document, DocumentLine, EditError, LineKind, Tail, Until};
+pub use document::{Changes, Document, DocumentLine, EditError, Freshness, Tail, Until};
 #[cfg(feature = "textmate")]
 pub use grammar::{Grammar, GrammarError, Grammars};
 pub use highlighter::{Highlighter, Syntax};
@@ -550,7 +550,7 @@ pub use language::Language;
 pub use limits::{Budget, Limit, Limits, LineReport, Work};
 #[cfg(feature = "json")]
 pub use theme::ThemeError;
-pub use theme::{Color, FontStyle, RuleScope, Style, Theme, ThemeKind, ThemeRule, ThemeSource};
+pub use theme::{Color, ColorScheme, FontStyle, RuleScope, Style, Theme, ThemeRule, ThemeSource};
 
 /// The README's example, compiled and run as a doctest.
 #[cfg(doctest)]

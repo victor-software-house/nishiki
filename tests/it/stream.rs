@@ -4,7 +4,7 @@
 //! The fixtures are Shiki's output for the whole text, so a document whose
 //! final lines match them matches Shiki however its deltas were cut.
 
-use nishiki::{Document, Language, LineKind, Tail, Theme, ThemeSource, Until};
+use nishiki::{Document, Freshness, Language, Tail, Theme, ThemeSource, Until};
 
 use crate::oracle::{Line, Tokens, compare, every_language, fixtures, parse, report};
 
@@ -24,7 +24,7 @@ enum Cut {
     Deferred,
 }
 
-/// What kind of character `c` is, for cutting token-sized deltas.
+/// What class of character `c` is, for cutting token-sized deltas.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Class {
     Word,
@@ -143,10 +143,10 @@ fn stream_failures(language: Language) -> Vec<String> {
             }
             for index in 0..document.line_count() {
                 let line = document.line(index);
-                let kind = line.map(|line| line.kind());
+                let freshness = line.map(|line| line.freshness());
                 assert_eq!(
-                    kind,
-                    Some(LineKind::Exact),
+                    freshness,
+                    Some(Freshness::Exact),
                     "{}: {cut:?} line {}",
                     path.display(),
                     index + 1
@@ -418,8 +418,8 @@ fn a_reset_lexes_again_from_a_fresh_highlighter() {
     document.lex(Until::End);
     document.reset();
     assert_eq!(
-        document.line(0).map(|line| line.kind()),
-        Some(LineKind::Stale)
+        document.line(0).map(|line| line.freshness()),
+        Some(Freshness::Stale)
     );
     document.lex(Until::End);
     let mut fresh = nishiki::Highlighter::new_with_limits(Language::Rust, limits);
@@ -445,16 +445,16 @@ fn a_push_after_finish_opens_the_document_again() {
         document.finish();
         document.lex(Until::End);
         assert_eq!(
-            document.line(0).map(|line| line.kind()),
-            Some(LineKind::Exact)
+            document.line(0).map(|line| line.freshness()),
+            Some(Freshness::Exact)
         );
         let _ = document.take_changes();
         document.push(delta);
         document.lex(Until::End);
         assert!(
             matches!(
-                document.line(0).map(|line| line.kind()),
-                Some(LineKind::Provisional { .. })
+                document.line(0).map(|line| line.freshness()),
+                Some(Freshness::Provisional { .. })
             ),
             "after {delta:?}"
         );
@@ -514,13 +514,13 @@ fn a_deferred_lex_reports_the_last_line_changed() {
     document.push_str("s");
     assert!(document.take_changes().is_some());
     assert_eq!(
-        document.line(0).map(|line| line.kind()),
-        Some(LineKind::Stale)
+        document.line(0).map(|line| line.freshness()),
+        Some(Freshness::Stale)
     );
     document.lex(Until::End);
     assert!(matches!(
-        document.line(0).map(|line| line.kind()),
-        Some(LineKind::Provisional { .. })
+        document.line(0).map(|line| line.freshness()),
+        Some(Freshness::Provisional { .. })
     ));
     assert_eq!(
         document
