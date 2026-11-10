@@ -8,7 +8,7 @@ use crate::scope::{Scopes, scopes};
 /// The words a Doxygen command may be, in the order the grammar lists them.
 /// Each entry of a list stands for one alternative.
 /// `em??` is `e` then `em`.
-pub(super) const DOXY_BARE: &[&str] = &[
+pub(super) const DOXYGEN_BARE: &[&str] = &[
     "callergraph",
     "callgraph",
     "else",
@@ -49,7 +49,7 @@ pub(super) const DOXY_BARE: &[&str] = &[
     "---",
 ];
 
-pub(super) const DOXY_A: &[&str] = &[
+pub(super) const DOXYGEN_A: &[&str] = &[
     "a",
     "anchor",
     "b",
@@ -88,7 +88,7 @@ pub(super) const DOXY_A: &[&str] = &[
     "verbinclude",
 ];
 
-pub(super) const DOXY_B: &[&str] = &[
+pub(super) const DOXYGEN_B: &[&str] = &[
     "addindex",
     "addtogroup",
     "category",
@@ -129,7 +129,7 @@ pub(super) const DOXY_B: &[&str] = &[
     "weakgroup",
 ];
 
-pub(super) const DOXY_C: &[&str] = &[
+pub(super) const DOXYGEN_C: &[&str] = &[
     "arg",
     "attention",
     "author",
@@ -168,7 +168,7 @@ pub(super) const DOXY_C: &[&str] = &[
     "xrefitem",
 ];
 
-pub(super) const DOXY_D: &[&str] = &[
+pub(super) const DOXYGEN_D: &[&str] = &[
     "code",
     "cond",
     "docbookonly",
@@ -409,7 +409,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<=[!*/\s])[@\\]`: where a Doxygen command starts.
-    fn doxy_lead(&self, p: usize) -> Option<usize> {
+    fn doxygen_lead(&self, p: usize) -> Option<usize> {
         if !matches!(self.b(p), b'@' | b'\\') || p >= self.len_all() {
             return None;
         }
@@ -425,7 +425,7 @@ impl Lexer<'_> {
     }
 
     /// The first of `list` that is at `q` and followed by `\b`.
-    fn doxy_word(&self, q: usize, list: &[&str]) -> Option<usize> {
+    fn doxygen_word(&self, q: usize, list: &[&str]) -> Option<usize> {
         list.iter().find_map(|word| {
             let end = q + word.len();
             (self.starts(q, word.as_bytes()) && self.boundary(end)).then_some(end)
@@ -433,7 +433,7 @@ impl Lexer<'_> {
     }
 
     /// `(?:\{[^}]*})?` after a command.
-    fn doxy_braces(&self, q: usize) -> usize {
+    fn doxygen_braces(&self, q: usize) -> usize {
         if self.b(q) != b'{' || q >= self.len_all() {
             return q;
         }
@@ -446,20 +446,20 @@ impl Lexer<'_> {
     }
 
     /// A command that is one of `list`, as a plain match.
-    pub(super) fn doxy_plain(&mut self, p: usize, list: &[&str]) -> bool {
-        let Some(q) = self.doxy_lead(p) else {
+    pub(super) fn doxygen_plain(&mut self, p: usize, list: &[&str]) -> bool {
+        let Some(q) = self.doxygen_lead(p) else {
             return false;
         };
-        let Some(end) = self.doxy_word(q, list) else {
+        let Some(end) = self.doxygen_word(q, list) else {
             return false;
         };
-        let end = self.doxy_braces(end);
+        let end = self.doxygen_braces(end);
         self.plain(p, end)
     }
 
     /// A command of `words`, whitespace and the argument that follows.
-    pub(super) fn doxy_arg(&mut self, p: usize, words: &[&str], scope: Scopes<S>) -> bool {
-        let Some(cmd) = self.doxy_lead(p) else {
+    pub(super) fn doxygen_argument(&mut self, p: usize, words: &[&str], scope: Scopes<S>) -> bool {
+        let Some(cmd) = self.doxygen_lead(p) else {
             return false;
         };
         for word in words {
@@ -488,23 +488,23 @@ impl Lexer<'_> {
 
     /// `((?<=[!*/\s])[@\\]param)(?:\s*\[((?:,?\s*(?:in|out)\s*)+)])?\s+\b(\w+)\
     /// b`.
-    pub(super) fn doxy_param(&mut self, p: usize) -> bool {
-        let Some(q) = self.doxy_lead(p) else {
+    pub(super) fn doxygen_parameter(&mut self, p: usize) -> bool {
+        let Some(q) = self.doxygen_lead(p) else {
             return false;
         };
         if !self.starts(q, b"param") {
             return false;
         }
         let e = q + 5;
-        if let Some((open, close, after)) = self.param_directions(e)
-            && let Some((ws_end, word_end)) = self.param_name(after)
+        if let Some((open, close, after)) = self.parameter_directions(e)
+            && let Some((ws_end, word_end)) = self.parameter_name(after)
         {
             self.span(p, e, scopes![S::StorageDoxygen]);
             self.span_retok(open, close, S::NO_SCOPES, Rule::ParameterDirections);
             self.span(ws_end, word_end, scopes![S::VariableParameter]);
             return self.plain(p, word_end);
         }
-        let Some((ws_end, word_end)) = self.param_name(e) else {
+        let Some((ws_end, word_end)) = self.parameter_name(e) else {
             return false;
         };
         self.span(p, e, scopes![S::StorageDoxygen]);
@@ -514,7 +514,7 @@ impl Lexer<'_> {
 
     /// `\s*\[((?:,?\s*(?:in|out)\s*)+)]`: where the directions start and
     /// end, and where the bracket ends.
-    fn param_directions(&self, e: usize) -> Option<(usize, usize, usize)> {
+    fn parameter_directions(&self, e: usize) -> Option<(usize, usize, usize)> {
         let s = self.skip_space(e);
         if self.b(s) != b'[' || s >= self.len_all() {
             return None;
@@ -542,7 +542,7 @@ impl Lexer<'_> {
     }
 
     /// `\s+\b(\w+)\b`: where the word starts and ends.
-    fn param_name(&self, e: usize) -> Option<(usize, usize)> {
+    fn parameter_name(&self, e: usize) -> Option<(usize, usize)> {
         let s = self.skip_space(e);
         if s == e || self.word_at(s) == 0 {
             return None;
@@ -551,7 +551,7 @@ impl Lexer<'_> {
     }
 
     /// One of the words `in` and `out` in a direction list, named by it.
-    pub(super) fn param_dir(&mut self, p: usize) -> bool {
+    pub(super) fn parameter_direction(&mut self, p: usize) -> bool {
         for word in ["in", "out"] {
             if self.starts(p, word.as_bytes()) {
                 self.capture_dyn(

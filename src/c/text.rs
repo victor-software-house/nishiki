@@ -154,8 +154,8 @@ impl Lexer<'_> {
 
     // Hits.
 
-    /// A match from `start` to `end`. Its pattern's [`super::lists::P::act`]
-    /// says what it does and names it.
+    /// A match from `start` to `end`. Its pattern's
+    /// [`super::lists::Pattern::act`] says what it does and names it.
     pub(super) fn plain(&mut self, start: usize, end: usize) -> bool {
         self.x.start = start;
         self.x.end = end;

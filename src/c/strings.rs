@@ -128,14 +128,14 @@ impl Lexer<'_> {
         if self.b(p) != b'%' || p >= self.len_all() {
             return false;
         }
-        match self.ph_arg(p + 1) {
+        match self.placeholder_argument(p + 1) {
             Some(end) => self.plain(p, end),
             None => false,
         }
     }
 
     /// `\d+` from `i`: every end it can have, the longest first.
-    fn ph_digit_ends(
+    fn placeholder_digit_ends(
         &self,
         i: usize,
         mut then: impl FnMut(usize) -> Option<usize>,
@@ -161,15 +161,16 @@ impl Lexer<'_> {
     }
 
     /// `(\d+\$)?` and then the rest.
-    fn ph_arg(&self, i: usize) -> Option<usize> {
-        let with = self.ph_digit_ends(i, |end| {
-            (self.b(end) == b'$' && end < self.len_all()).then(|| self.ph_flags(end + 1))?
+    fn placeholder_argument(&self, i: usize) -> Option<usize> {
+        let with = self.placeholder_digit_ends(i, |end| {
+            (self.b(end) == b'$' && end < self.len_all())
+                .then(|| self.placeholder_flags(end + 1))?
         });
-        with.or_else(|| self.ph_flags(i))
+        with.or_else(|| self.placeholder_flags(i))
     }
 
     /// `[- #'+0]*` with the ends it can have, longest first.
-    fn ph_flags(&self, i: usize) -> Option<usize> {
+    fn placeholder_flags(&self, i: usize) -> Option<usize> {
         let mut max = i;
         while max < self.len_all()
             && matches!(self.b(max), b'-' | b' ' | b'#' | b'\'' | b'+' | b'0')
@@ -177,28 +178,28 @@ impl Lexer<'_> {
             max += 1;
         }
         self.spend(max - i);
-        (i..=max).rev().find_map(|end| self.ph_flag(end))
+        (i..=max).rev().find_map(|end| self.placeholder_flag(end))
     }
 
     /// `[,:;_]?`.
-    fn ph_flag(&self, i: usize) -> Option<usize> {
+    fn placeholder_flag(&self, i: usize) -> Option<usize> {
         if i < self.len_all()
             && matches!(self.b(i), b',' | b':' | b';' | b'_')
-            && let Some(end) = self.ph_width(i + 1, false)
+            && let Some(end) = self.placeholder_width(i + 1, false)
         {
             return Some(end);
         }
-        self.ph_width(i, false)
+        self.placeholder_width(i, false)
     }
 
     /// `((-?\d+)|\*(-?\d+\$)?)?` for the width, and the same after the dot
     /// for the precision, and then the rest.
-    fn ph_width(&self, i: usize, precision: bool) -> Option<usize> {
+    fn placeholder_width(&self, i: usize, precision: bool) -> Option<usize> {
         let rest = |end: usize| {
             if precision {
-                self.ph_length(end)
+                self.placeholder_length(end)
             } else {
-                self.ph_precision(end)
+                self.placeholder_precision(end)
             }
         };
         let signed = if self.b(i) == b'-' && i < self.len_all() {
@@ -206,12 +207,12 @@ impl Lexer<'_> {
         } else {
             i
         };
-        if let Some(end) = self.ph_digit_ends(signed, &rest) {
+        if let Some(end) = self.placeholder_digit_ends(signed, &rest) {
             return Some(end);
         }
         if self.b(i) == b'*' && i < self.len_all() {
             let star = i + 1;
-            let dollar = self.ph_digit_ends(
+            let dollar = self.placeholder_digit_ends(
                 if self.b(star) == b'-' && star < self.len_all() {
                     star + 1
                 } else {
@@ -230,34 +231,34 @@ impl Lexer<'_> {
     }
 
     /// `(\.((-?\d+)|\*(-?\d+\$)?)?)?`.
-    fn ph_precision(&self, i: usize) -> Option<usize> {
+    fn placeholder_precision(&self, i: usize) -> Option<usize> {
         if self.b(i) == b'.'
             && i < self.len_all()
-            && let Some(end) = self.ph_width(i + 1, true)
+            && let Some(end) = self.placeholder_width(i + 1, true)
         {
             return Some(end);
         }
-        self.ph_length(i)
+        self.placeholder_length(i)
     }
 
     /// `(hh?|ll|[Ljlqtz]|vh|vl?|hv|hl)?` and the conversion.
-    fn ph_length(&self, i: usize) -> Option<usize> {
+    fn placeholder_length(&self, i: usize) -> Option<usize> {
         const LENGTHS: &[&[u8]] = &[
             b"hh", b"h", b"ll", b"L", b"j", b"l", b"q", b"t", b"z", b"vh", b"vl", b"v", b"hv",
             b"hl",
         ];
         for length in LENGTHS {
             if self.starts(i, length)
-                && let Some(end) = self.ph_conversion(i + length.len())
+                && let Some(end) = self.placeholder_conversion(i + length.len())
             {
                 return Some(end);
             }
         }
-        self.ph_conversion(i)
+        self.placeholder_conversion(i)
     }
 
     /// `[%AC-GOSUXac-ginopsux]`.
-    fn ph_conversion(&self, i: usize) -> Option<usize> {
+    fn placeholder_conversion(&self, i: usize) -> Option<usize> {
         let ok = i < self.len_all()
             && matches!(
                 self.b(i),

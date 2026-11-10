@@ -21,7 +21,7 @@ const INT_SUFFIXES: &[&[u8]] = &[
 /// Whether an exponent is decimal, `e` and a power of ten, or hexadecimal,
 /// `p` and a power of two.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-enum Exp {
+enum Exponent {
     Decimal,
     Hex,
 }
@@ -58,10 +58,10 @@ const HEX_EXP: ExpScopes = ExpScopes {
 const UNIT_HEX: Scopes<S> = scopes![S::UnitHex];
 const UNIT_BINARY: Scopes<S> = scopes![S::UnitBinary];
 const UNIT_OCTAL: Scopes<S> = scopes![S::UnitOctal];
-const NUM_HEX: Scopes<S> = scopes![S::NumHex];
-const NUM_DECIMAL: Scopes<S> = scopes![S::NumDecimal];
-const NUM_BINARY: Scopes<S> = scopes![S::NumBinary];
-const NUM_OCTAL: Scopes<S> = scopes![S::NumOctal];
+const NUMBER_HEX: Scopes<S> = scopes![S::NumHex];
+const NUMBER_DECIMAL: Scopes<S> = scopes![S::NumDecimal];
+const NUMBER_BINARY: Scopes<S> = scopes![S::NumBinary];
+const NUMBER_OCTAL: Scopes<S> = scopes![S::NumOctal];
 const POINT: Scopes<S> = scopes![S::NumDecimalPoint];
 const SUFFIX_FLOAT: Scopes<S> = scopes![S::UnitSuffixFloat];
 const SUFFIX_INT: Scopes<S> = scopes![S::UnitSuffixInt];
@@ -121,7 +121,7 @@ impl Lexer<'_> {
     }
 
     /// Whether `i` holds `'` between two hex digits: `(?<=\h)'(?=\h)`.
-    pub(super) fn digit_sep(&self, i: usize) -> bool {
+    pub(super) fn digit_separator(&self, i: usize) -> bool {
         self.b(i) == b'\''
             && i + 1 < self.lim()
             && self.prev(i).is_some_and(|c| c.is_ascii_hexdigit())
@@ -140,7 +140,7 @@ impl Lexer<'_> {
     /// `(?:digit|SEP)*` from `i`.
     fn run_more(&self, i: usize, digit: fn(u8) -> bool) -> usize {
         let mut j = i;
-        while (j < self.lim() && digit(self.b(j))) || self.digit_sep(j) {
+        while (j < self.lim() && digit(self.b(j))) || self.digit_separator(j) {
             j += 1;
         }
         self.spend(j - i);
@@ -154,11 +154,11 @@ impl Lexer<'_> {
 
     /// `(?<!')([Pp])(\+?)(-?)([0-9](?:[0-9]|(?<=\h)'(?=\h))*)` at `i`, with
     /// `[Ee]` for a decimal exponent: where it ends.
-    fn exponent_end(&self, i: usize, exp: Exp) -> Option<usize> {
+    fn exponent_end(&self, i: usize, exponent: Exponent) -> Option<usize> {
         let c = self.b(i);
-        let lead = match exp {
-            Exp::Hex => matches!(c, b'P' | b'p'),
-            Exp::Decimal => matches!(c, b'E' | b'e'),
+        let lead = match exponent {
+            Exponent::Hex => matches!(c, b'P' | b'p'),
+            Exponent::Decimal => matches!(c, b'E' | b'e'),
         };
         if i >= self.lim() || !lead || self.prev(i) == Some(b'\'') {
             return None;
@@ -174,10 +174,10 @@ impl Lexer<'_> {
     }
 
     /// The captures of the exponent `i..end`.
-    fn exponent_spans(&mut self, i: usize, end: usize, exp: Exp) {
-        let scopes = match exp {
-            Exp::Hex => HEX_EXP,
-            Exp::Decimal => DECIMAL_EXP,
+    fn exponent_spans(&mut self, i: usize, end: usize, exponent: Exponent) {
+        let scopes = match exponent {
+            Exponent::Hex => HEX_EXP,
+            Exponent::Decimal => DECIMAL_EXP,
         };
         self.span(i, i + 1, scopes.unit);
         let mut j = i + 1;
@@ -220,11 +220,11 @@ impl Lexer<'_> {
 
     /// An exponent and then a suffix that ends the number, or a suffix
     /// alone.
-    fn exponent_tail(&mut self, i: usize, b: usize, exp: Exp, suffix: Suffix) -> bool {
-        if let Some(end) = self.exponent_end(i, exp)
+    fn exponent_tail(&mut self, i: usize, b: usize, exponent: Exponent, suffix: Suffix) -> bool {
+        if let Some(end) = self.exponent_end(i, exponent)
             && self.suffix(end, b, suffix).is_some()
         {
-            self.exponent_spans(i, end, exp);
+            self.exponent_spans(i, end, exponent);
             return self.tail(end, b, suffix);
         }
         self.tail(i, b, suffix)
@@ -238,7 +238,7 @@ impl Lexer<'_> {
         self.span(a, a + 2, UNIT_HEX);
         let mut i = a + 2;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_hexdigit()) {
-            self.capture_digits(i, end, NUM_HEX);
+            self.capture_digits(i, end, NUMBER_HEX);
             i = end;
         }
         let dot = i < self.lim()
@@ -248,13 +248,13 @@ impl Lexer<'_> {
         if !dot {
             return false;
         }
-        self.span(i, i + 1, NUM_HEX);
+        self.span(i, i + 1, NUMBER_HEX);
         i += 1;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_hexdigit()) {
-            self.capture_digits(i, end, NUM_HEX);
+            self.capture_digits(i, end, NUMBER_HEX);
             i = end;
         }
-        self.exponent_tail(i, b, Exp::Hex, Suffix::Float)
+        self.exponent_tail(i, b, Exponent::Hex, Suffix::Float)
     }
 
     /// The first character of the decimal patterns: `(?=[.0-9])(?!0[BXbx])`.
@@ -273,7 +273,7 @@ impl Lexer<'_> {
         }
         let mut i = a;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_digit()) {
-            self.capture_digits(i, end, NUM_DECIMAL);
+            self.capture_digits(i, end, NUMBER_DECIMAL);
             i = end;
         }
         let dot = i < self.lim()
@@ -286,10 +286,10 @@ impl Lexer<'_> {
         self.span(i, i + 1, POINT);
         i += 1;
         if let Some(end) = self.run_digits(i, |c| c.is_ascii_digit()) {
-            self.capture_digits(i, end, NUM_DECIMAL);
+            self.capture_digits(i, end, NUMBER_DECIMAL);
             i = end;
         }
-        self.exponent_tail(i, b, Exp::Decimal, Suffix::Float)
+        self.exponent_tail(i, b, Exponent::Decimal, Suffix::Float)
     }
 
     /// `\G(0[Bb])([01]…)(suffix(?!\w))?$`.
@@ -301,7 +301,7 @@ impl Lexer<'_> {
             return false;
         };
         self.span(a, a + 2, UNIT_BINARY);
-        self.capture_digits(a + 2, end, NUM_BINARY);
+        self.capture_digits(a + 2, end, NUMBER_BINARY);
         self.tail(end, b, Suffix::Int)
     }
 
@@ -315,7 +315,7 @@ impl Lexer<'_> {
             return false;
         }
         self.span(a, a + 1, UNIT_OCTAL);
-        self.capture_digits(a + 1, end, NUM_OCTAL);
+        self.capture_digits(a + 1, end, NUMBER_OCTAL);
         self.tail(end, b, Suffix::Int)
     }
 
@@ -328,8 +328,8 @@ impl Lexer<'_> {
             return false;
         };
         self.span(a, a + 2, UNIT_HEX);
-        self.capture_digits(a + 2, end, NUM_HEX);
-        self.exponent_tail(end, b, Exp::Hex, Suffix::Int)
+        self.capture_digits(a + 2, end, NUMBER_HEX);
+        self.exponent_tail(end, b, Exponent::Hex, Suffix::Int)
     }
 
     /// `\G(?=[.0-9])(?!0[BXbx])([0-9]…)(exponent)?(suffix(?!\w))?$`.
@@ -340,7 +340,7 @@ impl Lexer<'_> {
         let Some(end) = self.run_digits(a, |c| c.is_ascii_digit()) else {
             return false;
         };
-        self.capture_digits(a, end, NUM_DECIMAL);
-        self.exponent_tail(end, b, Exp::Decimal, Suffix::Int)
+        self.capture_digits(a, end, NUMBER_DECIMAL);
+        self.exponent_tail(end, b, Exponent::Decimal, Suffix::Int)
     }
 }

@@ -9,7 +9,7 @@ use crate::scope::{Scopes, scopes};
 
 /// A directive line, `^\s*(#)\s*keyword\b`.
 #[derive(Clone, Copy, Debug)]
-pub(super) struct Dir {
+pub(super) struct Directive {
     pub(super) hash: usize,
     /// Where the keyword starts and ends.
     pub(super) kw: (usize, usize),
@@ -39,7 +39,7 @@ const IF_FAMILY: &[&str] = &["ifndef", "ifdef", "if"];
 impl Lexer<'_> {
     /// `^\s*(#)\s*KEYWORD\b` at the start of the line, for the first of
     /// `kws` that matches.
-    pub(super) fn directive(&self, p: usize, kws: &[&str]) -> Option<Dir> {
+    pub(super) fn directive(&self, p: usize, kws: &[&str]) -> Option<Directive> {
         if p != 0 {
             return None;
         }
@@ -60,7 +60,7 @@ impl Lexer<'_> {
         kws.iter().find_map(|kw| {
             let end = k + kw.len();
             (self.starts(k, kw.as_bytes()) && self.word_at(end) == 0)
-                .then_some(Dir { hash, kw: (k, end) })
+                .then_some(Directive { hash, kw: (k, end) })
         })
     }
 
@@ -111,7 +111,7 @@ impl Lexer<'_> {
 
     /// The captures of a conditional directive: the whole directive, the
     /// word and the `#`.
-    fn directive_captures(&mut self, dir: Dir, meta: Meta) {
+    fn directive_captures(&mut self, dir: Directive, meta: Meta) {
         if meta == Meta::Whole {
             self.span(0, dir.kw.1, scopes![S::MetaPreprocessor]);
         }
@@ -120,7 +120,13 @@ impl Lexer<'_> {
     }
 
     /// The begin of a conditional rule.
-    pub(super) fn cond_begin(&mut self, p: usize, kws: &[&str], look: Look, meta: Meta) -> bool {
+    pub(super) fn conditional_begin(
+        &mut self,
+        p: usize,
+        kws: &[&str],
+        look: Look,
+        meta: Meta,
+    ) -> bool {
         let Some(dir) = self.directive(p, kws) else {
             return false;
         };
@@ -132,13 +138,13 @@ impl Lexer<'_> {
     }
 
     /// `#if`, `#ifdef` and `#ifndef`.
-    pub(super) fn cond_if(&mut self, p: usize) -> bool {
-        self.cond_begin(p, IF_FAMILY, Look::No, Meta::Whole)
+    pub(super) fn conditional_if(&mut self, p: usize) -> bool {
+        self.conditional_begin(p, IF_FAMILY, Look::No, Meta::Whole)
     }
 
     /// The `#if` of a branch the grammar reads as live or dead.
-    pub(super) fn cond_if_look(&mut self, p: usize, look: Look) -> bool {
-        self.cond_begin(p, &["if"], look, Meta::Whole)
+    pub(super) fn conditional_if_look(&mut self, p: usize, look: Look) -> bool {
+        self.conditional_begin(p, &["if"], look, Meta::Whole)
     }
 
     /// `^\s*#\s*(e(?:lse|lif|ndif))\b`.
@@ -194,7 +200,7 @@ impl Lexer<'_> {
     }
 
     /// `\bdefined\b` with the lookahead that makes it a directive keyword.
-    pub(super) fn cond_defined(&mut self, p: usize) -> bool {
+    pub(super) fn conditional_defined(&mut self, p: usize) -> bool {
         if !self.starts(p, b"defined") || self.word_before(p) || self.word_at(p + 7) > 0 {
             return false;
         }
@@ -267,7 +273,7 @@ impl Lexer<'_> {
     }
 
     /// `\bdefined\b` that no directive keyword lookahead takes.
-    pub(super) fn cond_defined_invalid(&mut self, p: usize) -> bool {
+    pub(super) fn conditional_defined_invalid(&mut self, p: usize) -> bool {
         self.starts(p, b"defined")
             && !self.word_before(p)
             && self.word_at(p + 7) == 0
@@ -412,7 +418,7 @@ impl Lexer<'_> {
     }
 
     /// `(?<=[(,])\s*(name)\s*` in the parameters of a macro.
-    pub(super) fn define_param(&mut self, p: usize) -> bool {
+    pub(super) fn define_parameter(&mut self, p: usize) -> bool {
         if !matches!(self.prev(p), Some(b'(' | b',')) {
             return false;
         }
@@ -427,7 +433,7 @@ impl Lexer<'_> {
 
     /// The lookahead that starts a call inside a macro:
     /// `(?!(?:…)\s*\()(?=name\s*\()`.
-    pub(super) fn define_func(&mut self, p: usize) -> bool {
+    pub(super) fn define_function(&mut self, p: usize) -> bool {
         self.call_target(p, wordset::DEFINE_EXCL).is_some() && self.begin(p, p)
     }
 
