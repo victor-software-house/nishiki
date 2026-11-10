@@ -50,6 +50,14 @@ name = "nishiki-alloc-count"
 version = "0.0.0"
 
 [[package]]
+name = "nishiki-build-script"
+version = "0.0.0"
+dependencies = [
+ "indoc",
+ "nishiki",
+]
+
+[[package]]
 name = "nishiki-examples"
 version = "0.0.0"
 dependencies = [
