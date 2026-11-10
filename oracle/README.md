@@ -50,5 +50,10 @@ The file it writes marks itself as generated in its first line; edit the script,
 
 Both regex probes read each Oniguruma answer with [`oniguruma-answer.ts`](oniguruma-answer.ts).
 
+## Shared helpers
+
+- [`dedent.ts`](dedent.ts): `dedent`, a template tag for multiline text written at the indentation of the code that builds it.
+  [`dedent.test.ts`](dedent.test.ts) tests it; `mise run test:scripts` runs the test.
+
 [`licences.ts`](licences.ts) records each grammar's licence, read at its source.
 `engine-grammars.ts` refuses a grammar that list refuses or lacks.
