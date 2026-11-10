@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Instruction counts of lexing and colouring the oracle fixtures, against another commit"
+#MISE description="Instructions to lex and colour the oracle fixtures, against another commit"
 #MISE tools = { taplo = "0.10.0" }
 # `mise run callgrind [base] [languages...]`, base `origin/main` by default,
 # languages every one with oracle fixtures by default, built with the
@@ -53,7 +53,8 @@ tolerance="${CALLGRIND_TOLERANCE_PCT:-0.5}"
 pin=$(taplo get -f mise.bench.toml 'tools."conda:valgrind".version')
 found=$(valgrind --version 2>/dev/null || echo none)
 if [ "$found" != "valgrind-$pin" ]; then
-  echo "valgrind $found is not the pinned $pin (mise.bench.toml); run with MISE_ENV=dev,bench, or ci,bench in CI" >&2
+  echo "valgrind $found is not the pinned $pin (mise.bench.toml);" \
+    "run with MISE_ENV=dev,bench, or ci,bench in CI" >&2
   exit 1
 fi
 dir=target/callgrind
@@ -157,7 +158,8 @@ count() {
     lex) function=measured ;;
     colour) function=colour_pass ;;
     esac
-    sed -n "s/^ *\([0-9,]*\) .*:lex::$function \[.*/\1/p" "$out.txt" | tr -d , >"$counts/$1.$2.$pass"
+    sed -n "s/^ *\([0-9,]*\) .*:lex::$function \[.*/\1/p" "$out.txt" |
+      tr -d , >"$counts/$1.$2.$pass"
   done
   rm -f "$out" "$out.txt"
 }
@@ -175,7 +177,7 @@ notes=()
 # Only the lexing pass records the note on sixteen units, which rule 13 of
 # bench/AGENTS.md is about.
 pass_table() {
-  local pass=$1 language b h b16 h16
+  local pass=$1 language b h b16 h16 note
   echo "| language | base (M) | head (M) | head/base | base, 16 units (M) | head, 16 units (M) | head/base, 16 units (not gated) |"
   echo "|:--|--:|--:|--:|--:|--:|--:|"
   for language in "${languages[@]}"; do
@@ -188,17 +190,21 @@ pass_table() {
     b16=$(cat "$counts/base-16.$language.$pass")
     h16=$(cat "$counts/head-16.$language.$pass")
     if [ "${b:-0}" = 0 ] || [ "${h:-0}" = 0 ] || [ "${b16:-0}" = 0 ] || [ "${h16:-0}" = 0 ]; then
-      echo "callgrind counted nothing for $language's $pass pass: a pass of examples/lex.rs was not found" >&2
+      echo "callgrind counted nothing for $language's $pass pass:" \
+        "a pass of examples/lex.rs was not found" >&2
       exit 1
     fi
     awk -v l="$language" -v b="$b" -v h="$h" -v b16="$b16" -v h16="$h16" 'BEGIN {
-      printf "| %s | %.1f | %.1f | %.4f | %.1f | %.1f | %.4f |\n", l, b / 1e6, h / 1e6, h / b, b16 / 1e6, h16 / 1e6, h16 / b16
+      printf "| %s | %.1f | %.1f | %.4f | %.1f | %.1f | %.4f |\n",
+        l, b / 1e6, h / 1e6, h / b, b16 / 1e6, h16 / 1e6, h16 / b16
     }'
     if awk -v b="$b" -v h="$h" -v t="$tolerance" 'BEGIN { exit !(h > b * (1 + t / 100)) }'; then
       failed+=("$language ($pass)")
     fi
     if [ "$pass" = lex ] && awk -v h="$h" -v h16="$h16" 'BEGIN { exit !(h16 > h * 1.03) }'; then
-      notes+=("$(awk -v l="$language" -v h="$h" -v h16="$h16" 'BEGIN { printf "%s +%.1f%%", l, (h16 / h - 1) * 100 }')")
+      note=$(awk -v l="$language" -v h="$h" -v h16="$h16" \
+        'BEGIN { printf "%s +%.1f%%", l, (h16 / h - 1) * 100 }')
+      notes+=("$note")
     fi
   done
 }
@@ -207,10 +213,13 @@ echo
 pass_table lex
 if [ "${#notes[@]}" -gt 0 ]; then
   echo
-  echo "Note, not a failure: at sixteen codegen units the head runs more than 3% more instructions than at one in ${notes[*]}. A matcher its scan calls in another module may lack \`#[inline]\` (bench/AGENTS.md rule 13)."
+  echo "Note, not a failure: at sixteen codegen units" \
+    "the head runs more than 3% more instructions than at one in ${notes[*]}." \
+    "A matcher its scan calls in another module may lack \`#[inline]\` (bench/AGENTS.md rule 13)."
 fi
 echo
-echo "First document: the first pass of a fresh process, lexing and styling every token, with the work a process does once."
+echo "First document: the first pass of a fresh process, lexing and styling every token," \
+  "with the work a process does once."
 echo
 pass_table first
 echo
@@ -221,24 +230,30 @@ pass_table colour
 # highlighters (examples/memory.rs).
 # The counts are exact and for information only.
 echo
-echo "Memory, for information: allocations, then KiB allocated, then the most KiB one document held at once."
+echo "Memory, for information: allocations, then KiB allocated," \
+  "then the most KiB one document held at once."
 echo
 echo "| language | allocations, base | allocations, head | KiB, base | KiB, head | peak KiB, base | peak KiB, head |"
 echo "|:--|--:|--:|--:|--:|--:|--:|"
+memory=cgu-16/release/examples/memory
 for language in "${languages[@]}"; do
   if [ -z "$(ls -A "$fixtures/$language")" ]; then
     echo "| $language | new | | | | | |"
     continue
   fi
-  read -r base_allocs base_bytes base_peak < <("$base_target/cgu-16/release/examples/memory" "$fixtures" "$language")
-  read -r head_allocs head_bytes head_peak < <("$head_target/cgu-16/release/examples/memory" "$fixtures" "$language")
+  read -r base_allocs base_bytes base_peak < <("$base_target/$memory" "$fixtures" "$language")
+  read -r head_allocs head_bytes head_peak < <("$head_target/$memory" "$fixtures" "$language")
   if [ -z "${base_peak:-}" ] || [ -z "${head_peak:-}" ]; then
     echo "examples/memory.rs printed no counts for $language" >&2
     exit 1
   fi
-  awk -v l="$language" -v b_n="$base_allocs" -v h_n="$head_allocs" -v b_bytes="$base_bytes" -v h_bytes="$head_bytes" -v b_peak="$base_peak" -v h_peak="$head_peak" 'BEGIN {
-    printf "| %s | %d | %d | %.1f | %.1f | %.1f | %.1f |\n", l, b_n, h_n, b_bytes / 1024, h_bytes / 1024, b_peak / 1024, h_peak / 1024
-  }'
+  awk -v l="$language" \
+    -v b_n="$base_allocs" -v h_n="$head_allocs" \
+    -v b_bytes="$base_bytes" -v h_bytes="$head_bytes" \
+    -v b_peak="$base_peak" -v h_peak="$head_peak" 'BEGIN {
+      printf "| %s | %d | %d | %.1f | %.1f | %.1f | %.1f |\n",
+        l, b_n, h_n, b_bytes / 1024, h_bytes / 1024, b_peak / 1024, h_peak / 1024
+    }'
 done
 if [ "${#failed[@]}" -gt 0 ]; then
   echo "instructions rose more than ${tolerance}% in: ${failed[*]}" >&2

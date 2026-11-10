@@ -30,7 +30,15 @@
 // The output is generated; do not edit it.
 import astro from "@shikijs/langs@4.6.0/astro";
 import html from "@shikijs/langs@4.6.0/html";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -56,7 +64,9 @@ type Grammar = {
 
 const grammar = (astro as unknown as Grammar[]).find((lang) => lang.scopeName === "source.astro")!;
 const repository = grammar.repository;
-const htmlRepository = (html as unknown as Grammar[]).find((lang) => lang.scopeName === "text.html.basic")!.repository;
+const htmlRepository = (html as unknown as Grammar[]).find(
+  (lang) => lang.scopeName === "text.html.basic",
+)!.repository;
 
 // Edit 1: the event names and the entity names are html's.
 // The matchers test them against the lists in src/html_words.rs, which
@@ -66,7 +76,8 @@ const htmlRepository = (html as unknown as Grammar[]).find((lang) => lang.scopeN
   const htmlEvents = htmlRepository["attribute"]!.patterns![2]!.begin!;
   const htmlBody = htmlEvents.slice(0, htmlEvents.lastIndexOf("(?!"));
   // Astro's lookahead escapes its backslash: `[-:\\w]` holds `\` and `w`, not `\w`.
-  if (events !== `(${htmlBody})(?![-:\\\\w])`) throw new Error("attributes-events no longer spells html's event names");
+  if (events !== `(${htmlBody})(?![-:\\\\w])`)
+    throw new Error("attributes-events no longer spells html's event names");
   const entity = repository["entities"]!.patterns![0]!;
   if (entity.match !== htmlRepository["entities"]!.patterns![0]!.match) {
     throw new Error("entities no longer spells html's entity names");
@@ -76,10 +87,12 @@ const htmlRepository = (html as unknown as Grammar[]).find((lang) => lang.scopeN
   // `;` is group 3 and the tables index three groups, not 912.
   const head = "(&)(?=[A-Za-z])(";
   const tail = ")(;)";
-  if (!entity.match!.startsWith(head) || !entity.match!.endsWith(tail)) throw new Error("the entity regex changed shape");
+  if (!entity.match!.startsWith(head) || !entity.match!.endsWith(tail))
+    throw new Error("the entity regex changed shape");
   const body = entity.match!.slice(head.length, -tail.length);
   const inner = [...body.matchAll(/\((?!\?)/g)].length;
-  if (inner + 3 !== 912 || entity.captures?.["912"] === undefined) throw new Error("the entity's `;` is no longer group 912");
+  if (inner + 3 !== 912 || entity.captures?.["912"] === undefined)
+    throw new Error("the entity's `;` is no longer group 912");
   entity.match = `${head}${body.replace(/\((?!\?)/g, "(?:")}${tail}`;
   entity.captures = { "1": entity.captures!["1"]!, "3": entity.captures!["912"]! };
 }
@@ -224,7 +237,8 @@ function scList(name: string | undefined): Sc[] {
 }
 /** The scopes of a static name; an empty name adds none, as in vscode-textmate. */
 function staticList(name: string | undefined): Sc[] {
-  if (name !== undefined && /\$\d/.test(name)) throw new Error(`${name}: a dynamic name where a static one belongs`);
+  if (name !== undefined && /\$\d/.test(name))
+    throw new Error(`${name}: a dynamic name where a static one belongs`);
   return scList(name);
 }
 
@@ -238,7 +252,8 @@ function dynamicName(name: string): Dynamic | null {
   if (at < 0) return null;
   const m = /^(.*)\$(\d)(.*)$/.exec(parts[at]!)!;
   if (/\$\d/.test(m[1]! + m[3]!)) throw new Error(`${name}: two groups in one scope`);
-  if (parts.slice(at + 1).some((part) => /\$\d/.test(part))) throw new Error(`${name}: two dynamic scopes`);
+  if (parts.slice(at + 1).some((part) => /\$\d/.test(part)))
+    throw new Error(`${name}: two dynamic scopes`);
   return {
     before: parts.slice(0, at).flatMap((part) => staticList(part)),
     prefix: m[1]!,
@@ -321,7 +336,11 @@ const pascal = (key: string) =>
     .map((piece) => piece.charAt(0).toUpperCase() + piece.slice(1))
     .join("");
 
-type Act = { role: "match"; name: Sc[] } | { role: "begin"; rule: string } | { role: "end" } | { role: "while" };
+type Act =
+  | { role: "match"; name: Sc[] }
+  | { role: "begin"; rule: string }
+  | { role: "end" }
+  | { role: "while" };
 type Pattern = {
   id: string;
   regex: string;
@@ -400,7 +419,8 @@ function nestedName(group: string, patterns: Node[], context: string): string {
   rules.set(name, rule);
   if (deferred !== undefined) return name;
   const members = flatten(patterns, name);
-  if (members.some((member) => "embed" in member)) throw new Error(`${name}: a nested list embeds a grammar`);
+  if (members.some((member) => "embed" in member))
+    throw new Error(`${name}: a nested list embeds a grammar`);
   rule.patterns = members.map((member) => (member as { pattern: string }).pattern);
   return name;
 }
@@ -455,7 +475,10 @@ function register(node: Node, id: string): string {
   });
   const closing = node.end ?? node.while!;
   const closeId = node.end !== undefined ? `${id}End` : `${id}While`;
-  const closeCaptures = node.end !== undefined ? (node.endCaptures ?? node.captures) : (node.whileCaptures ?? node.captures);
+  const closeCaptures =
+    node.end !== undefined
+      ? (node.endCaptures ?? node.captures)
+      : (node.whileCaptures ?? node.captures);
   patternById.set(closeId, {
     id: closeId,
     regex: closing,
@@ -473,7 +496,9 @@ function register(node: Node, id: string): string {
     name: dynamic === null ? staticList(node.name) : dynamic.before,
     dynamic,
     content: staticList(node.contentName),
-    names: [node.name ?? "", node.contentName ?? ""].flatMap((n) => n.split(" ")).filter((n) => n !== ""),
+    names: [node.name ?? "", node.contentName ?? ""]
+      .flatMap((n) => n.split(" "))
+      .filter((n) => n !== ""),
     end: node.end !== undefined ? closeId : "",
     while: node.while !== undefined ? closeId : null,
     endBackref: endGroups[0] ?? null,
@@ -501,7 +526,8 @@ function flatten(list: Node[], context: string): Member[] {
       return;
     }
     if (!node.include.startsWith("#")) {
-      if (!(node.include in externals)) throw new Error(`${context}: unknown include ${node.include}`);
+      if (!(node.include in externals))
+        throw new Error(`${context}: unknown include ${node.include}`);
       const embed = externals[node.include]!;
       if (embed !== null) out.push({ embed });
       return;
@@ -515,7 +541,8 @@ function flatten(list: Node[], context: string): Member[] {
 }
 
 function expand(node: Node, id: string): Member[] {
-  if (node.match !== undefined || node.begin !== undefined) return [{ pattern: register(node, renames[id] ?? id) }];
+  if (node.match !== undefined || node.begin !== undefined)
+    return [{ pattern: register(node, renames[id] ?? id) }];
   if (node.patterns) return flatten(node.patterns, id);
   throw new Error(`${id}: empty rule`);
 }
@@ -541,7 +568,10 @@ for (const [selector, injection] of Object.entries(grammar.injections)) {
 
 const rootMembers = flatten(grammar.patterns, "Root");
 if (rootMembers.some((member) => "embed" in member)) throw new Error("the root embeds a grammar");
-rules.set("Root", { ...bare("Root"), patterns: rootMembers.map((member) => (member as { pattern: string }).pattern) });
+rules.set("Root", {
+  ...bare("Root"),
+  patterns: rootMembers.map((member) => (member as { pattern: string }).pattern),
+});
 
 /** Whether a rule's own scopes hold a `source` scope, which hides the
  * injections' selectors from the rules inside it (`- (meta source)`). */
@@ -580,7 +610,9 @@ for (const id of tryBodies) {
 }
 /** The end patterns that give way to a body: an `L:` injection wins a tie
  * with the rule's end, which the engine tries first. */
-const yieldsToBodies = new Set(tryBodies.map((id) => rules.get(id)!.end).filter((end) => end !== ""));
+const yieldsToBodies = new Set(
+  tryBodies.map((id) => rules.get(id)!.end).filter((end) => end !== ""),
+);
 
 // Output.
 
@@ -680,11 +712,15 @@ g += arms(
 /** The features Cargo.toml defines: an embedded language whose feature is
  * not there yet embeds nothing. */
 const features = new Set(
-  [...(await Bun.file(`${root_dir}Cargo.toml`).text()).matchAll(/^([a-z_-]+) = /gm)].map((m) => m[1]!),
+  [...(await Bun.file(`${root_dir}Cargo.toml`).text()).matchAll(/^([a-z_-]+) = /gm)].map(
+    (m) => m[1]!,
+  ),
 );
 for (const r of ruleList) {
   if (r.embed !== null && !features.has(r.embed.feature)) {
-    console.warn(`${r.id}: no feature ${r.embed.feature} in Cargo.toml yet; the rule embeds nothing`);
+    console.warn(
+      `${r.id}: no feature ${r.embed.feature} in Cargo.toml yet; the rule embeds nothing`,
+    );
   }
 }
 g += `        }\n    }\n\n    /// What a rule carries from line to line.\n    /// A rule that embeds a language carries that language's state, when its\n    /// feature is on.\n    /// A rule whose end or name repeats a begin capture group carries that\n    /// group.\n    #[inline]\n    pub(crate) fn payload(self) -> rules::Payload {\n        match self {\n`;
@@ -701,7 +737,10 @@ g += arms(
 );
 g += `        }\n    }\n\n    /// The TSX entry an embedding rule starts at; none for a language's root.\n    pub(crate) fn embed_start(self) -> Option<fn(&mut crate::arena::Arena, u32) -> u32> {\n        match self {\n`;
 g += arms(
-  ruleList.map((r): [string, string] => [r.id, r.embed?.entry ? `entry!(${r.embed.entry})` : "None"]),
+  ruleList.map((r): [string, string] => [
+    r.id,
+    r.embed?.entry ? `entry!(${r.embed.entry})` : "None",
+  ]),
   "Rule",
 );
 g += `        }\n    }\n\n    /// The prefix of the name scope that repeats the rule's payload.\n    pub(crate) fn name_delimiter(self) -> Option<&'static str> {\n        match self {\n`;
@@ -747,7 +786,10 @@ g += arms(
             : "Act::Match(Sc::NO_SCOPES)";
     const captures = p.captures.map(([n, names]) => `(${n}, ${scText(names)})`).join(", ");
     const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -762,7 +804,8 @@ g += `        }\n    }\n}\n`;
  * group its rule's name or end repeats, and the groups its match name spells. */
 const groupsOf = (p: Pattern): number[] => {
   const rule = p.act.role === "begin" ? rules.get(p.act.rule)! : null;
-  const named = p.act.role === "match" ? p.act.name.flatMap((s) => ("group" in s ? [s.group] : [])) : [];
+  const named =
+    p.act.role === "match" ? p.act.name.flatMap((s) => ("group" in s ? [s.group] : [])) : [];
   return [
     ...new Set([
       ...p.captures.map(([n]) => n),
@@ -790,8 +833,12 @@ if (Bun.env["RX_DUMP"]) {
     Bun.env["RX_DUMP"],
     patternList
       .filter((p) => !(p.act.role === "end" && /\\[1-9]/.test(p.regex)))
-      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: groupsOf(p).filter((n) => n > 0) }))
+      .map((p) =>
+        JSON.stringify({ id: p.id, regex: p.regex, groups: groupsOf(p).filter((n) => n > 0) }),
+      )
       .join("\n") + "\n",
   );
 }
-console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${tryBodies.length} rules try the bodies`);
+console.log(
+  `${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${tryBodies.length} rules try the bodies`,
+);

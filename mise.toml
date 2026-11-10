@@ -42,6 +42,7 @@ description = "Every offline check this repository runs"
 depends = [
   "check:toolchain",
   "format",
+  "format:ts",
   "lint",
   "check:features",
   "check:size",
@@ -98,14 +99,20 @@ run = "bun install --lockfile-only --frozen-lockfile"
 # The oracle reads every third-party file from a checkout of the
 # nishiki-sources mirror, named by NISHIKI_SOURCES (oracle/AGENTS.md rule 9).
 [tasks."check:sources"]
-description = "The nishiki-sources checkout in NISHIKI_SOURCES holds every file the oracle pins, as its manifest says"
+description = "NISHIKI_SOURCES holds every file the oracle pins, as the mirror's manifest says"
 tools = { bun = "1.4.4" }
-run = 'bun run oracle/sources.ts check "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"'
+run = '''
+bun run oracle/sources.ts check \
+  "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"
+'''
 
 [tasks."sources:fill"]
 description = "Fetch each file the oracle pins into the nishiki-sources checkout in NISHIKI_SOURCES"
 tools = { bun = "1.4.4" }
-run = 'bun run oracle/sources.ts fill "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"'
+run = '''
+bun run oracle/sources.ts fill \
+  "${NISHIKI_SOURCES:?set NISHIKI_SOURCES to a checkout of victor-software-house/nishiki-sources}"
+'''
 
 # mise-tasks/ holds this repository's task fragments and file tasks. An
 # includes list replaces the default task dirs, so mise-tasks comes first; add

@@ -46,7 +46,9 @@ const lists: Record<string, string[]> = {
   MAC_TYPE: alternatives(plain, regexOf("anon_pattern_12")),
   PRIMITIVE: alternatives(storage, regexOf("storage_types", 0)),
   BUILTIN: alternatives(storage, regexOf("storage_types", 1)),
-  STDINT: alternatives(/^\\b\(\(\?:(.*)\)_t\)\\b$/, regexOf("anon_pattern_10")).map((w) => `${w}_t`),
+  STDINT: alternatives(/^\\b\(\(\?:(.*)\)_t\)\\b$/, regexOf("anon_pattern_10")).map(
+    (w) => `${w}_t`,
+  ),
   PTHREAD: [
     "pthread_t",
     ...alternatives(/^\\b\(pthread_\(\?:(.*)\)t\)\\b$/, regexOf("anon_pattern_9"))
@@ -76,4 +78,7 @@ const tables = Object.entries(lists).map(([name, list]) => {
         ${sorted.map((w) => `"${w}",`).join("\n")}
     ];`;
 });
-await writeRust(new URL("../src/c/words.rs", import.meta.url).pathname, `${[header, ...tables].join("\n\n")}\n`);
+await writeRust(
+  new URL("../src/c/words.rs", import.meta.url).pathname,
+  `${[header, ...tables].join("\n\n")}\n`,
+);

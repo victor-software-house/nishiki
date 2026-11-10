@@ -16,7 +16,12 @@
 //
 // Usage: `bun openspec/research/2026-11-05-streaming/probe.ts flicker|speculation|edits`.
 // Each mode prints tab-separated rows on stdout.
-import { bundledLanguages, createHighlighter, type GrammarState, type ThemedToken } from "shiki@4.6.0";
+import {
+  bundledLanguages,
+  createHighlighter,
+  type GrammarState,
+  type ThemedToken,
+} from "shiki@4.6.0";
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { $ } from "bun";
@@ -58,7 +63,8 @@ function sameState(a: GrammarState | undefined, b: GrammarState | undefined): bo
  * pattern of byte-pair tokenizers, then cuts any piece past six characters
  * into four-character pieces, which approximates their subword merges. */
 function tokenDeltas(text: string): string[] {
-  const pattern = /'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+/gu;
+  const pattern =
+    /'(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+/gu;
   const pieces: string[] = [];
   for (const match of text.matchAll(pattern)) {
     const piece = match[0];
@@ -97,7 +103,21 @@ function firstOf(tier: string, langs: string[]): Doc[] {
 const replies = readdirSync(join(corpus, "markdown/reply"))
   .sort()
   .map((file) => doc(`markdown/reply/${file}`));
-const toolLangs = ["c", "cpp", "css", "go", "html", "java", "json", "python", "ruby", "rust", "shellscript", "typescript", "yaml"];
+const toolLangs = [
+  "c",
+  "cpp",
+  "css",
+  "go",
+  "html",
+  "java",
+  "json",
+  "python",
+  "ruby",
+  "rust",
+  "shellscript",
+  "typescript",
+  "yaml",
+];
 
 /** How a render shows the line still being written: lexed as if it ended
  * there, with its last token or last two tokens held back, or held back
@@ -158,7 +178,19 @@ function flicker(d: Doc, mode: Mode) {
 }
 
 function runFlicker() {
-  console.log("trace\tfile\tmode\tdeltas\tunits\tflicker_units\trenders_with_flicker\tflicker_per_kib\tpending_units_per_render");
+  console.log(
+    [
+      "trace",
+      "file",
+      "mode",
+      "deltas",
+      "units",
+      "flicker_units",
+      "renders_with_flicker",
+      "flicker_per_kib",
+      "pending_units_per_render",
+    ].join("\t"),
+  );
   const traces: [string, Doc[]][] = [
     ["reply", replies],
     ["tool-write", firstOf("medium", toolLangs)],
@@ -236,7 +268,11 @@ function runSpeculation() {
         if (converged >= 0 && i >= start + SCREEN) break;
       }
       const pct = total === 0 ? 100 : (100 * same) / total;
-      console.log([d.name, e.lines.length, at, converged < 0 ? `>${CAP}` : converged, pct.toFixed(2)].join("\t"));
+      console.log(
+        [d.name, e.lines.length, at, converged < 0 ? `>${CAP}` : converged, pct.toFixed(2)].join(
+          "\t",
+        ),
+      );
     }
   }
 }
@@ -268,7 +304,9 @@ function hunks(diff: string): Hunk[] {
  * same text line. Counts those lines past the hunk.
  */
 async function runEdits() {
-  console.log("file\tcommits\thunks\tfile_lines_mean\ttail_mean\ttail_p50\ttail_p99\ttail_max\tto_end");
+  console.log(
+    "file\tcommits\thunks\tfile_lines_mean\ttail_mean\ttail_p50\ttail_p99\ttail_max\tto_end",
+  );
   const files: [string, string][] = [
     ["src/highlighter.rs", "rust"],
     ["src/limits.rs", "rust"],
@@ -278,13 +316,16 @@ async function runEdits() {
     ["mise-tasks/callgrind.sh", "shellscript"],
   ];
   for (const [file, lang] of files) {
-    const commits = (await $`git -C ${root} log --format=%H --reverse 68620d9e -- ${file}`.text()).trim().split("\n");
+    const commits = (await $`git -C ${root} log --format=%H --reverse 68620d9e -- ${file}`.text())
+      .trim()
+      .split("\n");
     const tails: number[] = [];
     let toEnd = 0;
     let lineSum = 0;
     for (let c = 1; c < commits.length; c++) {
       const before = await $`git -C ${root} show ${commits[c - 1]}:${file}`.nothrow().quiet();
-      const diff = await $`git -C ${root} diff -U0 ${commits[c - 1]} ${commits[c]} -- ${file}`.text();
+      const diff =
+        await $`git -C ${root} diff -U0 ${commits[c - 1]} ${commits[c]} -- ${file}`.text();
       if (before.exitCode !== 0) continue;
       let lines = before.text().split("\n");
       let shift = 0;
@@ -323,7 +364,17 @@ async function runEdits() {
     const q = (p: number) => tails[Math.min(tails.length - 1, Math.floor(p * tails.length))] ?? 0;
     const mean = tails.reduce((a, b) => a + b, 0) / Math.max(1, tails.length);
     console.log(
-      [file, commits.length, tails.length, (lineSum / Math.max(1, tails.length)).toFixed(0), mean.toFixed(2), q(0.5), q(0.99), tails[tails.length - 1] ?? 0, toEnd].join("\t"),
+      [
+        file,
+        commits.length,
+        tails.length,
+        (lineSum / Math.max(1, tails.length)).toFixed(0),
+        mean.toFixed(2),
+        q(0.5),
+        q(0.99),
+        tails[tails.length - 1] ?? 0,
+        toEnd,
+      ].join("\t"),
     );
   }
 }

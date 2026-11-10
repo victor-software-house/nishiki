@@ -35,7 +35,17 @@
 // The output is generated; do not edit it.
 import haml from "@shikijs/langs@4.6.0/haml";
 import ruby from "@shikijs/langs@4.6.0/ruby";
-import { arms, groupsCheck, ruleCodes, scopeFile, startOf, startTable, takesOneBlank, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startOf,
+  startTable,
+  takesOneBlank,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -52,7 +62,12 @@ type Node = {
   applyEndPatternLast?: boolean | number;
   while?: string;
 };
-type Grammar = { name: string; scopeName: string; repository: Record<string, Node>; patterns: Node[] };
+type Grammar = {
+  name: string;
+  scopeName: string;
+  repository: Record<string, Node>;
+  patterns: Node[];
+};
 
 const grammar = (haml as unknown as Grammar[]).find((lang) => lang.name === "haml")!;
 const repository = grammar.repository;
@@ -210,10 +225,17 @@ function register(node: Node, id: string): string | null {
   if (node.applyEndPatternLast) throw new Error(`${id}: applyEndPatternLast`);
   if (node.while !== undefined) throw new Error(`${id}: while`);
   if (node.match !== undefined) {
-    patternById.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures), made: false });
+    patternById.set(id, {
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+      made: false,
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   patternById.set(id, {
     id,
     regex: node.begin,
@@ -222,7 +244,13 @@ function register(node: Node, id: string): string | null {
     made: false,
   });
   const end = `${id}End`;
-  patternById.set(end, { id: end, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures), made: false });
+  patternById.set(end, {
+    id: end,
+    regex: node.end,
+    act: { role: "end" },
+    captures: captureList(node.endCaptures ?? node.captures),
+    made: false,
+  });
   const backrefs = [...new Set([...node.end.matchAll(/\\([1-9])/g)].map((m) => Number(m[1])))];
   if (backrefs.length > 1) throw new Error(`${id}: the end repeats more than one group`);
   const rule: Rule = {
@@ -254,11 +282,33 @@ function register(node: Node, id: string): string | null {
  * opens where the filter's begin ends and closes where the filter's end
  * would match. The filter keeps its backreference. */
 function body(filter: Rule, end: string): void {
-  if (filter.patterns.length > 0) throw new Error(`${filter.id}: patterns beside the grammar it embeds`);
+  if (filter.patterns.length > 0)
+    throw new Error(`${filter.id}: patterns beside the grammar it embeds`);
   const id = `${filter.id}Body`;
-  patternById.set(id, { id, regex: "\\G", act: { role: "begin", rule: id }, captures: [], made: true });
-  patternById.set(`${id}End`, { id: `${id}End`, regex: `(?=${end})`, act: { role: "end" }, captures: [], made: true });
-  rules.set(id, { id, name: [], content: [], end: `${id}End`, backref: null, embed: filter.embed, ownAfter: false, patterns: [] });
+  patternById.set(id, {
+    id,
+    regex: "\\G",
+    act: { role: "begin", rule: id },
+    captures: [],
+    made: true,
+  });
+  patternById.set(`${id}End`, {
+    id: `${id}End`,
+    regex: `(?=${end})`,
+    act: { role: "end" },
+    captures: [],
+    made: true,
+  });
+  rules.set(id, {
+    id,
+    name: [],
+    content: [],
+    end: `${id}End`,
+    backref: null,
+    embed: filter.embed,
+    ownAfter: false,
+    patterns: [],
+  });
   filter.embed = null;
   filter.patterns = [id];
 }
@@ -287,7 +337,9 @@ function flatten(list: Node[], context: string): string[] {
       if (!rule) throw new Error(`${context}: ${include} outside a rule`);
       if (rule.embed !== null) throw new Error(`${context}: two embedded grammars`);
       rule.embed = embeddable[include]!;
-      rule.ownAfter = list.slice(index + 1).some((after) => after.include === undefined || !dropped.has(after.include));
+      rule.ownAfter = list
+        .slice(index + 1)
+        .some((after) => after.include === undefined || !dropped.has(after.include));
     } else if (include !== undefined && dropped.has(include)) {
       // vscode-textmate drops an include of a grammar it has not loaded.
       missing.add(context);
@@ -314,14 +366,24 @@ function expand(node: Node, id: string): string[] {
   throw new Error(`${id}: empty rule`);
 }
 
-const rootRule: Rule = { id: "Root", name: [], content: [], end: "", backref: null, embed: null, ownAfter: false, patterns: [] };
+const rootRule: Rule = {
+  id: "Root",
+  name: [],
+  content: [],
+  end: "",
+  backref: null,
+  embed: null,
+  ownAfter: false,
+  patterns: [],
+};
 rules.set("Root", rootRule);
 rootRule.patterns = rootIds();
 
 // No pattern may take a blank after the first of a run: the lexer skips the
 // rest of a run (`BlankRuns::Skip`).
 for (const p of patternById.values()) {
-  if (takesOneBlank(p.regex, "any")) throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
+  if (takesOneBlank(p.regex, "any"))
+    throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
 }
 
 const ruleList = [rootRule, ...[...rules.values()].filter((r) => r !== rootRule)];
@@ -352,7 +414,8 @@ function endHalt(r: Rule): string {
 
 // Output.
 
-const list = (ids: string[]) => (ids.length ? `scopes![${ids.map((id) => `S::${id}`).join(", ")}]` : "S::NO_SCOPES");
+const list = (ids: string[]) =>
+  ids.length ? `scopes![${ids.map((id) => `S::${id}`).join(", ")}]` : "S::NO_SCOPES";
 
 let g = `//! The grammar's rules as tables. Generated by \`oracle/haml-grammar.ts\`
 //! from the \`haml\` grammar Shiki 4.6.0 bundles; do not edit.
@@ -407,8 +470,14 @@ g += arms(
   "Rule",
 );
 g += `        }\n    }\n\n    /// Where the rule takes the line back from the language it embeds.\n    pub(crate) fn end_halt(self) -> End {\n        match self {\n`;
-g += arms(ruleList.map((r): [string, string] => [r.id, endHalt(r)]), "Rule");
-g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${ruleList.filter((r) => r.ownAfter).map((r) => `Rule::${r.id}`).join(" | ")})\n    }\n}\n\n`;
+g += arms(
+  ruleList.map((r): [string, string] => [r.id, endHalt(r)]),
+  "Rule",
+);
+g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${ruleList
+  .filter((r) => r.ownAfter)
+  .map((r) => `Rule::${r.id}`)
+  .join(" | ")})\n    }\n}\n\n`;
 
 g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 const docs = (s: string) => {
@@ -429,7 +498,10 @@ g += arms(
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const captures = p.captures.map(([n, ids]) => `(${n}, ${list(ids)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -442,13 +514,17 @@ for (const p of patternList) {
 }
 g += startTable(patternList, "any");
 g += ruleCodes("Haml", "HAML");
-g += groupsCheck("Haml", patternList.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "Haml",
+  patternList.flatMap((p) => p.captures.map(([n]) => n)),
+);
 
 await writeRust(`${root_dir}src/haml/grammar.rs`, g);
 // A dropped rule's scopes are emitted by no pattern, so the table leaves them
 // out.
 const used = new Set<string>(["Text"]);
-for (const rule of rules.values()) for (const ident of [...rule.name, ...rule.content]) used.add(ident);
+for (const rule of rules.values())
+  for (const ident of [...rule.name, ...rule.content]) used.add(ident);
 for (const pattern of patternById.values()) {
   if (pattern.act.role === "match") for (const ident of pattern.act.name) used.add(ident);
   for (const [, list] of pattern.captures) for (const ident of list) used.add(ident);
@@ -467,11 +543,19 @@ await writeRust(`${root_dir}src/haml/scope.rs`, scopeFile("haml-grammar.ts", "HA
 // `\n*` is gone.
 const probeRegex: Record<string, string> = { RubylineAt5: "([,<|]|do|\\{)(?:(?!\\n)\\s)*(#.*)?$" };
 if (Bun.env["RX_DUMP"]) {
-  const probed = patternList.filter((p) => !p.made && !(p.act.role === "end" && /\\[1-9]/.test(p.regex)));
+  const probed = patternList.filter(
+    (p) => !p.made && !(p.act.role === "end" && /\\[1-9]/.test(p.regex)),
+  );
   await Bun.write(
     Bun.env["RX_DUMP"],
     probed
-      .map((p) => JSON.stringify({ id: p.id, regex: probeRegex[p.id] ?? p.regex, groups: p.captures.map(([n]) => n) }))
+      .map((p) =>
+        JSON.stringify({
+          id: p.id,
+          regex: probeRegex[p.id] ?? p.regex,
+          groups: p.captures.map(([n]) => n),
+        }),
+      )
       .join("\n") + "\n",
   );
 }

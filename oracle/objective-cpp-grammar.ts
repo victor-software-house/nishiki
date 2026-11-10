@@ -1,5 +1,6 @@
-// Writes src/objective_cpp/scope.rs, src/objective_cpp/grammar.rs and src/objective_cpp/words.rs from the `objective-cpp`
-// grammar that Shiki 4.6.0 bundles (microsoft/vscode `extensions/objective-c`, MIT, from jeff-hykin/better-objcpp-syntax).
+// Writes src/objective_cpp/scope.rs, src/objective_cpp/grammar.rs and src/objective_cpp/words.rs
+// from the `objective-cpp` grammar that Shiki 4.6.0 bundles (microsoft/vscode
+// `extensions/objective-c`, MIT, from jeff-hykin/better-objcpp-syntax).
 // It runs the generator in `oracle/rule-generator.ts`.
 //
 // The grammar repeats every expression of the `objective-c` grammar.

@@ -39,7 +39,9 @@ type Probe = {
 
 const [lang, file, perArg, ...only] = process.argv.slice(2);
 if (!lang || !file || !perArg) {
-  console.error("usage: bun run oracle/onig.ts <lang> <expressions file> <cases per expression> [ids...]");
+  console.error(
+    "usage: bun run oracle/onig.ts <lang> <expressions file> <cases per expression> [ids...]",
+  );
   process.exit(2);
 }
 const root = new URL("..", import.meta.url).pathname;
@@ -52,7 +54,8 @@ const expressions: Expression[] = readFileSync(file, "utf8")
 
 /** The short lines of the fixtures of `lang`, or of those `probe.corpus` names. */
 const lines: string[] = [];
-const names = probe.corpus?.map((name) => `${name}.txt`) ?? readdirSync(`${root}tests/oracle/${lang}`);
+const names =
+  probe.corpus?.map((name) => `${name}.txt`) ?? readdirSync(`${root}tests/oracle/${lang}`);
 for (const name of names) {
   if (!name.endsWith(".txt")) continue;
   for (const record of readFileSync(`${root}tests/oracle/${lang}/${name}`, "utf8").split("\n")) {
@@ -107,14 +110,21 @@ const bytes = (text: string, unit: number) =>
 
 const per = Number(perArg);
 const cases: Case[] = [];
-for (const expression of only.length ? expressions.filter((e) => only.includes(e.id)) : expressions) {
+for (const expression of only.length
+  ? expressions.filter((e) => only.includes(e.id))
+  : expressions) {
   const hasG = expression.regex.includes("\\G");
   let [hits, misses, tries] = [0, 0, 0];
   while ((hits < per / 2 || misses < per / 2) && tries < 60000) {
     tries++;
-    const anchored = expression.regex.includes("\\G(") && probe.anchored !== undefined && random() < 0.7;
+    const anchored =
+      expression.regex.includes("\\G(") && probe.anchored !== undefined && random() < 0.7;
     const whole = !anchored && probe.whole !== undefined && random() < 0.25;
-    const base = anchored ? pick(probe.anchored ?? []) : whole ? pick(probe.whole ?? []) : pick(lines);
+    const base = anchored
+      ? pick(probe.anchored ?? [])
+      : whole
+        ? pick(probe.whole ?? [])
+        : pick(lines);
     const text = !anchored && random() < 0.6 ? mutate(base) : base;
     const choice = anchored || whole ? 0 : random();
     let p = anchored || whole ? 0 : Math.floor(random() * (text.length + 2));
@@ -155,17 +165,32 @@ if (process.env.DEEP) {
 const work = mkdtempSync(join(tmpdir(), "nishiki-onig-"));
 const input = join(work, "cases.jsonl");
 const output = join(work, "answers.jsonl");
-writeFileSync(input, `${cases.map((c) => JSON.stringify({ ...c, p: bytes(c.text, c.p) })).join("\n")}\n`);
+writeFileSync(
+  input,
+  `${cases.map((c) => JSON.stringify({ ...c, p: bytes(c.text, c.p) })).join("\n")}\n`,
+);
 const run = spawnSync(
   "cargo",
-  ["test", "--locked", "--all-features", "--lib", `${lang.replaceAll("-", "_")}::tests::probe::matchers_answer_the_probe_cases`, "--", "--ignored", "--exact"],
+  [
+    "test",
+    "--locked",
+    "--all-features",
+    "--lib",
+    `${lang.replaceAll("-", "_")}::tests::probe::matchers_answer_the_probe_cases`,
+    "--",
+    "--ignored",
+    "--exact",
+  ],
   { cwd: root, env: { ...process.env, PROBE_IN: input, PROBE_OUT: output }, encoding: "utf8" },
 );
 if (run.status !== 0) {
   console.log(run.stdout.slice(-3000), run.stderr.slice(-3000));
   process.exit(1);
 }
-const answers: ({ end: number; captures: ([number, number] | null)[] } | null)[] = readFileSync(output, "utf8")
+const answers: ({ end: number; captures: ([number, number] | null)[] } | null)[] = readFileSync(
+  output,
+  "utf8",
+)
   .trim()
   .split("\n")
   .map((line) => JSON.parse(line));
@@ -180,7 +205,9 @@ cases.forEach((c, i) => {
   const b = (unit: number) => bytes(c.text, unit);
   const want = found && {
     end: b(found.captureIndices[0]?.end ?? 0),
-    captures: found.captureIndices.map((x) => (x.start === 4294967295 ? null : ([b(x.start), b(x.end)] as [number, number]))),
+    captures: found.captureIndices.map((x) =>
+      x.start === 4294967295 ? null : ([b(x.start), b(x.end)] as [number, number]),
+    ),
   };
   const got = answers[i] ?? null;
   let ok = want === null ? got === null : got !== null && got.end === want.end;

@@ -32,7 +32,8 @@ const unfold: Record<string, string[]> = {
 const keywords = new Set<string>();
 for (const alternative of keywordText.split("|")) {
   const words = unfold[alternative] ?? [alternative];
-  if (words.length === 1 && !/^[a-z0-9_]+$/.test(words[0] ?? "")) throw new Error(`unhandled ${alternative}`);
+  if (words.length === 1 && !/^[a-z0-9_]+$/.test(words[0] ?? ""))
+    throw new Error(`unhandled ${alternative}`);
   for (const word of words) keywords.add(word);
 }
 
@@ -51,7 +52,10 @@ for (const rule of grammar.patterns) {
   if (!match) throw new Error(`unparsed ${name}`);
   const table = match[1] ? globals : functions;
   for (const alternative of (match[2] ?? "").split("|")) {
-    const words = alternative === "current_time(stamp)?" ? ["current_time", "current_timestamp"] : [alternative];
+    const words =
+      alternative === "current_time(stamp)?"
+        ? ["current_time", "current_timestamp"]
+        : [alternative];
     for (const word of words) {
       if (!/^[a-z0-9_]+$/.test(word)) throw new Error(`unhandled ${alternative}`);
       if (!table.has(word)) table.set(word, camel(category));
@@ -65,7 +69,7 @@ for (const rule of grammar.patterns) {
 const flagged = new Set([["v", "i", "s", "i", "b", "l", "i", "t", "y"].join(""), "i" + "if"]);
 const literal = (word: string) => (flagged.has(word) ? word.replace("i", "\\x69") : word);
 
-const sorted = <T,>(entries: Iterable<[string, T]>) =>
+const sorted = <T>(entries: Iterable<[string, T]>) =>
   [...entries].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
 const out = [
   "//! The words of the `sql` grammar's keyword and function rules.",
@@ -75,7 +79,9 @@ const out = [
   "",
   "/// The plain words of the keyword rule, lowercase, sorted.",
   "pub(super) const KEYWORDS: &[&str] = &[",
-  ...sorted([...keywords].map((word) => [word, 0] as [string, number])).map(([word]) => `    "${literal(word)}",`),
+  ...sorted([...keywords].map((word) => [word, 0] as [string, number])).map(
+    ([word]) => `    "${literal(word)}",`,
+  ),
   "];",
   "",
   "/// The functions that `name(` scopes, lowercase, sorted. A name in several",

@@ -48,7 +48,9 @@ while read -r language; do
   esac
 done < <(sed -n 's|^< \([^/ ]*\)/.*|\1|p' "$dir/diff.txt" | sort -u)
 if [ "${#undeclared[@]}" -gt 0 ]; then
-  echo "output differs from $base in: ${undeclared[*]}; declare it with IDENTITY_CHANGES, or in CI with a pull request line \`identity: changes <languages>\`" >&2
+  echo "output differs from $base in: ${undeclared[*]};" \
+    "declare it with IDENTITY_CHANGES," \
+    "or in CI with a pull request line \`identity: changes <languages>\`" >&2
   exit 1
 fi
 echo "differs from $base only in the declared languages:${declared% }"

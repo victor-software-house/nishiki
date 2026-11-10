@@ -15,7 +15,9 @@ import { $ } from "bun";
 export async function writeRust(path: string, text: string): Promise<void> {
   const toolchain = Bun.env["RUSTFMT_TOOLCHAIN"];
   if (toolchain === undefined) {
-    throw new Error("RUSTFMT_TOOLCHAIN is unset: run the generator where mise has loaded mise.toml");
+    throw new Error(
+      "RUSTFMT_TOOLCHAIN is unset: run the generator where mise has loaded mise.toml",
+    );
   }
   await Bun.write(path, text);
   await $`rustfmt ${toolchain} ${path}`;
@@ -26,7 +28,12 @@ export async function writeRust(path: string, text: string): Promise<void> {
 // expression, over-approximating: a byte it leaves out cannot start a match.
 
 type Set = bigint[]; // four 64-bit words, bit b of word b >> 6.
-const FULL = (): Set => [0xffffffffffffffffn, 0xffffffffffffffffn, 0xffffffffffffffffn, 0xffffffffffffffffn];
+const FULL = (): Set => [
+  0xffffffffffffffffn,
+  0xffffffffffffffffn,
+  0xffffffffffffffffn,
+  0xffffffffffffffffn,
+];
 const EMPTY = (): Set => [0n, 0n, 0n, 0n];
 const add = (s: Set, b: number) => {
   s[b >> 6] = s[b >> 6]! | (1n << BigInt(b & 63));
@@ -80,11 +87,22 @@ const safeInWord = (fragment: Analysis): boolean =>
  * stricter. */
 const conditionedEmpty = (fragment: Analysis): boolean =>
   fragment.empty !== null &&
-  (!fragment.empty.every((w) => w === 0xffffffffffffffffn) || fragment.bol || fragment.wb || fragment.behind);
+  (!fragment.empty.every((w) => w === 0xffffffffffffffffn) ||
+    fragment.bol ||
+    fragment.wb ||
+    fragment.behind);
 
 /** One character: a literal, an escape, a class or `.`, perhaps in a group. */
-const ONE_CHAR = /^(?:\((?:\?:)?)?(?:\\p\{[^}]*\}|\\.|\[(?:\\.|\[:[a-z]+:\]|[^\]\\])*\]|[^\\()[\]|*+?{])\)?$/;
-const analysis = (set: Set, empty: Set | null = null, bol = false, any = false, wb = false, behind = false): Analysis => ({
+const ONE_CHAR =
+  /^(?:\((?:\?:)?)?(?:\\p\{[^}]*\}|\\.|\[(?:\\.|\[:[a-z]+:\]|[^\]\\])*\]|[^\\()[\]|*+?{])\)?$/;
+const analysis = (
+  set: Set,
+  empty: Set | null = null,
+  bol = false,
+  any = false,
+  wb = false,
+  behind = false,
+): Analysis => ({
   set,
   empty,
   bol,
@@ -93,8 +111,10 @@ const analysis = (set: Set, empty: Set | null = null, bol = false, any = false, 
   behind,
 });
 
-const WORD = () => union(union(union(range(48, 57), range(65, 90)), union(range(97, 122), single(95))), nonAscii());
-const ASCII_WORD = () => union(union(range(48, 57), range(65, 90)), union(range(97, 122), single(95)));
+const WORD = () =>
+  union(union(union(range(48, 57), range(65, 90)), union(range(97, 122), single(95))), nonAscii());
+const ASCII_WORD = () =>
+  union(union(range(48, 57), range(65, 90)), union(range(97, 122), single(95)));
 const SPACE = () => union(union(single(32), range(9, 13)), nonAscii());
 const DIGIT = () => union(range(48, 57), nonAscii());
 
@@ -226,7 +246,8 @@ class RegexParser {
     let unbounded = false;
     for (;;) {
       const c = this.src[this.pos];
-      const interval = c === "{" ? /^\{(?:(\d+)(?:(,)(\d*))?|,(\d+))\}/.exec(this.src.slice(this.pos)) : null;
+      const interval =
+        c === "{" ? /^\{(?:(\d+)(?:(,)(\d*))?|,(\d+))\}/.exec(this.src.slice(this.pos)) : null;
       if (c === "*" || c === "?") {
         min = 0;
         unbounded = unbounded || c === "*";
@@ -332,7 +353,13 @@ class RegexParser {
       }
       case "not-behind":
         // `(?<!\\w)` and its kin fail after a word character.
-        return analysis(EMPTY(), FULL(), false, false, /^(\\w|\[[^\]]*\\w[^\]]*\])$/.test(bodySource));
+        return analysis(
+          EMPTY(),
+          FULL(),
+          false,
+          false,
+          /^(\\w|\[[^\]]*\\w[^\]]*\])$/.test(bodySource),
+        );
       case "behind": {
         // A body that cannot be empty needs a byte before the match, which
         // the start of the line lacks. A body of one character with no ASCII
@@ -413,7 +440,11 @@ class RegexParser {
         return analysis(FULL(), this.refEmpty());
       }
       default:
-        if (/[1-9]/.test(c)) return analysis(this.backref === "quote" ? union(single(39), single(34)) : FULL(), this.refEmpty());
+        if (/[1-9]/.test(c))
+          return analysis(
+            this.backref === "quote" ? union(single(39), single(34)) : FULL(),
+            this.refEmpty(),
+          );
         return analysis(single(c.charCodeAt(0)));
     }
   }
@@ -501,7 +532,11 @@ class RegexParser {
         if (!known) into.exact = false;
         into.set = union(
           into.set,
-          m[2] === "alpha" ? union(letters, nonAscii()) : m[2] === "upper" ? union(range(65, 90), nonAscii()) : FULL(),
+          m[2] === "alpha"
+            ? union(letters, nonAscii())
+            : m[2] === "upper"
+              ? union(range(65, 90), nonAscii())
+              : FULL(),
         );
         continue;
       }
@@ -543,12 +578,12 @@ function codePoints(lo: number, hi: number): Set {
 /** The first bytes of the characters with a Unicode property, over-approximated. */
 function propertySet(negated: boolean, name: string): Set {
   if (negated) return FULL();
-  if (/^(L|Alphabetic|Letter|L[ulmto]|Lowercase|Uppercase|Alpha)$/.test(name)) return union(union(range(65, 90), range(97, 122)), nonAscii());
+  if (/^(L|Alphabetic|Letter|L[ulmto]|Lowercase|Uppercase|Alpha)$/.test(name))
+    return union(union(range(65, 90), range(97, 122)), nonAscii());
   if (/^(N|N[dlo]|Number|Digit)$/.test(name)) return union(range(48, 57), nonAscii());
   if (/^(M|Mn|Mc|Me|Mark)$/.test(name)) return nonAscii();
   return FULL();
 }
-
 
 /** The number of capture groups in `regex`. */
 function groupCount(regex: string): number {
@@ -562,14 +597,23 @@ function groupCount(regex: string): number {
  * vscode-textmate keeps such a `$N` as written.
  * The rule engine would write nothing. */
 export function requireGroup(name: string, group: number, regex: string): void {
-  if (group > groupCount(regex)) throw new Error(`${name} names group ${group}, which ${regex} lacks`);
+  if (group > groupCount(regex))
+    throw new Error(`${name} names group ${group}, which ${regex} lacks`);
 }
 
 /** The bytes a match of `regex` can start at, and its anchors. */
 export function startOf(
   regex: string,
   backref: Backref = "quote",
-): { set: Set; bol: boolean; any: boolean; wb: boolean; behind: boolean; atEnd: boolean; inWordFirst: boolean } {
+): {
+  set: Set;
+  bol: boolean;
+  any: boolean;
+  wb: boolean;
+  behind: boolean;
+  atEnd: boolean;
+  inWordFirst: boolean;
+} {
   let result: Analysis;
   let ci = false;
   let source = regex;
@@ -581,14 +625,24 @@ export function startOf(
     result = new RegexParser(source, backref).parse();
   } catch {
     // Syntax the analysis does not read: a match can start anywhere.
-    return { set: FULL(), bol: false, any: true, wb: false, behind: false, atEnd: true, inWordFirst: false };
+    return {
+      set: FULL(),
+      bol: false,
+      any: true,
+      wb: false,
+      behind: false,
+      atEnd: true,
+      inWordFirst: false,
+    };
   }
   // A match that starts with a lookaround starts at the bytes the lookaround
   // reads, which `(?i)` folds like the rest.
   let set = result.empty === null ? result.set : union(result.set, result.empty);
   if (ci || source.includes("(?i")) {
     for (let b = 65; b <= 90; b++) {
-      const has = (set[b >> 6]! >> BigInt(b & 63)) & 1n || (set[(b + 32) >> 6]! >> BigInt((b + 32) & 63)) & 1n;
+      const has =
+        (set[b >> 6]! >> BigInt(b & 63)) & 1n ||
+        (set[(b + 32) >> 6]! >> BigInt((b + 32) & 63)) & 1n;
       if (has) {
         add(set, b);
         add(set, b + 32);
@@ -613,12 +667,21 @@ export function startOf(
   // Syntax handled only here would lose that, and its failure would escape
   // the catch above.
   const end = new RegexParser(source, backref, true).parse();
-  const atEnd = end.any || (end.empty !== null && end.empty.every((w) => w === 0xffffffffffffffffn));
+  const atEnd =
+    end.any || (end.empty !== null && end.empty.every((w) => w === 0xffffffffffffffffn));
   // Without that case a pattern that `wb` keeps out of words only because a
   // match there can start earlier must still be tried where the scan starts.
   const strict = new RegexParser(source, backref, false, false).parse();
   const inWordFirst = result.wb && !strict.wb && !result.bol;
-  return { set, bol: result.bol, any: result.any, wb: result.wb, behind: result.behind, atEnd, inWordFirst };
+  return {
+    set,
+    bol: result.bol,
+    any: result.any,
+    wb: result.wb,
+    behind: result.behind,
+    atEnd,
+    inWordFirst,
+  };
 }
 
 /** The top-level alternatives of `regex`, looking inside a lookahead or a
@@ -760,15 +823,18 @@ export function canMatchEmpty(regex: string): boolean {
 }
 
 /** Whether some alternative of `regex` takes exactly one blank and then
- * requires a character that is not a blank: one unquantified unit that takes
- * one blank (`oneBlankUnit`), then a rest whose first byte cannot be a space
- * or a tab.
- * A negative lookbehind before the unit is stepped over when its body has no atom that can match a blank, as in MATLAB's `(?<!\.\.\.).\n`.
+ * requires a character that is not a blank:
+ * one unquantified unit that takes one blank (`oneBlankUnit`),
+ * then a rest whose first byte cannot be a space or a tab.
+ * A negative lookbehind before the unit is stepped over when its body has no atom that can match a
+ * blank, as in MATLAB's `(?<!\.\.\.).\n`.
  * At a blank that follows another blank, such a lookbehind always passes.
  * So it cannot let the pattern fail at the last blank of a run and match at an earlier one.
- * A body that can match a blank, as in `(?<! )` or `(?<!\s\s)`, could do that, so the alternative does not count.
+ * A body that can match a blank, as in `(?<! )` or `(?<!\s\s)`, could do that,
+ * so the alternative does not count.
  * Such a pattern can match at the last blank of a run and nowhere before it.
- * A `BlankRuns::ToLast` grammar tries only these patterns there. */
+ * A `BlankRuns::ToLast` grammar tries only these patterns there.
+ */
 export function takesOneBlank(regex: string, backref: Backref = "quote"): boolean {
   return alternatives(regex.startsWith("(?i)") ? regex.slice(4) : regex).some((whole) => {
     const alt = afterLookbehinds(whole, backref);
@@ -782,7 +848,10 @@ export function takesOneBlank(regex: string, backref: Backref = "quote"): boolea
   });
 }
 
-/** `regex` after the negative lookbehinds it starts with whose bodies cannot match a blank (`blankFree`). */
+/**
+ * `regex` after the negative lookbehinds it starts with whose bodies cannot match a
+ * blank (`blankFree`).
+ */
 function afterLookbehinds(regex: string, backref: Backref): string {
   let rest = regex;
   while (rest.startsWith("(?<!")) {
@@ -796,7 +865,7 @@ function afterLookbehinds(regex: string, backref: Backref): string {
 /** Whether no atom of `regex` can match a space or a tab.
  * A back-reference counts as one that can. */
 function blankFree(regex: string, backref: Backref): boolean {
-  for (let i = 0; i < regex.length; ) {
+  for (let i = 0; i < regex.length;) {
     const rest = regex.slice(i);
     if (/^\\([1-9]|k)/.test(rest)) return false;
     const atom = atomLength(rest);
@@ -827,9 +896,15 @@ function closingParen(regex: string): number {
 
 /** `Pattern::takes_one_blank`, from [`takesOneBlank`], for a grammar on
  * `BlankRuns::ToLast`. */
-export function oneBlankTable(patternById: { id: string; regex: string }[], backref: Backref = "quote"): string {
-  const ids = patternById.filter((p) => takesOneBlank(p.regex, backref)).map((p) => `Pattern::${p.id}`);
-  if (ids.length === 0) throw new Error("a BlankRuns::ToLast grammar with no pattern that takes one blank");
+export function oneBlankTable(
+  patternById: { id: string; regex: string }[],
+  backref: Backref = "quote",
+): string {
+  const ids = patternById
+    .filter((p) => takesOneBlank(p.regex, backref))
+    .map((p) => `Pattern::${p.id}`);
+  if (ids.length === 0)
+    throw new Error("a BlankRuns::ToLast grammar with no pattern that takes one blank");
   return `
 
 impl Pattern {
@@ -848,9 +923,11 @@ impl Pattern {
 /** Groups equal bodies into one arm of a `match` on `type`. */
 export function arms(entries: [string, string][], type: string): string {
   const groups = new Map<string, string[]>();
-  for (const [id, body] of entries) groups.set(body, [...(groups.get(body) ?? []), `${type}::${id}`]);
+  for (const [id, body] of entries)
+    groups.set(body, [...(groups.get(body) ?? []), `${type}::${id}`]);
   let out = "";
-  for (const [body, ids] of groups) out += `            ${ids.join("\n            | ")} => ${body},\n`;
+  for (const [body, ids] of groups)
+    out += `            ${ids.join("\n            | ")} => ${body},\n`;
   return out;
 }
 
@@ -863,7 +940,10 @@ const hex = (w: bigint) => {
 };
 
 /** `Pattern::start`: the bytes each pattern can start at, and its anchors. */
-export function startTable(patternById: { id: string; regex: string }[], backref: Backref = "quote"): string {
+export function startTable(
+  patternById: { id: string; regex: string }[],
+  backref: Backref = "quote",
+): string {
   let starts = `
 
 impl Pattern {
@@ -980,7 +1060,13 @@ const _: () = assert!(
  * A `keyed` table also gets the scope codes and the empty list.
  * The grammar's `scopes!` lists need them.
  * C++ wraps its scopes in a type of its own, which carries both. */
-export function scopeFile(generator: string, table: string, scopes: Map<string, string>, attributes = "", keyed = true): string {
+export function scopeFile(
+  generator: string,
+  table: string,
+  scopes: Map<string, string>,
+  attributes = "",
+  keyed = true,
+): string {
   const idents = [...scopes.entries()].sort((a, b) => a[1].localeCompare(b[1]));
   let s = `//! The scope names the lexer emits, in Shiki's naming. Generated by
 //! \`oracle/${generator}\`; do not edit.

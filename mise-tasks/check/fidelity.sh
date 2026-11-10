@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Every Shiki grammar gets Shiki's scopes on every non-whitespace byte of its sample"
+#MISE description="Each Shiki grammar gets Shiki's scopes on each non-blank byte of its sample"
 #MISE depends=["oracle:fidelity"]
 # Loads each grammar oracle:fidelity wrote through the public API, and fails
 # on the first input whose scopes differ from Shiki's.

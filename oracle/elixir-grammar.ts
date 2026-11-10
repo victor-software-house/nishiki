@@ -43,7 +43,9 @@ type Node = {
 };
 type Grammar = { scopeName: string; repository: Record<string, Node>; patterns: Node[] };
 
-const grammar = (elixir as unknown as Grammar[]).find((lang) => lang.scopeName === "source.elixir")!;
+const grammar = (elixir as unknown as Grammar[]).find(
+  (lang) => lang.scopeName === "source.elixir",
+)!;
 const repository = grammar.repository;
 const root = { patterns: grammar.patterns } as Node;
 
@@ -143,10 +145,16 @@ function register(node: Node, id: string): string {
   if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
   if (patternById.has(id)) return id;
   if (node.match !== undefined) {
-    patternById.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.set(id, {
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   patternById.set(id, {
     id,
     regex: node.begin,
@@ -172,7 +180,8 @@ function register(node: Node, id: string): string {
   rules.set(id, rule);
   ruleSources.push({ id, node });
   rule.patterns = flatten(node.patterns ?? [], id);
-  if (rule.embedsHtml && rule.backref !== null) throw new Error(`${id}: embeds and repeats a group`);
+  if (rule.embedsHtml && rule.backref !== null)
+    throw new Error(`${id}: embeds and repeats a group`);
   return id;
 }
 
@@ -220,7 +229,15 @@ function expandNode(node: Node, id: string, shared: boolean): string[] {
   return [];
 }
 
-const rootRule: Rule = { id: "Root", name: [], content: [], end: "", backref: null, embedsHtml: false, patterns: [] };
+const rootRule: Rule = {
+  id: "Root",
+  name: [],
+  content: [],
+  end: "",
+  backref: null,
+  embedsHtml: false,
+  patterns: [],
+};
 rules.set("Root", rootRule);
 rootRule.patterns = flatten(root.patterns!, "Root");
 
@@ -289,7 +306,8 @@ g += arms(
 // Every embedding rule hands the line back at the same end, which
 // `engine::TripleQuote` tests.
 for (const r of ruleList) {
-  if (r.embedsHtml && patternById.get(r.end)?.regex !== '\\s*"""') throw new Error(`${r.id}: an embedding rule with another end`);
+  if (r.embedsHtml && patternById.get(r.end)?.regex !== '\\s*"""')
+    throw new Error(`${r.id}: an embedding rule with another end`);
 }
 g += `        }\n    }\n}\n\n`;
 
@@ -312,7 +330,10 @@ g += arms(
           ? `Act::Begin(Rule::${p.act.rule})`
           : "Act::End";
     const captures = p.captures.map(([n, names]) => `(${n}, ${scText(names)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -335,7 +356,8 @@ g += wordList(
   "The functions allowed in a guard, from `CoreSyntaxAt3At2`.",
   words("CoreSyntaxAt3At2", /^\\b\(([a-z_|]*)\)\\b$/),
 );
-if (patternById.get("CoreSyntaxAt4At2")!.regex !== patternById.get("CoreSyntaxAt3At2")!.regex) throw new Error("the guard lists differ");
+if (patternById.get("CoreSyntaxAt4At2")!.regex !== patternById.get("CoreSyntaxAt3At2")!.regex)
+  throw new Error("the guard lists differ");
 g += wordList(
   "KEYWORDS",
   "The keywords of `CoreSyntaxAt13`.",
@@ -350,7 +372,10 @@ g += wordList(
 g += oneBlankTable(patternList, "any");
 g += startTable(patternList, "any");
 g += ruleCodes("Elixir", "ELIXIR");
-g += groupsCheck("Elixir", patternList.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "Elixir",
+  patternList.flatMap((p) => p.captures.map(([n]) => n)),
+);
 
 await writeRust(`${root_dir}src/elixir/grammar.rs`, g);
 

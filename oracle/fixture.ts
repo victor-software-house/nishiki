@@ -20,7 +20,11 @@ const blockLines = 1000;
  * a time. Shiki's per-line limits are off. Each part holds whole records and
  * ends with a newline. The parts joined are the fixture. `text` has LF line
  * ends. */
-export function* fixtureParts(highlighter: Highlighter, text: string, lang: string): Generator<string> {
+export function* fixtureParts(
+  highlighter: Highlighter,
+  text: string,
+  lang: string,
+): Generator<string> {
   const sourceLines = text.split("\n");
   let grammarState: GrammarState | undefined;
   for (let first = 0; first < sourceLines.length; first += blockLines) {
@@ -35,7 +39,9 @@ export function* fixtureParts(highlighter: Highlighter, text: string, lang: stri
     });
     grammarState = result.grammarState;
     if (block.length !== result.tokens.length) {
-      throw new Error(`lines ${first + 1} to ${first + block.length}: Shiki gave ${result.tokens.length} lines`);
+      throw new Error(
+        `lines ${first + 1} to ${first + block.length}: Shiki gave ${result.tokens.length} lines`,
+      );
     }
     const out: string[] = [];
     result.tokens.forEach((tokens, index) => {

@@ -52,7 +52,23 @@ const tables = [
   "javascript",
   "jinja",
   "make",
-  "markdown+typescript+tsx+javascript+shellscript+python+rust+yaml+json+jsonc+jsonl+make+html-derivative+html+css",
+  [
+    "markdown",
+    "typescript",
+    "tsx",
+    "javascript",
+    "shellscript",
+    "python",
+    "rust",
+    "yaml",
+    "json",
+    "jsonc",
+    "jsonl",
+    "make",
+    "html-derivative",
+    "html",
+    "css",
+  ].join("+"),
   "matlab",
   "objective-c",
   "objective-cpp",
@@ -117,7 +133,10 @@ writeFileSync(`${out}tables.json`, `${JSON.stringify(linked, null, 2)}\n`);
 
 const rows = names.map((name) => {
   const { bundled, licence } = allowed[name];
-  return `| \`${name}\` | [${bundled.replace("@", " at ")}][${name}-source] | [${licence}][${name}-licence] |`;
+  return (
+    `| \`${name}\` | [${bundled.replace("@", " at ")}][${name}-source] | ` +
+    `[${licence}][${name}-licence] |`
+  );
 });
 const links = names.flatMap((name) => {
   const { bundled, origin, file } = allowed[name];

@@ -42,13 +42,17 @@ type Rule = { include?: string; patterns?: Rule[]; repository?: Record<string, R
  * pattern at all. */
 function keepRawStringRules(grammar: Rule & { name: string }): Rule & { name: string } {
   const context = grammar.repository?.string_context;
-  if (!(grammar.name === "cpp" || grammar.name === "cpp-macro") || context === undefined) return grammar;
+  if (!(grammar.name === "cpp" || grammar.name === "cpp-macro") || context === undefined)
+    return grammar;
   const patterns = context.patterns?.map((rule) =>
     rule.patterns?.length && rule.patterns.every((inner) => leftOut.has(inner.include ?? ""))
       ? { ...rule, patterns: [] }
       : rule,
   );
-  return { ...grammar, repository: { ...grammar.repository, string_context: { ...context, patterns } } };
+  return {
+    ...grammar,
+    repository: { ...grammar.repository, string_context: { ...context, patterns } },
+  };
 }
 export const grammars = [...new Map(lexed.map((grammar) => [grammar.name, grammar])).values()].map(
   (grammar) => ({

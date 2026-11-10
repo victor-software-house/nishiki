@@ -1,15 +1,23 @@
 # Oracle coverage
 
 How much of each grammar that a hand-written lexer follows the oracle fixtures exercise.
-`mise run oracle:coverage` writes this file from [`oracle/coverage.ts`](../../oracle/coverage.ts); do not edit it.
+`mise run oracle:coverage` writes this file
+from [`oracle/coverage.ts`](../../oracle/coverage.ts); do not edit it.
 The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) defines the units.
 
 - An expression is exercised when Shiki takes its match on a fixture.
-- A capture is exercised when its group takes part in such a match and holds a non-whitespace byte.
-- Fuzz only counts the units that only the fixed fuzz corpus exercises: 100 mutated windows per language, and 100 generated documents where `oracle/fuzz/<lang>.ts` has pieces, at seed 1.
+- A capture is exercised when its group takes part in such a match
+  and holds a non-whitespace byte.
+- Fuzz only counts the units that only the fixed fuzz corpus exercises:
+  100 mutated windows per language,
+  and 100 generated documents where `oracle/fuzz/<lang>.ts` has pieces, at seed 1.
   No CI job compares that corpus with nishiki.
-- Waived counts the units that [`oracle/coverage-waivers.ts`](../../oracle/coverage-waivers.ts) waives, each for a reason given there.
-- Complete reads `yes` for a grammar listed complete there, whose every unit a fixture or a waiver covers, which the coverage check holds; and `ready` for one that could be listed.
+- Waived counts the units
+  that [`oracle/coverage-waivers.ts`](../../oracle/coverage-waivers.ts) waives,
+  each for a reason given there.
+- Complete reads `yes` for a grammar listed complete there,
+  whose every unit a fixture or a waiver covers, which the coverage check holds;
+  and `ready` for one that could be listed.
 
 | Lexer | Grammar | Expressions | Share | Captures | Share | Waived | Fuzz only | Complete |
 |:--|:--|--:|--:|--:|--:|--:|--:|:--|
@@ -91,8 +99,10 @@ The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) d
 
 ## Units no fixture exercises
 
-Each line is an expression's path in its grammar, then the start of its regex, `fuzz` when the fuzz corpus exercises it, and the reason when a waiver covers it.
-An expression the fixtures do exercise is listed with the groups they do not, each marked `fuzz` and the waiver's reason likewise.
+Each line is an expression's path in its grammar, then the start of its regex,
+`fuzz` when the fuzz corpus exercises it, and the reason when a waiver covers it.
+An expression the fixtures do exercise is listed with the groups they do not,
+each marked `fuzz` and the waiver's reason likewise.
 The groups of an unexercised expression count as unexercised and are not listed.
 
 ### `asm`
@@ -1483,7 +1493,8 @@ patterns[4].end  groups 2 (waived: the rule's `captures` name the group for its 
 
 ## Units no root reaches
 
-Neither an input language's grammar nor an injection reaches these, so they are left out of the shares.
+Neither an input language's grammar nor an injection reaches these,
+so they are left out of the shares.
 
 ### `asm`
 

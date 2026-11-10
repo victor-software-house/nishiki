@@ -112,7 +112,8 @@ async function referenceOf(file: File): Promise<Colours> {
 
 /** The colours a `.colors` file holds. */
 async function coloursAt(path: string): Promise<Colours> {
-  if (!(await Bun.file(path).exists())) throw new Error(`${path} is missing: run shiki.ts reference first`);
+  if (!(await Bun.file(path).exists()))
+    throw new Error(`${path} is missing: run shiki.ts reference first`);
   return (await Bun.file(path).text())
     .replace(/\n$/, "")
     .split("\n")
@@ -169,7 +170,9 @@ async function reference(): Promise<void> {
       theme,
       ...limitsOff,
     }).tokens;
-    const rows = coloursOf(tokens).map((line) => line.map(([end, colour]) => `${end}:${colour}`).join(" "));
+    const rows = coloursOf(tokens).map((line) =>
+      line.map(([end, colour]) => `${end}:${colour}`).join(" "),
+    );
     await Bun.write(join(out, `${file.name}.colors`), `${rows.join("\n")}\n`);
   }
   console.log(`✔ ${all.length} reference files in ${out}`);
@@ -207,14 +210,17 @@ async function pierreReady(file: File): Promise<Ready> {
   const { createHighlighter: createPierre } = await import("@pierre/highlights@0.4.0");
   const highlighter = createPierre();
   return {
-    run: (code) => highlighter.codeToTokens(code, { lang: file.lang, theme: zedTheme, tokenizeMaxLineLength: 0 }).tokens,
+    run: (code) =>
+      highlighter.codeToTokens(code, { lang: file.lang, theme: zedTheme, tokenizeMaxLineLength: 0 })
+        .tokens,
     dispose: () => {},
   };
 }
 
 /** Each engine's setup, timed as a whole. */
 const engines = {
-  "shiki-oniguruma": (file: File) => shikiReady(file, createOnigurumaEngine(import("shiki@4.6.0/wasm"))),
+  "shiki-oniguruma": (file: File) =>
+    shikiReady(file, createOnigurumaEngine(import("shiki@4.6.0/wasm"))),
   "shiki-javascript": (file: File) => shikiReady(file, createJavaScriptRegexEngine()),
   pierre: pierreReady,
 } as const;
@@ -252,15 +258,20 @@ function timeOptions(args: string[]): TimeOptions {
   });
   const rounds = Number(values.rounds);
   const cold = Number(values.cold);
-  if (!Number.isInteger(rounds) || rounds < 1) throw new Error("--rounds needs a whole number of at least 1");
-  if (!Number.isInteger(cold) || cold < 1) throw new Error("--cold needs a whole number of at least 1");
+  if (!Number.isInteger(rounds) || rounds < 1)
+    throw new Error("--rounds needs a whole number of at least 1");
+  if (!Number.isInteger(cold) || cold < 1)
+    throw new Error("--cold needs a whole number of at least 1");
   return { rounds, cold, tiers: values.tier, output: values.tsv ? "tsv" : "medians" };
 }
 
 async function time(options: TimeOptions): Promise<void> {
-  const all = files().filter((file) => options.tiers.length === 0 || options.tiers.includes(file.name.split("/")[1] ?? ""));
+  const all = files().filter(
+    (file) => options.tiers.length === 0 || options.tiers.includes(file.name.split("/")[1] ?? ""),
+  );
   const names = Object.keys(engines) as EngineName[];
-  if (options.output === "tsv") console.log("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity");
+  if (options.output === "tsv")
+    console.log("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity");
   for (const file of all) {
     const code = await text(file);
     const bytes = encoder.encode(code).length;
@@ -294,7 +305,15 @@ async function time(options: TimeOptions): Promise<void> {
       const row =
         options.output === "tsv"
           ? [file.name, engine, setups.join(","), firsts.join(","), speeds.join(","), count, score]
-          : [engine, file.name, median(setups), median(firsts), median(speeds), count, score.toFixed(2)];
+          : [
+              engine,
+              file.name,
+              median(setups),
+              median(firsts),
+              median(speeds),
+              count,
+              score.toFixed(2),
+            ];
       console.log(row.join("\t"));
       ready.dispose();
     }
@@ -313,8 +332,14 @@ async function streamReference(): Promise<void> {
     themes: [theme],
   });
   for (const trace of all) {
-    const tokens = highlighter.codeToTokens(trace.final.replaceAll("\r\n", "\n"), { lang: trace.language, theme, ...limitsOff }).tokens;
-    const rows = coloursOf(tokens).map((line) => line.map(([end, colour]) => `${end}:${colour}`).join(" "));
+    const tokens = highlighter.codeToTokens(trace.final.replaceAll("\r\n", "\n"), {
+      lang: trace.language,
+      theme,
+      ...limitsOff,
+    }).tokens;
+    const rows = coloursOf(tokens).map((line) =>
+      line.map(([end, colour]) => `${end}:${colour}`).join(" "),
+    );
     await Bun.write(join(streamOut, `${trace.name}.colors`), `${rows.join("\n")}\n`);
   }
   console.log(`✔ ${all.length} trace references in ${streamOut}`);
@@ -328,7 +353,12 @@ type Replay = { setup: number; deltas: number[]; colours: Colours };
 async function shikiStream(trace: Trace): Promise<Replay> {
   const start = performance.now();
   const highlighter = await createHighlighter({ langs: langsOf(trace.language), themes: [theme] });
-  const tokenizer = new ShikiStreamTokenizer({ highlighter, lang: trace.language, theme, ...limitsOff });
+  const tokenizer = new ShikiStreamTokenizer({
+    highlighter,
+    lang: trace.language,
+    theme,
+    ...limitsOff,
+  });
   const setup = performance.now() - start;
   const deltas: number[] = [];
   for (const step of trace.steps) {
@@ -361,7 +391,11 @@ async function pierreStream(trace: Trace): Promise<Replay> {
   const theme = await zedTheme();
   const start = performance.now();
   const { StreamTokenizer } = await import("@pierre/highlights@0.4.0");
-  const tokenizer = new StreamTokenizer({ lang: trace.language, theme, tokenizeMaxLineLength: 0 } as never);
+  const tokenizer = new StreamTokenizer({
+    lang: trace.language,
+    theme,
+    tokenizeMaxLineLength: 0,
+  } as never);
   const setup = performance.now() - start;
   const deltas: number[] = [];
   const lines: { content: string; color?: string }[][] = [];
@@ -382,7 +416,12 @@ async function pierreLive(trace: Trace): Promise<Replay> {
   const theme = await zedTheme();
   const start = performance.now();
   const { LiveTokenizer } = await import("@pierre/highlights@0.4.0");
-  const live = new LiveTokenizer({ lang: trace.language, theme, code: trace.initial, tokenizeMaxLineLength: 0 } as never);
+  const live = new LiveTokenizer({
+    lang: trace.language,
+    theme,
+    code: trace.initial,
+    tokenizeMaxLineLength: 0,
+  } as never);
   const setup = performance.now() - start;
   let model = trace.initial;
   const position = (index: number) => {
@@ -409,7 +448,10 @@ async function pierreLive(trace: Trace): Promise<Replay> {
     live.applyEdits([edit]);
     deltas.push((performance.now() - at) * 1000);
   }
-  const lines = Array.from({ length: live.lineCount }, (_, index) => live.getLineTokens(index).tokens);
+  const lines = Array.from(
+    { length: live.lineCount },
+    (_, index) => live.getLineTokens(index).tokens,
+  );
   live.dispose();
   return { setup, deltas, colours: coloursOf(lines) };
 }
@@ -436,7 +478,9 @@ async function stream(passes: number): Promise<void> {
       const replays: Replay[] = [];
       for (let pass = 0; pass < passes; pass++) replays.push(await run(trace));
       const steady = replays[0]!.deltas
-        .map((_, delta) => median(replays.slice(1).map((replay) => replay.deltas[delta] ?? Number.NaN)))
+        .map((_, delta) =>
+          median(replays.slice(1).map((replay) => replay.deltas[delta] ?? Number.NaN)),
+        )
         .sort((a, b) => a - b);
       const score = fidelity(trace.final.replaceAll("\r\n", "\n"), replays[0]!.colours, reference);
       const row = [
@@ -463,8 +507,11 @@ if (mode === "reference") {
 } else if (mode === "stream-reference") {
   await streamReference();
 } else if (mode === "stream") {
-  const passes = Number(parseArgs({ args: rest, options: { passes: { type: "string", default: "5" } } }).values.passes);
-  if (!Number.isInteger(passes) || passes < 2) throw new Error("--passes needs a whole number of at least 2");
+  const passes = Number(
+    parseArgs({ args: rest, options: { passes: { type: "string", default: "5" } } }).values.passes,
+  );
+  if (!Number.isInteger(passes) || passes < 2)
+    throw new Error("--passes needs a whole number of at least 2");
   await stream(passes);
 } else if (mode === "sample") {
   const [engine, name] = rest;
@@ -476,7 +523,8 @@ if (mode === "reference") {
   await sample(engine as EngineName, file);
 } else {
   console.error(
-    "usage: shiki.ts reference | time [--rounds N] [--cold N] [--tier T]... [--tsv] | sample <engine> <file> | stream-reference | stream [--passes N]",
+    "usage: shiki.ts reference | time [--rounds N] [--cold N] [--tier T]... [--tsv] | sample " +
+      "<engine> <file> | stream-reference | stream [--passes N]",
   );
   process.exit(1);
 }

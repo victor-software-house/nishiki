@@ -202,7 +202,8 @@ export const allowed: Record<string, Allowed> = {
     file: "license.txt",
   },
   mermaid: {
-    bundled: "bpruitt-goddard/vscode-mermaid-syntax-highlight@8b62f487cb7a89afcd152febfbf47f5d4787657f",
+    bundled:
+      "bpruitt-goddard/vscode-mermaid-syntax-highlight@8b62f487cb7a89afcd152febfbf47f5d4787657f",
     origin: "bpruitt-goddard/vscode-mermaid-syntax-highlight",
     licence: "MIT",
     file: "LICENSE",
@@ -262,7 +263,8 @@ export const allowed: Record<string, Allowed> = {
     file: "LICENSE",
   },
   // The repository has no licence that GitHub identifies.
-  // The grammar's own folder holds an MIT licence, read at f18e8663177f72eb94e4568ea583c277692014dd.
+  // The grammar's own folder holds an MIT licence,
+  // read at f18e8663177f72eb94e4568ea583c277692014dd.
   r: {
     bundled: "posit-dev/positron@c4d6bab60dd914427a2d47a4b64e75e025d94059",
     origin: "posit-dev/positron",
@@ -383,6 +385,7 @@ export const allowed: Record<string, Allowed> = {
 export const refused: Record<string, string> = {
   glsl: "polym0rph/GLSL.tmbundle states no licence, in a file or its README",
   groovy:
-    "textmate/groovy.tmbundle, which VS Code converted it from, states no licence in a file or its README; only VS Code's notices do",
+    "textmate/groovy.tmbundle, which VS Code converted it from, " +
+    "states no licence in a file or its README; only VS Code's notices do",
   r: "posit-dev/positron, where Shiki takes it from, is under the Elastic License 2.0",
 };

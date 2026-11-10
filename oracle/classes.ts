@@ -1,9 +1,9 @@
-// Writes src/classes/table.rs: the characters that Oniguruma's `\d`, `\w`,
-// `\s`, `[[:alpha:]]`, `\p{upper}`, `\p{L}`, `\p{N}` and `\p{M}` match, as
-// Shiki 4.6.0 uses them in the `json`, `typescript` and `python` grammars. Rust's `char` methods differ from them (`\d` is only
-// the decimal digits, `\w` includes marks, `[[:alpha:]]` follows an older
-// Unicode), so the table is measured rather than derived: one line per
-// character, tokenized by the grammar, and read back from its scopes.
+// Writes src/classes/table.rs: the characters that Oniguruma's `\d`, `\w`, `\s`, `[[:alpha:]]`,
+// `\p{upper}`, `\p{L}`, `\p{N}` and `\p{M}` match, as Shiki 4.6.0 uses them in the `json`,
+// `typescript` and `python` grammars.
+// Rust's `char` methods differ from them (`\d` is only the decimal digits, `\w` includes marks,
+// `[[:alpha:]]` follows an older Unicode), so the table is measured rather than derived:
+// one line per character, tokenized by the grammar, and read back from its scopes.
 //
 //   `[1X]`     X is a digit when `1X` is one number token (`\d`);
 //   `[trueX]`  X is a word character when `true` is not a constant (`\w`);
@@ -15,22 +15,24 @@
 //
 // It records those five sets in oracle/facts/classes.json, for a Rust writer.
 //
-// No bundled grammar reads `\p{L}`, `\p{N}` or `\p{M}` alone, so those three
-// are read from Shiki's own Oniguruma engine: one scan of a text of every code
-// point for each, with the pattern `\p{X}+`.
-// So are the three unions the `scala` grammar's names and operators read:
-// `\p{Lt}\p{Lu}`, `\p{Lo}\p{Nl}\p{Ll}` and `\p{Sm}\p{So}`.
-// So are the two the `haskell` grammar reads beside `\p{Lt}\p{Lu}`:
-// `\p{Ll}` and `\p{S}\p{P}`.
-// So are the three the `r` grammar's identifiers read beside `\p{L}` and `\d`:
-// `\p{Nl}`, `\p{Mn}\p{Mc}` and `\p{Pc}`.
+// No bundled grammar reads `\p{L}`, `\p{N}` or `\p{M}` alone,
+// so those three are read from Shiki's own Oniguruma engine:
+// one scan of a text of every code point for each, with the pattern `\p{X}+`.
+// So are the three unions the `scala` grammar's names and operators read: `\p{Lt}\p{Lu}`,
+// `\p{Lo}\p{Nl}\p{Ll}` and `\p{Sm}\p{So}`.
+// So are the two the `haskell` grammar reads beside `\p{Lt}\p{Lu}`: `\p{Ll}` and `\p{S}\p{P}`.
+// So are the three the `r` grammar's identifiers read beside `\p{L}` and `\d`: `\p{Nl}`,
+// `\p{Mn}\p{Mc}` and `\p{Pc}`.
 import { createOnigurumaEngine } from "@shikijs/engine-oniguruma@4.6.0";
 import { createHighlighter } from "shiki@4.6.0";
 import { dedent } from "./dedent.ts";
 import { type ClassesFacts, rangeNotation, shikiGrammars, writeFacts } from "./facts.ts";
 
 const root = new URL("..", import.meta.url).pathname;
-const highlighter = await createHighlighter({ langs: ["json", "typescript", "python"], themes: ["github-dark"] });
+const highlighter = await createHighlighter({
+  langs: ["json", "typescript", "python"],
+  themes: ["github-dark"],
+});
 const enc = new TextEncoder();
 
 /** The code points that can be letters, marks, digits or spaces: U+0080 to
@@ -77,7 +79,8 @@ const words = probe((ch) => `[true${ch}]`).map(
   (parts) => !at(parts, 1).includes("constant.language.json"),
 );
 const spaces = probe((ch) => `[${ch}]`).map(
-  (parts, i) => !at(parts, 1).some((scope) => scope.startsWith("invalid.")) && points[i] !== undefined,
+  (parts, i) =>
+    !at(parts, 1).some((scope) => scope.startsWith("invalid.")) && points[i] !== undefined,
 );
 
 const alphas = probe((ch) => `let ${ch}a;`, "typescript").map((parts) =>
@@ -103,7 +106,7 @@ function property(name: string): boolean[] {
   const scanner = engine.createScanner([`\\p{${name}}+`]);
   const string = engine.createString(text);
   const flags = points.map(() => false);
-  for (let from = 0; ; ) {
+  for (let from = 0; ;) {
     const match = scanner.findNextMatchSync(string, from);
     if (!match) break;
     const { start, end } = match.captureIndices[0]!;

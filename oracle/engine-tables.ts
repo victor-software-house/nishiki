@@ -71,7 +71,8 @@ const every = args[0] === "--every";
 if (every) args.shift();
 const outDir = args[0];
 const ids = [...args.slice(1), ...(every ? bundledLanguagesInfo.map((info) => info.id) : [])];
-if (!outDir || ids.length === 0) throw new Error("usage: engine-tables.ts <out dir> <language id>...");
+if (!outDir || ids.length === 0)
+  throw new Error("usage: engine-tables.ts <out dir> <language id>...");
 
 /** Every grammar a language needs, by scope name. */
 async function load(
@@ -85,7 +86,9 @@ async function load(
   let scope = "";
   const [included, ...excluded] = spec.split("~");
   const left = new Set([...excluded, ...handed]);
-  const ids = included.split("+").flatMap((id) => (id === "*" ? [...new Set(inputs.map((i) => i.lang))] : [id]));
+  const ids = included
+    .split("+")
+    .flatMap((id) => (id === "*" ? [...new Set(inputs.map((i) => i.lang))] : [id]));
   for (const id of ids) {
     const loader = bundledLanguages[id as keyof typeof bundledLanguages];
     if (!loader) throw new Error(`Shiki has no language ${id}`);
@@ -261,7 +264,13 @@ class Builder {
     return out.sort((a, b) => a.index - b.index);
   }
 
-  rule(scope: string, value: Json, into: number | undefined, outer: Repositories, container = false): number {
+  rule(
+    scope: string,
+    value: Json,
+    into: number | undefined,
+    outer: Repositories,
+    container = false,
+  ): number {
     // As Shiki reads them: an empty `match` is no match, an empty `while` is
     // none, and an empty or missing `end` never matches.
     const matching: Rule["matching"] = container
@@ -369,16 +378,21 @@ async function write(id: string) {
   }
   const { docs, fragments, scope } = await load(spec, handedIds);
   const header = { root: scope, handed: handedIds };
-  const sources = [header, ...docs.values(), ...fragments.values()].map((line) => JSON.stringify(line));
+  const sources = [header, ...docs.values(), ...fragments.values()].map((line) =>
+    JSON.stringify(line),
+  );
   writeFileSync(`${outDir}/${base(id)}.sources.jsonl`, `${sources.join("\n")}\n`);
   const builder = new Builder(docs, fragments, scope, handed);
   const root = builder.root(scope);
   if (root === undefined) throw new Error(`${id}: no root rule`);
   // The grammar's own injections, then those other grammars inject into it.
   const rootDoc = docs.get(scope) as Json;
-  const injections: [string, number][] = Object.entries((rootDoc.injections as Json | undefined) ?? {}).map(
-    ([selector, value]) => [selector, builder.entry(scope, value as Json, [(rootDoc.repository as Json | undefined) ?? {}])],
-  );
+  const injections: [string, number][] = Object.entries(
+    (rootDoc.injections as Json | undefined) ?? {},
+  ).map(([selector, value]) => [
+    selector,
+    builder.entry(scope, value as Json, [(rootDoc.repository as Json | undefined) ?? {}]),
+  ]);
   // Grammars that name this one in `injectTo` inject their rules into it,
   // where their `injectionSelector` matches.
   // A grammar that only wraps others, as ts-tags wraps source.ts, takes the
@@ -386,7 +400,13 @@ async function write(id: string) {
   const wrapped = new Set(
     ((rootDoc.patterns as Json[] | undefined) ?? [])
       .map((p) => String(p.include ?? ""))
-      .filter((include) => include !== "" && !include.startsWith("#") && !include.startsWith("$") && !include.includes("#")),
+      .filter(
+        (include) =>
+          include !== "" &&
+          !include.startsWith("#") &&
+          !include.startsWith("$") &&
+          !include.includes("#"),
+      ),
   );
   for (const [injectScope, doc] of docs) {
     const targets = doc.injectTo as string[] | undefined;
@@ -441,7 +461,9 @@ async function write(id: string) {
     // A lexer that cannot halt would run past these patterns.
     const variant = variantOf(patterns[at]);
     if (!halts.get(variant) && halting.some((p) => p !== NONE)) {
-      throw new Error(`${id}: a hand-off to ${variant}, whose lexer cannot halt, has rules or an end`);
+      throw new Error(
+        `${id}: a hand-off to ${variant}, whose lexer cannot halt, has rules or an end`,
+      );
     }
     const row: PendingHandOff = {
       list: NONE,
@@ -479,7 +501,9 @@ async function write(id: string) {
   };
   const handingCaptures = [
     ...new Set(
-      builder.rules.flatMap((r) => [...r.captures, ...r.endCaptures].map((c) => c.retokenize)).filter((id) => id !== NONE),
+      builder.rules
+        .flatMap((r) => [...r.captures, ...r.endCaptures].map((c) => c.retokenize))
+        .filter((id) => id !== NONE),
     ),
   ]
     .filter(reaches)

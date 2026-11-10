@@ -24,7 +24,15 @@
 // pattern's regular expression and capture groups, one JSON object per line,
 // for oracle/onig.ts.
 import csharp from "@shikijs/langs@4.6.0/csharp";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -148,7 +156,7 @@ function words(body: string): string[] {
   };
   const sequence = (text: string): string[] => {
     let out = [""];
-    for (let i = 0; i < text.length; ) {
+    for (let i = 0; i < text.length;) {
       let options: string[];
       if (text.startsWith("(?:", i)) {
         let depth = 0;
@@ -192,7 +200,11 @@ function references(node: Node): Set<number> {
 
 // 2 and 3. Rules and patterns.
 
-type Act = { role: "match"; name: string[] } | { role: "begin"; rule: string } | { role: "end" } | { role: "while" };
+type Act =
+  | { role: "match"; name: string[] }
+  | { role: "begin"; rule: string }
+  | { role: "end" }
+  | { role: "while" };
 type Pattern = {
   id: string;
   regex: string;
@@ -230,7 +242,9 @@ function nestedName(patterns: Node[]): string {
   const json = JSON.stringify(patterns);
   const known = nestedNames.get(json);
   if (known !== undefined) return known;
-  const includes = patterns.map((p) => p.include?.slice(1) ?? (p.match !== undefined ? "Pattern" : "Begin"));
+  const includes = patterns.map(
+    (p) => p.include?.slice(1) ?? (p.match !== undefined ? "Pattern" : "Begin"),
+  );
   let name = includes.map(pascal).join("And");
   if (nestedNames.size > 0 && [...nestedNames.values()].includes(name)) name += nestedNames.size;
   nestedNames.set(json, name);
@@ -279,15 +293,20 @@ function splitWords(node: Node, regex: string): { word: string | null; regex: st
   const tail = /^\)\\b\\s[+*]\)\?/.exec(regex.slice(end));
   const optionalOpen = regex.slice(0, start).lastIndexOf("(?:\\b(");
   const optional = tail !== null && optionalOpen >= 0 && optionalOpen + "(?:\\b(".length === start;
-  const out: { word: string | null; regex: string }[] = words(regex.slice(start, end)).map((word) => {
-    const single = regex.slice(0, start) + word + regex.slice(end);
-    if (!optional) return { word, regex: single };
-    const close = end + tail![0].length - 2;
-    return {
-      word,
-      regex: single.slice(0, optionalOpen) + single.slice(optionalOpen + 3, close - (regex.length - single.length)) + single.slice(close - (regex.length - single.length) + 2),
-    };
-  });
+  const out: { word: string | null; regex: string }[] = words(regex.slice(start, end)).map(
+    (word) => {
+      const single = regex.slice(0, start) + word + regex.slice(end);
+      if (!optional) return { word, regex: single };
+      const close = end + tail![0].length - 2;
+      return {
+        word,
+        regex:
+          single.slice(0, optionalOpen) +
+          single.slice(optionalOpen + 3, close - (regex.length - single.length)) +
+          single.slice(close - (regex.length - single.length) + 2),
+      };
+    },
+  );
   if (optional) out.push({ word: null, regex: regex.slice(0, start) + "(?!)" + regex.slice(end) });
   return out;
 }
@@ -303,7 +322,10 @@ function register(node: Node, id: string): string[] {
           regex,
           source: node.match!,
           word,
-          act: { role: "match", name: scopeList(node.name === undefined ? undefined : substitute(node.name, word)) },
+          act: {
+            role: "match",
+            name: scopeList(node.name === undefined ? undefined : substitute(node.name, word)),
+          },
           captures: captureList(node.captures, word),
           nested: nestedList(node.captures),
         });
@@ -341,7 +363,8 @@ function register(node: Node, id: string): string[] {
       } else {
         // The engine tries the pattern where the line starts, so it must hold
         // only there.
-        if (!node.while!.startsWith("^")) throw new Error(`${id}: while ${node.while} is not anchored`);
+        if (!node.while!.startsWith("^"))
+          throw new Error(`${id}: while ${node.while} is not anchored`);
         patternById.set(`${id}While`, {
           id: `${id}While`,
           regex: node.while!,
@@ -406,7 +429,13 @@ type How =
 
 /** The bytes of a simple class such as `[]),;}]`, or null. */
 function simpleClass(source: string): number[] | null {
-  if (!source.startsWith("[") || !source.endsWith("]") || source.startsWith("[^") || source.length < 3) return null;
+  if (
+    !source.startsWith("[") ||
+    !source.endsWith("]") ||
+    source.startsWith("[^") ||
+    source.length < 3
+  )
+    return null;
   const body = source.slice(1, -1);
   const out: number[] = [];
   for (let i = 0; i < body.length; i++) {
@@ -464,7 +493,13 @@ function howOf(regex: string): How {
   const grouped = /^\((.+)\)$/.exec(regex);
   if (grouped && literal.test(grouped[1]!)) return { method: "group", bytes: decode(grouped[1]!) };
   const m = /^(\(\?<!\\\.\))?\\b(?:\(([a-z]+)\)|([a-z]+))\\b$/.exec(regex);
-  if (m) return { method: "word", word: (m[2] ?? m[3])!, dot: m[1] !== undefined, group: m[2] !== undefined };
+  if (m)
+    return {
+      method: "word",
+      word: (m[2] ?? m[3])!,
+      dot: m[1] !== undefined,
+      group: m[2] !== undefined,
+    };
   const atoms = alternatives(regex).map(atomOf);
   if (atoms.every((a): a is Atom => a !== null)) return { method: "assert", atoms };
   return { method: "hand" };
@@ -472,7 +507,8 @@ function howOf(regex: string): How {
 
 // Output.
 
-const list = (names: string[]) => (names.length ? `scopes![${names.map((n) => `S::${n}`).join(", ")}]` : "S::NO_SCOPES");
+const list = (names: string[]) =>
+  names.length ? `scopes![${names.map((n) => `S::${n}`).join(", ")}]` : "S::NO_SCOPES";
 
 const ruleList = [...rules.values()];
 const patternList = [...patternById.values()];
@@ -512,7 +548,8 @@ pub(crate) enum Nested {
 `;
 for (const name of nestedNames.values()) g += `    ${name},\n`;
 g += `}\n\nimpl Nested {\n    /// The rule whose patterns tokenize the group.\n    pub(crate) const fn rule(self) -> Rule {\n        match self {\n`;
-for (const name of nestedNames.values()) g += `            Nested::${name} => Rule::Nested${name},\n`;
+for (const name of nestedNames.values())
+  g += `            Nested::${name} => Rule::Nested${name},\n`;
 g += `        }\n    }\n}\n\n`;
 
 g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u8)]\npub(crate) enum Rule {\n`;
@@ -556,7 +593,10 @@ g += arms(
             : "Act::Match(S::NO_SCOPES)";
     const captures = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
     const nested = p.nested.map(([n, name]) => `(${n}, Nested::${name})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -575,9 +615,15 @@ g += arms(
       case "group":
         return [p.id, `How::Group(&[${how.bytes.join(", ")}])`];
       case "word":
-        return [p.id, `How::Word {\n                word: b"${how.word}",\n                dot: ${how.dot},\n                group: ${how.group},\n            }`];
+        return [
+          p.id,
+          `How::Word {\n                word: b"${how.word}",\n                dot: ${how.dot},\n                group: ${how.group},\n            }`,
+        ];
       case "assert":
-        return [p.id, `How::Assert(&[${how.atoms.map((a) => `(${a.behind}, &[${a.bytes.join(", ")}])`).join(", ")}])`];
+        return [
+          p.id,
+          `How::Assert(&[${how.atoms.map((a) => `(${a.behind}, &[${a.bytes.join(", ")}])`).join(", ")}])`,
+        ];
       case "hand":
         return [p.id, `How::Hand(Fn::${handOf(p)})`];
     }
@@ -612,18 +658,24 @@ pub(crate) enum How {
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Fn {
 `;
-for (const [source, id] of hand) g += `    /// \`${docs(source).replaceAll("`", "'")}\`.\n    ${id},\n`;
+for (const [source, id] of hand)
+  g += `    /// \`${docs(source).replaceAll("`", "'")}\`.\n    ${id},\n`;
 g += `}\n`;
 
 g += startTable(patternList);
 g += ruleCodes("CSharp", "CSHARP");
-g += groupsCheck("CSharp", patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+g += groupsCheck(
+  "CSharp",
+  patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+);
 
 await writeRust(`${root_dir}src/csharp/grammar.rs`, g);
 
 // Scope table. The grammar misspells a scope name; it is written with one
 // byte escape so that the spelling check passes.
-const written = new Map([...scopes].map(([ident, name]) => [ident, name.replaceAll("pre" + "ffix", "pre\\x66fix")]));
+const written = new Map(
+  [...scopes].map(([ident, name]) => [ident, name.replaceAll("pre" + "ffix", "pre\\x66fix")]),
+);
 const s = scopeFile("csharp-grammar.ts", "CSHARP", written);
 await writeRust(`${root_dir}src/csharp/scope.rs`, s);
 
@@ -635,7 +687,9 @@ if (Bun.env["RX_DUMP"]) {
         JSON.stringify({
           id: p.id,
           regex: p.regex,
-          groups: [...new Set([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)])].sort((a, b) => a - b),
+          groups: [...new Set([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)])].sort(
+            (a, b) => a - b,
+          ),
         }),
       )
       .join("\n") + "\n",

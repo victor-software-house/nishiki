@@ -1,20 +1,35 @@
-// The generator of the rule-engine languages whose grammars nest repositories and share expressions:
-// Objective-C (`oracle/objective-c-grammar.ts`) and Objective-C++ (`oracle/objective-cpp-grammar.ts`).
-// For a grammar Shiki bundles, `generate` writes the module's `scope.rs`, `grammar.rs` and `words.rs`.
+// The generator of the rule-engine languages whose grammars nest repositories and share
+// expressions: Objective-C (`oracle/objective-c-grammar.ts`) and Objective-C++
+// (`oracle/objective-cpp-grammar.ts`).
+// For a grammar Shiki bundles, `generate` writes the module's `scope.rs`,
+// `grammar.rs` and `words.rs`.
 // It writes the scope names.
 // For every rule it writes the scopes the rule adds, how it ends and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
 // The matchers that decide whether a pattern matches are written by hand.
 //
-// An entry that carries a repository of its own resolves an include inside it there first, as vscode-textmate's does.
+// An entry that carries a repository of its own resolves an include inside it there first,
+// as vscode-textmate's does.
 // `$self` names the root of the grammar a rule belongs to, and `$base` this grammar's root.
 // An include of another grammar is that grammar's rules, when the config lists it in `grammars`.
 // Otherwise it is a language that another lexer handles, listed in `externals`.
-// A rule that includes one embeds that language, and a capture group's list that includes one defers the group to it.
+// A rule that includes one embeds that language,
+// and a capture group's list that includes one defers the group to it.
 // A rule that vscode-textmate would drop, because its list lost every entry, is left out.
 // A `Config` says what differs between the grammars.
 import { expand as alternatives } from "./alternation.ts";
-import { arms, type Backref, groupsCheck, oneBlankTable, requireGroup, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  type Backref,
+  groupsCheck,
+  oneBlankTable,
+  requireGroup,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -33,14 +48,25 @@ type Node = {
 };
 export type GrammarJson = { scopeName: string; repository: Record<string, Node>; patterns: Node[] };
 
-/** The repository an include resolves in, the prefix of the ids of its own entries, and the grammar it belongs to. */
-type Scope = { repository: Record<string, Node>; own: Record<string, Node>; prefix: string; grammar: Owner };
+/**
+ * The repository an include resolves in, the prefix of the ids of its own entries,
+ * and the grammar it belongs to.
+ */
+type Scope = {
+  repository: Record<string, Node>;
+  own: Record<string, Node>;
+  prefix: string;
+  grammar: Owner;
+};
 
 /** A grammar whose rules the tables hold: its top scope, its root and the id of its root's list.
  * `$self` inside its rules names this root. */
 type Owner = { top: Scope; root: Node; rootId: string };
 
-/** The language that takes the text of a rule or capture group whose patterns include another grammar. */
+/**
+ * The language that takes the text of a rule or capture group whose patterns
+ * include another grammar.
+ */
 export type Embed = { lang: string; feature: string };
 
 /** One list of words of a long alternation. */
@@ -78,19 +104,31 @@ export type Config = {
   /** The includes the grammar names but never defines.
    * vscode-textmate skips such an include and keeps the rest of its list. */
   unresolved?: string[];
-  /** The other grammars whose rules the tables hold, by scope name, each with the prefix of its rule ids.
+  /**
+   * The other grammars whose rules the tables hold, by scope name,
+   * each with the prefix of its rule ids.
    * LaTeX includes `text.tex` and `text.tex#braces`.
-   * Inside such a grammar, `$self` names its own root and `$base` this grammar's. */
+   * Inside such a grammar, `$self` names its own root and `$base` this grammar's.
+   */
   grammars?: Record<string, { grammar: GrammarJson; prefix: string }>;
-  /** What each include of a grammar that another lexer handles stands for: the language that takes the text, or null.
-   * Null is a grammar the oracle does not load, so the include resolves to nothing, as in vscode-textmate. */
+  /**
+   * What each include of a grammar that another lexer handles stands for:
+   * the language that takes the text, or null.
+   * Null is a grammar the oracle does not load, so the include resolves to nothing,
+   * as in vscode-textmate.
+   */
   externals?: Record<string, Embed | null>;
-  /** The halt of each embedding rule's end, by the end's expression: a Rust path to a `rules::FnHalt`.
+  /**
+   * The halt of each embedding rule's end, by the end's expression:
+   * a Rust path to a `rules::FnHalt`.
    * `otherwise` is the halt of a rule that embeds nothing, which the engine never asks for.
-   * With it the generator writes `Rule::end_halt`. */
+   * With it the generator writes `Rule::end_halt`.
+   */
   endHalts?: { by: Record<string, string>; otherwise: string };
   /** Whether the grammar scans blank runs with `BlankRuns::ToLast`.
-   * The generated `Pattern::takes_one_blank` then lists the patterns that can match only at a run's last blank. */
+   * The generated `Pattern::takes_one_blank` then lists the patterns that can match only
+   * at a run's last blank.
+   */
   toLast?: boolean;
   /** The expressions another module's matchers answer, with that module's `Rx` id.
    * The generated `Pattern::expr` sends them there; the rest are this module's own `Rx`. */
@@ -143,7 +181,8 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   const root = base.root;
   /** Every grammar whose rules the tables hold, by scope name. */
   const owners = new Map<string, Owner>([[grammar.scopeName, base]]);
-  for (const [name, other] of Object.entries(cfg.grammars ?? {})) owners.set(name, owner(other.grammar, other.prefix));
+  for (const [name, other] of Object.entries(cfg.grammars ?? {}))
+    owners.set(name, owner(other.grammar, other.prefix));
 
   function scopeIdent(name: string): string {
     const parts = name.split(".");
@@ -230,9 +269,22 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   const captureSources: { capture: Capture; scope: Scope; patterns: Node[]; name: string }[] = [];
   /** Nested contexts by the patterns they try, so equal ones are one rule. */
   const contexts = new Map<string, string>();
-  const emptyRule = (id: string): Rule => ({ id, name: [], content: [], end: "", endLast: false, backref: null, patterns: [] });
+  const emptyRule = (id: string): Rule => ({
+    id,
+    name: [],
+    content: [],
+    end: "",
+    endLast: false,
+    backref: null,
+    patterns: [],
+  });
 
-  function captureList(sc: Scope, captures: Captures | undefined, owner: string, regex: string): Capture[] {
+  function captureList(
+    sc: Scope,
+    captures: Captures | undefined,
+    owner: string,
+    regex: string,
+  ): Capture[] {
     if (!captures) return [];
     const out: Capture[] = [];
     for (const [group, value] of Object.entries(captures)) {
@@ -251,7 +303,13 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
       }
       if (names.length || nested) {
         const capture: Capture = { group: Number(group), scopes: names, nested };
-        if (value.patterns) captureSources.push({ capture, scope: sc, patterns: value.patterns, name: `${owner}Capture${group}` });
+        if (value.patterns)
+          captureSources.push({
+            capture,
+            scope: sc,
+            patterns: value.patterns,
+            name: `${owner}Capture${group}`,
+          });
         out.push(capture);
       }
     }
@@ -267,10 +325,16 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   /** Registers a match or begin/end rule under `id`; returns the pattern id. */
   function register(sc: Scope, node: Node, id: string): string {
     const clash = patternById.get(id);
-    if (clash && clash.regex !== (node.match ?? node.begin)) throw new Error(`${id} names two rules`);
+    if (clash && clash.regex !== (node.match ?? node.begin))
+      throw new Error(`${id} names two rules`);
     if (clash) return id;
     if (node.match !== undefined) {
-      patternById.set(id, { id, regex: node.match, act: { role: "match", name: scopeList(node.name, node.match) }, captures: [] });
+      patternById.set(id, {
+        id,
+        regex: node.match,
+        act: { role: "match", name: scopeList(node.name, node.match) },
+        captures: [],
+      });
       patternById.get(id)!.captures = captureList(sc, node.captures, id, node.match);
       return id;
     }
@@ -281,13 +345,24 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
           backref = cfg.rawDelimiter.group;
         } else {
           const groups = new Set([...node.end.matchAll(/\\([1-9])/g)].map((m) => Number(m[1])));
-          if (groups.size > 1) throw new Error(`${id}: the end repeats more than one group of the begin`);
+          if (groups.size > 1)
+            throw new Error(`${id}: the end repeats more than one group of the begin`);
           backref = [...groups][0]!;
           requireGroup(node.end, backref, node.begin);
         }
       }
-      patternById.set(id, { id, regex: node.begin, act: { role: "begin", rule: id }, captures: [] });
-      patternById.set(`${id}End`, { id: `${id}End`, regex: node.end, act: { role: "end" }, captures: [] });
+      patternById.set(id, {
+        id,
+        regex: node.begin,
+        act: { role: "begin", rule: id },
+        captures: [],
+      });
+      patternById.set(`${id}End`, {
+        id: `${id}End`,
+        regex: node.end,
+        act: { role: "end" },
+        captures: [],
+      });
       const rule: Rule = {
         id,
         name: scopeList(node.name, node.begin),
@@ -298,8 +373,18 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
         patterns: [],
       };
       rules.set(id, rule);
-      patternById.get(id)!.captures = captureList(sc, node.beginCaptures ?? node.captures, id, node.begin);
-      patternById.get(`${id}End`)!.captures = captureList(sc, node.endCaptures ?? node.captures, `${id}End`, node.end);
+      patternById.get(id)!.captures = captureList(
+        sc,
+        node.beginCaptures ?? node.captures,
+        id,
+        node.begin,
+      );
+      patternById.get(`${id}End`)!.captures = captureList(
+        sc,
+        node.endCaptures ?? node.captures,
+        `${id}End`,
+        node.end,
+      );
       sources.push({ scope: sc, node, id });
       rule.patterns = flatten(sc, node.patterns ?? [], id);
       return id;
@@ -307,10 +392,17 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     throw new Error(`${id}: neither a match nor a begin/end rule`);
   }
 
-  /** The scope a node's own repository opens inside `sc`, its entries' ids starting with `prefix`. */
+  /**
+   * The scope a node's own repository opens inside `sc`, its entries' ids starting with `prefix`.
+   */
   function inner(sc: Scope, node: Node, prefix: string): Scope {
     if (!node.repository) return sc;
-    return { repository: { ...sc.repository, ...node.repository }, own: node.repository, prefix, grammar: sc.grammar };
+    return {
+      repository: { ...sc.repository, ...node.repository },
+      own: node.repository,
+      prefix,
+      grammar: sc.grammar,
+    };
   }
 
   /** The prefix of the ids of the entries of `key`'s own repository. */
@@ -320,13 +412,18 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     return prefix;
   }
 
-  /** What an include in `sc` names: a node with the scope it resolves in and its id, a language that takes the
-   * text, or nothing.
-   * An unknown `#` include fails the generator when `strict`, unless the config lists it as unresolved.
-   * The drop check is not strict: inside a rule that vscode-textmate drops, such an include does no harm. */
+  /**
+   * What an include in `sc` names: a node with the scope it resolves in and its id,
+   * a language that takes the text, or nothing.
+   * An unknown `#` include fails the generator when `strict`,
+   * unless the config lists it as unresolved.
+   * The drop check is not strict: inside a rule that vscode-textmate drops,
+   * such an include does no harm.
+   */
   type Target = { node: Node; sc: Scope; id: string } | { embed: Embed } | null;
   function resolve(sc: Scope, include: string, strict = true): Target {
-    if (include === "$self") return { node: sc.grammar.root, sc: sc.grammar.top, id: sc.grammar.rootId };
+    if (include === "$self")
+      return { node: sc.grammar.root, sc: sc.grammar.top, id: sc.grammar.rootId };
     if (include === "$base") return { node: root, sc: top, id: "Root" };
     if (include.startsWith("#")) {
       const key = include.slice(1);
@@ -336,11 +433,18 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
         throw new Error(`unknown include ${key}`);
       }
       const prefix = key in sc.own ? sc.prefix : "";
-      return { node: target, sc: target.repository ? inner(sc, target, prefixOf(key)) : sc, id: prefix + pascal(key) };
+      return {
+        node: target,
+        sc: target.repository ? inner(sc, target, prefixOf(key)) : sc,
+        id: prefix + pascal(key),
+      };
     }
     const [name, key] = include.split("#") as [string, string | undefined];
     const other = owners.get(name);
-    if (other) return key === undefined ? { node: other.root, sc: other.top, id: other.rootId } : resolve(other.top, `#${key}`, strict);
+    if (other)
+      return key === undefined
+        ? { node: other.root, sc: other.top, id: other.rootId }
+        : resolve(other.top, `#${key}`, strict);
     if (key === undefined && cfg.externals && name in cfg.externals) {
       const embed = cfg.externals[name];
       return embed ? { embed } : null;
@@ -349,10 +453,13 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   }
 
   /** Whether vscode-textmate drops `node` where a list includes it.
-   * It drops a begin/end rule, or a bare list, whose list had an entry it could not keep and kept none.
-   * An entry is lost when its include resolves to nothing or to such a rule, so a drop goes up through the rules
-   * that hold it.
-   * A list that includes itself is kept, as a rule whose patterns vscode-textmate has not compiled yet is. */
+   * It drops a begin/end rule, or a bare list,
+   * whose list had an entry it could not keep and kept none.
+   * An entry is lost when its include resolves to nothing or to such a rule,
+   * so a drop goes up through the rules that hold it.
+   * A list that includes itself is kept,
+   * as a rule whose patterns vscode-textmate has not compiled yet is.
+   */
   function dropped(sc: Scope, node: Node, seen = new Set<Node>()): boolean {
     const list = node.patterns ?? [];
     if (node.match !== undefined || list.length === 0 || seen.has(node)) return false;
@@ -394,7 +501,8 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
           out.push(embedMark(target.embed));
           return;
         }
-        if (!dropped(target.sc, target.node)) out.push(...expand(target.sc, target.node, target.id, true));
+        if (!dropped(target.sc, target.node))
+          out.push(...expand(target.sc, target.node, target.id, true));
       } else {
         if (node.repository) throw new Error(`${context}At${index}: an inline repository`);
         if (!dropped(sc, node)) out.push(...expand(sc, node, `${context}At${index}`, false));
@@ -433,7 +541,7 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
   expanding.clear();
   expanding.add("Root");
   rootRule.patterns = flatten(top, root.patterns!, "Root");
-  for (let i = 0, j = 0; i < sources.length || j < captureSources.length; ) {
+  for (let i = 0, j = 0; i < sources.length || j < captureSources.length;) {
     if (i < sources.length) {
       const { scope: sc, node, id } = sources[i++]!;
       expanding.clear();
@@ -483,10 +591,14 @@ pub(crate) use crate::rules::Start;
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Sc {
     /// A fixed scope.
-    S(S),${groupScopes ? `
+    S(S),${
+      groupScopes
+        ? `
     /// A scope made of a prefix, the text of a capture group of the match and
     /// a suffix.
-    Group(&'static str, u8, &'static str),` : ""}
+    Group(&'static str, u8, &'static str),`
+        : ""
+    }
 }
 
 impl Sc {
@@ -500,8 +612,12 @@ impl Sc {
     )]
     pub(crate) const fn code(self) -> u16 {
         match self {
-            Sc::S(scope) => scope as u16,${groupScopes ? `
-            Sc::Group(..) => u16::MAX,` : ""}
+            Sc::S(scope) => scope as u16,${
+              groupScopes
+                ? `
+            Sc::Group(..) => u16::MAX,`
+                : ""
+            }
         }
     }
 
@@ -541,15 +657,20 @@ pub(crate) struct Nested {
       return embed ? [{ embed, index }] : [];
     });
     if (marks.length === 0) continue;
-    if (new Set(marks.map((mark) => embedMark(mark.embed))).size > 1) throw new Error(`${r.id}: embeds two languages`);
+    if (new Set(marks.map((mark) => embedMark(mark.embed))).size > 1)
+      throw new Error(`${r.id}: embeds two languages`);
     const { embed, index } = marks[0]!;
     if (r.id === "Root") throw new Error("the root embeds a language");
     if (r.end === "") {
-      if (r.patterns.length > marks.length) throw new Error(`${r.id}: a capture group embeds a language beside other patterns`);
+      if (r.patterns.length > marks.length)
+        throw new Error(`${r.id}: a capture group embeds a language beside other patterns`);
       deferred.set(r.id, embed);
     } else {
       if (r.backref !== null) throw new Error(`${r.id}: embeds a language and repeats a group`);
-      embeds.set(r.id, { embed, afterOwn: r.patterns.slice(index + 1).some((p) => markEmbed(p) === null) });
+      embeds.set(r.id, {
+        embed,
+        afterOwn: r.patterns.slice(index + 1).some((p) => markEmbed(p) === null),
+      });
     }
     r.patterns = r.patterns.filter((p) => markEmbed(p) === null);
   }
@@ -570,7 +691,8 @@ pub(crate) struct Nested {
   );
   g += `        }\n    }\n}\n\n`;
   g += embedTables(ruleList, embeds, deferred);
-  if (cfg.endHalts) g += endHaltTable(ruleList, embeds, cfg.endHalts, (r) => patternById.get(r.end)!.regex);
+  if (cfg.endHalts)
+    g += endHaltTable(ruleList, embeds, cfg.endHalts, (r) => patternById.get(r.end)!.regex);
 
   g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
   const docs = (s: string) => {
@@ -578,7 +700,8 @@ pub(crate) struct Nested {
     return one.length > 56 ? `…` : one;
   };
   /** An expression as a doc comment shows it; the empty one has no code span. */
-  const shown = (s: string) => (s === "" ? "the empty expression" : `\`${docs(s).replaceAll("`", "'")}\``);
+  const shown = (s: string) =>
+    s === "" ? "the empty expression" : `\`${docs(s).replaceAll("`", "'")}\``;
   for (const p of patternList) g += `    /// The ${p.act.role}: ${shown(p.regex)}.\n    ${p.id},\n`;
   g += `}\n\nimpl Pattern {\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
   g += arms(
@@ -597,7 +720,10 @@ pub(crate) struct Nested {
         .filter((c) => c.nested)
         .map((c) => `(${c.group}, Nested { rule: Rule::${c.nested}, scopes: ${scText(c.scopes)} })`)
         .join(", ");
-      return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+      return [
+        p.id,
+        `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+      ];
     }),
     "Pattern",
   );
@@ -607,7 +733,8 @@ pub(crate) struct Nested {
   // An expression another module's matchers answer gets no `Rx` here.
   const shared = cfg.shared;
   const rxOf = new Map<string, string>();
-  for (const p of patternList) if (!rxOf.has(p.regex) && !shared?.ids.has(p.regex)) rxOf.set(p.regex, p.id);
+  for (const p of patternList)
+    if (!rxOf.has(p.regex) && !shared?.ids.has(p.regex)) rxOf.set(p.regex, p.id);
   g += `\n/// A regular expression of the grammar, which several patterns can share.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Rx {\n`;
   for (const [regex, id] of rxOf) g += `    /// ${shown(regex).replace(/^t/, "T")}.\n    ${id},\n`;
   g += `}\n\nimpl Rx {\n    /// Every expression, in code order.\n    #[cfg(test)]\n    pub(crate) const ALL: [Rx; ${rxOf.size}] = [\n`;
@@ -617,12 +744,22 @@ pub(crate) struct Nested {
     ? arms(
         patternList.map((p): [string, string] => {
           const other = shared.ids.get(p.regex);
-          return [p.id, other === undefined ? `Expr::Own(Rx::${rxOf.get(p.regex)})` : `Expr::Shared(${shared.path}::${other})`];
+          return [
+            p.id,
+            other === undefined
+              ? `Expr::Own(Rx::${rxOf.get(p.regex)})`
+              : `Expr::Shared(${shared.path}::${other})`,
+          ];
         }),
         "Pattern",
       )
     : "";
-  const rxArms = shared ? "" : arms(patternList.map((p): [string, string] => [p.id, `Rx::${rxOf.get(p.regex)}`]), "Pattern");
+  const rxArms = shared
+    ? ""
+    : arms(
+        patternList.map((p): [string, string] => [p.id, `Rx::${rxOf.get(p.regex)}`]),
+        "Pattern",
+      );
   if (shared) {
     g += `    ];\n}\n\n/// The matchers that answer an expression.\n#[derive(Clone, Copy, Debug)]\npub(crate) enum Expr {\n    /// An expression of \`${shared.path}\`, whose matchers answer it.\n    Shared(${shared.path}),\n    /// An expression of this grammar alone.\n    Own(Rx),\n}\n\nimpl Pattern {\n${longTable(exprArms)}    pub(crate) fn expr(self) -> Expr {\n        match self {\n`;
     g += exprArms;
@@ -652,7 +789,8 @@ pub(crate) struct Nested {
     inside(id, head, tail) {
       const regex = patternById.get(id)?.regex;
       if (regex === undefined) throw new Error(`no expression ${id}`);
-      if (!regex.startsWith(head) || !regex.endsWith(tail)) throw new Error(`${id}: not ${head}…${tail}`);
+      if (!regex.startsWith(head) || !regex.endsWith(tail))
+        throw new Error(`${id}: not ${head}…${tail}`);
       return regex.slice(head.length, regex.length - tail.length);
     },
   };
@@ -660,8 +798,12 @@ pub(crate) struct Nested {
 
   if (write) {
     await writeRust(`${root_dir}src/${cfg.dir}/grammar.rs`, g);
-    await writeRust(`${root_dir}src/${cfg.dir}/scope.rs`, scopeFile(cfg.generator, cfg.table, scopes, "", false));
-    if (wordLists.length) await writeRust(`${root_dir}src/${cfg.dir}/words.rs`, wordFile(cfg.generator, wordLists));
+    await writeRust(
+      `${root_dir}src/${cfg.dir}/scope.rs`,
+      scopeFile(cfg.generator, cfg.table, scopes, "", false),
+    );
+    if (wordLists.length)
+      await writeRust(`${root_dir}src/${cfg.dir}/words.rs`, wordFile(cfg.generator, wordLists));
   }
 
   // With RX_DUMP set to a file, writes each expression for oracle/onig.ts.
@@ -669,7 +811,8 @@ pub(crate) struct Nested {
     await Bun.write(
       Bun.env["RX_DUMP"],
       [...rxOf]
-        // An end that repeats a group of its begin needs the begin's text, which a case cannot supply.
+        // An end that repeats a group of its begin needs the begin's text,
+        // which a case cannot supply.
         .filter(([regex]) => !/\\[1-9]/.test(regex))
         .map(([regex, id]) => {
           // The groups the captures name, and the groups a `$N` in a scope name reads.
@@ -679,7 +822,12 @@ pub(crate) struct Nested {
             .flatMap((p) => [
               ...p.captures.flatMap((c) => [c.group, ...dollar(c.scopes)]),
               ...(p.act.role === "match" ? dollar(p.act.name) : []),
-              ...(p.act.role === "begin" ? [...dollar(rules.get(p.act.rule)!.name), ...dollar(rules.get(p.act.rule)!.content)] : []),
+              ...(p.act.role === "begin"
+                ? [
+                    ...dollar(rules.get(p.act.rule)!.name),
+                    ...dollar(rules.get(p.act.rule)!.content),
+                  ]
+                : []),
             ]);
           return JSON.stringify({ id, regex, groups: [...new Set(groups)].sort((a, b) => a - b) });
         })
@@ -687,7 +835,9 @@ pub(crate) struct Nested {
     );
   }
   if (write) {
-    console.log(`${ruleList.length} rules (${stateful} open across lines), ${patternList.length} patterns, ${rxOf.size} expressions, ${scopes.size} scopes`);
+    console.log(
+      `${ruleList.length} rules (${stateful} open across lines), ${patternList.length} patterns, ${rxOf.size} expressions, ${scopes.size} scopes`,
+    );
   }
   return rxOf;
 }
@@ -699,22 +849,30 @@ const longTable = (armText: string) => (armText.split("\n").length > 100 ? tooLo
 
 // Embedded languages.
 
-/** `Rule::payload`, `Rule::deferred` and `Rule::embeds_after_own`, for a grammar that embeds languages.
- * Each is written only when some rule needs it. */
+/**
+ * `Rule::payload`, `Rule::deferred` and `Rule::embeds_after_own`,
+ * for a grammar that embeds languages.
+ * Each is written only when some rule needs it.
+ */
 function embedTables(
   ruleList: { id: string; backref: number | null }[],
   embeds: Map<string, { embed: Embed; afterOwn: boolean }>,
   deferred: Map<string, Embed>,
 ): string {
   if (embeds.size === 0 && deferred.size === 0) return "";
-  const lang = (embed: Embed) => `rules::embedded!(${embed.lang}, ${JSON.stringify(embed.feature)})`;
+  const lang = (embed: Embed) =>
+    `rules::embedded!(${embed.lang}, ${JSON.stringify(embed.feature)})`;
   let g = "impl Rule {\n";
   if (embeds.size) {
     const payloadArms = arms(
       ruleList.map((r): [string, string] => {
         const embed = embeds.get(r.id);
-        if (embed) return [r.id, `${lang(embed.embed)}.map_or(rules::Payload::None, rules::Payload::Embed)`];
-        return [r.id, r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`];
+        if (embed)
+          return [r.id, `${lang(embed.embed)}.map_or(rules::Payload::None, rules::Payload::Embed)`];
+        return [
+          r.id,
+          r.backref === null ? "rules::Payload::None" : `rules::Payload::Backref(${r.backref})`,
+        ];
       }),
       "Rule",
     );
@@ -722,7 +880,13 @@ function embedTables(
     g += "        }\n    }\n";
   }
   if (deferred.size) {
-    const deferredArms = arms(ruleList.map((r): [string, string] => [r.id, deferred.has(r.id) ? lang(deferred.get(r.id)!) : "None"]), "Rule");
+    const deferredArms = arms(
+      ruleList.map((r): [string, string] => [
+        r.id,
+        deferred.has(r.id) ? lang(deferred.get(r.id)!) : "None",
+      ]),
+      "Rule",
+    );
     g += `\n    /// The language that lexes again a capture group whose patterns are this\n    /// list, when that language's feature is on.\n${longTable(deferredArms)}    pub(crate) fn deferred(self) -> Option<crate::Language> {\n        match self {\n${deferredArms}`;
     g += "        }\n    }\n";
   }

@@ -47,7 +47,9 @@ function stopsAtRoot(grammar: Grammar): boolean {
       if (rule.include?.startsWith("#")) {
         const entry = grammar.repository?.[rule.include.slice(1)];
         if (entry === undefined) return false;
-        return entry.match !== undefined || entry.begin !== undefined ? stops([entry]) : stops(entry.patterns);
+        return entry.match !== undefined || entry.begin !== undefined
+          ? stops([entry])
+          : stops(entry.patterns);
       }
       if (rule.include !== undefined || rule.begin !== undefined) return false;
       return rule.match !== undefined ? canMatchEmpty(rule.match) : stops(rule.patterns);

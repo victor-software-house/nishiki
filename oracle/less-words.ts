@@ -47,7 +47,8 @@ function alternatives(body: string): string[] {
 /** The words between `prefix` and the last `suffix` of `regex`, in the order
  * the alternation tries them, each with whether it ignores case. */
 function words(regex: string, prefix: string, suffix: string): [string, boolean][] {
-  if (!regex.startsWith(prefix) || !regex.endsWith(suffix)) throw new Error(`${prefix}…${suffix} not around ${regex.slice(0, 60)}`);
+  if (!regex.startsWith(prefix) || !regex.endsWith(suffix))
+    throw new Error(`${prefix}…${suffix} not around ${regex.slice(0, 60)}`);
   const body = regex.slice(prefix.length, regex.length - suffix.length);
   return alternatives(body).flatMap((alt): [string, boolean][] => {
     const folded = alt.startsWith("(?i:") && alt.endsWith(")");
@@ -60,21 +61,49 @@ function words(regex: string, prefix: string, suffix: string): [string, boolean]
 function table(list: [string, boolean][]): [string, number, boolean][] {
   const seen = new Map<string, [number, boolean]>();
   list.forEach(([word, folded], order) => {
-    if (!/^[-.0-9:A-Za-z]+$/.test(word)) throw new Error(`${word} has a character outside [-.0-9:A-Za-z]`);
-    if (word.length > 64) throw new Error(`${word} is longer than LONGEST_WORD in src/less/matchers.rs`);
+    if (!/^[-.0-9:A-Za-z]+$/.test(word))
+      throw new Error(`${word} has a character outside [-.0-9:A-Za-z]`);
+    if (word.length > 64)
+      throw new Error(`${word} is longer than LONGEST_WORD in src/less/matchers.rs`);
     if (!seen.has(word)) seen.set(word, [order, folded]);
   });
-  return [...seen].map(([word, [order, folded]]): [string, number, boolean] => [word, order, folded]).sort((a, b) => (a[0] < b[0] ? -1 : 1));
+  return [...seen]
+    .map(([word, [order, folded]]): [string, number, boolean] => [word, order, folded])
+    .sort((a, b) => (a[0] < b[0] ? -1 : 1));
 }
 
 const lists: [string, string, [string, boolean][]][] = [
-  ["EXTENDED_COLORS", "`color-values`, the extended color names", words(regexOf("color-values", 5), "\\b(", ")\\b")],
-  ["COUNTER_STYLES", "`counter-functions`, the counter styles", words(regexOf("counter-functions", 0, 0, 4, 1), "\\b(", ")\\b")],
-  ["VALUE_KEYWORDS", "`property-value-constants`, the keywords", words(regexOf("property-value-constants", 12), "\\b(", ")\\b")],
-  ["PROPERTY_NAMES", "`rule-list-body`, the property names", words(regexOf("rule-list-body", 5, 13), "\\b(", ")\\b")],
+  [
+    "EXTENDED_COLORS",
+    "`color-values`, the extended color names",
+    words(regexOf("color-values", 5), "\\b(", ")\\b"),
+  ],
+  [
+    "COUNTER_STYLES",
+    "`counter-functions`, the counter styles",
+    words(regexOf("counter-functions", 0, 0, 4, 1), "\\b(", ")\\b"),
+  ],
+  [
+    "VALUE_KEYWORDS",
+    "`property-value-constants`, the keywords",
+    words(regexOf("property-value-constants", 12), "\\b(", ")\\b"),
+  ],
+  [
+    "PROPERTY_NAMES",
+    "`rule-list-body`, the property names",
+    words(regexOf("rule-list-body", 5, 13), "\\b(", ")\\b"),
+  ],
   ["TAG_NAMES", "`selectors`, the tag names", words(regexOf("selectors", 1), "\\b(", ")\\b")],
-  ["PSEUDO_CLASSES", "`pseudo-selectors`, the pseudo-classes without arguments", words(regexOf("pseudo-selectors", 5), "(:)(", ")\\b")],
-  ["PSEUDO_ELEMENTS", "`pseudo-selectors`, the pseudo-elements", words(regexOf("pseudo-selectors", 8), "(::?)(", ")\\b")],
+  [
+    "PSEUDO_CLASSES",
+    "`pseudo-selectors`, the pseudo-classes without arguments",
+    words(regexOf("pseudo-selectors", 5), "(:)(", ")\\b"),
+  ],
+  [
+    "PSEUDO_ELEMENTS",
+    "`pseudo-selectors`, the pseudo-elements",
+    words(regexOf("pseudo-selectors", 8), "(::?)(", ")\\b"),
+  ],
 ];
 
 const header = dedent`
@@ -85,7 +114,10 @@ const header = dedent`
 
   use super::matchers::Word;`;
 const tables = lists.map(([name, what, list]) => {
-  const rows = table(list).map(([word, order, folded]) => `Word { text: ${JSON.stringify(word)}, order: ${order}, folded: ${folded} },`);
+  const rows = table(list).map(
+    ([word, order, folded]) =>
+      `Word { text: ${JSON.stringify(word)}, order: ${order}, folded: ${folded} },`,
+  );
   return dedent`
     /// The words of ${what}.
     pub(super) const ${name}: &[Word] = &[

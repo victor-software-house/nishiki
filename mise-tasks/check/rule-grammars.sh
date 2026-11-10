@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Each rule-engine language's tables are what its oracle/<language>-grammar.ts writes"
+#MISE description="Each rule-engine language's tables match its oracle/<language>-grammar.ts"
 #MISE tools={bun="1.4.4"}
 # Runs every rule-engine generator, oracle/<language>-grammar.ts.
 # oracle/rule-grammar.ts is the library they share, not a generator.
@@ -18,14 +18,15 @@ bun test oracle/rule-grammar.test.ts
 bun oracle/fence-stops.ts
 
 for generator in oracle/*-grammar.ts; do
-  if [ "$generator" = oracle/rule-grammar.ts ] || [ "$generator" = oracle/php-family-grammar.ts ]; then
-    continue
-  fi
+  case "$generator" in
+    oracle/rule-grammar.ts | oracle/php-family-grammar.ts) continue ;;
+  esac
   bun "$generator" >/dev/null
 done
 changed=$(git status --porcelain -- src)
 if [ -n "$changed" ]; then
   echo "$changed" >&2
-  echo "src/ differs from what the oracle/<language>-grammar.ts generators write; run each with bun" >&2
+  echo "src/ differs from what the oracle/<language>-grammar.ts generators write;" \
+    "run each with bun" >&2
   exit 1
 fi

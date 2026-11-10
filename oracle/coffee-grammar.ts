@@ -1,5 +1,5 @@
-// Writes src/coffee/scope.rs and src/coffee/grammar.rs from the `coffee` grammar that
-// Shiki 4.6.0 bundles (atom/language-coffee-script through microsoft/vscode, MIT).
+// Writes src/coffee/scope.rs and src/coffee/grammar.rs from the `coffee` grammar that Shiki 4.6.0
+// bundles (atom/language-coffee-script through microsoft/vscode, MIT).
 // It writes the scope names.
 // For every rule it writes the scopes the rule adds, how it ends and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
@@ -7,14 +7,15 @@
 //
 // Two changes keep Shiki's output:
 // - A pattern named after its first group (`$1`) becomes one pattern per word of the group.
-// - The regular expression rule includes only `source.js.regexp`, which no grammar Shiki loads provides.
+// - The regular expression rule includes only `source.js.regexp`,
+//   which no grammar Shiki loads provides.
 //   vscode-textmate skips such a rule, so it is left out.
 //
 // Svelte's grammar injects two patterns into the CoffeeScript it embeds:
 // `L:(source.ts, source.js, source.coffee)`, its `$` prefixes.
-// They become `Pattern::SvelteVariable` and `Pattern::SvelteProps`, listed in
-// `Pattern::SVELTE`. No rule lists them. The tables of the dialect that Svelte
-// embeds put them first in every rule (src/coffee/svelte.rs).
+// They become `Pattern::SvelteVariable` and `Pattern::SvelteProps`, listed in `Pattern::SVELTE`.
+// No rule lists them.
+// The tables of the dialect that Svelte embeds put them first in every rule (src/coffee/svelte.rs).
 //
 // The script string `` (`)(.*)(`) `` lexes its middle group as JavaScript.
 // That group's nested list is `Rule::Javascript`, a rule with no patterns.
@@ -24,7 +25,16 @@
 // The output is generated; do not edit it.
 import coffee from "@shikijs/langs@4.6.0/coffee";
 import svelte from "@shikijs/langs@4.6.0/svelte";
-import { arms, groupsCheck, oneBlankTable, ruleCodes, scopeFile, startTable, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  oneBlankTable,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type CaptureNode = { name?: string; patterns?: Node[] };
 type Captures = Record<string, CaptureNode>;
@@ -41,14 +51,17 @@ type Node = {
   include?: string;
 };
 
-const grammar = (coffee as unknown as { scopeName: string; repository: Record<string, Node>; patterns: Node[] }[]).find(
-  (lang) => lang.scopeName === "source.coffee",
-)!;
+const grammar = (
+  coffee as unknown as { scopeName: string; repository: Record<string, Node>; patterns: Node[] }[]
+).find((lang) => lang.scopeName === "source.coffee")!;
 const repository = grammar.repository;
 
 const root_dir = new URL("..", import.meta.url).pathname;
 
-/** The first capturing group of `regex`, outside character classes: where it starts and ends, and what is inside. */
+/**
+ * The first capturing group of `regex`, outside character classes: where it starts and ends,
+ * and what is inside.
+ */
 function firstGroup(regex: string): { start: number; end: number; body: string } {
   let inClass = false;
   for (let i = 0; i < regex.length; i++) {
@@ -81,7 +94,8 @@ function rewrite(list: Node[]): Node[] {
   });
 }
 const root = { patterns: rewrite(grammar.patterns) } as Node;
-for (const node of Object.values(repository)) if (node.patterns) node.patterns = rewrite(node.patterns);
+for (const node of Object.values(repository))
+  if (node.patterns) node.patterns = rewrite(node.patterns);
 
 // Scope names.
 
@@ -122,7 +136,12 @@ function scope(name: string): string {
 }
 /** The scopes of a rule's name; an empty name adds none, as in vscode-textmate. */
 function scopeList(name: string | undefined): string[] {
-  return name === undefined ? [] : name.split(" ").filter((part) => part !== "").map(scope);
+  return name === undefined
+    ? []
+    : name
+        .split(" ")
+        .filter((part) => part !== "")
+        .map(scope);
 }
 
 // Rules and patterns.
@@ -273,7 +292,10 @@ type Rule = {
 const patternById = new Map<string, Pattern>();
 const rules = new Map<string, Rule>();
 
-/** The rule that tokenizes the text of a capture group with the patterns `list`, one per distinct list. */
+/**
+ * The rule that tokenizes the text of a capture group with the patterns `list`,
+ * one per distinct list.
+ */
 const nestedRules = new Map<string, string>();
 function nestedRule(list: Node[]): string {
   const key = JSON.stringify(list);
@@ -390,13 +412,16 @@ function expand(node: Node, id: string): string[] {
 
 const rootPatterns = flatten(root.patterns!, "Root");
 rules.set("Root", { id: "Root", name: [], content: [], end: "", patterns: rootPatterns });
-const svelteGrammar = (svelte as unknown as { scopeName: string; injections: Record<string, { patterns: Node[] }> }[]).find(
-  (lang) => lang.scopeName === "source.svelte",
-)!;
+const svelteGrammar = (
+  svelte as unknown as { scopeName: string; injections: Record<string, { patterns: Node[] }> }[]
+).find((lang) => lang.scopeName === "source.svelte")!;
 const injected = svelteGrammar.injections["L:(source.ts, source.js, source.coffee)"]!.patterns;
 const svelteIds = ["SvelteVariable", "SvelteProps"];
-if (injected.length !== svelteIds.length) throw new Error(`Svelte injects ${injected.length} patterns, not ${svelteIds.length}`);
-injected.forEach((node, index) => register({ match: node.match, name: node.name }, svelteIds[index]!));
+if (injected.length !== svelteIds.length)
+  throw new Error(`Svelte injects ${injected.length} patterns, not ${svelteIds.length}`);
+injected.forEach((node, index) =>
+  register({ match: node.match, name: node.name }, svelteIds[index]!),
+);
 const unused = Object.keys(names).filter((id) => !used.has(id));
 if (unused.length) throw new Error(`names for no pattern: ${unused.join(", ")}`);
 const unnamed = [...patternById.keys()].filter((id) => /At\d/.test(id));
@@ -404,7 +429,8 @@ if (unnamed.length) throw new Error(`patterns without a name: ${unnamed.join(", 
 
 // Output.
 
-const list = (names: string[]) => (names.length ? `scopes![${names.map((n) => `S::${n}`).join(", ")}]` : "S::NO_SCOPES");
+const list = (names: string[]) =>
+  names.length ? `scopes![${names.map((n) => `S::${n}`).join(", ")}]` : "S::NO_SCOPES";
 
 let g = `//! The grammar's rules as tables. Generated by \`oracle/coffee-grammar.ts\` from
 //! the \`coffee\` grammar Shiki 4.6.0 bundles; do not edit.
@@ -468,7 +494,10 @@ g += arms(
           : "Act::End";
     const captures = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
     const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
@@ -476,7 +505,10 @@ g += `        }\n    }\n}\n`;
 
 g += oneBlankTable(patternList);
 g += startTable(patternList);
-g += groupsCheck("Coffee", patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+g += groupsCheck(
+  "Coffee",
+  patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+);
 g += ruleCodes("Coffee", "COFFEE");
 
 await writeRust(`${root_dir}src/coffee/grammar.rs`, g);
@@ -488,7 +520,9 @@ await writeRust(`${root_dir}src/coffee/scope.rs`, s);
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
-    patternList.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) })).join("\n") + "\n",
+    patternList
+      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
+      .join("\n") + "\n",
   );
 }
 console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes`);

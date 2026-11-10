@@ -12,7 +12,16 @@
 // The output is generated; do not edit it.
 import hlsl from "@shikijs/langs@4.6.0/hlsl";
 import { expand } from "./alternation.ts";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, takesOneBlank, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  takesOneBlank,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Node = {
   name?: string;
@@ -146,13 +155,29 @@ function captureList(captures: Node["captures"]): [number, string[]][] {
 /** Registers `node` under `id` and returns the id of the pattern it adds. */
 function register(node: Node, id: string): string {
   if (node.match !== undefined) {
-    patternById.push({ id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.push({
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   if (/\\[1-9]/.test(node.end)) throw new Error(`${id}: the end repeats a group`);
-  patternById.push({ id, regex: node.begin, act: { role: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
-  patternById.push({ id: `${id}End`, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
+  patternById.push({
+    id,
+    regex: node.begin,
+    act: { role: "begin", rule: id },
+    captures: captureList(node.beginCaptures ?? node.captures),
+  });
+  patternById.push({
+    id: `${id}End`,
+    regex: node.end,
+    act: { role: "end" },
+    captures: captureList(node.endCaptures ?? node.captures),
+  });
   const rule: Rule = { id, name: scopeList(node.name), end: `${id}End`, patterns: [] };
   rules.push(rule);
   rule.patterns = (node.patterns ?? []).map((inner, index) => register(inner, `${id}At${index}`));
@@ -164,7 +189,8 @@ rules[0]!.patterns = grammar.patterns.map((node, index) => register(node, names[
 // No pattern may take a blank after the first of a run: the lexer skips the
 // rest of a run (`BlankRuns::Skip`).
 for (const p of patternById) {
-  if (takesOneBlank(p.regex)) throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
+  if (takesOneBlank(p.regex))
+    throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
 }
 
 // Words.
@@ -200,7 +226,9 @@ grammar.patterns.forEach((node, index) => {
     // A word that digits may follow must not end in a digit itself: the
     // matcher strips every trailing digit before it looks the word up.
     if ([...words, ...digits].some((w) => !/^\w+$/.test(w)) || digits.some((w) => /\d$/.test(w))) {
-      throw new Error(`${id}: a semantic that is not all \\w, or one before [0-9]* that ends in a digit`);
+      throw new Error(
+        `${id}: a semantic that is not all \\w, or one before [0-9]* that ends in a digit`,
+      );
     }
     semantics.push({ id, words: [...new Set(words)].sort(), digits: [...new Set(digits)].sort() });
   }
@@ -213,13 +241,16 @@ const expectedWords = [
   "BasicType",
   ...names.slice(names.indexOf("Modifier"), names.indexOf("String")),
 ];
-if (wordPats.map((w) => w.id).join() !== expectedWords.join()) throw new Error("the word patterns changed");
+if (wordPats.map((w) => w.id).join() !== expectedWords.join())
+  throw new Error("the word patterns changed");
 if (semantics.map((s) => s.id).join() !== "Semantic,SemanticSm4,SemanticSm5,SemanticSm51") {
   throw new Error("the semantics changed shape");
 }
 if (wordPats.length > 64) throw new Error("more word patterns than bits in a u64");
 
-const preprocessor = /^\^\\s\*#\\s\*\((.*)\)$/.exec(grammar.patterns[names.indexOf("Preprocessor")]!.match!)?.[1];
+const preprocessor = /^\^\\s\*#\\s\*\((.*)\)$/.exec(
+  grammar.patterns[names.indexOf("Preprocessor")]!.match!,
+)?.[1];
 if (preprocessor === undefined) throw new Error("the preprocessor pattern changed shape");
 const directives = expand(preprocessor);
 
@@ -234,7 +265,10 @@ function table(folded: boolean): [string, bigint][] {
 }
 const exact = table(false);
 const folded = table(true);
-const longest = Math.max(...folded.map(([w]) => w.length), ...semantics.flatMap((s) => [...s.words, ...s.digits].map((w) => w.length)));
+const longest = Math.max(
+  ...folded.map(([w]) => w.length),
+  ...semantics.flatMap((s) => [...s.words, ...s.digits].map((w) => w.length)),
+);
 
 // Output.
 
@@ -289,16 +323,26 @@ g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the
 g += arms(
   patternById.map((p): [string, string] => {
     const act =
-      p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match"
+        ? `Act::Match(${list(p.act.name)})`
+        : p.act.role === "begin"
+          ? `Act::Begin(Rule::${p.act.rule})`
+          : "Act::End";
     const captures = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
 g += startTable(patternById);
 g += ruleCodes("Hlsl", "HLSL");
-g += groupsCheck("Hlsl", patternById.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "Hlsl",
+  patternById.flatMap((p) => p.captures.map(([n]) => n)),
+);
 await writeRust(`${root_dir}src/hlsl/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;
@@ -347,7 +391,11 @@ await writeRust(`${root_dir}src/hlsl/scope.rs`, scopeFile("hlsl-grammar.ts", "HL
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
-    patternById.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) })).join("\n") + "\n",
+    patternById
+      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
+      .join("\n") + "\n",
   );
 }
-console.log(`${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${wordPats.length} word patterns`);
+console.log(
+  `${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${wordPats.length} word patterns`,
+);

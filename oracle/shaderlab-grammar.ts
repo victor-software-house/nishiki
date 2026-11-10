@@ -22,7 +22,16 @@
 // The output is generated; do not edit it.
 import shaderlabLangs from "@shikijs/langs@4.6.0/shaderlab";
 import { expand } from "./alternation.ts";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, takesOneBlank, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  takesOneBlank,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Node = {
   name?: string;
@@ -146,7 +155,8 @@ function captureList(captures: Node["captures"]): [number, string[]][] {
 }
 
 const numbers = grammar.repository["numbers"]!.patterns;
-if (numbers?.length !== 1 || numbers[0]!.match === undefined) throw new Error("#numbers changed shape");
+if (numbers?.length !== 1 || numbers[0]!.match === undefined)
+  throw new Error("#numbers changed shape");
 const embedded = grammar.repository["hlsl-embedded"]!.patterns!;
 if (embedded[0]?.include !== "source.hlsl" || embedded.length !== unityNames.length + 1) {
   throw new Error("#hlsl-embedded changed shape");
@@ -156,19 +166,46 @@ if (embedded[0]?.include !== "source.hlsl" || embedded.length !== unityNames.len
 function register(node: Node, id: string): string[] {
   if (node.include === "#numbers") {
     if (!patternById.some((p) => p.id === "Number")) {
-      patternById.push({ id: "Number", regex: numbers![0]!.match!, act: { role: "match", name: scopeList(numbers![0]!.name) }, captures: [] });
+      patternById.push({
+        id: "Number",
+        regex: numbers![0]!.match!,
+        act: { role: "match", name: scopeList(numbers![0]!.name) },
+        captures: [],
+      });
     }
     return ["Number"];
   }
   if (node.match !== undefined) {
-    patternById.push({ id, regex: node.match, act: { role: "match", name: scopeList(node.name) }, captures: captureList(node.captures) });
+    patternById.push({
+      id,
+      regex: node.match,
+      act: { role: "match", name: scopeList(node.name) },
+      captures: captureList(node.captures),
+    });
     return [id];
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   if (/\\[1-9]/.test(node.end)) throw new Error(`${id}: the end repeats a group`);
-  patternById.push({ id, regex: node.begin, act: { role: "begin", rule: id }, captures: captureList(node.beginCaptures ?? node.captures) });
-  patternById.push({ id: `${id}End`, regex: node.end, act: { role: "end" }, captures: captureList(node.endCaptures ?? node.captures) });
-  const rule: Rule = { id, name: scopeList(node.name), end: `${id}End`, patterns: [], embeds: false };
+  patternById.push({
+    id,
+    regex: node.begin,
+    act: { role: "begin", rule: id },
+    captures: captureList(node.beginCaptures ?? node.captures),
+  });
+  patternById.push({
+    id: `${id}End`,
+    regex: node.end,
+    act: { role: "end" },
+    captures: captureList(node.endCaptures ?? node.captures),
+  });
+  const rule: Rule = {
+    id,
+    name: scopeList(node.name),
+    end: `${id}End`,
+    patterns: [],
+    embeds: false,
+  };
   rules.push(rule);
   const inner = node.patterns ?? [];
   if (inner.length === 1 && inner[0]!.include === "#hlsl-embedded") {
@@ -184,10 +221,17 @@ function register(node: Node, id: string): string[] {
 }
 
 rules[0]!.patterns = grammar.patterns.flatMap((node, index) => register(node, names[index]!));
-if (rules.filter((r) => r.embeds).map((r) => r.id).join() !== "CgBlock,HlslBlock") throw new Error("the embedding rules changed");
+if (
+  rules
+    .filter((r) => r.embeds)
+    .map((r) => r.id)
+    .join() !== "CgBlock,HlslBlock"
+)
+  throw new Error("the embedding rules changed");
 
 for (const p of patternById) {
-  if (takesOneBlank(p.regex)) throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
+  if (takesOneBlank(p.regex))
+    throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
 }
 
 // Words.
@@ -207,7 +251,8 @@ for (const p of patternById) {
   wordPats.push({ id: p.id, folded, words: [...new Set(all)].sort() });
 }
 const expectedWords = [...names.slice(1, 13).filter((n) => n !== "Numbers"), ...unityNames];
-if (wordPats.map((w) => w.id).join() !== expectedWords.join()) throw new Error(`the word patterns changed: ${wordPats.map((w) => w.id)}`);
+if (wordPats.map((w) => w.id).join() !== expectedWords.join())
+  throw new Error(`the word patterns changed: ${wordPats.map((w) => w.id)}`);
 if (wordPats.length > 64) throw new Error("more word patterns than bits in a u64");
 
 /** Every word, with the bits of the patterns that list it. */
@@ -271,11 +316,16 @@ g += `        }\n    }\n\n    /// What a rule carries from line to line: the sta
 g += arms(
   rules.map((r): [string, string] => [
     r.id,
-    r.embeds ? `rules::embedded!(Hlsl, "lang-hlsl").map_or(rules::Payload::None, rules::Payload::Embed)` : "rules::Payload::None",
+    r.embeds
+      ? `rules::embedded!(Hlsl, "lang-hlsl").map_or(rules::Payload::None, rules::Payload::Embed)`
+      : "rules::Payload::None",
   ]),
   "Rule",
 );
-g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${rules.filter((r) => r.embeds).map((r) => `Rule::${r.id}`).join(" | ")})\n    }\n}\n\n`;
+g += `        }\n    }\n\n    /// Whether the rule lists its own patterns after the grammar it embeds.\n    pub(crate) fn embeds_after_own(self) -> bool {\n        matches!(self, ${rules
+  .filter((r) => r.embeds)
+  .map((r) => `Rule::${r.id}`)
+  .join(" | ")})\n    }\n}\n\n`;
 
 g += `/// A pattern of the grammar.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Pattern {\n`;
 const docs = (s: string) => (s.length > 56 ? "…" : s);
@@ -286,16 +336,26 @@ g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the
 g += arms(
   patternById.map((p): [string, string] => {
     const act =
-      p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match"
+        ? `Act::Match(${list(p.act.name)})`
+        : p.act.role === "begin"
+          ? `Act::Begin(Rule::${p.act.rule})`
+          : "Act::End";
     const captures = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[],\n            }`,
+    ];
   }),
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
 g += startTable(patternById);
 g += ruleCodes("ShaderLab", "SHADERLAB");
-g += groupsCheck("ShaderLab", patternById.flatMap((p) => p.captures.map(([n]) => n)));
+g += groupsCheck(
+  "ShaderLab",
+  patternById.flatMap((p) => p.captures.map(([n]) => n)),
+);
 await writeRust(`${root_dir}src/shaderlab/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;
@@ -333,13 +393,20 @@ w += arms(
 w += `    }\n}\n`;
 await writeRust(`${root_dir}src/shaderlab/words.rs`, w);
 
-await writeRust(`${root_dir}src/shaderlab/scope.rs`, scopeFile("shaderlab-grammar.ts", "SHADERLAB", scopes));
+await writeRust(
+  `${root_dir}src/shaderlab/scope.rs`,
+  scopeFile("shaderlab-grammar.ts", "SHADERLAB", scopes),
+);
 
 // With RX_DUMP set to a file, writes each pattern for oracle/onig.ts.
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
-    patternById.map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) })).join("\n") + "\n",
+    patternById
+      .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
+      .join("\n") + "\n",
   );
 }
-console.log(`${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${wordPats.length} word patterns`);
+console.log(
+  `${rules.length} rules, ${patternById.length} patterns, ${scopes.size} scopes, ${wordPats.length} word patterns`,
+);

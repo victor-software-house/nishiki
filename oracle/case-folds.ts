@@ -101,7 +101,8 @@ function measure(engine: RegexEngine): Measured {
     if (fold !== undefined && foldsTo(cp, fold)) foldOf.set(cp, fold);
   }
   for (const [cp, fold] of [...foldOf]) {
-    for (const mate of orbitOf.get(cp) ?? []) if (!foldOf.has(mate) && foldsTo(mate, fold)) foldOf.set(mate, fold);
+    for (const mate of orbitOf.get(cp) ?? [])
+      if (!foldOf.has(mate) && foldsTo(mate, fold)) foldOf.set(mate, fold);
   }
   return { candidates, orbitOf, foldOf };
 }
@@ -109,7 +110,8 @@ function measure(engine: RegexEngine): Measured {
 /** The tables folds.rs holds, from what Oniguruma answered. */
 function tables({ candidates, orbitOf, foldOf }: Measured): Tables {
   const next: [number, number][] = [];
-  for (const [member, orbit] of orbitOf) next.push([member, orbit[(orbit.indexOf(member) + 1) % orbit.length]]);
+  for (const [member, orbit] of orbitOf)
+    next.push([member, orbit[(orbit.indexOf(member) + 1) % orbit.length]]);
   next.sort((a, b) => a[0] - b[0]);
   const orbits = new Set(orbitOf.values());
   const largest = Math.max(...[...orbits].map((orbit) => orbit.length));
@@ -120,7 +122,8 @@ function tables({ candidates, orbitOf, foldOf }: Measured): Tables {
     .sort(([a], [b]) => a - b)
     .map(([cp, fold]) => [cp, [...fold].map((f) => canonical(f.codePointAt(0)!))]);
   const unfold = new Map<string, number[]>();
-  for (const [cp, fold] of multi) unfold.set(fold.join(","), [...(unfold.get(fold.join(",")) ?? []), cp]);
+  for (const [cp, fold] of multi)
+    unfold.set(fold.join(","), [...(unfold.get(fold.join(",")) ?? []), cp]);
   const folds = [...unfold.entries()]
     .map(([key, chars]) => [key.split(",").map(Number), chars.sort((a, b) => a - b)] as const)
     .sort(([a], [b]) => {
@@ -140,7 +143,8 @@ function tables({ candidates, orbitOf, foldOf }: Measured): Tables {
   // A line is then checked without decoding.
   const wide = new Set<number>();
   for (const [cp, fold] of multi) {
-    for (const c of [cp, ...fold]) for (const member of orbitOf.get(c) ?? [c]) if (member > 0x7f) wide.add(member);
+    for (const c of [cp, ...fold])
+      for (const member of orbitOf.get(c) ?? [c]) if (member > 0x7f) wide.add(member);
   }
   const tailsOf = new Map<number, number[]>();
   for (const cp of wide) {
@@ -156,7 +160,9 @@ function tables({ candidates, orbitOf, foldOf }: Measured): Tables {
   // low six bits.
   // A second byte is always 0x80 to 0xBF.
   const wideSecond = leads.map((lead) =>
-    tailsOf.get(lead)!.reduce((mask, tail) => mask | (1n << BigInt((tail > 0xff ? tail >> 8 : tail) & 0x3f)), 0n),
+    tailsOf
+      .get(lead)!
+      .reduce((mask, tail) => mask | (1n << BigInt((tail > 0xff ? tail >> 8 : tail) & 0x3f)), 0n),
   );
   return {
     candidateCount: candidates.length,

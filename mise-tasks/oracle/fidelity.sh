@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Write target/fidelity/: every Shiki grammar, its sample's scopes and the engine's tables"
+#MISE description="Write target/fidelity/: each grammar, its sample's scopes, the engine's tables"
 #MISE tools={bun="1.4.4"}
 #MISE depends=["check:bun-lockfile", "check:sources"]
 # Reads Shiki's sample of every language Shiki bundles from the

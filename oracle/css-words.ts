@@ -46,7 +46,10 @@ const lists: [string, string[]][] = [
   ["FUNCTION_TRANSFORMS", words(regexOf("functions", 7), "(?<![-\\w])(", ")(\\()")],
   ["PSEUDO_CLASSES", words(regexOf("pseudo-classes"), "(:)(:*)(?:", ")(?![-\\w]|\\s*[;}])")],
   ["PSEUDO_ELEMENTS", words(regexOf("pseudo-elements"), "(?:(::?)(?:", "|(?:-(?:")],
-  ["PSEUDO_ELEMENTS_DOUBLE", words(regexOf("pseudo-elements"), "|(::)(?:", "))(?![-\\w]|\\s*[;}])")],
+  [
+    "PSEUDO_ELEMENTS_DOUBLE",
+    words(regexOf("pseudo-elements"), "|(::)(?:", "))(?![-\\w]|\\s*[;}])"),
+  ],
   ["VENDORS", words(regexOf("pseudo-elements"), "|(?:-(?:", ")|(?:mso|prince))-")],
 ];
 

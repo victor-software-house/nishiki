@@ -16,7 +16,16 @@
 // groups, one JSON object per line, for oracle/onig.ts.
 import commonLisp from "@shikijs/langs@4.6.0/common-lisp";
 import { expand } from "./alternation.ts";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, takesOneBlank, tooLong, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  takesOneBlank,
+  tooLong,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Captures = Record<string, { name?: string; patterns?: Node[] }>;
 type Node = {
@@ -33,7 +42,9 @@ type Node = {
 };
 type Grammar = { scopeName: string; repository: Record<string, Node>; patterns: Node[] };
 
-const grammar = (commonLisp as unknown as Grammar[]).find((lang) => lang.scopeName === "source.commonlisp")!;
+const grammar = (commonLisp as unknown as Grammar[]).find(
+  (lang) => lang.scopeName === "source.commonlisp",
+)!;
 const repository = grammar.repository;
 const root = { patterns: grammar.patterns } as Node;
 const root_dir = new URL("..", import.meta.url).pathname;
@@ -150,7 +161,8 @@ function register(node: Node, id: string): string {
     });
     return id;
   }
-  if (node.begin === undefined || node.end === undefined) throw new Error(`${id}: neither a match nor a begin/end rule`);
+  if (node.begin === undefined || node.end === undefined)
+    throw new Error(`${id}: neither a match nor a begin/end rule`);
   if (/\\[1-9]/.test(node.end)) throw new Error(`${id}: the end repeats a group`);
   patternById.set(id, {
     id,
@@ -166,7 +178,13 @@ function register(node: Node, id: string): string {
     captures: captureList(node.endCaptures ?? node.captures),
     nested: nestedList(node.endCaptures ?? node.captures),
   });
-  const rule: Rule = { id, name: scopeList(node.name), content: scopeList(node.contentName), end: `${id}End`, patterns: [] };
+  const rule: Rule = {
+    id,
+    name: scopeList(node.name),
+    content: scopeList(node.contentName),
+    end: `${id}End`,
+    patterns: [],
+  };
   rules.set(id, rule);
   ruleSources.push({ id, node });
   rule.patterns = flatten(node.patterns ?? [], id);
@@ -230,7 +248,8 @@ for (const { id, list } of nestedSources) {
 // No pattern may take a blank after the first of a run: the lexer skips the
 // rest of a run (`BlankRuns::Skip`).
 for (const p of patternById.values()) {
-  if (takesOneBlank(p.regex)) throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
+  if (takesOneBlank(p.regex))
+    throw new Error(`${p.id} takes one blank: the lexer needs BlankRuns::ToLast`);
 }
 
 // Words.
@@ -248,14 +267,16 @@ const outside = /[()\s"';`,|\\]/;
  * characters up to the next delimiter. */
 function wordList(id: string, regex: string): string[] {
   const head = lookbehinds.find((lb) => regex.startsWith(`(?i)${lb}`));
-  if (head === undefined || !regex.endsWith(delimiter)) throw new Error(`${id}: not a word pattern`);
+  if (head === undefined || !regex.endsWith(delimiter))
+    throw new Error(`${id}: not a word pattern`);
   return spelled(id, regex.slice(`(?i)${head}`.length, -delimiter.length));
 }
 
 /** The lowercase words the alternation `source` spells, sorted. */
 function spelled(id: string, source: string): string[] {
   const all = expand(source).map((word) => word.toLowerCase());
-  if (all.some((word) => word === "" || outside.test(word))) throw new Error(`${id}: a word with a delimiter`);
+  if (all.some((word) => word === "" || outside.test(word)))
+    throw new Error(`${id}: a word with a delimiter`);
   return [...new Set(all)].sort();
 }
 
@@ -300,9 +321,12 @@ const heads: [string, string][] = [
   ["DEF_STRUCT", "DefNameAt4"],
   ["LOCAL_FUNCTIONS", "DefNameAt5"],
 ];
-for (const [name, id] of heads) words.set(name, [id, spelled(id, firstGroup(id, patternById.get(id)!.regex))]);
+for (const [name, id] of heads)
+  words.set(name, [id, spelled(id, firstGroup(id, patternById.get(id)!.regex))]);
 /** The longest word, which sizes the matchers' lowered copy of a run. */
-const longest = Math.max(...[...words.values()].flatMap(([, list]) => list.map((word) => word.length)));
+const longest = Math.max(
+  ...[...words.values()].flatMap(([, list]) => list.map((word) => word.length)),
+);
 
 // Output.
 
@@ -360,17 +384,27 @@ g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the
 g += arms(
   patternList.map((p): [string, string] => {
     const act =
-      p.act.role === "match" ? `Act::Match(${scText(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
+      p.act.role === "match"
+        ? `Act::Match(${scText(p.act.name)})`
+        : p.act.role === "begin"
+          ? `Act::Begin(Rule::${p.act.rule})`
+          : "Act::End";
     const captures = p.captures.map(([n, list]) => `(${n}, ${scText(list)})`).join(", ");
     const nested = p.nested.map(([n, rule]) => `(${n}, Rule::${rule})`).join(", ");
-    return [p.id, `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`];
+    return [
+      p.id,
+      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+    ];
   }),
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
 g += startTable(patternList);
 g += ruleCodes("CommonLisp", "COMMON_LISP");
-g += groupsCheck("CommonLisp", patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]));
+g += groupsCheck(
+  "CommonLisp",
+  patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
+);
 await writeRust(`${root_dir}src/common_lisp/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word.replaceAll("\\", "\\\\")}"`;
@@ -386,7 +420,10 @@ for (const [name, [id, list]] of words) {
 }
 await writeRust(`${root_dir}src/common_lisp/words.rs`, w);
 
-await writeRust(`${root_dir}src/common_lisp/scope.rs`, scopeFile("common-lisp-grammar.ts", "COMMON_LISP", scopes));
+await writeRust(
+  `${root_dir}src/common_lisp/scope.rs`,
+  scopeFile("common-lisp-grammar.ts", "COMMON_LISP", scopes),
+);
 
 if (Bun.env["RX_DUMP"]) {
   await Bun.write(
@@ -396,10 +433,14 @@ if (Bun.env["RX_DUMP"]) {
         JSON.stringify({
           id: p.id,
           regex: p.regex,
-          groups: [...new Set([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)])].sort((a, b) => a - b),
+          groups: [...new Set([...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)])].sort(
+            (a, b) => a - b,
+          ),
         }),
       )
       .join("\n") + "\n",
   );
 }
-console.log(`${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${words.size} word lists`);
+console.log(
+  `${ruleList.length} rules, ${patternList.length} patterns, ${scopes.size} scopes, ${words.size} word lists`,
+);
