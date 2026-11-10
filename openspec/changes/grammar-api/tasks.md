@@ -2,8 +2,12 @@
 
 ## 1. Compiler
 
-- [ ] 1.1 A Rust compiler from grammar JSON to the engine's tables.
+- [x] 1.1 A Rust compiler from grammar JSON to the engine's tables.
   → verify: its tables equal `oracle/engine-tables.ts --json` for every grammar Shiki 4.6.0 bundles
+  2026-11-10 UTC: `link_survey` in `src/textmate/compile/tests.rs` passes on a box, on main at b52dac89.
+  It compared 246 specs table for table, with no difference:
+  - every language Shiki bundles, from `--json --every`: 242 specs;
+  - the four test tables that name other languages: `elixir>html`, `html>javascript>css`, the Markdown spec with its fences, and `haml>ruby>javascript>css>markdown>sass>coffee`.
 - [ ] 1.2 Retire the TypeScript generator for shipped tables, and keep it as the compiler's oracle.
   → verify: `check:features` and Identity pass with the Rust compiler's tables
 
