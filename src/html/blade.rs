@@ -47,7 +47,7 @@ pub(super) enum Blade {
     Directive(usize),
     /// 7 and 11: a directive whose `(…)` is a comment. The value is where `(`
     /// stands; `ends_php` is set for `@endphp(`.
-    ArgsComment { paren: usize, ends_php: bool },
+    ArgumentsComment { paren: usize, ends_php: bool },
     /// 8 and 9: a directive alone, `keyword.blade`.
     Keyword,
     /// 10: `@php` or `@setup`.
@@ -313,7 +313,7 @@ fn directive(s: &[u8], p: usize) -> Option<(Blade, usize)> {
     }
     if opens && listed(&ARGS_COMMENT, word, true) {
         return Some((
-            Blade::ArgsComment {
+            Blade::ArgumentsComment {
                 paren,
                 ends_php: false,
             },
@@ -338,7 +338,7 @@ fn directive(s: &[u8], p: usize) -> Option<(Blade, usize)> {
     let ends_php = word.eq_ignore_ascii_case(b"endphp") || word.eq_ignore_ascii_case(b"endsetup");
     if ends_php && opens {
         return Some((
-            Blade::ArgsComment {
+            Blade::ArgumentsComment {
                 paren,
                 ends_php: true,
             },
@@ -495,7 +495,7 @@ pub(super) enum BladeRule {
     /// Any other directive and its PHP, up to `)`.
     DirectiveCustom,
     /// A directive whose `(…)` is a comment, up to `)`.
-    ArgsComment,
+    ArgumentsComment,
     /// `(` up to `)` in such a comment.
     Balance,
     /// `@php` up to `@endphp`.
@@ -524,7 +524,7 @@ impl BladeRule {
             | BladeRule::CommentPhpLine
             | BladeRule::PhpWrap
             | BladeRule::PhpLine
-            | BladeRule::ArgsComment
+            | BladeRule::ArgumentsComment
             | BladeRule::Balance => false,
         }
     }
@@ -548,7 +548,7 @@ impl BladeRule {
             | BladeRule::CommentPhpLine
             | BladeRule::PhpWrap
             | BladeRule::PhpLine
-            | BladeRule::ArgsComment
+            | BladeRule::ArgumentsComment
             | BladeRule::Balance => None,
         }
     }
@@ -572,7 +572,7 @@ impl Rule {
             Rule::BladeEchoEscaped => BladeRule::EchoEscaped,
             Rule::BladeDirective => BladeRule::Directive,
             Rule::BladeDirectiveCustom => BladeRule::DirectiveCustom,
-            Rule::BladeArgsComment => BladeRule::ArgsComment,
+            Rule::BladeArgumentsComment => BladeRule::ArgumentsComment,
             Rule::BladeBalance => BladeRule::Balance,
             Rule::BladePhpSection => BladeRule::PhpSection,
             Rule::BladeAttribute => BladeRule::Attribute,
@@ -601,9 +601,9 @@ impl Rule {
             | Rule::ScriptOtherOuter
             | Rule::BodyOther
             | Rule::Attribute
-            | Rule::Value
-            | Rule::ValueCss
-            | Rule::ValueJs
+            | Rule::AttributeValue
+            | Rule::AttributeValueCss
+            | Rule::AttributeValueJs
             | Rule::WrapCss
             | Rule::WrapJs
             | Rule::StringPlain
@@ -618,7 +618,7 @@ impl Rule {
             | Rule::ErbBlock
             | Rule::ErbLine
             | Rule::VueComment
-            | Rule::VueCommentKv
+            | Rule::VueCommentKeyValue
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueElement
@@ -634,11 +634,11 @@ impl Rule {
             | Rule::VueTemplateTag
             | Rule::VueTemplateTagEnd
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
-            | Rule::VueExpr => return None,
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
+            | Rule::VueExpression => return None,
         })
     }
 }
@@ -772,7 +772,7 @@ impl Lexer<'_> {
             | BladeRule::Echo
             | BladeRule::EchoRaw
             | BladeRule::EchoEscaped => S::BladeEcho,
-            BladeRule::Directive | BladeRule::ArgsComment => S::BladeDirective,
+            BladeRule::Directive | BladeRule::ArgumentsComment => S::BladeDirective,
             BladeRule::DirectiveCustom => S::BladeDirectiveCustom,
             BladeRule::PhpSection => S::BladeEmbeddedBlock,
         };
@@ -789,7 +789,7 @@ impl Lexer<'_> {
         if rule.holds_php() {
             return self.path(name, &[S::SourcePhp]);
         }
-        if rule == BladeRule::ArgsComment {
+        if rule == BladeRule::ArgumentsComment {
             return self.path(name, &[S::BladeCommentArgs]);
         }
         name
@@ -815,7 +815,7 @@ impl Lexer<'_> {
             }
             BladeRule::CommentPhpWrap
             | BladeRule::PhpWrap
-            | BladeRule::ArgsComment
+            | BladeRule::ArgumentsComment
             | BladeRule::Balance => (p <= self.end_pos()).then_some(p),
             BladeRule::CommentPhpLine | BladeRule::PhpLine => {
                 let found = find(memchr::memchr(b'>', rest));
@@ -848,7 +848,9 @@ impl Lexer<'_> {
             BladeRule::Comment => self.starts(p, b"--}}").then(|| one(4)),
             BladeRule::CommentPhpWrap | BladeRule::PhpWrap => self.erb_wrap_end(p),
             BladeRule::CommentPhpLine | BladeRule::PhpLine => (self.at(p) == b'>').then(|| one(1)),
-            BladeRule::ArgsComment | BladeRule::Balance => (self.at(p) == b')').then(|| one(1)),
+            BladeRule::ArgumentsComment | BladeRule::Balance => {
+                (self.at(p) == b')').then(|| one(1))
+            }
             BladeRule::CommentPhpBlock
             | BladeRule::PhpBlock
             | BladeRule::PhpLineCode
@@ -885,7 +887,7 @@ impl Lexer<'_> {
                 }
                 Some(hit((Blade::LineCode, p)))
             }
-            BladeRule::ArgsComment | BladeRule::Balance => {
+            BladeRule::ArgumentsComment | BladeRule::Balance => {
                 if self.at(p) == b'(' {
                     return Some(hit((Blade::Paren, p + 1)));
                 }
@@ -914,7 +916,7 @@ impl Lexer<'_> {
             Blade::EchoRaw => Rule::BladeEchoRaw,
             Blade::EchoEscaped => Rule::BladeEchoEscaped,
             Blade::Directive(_) => Rule::BladeDirective,
-            Blade::ArgsComment { .. } => Rule::BladeArgsComment,
+            Blade::ArgumentsComment { .. } => Rule::BladeArgumentsComment,
             Blade::PhpSection => Rule::BladePhpSection,
             Blade::Custom(_) => Rule::BladeDirectiveCustom,
             Blade::Attribute(_) => Rule::BladeAttribute,
@@ -955,14 +957,14 @@ impl Lexer<'_> {
                 self.capture(base, start + 1, end, &[S::BladeRoundBegin]);
             }
             Blade::Directive(paren)
-            | Blade::ArgsComment {
+            | Blade::ArgumentsComment {
                 paren,
                 ends_php: false,
             } => {
                 self.capture(base, start, paren, &[S::BladeKeyword]);
                 self.capture(base, paren, end, &[S::BladeArgsBegin]);
             }
-            Blade::ArgsComment {
+            Blade::ArgumentsComment {
                 paren,
                 ends_php: true,
             } => {
@@ -1037,7 +1039,7 @@ impl Lexer<'_> {
             | Blade::EchoRaw
             | Blade::EchoEscaped
             | Blade::Directive(_)
-            | Blade::ArgsComment { .. }
+            | Blade::ArgumentsComment { .. }
             | Blade::PhpSection
             | Blade::Custom(_)
             | Blade::Attribute(_)
@@ -1077,7 +1079,7 @@ impl Lexer<'_> {
                 self.capture(base, start, end, &[S::BladeConstructEnd]);
             }
             BladeRule::EchoEscaped => self.capture(base, start, end, &[S::BladeRoundEnd]),
-            BladeRule::Directive | BladeRule::DirectiveCustom | BladeRule::ArgsComment => {
+            BladeRule::Directive | BladeRule::DirectiveCustom | BladeRule::ArgumentsComment => {
                 self.capture(base, start, end, &[S::BladeArgsEnd]);
             }
             BladeRule::Attribute => {

@@ -29,9 +29,9 @@ impl Lexer<'_> {
             | Rule::ScriptJsOuter
             | Rule::ScriptTemplateOuter
             | Rule::ScriptOtherOuter
-            | Rule::Value
-            | Rule::ValueCss
-            | Rule::ValueJs
+            | Rule::AttributeValue
+            | Rule::AttributeValueCss
+            | Rule::AttributeValueJs
             | Rule::BodyJs
             | Rule::Region
             | Rule::ErbCommentWrap
@@ -53,7 +53,7 @@ impl Lexer<'_> {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_name_stack(base, rule),
@@ -174,7 +174,7 @@ impl Lexer<'_> {
             Rule::JsLineComment => self.path(base, &[S::CommentLineJs]),
             Rule::JsBlockComment => self.path(base, &[S::CommentBlockJs]),
             Rule::VueComment
-            | Rule::VueCommentKv
+            | Rule::VueCommentKeyValue
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueElement
@@ -190,11 +190,11 @@ impl Lexer<'_> {
             | Rule::VueTemplateTag
             | Rule::VueTemplateTagEnd
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
-            | Rule::VueExpr => self.vue_name_stack(base, rule, payload),
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
+            | Rule::VueExpression => self.vue_name_stack(base, rule, payload),
         }
     }
 
@@ -202,7 +202,7 @@ impl Lexer<'_> {
     pub(super) fn content_stack(&mut self, name: u32, rule: Rule, payload: u32) -> u32 {
         match rule {
             Rule::VueComment
-            | Rule::VueCommentKv
+            | Rule::VueCommentKeyValue
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueElement
@@ -218,11 +218,11 @@ impl Lexer<'_> {
             | Rule::VueTemplateTag
             | Rule::VueTemplateTagEnd
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
-            | Rule::VueExpr => self.vue_content_stack(name, rule, payload),
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
+            | Rule::VueExpression => self.vue_content_stack(name, rule, payload),
             Rule::Cdata => self.path(name, &[S::InlineData]),
             Rule::StringCss => self.path(name, &[S::SourceCss]),
             Rule::StringJs => self.path(name, &[S::SourceJs]),
@@ -241,7 +241,7 @@ impl Lexer<'_> {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_content_stack(name, rule),
@@ -269,9 +269,9 @@ impl Lexer<'_> {
             | Rule::ScriptOtherOuter
             | Rule::BodyOther
             | Rule::Attribute
-            | Rule::Value
-            | Rule::ValueCss
-            | Rule::ValueJs
+            | Rule::AttributeValue
+            | Rule::AttributeValueCss
+            | Rule::AttributeValueJs
             | Rule::WrapCss
             | Rule::WrapJs
             | Rule::StringPlain
@@ -570,7 +570,7 @@ impl Lexer<'_> {
         }
         let [from, to, ..] = hit.at;
         Some(match pattern {
-            VuePattern::CommentKv => (Rule::VueCommentKv, 0),
+            VuePattern::CommentKv => (Rule::VueCommentKeyValue, 0),
             VuePattern::Comment => (Rule::VueComment, 0),
             VuePattern::SelfClosing => (Rule::VueSelfClosing, 0),
             VuePattern::Block => (Rule::VueBlock, 0),
@@ -584,8 +584,8 @@ impl Lexer<'_> {
             VuePattern::Capitalized => (Rule::VueCapitalized, self.intern(from, to)),
             VuePattern::DirectiveControl => (Rule::VueDirective, 1),
             VuePattern::DirectiveOriginal => (Rule::VueDirective, 0),
-            VuePattern::ExprString => (Rule::VueExprString, hit.bits),
-            VuePattern::ExprBare => (Rule::VueExprBare, 0),
+            VuePattern::ExprString => (Rule::VueExpressionString, hit.bits),
+            VuePattern::ExprBare => (Rule::VueExpressionBare, 0),
             VuePattern::Modifier => return None,
         })
     }
@@ -887,12 +887,12 @@ impl Lexer<'_> {
             | Rule::BladeEchoEscaped
             | Rule::BladeDirective
             | Rule::BladeDirectiveCustom
-            | Rule::BladeArgsComment
+            | Rule::BladeArgumentsComment
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_end_captures(base, top.rule, start, end),
             Rule::VueComment
-            | Rule::VueCommentKv
+            | Rule::VueCommentKeyValue
             | Rule::VueSelfClosing
             | Rule::VueBlock
             | Rule::VueElement
@@ -908,11 +908,11 @@ impl Lexer<'_> {
             | Rule::VueTemplateTag
             | Rule::VueTemplateTagEnd
             | Rule::VueCapitalized
-            | Rule::VueCapitalizedAttrs
+            | Rule::VueCapitalizedAttributes
             | Rule::VueDirective
-            | Rule::VueExprString
-            | Rule::VueExprBare
-            | Rule::VueExpr => self.vue_end_captures(top, hit),
+            | Rule::VueExpressionString
+            | Rule::VueExpressionBare
+            | Rule::VueExpression => self.vue_end_captures(top, hit),
             Rule::JsBlockComment
             | Rule::Root
             | Rule::DoctypeString
@@ -923,9 +923,9 @@ impl Lexer<'_> {
             | Rule::BodyTemplate
             | Rule::BodyOther
             | Rule::Attribute
-            | Rule::Value
-            | Rule::ValueCss
-            | Rule::ValueJs
+            | Rule::AttributeValue
+            | Rule::AttributeValueCss
+            | Rule::AttributeValueJs
             | Rule::WrapCss
             | Rule::WrapJs
             | Rule::JsLineComment
@@ -1076,12 +1076,12 @@ impl Lexer<'_> {
 /// The value rule that the `=` of an attribute with the rule `bits` opens.
 fn value_rule(bits: u32) -> Rule {
     match AttributeRule::from_bits(bits) {
-        AttributeRule::Style => Rule::ValueCss,
-        AttributeRule::Event => Rule::ValueJs,
+        AttributeRule::Style => Rule::AttributeValueCss,
+        AttributeRule::Event => Rule::AttributeValueJs,
         AttributeRule::Known
         | AttributeRule::Data
         | AttributeRule::Deprecated
-        | AttributeRule::Unrecognized => Rule::Value,
+        | AttributeRule::Unrecognized => Rule::AttributeValue,
     }
 }
 
@@ -1115,9 +1115,9 @@ fn string_rule(rule: Rule) -> Rule {
         | Rule::ScriptOtherOuter
         | Rule::BodyOther
         | Rule::Attribute
-        | Rule::Value
-        | Rule::ValueCss
-        | Rule::ValueJs
+        | Rule::AttributeValue
+        | Rule::AttributeValueCss
+        | Rule::AttributeValueJs
         | Rule::StringPlain
         | Rule::StringCss
         | Rule::StringJs
@@ -1143,12 +1143,12 @@ fn string_rule(rule: Rule) -> Rule {
         | Rule::BladeEchoEscaped
         | Rule::BladeDirective
         | Rule::BladeDirectiveCustom
-        | Rule::BladeArgsComment
+        | Rule::BladeArgumentsComment
         | Rule::BladeBalance
         | Rule::BladePhpSection
         | Rule::BladeAttribute
         | Rule::VueComment
-        | Rule::VueCommentKv
+        | Rule::VueCommentKeyValue
         | Rule::VueSelfClosing
         | Rule::VueBlock
         | Rule::VueElement
@@ -1164,11 +1164,11 @@ fn string_rule(rule: Rule) -> Rule {
         | Rule::VueTemplateTag
         | Rule::VueTemplateTagEnd
         | Rule::VueCapitalized
-        | Rule::VueCapitalizedAttrs
+        | Rule::VueCapitalizedAttributes
         | Rule::VueDirective
-        | Rule::VueExprString
-        | Rule::VueExprBare
-        | Rule::VueExpr => Rule::StringPlain,
+        | Rule::VueExpressionString
+        | Rule::VueExpressionBare
+        | Rule::VueExpression => Rule::StringPlain,
     }
 }
 
