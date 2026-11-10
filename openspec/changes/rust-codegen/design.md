@@ -239,7 +239,9 @@ The analysis proves a node unique given what can follow it:
 The sets hold code points, not UTF-8 lead bytes.
 `\w` and `\s` share every non-ASCII lead byte but no character.
 
-A generated matcher spends the line's work budget, `Limits::work`, as a hand matcher does (`AGENTS.md`, Limits rule 1):
+A generated matcher spends the line's work budget, `Limits::work`, as a hand matcher does.
+`Work` in `src/limits.rs` defines a step as one turn of a lexer's main loop or one byte a lookahead reads.
+The `line-limits` spec counts limits in work and bytes, never in time.
 
 - Each byte it reads costs one step.
   A byte read again after a give-back or a stack pop costs one more.
@@ -250,6 +252,9 @@ A generated matcher spends the line's work budget, `Limits::work`, as a hand mat
 The regex engine, as the fallback, runs on the steps the line has left, and stops the same way.
 The two count in different units: a generated matcher counts bytes, and the engine counts instructions.
 On a line near the limit they can stop at different points.
+
+The default limits still never cut an oracle fixture line, as the `line-limits` spec requires.
+A language that moves to generated matchers keeps that check: its oracle test runs under the default limits.
 
 A differential test guards every generated language:
 
