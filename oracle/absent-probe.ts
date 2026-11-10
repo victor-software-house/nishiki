@@ -4,12 +4,14 @@
 // the engine against them.
 //
 // Each line is searched with a newline after it, from its start and from its
-// third character. Positions are UTF-8 offsets.
+// third character. Positions are UTF-8 offsets. A case whose answer is
+// ambiguous, as `oniguruma-answer.ts` says, is left out.
 //
 // Usage: bun oracle/absent-probe.ts
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { answer, utf8 } from "./oniguruma-answer.ts";
 
 const engine = await createOnigurumaEngine(wasm as any);
 
@@ -77,35 +79,19 @@ const patterns = probes.map(([pattern]) => pattern);
 const allLines = [...new Set(probes.flatMap(([, list]) => list))];
 const cases: string[] = [];
 const expected: string[] = [];
-const utf8 = (text: string, index: number) => Buffer.byteLength(text.slice(0, index));
-// The start and end Shiki's engine gives a group that did not take part.
-// On text that is not all ASCII, it gives the text's length instead.
-// A group that took part with no characters at the text's end looks the same,
-// so the probe leaves such cases out.
-const unset = 0xffffffff;
 let ambiguous = 0;
 probes.forEach(([pattern, list], p) => {
   const scanner = engine.createScanner([pattern]);
   for (const line of list) {
     const text = `${line}\n`;
     for (const from of line.length > 2 ? [0, 2] : [0]) {
-      const found = scanner.findNextMatchSync(text, from);
-      if (
-        found &&
-        /[^\x00-\x7f]/.test(text) &&
-        found.captureIndices.slice(1).some(({ start, end }) => start === text.length && end === text.length)
-      ) {
+      const found = answer(scanner.findNextMatchSync(text, from)?.captureIndices, text);
+      if (found === undefined) {
         ambiguous++;
         continue;
       }
       cases.push(`${p}\t${allLines.indexOf(line)}\t${utf8(text, from)}`);
-      expected.push(
-        found
-          ? found.captureIndices
-              .map(({ start, end }) => (start === unset || end < start ? "x" : `${utf8(text, start)},${utf8(text, end)}`))
-              .join(";")
-          : "-",
-      );
+      expected.push(found);
     }
   }
 });

@@ -3,11 +3,14 @@
 // which `case_insensitive_matching_answers_as_oniguruma` in
 // src/textmate/regex/tests.rs checks the engine against. Each line is searched
 // from its start with a newline after it, and positions are UTF-8 offsets.
+// The script fails on an answer `oniguruma-answer.ts` calls ambiguous, so no
+// chosen case is lost.
 //
 // Usage: bun oracle/case-fold-probe.ts
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
 import { mkdirSync, writeFileSync } from "node:fs";
+import { answer } from "./oniguruma-answer.ts";
 
 const engine = await createOnigurumaEngine(wasm as any);
 
@@ -139,20 +142,14 @@ const patterns = probes.map(([pattern]) => pattern);
 const lines = [...new Set(probes.flatMap(([, list]) => list))];
 const cases: string[] = [];
 const expected: string[] = [];
-const utf8 = (text: string, index: number) => Buffer.byteLength(text.slice(0, index));
 probes.forEach(([pattern, list], p) => {
   const scanner = engine.createScanner([pattern]);
   for (const line of list) {
     const text = `${line}\n`;
+    const found = answer(scanner.findNextMatchSync(text, 0)?.captureIndices, text);
+    if (found === undefined) throw new Error(`${pattern} on ${JSON.stringify(line)}: an ambiguous answer`);
     cases.push(`${p}\t${lines.indexOf(line)}\t0`);
-    const found = scanner.findNextMatchSync(text, 0);
-    expected.push(
-      found
-        ? found.captureIndices
-            .map(({ start, end }) => (start < 0 || end < start ? "x" : `${utf8(text, start)},${utf8(text, end)}`))
-            .join(";")
-        : "-",
-    );
+    expected.push(found);
   }
 });
 

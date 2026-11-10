@@ -43,6 +43,8 @@ The file it writes marks itself as generated in its first line; edit the script,
 | [`absent-probe.ts`](absent-probe.ts) | `tests/engine/absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which test how `src/textmate/regex/parse.rs` reads it. |
 | [`case-folds.ts`](case-folds.ts) | `src/textmate/regex/folds.rs`: Oniguruma's case folds. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
 
+Both regex probes read each Oniguruma answer with [`oniguruma-answer.ts`](oniguruma-answer.ts).
+
 `engine-tables.ts` reads two lists:
 
 - [`licences.ts`](licences.ts) records each grammar's licence, read at its source;
