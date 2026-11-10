@@ -1,0 +1,15 @@
+{
+  "name": "Demo",
+  "scopeName": "source.demo",
+  "patterns": [
+    { "match": "#.*$", "name": "comment.line.number-sign.demo" },
+    { "match": "\\b(let|fn|return)\\b", "name": "keyword.control.demo" },
+    { "match": "\\b[0-9]+\\b", "name": "constant.numeric.demo" },
+    {
+      "begin": "\"",
+      "end": "\"",
+      "name": "string.quoted.double.demo",
+      "patterns": [{ "match": "\\\\.", "name": "constant.character.escape.demo" }]
+    }
+  ]
+}

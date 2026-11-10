@@ -1,0 +1,35 @@
+[package]
+name = "nishiki-build-script"
+version = "0.0.0"
+edition = "2024"
+rust-version = "1.99.1"
+description = "A program that compiles a TextMate grammar in its build script and highlights with it"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/victor-software-house/nishiki"
+# Never published (CODING_STANDARDS 5.3).
+publish = false
+autotests = false
+autoexamples = false
+autobenches = false
+autobins = false
+build = "build.rs"
+
+[[bin]]
+name = "nishiki-build-script"
+path = "main.rs"
+
+# The build script compiles the grammar, and the program loads the bytes.
+# Both need nishiki's TextMate engine. Each asks for the default features too,
+# as the other members do: the engine alone leaves the hand lexers' shared code
+# unused.
+[build-dependencies]
+nishiki = { workspace = true, features = ["default", "textmate"] }
+
+[dependencies]
+nishiki = { workspace = true, features = ["default", "textmate"] }
+
+[dev-dependencies]
+indoc = { workspace = true }
+
+[lints]
+workspace = true

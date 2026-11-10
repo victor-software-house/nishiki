@@ -500,7 +500,7 @@ workspace = true
 # tests need (CODING_STANDARDS 3.3). The benchmarks keep a workspace of their
 # own (CODING_STANDARDS 5.3).
 [workspace]
-members = ["examples", "nishiki-alloc-count", "tests"]
+members = ["examples", "examples/build-script", "nishiki-alloc-count", "tests"]
 exclude = ["bench"]
 resolver = "3"
 
