@@ -183,8 +183,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<CMake>;
-pub(crate) type PatData = rules::PatData<CMake>;
-pub(crate) type RuleData = rules::RuleData<CMake>;
+pub(crate) type PatDefinition = rules::PatDefinition<CMake>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<CMake>;
 pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with: none in this grammar.
@@ -197,11 +197,11 @@ g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive
 for (const r of rules) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${rules.length}] = [\n`;
 for (const r of rules) g += `        Rule::${r.id},\n`;
-g += `    ];\n\n    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+g += `    ];\n\n    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
 g += arms(
   rules.map((r): [string, string] => [
     r.id,
-    `RuleData {\n                name: ${list(r.name)},\n                content: S::NO_SCOPES,\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${list(r.name)},\n                content: S::NO_SCOPES,\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
@@ -212,13 +212,13 @@ const docs = (s: string) => (s.length > 56 ? "…" : s);
 for (const p of pats) {
   g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pat {\n    pub(crate) fn definition(self) -> PatDefinition {\n        match self {\n`;
 g += arms(
   pats.map((p): [string, string] => {
     const act =
       p.act.role === "match" ? `Act::Match(${list(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
     const caps = p.captures.map(([n, scopeNames]) => `(${n}, ${list(scopeNames)})`).join(", ");
-    return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
+    return [p.id, `PatDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
   }),
   "Pat",
 );

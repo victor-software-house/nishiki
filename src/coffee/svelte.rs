@@ -28,20 +28,20 @@ impl rules::Tabled for Coffee<SVELTE> {
     }
 }
 
-/// The data of `rule` with Svelte's patterns first.
+/// The definition of `rule`, with Svelte's patterns first.
 /// The list lives as long as the program, as the tables built from it do.
-fn injected(rule: Rule) -> rules::RuleData<Coffee<SVELTE>> {
-    let data = rule.data();
+fn injected(rule: Rule) -> rules::RuleDefinition<Coffee<SVELTE>> {
+    let definition = rule.definition();
     let patterns: Vec<Pat> = Pat::SVELTE
         .into_iter()
-        .chain(data.end)
-        .chain(data.patterns.iter().copied())
+        .chain(definition.end)
+        .chain(definition.patterns.iter().copied())
         .collect();
-    rules::RuleData {
-        name: data.name,
-        content: data.content,
+    rules::RuleDefinition {
+        name: definition.name,
+        content: definition.content,
         end: None,
-        backref: data.backref,
+        backref: definition.backref,
         patterns: Box::leak(patterns.into_boxed_slice()),
     }
 }

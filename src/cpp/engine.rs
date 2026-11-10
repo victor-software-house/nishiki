@@ -103,7 +103,7 @@ impl Cpp {
     /// The raw string is that rule.
     /// Its name ends in its delimiter.
     fn delimited_name(rule: Rule) -> Option<&'static str> {
-        match rule.data().name.list {
+        match rule.definition().name.list {
             [Sc::Group(prefix, _, "")] => Some(prefix),
             _ => None,
         }
@@ -149,17 +149,17 @@ impl Grammar for Cpp {
         if Self::delimited_name(rule).is_some() {
             Sc::NO_SCOPES
         } else {
-            rule.data().name
+            rule.definition().name
         }
     }
 
     fn rule_content(rule: Rule) -> Scopes<Sc> {
-        rule.data().content
+        rule.definition().content
     }
 
     fn rule_payload(rule: Rule) -> Payload {
         let delimiter = Self::delimited_name(rule).map(|_| RAW_DELIMITER);
-        rule.data()
+        rule.definition()
             .backref
             .or(delimiter)
             .map_or(Payload::None, Payload::Backref)
@@ -170,17 +170,17 @@ impl Grammar for Cpp {
     }
 
     fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+        pat.definition().act
     }
 
     fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+        let definition = pat.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
+        let definition = pat.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {

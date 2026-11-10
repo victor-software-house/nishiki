@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Latex>;
-pub(crate) type PatData = rules::PatData<Latex>;
-pub(crate) type RuleData = rules::RuleData<Latex>;
+pub(crate) type PatDefinition = rules::PatDefinition<Latex>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Latex>;
 pub(crate) use crate::rules::Start;
 
 /// A scope of a rule or a capture group.
@@ -502,9 +502,9 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::SongsEnvAt0 => RuleData {
+            Rule::SongsEnvAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentSongs)],
                 content: scopes![Sc::S(S::MetaDataEnvironmentSongs)],
                 end: Some(Pat::SongsEnvAt0End),
@@ -615,7 +615,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt0 => RuleData {
+            Rule::EmbeddedCodeEnvAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt0End),
@@ -639,7 +639,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt0At18,
                 ],
             },
-            Rule::MultilineOptionalArgNoHighlight => RuleData {
+            Rule::MultilineOptionalArgNoHighlight => RuleDefinition {
                 name: scopes![Sc::S(S::MetaParameterOptional)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::MultilineOptionalArgNoHighlightEnd),
@@ -748,112 +748,112 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt0At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceShell)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At4 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceCss)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At4End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At6 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceHaskell)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At6End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At7 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextHtml)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At7End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At8 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJava)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At8End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At9 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At9 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJulia)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At9End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At10 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At10 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJs)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At10End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At11 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceLua)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At11End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At12 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At12 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourcePython)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At12End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At13 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At13 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceRuby)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At13End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At14 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At14 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceRust)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At14End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At15 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At15 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceTs)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At15End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At16 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At16 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextXml)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At16End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At17 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At17 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceYaml)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At17End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt0At18 => RuleData {
+            Rule::EmbeddedCodeEnvAt0At18 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlockGeneric)],
                 content: scopes![Sc::S(S::MetaFunctionEmbedded)],
                 end: Some(Pat::EmbeddedCodeEnvAt0At18End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt1 => RuleData {
+            Rule::EmbeddedCodeEnvAt1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt1End),
@@ -863,14 +863,14 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt1At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt1At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt1At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt1At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt2 => RuleData {
+            Rule::EmbeddedCodeEnvAt2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt2End),
@@ -880,14 +880,14 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt2At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt2At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt2At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt2At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt3 => RuleData {
+            Rule::EmbeddedCodeEnvAt3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt3End),
@@ -897,14 +897,14 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt3At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt3At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt3At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt3At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt4 => RuleData {
+            Rule::EmbeddedCodeEnvAt4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt4End),
@@ -914,14 +914,14 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt4At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt4At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt4At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt4At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt5 => RuleData {
+            Rule::EmbeddedCodeEnvAt5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt5End),
@@ -932,21 +932,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt5At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt5At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt5At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt5At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt5At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt5At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceHaskell)],
                 end: Some(Pat::EmbeddedCodeEnvAt5At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt6 => RuleData {
+            Rule::EmbeddedCodeEnvAt6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt6End),
@@ -957,21 +957,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt6At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt6At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt6At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt6At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt6At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt6At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJava)],
                 end: Some(Pat::EmbeddedCodeEnvAt6At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt7 => RuleData {
+            Rule::EmbeddedCodeEnvAt7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt7End),
@@ -982,21 +982,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt7At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt7At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt7At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt7At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt7At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt7At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJulia)],
                 end: Some(Pat::EmbeddedCodeEnvAt7At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt8 => RuleData {
+            Rule::EmbeddedCodeEnvAt8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt8End),
@@ -1007,21 +1007,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt8At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt8At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt8At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt8At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt8At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt8At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJulia)],
                 end: Some(Pat::EmbeddedCodeEnvAt8At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt9 => RuleData {
+            Rule::EmbeddedCodeEnvAt9 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt9End),
@@ -1032,21 +1032,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt9At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt9At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt9At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt9At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt9At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt9At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceLua)],
                 end: Some(Pat::EmbeddedCodeEnvAt9At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt10 => RuleData {
+            Rule::EmbeddedCodeEnvAt10 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt10End),
@@ -1057,21 +1057,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt10At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt10At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt10At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt10At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt10At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt10At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourcePython)],
                 end: Some(Pat::EmbeddedCodeEnvAt10At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt11 => RuleData {
+            Rule::EmbeddedCodeEnvAt11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt11End),
@@ -1082,21 +1082,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt11At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt11At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt11At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt11At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt11At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt11At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourcePython)],
                 end: Some(Pat::EmbeddedCodeEnvAt11At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt12 => RuleData {
+            Rule::EmbeddedCodeEnvAt12 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt12End),
@@ -1107,21 +1107,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt12At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt12At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt12At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt12At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt12At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt12At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourcePython)],
                 end: Some(Pat::EmbeddedCodeEnvAt12At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt13 => RuleData {
+            Rule::EmbeddedCodeEnvAt13 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt13End),
@@ -1132,21 +1132,21 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt13At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt13At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt13At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt13At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt13At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt13At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceScala)],
                 end: Some(Pat::EmbeddedCodeEnvAt13At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt14 => RuleData {
+            Rule::EmbeddedCodeEnvAt14 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt14End),
@@ -1157,28 +1157,28 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt14At2,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt14At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt14At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::EmbeddedCodeEnvAt14At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt14At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt14At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourcePython)],
                 end: Some(Pat::EmbeddedCodeEnvAt14At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt15 => RuleData {
+            Rule::EmbeddedCodeEnvAt15 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlockGeneric)],
                 content: scopes![Sc::S(S::MetaFunctionEmbedded)],
                 end: Some(Pat::EmbeddedCodeEnvAt15End),
                 backref: Some(1),
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16 => RuleData {
+            Rule::EmbeddedCodeEnvAt16 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16End),
@@ -1205,14 +1205,14 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At18,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At0End),
                 backref: None,
                 patterns: &[Pat::EmbeddedCodeEnvAt16At0At0],
             },
-            Rule::EmbeddedCodeEnvAt16At0At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At0At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At0At0End),
@@ -1322,14 +1322,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::TexBraces => RuleData {
+            Rule::TexBraces => RuleDefinition {
                 name: scopes![Sc::S(S::MetaGroupBracesTex)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TexBracesEnd),
                 backref: None,
                 patterns: &[Pat::TexBraces],
             },
-            Rule::EmbeddedCodeEnvAt16At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At1End),
@@ -1339,7 +1339,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At1At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At1At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At1At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At1At0End),
@@ -1449,21 +1449,21 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At1At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At1At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceShell)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At1At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At2 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At2End),
                 backref: None,
                 patterns: &[Pat::EmbeddedCodeEnvAt16At2At0],
             },
-            Rule::EmbeddedCodeEnvAt16At2At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At2At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At2At0End),
@@ -1573,7 +1573,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At3 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At3End),
@@ -1583,7 +1583,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At3At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At3At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At3At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At3At0End),
@@ -1693,21 +1693,21 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At3At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At3At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceCss)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At3At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At4 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At4End),
                 backref: None,
                 patterns: &[Pat::EmbeddedCodeEnvAt16At4At0],
             },
-            Rule::EmbeddedCodeEnvAt16At4At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At4At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At4At0End),
@@ -1817,7 +1817,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At5 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At5End),
@@ -1827,7 +1827,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At5At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At5At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At5At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At5At0End),
@@ -1937,14 +1937,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At5At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At5At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceHaskell)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At5At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At6 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At6End),
@@ -1954,7 +1954,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At6At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At6At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At6At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At6At0End),
@@ -2064,14 +2064,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At6At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At6At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextHtml)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At6At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At7 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At7End),
@@ -2081,7 +2081,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At7At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At7At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At7At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At7At0End),
@@ -2191,14 +2191,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At7At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At7At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJava)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At7At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At8 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At8End),
@@ -2208,7 +2208,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At8At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At8At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At8At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At8At0End),
@@ -2318,14 +2318,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At8At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At8At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJulia)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At8At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At9 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At9 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At9End),
@@ -2335,7 +2335,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At9At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At9At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At9At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At9At0End),
@@ -2445,14 +2445,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At9At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At9At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJs)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At9At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At10 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At10 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At10End),
@@ -2462,7 +2462,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At10At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At10At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At10At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At10At0End),
@@ -2572,14 +2572,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At10At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At10At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceLua)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At10At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At11 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At11End),
@@ -2589,7 +2589,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At11At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At11At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At11At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At11At0End),
@@ -2699,14 +2699,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At11At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At11At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourcePython)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At11At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At12 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At12 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At12End),
@@ -2716,7 +2716,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At12At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At12At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At12At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At12At0End),
@@ -2826,14 +2826,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At12At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At12At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceRuby)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At12At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At13 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At13 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At13End),
@@ -2843,7 +2843,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At13At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At13At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At13At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At13At0End),
@@ -2953,14 +2953,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At13At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At13At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceRust)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At13At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At14 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At14 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At14End),
@@ -2970,7 +2970,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At14At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At14At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At14At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At14At0End),
@@ -3080,14 +3080,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At14At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At14At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceTs)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At14At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At15 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At15 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At15End),
@@ -3097,7 +3097,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At15At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At15At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At15At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At15At0End),
@@ -3207,14 +3207,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At15At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At15At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextXml)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At15At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At16 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At16 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At16End),
@@ -3224,7 +3224,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At16At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At16At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At16At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At16At0End),
@@ -3334,14 +3334,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At16At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At16At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceYaml)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At16At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt16At17 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At17 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At17End),
@@ -3351,7 +3351,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At17At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At17At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At17At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At17At0End),
@@ -3461,7 +3461,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At17At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At17At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextTex)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At17At1End),
@@ -3570,7 +3570,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At18 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At18 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At18End),
@@ -3580,7 +3580,7 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt16At18At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At18At0 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At18At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt16At18At0End),
@@ -3690,14 +3690,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt16At18At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt16At18At1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlockGeneric)],
                 content: scopes![Sc::S(S::MetaFunctionEmbedded)],
                 end: Some(Pat::EmbeddedCodeEnvAt16At18At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::EmbeddedCodeEnvAt17 => RuleData {
+            Rule::EmbeddedCodeEnvAt17 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EmbeddedCodeEnvAt17End),
@@ -3707,42 +3707,42 @@ impl Rule {
                     Pat::EmbeddedCodeEnvAt17At1,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt17At1 => RuleData {
+            Rule::EmbeddedCodeEnvAt17At1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlockGeneric)],
                 content: scopes![Sc::S(S::MetaFunctionEmbedded)],
                 end: Some(Pat::EmbeddedCodeEnvAt17At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::VerbatimEnvAt0 => RuleData {
+            Rule::VerbatimEnvAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionVerbatim)],
                 content: scopes![Sc::S(S::MarkupRawVerbatim)],
                 end: Some(Pat::VerbatimEnvAt0End),
                 backref: Some(2),
                 patterns: &[],
             },
-            Rule::VerbatimEnvAt1 => RuleData {
+            Rule::VerbatimEnvAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionVerbatim)],
                 content: scopes![Sc::S(S::MarkupRawVerbatim)],
                 end: Some(Pat::VerbatimEnvAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::VerbatimEnvAt2 => RuleData {
+            Rule::VerbatimEnvAt2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionAlltt)],
                 content: scopes![Sc::S(S::MarkupRawVerbatim)],
                 end: Some(Pat::VerbatimEnvAt2End),
                 backref: None,
                 patterns: &[Pat::VerbatimEnvAt2At0],
             },
-            Rule::VerbatimEnvAt3 => RuleData {
+            Rule::VerbatimEnvAt3 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionVerbatim)],
                 content: scopes![Sc::S(S::CmtLinePercentage)],
                 end: Some(Pat::VerbatimEnvAt3End),
                 backref: Some(2),
                 patterns: &[],
             },
-            Rule::AllBalancedEnvAt0 => RuleData {
+            Rule::AllBalancedEnvAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentMath)],
                 content: scopes![
                     Sc::S(S::MetaMathBlock),
@@ -3871,14 +3871,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::LabelMacro => RuleData {
+            Rule::LabelMacro => RuleDefinition {
                 name: scopes![Sc::S(S::MetaDefinitionLabel)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::LabelMacroEnd),
                 backref: None,
                 patterns: &[Pat::LabelMacroAt0],
             },
-            Rule::TexMathContentAt0 => RuleData {
+            Rule::TexMathContentAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaTextNormalTex)],
                 end: Some(Pat::TexMathContentAt0End),
@@ -3912,42 +3912,42 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::TexIffalseBlock => RuleData {
+            Rule::TexIffalseBlock => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtLinePercentageTex)],
                 end: Some(Pat::TexIffalseBlockEnd),
                 backref: None,
                 patterns: &[Pat::TexComment, Pat::TexBraces, Pat::TexConditionals],
             },
-            Rule::TexComment => RuleData {
+            Rule::TexComment => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TexCommentEnd),
                 backref: None,
                 patterns: &[Pat::TexCommentAt0, Pat::TexCommentAt1],
             },
-            Rule::TexCommentAt0 => RuleData {
+            Rule::TexCommentAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLinePercentageTex)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TexCommentAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::TexCommentAt1 => RuleData {
+            Rule::TexCommentAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLinePercentageDirectiveTex)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TexCommentAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::TexConditionals => RuleData {
+            Rule::TexConditionals => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TexConditionalsEnd),
                 backref: None,
                 patterns: &[Pat::TexComment, Pat::TexConditionals],
             },
-            Rule::TexDollarMath => RuleData {
+            Rule::TexDollarMath => RuleDefinition {
                 name: scopes![Sc::S(S::MetaMathBlockTex), Sc::S(S::SuppClassMathBlockTex)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TexDollarMathEnd),
@@ -3982,21 +3982,21 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::TexMathContentAt6 => RuleData {
+            Rule::TexMathContentAt6 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedLineR)],
                 content: scopes![Sc::S(S::SuppFunctionSexprMathTex)],
                 end: Some(Pat::TexMathContentAt6End),
                 backref: None,
                 patterns: &[Pat::TexMathContentAt6At0],
             },
-            Rule::TexMathContentAt6At0 => RuleData {
+            Rule::TexMathContentAt6At0 => RuleDefinition {
                 name: scopes![Sc::S(S::SourceR)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TexMathContentAt6At0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::AllBalancedEnvAt1 => RuleData {
+            Rule::AllBalancedEnvAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentMath)],
                 content: scopes![
                     Sc::S(S::MetaMathBlock),
@@ -4125,7 +4125,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::AllBalancedEnvAt2 => RuleData {
+            Rule::AllBalancedEnvAt2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentTabular)],
                 content: scopes![Sc::S(S::MetaDataEnvironmentTabular)],
                 end: Some(Pat::AllBalancedEnvAt2End),
@@ -4236,7 +4236,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::AllBalancedEnvAt3 => RuleData {
+            Rule::AllBalancedEnvAt3 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentList)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AllBalancedEnvAt3End),
@@ -4345,7 +4345,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::AllBalancedEnvAt4 => RuleData {
+            Rule::AllBalancedEnvAt4 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentLatexTikz)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AllBalancedEnvAt4End),
@@ -4454,7 +4454,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::AllBalancedEnvAt5 => RuleData {
+            Rule::AllBalancedEnvAt5 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentFrame)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AllBalancedEnvAt5End),
@@ -4563,14 +4563,14 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::AllBalancedEnvAt6 => RuleData {
+            Rule::AllBalancedEnvAt6 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentLatexMpost)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AllBalancedEnvAt6End),
                 backref: Some(2),
                 patterns: &[],
             },
-            Rule::AllBalancedEnvAt8 => RuleData {
+            Rule::AllBalancedEnvAt8 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentGeneral)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AllBalancedEnvAt8End),
@@ -4679,7 +4679,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::DocumentclassUsepackageMacro => RuleData {
+            Rule::DocumentclassUsepackageMacro => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreamble)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::DocumentclassUsepackageMacroEnd),
@@ -4689,7 +4689,7 @@ impl Rule {
                     Pat::DocumentclassUsepackageMacroAt1,
                 ],
             },
-            Rule::MultilineOptionalArg => RuleData {
+            Rule::MultilineOptionalArg => RuleDefinition {
                 name: scopes![Sc::S(S::MetaParameterOptional)],
                 content: scopes![Sc::S(S::VarParameterFunction)],
                 end: Some(Pat::MultilineOptionalArgEnd),
@@ -4798,7 +4798,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::DocumentclassUsepackageMacroAt1 => RuleData {
+            Rule::DocumentclassUsepackageMacroAt1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SuppClass)],
                 end: Some(Pat::DocumentclassUsepackageMacroAt1End),
@@ -4907,7 +4907,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::InputMacro => RuleData {
+            Rule::InputMacro => RuleDefinition {
                 name: scopes![Sc::S(S::MetaInclude)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InputMacroEnd),
@@ -5016,7 +5016,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::SectionsMacro => RuleData {
+            Rule::SectionsMacro => RuleDefinition {
                 name: scopes![Sc::Group("meta.function.section.", 3, ".latex")],
                 content: scopes![Sc::S(S::EntNameSection)],
                 end: Some(Pat::SectionsMacroEnd),
@@ -5126,7 +5126,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::Braces => RuleData {
+            Rule::Braces => RuleDefinition {
                 name: scopes![Sc::S(S::MetaGroupBraces)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::BracesEnd),
@@ -5163,7 +5163,7 @@ impl Rule {
                     Pat::Braces,
                 ],
             },
-            Rule::TextFontMacroAt0 => RuleData {
+            Rule::TextFontMacroAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEmph)],
                 content: scopes![Sc::S(S::MarkupItalicEmph)],
                 end: Some(Pat::TextFontMacroAt0End),
@@ -5273,7 +5273,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::TextFontMacroAt1 => RuleData {
+            Rule::TextFontMacroAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionTextit)],
                 content: scopes![Sc::S(S::MarkupItalicTextit)],
                 end: Some(Pat::TextFontMacroAt1End),
@@ -5383,7 +5383,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::TextFontMacroAt2 => RuleData {
+            Rule::TextFontMacroAt2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionTextbf)],
                 content: scopes![Sc::S(S::MarkupBoldTextbf)],
                 end: Some(Pat::TextFontMacroAt2End),
@@ -5493,7 +5493,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::TextFontMacroAt3 => RuleData {
+            Rule::TextFontMacroAt3 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionTexttt)],
                 content: scopes![Sc::S(S::MarkupRawTexttt)],
                 end: Some(Pat::TextFontMacroAt3End),
@@ -5603,28 +5603,28 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::CitationMacro => RuleData {
+            Rule::CitationMacro => RuleDefinition {
                 name: scopes![Sc::S(S::MetaCitation)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CitationMacroEnd),
                 backref: None,
                 patterns: &[Pat::CitationMacroAt0, Pat::CitationMacroAt1],
             },
-            Rule::ReferencesMacroAt0 => RuleData {
+            Rule::ReferencesMacroAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaReferenceLabel)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::ReferencesMacroAt0End),
                 backref: None,
                 patterns: &[Pat::ReferencesMacroAt0At0],
             },
-            Rule::ReferencesMacroAt2 => RuleData {
+            Rule::ReferencesMacroAt2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaCitation)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::ReferencesMacroAt2End),
                 backref: None,
                 patterns: &[Pat::ReferencesMacroAt2At0],
             },
-            Rule::AllOtherMacroAt1 => RuleData {
+            Rule::AllOtherMacroAt1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaParagraphMargin)],
                 end: Some(Pat::AllOtherMacroAt1End),
@@ -5734,7 +5734,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::AllOtherMacroAt2 => RuleData {
+            Rule::AllOtherMacroAt2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::EntNameFootnote)],
                 end: Some(Pat::AllOtherMacroAt2End),
@@ -5844,7 +5844,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::HyperrefMacroAt0 => RuleData {
+            Rule::HyperrefMacroAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionHyperlink)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::HyperrefMacroAt0End),
@@ -5855,7 +5855,7 @@ impl Rule {
                     Pat::HyperrefMacroAt0At2,
                 ],
             },
-            Rule::HyperrefMacroAt0At1 => RuleData {
+            Rule::HyperrefMacroAt0At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaVariableParameterFunction)],
                 end: Some(Pat::HyperrefMacroAt0At1End),
@@ -5964,7 +5964,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::HyperrefMacroAt0At2 => RuleData {
+            Rule::HyperrefMacroAt0At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaVariableParameterFunction)],
                 end: Some(Pat::HyperrefMacroAt0At2End),
@@ -6073,7 +6073,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::NewcommandMacro => RuleData {
+            Rule::NewcommandMacro => RuleDefinition {
                 name: scopes![Sc::S(S::MetaParameterNewcommand)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::NewcommandMacroEnd),
@@ -6149,7 +6149,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::VerbMacroAt0 => RuleData {
+            Rule::VerbMacroAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionVerb)],
                 content: scopes![Sc::S(S::MarkupRawVerb)],
                 end: Some(Pat::VerbMacroAt0End),
@@ -6258,35 +6258,35 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::InlineCodeMacroAt0 => RuleData {
+            Rule::InlineCodeMacroAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt0End),
                 backref: None,
                 patterns: &[Pat::InlineCodeMacroAt0At0],
             },
-            Rule::InlineCodeMacroAt0At0 => RuleData {
+            Rule::InlineCodeMacroAt0At0 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLinePercentage)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt0At0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt5 => RuleData {
+            Rule::InlineCodeMacroAt5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceLua)],
                 end: Some(Pat::InlineCodeMacroAt5End),
                 backref: None,
                 patterns: &[Pat::TexBraces],
             },
-            Rule::InlineCodeMacroAt6 => RuleData {
+            Rule::InlineCodeMacroAt6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt6End),
                 backref: None,
                 patterns: &[Pat::MultilineOptionalArgNoHighlight],
             },
-            Rule::InlineCodeMacroAt7 => RuleData {
+            Rule::InlineCodeMacroAt7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt7End),
@@ -6296,21 +6296,21 @@ impl Rule {
                     Pat::InlineCodeMacroAt7At1,
                 ],
             },
-            Rule::InlineCodeMacroAt7At1 => RuleData {
+            Rule::InlineCodeMacroAt7At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceShell)],
                 end: Some(Pat::InlineCodeMacroAt7At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt8 => RuleData {
+            Rule::InlineCodeMacroAt8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt8End),
                 backref: None,
                 patterns: &[Pat::MultilineOptionalArgNoHighlight],
             },
-            Rule::InlineCodeMacroAt9 => RuleData {
+            Rule::InlineCodeMacroAt9 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt9End),
@@ -6320,21 +6320,21 @@ impl Rule {
                     Pat::InlineCodeMacroAt9At1,
                 ],
             },
-            Rule::InlineCodeMacroAt9At1 => RuleData {
+            Rule::InlineCodeMacroAt9At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceCss)],
                 end: Some(Pat::InlineCodeMacroAt9At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt10 => RuleData {
+            Rule::InlineCodeMacroAt10 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt10End),
                 backref: None,
                 patterns: &[Pat::MultilineOptionalArgNoHighlight],
             },
-            Rule::InlineCodeMacroAt11 => RuleData {
+            Rule::InlineCodeMacroAt11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt11End),
@@ -6344,14 +6344,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt11At1,
                 ],
             },
-            Rule::InlineCodeMacroAt11At1 => RuleData {
+            Rule::InlineCodeMacroAt11At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceHaskell)],
                 end: Some(Pat::InlineCodeMacroAt11At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt12 => RuleData {
+            Rule::InlineCodeMacroAt12 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt12End),
@@ -6361,14 +6361,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt12At1,
                 ],
             },
-            Rule::InlineCodeMacroAt12At1 => RuleData {
+            Rule::InlineCodeMacroAt12At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextHtml)],
                 end: Some(Pat::InlineCodeMacroAt12At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt13 => RuleData {
+            Rule::InlineCodeMacroAt13 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt13End),
@@ -6378,14 +6378,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt13At1,
                 ],
             },
-            Rule::InlineCodeMacroAt13At1 => RuleData {
+            Rule::InlineCodeMacroAt13At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJava)],
                 end: Some(Pat::InlineCodeMacroAt13At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt14 => RuleData {
+            Rule::InlineCodeMacroAt14 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt14End),
@@ -6395,14 +6395,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt14At1,
                 ],
             },
-            Rule::InlineCodeMacroAt14At1 => RuleData {
+            Rule::InlineCodeMacroAt14At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJulia)],
                 end: Some(Pat::InlineCodeMacroAt14At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt15 => RuleData {
+            Rule::InlineCodeMacroAt15 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt15End),
@@ -6412,14 +6412,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt15At1,
                 ],
             },
-            Rule::InlineCodeMacroAt15At1 => RuleData {
+            Rule::InlineCodeMacroAt15At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceJs)],
                 end: Some(Pat::InlineCodeMacroAt15At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt16 => RuleData {
+            Rule::InlineCodeMacroAt16 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt16End),
@@ -6429,14 +6429,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt16At1,
                 ],
             },
-            Rule::InlineCodeMacroAt16At1 => RuleData {
+            Rule::InlineCodeMacroAt16At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceLua)],
                 end: Some(Pat::InlineCodeMacroAt16At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt17 => RuleData {
+            Rule::InlineCodeMacroAt17 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt17End),
@@ -6446,14 +6446,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt17At1,
                 ],
             },
-            Rule::InlineCodeMacroAt17At1 => RuleData {
+            Rule::InlineCodeMacroAt17At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourcePython)],
                 end: Some(Pat::InlineCodeMacroAt17At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt18 => RuleData {
+            Rule::InlineCodeMacroAt18 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt18End),
@@ -6463,14 +6463,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt18At1,
                 ],
             },
-            Rule::InlineCodeMacroAt18At1 => RuleData {
+            Rule::InlineCodeMacroAt18At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceRuby)],
                 end: Some(Pat::InlineCodeMacroAt18At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt19 => RuleData {
+            Rule::InlineCodeMacroAt19 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt19End),
@@ -6480,14 +6480,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt19At1,
                 ],
             },
-            Rule::InlineCodeMacroAt19At1 => RuleData {
+            Rule::InlineCodeMacroAt19At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceRust)],
                 end: Some(Pat::InlineCodeMacroAt19At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt20 => RuleData {
+            Rule::InlineCodeMacroAt20 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt20End),
@@ -6497,14 +6497,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt20At1,
                 ],
             },
-            Rule::InlineCodeMacroAt20At1 => RuleData {
+            Rule::InlineCodeMacroAt20At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceTs)],
                 end: Some(Pat::InlineCodeMacroAt20At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt21 => RuleData {
+            Rule::InlineCodeMacroAt21 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt21End),
@@ -6514,14 +6514,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt21At1,
                 ],
             },
-            Rule::InlineCodeMacroAt21At1 => RuleData {
+            Rule::InlineCodeMacroAt21At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextXml)],
                 end: Some(Pat::InlineCodeMacroAt21At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt22 => RuleData {
+            Rule::InlineCodeMacroAt22 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt22End),
@@ -6531,14 +6531,14 @@ impl Rule {
                     Pat::InlineCodeMacroAt22At1,
                 ],
             },
-            Rule::InlineCodeMacroAt22At1 => RuleData {
+            Rule::InlineCodeMacroAt22At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceYaml)],
                 end: Some(Pat::InlineCodeMacroAt22At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::InlineCodeMacroAt23 => RuleData {
+            Rule::InlineCodeMacroAt23 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt23End),
@@ -6548,7 +6548,7 @@ impl Rule {
                     Pat::InlineCodeMacroAt23At1,
                 ],
             },
-            Rule::InlineCodeMacroAt23At1 => RuleData {
+            Rule::InlineCodeMacroAt23At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::TextTex)],
                 end: Some(Pat::InlineCodeMacroAt23At1End),
@@ -6657,7 +6657,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::InlineCodeMacroAt24 => RuleData {
+            Rule::InlineCodeMacroAt24 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineCodeMacroAt24End),
@@ -6667,21 +6667,21 @@ impl Rule {
                     Pat::InlineCodeMacroAt24At1,
                 ],
             },
-            Rule::InlineCodeMacroAt24At1 => RuleData {
+            Rule::InlineCodeMacroAt24At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaEmbeddedBlockGeneric)],
                 end: Some(Pat::InlineCodeMacroAt24At1End),
                 backref: None,
                 patterns: &[Pat::TexBraces],
             },
-            Rule::InlineCodeMacroAt25 => RuleData {
+            Rule::InlineCodeMacroAt25 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MarkupRawVerb)],
                 end: Some(Pat::InlineCodeMacroAt25End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::DisplayMathAt0 => RuleData {
+            Rule::DisplayMathAt0 => RuleDefinition {
                 name: scopes![
                     Sc::S(S::MetaMathBlock),
                     Sc::S(S::SuppClassMathBlockEnvironment)
@@ -6807,7 +6807,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::DisplayMathAt1 => RuleData {
+            Rule::DisplayMathAt1 => RuleDefinition {
                 name: scopes![
                     Sc::S(S::MetaMathBlock),
                     Sc::S(S::SuppClassMathBlockEnvironment)
@@ -6934,7 +6934,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::InlineMathAt0 => RuleData {
+            Rule::InlineMathAt0 => RuleDefinition {
                 name: scopes![
                     Sc::S(S::MetaMathBlock),
                     Sc::S(S::SuppClassMathBlockEnvironment)
@@ -7060,7 +7060,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::InlineMathAt1 => RuleData {
+            Rule::InlineMathAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaMathBlockTex), Sc::S(S::SuppClassMathBlockTex)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InlineMathAt1End),
@@ -7184,7 +7184,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::SongsChordsAt0 => RuleData {
+            Rule::SongsChordsAt0 => RuleDefinition {
                 name: scopes![
                     Sc::S(S::MetaChordBlock),
                     Sc::S(S::SuppClassChordBlockEnvironment)
@@ -7296,7 +7296,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::SongsEnvAt1 => RuleData {
+            Rule::SongsEnvAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionEnvironmentSong)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::SongsEnvAt1End),
@@ -7307,7 +7307,7 @@ impl Rule {
                     Pat::SongsEnvAt1At2,
                 ],
             },
-            Rule::MultilineArgNoHighlight => RuleData {
+            Rule::MultilineArgNoHighlight => RuleDefinition {
                 name: scopes![Sc::S(S::MetaParameter)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::MultilineArgNoHighlightEnd),
@@ -7382,7 +7382,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::SongsEnvAt1At2 => RuleData {
+            Rule::SongsEnvAt1At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaDataEnvironmentSong)],
                 end: Some(Pat::SongsEnvAt1At2End),
@@ -7493,7 +7493,7 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::Root | Rule::MacroWithArgsTokenizerCap7 => RuleData {
+            Rule::Root | Rule::MacroWithArgsTokenizerCap7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -7602,49 +7602,49 @@ impl Rule {
                     Pat::TexMacroGeneralAt3,
                 ],
             },
-            Rule::EmbeddedCodeEnvAt0Cap0 => RuleData {
+            Rule::EmbeddedCodeEnvAt0Cap0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::MacroWithArgsTokenizer],
             },
-            Rule::LabelMacroCap3 => RuleData {
+            Rule::LabelMacroCap3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::OptionalArgBracketAt0],
             },
-            Rule::AutocitesArgAt0Cap1 => RuleData {
+            Rule::AutocitesArgAt0Cap1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::OptionalArgParenthesisNoHighlightAt0],
             },
-            Rule::AutocitesArgAt0Cap2 => RuleData {
+            Rule::AutocitesArgAt0Cap2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::OptionalArgBracketNoHighlightAt0],
             },
-            Rule::AutocitesArgAt0Cap6 | Rule::CitationMacroCap3 => RuleData {
+            Rule::AutocitesArgAt0Cap6 | Rule::CitationMacroCap3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::AutocitesArgAt0],
             },
-            Rule::CitationMacroCap4 => RuleData {
+            Rule::CitationMacroCap4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::OptionalArgAngleNoHighlightAt0],
             },
-            Rule::InlineCodeMacroAt3Cap5 | Rule::InlineCodeMacroAt4Cap5 => RuleData {
+            Rule::InlineCodeMacroAt3Cap5 | Rule::InlineCodeMacroAt4Cap5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -9296,14 +9296,14 @@ pub(crate) enum Pat {
 
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::RootAt0 => PatData {
+            Pat::RootAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaSpaceAfterCommand)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SongsEnvAt0 => PatData {
+            Pat::SongsEnvAt0 => PatDefinition {
                 act: Act::Begin(Rule::SongsEnvAt0),
                 captures: &[],
                 nested: &[(
@@ -9326,7 +9326,7 @@ impl Pat {
             | Pat::AllBalancedEnvAt4End
             | Pat::AllBalancedEnvAt5End
             | Pat::AllBalancedEnvAt6End
-            | Pat::AllBalancedEnvAt8End => PatData {
+            | Pat::AllBalancedEnvAt8End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[(
@@ -9337,7 +9337,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::MacroWithArgsTokenizer => PatData {
+            Pat::MacroWithArgsTokenizer => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionBe)]),
@@ -9359,7 +9359,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt0 => PatData {
+            Pat::EmbeddedCodeEnvAt0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0),
                 captures: &[],
                 nested: &[(
@@ -9386,7 +9386,7 @@ impl Pat {
             | Pat::EmbeddedCodeEnvAt13End
             | Pat::EmbeddedCodeEnvAt14End
             | Pat::EmbeddedCodeEnvAt15End
-            | Pat::EmbeddedCodeEnvAt17End => PatData {
+            | Pat::EmbeddedCodeEnvAt17End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[(
@@ -9397,17 +9397,19 @@ impl Pat {
                     },
                 )],
             },
-            Pat::MultilineOptionalArgNoHighlight => PatData {
+            Pat::MultilineOptionalArgNoHighlight => PatDefinition {
                 act: Act::Begin(Rule::MultilineOptionalArgNoHighlight),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsOptionalBegin)])],
                 nested: &[],
             },
-            Pat::MultilineOptionalArgNoHighlightEnd | Pat::MultilineOptionalArgEnd => PatData {
-                act: Act::End,
-                captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsOptionalEnd)])],
-                nested: &[],
-            },
-            Pat::EmbeddedCodeEnvAt0At2 => PatData {
+            Pat::MultilineOptionalArgNoHighlightEnd | Pat::MultilineOptionalArgEnd => {
+                PatDefinition {
+                    act: Act::End,
+                    captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsOptionalEnd)])],
+                    nested: &[],
+                }
+            }
+            Pat::EmbeddedCodeEnvAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At2),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9505,12 +9507,12 @@ impl Pat {
             | Pat::InlineCodeMacroAt23End
             | Pat::InlineCodeMacroAt24End
             | Pat::SongsChordsAt0End
-            | Pat::SongsEnvAt1At2End => PatData {
+            | Pat::SongsEnvAt1At2End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At4 => PatData {
+            Pat::EmbeddedCodeEnvAt0At4 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At4),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9519,7 +9521,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At6 => PatData {
+            Pat::EmbeddedCodeEnvAt0At6 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At6),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9528,7 +9530,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At7 => PatData {
+            Pat::EmbeddedCodeEnvAt0At7 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At7),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9537,7 +9539,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At8 => PatData {
+            Pat::EmbeddedCodeEnvAt0At8 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At8),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9546,7 +9548,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At9 => PatData {
+            Pat::EmbeddedCodeEnvAt0At9 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At9),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9555,7 +9557,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At10 => PatData {
+            Pat::EmbeddedCodeEnvAt0At10 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At10),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9564,7 +9566,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At11 => PatData {
+            Pat::EmbeddedCodeEnvAt0At11 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At11),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9573,7 +9575,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At12 => PatData {
+            Pat::EmbeddedCodeEnvAt0At12 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At12),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9582,7 +9584,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At13 => PatData {
+            Pat::EmbeddedCodeEnvAt0At13 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At13),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9591,7 +9593,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At14 => PatData {
+            Pat::EmbeddedCodeEnvAt0At14 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At14),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9600,7 +9602,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At15 => PatData {
+            Pat::EmbeddedCodeEnvAt0At15 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At15),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9609,7 +9611,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At16 => PatData {
+            Pat::EmbeddedCodeEnvAt0At16 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At16),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9618,7 +9620,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At17 => PatData {
+            Pat::EmbeddedCodeEnvAt0At17 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At17),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9627,7 +9629,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt0At18 => PatData {
+            Pat::EmbeddedCodeEnvAt0At18 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt0At18),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -9636,7 +9638,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt1 => PatData {
+            Pat::EmbeddedCodeEnvAt1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt1),
                 captures: &[],
                 nested: &[(
@@ -9647,7 +9649,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt1At1 => PatData {
+            Pat::EmbeddedCodeEnvAt1At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt1At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
@@ -9685,12 +9687,12 @@ impl Pat {
             | Pat::EmbeddedCodeEnvAt16At16At0End
             | Pat::EmbeddedCodeEnvAt16At17At0End
             | Pat::EmbeddedCodeEnvAt16At18At0End
-            | Pat::HyperrefMacroAt0End => PatData {
+            | Pat::HyperrefMacroAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsEnd)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt2 => PatData {
+            Pat::EmbeddedCodeEnvAt2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt2),
                 captures: &[],
                 nested: &[(
@@ -9701,12 +9703,12 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt2At1 => PatData {
+            Pat::EmbeddedCodeEnvAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt2At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt3 => PatData {
+            Pat::EmbeddedCodeEnvAt3 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt3),
                 captures: &[],
                 nested: &[(
@@ -9717,12 +9719,12 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt3At1 => PatData {
+            Pat::EmbeddedCodeEnvAt3At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt3At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt4 => PatData {
+            Pat::EmbeddedCodeEnvAt4 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt4),
                 captures: &[],
                 nested: &[(
@@ -9733,12 +9735,12 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt4At1 => PatData {
+            Pat::EmbeddedCodeEnvAt4At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt4At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt5 => PatData {
+            Pat::EmbeddedCodeEnvAt5 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt5),
                 captures: &[],
                 nested: &[(
@@ -9749,17 +9751,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt5At1 => PatData {
+            Pat::EmbeddedCodeEnvAt5At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt5At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt5At2 => PatData {
+            Pat::EmbeddedCodeEnvAt5At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt5At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt6 => PatData {
+            Pat::EmbeddedCodeEnvAt6 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt6),
                 captures: &[],
                 nested: &[(
@@ -9770,17 +9772,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt6At1 => PatData {
+            Pat::EmbeddedCodeEnvAt6At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt6At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt6At2 => PatData {
+            Pat::EmbeddedCodeEnvAt6At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt6At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt7 => PatData {
+            Pat::EmbeddedCodeEnvAt7 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt7),
                 captures: &[],
                 nested: &[(
@@ -9791,17 +9793,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt7At1 => PatData {
+            Pat::EmbeddedCodeEnvAt7At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt7At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt7At2 => PatData {
+            Pat::EmbeddedCodeEnvAt7At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt7At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt8 => PatData {
+            Pat::EmbeddedCodeEnvAt8 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt8),
                 captures: &[],
                 nested: &[(
@@ -9812,17 +9814,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt8At1 => PatData {
+            Pat::EmbeddedCodeEnvAt8At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt8At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt8At2 => PatData {
+            Pat::EmbeddedCodeEnvAt8At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt8At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt9 => PatData {
+            Pat::EmbeddedCodeEnvAt9 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt9),
                 captures: &[],
                 nested: &[(
@@ -9833,17 +9835,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt9At1 => PatData {
+            Pat::EmbeddedCodeEnvAt9At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt9At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt9At2 => PatData {
+            Pat::EmbeddedCodeEnvAt9At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt9At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt10 => PatData {
+            Pat::EmbeddedCodeEnvAt10 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt10),
                 captures: &[],
                 nested: &[(
@@ -9854,17 +9856,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt10At1 => PatData {
+            Pat::EmbeddedCodeEnvAt10At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt10At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt10At2 => PatData {
+            Pat::EmbeddedCodeEnvAt10At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt10At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt11 => PatData {
+            Pat::EmbeddedCodeEnvAt11 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt11),
                 captures: &[],
                 nested: &[(
@@ -9875,17 +9877,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt11At1 => PatData {
+            Pat::EmbeddedCodeEnvAt11At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt11At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt11At2 => PatData {
+            Pat::EmbeddedCodeEnvAt11At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt11At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt12 => PatData {
+            Pat::EmbeddedCodeEnvAt12 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt12),
                 captures: &[],
                 nested: &[(
@@ -9896,17 +9898,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt12At1 => PatData {
+            Pat::EmbeddedCodeEnvAt12At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt12At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt12At2 => PatData {
+            Pat::EmbeddedCodeEnvAt12At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt12At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt13 => PatData {
+            Pat::EmbeddedCodeEnvAt13 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt13),
                 captures: &[],
                 nested: &[(
@@ -9917,17 +9919,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt13At1 => PatData {
+            Pat::EmbeddedCodeEnvAt13At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt13At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt13At2 => PatData {
+            Pat::EmbeddedCodeEnvAt13At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt13At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt14 => PatData {
+            Pat::EmbeddedCodeEnvAt14 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt14),
                 captures: &[],
                 nested: &[(
@@ -9938,17 +9940,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt14At1 => PatData {
+            Pat::EmbeddedCodeEnvAt14At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt14At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt14At2 => PatData {
+            Pat::EmbeddedCodeEnvAt14At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt14At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt15 => PatData {
+            Pat::EmbeddedCodeEnvAt15 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt15),
                 captures: &[],
                 nested: &[(
@@ -9959,7 +9961,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt16 => PatData {
+            Pat::EmbeddedCodeEnvAt16 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16),
                 captures: &[],
                 nested: &[(
@@ -9970,287 +9972,287 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt16At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At0),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At0At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At0At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexBraces => PatData {
+            Pat::TexBraces => PatDefinition {
                 act: Act::Begin(Rule::TexBraces),
                 captures: &[(0, scopes![Sc::S(S::PGroupBeginTex)])],
                 nested: &[],
             },
-            Pat::TexBracesEnd => PatData {
+            Pat::TexBracesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PGroupEndTex)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At1At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At1At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At1At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At1At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At1At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At1At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At2 => PatData {
+            Pat::EmbeddedCodeEnvAt16At2 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At2),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At2At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At2At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At2At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At3 => PatData {
+            Pat::EmbeddedCodeEnvAt16At3 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At3),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At3At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At3At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At3At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At3At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At3At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At3At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At4 => PatData {
+            Pat::EmbeddedCodeEnvAt16At4 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At4),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At4At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At4At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At4At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At5 => PatData {
+            Pat::EmbeddedCodeEnvAt16At5 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At5),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At5At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At5At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At5At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At5At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At5At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At5At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At6 => PatData {
+            Pat::EmbeddedCodeEnvAt16At6 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At6),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At6At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At6At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At6At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At6At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At6At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At6At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At7 => PatData {
+            Pat::EmbeddedCodeEnvAt16At7 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At7),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At7At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At7At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At7At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At7At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At7At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At7At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At8 => PatData {
+            Pat::EmbeddedCodeEnvAt16At8 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At8),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At8At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At8At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At8At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At8At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At8At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At8At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At9 => PatData {
+            Pat::EmbeddedCodeEnvAt16At9 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At9),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At9At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At9At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At9At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At9At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At9At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At9At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At10 => PatData {
+            Pat::EmbeddedCodeEnvAt16At10 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At10),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At10At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At10At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At10At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At10At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At10At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At10At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At11 => PatData {
+            Pat::EmbeddedCodeEnvAt16At11 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At11),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At11At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At11At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At11At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At11At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At11At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At11At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At12 => PatData {
+            Pat::EmbeddedCodeEnvAt16At12 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At12),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At12At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At12At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At12At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At12At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At12At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At12At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At13 => PatData {
+            Pat::EmbeddedCodeEnvAt16At13 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At13),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At13At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At13At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At13At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At13At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At13At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At13At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At14 => PatData {
+            Pat::EmbeddedCodeEnvAt16At14 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At14),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At14At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At14At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At14At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At14At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At14At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At14At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At15 => PatData {
+            Pat::EmbeddedCodeEnvAt16At15 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At15),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At15At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At15At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At15At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At15At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At15At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At15At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At16 => PatData {
+            Pat::EmbeddedCodeEnvAt16At16 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At16),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At16At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At16At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At16At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At16At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At16At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At16At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At17 => PatData {
+            Pat::EmbeddedCodeEnvAt16At17 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At17),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At17At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At17At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At17At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At17At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At17At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At17At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At18 => PatData {
+            Pat::EmbeddedCodeEnvAt16At18 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At18),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At18At0 => PatData {
+            Pat::EmbeddedCodeEnvAt16At18At0 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At18At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt16At18At1 => PatData {
+            Pat::EmbeddedCodeEnvAt16At18At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt16At18At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EmbeddedCodeEnvAt17 => PatData {
+            Pat::EmbeddedCodeEnvAt17 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt17),
                 captures: &[],
                 nested: &[(
@@ -10261,7 +10263,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::EmbeddedCodeEnvAt17At1 => PatData {
+            Pat::EmbeddedCodeEnvAt17At1 => PatDefinition {
                 act: Act::Begin(Rule::EmbeddedCodeEnvAt17At1),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -10270,7 +10272,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::VerbatimEnvAt0 => PatData {
+            Pat::VerbatimEnvAt0 => PatDefinition {
                 act: Act::Begin(Rule::VerbatimEnvAt0),
                 captures: &[],
                 nested: &[(
@@ -10281,7 +10283,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::VerbatimEnvAt1 => PatData {
+            Pat::VerbatimEnvAt1 => PatDefinition {
                 act: Act::Begin(Rule::VerbatimEnvAt1),
                 captures: &[],
                 nested: &[(
@@ -10292,7 +10294,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::VerbatimEnvAt2 => PatData {
+            Pat::VerbatimEnvAt2 => PatDefinition {
                 act: Act::Begin(Rule::VerbatimEnvAt2),
                 captures: &[],
                 nested: &[(
@@ -10303,12 +10305,12 @@ impl Pat {
                     },
                 )],
             },
-            Pat::VerbatimEnvAt2At0 => PatData {
+            Pat::VerbatimEnvAt2At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppFunctionGeneral)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionFunction)])],
                 nested: &[],
             },
-            Pat::VerbatimEnvAt3 => PatData {
+            Pat::VerbatimEnvAt3 => PatDefinition {
                 act: Act::Begin(Rule::VerbatimEnvAt3),
                 captures: &[],
                 nested: &[(
@@ -10319,7 +10321,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::DocumentEnvAt0 => PatData {
+            Pat::DocumentEnvAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionBeginDocument)]),
                 captures: &[],
                 nested: &[(
@@ -10330,7 +10332,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::DocumentEnvAt1 => PatData {
+            Pat::DocumentEnvAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionEndDocument)]),
                 captures: &[],
                 nested: &[(
@@ -10341,7 +10343,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllBalancedEnvAt0 => PatData {
+            Pat::AllBalancedEnvAt0 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionBe)]),
@@ -10352,7 +10354,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AllBalancedEnvAt0End => PatData {
+            Pat::AllBalancedEnvAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionBe)]),
@@ -10363,17 +10365,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AllBalancedEnvAt0At0 | Pat::AllBalancedEnvAt1At0 => PatData {
+            Pat::AllBalancedEnvAt0At0 | Pat::AllBalancedEnvAt1At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlEquationAlign)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AllBalancedEnvAt0At1 | Pat::AllBalancedEnvAt1At1 => PatData {
+            Pat::AllBalancedEnvAt0At1 | Pat::AllBalancedEnvAt1At1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlEquationNewline)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LabelMacro => PatData {
+            Pat::LabelMacro => PatDefinition {
                 act: Act::Begin(Rule::LabelMacro),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlLabel)]),
@@ -10415,12 +10417,12 @@ impl Pat {
             | Pat::InlineCodeMacroAt23At1End
             | Pat::InlineCodeMacroAt24At1End
             | Pat::InlineCodeMacroAt25End
-            | Pat::MultilineArgNoHighlightEnd => PatData {
+            | Pat::MultilineArgNoHighlightEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsEnd)])],
                 nested: &[],
             },
-            Pat::OptionalArgBracketAt0 => PatData {
+            Pat::OptionalArgBracketAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaParameterOptional)]),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsOptionalBegin)]),
@@ -10429,12 +10431,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::LabelMacroAt0 => PatData {
+            Pat::LabelMacroAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarParameterDefinitionLabel)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt0 => PatData {
+            Pat::TexMathContentAt0 => PatDefinition {
                 act: Act::Begin(Rule::TexMathContentAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::ConstOtherMathTex)]),
@@ -10449,7 +10451,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TexMathContentAt0End => PatData {
+            Pat::TexMathContentAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     0,
@@ -10460,7 +10462,7 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::TexIffalseBlock => PatData {
+            Pat::TexIffalseBlock => PatDefinition {
                 act: Act::Begin(Rule::TexIffalseBlock),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlTex)]),
@@ -10468,7 +10470,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TexIffalseBlockEnd => PatData {
+            Pat::TexIffalseBlockEnd => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlTex)]),
@@ -10476,32 +10478,32 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TexComment => PatData {
+            Pat::TexComment => PatDefinition {
                 act: Act::Begin(Rule::TexComment),
                 captures: &[(1, scopes![Sc::S(S::PWhitespaceCommentLeadingTex)])],
                 nested: &[],
             },
-            Pat::TexCommentAt0 => PatData {
+            Pat::TexCommentAt0 => PatDefinition {
                 act: Act::Begin(Rule::TexCommentAt0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionCommentTex)])],
                 nested: &[],
             },
-            Pat::TexCommentAt1 => PatData {
+            Pat::TexCommentAt1 => PatDefinition {
                 act: Act::Begin(Rule::TexCommentAt1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionCommentTex)])],
                 nested: &[],
             },
-            Pat::TexConditionals => PatData {
+            Pat::TexConditionals => PatDefinition {
                 act: Act::Begin(Rule::TexConditionals),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMacroControl => PatData {
+            Pat::TexMacroControl => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlTex)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeywordTex)])],
                 nested: &[],
             },
-            Pat::TexCatcode => PatData {
+            Pat::TexCatcode => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaCatcodeTex)]),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlCatcodeTex)]),
@@ -10511,72 +10513,72 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TexRootAt4 => PatData {
+            Pat::TexRootAt4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PDefinitionBracketsTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexDollarMath => PatData {
+            Pat::TexDollarMath => PatDefinition {
                 act: Act::Begin(Rule::TexDollarMath),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionStringBeginTex)])],
                 nested: &[],
             },
-            Pat::TexDollarMathEnd => PatData {
+            Pat::TexDollarMathEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PDefinitionStringEndTex)])],
                 nested: &[],
             },
-            Pat::TexDollarMathAt0 => PatData {
+            Pat::TexDollarMathAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEscapeTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexRootAt6 => PatData {
+            Pat::TexRootAt6 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlNewlineTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexIfnextchar => PatData {
+            Pat::TexIfnextchar => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlIfnextcharTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMacroGeneralAt0 | Pat::TexMacroGeneralAt1 => PatData {
+            Pat::TexMacroGeneralAt0 | Pat::TexMacroGeneralAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppClassGeneralLatex3Tex)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionFunctionTex)])],
                 nested: &[],
             },
-            Pat::TexMacroGeneralAt2 => PatData {
+            Pat::TexMacroGeneralAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppFunctionGeneralTex)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionFunctionTex)])],
                 nested: &[],
             },
-            Pat::TexMacroGeneralAt3 => PatData {
+            Pat::TexMacroGeneralAt3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEscapeTex)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeywordTex)])],
                 nested: &[],
             },
-            Pat::TexMathContentAt1 => PatData {
+            Pat::TexMathContentAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBracketPairTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt2 => PatData {
+            Pat::TexMathContentAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBracketPairBigTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt3 | Pat::TexMathContentAt4 => PatData {
+            Pat::TexMathContentAt3 | Pat::TexMathContentAt4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterMathTex)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionConstantMathTex)])],
                 nested: &[],
             },
-            Pat::TexMathContentAt5 => PatData {
+            Pat::TexMathContentAt5 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstOtherMathTex)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionConstantMathTex)])],
                 nested: &[],
             },
-            Pat::TexMathContentAt6 => PatData {
+            Pat::TexMathContentAt6 => PatDefinition {
                 act: Act::Begin(Rule::TexMathContentAt6),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionSexprMathTex)]),
@@ -10585,7 +10587,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TexMathContentAt6End => PatData {
+            Pat::TexMathContentAt6End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionSexprMathTex)]),
@@ -10594,47 +10596,47 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TexMathContentAt6At0 => PatData {
+            Pat::TexMathContentAt6At0 => PatDefinition {
                 act: Act::Begin(Rule::TexMathContentAt6At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt7 => PatData {
+            Pat::TexMathContentAt7 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstOtherGeneralMathTex)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionConstantMathTex)])],
                 nested: &[],
             },
-            Pat::TexMathContentAt8 => PatData {
+            Pat::TexMathContentAt8 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBeginBracketCurlyTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt9 => PatData {
+            Pat::TexMathContentAt9 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathEndBracketCurlyTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt10 => PatData {
+            Pat::TexMathContentAt10 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBeginBracketRoundTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt11 => PatData {
+            Pat::TexMathContentAt11 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathEndBracketRoundTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt12 => PatData {
+            Pat::TexMathContentAt12 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstNumericMathTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TexMathContentAt13 => PatData {
+            Pat::TexMathContentAt13 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathOperatorTex)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AllBalancedEnvAt1 => PatData {
+            Pat::AllBalancedEnvAt1 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt1),
                 captures: &[],
                 nested: &[(
@@ -10645,7 +10647,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllBalancedEnvAt2 => PatData {
+            Pat::AllBalancedEnvAt2 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt2),
                 captures: &[],
                 nested: &[(
@@ -10656,17 +10658,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllBalancedEnvAt2At0 => PatData {
+            Pat::AllBalancedEnvAt2At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlTableCell)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AllBalancedEnvAt2At1 => PatData {
+            Pat::AllBalancedEnvAt2At1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlTableNewline)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AllBalancedEnvAt3 => PatData {
+            Pat::AllBalancedEnvAt3 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt3),
                 captures: &[],
                 nested: &[(
@@ -10677,7 +10679,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllBalancedEnvAt4 => PatData {
+            Pat::AllBalancedEnvAt4 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt4),
                 captures: &[],
                 nested: &[(
@@ -10688,7 +10690,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllBalancedEnvAt5 => PatData {
+            Pat::AllBalancedEnvAt5 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt5),
                 captures: &[],
                 nested: &[(
@@ -10699,7 +10701,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllBalancedEnvAt6 => PatData {
+            Pat::AllBalancedEnvAt6 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt6),
                 captures: &[],
                 nested: &[(
@@ -10710,7 +10712,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllBalancedEnvAt8 => PatData {
+            Pat::AllBalancedEnvAt8 => PatDefinition {
                 act: Act::Begin(Rule::AllBalancedEnvAt8),
                 captures: &[],
                 nested: &[(
@@ -10721,7 +10723,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::DocumentclassUsepackageMacro => PatData {
+            Pat::DocumentclassUsepackageMacro => PatDefinition {
                 act: Act::Begin(Rule::DocumentclassUsepackageMacro),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlPreamble)]),
@@ -10729,17 +10731,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MultilineOptionalArg => PatData {
+            Pat::MultilineOptionalArg => PatDefinition {
                 act: Act::Begin(Rule::MultilineOptionalArg),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsOptionalBegin)])],
                 nested: &[],
             },
-            Pat::DocumentclassUsepackageMacroAt1 => PatData {
+            Pat::DocumentclassUsepackageMacroAt1 => PatDefinition {
                 act: Act::Begin(Rule::DocumentclassUsepackageMacroAt1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InputMacro => PatData {
+            Pat::InputMacro => PatDefinition {
                 act: Act::Begin(Rule::InputMacro),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlInclude)]),
@@ -10748,7 +10750,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SectionsMacro => PatData {
+            Pat::SectionsMacro => PatDefinition {
                 act: Act::Begin(Rule::SectionsMacro),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionSection)]),
@@ -10763,17 +10765,17 @@ impl Pat {
                     },
                 )],
             },
-            Pat::Braces => PatData {
+            Pat::Braces => PatDefinition {
                 act: Act::Begin(Rule::Braces),
                 captures: &[(0, scopes![Sc::S(S::PGroupBegin)])],
                 nested: &[],
             },
-            Pat::BracesEnd => PatData {
+            Pat::BracesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PGroupEnd)])],
                 nested: &[],
             },
-            Pat::TextFontMacroAt0 => PatData {
+            Pat::TextFontMacroAt0 => PatDefinition {
                 act: Act::Begin(Rule::TextFontMacroAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionEmph)]),
@@ -10782,12 +10784,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TextFontMacroAt0End => PatData {
+            Pat::TextFontMacroAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionEmphEnd)])],
                 nested: &[],
             },
-            Pat::TextFontMacroAt1 => PatData {
+            Pat::TextFontMacroAt1 => PatDefinition {
                 act: Act::Begin(Rule::TextFontMacroAt1),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionTextit)]),
@@ -10796,12 +10798,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TextFontMacroAt1End => PatData {
+            Pat::TextFontMacroAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionTextitEnd)])],
                 nested: &[],
             },
-            Pat::TextFontMacroAt2 => PatData {
+            Pat::TextFontMacroAt2 => PatDefinition {
                 act: Act::Begin(Rule::TextFontMacroAt2),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionTextbf)]),
@@ -10810,12 +10812,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TextFontMacroAt2End => PatData {
+            Pat::TextFontMacroAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionTextbfEnd)])],
                 nested: &[],
             },
-            Pat::TextFontMacroAt3 => PatData {
+            Pat::TextFontMacroAt3 => PatDefinition {
                 act: Act::Begin(Rule::TextFontMacroAt3),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionTexttt)]),
@@ -10824,12 +10826,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TextFontMacroAt3End => PatData {
+            Pat::TextFontMacroAt3End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionTextttEnd)])],
                 nested: &[],
             },
-            Pat::CitationMacro => PatData {
+            Pat::CitationMacro => PatDefinition {
                 act: Act::Begin(Rule::CitationMacro),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlCite)]),
@@ -10860,7 +10862,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::AutocitesArgAt0 => PatData {
+            Pat::AutocitesArgAt0 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (3, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -10893,7 +10895,7 @@ impl Pat {
             },
             Pat::OptionalArgParenthesisNoHighlightAt0
             | Pat::OptionalArgBracketNoHighlightAt0
-            | Pat::OptionalArgAngleNoHighlightAt0 => PatData {
+            | Pat::OptionalArgAngleNoHighlightAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaParameterOptional)]),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsOptionalBegin)]),
@@ -10901,7 +10903,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CitationMacroAt0 => PatData {
+            Pat::CitationMacroAt0 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::CmtLinePercentageTex)]),
@@ -10909,12 +10911,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CitationMacroAt1 | Pat::ReferencesMacroAt2At0 => PatData {
+            Pat::CitationMacroAt1 | Pat::ReferencesMacroAt2At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstOtherReferenceCitation)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ReferencesMacroAt0 => PatData {
+            Pat::ReferencesMacroAt0 => PatDefinition {
                 act: Act::Begin(Rule::ReferencesMacroAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlRef)]),
@@ -10923,12 +10925,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ReferencesMacroAt0At0 => PatData {
+            Pat::ReferencesMacroAt0At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstOtherReferenceLabel)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ReferencesMacroAt1 => PatData {
+            Pat::ReferencesMacroAt1 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlRef)]),
@@ -10942,7 +10944,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ReferencesMacroAt2 => PatData {
+            Pat::ReferencesMacroAt2 => PatDefinition {
                 act: Act::Begin(Rule::ReferencesMacroAt2),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlCite)]),
@@ -10951,12 +10953,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AllOtherMacroAt0 => PatData {
+            Pat::AllOtherMacroAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlLayout)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AllOtherMacroAt1 => PatData {
+            Pat::AllOtherMacroAt1 => PatDefinition {
                 act: Act::Begin(Rule::AllOtherMacroAt1),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionMarginpar)]),
@@ -10971,12 +10973,12 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllOtherMacroAt1End => PatData {
+            Pat::AllOtherMacroAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionMarginparEnd)])],
                 nested: &[],
             },
-            Pat::AllOtherMacroAt2 => PatData {
+            Pat::AllOtherMacroAt2 => PatDefinition {
                 act: Act::Begin(Rule::AllOtherMacroAt2),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionFootnote)]),
@@ -10991,12 +10993,12 @@ impl Pat {
                     },
                 )],
             },
-            Pat::AllOtherMacroAt2End => PatData {
+            Pat::AllOtherMacroAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionFootnoteEnd)])],
                 nested: &[],
             },
-            Pat::AllOtherMacroAt3 => PatData {
+            Pat::AllOtherMacroAt3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaScopeItem)]),
                 captures: &[
                     (0, scopes![Sc::S(S::KwOtherItem)]),
@@ -11004,22 +11006,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AllOtherMacroAt4 => PatData {
+            Pat::AllOtherMacroAt4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacter)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionConstant)])],
                 nested: &[],
             },
-            Pat::AllOtherMacroAt5 => PatData {
+            Pat::AllOtherMacroAt5 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarOtherLatex3)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionVariable)])],
                 nested: &[],
             },
-            Pat::HyperrefMacroAt0 => PatData {
+            Pat::HyperrefMacroAt0 => PatDefinition {
                 act: Act::Begin(Rule::HyperrefMacroAt0),
                 captures: &[(1, scopes![Sc::S(S::SuppFunctionUrl)])],
                 nested: &[],
             },
-            Pat::HyperrefMacroAt0At1 => PatData {
+            Pat::HyperrefMacroAt0At1 => PatDefinition {
                 act: Act::Begin(Rule::HyperrefMacroAt0At1),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -11029,7 +11031,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::HyperrefMacroAt0At2 => PatData {
+            Pat::HyperrefMacroAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::HyperrefMacroAt0At2),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionArgumentsBegin)]),
@@ -11038,7 +11040,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::HyperrefMacroAt1 => PatData {
+            Pat::HyperrefMacroAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionLinkUrl)]),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionUrl)]),
@@ -11049,7 +11051,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::NewcommandMacro => PatData {
+            Pat::NewcommandMacro => PatDefinition {
                 act: Act::Begin(Rule::NewcommandMacro),
                 captures: &[
                     (1, scopes![Sc::S(S::StorTypeFunction)]),
@@ -11064,7 +11066,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::UnbalancedEnvAt0 => PatData {
+            Pat::UnbalancedEnvAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionEnvironmentGeneral)]),
                 captures: &[],
                 nested: &[(
@@ -11075,7 +11077,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::VerbMacroAt0 => PatData {
+            Pat::VerbMacroAt0 => PatDefinition {
                 act: Act::Begin(Rule::VerbMacroAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11086,12 +11088,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::VerbMacroAt0End => PatData {
+            Pat::VerbMacroAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PDefinitionEnd)])],
                 nested: &[],
             },
-            Pat::VerbMacroAt1 => PatData {
+            Pat::VerbMacroAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionVerb)]),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11102,7 +11104,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt0 => PatData {
+            Pat::InlineCodeMacroAt0 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionBe)]),
@@ -11127,7 +11129,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::InlineCodeMacroAt0End => PatData {
+            Pat::InlineCodeMacroAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionBe)]),
@@ -11152,12 +11154,12 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::InlineCodeMacroAt0At0 => PatData {
+            Pat::InlineCodeMacroAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt0At0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt1 => PatData {
+            Pat::InlineCodeMacroAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionVerb)]),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11179,7 +11181,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::InlineCodeMacroAt2 => PatData {
+            Pat::InlineCodeMacroAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionVerb)]),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11199,7 +11201,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::InlineCodeMacroAt3 => PatData {
+            Pat::InlineCodeMacroAt3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionVerb)]),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11233,7 +11235,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::InlineCodeMacroAt4 => PatData {
+            Pat::InlineCodeMacroAt4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionVerb)]),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11267,7 +11269,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::InlineCodeMacroAt5 => PatData {
+            Pat::InlineCodeMacroAt5 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt5),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11276,7 +11278,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt6 => PatData {
+            Pat::InlineCodeMacroAt6 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt6),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11284,7 +11286,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt7 => PatData {
+            Pat::InlineCodeMacroAt7 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt7),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11292,12 +11294,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt7At1 => PatData {
+            Pat::InlineCodeMacroAt7At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt7At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt8 => PatData {
+            Pat::InlineCodeMacroAt8 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt8),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11305,7 +11307,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt9 => PatData {
+            Pat::InlineCodeMacroAt9 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt9),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11313,12 +11315,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt9At1 => PatData {
+            Pat::InlineCodeMacroAt9At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt9At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt10 => PatData {
+            Pat::InlineCodeMacroAt10 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt10),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11326,7 +11328,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt11 => PatData {
+            Pat::InlineCodeMacroAt11 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt11),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11334,12 +11336,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt11At1 => PatData {
+            Pat::InlineCodeMacroAt11At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt11At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt12 => PatData {
+            Pat::InlineCodeMacroAt12 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt12),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11347,12 +11349,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt12At1 => PatData {
+            Pat::InlineCodeMacroAt12At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt12At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt13 => PatData {
+            Pat::InlineCodeMacroAt13 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt13),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11360,12 +11362,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt13At1 => PatData {
+            Pat::InlineCodeMacroAt13At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt13At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt14 => PatData {
+            Pat::InlineCodeMacroAt14 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt14),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11373,12 +11375,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt14At1 => PatData {
+            Pat::InlineCodeMacroAt14At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt14At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt15 => PatData {
+            Pat::InlineCodeMacroAt15 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt15),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11386,12 +11388,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt15At1 => PatData {
+            Pat::InlineCodeMacroAt15At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt15At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt16 => PatData {
+            Pat::InlineCodeMacroAt16 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt16),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11399,12 +11401,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt16At1 => PatData {
+            Pat::InlineCodeMacroAt16At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt16At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt17 => PatData {
+            Pat::InlineCodeMacroAt17 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt17),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11412,12 +11414,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt17At1 => PatData {
+            Pat::InlineCodeMacroAt17At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt17At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt18 => PatData {
+            Pat::InlineCodeMacroAt18 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt18),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11425,12 +11427,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt18At1 => PatData {
+            Pat::InlineCodeMacroAt18At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt18At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt19 => PatData {
+            Pat::InlineCodeMacroAt19 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt19),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11438,12 +11440,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt19At1 => PatData {
+            Pat::InlineCodeMacroAt19At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt19At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt20 => PatData {
+            Pat::InlineCodeMacroAt20 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt20),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11451,12 +11453,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt20At1 => PatData {
+            Pat::InlineCodeMacroAt20At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt20At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt21 => PatData {
+            Pat::InlineCodeMacroAt21 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt21),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11464,12 +11466,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt21At1 => PatData {
+            Pat::InlineCodeMacroAt21At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt21At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt22 => PatData {
+            Pat::InlineCodeMacroAt22 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt22),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11477,12 +11479,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt22At1 => PatData {
+            Pat::InlineCodeMacroAt22At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt22At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt23 => PatData {
+            Pat::InlineCodeMacroAt23 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt23),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11490,12 +11492,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt23At1 => PatData {
+            Pat::InlineCodeMacroAt23At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt23At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt24 => PatData {
+            Pat::InlineCodeMacroAt24 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt24),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11503,12 +11505,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt24At1 => PatData {
+            Pat::InlineCodeMacroAt24At1 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt24At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::InlineCodeMacroAt25 => PatData {
+            Pat::InlineCodeMacroAt25 => PatDefinition {
                 act: Act::Begin(Rule::InlineCodeMacroAt25),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionVerb)]),
@@ -11517,42 +11519,44 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::DisplayMathAt0 => PatData {
+            Pat::DisplayMathAt0 => PatDefinition {
                 act: Act::Begin(Rule::DisplayMathAt0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::DisplayMathAt0End | Pat::DisplayMathAt1End | Pat::InlineMathAt0End => PatData {
-                act: Act::End,
-                captures: &[(0, scopes![Sc::S(S::PDefinitionStringEnd)])],
-                nested: &[],
-            },
-            Pat::DisplayMathAt1 => PatData {
+            Pat::DisplayMathAt0End | Pat::DisplayMathAt1End | Pat::InlineMathAt0End => {
+                PatDefinition {
+                    act: Act::End,
+                    captures: &[(0, scopes![Sc::S(S::PDefinitionStringEnd)])],
+                    nested: &[],
+                }
+            }
+            Pat::DisplayMathAt1 => PatDefinition {
                 act: Act::Begin(Rule::DisplayMathAt1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::DisplayMathAt1At0 | Pat::InlineMathAt1At0 => PatData {
+            Pat::DisplayMathAt1At0 | Pat::InlineMathAt1At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEscape)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::InlineMathAt0 => PatData {
+            Pat::InlineMathAt0 => PatDefinition {
                 act: Act::Begin(Rule::InlineMathAt0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::InlineMathAt1 => PatData {
+            Pat::InlineMathAt1 => PatDefinition {
                 act: Act::Begin(Rule::InlineMathAt1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBeginTex)])],
                 nested: &[],
             },
-            Pat::InlineMathAt1End => PatData {
+            Pat::InlineMathAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringEndTex)])],
                 nested: &[],
             },
-            Pat::ColumnSpecials => PatData {
+            Pat::ColumnSpecials => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaColumnSpecials)]),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionColumnSpecialsBegin)]),
@@ -11560,12 +11564,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SongsChordsAt0 => PatData {
+            Pat::SongsChordsAt0 => PatDefinition {
                 act: Act::Begin(Rule::SongsChordsAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SongsChordsAt1 => PatData {
+            Pat::SongsChordsAt1 => PatDefinition {
                 act: Act::Match(scopes![
                     Sc::S(S::MetaChordBlock),
                     Sc::S(S::SuppClassChordBlockEnvironment)
@@ -11573,7 +11577,7 @@ impl Pat {
                 captures: &[],
                 nested: &[],
             },
-            Pat::SongsEnvAt1 => PatData {
+            Pat::SongsEnvAt1 => PatDefinition {
                 act: Act::Begin(Rule::SongsEnvAt1),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionBe)]),
@@ -11583,7 +11587,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SongsEnvAt1End => PatData {
+            Pat::SongsEnvAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionBe)]),
@@ -11593,12 +11597,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MultilineArgNoHighlight => PatData {
+            Pat::MultilineArgNoHighlight => PatDefinition {
                 act: Act::Begin(Rule::MultilineArgNoHighlight),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionArgumentsBegin)])],
                 nested: &[],
             },
-            Pat::SongsEnvAt1At2 => PatData {
+            Pat::SongsEnvAt1At2 => PatDefinition {
                 act: Act::Begin(Rule::SongsEnvAt1At2),
                 captures: &[],
                 nested: &[],
@@ -13507,7 +13511,7 @@ impl rules::Tabled for Latex {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

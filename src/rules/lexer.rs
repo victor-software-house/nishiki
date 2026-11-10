@@ -1670,7 +1670,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             };
             self.caps[0] = Some((start, end));
             let advanced = end > self.pos;
-            let (act, captures) = G::pat_data(pat);
+            let (act, captures) = G::pat_definition(pat);
             let stop = match act {
                 Act::End => self.end_rule(captures, start, end, advanced, line_length),
                 Act::Begin(rule) => {
@@ -3458,7 +3458,7 @@ mod tests {
                     DeepRule::Comment => (Some(DeepPat::LineFeed), &[DeepPat::Word]),
                 };
                 Box::leak(Box::new(crate::rules::Tables::build(
-                    crate::rules::RuleData {
+                    crate::rules::RuleDefinition {
                         name: Scope::NO_SCOPES,
                         content: Scope::NO_SCOPES,
                         end,

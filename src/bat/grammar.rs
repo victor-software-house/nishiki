@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Bat>;
-pub(crate) type PatData = rules::PatData<Bat>;
-pub(crate) type RuleData = rules::RuleData<Bat>;
+pub(crate) type PatDefinition = rules::PatDefinition<Bat>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Bat>;
 pub(crate) use crate::rules::Start;
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -128,9 +128,9 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::CommandsAt1 => RuleData {
+            Rule::CommandsAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandsAt1End),
@@ -144,35 +144,35 @@ impl Rule {
                     Pat::StringsAt0,
                 ],
             },
-            Rule::VariableAt0 => RuleData {
+            Rule::VariableAt0 => RuleDefinition {
                 name: scopes![S::VarOtherReadwrite],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0End),
                 backref: None,
                 patterns: &[Pat::VariableAt0At0, Pat::VariableAt0At1],
             },
-            Rule::VariableAt0At0 => RuleData {
+            Rule::VariableAt0At0 => RuleDefinition {
                 name: scopes![S::MetaVariableSubstring],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0At0End),
                 backref: None,
                 patterns: &[Pat::VariableSubstringAt0],
             },
-            Rule::VariableAt0At1 => RuleData {
+            Rule::VariableAt0At1 => RuleDefinition {
                 name: scopes![S::MetaVariableSubstitution],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0At1End),
                 backref: None,
                 patterns: &[Pat::VariableReplaceAt0, Pat::VariableAt0At1At1],
             },
-            Rule::VariableAt0At1At1 => RuleData {
+            Rule::VariableAt0At1At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0At1At1End),
                 backref: None,
                 patterns: &[Pat::VariableDelayedExpansionAt0, Pat::VariableAt0At1At1At1],
             },
-            Rule::VariableDelayedExpansionAt0 => RuleData {
+            Rule::VariableDelayedExpansionAt0 => RuleDefinition {
                 name: scopes![S::VarOtherReadwrite],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0End),
@@ -182,14 +182,14 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0At1,
                 ],
             },
-            Rule::VariableDelayedExpansionAt0At0 => RuleData {
+            Rule::VariableDelayedExpansionAt0At0 => RuleDefinition {
                 name: scopes![S::MetaVariableSubstring],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0At0End),
                 backref: None,
                 patterns: &[Pat::VariableSubstringAt0],
             },
-            Rule::VariableDelayedExpansionAt0At1 => RuleData {
+            Rule::VariableDelayedExpansionAt0At1 => RuleDefinition {
                 name: scopes![S::MetaVariableSubstitution],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0At1End),
@@ -201,14 +201,14 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0At1At3,
                 ],
             },
-            Rule::VariableDelayedExpansionAt0At1At3 => RuleData {
+            Rule::VariableDelayedExpansionAt0At1At3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0At1At3End),
                 backref: None,
                 patterns: &[Pat::VariableAt0, Pat::VariableDelayedExpansionAt0At1At3At1],
             },
-            Rule::StringsAt0 => RuleData {
+            Rule::StringsAt0 => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringsAt0End),
@@ -220,7 +220,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0,
                 ],
             },
-            Rule::CommandSetAt0 => RuleData {
+            Rule::CommandSetAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetAt0End),
@@ -239,7 +239,7 @@ impl Rule {
                     Pat::CommandSetInsideAt8,
                 ],
             },
-            Rule::ParensAt0 => RuleData {
+            Rule::ParensAt0 => RuleDefinition {
                 name: scopes![S::MetaGroup],
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParensAt0End),
@@ -274,35 +274,35 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0,
                 ],
             },
-            Rule::CommentsAt0 => RuleData {
+            Rule::CommentsAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0At0],
             },
-            Rule::CommentsAt0At0 => RuleData {
+            Rule::CommentsAt0At0 => RuleDefinition {
                 name: scopes![S::CmtLineColon],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt0At0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentsAt1 => RuleData {
+            Rule::CommentsAt1 => RuleDefinition {
                 name: scopes![S::CmtLineRem],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentsAt2 => RuleData {
+            Rule::CommentsAt2 => RuleDefinition {
                 name: scopes![S::CmtLineRem],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt2End),
                 backref: None,
                 patterns: &[Pat::CommentsAt2At0],
             },
-            Rule::ControlsAt3 => RuleData {
+            Rule::ControlsAt3 => RuleDefinition {
                 name: scopes![S::MetaBlockRepeat],
                 content: S::NO_SCOPES,
                 end: Some(Pat::ControlsAt3EndInFor),
@@ -338,7 +338,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0InFor,
                 ],
             },
-            Rule::CommandSetStringsAt0 => RuleData {
+            Rule::CommandSetStringsAt0 => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetStringsAt0End),
@@ -351,7 +351,7 @@ impl Rule {
                     Pat::EscapedCharactersAt0,
                 ],
             },
-            Rule::CommandSetInsideAt6 => RuleData {
+            Rule::CommandSetInsideAt6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt6End),
@@ -366,7 +366,7 @@ impl Rule {
                     Pat::StringsAt0,
                 ],
             },
-            Rule::CommandSetInsideAt7 => RuleData {
+            Rule::CommandSetInsideAt7 => RuleDefinition {
                 name: scopes![S::MetaExpressionSet],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt7End),
@@ -382,7 +382,7 @@ impl Rule {
                     Pat::CommandSetGroupAt0,
                 ],
             },
-            Rule::CommandSetInsideAt7At0 => RuleData {
+            Rule::CommandSetInsideAt7At0 => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt7At0End),
@@ -400,7 +400,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0,
                 ],
             },
-            Rule::CommandSetGroupAt0 => RuleData {
+            Rule::CommandSetGroupAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetGroupAt0End),
@@ -414,21 +414,21 @@ impl Rule {
                     Pat::CommandSetInsideArithmeticAt2,
                 ],
             },
-            Rule::CommandSetInsideAt8 => RuleData {
+            Rule::CommandSetInsideAt8 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt8End),
                 backref: None,
                 patterns: &[Pat::CommandSetStringsAt0, Pat::CommandSetInsideAt8At1],
             },
-            Rule::CommandSetInsideAt8At1 => RuleData {
+            Rule::CommandSetInsideAt8At1 => RuleDefinition {
                 name: scopes![S::MetaPromptSet],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt8At1End),
                 backref: None,
                 patterns: &[Pat::StringsAt0],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -462,7 +462,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0,
                 ],
             },
-            Rule::VariableDelayedExpansionAt0InFor => RuleData {
+            Rule::VariableDelayedExpansionAt0InFor => RuleDefinition {
                 name: scopes![S::VarOtherReadwrite],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0EndInFor),
@@ -473,7 +473,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0At1InFor,
                 ],
             },
-            Rule::VariableDelayedExpansionAt0At1InFor => RuleData {
+            Rule::VariableDelayedExpansionAt0At1InFor => RuleDefinition {
                 name: scopes![S::MetaVariableSubstitution],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0At1EndInFor),
@@ -486,7 +486,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0At1At3InFor,
                 ],
             },
-            Rule::VariableDelayedExpansionAt0At1At3InFor => RuleData {
+            Rule::VariableDelayedExpansionAt0At1At3InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0At1At3EndInFor),
@@ -497,7 +497,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0At1At3At1,
                 ],
             },
-            Rule::VariableAt0InFor => RuleData {
+            Rule::VariableAt0InFor => RuleDefinition {
                 name: scopes![S::VarOtherReadwrite],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0EndInFor),
@@ -508,7 +508,7 @@ impl Rule {
                     Pat::VariableAt0At1InFor,
                 ],
             },
-            Rule::VariableAt0At1InFor => RuleData {
+            Rule::VariableAt0At1InFor => RuleDefinition {
                 name: scopes![S::MetaVariableSubstitution],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0At1EndInFor),
@@ -519,7 +519,7 @@ impl Rule {
                     Pat::VariableAt0At1At1InFor,
                 ],
             },
-            Rule::VariableAt0At1At1InFor => RuleData {
+            Rule::VariableAt0At1At1InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0At1At1EndInFor),
@@ -530,21 +530,21 @@ impl Rule {
                     Pat::VariableAt0At1At1At1,
                 ],
             },
-            Rule::VariableAt0At0InFor => RuleData {
+            Rule::VariableAt0At0InFor => RuleDefinition {
                 name: scopes![S::MetaVariableSubstring],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableAt0At0EndInFor),
                 backref: None,
                 patterns: &[Pat::RepeatParameterAt0, Pat::VariableSubstringAt0],
             },
-            Rule::VariableDelayedExpansionAt0At0InFor => RuleData {
+            Rule::VariableDelayedExpansionAt0At0InFor => RuleDefinition {
                 name: scopes![S::MetaVariableSubstring],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableDelayedExpansionAt0At0EndInFor),
                 backref: None,
                 patterns: &[Pat::RepeatParameterAt0, Pat::VariableSubstringAt0],
             },
-            Rule::StringsAt0InFor => RuleData {
+            Rule::StringsAt0InFor => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringsAt0EndInFor),
@@ -557,7 +557,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0InFor,
                 ],
             },
-            Rule::ParensAt0InFor => RuleData {
+            Rule::ParensAt0InFor => RuleDefinition {
                 name: scopes![S::MetaGroup],
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParensAt0EndInFor),
@@ -593,35 +593,35 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0InFor,
                 ],
             },
-            Rule::CommentsAt2InFor => RuleData {
+            Rule::CommentsAt2InFor => RuleDefinition {
                 name: scopes![S::CmtLineRem],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt2EndInFor),
                 backref: None,
                 patterns: &[Pat::RepeatParameterAt0, Pat::CommentsAt2At0],
             },
-            Rule::CommentsAt1InFor => RuleData {
+            Rule::CommentsAt1InFor => RuleDefinition {
                 name: scopes![S::CmtLineRem],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt1EndInFor),
                 backref: None,
                 patterns: &[Pat::RepeatParameterAt0],
             },
-            Rule::CommentsAt0InFor => RuleData {
+            Rule::CommentsAt0InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt0EndInFor),
                 backref: None,
                 patterns: &[Pat::RepeatParameterAt0, Pat::CommentsAt0At0InFor],
             },
-            Rule::CommentsAt0At0InFor => RuleData {
+            Rule::CommentsAt0At0InFor => RuleDefinition {
                 name: scopes![S::CmtLineColon],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt0At0EndInFor),
                 backref: None,
                 patterns: &[Pat::RepeatParameterAt0],
             },
-            Rule::CommandSetAt0InFor => RuleData {
+            Rule::CommandSetAt0InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetAt0EndInFor),
@@ -641,7 +641,7 @@ impl Rule {
                     Pat::CommandSetInsideAt8InFor,
                 ],
             },
-            Rule::CommandSetInsideAt8InFor => RuleData {
+            Rule::CommandSetInsideAt8InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt8EndInFor),
@@ -652,14 +652,14 @@ impl Rule {
                     Pat::CommandSetInsideAt8At1InFor,
                 ],
             },
-            Rule::CommandSetInsideAt8At1InFor => RuleData {
+            Rule::CommandSetInsideAt8At1InFor => RuleDefinition {
                 name: scopes![S::MetaPromptSet],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt8At1EndInFor),
                 backref: None,
                 patterns: &[Pat::RepeatParameterAt0, Pat::StringsAt0InFor],
             },
-            Rule::CommandSetStringsAt0InFor => RuleData {
+            Rule::CommandSetStringsAt0InFor => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetStringsAt0EndInFor),
@@ -673,7 +673,7 @@ impl Rule {
                     Pat::EscapedCharactersAt0,
                 ],
             },
-            Rule::CommandSetInsideAt7InFor => RuleData {
+            Rule::CommandSetInsideAt7InFor => RuleDefinition {
                 name: scopes![S::MetaExpressionSet],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt7EndInFor),
@@ -690,7 +690,7 @@ impl Rule {
                     Pat::CommandSetGroupAt0InFor,
                 ],
             },
-            Rule::CommandSetGroupAt0InFor => RuleData {
+            Rule::CommandSetGroupAt0InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetGroupAt0EndInFor),
@@ -705,7 +705,7 @@ impl Rule {
                     Pat::CommandSetInsideArithmeticAt2,
                 ],
             },
-            Rule::CommandSetInsideAt7At0InFor => RuleData {
+            Rule::CommandSetInsideAt7At0InFor => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt7At0EndInFor),
@@ -724,7 +724,7 @@ impl Rule {
                     Pat::VariableDelayedExpansionAt0InFor,
                 ],
             },
-            Rule::CommandSetInsideAt6InFor => RuleData {
+            Rule::CommandSetInsideAt6InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandSetInsideAt6EndInFor),
@@ -740,7 +740,7 @@ impl Rule {
                     Pat::StringsAt0InFor,
                 ],
             },
-            Rule::CommandsAt1InFor => RuleData {
+            Rule::CommandsAt1InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommandsAt1EndInFor),
@@ -755,7 +755,7 @@ impl Rule {
                     Pat::StringsAt0InFor,
                 ],
             },
-            Rule::ControlsAt3At0InFor => RuleData {
+            Rule::ControlsAt3At0InFor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ControlsAt3At0EndInFor),
@@ -1052,14 +1052,14 @@ pub(crate) enum Pat {
 
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::CommandsAt0 => PatData {
+            Pat::CommandsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwCommand]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommandsAt1 => PatData {
+            Pat::CommandsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommandsAt1),
                 captures: &[
                     (1, scopes![S::KwCommand]),
@@ -1099,22 +1099,22 @@ impl Pat {
             | Pat::CommandSetInsideAt8At1EndInFor
             | Pat::CommandSetInsideAt7EndInFor
             | Pat::CommandSetInsideAt6EndInFor
-            | Pat::CommandsAt1EndInFor => PatData {
+            | Pat::CommandsAt1EndInFor => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::EscapedCharactersAt0 | Pat::StringsAt0At0 => PatData {
+            Pat::EscapedCharactersAt0 | Pat::StringsAt0At0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscape]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::VariablesAt0 => PatData {
+            Pat::VariablesAt0 => PatDefinition {
                 act: Act::Match(scopes![S::VarParameter]),
                 captures: &[(1, scopes![S::PDefinitionVariable])],
                 nested: &[],
             },
-            Pat::VariableAt0 => PatData {
+            Pat::VariableAt0 => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0),
                 captures: &[(0, scopes![S::PDefinitionVariableBegin])],
                 nested: &[],
@@ -1122,17 +1122,17 @@ impl Pat {
             Pat::VariableAt0End
             | Pat::VariableDelayedExpansionAt0End
             | Pat::VariableDelayedExpansionAt0EndInFor
-            | Pat::VariableAt0EndInFor => PatData {
+            | Pat::VariableAt0EndInFor => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionVariableEnd])],
                 nested: &[],
             },
-            Pat::VariableAt0At0 => PatData {
+            Pat::VariableAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0At0),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableSubstringAt0 => PatData {
+            Pat::VariableSubstringAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstNumeric]),
@@ -1141,54 +1141,54 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::VariableAt0At1 => PatData {
+            Pat::VariableAt0At1 => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0At1),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
             Pat::VariableReplaceAt0
             | Pat::VariableDelayedExpansionAt0At1At3At1
-            | Pat::VariableAt0At1At1At1 => PatData {
+            | Pat::VariableAt0At1At1At1 => PatDefinition {
                 act: Act::Match(scopes![S::StrUnquoted]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::VariableAt0At1At1 => PatData {
+            Pat::VariableAt0At1At1 => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0At1At1),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0 => PatData {
+            Pat::VariableDelayedExpansionAt0 => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0),
                 captures: &[(0, scopes![S::PDefinitionVariableBegin])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0At0 => PatData {
+            Pat::VariableDelayedExpansionAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0At0),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0At1 => PatData {
+            Pat::VariableDelayedExpansionAt0At1 => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0At1),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0At1At3 => PatData {
+            Pat::VariableDelayedExpansionAt0At1At3 => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0At1At3),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::NumbersAt0 => PatData {
+            Pat::NumbersAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringsAt0 => PatData {
+            Pat::StringsAt0 => PatDefinition {
                 act: Act::Begin(Rule::StringsAt0),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::StringsAt0End | Pat::StringsAt0EndInFor => PatData {
+            Pat::StringsAt0End | Pat::StringsAt0EndInFor => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![S::PDefinitionStringEnd]),
@@ -1196,7 +1196,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommandsAt2 => PatData {
+            Pat::CommandsAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwCommand]),
@@ -1204,12 +1204,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommandSetAt0 => PatData {
+            Pat::CommandSetAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetAt0),
                 captures: &[(0, scopes![S::KwCommand])],
                 nested: &[],
             },
-            Pat::ParensAt0 => PatData {
+            Pat::ParensAt0 => PatDefinition {
                 act: Act::Begin(Rule::ParensAt0),
                 captures: &[(0, scopes![S::PSectionGroupBegin])],
                 nested: &[],
@@ -1217,52 +1217,52 @@ impl Pat {
             Pat::ParensAt0End
             | Pat::CommandSetGroupAt0End
             | Pat::ParensAt0EndInFor
-            | Pat::CommandSetGroupAt0EndInFor => PatData {
+            | Pat::CommandSetGroupAt0EndInFor => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionGroupEnd])],
                 nested: &[],
             },
-            Pat::ParensAt0At0 | Pat::CommandSetInsideArithmeticAt2 => PatData {
+            Pat::ParensAt0At0 | Pat::CommandSetInsideArithmeticAt2 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparator]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt0 => PatData {
+            Pat::CommentsAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt0),
                 captures: &[(1, scopes![S::KwOperatorConditional])],
                 nested: &[],
             },
-            Pat::CommentsAt0At0 => PatData {
+            Pat::CommentsAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt0At0),
                 captures: &[(1, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentsAt1 => PatData {
+            Pat::CommentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt1),
                 captures: &[(1, scopes![S::KwCommandRem]), (2, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::CommentsAt2 => PatData {
+            Pat::CommentsAt2 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt2),
                 captures: &[(0, scopes![S::KwCommandRem])],
                 nested: &[],
             },
-            Pat::CommentsAt2At0 => PatData {
+            Pat::CommentsAt2At0 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalUnexpectedCharacter]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConstantsAt0 => PatData {
+            Pat::ConstantsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ControlsAt0 => PatData {
+            Pat::ControlsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlStatement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ControlsAt1 => PatData {
+            Pat::ControlsAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControlConditional]),
@@ -1271,17 +1271,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ControlsAt2 => PatData {
+            Pat::ControlsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlConditional]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ControlsAt3 => PatData {
+            Pat::ControlsAt3 => PatDefinition {
                 act: Act::Begin(Rule::ControlsAt3),
                 captures: &[(0, scopes![S::KwControlRepeat])],
                 nested: &[],
             },
-            Pat::LabelsAt0 => PatData {
+            Pat::LabelsAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::PSeparator]),
@@ -1289,37 +1289,37 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::OperatorsAt0 => PatData {
+            Pat::OperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAt]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1 => PatData {
+            Pat::OperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorComparison]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt2 | Pat::CommandSetOperatorsAt2 => PatData {
+            Pat::OperatorsAt2 | Pat::CommandSetOperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorLogical]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt3 => PatData {
+            Pat::OperatorsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorConditional]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt4 => PatData {
+            Pat::OperatorsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorPipe]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt5 => PatData {
+            Pat::OperatorsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorRedirection]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommandSetStringsAt0 => PatData {
+            Pat::CommandSetStringsAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetStringsAt0),
                 captures: &[
                     (1, scopes![S::PDefinitionStringBegin]),
@@ -1331,12 +1331,12 @@ impl Pat {
             Pat::CommandSetStringsAt0End
             | Pat::CommandSetInsideAt7At0End
             | Pat::CommandSetStringsAt0EndInFor
-            | Pat::CommandSetInsideAt7At0EndInFor => PatData {
+            | Pat::CommandSetInsideAt7At0EndInFor => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionStringEnd])],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt6 => PatData {
+            Pat::CommandSetInsideAt6 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt6),
                 captures: &[
                     (1, scopes![S::VarOtherReadwrite]),
@@ -1344,17 +1344,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt7 => PatData {
+            Pat::CommandSetInsideAt7 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt7),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt7At0 => PatData {
+            Pat::CommandSetInsideAt7At0 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt7At0),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::CommandSetOperatorsAt0 => PatData {
+            Pat::CommandSetOperatorsAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::VarOtherReadwrite]),
@@ -1362,12 +1362,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommandSetOperatorsAt1 => PatData {
+            Pat::CommandSetOperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmetic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommandSetOperatorsAt3 => PatData {
+            Pat::CommandSetOperatorsAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::VarOtherReadwrite]),
@@ -1375,17 +1375,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommandSetGroupAt0 => PatData {
+            Pat::CommandSetGroupAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetGroupAt0),
                 captures: &[(0, scopes![S::PSectionGroupBegin])],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt8 => PatData {
+            Pat::CommandSetInsideAt8 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt8),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt8At1 => PatData {
+            Pat::CommandSetInsideAt8At1 => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt8At1),
                 captures: &[
                     (1, scopes![S::VarOtherReadwrite]),
@@ -1393,12 +1393,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::RepeatParameterAt0 => PatData {
+            Pat::RepeatParameterAt0 => PatDefinition {
                 act: Act::Match(scopes![S::VarParameterRepeat]),
                 captures: &[(1, scopes![S::PDefinitionVariable])],
                 nested: &[],
             },
-            Pat::CommandsAt1InFor => PatData {
+            Pat::CommandsAt1InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandsAt1InFor),
                 captures: &[
                     (1, scopes![S::KwCommand]),
@@ -1406,87 +1406,87 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::VariableAt0InFor => PatData {
+            Pat::VariableAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0InFor),
                 captures: &[(0, scopes![S::PDefinitionVariableBegin])],
                 nested: &[],
             },
-            Pat::VariableAt0At0InFor => PatData {
+            Pat::VariableAt0At0InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0At0InFor),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableAt0At1InFor => PatData {
+            Pat::VariableAt0At1InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0At1InFor),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableAt0At1At1InFor => PatData {
+            Pat::VariableAt0At1At1InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableAt0At1At1InFor),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0InFor => PatData {
+            Pat::VariableDelayedExpansionAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0InFor),
                 captures: &[(0, scopes![S::PDefinitionVariableBegin])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0At0InFor => PatData {
+            Pat::VariableDelayedExpansionAt0At0InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0At0InFor),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0At1InFor => PatData {
+            Pat::VariableDelayedExpansionAt0At1InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0At1InFor),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::VariableDelayedExpansionAt0At1At3InFor => PatData {
+            Pat::VariableDelayedExpansionAt0At1At3InFor => PatDefinition {
                 act: Act::Begin(Rule::VariableDelayedExpansionAt0At1At3InFor),
                 captures: &[(0, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::StringsAt0InFor => PatData {
+            Pat::StringsAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::StringsAt0InFor),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::CommandSetAt0InFor => PatData {
+            Pat::CommandSetAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetAt0InFor),
                 captures: &[(0, scopes![S::KwCommand])],
                 nested: &[],
             },
-            Pat::ParensAt0InFor => PatData {
+            Pat::ParensAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::ParensAt0InFor),
                 captures: &[(0, scopes![S::PSectionGroupBegin])],
                 nested: &[],
             },
-            Pat::CommentsAt0InFor => PatData {
+            Pat::CommentsAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt0InFor),
                 captures: &[(1, scopes![S::KwOperatorConditional])],
                 nested: &[],
             },
-            Pat::CommentsAt0At0InFor => PatData {
+            Pat::CommentsAt0At0InFor => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt0At0InFor),
                 captures: &[(1, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentsAt1InFor => PatData {
+            Pat::CommentsAt1InFor => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt1InFor),
                 captures: &[(1, scopes![S::KwCommandRem]), (2, scopes![S::PSeparator])],
                 nested: &[],
             },
-            Pat::CommentsAt2InFor => PatData {
+            Pat::CommentsAt2InFor => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt2InFor),
                 captures: &[(0, scopes![S::KwCommandRem])],
                 nested: &[],
             },
-            Pat::ControlsAt3At0InFor => PatData {
+            Pat::ControlsAt3At0InFor => PatDefinition {
                 act: Act::Begin(Rule::ControlsAt3At0InFor),
                 captures: &[(0, scopes![S::KwControlRepeatIn])],
                 nested: &[],
             },
-            Pat::CommandSetStringsAt0InFor => PatData {
+            Pat::CommandSetStringsAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetStringsAt0InFor),
                 captures: &[
                     (1, scopes![S::PDefinitionStringBegin]),
@@ -1495,7 +1495,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt6InFor => PatData {
+            Pat::CommandSetInsideAt6InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt6InFor),
                 captures: &[
                     (1, scopes![S::VarOtherReadwrite]),
@@ -1503,27 +1503,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt7InFor => PatData {
+            Pat::CommandSetInsideAt7InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt7InFor),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt7At0InFor => PatData {
+            Pat::CommandSetInsideAt7At0InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt7At0InFor),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::CommandSetGroupAt0InFor => PatData {
+            Pat::CommandSetGroupAt0InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetGroupAt0InFor),
                 captures: &[(0, scopes![S::PSectionGroupBegin])],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt8InFor => PatData {
+            Pat::CommandSetInsideAt8InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt8InFor),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommandSetInsideAt8At1InFor => PatData {
+            Pat::CommandSetInsideAt8At1InFor => PatDefinition {
                 act: Act::Begin(Rule::CommandSetInsideAt8At1InFor),
                 captures: &[
                     (1, scopes![S::VarOtherReadwrite]),
@@ -1531,7 +1531,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ControlsAt3At0EndInFor => PatData {
+            Pat::ControlsAt3At0EndInFor => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::KwControlRepeatDo])],
                 nested: &[],
@@ -2424,7 +2424,7 @@ impl rules::Tabled for Bat {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

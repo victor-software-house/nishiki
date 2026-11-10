@@ -80,7 +80,7 @@ impl<G: Grammar<Scope = S, Rule = Rule, Pat = Pat, Nested = Nested, Extra = Extr
 
 /// The grammar's impl for one dialect.
 /// Each dialect has an impl of its own, and the dialects share the grammar's
-/// data: an act converts to the dialect's type unchanged.
+/// definitions: an act converts to the dialect's type unchanged.
 ///
 /// A generic impl would let rustc export every function its body reaches.
 /// Every caller of `Arena::child` and `Language::lex_embedded` would then
@@ -123,25 +123,28 @@ macro_rules! dialect {
             }
 
             fn rule_name(rule: Rule) -> Scopes<S> {
-                rule.data().name
+                rule.definition().name
             }
 
             fn rule_content(rule: Rule) -> Scopes<S> {
-                rule.data().content
+                rule.definition().content
             }
 
             fn pat_act(pat: Pat) -> Act<Self> {
-                pat.data().act.dialect()
+                pat.definition().act.dialect()
             }
 
             fn pat_captures(pat: Pat) -> Captures<Self> {
-                let data = pat.data();
-                (data.captures, data.nested)
+                let definition = pat.definition();
+                (definition.captures, definition.nested)
             }
 
-            fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-                let data = pat.data();
-                (data.act.dialect(), (data.captures, data.nested))
+            fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
+                let definition = pat.definition();
+                (
+                    definition.act.dialect(),
+                    (definition.captures, definition.nested),
+                )
             }
 
             fn scan(lexer: &mut Lexer<'_, $dialect>) -> Option<(usize, Pat, usize)> {

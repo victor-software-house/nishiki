@@ -41,29 +41,31 @@ impl Grammar for Dart {
     }
 
     fn rule_name(rule: Rule) -> Scopes<S> {
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<S> {
-        rule.data().content
+        rule.definition().content
     }
 
     fn rule_payload(rule: Rule) -> Payload {
-        rule.data().backref.map_or(Payload::None, Payload::Backref)
+        rule.definition()
+            .backref
+            .map_or(Payload::None, Payload::Backref)
     }
 
     fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+        pat.definition().act
     }
 
     fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+        let definition = pat.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
+        let definition = pat.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {

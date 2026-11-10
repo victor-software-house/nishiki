@@ -322,8 +322,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<CommonLisp>;
-pub(crate) type PatData = rules::PatData<CommonLisp>;
-pub(crate) type RuleData = rules::RuleData<CommonLisp>;
+pub(crate) type PatDefinition = rules::PatDefinition<CommonLisp>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<CommonLisp>;
 pub(crate) use crate::rules::Start;
 
 /// The rule that tokenizes a capture group.
@@ -338,11 +338,11 @@ g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive
 for (const r of ruleList) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
 for (const r of ruleList) g += `        Rule::${r.id},\n`;
-g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    `RuleData {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
@@ -356,14 +356,14 @@ const docs = (s: string) => {
 for (const p of patList) {
   g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pat {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pat; ${patList.length}] = [\n${patList.map((p) => `        Pat::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatDefinition {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
       p.act.role === "match" ? `Act::Match(${scText(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
     const caps = p.captures.map(([n, list]) => `(${n}, ${scText(list)})`).join(", ");
     const nested = p.nested.map(([n, rule]) => `(${n}, Rule::${rule})`).join(", ");
-    return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+    return [p.id, `PatDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
   }),
   "Pat",
 );

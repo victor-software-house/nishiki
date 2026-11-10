@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Proto>;
-pub(crate) type PatData = rules::PatData<Proto>;
-pub(crate) type RuleData = rules::RuleData<Proto>;
+pub(crate) type PatDefinition = rules::PatDefinition<Proto>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Proto>;
 pub(crate) use crate::rules::Start;
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -62,44 +62,44 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::CommentsAt0 => RuleData {
+            Rule::CommentsAt0 => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentsAt1 => RuleData {
+            Rule::CommentsAt1 => RuleDefinition {
                 name: scopes![S::CmtLineDoubleSlash],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::OptionStmt => RuleData {
+            Rule::OptionStmt => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::OptionStmtEnd),
                 backref: None,
                 patterns: &[Pat::Constants, Pat::Number, Pat::String, Pat::SubMsgOption],
             },
-            Rule::SubMsgOption => RuleData {
+            Rule::SubMsgOption => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SubMsgOptionEnd),
                 backref: None,
                 patterns: &[Pat::Kv, Pat::CommentsAt0, Pat::CommentsAt1],
             },
-            Rule::Kv => RuleData {
+            Rule::Kv => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::KvEnd),
                 backref: None,
                 patterns: &[Pat::Constants, Pat::Number, Pat::String, Pat::SubMsgOption],
             },
-            Rule::Message => RuleData {
+            Rule::Message => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::MessageEnd),
@@ -124,14 +124,14 @@ impl Rule {
                     Pat::Mapfield,
                 ],
             },
-            Rule::Reserved => RuleData {
+            Rule::Reserved => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ReservedEnd),
                 backref: None,
                 patterns: &[Pat::ReservedAt0, Pat::String],
             },
-            Rule::Enum => RuleData {
+            Rule::Enum => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EnumEnd),
@@ -144,14 +144,14 @@ impl Rule {
                     Pat::EnumAt3,
                 ],
             },
-            Rule::EnumAt3 => RuleData {
+            Rule::EnumAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EnumAt3End),
                 backref: None,
                 patterns: &[Pat::FieldOptions],
             },
-            Rule::FieldOptions => RuleData {
+            Rule::FieldOptions => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FieldOptionsEnd),
@@ -164,7 +164,7 @@ impl Rule {
                     Pat::OptionName,
                 ],
             },
-            Rule::Service => RuleData {
+            Rule::Service => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ServiceEnd),
@@ -176,7 +176,7 @@ impl Rule {
                     Pat::Method,
                 ],
             },
-            Rule::Method => RuleData {
+            Rule::Method => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::MethodEnd),
@@ -189,7 +189,7 @@ impl Rule {
                     Pat::Ident,
                 ],
             },
-            Rule::Oneof => RuleData {
+            Rule::Oneof => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::OneofEnd),
@@ -201,21 +201,21 @@ impl Rule {
                     Pat::Field,
                 ],
             },
-            Rule::Field => RuleData {
+            Rule::Field => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FieldEnd),
                 backref: None,
                 patterns: &[Pat::FieldOptions],
             },
-            Rule::Mapfield => RuleData {
+            Rule::Mapfield => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::MapfieldEnd),
                 backref: None,
                 patterns: &[Pat::FieldOptions],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -393,9 +393,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::CommentsAt0 => PatData {
+            Pat::CommentsAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt0),
                 captures: &[],
                 nested: &[],
@@ -407,17 +407,17 @@ impl Pat {
             | Pat::EnumEnd
             | Pat::FieldOptionsEnd
             | Pat::ServiceEnd
-            | Pat::OneofEnd => PatData {
+            | Pat::OneofEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt1 => PatData {
+            Pat::CommentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Syntax => PatData {
+            Pat::Syntax => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwOther]),
@@ -427,7 +427,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Package => PatData {
+            Pat::Package => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwOther]),
@@ -436,7 +436,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Import => PatData {
+            Pat::Import => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwOther]),
@@ -446,7 +446,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::OptionStmt => PatData {
+            Pat::OptionStmt => PatDefinition {
                 act: Act::Begin(Rule::OptionStmt),
                 captures: &[
                     (1, scopes![S::KwOther]),
@@ -463,32 +463,32 @@ impl Pat {
             | Pat::EnumAt3End
             | Pat::MethodEnd
             | Pat::FieldEnd
-            | Pat::MapfieldEnd => PatData {
+            | Pat::MapfieldEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PTerminator])],
                 nested: &[],
             },
-            Pat::Constants => PatData {
+            Pat::Constants => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Number => PatData {
+            Pat::Number => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::String => PatData {
+            Pat::String => PatDefinition {
                 act: Act::Match(scopes![S::StrQuotedDouble]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SubMsgOption => PatData {
+            Pat::SubMsgOption => PatDefinition {
                 act: Act::Begin(Rule::SubMsgOption),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Kv => PatData {
+            Pat::Kv => PatDefinition {
                 act: Act::Begin(Rule::Kv),
                 captures: &[
                     (1, scopes![S::KwOther]),
@@ -496,7 +496,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Message => PatData {
+            Pat::Message => PatDefinition {
                 act: Act::Begin(Rule::Message),
                 captures: &[
                     (1, scopes![S::KwOther]),
@@ -504,12 +504,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Reserved => PatData {
+            Pat::Reserved => PatDefinition {
                 act: Act::Begin(Rule::Reserved),
                 captures: &[(1, scopes![S::KwOther])],
                 nested: &[],
             },
-            Pat::ReservedAt0 => PatData {
+            Pat::ReservedAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstNumeric]),
@@ -518,12 +518,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Enum => PatData {
+            Pat::Enum => PatDefinition {
                 act: Act::Begin(Rule::Enum),
                 captures: &[(1, scopes![S::KwOther]), (3, scopes![S::EntNameClass])],
                 nested: &[],
             },
-            Pat::EnumAt3 => PatData {
+            Pat::EnumAt3 => PatDefinition {
                 act: Act::Begin(Rule::EnumAt3),
                 captures: &[
                     (1, scopes![S::VarOther]),
@@ -532,12 +532,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::FieldOptions => PatData {
+            Pat::FieldOptions => PatDefinition {
                 act: Act::Begin(Rule::FieldOptions),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OptionName => PatData {
+            Pat::OptionName => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::SuppOther]),
@@ -546,7 +546,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Service => PatData {
+            Pat::Service => PatDefinition {
                 act: Act::Begin(Rule::Service),
                 captures: &[
                     (1, scopes![S::KwOther]),
@@ -554,27 +554,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Method => PatData {
+            Pat::Method => PatDefinition {
                 act: Act::Begin(Rule::Method),
                 captures: &[(1, scopes![S::KwOther]), (2, scopes![S::EntNameFunction])],
                 nested: &[],
             },
-            Pat::RpcKeywords => PatData {
+            Pat::RpcKeywords => PatDefinition {
                 act: Act::Match(scopes![S::KwOther]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Ident => PatData {
+            Pat::Ident => PatDefinition {
                 act: Act::Match(scopes![S::EntNameClass]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Oneof => PatData {
+            Pat::Oneof => PatDefinition {
                 act: Act::Begin(Rule::Oneof),
                 captures: &[(1, scopes![S::KwOther]), (2, scopes![S::VarOther])],
                 nested: &[],
             },
-            Pat::Field => PatData {
+            Pat::Field => PatDefinition {
                 act: Act::Begin(Rule::Field),
                 captures: &[
                     (1, scopes![S::StorModifier]),
@@ -585,7 +585,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Mapfield => PatData {
+            Pat::Mapfield => PatDefinition {
                 act: Act::Begin(Rule::Mapfield),
                 captures: &[
                     (1, scopes![S::StorType]),
@@ -958,6 +958,6 @@ impl rules::Tabled for Proto {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }

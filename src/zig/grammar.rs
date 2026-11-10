@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Zig>;
-pub(crate) type PatData = rules::PatData<Zig>;
-pub(crate) type RuleData = rules::RuleData<Zig>;
+pub(crate) type PatDefinition = rules::PatDefinition<Zig>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Zig>;
 pub(crate) use crate::rules::Start;
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -43,51 +43,51 @@ impl Rule {
         Rule::Root,
     ];
 
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::CommentsAt0 => RuleData {
+            Rule::CommentsAt0 => RuleDefinition {
                 name: scopes![S::CmtLineDocumentation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt0End),
                 backref: None,
                 patterns: &[Pat::CommentContentsAt0],
             },
-            Rule::CommentsAt1 => RuleData {
+            Rule::CommentsAt1 => RuleDefinition {
                 name: scopes![S::CmtLineDoubleSlash],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt1End),
                 backref: None,
                 patterns: &[Pat::CommentContentsAt0],
             },
-            Rule::StringsAt0 => RuleData {
+            Rule::StringsAt0 => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringsAt0End),
                 backref: None,
                 patterns: &[Pat::StringcontentAt0, Pat::StringcontentAt1],
             },
-            Rule::StringsAt1 => RuleData {
+            Rule::StringsAt1 => RuleDefinition {
                 name: scopes![S::StrMultiline],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringsAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::VariablesAt0At2 => RuleData {
+            Rule::VariablesAt0At2 => RuleDefinition {
                 name: scopes![S::EntNameFunctionString],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariablesAt0At2End),
                 backref: None,
                 patterns: &[Pat::StringcontentAt0, Pat::StringcontentAt1],
             },
-            Rule::VariablesAt2At1 => RuleData {
+            Rule::VariablesAt2At1 => RuleDefinition {
                 name: scopes![S::VarString],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariablesAt2At1End),
                 backref: None,
                 patterns: &[Pat::StringcontentAt0, Pat::StringcontentAt1],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -342,9 +342,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::CommentsAt0 => PatData {
+            Pat::CommentsAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt0),
                 captures: &[],
                 nested: &[],
@@ -354,212 +354,212 @@ impl Pat {
             | Pat::StringsAt0End
             | Pat::StringsAt1End
             | Pat::VariablesAt0At2End
-            | Pat::VariablesAt2At1End => PatData {
+            | Pat::VariablesAt2At1End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentContentsAt0 => PatData {
+            Pat::CommentContentsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwTodo]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt1 => PatData {
+            Pat::CommentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringsAt0 => PatData {
+            Pat::StringsAt0 => PatDefinition {
                 act: Act::Begin(Rule::StringsAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringcontentAt0 => PatData {
+            Pat::StringcontentAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscape]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringcontentAt1 => PatData {
+            Pat::StringcontentAt1 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalUnrecognizedStringEscape]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringsAt1 => PatData {
+            Pat::StringsAt1 => PatDefinition {
                 act: Act::Begin(Rule::StringsAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringsAt2 => PatData {
+            Pat::StringsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::StrQuotedSingle]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt0 | Pat::KeywordsAt1 => PatData {
+            Pat::KeywordsAt0 | Pat::KeywordsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlRepeat]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt2 => PatData {
+            Pat::KeywordsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwStorage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt3 => PatData {
+            Pat::KeywordsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwStructure]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt4 => PatData {
+            Pat::KeywordsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwStatement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt5 => PatData {
+            Pat::KeywordsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlFlow]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt6 => PatData {
+            Pat::KeywordsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlAsync]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt7 => PatData {
+            Pat::KeywordsAt7 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlTrycatch]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt8 => PatData {
+            Pat::KeywordsAt8 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlConditional]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt9 => PatData {
+            Pat::KeywordsAt9 => PatDefinition {
                 act: Act::Match(scopes![S::KwConstantDefault]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt10 => PatData {
+            Pat::KeywordsAt10 => PatDefinition {
                 act: Act::Match(scopes![S::KwConstantBool]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt11 | Pat::VariablesAt0At3 => PatData {
+            Pat::KeywordsAt11 | Pat::VariablesAt0At3 => PatDefinition {
                 act: Act::Match(scopes![S::KwDefault]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt12 => PatData {
+            Pat::KeywordsAt12 => PatDefinition {
                 act: Act::Match(scopes![S::KwType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13 => PatData {
+            Pat::KeywordsAt13 => PatDefinition {
                 act: Act::Match(scopes![S::KwTypeInteger]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt14 => PatData {
+            Pat::KeywordsAt14 => PatDefinition {
                 act: Act::Match(scopes![S::KwTypeC]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt0 => PatData {
+            Pat::OperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCPointer]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1 => PatData {
+            Pat::OperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorComparison]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt2 => PatData {
+            Pat::OperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmetic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt3 => PatData {
+            Pat::OperatorsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorBitwise]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt4 => PatData {
+            Pat::OperatorsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorSpecial]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt5 => PatData {
+            Pat::OperatorsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignment]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt6 => PatData {
+            Pat::OperatorsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorQuestion]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PunctuationAt0 => PatData {
+            Pat::PunctuationAt0 => PatDefinition {
                 act: Act::Match(scopes![S::PAccessor]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PunctuationAt1 => PatData {
+            Pat::PunctuationAt1 => PatDefinition {
                 act: Act::Match(scopes![S::PComma]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PunctuationAt2 => PatData {
+            Pat::PunctuationAt2 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorKeyValue]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PunctuationAt3 => PatData {
+            Pat::PunctuationAt3 => PatDefinition {
                 act: Act::Match(scopes![S::PTerminatorStatement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumbersAt0 => PatData {
+            Pat::NumbersAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericHexfloat]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumbersAt1 => PatData {
+            Pat::NumbersAt1 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericFloat]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumbersAt2 => PatData {
+            Pat::NumbersAt2 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericDecimal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumbersAt3 => PatData {
+            Pat::NumbersAt3 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericHexadecimal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumbersAt4 => PatData {
+            Pat::NumbersAt4 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericOctal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumbersAt5 => PatData {
+            Pat::NumbersAt5 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericBinary]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumbersAt6 => PatData {
+            Pat::NumbersAt6 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericInvalid]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt0 => PatData {
+            Pat::SupportAt0 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionBuiltin]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::VariablesAt0At0 => PatData {
+            Pat::VariablesAt0At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::StorTypeFunction]),
@@ -567,7 +567,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::VariablesAt0At1 => PatData {
+            Pat::VariablesAt0At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::StorTypeFunction]),
@@ -575,27 +575,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::VariablesAt0At2 => PatData {
+            Pat::VariablesAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::VariablesAt0At2),
                 captures: &[(1, scopes![S::StorTypeFunction])],
                 nested: &[],
             },
-            Pat::VariablesAt1At0 => PatData {
+            Pat::VariablesAt1At0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::VariablesAt1At1 => PatData {
+            Pat::VariablesAt1At1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::VariablesAt2At0 => PatData {
+            Pat::VariablesAt2At0 => PatDefinition {
                 act: Act::Match(scopes![S::Var]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::VariablesAt2At1 => PatData {
+            Pat::VariablesAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::VariablesAt2At1),
                 captures: &[],
                 nested: &[],
@@ -1064,6 +1064,6 @@ impl rules::Tabled for Zig {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }

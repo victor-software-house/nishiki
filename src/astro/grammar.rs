@@ -17,8 +17,8 @@ use crate::rules::{self, embedded};
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Astro>;
-pub(crate) type PatData = rules::PatData<Astro>;
-pub(crate) type RuleData = rules::RuleData<Astro>;
+pub(crate) type PatDefinition = rules::PatDefinition<Astro>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Astro>;
 pub(crate) use crate::rules::Start;
 
 /// A scope of a rule or a capture group.
@@ -167,100 +167,100 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::BodyJavaScript => RuleData {
+            Rule::BodyJavaScript => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceJs)],
                 end: Some(Pat::BodyJavaScriptEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::BodyJson => RuleData {
+            Rule::BodyJson => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceJson)],
                 end: Some(Pat::BodyJsonEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::BodyTypeScript => RuleData {
+            Rule::BodyTypeScript => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceTs)],
                 end: Some(Pat::BodyTypeScriptEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::BodyCss => RuleData {
+            Rule::BodyCss => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceCss)],
                 end: Some(Pat::BodyCssEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::BodyLess => RuleData {
+            Rule::BodyLess => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceCssLess)],
                 end: Some(Pat::BodyLessEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::BodyPostCss => RuleData {
+            Rule::BodyPostCss => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceCssPostcss)],
                 end: Some(Pat::BodyPostCssEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::BodySass => RuleData {
+            Rule::BodySass => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceSass)],
                 end: Some(Pat::BodySassEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::BodyScss => RuleData {
+            Rule::BodyScss => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedBlock)],
                 content: scopes![Sc::S(S::SourceCssScss)],
                 end: Some(Pat::BodyScssEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Comments => RuleData {
+            Rule::Comments => RuleDefinition {
                 name: scopes![Sc::S(S::CmtBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CommentsEnd),
                 backref: None,
                 patterns: &[Pat::CommentsInvalid],
             },
-            Rule::NestedTagsStartNode => RuleData {
+            Rule::NestedTagsStartNode => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TagsStartNode],
             },
-            Rule::NestedTagsName => RuleData {
+            Rule::NestedTagsName => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TagNameComponent, Pat::TagNameCustom, Pat::TagNamePlain],
             },
-            Rule::NestedTagsEndNode => RuleData {
+            Rule::NestedTagsEndNode => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TagsEndNode],
             },
-            Rule::TagsRaw => RuleData {
+            Rule::TagsRaw => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceUnknown)],
                 end: Some(Pat::TagsRawEnd),
                 backref: Some(1),
                 patterns: &[Pat::TagsLangStartAttributes],
             },
-            Rule::TagsLangStartAttributes => RuleData {
+            Rule::TagsLangStartAttributes => RuleDefinition {
                 name: scopes![Sc::S(S::MetaTagStart)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TagsLangStartAttributesEnd),
@@ -279,14 +279,14 @@ impl Rule {
                     Pat::AttributesInterpolated,
                 ],
             },
-            Rule::NestedAttributeName => RuleData {
+            Rule::NestedAttributeName => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::NestedAttributeNameAt0],
             },
-            Rule::AttributesEvents => RuleData {
+            Rule::AttributesEvents => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AttributesEventsEnd),
@@ -303,7 +303,7 @@ impl Rule {
                     Pat::EventEquals,
                 ],
             },
-            Rule::EventEquals => RuleData {
+            Rule::EventEquals => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventEqualsEnd),
@@ -322,21 +322,21 @@ impl Rule {
                     Pat::EventScript,
                 ],
             },
-            Rule::InterpolationAt0 => RuleData {
+            Rule::InterpolationAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaEmbeddedExpression), Sc::S(S::SourceTsx)],
                 end: Some(Pat::InterpolationAt0End),
                 backref: None,
                 patterns: &[Pat::InterpolationAt0At0],
             },
-            Rule::InterpolationAt0At0 => RuleData {
+            Rule::InterpolationAt0At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::InterpolationAt0At0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::AttributeLiteral => RuleData {
+            Rule::AttributeLiteral => RuleDefinition {
                 name: scopes![Sc::S(S::StrTemplate)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AttributeLiteralEnd),
@@ -352,7 +352,7 @@ impl Rule {
                     Pat::BodyScss,
                 ],
             },
-            Rule::EventScript => RuleData {
+            Rule::EventScript => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedLineJs)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventScriptEnd),
@@ -371,14 +371,14 @@ impl Rule {
                     Pat::EventScriptSingle,
                 ],
             },
-            Rule::NestedJavaScript => RuleData {
+            Rule::NestedJavaScript => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[],
             },
-            Rule::EventScriptDouble => RuleData {
+            Rule::EventScriptDouble => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuoted)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventScriptDoubleEnd),
@@ -397,7 +397,7 @@ impl Rule {
                     Pat::EventScriptDoubleBlockComment,
                 ],
             },
-            Rule::EventScriptDoubleLineComment => RuleData {
+            Rule::EventScriptDoubleLineComment => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLineDoubleSlashJs)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventScriptDoubleLineCommentEnd),
@@ -413,7 +413,7 @@ impl Rule {
                     Pat::BodyScss,
                 ],
             },
-            Rule::EventScriptDoubleBlockComment => RuleData {
+            Rule::EventScriptDoubleBlockComment => RuleDefinition {
                 name: scopes![Sc::S(S::CmtBlockJs)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventScriptDoubleBlockCommentEnd),
@@ -429,7 +429,7 @@ impl Rule {
                     Pat::BodyScss,
                 ],
             },
-            Rule::EventScriptSingle => RuleData {
+            Rule::EventScriptSingle => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuoted)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventScriptSingleEnd),
@@ -448,7 +448,7 @@ impl Rule {
                     Pat::EventScriptSingleBlockComment,
                 ],
             },
-            Rule::EventScriptSingleLineComment => RuleData {
+            Rule::EventScriptSingleLineComment => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLineDoubleSlashJs)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventScriptSingleLineCommentEnd),
@@ -464,7 +464,7 @@ impl Rule {
                     Pat::BodyScss,
                 ],
             },
-            Rule::EventScriptSingleBlockComment => RuleData {
+            Rule::EventScriptSingleBlockComment => RuleDefinition {
                 name: scopes![Sc::S(S::CmtBlockJs)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::EventScriptSingleBlockCommentEnd),
@@ -480,7 +480,7 @@ impl Rule {
                     Pat::BodyScss,
                 ],
             },
-            Rule::AttributesKeyvalue => RuleData {
+            Rule::AttributesKeyvalue => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AttributesKeyvalueEnd),
@@ -497,7 +497,7 @@ impl Rule {
                     Pat::KeyvalueEquals,
                 ],
             },
-            Rule::KeyvalueEquals => RuleData {
+            Rule::KeyvalueEquals => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::KeyvalueEqualsEnd),
@@ -517,7 +517,7 @@ impl Rule {
                     Pat::AttributeLiteral,
                 ],
             },
-            Rule::ValueQuoted => RuleData {
+            Rule::ValueQuoted => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuoted)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::ValueQuotedEnd),
@@ -533,21 +533,21 @@ impl Rule {
                     Pat::BodyScss,
                 ],
             },
-            Rule::AttributesInterpolated => RuleData {
+            Rule::AttributesInterpolated => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaEmbeddedExpression), Sc::S(S::SourceTsx)],
                 end: Some(Pat::AttributesInterpolatedEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::NestedScriptStart => RuleData {
+            Rule::NestedScriptStart => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::ScriptStartInBody, Pat::TagsStartNode],
             },
-            Rule::TagsLangScript => RuleData {
+            Rule::TagsLangScript => RuleDefinition {
                 name: scopes![Sc::S(S::MetaScopeTagScript), Sc::S(S::MetaScript)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TagsLangScriptEnd),
@@ -567,7 +567,7 @@ impl Rule {
                     Pat::TagsLangStartAttributes,
                 ],
             },
-            Rule::LangJson => RuleData {
+            Rule::LangJson => RuleDefinition {
                 name: scopes![Sc::S(S::MetaLangJson)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::LangJsonEnd),
@@ -584,7 +584,7 @@ impl Rule {
                     Pat::TagsLangStartAttributes,
                 ],
             },
-            Rule::LangModule => RuleData {
+            Rule::LangModule => RuleDefinition {
                 name: scopes![Sc::S(S::MetaLangJavascript)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::LangModuleEnd),
@@ -601,7 +601,7 @@ impl Rule {
                     Pat::TagsLangStartAttributes,
                 ],
             },
-            Rule::LangNamed => RuleData {
+            Rule::LangNamed => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::LangNamedEnd),
@@ -618,14 +618,14 @@ impl Rule {
                     Pat::TagsLangStartAttributes,
                 ],
             },
-            Rule::NestedStyleStart => RuleData {
+            Rule::NestedStyleStart => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::StyleStartInBody, Pat::TagsStartNode],
             },
-            Rule::TagsLangStyle => RuleData {
+            Rule::TagsLangStyle => RuleDefinition {
                 name: scopes![Sc::S(S::MetaScopeTagStyle), Sc::S(S::MetaStyle)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TagsLangStyleEnd),
@@ -645,7 +645,7 @@ impl Rule {
                     Pat::TagsLangStartAttributes,
                 ],
             },
-            Rule::TagsVoid => RuleData {
+            Rule::TagsVoid => RuleDefinition {
                 name: scopes![Sc::S(S::MetaTagVoid)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TagsVoidEnd),
@@ -656,21 +656,21 @@ impl Rule {
                     Pat::AttributesInterpolated,
                 ],
             },
-            Rule::TagsGeneralEnd => RuleData {
+            Rule::TagsGeneralEnd => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TagsGeneralEndEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::TagsGeneralStart => RuleData {
+            Rule::TagsGeneralStart => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TagsGeneralStartEnd),
                 backref: None,
                 patterns: &[Pat::TagsStartAttributes],
             },
-            Rule::TagsStartAttributes => RuleData {
+            Rule::TagsStartAttributes => RuleDefinition {
                 name: scopes![Sc::S(S::MetaTagStart)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TagsStartAttributesEnd),
@@ -681,14 +681,14 @@ impl Rule {
                     Pat::AttributesInterpolated,
                 ],
             },
-            Rule::Frontmatter => RuleData {
+            Rule::Frontmatter => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::SourceTs)],
                 end: Some(Pat::FrontmatterEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Text => RuleData {
+            Rule::Text => RuleDefinition {
                 name: scopes![Sc::S(S::Text)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::TextEnd),
@@ -700,7 +700,7 @@ impl Rule {
                     Pat::EntityAmbiguous,
                 ],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -1348,9 +1348,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::BodyJavaScript => PatData {
+            Pat::BodyJavaScript => PatDefinition {
                 act: Act::Begin(Rule::BodyJavaScript),
                 captures: &[],
                 nested: &[],
@@ -1377,87 +1377,87 @@ impl Pat {
             | Pat::LangModuleEnd
             | Pat::LangNamedEnd
             | Pat::TagsStartAttributesEnd
-            | Pat::TextEnd => PatData {
+            | Pat::TextEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::BodyJson => PatData {
+            Pat::BodyJson => PatDefinition {
                 act: Act::Begin(Rule::BodyJson),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BodyTypeScript => PatData {
+            Pat::BodyTypeScript => PatDefinition {
                 act: Act::Begin(Rule::BodyTypeScript),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BodyCss => PatData {
+            Pat::BodyCss => PatDefinition {
                 act: Act::Begin(Rule::BodyCss),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BodyLess => PatData {
+            Pat::BodyLess => PatDefinition {
                 act: Act::Begin(Rule::BodyLess),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BodyPostCss => PatData {
+            Pat::BodyPostCss => PatDefinition {
                 act: Act::Begin(Rule::BodyPostCss),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BodySass => PatData {
+            Pat::BodySass => PatDefinition {
                 act: Act::Begin(Rule::BodySass),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BodyScss => PatData {
+            Pat::BodyScss => PatDefinition {
                 act: Act::Begin(Rule::BodyScss),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Comments => PatData {
+            Pat::Comments => PatDefinition {
                 act: Act::Begin(Rule::Comments),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::CommentsEnd => PatData {
+            Pat::CommentsEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::CommentsInvalid => PatData {
+            Pat::CommentsInvalid => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::InvIllegalCharactersNotAllowedHere)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagNameComponent => PatData {
+            Pat::TagNameComponent => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppClassComponent)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagNameCustom => PatData {
+            Pat::TagNameCustom => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaTagCustom), Sc::S(S::EntNameTag)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagNamePlain => PatData {
+            Pat::TagNamePlain => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::EntNameTag)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagsStartNode => PatData {
+            Pat::TagsStartNode => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaTagStart)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionTagBegin)])],
                 nested: &[(2, Rule::NestedTagsName)],
             },
-            Pat::TagsRaw => PatData {
+            Pat::TagsRaw => PatDefinition {
                 act: Act::Begin(Rule::TagsRaw),
                 captures: &[],
                 nested: &[(0, Rule::NestedTagsStartNode)],
             },
-            Pat::TagsEndNode => PatData {
+            Pat::TagsEndNode => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (
@@ -1476,141 +1476,141 @@ impl Pat {
                 ],
                 nested: &[(2, Rule::NestedTagsName)],
             },
-            Pat::TagsRawEnd | Pat::TagsLangScriptEnd | Pat::TagsLangStyleEnd => PatData {
+            Pat::TagsRawEnd | Pat::TagsLangScriptEnd | Pat::TagsLangStyleEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[(0, Rule::NestedTagsEndNode)],
             },
-            Pat::TagsLangStartAttributes => PatData {
+            Pat::TagsLangStartAttributes => PatDefinition {
                 act: Act::Begin(Rule::TagsLangStartAttributes),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagsLangStartAttributesEnd => PatData {
+            Pat::TagsLangStartAttributesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionTagEnd)])],
                 nested: &[],
             },
-            Pat::NestedAttributeNameAt0 => PatData {
+            Pat::NestedAttributeNameAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::EntOtherAttributeName)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AttributesEvents => PatData {
+            Pat::AttributesEvents => PatDefinition {
                 act: Act::Begin(Rule::AttributesEvents),
                 captures: &[],
                 nested: &[(0, Rule::NestedAttributeName)],
             },
-            Pat::EventEquals => PatData {
+            Pat::EventEquals => PatDefinition {
                 act: Act::Begin(Rule::EventEquals),
                 captures: &[(0, scopes![Sc::S(S::PSeparatorKeyValue)])],
                 nested: &[],
             },
-            Pat::InterpolationAt0 => PatData {
+            Pat::InterpolationAt0 => PatDefinition {
                 act: Act::Begin(Rule::InterpolationAt0),
                 captures: &[(0, scopes![Sc::S(S::PSectionEmbeddedBegin)])],
                 nested: &[],
             },
-            Pat::InterpolationAt0End => PatData {
+            Pat::InterpolationAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PSectionEmbeddedEnd)])],
                 nested: &[],
             },
-            Pat::InterpolationAt0At0 => PatData {
+            Pat::InterpolationAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::InterpolationAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AttributeLiteral => PatData {
+            Pat::AttributeLiteral => PatDefinition {
                 act: Act::Begin(Rule::AttributeLiteral),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EventScript => PatData {
+            Pat::EventScript => PatDefinition {
                 act: Act::Begin(Rule::EventScript),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EventScriptBare => PatData {
+            Pat::EventScriptBare => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StrUnquoted)]),
                 captures: &[(0, scopes![Sc::S(S::SourceJs)])],
                 nested: &[(1, Rule::NestedJavaScript)],
             },
-            Pat::EventScriptDouble => PatData {
+            Pat::EventScriptDouble => PatDefinition {
                 act: Act::Begin(Rule::EventScriptDouble),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
             Pat::EventScriptDoubleEnd | Pat::EventScriptSingleEnd | Pat::ValueQuotedEnd => {
-                PatData {
+                PatDefinition {
                     act: Act::End,
                     captures: &[(0, scopes![Sc::S(S::PDefinitionStringEnd)])],
                     nested: &[],
                 }
             }
-            Pat::EventScriptDoubleRun | Pat::EventScriptSingleRun => PatData {
+            Pat::EventScriptDoubleRun | Pat::EventScriptSingleRun => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::NestedJavaScript)],
             },
-            Pat::EventScriptDoubleLineComment => PatData {
+            Pat::EventScriptDoubleLineComment => PatDefinition {
                 act: Act::Begin(Rule::EventScriptDoubleLineComment),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionCommentJs)])],
                 nested: &[],
             },
-            Pat::EventScriptDoubleBlockComment => PatData {
+            Pat::EventScriptDoubleBlockComment => PatDefinition {
                 act: Act::Begin(Rule::EventScriptDoubleBlockComment),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionCommentBeginJs)])],
                 nested: &[],
             },
             Pat::EventScriptDoubleBlockCommentEnd | Pat::EventScriptSingleBlockCommentEnd => {
-                PatData {
+                PatDefinition {
                     act: Act::End,
                     captures: &[(0, scopes![Sc::S(S::PDefinitionCommentEndJs)])],
                     nested: &[],
                 }
             }
-            Pat::EventScriptSingle => PatData {
+            Pat::EventScriptSingle => PatDefinition {
                 act: Act::Begin(Rule::EventScriptSingle),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::EventScriptSingleLineComment => PatData {
+            Pat::EventScriptSingleLineComment => PatDefinition {
                 act: Act::Begin(Rule::EventScriptSingleLineComment),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionCommentJs)])],
                 nested: &[],
             },
-            Pat::EventScriptSingleBlockComment => PatData {
+            Pat::EventScriptSingleBlockComment => PatDefinition {
                 act: Act::Begin(Rule::EventScriptSingleBlockComment),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionCommentBeginJs)])],
                 nested: &[],
             },
-            Pat::AttributesKeyvalue => PatData {
+            Pat::AttributesKeyvalue => PatDefinition {
                 act: Act::Begin(Rule::AttributesKeyvalue),
                 captures: &[],
                 nested: &[(0, Rule::NestedAttributeName)],
             },
-            Pat::KeyvalueEquals => PatData {
+            Pat::KeyvalueEquals => PatDefinition {
                 act: Act::Begin(Rule::KeyvalueEquals),
                 captures: &[(0, scopes![Sc::S(S::PSeparatorKeyValue)])],
                 nested: &[],
             },
-            Pat::ValueUnquoted => PatData {
+            Pat::ValueUnquoted => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StrUnquoted)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ValueQuoted => PatData {
+            Pat::ValueQuoted => PatDefinition {
                 act: Act::Begin(Rule::ValueQuoted),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::AttributesInterpolated => PatData {
+            Pat::AttributesInterpolated => PatDefinition {
                 act: Act::Begin(Rule::AttributesInterpolated),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ScriptStartInBody => PatData {
+            Pat::ScriptStartInBody => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (
@@ -1632,37 +1632,37 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TagsLangScript => PatData {
+            Pat::TagsLangScript => PatDefinition {
                 act: Act::Begin(Rule::TagsLangScript),
                 captures: &[],
                 nested: &[(0, Rule::NestedScriptStart)],
             },
-            Pat::LangJson => PatData {
+            Pat::LangJson => PatDefinition {
                 act: Act::Begin(Rule::LangJson),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LangModule => PatData {
+            Pat::LangModule => PatDefinition {
                 act: Act::Begin(Rule::LangModule),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LangNamed => PatData {
+            Pat::LangNamed => PatDefinition {
                 act: Act::Begin(Rule::LangNamed),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StyleStartInBody => PatData {
+            Pat::StyleStartInBody => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaEmbeddedBlock), Sc::S(S::SourceCss)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagsLangStyle => PatData {
+            Pat::TagsLangStyle => PatDefinition {
                 act: Act::Begin(Rule::TagsLangStyle),
                 captures: &[],
                 nested: &[(0, Rule::NestedStyleStart)],
             },
-            Pat::TagsVoid => PatData {
+            Pat::TagsVoid => PatDefinition {
                 act: Act::Begin(Rule::TagsVoid),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionTagBegin)]),
@@ -1670,12 +1670,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TagsVoidEnd => PatData {
+            Pat::TagsVoidEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionTagBegin)])],
                 nested: &[],
             },
-            Pat::TagsGeneralEnd => PatData {
+            Pat::TagsGeneralEnd => PatDefinition {
                 act: Act::Begin(Rule::TagsGeneralEnd),
                 captures: &[
                     (
@@ -1686,7 +1686,7 @@ impl Pat {
                 ],
                 nested: &[(2, Rule::NestedTagsName)],
             },
-            Pat::TagsGeneralEndEnd => PatData {
+            Pat::TagsGeneralEndEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     1,
@@ -1694,12 +1694,12 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::TagsGeneralStart => PatData {
+            Pat::TagsGeneralStart => PatDefinition {
                 act: Act::Begin(Rule::TagsGeneralStart),
                 captures: &[],
                 nested: &[(0, Rule::NestedTagsStartNode)],
             },
-            Pat::TagsGeneralStartEnd => PatData {
+            Pat::TagsGeneralStartEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     1,
@@ -1707,12 +1707,12 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::TagsStartAttributes => PatData {
+            Pat::TagsStartAttributes => PatDefinition {
                 act: Act::Begin(Rule::TagsStartAttributes),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EntityNamed => PatData {
+            Pat::EntityNamed => PatDefinition {
                 act: Act::Match(scopes![Sc::Group(
                     "constant.character.entity.named.",
                     2,
@@ -1724,7 +1724,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EntityDecimal => PatData {
+            Pat::EntityDecimal => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEntityNumericDecimal)]),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionEntity)]),
@@ -1732,7 +1732,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EntityHexadecimal => PatData {
+            Pat::EntityHexadecimal => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEntityNumericHexadecimal)]),
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionEntity)]),
@@ -1740,22 +1740,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EntityAmbiguous => PatData {
+            Pat::EntityAmbiguous => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::InvIllegalAmbiguousAmpersand)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Frontmatter => PatData {
+            Pat::Frontmatter => PatDefinition {
                 act: Act::Begin(Rule::Frontmatter),
                 captures: &[(1, scopes![Sc::S(S::Cmt)])],
                 nested: &[],
             },
-            Pat::FrontmatterEnd => PatData {
+            Pat::FrontmatterEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(2, scopes![Sc::S(S::Cmt)])],
                 nested: &[],
             },
-            Pat::Text => PatData {
+            Pat::Text => PatDefinition {
                 act: Act::Begin(Rule::Text),
                 captures: &[],
                 nested: &[],
@@ -2292,6 +2292,6 @@ impl rules::Tabled for Astro {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }

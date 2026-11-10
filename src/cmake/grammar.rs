@@ -13,8 +13,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<CMake>;
-pub(crate) type PatData = rules::PatData<CMake>;
-pub(crate) type RuleData = rules::RuleData<CMake>;
+pub(crate) type PatDefinition = rules::PatDefinition<CMake>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<CMake>;
 pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with: none in this grammar.
@@ -42,9 +42,9 @@ impl Rule {
         Rule::String,
     ];
 
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -73,28 +73,28 @@ impl Rule {
                     Pat::CxxFlags,
                 ],
             },
-            Rule::BracketComment => RuleData {
+            Rule::BracketComment => RuleDefinition {
                 name: scopes![S::CmtSource],
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketCommentEnd),
                 backref: Some(1),
                 patterns: &[Pat::BracketCommentAt0],
             },
-            Rule::BracketArgument => RuleData {
+            Rule::BracketArgument => RuleDefinition {
                 name: scopes![S::ArgumentSource],
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketArgumentEnd),
                 backref: Some(1),
                 patterns: &[Pat::BracketArgumentAt0],
             },
-            Rule::EscapedString => RuleData {
+            Rule::EscapedString => RuleDefinition {
                 name: scopes![S::StrSource],
                 content: S::NO_SCOPES,
                 end: Some(Pat::EscapedStringEnd),
                 backref: None,
                 patterns: &[Pat::EscapedStringAt0],
             },
-            Rule::String => RuleData {
+            Rule::String => RuleDefinition {
                 name: scopes![S::StrSource],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringEnd),
@@ -170,31 +170,31 @@ pub(crate) enum Pat {
 }
 
 impl Pat {
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::Constants => PatData {
+            Pat::Constants => PatDefinition {
                 act: Act::Match(scopes![S::ConstSource]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Keywords | Pat::Commands => PatData {
+            Pat::Keywords | Pat::Commands => PatDefinition {
                 act: Act::Match(scopes![S::Kw]),
                 captures: &[],
                 nested: &[],
             },
             Pat::Variables | Pat::TargetVariables | Pat::CmakeVariables | Pat::CxxFlags => {
-                PatData {
+                PatDefinition {
                     act: Act::Match(scopes![S::VarSource]),
                     captures: &[],
                     nested: &[],
                 }
             }
-            Pat::Expansion | Pat::EnvExpansion => PatData {
+            Pat::Expansion | Pat::EnvExpansion => PatDefinition {
                 act: Act::Match(scopes![S::StorSource]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketComment => PatData {
+            Pat::BracketComment => PatDefinition {
                 act: Act::Begin(Rule::BracketComment),
                 captures: &[],
                 nested: &[],
@@ -202,7 +202,7 @@ impl Pat {
             Pat::BracketCommentEnd
             | Pat::BracketArgumentEnd
             | Pat::EscapedStringEnd
-            | Pat::StringEnd => PatData {
+            | Pat::StringEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
@@ -210,17 +210,17 @@ impl Pat {
             Pat::BracketCommentAt0
             | Pat::BracketArgumentAt0
             | Pat::EscapedStringAt0
-            | Pat::StringAt0 => PatData {
+            | Pat::StringAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscapeBare]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketArgument => PatData {
+            Pat::BracketArgument => PatDefinition {
                 act: Act::Begin(Rule::BracketArgument),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LineComment => PatData {
+            Pat::LineComment => PatDefinition {
                 act: Act::Match(scopes![S::CmtSource]),
                 captures: &[],
                 nested: &[],
@@ -230,22 +230,22 @@ impl Pat {
             | Pat::TestProperties
             | Pat::DirectoryProperties
             | Pat::GlobalProperties
-            | Pat::TargetProperties => PatData {
+            | Pat::TargetProperties => PatDefinition {
                 act: Act::Match(scopes![S::EntSource]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EscapedString => PatData {
+            Pat::EscapedString => PatDefinition {
                 act: Act::Begin(Rule::EscapedString),
                 captures: &[],
                 nested: &[],
             },
-            Pat::String => PatData {
+            Pat::String => PatDefinition {
                 act: Act::Begin(Rule::String),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BuildName => PatData {
+            Pat::BuildName => PatDefinition {
                 act: Act::Match(scopes![S::InvDeprecatedSource]),
                 captures: &[],
                 nested: &[],
@@ -491,7 +491,7 @@ impl rules::Tabled for CMake {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

@@ -79,11 +79,11 @@ impl Grammar for Latex {
         if matches!(rule, Rule::SectionsMacro) {
             return Sc::NO_SCOPES;
         }
-        rule.data().name
+        rule.definition().name
     }
 
     fn rule_content(rule: Rule) -> Scopes<Sc> {
-        rule.data().content
+        rule.definition().content
     }
 
     /// A code environment's rule carries the language it embeds, and an
@@ -110,17 +110,17 @@ impl Grammar for Latex {
     }
 
     fn pat_act(pat: Pat) -> Act<Self> {
-        pat.data().act
+        pat.definition().act
     }
 
     fn pat_captures(pat: Pat) -> Captures<Self> {
-        let data = pat.data();
-        (data.captures, data.nested)
+        let definition = pat.definition();
+        (definition.captures, definition.nested)
     }
 
-    fn pat_data(pat: Pat) -> (Act<Self>, Captures<Self>) {
-        let data = pat.data();
-        (data.act, (data.captures, data.nested))
+    fn pat_definition(pat: Pat) -> (Act<Self>, Captures<Self>) {
+        let definition = pat.definition();
+        (definition.act, (definition.captures, definition.nested))
     }
 
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pat, usize)> {

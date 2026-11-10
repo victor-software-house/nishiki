@@ -475,8 +475,8 @@ use crate::scope::scopes;
 use crate::rules;
 
 pub(crate) type Act = rules::Act<${cfg.engine}>;
-pub(crate) type PatData = rules::PatData<${cfg.engine}>;
-pub(crate) type RuleData = rules::RuleData<${cfg.engine}>;
+pub(crate) type PatDefinition = rules::PatDefinition<${cfg.engine}>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<${cfg.engine}>;
 pub(crate) use crate::rules::Start;
 
 /// A scope of a rule or a capture group.
@@ -560,11 +560,11 @@ pub(crate) struct Nested {
   for (const r of ruleList) g += `    ${r.id},\n`;
   g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
   for (const r of ruleList) g += `        Rule::${r.id},\n`;
-  g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+  g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
   g += arms(
     ruleList.map((r): [string, string] => [
       r.id,
-      `RuleData {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end && !r.endLast ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${[...r.patterns, ...(r.end && r.endLast ? [r.end] : [])].map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+      `RuleDefinition {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end && !r.endLast ? `Some(Pat::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${[...r.patterns, ...(r.end && r.endLast ? [r.end] : [])].map((p) => `Pat::${p}`).join(", ")}],\n            }`,
     ]),
     "Rule",
   );
@@ -580,7 +580,7 @@ pub(crate) struct Nested {
   /** An expression as a doc comment shows it; the empty one has no code span. */
   const shown = (s: string) => (s === "" ? "the empty expression" : `\`${docs(s).replaceAll("`", "'")}\``);
   for (const p of patList) g += `    /// The ${p.act.role}: ${shown(p.regex)}.\n    ${p.id},\n`;
-  g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+  g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn definition(self) -> PatDefinition {\n        match self {\n`;
   g += arms(
     patList.map((p): [string, string] => {
       const act =
@@ -597,7 +597,7 @@ pub(crate) struct Nested {
         .filter((c) => c.nested)
         .map((c) => `(${c.group}, Nested { rule: Rule::${c.nested}, scopes: ${scText(c.scopes)} })`)
         .join(", ");
-      return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
+      return [p.id, `PatDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[${nested}],\n            }`];
     }),
     "Pat",
   );

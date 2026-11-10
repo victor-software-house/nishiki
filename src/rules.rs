@@ -243,7 +243,7 @@ pub(crate) trait Grammar: Sized + Copy + Debug + 'static {
     fn pat_captures(pat: Self::Pat) -> Captures<Self>;
     /// Both answers about `pat` that the engine needs for each match; a
     /// grammar whose table holds them together answers with one lookup.
-    fn pat_data(pat: Self::Pat) -> (Act<Self>, Captures<Self>) {
+    fn pat_definition(pat: Self::Pat) -> (Act<Self>, Captures<Self>) {
         (Self::pat_act(pat), Self::pat_captures(pat))
     }
     /// The first pattern of the innermost rule that matches at or after the
@@ -1489,9 +1489,9 @@ impl<G: Grammar> Act<G> {
     }
 }
 
-/// The data of one pattern.
+/// What one pattern does when it matches, and the scopes of its captures.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct PatData<G: Grammar> {
+pub(crate) struct PatDefinition<G: Grammar> {
     pub(crate) act: Act<G>,
     /// The scopes of the match's capture groups, by group number; group 0 is
     /// the whole match.
@@ -1501,9 +1501,9 @@ pub(crate) struct PatData<G: Grammar> {
     pub(crate) nested: &'static [(u8, G::Nested)],
 }
 
-/// The data of one rule.
+/// The scopes and patterns of one rule.
 #[derive(Clone, Copy, Debug)]
-pub(crate) struct RuleData<G: Grammar> {
+pub(crate) struct RuleDefinition<G: Grammar> {
     /// The scopes of its begin and end text and everything between.
     pub(crate) name: Scopes<G::Scope>,
     /// The scopes of what lies between its begin and end text.

@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Asm>;
-pub(crate) type PatData = rules::PatData<Asm>;
-pub(crate) type RuleData = rules::RuleData<Asm>;
+pub(crate) type PatDefinition = rules::PatDefinition<Asm>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Asm>;
 pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with: none in this grammar.
@@ -54,9 +54,9 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -126,28 +126,28 @@ impl Rule {
                     Pat::PreprocessorAt3,
                 ],
             },
-            Rule::CommentsAt1 => RuleData {
+            Rule::CommentsAt1 => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentsAt2 => RuleData {
+            Rule::CommentsAt2 => RuleDefinition {
                 name: scopes![S::CmtPreprocessor],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::PreprocessorAt0 => RuleData {
+            Rule::PreprocessorAt0 => RuleDefinition {
                 name: scopes![S::MetaPreprocessorDiagnosticC],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorAt0End),
                 backref: None,
                 patterns: &[Pat::PreprocessorAt0At0],
             },
-            Rule::PreprocessorAt1 => RuleData {
+            Rule::PreprocessorAt1 => RuleDefinition {
                 name: scopes![S::MetaPreprocessorCInclude],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorAt1End),
@@ -158,35 +158,35 @@ impl Rule {
                     Pat::PreprocessorAt1At2,
                 ],
             },
-            Rule::PreprocessorAt1At1 => RuleData {
+            Rule::PreprocessorAt1At1 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleIncludeC],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorAt1At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::PreprocessorAt1At2 => RuleData {
+            Rule::PreprocessorAt1At2 => RuleDefinition {
                 name: scopes![S::StrQuotedOtherLtGtIncludeC],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorAt1At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::PreprocessorAt2 => RuleData {
+            Rule::PreprocessorAt2 => RuleDefinition {
                 name: scopes![S::MetaPreprocessorC],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorAt2End),
                 backref: None,
                 patterns: &[Pat::PreprocessorAt2At0, Pat::PreprocessorFunctionsAt0],
             },
-            Rule::PreprocessorFunctionsAt0 => RuleData {
+            Rule::PreprocessorFunctionsAt0 => RuleDefinition {
                 name: scopes![S::MetaPreprocessorFunctionAsm],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorFunctionsAt0End),
                 backref: None,
                 patterns: &[Pat::PreprocessorFunctionsAt0],
             },
-            Rule::PreprocessorAt3 => RuleData {
+            Rule::PreprocessorAt3 => RuleDefinition {
                 name: scopes![S::MetaPreprocessorNasm],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorAt3End),
@@ -361,71 +361,71 @@ pub(crate) enum Pat {
 
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::ConstantsAt0 | Pat::ConstantsAt1 => PatData {
+            Pat::ConstantsAt0 | Pat::ConstantsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericBinaryFloatingPointAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConstantsAt2 | Pat::ConstantsAt3 => PatData {
+            Pat::ConstantsAt2 | Pat::ConstantsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericOctalFloatingPointAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConstantsAt4 | Pat::ConstantsAt5 => PatData {
+            Pat::ConstantsAt4 | Pat::ConstantsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericDecimalFloatingPointAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConstantsAt6 => PatData {
+            Pat::ConstantsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericDecimalPackedBcdAsm]),
                 captures: &[],
                 nested: &[],
             },
             Pat::ConstantsAt7 | Pat::ConstantsAt8 | Pat::ConstantsAt9 | Pat::ConstantsAt10 => {
-                PatData {
+                PatDefinition {
                     act: Act::Match(scopes![S::ConstNumericHexFloatingPointAsm]),
                     captures: &[],
                     nested: &[],
                 }
             }
-            Pat::ConstantsAt11 => PatData {
+            Pat::ConstantsAt11 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericBinaryAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConstantsAt12 => PatData {
+            Pat::ConstantsAt12 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericOctalAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConstantsAt13 => PatData {
+            Pat::ConstantsAt13 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericDecimalAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConstantsAt14 | Pat::ConstantsAt15 => PatData {
+            Pat::ConstantsAt14 | Pat::ConstantsAt15 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericHexAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EntitiesAt0 => PatData {
+            Pat::EntitiesAt0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameSection]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EntitiesAt1 => PatData {
+            Pat::EntitiesAt1 => PatDefinition {
                 act: Act::Match(scopes![S::EntDirective]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EntitiesAt2 => PatData {
+            Pat::EntitiesAt2 => PatDefinition {
                 act: Act::Match(scopes![S::TextVariable]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EntitiesAt3 => PatData {
+            Pat::EntitiesAt3 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunctionAsm]),
                 captures: &[
                     (1, scopes![S::PSeparatorAsm, S::StorModifierAsm]),
@@ -434,7 +434,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EntitiesAt4 | Pat::EntitiesAt5 => PatData {
+            Pat::EntitiesAt4 | Pat::EntitiesAt5 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunctionAsm]),
                 captures: &[
                     (1, scopes![S::PSeparatorAsm, S::StorModifierAsm]),
@@ -443,7 +443,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EntitiesAt6 => PatData {
+            Pat::EntitiesAt6 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalEntityNameFunctionAsm]),
                 captures: &[
                     (1, scopes![S::PSeparatorAsm, S::StorModifierAsm]),
@@ -452,7 +452,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SupportAt0 => PatData {
+            Pat::SupportAt0 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeAsm]),
                 captures: &[],
                 nested: &[],
@@ -468,107 +468,107 @@ impl Pat {
             | Pat::SupportAt21
             | Pat::SupportAt22
             | Pat::SupportAt23
-            | Pat::SupportAt24 => PatData {
+            | Pat::SupportAt24 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt2 => PatData {
+            Pat::SupportAt2 => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt3 | Pat::SupportAt4 => PatData {
+            Pat::SupportAt3 | Pat::SupportAt4 => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierPrefixAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt5 => PatData {
+            Pat::SupportAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierPrefixVexAsm])],
                 nested: &[],
             },
-            Pat::SupportAt6 => PatData {
+            Pat::SupportAt6 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierOpmaskAsm])],
                 nested: &[],
             },
-            Pat::SupportAt7 => PatData {
+            Pat::SupportAt7 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierPrecisionAsm])],
                 nested: &[],
             },
-            Pat::SupportAt8 => PatData {
+            Pat::SupportAt8 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierRoundingAsm])],
                 nested: &[],
             },
-            Pat::SupportAt9 => PatData {
+            Pat::SupportAt9 => PatDefinition {
                 act: Act::Match(scopes![S::SuppConstantAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt11 => PatData {
+            Pat::SupportAt11 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionLegacyAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt17 | Pat::SupportAt25 => PatData {
+            Pat::SupportAt17 | Pat::SupportAt25 => PatDefinition {
                 act: Act::Match(scopes![S::InvDeprecatedSupportConstantAltregAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt18 | Pat::SupportAt26 => PatData {
+            Pat::SupportAt18 | Pat::SupportAt26 => PatDefinition {
                 act: Act::Match(scopes![S::SuppConstantSmartalignAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt19 | Pat::SupportAt27 => PatData {
+            Pat::SupportAt19 | Pat::SupportAt27 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionSmartalignAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt28 => PatData {
+            Pat::SupportAt28 => PatDefinition {
                 act: Act::Match(scopes![S::SuppConstantFpAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt29 => PatData {
+            Pat::SupportAt29 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionFpAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SupportAt30 => PatData {
+            Pat::SupportAt30 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionIfuncAsm]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt0 => PatData {
+            Pat::CommentsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::CmtLine]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt1 => PatData {
+            Pat::CommentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt1End | Pat::CommentsAt2End => PatData {
+            Pat::CommentsAt1End | Pat::CommentsAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt2 => PatData {
+            Pat::CommentsAt2 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorAt0 => PatData {
+            Pat::PreprocessorAt0 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorAt0),
                 captures: &[(1, scopes![S::KwControlImportErrorC])],
                 nested: &[],
             },
-            Pat::PreprocessorAt0End => PatData {
+            Pat::PreprocessorAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::KwControlImportErrorC])],
                 nested: &[],
@@ -576,67 +576,67 @@ impl Pat {
             Pat::PreprocessorAt0At0
             | Pat::PreprocessorAt1At0
             | Pat::PreprocessorAt2At0
-            | Pat::PreprocessorAt3At0 => PatData {
+            | Pat::PreprocessorAt3At0 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorContinuationC]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorAt1 => PatData {
+            Pat::PreprocessorAt1 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorAt1),
                 captures: &[(1, scopes![S::KwControlImportIncludeC])],
                 nested: &[],
             },
-            Pat::PreprocessorAt1End => PatData {
+            Pat::PreprocessorAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::KwControlImportIncludeC])],
                 nested: &[],
             },
-            Pat::PreprocessorAt1At1 => PatData {
+            Pat::PreprocessorAt1At1 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorAt1At1),
                 captures: &[(0, scopes![S::PDefinitionStringBeginC])],
                 nested: &[],
             },
-            Pat::PreprocessorAt1At1End | Pat::PreprocessorAt1At2End => PatData {
+            Pat::PreprocessorAt1At1End | Pat::PreprocessorAt1At2End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionStringEndC])],
                 nested: &[],
             },
-            Pat::PreprocessorAt1At2 => PatData {
+            Pat::PreprocessorAt1At2 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorAt1At2),
                 captures: &[(0, scopes![S::PDefinitionStringBeginC])],
                 nested: &[],
             },
-            Pat::PreprocessorAt2 => PatData {
+            Pat::PreprocessorAt2 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorAt2),
                 captures: &[(1, scopes![S::KwControlImportC])],
                 nested: &[],
             },
-            Pat::PreprocessorAt2End => PatData {
+            Pat::PreprocessorAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::KwControlImportC])],
                 nested: &[],
             },
-            Pat::PreprocessorFunctionsAt0 => PatData {
+            Pat::PreprocessorFunctionsAt0 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorFunctionsAt0),
                 captures: &[(3, scopes![S::SuppFunctionPreprocessorAsm])],
                 nested: &[],
             },
-            Pat::PreprocessorFunctionsAt0End => PatData {
+            Pat::PreprocessorFunctionsAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(3, scopes![S::SuppFunctionPreprocessorAsm])],
                 nested: &[],
             },
-            Pat::PreprocessorAt3 => PatData {
+            Pat::PreprocessorAt3 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorAt3),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::PreprocessorAt3End => PatData {
+            Pat::PreprocessorAt3End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::Word => PatData {
+            Pat::Word => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[],
@@ -1994,7 +1994,7 @@ impl rules::Tabled for Asm {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

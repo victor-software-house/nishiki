@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Jinja>;
-pub(crate) type PatData = rules::PatData<Jinja>;
-pub(crate) type RuleData = rules::RuleData<Jinja>;
+pub(crate) type PatDefinition = rules::PatDefinition<Jinja>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Jinja>;
 pub(crate) use crate::rules::Start;
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -52,30 +52,30 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Raw, Pat::Comments, Pat::Output, Pat::Statement],
             },
-            Rule::Raw => RuleData {
+            Rule::Raw => RuleDefinition {
                 name: scopes![S::CmtBlockJinjaRaw],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Comments => RuleData {
+            Rule::Comments => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsEnd),
                 backref: None,
                 patterns: &[Pat::Comments],
             },
-            Rule::Output => RuleData {
+            Rule::Output => RuleDefinition {
                 name: scopes![S::VarMetaScope],
                 content: S::NO_SCOPES,
                 end: Some(Pat::OutputEnd),
@@ -103,7 +103,7 @@ impl Rule {
                     Pat::Regex,
                 ],
             },
-            Rule::Brackets => RuleData {
+            Rule::Brackets => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketsEnd),
@@ -131,7 +131,7 @@ impl Rule {
                     Pat::Regex,
                 ],
             },
-            Rule::Parens => RuleData {
+            Rule::Parens => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParensEnd),
@@ -159,7 +159,7 @@ impl Rule {
                     Pat::Regex,
                 ],
             },
-            Rule::Braces => RuleData {
+            Rule::Braces => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracesEnd),
@@ -187,7 +187,7 @@ impl Rule {
                     Pat::Regex,
                 ],
             },
-            Rule::DoubleString => RuleData {
+            Rule::DoubleString => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DoubleStringEnd),
@@ -198,7 +198,7 @@ impl Rule {
                     Pat::EscapedUnicodeChar,
                 ],
             },
-            Rule::SingleString => RuleData {
+            Rule::SingleString => RuleDefinition {
                 name: scopes![S::StrQuotedSingle],
                 content: S::NO_SCOPES,
                 end: Some(Pat::SingleStringEnd),
@@ -209,14 +209,14 @@ impl Rule {
                     Pat::EscapedUnicodeChar,
                 ],
             },
-            Rule::Regex => RuleData {
+            Rule::Regex => RuleDefinition {
                 name: scopes![S::StrRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RegexEnd),
                 backref: None,
                 patterns: &[Pat::SimpleEscapes],
             },
-            Rule::Statement => RuleData {
+            Rule::Statement => RuleDefinition {
                 name: scopes![S::MetaScopeJinjaTag],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StatementEnd),
@@ -391,9 +391,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::Raw => PatData {
+            Pat::Raw => PatDefinition {
                 act: Act::Begin(Rule::Raw),
                 captures: &[
                     (1, scopes![S::EntOtherJinjaDelimiterTag]),
@@ -402,7 +402,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::RawEnd => PatData {
+            Pat::RawEnd => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![S::EntOtherJinjaDelimiterTag]),
@@ -411,27 +411,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Comments => PatData {
+            Pat::Comments => PatDefinition {
                 act: Act::Begin(Rule::Comments),
                 captures: &[(0, scopes![S::EntOtherJinjaDelimiterComment])],
                 nested: &[],
             },
-            Pat::CommentsEnd => PatData {
+            Pat::CommentsEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::EntOtherJinjaDelimiterComment])],
                 nested: &[],
             },
-            Pat::Output => PatData {
+            Pat::Output => PatDefinition {
                 act: Act::Begin(Rule::Output),
                 captures: &[(0, scopes![S::VarEntityOtherJinjaDelimiter])],
                 nested: &[],
             },
-            Pat::OutputEnd => PatData {
+            Pat::OutputEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::VarEntityOtherJinjaDelimiter])],
                 nested: &[],
             },
-            Pat::Block => PatData {
+            Pat::Block => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -439,7 +439,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Filter => PatData {
+            Pat::Filter => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -447,7 +447,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Is => PatData {
+            Pat::Is => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -455,37 +455,37 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TagName => PatData {
+            Pat::TagName => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::Keywords => PatData {
+            Pat::Keywords => PatDefinition {
                 act: Act::Match(scopes![S::KwControl]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Constants => PatData {
+            Pat::Constants => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Builtins => PatData {
+            Pat::Builtins => PatDefinition {
                 act: Act::Match(scopes![S::VarLanguage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Name => PatData {
+            Pat::Name => PatDefinition {
                 act: Act::Match(scopes![S::VarOther]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Arithmetic => PatData {
+            Pat::Arithmetic => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmetic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::FilterCall => PatData {
+            Pat::FilterCall => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::POther]),
@@ -493,7 +493,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Member => PatData {
+            Pat::Member => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::POther]),
@@ -501,52 +501,52 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Brackets => PatData {
+            Pat::Brackets => PatDefinition {
                 act: Act::Begin(Rule::Brackets),
                 captures: &[(0, scopes![S::POther])],
                 nested: &[],
             },
-            Pat::BracketsEnd | Pat::ParensEnd | Pat::BracesEnd => PatData {
+            Pat::BracketsEnd | Pat::ParensEnd | Pat::BracesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::POther])],
                 nested: &[],
             },
-            Pat::Parens => PatData {
+            Pat::Parens => PatDefinition {
                 act: Act::Begin(Rule::Parens),
                 captures: &[(0, scopes![S::POther])],
                 nested: &[],
             },
-            Pat::Braces => PatData {
+            Pat::Braces => PatDefinition {
                 act: Act::Begin(Rule::Braces),
                 captures: &[(0, scopes![S::POther])],
                 nested: &[],
             },
-            Pat::Punctuation => PatData {
+            Pat::Punctuation => PatDefinition {
                 act: Act::Match(scopes![S::POther]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Comparison => PatData {
+            Pat::Comparison => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorComparison]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Assignment => PatData {
+            Pat::Assignment => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignment]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DoubleString => PatData {
+            Pat::DoubleString => PatDefinition {
                 act: Act::Begin(Rule::DoubleString),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::DoubleStringEnd | Pat::SingleStringEnd => PatData {
+            Pat::DoubleStringEnd | Pat::SingleStringEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionStringEnd])],
                 nested: &[],
             },
-            Pat::SimpleEscapes => PatData {
+            Pat::SimpleEscapes => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstCharacterEscapeNewline]),
@@ -563,12 +563,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::EscapedChar => PatData {
+            Pat::EscapedChar => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscapeHex]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EscapedUnicodeChar => PatData {
+            Pat::EscapedUnicodeChar => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstCharacterEscapeUnicode16BitHex]),
@@ -577,27 +577,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SingleString => PatData {
+            Pat::SingleString => PatDefinition {
                 act: Act::Begin(Rule::SingleString),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::Regex => PatData {
+            Pat::Regex => PatDefinition {
                 act: Act::Begin(Rule::Regex),
                 captures: &[(0, scopes![S::PDefinitionRegexpBegin])],
                 nested: &[],
             },
-            Pat::RegexEnd => PatData {
+            Pat::RegexEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionRegexpEnd])],
                 nested: &[],
             },
-            Pat::Statement => PatData {
+            Pat::Statement => PatDefinition {
                 act: Act::Begin(Rule::Statement),
                 captures: &[(0, scopes![S::EntOtherJinjaDelimiterTag])],
                 nested: &[],
             },
-            Pat::StatementEnd => PatData {
+            Pat::StatementEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::EntOtherJinjaDelimiterTag])],
                 nested: &[],
@@ -940,7 +940,7 @@ impl rules::Tabled for Jinja {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

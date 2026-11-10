@@ -309,8 +309,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Asm>;
-pub(crate) type PatData = rules::PatData<Asm>;
-pub(crate) type RuleData = rules::RuleData<Asm>;
+pub(crate) type PatDefinition = rules::PatDefinition<Asm>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Asm>;
 pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with: none in this grammar.
@@ -326,11 +326,11 @@ g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive
 for (const r of ruleList) g += `    ${r.id},\n`;
 g += `}\n\nimpl Rule {\n    /// Every rule, in code order.\n    pub(crate) const ALL: [Rule; ${ruleList.length}] = [\n`;
 for (const r of ruleList) g += `        Rule::${r.id},\n`;
-g += `    ];\n\n${tooLong}    pub(crate) fn data(self) -> RuleData {\n        match self {\n`;
+g += `    ];\n\n${tooLong}    pub(crate) fn definition(self) -> RuleDefinition {\n        match self {\n`;
 g += arms(
   ruleList.map((r): [string, string] => [
     r.id,
-    `RuleData {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
+    `RuleDefinition {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end ? `Some(Pat::${r.end})` : "None"},\n                backref: None,\n                patterns: &[${r.patterns.map((p) => `Pat::${p}`).join(", ")}],\n            }`,
   ]),
   "Rule",
 );
@@ -345,13 +345,13 @@ for (const p of patList) {
   const what = p.id === "Word" ? "The registers and mnemonics, merged" : `The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\``;
   g += `    /// ${what}.\n    ${p.id},\n`;
 }
-g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn data(self) -> PatData {\n        match self {\n`;
+g += `}\n\nimpl Pat {\n${tooLong}    pub(crate) fn definition(self) -> PatDefinition {\n        match self {\n`;
 g += arms(
   patList.map((p): [string, string] => {
     const act =
       p.act.role === "match" ? `Act::Match(${scText(p.act.name)})` : p.act.role === "begin" ? `Act::Begin(Rule::${p.act.rule})` : "Act::End";
     const caps = p.captures.map(([n, list]) => `(${n}, ${scText(list)})`).join(", ");
-    return [p.id, `PatData {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
+    return [p.id, `PatDefinition {\n                act: ${act},\n                captures: &[${caps}],\n                nested: &[],\n            }`];
   }),
   "Pat",
 );

@@ -15,8 +15,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<ObjectiveCpp>;
-pub(crate) type PatData = rules::PatData<ObjectiveCpp>;
-pub(crate) type RuleData = rules::RuleData<ObjectiveCpp>;
+pub(crate) type PatDefinition = rules::PatDefinition<ObjectiveCpp>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<ObjectiveCpp>;
 pub(crate) use crate::rules::Start;
 
 /// A scope of a rule or a capture group.
@@ -387,16 +387,16 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::CppSpecialBlockAt0 => RuleData {
+            Rule::CppSpecialBlockAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaUsingNamespaceDeclaration)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppSpecialBlockAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CppSpecialBlockAt1 => RuleData {
+            Rule::CppSpecialBlockAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaNamespaceBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppSpecialBlockAt1End),
@@ -574,7 +574,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppSpecialBlockAt1At0 => RuleData {
+            Rule::CppSpecialBlockAt1At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppSpecialBlockAt1At0End),
@@ -756,7 +756,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppConstructorAt1 => RuleData {
+            Rule::CppConstructorAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionConstructorInitializerList)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppConstructorAt1End),
@@ -933,7 +933,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::AnonymousPattern1 => RuleData {
+            Rule::AnonymousPattern1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaInterfaceOrProtocol)],
                 content: scopes![Sc::S(S::MetaScopeInterface)],
                 end: Some(Pat::AnonymousPattern1End),
@@ -1117,7 +1117,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::PreprocessorRuleEnabledInterface => RuleData {
+            Rule::PreprocessorRuleEnabledInterface => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleEnabledInterfaceEnd),
@@ -1127,21 +1127,21 @@ impl Rule {
                     Pat::PreprocessorRuleEnabledInterfaceAt1,
                 ],
             },
-            Rule::PreprocessorRuleEnabledInterfaceAt0 => RuleData {
+            Rule::PreprocessorRuleEnabledInterfaceAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElseBranch)],
                 end: Some(Pat::PreprocessorRuleEnabledInterfaceAt0End),
                 backref: None,
                 patterns: &[Pat::Disabled, Pat::PragmaMark],
             },
-            Rule::Disabled => RuleData {
+            Rule::Disabled => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::DisabledEnd),
                 backref: None,
                 patterns: &[Pat::Disabled, Pat::PragmaMark],
             },
-            Rule::PreprocessorRuleEnabledInterfaceAt1 => RuleData {
+            Rule::PreprocessorRuleEnabledInterfaceAt1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleEnabledInterfaceAt1End),
@@ -1325,7 +1325,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::PreprocessorRuleDisabledInterface => RuleData {
+            Rule::PreprocessorRuleDisabledInterface => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleDisabledInterfaceEnd),
@@ -1335,7 +1335,7 @@ impl Rule {
                     Pat::PreprocessorRuleDisabledInterfaceAt1,
                 ],
             },
-            Rule::PreprocessorRuleDisabledInterfaceAt0 => RuleData {
+            Rule::PreprocessorRuleDisabledInterfaceAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleDisabledInterfaceAt0End),
@@ -1519,14 +1519,14 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::PreprocessorRuleDisabledInterfaceAt1 => RuleData {
+            Rule::PreprocessorRuleDisabledInterfaceAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtBlockPreprocessorIfBranch)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleDisabledInterfaceAt1End),
                 backref: None,
                 patterns: &[Pat::Disabled, Pat::PragmaMark],
             },
-            Rule::PreprocessorRuleOtherInterface => RuleData {
+            Rule::PreprocessorRuleOtherInterface => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleOtherInterfaceEnd),
@@ -1710,21 +1710,21 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::PropertiesAt0 => RuleData {
+            Rule::PropertiesAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPropertyWithAttributes)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PropertiesAt0End),
                 backref: None,
                 patterns: &[Pat::PropertiesAt0At0],
             },
-            Rule::ProtocolList => RuleData {
+            Rule::ProtocolList => RuleDefinition {
                 name: scopes![Sc::S(S::MetaProtocolList)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::ProtocolListEnd),
                 backref: None,
                 patterns: &[Pat::ProtocolListAt0],
             },
-            Rule::Method => RuleData {
+            Rule::Method => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunction)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::MethodEnd),
@@ -1737,7 +1737,7 @@ impl Rule {
                     Pat::CommentAt1,
                 ],
             },
-            Rule::MethodAt0 => RuleData {
+            Rule::MethodAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaReturnType)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::MethodAt0End),
@@ -1916,7 +1916,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::MethodAt2 => RuleData {
+            Rule::MethodAt2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaArgumentType)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::MethodAt2End),
@@ -2095,28 +2095,28 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CommentAt0 => RuleData {
+            Rule::CommentAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CommentAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentAt1 => RuleData {
+            Rule::CommentAt1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CommentAt1End),
                 backref: None,
                 patterns: &[Pat::CommentAt1At0],
             },
-            Rule::CommentAt1At0 => RuleData {
+            Rule::CommentAt1At0 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLineDoubleSlash)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CommentAt1At0End),
                 backref: None,
                 patterns: &[Pat::CommentAt1At0At0],
             },
-            Rule::AnonymousPattern2 => RuleData {
+            Rule::AnonymousPattern2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaImplementation)],
                 content: scopes![Sc::S(S::MetaScopeImplementation)],
                 end: Some(Pat::AnonymousPattern2End),
@@ -2298,7 +2298,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::PreprocessorRuleEnabledImplementation => RuleData {
+            Rule::PreprocessorRuleEnabledImplementation => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleEnabledImplementationEnd),
@@ -2308,14 +2308,14 @@ impl Rule {
                     Pat::PreprocessorRuleEnabledImplementationAt1,
                 ],
             },
-            Rule::PreprocessorRuleEnabledImplementationAt0 => RuleData {
+            Rule::PreprocessorRuleEnabledImplementationAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElseBranch)],
                 end: Some(Pat::PreprocessorRuleEnabledImplementationAt0End),
                 backref: None,
                 patterns: &[Pat::Disabled, Pat::PragmaMark],
             },
-            Rule::PreprocessorRuleEnabledImplementationAt1 => RuleData {
+            Rule::PreprocessorRuleEnabledImplementationAt1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleEnabledImplementationAt1End),
@@ -2497,7 +2497,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::PreprocessorRuleDisabledImplementation => RuleData {
+            Rule::PreprocessorRuleDisabledImplementation => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleDisabledImplementationEnd),
@@ -2507,7 +2507,7 @@ impl Rule {
                     Pat::PreprocessorRuleDisabledImplementationAt1,
                 ],
             },
-            Rule::PreprocessorRuleDisabledImplementationAt0 => RuleData {
+            Rule::PreprocessorRuleDisabledImplementationAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleDisabledImplementationAt0End),
@@ -2691,14 +2691,14 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::PreprocessorRuleDisabledImplementationAt1 => RuleData {
+            Rule::PreprocessorRuleDisabledImplementationAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtBlockPreprocessorIfBranch)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleDisabledImplementationAt1End),
                 backref: None,
                 patterns: &[Pat::Disabled, Pat::PragmaMark],
             },
-            Rule::PreprocessorRuleOtherImplementation => RuleData {
+            Rule::PreprocessorRuleOtherImplementation => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::PreprocessorRuleOtherImplementationEnd),
@@ -2880,7 +2880,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::MethodSuper => RuleData {
+            Rule::MethodSuper => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionWithBody)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::MethodSuperEnd),
@@ -3058,7 +3058,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::AnonymousPattern3 => RuleData {
+            Rule::AnonymousPattern3 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDouble)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AnonymousPattern3End),
@@ -3071,14 +3071,14 @@ impl Rule {
                     Pat::StringPlaceholderAt1,
                 ],
             },
-            Rule::AnonymousPattern4 => RuleData {
+            Rule::AnonymousPattern4 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaIdWithProtocol)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AnonymousPattern4End),
                 backref: None,
                 patterns: &[Pat::ProtocolList],
             },
-            Rule::AppleFoundationFunctionalMacros => RuleData {
+            Rule::AppleFoundationFunctionalMacros => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessorMacroCallableAppleFoundation)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::AppleFoundationFunctionalMacrosEnd),
@@ -3144,7 +3144,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledAt0 => RuleData {
+            Rule::CPreprocessorRuleEnabledAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledAt0End),
@@ -3160,7 +3160,7 @@ impl Rule {
                     Pat::CPreprocessorRuleEnabledAt0At4,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledAt0At0 => RuleData {
+            Rule::CPreprocessorRuleEnabledAt0At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledAt0At0End),
@@ -3194,28 +3194,28 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CCommentsAt1 => RuleData {
+            Rule::CCommentsAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CCommentsAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CCommentsAt3 => RuleData {
+            Rule::CCommentsAt3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CCommentsAt3End),
                 backref: None,
                 patterns: &[Pat::CCommentsAt3At0],
             },
-            Rule::CCommentsAt3At0 => RuleData {
+            Rule::CCommentsAt3At0 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLineDoubleSlash)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CCommentsAt3At0End),
                 backref: None,
                 patterns: &[Pat::CLineContinuationCharacterAt0],
             },
-            Rule::CStringsAt0 => RuleData {
+            Rule::CStringsAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDouble)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CStringsAt0End),
@@ -3228,7 +3228,7 @@ impl Rule {
                     Pat::CLineContinuationCharacterAt0,
                 ],
             },
-            Rule::CStringsAt1 => RuleData {
+            Rule::CStringsAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedSingle)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CStringsAt1End),
@@ -3239,7 +3239,7 @@ impl Rule {
                     Pat::CLineContinuationCharacterAt0,
                 ],
             },
-            Rule::CNumbers => RuleData {
+            Rule::CNumbers => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CNumbersEnd),
@@ -3254,7 +3254,7 @@ impl Rule {
                     Pat::CNumbersAt6,
                 ],
             },
-            Rule::CPreprocessorRuleConditionalLineAt5 => RuleData {
+            Rule::CPreprocessorRuleConditionalLineAt5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalLineAt5End),
@@ -3288,7 +3288,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::COperatorsAt11 => RuleData {
+            Rule::COperatorsAt11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::COperatorsAt11End),
@@ -3667,7 +3667,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CMethodAccess => RuleData {
+            Rule::CMethodAccess => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaFunctionCallMember)],
                 end: Some(Pat::CMethodAccessEnd),
@@ -3877,7 +3877,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CFunctionCallInnardsAt5 => RuleData {
+            Rule::CFunctionCallInnardsAt5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CFunctionCallInnardsAt5End),
@@ -4087,7 +4087,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CFunctionCallInnardsAt6 => RuleData {
+            Rule::CFunctionCallInnardsAt6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CFunctionCallInnardsAt6End),
@@ -4297,7 +4297,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledBlockAt0 => RuleData {
+            Rule::CPreprocessorRuleEnabledBlockAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledBlockAt0End),
@@ -4313,7 +4313,7 @@ impl Rule {
                     Pat::CPreprocessorRuleEnabledBlockAt0At4,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledBlockAt0At0 => RuleData {
+            Rule::CPreprocessorRuleEnabledBlockAt0At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledBlockAt0At0End),
@@ -4347,28 +4347,28 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledBlockAt0At2 => RuleData {
+            Rule::CPreprocessorRuleEnabledBlockAt0At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElseBranchInBlock)],
                 end: Some(Pat::CPreprocessorRuleEnabledBlockAt0At2End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CDisabled => RuleData {
+            Rule::CDisabled => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CDisabledEnd),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledBlockAt0At3 => RuleData {
+            Rule::CPreprocessorRuleEnabledBlockAt0At3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorIfBranchInBlock)],
                 end: Some(Pat::CPreprocessorRuleEnabledBlockAt0At3End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledBlockAt0At4 => RuleData {
+            Rule::CPreprocessorRuleEnabledBlockAt0At4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledBlockAt0At4End),
@@ -4555,7 +4555,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledBlockAt0 => RuleData {
+            Rule::CPreprocessorRuleDisabledBlockAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledBlockAt0End),
@@ -4573,7 +4573,7 @@ impl Rule {
                     Pat::CPreprocessorRuleDisabledBlockAt0At6,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledBlockAt0At0 => RuleData {
+            Rule::CPreprocessorRuleDisabledBlockAt0At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledBlockAt0At0End),
@@ -4607,7 +4607,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElifBlock => RuleData {
+            Rule::CPreprocessorRuleEnabledElifBlock => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElifBlockEnd),
@@ -4621,7 +4621,7 @@ impl Rule {
                     Pat::CPreprocessorRuleEnabledElifBlockAt2,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElifBlockAt0 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifBlockAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElifBlockAt0End),
@@ -4655,7 +4655,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElifBlockAt2 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifBlockAt2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElifBlockAt2End),
@@ -4844,21 +4844,21 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElifBlockAt2At0 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifBlockAt2At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElifBranchInBlock)],
                 end: Some(Pat::CPreprocessorRuleEnabledElifBlockAt2At0End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledElifBlockAt2At1 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifBlockAt2At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElifBranch)],
                 end: Some(Pat::CPreprocessorRuleEnabledElifBlockAt2At1End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledElseBlock => RuleData {
+            Rule::CPreprocessorRuleEnabledElseBlock => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElseBlockEnd),
@@ -5045,7 +5045,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledElif => RuleData {
+            Rule::CPreprocessorRuleDisabledElif => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledElifEnd),
@@ -5059,7 +5059,7 @@ impl Rule {
                     Pat::CPreprocessorRuleDisabledElifAt2,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledElifAt0 => RuleData {
+            Rule::CPreprocessorRuleDisabledElifAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledElifAt0End),
@@ -5093,14 +5093,14 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledElifAt2 => RuleData {
+            Rule::CPreprocessorRuleDisabledElifAt2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElifBranch)],
                 end: Some(Pat::CPreprocessorRuleDisabledElifAt2End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleDisabledBlockAt0At5 => RuleData {
+            Rule::CPreprocessorRuleDisabledBlockAt0At5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledBlockAt0At5End),
@@ -5288,7 +5288,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledBlockAt0At5At0 => RuleData {
+            Rule::CPreprocessorRuleDisabledBlockAt0At5At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledBlockAt0At5At0End),
@@ -5322,14 +5322,14 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledBlockAt0At6 => RuleData {
+            Rule::CPreprocessorRuleDisabledBlockAt0At6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorIfBranchInBlock)],
                 end: Some(Pat::CPreprocessorRuleDisabledBlockAt0At6End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleConditionalBlockAt0 => RuleData {
+            Rule::CPreprocessorRuleConditionalBlockAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalBlockAt0End),
@@ -5521,7 +5521,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleConditionalBlockAt0At0 => RuleData {
+            Rule::CPreprocessorRuleConditionalBlockAt0At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalBlockAt0At0End),
@@ -5555,7 +5555,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleConditionalBlockAt0At4 => RuleData {
+            Rule::CPreprocessorRuleConditionalBlockAt0At4 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalBlockAt0At4End),
@@ -5589,7 +5589,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CCFunctionCall => RuleData {
+            Rule::CCFunctionCall => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionCall)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CCFunctionCallEnd),
@@ -5799,7 +5799,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CBlockInnardsAt6 => RuleData {
+            Rule::CBlockInnardsAt6 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaInitialization)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CBlockInnardsAt6End),
@@ -6009,7 +6009,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CBlockInnardsAt7 => RuleData {
+            Rule::CBlockInnardsAt7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CBlockInnardsAt7End),
@@ -6196,7 +6196,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CParensBlock => RuleData {
+            Rule::CParensBlock => RuleDefinition {
                 name: scopes![Sc::S(S::MetaParensBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CParensBlockEnd),
@@ -6384,7 +6384,7 @@ impl Rule {
                     Pat::CParensBlockAt1,
                 ],
             },
-            Rule::CPreprocessorRuleConditionalLineAt10 => RuleData {
+            Rule::CPreprocessorRuleConditionalLineAt10 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalLineAt10End),
@@ -6418,21 +6418,21 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledAt0At2 => RuleData {
+            Rule::CPreprocessorRuleEnabledAt0At2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElseBranch)],
                 end: Some(Pat::CPreprocessorRuleEnabledAt0At2End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledAt0At3 => RuleData {
+            Rule::CPreprocessorRuleEnabledAt0At3 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorIfBranch)],
                 end: Some(Pat::CPreprocessorRuleEnabledAt0At3End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledAt0At4 => RuleData {
+            Rule::CPreprocessorRuleEnabledAt0At4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledAt0At4End),
@@ -6609,7 +6609,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledAt0 => RuleData {
+            Rule::CPreprocessorRuleDisabledAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledAt0End),
@@ -6627,7 +6627,7 @@ impl Rule {
                     Pat::CPreprocessorRuleDisabledAt0At6,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledAt0At0 => RuleData {
+            Rule::CPreprocessorRuleDisabledAt0At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledAt0At0End),
@@ -6661,7 +6661,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElif => RuleData {
+            Rule::CPreprocessorRuleEnabledElif => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElifEnd),
@@ -6675,7 +6675,7 @@ impl Rule {
                     Pat::CPreprocessorRuleEnabledElifAt2,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElifAt0 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElifAt0End),
@@ -6709,7 +6709,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElifAt2 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifAt2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElifAt2End),
@@ -6888,21 +6888,21 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleEnabledElifAt2At0 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifAt2At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElifBranch)],
                 end: Some(Pat::CPreprocessorRuleEnabledElifAt2At0End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledElifAt2At1 => RuleData {
+            Rule::CPreprocessorRuleEnabledElifAt2At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorElifBranch)],
                 end: Some(Pat::CPreprocessorRuleEnabledElifAt2At1End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleEnabledElse => RuleData {
+            Rule::CPreprocessorRuleEnabledElse => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleEnabledElseEnd),
@@ -7079,7 +7079,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledAt0At5 => RuleData {
+            Rule::CPreprocessorRuleDisabledAt0At5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledAt0At5End),
@@ -7257,7 +7257,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledAt0At5At0 => RuleData {
+            Rule::CPreprocessorRuleDisabledAt0At5At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDisabledAt0At5At0End),
@@ -7291,14 +7291,14 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleDisabledAt0At6 => RuleData {
+            Rule::CPreprocessorRuleDisabledAt0At6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtBlockPreprocessorIfBranch)],
                 end: Some(Pat::CPreprocessorRuleDisabledAt0At6End),
                 backref: None,
                 patterns: &[Pat::CDisabled, Pat::CPragmaMark],
             },
-            Rule::CPreprocessorRuleConditionalAt0 => RuleData {
+            Rule::CPreprocessorRuleConditionalAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalAt0End),
@@ -7480,7 +7480,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleConditionalAt0At0 => RuleData {
+            Rule::CPreprocessorRuleConditionalAt0At0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalAt0At0End),
@@ -7514,7 +7514,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CPreprocessorRuleConditionalAt0At4 => RuleData {
+            Rule::CPreprocessorRuleConditionalAt0At4 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleConditionalAt0At4End),
@@ -7548,7 +7548,7 @@ impl Rule {
                     Pat::CPreprocessorRuleConditionalLineAt10,
                 ],
             },
-            Rule::CSwitchStatement => RuleData {
+            Rule::CSwitchStatement => RuleDefinition {
                 name: scopes![Sc::S(S::MetaBlockSwitch)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CSwitchStatementEnd),
@@ -7559,7 +7559,7 @@ impl Rule {
                     Pat::CSwitchStatementAt2,
                 ],
             },
-            Rule::CSwitchStatementAt0 => RuleData {
+            Rule::CSwitchStatementAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaHeadSwitch)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CSwitchStatementAt0End),
@@ -7737,7 +7737,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CSwitchConditionalParentheses => RuleData {
+            Rule::CSwitchConditionalParentheses => RuleDefinition {
                 name: scopes![Sc::S(S::MetaConditionalSwitch)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CSwitchConditionalParenthesesEnd),
@@ -8093,7 +8093,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CSwitchStatementAt1 => RuleData {
+            Rule::CSwitchStatementAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaBodySwitch)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CSwitchStatementAt1End),
@@ -8451,7 +8451,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CDefaultStatement => RuleData {
+            Rule::CDefaultStatement => RuleDefinition {
                 name: scopes![Sc::S(S::MetaConditionalCase)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CDefaultStatementEnd),
@@ -8807,7 +8807,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CCaseStatement => RuleData {
+            Rule::CCaseStatement => RuleDefinition {
                 name: scopes![Sc::S(S::MetaConditionalCase)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CCaseStatementEnd),
@@ -9163,7 +9163,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CSwitchStatementAt2 => RuleData {
+            Rule::CSwitchStatementAt2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaTailSwitch)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CSwitchStatementAt2End),
@@ -9340,7 +9340,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CLangAt18 => RuleData {
+            Rule::CLangAt18 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessorMacro)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt18End),
@@ -9526,7 +9526,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDefineLineContentsAt1 => RuleData {
+            Rule::CPreprocessorRuleDefineLineContentsAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDefineLineContentsAt1End),
@@ -9713,7 +9713,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDefineLineBlocksAt0 => RuleData {
+            Rule::CPreprocessorRuleDefineLineBlocksAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDefineLineBlocksAt0End),
@@ -10078,7 +10078,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDefineLineContentsAt4 => RuleData {
+            Rule::CPreprocessorRuleDefineLineContentsAt4 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunction)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDefineLineContentsAt4End),
@@ -10288,7 +10288,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDefineLineFunctionsAt6 => RuleData {
+            Rule::CPreprocessorRuleDefineLineFunctionsAt6 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDefineLineFunctionsAt6End),
@@ -10498,7 +10498,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDefineLineFunctionsAt7 => RuleData {
+            Rule::CPreprocessorRuleDefineLineFunctionsAt7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDefineLineFunctionsAt7End),
@@ -10708,7 +10708,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CPreprocessorRuleDefineLineContentsAt5 => RuleData {
+            Rule::CPreprocessorRuleDefineLineContentsAt5 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDouble)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDefineLineContentsAt5End),
@@ -10721,7 +10721,7 @@ impl Rule {
                     Pat::CLineContinuationCharacterAt0,
                 ],
             },
-            Rule::CPreprocessorRuleDefineLineContentsAt6 => RuleData {
+            Rule::CPreprocessorRuleDefineLineContentsAt6 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedSingle)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CPreprocessorRuleDefineLineContentsAt6End),
@@ -10732,28 +10732,28 @@ impl Rule {
                     Pat::CLineContinuationCharacterAt0,
                 ],
             },
-            Rule::CLangAt19 => RuleData {
+            Rule::CLangAt19 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessorDiagnostic)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt19End),
                 backref: None,
                 patterns: &[Pat::CLangAt19At0, Pat::CLangAt19At1, Pat::CLangAt19At2],
             },
-            Rule::CLangAt19At0 => RuleData {
+            Rule::CLangAt19At0 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDouble)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt19At0End),
                 backref: None,
                 patterns: &[Pat::CLineContinuationCharacterAt0],
             },
-            Rule::CLangAt19At1 => RuleData {
+            Rule::CLangAt19At1 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedSingle)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt19At1End),
                 backref: None,
                 patterns: &[Pat::CLineContinuationCharacterAt0],
             },
-            Rule::CLangAt19At2 => RuleData {
+            Rule::CLangAt19At2 => RuleDefinition {
                 name: scopes![Sc::S(S::StrUnquotedSingle)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt19At2End),
@@ -10766,7 +10766,7 @@ impl Rule {
                     Pat::CCommentsAt3,
                 ],
             },
-            Rule::CLangAt20 => RuleData {
+            Rule::CLangAt20 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessorInclude)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt20End),
@@ -10777,21 +10777,21 @@ impl Rule {
                     Pat::CLangAt20At2,
                 ],
             },
-            Rule::CLangAt20At1 => RuleData {
+            Rule::CLangAt20At1 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDoubleInclude)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt20At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CLangAt20At2 => RuleData {
+            Rule::CLangAt20At2 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedOtherLtGtInclude)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt20At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CLangAt22 => RuleData {
+            Rule::CLangAt22 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt22End),
@@ -10803,14 +10803,14 @@ impl Rule {
                     Pat::CLineContinuationCharacterAt0,
                 ],
             },
-            Rule::CLangAt23 => RuleData {
+            Rule::CLangAt23 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt23End),
                 backref: None,
                 patterns: &[Pat::CLangAt23At0, Pat::CLineContinuationCharacterAt0],
             },
-            Rule::CLangAt24 => RuleData {
+            Rule::CLangAt24 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaPreprocessorPragma)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt24End),
@@ -10823,7 +10823,7 @@ impl Rule {
                     Pat::CLineContinuationCharacterAt0,
                 ],
             },
-            Rule::CBlockAt0 => RuleData {
+            Rule::CBlockAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CBlockAt0End),
@@ -11010,7 +11010,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CParens => RuleData {
+            Rule::CParens => RuleDefinition {
                 name: scopes![Sc::S(S::MetaParens)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CParensEnd),
@@ -11187,7 +11187,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CLangAt33 => RuleData {
+            Rule::CLangAt33 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunction)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt33End),
@@ -11386,7 +11386,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CFunctionInnardsAt4 => RuleData {
+            Rule::CFunctionInnardsAt4 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionDefinitionParameters)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CFunctionInnardsAt4End),
@@ -11586,7 +11586,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CFunctionInnardsAt5 => RuleData {
+            Rule::CFunctionInnardsAt5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CFunctionInnardsAt5End),
@@ -11785,7 +11785,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CLangAt35 => RuleData {
+            Rule::CLangAt35 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaBracketSquareAccess)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CLangAt35End),
@@ -11995,14 +11995,14 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::AnonymousPattern14 => RuleData {
+            Rule::AnonymousPattern14 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaSelector)],
                 content: scopes![Sc::S(S::MetaSelectorMethodName)],
                 end: Some(Pat::AnonymousPattern14End),
                 backref: None,
                 patterns: &[Pat::AnonymousPattern14At0],
             },
-            Rule::BracketedContent => RuleData {
+            Rule::BracketedContent => RuleDefinition {
                 name: scopes![Sc::S(S::MetaBracketed)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::BracketedContentEnd),
@@ -12185,7 +12185,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::BracketedContentAt0 => RuleData {
+            Rule::BracketedContentAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionCallPredicate)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::BracketedContentAt0End),
@@ -12369,7 +12369,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::BracketedContentAt0At2 => RuleData {
+            Rule::BracketedContentAt0At2 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDouble)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::BracketedContentAt0At2End),
@@ -12385,7 +12385,7 @@ impl Rule {
                     Pat::BracketedContentAt0At2At7,
                 ],
             },
-            Rule::BracketedContentAt1 => RuleData {
+            Rule::BracketedContentAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionCall)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::BracketedContentAt1End),
@@ -12567,7 +12567,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppSpecialBlockAt2 => RuleData {
+            Rule::CppSpecialBlockAt2 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaClassStructBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppSpecialBlockAt2End),
@@ -12746,7 +12746,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppAngleBrackets => RuleData {
+            Rule::CppAngleBrackets => RuleDefinition {
                 name: scopes![Sc::S(S::MetaAngleBrackets)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppAngleBracketsEnd),
@@ -12924,7 +12924,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppSpecialBlockAt2At1 => RuleData {
+            Rule::CppSpecialBlockAt2At1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppSpecialBlockAt2At1End),
@@ -13106,7 +13106,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppSpecialBlockAt3 => RuleData {
+            Rule::CppSpecialBlockAt3 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaExternBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppSpecialBlockAt3End),
@@ -13284,7 +13284,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppSpecialBlockAt3At0 => RuleData {
+            Rule::CppSpecialBlockAt3At0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppSpecialBlockAt3At0End),
@@ -13465,7 +13465,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppStringsAt0 => RuleData {
+            Rule::CppStringsAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDouble)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppStringsAt0End),
@@ -13479,21 +13479,21 @@ impl Rule {
                     Pat::StringPlaceholderAt1,
                 ],
             },
-            Rule::CppStringsAt1 => RuleData {
+            Rule::CppStringsAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::StrQuotedDoubleRaw)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppStringsAt1End),
                 backref: Some(4),
                 patterns: &[],
             },
-            Rule::CppTemplateDefinition => RuleData {
+            Rule::CppTemplateDefinition => RuleDefinition {
                 name: scopes![Sc::S(S::TemplateDefinition)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppTemplateDefinitionEnd),
                 backref: None,
                 patterns: &[Pat::CppTemplateDefinitionArgument],
             },
-            Rule::CppLangAt16 => RuleData {
+            Rule::CppLangAt16 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionDestructor)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppLangAt16End),
@@ -13670,7 +13670,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CppLangAt17 => RuleData {
+            Rule::CppLangAt17 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaFunctionDestructorPrototype)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CppLangAt17End),
@@ -13847,7 +13847,7 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -14024,91 +14024,91 @@ impl Rule {
                     Pat::CLangAt38,
                 ],
             },
-            Rule::CNumbersAt0Cap2 => RuleData {
+            Rule::CNumbersAt0Cap2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt0Cap2At0],
             },
-            Rule::CNumbersAt0Cap5 => RuleData {
+            Rule::CNumbersAt0Cap5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt0Cap5At0],
             },
-            Rule::CNumbersAt0Cap11 => RuleData {
+            Rule::CNumbersAt0Cap11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt0Cap11At0],
             },
-            Rule::CNumbersAt1Cap2 => RuleData {
+            Rule::CNumbersAt1Cap2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt1Cap2At0],
             },
-            Rule::CNumbersAt1Cap5 => RuleData {
+            Rule::CNumbersAt1Cap5 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt1Cap5At0],
             },
-            Rule::CNumbersAt1Cap11 => RuleData {
+            Rule::CNumbersAt1Cap11 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt1Cap11At0],
             },
-            Rule::CNumbersAt2Cap2 => RuleData {
+            Rule::CNumbersAt2Cap2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt2Cap2At0],
             },
-            Rule::CNumbersAt3Cap2 => RuleData {
+            Rule::CNumbersAt3Cap2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt3Cap2At0],
             },
-            Rule::CNumbersAt4Cap2 => RuleData {
+            Rule::CNumbersAt4Cap2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt4Cap2At0],
             },
-            Rule::CNumbersAt4Cap8 => RuleData {
+            Rule::CNumbersAt4Cap8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt4Cap8At0],
             },
-            Rule::CNumbersAt5Cap2 => RuleData {
+            Rule::CNumbersAt5Cap2 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt5Cap2At0],
             },
-            Rule::CNumbersAt5Cap8 => RuleData {
+            Rule::CNumbersAt5Cap8 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CNumbersAt5Cap8At0],
             },
-            Rule::CMethodAccessCap1 => RuleData {
+            Rule::CMethodAccessCap1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -14119,7 +14119,7 @@ impl Rule {
                     Pat::CMethodAccessCap1At1,
                 ],
             },
-            Rule::CMemberAccessCap1 => RuleData {
+            Rule::CMemberAccessCap1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -14130,7 +14130,7 @@ impl Rule {
                     Pat::CMemberAccessCap1At1,
                 ],
             },
-            Rule::CMemberAccessCap4At2Cap1 => RuleData {
+            Rule::CMemberAccessCap4At2Cap1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -14141,7 +14141,7 @@ impl Rule {
                     Pat::CMemberAccessCap4At2Cap1At1,
                 ],
             },
-            Rule::CMemberAccessCap4 => RuleData {
+            Rule::CMemberAccessCap4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -14152,7 +14152,7 @@ impl Rule {
                     Pat::CMemberAccessCap4At2,
                 ],
             },
-            Rule::CMethodAccessCap4At2Cap1 => RuleData {
+            Rule::CMethodAccessCap4At2Cap1 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -14163,7 +14163,7 @@ impl Rule {
                     Pat::CMethodAccessCap4At2Cap1At1,
                 ],
             },
-            Rule::CMethodAccessCap4 => RuleData {
+            Rule::CMethodAccessCap4 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -14174,7 +14174,7 @@ impl Rule {
                     Pat::CMethodAccessCap4At2,
                 ],
             },
-            Rule::CppSpecialBlockAt2Cap7 => RuleData {
+            Rule::CppSpecialBlockAt2Cap7 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -15046,9 +15046,9 @@ pub(crate) enum Pat {
 
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::CppSpecialBlockAt0 => PatData {
+            Pat::CppSpecialBlockAt0 => PatDefinition {
                 act: Act::Begin(Rule::CppSpecialBlockAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControl)]),
@@ -15057,12 +15057,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt0End => PatData {
+            Pat::CppSpecialBlockAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PTerminatorStatement)])],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt1 => PatData {
+            Pat::CppSpecialBlockAt1 => PatDefinition {
                 act: Act::Begin(Rule::CppSpecialBlockAt1),
                 captures: &[
                     (1, scopes![Sc::S(S::StorTypeNamespace)]),
@@ -15070,22 +15070,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt1End => PatData {
+            Pat::CppSpecialBlockAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::KwControlNamespace2)])],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt1At0 => PatData {
+            Pat::CppSpecialBlockAt1At0 => PatDefinition {
                 act: Act::Begin(Rule::CppSpecialBlockAt1At0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionScope)])],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt1At0End => PatData {
+            Pat::CppSpecialBlockAt1At0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionScope)])],
                 nested: &[],
             },
-            Pat::CppConstructorAt1 => PatData {
+            Pat::CppConstructorAt1 => PatDefinition {
                 act: Act::Begin(Rule::CppConstructorAt1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionParameters)])],
                 nested: &[],
@@ -15156,12 +15156,12 @@ impl Pat {
             | Pat::BracketedContentAt1End
             | Pat::CppSpecialBlockAt2End
             | Pat::CppAngleBracketsEnd
-            | Pat::CppSpecialBlockAt3End => PatData {
+            | Pat::CppSpecialBlockAt3End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern1 => PatData {
+            Pat::AnonymousPattern1 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousPattern1),
                 captures: &[
                     (1, scopes![Sc::S(S::StorType)]),
@@ -15174,7 +15174,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AnonymousPattern1End => PatData {
+            Pat::AnonymousPattern1End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::StorType)]),
@@ -15187,7 +15187,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleEnabledInterface => PatData {
+            Pat::PreprocessorRuleEnabledInterface => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleEnabledInterface),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15199,7 +15199,7 @@ impl Pat {
             Pat::PreprocessorRuleEnabledInterfaceEnd
             | Pat::PreprocessorRuleDisabledInterfaceEnd
             | Pat::PreprocessorRuleEnabledImplementationEnd
-            | Pat::PreprocessorRuleDisabledImplementationEnd => PatData {
+            | Pat::PreprocessorRuleDisabledImplementationEnd => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15208,7 +15208,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleEnabledInterfaceAt0 => PatData {
+            Pat::PreprocessorRuleEnabledInterfaceAt0 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleEnabledInterfaceAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15219,7 +15219,7 @@ impl Pat {
             Pat::PreprocessorRuleEnabledInterfaceAt0End
             | Pat::PreprocessorRuleDisabledInterfaceAt0End
             | Pat::PreprocessorRuleEnabledImplementationAt0End
-            | Pat::PreprocessorRuleDisabledImplementationAt0End => PatData {
+            | Pat::PreprocessorRuleDisabledImplementationAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15227,12 +15227,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Disabled => PatData {
+            Pat::Disabled => PatDefinition {
                 act: Act::Begin(Rule::Disabled),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PragmaMark => PatData {
+            Pat::PragmaMark => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaSection)]),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15241,12 +15241,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleEnabledInterfaceAt1 => PatData {
+            Pat::PreprocessorRuleEnabledInterfaceAt1 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleEnabledInterfaceAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorRuleDisabledInterface => PatData {
+            Pat::PreprocessorRuleDisabledInterface => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleDisabledInterface),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15255,7 +15255,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleDisabledInterfaceAt0 => PatData {
+            Pat::PreprocessorRuleDisabledInterfaceAt0 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleDisabledInterfaceAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15263,12 +15263,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleDisabledInterfaceAt1 => PatData {
+            Pat::PreprocessorRuleDisabledInterfaceAt1 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleDisabledInterfaceAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorRuleOtherInterface => PatData {
+            Pat::PreprocessorRuleOtherInterface => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleOtherInterface),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15277,7 +15277,7 @@ impl Pat {
                 nested: &[],
             },
             Pat::PreprocessorRuleOtherInterfaceEnd
-            | Pat::PreprocessorRuleOtherImplementationEnd => PatData {
+            | Pat::PreprocessorRuleOtherImplementationEnd => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15285,7 +15285,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PropertiesAt0 => PatData {
+            Pat::PropertiesAt0 => PatDefinition {
                 act: Act::Begin(Rule::PropertiesAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::KwOtherProperty)]),
@@ -15294,17 +15294,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PropertiesAt0End | Pat::ProtocolListEnd => PatData {
+            Pat::PropertiesAt0End | Pat::ProtocolListEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PSectionScopeEnd)])],
                 nested: &[],
             },
-            Pat::PropertiesAt0At0 => PatData {
+            Pat::PropertiesAt0At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOtherPropertyAttribute)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PropertiesAt1 => PatData {
+            Pat::PropertiesAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaProperty)]),
                 captures: &[
                     (1, scopes![Sc::S(S::KwOtherProperty)]),
@@ -15312,27 +15312,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ProtocolList => PatData {
+            Pat::ProtocolList => PatDefinition {
                 act: Act::Begin(Rule::ProtocolList),
                 captures: &[(1, scopes![Sc::S(S::PSectionScopeBegin)])],
                 nested: &[],
             },
-            Pat::ProtocolListAt0 => PatData {
+            Pat::ProtocolListAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppOtherProtocol)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Method => PatData {
+            Pat::Method => PatDefinition {
                 act: Act::Begin(Rule::Method),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MethodAt0 => PatData {
+            Pat::MethodAt0 => PatDefinition {
                 act: Act::Begin(Rule::MethodAt0),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionTypeBegin)])],
                 nested: &[],
             },
-            Pat::MethodAt0End => PatData {
+            Pat::MethodAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionTypeEnd)]),
@@ -15340,17 +15340,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ProtocolTypeQualifier => PatData {
+            Pat::ProtocolTypeQualifier => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorModifierProtocol)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MethodAt1 => PatData {
+            Pat::MethodAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::EntNameFunctionNameOfParameter)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MethodAt2 => PatData {
+            Pat::MethodAt2 => PatDefinition {
                 act: Act::Begin(Rule::MethodAt2),
                 captures: &[
                     (1, scopes![Sc::S(S::EntNameFunctionNameOfParameter)]),
@@ -15359,7 +15359,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MethodAt2End => PatData {
+            Pat::MethodAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::PDefinitionTypeEnd)]),
@@ -15367,32 +15367,32 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CommentAt0 => PatData {
+            Pat::CommentAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::CommentAt0End => PatData {
+            Pat::CommentAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::CommentAt1 => PatData {
+            Pat::CommentAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt1),
                 captures: &[(1, scopes![Sc::S(S::PWhitespaceCommentLeading)])],
                 nested: &[],
             },
-            Pat::CommentAt1At0 => PatData {
+            Pat::CommentAt1At0 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt1At0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::CommentAt1At0At0 => PatData {
+            Pat::CommentAt1At0At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PSeparatorContinuation)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern2 => PatData {
+            Pat::AnonymousPattern2 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousPattern2),
                 captures: &[
                     (1, scopes![Sc::S(S::StorType)]),
@@ -15402,7 +15402,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AnonymousPattern2End => PatData {
+            Pat::AnonymousPattern2End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::StorType)]),
@@ -15412,7 +15412,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleEnabledImplementation => PatData {
+            Pat::PreprocessorRuleEnabledImplementation => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleEnabledImplementation),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15421,7 +15421,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleEnabledImplementationAt0 => PatData {
+            Pat::PreprocessorRuleEnabledImplementationAt0 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleEnabledImplementationAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15429,12 +15429,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleEnabledImplementationAt1 => PatData {
+            Pat::PreprocessorRuleEnabledImplementationAt1 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleEnabledImplementationAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorRuleDisabledImplementation => PatData {
+            Pat::PreprocessorRuleDisabledImplementation => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleDisabledImplementation),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15443,7 +15443,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleDisabledImplementationAt0 => PatData {
+            Pat::PreprocessorRuleDisabledImplementationAt0 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleDisabledImplementationAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15451,12 +15451,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PreprocessorRuleDisabledImplementationAt1 => PatData {
+            Pat::PreprocessorRuleDisabledImplementationAt1 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleDisabledImplementationAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorRuleOtherImplementation => PatData {
+            Pat::PreprocessorRuleOtherImplementation => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorRuleOtherImplementation),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15464,17 +15464,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::PropertyDirective => PatData {
+            Pat::PropertyDirective => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOtherPropertyDirective)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeyword)])],
                 nested: &[],
             },
-            Pat::MethodSuper => PatData {
+            Pat::MethodSuper => PatDefinition {
                 act: Act::Begin(Rule::MethodSuper),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern3 => PatData {
+            Pat::AnonymousPattern3 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousPattern3),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
@@ -15489,7 +15489,7 @@ impl Pat {
             | Pat::CLangAt20At1End
             | Pat::CLangAt20At2End
             | Pat::BracketedContentAt0At2End
-            | Pat::CppStringsAt0End => PatData {
+            | Pat::CppStringsAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringEnd)])],
                 nested: &[],
@@ -15500,41 +15500,41 @@ impl Pat {
             | Pat::CppStringsAt0At0
             | Pat::CppStringsAt0At1
             | Pat::CppStringsAt0At2
-            | Pat::CppStringsAt0At3 => PatData {
+            | Pat::CppStringsAt0At3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEscape)]),
                 captures: &[],
                 nested: &[],
             },
             Pat::StringEscapedCharAt1
             | Pat::CStringEscapedCharAt1
-            | Pat::BracketedContentAt0At2At7 => PatData {
+            | Pat::BracketedContentAt0At2At7 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::InvIllegalUnknownEscape)]),
                 captures: &[],
                 nested: &[],
             },
             Pat::AnonymousPattern3At1 | Pat::StringPlaceholderAt0 | Pat::CStringPlaceholderAt0 => {
-                PatData {
+                PatDefinition {
                     act: Act::Match(scopes![Sc::S(S::ConstOtherPlaceholder)]),
                     captures: &[],
                     nested: &[],
                 }
             }
-            Pat::StringPlaceholderAt1 | Pat::CStringPlaceholderAt1 => PatData {
+            Pat::StringPlaceholderAt1 | Pat::CStringPlaceholderAt1 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[(1, scopes![Sc::S(S::InvIllegalPlaceholder)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern4 => PatData {
+            Pat::AnonymousPattern4 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousPattern4),
                 captures: &[(1, scopes![Sc::S(S::StorType)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern5 => PatData {
+            Pat::AnonymousPattern5 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlMacro)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AppleFoundationFunctionalMacros => PatData {
+            Pat::AppleFoundationFunctionalMacros => PatDefinition {
                 act: Act::Begin(Rule::AppleFoundationFunctionalMacros),
                 captures: &[
                     (
@@ -15550,7 +15550,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AppleFoundationFunctionalMacrosEnd => PatData {
+            Pat::AppleFoundationFunctionalMacrosEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     0,
@@ -15560,7 +15560,7 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledAt0 => PatData {
+            Pat::CPreprocessorRuleEnabledAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledAt0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15575,7 +15575,7 @@ impl Pat {
             | Pat::CPreprocessorRuleDisabledBlockAt0End
             | Pat::CPreprocessorRuleConditionalBlockAt0End
             | Pat::CPreprocessorRuleDisabledAt0End
-            | Pat::CPreprocessorRuleConditionalAt0End => PatData {
+            | Pat::CPreprocessorRuleConditionalAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -15584,72 +15584,72 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledAt0At0 => PatData {
+            Pat::CPreprocessorRuleEnabledAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalLineAt0 => PatData {
+            Pat::CPreprocessorRuleConditionalLineAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlDirectiveConditional)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalLineAt1 => PatData {
+            Pat::CPreprocessorRuleConditionalLineAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::InvIllegalMacroName)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CCommentsAt0 => PatData {
+            Pat::CCommentsAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::CmtBlock)]),
                 captures: &[(1, scopes![Sc::S(S::MetaTocListBannerBlock)])],
                 nested: &[],
             },
-            Pat::CCommentsAt1 => PatData {
+            Pat::CCommentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CCommentsAt1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionCommentBegin)])],
                 nested: &[],
             },
-            Pat::CCommentsAt1End => PatData {
+            Pat::CCommentsAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionCommentEnd)])],
                 nested: &[],
             },
-            Pat::CCommentsAt2 => PatData {
+            Pat::CCommentsAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::CmtLineBanner)]),
                 captures: &[(1, scopes![Sc::S(S::MetaTocListBannerLine)])],
                 nested: &[],
             },
-            Pat::CCommentsAt3 => PatData {
+            Pat::CCommentsAt3 => PatDefinition {
                 act: Act::Begin(Rule::CCommentsAt3),
                 captures: &[(1, scopes![Sc::S(S::PWhitespaceCommentLeading)])],
                 nested: &[],
             },
-            Pat::CCommentsAt3At0 => PatData {
+            Pat::CCommentsAt3At0 => PatDefinition {
                 act: Act::Begin(Rule::CCommentsAt3At0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::CLineContinuationCharacterAt0 => PatData {
+            Pat::CLineContinuationCharacterAt0 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[(1, scopes![Sc::S(S::ConstCharacterEscapeLineContinuation)])],
                 nested: &[],
             },
-            Pat::CStringsAt0 => PatData {
+            Pat::CStringsAt0 => PatDefinition {
                 act: Act::Begin(Rule::CStringsAt0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CStringsAt1 => PatData {
+            Pat::CStringsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CStringsAt1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CNumbers => PatData {
+            Pat::CNumbers => PatDefinition {
                 act: Act::Begin(Rule::CNumbers),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CNumbersAt0 => PatData {
+            Pat::CNumbersAt0 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::KwOtherUnitHexadecimal)]),
@@ -15696,12 +15696,12 @@ impl Pat {
             | Pat::CNumbersAt4Cap2At0
             | Pat::CNumbersAt4Cap8At0
             | Pat::CNumbersAt5Cap2At0
-            | Pat::CNumbersAt5Cap8At0 => PatData {
+            | Pat::CNumbersAt5Cap8At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PSeparatorConstantNumeric)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CNumbersAt1 => PatData {
+            Pat::CNumbersAt1 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (3, scopes![Sc::S(S::PSeparatorConstantNumeric)]),
@@ -15736,7 +15736,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::CNumbersAt2 => PatData {
+            Pat::CNumbersAt2 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::KwOtherUnitBinary)]),
@@ -15751,7 +15751,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::CNumbersAt3 => PatData {
+            Pat::CNumbersAt3 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::KwOtherUnitOctal)]),
@@ -15766,7 +15766,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::CNumbersAt4 => PatData {
+            Pat::CNumbersAt4 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::KwOtherUnitHexadecimal)]),
@@ -15793,7 +15793,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::CNumbersAt5 => PatData {
+            Pat::CNumbersAt5 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (3, scopes![Sc::S(S::PSeparatorConstantNumeric)]),
@@ -15819,97 +15819,97 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::CNumbersAt6 => PatData {
+            Pat::CNumbersAt6 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::InvIllegalConstantNumeric)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalLineAt5 => PatData {
+            Pat::CPreprocessorRuleConditionalLineAt5 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalLineAt5),
                 captures: &[(0, scopes![Sc::S(S::KwOperatorTernary)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalLineAt5End => PatData {
+            Pat::CPreprocessorRuleConditionalLineAt5End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::KwOperatorTernary)])],
                 nested: &[],
             },
-            Pat::COperatorsAt0 => PatData {
+            Pat::COperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorSizeof)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt1 => PatData {
+            Pat::COperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorDecrement)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt2 => PatData {
+            Pat::COperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorIncrement)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt3 => PatData {
+            Pat::COperatorsAt3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorAssignmentCompound)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt4 => PatData {
+            Pat::COperatorsAt4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorAssignmentCompoundBitwise)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt5 => PatData {
+            Pat::COperatorsAt5 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorBitwiseShift)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt6 => PatData {
+            Pat::COperatorsAt6 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorComparison)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt7 => PatData {
+            Pat::COperatorsAt7 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorLogical)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt8 | Pat::COperatorsAt10 | Pat::CppLangAt13 => PatData {
+            Pat::COperatorsAt8 | Pat::COperatorsAt10 | Pat::CppLangAt13 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperator)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt9 => PatData {
+            Pat::COperatorsAt9 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorAssignment)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::COperatorsAt11 => PatData {
+            Pat::COperatorsAt11 => PatDefinition {
                 act: Act::Begin(Rule::COperatorsAt11),
                 captures: &[(1, scopes![Sc::S(S::KwOperatorTernary)])],
                 nested: &[],
             },
-            Pat::COperatorsAt11End => PatData {
+            Pat::COperatorsAt11End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::KwOperatorTernary)])],
                 nested: &[],
             },
-            Pat::CStorageTypesAt0 => PatData {
+            Pat::CStorageTypesAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorTypeBuiltInPrimitive)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CStorageTypesAt1 => PatData {
+            Pat::CStorageTypesAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorTypeBuiltIn)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CStorageTypesAt2 => PatData {
+            Pat::CStorageTypesAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::Group("storage.type.", 1, ".objcpp")]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CMethodAccess => PatData {
+            Pat::CMethodAccess => PatDefinition {
                 act: Act::Begin(Rule::CMethodAccess),
                 captures: &[
                     (2, scopes![Sc::S(S::PSeparatorDotAccess)]),
@@ -15937,7 +15937,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::CMethodAccessEnd => PatData {
+            Pat::CMethodAccessEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     1,
@@ -15945,12 +15945,12 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::SpecialVariablesAt0 => PatData {
+            Pat::SpecialVariablesAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarOtherSelector)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SpecialVariablesAt1 => PatData {
+            Pat::SpecialVariablesAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarLanguage)]),
                 captures: &[],
                 nested: &[],
@@ -15958,12 +15958,12 @@ impl Pat {
             Pat::CMethodAccessCap1At1
             | Pat::CMemberAccessCap1At1
             | Pat::CMemberAccessCap4At2Cap1At1
-            | Pat::CMethodAccessCap4At2Cap1At1 => PatData {
+            | Pat::CMethodAccessCap4At2Cap1At1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarOtherObjectAccess)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CMemberAccess => PatData {
+            Pat::CMemberAccess => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (2, scopes![Sc::S(S::PSeparatorDotAccess)]),
@@ -15987,7 +15987,7 @@ impl Pat {
                     ),
                 ],
             },
-            Pat::CMemberAccessCap4At2 => PatData {
+            Pat::CMemberAccessCap4At2 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (2, scopes![Sc::S(S::PSeparatorDotAccess)]),
@@ -16001,7 +16001,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::CMethodAccessCap4At2 => PatData {
+            Pat::CMethodAccessCap4At2 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (2, scopes![Sc::S(S::PSeparatorDotAccess)]),
@@ -16015,7 +16015,7 @@ impl Pat {
                     },
                 )],
             },
-            Pat::CFunctionCallInnardsAt5 => PatData {
+            Pat::CFunctionCallInnardsAt5 => PatDefinition {
                 act: Act::Begin(Rule::CFunctionCallInnardsAt5),
                 captures: &[
                     (1, scopes![Sc::S(S::EntNameFunction)]),
@@ -16023,12 +16023,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CFunctionCallInnardsAt5End => PatData {
+            Pat::CFunctionCallInnardsAt5End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PSectionArgumentsEndBracketRound)])],
                 nested: &[],
             },
-            Pat::CFunctionCallInnardsAt6 => PatData {
+            Pat::CFunctionCallInnardsAt6 => PatDefinition {
                 act: Act::Begin(Rule::CFunctionCallInnardsAt6),
                 captures: &[(0, scopes![Sc::S(S::PSectionParensBeginBracketRound)])],
                 nested: &[],
@@ -16037,12 +16037,12 @@ impl Pat {
             | Pat::CParensBlockEnd
             | Pat::CPreprocessorRuleConditionalLineAt10End
             | Pat::CParensEnd
-            | Pat::CFunctionInnardsAt5End => PatData {
+            | Pat::CFunctionInnardsAt5End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PSectionParensEndBracketRound)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledBlockAt0 => PatData {
+            Pat::CPreprocessorRuleEnabledBlockAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledBlockAt0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16051,12 +16051,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledBlockAt0At0 => PatData {
+            Pat::CPreprocessorRuleEnabledBlockAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledBlockAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledBlockAt0At2 => PatData {
+            Pat::CPreprocessorRuleEnabledBlockAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledBlockAt0At2),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16065,12 +16065,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CDisabled => PatData {
+            Pat::CDisabled => PatDefinition {
                 act: Act::Begin(Rule::CDisabled),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPragmaMark => PatData {
+            Pat::CPragmaMark => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaSection)]),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaPreprocessorPragma)]),
@@ -16080,7 +16080,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledBlockAt0At3 => PatData {
+            Pat::CPreprocessorRuleEnabledBlockAt0At3 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledBlockAt0At3),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16089,12 +16089,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledBlockAt0At4 => PatData {
+            Pat::CPreprocessorRuleEnabledBlockAt0At4 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledBlockAt0At4),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledBlockAt0 => PatData {
+            Pat::CPreprocessorRuleDisabledBlockAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledBlockAt0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16103,12 +16103,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledBlockAt0At0 => PatData {
+            Pat::CPreprocessorRuleDisabledBlockAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledBlockAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifBlock => PatData {
+            Pat::CPreprocessorRuleEnabledElifBlock => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifBlock),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16117,17 +16117,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifBlockAt0 => PatData {
+            Pat::CPreprocessorRuleEnabledElifBlockAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifBlockAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifBlockAt2 => PatData {
+            Pat::CPreprocessorRuleEnabledElifBlockAt2 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifBlockAt2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifBlockAt2At0 => PatData {
+            Pat::CPreprocessorRuleEnabledElifBlockAt2At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifBlockAt2At0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16136,7 +16136,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifBlockAt2At1 => PatData {
+            Pat::CPreprocessorRuleEnabledElifBlockAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifBlockAt2At1),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16145,7 +16145,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElseBlock => PatData {
+            Pat::CPreprocessorRuleEnabledElseBlock => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElseBlock),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16154,7 +16154,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledElif => PatData {
+            Pat::CPreprocessorRuleDisabledElif => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledElif),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16163,17 +16163,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledElifAt0 => PatData {
+            Pat::CPreprocessorRuleDisabledElifAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledElifAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledElifAt2 => PatData {
+            Pat::CPreprocessorRuleDisabledElifAt2 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledElifAt2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledBlockAt0At5 => PatData {
+            Pat::CPreprocessorRuleDisabledBlockAt0At5 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledBlockAt0At5),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16182,17 +16182,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledBlockAt0At5At0 => PatData {
+            Pat::CPreprocessorRuleDisabledBlockAt0At5At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledBlockAt0At5At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledBlockAt0At6 => PatData {
+            Pat::CPreprocessorRuleDisabledBlockAt0At6 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledBlockAt0At6),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalBlockAt0 => PatData {
+            Pat::CPreprocessorRuleConditionalBlockAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalBlockAt0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16201,12 +16201,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalBlockAt0At0 => PatData {
+            Pat::CPreprocessorRuleConditionalBlockAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalBlockAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalBlockAt0At4 => PatData {
+            Pat::CPreprocessorRuleConditionalBlockAt0At4 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalBlockAt0At4),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlDirectiveConditional)]),
@@ -16215,7 +16215,7 @@ impl Pat {
                 nested: &[],
             },
             Pat::CPreprocessorRuleConditionalBlockAt1 | Pat::CPreprocessorRuleConditionalAt1 => {
-                PatData {
+                PatDefinition {
                     act: Act::Match(Sc::NO_SCOPES),
                     captures: &[(
                         0,
@@ -16224,12 +16224,12 @@ impl Pat {
                     nested: &[],
                 }
             }
-            Pat::CCFunctionCall => PatData {
+            Pat::CCFunctionCall => PatDefinition {
                 act: Act::Begin(Rule::CCFunctionCall),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CBlockInnardsAt6 => PatData {
+            Pat::CBlockInnardsAt6 => PatDefinition {
                 act: Act::Begin(Rule::CBlockInnardsAt6),
                 captures: &[
                     (1, scopes![Sc::S(S::VarOther)]),
@@ -16240,7 +16240,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CBlockInnardsAt6End => PatData {
+            Pat::CBlockInnardsAt6End => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     0,
@@ -16248,7 +16248,7 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::CBlockInnardsAt7 => PatData {
+            Pat::CBlockInnardsAt7 => PatDefinition {
                 act: Act::Begin(Rule::CBlockInnardsAt7),
                 captures: &[(0, scopes![Sc::S(S::PSectionBlockBeginBracketCurly)])],
                 nested: &[],
@@ -16257,17 +16257,17 @@ impl Pat {
             | Pat::CPreprocessorRuleDefineLineContentsAt1End
             | Pat::CPreprocessorRuleDefineLineBlocksAt0End
             | Pat::CBlockAt0End
-            | Pat::CppSpecialBlockAt3At0End => PatData {
+            | Pat::CppSpecialBlockAt3At0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PSectionBlockEndBracketCurly)])],
                 nested: &[],
             },
-            Pat::CParensBlock => PatData {
+            Pat::CParensBlock => PatDefinition {
                 act: Act::Begin(Rule::CParensBlock),
                 captures: &[(0, scopes![Sc::S(S::PSectionParensBeginBracketRound)])],
                 nested: &[],
             },
-            Pat::CParensBlockAt1 => PatData {
+            Pat::CParensBlockAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PRangeBased)]),
                 captures: &[],
                 nested: &[],
@@ -16275,22 +16275,22 @@ impl Pat {
             Pat::CPreprocessorRuleConditionalLineAt7
             | Pat::CLangAt13
             | Pat::AnonymousPattern16
-            | Pat::CppLangAt8 => PatData {
+            | Pat::CppLangAt8 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstLanguage)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalLineAt8 | Pat::CLangAt23At0 => PatData {
+            Pat::CPreprocessorRuleConditionalLineAt8 | Pat::CLangAt23At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::EntNameFunctionPreprocessor)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalLineAt10 => PatData {
+            Pat::CPreprocessorRuleConditionalLineAt10 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalLineAt10),
                 captures: &[(0, scopes![Sc::S(S::PSectionParensBeginBracketRound)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledAt0At2 => PatData {
+            Pat::CPreprocessorRuleEnabledAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledAt0At2),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16299,7 +16299,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledAt0At3 => PatData {
+            Pat::CPreprocessorRuleEnabledAt0At3 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledAt0At3),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16308,12 +16308,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledAt0At4 => PatData {
+            Pat::CPreprocessorRuleEnabledAt0At4 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledAt0At4),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledAt0 => PatData {
+            Pat::CPreprocessorRuleDisabledAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledAt0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16322,12 +16322,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledAt0At0 => PatData {
+            Pat::CPreprocessorRuleDisabledAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElif => PatData {
+            Pat::CPreprocessorRuleEnabledElif => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElif),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16336,17 +16336,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifAt0 => PatData {
+            Pat::CPreprocessorRuleEnabledElifAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifAt2 => PatData {
+            Pat::CPreprocessorRuleEnabledElifAt2 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifAt2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifAt2At0 => PatData {
+            Pat::CPreprocessorRuleEnabledElifAt2At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifAt2At0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16355,7 +16355,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElifAt2At1 => PatData {
+            Pat::CPreprocessorRuleEnabledElifAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElifAt2At1),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16364,7 +16364,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleEnabledElse => PatData {
+            Pat::CPreprocessorRuleEnabledElse => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleEnabledElse),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16373,7 +16373,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledAt0At5 => PatData {
+            Pat::CPreprocessorRuleDisabledAt0At5 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledAt0At5),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16382,17 +16382,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledAt0At5At0 => PatData {
+            Pat::CPreprocessorRuleDisabledAt0At5At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledAt0At5At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDisabledAt0At6 => PatData {
+            Pat::CPreprocessorRuleDisabledAt0At6 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDisabledAt0At6),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalAt0 => PatData {
+            Pat::CPreprocessorRuleConditionalAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalAt0),
                 captures: &[
                     (0, scopes![Sc::S(S::MetaPreprocessor)]),
@@ -16401,12 +16401,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalAt0At0 => PatData {
+            Pat::CPreprocessorRuleConditionalAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleConditionalAt0At4 => PatData {
+            Pat::CPreprocessorRuleConditionalAt0At4 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleConditionalAt0At4),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlDirectiveConditional)]),
@@ -16414,7 +16414,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CSwitchStatement => PatData {
+            Pat::CSwitchStatement => PatDefinition {
                 act: Act::Begin(Rule::CSwitchStatement),
                 captures: &[
                     (1, scopes![Sc::S(S::MetaHeadSwitch)]),
@@ -16422,17 +16422,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CSwitchStatementAt0 => PatData {
+            Pat::CSwitchStatementAt0 => PatDefinition {
                 act: Act::Begin(Rule::CSwitchStatementAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CSwitchStatementAt0End => PatData {
+            Pat::CSwitchStatementAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PSectionBlockBeginBracketCurlySwitch)])],
                 nested: &[],
             },
-            Pat::CSwitchConditionalParentheses => PatData {
+            Pat::CSwitchConditionalParentheses => PatDefinition {
                 act: Act::Begin(Rule::CSwitchConditionalParentheses),
                 captures: &[(
                     1,
@@ -16440,7 +16440,7 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::CSwitchConditionalParenthesesEnd => PatData {
+            Pat::CSwitchConditionalParenthesesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     1,
@@ -16448,77 +16448,77 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::CSwitchStatementAt1 => PatData {
+            Pat::CSwitchStatementAt1 => PatDefinition {
                 act: Act::Begin(Rule::CSwitchStatementAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CSwitchStatementAt1End => PatData {
+            Pat::CSwitchStatementAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PSectionBlockEndBracketCurlySwitch)])],
                 nested: &[],
             },
-            Pat::CDefaultStatement => PatData {
+            Pat::CDefaultStatement => PatDefinition {
                 act: Act::Begin(Rule::CDefaultStatement),
                 captures: &[(1, scopes![Sc::S(S::KwControlDefault)])],
                 nested: &[],
             },
-            Pat::CDefaultStatementEnd => PatData {
+            Pat::CDefaultStatementEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PSeparatorCaseDefault)])],
                 nested: &[],
             },
-            Pat::CCaseStatement => PatData {
+            Pat::CCaseStatement => PatDefinition {
                 act: Act::Begin(Rule::CCaseStatement),
                 captures: &[(1, scopes![Sc::S(S::KwControlCase)])],
                 nested: &[],
             },
-            Pat::CCaseStatementEnd => PatData {
+            Pat::CCaseStatementEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PSeparatorCase)])],
                 nested: &[],
             },
-            Pat::CSwitchStatementAt2 => PatData {
+            Pat::CSwitchStatementAt2 => PatDefinition {
                 act: Act::Begin(Rule::CSwitchStatementAt2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt5 | Pat::CppLangAt4 | Pat::CppLangAt5 => PatData {
+            Pat::CLangAt5 | Pat::CppLangAt4 | Pat::CppLangAt5 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControl)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt7 => PatData {
+            Pat::CLangAt7 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOtherTypedef)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt8 => PatData {
+            Pat::CLangAt8 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOtherIn)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt9 | Pat::CppLangAt2 | Pat::CppLangAt15 => PatData {
+            Pat::CLangAt9 | Pat::CppLangAt2 | Pat::CppLangAt15 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorModifier)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt10 => PatData {
+            Pat::CLangAt10 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstOtherVariableMacClassic)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt11 => PatData {
+            Pat::CLangAt11 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarOtherReadwriteGlobalMacClassic)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt12 => PatData {
+            Pat::CLangAt12 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarOtherReadwriteStaticMacClassic)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt18 => PatData {
+            Pat::CLangAt18 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt18),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlDirectiveDefine)]),
@@ -16531,37 +16531,37 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CVarargEllipses => PatData {
+            Pat::CVarargEllipses => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PVarargEllipses)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineContentsAt1 => PatData {
+            Pat::CPreprocessorRuleDefineLineContentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDefineLineContentsAt1),
                 captures: &[(0, scopes![Sc::S(S::PSectionBlockBeginBracketCurly)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineBlocksAt0 => PatData {
+            Pat::CPreprocessorRuleDefineLineBlocksAt0 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDefineLineBlocksAt0),
                 captures: &[(0, scopes![Sc::S(S::PSectionBlockBeginBracketCurly)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineContentsAt2 => PatData {
+            Pat::CPreprocessorRuleDefineLineContentsAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PSectionParensBeginBracketRound)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineContentsAt3 => PatData {
+            Pat::CPreprocessorRuleDefineLineContentsAt3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PSectionParensEndBracketRound)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineContentsAt4 => PatData {
+            Pat::CPreprocessorRuleDefineLineContentsAt4 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDefineLineContentsAt4),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineFunctionsAt6 => PatData {
+            Pat::CPreprocessorRuleDefineLineFunctionsAt6 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDefineLineFunctionsAt6),
                 captures: &[
                     (1, scopes![Sc::S(S::EntNameFunction)]),
@@ -16569,32 +16569,32 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineFunctionsAt6End => PatData {
+            Pat::CPreprocessorRuleDefineLineFunctionsAt6End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PSectionArgumentsEndBracketRound)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineFunctionsAt7 => PatData {
+            Pat::CPreprocessorRuleDefineLineFunctionsAt7 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDefineLineFunctionsAt7),
                 captures: &[(0, scopes![Sc::S(S::PSectionParensBeginBracketRound)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineFunctionsAt7End => PatData {
+            Pat::CPreprocessorRuleDefineLineFunctionsAt7End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PSectionParensEndBracketRound)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineContentsAt5 => PatData {
+            Pat::CPreprocessorRuleDefineLineContentsAt5 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDefineLineContentsAt5),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CPreprocessorRuleDefineLineContentsAt6 => PatData {
+            Pat::CPreprocessorRuleDefineLineContentsAt6 => PatDefinition {
                 act: Act::Begin(Rule::CPreprocessorRuleDefineLineContentsAt6),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CLangAt19 => PatData {
+            Pat::CLangAt19 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt19),
                 captures: &[
                     (
@@ -16609,22 +16609,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CLangAt19At0 => PatData {
+            Pat::CLangAt19At0 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt19At0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CLangAt19At1 => PatData {
+            Pat::CLangAt19At1 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt19At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CLangAt19At2 => PatData {
+            Pat::CLangAt19At2 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt19At2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt20 => PatData {
+            Pat::CLangAt20 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt20),
                 captures: &[
                     (
@@ -16635,17 +16635,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CLangAt20At1 => PatData {
+            Pat::CLangAt20At1 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt20At1),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CLangAt20At2 => PatData {
+            Pat::CLangAt20At2 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt20At2),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::CLangAt22 => PatData {
+            Pat::CLangAt22 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt22),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlDirectiveLine)]),
@@ -16653,7 +16653,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CLangAt23 => PatData {
+            Pat::CLangAt23 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt23),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlDirectiveUndef)]),
@@ -16661,7 +16661,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CLangAt24 => PatData {
+            Pat::CLangAt24 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt24),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlDirectivePragma)]),
@@ -16669,57 +16669,57 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CLangAt24At1 => PatData {
+            Pat::CLangAt24At1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::EntOtherAttributeNamePragmaPreprocessor)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt25 => PatData {
+            Pat::CLangAt25 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypeSysTypes)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt26 => PatData {
+            Pat::CLangAt26 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypePthread)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt27 => PatData {
+            Pat::CLangAt27 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypeStdint)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt28 => PatData {
+            Pat::CLangAt28 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppConstantMacClassic)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt29 => PatData {
+            Pat::CLangAt29 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypeMacClassic)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt30 => PatData {
+            Pat::CLangAt30 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypePosixReserved)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CBlockAt0 => PatData {
+            Pat::CBlockAt0 => PatDefinition {
                 act: Act::Begin(Rule::CBlockAt0),
                 captures: &[(0, scopes![Sc::S(S::PSectionBlockBeginBracketCurly)])],
                 nested: &[],
             },
-            Pat::CParens => PatData {
+            Pat::CParens => PatDefinition {
                 act: Act::Begin(Rule::CParens),
                 captures: &[(0, scopes![Sc::S(S::PSectionParensBeginBracketRound)])],
                 nested: &[],
             },
-            Pat::CLangAt33 => PatData {
+            Pat::CLangAt33 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt33),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CFunctionInnardsAt4 => PatData {
+            Pat::CFunctionInnardsAt4 => PatDefinition {
                 act: Act::Begin(Rule::CFunctionInnardsAt4),
                 captures: &[
                     (1, scopes![Sc::S(S::EntNameFunction)]),
@@ -16727,22 +16727,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CFunctionInnardsAt4End => PatData {
+            Pat::CFunctionInnardsAt4End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PSectionParametersEndBracketRound)])],
                 nested: &[],
             },
-            Pat::CProbablyAParameter => PatData {
+            Pat::CProbablyAParameter => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[(1, scopes![Sc::S(S::VarParameterProbably)])],
                 nested: &[],
             },
-            Pat::CFunctionInnardsAt5 => PatData {
+            Pat::CFunctionInnardsAt5 => PatDefinition {
                 act: Act::Begin(Rule::CFunctionInnardsAt5),
                 captures: &[(0, scopes![Sc::S(S::PSectionParensBeginBracketRound)])],
                 nested: &[],
             },
-            Pat::CLangAt35 => PatData {
+            Pat::CLangAt35 => PatDefinition {
                 act: Act::Begin(Rule::CLangAt35),
                 captures: &[
                     (1, scopes![Sc::S(S::VarObject)]),
@@ -16750,62 +16750,62 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CLangAt35End => PatData {
+            Pat::CLangAt35End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionEndBracketSquare)])],
                 nested: &[],
             },
-            Pat::CLangAt36 => PatData {
+            Pat::CLangAt36 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorModifierArrayBracketSquare)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt37 => PatData {
+            Pat::CLangAt37 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PTerminatorStatement)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CLangAt38 => PatData {
+            Pat::CLangAt38 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PSeparatorDelimiter)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern7 => PatData {
+            Pat::AnonymousPattern7 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlException)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeyword)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern8 => PatData {
+            Pat::AnonymousPattern8 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlSynchronize)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeyword)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern9 => PatData {
+            Pat::AnonymousPattern9 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlProtocolSpecification)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeyword)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern10 => PatData {
+            Pat::AnonymousPattern10 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOther)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeyword)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern11 => PatData {
+            Pat::AnonymousPattern11 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorTypeId)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern12 | Pat::CppLangAt14 => PatData {
+            Pat::AnonymousPattern12 | Pat::CppLangAt14 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorType)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern13 => PatData {
+            Pat::AnonymousPattern13 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorType)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionStorageType)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern14 => PatData {
+            Pat::AnonymousPattern14 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousPattern14),
                 captures: &[
                     (1, scopes![Sc::S(S::StorType)]),
@@ -16814,29 +16814,29 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AnonymousPattern14End => PatData {
+            Pat::AnonymousPattern14End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PDefinitionStorageType)])],
                 nested: &[],
             },
             Pat::AnonymousPattern14At0
             | Pat::BracketedContentAt0At0
-            | Pat::BracketedContentAt1At0 => PatData {
+            | Pat::BracketedContentAt1At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppFunctionAnyMethodNameOfParameter)]),
                 captures: &[(1, scopes![Sc::S(S::PSeparatorArguments)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern15 => PatData {
+            Pat::AnonymousPattern15 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorModifier)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionStorageModifier)])],
                 nested: &[],
             },
-            Pat::AnonymousPattern17 => PatData {
+            Pat::AnonymousPattern17 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppVariableFoundation)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern18 => PatData {
+            Pat::AnonymousPattern18 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::PWhitespaceSupportFunctionCocoaLeopard)]),
@@ -16844,7 +16844,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AnonymousPattern19 => PatData {
+            Pat::AnonymousPattern19 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::PWhitespaceSupportFunctionLeadingCocoa)]),
@@ -16852,67 +16852,67 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::AnonymousPattern20 => PatData {
+            Pat::AnonymousPattern20 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppClassCocoaLeopard)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern21 => PatData {
+            Pat::AnonymousPattern21 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppClassCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern22 => PatData {
+            Pat::AnonymousPattern22 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypeCocoaLeopard)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern23 => PatData {
+            Pat::AnonymousPattern23 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppClassQuartz)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern24 => PatData {
+            Pat::AnonymousPattern24 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypeQuartz)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern25 => PatData {
+            Pat::AnonymousPattern25 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppTypeCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern26 | Pat::AnonymousPattern30 => PatData {
+            Pat::AnonymousPattern26 | Pat::AnonymousPattern30 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppConstantCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern27 => PatData {
+            Pat::AnonymousPattern27 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppConstantNotificationCocoaLeopard)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern28 => PatData {
+            Pat::AnonymousPattern28 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppConstantNotificationCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AnonymousPattern29 => PatData {
+            Pat::AnonymousPattern29 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppConstantCocoaLeopard)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketedContent => PatData {
+            Pat::BracketedContent => PatDefinition {
                 act: Act::Begin(Rule::BracketedContent),
                 captures: &[(0, scopes![Sc::S(S::PSectionScopeBegin)])],
                 nested: &[],
             },
-            Pat::BracketedContentEnd => PatData {
+            Pat::BracketedContentEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PSectionScopeEnd)])],
                 nested: &[],
             },
-            Pat::BracketedContentAt0 => PatData {
+            Pat::BracketedContentAt0 => PatDefinition {
                 act: Act::Begin(Rule::BracketedContentAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionAnyMethod)]),
@@ -16920,42 +16920,42 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::BracketedContentAt0At1 => PatData {
+            Pat::BracketedContentAt0At1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::InvIllegalUnknownMethod)]),
                 captures: &[(1, scopes![Sc::S(S::PSeparatorArguments)])],
                 nested: &[],
             },
-            Pat::BracketedContentAt0At2 => PatData {
+            Pat::BracketedContentAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::BracketedContentAt0At2),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::BracketedContentAt0At2At0 => PatData {
+            Pat::BracketedContentAt0At2At0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorLogicalPredicateCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketedContentAt0At2At1 | Pat::BracketedContentAt0At2At2 => PatData {
+            Pat::BracketedContentAt0At2At1 | Pat::BracketedContentAt0At2At2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstLanguagePredicateCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketedContentAt0At2At3 => PatData {
+            Pat::BracketedContentAt0At2At3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorComparisonPredicateCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketedContentAt0At2At4 => PatData {
+            Pat::BracketedContentAt0At2At4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOtherModifierPredicateCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketedContentAt0At2At5 => PatData {
+            Pat::BracketedContentAt0At2At5 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOtherPredicateCocoa)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CFunctionsAt0 => PatData {
+            Pat::CFunctionsAt0 => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::PWhitespaceSupportFunctionLeading)]),
@@ -16963,7 +16963,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CFunctionsAt1 => PatData {
+            Pat::CFunctionsAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaFunctionCall)]),
                 captures: &[
                     (1, scopes![Sc::S(S::PWhitespaceFunctionCallLeading)]),
@@ -16972,7 +16972,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::BracketedContentAt1 => PatData {
+            Pat::BracketedContentAt1 => PatDefinition {
                 act: Act::Begin(Rule::BracketedContentAt1),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionAnyMethod)]),
@@ -16980,7 +16980,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt2 => PatData {
+            Pat::CppSpecialBlockAt2 => PatDefinition {
                 act: Act::Begin(Rule::CppSpecialBlockAt2),
                 captures: &[
                     (1, scopes![Sc::S(S::StorTypeClass)]),
@@ -16997,27 +16997,27 @@ impl Pat {
                     },
                 )],
             },
-            Pat::CppSpecialBlockAt2Cap7At0 | Pat::CppLangAt3 => PatData {
+            Pat::CppSpecialBlockAt2Cap7At0 | Pat::CppLangAt3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorTypeModifierAccess)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt2Cap7At1 => PatData {
+            Pat::CppSpecialBlockAt2Cap7At1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::EntNameTypeInherited)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CppAngleBrackets => PatData {
+            Pat::CppAngleBrackets => PatDefinition {
                 act: Act::Begin(Rule::CppAngleBrackets),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt2At1 => PatData {
+            Pat::CppSpecialBlockAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::CppSpecialBlockAt2At1),
                 captures: &[(0, scopes![Sc::S(S::PSectionBlockBeginBracketCurly)])],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt2At1End => PatData {
+            Pat::CppSpecialBlockAt2At1End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::PSectionBlockEndBracketCurly)]),
@@ -17025,17 +17025,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt3 => PatData {
+            Pat::CppSpecialBlockAt3 => PatDefinition {
                 act: Act::Begin(Rule::CppSpecialBlockAt3),
                 captures: &[(1, scopes![Sc::S(S::StorModifier)])],
                 nested: &[],
             },
-            Pat::CppSpecialBlockAt3At0 => PatData {
+            Pat::CppSpecialBlockAt3At0 => PatDefinition {
                 act: Act::Begin(Rule::CppSpecialBlockAt3At0),
                 captures: &[(0, scopes![Sc::S(S::PSectionBlockBeginBracketCurly)])],
                 nested: &[],
             },
-            Pat::CppStringsAt0 => PatData {
+            Pat::CppStringsAt0 => PatDefinition {
                 act: Act::Begin(Rule::CppStringsAt0),
                 captures: &[
                     (0, scopes![Sc::S(S::PDefinitionStringBegin)]),
@@ -17043,7 +17043,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppStringsAt1 => PatData {
+            Pat::CppStringsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CppStringsAt1),
                 captures: &[
                     (0, scopes![Sc::S(S::PDefinitionStringBegin)]),
@@ -17052,7 +17052,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppStringsAt1End => PatData {
+            Pat::CppStringsAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (0, scopes![Sc::S(S::PDefinitionStringEnd)]),
@@ -17060,17 +17060,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppLangAt6 => PatData {
+            Pat::CppLangAt6 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarOtherReadwriteMember)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CppLangAt7 => PatData {
+            Pat::CppLangAt7 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::VarLanguageThis)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CppTemplateDefinition => PatData {
+            Pat::CppTemplateDefinition => PatDefinition {
                 act: Act::Begin(Rule::CppTemplateDefinition),
                 captures: &[
                     (1, scopes![Sc::S(S::StorTypeTemplate)]),
@@ -17078,12 +17078,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppTemplateDefinitionEnd => PatData {
+            Pat::CppTemplateDefinitionEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::MetaTemplateAngleBracketsEnd)])],
                 nested: &[],
             },
-            Pat::CppTemplateDefinitionArgument => PatData {
+            Pat::CppTemplateDefinitionArgument => PatDefinition {
                 act: Act::Match(Sc::NO_SCOPES),
                 captures: &[
                     (1, scopes![Sc::S(S::StorTypeTemplate)]),
@@ -17100,17 +17100,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppLangAt10 => PatData {
+            Pat::CppLangAt10 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::StorTypeTemplate)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CppLangAt11 => PatData {
+            Pat::CppLangAt11 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwOperatorCast)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CppLangAt12 => PatData {
+            Pat::CppLangAt12 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PSeparatorNamespaceAccess)]),
                 captures: &[
                     (1, scopes![Sc::S(S::EntScope)]),
@@ -17119,7 +17119,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppLangAt16 => PatData {
+            Pat::CppLangAt16 => PatDefinition {
                 act: Act::Begin(Rule::CppLangAt16),
                 captures: &[
                     (1, scopes![Sc::S(S::EntNameFunction)]),
@@ -17127,12 +17127,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::CppLangAt16End | Pat::CppLangAt17End => PatData {
+            Pat::CppLangAt16End | Pat::CppLangAt17End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PDefinitionParametersEnd)])],
                 nested: &[],
             },
-            Pat::CppLangAt17 => PatData {
+            Pat::CppLangAt17 => PatDefinition {
                 act: Act::Begin(Rule::CppLangAt17),
                 captures: &[
                     (1, scopes![Sc::S(S::EntNameFunction)]),
@@ -19351,7 +19351,7 @@ impl rules::Tabled for ObjectiveCpp {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

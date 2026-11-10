@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Swift>;
-pub(crate) type PatData = rules::PatData<Swift>;
-pub(crate) type RuleData = rules::RuleData<Swift>;
+pub(crate) type PatDefinition = rules::PatDefinition<Swift>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Swift>;
 pub(crate) use crate::rules::Start;
 
 /// A rule that tokenizes the text of a capture group: the grammar's patterns
@@ -302,940 +302,940 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::CompilerControlAt0 => RuleData {
+            Rule::CompilerControlAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::CmtBlockPreprocessor],
                 end: Some(Pat::CompilerControlAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CompilerControlAt1 => RuleData {
+            Rule::CompilerControlAt1 => RuleDefinition {
                 name: scopes![S::MetaPreprocessorConditional],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CompilerControlAt1End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt1At0, Pat::CompilerControlAt1At1, Pat::CompilerControlAt1At2, Pat::CompilerControlAt1At3, Pat::CompilerControlAt1At4, Pat::CompilerControlAt1At5, Pat::CompilerControlAt1At6],
             },
-            Rule::CompilerControlAt1At5 => RuleData {
+            Rule::CompilerControlAt1At5 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CompilerControlAt1At5End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt1At5At0],
             },
-            Rule::CompilerControlAt1At6 => RuleData {
+            Rule::CompilerControlAt1At6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CompilerControlAt1At6End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt1At6At0, Pat::CompilerControlAt1At6At1],
             },
-            Rule::Nested0 => RuleData {
+            Rule::Nested0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested0At0],
             },
-            Rule::Nested1 => RuleData {
+            Rule::Nested1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested1At0, Pat::Nested1At1, Pat::Nested1At2, Pat::Nested1At3],
             },
-            Rule::Nested1At0 => RuleData {
+            Rule::Nested1At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::Nested1At0End),
                 backref: None,
                 patterns: &[Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2],
             },
-            Rule::LiteralsStringAt0 => RuleData {
+            Rule::LiteralsStringAt0 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringAt0End),
                 backref: None,
                 patterns: &[Pat::LiteralsStringAt0At0, Pat::LiteralsStringAt0At1, Pat::LiteralsStringStringGutsAt0, Pat::LiteralsStringStringGutsAt1, Pat::LiteralsStringStringGutsAt2, Pat::LiteralsStringStringGutsAt3, Pat::LiteralsStringAt0At3],
             },
-            Rule::LiteralsStringStringGutsAt2 => RuleData {
+            Rule::LiteralsStringStringGutsAt2 => RuleDefinition {
                 name: scopes![S::MetaEmbeddedLine],
                 content: scopes![S::Source],
                 end: Some(Pat::LiteralsStringStringGutsAt2End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0, Pat::LiteralsStringStringGutsAt2At1],
             },
-            Rule::DeclarationsFunction => RuleData {
+            Rule::DeclarationsFunction => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunction],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsFunctionEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsParameterClause, Pat::DeclarationsFunctionResult, Pat::AsyncThrows, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsFunctionAt6],
             },
-            Rule::CommentsAt1 => RuleData {
+            Rule::CommentsAt1 => RuleDefinition {
                 name: scopes![S::CmtBlockDocumentation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt1End),
                 backref: None,
                 patterns: &[Pat::CommentsNested],
             },
-            Rule::CommentsNested => RuleData {
+            Rule::CommentsNested => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsNestedEnd),
                 backref: None,
                 patterns: &[Pat::CommentsNested],
             },
-            Rule::CommentsAt2 => RuleData {
+            Rule::CommentsAt2 => RuleDefinition {
                 name: scopes![S::CmtBlockDocumentationPlayground],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt2End),
                 backref: None,
                 patterns: &[Pat::CommentsNested],
             },
-            Rule::CommentsAt3 => RuleData {
+            Rule::CommentsAt3 => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt3End),
                 backref: None,
                 patterns: &[Pat::CommentsNested],
             },
-            Rule::CommentsAt5 => RuleData {
+            Rule::CommentsAt5 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt5End),
                 backref: None,
                 patterns: &[Pat::CommentsAt5At0, Pat::CommentsAt5At1, Pat::CommentsAt5At2],
             },
-            Rule::CommentsAt5At0 => RuleData {
+            Rule::CommentsAt5At0 => RuleDefinition {
                 name: scopes![S::CmtLineTripleSlashDocumentation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt5At0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentsAt5At1 => RuleData {
+            Rule::CommentsAt5At1 => RuleDefinition {
                 name: scopes![S::CmtLineDoubleSlashDocumentation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt5At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentsAt5At2 => RuleData {
+            Rule::CommentsAt5At2 => RuleDefinition {
                 name: scopes![S::CmtLineDoubleSlash],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt5At2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::DeclarationsGenericParameterClause => RuleData {
+            Rule::DeclarationsGenericParameterClause => RuleDefinition {
                 name: scopes![S::MetaGenericParameterClause],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericParameterClauseEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsGenericParameterClauseAt2, Pat::DeclarationsGenericParameterClauseAt3, Pat::DeclarationsGenericParameterClauseAt4, Pat::DeclarationsGenericParameterClauseAt5, Pat::DeclarationsGenericParameterClauseAt6],
             },
-            Rule::DeclarationsGenericWhereClause => RuleData {
+            Rule::DeclarationsGenericWhereClause => RuleDefinition {
                 name: scopes![S::MetaGenericWhereClause],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericWhereClauseEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericWhereClauseRequirementList],
             },
-            Rule::DeclarationsGenericWhereClauseRequirementList => RuleData {
+            Rule::DeclarationsGenericWhereClauseRequirementList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericWhereClauseRequirementListEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause, Pat::DeclarationsGenericWhereClauseRequirementListAt3, Pat::DeclarationsGenericWhereClauseRequirementListAt4],
             },
-            Rule::AttributesAt0 => RuleData {
+            Rule::AttributesAt0 => RuleDefinition {
                 name: scopes![S::MetaAttributeAvailable],
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributesAt0End),
                 backref: None,
                 patterns: &[Pat::AttributesAt0At0, Pat::AttributesAt0At1, Pat::AttributesAt0At2, Pat::AttributesAt0At3],
             },
-            Rule::AttributesAt0At1 => RuleData {
+            Rule::AttributesAt0At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributesAt0At1End),
                 backref: None,
                 patterns: &[Pat::AttributesAt0At1At0],
             },
-            Rule::AttributesAt0At2 => RuleData {
+            Rule::AttributesAt0At2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributesAt0At2End),
                 backref: None,
                 patterns: &[Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2],
             },
-            Rule::LiteralsStringAt1 => RuleData {
+            Rule::LiteralsStringAt1 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleBlockRaw],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringAt1End),
                 backref: None,
                 patterns: &[Pat::LiteralsStringAt1At0, Pat::LiteralsStringAt1At1, Pat::LiteralsStringRawStringGutsAt0, Pat::LiteralsStringRawStringGutsAt1, Pat::LiteralsStringRawStringGutsAt2, Pat::LiteralsStringRawStringGutsAt3, Pat::LiteralsStringAt1At3],
             },
-            Rule::LiteralsStringRawStringGutsAt2 => RuleData {
+            Rule::LiteralsStringRawStringGutsAt2 => RuleDefinition {
                 name: scopes![S::MetaEmbeddedLine],
                 content: scopes![S::Source],
                 end: Some(Pat::LiteralsStringRawStringGutsAt2End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0, Pat::LiteralsStringRawStringGutsAt2At1],
             },
-            Rule::Nested2 => RuleData {
+            Rule::Nested2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested2At0],
             },
-            Rule::DeclarationsFunctionInitializer => RuleData {
+            Rule::DeclarationsFunctionInitializer => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunctionInitializer],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsFunctionInitializerEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsParameterClause, Pat::AsyncThrows, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsFunctionInitializerAt5],
             },
-            Rule::DeclarationsParameterClause => RuleData {
+            Rule::DeclarationsParameterClause => RuleDefinition {
                 name: scopes![S::MetaParameterClause],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsParameterClauseEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsParameterListAt0, Pat::DeclarationsParameterListAt1, Pat::DeclarationsParameterListAt2],
             },
-            Rule::DeclarationsParameterListAt2 => RuleData {
+            Rule::DeclarationsParameterListAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsParameterListAt2End),
                 backref: None,
                 patterns: &[Pat::DeclarationsParameterListAt2At0, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause, Pat::DeclarationsParameterListAt2At2, Pat::DeclarationsParameterListAt2At3],
             },
-            Rule::AttributesAt1 => RuleData {
+            Rule::AttributesAt1 => RuleDefinition {
                 name: scopes![S::MetaAttributeObjc],
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributesAt1End),
                 backref: None,
                 patterns: &[Pat::AttributesAt1At0],
             },
-            Rule::AttributesAt2 => RuleData {
+            Rule::AttributesAt2 => RuleDefinition {
                 name: scopes![S::MetaAttribute],
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributesAt2End),
                 backref: None,
                 patterns: &[Pat::AttributesAt2At0],
             },
-            Rule::AttributesAt2At0 => RuleData {
+            Rule::AttributesAt2At0 => RuleDefinition {
                 name: scopes![S::MetaArgumentsAttribute],
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributesAt2At0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::CodeBlock => RuleData {
+            Rule::CodeBlock => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CodeBlockEnd),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsFunctionSubscript => RuleData {
+            Rule::DeclarationsFunctionSubscript => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunctionSubscript],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsFunctionSubscriptEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsParameterClause, Pat::DeclarationsFunctionResult, Pat::AsyncThrows, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsFunctionSubscriptAt6],
             },
-            Rule::DeclarationsFunctionResult => RuleData {
+            Rule::DeclarationsFunctionResult => RuleDefinition {
                 name: scopes![S::MetaFunctionResult],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsFunctionResultEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsFunctionResultAt0, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsAvailableTypesTupleType => RuleData {
+            Rule::DeclarationsAvailableTypesTupleType => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsAvailableTypesTupleTypeEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsAvailableTypesCollectionType => RuleData {
+            Rule::DeclarationsAvailableTypesCollectionType => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsAvailableTypesCollectionTypeEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::DeclarationsAvailableTypesCollectionTypeAt2, Pat::DeclarationsAvailableTypesCollectionTypeAt3, Pat::DeclarationsAvailableTypesCollectionTypeAt4],
             },
-            Rule::DeclarationsGenericArgumentClause => RuleData {
+            Rule::DeclarationsGenericArgumentClause => RuleDefinition {
                 name: scopes![S::MetaGenericArgumentClause],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericArgumentClauseEnd),
                 backref: None,
                 patterns: &[Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsAvailableTypesCollectionTypeAt4 => RuleData {
+            Rule::DeclarationsAvailableTypesCollectionTypeAt4 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsAvailableTypesCollectionTypeAt4End),
                 backref: None,
                 patterns: &[Pat::DeclarationsAvailableTypesCollectionTypeAt4At0, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsFunctionSubscriptAt6 => RuleData {
+            Rule::DeclarationsFunctionSubscriptAt6 => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunctionBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsFunctionSubscriptAt6End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsTypedVariableDeclaration => RuleData {
+            Rule::DeclarationsTypedVariableDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypedVariableDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsImport => RuleData {
+            Rule::DeclarationsImport => RuleDefinition {
                 name: scopes![S::MetaImport],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsImportEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsImportAt0],
             },
-            Rule::DeclarationsImportAt0 => RuleData {
+            Rule::DeclarationsImportAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsImportAt0End),
                 backref: None,
                 patterns: &[Pat::DeclarationsImportAt0At0, Pat::DeclarationsImportAt0At1, Pat::DeclarationsImportAt0At2, Pat::DeclarationsImportAt0At3, Pat::DeclarationsImportAt0At4],
             },
-            Rule::Nested3 => RuleData {
+            Rule::Nested3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested3At0],
             },
-            Rule::DeclarationsImportAt0At4 => RuleData {
+            Rule::DeclarationsImportAt0At4 => RuleDefinition {
                 name: scopes![S::InvIllegalCharacterNotAllowedHere],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsImportAt0At4End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::DeclarationsOperator => RuleData {
+            Rule::DeclarationsOperator => RuleDefinition {
                 name: scopes![S::MetaDefinitionOperator],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsOperatorEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsOperatorSwift2, Pat::DeclarationsOperatorSwift3, Pat::DeclarationsOperatorAt2],
             },
-            Rule::DeclarationsOperatorSwift2 => RuleData {
+            Rule::DeclarationsOperatorSwift2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsOperatorSwift2End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsOperatorSwift2At1, Pat::DeclarationsOperatorSwift2At2, Pat::DeclarationsOperatorSwift2At3],
             },
-            Rule::Nested4 => RuleData {
+            Rule::Nested4 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::DeclarationsTypesPrecedencegroupAt0],
             },
-            Rule::DeclarationsPrecedencegroup => RuleData {
+            Rule::DeclarationsPrecedencegroup => RuleDefinition {
                 name: scopes![S::MetaDefinitionPrecedencegroup],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsPrecedencegroupEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsPrecedencegroupAt0],
             },
-            Rule::DeclarationsPrecedencegroupAt0 => RuleData {
+            Rule::DeclarationsPrecedencegroupAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsPrecedencegroupAt0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsPrecedencegroupAt0At1, Pat::DeclarationsPrecedencegroupAt0At2, Pat::DeclarationsPrecedencegroupAt0At3],
             },
-            Rule::DeclarationsProtocolProtocol => RuleData {
+            Rule::DeclarationsProtocolProtocol => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeProtocol],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsProtocolProtocolEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsInheritanceClause, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsProtocolProtocolAt3],
             },
-            Rule::DeclarationsInheritanceClause => RuleData {
+            Rule::DeclarationsInheritanceClause => RuleDefinition {
                 name: scopes![S::MetaInheritanceClause],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsInheritanceClauseEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsInheritanceClauseAt0, Pat::DeclarationsInheritanceClauseAt1],
             },
-            Rule::DeclarationsInheritanceClauseAt0 => RuleData {
+            Rule::DeclarationsInheritanceClauseAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsInheritanceClauseAt0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsInheritanceClauseMoreTypes],
             },
-            Rule::DeclarationsInheritanceClauseMoreTypes => RuleData {
+            Rule::DeclarationsInheritanceClauseMoreTypes => RuleDefinition {
                 name: scopes![S::MetaInheritanceListMoreTypes],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsInheritanceClauseMoreTypesEnd),
                 backref: None,
                 patterns: &[Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsInheritanceClauseInheritedType, Pat::DeclarationsInheritanceClauseMoreTypes, Pat::DeclarationsTypeOperatorsAt0, Pat::DeclarationsTypeOperatorsAt1],
             },
-            Rule::DeclarationsInheritanceClauseInheritedType => RuleData {
+            Rule::DeclarationsInheritanceClauseInheritedType => RuleDefinition {
                 name: scopes![S::EntOtherInheritedClass],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsInheritanceClauseInheritedTypeEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsTypeIdentifier],
             },
-            Rule::Nested5 => RuleData {
+            Rule::Nested5 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5],
             },
-            Rule::DeclarationsTypeIdentifier => RuleData {
+            Rule::DeclarationsTypeIdentifier => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeIdentifierEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsTypeIdentifierAt0],
             },
-            Rule::DeclarationsTypeIdentifierAt0 => RuleData {
+            Rule::DeclarationsTypeIdentifierAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeIdentifierAt0End),
                 backref: None,
                 patterns: &[Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsInheritanceClauseAt1 => RuleData {
+            Rule::DeclarationsInheritanceClauseAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsInheritanceClauseAt1End),
                 backref: None,
                 patterns: &[Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsInheritanceClauseInheritedType, Pat::DeclarationsInheritanceClauseMoreTypes, Pat::DeclarationsTypeOperatorsAt0, Pat::DeclarationsTypeOperatorsAt1],
             },
-            Rule::DeclarationsProtocolProtocolAt3 => RuleData {
+            Rule::DeclarationsProtocolProtocolAt3 => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsProtocolProtocolAt3End),
                 backref: None,
                 patterns: &[Pat::DeclarationsProtocolProtocolMethod, Pat::DeclarationsProtocolProtocolInitializer, Pat::DeclarationsProtocolAssociatedType, Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsProtocolProtocolMethod => RuleData {
+            Rule::DeclarationsProtocolProtocolMethod => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunction],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsProtocolProtocolMethodEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsParameterClause, Pat::DeclarationsFunctionResult, Pat::AsyncThrows, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsProtocolProtocolMethodAt6],
             },
-            Rule::DeclarationsProtocolProtocolMethodAt6 => RuleData {
+            Rule::DeclarationsProtocolProtocolMethodAt6 => RuleDefinition {
                 name: scopes![S::InvIllegalFunctionBodyNotAllowedInProtocol],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsProtocolProtocolMethodAt6End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsTypeAt0Class => RuleData {
+            Rule::DeclarationsTypeAt0Class => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeClass],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeAt0ClassEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsInheritanceClause, Pat::DeclarationsTypeAt0ClassAt4],
             },
-            Rule::DeclarationsTypeAt0ClassAt4 => RuleData {
+            Rule::DeclarationsTypeAt0ClassAt4 => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeAt0ClassAt4End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsTypeAt0Struct => RuleData {
+            Rule::DeclarationsTypeAt0Struct => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeStruct],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeAt0StructEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsInheritanceClause, Pat::DeclarationsTypeAt0StructAt4],
             },
-            Rule::DeclarationsTypeAt0StructAt4 => RuleData {
+            Rule::DeclarationsTypeAt0StructAt4 => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeAt0StructAt4End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsTypeAt0Actor => RuleData {
+            Rule::DeclarationsTypeAt0Actor => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeActor],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeAt0ActorEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsInheritanceClause, Pat::DeclarationsTypeAt0ActorAt4],
             },
-            Rule::DeclarationsTypeAt0ActorAt4 => RuleData {
+            Rule::DeclarationsTypeAt0ActorAt4 => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeAt0ActorAt4End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsTypeEnumEnum => RuleData {
+            Rule::DeclarationsTypeEnumEnum => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeEnum],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumEnumEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsInheritanceClause, Pat::DeclarationsTypeEnumEnumAt4],
             },
-            Rule::DeclarationsTypeEnumEnumAt4 => RuleData {
+            Rule::DeclarationsTypeEnumEnumAt4 => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumEnumAt4End),
                 backref: None,
                 patterns: &[Pat::DeclarationsTypeEnumEnumCaseClause, Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsTypeEnumEnumCaseClause => RuleData {
+            Rule::DeclarationsTypeEnumEnumCaseClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumEnumCaseClauseEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsTypeEnumEnumCase, Pat::DeclarationsTypeEnumMoreCases],
             },
-            Rule::DeclarationsTypeEnumEnumCase => RuleData {
+            Rule::DeclarationsTypeEnumEnumCase => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumEnumCaseEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsTypeEnumAssociatedValues, Pat::DeclarationsTypeEnumRawValueAssignment],
             },
-            Rule::DeclarationsTypeEnumAssociatedValues => RuleData {
+            Rule::DeclarationsTypeEnumAssociatedValues => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumAssociatedValuesEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsTypeEnumAssociatedValuesAt1, Pat::DeclarationsTypeEnumAssociatedValuesAt2, Pat::DeclarationsTypeEnumAssociatedValuesAt3],
             },
-            Rule::DeclarationsTypeEnumAssociatedValuesAt1 => RuleData {
+            Rule::DeclarationsTypeEnumAssociatedValuesAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumAssociatedValuesAt1End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsTypeEnumAssociatedValuesAt2 => RuleData {
+            Rule::DeclarationsTypeEnumAssociatedValuesAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumAssociatedValuesAt2End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsTypeEnumAssociatedValuesAt3 => RuleData {
+            Rule::DeclarationsTypeEnumAssociatedValuesAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumAssociatedValuesAt3End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause, Pat::DeclarationsTypeEnumAssociatedValuesAt3At1],
             },
-            Rule::DeclarationsTypeEnumRawValueAssignment => RuleData {
+            Rule::DeclarationsTypeEnumRawValueAssignment => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumRawValueAssignmentEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2],
             },
-            Rule::LiteralsStringAt2 => RuleData {
+            Rule::LiteralsStringAt2 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleBlockRaw],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringAt2End),
                 backref: Some(1),
                 patterns: &[Pat::LiteralsStringAt2At0],
             },
-            Rule::LiteralsStringAt3 => RuleData {
+            Rule::LiteralsStringAt3 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleSingleLine],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringAt3End),
                 backref: None,
                 patterns: &[Pat::LiteralsStringAt3At0, Pat::LiteralsStringStringGutsAt0, Pat::LiteralsStringStringGutsAt1, Pat::LiteralsStringStringGutsAt2, Pat::LiteralsStringStringGutsAt3],
             },
-            Rule::LiteralsStringAt4 => RuleData {
+            Rule::LiteralsStringAt4 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleSingleLineRaw],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringAt4End),
                 backref: Some(1),
                 patterns: &[Pat::LiteralsStringAt4At0],
             },
-            Rule::LiteralsStringAt5 => RuleData {
+            Rule::LiteralsStringAt5 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleSingleLineRaw],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringAt5End),
                 backref: None,
                 patterns: &[Pat::LiteralsStringAt5At0, Pat::LiteralsStringRawStringGutsAt0, Pat::LiteralsStringRawStringGutsAt1, Pat::LiteralsStringRawStringGutsAt2, Pat::LiteralsStringRawStringGutsAt3],
             },
-            Rule::LiteralsAt7 => RuleData {
+            Rule::LiteralsAt7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsAt7End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::LiteralsRegularExpressionLiteralAt0 => RuleData {
+            Rule::LiteralsRegularExpressionLiteralAt0 => RuleDefinition {
                 name: scopes![S::StrRegexpBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralAt0End),
                 backref: Some(1),
                 patterns: &[Pat::LiteralsRegularExpressionLiteralQuote, Pat::LiteralsRegularExpressionLiteralRegexGutsAt1, Pat::LiteralsRegularExpressionLiteralRegexGutsAt2, Pat::LiteralsRegularExpressionLiteralUnicodeScalars, Pat::LiteralsRegularExpressionLiteralCharacterProperties, Pat::LiteralsRegularExpressionLiteralRegexGutsAt5, Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption, Pat::LiteralsRegularExpressionLiteralCallout, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8, Pat::LiteralsRegularExpressionLiteralRegexGutsAt9, Pat::LiteralsRegularExpressionLiteralRegexGutsAt10, Pat::LiteralsRegularExpressionLiteralRegexGutsAt11, Pat::LiteralsRegularExpressionLiteralRegexGutsAt12, Pat::LiteralsRegularExpressionLiteralRegexGutsAt13, Pat::LiteralsRegularExpressionLiteralRegexGutsAt14, Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0, Pat::LiteralsRegularExpressionLiteralGroupOptionToggle, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2, Pat::LiteralsRegularExpressionLiteralLineComment],
             },
-            Rule::LiteralsRegularExpressionLiteralQuote => RuleData {
+            Rule::LiteralsRegularExpressionLiteralQuote => RuleDefinition {
                 name: scopes![S::StrQuotedOtherRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralQuoteEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::LiteralsRegularExpressionLiteralRegexGutsAt1 => RuleData {
+            Rule::LiteralsRegularExpressionLiteralRegexGutsAt1 => RuleDefinition {
                 name: scopes![S::CmtBlockRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralRegexGutsAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::LiteralsRegularExpressionLiteralRegexGutsAt2 => RuleData {
+            Rule::LiteralsRegularExpressionLiteralRegexGutsAt2 => RuleDefinition {
                 name: scopes![S::MetaEmbeddedExpressionRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralRegexGutsAt2End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::LiteralsRegularExpressionLiteralCustomCharClassAt0 => RuleData {
+            Rule::LiteralsRegularExpressionLiteralCustomCharClassAt0 => RuleDefinition {
                 name: scopes![S::ConstOtherCharacterClassSetRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0End),
                 backref: None,
                 patterns: &[Pat::LiteralsRegularExpressionLiteralCustomCharClassMembersAt0, Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0, Pat::LiteralsRegularExpressionLiteralQuote, Pat::LiteralsRegularExpressionLiteralSetOperatorsAt0, Pat::LiteralsRegularExpressionLiteralSetOperatorsAt1, Pat::LiteralsRegularExpressionLiteralSetOperatorsAt2, Pat::LiteralsRegularExpressionLiteralUnicodeScalars, Pat::LiteralsRegularExpressionLiteralCharacterProperties],
             },
-            Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt0 => RuleData {
+            Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt0 => RuleDefinition {
                 name: scopes![S::MetaGroupAbsentRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0End),
                 backref: None,
                 patterns: &[Pat::LiteralsRegularExpressionLiteralQuote, Pat::LiteralsRegularExpressionLiteralRegexGutsAt1, Pat::LiteralsRegularExpressionLiteralRegexGutsAt2, Pat::LiteralsRegularExpressionLiteralUnicodeScalars, Pat::LiteralsRegularExpressionLiteralCharacterProperties, Pat::LiteralsRegularExpressionLiteralRegexGutsAt5, Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption, Pat::LiteralsRegularExpressionLiteralCallout, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8, Pat::LiteralsRegularExpressionLiteralRegexGutsAt9, Pat::LiteralsRegularExpressionLiteralRegexGutsAt10, Pat::LiteralsRegularExpressionLiteralRegexGutsAt11, Pat::LiteralsRegularExpressionLiteralRegexGutsAt12, Pat::LiteralsRegularExpressionLiteralRegexGutsAt13, Pat::LiteralsRegularExpressionLiteralRegexGutsAt14, Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0, Pat::LiteralsRegularExpressionLiteralGroupOptionToggle, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2],
             },
-            Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt1 => RuleData {
+            Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt1 => RuleDefinition {
                 name: scopes![S::MetaGroupConditionalRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1End),
                 backref: None,
                 patterns: &[Pat::LiteralsRegularExpressionLiteralQuote, Pat::LiteralsRegularExpressionLiteralRegexGutsAt1, Pat::LiteralsRegularExpressionLiteralRegexGutsAt2, Pat::LiteralsRegularExpressionLiteralUnicodeScalars, Pat::LiteralsRegularExpressionLiteralCharacterProperties, Pat::LiteralsRegularExpressionLiteralRegexGutsAt5, Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption, Pat::LiteralsRegularExpressionLiteralCallout, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8, Pat::LiteralsRegularExpressionLiteralRegexGutsAt9, Pat::LiteralsRegularExpressionLiteralRegexGutsAt10, Pat::LiteralsRegularExpressionLiteralRegexGutsAt11, Pat::LiteralsRegularExpressionLiteralRegexGutsAt12, Pat::LiteralsRegularExpressionLiteralRegexGutsAt13, Pat::LiteralsRegularExpressionLiteralRegexGutsAt14, Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0, Pat::LiteralsRegularExpressionLiteralGroupOptionToggle, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2],
             },
-            Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt2 => RuleData {
+            Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt2 => RuleDefinition {
                 name: scopes![S::MetaGroupRegexp],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2End),
                 backref: None,
                 patterns: &[Pat::LiteralsRegularExpressionLiteralQuote, Pat::LiteralsRegularExpressionLiteralRegexGutsAt1, Pat::LiteralsRegularExpressionLiteralRegexGutsAt2, Pat::LiteralsRegularExpressionLiteralUnicodeScalars, Pat::LiteralsRegularExpressionLiteralCharacterProperties, Pat::LiteralsRegularExpressionLiteralRegexGutsAt5, Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption, Pat::LiteralsRegularExpressionLiteralCallout, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8, Pat::LiteralsRegularExpressionLiteralRegexGutsAt9, Pat::LiteralsRegularExpressionLiteralRegexGutsAt10, Pat::LiteralsRegularExpressionLiteralRegexGutsAt11, Pat::LiteralsRegularExpressionLiteralRegexGutsAt12, Pat::LiteralsRegularExpressionLiteralRegexGutsAt13, Pat::LiteralsRegularExpressionLiteralRegexGutsAt14, Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0, Pat::LiteralsRegularExpressionLiteralGroupOptionToggle, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2],
             },
-            Rule::Nested6 => RuleData {
+            Rule::Nested6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::LiteralsRegularExpressionLiteralQuote, Pat::LiteralsRegularExpressionLiteralRegexGutsAt1, Pat::LiteralsRegularExpressionLiteralRegexGutsAt2, Pat::LiteralsRegularExpressionLiteralUnicodeScalars, Pat::LiteralsRegularExpressionLiteralCharacterProperties, Pat::LiteralsRegularExpressionLiteralRegexGutsAt5, Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption, Pat::LiteralsRegularExpressionLiteralCallout, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7, Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8, Pat::LiteralsRegularExpressionLiteralRegexGutsAt9, Pat::LiteralsRegularExpressionLiteralRegexGutsAt10, Pat::LiteralsRegularExpressionLiteralRegexGutsAt11, Pat::LiteralsRegularExpressionLiteralRegexGutsAt12, Pat::LiteralsRegularExpressionLiteralRegexGutsAt13, Pat::LiteralsRegularExpressionLiteralRegexGutsAt14, Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0, Pat::LiteralsRegularExpressionLiteralGroupOptionToggle, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1, Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2],
             },
-            Rule::OperatorsAt1 => RuleData {
+            Rule::OperatorsAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::OperatorsAt1End),
                 backref: None,
                 patterns: &[Pat::OperatorsAt1At0, Pat::OperatorsAt1At1, Pat::OperatorsAt1At2, Pat::OperatorsAt1At3, Pat::OperatorsAt1At4, Pat::OperatorsAt1At5],
             },
-            Rule::Nested7 => RuleData {
+            Rule::Nested7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested7At0, Pat::Nested7At1, Pat::Nested7At2, Pat::Nested7At3, Pat::Nested7At4],
             },
-            Rule::Nested8 => RuleData {
+            Rule::Nested8 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested8At0, Pat::Nested8At1, Pat::Nested8At2],
             },
-            Rule::Nested9 => RuleData {
+            Rule::Nested9 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested9At0, Pat::Nested9At1, Pat::Nested9At2, Pat::Nested9At3, Pat::Nested9At4, Pat::Nested9At5, Pat::Nested9At6, Pat::Nested9At7, Pat::Nested9At8, Pat::Nested9At9, Pat::Nested9At10, Pat::Nested9At11],
             },
-            Rule::Nested10 => RuleData {
+            Rule::Nested10 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested10At0],
             },
-            Rule::Nested11 => RuleData {
+            Rule::Nested11 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested11At0],
             },
-            Rule::Nested12 => RuleData {
+            Rule::Nested12 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested12At0, Pat::Nested12At1],
             },
-            Rule::BuiltinGlobalFunctionsAt0 => RuleData {
+            Rule::BuiltinGlobalFunctionsAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BuiltinGlobalFunctionsAt0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::Nested13 => RuleData {
+            Rule::Nested13 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested13At0],
             },
-            Rule::Nested14 => RuleData {
+            Rule::Nested14 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25],
             },
-            Rule::ConditionalsAt0 => RuleData {
+            Rule::ConditionalsAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ConditionalsAt0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18],
             },
-            Rule::ConditionalsAt1 => RuleData {
+            Rule::ConditionalsAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ConditionalsAt1End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18],
             },
-            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => RuleData {
+            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionEnd),
                 backref: None,
                 patterns: &[Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt2],
             },
-            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0 => RuleData {
+            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0 => RuleDefinition {
                 name: scopes![S::MetaFunctionCall],
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2],
             },
-            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1 => RuleData {
+            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => RuleData {
+            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => RuleDefinition {
                 name: scopes![S::MetaFunctionCall],
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2],
             },
-            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2 => RuleData {
+            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => RuleData {
+            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => RuleDefinition {
                 name: scopes![S::MetaSubscriptExpression],
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpressionEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2],
             },
-            Rule::Nested15 => RuleData {
+            Rule::Nested15 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested15At0, Pat::AsyncThrows],
             },
-            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression => RuleData {
+            Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpressionEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2],
             },
-            Rule::DeclarationsTypeEnumMoreCases => RuleData {
+            Rule::DeclarationsTypeEnumMoreCases => RuleDefinition {
                 name: scopes![S::MetaEnumCaseMoreCases],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypeEnumMoreCasesEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsTypeEnumEnumCase, Pat::DeclarationsTypeEnumMoreCases],
             },
-            Rule::DeclarationsExtensionExtension => RuleData {
+            Rule::DeclarationsExtensionExtension => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeExtension],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsExtensionExtensionEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsExtensionExtensionAt0, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsInheritanceClause, Pat::DeclarationsExtensionExtensionAt4],
             },
-            Rule::DeclarationsExtensionExtensionAt0 => RuleData {
+            Rule::DeclarationsExtensionExtensionAt0 => RuleDefinition {
                 name: scopes![S::EntNameType],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsExtensionExtensionAt0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsExtensionExtensionAt4 => RuleData {
+            Rule::DeclarationsExtensionExtensionAt4 => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypeBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsExtensionExtensionAt4End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsTypealias => RuleData {
+            Rule::DeclarationsTypealias => RuleDefinition {
                 name: scopes![S::MetaDefinitionTypealias],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypealiasEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsTypealiasAt0, Pat::DeclarationsTypealiasAssignment],
             },
-            Rule::DeclarationsTypealiasAt0 => RuleData {
+            Rule::DeclarationsTypealiasAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypealiasAt0End),
                 backref: None,
                 patterns: &[Pat::DeclarationsGenericParameterClause],
             },
-            Rule::DeclarationsTypealiasAssignment => RuleData {
+            Rule::DeclarationsTypealiasAssignment => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsTypealiasAssignmentEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsMacro => RuleData {
+            Rule::DeclarationsMacro => RuleDefinition {
                 name: scopes![S::MetaDefinitionMacro],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsMacroEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsParameterClause, Pat::DeclarationsFunctionResult, Pat::AsyncThrows, Pat::DeclarationsGenericWhereClause],
             },
-            Rule::DeclarationsProtocolProtocolInitializer => RuleData {
+            Rule::DeclarationsProtocolProtocolInitializer => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunctionInitializer],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsProtocolProtocolInitializerEnd),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::DeclarationsGenericParameterClause, Pat::DeclarationsParameterClause, Pat::AsyncThrows, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsProtocolProtocolInitializerAt5],
             },
-            Rule::DeclarationsProtocolProtocolInitializerAt5 => RuleData {
+            Rule::DeclarationsProtocolProtocolInitializerAt5 => RuleDefinition {
                 name: scopes![S::InvIllegalFunctionBodyNotAllowedInProtocol],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsProtocolProtocolInitializerAt5End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsProtocolAssociatedType => RuleData {
+            Rule::DeclarationsProtocolAssociatedType => RuleDefinition {
                 name: scopes![S::MetaDefinitionAssociatedtype],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsProtocolAssociatedTypeEnd),
                 backref: None,
                 patterns: &[Pat::DeclarationsInheritanceClause, Pat::DeclarationsGenericWhereClause, Pat::DeclarationsTypealiasAssignment],
             },
-            Rule::DeclarationsParameterListAt2At3 => RuleData {
+            Rule::DeclarationsParameterListAt2At3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsParameterListAt2At3End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::DeclarationsFunctionInitializerAt5 => RuleData {
+            Rule::DeclarationsFunctionInitializerAt5 => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunctionBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsFunctionInitializerAt5End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::LiteralsStringRawStringGutsAt2At1 => RuleData {
+            Rule::LiteralsStringRawStringGutsAt2At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringRawStringGutsAt2At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::DeclarationsGenericWhereClauseRequirementListAt3 => RuleData {
+            Rule::DeclarationsGenericWhereClauseRequirementListAt3 => RuleDefinition {
                 name: scopes![S::MetaGenericWhereClauseSameTypeRequirement],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericWhereClauseRequirementListAt3End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsGenericWhereClauseRequirementListAt4 => RuleData {
+            Rule::DeclarationsGenericWhereClauseRequirementListAt4 => RuleDefinition {
                 name: scopes![S::MetaGenericWhereClauseConformanceRequirement],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericWhereClauseRequirementListAt4End),
                 backref: None,
                 patterns: &[Pat::DeclarationsGenericWhereClauseRequirementListAt4At0],
             },
-            Rule::DeclarationsGenericWhereClauseRequirementListAt4At0 => RuleData {
+            Rule::DeclarationsGenericWhereClauseRequirementListAt4At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::EntOtherInheritedClass],
                 end: Some(Pat::DeclarationsGenericWhereClauseRequirementListAt4At0End),
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::DeclarationsAvailableTypesAt3, Pat::DeclarationsAvailableTypesAt4, Pat::DeclarationsAvailableTypesAt5, Pat::DeclarationsAvailableTypesAt6, Pat::DeclarationsAvailableTypesAt7, Pat::DeclarationsAvailableTypesAt8, Pat::DeclarationsAvailableTypesAt9, Pat::DeclarationsAvailableTypesAt10, Pat::DeclarationsAvailableTypesAt11, Pat::DeclarationsAvailableTypesAt12, Pat::DeclarationsAvailableTypesAt13, Pat::DeclarationsAvailableTypesAt14, Pat::DeclarationsAvailableTypesAt15, Pat::DeclarationsAvailableTypesAt16, Pat::DeclarationsAvailableTypesTupleType, Pat::DeclarationsAvailableTypesCollectionType, Pat::DeclarationsGenericArgumentClause],
             },
-            Rule::DeclarationsGenericParameterClauseAt6 => RuleData {
+            Rule::DeclarationsGenericParameterClauseAt6 => RuleDefinition {
                 name: scopes![S::MetaGenericParameterConstraint],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericParameterClauseAt6End),
                 backref: None,
                 patterns: &[Pat::DeclarationsGenericParameterClauseAt6At0],
             },
-            Rule::DeclarationsGenericParameterClauseAt6At0 => RuleData {
+            Rule::DeclarationsGenericParameterClauseAt6At0 => RuleDefinition {
                 name: scopes![S::EntOtherInheritedClass],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsGenericParameterClauseAt6At0End),
                 backref: None,
                 patterns: &[Pat::DeclarationsTypeIdentifier, Pat::DeclarationsTypeOperatorsAt0, Pat::DeclarationsTypeOperatorsAt1],
             },
-            Rule::DeclarationsFunctionAt6 => RuleData {
+            Rule::DeclarationsFunctionAt6 => RuleDefinition {
                 name: scopes![S::MetaDefinitionFunctionBody],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DeclarationsFunctionAt6End),
                 backref: None,
                 patterns: &[Pat::CompilerControlAt0, Pat::CompilerControlAt1, Pat::CompilerControlAt2, Pat::CompilerControlAt3, Pat::DeclarationsFunction, Pat::DeclarationsFunctionInitializer, Pat::DeclarationsFunctionSubscript, Pat::DeclarationsTypedVariableDeclaration, Pat::DeclarationsImport, Pat::DeclarationsOperator, Pat::DeclarationsPrecedencegroup, Pat::DeclarationsProtocolProtocol, Pat::DeclarationsTypeAt0Class, Pat::DeclarationsTypeAt0Struct, Pat::DeclarationsTypeAt0Actor, Pat::DeclarationsTypeEnumEnum, Pat::DeclarationsExtensionExtension, Pat::DeclarationsTypealias, Pat::DeclarationsMacro, Pat::CommentsAt0, Pat::CommentsAt1, Pat::CommentsAt2, Pat::CommentsAt3, Pat::CommentsAt4, Pat::CommentsAt5, Pat::CodeBlock, Pat::AttributesAt0, Pat::AttributesAt1, Pat::AttributesAt2, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter, Pat::LiteralsBoolean, Pat::LiteralsNumericAt0, Pat::LiteralsNumericAt1, Pat::LiteralsNumericAt2, Pat::LiteralsNumericAt3, Pat::LiteralsNumericAt4, Pat::LiteralsNumericAt5, Pat::LiteralsNumericAt6, Pat::LiteralsNumericAt7, Pat::LiteralsNumericAt8, Pat::LiteralsNumericAt9, Pat::LiteralsNumericAt10, Pat::LiteralsNumericAt11, Pat::LiteralsStringAt0, Pat::LiteralsStringAt1, Pat::LiteralsStringAt2, Pat::LiteralsStringAt3, Pat::LiteralsStringAt4, Pat::LiteralsStringAt5, Pat::LiteralsAt3, Pat::LiteralsAt4, Pat::LiteralsAt5, Pat::LiteralsAt6, Pat::LiteralsAt7, Pat::LiteralsRegularExpressionLiteralAt0, Pat::LiteralsRegularExpressionLiteralAt1, Pat::LiteralsRegularExpressionLiteralAt2, Pat::OperatorsAt0, Pat::OperatorsAt1, Pat::OperatorsAt2, Pat::BuiltinTypesBuiltinClassType, Pat::BuiltinTypesBuiltinEnumTypeAt0, Pat::BuiltinTypesBuiltinEnumTypeAt1, Pat::BuiltinTypesBuiltinEnumTypeAt2, Pat::BuiltinTypesBuiltinEnumTypeAt3, Pat::BuiltinTypesBuiltinProtocolTypeAt0, Pat::BuiltinTypesBuiltinProtocolTypeAt1, Pat::BuiltinTypesBuiltinProtocolTypeAt2, Pat::BuiltinTypesBuiltinStructTypeAt0, Pat::BuiltinTypesBuiltinStructTypeAt1, Pat::BuiltinTypesBuiltinTypealiasAt0, Pat::BuiltinTypesBuiltinTypealiasAt1, Pat::BuiltinTypesAt5, Pat::BuiltinFunctionsAt0, Pat::BuiltinFunctionsAt1, Pat::BuiltinFunctionsAt2, Pat::BuiltinGlobalFunctionsAt0, Pat::BuiltinGlobalFunctionsAt1, Pat::BuiltinGlobalFunctionsAt2, Pat::BuiltinGlobalFunctionsAt3, Pat::BuiltinPropertiesAt0, Pat::BuiltinPropertiesAt1, Pat::BuiltinPropertiesAt2, Pat::BuiltinPropertiesAt3, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName, Pat::ConditionalsAt0, Pat::ConditionalsAt1, Pat::KeywordsAt0, Pat::KeywordsAt1, Pat::KeywordsAt2, Pat::KeywordsAt3, Pat::KeywordsAt4, Pat::KeywordsAt5, Pat::KeywordsAt6, Pat::KeywordsAt7, Pat::KeywordsAt8, Pat::KeywordsAt9, Pat::KeywordsAt10, Pat::KeywordsAt11, Pat::KeywordsAt12, Pat::KeywordsAt13Class, Pat::KeywordsAt13Enum, Pat::KeywordsAt13Extension, Pat::KeywordsAt13Precedencegroup, Pat::KeywordsAt13Protocol, Pat::KeywordsAt13Struct, Pat::KeywordsAt13Actor, Pat::KeywordsAt14, Pat::KeywordsAt15, Pat::KeywordsAt16, Pat::KeywordsAt17, Pat::KeywordsAt18, Pat::KeywordsAt19, Pat::KeywordsAt20, Pat::KeywordsAt21, Pat::KeywordsAt22, Pat::KeywordsAt23, Pat::KeywordsAt24, Pat::KeywordsAt25, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression, Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18, Pat::ExpressionsTrailingClosureAt0, Pat::ExpressionsTrailingClosureAt1, Pat::MemberReferenceAt0],
             },
-            Rule::LiteralsStringStringGutsAt2At1 => RuleData {
+            Rule::LiteralsStringStringGutsAt2At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LiteralsStringStringGutsAt2At1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -2636,9 +2636,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::CompilerControlAt0 => PatData {
+            Pat::CompilerControlAt0 => PatDefinition {
                 act: Act::Begin(Rule::CompilerControlAt0),
                 captures: &[(0, scopes![S::MetaPreprocessorConditional]), (1, scopes![S::PDefinitionPreprocessor]), (2, scopes![S::KwControlImportPreprocessorConditional]), (3, scopes![S::ConstLanguageBoolean])],
                 nested: &[],
@@ -2706,77 +2706,77 @@ impl Pat {
             | Pat::DeclarationsGenericWhereClauseRequirementListAt4At0End
             | Pat::DeclarationsGenericParameterClauseAt6End
             | Pat::DeclarationsGenericParameterClauseAt6At0End
-            | Pat::LiteralsStringStringGutsAt2At1End => PatData {
+            | Pat::LiteralsStringStringGutsAt2At1End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::CompilerControlAt1 => PatData {
+            Pat::CompilerControlAt1 => PatDefinition {
                 act: Act::Begin(Rule::CompilerControlAt1),
                 captures: &[(1, scopes![S::PDefinitionPreprocessor]), (2, scopes![S::KwControlImportPreprocessorConditional])],
                 nested: &[],
             },
-            Pat::CompilerControlAt1End => PatData {
+            Pat::CompilerControlAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionPreprocessor]), (2, scopes![S::KwControlImportPreprocessorConditional])],
                 nested: &[],
             },
             Pat::CompilerControlAt1At0
-            | Pat::Nested9At7 => PatData {
+            | Pat::Nested9At7 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorLogical]),
                 captures: &[],
                 nested: &[],
             },
             Pat::CompilerControlAt1At1
-            | Pat::LiteralsBoolean => PatData {
+            | Pat::LiteralsBoolean => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguageBoolean]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CompilerControlAt1At2 => PatData {
+            Pat::CompilerControlAt1At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherCondition]), (2, scopes![S::PDefinitionParametersBegin]), (3, scopes![S::SuppConstantPlatformArchitecture]), (4, scopes![S::PDefinitionParametersEnd])],
                 nested: &[],
             },
-            Pat::CompilerControlAt1At3 => PatData {
+            Pat::CompilerControlAt1At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherCondition]), (2, scopes![S::PDefinitionParametersBegin]), (3, scopes![S::SuppConstantPlatformOs]), (4, scopes![S::PDefinitionParametersEnd])],
                 nested: &[],
             },
-            Pat::CompilerControlAt1At4 => PatData {
+            Pat::CompilerControlAt1At4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherCondition]), (2, scopes![S::PDefinitionParametersBegin]), (3, scopes![S::EntNameTypeModule]), (4, scopes![S::PDefinitionParametersEnd])],
                 nested: &[],
             },
-            Pat::CompilerControlAt1At5 => PatData {
+            Pat::CompilerControlAt1At5 => PatDefinition {
                 act: Act::Begin(Rule::CompilerControlAt1At5),
                 captures: &[(1, scopes![S::KwOtherCondition]), (2, scopes![S::PDefinitionParametersBegin])],
                 nested: &[],
             },
             Pat::CompilerControlAt1At5End
-            | Pat::CompilerControlAt1At6End => PatData {
+            | Pat::CompilerControlAt1At6End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionParametersEnd])],
                 nested: &[],
             },
-            Pat::CompilerControlAt1At5At0 => PatData {
+            Pat::CompilerControlAt1At5At0 => PatDefinition {
                 act: Act::Match(scopes![S::SuppConstantPlatformEnvironment]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CompilerControlAt1At6 => PatData {
+            Pat::CompilerControlAt1At6 => PatDefinition {
                 act: Act::Begin(Rule::CompilerControlAt1At6),
                 captures: &[(1, scopes![S::KwOtherCondition]), (2, scopes![S::PDefinitionParametersBegin])],
                 nested: &[],
             },
             Pat::CompilerControlAt1At6At0
-            | Pat::Nested9At5 => PatData {
+            | Pat::Nested9At5 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorComparison]),
                 captures: &[],
                 nested: &[],
             },
             Pat::CompilerControlAt1At6At1
-            | Pat::AttributesAt0At1At0 => PatData {
+            | Pat::AttributesAt0At1At0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumeric]),
                 captures: &[],
                 nested: &[],
@@ -2785,82 +2785,82 @@ impl Pat {
             | Pat::Nested2At0
             | Pat::DeclarationsOperatorAt2
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt2
-            | Pat::Nested1At3 => PatData {
+            | Pat::Nested1At3 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalCharacterNotAllowedHere]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CompilerControlAt2 => PatData {
+            Pat::CompilerControlAt2 => PatDefinition {
                 act: Act::Match(scopes![S::MetaPreprocessorConditional]),
                 captures: &[(1, scopes![S::PDefinitionPreprocessor]), (2, scopes![S::KwControlImportPreprocessorConditional])],
                 nested: &[(3, Rule::Nested0)],
             },
-            Pat::Nested1At0 => PatData {
+            Pat::Nested1At0 => PatDefinition {
                 act: Act::Begin(Rule::Nested1At0),
                 captures: &[(1, scopes![S::SuppVariableParameter]), (2, scopes![S::PSeparatorKeyValue])],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt0 => PatData {
+            Pat::LiteralsNumericAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericFloatDecimal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt1 => PatData {
+            Pat::LiteralsNumericAt1 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericFloatHexadecimal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt2 => PatData {
+            Pat::LiteralsNumericAt2 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalNumericFloatInvalidExponent]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt3 => PatData {
+            Pat::LiteralsNumericAt3 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalNumericFloatMissingExponent]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt4 => PatData {
+            Pat::LiteralsNumericAt4 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalNumericFloatMissingLeadingZero]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt5 => PatData {
+            Pat::LiteralsNumericAt5 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalNumericLeadingUnderscore]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt6 => PatData {
+            Pat::LiteralsNumericAt6 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt7 => PatData {
+            Pat::LiteralsNumericAt7 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericIntegerBinary]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt8 => PatData {
+            Pat::LiteralsNumericAt8 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericIntegerOctal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt9 => PatData {
+            Pat::LiteralsNumericAt9 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericIntegerDecimal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt10 => PatData {
+            Pat::LiteralsNumericAt10 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericIntegerHexadecimal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsNumericAt11 => PatData {
+            Pat::LiteralsNumericAt11 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalNumericOther]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsStringAt0 => PatData {
+            Pat::LiteralsStringAt0 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringAt0),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
@@ -2868,145 +2868,145 @@ impl Pat {
             Pat::LiteralsStringAt0End
             | Pat::LiteralsStringAt1End
             | Pat::LiteralsStringAt2End
-            | Pat::LiteralsStringAt3End => PatData {
+            | Pat::LiteralsStringAt3End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionStringEnd]), (1, scopes![S::InvIllegalExtraClosingDelimiter])],
                 nested: &[],
             },
             Pat::LiteralsStringAt0At0
             | Pat::LiteralsStringAt1At0
-            | Pat::LiteralsStringAt2At0 => PatData {
+            | Pat::LiteralsStringAt2At0 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalContentAfterOpeningDelimiter]),
                 captures: &[],
                 nested: &[],
             },
             Pat::LiteralsStringAt0At1
-            | Pat::LiteralsStringAt1At1 => PatData {
+            | Pat::LiteralsStringAt1At1 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscapeNewline]),
                 captures: &[],
                 nested: &[],
             },
             Pat::LiteralsStringStringGutsAt0
-            | Pat::LiteralsStringRawStringGutsAt0 => PatData {
+            | Pat::LiteralsStringRawStringGutsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscape]),
                 captures: &[],
                 nested: &[],
             },
             Pat::LiteralsStringStringGutsAt1
-            | Pat::LiteralsStringRawStringGutsAt1 => PatData {
+            | Pat::LiteralsStringRawStringGutsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscapeUnicode]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsStringStringGutsAt2 => PatData {
+            Pat::LiteralsStringStringGutsAt2 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringStringGutsAt2),
                 captures: &[(0, scopes![S::PSectionEmbeddedBegin])],
                 nested: &[],
             },
             Pat::LiteralsStringStringGutsAt2End
-            | Pat::LiteralsStringRawStringGutsAt2End => PatData {
+            | Pat::LiteralsStringRawStringGutsAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionEmbeddedEnd])],
                 nested: &[],
             },
-            Pat::CompilerControlAt3 => PatData {
+            Pat::CompilerControlAt3 => PatDefinition {
                 act: Act::Match(scopes![S::MetaPreprocessorSourcelocation]),
                 captures: &[(1, scopes![S::PDefinitionPreprocessor]), (2, scopes![S::KwControlImportPreprocessorSourcelocation]), (4, scopes![S::PDefinitionParametersBegin]), (6, scopes![S::PDefinitionParametersBegin])],
                 nested: &[(5, Rule::Nested1), (7, Rule::Nested0)],
             },
-            Pat::DeclarationsFunction => PatData {
+            Pat::DeclarationsFunction => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsFunction),
                 captures: &[(1, scopes![S::StorTypeFunction]), (2, scopes![S::EntNameFunction]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::CommentsAt0 => PatData {
+            Pat::CommentsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::CmtLineNumberSign]),
                 captures: &[(1, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentsAt1 => PatData {
+            Pat::CommentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt1),
                 captures: &[(0, scopes![S::PDefinitionCommentBegin])],
                 nested: &[],
             },
             Pat::CommentsAt1End
             | Pat::CommentsAt2End
-            | Pat::CommentsAt3End => PatData {
+            | Pat::CommentsAt3End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionCommentEnd])],
                 nested: &[],
             },
-            Pat::CommentsNested => PatData {
+            Pat::CommentsNested => PatDefinition {
                 act: Act::Begin(Rule::CommentsNested),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt2 => PatData {
+            Pat::CommentsAt2 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt2),
                 captures: &[(0, scopes![S::PDefinitionCommentBegin])],
                 nested: &[],
             },
-            Pat::CommentsAt3 => PatData {
+            Pat::CommentsAt3 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt3),
                 captures: &[(0, scopes![S::PDefinitionCommentBegin])],
                 nested: &[],
             },
-            Pat::CommentsAt4 => PatData {
+            Pat::CommentsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalUnexpectedEndOfBlockComment]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentsAt5 => PatData {
+            Pat::CommentsAt5 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt5),
                 captures: &[(1, scopes![S::PWhitespaceCommentLeading])],
                 nested: &[],
             },
-            Pat::CommentsAt5At0 => PatData {
+            Pat::CommentsAt5At0 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt5At0),
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentsAt5At1 => PatData {
+            Pat::CommentsAt5At1 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt5At1),
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentsAt5At2 => PatData {
+            Pat::CommentsAt5At2 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt5At2),
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericParameterClause => PatData {
+            Pat::DeclarationsGenericParameterClause => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericParameterClause),
                 captures: &[(0, scopes![S::PSeparatorGenericParameterClauseBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericParameterClauseEnd => PatData {
+            Pat::DeclarationsGenericParameterClauseEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSeparatorGenericParameterClauseEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericWhereClause => PatData {
+            Pat::DeclarationsGenericWhereClause => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericWhereClause),
                 captures: &[(1, scopes![S::KwOtherGenericConstraintIntroducer])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericWhereClauseRequirementList => PatData {
+            Pat::DeclarationsGenericWhereClauseRequirementList => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericWhereClauseRequirementList),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BuiltinTypesBuiltinClassType => PatData {
+            Pat::BuiltinTypesBuiltinClassType => PatDefinition {
                 act: Act::Match(scopes![S::SuppClass]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BuiltinTypesBuiltinEnumTypeAt0 => PatData {
+            Pat::BuiltinTypesBuiltinEnumTypeAt0 => PatDefinition {
                 act: Act::Match(scopes![S::SuppConstant]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BuiltinTypesBuiltinEnumTypeAt1 => PatData {
+            Pat::BuiltinTypesBuiltinEnumTypeAt1 => PatDefinition {
                 act: Act::Match(scopes![S::SuppConstantNever]),
                 captures: &[],
                 nested: &[],
@@ -3020,17 +3020,17 @@ impl Pat {
             | Pat::BuiltinTypesBuiltinStructTypeAt1
             | Pat::BuiltinTypesBuiltinTypealiasAt0
             | Pat::BuiltinTypesBuiltinTypealiasAt1
-            | Pat::DeclarationsTypesPrecedencegroupAt0 => PatData {
+            | Pat::DeclarationsTypesPrecedencegroupAt0 => PatDefinition {
                 act: Act::Match(scopes![S::SuppType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BuiltinTypesAt5 => PatData {
+            Pat::BuiltinTypesAt5 => PatDefinition {
                 act: Act::Match(scopes![S::SuppTypeAny]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AttributesAt0 => PatData {
+            Pat::AttributesAt0 => PatDefinition {
                 act: Act::Begin(Rule::AttributesAt0),
                 captures: &[(1, scopes![S::StorModifierAttribute]), (2, scopes![S::PDefinitionAttribute]), (3, scopes![S::PDefinitionArgumentsBegin])],
                 nested: &[],
@@ -3043,63 +3043,63 @@ impl Pat {
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionEnd
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0End
             | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1End
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpressionEnd => PatData {
+            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpressionEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionArgumentsEnd])],
                 nested: &[],
             },
             Pat::AttributesAt0At0
-            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt0 => PatData {
+            | Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherPlatformOs]), (2, scopes![S::ConstNumeric])],
                 nested: &[],
             },
-            Pat::AttributesAt0At1 => PatData {
+            Pat::AttributesAt0At1 => PatDefinition {
                 act: Act::Begin(Rule::AttributesAt0At1),
                 captures: &[(1, scopes![S::KwOther]), (2, scopes![S::PSeparatorKeyValue])],
                 nested: &[],
             },
-            Pat::AttributesAt0At2 => PatData {
+            Pat::AttributesAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::AttributesAt0At2),
                 captures: &[(1, scopes![S::KwOther]), (2, scopes![S::PSeparatorKeyValue])],
                 nested: &[],
             },
-            Pat::LiteralsStringAt1 => PatData {
+            Pat::LiteralsStringAt1 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringAt1),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::LiteralsStringRawStringGutsAt2 => PatData {
+            Pat::LiteralsStringRawStringGutsAt2 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringRawStringGutsAt2),
                 captures: &[(0, scopes![S::PSectionEmbeddedBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsFunctionInitializer => PatData {
+            Pat::DeclarationsFunctionInitializer => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsFunctionInitializer),
                 captures: &[(1, scopes![S::StorTypeFunction])],
                 nested: &[(1, Rule::Nested2)],
             },
-            Pat::DeclarationsParameterClause => PatData {
+            Pat::DeclarationsParameterClause => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsParameterClause),
                 captures: &[(1, scopes![S::PDefinitionParametersBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsParameterClauseEnd => PatData {
+            Pat::DeclarationsParameterClauseEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionParametersEnd]), (2, scopes![S::StorModifierAsync])],
                 nested: &[],
             },
-            Pat::DeclarationsParameterListAt0 => PatData {
+            Pat::DeclarationsParameterListAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntNameFunction]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::VarParameterFunction]), (5, scopes![S::PDefinitionIdentifier]), (6, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsParameterListAt1 => PatData {
+            Pat::DeclarationsParameterListAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarParameterFunction]), (2, scopes![S::EntNameFunction]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsParameterListAt2 => PatData {
+            Pat::DeclarationsParameterListAt2 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsParameterListAt2),
                 captures: &[],
                 nested: &[],
@@ -3109,343 +3109,343 @@ impl Pat {
             | Pat::DeclarationsAvailableTypesAt8
             | Pat::DeclarationsAvailableTypesAt9
             | Pat::KeywordsAt14
-            | Pat::KeywordsAt15 => PatData {
+            | Pat::KeywordsAt15 => PatDefinition {
                 act: Act::Match(scopes![S::StorModifier]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AttributesAt1 => PatData {
+            Pat::AttributesAt1 => PatDefinition {
                 act: Act::Begin(Rule::AttributesAt1),
                 captures: &[(1, scopes![S::StorModifierAttribute]), (2, scopes![S::PDefinitionAttribute]), (3, scopes![S::PDefinitionArgumentsBegin])],
                 nested: &[],
             },
-            Pat::AttributesAt1At0 => PatData {
+            Pat::AttributesAt1At0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunction]),
                 captures: &[(1, scopes![S::InvIllegalMissingColonAfterSelectorPiece])],
                 nested: &[],
             },
-            Pat::AttributesAt2 => PatData {
+            Pat::AttributesAt2 => PatDefinition {
                 act: Act::Begin(Rule::AttributesAt2),
                 captures: &[(0, scopes![S::StorModifierAttribute]), (1, scopes![S::PDefinitionAttribute]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::AttributesAt2At0 => PatData {
+            Pat::AttributesAt2At0 => PatDefinition {
                 act: Act::Begin(Rule::AttributesAt2At0),
                 captures: &[(0, scopes![S::PDefinitionArgumentsBegin])],
                 nested: &[],
             },
-            Pat::CodeBlock => PatData {
+            Pat::CodeBlock => PatDefinition {
                 act: Act::Begin(Rule::CodeBlock),
                 captures: &[(0, scopes![S::PSectionScopeBegin])],
                 nested: &[],
             },
-            Pat::CodeBlockEnd => PatData {
+            Pat::CodeBlockEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionScopeEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsFunctionSubscript => PatData {
+            Pat::DeclarationsFunctionSubscript => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsFunctionSubscript),
                 captures: &[(1, scopes![S::StorTypeFunction])],
                 nested: &[],
             },
-            Pat::DeclarationsFunctionResult => PatData {
+            Pat::DeclarationsFunctionResult => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsFunctionResult),
                 captures: &[(1, scopes![S::KwOperatorFunctionResult])],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesAt3 => PatData {
+            Pat::DeclarationsAvailableTypesAt3 => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierAsync]),
                 captures: &[],
                 nested: &[],
             },
             Pat::DeclarationsAvailableTypesAt4
-            | Pat::KeywordsAt9 => PatData {
+            | Pat::KeywordsAt9 => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierException]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesAt5 => PatData {
+            Pat::DeclarationsAvailableTypesAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherOperatorTypeOpaque]),
                 captures: &[],
                 nested: &[],
             },
             Pat::DeclarationsAvailableTypesAt6
-            | Pat::KeywordsAt4 => PatData {
+            | Pat::KeywordsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherOperatorTypeExistential]),
                 captures: &[],
                 nested: &[],
             },
             Pat::DeclarationsAvailableTypesAt7
             | Pat::KeywordsAt2
-            | Pat::DeclarationsGenericParameterClauseAt3 => PatData {
+            | Pat::DeclarationsGenericParameterClauseAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlLoop]),
                 captures: &[],
                 nested: &[],
             },
             Pat::DeclarationsAvailableTypesAt10
-            | Pat::KeywordsAt21 => PatData {
+            | Pat::KeywordsAt21 => PatDefinition {
                 act: Act::Match(scopes![S::VarLanguage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesAt11 => PatData {
+            Pat::DeclarationsAvailableTypesAt11 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorTypeFunction])],
                 nested: &[],
             },
             Pat::DeclarationsAvailableTypesAt12
-            | Pat::DeclarationsTypeOperatorsAt0 => PatData {
+            | Pat::DeclarationsTypeOperatorsAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorTypeComposition])],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesAt13 => PatData {
+            Pat::DeclarationsAvailableTypesAt13 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorTypeOptional]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesAt14 => PatData {
+            Pat::DeclarationsAvailableTypesAt14 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorFunctionVariadicParameter]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesAt15 => PatData {
+            Pat::DeclarationsAvailableTypesAt15 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherTypeComposition]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesAt16 => PatData {
+            Pat::DeclarationsAvailableTypesAt16 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherTypeMetatype]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesTupleType => PatData {
+            Pat::DeclarationsAvailableTypesTupleType => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsAvailableTypesTupleType),
                 captures: &[(0, scopes![S::PSectionTupleTypeBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesTupleTypeEnd => PatData {
+            Pat::DeclarationsAvailableTypesTupleTypeEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionTupleTypeEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesCollectionType => PatData {
+            Pat::DeclarationsAvailableTypesCollectionType => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsAvailableTypesCollectionType),
                 captures: &[(0, scopes![S::PSectionCollectionTypeBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesCollectionTypeEnd => PatData {
+            Pat::DeclarationsAvailableTypesCollectionTypeEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionCollectionTypeEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericArgumentClause => PatData {
+            Pat::DeclarationsGenericArgumentClause => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericArgumentClause),
                 captures: &[(0, scopes![S::PSeparatorGenericArgumentClauseBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericArgumentClauseEnd => PatData {
+            Pat::DeclarationsGenericArgumentClauseEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSeparatorGenericArgumentClauseEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesCollectionTypeAt2 => PatData {
+            Pat::DeclarationsAvailableTypesCollectionTypeAt2 => PatDefinition {
                 act: Act::Match(scopes![S::SuppVariableInferred]),
                 captures: &[],
                 nested: &[],
             },
             Pat::DeclarationsAvailableTypesCollectionTypeAt3
-            | Pat::KeywordsAt3 => PatData {
+            | Pat::KeywordsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherInlineArray]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesCollectionTypeAt4 => PatData {
+            Pat::DeclarationsAvailableTypesCollectionTypeAt4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsAvailableTypesCollectionTypeAt4),
                 captures: &[(0, scopes![S::PSeparatorKeyValue])],
                 nested: &[],
             },
-            Pat::DeclarationsAvailableTypesCollectionTypeAt4At0 => PatData {
+            Pat::DeclarationsAvailableTypesCollectionTypeAt4At0 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalExtraColonInDictionaryType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AsyncThrows => PatData {
+            Pat::AsyncThrows => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::InvIllegalAwaitMustPrecedeThrows]), (2, scopes![S::StorModifierException]), (3, scopes![S::StorModifierAsync])],
                 nested: &[],
             },
-            Pat::DeclarationsFunctionSubscriptAt6 => PatData {
+            Pat::DeclarationsFunctionSubscriptAt6 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsFunctionSubscriptAt6),
                 captures: &[(1, scopes![S::PSectionFunctionBegin])],
                 nested: &[],
             },
             Pat::DeclarationsFunctionSubscriptAt6End
             | Pat::DeclarationsFunctionInitializerAt5End
-            | Pat::DeclarationsFunctionAt6End => PatData {
+            | Pat::DeclarationsFunctionAt6End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PSectionFunctionEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsTypedVariableDeclaration => PatData {
+            Pat::DeclarationsTypedVariableDeclaration => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypedVariableDeclaration),
                 captures: &[(1, scopes![S::StorModifierAsync]), (2, scopes![S::KwOtherDeclarationSpecifier])],
                 nested: &[],
             },
-            Pat::DeclarationsImport => PatData {
+            Pat::DeclarationsImport => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsImport),
                 captures: &[(1, scopes![S::KwControlImport])],
                 nested: &[],
             },
             Pat::DeclarationsImportEnd
-            | Pat::DeclarationsOperatorEnd => PatData {
+            | Pat::DeclarationsOperatorEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PTerminatorStatement])],
                 nested: &[],
             },
-            Pat::DeclarationsImportAt0 => PatData {
+            Pat::DeclarationsImportAt0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsImportAt0),
                 captures: &[(1, scopes![S::StorModifier])],
                 nested: &[],
             },
-            Pat::DeclarationsImportAt0At0 => PatData {
+            Pat::DeclarationsImportAt0At0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameType]),
                 captures: &[(1, scopes![S::PDefinitionIdentifier]), (2, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsImportAt0At1 => PatData {
+            Pat::DeclarationsImportAt0At1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested3At0 => PatData {
+            Pat::Nested3At0 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalDotNotAllowedHere]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsImportAt0At2 => PatData {
+            Pat::DeclarationsImportAt0At2 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameType]),
                 captures: &[],
                 nested: &[(1, Rule::Nested3)],
             },
-            Pat::DeclarationsImportAt0At3 => PatData {
+            Pat::DeclarationsImportAt0At3 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorImport]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsImportAt0At4 => PatData {
+            Pat::DeclarationsImportAt0At4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsImportAt0At4),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsOperator => PatData {
+            Pat::DeclarationsOperator => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsOperator),
                 captures: &[(1, scopes![S::StorModifier]), (2, scopes![S::StorTypeFunctionOperator]), (3, scopes![S::EntNameFunctionOperator]), (4, scopes![S::EntNameFunctionOperator])],
                 nested: &[(4, Rule::Nested3)],
             },
-            Pat::DeclarationsOperatorSwift2 => PatData {
+            Pat::DeclarationsOperatorSwift2 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsOperatorSwift2),
                 captures: &[(1, scopes![S::PDefinitionOperatorBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsOperatorSwift2End => PatData {
+            Pat::DeclarationsOperatorSwift2End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionOperatorEnd])],
                 nested: &[],
             },
             Pat::DeclarationsOperatorSwift2At1
-            | Pat::DeclarationsPrecedencegroupAt0At2 => PatData {
+            | Pat::DeclarationsPrecedencegroupAt0At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifier]), (2, scopes![S::KwOtherOperatorAssociativity])],
                 nested: &[],
             },
-            Pat::DeclarationsOperatorSwift2At2 => PatData {
+            Pat::DeclarationsOperatorSwift2At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifier]), (2, scopes![S::ConstNumericInteger])],
                 nested: &[],
             },
-            Pat::DeclarationsOperatorSwift2At3 => PatData {
+            Pat::DeclarationsOperatorSwift2At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifier])],
                 nested: &[],
             },
-            Pat::DeclarationsOperatorSwift3 => PatData {
+            Pat::DeclarationsOperatorSwift3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(2, scopes![S::EntOtherInheritedClass]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[(2, Rule::Nested4)],
             },
-            Pat::DeclarationsPrecedencegroup => PatData {
+            Pat::DeclarationsPrecedencegroup => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsPrecedencegroup),
                 captures: &[(1, scopes![S::StorTypePrecedencegroup]), (2, scopes![S::EntNameTypePrecedencegroup]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsPrecedencegroupAt0 => PatData {
+            Pat::DeclarationsPrecedencegroupAt0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsPrecedencegroupAt0),
                 captures: &[(0, scopes![S::PDefinitionPrecedencegroupBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsPrecedencegroupAt0End => PatData {
+            Pat::DeclarationsPrecedencegroupAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionPrecedencegroupEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsPrecedencegroupAt0At1 => PatData {
+            Pat::DeclarationsPrecedencegroupAt0At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifier]), (2, scopes![S::EntOtherInheritedClass]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[(2, Rule::Nested4)],
             },
-            Pat::DeclarationsPrecedencegroupAt0At3 => PatData {
+            Pat::DeclarationsPrecedencegroupAt0At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifier]), (2, scopes![S::ConstLanguageBoolean])],
                 nested: &[],
             },
-            Pat::DeclarationsProtocolProtocol => PatData {
+            Pat::DeclarationsProtocolProtocol => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsProtocolProtocol),
                 captures: &[(1, scopes![S::StorTypeProtocol]), (2, scopes![S::EntNameTypeProtocol]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsInheritanceClause => PatData {
+            Pat::DeclarationsInheritanceClause => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsInheritanceClause),
                 captures: &[(1, scopes![S::InvIllegalEmptyInheritanceClause]), (2, scopes![S::PSeparatorInheritanceClause])],
                 nested: &[],
             },
-            Pat::DeclarationsInheritanceClauseAt0 => PatData {
+            Pat::DeclarationsInheritanceClauseAt0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsInheritanceClauseAt0),
                 captures: &[(0, scopes![S::StorTypeClass])],
                 nested: &[],
             },
-            Pat::DeclarationsInheritanceClauseMoreTypes => PatData {
+            Pat::DeclarationsInheritanceClauseMoreTypes => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsInheritanceClauseMoreTypes),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsInheritanceClauseInheritedType => PatData {
+            Pat::DeclarationsInheritanceClauseInheritedType => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsInheritanceClauseInheritedType),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsTypeIdentifier => PatData {
+            Pat::DeclarationsTypeIdentifier => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeIdentifier),
                 captures: &[(1, scopes![S::MetaTypeName]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier])],
                 nested: &[(1, Rule::Nested5)],
             },
-            Pat::DeclarationsTypeIdentifierAt0 => PatData {
+            Pat::DeclarationsTypeIdentifierAt0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeIdentifierAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsTypeOperatorsAt1 => PatData {
+            Pat::DeclarationsTypeOperatorsAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorTypeRequirementSuppression])],
                 nested: &[],
             },
-            Pat::DeclarationsInheritanceClauseAt1 => PatData {
+            Pat::DeclarationsInheritanceClauseAt1 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsInheritanceClauseAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsProtocolProtocolAt3 => PatData {
+            Pat::DeclarationsProtocolProtocolAt3 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsProtocolProtocolAt3),
                 captures: &[(0, scopes![S::PDefinitionTypeBegin])],
                 nested: &[],
@@ -3455,504 +3455,504 @@ impl Pat {
             | Pat::DeclarationsTypeAt0StructAt4End
             | Pat::DeclarationsTypeAt0ActorAt4End
             | Pat::DeclarationsTypeEnumEnumAt4End
-            | Pat::DeclarationsExtensionExtensionAt4End => PatData {
+            | Pat::DeclarationsExtensionExtensionAt4End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionTypeEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsProtocolProtocolMethod => PatData {
+            Pat::DeclarationsProtocolProtocolMethod => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsProtocolProtocolMethod),
                 captures: &[(1, scopes![S::StorTypeFunction]), (2, scopes![S::EntNameFunction]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsProtocolProtocolMethodAt6 => PatData {
+            Pat::DeclarationsProtocolProtocolMethodAt6 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsProtocolProtocolMethodAt6),
                 captures: &[(0, scopes![S::PSectionFunctionBegin])],
                 nested: &[],
             },
             Pat::DeclarationsProtocolProtocolMethodAt6End
-            | Pat::DeclarationsProtocolProtocolInitializerAt5End => PatData {
+            | Pat::DeclarationsProtocolProtocolInitializerAt5End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionFunctionEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeAt0Class => PatData {
+            Pat::DeclarationsTypeAt0Class => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeAt0Class),
                 captures: &[(1, scopes![S::StorTypeClass]), (2, scopes![S::EntNameTypeClass]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeAt0ClassAt4 => PatData {
+            Pat::DeclarationsTypeAt0ClassAt4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeAt0ClassAt4),
                 captures: &[(0, scopes![S::PDefinitionTypeBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeAt0Struct => PatData {
+            Pat::DeclarationsTypeAt0Struct => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeAt0Struct),
                 captures: &[(1, scopes![S::StorTypeStruct]), (2, scopes![S::EntNameTypeStruct]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeAt0StructAt4 => PatData {
+            Pat::DeclarationsTypeAt0StructAt4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeAt0StructAt4),
                 captures: &[(0, scopes![S::PDefinitionTypeBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeAt0Actor => PatData {
+            Pat::DeclarationsTypeAt0Actor => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeAt0Actor),
                 captures: &[(1, scopes![S::StorTypeActor]), (2, scopes![S::EntNameTypeActor]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeAt0ActorAt4 => PatData {
+            Pat::DeclarationsTypeAt0ActorAt4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeAt0ActorAt4),
                 captures: &[(0, scopes![S::PDefinitionTypeBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumEnum => PatData {
+            Pat::DeclarationsTypeEnumEnum => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumEnum),
                 captures: &[(1, scopes![S::StorTypeEnum]), (2, scopes![S::EntNameTypeEnum]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumEnumAt4 => PatData {
+            Pat::DeclarationsTypeEnumEnumAt4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumEnumAt4),
                 captures: &[(0, scopes![S::PDefinitionTypeBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumEnumCaseClause => PatData {
+            Pat::DeclarationsTypeEnumEnumCaseClause => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumEnumCaseClause),
                 captures: &[(1, scopes![S::StorTypeEnumCase])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumEnumCase => PatData {
+            Pat::DeclarationsTypeEnumEnumCase => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumEnumCase),
                 captures: &[(1, scopes![S::VarOtherEnummember])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumAssociatedValues => PatData {
+            Pat::DeclarationsTypeEnumAssociatedValues => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumAssociatedValues),
                 captures: &[(0, scopes![S::PDefinitionParametersBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumAssociatedValuesEnd => PatData {
+            Pat::DeclarationsTypeEnumAssociatedValuesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionParametersEnd])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumAssociatedValuesAt1 => PatData {
+            Pat::DeclarationsTypeEnumAssociatedValuesAt1 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumAssociatedValuesAt1),
                 captures: &[(1, scopes![S::EntNameFunction]), (2, scopes![S::InvIllegalDistinctLabelsNotAllowed]), (5, scopes![S::VarParameterFunction]), (7, scopes![S::PSeparatorArgumentLabel])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumAssociatedValuesAt2 => PatData {
+            Pat::DeclarationsTypeEnumAssociatedValuesAt2 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumAssociatedValuesAt2),
                 captures: &[(1, scopes![S::EntNameFunction]), (2, scopes![S::VarParameterFunction]), (4, scopes![S::PSeparatorArgumentLabel])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumAssociatedValuesAt3 => PatData {
+            Pat::DeclarationsTypeEnumAssociatedValuesAt3 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumAssociatedValuesAt3),
                 captures: &[],
                 nested: &[],
             },
             Pat::DeclarationsTypeEnumAssociatedValuesAt3At1
-            | Pat::DeclarationsParameterListAt2At2 => PatData {
+            | Pat::DeclarationsParameterListAt2At2 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalExtraColonInParameterList]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumRawValueAssignment => PatData {
+            Pat::DeclarationsTypeEnumRawValueAssignment => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumRawValueAssignment),
                 captures: &[(1, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::LiteralsStringAt2 => PatData {
+            Pat::LiteralsStringAt2 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringAt2),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::LiteralsStringAt3 => PatData {
+            Pat::LiteralsStringAt3 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringAt3),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
             Pat::LiteralsStringAt3At0
             | Pat::LiteralsStringAt4At0
-            | Pat::LiteralsStringAt5At0 => PatData {
+            | Pat::LiteralsStringAt5At0 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalReturnsNotAllowed]),
                 captures: &[],
                 nested: &[],
             },
             Pat::LiteralsStringStringGutsAt3
-            | Pat::LiteralsStringRawStringGutsAt3 => PatData {
+            | Pat::LiteralsStringRawStringGutsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalEscapeNotRecognized]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsStringAt4 => PatData {
+            Pat::LiteralsStringAt4 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringAt4),
                 captures: &[(0, scopes![S::PDefinitionStringBeginRaw])],
                 nested: &[],
             },
             Pat::LiteralsStringAt4End
-            | Pat::LiteralsStringAt5End => PatData {
+            | Pat::LiteralsStringAt5End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionStringEndRaw]), (1, scopes![S::InvIllegalExtraClosingDelimiter])],
                 nested: &[],
             },
-            Pat::LiteralsStringAt5 => PatData {
+            Pat::LiteralsStringAt5 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringAt5),
                 captures: &[(0, scopes![S::PDefinitionStringBeginRaw])],
                 nested: &[],
             },
-            Pat::LiteralsAt3 => PatData {
+            Pat::LiteralsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguageNil]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsAt4 => PatData {
+            Pat::LiteralsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionObjectLiteral]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsAt5 => PatData {
+            Pat::LiteralsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionBuiltinMacro]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsAt6 => PatData {
+            Pat::LiteralsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionKeyPath]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsAt7 => PatData {
+            Pat::LiteralsAt7 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsAt7),
                 captures: &[(1, scopes![S::SuppFunctionSelectorReference]), (2, scopes![S::PDefinitionArgumentsBegin]), (3, scopes![S::SuppVariableParameter]), (4, scopes![S::PSeparatorArgumentLabel])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesClosureParameter => PatDefinition {
                 act: Act::Match(scopes![S::VarLanguageClosureParameter]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralAt0 => PatData {
+            Pat::LiteralsRegularExpressionLiteralAt0 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralQuote => PatData {
+            Pat::LiteralsRegularExpressionLiteralQuote => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralQuote),
                 captures: &[(0, scopes![S::ConstCharacterEscapeBackslashRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralQuoteEnd => PatData {
+            Pat::LiteralsRegularExpressionLiteralQuoteEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::ConstCharacterEscapeBackslashRegexp]), (1, scopes![S::InvIllegalReturnsNotAllowedRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt1 => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt1 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralRegexGutsAt1),
                 captures: &[(0, scopes![S::PDefinitionCommentBeginRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt1End => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionCommentEndRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt2 => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt2 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralRegexGutsAt2),
                 captures: &[(0, scopes![S::PSectionEmbeddedBeginRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt2End => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionEmbeddedEndRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralUnicodeScalars => PatData {
+            Pat::LiteralsRegularExpressionLiteralUnicodeScalars => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterNumericRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralCharacterProperties => PatData {
+            Pat::LiteralsRegularExpressionLiteralCharacterProperties => PatDefinition {
                 act: Act::Match(scopes![S::ConstOtherCharacterClassSetRegexp]),
                 captures: &[(1, scopes![S::SuppVariableCharacterPropertyRegexp]), (2, scopes![S::PDefinitionCharacterClassRegexp]), (3, scopes![S::SuppVariableCharacterPropertyRegexp]), (4, scopes![S::PDefinitionCharacterClassRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt5 => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlAnchorRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption => PatData {
+            Pat::LiteralsRegularExpressionLiteralBacktrackingDirectiveOrGlobalMatchingOption => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlDirectiveRegexp]), (2, scopes![S::KwControlDirectiveRegexp]), (3, scopes![S::KwControlDirectiveRegexp]), (4, scopes![S::VarLanguageTagRegexp]), (5, scopes![S::KwControlDirectiveRegexp]), (6, scopes![S::KwOperatorAssignmentRegexp]), (7, scopes![S::ConstNumericIntegerDecimalRegexp]), (8, scopes![S::KwControlDirectiveRegexp]), (9, scopes![S::KwControlDirectiveRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralCallout => PatData {
+            Pat::LiteralsRegularExpressionLiteralCallout => PatDefinition {
                 act: Act::Match(scopes![S::MetaCalloutRegexp]),
                 captures: &[(1, scopes![S::PDefinitionGroupRegexp]), (2, scopes![S::KwControlCalloutRegexp]), (3, scopes![S::ConstNumericIntegerDecimalRegexp]), (4, scopes![S::EntNameFunctionCalloutRegexp]), (5, scopes![S::EntNameFunctionCalloutRegexp]), (6, scopes![S::EntNameFunctionCalloutRegexp]), (7, scopes![S::EntNameFunctionCalloutRegexp]), (8, scopes![S::EntNameFunctionCalloutRegexp]), (9, scopes![S::EntNameFunctionCalloutRegexp]), (10, scopes![S::EntNameFunctionCalloutRegexp]), (11, scopes![S::EntNameFunctionCalloutRegexp]), (12, scopes![S::PDefinitionGroupRegexp]), (13, scopes![S::PDefinitionGroupRegexp]), (14, scopes![S::KwControlCalloutRegexp]), (15, scopes![S::EntNameFunctionCalloutRegexp]), (16, scopes![S::VarLanguageTagNameRegexp]), (17, scopes![S::PDefinitionGroupRegexp]), (18, scopes![S::PDefinitionGroupRegexp]), (19, scopes![S::KwControlCalloutRegexp]), (21, scopes![S::VarLanguageTagNameRegexp]), (22, scopes![S::KwControlCalloutRegexp]), (23, scopes![S::PDefinitionGroupRegexp])],
                 nested: &[],
             },
             Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt0
             | Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt2
-            | Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3 => PatData {
+            | Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::ConstCharacterEscapeBackslashRegexp]), (2, scopes![S::VarOtherGroupNameRegexp]), (3, scopes![S::KwOperatorRecursionLevelRegexp]), (4, scopes![S::ConstNumericIntegerDecimalRegexp]), (5, scopes![S::ConstNumericIntegerDecimalRegexp]), (6, scopes![S::KwOperatorRecursionLevelRegexp]), (7, scopes![S::ConstNumericIntegerDecimalRegexp]), (8, scopes![S::ConstCharacterEscapeBackslashRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1 => PatData {
+            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::ConstCharacterEscapeBackslashRegexp]), (2, scopes![S::ConstNumericIntegerDecimalRegexp]), (3, scopes![S::KwOperatorRecursionLevelRegexp]), (4, scopes![S::ConstNumericIntegerDecimalRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4 => PatData {
+            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::ConstCharacterEscapeBackslashRegexp]), (2, scopes![S::VarOtherGroupNameRegexp]), (3, scopes![S::KwOperatorRecursionLevelRegexp]), (4, scopes![S::ConstNumericIntegerDecimalRegexp]), (5, scopes![S::ConstCharacterEscapeBackslashRegexp])],
                 nested: &[],
             },
             Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt5
-            | Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7 => PatData {
+            | Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt7 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherBackReferenceRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6 => PatData {
+            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt6 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherBackReferenceRegexp]), (2, scopes![S::VarOtherGroupNameRegexp]), (3, scopes![S::KwOperatorRecursionLevelRegexp]), (4, scopes![S::ConstNumericIntegerDecimalRegexp]), (5, scopes![S::KwOtherBackReferenceRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8 => PatData {
+            Pat::LiteralsRegularExpressionLiteralBackreferenceOrSubpatternAt8 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherBackReferenceRegexp]), (2, scopes![S::ConstNumericIntegerDecimalRegexp]), (3, scopes![S::KwOperatorRecursionLevelRegexp]), (4, scopes![S::ConstNumericIntegerDecimalRegexp]), (5, scopes![S::KwOtherBackReferenceRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt9 => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt9 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterCharacterClassRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt10 => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt10 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEntityControlCharacterRegexp]),
                 captures: &[],
                 nested: &[],
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt11
-            | Pat::LiteralsRegularExpressionLiteralCustomCharClassMembersAt0 => PatData {
+            | Pat::LiteralsRegularExpressionLiteralCustomCharClassMembersAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscapeBackslashRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralRegexGutsAt12 => PatData {
+            Pat::LiteralsRegularExpressionLiteralRegexGutsAt12 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorOrRegexp]),
                 captures: &[],
                 nested: &[],
             },
             Pat::LiteralsRegularExpressionLiteralRegexGutsAt13
-            | Pat::LiteralsRegularExpressionLiteralRegexGutsAt14 => PatData {
+            | Pat::LiteralsRegularExpressionLiteralRegexGutsAt14 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorQuantifierRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0 => PatData {
+            Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralCustomCharClassAt0),
                 captures: &[(1, scopes![S::PDefinitionCharacterClassRegexp]), (2, scopes![S::KwOperatorNegationRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0End => PatData {
+            Pat::LiteralsRegularExpressionLiteralCustomCharClassAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionCharacterClassRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt0 => PatData {
+            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorIntersectionRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt1 => PatData {
+            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorSubtractionRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt2 => PatData {
+            Pat::LiteralsRegularExpressionLiteralSetOperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorSymmetricDifferenceRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralGroupOptionToggle => PatData {
+            Pat::LiteralsRegularExpressionLiteralGroupOptionToggle => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherOptionToggleRegexp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0 => PatData {
+            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt0),
                 captures: &[(1, scopes![S::PDefinitionGroupRegexp]), (2, scopes![S::KwControlConditionalAbsentRegexp])],
                 nested: &[],
             },
             Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt0End
             | Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1End
-            | Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2End => PatData {
+            | Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionGroupRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1 => PatData {
+            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt1 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt1),
                 captures: &[(1, scopes![S::PDefinitionGroupRegexp]), (2, scopes![S::KwControlConditionalRegexp]), (4, scopes![S::ConstNumericIntegerDecimalRegexp]), (5, scopes![S::KwOperatorRecursionLevelRegexp]), (6, scopes![S::ConstNumericIntegerDecimalRegexp]), (7, scopes![S::KwControlConditionalRegexp]), (8, scopes![S::KwControlConditionalRegexp]), (10, scopes![S::VarOtherGroupNameRegexp]), (11, scopes![S::KwOperatorRecursionLevelRegexp]), (12, scopes![S::ConstNumericIntegerDecimalRegexp]), (13, scopes![S::KwControlConditionalRegexp]), (14, scopes![S::KwControlConditionalRegexp]), (15, scopes![S::KwControlConditionalRegexp]), (16, scopes![S::KwControlConditionalRegexp]), (17, scopes![S::KwControlConditionalRegexp]), (18, scopes![S::KwControlConditionalRegexp]), (19, scopes![S::KwOperatorComparisonRegexp]), (20, scopes![S::ConstNumericIntegerDecimalRegexp]), (21, scopes![S::KwControlConditionalRegexp]), (22, scopes![S::PDefinitionGroupRegexp]), (23, scopes![S::KwControlConditionalRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2 => PatData {
+            Pat::LiteralsRegularExpressionLiteralGroupOrConditionalAt2 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsRegularExpressionLiteralGroupOrConditionalAt2),
                 captures: &[(1, scopes![S::PDefinitionGroupRegexp]), (2, scopes![S::KwOtherGroupOptionsRegexp]), (3, scopes![S::PDefinitionGroupRegexp]), (4, scopes![S::PDefinitionGroupRegexp]), (5, scopes![S::VarOtherGroupNameRegexp]), (6, scopes![S::KwOperatorBalancingGroupRegexp]), (7, scopes![S::VarOtherGroupNameRegexp]), (8, scopes![S::VarOtherGroupNameRegexp]), (9, scopes![S::KwOperatorBalancingGroupRegexp]), (10, scopes![S::VarOtherGroupNameRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralLineComment => PatData {
+            Pat::LiteralsRegularExpressionLiteralLineComment => PatDefinition {
                 act: Act::Match(scopes![S::CmtLineRegexp]),
                 captures: &[(1, scopes![S::PDefinitionCommentRegexp])],
                 nested: &[],
             },
-            Pat::LiteralsRegularExpressionLiteralAt1 => PatData {
+            Pat::LiteralsRegularExpressionLiteralAt1 => PatDefinition {
                 act: Act::Match(scopes![S::StrRegexpLine]),
                 captures: &[(1, scopes![S::PDefinitionStringBeginRegexp]), (3, scopes![S::PDefinitionStringEndRegexp])],
                 nested: &[(0, Rule::Nested6)],
             },
-            Pat::LiteralsRegularExpressionLiteralAt2 => PatData {
+            Pat::LiteralsRegularExpressionLiteralAt2 => PatDefinition {
                 act: Act::Match(scopes![S::StrRegexpLineExtended]),
                 captures: &[(1, scopes![S::PDefinitionStringBeginRegexp]), (4, scopes![S::PDefinitionStringEndRegexp]), (5, scopes![S::InvIllegalReturnsNotAllowedRegexp])],
                 nested: &[(0, Rule::Nested6)],
             },
-            Pat::OperatorsAt0 => PatData {
+            Pat::OperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorTypeCasting]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1 => PatData {
+            Pat::OperatorsAt1 => PatDefinition {
                 act: Act::Begin(Rule::OperatorsAt1),
                 captures: &[],
                 nested: &[],
             },
             Pat::Nested7At0
             | Pat::Nested8At0
-            | Pat::Nested8At1 => PatData {
+            | Pat::Nested8At1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorIncrementOrDecrement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested7At1 => PatData {
+            Pat::Nested7At1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmeticUnary]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested7At2 => PatData {
+            Pat::Nested7At2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorLogicalNot]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested7At3 => PatData {
+            Pat::Nested7At3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorBitwiseNot]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested7At4 => PatData {
+            Pat::Nested7At4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCustomPrefix]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1At0 => PatData {
+            Pat::OperatorsAt1At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested7)],
             },
-            Pat::Nested8At2 => PatData {
+            Pat::Nested8At2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCustomPostfix]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1At1 => PatData {
+            Pat::OperatorsAt1At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested8)],
             },
-            Pat::Nested9At0 => PatData {
+            Pat::Nested9At0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignment]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested9At1 => PatData {
+            Pat::Nested9At1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignmentCompound]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested9At2 => PatData {
+            Pat::Nested9At2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmetic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested9At3 => PatData {
+            Pat::Nested9At3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmeticOverflow]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested9At4 => PatData {
+            Pat::Nested9At4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmeticRemainder]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested9At6 => PatData {
+            Pat::Nested9At6 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCoalescing]),
                 captures: &[],
                 nested: &[],
             },
             Pat::Nested9At8
-            | Pat::Nested9At9 => PatData {
+            | Pat::Nested9At9 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorBitwise]),
                 captures: &[],
                 nested: &[],
             },
             Pat::Nested9At10
-            | Pat::OperatorsAt2 => PatData {
+            | Pat::OperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorTernary]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested9At11 => PatData {
+            Pat::Nested9At11 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCustomInfix]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1At2 => PatData {
+            Pat::OperatorsAt1At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested9)],
             },
-            Pat::Nested10At0 => PatData {
+            Pat::Nested10At0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCustomPrefixDot]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1At3 => PatData {
+            Pat::OperatorsAt1At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested10)],
             },
-            Pat::Nested11At0 => PatData {
+            Pat::Nested11At0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCustomPostfixDot]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1At4 => PatData {
+            Pat::OperatorsAt1At4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested11)],
             },
-            Pat::Nested12At0 => PatData {
+            Pat::Nested12At0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorRange]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested12At1 => PatData {
+            Pat::Nested12At1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorCustomInfixDot]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1At5 => PatData {
+            Pat::OperatorsAt1At5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested12)],
@@ -3962,12 +3962,12 @@ impl Pat {
             | Pat::BuiltinFunctionsAt2
             | Pat::BuiltinGlobalFunctionsAt1
             | Pat::BuiltinGlobalFunctionsAt2
-            | Pat::BuiltinGlobalFunctionsAt3 => PatData {
+            | Pat::BuiltinGlobalFunctionsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BuiltinGlobalFunctionsAt0 => PatData {
+            Pat::BuiltinGlobalFunctionsAt0 => PatDefinition {
                 act: Act::Begin(Rule::BuiltinGlobalFunctionsAt0),
                 captures: &[(1, scopes![S::SuppFunctionDynamicType]), (2, scopes![S::PDefinitionArgumentsBegin]), (3, scopes![S::SuppVariableParameter]), (4, scopes![S::PSeparatorArgumentLabelBegin])],
                 nested: &[],
@@ -3976,359 +3976,359 @@ impl Pat {
             | Pat::BuiltinPropertiesAt1
             | Pat::BuiltinPropertiesAt2
             | Pat::BuiltinPropertiesAt3
-            | Pat::KeywordsAt22 => PatData {
+            | Pat::KeywordsAt22 => PatDefinition {
                 act: Act::Match(scopes![S::SuppVariable]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested13At0 => PatData {
+            Pat::Nested13At0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunctionCompoundName]),
                 captures: &[(1, scopes![S::PDefinitionEntity]), (2, scopes![S::PDefinitionEntity])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesCompoundName => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntNameFunctionCompoundName]), (2, scopes![S::PDefinitionEntity]), (3, scopes![S::PDefinitionEntity])],
                 nested: &[(4, Rule::Nested13)],
             },
-            Pat::KeywordsAt0 => PatData {
+            Pat::KeywordsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlBranch]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt1 => PatData {
+            Pat::KeywordsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlTransfer]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt5 => PatData {
+            Pat::KeywordsAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlLoop]), (2, scopes![S::PWhitespaceTrailingRepeat])],
                 nested: &[],
             },
-            Pat::KeywordsAt6 => PatData {
+            Pat::KeywordsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlDefer]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt7 => PatData {
+            Pat::KeywordsAt7 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::InvIllegalTryMustPrecedeAwait]), (2, scopes![S::KwControlAwait])],
                 nested: &[],
             },
-            Pat::KeywordsAt8 => PatData {
+            Pat::KeywordsAt8 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlException]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt10 => PatData {
+            Pat::KeywordsAt10 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlException]), (2, scopes![S::PWhitespaceTrailingDo])],
                 nested: &[],
             },
-            Pat::KeywordsAt11 => PatData {
+            Pat::KeywordsAt11 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierAsync]), (2, scopes![S::KwOtherDeclarationSpecifier])],
                 nested: &[],
             },
             Pat::KeywordsAt12
-            | Pat::DeclarationsGenericParameterClauseAt2 => PatData {
+            | Pat::DeclarationsGenericParameterClauseAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherDeclarationSpecifier]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13Class => PatData {
+            Pat::KeywordsAt13Class => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeClass]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13Enum => PatData {
+            Pat::KeywordsAt13Enum => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeEnum]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13Extension => PatData {
+            Pat::KeywordsAt13Extension => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeExtension]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13Precedencegroup => PatData {
+            Pat::KeywordsAt13Precedencegroup => PatDefinition {
                 act: Act::Match(scopes![S::StorTypePrecedencegroup]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13Protocol => PatData {
+            Pat::KeywordsAt13Protocol => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeProtocol]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13Struct => PatData {
+            Pat::KeywordsAt13Struct => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeStruct]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt13Actor => PatData {
+            Pat::KeywordsAt13Actor => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeActor]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt16 => PatData {
+            Pat::KeywordsAt16 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt17 => PatData {
+            Pat::KeywordsAt17 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorTypeFunction]), (2, scopes![S::InvIllegalAsyncMustPrecedeThrows]), (3, scopes![S::StorModifierAsync]), (4, scopes![S::StorModifierException])],
                 nested: &[],
             },
-            Pat::KeywordsAt18 => PatData {
+            Pat::KeywordsAt18 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherDeclarationSpecifierAccessibility]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt19 => PatData {
+            Pat::KeywordsAt19 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherCaptureSpecifier]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt20 => PatData {
+            Pat::KeywordsAt20 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherType]), (2, scopes![S::KwOtherTypeMetatype])],
                 nested: &[],
             },
-            Pat::KeywordsAt23 => PatData {
+            Pat::KeywordsAt23 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlImport]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt24 => PatData {
+            Pat::KeywordsAt24 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlConsume]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt25 => PatData {
+            Pat::KeywordsAt25 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlCopy]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConditionalsAt0 => PatData {
+            Pat::ConditionalsAt0 => PatDefinition {
                 act: Act::Begin(Rule::ConditionalsAt0),
                 captures: &[],
                 nested: &[(1, Rule::Nested14)],
             },
-            Pat::ConditionalsAt1 => PatData {
+            Pat::ConditionalsAt1 => PatDefinition {
                 act: Act::Begin(Rule::ConditionalsAt1),
                 captures: &[],
                 nested: &[(1, Rule::Nested14)],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition => PatDefinition {
                 act: Act::Begin(Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityCondition),
                 captures: &[(1, scopes![S::SuppFunctionAvailabilityCondition]), (2, scopes![S::PDefinitionArgumentsBegin])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt1 => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAvailabilityConditionAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherPlatformAll]), (2, scopes![S::InvIllegalCharacterNotAllowedHere])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0 => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0 => PatDefinition {
                 act: Act::Begin(Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt0),
                 captures: &[(1, scopes![S::SuppFunctionAnyMethod]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionArgumentsBegin])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1 => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1 => PatDefinition {
                 act: Act::Begin(Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt1),
                 captures: &[(1, scopes![S::SuppFunctionAnyMethod]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PSeparatorArgumentLabel])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1 => PatDefinition {
                 act: Act::Begin(Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesFunctionOrMacroCallExpressionAt1),
                 captures: &[(1, scopes![S::PDefinitionArgumentsBegin])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2 => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2 => PatDefinition {
                 act: Act::Begin(Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesMacroExpansion => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionAnyMethod]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression => PatDefinition {
                 act: Act::Begin(Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesSubscriptExpression),
                 captures: &[(1, scopes![S::PDefinitionArgumentsBegin])],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression => PatDefinition {
                 act: Act::Begin(Rule::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpression),
                 captures: &[(0, scopes![S::PSectionTupleBegin])],
                 nested: &[],
             },
-            Pat::Nested15At0 => PatData {
+            Pat::Nested15At0 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalRethrowsOnlyAllowedOnFunctionDeclarations]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpressionEnd => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesParenthesizedExpressionEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PSectionTupleEnd])],
                 nested: &[(2, Rule::Nested15)],
             },
-            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18 => PatData {
+            Pat::ExpressionsWithoutTrailingClosuresOrMemberReferencesAt18 => PatDefinition {
                 act: Act::Match(scopes![S::SuppVariableDiscardValue]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionsTrailingClosureAt0 => PatData {
+            Pat::ExpressionsTrailingClosureAt0 => PatDefinition {
                 act: Act::Match(scopes![S::MetaFunctionCallTrailingClosureOnly]),
                 captures: &[(1, scopes![S::SuppFunctionAnyMethod]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::ExpressionsTrailingClosureAt1 => PatData {
+            Pat::ExpressionsTrailingClosureAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::SuppFunctionAnyMethodTrailingClosureLabel]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PSeparatorArgumentLabel])],
                 nested: &[],
             },
-            Pat::MemberReferenceAt0 => PatData {
+            Pat::MemberReferenceAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarOther]), (2, scopes![S::PDefinitionIdentifier]), (3, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsTypeEnumMoreCases => PatData {
+            Pat::DeclarationsTypeEnumMoreCases => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypeEnumMoreCases),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsExtensionExtension => PatData {
+            Pat::DeclarationsExtensionExtension => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsExtensionExtension),
                 captures: &[(1, scopes![S::StorTypeExtension])],
                 nested: &[],
             },
-            Pat::DeclarationsExtensionExtensionAt0 => PatData {
+            Pat::DeclarationsExtensionExtensionAt0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsExtensionExtensionAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsExtensionExtensionAt4 => PatData {
+            Pat::DeclarationsExtensionExtensionAt4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsExtensionExtensionAt4),
                 captures: &[(0, scopes![S::PDefinitionTypeBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsTypealias => PatData {
+            Pat::DeclarationsTypealias => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypealias),
                 captures: &[(1, scopes![S::KwOtherDeclarationSpecifier]), (2, scopes![S::EntNameTypeTypealias]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsTypealiasAt0 => PatData {
+            Pat::DeclarationsTypealiasAt0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypealiasAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsTypealiasAssignment => PatData {
+            Pat::DeclarationsTypealiasAssignment => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsTypealiasAssignment),
                 captures: &[(1, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::DeclarationsMacro => PatData {
+            Pat::DeclarationsMacro => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsMacro),
                 captures: &[(1, scopes![S::StorTypeFunction]), (2, scopes![S::EntNameFunction]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsProtocolProtocolInitializer => PatData {
+            Pat::DeclarationsProtocolProtocolInitializer => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsProtocolProtocolInitializer),
                 captures: &[(1, scopes![S::StorTypeFunction])],
                 nested: &[(1, Rule::Nested2)],
             },
-            Pat::DeclarationsProtocolProtocolInitializerAt5 => PatData {
+            Pat::DeclarationsProtocolProtocolInitializerAt5 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsProtocolProtocolInitializerAt5),
                 captures: &[(0, scopes![S::PSectionFunctionBegin])],
                 nested: &[],
             },
-            Pat::DeclarationsProtocolAssociatedType => PatData {
+            Pat::DeclarationsProtocolAssociatedType => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsProtocolAssociatedType),
                 captures: &[(1, scopes![S::KwOtherDeclarationSpecifier]), (2, scopes![S::VarLanguageAssociatedtype]), (3, scopes![S::PDefinitionIdentifier]), (4, scopes![S::PDefinitionIdentifier])],
                 nested: &[],
             },
-            Pat::DeclarationsParameterListAt2At3 => PatData {
+            Pat::DeclarationsParameterListAt2At3 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsParameterListAt2At3),
                 captures: &[(0, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::DeclarationsFunctionInitializerAt5 => PatData {
+            Pat::DeclarationsFunctionInitializerAt5 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsFunctionInitializerAt5),
                 captures: &[(1, scopes![S::PSectionFunctionBegin])],
                 nested: &[],
             },
-            Pat::LiteralsStringRawStringGutsAt2At1 => PatData {
+            Pat::LiteralsStringRawStringGutsAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringRawStringGutsAt2At1),
                 captures: &[],
                 nested: &[],
             },
             Pat::LiteralsStringAt1At3
-            | Pat::LiteralsStringAt0At3 => PatData {
+            | Pat::LiteralsStringAt0At3 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalContentBeforeClosingDelimiter]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AttributesAt0At3 => PatData {
+            Pat::AttributesAt0At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOtherPlatformAll]), (2, scopes![S::KwOther]), (3, scopes![S::InvIllegalCharacterNotAllowedHere])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericWhereClauseRequirementListAt3 => PatData {
+            Pat::DeclarationsGenericWhereClauseRequirementListAt3 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericWhereClauseRequirementListAt3),
                 captures: &[(1, scopes![S::KwOperatorGenericConstraintSameType])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericWhereClauseRequirementListAt4 => PatData {
+            Pat::DeclarationsGenericWhereClauseRequirementListAt4 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericWhereClauseRequirementListAt4),
                 captures: &[(1, scopes![S::KwOperatorGenericConstraintConformsTo])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericWhereClauseRequirementListAt4At0 => PatData {
+            Pat::DeclarationsGenericWhereClauseRequirementListAt4At0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericWhereClauseRequirementListAt4At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsGenericParameterClauseAt4 => PatData {
+            Pat::DeclarationsGenericParameterClauseAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarLanguageGenericParameter])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericParameterClauseAt5 => PatData {
+            Pat::DeclarationsGenericParameterClauseAt5 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorGenericParameters]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsGenericParameterClauseAt6 => PatData {
+            Pat::DeclarationsGenericParameterClauseAt6 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericParameterClauseAt6),
                 captures: &[(1, scopes![S::PSeparatorGenericParameterConstraint])],
                 nested: &[],
             },
-            Pat::DeclarationsGenericParameterClauseAt6At0 => PatData {
+            Pat::DeclarationsGenericParameterClauseAt6At0 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsGenericParameterClauseAt6At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DeclarationsFunctionAt6 => PatData {
+            Pat::DeclarationsFunctionAt6 => PatDefinition {
                 act: Act::Begin(Rule::DeclarationsFunctionAt6),
                 captures: &[(1, scopes![S::PSectionFunctionBegin])],
                 nested: &[],
             },
-            Pat::LiteralsStringStringGutsAt2At1 => PatData {
+            Pat::LiteralsStringStringGutsAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::LiteralsStringStringGutsAt2At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested1At1 => PatData {
+            Pat::Nested1At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::SuppVariableParameter]), (2, scopes![S::PSeparatorKeyValue]), (3, scopes![S::ConstNumericInteger])],
                 nested: &[],
             },
-            Pat::Nested1At2 => PatData {
+            Pat::Nested1At2 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorParameters]),
                 captures: &[],
                 nested: &[],
@@ -5392,7 +5392,7 @@ impl rules::Tabled for Swift {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

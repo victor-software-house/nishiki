@@ -15,8 +15,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<ShaderLab>;
-pub(crate) type PatData = rules::PatData<ShaderLab>;
-pub(crate) type RuleData = rules::RuleData<ShaderLab>;
+pub(crate) type PatDefinition = rules::PatDefinition<ShaderLab>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<ShaderLab>;
 pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with: none in this grammar.
@@ -46,9 +46,9 @@ impl Rule {
         Rule::String,
     ];
 
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -75,21 +75,21 @@ impl Rule {
                     Pat::String,
                 ],
             },
-            Rule::LineComment => RuleData {
+            Rule::LineComment => RuleDefinition {
                 name: scopes![S::CmtLineDoubleSlash],
                 content: S::NO_SCOPES,
                 end: Some(Pat::LineCommentEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Attribute => RuleData {
+            Rule::Attribute => RuleDefinition {
                 name: scopes![S::MetaAttribute],
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributeEnd),
                 backref: None,
                 patterns: &[Pat::AttributeAt0, Pat::Number],
             },
-            Rule::CgBlock => RuleData {
+            Rule::CgBlock => RuleDefinition {
                 name: scopes![S::MetaCgblockBare],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CgBlockEnd),
@@ -111,7 +111,7 @@ impl Rule {
                     Pat::Surface,
                 ],
             },
-            Rule::HlslBlock => RuleData {
+            Rule::HlslBlock => RuleDefinition {
                 name: scopes![S::MetaHlslblockBare],
                 content: S::NO_SCOPES,
                 end: Some(Pat::HlslBlockEnd),
@@ -133,7 +133,7 @@ impl Rule {
                     Pat::Surface,
                 ],
             },
-            Rule::String => RuleData {
+            Rule::String => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringEnd),
@@ -289,184 +289,184 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::LineComment => PatData {
+            Pat::LineComment => PatDefinition {
                 act: Act::Begin(Rule::LineComment),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LineCommentEnd | Pat::AttributeEnd | Pat::StringEnd => PatData {
+            Pat::LineCommentEnd | Pat::AttributeEnd | Pat::StringEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::BasicType => PatData {
+            Pat::BasicType => PatDefinition {
                 act: Act::Match(scopes![S::SupTypeBasic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Number => PatData {
+            Pat::Number => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Structure => PatData {
+            Pat::Structure => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeStructure]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PropertyName => PatData {
+            Pat::PropertyName => PatDefinition {
                 act: Act::Match(scopes![S::SupTypePropertyname]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PropertyValue => PatData {
+            Pat::PropertyValue => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValue]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ComparisonFunction => PatData {
+            Pat::ComparisonFunction => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValueComparisonfunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StencilOperation => PatData {
+            Pat::StencilOperation => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValueStenciloperation]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TextureCombiners => PatData {
+            Pat::TextureCombiners => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValueTexturecombiners]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Fog => PatData {
+            Pat::Fog => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValueFog]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BindChannels => PatData {
+            Pat::BindChannels => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValueBindchannels]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BlendOperations => PatData {
+            Pat::BlendOperations => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValueBlendoperations]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BlendFactors => PatData {
+            Pat::BlendFactors => PatDefinition {
                 act: Act::Match(scopes![S::SupConstantPropertyValueBlendfactors]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Reference => PatData {
+            Pat::Reference => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableReference]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Attribute => PatData {
+            Pat::Attribute => PatDefinition {
                 act: Act::Begin(Rule::Attribute),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AttributeAt0 => PatData {
+            Pat::AttributeAt0 => PatDefinition {
                 act: Act::Match(scopes![S::SupTypeAttributename]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Declaration => PatData {
+            Pat::Declaration => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableDeclaration]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CgBlock => PatData {
+            Pat::CgBlock => PatDefinition {
                 act: Act::Begin(Rule::CgBlock),
                 captures: &[(1, scopes![S::KwOtherBare])],
                 nested: &[],
             },
-            Pat::CgBlockEnd | Pat::HlslBlockEnd => PatData {
+            Pat::CgBlockEnd | Pat::HlslBlockEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::KwOtherBare])],
                 nested: &[],
             },
-            Pat::Fixed => PatData {
+            Pat::Fixed => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeBasic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Transformations => PatData {
+            Pat::Transformations => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableTransformations]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Camera => PatData {
+            Pat::Camera => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableCamera]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Time => PatData {
+            Pat::Time => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableTime]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Lighting => PatData {
+            Pat::Lighting => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableLighting]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::FogVariable => PatData {
+            Pat::FogVariable => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableFog]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Various => PatData {
+            Pat::Various => PatDefinition {
                 act: Act::Match(scopes![S::SupVariableVarious]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TargetPlatform => PatData {
+            Pat::TargetPlatform => PatDefinition {
                 act: Act::Match(scopes![S::SupVariablePreprocessorTargetplatform]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TargetModel => PatData {
+            Pat::TargetModel => PatDefinition {
                 act: Act::Match(scopes![S::SupVariablePreprocessorTargetmodel]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::UnityVersion => PatData {
+            Pat::UnityVersion => PatDefinition {
                 act: Act::Match(scopes![S::SupVariablePreprocessorUnityversion]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PlatformDifference => PatData {
+            Pat::PlatformDifference => PatDefinition {
                 act: Act::Match(scopes![S::SupVariablePreprocessorPlatformdifference]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Texture2D => PatData {
+            Pat::Texture2D => PatDefinition {
                 act: Act::Match(scopes![S::SupVariablePreprocessorTexture2D]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Structures => PatData {
+            Pat::Structures => PatDefinition {
                 act: Act::Match(scopes![S::SupClassStructures]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Surface => PatData {
+            Pat::Surface => PatDefinition {
                 act: Act::Match(scopes![S::SupClassSurface]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::HlslBlock => PatData {
+            Pat::HlslBlock => PatDefinition {
                 act: Act::Begin(Rule::HlslBlock),
                 captures: &[(1, scopes![S::KwOtherBare])],
                 nested: &[],
             },
-            Pat::String => PatData {
+            Pat::String => PatDefinition {
                 act: Act::Begin(Rule::String),
                 captures: &[],
                 nested: &[],
@@ -827,7 +827,7 @@ impl rules::Tabled for ShaderLab {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

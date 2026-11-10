@@ -5,7 +5,7 @@
 
 use std::ops::ControlFlow;
 
-use super::{Act, BlankRuns, Lexer, RuleData, Start, Tabled};
+use super::{Act, BlankRuns, Lexer, RuleDefinition, Start, Tabled};
 use crate::fnv::FnvMap;
 use crate::language::Halt;
 
@@ -96,7 +96,7 @@ pub(crate) struct Tables<G: Tabled> {
 }
 
 impl<G: Tabled> Tables<G> {
-    /// The tables of the rule whose data is `data`.
+    /// The tables of the rule that `definition` defines.
     ///
     /// Each pattern's start is read once.
     /// Each distinct list of candidates is stored once, in one allocation
@@ -105,11 +105,11 @@ impl<G: Tabled> Tables<G> {
     /// allocation.
     /// The tables are built into statics that are never dropped, so both are
     /// leaked rather than owned.
-    pub(crate) fn build(data: RuleData<G>) -> Self {
-        let all: Vec<G::Pat> = data
+    pub(crate) fn build(definition: RuleDefinition<G>) -> Self {
+        let all: Vec<G::Pat> = definition
             .end
             .into_iter()
-            .chain(data.patterns.iter().copied())
+            .chain(definition.patterns.iter().copied())
             .collect();
         let starts: Vec<Start> = all.iter().map(|&pat| G::pat_start(pat)).collect();
         let (picks, spans) = candidate_lists(&starts);

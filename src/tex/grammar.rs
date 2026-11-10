@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Tex>;
-pub(crate) type PatData = rules::PatData<Tex>;
-pub(crate) type RuleData = rules::RuleData<Tex>;
+pub(crate) type PatDefinition = rules::PatDefinition<Tex>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Tex>;
 pub(crate) use crate::rules::Start;
 
 /// A scope of a rule or a capture group.
@@ -90,51 +90,51 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::IffalseBlock => RuleData {
+            Rule::IffalseBlock => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::CmtLinePercentage)],
                 end: Some(Pat::IffalseBlockEnd),
                 backref: None,
                 patterns: &[Pat::Comment, Pat::Braces, Pat::Conditionals],
             },
-            Rule::Comment => RuleData {
+            Rule::Comment => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CommentEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1],
             },
-            Rule::CommentAt0 => RuleData {
+            Rule::CommentAt0 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLinePercentage)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CommentAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentAt1 => RuleData {
+            Rule::CommentAt1 => RuleDefinition {
                 name: scopes![Sc::S(S::CmtLinePercentageDirective)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::CommentAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Braces => RuleData {
+            Rule::Braces => RuleDefinition {
                 name: scopes![Sc::S(S::MetaGroupBraces)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::BracesEnd),
                 backref: None,
                 patterns: &[Pat::Braces],
             },
-            Rule::Conditionals => RuleData {
+            Rule::Conditionals => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::ConditionalsEnd),
                 backref: None,
                 patterns: &[Pat::Comment, Pat::Conditionals],
             },
-            Rule::DollarMath => RuleData {
+            Rule::DollarMath => RuleDefinition {
                 name: scopes![Sc::S(S::MetaMathBlock), Sc::S(S::SuppClassMathBlock)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::DollarMathEnd),
@@ -169,7 +169,7 @@ impl Rule {
                     Pat::MacroGeneralAt3,
                 ],
             },
-            Rule::MathContentAt0 => RuleData {
+            Rule::MathContentAt0 => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: scopes![Sc::S(S::MetaTextNormal)],
                 end: Some(Pat::MathContentAt0End),
@@ -203,21 +203,21 @@ impl Rule {
                     Pat::MacroGeneralAt3,
                 ],
             },
-            Rule::MathContentAt6 => RuleData {
+            Rule::MathContentAt6 => RuleDefinition {
                 name: scopes![Sc::S(S::MetaEmbeddedLineR)],
                 content: scopes![Sc::S(S::SuppFunctionSexprMath)],
                 end: Some(Pat::MathContentAt6End),
                 backref: None,
                 patterns: &[Pat::MathContentAt6At0],
             },
-            Rule::MathContentAt6At0 => RuleData {
+            Rule::MathContentAt6At0 => RuleDefinition {
                 name: scopes![Sc::S(S::SourceR)],
                 content: Sc::NO_SCOPES,
                 end: Some(Pat::MathContentAt6At0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: Sc::NO_SCOPES,
                 content: Sc::NO_SCOPES,
                 end: None,
@@ -379,9 +379,9 @@ pub(crate) enum Pat {
 
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::IffalseBlock => PatData {
+            Pat::IffalseBlock => PatDefinition {
                 act: Act::Begin(Rule::IffalseBlock),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControl)]),
@@ -389,7 +389,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::IffalseBlockEnd => PatData {
+            Pat::IffalseBlockEnd => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::KwControl)]),
@@ -397,7 +397,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Comment => PatData {
+            Pat::Comment => PatDefinition {
                 act: Act::Begin(Rule::Comment),
                 captures: &[(1, scopes![Sc::S(S::PWhitespaceCommentLeading)])],
                 nested: &[],
@@ -406,42 +406,42 @@ impl Pat {
             | Pat::CommentAt0End
             | Pat::CommentAt1End
             | Pat::ConditionalsEnd
-            | Pat::MathContentAt6At0End => PatData {
+            | Pat::MathContentAt6At0End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentAt0 => PatData {
+            Pat::CommentAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt0),
                 captures: &[(0, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::CommentAt1 => PatData {
+            Pat::CommentAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt1),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionComment)])],
                 nested: &[],
             },
-            Pat::Braces => PatData {
+            Pat::Braces => PatDefinition {
                 act: Act::Begin(Rule::Braces),
                 captures: &[(0, scopes![Sc::S(S::PGroupBegin)])],
                 nested: &[],
             },
-            Pat::BracesEnd => PatData {
+            Pat::BracesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![Sc::S(S::PGroupEnd)])],
                 nested: &[],
             },
-            Pat::Conditionals => PatData {
+            Pat::Conditionals => PatDefinition {
                 act: Act::Begin(Rule::Conditionals),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MacroControl => PatData {
+            Pat::MacroControl => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControl)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeyword)])],
                 nested: &[],
             },
-            Pat::Catcode => PatData {
+            Pat::Catcode => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::MetaCatcode)]),
                 captures: &[
                     (1, scopes![Sc::S(S::KwControlCatcode)]),
@@ -451,27 +451,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::RootAt4 => PatData {
+            Pat::RootAt4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PDefinitionBrackets)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DollarMath => PatData {
+            Pat::DollarMath => PatDefinition {
                 act: Act::Begin(Rule::DollarMath),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionStringBegin)])],
                 nested: &[],
             },
-            Pat::DollarMathEnd => PatData {
+            Pat::DollarMathEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![Sc::S(S::PDefinitionStringEnd)])],
                 nested: &[],
             },
-            Pat::DollarMathAt0 => PatData {
+            Pat::DollarMathAt0 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEscape)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt0 => PatData {
+            Pat::MathContentAt0 => PatDefinition {
                 act: Act::Begin(Rule::MathContentAt0),
                 captures: &[
                     (1, scopes![Sc::S(S::ConstOtherMath)]),
@@ -486,7 +486,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MathContentAt0End => PatData {
+            Pat::MathContentAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(
                     0,
@@ -494,52 +494,52 @@ impl Pat {
                 )],
                 nested: &[],
             },
-            Pat::RootAt6 => PatData {
+            Pat::RootAt6 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlNewline)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Ifnextchar => PatData {
+            Pat::Ifnextchar => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::KwControlIfnextchar)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MacroGeneralAt0 | Pat::MacroGeneralAt1 => PatData {
+            Pat::MacroGeneralAt0 | Pat::MacroGeneralAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppClassGeneralLatex3)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionFunction)])],
                 nested: &[],
             },
-            Pat::MacroGeneralAt2 => PatData {
+            Pat::MacroGeneralAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::SuppFunctionGeneral)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionFunction)])],
                 nested: &[],
             },
-            Pat::MacroGeneralAt3 => PatData {
+            Pat::MacroGeneralAt3 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterEscape)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionKeyword)])],
                 nested: &[],
             },
-            Pat::MathContentAt1 => PatData {
+            Pat::MathContentAt1 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBracketPair)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt2 => PatData {
+            Pat::MathContentAt2 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBracketPairBig)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt3 | Pat::MathContentAt4 => PatData {
+            Pat::MathContentAt3 | Pat::MathContentAt4 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstCharacterMath)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionConstantMath)])],
                 nested: &[],
             },
-            Pat::MathContentAt5 => PatData {
+            Pat::MathContentAt5 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstOtherMath)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionConstantMath)])],
                 nested: &[],
             },
-            Pat::MathContentAt6 => PatData {
+            Pat::MathContentAt6 => PatDefinition {
                 act: Act::Begin(Rule::MathContentAt6),
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionSexprMath)]),
@@ -548,7 +548,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MathContentAt6End => PatData {
+            Pat::MathContentAt6End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![Sc::S(S::SuppFunctionSexprMath)]),
@@ -557,42 +557,42 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MathContentAt6At0 => PatData {
+            Pat::MathContentAt6At0 => PatDefinition {
                 act: Act::Begin(Rule::MathContentAt6At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt7 => PatData {
+            Pat::MathContentAt7 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstOtherGeneralMath)]),
                 captures: &[(1, scopes![Sc::S(S::PDefinitionConstantMath)])],
                 nested: &[],
             },
-            Pat::MathContentAt8 => PatData {
+            Pat::MathContentAt8 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBeginBracketCurly)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt9 => PatData {
+            Pat::MathContentAt9 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathEndBracketCurly)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt10 => PatData {
+            Pat::MathContentAt10 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathBeginBracketRound)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt11 => PatData {
+            Pat::MathContentAt11 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathEndBracketRound)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt12 => PatData {
+            Pat::MathContentAt12 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::ConstNumericMath)]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MathContentAt13 => PatData {
+            Pat::MathContentAt13 => PatDefinition {
                 act: Act::Match(scopes![Sc::S(S::PMathOperator)]),
                 captures: &[],
                 nested: &[],
@@ -996,7 +996,7 @@ impl rules::Tabled for Tex {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

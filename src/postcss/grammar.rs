@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<PostCss>;
-pub(crate) type PatData = rules::PatData<PostCss>;
-pub(crate) type RuleData = rules::RuleData<PostCss>;
+pub(crate) type PatDefinition = rules::PatDefinition<PostCss>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<PostCss>;
 pub(crate) use crate::rules::Start;
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -64,51 +64,51 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::RootAt0 => RuleData {
+            Rule::RootAt0 => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt0End),
                 backref: None,
                 patterns: &[Pat::CommentTag],
             },
-            Rule::CommentTag => RuleData {
+            Rule::CommentTag => RuleDefinition {
                 name: scopes![S::CmtTags],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentTagEnd),
                 backref: None,
                 patterns: &[Pat::CommentTagAt0],
             },
-            Rule::DoubleSlash => RuleData {
+            Rule::DoubleSlash => RuleDefinition {
                 name: scopes![S::CmtLine],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DoubleSlashEnd),
                 backref: None,
                 patterns: &[Pat::CommentTag],
             },
-            Rule::DoubleQuoted => RuleData {
+            Rule::DoubleQuoted => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleCss],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DoubleQuotedEnd),
                 backref: None,
                 patterns: &[Pat::QuotedInterpolation],
             },
-            Rule::QuotedInterpolation => RuleData {
+            Rule::QuotedInterpolation => RuleDefinition {
                 name: scopes![S::SuppFunctionInterpolation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::QuotedInterpolationEnd),
                 backref: None,
                 patterns: &[Pat::Variable, Pat::Numeric, Pat::Operator, Pat::Unit],
             },
-            Rule::SingleQuoted => RuleData {
+            Rule::SingleQuoted => RuleDefinition {
                 name: scopes![S::StrQuotedSingleCss],
                 content: S::NO_SCOPES,
                 end: Some(Pat::SingleQuotedEnd),
                 backref: None,
                 patterns: &[Pat::QuotedInterpolation],
             },
-            Rule::Interpolation => RuleData {
+            Rule::Interpolation => RuleDefinition {
                 name: scopes![S::SuppFunctionInterpolation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterpolationEnd),
@@ -122,56 +122,56 @@ impl Rule {
                     Pat::SingleQuoted,
                 ],
             },
-            Rule::PlaceholderSelector => RuleData {
+            Rule::PlaceholderSelector => RuleDefinition {
                 name: scopes![S::EntOtherAttributeNamePlaceholderSelector],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PlaceholderSelectorEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RootAt12 => RuleData {
+            Rule::RootAt12 => RuleDefinition {
                 name: scopes![S::SuppFunctionNamePostcssLibrary],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt12End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RootAt13 => RuleData {
+            Rule::RootAt13 => RuleDefinition {
                 name: scopes![S::SuppFunctionNamePostcssNoCompletions],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt13End),
                 backref: None,
                 patterns: &[Pat::RootAt13At0],
             },
-            Rule::RootAt15 => RuleData {
+            Rule::RootAt15 => RuleDefinition {
                 name: scopes![S::KwControlAtRuleCss],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt15End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RootAt16 => RuleData {
+            Rule::RootAt16 => RuleDefinition {
                 name: scopes![S::EntOtherAttributeNameIdCss],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt16End),
                 backref: None,
                 patterns: &[Pat::Interpolation, Pat::PseudoClass],
             },
-            Rule::RootAt17 => RuleData {
+            Rule::RootAt17 => RuleDefinition {
                 name: scopes![S::EntOtherAttributeNameClassCss],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt17End),
                 backref: None,
                 patterns: &[Pat::Interpolation, Pat::PseudoClass],
             },
-            Rule::RootAt18 => RuleData {
+            Rule::RootAt18 => RuleDefinition {
                 name: scopes![S::EntOtherAttributeSelector],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt18End),
                 backref: None,
                 patterns: &[Pat::DoubleQuoted, Pat::SingleQuoted, Pat::RootAt18At2],
             },
-            Rule::RootAt20 => RuleData {
+            Rule::RootAt20 => RuleDefinition {
                 name: scopes![S::MetaPropertyListCss],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt20End),
@@ -194,14 +194,14 @@ impl Rule {
                     Pat::PropertyValue,
                 ],
             },
-            Rule::RootAt24 => RuleData {
+            Rule::RootAt24 => RuleDefinition {
                 name: scopes![S::EntNameTagCssPostcssSymbol],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RootAt24End),
                 backref: None,
                 patterns: &[Pat::Interpolation, Pat::PseudoClass],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -439,9 +439,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::RootAt0 => PatData {
+            Pat::RootAt0 => PatDefinition {
                 act: Act::Begin(Rule::RootAt0),
                 captures: &[],
                 nested: &[],
@@ -459,157 +459,157 @@ impl Pat {
             | Pat::RootAt17End
             | Pat::RootAt18End
             | Pat::RootAt20End
-            | Pat::RootAt24End => PatData {
+            | Pat::RootAt24End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentTag => PatData {
+            Pat::CommentTag => PatDefinition {
                 act: Act::Begin(Rule::CommentTag),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentTagAt0 => PatData {
+            Pat::CommentTagAt0 => PatDefinition {
                 act: Act::Match(scopes![S::CmtTag]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DoubleSlash => PatData {
+            Pat::DoubleSlash => PatDefinition {
                 act: Act::Begin(Rule::DoubleSlash),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DoubleQuoted => PatData {
+            Pat::DoubleQuoted => PatDefinition {
                 act: Act::Begin(Rule::DoubleQuoted),
                 captures: &[],
                 nested: &[],
             },
-            Pat::QuotedInterpolation => PatData {
+            Pat::QuotedInterpolation => PatDefinition {
                 act: Act::Begin(Rule::QuotedInterpolation),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Variable | Pat::VariableRootCss | Pat::FunctionContentVar => PatData {
+            Pat::Variable | Pat::VariableRootCss | Pat::FunctionContentVar => PatDefinition {
                 act: Act::Match(scopes![S::VarParameter]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Numeric => PatData {
+            Pat::Numeric => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericCss]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Operator => PatData {
+            Pat::Operator => PatDefinition {
                 act: Act::Match(scopes![S::KwOperator]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Unit => PatData {
+            Pat::Unit => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherUnitCss]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SingleQuoted => PatData {
+            Pat::SingleQuoted => PatDefinition {
                 act: Act::Begin(Rule::SingleQuoted),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Interpolation => PatData {
+            Pat::Interpolation => PatDefinition {
                 act: Act::Begin(Rule::Interpolation),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PlaceholderSelector => PatData {
+            Pat::PlaceholderSelector => PatDefinition {
                 act: Act::Begin(Rule::PlaceholderSelector),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Flag => PatData {
+            Pat::Flag => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherImportantCss]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Dotdotdot => PatData {
+            Pat::Dotdotdot => PatDefinition {
                 act: Act::Match(scopes![S::VarOther]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt12 => PatData {
+            Pat::RootAt12 => PatDefinition {
                 act: Act::Begin(Rule::RootAt12),
                 captures: &[(0, scopes![S::KwControlAtRuleCss])],
                 nested: &[],
             },
-            Pat::RootAt12End | Pat::RootAt13End => PatData {
+            Pat::RootAt12End | Pat::RootAt13End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::KwControlAtRuleCss])],
                 nested: &[],
             },
-            Pat::RootAt13 => PatData {
+            Pat::RootAt13 => PatDefinition {
                 act: Act::Begin(Rule::RootAt13),
                 captures: &[(0, scopes![S::KwControlAtRuleCss])],
                 nested: &[],
             },
-            Pat::RootAt13At0 => PatData {
+            Pat::RootAt13At0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt14 | Pat::FunctionContent => PatData {
+            Pat::RootAt14 | Pat::FunctionContent => PatDefinition {
                 act: Act::Match(scopes![S::StrQuotedDoubleCss]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt15 => PatData {
+            Pat::RootAt15 => PatDefinition {
                 act: Act::Begin(Rule::RootAt15),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt16 => PatData {
+            Pat::RootAt16 => PatDefinition {
                 act: Act::Begin(Rule::RootAt16),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PseudoClass | Pat::RootAt19 => PatData {
+            Pat::PseudoClass | Pat::RootAt19 => PatDefinition {
                 act: Act::Match(scopes![S::EntOtherAttributeNamePseudoClassCss]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt17 => PatData {
+            Pat::RootAt17 => PatDefinition {
                 act: Act::Begin(Rule::RootAt17),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt18 => PatData {
+            Pat::RootAt18 => PatDefinition {
                 act: Act::Begin(Rule::RootAt18),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt18At2 => PatData {
+            Pat::RootAt18At2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherRegex]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt20 => PatData {
+            Pat::RootAt20 => PatDefinition {
                 act: Act::Begin(Rule::RootAt20),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RgbValue => PatData {
+            Pat::RgbValue => PatDefinition {
                 act: Act::Match(scopes![S::ConstOtherColorRgbValueCss]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Function => PatData {
+            Pat::Function => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionName]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ParentSelector => PatData {
+            Pat::ParentSelector => PatDefinition {
                 act: Act::Match(scopes![S::EntNameTagCss]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PropertyValue => PatData {
+            Pat::PropertyValue => PatDefinition {
                 act: Act::Match(scopes![
                     S::MetaPropertyValueCss,
                     S::SuppConstantPropertyValueCss
@@ -617,12 +617,12 @@ impl Pat {
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt24 => PatData {
+            Pat::RootAt24 => PatDefinition {
                 act: Act::Begin(Rule::RootAt24),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RootAt26 | Pat::ReservedWords => PatData {
+            Pat::RootAt26 | Pat::ReservedWords => PatDefinition {
                 act: Act::Match(scopes![S::SuppTypePropertyNameCss]),
                 captures: &[],
                 nested: &[],
@@ -1037,6 +1037,6 @@ impl rules::Tabled for PostCss {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }

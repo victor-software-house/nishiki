@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Mermaid>;
-pub(crate) type PatData = rules::PatData<Mermaid>;
-pub(crate) type RuleData = rules::RuleData<Mermaid>;
+pub(crate) type PatDefinition = rules::PatDefinition<Mermaid>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Mermaid>;
 pub(crate) use crate::rules::Start;
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -122,9 +122,9 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -153,7 +153,7 @@ impl Rule {
                     Pat::XyChart,
                 ],
             },
-            Rule::MermaidCodeBlock | Rule::MermaidCodeBlockWithAttributes => RuleData {
+            Rule::MermaidCodeBlock | Rule::MermaidCodeBlockWithAttributes => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::MetaEmbeddedBlock],
                 end: Some(Pat::MermaidCodeBlockEnd),
@@ -179,7 +179,7 @@ impl Rule {
                     Pat::XyChart,
                 ],
             },
-            Rule::Architecture => RuleData {
+            Rule::Architecture => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -191,7 +191,7 @@ impl Rule {
                     Pat::ArchitectureAt3,
                 ],
             },
-            Rule::C4Component => RuleData {
+            Rule::C4Component => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -217,7 +217,7 @@ impl Rule {
                     Pat::C4ComponentAt17,
                 ],
             },
-            Rule::C4Container => RuleData {
+            Rule::C4Container => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -241,7 +241,7 @@ impl Rule {
                     Pat::C4ComponentAt17,
                 ],
             },
-            Rule::C4Deployment => RuleData {
+            Rule::C4Deployment => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -263,7 +263,7 @@ impl Rule {
                     Pat::C4ComponentAt13,
                 ],
             },
-            Rule::C4Dynamic => RuleData {
+            Rule::C4Dynamic => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -287,7 +287,7 @@ impl Rule {
                     Pat::C4ComponentAt13,
                 ],
             },
-            Rule::ClassDiagram => RuleData {
+            Rule::ClassDiagram => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -304,14 +304,14 @@ impl Rule {
                     Pat::ClassDiagramAt8,
                 ],
             },
-            Rule::ClassDiagramAt2 => RuleData {
+            Rule::ClassDiagramAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDiagramAt2End),
                 backref: None,
                 patterns: &[Pat::ArchitectureAt0, Pat::ClassDiagramAt2At1],
             },
-            Rule::ClassDiagramAt2At1 | Rule::ClassDiagramAt7 => RuleData {
+            Rule::ClassDiagramAt2At1 | Rule::ClassDiagramAt7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDiagramAt2At1End),
@@ -325,14 +325,14 @@ impl Rule {
                     Pat::ClassDiagramAt2At1At5,
                 ],
             },
-            Rule::ClassDiagramAt2At1At1 => RuleData {
+            Rule::ClassDiagramAt2At1At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDiagramAt2At1At1End),
                 backref: None,
                 patterns: &[Pat::ClassDiagramAt2At1At1At0],
             },
-            Rule::ErDiagram => RuleData {
+            Rule::ErDiagram => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -344,14 +344,14 @@ impl Rule {
                     Pat::ErDiagramAt3,
                 ],
             },
-            Rule::ErDiagramAt2 => RuleData {
+            Rule::ErDiagramAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDiagramAt2At1End),
                 backref: None,
                 patterns: &[Pat::ErDiagramAt2At0, Pat::ArchitectureAt0],
             },
-            Rule::Gantt => RuleData {
+            Rule::Gantt => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -368,14 +368,14 @@ impl Rule {
                     Pat::GanttAt8,
                 ],
             },
-            Rule::GanttAt8 => RuleData {
+            Rule::GanttAt8 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
                 backref: None,
                 patterns: &[Pat::GanttAt8At0, Pat::ArchitectureAt0],
             },
-            Rule::GitGraph => RuleData {
+            Rule::GitGraph => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -389,7 +389,7 @@ impl Rule {
                     Pat::GitGraphAt5,
                 ],
             },
-            Rule::GitGraphAt1 => RuleData {
+            Rule::GitGraphAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
@@ -400,7 +400,7 @@ impl Rule {
                     Pat::GitGraphAt1At2,
                 ],
             },
-            Rule::Flowchart => RuleData {
+            Rule::Flowchart => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -422,42 +422,42 @@ impl Rule {
                     Pat::FlowchartAt13,
                 ],
             },
-            Rule::FlowchartAt5 => RuleData {
+            Rule::FlowchartAt5 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FlowchartAt5End),
                 backref: None,
                 patterns: &[Pat::FlowchartAt5At0, Pat::FlowchartAt5At1],
             },
-            Rule::FlowchartAt5At0 => RuleData {
+            Rule::FlowchartAt5At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FlowchartAt5At0End),
                 backref: None,
                 patterns: &[Pat::FlowchartAt5At0At0],
             },
-            Rule::FlowchartAt5At0At0 => RuleData {
+            Rule::FlowchartAt5At0At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FlowchartAt5At0At0End),
                 backref: None,
                 patterns: &[Pat::FlowchartAt5At0At0At0],
             },
-            Rule::FlowchartAt6 => RuleData {
+            Rule::FlowchartAt6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FlowchartAt6End),
                 backref: None,
                 patterns: &[Pat::FlowchartAt5At0, Pat::FlowchartAt5At1],
             },
-            Rule::FlowchartAt13 => RuleData {
+            Rule::FlowchartAt13 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDiagramAt2At1End),
                 backref: None,
                 patterns: &[Pat::FlowchartAt13At0, Pat::FlowchartAt13At1],
             },
-            Rule::Mindmap => RuleData {
+            Rule::Mindmap => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -470,21 +470,21 @@ impl Rule {
                     Pat::MindmapAt4,
                 ],
             },
-            Rule::Pie => RuleData {
+            Rule::Pie => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
                 backref: None,
                 patterns: &[Pat::ArchitectureAt0, Pat::C4ComponentAt1, Pat::PieAt2],
             },
-            Rule::PieAt2 => RuleData {
+            Rule::PieAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
                 backref: None,
                 patterns: &[Pat::ArchitectureAt0],
             },
-            Rule::QuadrantChart => RuleData {
+            Rule::QuadrantChart => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -497,14 +497,14 @@ impl Rule {
                     Pat::QuadrantChartAt4,
                 ],
             },
-            Rule::QuadrantChartAt2 => RuleData {
+            Rule::QuadrantChartAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
                 backref: None,
                 patterns: &[Pat::QuadrantChartAt2At0],
             },
-            Rule::RequirementDiagram => RuleData {
+            Rule::RequirementDiagram => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -517,7 +517,7 @@ impl Rule {
                     Pat::RequirementDiagramAt4,
                 ],
             },
-            Rule::RequirementDiagramAt1 => RuleData {
+            Rule::RequirementDiagramAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RequirementDiagramAt1End),
@@ -529,14 +529,14 @@ impl Rule {
                     Pat::RequirementDiagramAt1At3,
                 ],
             },
-            Rule::RequirementDiagramAt2 => RuleData {
+            Rule::RequirementDiagramAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RequirementDiagramAt1End),
                 backref: None,
                 patterns: &[Pat::RequirementDiagramAt2At0, Pat::RequirementDiagramAt2At1],
             },
-            Rule::SequenceDiagram => RuleData {
+            Rule::SequenceDiagram => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -555,7 +555,7 @@ impl Rule {
                     Pat::SequenceDiagramAt10,
                 ],
             },
-            Rule::StateDiagram => RuleData {
+            Rule::StateDiagram => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -574,7 +574,7 @@ impl Rule {
                     Pat::StateDiagramAt10,
                 ],
             },
-            Rule::StateDiagramAt6 => RuleData {
+            Rule::StateDiagramAt6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
@@ -585,35 +585,35 @@ impl Rule {
                     Pat::StateDiagramAt6At2,
                 ],
             },
-            Rule::StateDiagramAt7 => RuleData {
+            Rule::StateDiagramAt7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
                 backref: None,
                 patterns: &[Pat::StateDiagramAt7At0, Pat::StateDiagramAt7At1],
             },
-            Rule::StateDiagramAt10 => RuleData {
+            Rule::StateDiagramAt10 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::StrBare],
                 end: Some(Pat::StateDiagramAt10End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Journey => RuleData {
+            Rule::Journey => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
                 backref: None,
                 patterns: &[Pat::ArchitectureAt0, Pat::JourneyAt1, Pat::JourneyAt2],
             },
-            Rule::JourneyAt2 => RuleData {
+            Rule::JourneyAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
                 backref: None,
                 patterns: &[Pat::JourneyAt2At0],
             },
-            Rule::XyChart => RuleData {
+            Rule::XyChart => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArchitectureEnd),
@@ -626,7 +626,7 @@ impl Rule {
                     Pat::XyChartAt4,
                 ],
             },
-            Rule::XyChartAt2 => RuleData {
+            Rule::XyChartAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
@@ -638,7 +638,7 @@ impl Rule {
                     Pat::XyChartAt2At3,
                 ],
             },
-            Rule::XyChartAt2At3 => RuleData {
+            Rule::XyChartAt2At3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::XyChartAt2At3End),
@@ -650,21 +650,21 @@ impl Rule {
                     Pat::XyChartAt2At3At3,
                 ],
             },
-            Rule::XyChartAt3 => RuleData {
+            Rule::XyChartAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GanttAt8End),
                 backref: None,
                 patterns: &[Pat::XyChartAt2At0, Pat::XyChartAt2At1, Pat::XyChartAt2At2],
             },
-            Rule::XyChartAt4 => RuleData {
+            Rule::XyChartAt4 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::XyChartAt2At3End),
                 backref: None,
                 patterns: &[Pat::XyChartAt2At3At0, Pat::XyChartAt2At3At3],
             },
-            Rule::MermaidAdoCodeBlock => RuleData {
+            Rule::MermaidAdoCodeBlock => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::MetaEmbeddedBlock],
                 end: Some(Pat::MermaidAdoCodeBlockEnd),
@@ -1232,9 +1232,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::MermaidCodeBlock => PatData {
+            Pat::MermaidCodeBlock => PatDefinition {
                 act: Act::Begin(Rule::MermaidCodeBlock),
                 captures: &[],
                 nested: &[],
@@ -1243,22 +1243,22 @@ impl Pat {
             | Pat::ArchitectureEnd
             | Pat::GanttAt8End
             | Pat::FlowchartAt5At0At0End
-            | Pat::MermaidAdoCodeBlockEnd => PatData {
+            | Pat::MermaidAdoCodeBlockEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::Architecture => PatData {
+            Pat::Architecture => PatDefinition {
                 act: Act::Begin(Rule::Architecture),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::ArchitectureAt0 | Pat::SequenceDiagramAt0 => PatData {
+            Pat::ArchitectureAt0 | Pat::SequenceDiagramAt0 => PatDefinition {
                 act: Act::Match(scopes![S::CmtBare]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ArchitectureAt1 => PatData {
+            Pat::ArchitectureAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1276,7 +1276,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ArchitectureAt2 => PatData {
+            Pat::ArchitectureAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::VarBare]),
@@ -1295,7 +1295,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ArchitectureAt3 => PatData {
+            Pat::ArchitectureAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1305,7 +1305,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::C4Component => PatData {
+            Pat::C4Component => PatDefinition {
                 act: Act::Begin(Rule::C4Component),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
@@ -1323,12 +1323,12 @@ impl Pat {
             | Pat::SequenceDiagramAt5
             | Pat::SequenceDiagramAt7
             | Pat::SequenceDiagramAt10
-            | Pat::JourneyAt1 => PatData {
+            | Pat::JourneyAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControl]), (2, scopes![S::StrBare])],
                 nested: &[],
             },
-            Pat::C4ComponentAt2 | Pat::C4ComponentAt4 | Pat::C4ComponentAt14 => PatData {
+            Pat::C4ComponentAt2 | Pat::C4ComponentAt4 | Pat::C4ComponentAt14 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1360,12 +1360,12 @@ impl Pat {
             | Pat::SequenceDiagramAt6
             | Pat::StateDiagramAt2
             | Pat::StateDiagramAt3
-            | Pat::XyChartAt2At3At3 => PatData {
+            | Pat::XyChartAt2At3At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::C4ComponentAt6 => PatData {
+            Pat::C4ComponentAt6 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1382,7 +1382,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::C4ComponentAt8 | Pat::C4ContainerAt6 | Pat::C4ContainerAt10 => PatData {
+            Pat::C4ComponentAt8 | Pat::C4ContainerAt6 | Pat::C4ContainerAt10 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1399,22 +1399,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::C4Container => PatData {
+            Pat::C4Container => PatDefinition {
                 act: Act::Begin(Rule::C4Container),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::C4Deployment => PatData {
+            Pat::C4Deployment => PatDefinition {
                 act: Act::Begin(Rule::C4Deployment),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::C4Dynamic => PatData {
+            Pat::C4Dynamic => PatDefinition {
                 act: Act::Begin(Rule::C4Dynamic),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::C4DynamicAt8 => PatData {
+            Pat::C4DynamicAt8 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1433,12 +1433,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagram => PatData {
+            Pat::ClassDiagram => PatDefinition {
                 act: Act::Begin(Rule::ClassDiagram),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::ClassDiagramAt1 => PatData {
+            Pat::ClassDiagramAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1451,7 +1451,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2 => PatData {
+            Pat::ClassDiagramAt2 => PatDefinition {
                 act: Act::Begin(Rule::ClassDiagramAt2),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1466,12 +1466,12 @@ impl Pat {
             | Pat::FlowchartAt6End
             | Pat::RequirementDiagramAt1End
             | Pat::StateDiagramAt10End
-            | Pat::XyChartAt2At3End => PatData {
+            | Pat::XyChartAt2At3End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1 => PatData {
+            Pat::ClassDiagramAt2At1 => PatDefinition {
                 act: Act::Begin(Rule::ClassDiagramAt2At1),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1486,7 +1486,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1At1 => PatData {
+            Pat::ClassDiagramAt2At1At1 => PatDefinition {
                 act: Act::Begin(Rule::ClassDiagramAt2At1At1),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1495,7 +1495,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1At1End => PatData {
+            Pat::ClassDiagramAt2At1At1End => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![S::PParenthesisClosed]),
@@ -1507,7 +1507,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1At1At0 => PatData {
+            Pat::ClassDiagramAt2At1At1At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::StorType]),
@@ -1518,7 +1518,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1At2 => PatData {
+            Pat::ClassDiagramAt2At1At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControlMap]),
@@ -1530,7 +1530,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1At3 => PatData {
+            Pat::ClassDiagramAt2At1At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1539,7 +1539,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1At4 => PatData {
+            Pat::ClassDiagramAt2At1At4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1551,7 +1551,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt2At1At5 => PatData {
+            Pat::ClassDiagramAt2At1At5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::PDefinitionStereotypeBegin]),
@@ -1561,7 +1561,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt3 => PatData {
+            Pat::ClassDiagramAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::PDefinitionStringBegin]),
@@ -1580,7 +1580,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt4 => PatData {
+            Pat::ClassDiagramAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::PDefinitionStringBegin]),
@@ -1605,7 +1605,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt5 => PatData {
+            Pat::ClassDiagramAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::PDefinitionStringBegin]),
@@ -1622,7 +1622,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt6 => PatData {
+            Pat::ClassDiagramAt6 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::PDefinitionStereotypeBegin]),
@@ -1635,7 +1635,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt7 => PatData {
+            Pat::ClassDiagramAt7 => PatDefinition {
                 act: Act::Begin(Rule::ClassDiagramAt7),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1650,7 +1650,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ClassDiagramAt8 => PatData {
+            Pat::ClassDiagramAt8 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1664,12 +1664,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ErDiagram => PatData {
+            Pat::ErDiagram => PatDefinition {
                 act: Act::Begin(Rule::ErDiagram),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::ErDiagramAt1 | Pat::MindmapAt3 => PatData {
+            Pat::ErDiagramAt1 | Pat::MindmapAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::VarBare]),
@@ -1679,7 +1679,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ErDiagramAt2 => PatData {
+            Pat::ErDiagramAt2 => PatDefinition {
                 act: Act::Begin(Rule::ErDiagramAt2),
                 captures: &[
                     (1, scopes![S::VarBare]),
@@ -1690,7 +1690,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ErDiagramAt2At0 => PatData {
+            Pat::ErDiagramAt2At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::StorType]),
@@ -1700,7 +1700,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::ErDiagramAt3 | Pat::SequenceDiagramAt8 => PatData {
+            Pat::ErDiagramAt3 | Pat::SequenceDiagramAt8 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::VarBare]),
@@ -1711,7 +1711,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Gantt => PatData {
+            Pat::Gantt => PatDefinition {
                 act: Act::Begin(Rule::Gantt),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
@@ -1722,27 +1722,27 @@ impl Pat {
             | Pat::FlowchartAt3
             | Pat::RequirementDiagramAt1At2
             | Pat::RequirementDiagramAt1At3
-            | Pat::StateDiagramAt1 => PatData {
+            | Pat::StateDiagramAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControl]), (2, scopes![S::EntNameFunction])],
                 nested: &[],
             },
-            Pat::GanttAt8 => PatData {
+            Pat::GanttAt8 => PatDefinition {
                 act: Act::Begin(Rule::GanttAt8),
                 captures: &[(1, scopes![S::StrBare]), (2, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::GanttAt8At0 => PatData {
+            Pat::GanttAt8At0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::GitGraph => PatData {
+            Pat::GitGraph => PatDefinition {
                 act: Act::Begin(Rule::GitGraph),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::GitGraphAt1 => PatData {
+            Pat::GitGraphAt1 => PatDefinition {
                 act: Act::Begin(Rule::GitGraphAt1),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
@@ -1750,7 +1750,7 @@ impl Pat {
             Pat::GitGraphAt1At0
             | Pat::GitGraphAt1At2
             | Pat::SequenceDiagramAt1
-            | Pat::StateDiagramAt7At1 => PatData {
+            | Pat::StateDiagramAt7At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1759,7 +1759,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::GitGraphAt1At1 => PatData {
+            Pat::GitGraphAt1At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1772,12 +1772,12 @@ impl Pat {
             | Pat::RequirementDiagramAt1At0
             | Pat::RequirementDiagramAt2At0
             | Pat::RequirementDiagramAt2At1
-            | Pat::SequenceDiagramAt3 => PatData {
+            | Pat::SequenceDiagramAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControl]), (2, scopes![S::VarBare])],
                 nested: &[],
             },
-            Pat::GitGraphAt3 => PatData {
+            Pat::GitGraphAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1788,7 +1788,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::GitGraphAt4 => PatData {
+            Pat::GitGraphAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1799,7 +1799,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::GitGraphAt5 => PatData {
+            Pat::GitGraphAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1809,12 +1809,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Flowchart => PatData {
+            Pat::Flowchart => PatDefinition {
                 act: Act::Begin(Rule::Flowchart),
                 captures: &[(1, scopes![S::KwControl]), (2, scopes![S::EntNameFunction])],
                 nested: &[],
             },
-            Pat::FlowchartAt1 => PatData {
+            Pat::FlowchartAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1825,12 +1825,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::FlowchartAt4 => PatData {
+            Pat::FlowchartAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwControl]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::FlowchartAt5 => PatData {
+            Pat::FlowchartAt5 => PatDefinition {
                 act: Act::Begin(Rule::FlowchartAt5),
                 captures: &[
                     (1, scopes![S::VarBare]),
@@ -1839,22 +1839,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::FlowchartAt5At0 => PatData {
+            Pat::FlowchartAt5At0 => PatDefinition {
                 act: Act::Begin(Rule::FlowchartAt5At0),
                 captures: &[(1, scopes![S::StrBare])],
                 nested: &[],
             },
-            Pat::FlowchartAt5At0End => PatData {
+            Pat::FlowchartAt5At0End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::StrBare])],
                 nested: &[],
             },
-            Pat::FlowchartAt5At0At0 => PatData {
+            Pat::FlowchartAt5At0At0 => PatDefinition {
                 act: Act::Begin(Rule::FlowchartAt5At0At0),
                 captures: &[(1, scopes![S::StrBare])],
                 nested: &[],
             },
-            Pat::FlowchartAt5At0At0At0 => PatData {
+            Pat::FlowchartAt5At0At0At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::CmtBare])],
                 nested: &[],
@@ -1863,17 +1863,17 @@ impl Pat {
             | Pat::XyChartAt2At1
             | Pat::XyChartAt2At2
             | Pat::XyChartAt2At3At1
-            | Pat::XyChartAt2At3At2 => PatData {
+            | Pat::XyChartAt2At3At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StrBare])],
                 nested: &[],
             },
-            Pat::FlowchartAt6 => PatData {
+            Pat::FlowchartAt6 => PatDefinition {
                 act: Act::Begin(Rule::FlowchartAt6),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::FlowchartAt7 | Pat::FlowchartAt13At1 => PatData {
+            Pat::FlowchartAt7 | Pat::FlowchartAt13At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1882,12 +1882,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::FlowchartAt9 | Pat::StateDiagramAt4 => PatData {
+            Pat::FlowchartAt9 | Pat::StateDiagramAt4 => PatDefinition {
                 act: Act::Match(scopes![S::VarBare]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::FlowchartAt10 | Pat::FlowchartAt11 => PatData {
+            Pat::FlowchartAt10 | Pat::FlowchartAt11 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1896,7 +1896,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::FlowchartAt12 => PatData {
+            Pat::FlowchartAt12 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1906,12 +1906,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::FlowchartAt13 => PatData {
+            Pat::FlowchartAt13 => PatDefinition {
                 act: Act::Begin(Rule::FlowchartAt13),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::FlowchartAt13At0 => PatData {
+            Pat::FlowchartAt13At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1920,12 +1920,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Mindmap => PatData {
+            Pat::Mindmap => PatDefinition {
                 act: Act::Begin(Rule::Mindmap),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::MindmapAt2 => PatData {
+            Pat::MindmapAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1935,32 +1935,32 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MindmapAt4 => PatData {
+            Pat::MindmapAt4 => PatDefinition {
                 act: Act::Match(scopes![S::StrBare]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Pie => PatData {
+            Pat::Pie => PatDefinition {
                 act: Act::Begin(Rule::Pie),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::PieAt2 => PatData {
+            Pat::PieAt2 => PatDefinition {
                 act: Act::Begin(Rule::PieAt2),
                 captures: &[(1, scopes![S::StrBare]), (2, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::QuadrantChart => PatData {
+            Pat::QuadrantChart => PatDefinition {
                 act: Act::Begin(Rule::QuadrantChart),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::QuadrantChartAt2 => PatData {
+            Pat::QuadrantChartAt2 => PatDefinition {
                 act: Act::Begin(Rule::QuadrantChartAt2),
                 captures: &[(1, scopes![S::KwControl]), (2, scopes![S::StrBare])],
                 nested: &[],
             },
-            Pat::QuadrantChartAt4 => PatData {
+            Pat::QuadrantChartAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::StrBare]),
@@ -1973,12 +1973,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::RequirementDiagram => PatData {
+            Pat::RequirementDiagram => PatDefinition {
                 act: Act::Begin(Rule::RequirementDiagram),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::RequirementDiagramAt1 => PatData {
+            Pat::RequirementDiagramAt1 => PatDefinition {
                 act: Act::Begin(Rule::RequirementDiagramAt1),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1987,7 +1987,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::RequirementDiagramAt2 => PatData {
+            Pat::RequirementDiagramAt2 => PatDefinition {
                 act: Act::Begin(Rule::RequirementDiagramAt2),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -1996,7 +1996,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::RequirementDiagramAt3 | Pat::RequirementDiagramAt4 => PatData {
+            Pat::RequirementDiagramAt3 | Pat::RequirementDiagramAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::VarBare]),
@@ -2007,12 +2007,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SequenceDiagram => PatData {
+            Pat::SequenceDiagram => PatDefinition {
                 act: Act::Begin(Rule::SequenceDiagram),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::SequenceDiagramAt2 | Pat::StateDiagramAt9 => PatData {
+            Pat::SequenceDiagramAt2 | Pat::StateDiagramAt9 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -2022,7 +2022,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SequenceDiagramAt4 => PatData {
+            Pat::SequenceDiagramAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -2035,7 +2035,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SequenceDiagramAt9 => PatData {
+            Pat::SequenceDiagramAt9 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -2044,12 +2044,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::StateDiagram => PatData {
+            Pat::StateDiagram => PatDefinition {
                 act: Act::Begin(Rule::StateDiagram),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::StateDiagramAt5 | Pat::StateDiagramAt7At0 => PatData {
+            Pat::StateDiagramAt5 | Pat::StateDiagramAt7At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::VarBare]),
@@ -2058,12 +2058,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::StateDiagramAt6 => PatData {
+            Pat::StateDiagramAt6 => PatDefinition {
                 act: Act::Begin(Rule::StateDiagramAt6),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::StateDiagramAt6At0 => PatData {
+            Pat::StateDiagramAt6At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::StrBare]),
@@ -2073,17 +2073,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::StateDiagramAt6At1 | Pat::StateDiagramAt6At2 => PatData {
+            Pat::StateDiagramAt6At1 | Pat::StateDiagramAt6At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarBare]), (2, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::StateDiagramAt7 => PatData {
+            Pat::StateDiagramAt7 => PatDefinition {
                 act: Act::Begin(Rule::StateDiagramAt7),
                 captures: &[(1, scopes![S::VarBare]), (2, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::StateDiagramAt8 => PatData {
+            Pat::StateDiagramAt8 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::KwControl]),
@@ -2094,17 +2094,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::StateDiagramAt10 => PatData {
+            Pat::StateDiagramAt10 => PatDefinition {
                 act: Act::Begin(Rule::StateDiagramAt10),
                 captures: &[(1, scopes![S::KwControl]), (2, scopes![S::VarBare])],
                 nested: &[],
             },
-            Pat::Journey => PatData {
+            Pat::Journey => PatDefinition {
                 act: Act::Begin(Rule::Journey),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::JourneyAt2 => PatData {
+            Pat::JourneyAt2 => PatDefinition {
                 act: Act::Begin(Rule::JourneyAt2),
                 captures: &[
                     (1, scopes![S::StrBare]),
@@ -2114,22 +2114,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::JourneyAt2At0 => PatData {
+            Pat::JourneyAt2At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarBare])],
                 nested: &[],
             },
-            Pat::XyChart => PatData {
+            Pat::XyChart => PatDefinition {
                 act: Act::Begin(Rule::XyChart),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::XyChartAt2 => PatData {
+            Pat::XyChartAt2 => PatDefinition {
                 act: Act::Begin(Rule::XyChartAt2),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::XyChartAt2At0 => PatData {
+            Pat::XyChartAt2At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstNumericDecimal]),
@@ -2138,32 +2138,32 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::XyChartAt2At3 => PatData {
+            Pat::XyChartAt2At3 => PatDefinition {
                 act: Act::Begin(Rule::XyChartAt2At3),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::XyChartAt2At3At0 => PatData {
+            Pat::XyChartAt2At3At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::ConstNumericDecimal])],
                 nested: &[],
             },
-            Pat::XyChartAt3 => PatData {
+            Pat::XyChartAt3 => PatDefinition {
                 act: Act::Begin(Rule::XyChartAt3),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::XyChartAt4 => PatData {
+            Pat::XyChartAt4 => PatDefinition {
                 act: Act::Begin(Rule::XyChartAt4),
                 captures: &[(1, scopes![S::KwControl]), (2, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::MermaidCodeBlockWithAttributes => PatData {
+            Pat::MermaidCodeBlockWithAttributes => PatDefinition {
                 act: Act::Begin(Rule::MermaidCodeBlockWithAttributes),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MermaidAdoCodeBlock => PatData {
+            Pat::MermaidAdoCodeBlock => PatDefinition {
                 act: Act::Begin(Rule::MermaidAdoCodeBlock),
                 captures: &[],
                 nested: &[],
@@ -3265,7 +3265,7 @@ impl rules::Tabled for Mermaid {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

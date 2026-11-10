@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Vb>;
-pub(crate) type PatData = rules::PatData<Vb>;
-pub(crate) type RuleData = rules::RuleData<Vb>;
+pub(crate) type PatDefinition = rules::PatDefinition<Vb>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Vb>;
 pub(crate) use crate::rules::Start;
 
 /// A rule of the grammar that can be open at the end of a line.
@@ -44,9 +44,9 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -80,7 +80,7 @@ impl Rule {
                     Pat::JsOperators,
                 ],
             },
-            Rule::RoundBrackets => RuleData {
+            Rule::RoundBrackets => RuleDefinition {
                 name: scopes![S::MetaRoundBrackets],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RoundBracketsEnd),
@@ -114,35 +114,35 @@ impl Rule {
                     Pat::JsOperators,
                 ],
             },
-            Rule::Tabs => RuleData {
+            Rule::Tabs => RuleDefinition {
                 name: scopes![S::MetaLeadingSpace],
                 content: S::NO_SCOPES,
                 end: Some(Pat::TabsEnd),
                 backref: None,
                 patterns: &[Pat::TabsAt0],
             },
-            Rule::Spaces => RuleData {
+            Rule::Spaces => RuleDefinition {
                 name: scopes![S::MetaLeadingSpace],
                 content: S::NO_SCOPES,
                 end: Some(Pat::SpacesEnd),
                 backref: None,
                 patterns: &[Pat::SpacesAt0],
             },
-            Rule::Comment => RuleData {
+            Rule::Comment => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0],
             },
-            Rule::CommentAt0 => RuleData {
+            Rule::CommentAt0 => RuleDefinition {
                 name: scopes![S::CmtLineApostrophe],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::String => RuleData {
+            Rule::String => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringEnd),
@@ -248,34 +248,34 @@ pub(crate) enum Pat {
 
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::LineFeed => PatData {
+            Pat::LineFeed => PatDefinition {
                 act: Act::Match(scopes![S::MetaEndingSpace]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RoundBrackets => PatData {
+            Pat::RoundBrackets => PatDefinition {
                 act: Act::Begin(Rule::RoundBrackets),
                 captures: &[(0, scopes![S::PSectionRoundBracketsBegin])],
                 nested: &[],
             },
-            Pat::RoundBracketsEnd => PatData {
+            Pat::RoundBracketsEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionRoundBracketsEnd])],
                 nested: &[],
             },
-            Pat::Tabs => PatData {
+            Pat::Tabs => PatDefinition {
                 act: Act::Begin(Rule::Tabs),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TabsEnd | Pat::SpacesEnd | Pat::CommentEnd | Pat::CommentAt0End => PatData {
+            Pat::TabsEnd | Pat::SpacesEnd | Pat::CommentEnd | Pat::CommentAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::TabsAt0 => PatData {
+            Pat::TabsAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::MetaOddTabTabs]),
@@ -283,12 +283,12 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Spaces => PatData {
+            Pat::Spaces => PatDefinition {
                 act: Act::Begin(Rule::Spaces),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SpacesAt0 => PatData {
+            Pat::SpacesAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::MetaOddTabSpaces]),
@@ -296,7 +296,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::FunctionHead => PatData {
+            Pat::FunctionHead => PatDefinition {
                 act: Act::Match(scopes![S::MetaFunction]),
                 captures: &[
                     (1, scopes![S::StorTypeFunction]),
@@ -307,27 +307,27 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Comment => PatData {
+            Pat::Comment => PatDefinition {
                 act: Act::Begin(Rule::Comment),
                 captures: &[(1, scopes![S::PWhitespaceCommentLeading])],
                 nested: &[],
             },
-            Pat::CommentAt0 => PatData {
+            Pat::CommentAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt0),
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::Control => PatData {
+            Pat::Control => PatDefinition {
                 act: Act::Match(scopes![S::KwControl]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Operators => PatData {
+            Pat::Operators => PatDefinition {
                 act: Act::Match(scopes![S::KwOperator]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DimName => PatData {
+            Pat::DimName => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherDim]),
                 captures: &[
                     (1, scopes![S::StorType]),
@@ -336,92 +336,92 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::Storage => PatData {
+            Pat::Storage => PatDefinition {
                 act: Act::Match(scopes![S::StorType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Modifiers => PatData {
+            Pat::Modifiers => PatDefinition {
                 act: Act::Match(scopes![S::StorModifier]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Constants => PatData {
+            Pat::Constants => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::String => PatData {
+            Pat::String => PatDefinition {
                 act: Act::Begin(Rule::String),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::StringEnd => PatData {
+            Pat::StringEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionStringEnd])],
                 nested: &[],
             },
-            Pat::StringAt0 => PatData {
+            Pat::StringAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscapeApostrophe]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DollarVariable => PatData {
+            Pat::DollarVariable => PatDefinition {
                 act: Act::Match(scopes![S::VarOther]),
                 captures: &[(1, scopes![S::PDefinitionVariable])],
                 nested: &[],
             },
-            Pat::AspClasses => PatData {
+            Pat::AspClasses => PatDefinition {
                 act: Act::Match(scopes![S::SuppClass]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AspCollections => PatData {
+            Pat::AspCollections => PatDefinition {
                 act: Act::Match(scopes![S::SuppClassCollection]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AspConstants => PatData {
+            Pat::AspConstants => PatDefinition {
                 act: Act::Match(scopes![S::SuppConstant]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AspFunctions => PatData {
+            Pat::AspFunctions => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AspEvents => PatData {
+            Pat::AspEvents => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionEvent]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AsType | Pat::VbConstants => PatData {
+            Pat::AsType | Pat::VbConstants => PatDefinition {
                 act: Act::Match(scopes![S::SuppTypeVb]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Functions => PatData {
+            Pat::Functions => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunctionVb]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Numbers => PatData {
+            Pat::Numbers => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::FunctionCall => PatData {
+            Pat::FunctionCall => PatDefinition {
                 act: Act::Match(scopes![S::SuppFunction]),
                 captures: &[(1, scopes![S::EntNameFunction])],
                 nested: &[],
             },
-            Pat::Variable => PatData {
+            Pat::Variable => PatDefinition {
                 act: Act::Match(scopes![S::VarOther]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::JsOperators => PatData {
+            Pat::JsOperators => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorJs]),
                 captures: &[],
                 nested: &[],
@@ -1334,7 +1334,7 @@ impl rules::Tabled for Vb {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

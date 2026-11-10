@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Go>;
-pub(crate) type PatData = rules::PatData<Go>;
-pub(crate) type RuleData = rules::RuleData<Go>;
+pub(crate) type PatDefinition = rules::PatDefinition<Go>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Go>;
 pub(crate) use crate::rules::Start;
 
 /// The rule that tokenizes a capture group.
@@ -191,16 +191,16 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::PackageNameAt0 => RuleData {
+            Rule::PackageNameAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PackageNameAt0End),
                 backref: None,
                 patterns: &[Pat::PackageNameAt0At0, Pat::PackageNameAt0At1],
             },
-            Rule::ImportAt0 => RuleData {
+            Rule::ImportAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ImportAt0End),
@@ -290,7 +290,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested0 => RuleData {
+            Rule::Nested0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -302,7 +302,7 @@ impl Rule {
                     Pat::Nested0At1,
                 ],
             },
-            Rule::ImportsAt1 => RuleData {
+            Rule::ImportsAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ImportsAt1End),
@@ -394,28 +394,28 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::CommentsAt0 => RuleData {
+            Rule::CommentsAt0 => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt0End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentsAt1 => RuleData {
+            Rule::CommentsAt1 => RuleDefinition {
                 name: scopes![S::CmtLineDoubleSlash],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentsAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Nested1 => RuleData {
+            Rule::Nested1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested1At0],
             },
-            Rule::Nested1At0 => RuleData {
+            Rule::Nested1At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::Nested1At0End),
@@ -504,7 +504,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested2 => RuleData {
+            Rule::Nested2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -558,7 +558,7 @@ impl Rule {
                     Pat::Nested2At2,
                 ],
             },
-            Rule::Nested3 => RuleData {
+            Rule::Nested3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -610,21 +610,21 @@ impl Rule {
                     Pat::Nested3At3,
                 ],
             },
-            Rule::RunesAt0 => RuleData {
+            Rule::RunesAt0 => RuleDefinition {
                 name: scopes![S::StrQuotedRune],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RunesAt0End),
                 backref: None,
                 patterns: &[Pat::RunesAt0At0, Pat::RunesAt0At1],
             },
-            Rule::RawStringLiterals => RuleData {
+            Rule::RawStringLiterals => RuleDefinition {
                 name: scopes![S::StrQuotedRaw],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawStringLiteralsEnd),
                 backref: None,
                 patterns: &[Pat::StringPlaceholderAt0],
             },
-            Rule::StringLiteralsAt0 => RuleData {
+            Rule::StringLiteralsAt0 => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringLiteralsAt0End),
@@ -635,28 +635,28 @@ impl Rule {
                     Pat::StringPlaceholderAt0,
                 ],
             },
-            Rule::Nested4 => RuleData {
+            Rule::Nested4 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested4At0],
             },
-            Rule::Nested4At0 => RuleData {
+            Rule::Nested4At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::Nested4At0End),
                 backref: None,
                 patterns: &[Pat::Nested4At0At0, Pat::Nested4At0At1, Pat::Nested4At0At2],
             },
-            Rule::Nested5 => RuleData {
+            Rule::Nested5 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested5At0],
             },
-            Rule::MapTypes => RuleData {
+            Rule::MapTypes => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::MapTypesEnd),
@@ -717,7 +717,7 @@ impl Rule {
                     Pat::MapTypesAt9,
                 ],
             },
-            Rule::Nested6 => RuleData {
+            Rule::Nested6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -770,7 +770,7 @@ impl Rule {
                     Pat::Nested6At1,
                 ],
             },
-            Rule::BracketsAt0 => RuleData {
+            Rule::BracketsAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketsAt0End),
@@ -858,14 +858,14 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested7 => RuleData {
+            Rule::Nested7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested7At0, Pat::Nested7At1],
             },
-            Rule::FunctionDeclaration => RuleData {
+            Rule::FunctionDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FunctionDeclarationEnd),
@@ -956,7 +956,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::FunctionDeclarationAt0 => RuleData {
+            Rule::FunctionDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FunctionDeclarationAt0End),
@@ -1093,7 +1093,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::StructVariablesTypes => RuleData {
+            Rule::StructVariablesTypes => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::StructVariablesTypesEnd),
@@ -1193,7 +1193,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested8 => RuleData {
+            Rule::Nested8 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -1246,7 +1246,7 @@ impl Rule {
                     Pat::Nested8At1,
                 ],
             },
-            Rule::BracketsAt1 => RuleData {
+            Rule::BracketsAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketsAt1End),
@@ -1334,7 +1334,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested9 => RuleData {
+            Rule::Nested9 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -1389,7 +1389,7 @@ impl Rule {
                     Pat::Nested9At6,
                 ],
             },
-            Rule::Nested9At1 => RuleData {
+            Rule::Nested9At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::Nested9At1End),
@@ -1606,7 +1606,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::InterfaceVariablesTypes => RuleData {
+            Rule::InterfaceVariablesTypes => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterfaceVariablesTypesEnd),
@@ -1739,7 +1739,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested10 => RuleData {
+            Rule::Nested10 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -1793,7 +1793,7 @@ impl Rule {
                     Pat::Nested10At2,
                 ],
             },
-            Rule::BracketsAt2 => RuleData {
+            Rule::BracketsAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketsAt2End),
@@ -1881,7 +1881,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested11 => RuleData {
+            Rule::Nested11 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -1933,7 +1933,7 @@ impl Rule {
                     Pat::Terminators,
                 ],
             },
-            Rule::Functions => RuleData {
+            Rule::Functions => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FunctionsEnd),
@@ -1945,7 +1945,7 @@ impl Rule {
                     Pat::ParameterVariableTypesAt3,
                 ],
             },
-            Rule::ParameterVariableTypesAt2 => RuleData {
+            Rule::ParameterVariableTypesAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParameterVariableTypesAt2End),
@@ -2082,7 +2082,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested12 => RuleData {
+            Rule::Nested12 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -2135,7 +2135,7 @@ impl Rule {
                     Pat::Nested12At1,
                 ],
             },
-            Rule::Nested13 => RuleData {
+            Rule::Nested13 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -2147,7 +2147,7 @@ impl Rule {
                     Pat::Nested13At1,
                 ],
             },
-            Rule::GenericParamTypesAt6 => RuleData {
+            Rule::GenericParamTypesAt6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GenericParamTypesAt6End),
@@ -2284,7 +2284,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::GenericParamTypesAt7 => RuleData {
+            Rule::GenericParamTypesAt7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GenericParamTypesAt7End),
@@ -2421,7 +2421,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::FunctionParamTypesAt6 => RuleData {
+            Rule::FunctionParamTypesAt6 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FunctionParamTypesAt6End),
@@ -2558,7 +2558,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::BuiltInFunctionsAt1 => RuleData {
+            Rule::BuiltInFunctionsAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BuiltInFunctionsAt1End),
@@ -2695,7 +2695,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested14 => RuleData {
+            Rule::Nested14 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -2749,7 +2749,7 @@ impl Rule {
                     Pat::Nested14At5,
                 ],
             },
-            Rule::Nested15 => RuleData {
+            Rule::Nested15 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -2761,7 +2761,7 @@ impl Rule {
                     Pat::ParameterVariableTypesAt3,
                 ],
             },
-            Rule::ParameterVariableTypesAt3 => RuleData {
+            Rule::ParameterVariableTypesAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParameterVariableTypesAt3End),
@@ -2898,7 +2898,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::FunctionParamTypesAt7 => RuleData {
+            Rule::FunctionParamTypesAt7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FunctionParamTypesAt7End),
@@ -3035,7 +3035,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::BuiltInFunctionsAt2 => RuleData {
+            Rule::BuiltInFunctionsAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BuiltInFunctionsAt2End),
@@ -3123,7 +3123,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested16 => RuleData {
+            Rule::Nested16 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3175,7 +3175,7 @@ impl Rule {
                     Pat::Nested16At3,
                 ],
             },
-            Rule::Nested17 => RuleData {
+            Rule::Nested17 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3231,7 +3231,7 @@ impl Rule {
                     Pat::Nested17At7,
                 ],
             },
-            Rule::Nested18 => RuleData {
+            Rule::Nested18 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3286,7 +3286,7 @@ impl Rule {
                     Pat::Nested18At3,
                 ],
             },
-            Rule::Nested18At0 => RuleData {
+            Rule::Nested18At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::Nested18At0End),
@@ -3503,7 +3503,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested19 => RuleData {
+            Rule::Nested19 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3553,7 +3553,7 @@ impl Rule {
                     Pat::Nested19At1,
                 ],
             },
-            Rule::SingleTypeAt1 => RuleData {
+            Rule::SingleTypeAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SingleTypeAt1End),
@@ -3614,7 +3614,7 @@ impl Rule {
                     Pat::SingleTypeAt1At9,
                 ],
             },
-            Rule::MultiTypes => RuleData {
+            Rule::MultiTypes => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::MultiTypesEnd),
@@ -3670,7 +3670,7 @@ impl Rule {
                     Pat::MultiTypesAt4,
                 ],
             },
-            Rule::Nested20 => RuleData {
+            Rule::Nested20 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3689,7 +3689,7 @@ impl Rule {
                     Pat::Nested20At1,
                 ],
             },
-            Rule::Nested21 => RuleData {
+            Rule::Nested21 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3743,7 +3743,7 @@ impl Rule {
                     Pat::Nested21At2,
                 ],
             },
-            Rule::Nested22 => RuleData {
+            Rule::Nested22 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3758,7 +3758,7 @@ impl Rule {
                     Pat::Nested22At2,
                 ],
             },
-            Rule::SwitchTypes => RuleData {
+            Rule::SwitchTypes => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchTypesEnd),
@@ -3848,14 +3848,14 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested23 => RuleData {
+            Rule::Nested23 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CommentsAt0, Pat::CommentsAt1],
             },
-            Rule::SwitchTypesAt1 => RuleData {
+            Rule::SwitchTypesAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchTypesAt1End),
@@ -3908,7 +3908,7 @@ impl Rule {
                     Pat::SwitchTypesAt1At1,
                 ],
             },
-            Rule::Nested24 => RuleData {
+            Rule::Nested24 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3920,7 +3920,7 @@ impl Rule {
                     Pat::Nested24At1,
                 ],
             },
-            Rule::Nested25 => RuleData {
+            Rule::Nested25 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -3975,7 +3975,7 @@ impl Rule {
                     Pat::Nested25At6,
                 ],
             },
-            Rule::ConstAssignmentAt1 => RuleData {
+            Rule::ConstAssignmentAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ConstAssignmentAt1End),
@@ -4064,7 +4064,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested26 => RuleData {
+            Rule::Nested26 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4076,7 +4076,7 @@ impl Rule {
                     Pat::Nested26At1,
                 ],
             },
-            Rule::VarAssignmentAt1 => RuleData {
+            Rule::VarAssignmentAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::VarAssignmentAt1End),
@@ -4165,7 +4165,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested27 => RuleData {
+            Rule::Nested27 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4178,7 +4178,7 @@ impl Rule {
                     Pat::Nested27At2,
                 ],
             },
-            Rule::Nested28 => RuleData {
+            Rule::Nested28 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4201,7 +4201,7 @@ impl Rule {
                     Pat::Nested28At3,
                 ],
             },
-            Rule::Nested29 => RuleData {
+            Rule::Nested29 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4254,7 +4254,7 @@ impl Rule {
                     Pat::Nested29At1,
                 ],
             },
-            Rule::Nested30 => RuleData {
+            Rule::Nested30 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4307,7 +4307,7 @@ impl Rule {
                     Pat::Nested30At1,
                 ],
             },
-            Rule::Nested31 => RuleData {
+            Rule::Nested31 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4363,7 +4363,7 @@ impl Rule {
                     Pat::Nested31At3,
                 ],
             },
-            Rule::Nested32 => RuleData {
+            Rule::Nested32 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4419,7 +4419,7 @@ impl Rule {
                     Pat::Nested32At3,
                 ],
             },
-            Rule::SwitchVariablesAt1 => RuleData {
+            Rule::SwitchVariablesAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchVariablesAt1End),
@@ -4508,7 +4508,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::SwitchVariablesAt1At0 => RuleData {
+            Rule::SwitchVariablesAt1At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchVariablesAt1At0End),
@@ -4564,7 +4564,7 @@ impl Rule {
                     Pat::SwitchVariablesAt1At0At3,
                 ],
             },
-            Rule::Nested33 => RuleData {
+            Rule::Nested33 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -4619,7 +4619,7 @@ impl Rule {
                     Pat::Nested33At3,
                 ],
             },
-            Rule::InterfaceVariablesTypesFieldAt2 => RuleData {
+            Rule::InterfaceVariablesTypesFieldAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterfaceVariablesTypesFieldAt2End),
@@ -4756,7 +4756,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::InterfaceVariablesTypesFieldAt3 => RuleData {
+            Rule::InterfaceVariablesTypesFieldAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterfaceVariablesTypesFieldAt3End),
@@ -4893,7 +4893,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::StructVariableTypesFieldsMultiAt0 => RuleData {
+            Rule::StructVariableTypesFieldsMultiAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::StructVariableTypesFieldsMultiAt0End),
@@ -4993,7 +4993,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::StructVariableTypesFieldsMultiAt1 => RuleData {
+            Rule::StructVariableTypesFieldsMultiAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::StructVariableTypesFieldsMultiAt1End),
@@ -5126,7 +5126,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::StructVariableTypesFieldsMultiAt2 => RuleData {
+            Rule::StructVariableTypesFieldsMultiAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::StructVariableTypesFieldsMultiAt2End),
@@ -5343,14 +5343,14 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Nested34 => RuleData {
+            Rule::Nested34 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Nested34At0],
             },
-            Rule::FunctionDeclarationAt1 => RuleData {
+            Rule::FunctionDeclarationAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FunctionDeclarationAt1End),
@@ -5487,7 +5487,7 @@ impl Rule {
                     Pat::HoverAt1,
                 ],
             },
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -6089,9 +6089,9 @@ pub(crate) enum Pat {
 
 impl Pat {
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::PackageNameAt0 => PatData {
+            Pat::PackageNameAt0 => PatDefinition {
                 act: Act::Begin(Rule::PackageNameAt0),
                 captures: &[(1, scopes![S::KwPackage])],
                 nested: &[],
@@ -6099,7 +6099,7 @@ impl Pat {
             Pat::PackageNameAt0End
             | Pat::ImportAt0End
             | Pat::CommentsAt1End
-            | Pat::Nested4At0End => PatData {
+            | Pat::Nested4At0End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
@@ -6108,42 +6108,42 @@ impl Pat {
             | Pat::Nested7At0
             | Pat::Nested27At1
             | Pat::Nested28At2
-            | Pat::Nested10At1 => PatData {
+            | Pat::Nested10At1 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalIdentifier]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PackageNameAt0At1 => PatData {
+            Pat::PackageNameAt0At1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameTypePackage]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ImportAt0 => PatData {
+            Pat::ImportAt0 => PatDefinition {
                 act: Act::Begin(Rule::ImportAt0),
                 captures: &[(1, scopes![S::KwControlImport])],
                 nested: &[],
             },
-            Pat::DelimitersAt0 => PatData {
+            Pat::DelimitersAt0 => PatDefinition {
                 act: Act::Match(scopes![S::POtherComma]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DelimitersAt1 => PatData {
+            Pat::DelimitersAt1 => PatDefinition {
                 act: Act::Match(scopes![S::POtherPeriod]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DelimitersAt2 => PatData {
+            Pat::DelimitersAt2 => PatDefinition {
                 act: Act::Match(scopes![S::POtherColon]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested0At1 => PatData {
+            Pat::Nested0At1 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherImport]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ImportsAt0 => PatData {
+            Pat::ImportsAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (2, scopes![S::StrQuotedDouble]),
@@ -6153,42 +6153,42 @@ impl Pat {
                 ],
                 nested: &[(1, Rule::Nested0)],
             },
-            Pat::ImportsAt1 => PatData {
+            Pat::ImportsAt1 => PatDefinition {
                 act: Act::Begin(Rule::ImportsAt1),
                 captures: &[(0, scopes![S::PDefinitionImportsBeginBracketRound])],
                 nested: &[],
             },
-            Pat::ImportsAt1End => PatData {
+            Pat::ImportsAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionImportsEndBracketRound])],
                 nested: &[],
             },
-            Pat::CommentsAt0 => PatData {
+            Pat::CommentsAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt0),
                 captures: &[(1, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentsAt0End => PatData {
+            Pat::CommentsAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentsAt1 => PatData {
+            Pat::CommentsAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentsAt1),
                 captures: &[(1, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::SyntaxErrorsAt0 => PatData {
+            Pat::SyntaxErrorsAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::InvIllegalSlice])],
                 nested: &[],
             },
-            Pat::SyntaxErrorsAt1 => PatData {
+            Pat::SyntaxErrorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested1At0 => PatData {
+            Pat::Nested1At0 => PatDefinition {
                 act: Act::Begin(Rule::Nested1At0),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
@@ -6207,12 +6207,12 @@ impl Pat {
             | Pat::ConstAssignmentAt1End
             | Pat::VarAssignmentAt1End
             | Pat::InterfaceVariablesTypesFieldAt3End
-            | Pat::StructVariableTypesFieldsMultiAt2End => PatData {
+            | Pat::StructVariableTypesFieldsMultiAt2End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionEndBracketRound])],
                 nested: &[],
             },
-            Pat::LanguageConstants => PatData {
+            Pat::LanguageConstants => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstLanguageBoolean]),
@@ -6221,7 +6221,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::MapTypes => PatData {
+            Pat::MapTypes => PatDefinition {
                 act: Act::Begin(Rule::MapTypes),
                 captures: &[
                     (1, scopes![S::KwMap]),
@@ -6229,207 +6229,209 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::KeywordsAt0 => PatData {
+            Pat::KeywordsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwControl]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt1 => PatData {
+            Pat::KeywordsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwChannel]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt2 => PatData {
+            Pat::KeywordsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwConst]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt3 => PatData {
+            Pat::KeywordsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwVar]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt4 => PatData {
+            Pat::KeywordsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt5 => PatData {
+            Pat::KeywordsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwInterface]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt6 => PatData {
+            Pat::KeywordsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::KwMap]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt7 => PatData {
+            Pat::KeywordsAt7 => PatDefinition {
                 act: Act::Match(scopes![S::KwStruct]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt8 => PatData {
+            Pat::KeywordsAt8 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlImport]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::KeywordsAt9 | Pat::Nested22At2 => PatData {
+            Pat::KeywordsAt9 | Pat::Nested22At2 => PatDefinition {
                 act: Act::Match(scopes![S::KwType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt0 => PatData {
+            Pat::OperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAddress]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt1 => PatData {
+            Pat::OperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorChannel]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt2 => PatData {
+            Pat::OperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorDecrement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt3 => PatData {
+            Pat::OperatorsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorIncrement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt4 => PatData {
+            Pat::OperatorsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorComparison]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt5 => PatData {
+            Pat::OperatorsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorLogical]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt6 => PatData {
+            Pat::OperatorsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignment]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt7 => PatData {
+            Pat::OperatorsAt7 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmetic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt8 => PatData {
+            Pat::OperatorsAt8 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmeticBitwise]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::OperatorsAt9 => PatData {
+            Pat::OperatorsAt9 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorEllipsis]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RunesAt0 => PatData {
+            Pat::RunesAt0 => PatDefinition {
                 act: Act::Begin(Rule::RunesAt0),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RunesAt0End | Pat::RawStringLiteralsEnd | Pat::StringLiteralsAt0End => PatData {
-                act: Act::End,
-                captures: &[(0, scopes![S::PDefinitionStringEnd])],
-                nested: &[],
-            },
-            Pat::RunesAt0At0 => PatData {
+            Pat::RunesAt0End | Pat::RawStringLiteralsEnd | Pat::StringLiteralsAt0End => {
+                PatDefinition {
+                    act: Act::End,
+                    captures: &[(0, scopes![S::PDefinitionStringEnd])],
+                    nested: &[],
+                }
+            }
+            Pat::RunesAt0At0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstOtherRune]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RunesAt0At1 => PatData {
+            Pat::RunesAt0At1 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalUnknownRune]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt0 => PatData {
+            Pat::StorageTypesAt0 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeBoolean]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt1 => PatData {
+            Pat::StorageTypesAt1 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeByte]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt2 => PatData {
+            Pat::StorageTypesAt2 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeError]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt3 => PatData {
+            Pat::StorageTypesAt3 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt4 => PatData {
+            Pat::StorageTypesAt4 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeRune]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt5 => PatData {
+            Pat::StorageTypesAt5 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeString]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt6 => PatData {
+            Pat::StorageTypesAt6 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeUintptr]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt7 => PatData {
+            Pat::StorageTypesAt7 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameTypeAny]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageTypesAt8 => PatData {
+            Pat::StorageTypesAt8 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameTypeComparable]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RawStringLiterals => PatData {
+            Pat::RawStringLiterals => PatDefinition {
                 act: Act::Begin(Rule::RawStringLiterals),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::StringPlaceholderAt0 => PatData {
+            Pat::StringPlaceholderAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstOtherPlaceholder]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringLiteralsAt0 => PatData {
+            Pat::StringLiteralsAt0 => PatDefinition {
                 act: Act::Begin(Rule::StringLiteralsAt0),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::StringEscapedCharAt0 => PatData {
+            Pat::StringEscapedCharAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscape]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StringEscapedCharAt1 => PatData {
+            Pat::StringEscapedCharAt1 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalUnknownEscape]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested4At0 => PatData {
+            Pat::Nested4At0 => PatDefinition {
                 act: Act::Begin(Rule::Nested4At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested5At0 => PatData {
+            Pat::Nested5At0 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorConstantNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Nested4At0At0 => PatData {
+            Pat::Nested4At0At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstNumericDecimal]),
@@ -6503,7 +6505,7 @@ impl Pat {
                     (52, Rule::Nested5),
                 ],
             },
-            Pat::Nested4At0At1 => PatData {
+            Pat::Nested4At0At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[
                     (1, scopes![S::ConstNumericDecimal]),
@@ -6529,17 +6531,17 @@ impl Pat {
                     (13, Rule::Nested5),
                 ],
             },
-            Pat::Nested4At0At2 => PatData {
+            Pat::Nested4At0At2 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalConstantNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumericLiterals => PatData {
+            Pat::NumericLiterals => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested4)],
             },
-            Pat::Terminators => PatData {
+            Pat::Terminators => PatDefinition {
                 act: Act::Match(scopes![S::PTerminator]),
                 captures: &[],
                 nested: &[],
@@ -6551,7 +6553,7 @@ impl Pat {
             | Pat::SingleTypeAt1At3
             | Pat::Nested25At4
             | Pat::Nested9At2
-            | Pat::MapTypesAt3 => PatData {
+            | Pat::MapTypesAt3 => PatDefinition {
                 act: Act::Match(scopes![S::PDefinitionBeginBracketSquare]),
                 captures: &[],
                 nested: &[],
@@ -6563,7 +6565,7 @@ impl Pat {
             | Pat::SingleTypeAt1At4
             | Pat::Nested25At5
             | Pat::Nested9At3
-            | Pat::MapTypesAt4 => PatData {
+            | Pat::MapTypesAt4 => PatDefinition {
                 act: Act::Match(scopes![S::PDefinitionEndBracketSquare]),
                 captures: &[],
                 nested: &[],
@@ -6582,12 +6584,12 @@ impl Pat {
             | Pat::Nested9At6
             | Pat::Nested6At1
             | Pat::MapTypesAt9
-            | Pat::Nested2At2 => PatData {
+            | Pat::Nested2At2 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MapTypesEnd => PatData {
+            Pat::MapTypesEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionEndBracketSquare])],
                 nested: &[(2, Rule::Nested3)],
@@ -6597,7 +6599,7 @@ impl Pat {
             | Pat::Nested17At5
             | Pat::SingleTypeAt1At5
             | Pat::Nested9At4
-            | Pat::MapTypesAt5 => PatData {
+            | Pat::MapTypesAt5 => PatDefinition {
                 act: Act::Match(scopes![S::PDefinitionBeginBracketCurly]),
                 captures: &[],
                 nested: &[],
@@ -6607,12 +6609,12 @@ impl Pat {
             | Pat::Nested17At6
             | Pat::SingleTypeAt1At6
             | Pat::Nested9At5
-            | Pat::MapTypesAt6 => PatData {
+            | Pat::MapTypesAt6 => PatDefinition {
                 act: Act::Match(scopes![S::PDefinitionEndBracketCurly]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BracketsAt0 => PatData {
+            Pat::BracketsAt0 => PatDefinition {
                 act: Act::Begin(Rule::BracketsAt0),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketCurly])],
                 nested: &[],
@@ -6623,32 +6625,32 @@ impl Pat {
             | Pat::SwitchTypesEnd
             | Pat::SwitchVariablesAt1End
             | Pat::StructVariableTypesFieldsMultiAt0End
-            | Pat::StructVariableTypesFieldsMultiAt1End => PatData {
+            | Pat::StructVariableTypesFieldsMultiAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionEndBracketCurly])],
                 nested: &[],
             },
-            Pat::Nested7At1 => PatData {
+            Pat::Nested7At1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunction]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::FunctionDeclaration => PatData {
+            Pat::FunctionDeclaration => PatDefinition {
                 act: Act::Begin(Rule::FunctionDeclaration),
                 captures: &[(1, scopes![S::KwFunction])],
                 nested: &[(2, Rule::Nested1), (3, Rule::Nested7)],
             },
-            Pat::FunctionDeclarationEnd => PatData {
+            Pat::FunctionDeclarationEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[(1, Rule::Nested2)],
             },
-            Pat::FunctionDeclarationAt0 => PatData {
+            Pat::FunctionDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::FunctionDeclarationAt0),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::StructVariablesTypes => PatData {
+            Pat::StructVariablesTypes => PatDefinition {
                 act: Act::Begin(Rule::StructVariablesTypes),
                 captures: &[
                     (1, scopes![S::KwStruct]),
@@ -6656,17 +6658,17 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::BracketsAt1 => PatData {
+            Pat::BracketsAt1 => PatDefinition {
                 act: Act::Begin(Rule::BracketsAt1),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::Nested9At1 => PatData {
+            Pat::Nested9At1 => PatDefinition {
                 act: Act::Begin(Rule::Nested9At1),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::InterfaceVariablesTypes => PatData {
+            Pat::InterfaceVariablesTypes => PatDefinition {
                 act: Act::Begin(Rule::InterfaceVariablesTypes),
                 captures: &[
                     (1, scopes![S::KwInterface]),
@@ -6674,7 +6676,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::BracketsAt2 => PatData {
+            Pat::BracketsAt2 => PatDefinition {
                 act: Act::Begin(Rule::BracketsAt2),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketSquare])],
                 nested: &[],
@@ -6684,32 +6686,32 @@ impl Pat {
             | Pat::GenericParamTypesAt6End
             | Pat::FunctionParamTypesAt6End
             | Pat::InterfaceVariablesTypesFieldAt2End
-            | Pat::FunctionDeclarationAt1End => PatData {
+            | Pat::FunctionDeclarationAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionEndBracketSquare])],
                 nested: &[],
             },
-            Pat::FunctionsInline => PatData {
+            Pat::FunctionsInline => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwFunction])],
                 nested: &[(2, Rule::Nested9)],
             },
-            Pat::Functions => PatData {
+            Pat::Functions => PatDefinition {
                 act: Act::Begin(Rule::Functions),
                 captures: &[(1, scopes![S::KwFunction])],
                 nested: &[],
             },
-            Pat::FunctionsEnd => PatData {
+            Pat::FunctionsEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[(1, Rule::Nested11), (2, Rule::Nested2)],
             },
-            Pat::ParameterVariableTypesAt2 => PatData {
+            Pat::ParameterVariableTypesAt2 => PatDefinition {
                 act: Act::Begin(Rule::ParameterVariableTypesAt2),
                 captures: &[(2, scopes![S::PDefinitionBeginBracketSquare])],
                 nested: &[(1, Rule::Nested6)],
             },
-            Pat::Nested12At1 | Pat::Nested13At1 => PatData {
+            Pat::Nested12At1 | Pat::Nested13At1 => PatDefinition {
                 act: Act::Match(scopes![S::VarParameter]),
                 captures: &[],
                 nested: &[],
@@ -6717,32 +6719,32 @@ impl Pat {
             Pat::GenericParamTypesAt3
             | Pat::GenericParamTypesAt4
             | Pat::FunctionParamTypesAt3
-            | Pat::FunctionParamTypesAt4 => PatData {
+            | Pat::FunctionParamTypesAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested12)],
             },
-            Pat::GenericParamTypesAt5 => PatData {
+            Pat::GenericParamTypesAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested13), (2, Rule::Nested2), (3, Rule::Nested6)],
             },
-            Pat::GenericParamTypesAt6 => PatData {
+            Pat::GenericParamTypesAt6 => PatDefinition {
                 act: Act::Begin(Rule::GenericParamTypesAt6),
                 captures: &[(2, scopes![S::PDefinitionBeginBracketSquare])],
                 nested: &[(1, Rule::Nested6)],
             },
-            Pat::GenericParamTypesAt7 => PatData {
+            Pat::GenericParamTypesAt7 => PatDefinition {
                 act: Act::Begin(Rule::GenericParamTypesAt7),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::FunctionParamTypesAt5 => PatData {
+            Pat::FunctionParamTypesAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested13), (2, Rule::Nested2)],
             },
-            Pat::FunctionParamTypesAt6 => PatData {
+            Pat::FunctionParamTypesAt6 => PatDefinition {
                 act: Act::Begin(Rule::FunctionParamTypesAt6),
                 captures: &[(2, scopes![S::PDefinitionBeginBracketSquare])],
                 nested: &[(1, Rule::Nested6)],
@@ -6751,17 +6753,17 @@ impl Pat {
             | Pat::FunctionParamTypesAt8
             | Pat::InterfaceVariablesTypesFieldAt4
             | Pat::StructVariablesTypesFieldsAt1
-            | Pat::StructVariablesTypesFieldsAt4 => PatData {
+            | Pat::StructVariablesTypesFieldsAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested6)],
             },
-            Pat::BuiltInFunctionsAt0 => PatData {
+            Pat::BuiltInFunctionsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunctionSupportBuiltin]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BuiltInFunctionsAt1 => PatData {
+            Pat::BuiltInFunctionsAt1 => PatDefinition {
                 act: Act::Begin(Rule::BuiltInFunctionsAt1),
                 captures: &[
                     (1, scopes![S::EntNameFunctionSupportBuiltin]),
@@ -6769,22 +6771,22 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::SupportFunctions => PatData {
+            Pat::SupportFunctions => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntNameFunctionSupport])],
                 nested: &[(2, Rule::Nested10), (3, Rule::Nested14)],
             },
-            Pat::ParameterVariableTypesAt3 => PatData {
+            Pat::ParameterVariableTypesAt3 => PatDefinition {
                 act: Act::Begin(Rule::ParameterVariableTypesAt3),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::FunctionParamTypesAt7 => PatData {
+            Pat::FunctionParamTypesAt7 => PatDefinition {
                 act: Act::Begin(Rule::FunctionParamTypesAt7),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::BuiltInFunctionsAt2 => PatData {
+            Pat::BuiltInFunctionsAt2 => PatDefinition {
                 act: Act::Begin(Rule::BuiltInFunctionsAt2),
                 captures: &[
                     (1, scopes![S::EntNameFunctionSupportBuiltin]),
@@ -6798,61 +6800,61 @@ impl Pat {
             | Pat::Nested31At3
             | Pat::Nested32At3
             | Pat::SwitchVariablesAt1At0At3
-            | Pat::OtherVariables => PatData {
+            | Pat::OtherVariables => PatDefinition {
                 act: Act::Match(scopes![S::VarOther]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AfterControlVariables => PatData {
+            Pat::AfterControlVariables => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested16)],
             },
-            Pat::OtherStructInterfaceExpressionsAt1 => PatData {
+            Pat::OtherStructInterfaceExpressionsAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested6), (2, Rule::Nested14)],
             },
             Pat::Nested17At1 | Pat::SingleTypeAt1At7 | Pat::Nested25At2 | Pat::MapTypesAt7 => {
-                PatData {
+                PatDefinition {
                     act: Act::Match(scopes![S::PDefinitionBeginBracketRound]),
                     captures: &[],
                     nested: &[],
                 }
             }
             Pat::Nested17At2 | Pat::SingleTypeAt1At8 | Pat::Nested25At3 | Pat::MapTypesAt8 => {
-                PatData {
+                PatDefinition {
                     act: Act::Match(scopes![S::PDefinitionEndBracketRound]),
                     captures: &[],
                     nested: &[],
                 }
             }
-            Pat::TypeAssertionInline => PatData {
+            Pat::TypeAssertionInline => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwType])],
                 nested: &[(2, Rule::Nested17)],
             },
-            Pat::Nested18At0 => PatData {
+            Pat::Nested18At0 => PatDefinition {
                 act: Act::Begin(Rule::Nested18At0),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::SingleTypeAt0 => PatData {
+            Pat::SingleTypeAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwType])],
                 nested: &[(2, Rule::Nested6), (3, Rule::Nested18)],
             },
-            Pat::SingleTypeAt1 => PatData {
+            Pat::SingleTypeAt1 => PatDefinition {
                 act: Act::Begin(Rule::SingleTypeAt1),
                 captures: &[(1, scopes![S::KwType])],
                 nested: &[(2, Rule::Nested19)],
             },
-            Pat::SingleTypeAt1End => PatData {
+            Pat::SingleTypeAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[(1, Rule::Nested3)],
             },
-            Pat::MultiTypes => PatData {
+            Pat::MultiTypes => PatDefinition {
                 act: Act::Begin(Rule::MultiTypes),
                 captures: &[
                     (1, scopes![S::KwType]),
@@ -6860,22 +6862,24 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::StructInterfaceDeclaration => PatData {
+            Pat::StructInterfaceDeclaration => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwType])],
                 nested: &[(2, Rule::Nested6)],
             },
-            Pat::DoubleParenthesesTypes => PatData {
+            Pat::DoubleParenthesesTypes => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested17)],
             },
-            Pat::Nested20At1 | Pat::Nested26At1 | Pat::Nested27At2 | Pat::Nested28At3 => PatData {
-                act: Act::Match(scopes![S::VarOtherAssignment]),
-                captures: &[],
-                nested: &[],
-            },
-            Pat::SwitchTypes => PatData {
+            Pat::Nested20At1 | Pat::Nested26At1 | Pat::Nested27At2 | Pat::Nested28At3 => {
+                PatDefinition {
+                    act: Act::Match(scopes![S::VarOtherAssignment]),
+                    captures: &[],
+                    nested: &[],
+                }
+            }
+            Pat::SwitchTypes => PatDefinition {
                 act: Act::Begin(Rule::SwitchTypes),
                 captures: &[(4, scopes![S::PDefinitionBeginBracketCurly])],
                 nested: &[
@@ -6884,132 +6888,132 @@ impl Pat {
                     (3, Rule::Nested22),
                 ],
             },
-            Pat::SwitchTypesAt0 => PatData {
+            Pat::SwitchTypesAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControl]), (3, scopes![S::POtherColon])],
                 nested: &[(2, Rule::Nested6), (4, Rule::Nested23)],
             },
-            Pat::SwitchTypesAt1 => PatData {
+            Pat::SwitchTypesAt1 => PatDefinition {
                 act: Act::Begin(Rule::SwitchTypesAt1),
                 captures: &[(0, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::SwitchTypesAt1End | Pat::SwitchVariablesAt1At0End => PatData {
+            Pat::SwitchTypesAt1End | Pat::SwitchVariablesAt1At0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::POtherColon])],
                 nested: &[],
             },
-            Pat::Nested24At1 => PatData {
+            Pat::Nested24At1 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherConstant]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::GenericTypes => PatData {
+            Pat::GenericTypes => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested6), (2, Rule::Nested15)],
             },
-            Pat::ConstAssignmentAt0 | Pat::ConstAssignmentAt1At0 => PatData {
+            Pat::ConstAssignmentAt0 | Pat::ConstAssignmentAt1At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested24), (2, Rule::Nested25)],
             },
-            Pat::ConstAssignmentAt1 => PatData {
+            Pat::ConstAssignmentAt1 => PatDefinition {
                 act: Act::Begin(Rule::ConstAssignmentAt1),
                 captures: &[(1, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::VarAssignmentAt0 | Pat::VarAssignmentAt1At0 => PatData {
+            Pat::VarAssignmentAt0 | Pat::VarAssignmentAt1At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested26), (2, Rule::Nested25)],
             },
-            Pat::VarAssignmentAt1 => PatData {
+            Pat::VarAssignmentAt1 => PatDefinition {
                 act: Act::Begin(Rule::VarAssignmentAt1),
                 captures: &[(1, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::VariableAssignmentAt0 => PatData {
+            Pat::VariableAssignmentAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested27)],
             },
-            Pat::VariableAssignmentAt1 => PatData {
+            Pat::VariableAssignmentAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Rule::Nested28)],
             },
-            Pat::Nested29At1 => PatData {
+            Pat::Nested29At1 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherLabel]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LabelLoopVariables => PatData {
+            Pat::LabelLoopVariables => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested29)],
             },
-            Pat::SliceIndexVariables => PatData {
+            Pat::SliceIndexVariables => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested30)],
             },
-            Pat::PropertyVariables => PatData {
+            Pat::PropertyVariables => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested8)],
             },
-            Pat::SwitchVariablesAt0 => PatData {
+            Pat::SwitchVariablesAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControl])],
                 nested: &[(2, Rule::Nested31)],
             },
-            Pat::SwitchVariablesAt1 => PatData {
+            Pat::SwitchVariablesAt1 => PatDefinition {
                 act: Act::Begin(Rule::SwitchVariablesAt1),
                 captures: &[(2, scopes![S::PDefinitionBeginBracketCurly])],
                 nested: &[(1, Rule::Nested32)],
             },
-            Pat::SwitchVariablesAt1At0 => PatData {
+            Pat::SwitchVariablesAt1At0 => PatDefinition {
                 act: Act::Begin(Rule::SwitchVariablesAt1At0),
                 captures: &[(0, scopes![S::KwControl])],
                 nested: &[],
             },
-            Pat::Nested33At0 => PatData {
+            Pat::Nested33At0 => PatDefinition {
                 act: Act::Match(scopes![S::InvField]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::HoverAt0 => PatData {
+            Pat::HoverAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested8), (2, Rule::Nested33)],
             },
-            Pat::HoverAt1 | Pat::FunctionDeclarationAt2 => PatData {
+            Pat::HoverAt1 | Pat::FunctionDeclarationAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested2)],
             },
-            Pat::Nested10At2 => PatData {
+            Pat::Nested10At2 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameFunctionSupport]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::InterfaceVariablesTypesFieldAt2 => PatData {
+            Pat::InterfaceVariablesTypesFieldAt2 => PatDefinition {
                 act: Act::Begin(Rule::InterfaceVariablesTypesFieldAt2),
                 captures: &[(2, scopes![S::PDefinitionBeginBracketSquare])],
                 nested: &[(1, Rule::Nested6)],
             },
-            Pat::InterfaceVariablesTypesFieldAt3 => PatData {
+            Pat::InterfaceVariablesTypesFieldAt3 => PatDefinition {
                 act: Act::Begin(Rule::InterfaceVariablesTypesFieldAt3),
                 captures: &[(0, scopes![S::PDefinitionBeginBracketRound])],
                 nested: &[],
             },
-            Pat::Nested8At1 => PatData {
+            Pat::Nested8At1 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherProperty]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StructVariableTypesFieldsMultiAt0 => PatData {
+            Pat::StructVariableTypesFieldsMultiAt0 => PatDefinition {
                 act: Act::Begin(Rule::StructVariableTypesFieldsMultiAt0),
                 captures: &[
                     (2, scopes![S::KwStruct]),
@@ -7017,7 +7021,7 @@ impl Pat {
                 ],
                 nested: &[(1, Rule::Nested8)],
             },
-            Pat::StructVariableTypesFieldsMultiAt1 => PatData {
+            Pat::StructVariableTypesFieldsMultiAt1 => PatDefinition {
                 act: Act::Begin(Rule::StructVariableTypesFieldsMultiAt1),
                 captures: &[
                     (2, scopes![S::KwInterface]),
@@ -7025,7 +7029,7 @@ impl Pat {
                 ],
                 nested: &[(1, Rule::Nested8)],
             },
-            Pat::StructVariableTypesFieldsMultiAt2 => PatData {
+            Pat::StructVariableTypesFieldsMultiAt2 => PatDefinition {
                 act: Act::Begin(Rule::StructVariableTypesFieldsMultiAt2),
                 captures: &[
                     (2, scopes![S::KwFunction]),
@@ -7033,27 +7037,27 @@ impl Pat {
                 ],
                 nested: &[(1, Rule::Nested8)],
             },
-            Pat::StructVariablesTypesFieldsAt2 | Pat::Nested34At0 => PatData {
+            Pat::StructVariablesTypesFieldsAt2 | Pat::Nested34At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested8), (2, Rule::Nested6)],
             },
-            Pat::StructVariablesTypesFieldsAt3 => PatData {
+            Pat::StructVariablesTypesFieldsAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested34)],
             },
-            Pat::StructVariablesTypesFieldsAt5 => PatData {
+            Pat::StructVariablesTypesFieldsAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Rule::Nested8), (2, Rule::Nested2)],
             },
-            Pat::FunctionDeclarationAt1 => PatData {
+            Pat::FunctionDeclarationAt1 => PatDefinition {
                 act: Act::Begin(Rule::FunctionDeclarationAt1),
                 captures: &[(2, scopes![S::PDefinitionBeginBracketSquare])],
                 nested: &[(1, Rule::Nested6)],
             },
-            Pat::Nested1At0At0 => PatData {
+            Pat::Nested1At0At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarParameter])],
                 nested: &[(2, Rule::Nested2)],
@@ -8104,7 +8108,7 @@ impl rules::Tabled for Go {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

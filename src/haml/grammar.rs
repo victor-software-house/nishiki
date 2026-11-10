@@ -14,8 +14,8 @@ use crate::rules::{self, embedded};
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<Haml>;
-pub(crate) type PatData = rules::PatData<Haml>;
-pub(crate) type RuleData = rules::RuleData<Haml>;
+pub(crate) type PatDefinition = rules::PatDefinition<Haml>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<Haml>;
 pub(crate) use crate::rules::Start;
 
 /// The patterns a capture group is tokenized with: none in this grammar.
@@ -114,9 +114,9 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
@@ -145,7 +145,7 @@ impl Rule {
                     Pat::SassFilterAlone,
                 ],
             },
-            Rule::InterpolatedText => RuleData {
+            Rule::InterpolatedText => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::StrQuotedDoubleRuby],
                 end: Some(Pat::InterpolatedTextEnd),
@@ -158,77 +158,77 @@ impl Rule {
                     Pat::VariablesAt2,
                 ],
             },
-            Rule::InterpolatedRubyAt1 => RuleData {
+            Rule::InterpolatedRubyAt1 => RuleDefinition {
                 name: scopes![S::SrcRubyEmbeddedSource],
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterpolatedRubyAt1End),
                 backref: None,
                 patterns: &[Pat::NestCurlyAndSelf],
             },
-            Rule::NestCurlyAndSelf => RuleData {
+            Rule::NestCurlyAndSelf => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::NestCurlyAndSelfEnd),
                 backref: None,
                 patterns: &[Pat::NestCurlyAndSelf],
             },
-            Rule::RubyFilter => RuleData {
+            Rule::RubyFilter => RuleDefinition {
                 name: scopes![S::SrcRubyEmbeddedFilterHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::RubyFilterBody],
             },
-            Rule::RubyFilterBody => RuleData {
+            Rule::RubyFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::JavascriptFilter => RuleData {
+            Rule::JavascriptFilter => RuleDefinition {
                 name: scopes![S::JsHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::JavascriptFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::JavascriptFilterBody],
             },
-            Rule::JavascriptFilterBody => RuleData {
+            Rule::JavascriptFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::JavascriptFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Script => RuleData {
+            Rule::Script => RuleDefinition {
                 name: scopes![S::JsInlineHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::ScriptEnd),
                 backref: Some(1),
                 patterns: &[Pat::ScriptBody],
             },
-            Rule::ScriptBody => RuleData {
+            Rule::ScriptBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ScriptBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RubyFilterAlone => RuleData {
+            Rule::RubyFilterAlone => RuleDefinition {
                 name: scopes![S::SrcRubyEmbeddedFilterHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyFilterAloneEnd),
                 backref: Some(1),
                 patterns: &[Pat::RubyFilterAloneBody],
             },
-            Rule::RubyFilterAloneBody => RuleData {
+            Rule::RubyFilterAloneBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyFilterAloneBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::Comment => RuleData {
+            Rule::Comment => RuleDefinition {
                 name: scopes![S::CmtBlockHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentEnd),
@@ -257,7 +257,7 @@ impl Rule {
                     Pat::SassFilterAlone,
                 ],
             },
-            Rule::Tag => RuleData {
+            Rule::Tag => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TagEnd),
@@ -274,7 +274,7 @@ impl Rule {
                     Pat::TagAt8,
                 ],
             },
-            Rule::TagAt0 => RuleData {
+            Rule::TagAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::StrQuotedDoubleRuby],
                 end: Some(Pat::TagAt0End),
@@ -287,14 +287,14 @@ impl Rule {
                     Pat::VariablesAt2,
                 ],
             },
-            Rule::TagAt3 => RuleData {
+            Rule::TagAt3 => RuleDefinition {
                 name: scopes![S::MetaSectionAttributesHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::TagAt3End),
                 backref: None,
                 patterns: &[Pat::Continuation, Pat::Rubyline],
             },
-            Rule::Rubyline => RuleData {
+            Rule::Rubyline => RuleDefinition {
                 name: scopes![S::MetaLineRubyHaml],
                 content: scopes![S::SrcRubyEmbeddedHaml],
                 end: Some(Pat::RubylineEnd),
@@ -310,7 +310,7 @@ impl Rule {
                     Pat::Continuation,
                 ],
             },
-            Rule::TagAt4 => RuleData {
+            Rule::TagAt4 => RuleDefinition {
                 name: scopes![S::MetaSectionAttributesPlainHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::TagAt4End),
@@ -329,7 +329,7 @@ impl Rule {
                     Pat::VariablesAt2,
                 ],
             },
-            Rule::TagAt4At3 => RuleData {
+            Rule::TagAt4At3 => RuleDefinition {
                 name: scopes![S::StrQuotedDoubleRuby],
                 content: S::NO_SCOPES,
                 end: Some(Pat::TagAt4At3End),
@@ -343,14 +343,14 @@ impl Rule {
                     Pat::VariablesAt2,
                 ],
             },
-            Rule::TagAt5 => RuleData {
+            Rule::TagAt5 => RuleDefinition {
                 name: scopes![S::MetaSectionObjectHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::TagAt5End),
                 backref: None,
                 patterns: &[Pat::Continuation, Pat::Rubyline],
             },
-            Rule::InterpolatedRubyLine => RuleData {
+            Rule::InterpolatedRubyLine => RuleDefinition {
                 name: scopes![S::MetaLineRubyInterpolatedHaml],
                 content: scopes![S::StrSourceRubyEmbeddedHaml],
                 end: Some(Pat::InterpolatedRubyLineEnd),
@@ -364,133 +364,133 @@ impl Rule {
                     Pat::RubyEscapedChar,
                 ],
             },
-            Rule::RubyOrOpalFilter => RuleData {
+            Rule::RubyOrOpalFilter => RuleDefinition {
                 name: scopes![S::SrcRubyEmbeddedFilterHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyOrOpalFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::RubyOrOpalFilterBody],
             },
-            Rule::RubyOrOpalFilterBody => RuleData {
+            Rule::RubyOrOpalFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyOrOpalFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::SassStyleFilter => RuleData {
+            Rule::SassStyleFilter => RuleDefinition {
                 name: scopes![S::SrcSassEmbeddedFilterHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassStyleFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::SassStyleFilterBody],
             },
-            Rule::SassStyleFilterBody => RuleData {
+            Rule::SassStyleFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassStyleFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CoffeeFilter => RuleData {
+            Rule::CoffeeFilter => RuleDefinition {
                 name: scopes![S::SrcCoffeeEmbeddedFilterHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CoffeeFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::CoffeeFilterBody],
             },
-            Rule::CoffeeFilterBody => RuleData {
+            Rule::CoffeeFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CoffeeFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RubyFilterKeyword => RuleData {
+            Rule::RubyFilterKeyword => RuleDefinition {
                 name: scopes![S::SrcRubyEmbeddedFilterHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyFilterKeywordEnd),
                 backref: Some(1),
                 patterns: &[Pat::RubyFilterKeywordBody],
             },
-            Rule::RubyFilterKeywordBody => RuleData {
+            Rule::RubyFilterKeywordBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyFilterKeywordBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::SassFilter => RuleData {
+            Rule::SassFilter => RuleDefinition {
                 name: scopes![S::SrcEmbeddedFilterSass],
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::SassFilterBody],
             },
-            Rule::SassFilterBody => RuleData {
+            Rule::SassFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::SassStylesFilter => RuleData {
+            Rule::SassStylesFilter => RuleDefinition {
                 name: scopes![S::SrcSassEmbeddedFilterHaml],
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassStylesFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::SassStylesFilterBody],
             },
-            Rule::SassStylesFilterBody => RuleData {
+            Rule::SassStylesFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassStylesFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RubyStart => RuleData {
+            Rule::RubyStart => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RubyStartEnd),
                 backref: None,
                 patterns: &[Pat::InterpolatedRubyLine, Pat::Rubyline],
             },
-            Rule::MarkdownFilter => RuleData {
+            Rule::MarkdownFilter => RuleDefinition {
                 name: scopes![S::MetaEmbeddedMarkdown],
                 content: S::NO_SCOPES,
                 end: Some(Pat::MarkdownFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::MarkdownFilterBody],
             },
-            Rule::MarkdownFilterBody => RuleData {
+            Rule::MarkdownFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::MarkdownFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::CssFilter => RuleData {
+            Rule::CssFilter => RuleDefinition {
                 name: scopes![S::MetaEmbeddedCss],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CssFilterEnd),
                 backref: Some(1),
                 patterns: &[Pat::CssFilterBody],
             },
-            Rule::CssFilterBody => RuleData {
+            Rule::CssFilterBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CssFilterBodyEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::SassFilterAlone => RuleData {
+            Rule::SassFilterAlone => RuleDefinition {
                 name: scopes![S::MetaEmbeddedSass],
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassFilterAloneEnd),
                 backref: Some(1),
                 patterns: &[Pat::SassFilterAloneBody],
             },
-            Rule::SassFilterAloneBody => RuleData {
+            Rule::SassFilterAloneBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SassFilterAloneBodyEnd),
@@ -924,9 +924,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::InterpolatedText => PatData {
+            Pat::InterpolatedText => PatDefinition {
                 act: Act::Begin(Rule::InterpolatedText),
                 captures: &[],
                 nested: &[],
@@ -962,12 +962,12 @@ impl Pat {
             | Pat::RubyStartEnd
             | Pat::MarkdownFilterBodyEnd
             | Pat::CssFilterBodyEnd
-            | Pat::SassFilterAloneBodyEnd => PatData {
+            | Pat::SassFilterAloneBodyEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::InterpolatedRubyAt0 => PatData {
+            Pat::InterpolatedRubyAt0 => PatDefinition {
                 act: Act::Match(scopes![S::SrcRubyEmbeddedSource]),
                 captures: &[
                     (0, scopes![S::PSectionEmbeddedRuby]),
@@ -975,97 +975,97 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::InterpolatedRubyAt1 => PatData {
+            Pat::InterpolatedRubyAt1 => PatDefinition {
                 act: Act::Begin(Rule::InterpolatedRubyAt1),
                 captures: &[(0, scopes![S::PSectionEmbeddedRuby])],
                 nested: &[],
             },
-            Pat::InterpolatedRubyAt1End => PatData {
+            Pat::InterpolatedRubyAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionEmbeddedRuby])],
                 nested: &[],
             },
-            Pat::NestCurlyAndSelf => PatData {
+            Pat::NestCurlyAndSelf => PatDefinition {
                 act: Act::Begin(Rule::NestCurlyAndSelf),
                 captures: &[(0, scopes![S::PSectionScopeRuby])],
                 nested: &[],
             },
-            Pat::NestCurlyAndSelfEnd => PatData {
+            Pat::NestCurlyAndSelfEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSectionScopeRuby])],
                 nested: &[],
             },
-            Pat::VariablesAt0 => PatData {
+            Pat::VariablesAt0 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherReadwriteInstanceRuby]),
                 captures: &[(1, scopes![S::PDefinitionVariableRuby])],
                 nested: &[],
             },
-            Pat::VariablesAt1 => PatData {
+            Pat::VariablesAt1 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherReadwriteClassRuby]),
                 captures: &[(1, scopes![S::PDefinitionVariableRuby])],
                 nested: &[],
             },
-            Pat::VariablesAt2 => PatData {
+            Pat::VariablesAt2 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherReadwriteGlobalRuby]),
                 captures: &[(1, scopes![S::PDefinitionVariableRuby])],
                 nested: &[],
             },
-            Pat::RubyFilter => PatData {
+            Pat::RubyFilter => PatDefinition {
                 act: Act::Begin(Rule::RubyFilter),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubyFilterBody => PatData {
+            Pat::RubyFilterBody => PatDefinition {
                 act: Act::Begin(Rule::RubyFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Prolog => PatData {
+            Pat::Prolog => PatDefinition {
                 act: Act::Match(scopes![S::MetaPrologHaml]),
                 captures: &[(1, scopes![S::PDefinitionPrologHaml])],
                 nested: &[],
             },
-            Pat::JavascriptFilter => PatData {
+            Pat::JavascriptFilter => PatDefinition {
                 act: Act::Begin(Rule::JavascriptFilter),
                 captures: &[],
                 nested: &[],
             },
-            Pat::JavascriptFilterBody => PatData {
+            Pat::JavascriptFilterBody => PatDefinition {
                 act: Act::Begin(Rule::JavascriptFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Script => PatData {
+            Pat::Script => PatDefinition {
                 act: Act::Begin(Rule::Script),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ScriptBody => PatData {
+            Pat::ScriptBody => PatDefinition {
                 act: Act::Begin(Rule::ScriptBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubyFilterAlone => PatData {
+            Pat::RubyFilterAlone => PatDefinition {
                 act: Act::Begin(Rule::RubyFilterAlone),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubyFilterAloneBody => PatData {
+            Pat::RubyFilterAloneBody => PatDefinition {
                 act: Act::Begin(Rule::RubyFilterAloneBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConditionalComment => PatData {
+            Pat::ConditionalComment => PatDefinition {
                 act: Act::Match(scopes![S::CmtLineSlashHaml]),
                 captures: &[(1, scopes![S::PSectionCommentHaml])],
                 nested: &[],
             },
-            Pat::Comment => PatData {
+            Pat::Comment => PatDefinition {
                 act: Act::Begin(Rule::Comment),
                 captures: &[(2, scopes![S::PSectionCommentHaml])],
                 nested: &[],
             },
-            Pat::Tag => PatData {
+            Pat::Tag => PatDefinition {
                 act: Act::Begin(Rule::Tag),
                 captures: &[
                     (1, scopes![S::MetaTagHaml]),
@@ -1074,7 +1074,7 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TagEnd => PatData {
+            Pat::TagEnd => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![S::MetaTagHaml]),
@@ -1083,37 +1083,37 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::TagAt0 => PatData {
+            Pat::TagAt0 => PatDefinition {
                 act: Act::Begin(Rule::TagAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt1 => PatData {
+            Pat::TagAt1 => PatDefinition {
                 act: Act::Match(scopes![S::MetaSelectorCss]),
                 captures: &[(1, scopes![S::EntOtherAttributeNameClass])],
                 nested: &[],
             },
-            Pat::TagAt2 => PatData {
+            Pat::TagAt2 => PatDefinition {
                 act: Act::Match(scopes![S::MetaSelectorCss]),
                 captures: &[(1, scopes![S::EntOtherAttributeNameId])],
                 nested: &[],
             },
-            Pat::TagAt3 => PatData {
+            Pat::TagAt3 => PatDefinition {
                 act: Act::Begin(Rule::TagAt3),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Continuation => PatData {
+            Pat::Continuation => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::PSeparatorContinuationHaml])],
                 nested: &[],
             },
-            Pat::Rubyline => PatData {
+            Pat::Rubyline => PatDefinition {
                 act: Act::Begin(Rule::Rubyline),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubylineEnd => PatData {
+            Pat::RubylineEnd => PatDefinition {
                 act: Act::End,
                 captures: &[
                     (1, scopes![S::SrcRubyEmbeddedHtml]),
@@ -1121,177 +1121,177 @@ impl Pat {
                 ],
                 nested: &[],
             },
-            Pat::RubylineAt0 | Pat::RubylineAt4 => PatData {
+            Pat::RubylineAt0 | Pat::RubylineAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlPhp])],
                 nested: &[],
             },
-            Pat::RubylineAt1 => PatData {
+            Pat::RubylineAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlImportIncludePhp])],
                 nested: &[],
             },
-            Pat::RubylineAt2 => PatData {
+            Pat::RubylineAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwControlExceptionPhp]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubylineAt3 => PatData {
+            Pat::RubylineAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorTypeFunctionPhp])],
                 nested: &[],
             },
-            Pat::RubylineAt5 => PatData {
+            Pat::RubylineAt5 => PatDefinition {
                 act: Act::Match(scopes![S::SrcRuby]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubylineAt6 => PatData {
+            Pat::RubylineAt6 => PatDefinition {
                 act: Act::Match(scopes![S::CmtLineNumberSignRuby]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt4 => PatData {
+            Pat::TagAt4 => PatDefinition {
                 act: Act::Begin(Rule::TagAt4),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt4At0 => PatData {
+            Pat::TagAt4At0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstOtherSymbolRuby]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt4At1 => PatData {
+            Pat::TagAt4At1 => PatDefinition {
                 act: Act::Match(scopes![S::P]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt4At3 => PatData {
+            Pat::TagAt4At3 => PatDefinition {
                 act: Act::Begin(Rule::TagAt4At3),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt4At3At0 | Pat::RubyEscapedChar => PatData {
+            Pat::TagAt4At3At0 | Pat::RubyEscapedChar => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscapeRuby]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt5 => PatData {
+            Pat::TagAt5 => PatDefinition {
                 act: Act::Begin(Rule::TagAt5),
                 captures: &[],
                 nested: &[],
             },
-            Pat::InterpolatedRubyLine => PatData {
+            Pat::InterpolatedRubyLine => PatDefinition {
                 act: Act::Begin(Rule::InterpolatedRubyLine),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TagAt8 => PatData {
+            Pat::TagAt8 => PatDefinition {
                 act: Act::Match(scopes![S::PTerminatorTagHaml]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubyOrOpalFilter => PatData {
+            Pat::RubyOrOpalFilter => PatDefinition {
                 act: Act::Begin(Rule::RubyOrOpalFilter),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubyOrOpalFilterBody => PatData {
+            Pat::RubyOrOpalFilterBody => PatDefinition {
                 act: Act::Begin(Rule::RubyOrOpalFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SassStyleFilter => PatData {
+            Pat::SassStyleFilter => PatDefinition {
                 act: Act::Begin(Rule::SassStyleFilter),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SassStyleFilterBody => PatData {
+            Pat::SassStyleFilterBody => PatDefinition {
                 act: Act::Begin(Rule::SassStyleFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CoffeeFilter => PatData {
+            Pat::CoffeeFilter => PatDefinition {
                 act: Act::Begin(Rule::CoffeeFilter),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CoffeeFilterBody => PatData {
+            Pat::CoffeeFilterBody => PatDefinition {
                 act: Act::Begin(Rule::CoffeeFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RubyFilterKeyword => PatData {
+            Pat::RubyFilterKeyword => PatDefinition {
                 act: Act::Begin(Rule::RubyFilterKeyword),
                 captures: &[(2, scopes![S::KwControlFilterHaml])],
                 nested: &[],
             },
-            Pat::RubyFilterKeywordBody => PatData {
+            Pat::RubyFilterKeywordBody => PatDefinition {
                 act: Act::Begin(Rule::RubyFilterKeywordBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SassFilter => PatData {
+            Pat::SassFilter => PatDefinition {
                 act: Act::Begin(Rule::SassFilter),
                 captures: &[(2, scopes![S::KwControlFilterHaml])],
                 nested: &[],
             },
-            Pat::SassFilterBody => PatData {
+            Pat::SassFilterBody => PatDefinition {
                 act: Act::Begin(Rule::SassFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SassStylesFilter => PatData {
+            Pat::SassStylesFilter => PatDefinition {
                 act: Act::Begin(Rule::SassStylesFilter),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SassStylesFilterBody => PatData {
+            Pat::SassStylesFilterBody => PatDefinition {
                 act: Act::Begin(Rule::SassStylesFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Escape => PatData {
+            Pat::Escape => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::MetaEscapeHaml])],
                 nested: &[],
             },
-            Pat::RubyStart => PatData {
+            Pat::RubyStart => PatDefinition {
                 act: Act::Begin(Rule::RubyStart),
                 captures: &[],
                 nested: &[],
             },
-            Pat::MarkdownFilter => PatData {
+            Pat::MarkdownFilter => PatDefinition {
                 act: Act::Begin(Rule::MarkdownFilter),
                 captures: &[(2, scopes![S::EntNameTagHaml])],
                 nested: &[],
             },
-            Pat::MarkdownFilterEnd | Pat::CssFilterEnd | Pat::SassFilterAloneEnd => PatData {
+            Pat::MarkdownFilterEnd | Pat::CssFilterEnd | Pat::SassFilterAloneEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(2, scopes![S::EntNameTagHaml])],
                 nested: &[],
             },
-            Pat::MarkdownFilterBody => PatData {
+            Pat::MarkdownFilterBody => PatDefinition {
                 act: Act::Begin(Rule::MarkdownFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CssFilter => PatData {
+            Pat::CssFilter => PatDefinition {
                 act: Act::Begin(Rule::CssFilter),
                 captures: &[(2, scopes![S::EntNameTagHaml])],
                 nested: &[],
             },
-            Pat::CssFilterBody => PatData {
+            Pat::CssFilterBody => PatDefinition {
                 act: Act::Begin(Rule::CssFilterBody),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SassFilterAlone => PatData {
+            Pat::SassFilterAlone => PatDefinition {
                 act: Act::Begin(Rule::SassFilterAlone),
                 captures: &[(2, scopes![S::EntNameTagHaml])],
                 nested: &[],
             },
-            Pat::SassFilterAloneBody => PatData {
+            Pat::SassFilterAloneBody => PatDefinition {
                 act: Act::Begin(Rule::SassFilterAloneBody),
                 captures: &[],
                 nested: &[],
@@ -1726,7 +1726,7 @@ impl rules::Tabled for Haml {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 

@@ -14,8 +14,8 @@ use crate::rules;
 use crate::scope::scopes;
 
 pub(crate) type Act = rules::Act<CSharp>;
-pub(crate) type PatData = rules::PatData<CSharp>;
-pub(crate) type RuleData = rules::RuleData<CSharp>;
+pub(crate) type PatDefinition = rules::PatDefinition<CSharp>;
+pub(crate) type RuleDefinition = rules::RuleDefinition<CSharp>;
 pub(crate) use crate::rules::Start;
 
 /// The capture groups that the grammar tokenizes with patterns of its own,
@@ -515,1521 +515,1521 @@ impl Rule {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> RuleData {
+    pub(crate) fn definition(self) -> RuleDefinition {
         match self {
-            Rule::Root => RuleData {
+            Rule::Root => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExternAliasDirective, Pat::UsingDirectiveAt0, Pat::UsingDirectiveAt1, Pat::UsingDirectiveAt2, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::NamespaceDeclaration, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::PunctuationSemicolon, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon, Pat::MethodDeclaration, Pat::PunctuationSemicolon],
             },
-            Rule::Preprocessor => RuleData {
+            Rule::Preprocessor => RuleDefinition {
                 name: scopes![S::MetaPreprocessor],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorEnd),
                 backref: None,
                 patterns: &[Pat::PreprocessorCommentAt0, Pat::PreprocessorCommentAt1, Pat::PreprocessorDefineOrUndef, Pat::PreprocessorIfOrElif, Pat::PreprocessorElseOrEndif, Pat::PreprocessorWarningOrError, Pat::PreprocessorRegion, Pat::PreprocessorEndregion, Pat::PreprocessorLoad, Pat::PreprocessorR, Pat::PreprocessorLine, Pat::PreprocessorPragmaWarning, Pat::PreprocessorPragmaChecksum, Pat::PreprocessorAppDirective],
             },
-            Rule::PreprocessorCommentAt1 => RuleData {
+            Rule::PreprocessorCommentAt1 => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorCommentAt1End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::PreprocessorIfOrElif => RuleData {
+            Rule::PreprocessorIfOrElif => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorIfOrElifEnd),
                 backref: None,
                 patterns: &[Pat::PreprocessorCommentAt0, Pat::PreprocessorCommentAt1, Pat::PreprocessorExpressionAt0, Pat::PreprocessorExpressionAt1, Pat::PreprocessorExpressionAt2],
             },
-            Rule::PreprocessorExpressionAt0 => RuleData {
+            Rule::PreprocessorExpressionAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorExpressionAt0End),
                 backref: None,
                 patterns: &[Pat::PreprocessorExpressionAt0, Pat::PreprocessorExpressionAt1, Pat::PreprocessorExpressionAt2],
             },
-            Rule::PreprocessorLoad => RuleData {
+            Rule::PreprocessorLoad => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorLoadEnd),
                 backref: None,
                 patterns: &[Pat::PreprocessorLoadAt0],
             },
-            Rule::PreprocessorR => RuleData {
+            Rule::PreprocessorR => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorREnd),
                 backref: None,
                 patterns: &[Pat::PreprocessorRAt0],
             },
-            Rule::PreprocessorLine => RuleData {
+            Rule::PreprocessorLine => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorLineEnd),
                 backref: None,
                 patterns: &[Pat::PreprocessorLineAt0, Pat::PreprocessorLineAt1, Pat::PreprocessorLineAt2],
             },
-            Rule::NestedPatternAndPunctuationComma => RuleData {
+            Rule::NestedPatternAndPunctuationComma => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::NestedPatternAndPunctuationCommaAt0, Pat::PunctuationComma],
             },
-            Rule::PreprocessorAppDirective => RuleData {
+            Rule::PreprocessorAppDirective => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PreprocessorAppDirectiveEnd),
                 backref: None,
                 patterns: &[Pat::PreprocessorAppDirectivePackage, Pat::PreprocessorAppDirectiveProperty, Pat::PreprocessorAppDirectiveExclude, Pat::PreprocessorAppDirectiveInclude, Pat::PreprocessorAppDirectiveProject, Pat::PreprocessorAppDirectiveRef, Pat::PreprocessorAppDirectiveSdk, Pat::PreprocessorAppDirectiveGeneric],
             },
-            Rule::NestedPreprocessorAppDirectivePackageName => RuleData {
+            Rule::NestedPreprocessorAppDirectivePackageName => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::PreprocessorAppDirectivePackageNameAt0, Pat::PreprocessorAppDirectivePackageNameAt1],
             },
-            Rule::CommentAt0 => RuleData {
+            Rule::CommentAt0 => RuleDefinition {
                 name: scopes![S::CmtBlockDocumentation],
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::XmlComment, Pat::XmlCharacterEntityAt0, Pat::XmlCharacterEntityAt1, Pat::XmlCdata, Pat::XmlTag],
             },
-            Rule::XmlComment => RuleData {
+            Rule::XmlComment => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::XmlCommentEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::XmlCdata => RuleData {
+            Rule::XmlCdata => RuleDefinition {
                 name: scopes![S::StrUnquotedCdata],
                 content: S::NO_SCOPES,
                 end: Some(Pat::XmlCdataEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::XmlTag => RuleData {
+            Rule::XmlTag => RuleDefinition {
                 name: scopes![S::MetaTag],
                 content: S::NO_SCOPES,
                 end: Some(Pat::XmlTagEnd),
                 backref: None,
                 patterns: &[Pat::XmlAttributeAt0, Pat::XmlStringAt0, Pat::XmlStringAt1],
             },
-            Rule::XmlStringAt0 => RuleData {
+            Rule::XmlStringAt0 => RuleDefinition {
                 name: scopes![S::StrQuotedSingle],
                 content: S::NO_SCOPES,
                 end: Some(Pat::XmlStringAt0End),
                 backref: None,
                 patterns: &[Pat::XmlCharacterEntityAt0, Pat::XmlCharacterEntityAt1],
             },
-            Rule::XmlStringAt1 => RuleData {
+            Rule::XmlStringAt1 => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::XmlStringAt1End),
                 backref: None,
                 patterns: &[Pat::XmlCharacterEntityAt0, Pat::XmlCharacterEntityAt1],
             },
-            Rule::CommentAt1 => RuleData {
+            Rule::CommentAt1 => RuleDefinition {
                 name: scopes![S::CmtBlockDocumentation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentAt1End),
                 backref: None,
                 patterns: &[Pat::CommentAt1At0, Pat::XmlComment, Pat::XmlCharacterEntityAt0, Pat::XmlCharacterEntityAt1, Pat::XmlCdata, Pat::XmlTag],
             },
-            Rule::CommentAt1At0 => RuleData {
+            Rule::CommentAt1At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::XmlComment, Pat::XmlCharacterEntityAt0, Pat::XmlCharacterEntityAt1, Pat::XmlCdata, Pat::XmlTag],
             },
-            Rule::CommentAt2 => RuleData {
+            Rule::CommentAt2 => RuleDefinition {
                 name: scopes![S::CmtLineDoubleSlash],
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[],
             },
-            Rule::CommentAt3 => RuleData {
+            Rule::CommentAt3 => RuleDefinition {
                 name: scopes![S::CmtBlock],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CommentAt3End),
                 backref: None,
                 patterns: &[],
             },
-            Rule::ExternAliasDirective => RuleData {
+            Rule::ExternAliasDirective => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExternAliasDirectiveEnd),
                 backref: None,
                 patterns: &[Pat::ExternAliasDirectiveAt0],
             },
-            Rule::UsingDirectiveAt0 => RuleData {
+            Rule::UsingDirectiveAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UsingDirectiveAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix],
             },
-            Rule::TupleType => RuleData {
+            Rule::TupleType => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TupleTypeEnd),
                 backref: None,
                 patterns: &[Pat::TupleElement, Pat::PunctuationComma],
             },
-            Rule::NestedType => RuleData {
+            Rule::NestedType => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix],
             },
-            Rule::TypeArguments => RuleData {
+            Rule::TypeArguments => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypeArgumentsEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix, Pat::PunctuationComma],
             },
-            Rule::TypeArraySuffix => RuleData {
+            Rule::TypeArraySuffix => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypeArraySuffixEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::PunctuationComma],
             },
-            Rule::UsingDirectiveAt1 => RuleData {
+            Rule::UsingDirectiveAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UsingDirectiveAt1End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix],
             },
-            Rule::UsingDirectiveAt2 => RuleData {
+            Rule::UsingDirectiveAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UsingDirectiveAt2End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::UsingDirectiveAt2At1, Pat::PunctuationAccessor, Pat::OperatorAssignment],
             },
-            Rule::AttributeSection => RuleData {
+            Rule::AttributeSection => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributeSectionEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::AttributeArguments, Pat::PunctuationComma],
             },
-            Rule::AttributeArguments => RuleData {
+            Rule::AttributeArguments => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributeArgumentsEnd),
                 backref: None,
                 patterns: &[Pat::AttributeNamedArgument, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma],
             },
-            Rule::AttributeNamedArgument => RuleData {
+            Rule::AttributeNamedArgument => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AttributeNamedArgumentEnd),
                 backref: None,
                 patterns: &[Pat::OperatorAssignment, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::ExpressionOperatorExpression => RuleData {
+            Rule::ExpressionOperatorExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionOperatorExpressionEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::TypeOperatorExpression => RuleData {
+            Rule::TypeOperatorExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypeOperatorExpressionEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix],
             },
-            Rule::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation => RuleData {
+            Rule::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolationEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation => RuleData {
+            Rule::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolationEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation => RuleData {
+            Rule::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolationEnd),
                 backref: None,
                 patterns: &[Pat::DoubleRawInterpolation],
             },
-            Rule::DoubleRawInterpolation => RuleData {
+            Rule::DoubleRawInterpolation => RuleDefinition {
                 name: scopes![S::MetaEmbeddedInterpolation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::DoubleRawInterpolationEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::RawInterpolatedStringQuadrupleQuoteSingleInterpolation => RuleData {
+            Rule::RawInterpolatedStringQuadrupleQuoteSingleInterpolation => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolationEnd),
                 backref: None,
                 patterns: &[Pat::RawInterpolation],
             },
-            Rule::RawInterpolation => RuleData {
+            Rule::RawInterpolation => RuleDefinition {
                 name: scopes![S::MetaEmbeddedInterpolation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawInterpolationEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::RawInterpolatedStringTripleQuoteDoubleInterpolation => RuleData {
+            Rule::RawInterpolatedStringTripleQuoteDoubleInterpolation => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawInterpolatedStringTripleQuoteDoubleInterpolationEnd),
                 backref: None,
                 patterns: &[Pat::DoubleRawInterpolation],
             },
-            Rule::RawInterpolatedStringTripleQuoteSingleInterpolation => RuleData {
+            Rule::RawInterpolatedStringTripleQuoteSingleInterpolation => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawInterpolatedStringTripleQuoteSingleInterpolationEnd),
                 backref: None,
                 patterns: &[Pat::RawInterpolation],
             },
-            Rule::InterpolatedString => RuleData {
+            Rule::InterpolatedString => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterpolatedStringEnd),
                 backref: None,
                 patterns: &[Pat::StringCharacterEscape, Pat::Interpolation],
             },
-            Rule::Interpolation => RuleData {
+            Rule::Interpolation => RuleDefinition {
                 name: scopes![S::MetaEmbeddedInterpolation],
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterpolationEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::VerbatimInterpolatedString => RuleData {
+            Rule::VerbatimInterpolatedString => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VerbatimInterpolatedStringEnd),
                 backref: None,
                 patterns: &[Pat::VerbatimStringCharacterEscape, Pat::Interpolation],
             },
-            Rule::SwitchStatementOrExpression => RuleData {
+            Rule::SwitchStatementOrExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchStatementOrExpressionEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::SwitchStatementOrExpressionAt1, Pat::SwitchStatementOrExpressionAt2],
             },
-            Rule::SwitchStatementOrExpressionAt1 => RuleData {
+            Rule::SwitchStatementOrExpressionAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchStatementOrExpressionAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::SwitchStatementAt1, Pat::SwitchStatementAt2],
             },
-            Rule::SwitchStatementAt1 => RuleData {
+            Rule::SwitchStatementAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchStatementAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::WithExpression => RuleData {
+            Rule::WithExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::WithExpressionEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::InitializerExpression],
             },
-            Rule::InitializerExpression => RuleData {
+            Rule::InitializerExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InitializerExpressionEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma],
             },
-            Rule::NestedAssignmentOperators => RuleData {
+            Rule::NestedAssignmentOperators => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::AssignmentOperatorsAt0, Pat::AssignmentOperatorsAt1, Pat::AssignmentOperatorsAt2],
             },
-            Rule::AssignmentExpression => RuleData {
+            Rule::AssignmentExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AssignmentExpressionEnd),
                 backref: None,
                 patterns: &[Pat::RefModifier, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::QueryExpression => RuleData {
+            Rule::QueryExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::QueryExpressionEnd),
                 backref: None,
                 patterns: &[Pat::LetClause, Pat::WhereClause, Pat::JoinClause, Pat::OrderbyClause, Pat::SelectClause, Pat::GroupClause, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::LetClause => RuleData {
+            Rule::LetClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LetClauseEnd),
                 backref: None,
                 patterns: &[Pat::LetClause, Pat::WhereClause, Pat::JoinClause, Pat::OrderbyClause, Pat::SelectClause, Pat::GroupClause, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::WhereClause => RuleData {
+            Rule::WhereClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::WhereClauseEnd),
                 backref: None,
                 patterns: &[Pat::LetClause, Pat::WhereClause, Pat::JoinClause, Pat::OrderbyClause, Pat::SelectClause, Pat::GroupClause, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::JoinClause => RuleData {
+            Rule::JoinClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::JoinClauseEnd),
                 backref: None,
                 patterns: &[Pat::JoinOn, Pat::JoinEquals, Pat::JoinInto, Pat::LetClause, Pat::WhereClause, Pat::JoinClause, Pat::OrderbyClause, Pat::SelectClause, Pat::GroupClause, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::OrderbyClause => RuleData {
+            Rule::OrderbyClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::OrderbyClauseEnd),
                 backref: None,
                 patterns: &[Pat::OrderingDirectionAscending, Pat::OrderingDirectionDescending, Pat::LetClause, Pat::WhereClause, Pat::JoinClause, Pat::OrderbyClause, Pat::SelectClause, Pat::GroupClause, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma],
             },
-            Rule::SelectClause => RuleData {
+            Rule::SelectClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SelectClauseEnd),
                 backref: None,
                 patterns: &[Pat::LetClause, Pat::WhereClause, Pat::JoinClause, Pat::OrderbyClause, Pat::SelectClause, Pat::GroupClause, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::GroupClause => RuleData {
+            Rule::GroupClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GroupClauseEnd),
                 backref: None,
                 patterns: &[Pat::GroupBy, Pat::GroupInto, Pat::LetClause, Pat::WhereClause, Pat::JoinClause, Pat::OrderbyClause, Pat::SelectClause, Pat::GroupClause, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::IsExpression => RuleData {
+            Rule::IsExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::IsExpressionEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CombinatorPatternAnd, Pat::CombinatorPatternOr, Pat::CombinatorPatternNot, Pat::DiscardPattern, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern, Pat::RelationalPattern, Pat::VarPattern, Pat::TypePattern, Pat::PositionalPattern, Pat::PropertyPattern, Pat::ListPattern, Pat::SlicePattern],
             },
-            Rule::NestedBegin => RuleData {
+            Rule::NestedBegin => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::NestedBeginAt0],
             },
-            Rule::NestedBeginAt0 => RuleData {
+            Rule::NestedBeginAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::NestedBeginAt0End),
                 backref: None,
                 patterns: &[Pat::NestedBeginAt0At0, Pat::NestedBeginAt0At1, Pat::NestedBeginAt0At2, Pat::NestedBeginAt0At3, Pat::NestedBeginAt0At4],
             },
-            Rule::NestedPattern => RuleData {
+            Rule::NestedPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::NestedPatternAt0],
             },
-            Rule::CharLiteral => RuleData {
+            Rule::CharLiteral => RuleDefinition {
                 name: scopes![S::StrQuotedSingle],
                 content: S::NO_SCOPES,
                 end: Some(Pat::CharLiteralEnd),
                 backref: None,
                 patterns: &[Pat::CharCharacterEscape],
             },
-            Rule::StringLiteral => RuleData {
+            Rule::StringLiteral => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::StringLiteralEnd),
                 backref: None,
                 patterns: &[Pat::StringCharacterEscape],
             },
-            Rule::RawStringLiteralMore => RuleData {
+            Rule::RawStringLiteralMore => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawStringLiteralMoreEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RawStringLiteralQuadruple => RuleData {
+            Rule::RawStringLiteralQuadruple => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawStringLiteralQuadrupleEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::RawStringLiteralTriple => RuleData {
+            Rule::RawStringLiteralTriple => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::RawStringLiteralTripleEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::VerbatimStringLiteral => RuleData {
+            Rule::VerbatimStringLiteral => RuleDefinition {
                 name: scopes![S::StrQuotedDouble],
                 content: S::NO_SCOPES,
                 end: Some(Pat::VerbatimStringLiteralEnd),
                 backref: None,
                 patterns: &[Pat::VerbatimStringCharacterEscape],
             },
-            Rule::NestedTypeBuiltinAndTypeName => RuleData {
+            Rule::NestedTypeBuiltinAndTypeName => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3],
             },
-            Rule::CastedConstantPattern => RuleData {
+            Rule::CastedConstantPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CastedConstantPatternEnd),
                 backref: None,
                 patterns: &[Pat::CastedConstantPattern, Pat::CastedConstantPatternAt1, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern, Pat::CastedConstantPatternAt3, Pat::CastedConstantPatternAt4, Pat::CastedConstantPatternAt5],
             },
-            Rule::CastedConstantPatternAt1 => RuleData {
+            Rule::CastedConstantPatternAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CastedConstantPatternAt1End),
                 backref: None,
                 patterns: &[Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern],
             },
-            Rule::RelationalPattern => RuleData {
+            Rule::RelationalPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RelationalPatternEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::NestedPattern7 => RuleData {
+            Rule::NestedPattern7 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::NestedPattern7At0Async, Pat::NestedPattern7At0Static],
             },
-            Rule::NestedCommentAndExplicitAnonymousFunctionParameterAndImplicitAnonymousFunctionParameterAndDefaultArgumentAndPunctuationComma => RuleData {
+            Rule::NestedCommentAndExplicitAnonymousFunctionParameterAndImplicitAnonymousFunctionParameterAndDefaultArgumentAndPunctuationComma => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExplicitAnonymousFunctionParameterRef, Pat::ExplicitAnonymousFunctionParameterParams, Pat::ExplicitAnonymousFunctionParameterOut, Pat::ExplicitAnonymousFunctionParameterIn, Pat::ExplicitAnonymousFunctionParameter, Pat::ImplicitAnonymousFunctionParameter, Pat::DefaultArgument, Pat::PunctuationComma],
             },
-            Rule::DefaultArgument => RuleData {
+            Rule::DefaultArgument => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DefaultArgumentEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::AnonymousMethodExpressionAt0 => RuleData {
+            Rule::AnonymousMethodExpressionAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AnonymousMethodExpressionAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AnonymousMethodExpressionAt0At1, Pat::AnonymousMethodExpressionAt0At2],
             },
-            Rule::AnonymousMethodExpressionAt0At1 => RuleData {
+            Rule::AnonymousMethodExpressionAt0At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AnonymousMethodExpressionAt0At1End),
                 backref: None,
                 patterns: &[Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::Block => RuleData {
+            Rule::Block => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BlockEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::WhileStatement => RuleData {
+            Rule::WhileStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::WhileStatementEnd),
                 backref: None,
                 patterns: &[Pat::WhileStatementAt0, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::WhileStatementAt0 => RuleData {
+            Rule::WhileStatementAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::WhileStatementAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::AnonymousMethodExpressionAt1 => RuleData {
+            Rule::AnonymousMethodExpressionAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AnonymousMethodExpressionAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AnonymousMethodExpressionAt1At1, Pat::Block],
             },
-            Rule::AnonymousMethodExpressionAt1At1 => RuleData {
+            Rule::AnonymousMethodExpressionAt1At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AnonymousMethodExpressionAt1At1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExplicitAnonymousFunctionParameterRef, Pat::ExplicitAnonymousFunctionParameterParams, Pat::ExplicitAnonymousFunctionParameterOut, Pat::ExplicitAnonymousFunctionParameterIn, Pat::ExplicitAnonymousFunctionParameter, Pat::PunctuationComma],
             },
-            Rule::ObjectCreationExpressionWithParameters => RuleData {
+            Rule::ObjectCreationExpressionWithParameters => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ObjectCreationExpressionWithParametersEnd),
                 backref: None,
                 patterns: &[Pat::ArgumentList],
             },
-            Rule::ArgumentList => RuleData {
+            Rule::ArgumentList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArgumentListEnd),
                 backref: None,
                 patterns: &[Pat::NamedArgument, Pat::ArgumentAt0Ref, Pat::ArgumentAt0In, Pat::ArgumentAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma],
             },
-            Rule::NamedArgument => RuleData {
+            Rule::NamedArgument => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::NamedArgumentEnd),
                 backref: None,
                 patterns: &[Pat::ArgumentAt0Ref, Pat::ArgumentAt0In, Pat::ArgumentAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::ArgumentAt1 => RuleData {
+            Rule::ArgumentAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArgumentAt1End),
                 backref: None,
                 patterns: &[Pat::DeclarationExpressionLocal, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::ArrayCreationExpression => RuleData {
+            Rule::ArrayCreationExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ArrayCreationExpressionEnd),
                 backref: None,
                 patterns: &[Pat::BracketedArgumentList],
             },
-            Rule::BracketedArgumentList => RuleData {
+            Rule::BracketedArgumentList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketedArgumentListEnd),
                 backref: None,
                 patterns: &[Pat::NamedArgument, Pat::ArgumentAt0Ref, Pat::ArgumentAt0In, Pat::ArgumentAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma],
             },
-            Rule::AnonymousObjectCreationExpression => RuleData {
+            Rule::AnonymousObjectCreationExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AnonymousObjectCreationExpressionEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::InitializerExpression],
             },
-            Rule::NestedTypeArguments => RuleData {
+            Rule::NestedTypeArguments => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TypeArguments],
             },
-            Rule::InvocationExpression => RuleData {
+            Rule::InvocationExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InvocationExpressionEnd),
                 backref: None,
                 patterns: &[Pat::ArgumentList],
             },
-            Rule::ElementAccessExpression => RuleData {
+            Rule::ElementAccessExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ElementAccessExpressionEnd),
                 backref: None,
                 patterns: &[Pat::BracketedArgumentList],
             },
-            Rule::TupleLiteral => RuleData {
+            Rule::TupleLiteral => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TupleLiteralEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TupleLiteralElement, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma],
             },
-            Rule::TupleLiteralElement => RuleData {
+            Rule::TupleLiteralElement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TupleLiteralElementEnd),
                 backref: None,
                 patterns: &[],
             },
-            Rule::ParenthesizedExpression => RuleData {
+            Rule::ParenthesizedExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParenthesizedExpressionEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::NestedTupleDeconstructionElementList => RuleData {
+            Rule::NestedTupleDeconstructionElementList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TupleDeconstructionElementList],
             },
-            Rule::TupleDeconstructionElementList => RuleData {
+            Rule::TupleDeconstructionElementList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TupleDeconstructionElementListEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TupleDeconstructionElementList, Pat::DeclarationExpressionTuple, Pat::PunctuationComma, Pat::TupleDeconstructionElementListAt4],
             },
-            Rule::DoStatement => RuleData {
+            Rule::DoStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DoStatementEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::ForStatement => RuleData {
+            Rule::ForStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ForStatementEnd),
                 backref: None,
                 patterns: &[Pat::ForStatementAt0],
             },
-            Rule::ForStatementAt0 => RuleData {
+            Rule::ForStatementAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ForStatementAt0End),
                 backref: None,
                 patterns: &[Pat::ForStatementAt0At0, Pat::ForStatementAt0At1],
             },
-            Rule::ForStatementAt0At0 => RuleData {
+            Rule::ForStatementAt0At0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ForStatementAt0At0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::LocalVariableDeclaration, Pat::LocalTupleVarDeconstruction, Pat::TupleDeconstructionAssignment, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::LocalVariableDeclaration => RuleData {
+            Rule::LocalVariableDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LocalVariableDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::LocalVariableDeclarationAt0, Pat::PunctuationComma, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::VariableInitializer],
             },
-            Rule::VariableInitializer => RuleData {
+            Rule::VariableInitializer => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::VariableInitializerEnd),
                 backref: None,
                 patterns: &[Pat::RefModifier, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::NestedTupleDeclarationDeconstructionElementList => RuleData {
+            Rule::NestedTupleDeclarationDeconstructionElementList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TupleDeclarationDeconstructionElementList],
             },
-            Rule::TupleDeclarationDeconstructionElementList => RuleData {
+            Rule::TupleDeclarationDeconstructionElementList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TupleDeclarationDeconstructionElementListEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TupleDeclarationDeconstructionElementList, Pat::DeclarationExpressionTuple, Pat::PunctuationComma, Pat::TupleDeclarationDeconstructionElementListAt4],
             },
-            Rule::LocalTupleVarDeconstruction => RuleData {
+            Rule::LocalTupleVarDeconstruction => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LocalTupleVarDeconstructionEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::VariableInitializer],
             },
-            Rule::ForStatementAt0At1 => RuleData {
+            Rule::ForStatementAt0At1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ForStatementAt0At1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma, Pat::PunctuationSemicolon],
             },
-            Rule::ForeachStatement => RuleData {
+            Rule::ForeachStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ForeachStatementEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ForeachStatementAt1],
             },
-            Rule::ForeachStatementAt1 => RuleData {
+            Rule::ForeachStatementAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ForeachStatementAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ForeachStatementAt1At1, Pat::ForeachStatementAt1At2, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::IfStatement => RuleData {
+            Rule::IfStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::IfStatementEnd),
                 backref: None,
                 patterns: &[Pat::IfStatementAt0, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::IfStatementAt0 => RuleData {
+            Rule::IfStatementAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::IfStatementAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::ElsePart => RuleData {
+            Rule::ElsePart => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ElsePartEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::GotoStatement => RuleData {
+            Rule::GotoStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GotoStatementEnd),
                 backref: None,
                 patterns: &[Pat::GotoStatementAt0, Pat::GotoStatementAt1, Pat::GotoStatementAt2],
             },
-            Rule::GotoStatementAt0 => RuleData {
+            Rule::GotoStatementAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GotoStatementAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::ReturnStatement => RuleData {
+            Rule::ReturnStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ReturnStatementEnd),
                 backref: None,
                 patterns: &[Pat::RefModifier, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::ThrowStatement => RuleData {
+            Rule::ThrowStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ThrowStatementEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::YieldReturnStatement => RuleData {
+            Rule::YieldReturnStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::YieldReturnStatementEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::AwaitStatement => RuleData {
+            Rule::AwaitStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AwaitStatementEnd),
                 backref: None,
                 patterns: &[Pat::ForeachStatement, Pat::UsingStatement, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::UsingStatement => RuleData {
+            Rule::UsingStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UsingStatementEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::UsingStatementAt1, Pat::LocalVariableDeclaration],
             },
-            Rule::UsingStatementAt1 => RuleData {
+            Rule::UsingStatementAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UsingStatementAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AwaitExpression, Pat::LocalVariableDeclaration, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::TryBlock => RuleData {
+            Rule::TryBlock => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TryBlockEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::Block],
             },
-            Rule::CatchClause => RuleData {
+            Rule::CatchClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CatchClauseEnd),
                 backref: None,
                 patterns: &[Pat::CatchClauseAt0, Pat::WhenClause, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::Block],
             },
-            Rule::CatchClauseAt0 => RuleData {
+            Rule::CatchClauseAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::CatchClauseAt0End),
                 backref: None,
                 patterns: &[Pat::CatchClauseAt0At0],
             },
-            Rule::WhenClause => RuleData {
+            Rule::WhenClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::WhenClauseEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::FinallyClause => RuleData {
+            Rule::FinallyClause => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FinallyClauseEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::Block],
             },
-            Rule::FixedStatement => RuleData {
+            Rule::FixedStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FixedStatementEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::FixedStatementAt1],
             },
-            Rule::FixedStatementAt1 => RuleData {
+            Rule::FixedStatementAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FixedStatementAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::LocalVariableDeclaration],
             },
-            Rule::LockStatement => RuleData {
+            Rule::LockStatement => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LockStatementEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::LockStatementAt1],
             },
-            Rule::LockStatementAt1 => RuleData {
+            Rule::LockStatementAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LockStatementAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::LocalConstantDeclaration => RuleData {
+            Rule::LocalConstantDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LocalConstantDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::LocalConstantDeclarationAt0, Pat::PunctuationComma, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::VariableInitializer],
             },
-            Rule::NestedStorageModifier => RuleData {
+            Rule::NestedStorageModifier => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile],
             },
-            Rule::NestedTypeParameterList => RuleData {
+            Rule::NestedTypeParameterList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::TypeParameterList],
             },
-            Rule::TypeParameterList => RuleData {
+            Rule::TypeParameterList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypeParameterListEnd),
                 backref: None,
                 patterns: &[Pat::TypeParameterListAt0In, Pat::TypeParameterListAt0Out, Pat::TypeParameterListAt1, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::PunctuationComma, Pat::AttributeSection],
             },
-            Rule::LocalFunctionDeclaration => RuleData {
+            Rule::LocalFunctionDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::LocalFunctionDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ParenthesizedParameterList, Pat::GenericConstraints, Pat::ExpressionBody, Pat::Block],
             },
-            Rule::ParenthesizedParameterList => RuleData {
+            Rule::ParenthesizedParameterList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParenthesizedParameterListEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AttributeSection, Pat::ParameterRef, Pat::ParameterParams, Pat::ParameterOut, Pat::ParameterIn, Pat::ParameterThis, Pat::Parameter, Pat::PunctuationComma, Pat::VariableInitializer],
             },
-            Rule::GenericConstraints => RuleData {
+            Rule::GenericConstraints => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::GenericConstraintsEnd),
                 backref: None,
                 patterns: &[Pat::GenericConstraintsAt0, Pat::GenericConstraintsAt1, Pat::GenericConstraintsAt2, Pat::GenericConstraintsAt3, Pat::GenericConstraintsAt4, Pat::GenericConstraintsAt5, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix, Pat::PunctuationComma, Pat::GenericConstraints],
             },
-            Rule::ExpressionBody => RuleData {
+            Rule::ExpressionBody => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ExpressionBodyEnd),
                 backref: None,
                 patterns: &[Pat::RefModifier, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::AnonymousMethodExpressionAt0At2 => RuleData {
+            Rule::AnonymousMethodExpressionAt0At2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::AnonymousMethodExpressionAt0At2End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::VarPattern => RuleData {
+            Rule::VarPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::VarPatternEnd),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::DesignationPatternAt1, Pat::DiscardPattern, Pat::SimpleDesignationPatternAt1],
             },
-            Rule::DesignationPatternAt1 => RuleData {
+            Rule::DesignationPatternAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DesignationPatternAt1End),
                 backref: None,
                 patterns: &[Pat::PunctuationComma, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::DesignationPatternAt1, Pat::DiscardPattern, Pat::SimpleDesignationPatternAt1],
             },
-            Rule::TypePattern => RuleData {
+            Rule::TypePattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypePatternEnd),
                 backref: None,
                 patterns: &[Pat::TypePatternAt0, Pat::TypePatternAt1],
             },
-            Rule::TypePatternAt0 => RuleData {
+            Rule::TypePatternAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypePatternAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeSubpatternAt1, Pat::TypeSubpatternAt2, Pat::TypeSubpatternAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeSubpatternAt6],
             },
-            Rule::TypeSubpatternAt1 => RuleData {
+            Rule::TypeSubpatternAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypeSubpatternAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeSubpatternAt1At1],
             },
-            Rule::TypeSubpatternAt3 => RuleData {
+            Rule::TypeSubpatternAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypeSubpatternAt3End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeSubpatternAt3At1],
             },
-            Rule::TypePatternAt1 => RuleData {
+            Rule::TypePatternAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::TypePatternAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::PositionalPattern, Pat::PropertyPattern, Pat::DiscardPattern, Pat::SimpleDesignationPatternAt1],
             },
-            Rule::PositionalPattern => RuleData {
+            Rule::PositionalPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PositionalPatternEnd),
                 backref: None,
                 patterns: &[Pat::PositionalPatternAt0, Pat::PositionalPatternAt1],
             },
-            Rule::PositionalPatternAt0 => RuleData {
+            Rule::PositionalPatternAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PositionalPatternAt0End),
                 backref: None,
                 patterns: &[Pat::SubpatternAt0, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CombinatorPatternAnd, Pat::CombinatorPatternOr, Pat::CombinatorPatternNot, Pat::DiscardPattern, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern, Pat::RelationalPattern, Pat::VarPattern, Pat::TypePattern, Pat::PositionalPattern, Pat::PropertyPattern, Pat::ListPattern, Pat::SlicePattern, Pat::PunctuationComma],
             },
-            Rule::NestedPatternAndPunctuationAccessor => RuleData {
+            Rule::NestedPatternAndPunctuationAccessor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::NestedPatternAndPunctuationAccessorAt0, Pat::PunctuationAccessor],
             },
-            Rule::PropertyPattern => RuleData {
+            Rule::PropertyPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PropertyPatternEnd),
                 backref: None,
                 patterns: &[Pat::PropertyPatternAt0, Pat::PropertyPatternAt1],
             },
-            Rule::PropertyPatternAt0 => RuleData {
+            Rule::PropertyPatternAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PropertyPatternAt0End),
                 backref: None,
                 patterns: &[Pat::SubpatternAt0, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CombinatorPatternAnd, Pat::CombinatorPatternOr, Pat::CombinatorPatternNot, Pat::DiscardPattern, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern, Pat::RelationalPattern, Pat::VarPattern, Pat::TypePattern, Pat::PositionalPattern, Pat::PropertyPattern, Pat::ListPattern, Pat::SlicePattern, Pat::PunctuationComma],
             },
-            Rule::ListPattern => RuleData {
+            Rule::ListPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ListPatternEnd),
                 backref: None,
                 patterns: &[Pat::ListPatternAt0, Pat::ListPatternAt1],
             },
-            Rule::ListPatternAt0 => RuleData {
+            Rule::ListPatternAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ListPatternAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CombinatorPatternAnd, Pat::CombinatorPatternOr, Pat::CombinatorPatternNot, Pat::DiscardPattern, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern, Pat::RelationalPattern, Pat::VarPattern, Pat::TypePattern, Pat::PositionalPattern, Pat::PropertyPattern, Pat::ListPattern, Pat::SlicePattern, Pat::PunctuationComma],
             },
-            Rule::ListPatternAt1 => RuleData {
+            Rule::ListPatternAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ListPatternAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::DiscardPattern, Pat::SimpleDesignationPatternAt1],
             },
-            Rule::PropertyPatternAt1 => RuleData {
+            Rule::PropertyPatternAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PropertyPatternAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::DiscardPattern, Pat::SimpleDesignationPatternAt1],
             },
-            Rule::PositionalPatternAt1 => RuleData {
+            Rule::PositionalPatternAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PositionalPatternAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::PropertyPattern, Pat::DiscardPattern, Pat::SimpleDesignationPatternAt1],
             },
-            Rule::SwitchStatementAt2 => RuleData {
+            Rule::SwitchStatementAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchStatementAt2End),
                 backref: None,
                 patterns: &[Pat::SwitchLabelCase, Pat::SwitchLabelDefault, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::SwitchLabel => RuleData {
+            Rule::SwitchLabel => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchLabelEnd),
                 backref: None,
                 patterns: &[Pat::SwitchLabelAt0, Pat::SwitchLabelAt1],
             },
-            Rule::SwitchLabelAt0 => RuleData {
+            Rule::SwitchLabelAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchLabelAt0End),
                 backref: None,
                 patterns: &[Pat::ParenthesizedExpression, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::SwitchLabelAt1 => RuleData {
+            Rule::SwitchLabelAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchLabelAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CombinatorPatternAnd, Pat::CombinatorPatternOr, Pat::CombinatorPatternNot, Pat::DiscardPattern, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern, Pat::RelationalPattern, Pat::VarPattern, Pat::TypePattern, Pat::PositionalPattern, Pat::PropertyPattern, Pat::ListPattern, Pat::SlicePattern],
             },
-            Rule::SwitchStatementOrExpressionAt2 => RuleData {
+            Rule::SwitchStatementOrExpressionAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchStatementOrExpressionAt2End),
                 backref: None,
                 patterns: &[Pat::SwitchExpression],
             },
-            Rule::SwitchExpression => RuleData {
+            Rule::SwitchExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchExpressionEnd),
                 backref: None,
                 patterns: &[Pat::PunctuationComma, Pat::SwitchExpressionAt1, Pat::SwitchExpressionAt2, Pat::SwitchExpressionAt3],
             },
-            Rule::SwitchExpressionAt1 => RuleData {
+            Rule::SwitchExpressionAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchExpressionAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::SwitchExpressionAt2 => RuleData {
+            Rule::SwitchExpressionAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchExpressionAt2End),
                 backref: None,
                 patterns: &[Pat::ParenthesizedExpression, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::SwitchExpressionAt3 => RuleData {
+            Rule::SwitchExpressionAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::SwitchExpressionAt3End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CombinatorPatternAnd, Pat::CombinatorPatternOr, Pat::CombinatorPatternNot, Pat::DiscardPattern, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::StringLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::VerbatimStringLiteral, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::CastedConstantPattern, Pat::RelationalPattern, Pat::VarPattern, Pat::TypePattern, Pat::PositionalPattern, Pat::PropertyPattern, Pat::ListPattern, Pat::SlicePattern],
             },
-            Rule::NamespaceDeclaration => RuleData {
+            Rule::NamespaceDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::NamespaceDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::NamespaceDeclarationAt1, Pat::PunctuationAccessor, Pat::NamespaceDeclarationAt3],
             },
-            Rule::NamespaceDeclarationAt3 => RuleData {
+            Rule::NamespaceDeclarationAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::NamespaceDeclarationAt3End),
                 backref: None,
                 patterns: &[Pat::NamespaceDeclaration, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::PunctuationSemicolon, Pat::UsingDirectiveAt0, Pat::UsingDirectiveAt1, Pat::UsingDirectiveAt2, Pat::PunctuationSemicolon],
             },
-            Rule::ClassDeclaration => RuleData {
+            Rule::ClassDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::ClassDeclarationAt0, Pat::ClassDeclarationAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::ClassDeclarationAt0 => RuleData {
+            Rule::ClassDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDeclarationAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeParameterList, Pat::ParenthesizedParameterList, Pat::BaseTypes, Pat::GenericConstraints],
             },
-            Rule::BaseTypes => RuleData {
+            Rule::BaseTypes => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BaseTypesEnd),
                 backref: None,
                 patterns: &[Pat::BaseClassConstructorCall, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix, Pat::PunctuationComma, Pat::Preprocessor],
             },
-            Rule::BaseClassConstructorCall => RuleData {
+            Rule::BaseClassConstructorCall => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BaseClassConstructorCallEnd),
                 backref: None,
                 patterns: &[Pat::ArgumentList],
             },
-            Rule::ClassDeclarationAt1 => RuleData {
+            Rule::ClassDeclarationAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ClassDeclarationAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::ConstructorDeclaration, Pat::PropertyDeclaration, Pat::FixedSizeBufferDeclaration, Pat::FieldDeclaration, Pat::EventDeclaration, Pat::IndexerDeclaration, Pat::VariableInitializer, Pat::DestructorDeclaration, Pat::OperatorDeclaration, Pat::ConversionOperatorDeclaration, Pat::MethodDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon],
             },
-            Rule::DelegateDeclaration => RuleData {
+            Rule::DelegateDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DelegateDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ParenthesizedParameterList, Pat::GenericConstraints],
             },
-            Rule::EnumDeclaration => RuleData {
+            Rule::EnumDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EnumDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::EnumDeclarationAt0, Pat::EnumDeclarationAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::EnumDeclarationAt0 => RuleData {
+            Rule::EnumDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EnumDeclarationAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::EnumDeclarationAt0At1, Pat::EnumDeclarationAt0At2],
             },
-            Rule::EnumDeclarationAt0At2 => RuleData {
+            Rule::EnumDeclarationAt0At2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EnumDeclarationAt0At2End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix],
             },
-            Rule::EnumDeclarationAt1 => RuleData {
+            Rule::EnumDeclarationAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EnumDeclarationAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AttributeSection, Pat::PunctuationComma, Pat::EnumDeclarationAt1At4],
             },
-            Rule::EnumDeclarationAt1At4 => RuleData {
+            Rule::EnumDeclarationAt1At4 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EnumDeclarationAt1At4End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::VariableInitializer],
             },
-            Rule::InterfaceDeclaration => RuleData {
+            Rule::InterfaceDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterfaceDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::InterfaceDeclarationAt0, Pat::InterfaceDeclarationAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::InterfaceDeclarationAt0 => RuleData {
+            Rule::InterfaceDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterfaceDeclarationAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeParameterList, Pat::BaseTypes, Pat::GenericConstraints],
             },
-            Rule::InterfaceDeclarationAt1 => RuleData {
+            Rule::InterfaceDeclarationAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::InterfaceDeclarationAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::PropertyDeclaration, Pat::EventDeclaration, Pat::IndexerDeclaration, Pat::MethodDeclaration, Pat::OperatorDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon],
             },
-            Rule::NestedTypeAndPunctuationAccessor => RuleData {
+            Rule::NestedTypeAndPunctuationAccessor => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix, Pat::PunctuationAccessor],
             },
-            Rule::PropertyDeclaration => RuleData {
+            Rule::PropertyDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PropertyDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::PropertyAccessors, Pat::AccessorGetterExpression, Pat::VariableInitializer, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::ConstructorDeclaration, Pat::PropertyDeclaration, Pat::FixedSizeBufferDeclaration, Pat::FieldDeclaration, Pat::EventDeclaration, Pat::IndexerDeclaration, Pat::VariableInitializer, Pat::DestructorDeclaration, Pat::OperatorDeclaration, Pat::ConversionOperatorDeclaration, Pat::MethodDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon],
             },
-            Rule::PropertyAccessors => RuleData {
+            Rule::PropertyAccessors => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PropertyAccessorsEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AttributeSection, Pat::PropertyAccessorsAt2Private, Pat::PropertyAccessorsAt2Protected, Pat::PropertyAccessorsAt2Internal, Pat::PropertyAccessorsAt3, Pat::PropertyAccessorsAt4Set, Pat::PropertyAccessorsAt4Init],
             },
-            Rule::PropertyAccessorsAt3 => RuleData {
+            Rule::PropertyAccessorsAt3 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PropertyAccessorsAt3End),
                 backref: None,
                 patterns: &[Pat::AccessorGetterAt0, Pat::AccessorGetterExpression, Pat::PunctuationSemicolon],
             },
-            Rule::AccessorGetterAt0 => RuleData {
+            Rule::AccessorGetterAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::MetaAccessorGetter],
                 end: Some(Pat::AccessorGetterAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::AccessorGetterExpression => RuleData {
+            Rule::AccessorGetterExpression => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::MetaAccessorGetter],
                 end: Some(Pat::AccessorGetterExpressionEnd),
                 backref: None,
                 patterns: &[Pat::RefModifier, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::PropertyAccessorsAt4 => RuleData {
+            Rule::PropertyAccessorsAt4 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::PropertyAccessorsAt4End),
                 backref: None,
                 patterns: &[Pat::AccessorSetterAt0, Pat::AccessorSetterAt1, Pat::PunctuationSemicolon],
             },
-            Rule::AccessorSetterAt0 => RuleData {
+            Rule::AccessorSetterAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::MetaAccessorSetter],
                 end: Some(Pat::AccessorSetterAt0End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::WhileStatement, Pat::DoStatement, Pat::ForStatement, Pat::ForeachStatement, Pat::IfStatement, Pat::ElsePart, Pat::GotoStatement, Pat::ReturnStatement, Pat::BreakOrContinueStatementBreak, Pat::BreakOrContinueStatementContinue, Pat::ThrowStatement, Pat::YieldReturnStatement, Pat::YieldBreakStatement, Pat::AwaitStatement, Pat::TryBlock, Pat::CatchClause, Pat::FinallyClause, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::ContextControlStatementChecked, Pat::ContextControlStatementUnchecked, Pat::ContextControlStatementUnsafe, Pat::FixedStatement, Pat::LockStatement, Pat::UsingStatement, Pat::LabeledStatement, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::LocalConstantDeclaration, Pat::LocalVariableDeclaration, Pat::LocalFunctionDeclaration, Pat::LocalTupleVarDeconstruction, Pat::LocalTupleDeclarationDeconstruction, Pat::Block, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationSemicolon],
             },
-            Rule::AccessorSetterAt1 => RuleData {
+            Rule::AccessorSetterAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: scopes![S::MetaAccessorSetter],
                 end: Some(Pat::AccessorSetterAt1End),
                 backref: None,
                 patterns: &[Pat::RefModifier, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier],
             },
-            Rule::StructDeclaration => RuleData {
+            Rule::StructDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::StructDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::StructDeclarationAt0, Pat::StructDeclarationAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::StructDeclarationAt0 => RuleData {
+            Rule::StructDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::StructDeclarationAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeParameterList, Pat::ParenthesizedParameterList, Pat::BaseTypes, Pat::GenericConstraints],
             },
-            Rule::StructDeclarationAt1 => RuleData {
+            Rule::StructDeclarationAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::StructDeclarationAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::ConstructorDeclaration, Pat::PropertyDeclaration, Pat::FixedSizeBufferDeclaration, Pat::FieldDeclaration, Pat::EventDeclaration, Pat::IndexerDeclaration, Pat::VariableInitializer, Pat::DestructorDeclaration, Pat::OperatorDeclaration, Pat::ConversionOperatorDeclaration, Pat::MethodDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon],
             },
-            Rule::UnionDeclaration => RuleData {
+            Rule::UnionDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UnionDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::UnionDeclarationAt0, Pat::UnionDeclarationAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::UnionDeclarationAt0 => RuleData {
+            Rule::UnionDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UnionDeclarationAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeParameterList, Pat::ParenthesizedTypeList, Pat::BaseTypes, Pat::GenericConstraints],
             },
-            Rule::ParenthesizedTypeList => RuleData {
+            Rule::ParenthesizedTypeList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ParenthesizedTypeListEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::RefModifier, Pat::ReadonlyModifier, Pat::TupleType, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::TypeNameAt0, Pat::TypeNameAt1, Pat::TypeNameAt2, Pat::TypeNameAt3, Pat::TypeArguments, Pat::TypeArraySuffix, Pat::TypeNullableSuffix, Pat::TypePointerSuffix, Pat::PunctuationComma],
             },
-            Rule::UnionDeclarationAt1 => RuleData {
+            Rule::UnionDeclarationAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::UnionDeclarationAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::ConstructorDeclaration, Pat::PropertyDeclaration, Pat::FixedSizeBufferDeclaration, Pat::FieldDeclaration, Pat::EventDeclaration, Pat::IndexerDeclaration, Pat::VariableInitializer, Pat::DestructorDeclaration, Pat::OperatorDeclaration, Pat::ConversionOperatorDeclaration, Pat::MethodDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon],
             },
-            Rule::RecordDeclaration => RuleData {
+            Rule::RecordDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RecordDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::RecordDeclarationAt0, Pat::RecordDeclarationAt1, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::RecordDeclarationAt0 => RuleData {
+            Rule::RecordDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RecordDeclarationAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::TypeParameterList, Pat::ParenthesizedParameterList, Pat::BaseTypes, Pat::GenericConstraints],
             },
-            Rule::RecordDeclarationAt1 => RuleData {
+            Rule::RecordDeclarationAt1 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::RecordDeclarationAt1End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::ConstructorDeclaration, Pat::PropertyDeclaration, Pat::FixedSizeBufferDeclaration, Pat::FieldDeclaration, Pat::EventDeclaration, Pat::IndexerDeclaration, Pat::VariableInitializer, Pat::DestructorDeclaration, Pat::OperatorDeclaration, Pat::ConversionOperatorDeclaration, Pat::MethodDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon],
             },
-            Rule::ConstructorDeclaration => RuleData {
+            Rule::ConstructorDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ConstructorDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::ConstructorDeclarationAt0, Pat::ParenthesizedParameterList, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionBody, Pat::Block],
             },
-            Rule::ConstructorDeclarationAt0 => RuleData {
+            Rule::ConstructorDeclarationAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ConstructorDeclarationAt0End),
                 backref: None,
                 patterns: &[Pat::ConstructorInitializerBase, Pat::ConstructorInitializerThis],
             },
-            Rule::ConstructorInitializer => RuleData {
+            Rule::ConstructorInitializer => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ConstructorInitializerEnd),
                 backref: None,
                 patterns: &[Pat::ArgumentList],
             },
-            Rule::FixedSizeBufferDeclaration => RuleData {
+            Rule::FixedSizeBufferDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FixedSizeBufferDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::BracketedArgumentList, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3],
             },
-            Rule::FieldDeclaration => RuleData {
+            Rule::FieldDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::FieldDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::FieldDeclarationAt0, Pat::PunctuationComma, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::VariableInitializer, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::StorageModifierNew, Pat::StorageModifierPublic, Pat::StorageModifierProtected, Pat::StorageModifierInternal, Pat::StorageModifierPrivate, Pat::StorageModifierAbstract, Pat::StorageModifierVirtual, Pat::StorageModifierOverride, Pat::StorageModifierSealed, Pat::StorageModifierStatic, Pat::StorageModifierPartial, Pat::StorageModifierReadonly, Pat::StorageModifierVolatile, Pat::StorageModifierConst, Pat::StorageModifierExtern, Pat::StorageModifierAsync, Pat::StorageModifierUnsafe, Pat::StorageModifierRef, Pat::StorageModifierRequired, Pat::StorageModifierFile, Pat::ClassDeclaration, Pat::DelegateDeclaration, Pat::EnumDeclaration, Pat::InterfaceDeclaration, Pat::StructDeclaration, Pat::UnionDeclaration, Pat::RecordDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon, Pat::ConstructorDeclaration, Pat::PropertyDeclaration, Pat::FixedSizeBufferDeclaration, Pat::FieldDeclaration, Pat::EventDeclaration, Pat::IndexerDeclaration, Pat::VariableInitializer, Pat::DestructorDeclaration, Pat::OperatorDeclaration, Pat::ConversionOperatorDeclaration, Pat::MethodDeclaration, Pat::AttributeSection, Pat::PunctuationSemicolon],
             },
-            Rule::EventDeclaration => RuleData {
+            Rule::EventDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EventDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::EventAccessors, Pat::EventDeclarationAt2, Pat::PunctuationComma, Pat::EventDeclarationAt4],
             },
-            Rule::EventAccessors => RuleData {
+            Rule::EventAccessors => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EventAccessorsEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AttributeSection, Pat::EventAccessorsAt2Add, Pat::EventAccessorsAt2Remove],
             },
-            Rule::EventAccessorsAt2 => RuleData {
+            Rule::EventAccessorsAt2 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EventAccessorsAt2End),
                 backref: None,
                 patterns: &[Pat::AccessorSetterAt0, Pat::AccessorSetterAt1, Pat::PunctuationSemicolon],
             },
-            Rule::EventDeclarationAt4 => RuleData {
+            Rule::EventDeclarationAt4 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::EventDeclarationAt4End),
                 backref: None,
                 patterns: &[Pat::Preprocessor, Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ExpressionOperatorExpressionChecked, Pat::ExpressionOperatorExpressionUnchecked, Pat::ExpressionOperatorExpressionNameof, Pat::TypeOperatorExpressionDefault, Pat::TypeOperatorExpressionSizeof, Pat::TypeOperatorExpressionTypeof, Pat::DefaultLiteralExpression, Pat::ThrowExpression, Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation, Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation, Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation, Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation, Pat::RawInterpolatedStringTripleQuoteSingleInterpolation, Pat::InterpolatedString, Pat::VerbatimInterpolatedString, Pat::TypeBuiltinBool, Pat::TypeBuiltinSbyte, Pat::TypeBuiltinByte, Pat::TypeBuiltinUshort, Pat::TypeBuiltinShort, Pat::TypeBuiltinNuint, Pat::TypeBuiltinNint, Pat::TypeBuiltinUint, Pat::TypeBuiltinInt, Pat::TypeBuiltinUlong, Pat::TypeBuiltinLong, Pat::TypeBuiltinFloat, Pat::TypeBuiltinDouble, Pat::TypeBuiltinDecimal, Pat::TypeBuiltinChar, Pat::TypeBuiltinString, Pat::TypeBuiltinObject, Pat::TypeBuiltinVoid, Pat::TypeBuiltinDynamic, Pat::LanguageVariableAt0Base, Pat::LanguageVariableAt0This, Pat::LanguageVariableAt1Value, Pat::SwitchStatementOrExpression, Pat::WithExpression, Pat::ConditionalOperatorAt0, Pat::ConditionalOperatorAt1, Pat::AssignmentExpression, Pat::ExpressionOperatorsAt0, Pat::ExpressionOperatorsAt1, Pat::ExpressionOperatorsAt2, Pat::ExpressionOperatorsAt3, Pat::ExpressionOperatorsAt4, Pat::ExpressionOperatorsAt5, Pat::ExpressionOperatorsAt6, Pat::ExpressionOperatorsAt7, Pat::ExpressionOperatorsAt8, Pat::ExpressionOperatorsAt9, Pat::AwaitExpression, Pat::QueryExpression, Pat::AsExpression, Pat::IsExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::AnonymousMethodExpressionAt0, Pat::AnonymousMethodExpressionAt1, Pat::ObjectCreationExpressionWithParameters, Pat::ObjectCreationExpressionWithNoParameters, Pat::ArrayCreationExpressionNew, Pat::ArrayCreationExpressionStackalloc, Pat::AnonymousObjectCreationExpression, Pat::InvocationExpression, Pat::MemberAccessExpressionAt0, Pat::MemberAccessExpressionAt1, Pat::MemberAccessExpressionAt2, Pat::ElementAccessExpression, Pat::CastExpression, Pat::BooleanLiteralAt0, Pat::BooleanLiteralAt1, Pat::NullLiteral, Pat::NumericLiteral, Pat::CharLiteral, Pat::RawStringLiteralMore, Pat::RawStringLiteralQuadruple, Pat::RawStringLiteralTriple, Pat::StringLiteral, Pat::VerbatimStringLiteral, Pat::TupleLiteral, Pat::ParenthesizedExpression, Pat::TupleDeconstructionAssignment, Pat::InitializerExpression, Pat::Identifier, Pat::PunctuationComma],
             },
-            Rule::IndexerDeclaration => RuleData {
+            Rule::IndexerDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::IndexerDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::BracketedParameterList, Pat::PropertyAccessors, Pat::AccessorGetterExpression, Pat::VariableInitializer],
             },
-            Rule::BracketedParameterList => RuleData {
+            Rule::BracketedParameterList => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketedParameterListEnd),
                 backref: None,
                 patterns: &[Pat::BracketedParameterListAt0],
             },
-            Rule::BracketedParameterListAt0 => RuleData {
+            Rule::BracketedParameterListAt0 => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::BracketedParameterListAt0End),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::AttributeSection, Pat::ParameterRef, Pat::ParameterParams, Pat::ParameterOut, Pat::ParameterIn, Pat::ParameterThis, Pat::Parameter, Pat::PunctuationComma, Pat::VariableInitializer],
             },
-            Rule::DestructorDeclaration => RuleData {
+            Rule::DestructorDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::DestructorDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ParenthesizedParameterList, Pat::ExpressionBody, Pat::Block],
             },
-            Rule::OperatorDeclaration => RuleData {
+            Rule::OperatorDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::OperatorDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ParenthesizedParameterList, Pat::ExpressionBody, Pat::Block],
             },
-            Rule::NestedPatternAndPattern => RuleData {
+            Rule::NestedPatternAndPattern => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
                 patterns: &[Pat::NestedPatternAndPatternAt0, Pat::NestedPatternAndPatternAt1],
             },
-            Rule::ConversionOperatorDeclaration => RuleData {
+            Rule::ConversionOperatorDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::ConversionOperatorDeclarationEnd),
                 backref: None,
                 patterns: &[Pat::CommentAt0, Pat::CommentAt1, Pat::CommentAt2, Pat::CommentAt3, Pat::ParenthesizedParameterList, Pat::ExpressionBody, Pat::Block],
             },
-            Rule::MethodDeclaration => RuleData {
+            Rule::MethodDeclaration => RuleDefinition {
                 name: S::NO_SCOPES,
                 content: S::NO_SCOPES,
                 end: Some(Pat::MethodDeclarationEnd),
@@ -4098,9 +4098,9 @@ impl Pat {
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
-    pub(crate) fn data(self) -> PatData {
+    pub(crate) fn definition(self) -> PatDefinition {
         match self {
-            Pat::Preprocessor => PatData {
+            Pat::Preprocessor => PatDefinition {
                 act: Act::Begin(Rule::Preprocessor),
                 captures: &[(1, scopes![S::PSeparatorHash])],
                 nested: &[],
@@ -4224,39 +4224,39 @@ impl Pat {
             | Pat::DestructorDeclarationEnd
             | Pat::OperatorDeclarationEnd
             | Pat::ConversionOperatorDeclarationEnd
-            | Pat::MethodDeclarationEnd => PatData {
+            | Pat::MethodDeclarationEnd => PatDefinition {
                 act: Act::End,
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorCommentAt0 => PatData {
+            Pat::PreprocessorCommentAt0 => PatDefinition {
                 act: Act::Match(scopes![S::CmtLineDoubleSlash]),
                 captures: &[(1, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::PreprocessorCommentAt1 => PatData {
+            Pat::PreprocessorCommentAt1 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorCommentAt1),
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
             Pat::PreprocessorCommentAt1End
             | Pat::XmlCommentEnd
-            | Pat::CommentAt3End => PatData {
+            | Pat::CommentAt3End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::PreprocessorDefineOrUndef => PatData {
+            Pat::PreprocessorDefineOrUndef => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorDefine]), (2, scopes![S::KwPreprocessorUndef]), (3, scopes![S::EntNameVariablePreprocessorSymbol])],
                 nested: &[],
             },
-            Pat::PreprocessorIfOrElif => PatData {
+            Pat::PreprocessorIfOrElif => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorIfOrElif),
                 captures: &[(1, scopes![S::KwPreprocessorIf]), (2, scopes![S::KwPreprocessorElif])],
                 nested: &[],
             },
-            Pat::PreprocessorExpressionAt0 => PatData {
+            Pat::PreprocessorExpressionAt0 => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorExpressionAt0),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
@@ -4285,172 +4285,172 @@ impl Pat {
             | Pat::ParenthesizedParameterListEnd
             | Pat::DesignationPatternAt1End
             | Pat::PositionalPatternAt0End
-            | Pat::ParenthesizedTypeListEnd => PatData {
+            | Pat::ParenthesizedTypeListEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PParenthesisClose])],
                 nested: &[],
             },
-            Pat::PreprocessorExpressionAt1 => PatData {
+            Pat::PreprocessorExpressionAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::ConstLanguageBooleanTrue]), (2, scopes![S::ConstLanguageBooleanFalse]), (3, scopes![S::EntNameVariablePreprocessorSymbol])],
                 nested: &[],
             },
-            Pat::PreprocessorExpressionAt2 => PatData {
+            Pat::PreprocessorExpressionAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorComparison]), (2, scopes![S::KwOperatorLogical])],
                 nested: &[],
             },
-            Pat::PreprocessorElseOrEndif => PatData {
+            Pat::PreprocessorElseOrEndif => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorElse]), (2, scopes![S::KwPreprocessorEndif])],
                 nested: &[],
             },
-            Pat::PreprocessorWarningOrError => PatData {
+            Pat::PreprocessorWarningOrError => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorWarning]), (2, scopes![S::KwPreprocessorError]), (3, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::PreprocessorRegion => PatData {
+            Pat::PreprocessorRegion => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorRegion]), (2, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::PreprocessorEndregion => PatData {
+            Pat::PreprocessorEndregion => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorEndregion])],
                 nested: &[],
             },
-            Pat::PreprocessorLoad => PatData {
+            Pat::PreprocessorLoad => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorLoad),
                 captures: &[(1, scopes![S::KwPreprocessorLoad])],
                 nested: &[],
             },
             Pat::PreprocessorLoadAt0
             | Pat::PreprocessorRAt0
-            | Pat::PreprocessorLineAt2 => PatData {
+            | Pat::PreprocessorLineAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(0, scopes![S::StrQuotedDouble])],
                 nested: &[],
             },
-            Pat::PreprocessorR => PatData {
+            Pat::PreprocessorR => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorR),
                 captures: &[(1, scopes![S::KwPreprocessorR])],
                 nested: &[],
             },
-            Pat::PreprocessorLine => PatData {
+            Pat::PreprocessorLine => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorLine),
                 captures: &[(1, scopes![S::KwPreprocessorLine])],
                 nested: &[],
             },
-            Pat::PreprocessorLineAt0 => PatData {
+            Pat::PreprocessorLineAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorDefault]), (2, scopes![S::KwPreprocessorHidden])],
                 nested: &[],
             },
             Pat::PreprocessorLineAt1
-            | Pat::NestedPatternAndPunctuationCommaAt0 => PatData {
+            | Pat::NestedPatternAndPunctuationCommaAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(0, scopes![S::ConstNumericDecimal])],
                 nested: &[],
             },
-            Pat::PunctuationComma => PatData {
+            Pat::PunctuationComma => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorComma]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorPragmaWarning => PatData {
+            Pat::PreprocessorPragmaWarning => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorPragma]), (2, scopes![S::KwPreprocessorWarning]), (3, scopes![S::KwPreprocessorDisable]), (4, scopes![S::KwPreprocessorRestore])],
                 nested: &[(5, Nested::PatternAndPunctuationComma)],
             },
-            Pat::PreprocessorPragmaChecksum => PatData {
+            Pat::PreprocessorPragmaChecksum => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorPragma]), (2, scopes![S::KwPreprocessorChecksum]), (3, scopes![S::StrQuotedDouble]), (4, scopes![S::StrQuotedDouble]), (5, scopes![S::StrQuotedDouble])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirective => PatData {
+            Pat::PreprocessorAppDirective => PatDefinition {
                 act: Act::Begin(Rule::PreprocessorAppDirective),
                 captures: &[(1, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectivePackageNameAt0 => PatData {
+            Pat::PreprocessorAppDirectivePackageNameAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::PDot]), (2, scopes![S::EntNameVariablePreprocessorSymbol])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectivePackageNameAt1 => PatData {
+            Pat::PreprocessorAppDirectivePackageNameAt1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameVariablePreprocessorSymbol]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectivePackage => PatData {
+            Pat::PreprocessorAppDirectivePackage => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorPackage]), (3, scopes![S::PSeparatorAt]), (4, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[(2, Nested::PreprocessorAppDirectivePackageName)],
             },
-            Pat::PreprocessorAppDirectiveProperty => PatData {
+            Pat::PreprocessorAppDirectiveProperty => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorProperty]), (2, scopes![S::EntNameVariablePreprocessorSymbol]), (3, scopes![S::PSeparatorEquals]), (4, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectiveExclude => PatData {
+            Pat::PreprocessorAppDirectiveExclude => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorExclude]), (2, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectiveInclude => PatData {
+            Pat::PreprocessorAppDirectiveInclude => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorInclude]), (2, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectiveProject => PatData {
+            Pat::PreprocessorAppDirectiveProject => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorProject]), (2, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectiveRef => PatData {
+            Pat::PreprocessorAppDirectiveRef => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorRef]), (2, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::PreprocessorAppDirectiveSdk => PatData {
+            Pat::PreprocessorAppDirectiveSdk => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwPreprocessorSdk]), (3, scopes![S::PSeparatorAt]), (4, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[(2, Nested::PreprocessorAppDirectivePackageName)],
             },
-            Pat::PreprocessorAppDirectiveGeneric => PatData {
+            Pat::PreprocessorAppDirectiveGeneric => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StrUnquotedPreprocessorMessage])],
                 nested: &[],
             },
-            Pat::CommentAt0 => PatData {
+            Pat::CommentAt0 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt0),
                 captures: &[(1, scopes![S::PWhitespaceCommentLeading]), (2, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
             Pat::CommentAt0While
             | Pat::CommentAt1At0While
-            | Pat::CommentAt2While => PatData {
+            | Pat::CommentAt2While => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::PWhitespaceCommentLeading]), (2, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::XmlComment => PatData {
+            Pat::XmlComment => PatDefinition {
                 act: Act::Begin(Rule::XmlComment),
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::XmlCharacterEntityAt0 => PatData {
+            Pat::XmlCharacterEntityAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEntity]),
                 captures: &[(1, scopes![S::PDefinitionConstant]), (3, scopes![S::PDefinitionConstant])],
                 nested: &[],
             },
-            Pat::XmlCharacterEntityAt1 => PatData {
+            Pat::XmlCharacterEntityAt1 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalBadAmpersand]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::XmlCdata => PatData {
+            Pat::XmlCdata => PatDefinition {
                 act: Act::Begin(Rule::XmlCdata),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
@@ -4468,202 +4468,202 @@ impl Pat {
             | Pat::RawStringLiteralMoreEnd
             | Pat::RawStringLiteralQuadrupleEnd
             | Pat::RawStringLiteralTripleEnd
-            | Pat::VerbatimStringLiteralEnd => PatData {
+            | Pat::VerbatimStringLiteralEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionStringEnd])],
                 nested: &[],
             },
-            Pat::XmlTag => PatData {
+            Pat::XmlTag => PatDefinition {
                 act: Act::Begin(Rule::XmlTag),
                 captures: &[(1, scopes![S::PDefinitionTag]), (2, scopes![S::EntNameTag]), (3, scopes![S::EntNameTagNamespace]), (4, scopes![S::PSeparatorColon]), (5, scopes![S::EntNameTagLocalname])],
                 nested: &[],
             },
-            Pat::XmlTagEnd => PatData {
+            Pat::XmlTagEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionTag])],
                 nested: &[],
             },
-            Pat::XmlAttributeAt0 => PatData {
+            Pat::XmlAttributeAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntOtherAttributeName]), (2, scopes![S::EntOtherAttributeNameNamespace]), (3, scopes![S::PSeparatorColon]), (4, scopes![S::EntOtherAttributeNameLocalname]), (5, scopes![S::PSeparatorEquals])],
                 nested: &[],
             },
-            Pat::XmlStringAt0 => PatData {
+            Pat::XmlStringAt0 => PatDefinition {
                 act: Act::Begin(Rule::XmlStringAt0),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::XmlStringAt1 => PatData {
+            Pat::XmlStringAt1 => PatDefinition {
                 act: Act::Begin(Rule::XmlStringAt1),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::CommentAt1 => PatData {
+            Pat::CommentAt1 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt1),
                 captures: &[(1, scopes![S::PWhitespaceCommentLeading]), (2, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentAt1End => PatData {
+            Pat::CommentAt1End => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PWhitespaceCommentLeading]), (2, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentAt1At0 => PatData {
+            Pat::CommentAt1At0 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt1At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CommentAt2 => PatData {
+            Pat::CommentAt2 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt2),
                 captures: &[(1, scopes![S::PWhitespaceCommentLeading]), (2, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::CommentAt3 => PatData {
+            Pat::CommentAt3 => PatDefinition {
                 act: Act::Begin(Rule::CommentAt3),
                 captures: &[(0, scopes![S::PDefinitionComment])],
                 nested: &[],
             },
-            Pat::ExternAliasDirective => PatData {
+            Pat::ExternAliasDirective => PatDefinition {
                 act: Act::Begin(Rule::ExternAliasDirective),
                 captures: &[(1, scopes![S::KwOtherDirectiveExtern]), (2, scopes![S::KwOtherDirectiveAlias])],
                 nested: &[],
             },
-            Pat::ExternAliasDirectiveAt0 => PatData {
+            Pat::ExternAliasDirectiveAt0 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherAlias]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::UsingDirectiveAt0 => PatData {
+            Pat::UsingDirectiveAt0 => PatDefinition {
                 act: Act::Begin(Rule::UsingDirectiveAt0),
                 captures: &[(1, scopes![S::KwOtherDirectiveGlobal]), (2, scopes![S::KwOtherDirectiveUsing]), (3, scopes![S::KwOtherDirectiveStatic]), (4, scopes![S::StorModifierUnsafe])],
                 nested: &[],
             },
             Pat::RefModifier
             | Pat::ArgumentAt0Ref
-            | Pat::StorageModifierRef => PatData {
+            | Pat::StorageModifierRef => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierRef]),
                 captures: &[],
                 nested: &[],
             },
             Pat::ReadonlyModifier
-            | Pat::StorageModifierReadonly => PatData {
+            | Pat::StorageModifierReadonly => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierReadonly]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TupleType => PatData {
+            Pat::TupleType => PatDefinition {
                 act: Act::Begin(Rule::TupleType),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TypeBuiltinBool => PatData {
+            Pat::TypeBuiltinBool => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeBool])],
                 nested: &[],
             },
-            Pat::TypeBuiltinSbyte => PatData {
+            Pat::TypeBuiltinSbyte => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeSbyte])],
                 nested: &[],
             },
-            Pat::TypeBuiltinByte => PatData {
+            Pat::TypeBuiltinByte => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeByte])],
                 nested: &[],
             },
-            Pat::TypeBuiltinUshort => PatData {
+            Pat::TypeBuiltinUshort => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeUshort])],
                 nested: &[],
             },
-            Pat::TypeBuiltinShort => PatData {
+            Pat::TypeBuiltinShort => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeShort])],
                 nested: &[],
             },
-            Pat::TypeBuiltinNuint => PatData {
+            Pat::TypeBuiltinNuint => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeNuint])],
                 nested: &[],
             },
-            Pat::TypeBuiltinNint => PatData {
+            Pat::TypeBuiltinNint => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeNint])],
                 nested: &[],
             },
-            Pat::TypeBuiltinUint => PatData {
+            Pat::TypeBuiltinUint => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeUint])],
                 nested: &[],
             },
-            Pat::TypeBuiltinInt => PatData {
+            Pat::TypeBuiltinInt => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeInt])],
                 nested: &[],
             },
-            Pat::TypeBuiltinUlong => PatData {
+            Pat::TypeBuiltinUlong => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeUlong])],
                 nested: &[],
             },
-            Pat::TypeBuiltinLong => PatData {
+            Pat::TypeBuiltinLong => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeLong])],
                 nested: &[],
             },
-            Pat::TypeBuiltinFloat => PatData {
+            Pat::TypeBuiltinFloat => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeFloat])],
                 nested: &[],
             },
-            Pat::TypeBuiltinDouble => PatData {
+            Pat::TypeBuiltinDouble => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeDouble])],
                 nested: &[],
             },
-            Pat::TypeBuiltinDecimal => PatData {
+            Pat::TypeBuiltinDecimal => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeDecimal])],
                 nested: &[],
             },
-            Pat::TypeBuiltinChar => PatData {
+            Pat::TypeBuiltinChar => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeChar])],
                 nested: &[],
             },
-            Pat::TypeBuiltinString => PatData {
+            Pat::TypeBuiltinString => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeString])],
                 nested: &[],
             },
-            Pat::TypeBuiltinObject => PatData {
+            Pat::TypeBuiltinObject => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeObject])],
                 nested: &[],
             },
-            Pat::TypeBuiltinVoid => PatData {
+            Pat::TypeBuiltinVoid => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeVoid])],
                 nested: &[],
             },
-            Pat::TypeBuiltinDynamic => PatData {
+            Pat::TypeBuiltinDynamic => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwTypeDynamic])],
                 nested: &[],
             },
             Pat::TypeNameAt0
-            | Pat::CastedConstantPatternAt3 => PatData {
+            | Pat::CastedConstantPatternAt3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntNameTypeAlias]), (2, scopes![S::PSeparatorColoncolon])],
                 nested: &[],
             },
             Pat::TypeNameAt1
-            | Pat::CastedConstantPatternAt4 => PatData {
+            | Pat::CastedConstantPatternAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntNameType]), (2, scopes![S::PAccessor])],
                 nested: &[],
             },
-            Pat::TypeNameAt2 => PatData {
+            Pat::TypeNameAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::PAccessor]), (2, scopes![S::EntNameType])],
                 nested: &[],
@@ -4671,254 +4671,254 @@ impl Pat {
             Pat::TypeNameAt3
             | Pat::TypeSubpatternAt1At1
             | Pat::TypeSubpatternAt2
-            | Pat::TypeSubpatternAt3At1 => PatData {
+            | Pat::TypeSubpatternAt3At1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameType]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TypeArguments => PatData {
+            Pat::TypeArguments => PatDefinition {
                 act: Act::Begin(Rule::TypeArguments),
                 captures: &[(0, scopes![S::PDefinitionTypeparametersBegin])],
                 nested: &[],
             },
             Pat::TypeArgumentsEnd
-            | Pat::TypeParameterListEnd => PatData {
+            | Pat::TypeParameterListEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionTypeparametersEnd])],
                 nested: &[],
             },
-            Pat::TypeArraySuffix => PatData {
+            Pat::TypeArraySuffix => PatDefinition {
                 act: Act::Begin(Rule::TypeArraySuffix),
                 captures: &[(0, scopes![S::PSquarebracketOpen])],
                 nested: &[],
             },
             Pat::TypeArraySuffixEnd
             | Pat::BracketedArgumentListEnd
-            | Pat::ListPatternAt0End => PatData {
+            | Pat::ListPatternAt0End => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSquarebracketClose])],
                 nested: &[],
             },
             Pat::TypeNullableSuffix
-            | Pat::TypeSubpatternAt6 => PatData {
+            | Pat::TypeSubpatternAt6 => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorQuestionMark]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TypePointerSuffix => PatData {
+            Pat::TypePointerSuffix => PatDefinition {
                 act: Act::Match(scopes![S::PSeparatorAsterisk]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TupleElement => PatData {
+            Pat::TupleElement => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(6, scopes![S::EntNameVariableTupleElement])],
                 nested: &[(1, Nested::Type)],
             },
-            Pat::UsingDirectiveAt1 => PatData {
+            Pat::UsingDirectiveAt1 => PatDefinition {
                 act: Act::Begin(Rule::UsingDirectiveAt1),
                 captures: &[(1, scopes![S::KwOtherDirectiveGlobal]), (2, scopes![S::KwOtherDirectiveUsing]), (3, scopes![S::StorModifierUnsafe]), (4, scopes![S::EntNameTypeAlias]), (5, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::UsingDirectiveAt2 => PatData {
+            Pat::UsingDirectiveAt2 => PatDefinition {
                 act: Act::Begin(Rule::UsingDirectiveAt2),
                 captures: &[(1, scopes![S::KwOtherDirectiveGlobal]), (2, scopes![S::KwOtherDirectiveUsing])],
                 nested: &[],
             },
             Pat::UsingDirectiveAt2At1
-            | Pat::NamespaceDeclarationAt1 => PatData {
+            | Pat::NamespaceDeclarationAt1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameTypeNamespace]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PunctuationAccessor => PatData {
+            Pat::PunctuationAccessor => PatDefinition {
                 act: Act::Match(scopes![S::PAccessor]),
                 captures: &[],
                 nested: &[],
             },
             Pat::OperatorAssignment
-            | Pat::AssignmentOperatorsAt2 => PatData {
+            | Pat::AssignmentOperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignment]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AttributeSection => PatData {
+            Pat::AttributeSection => PatDefinition {
                 act: Act::Begin(Rule::AttributeSection),
                 captures: &[(1, scopes![S::PSquarebracketOpen]), (2, scopes![S::KwOtherAttributeSpecifier]), (3, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
             Pat::AttributeSectionEnd
-            | Pat::BracketedParameterListEnd => PatData {
+            | Pat::BracketedParameterListEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PSquarebracketClose])],
                 nested: &[],
             },
-            Pat::AttributeArguments => PatData {
+            Pat::AttributeArguments => PatDefinition {
                 act: Act::Begin(Rule::AttributeArguments),
                 captures: &[(1, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::AttributeArgumentsEnd => PatData {
+            Pat::AttributeArgumentsEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PParenthesisClose])],
                 nested: &[],
             },
-            Pat::AttributeNamedArgument => PatData {
+            Pat::AttributeNamedArgument => PatDefinition {
                 act: Act::Begin(Rule::AttributeNamedArgument),
                 captures: &[(1, scopes![S::EntNameVariableProperty])],
                 nested: &[],
             },
-            Pat::ExpressionOperatorExpressionChecked => PatData {
+            Pat::ExpressionOperatorExpressionChecked => PatDefinition {
                 act: Act::Begin(Rule::ExpressionOperatorExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionChecked]), (2, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::ExpressionOperatorExpressionUnchecked => PatData {
+            Pat::ExpressionOperatorExpressionUnchecked => PatDefinition {
                 act: Act::Begin(Rule::ExpressionOperatorExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionUnchecked]), (2, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::ExpressionOperatorExpressionNameof => PatData {
+            Pat::ExpressionOperatorExpressionNameof => PatDefinition {
                 act: Act::Begin(Rule::ExpressionOperatorExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionNameof]), (2, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TypeOperatorExpressionDefault => PatData {
+            Pat::TypeOperatorExpressionDefault => PatDefinition {
                 act: Act::Begin(Rule::TypeOperatorExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionDefault]), (2, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TypeOperatorExpressionSizeof => PatData {
+            Pat::TypeOperatorExpressionSizeof => PatDefinition {
                 act: Act::Begin(Rule::TypeOperatorExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionSizeof]), (2, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TypeOperatorExpressionTypeof => PatData {
+            Pat::TypeOperatorExpressionTypeof => PatDefinition {
                 act: Act::Begin(Rule::TypeOperatorExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionTypeof]), (2, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::DefaultLiteralExpression => PatData {
+            Pat::DefaultLiteralExpression => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionDefault])],
                 nested: &[],
             },
-            Pat::ThrowExpression => PatData {
+            Pat::ThrowExpression => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlFlowThrow])],
                 nested: &[],
             },
-            Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation => PatData {
+            Pat::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation => PatDefinition {
                 act: Act::Begin(Rule::RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation => PatData {
+            Pat::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation => PatDefinition {
                 act: Act::Begin(Rule::RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation => PatData {
+            Pat::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation => PatDefinition {
                 act: Act::Begin(Rule::RawInterpolatedStringQuadrupleQuoteDoubleInterpolation),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::DoubleRawInterpolation => PatData {
+            Pat::DoubleRawInterpolation => PatDefinition {
                 act: Act::Begin(Rule::DoubleRawInterpolation),
                 captures: &[(1, scopes![S::StrQuotedDouble]), (2, scopes![S::PDefinitionInterpolationBegin])],
                 nested: &[],
             },
             Pat::DoubleRawInterpolationEnd
             | Pat::RawInterpolationEnd
-            | Pat::InterpolationEnd => PatData {
+            | Pat::InterpolationEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PDefinitionInterpolationEnd])],
                 nested: &[],
             },
-            Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation => PatData {
+            Pat::RawInterpolatedStringQuadrupleQuoteSingleInterpolation => PatDefinition {
                 act: Act::Begin(Rule::RawInterpolatedStringQuadrupleQuoteSingleInterpolation),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RawInterpolation => PatData {
+            Pat::RawInterpolation => PatDefinition {
                 act: Act::Begin(Rule::RawInterpolation),
                 captures: &[(1, scopes![S::StrQuotedDouble]), (2, scopes![S::PDefinitionInterpolationBegin])],
                 nested: &[],
             },
-            Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation => PatData {
+            Pat::RawInterpolatedStringTripleQuoteDoubleInterpolation => PatDefinition {
                 act: Act::Begin(Rule::RawInterpolatedStringTripleQuoteDoubleInterpolation),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RawInterpolatedStringTripleQuoteSingleInterpolation => PatData {
+            Pat::RawInterpolatedStringTripleQuoteSingleInterpolation => PatDefinition {
                 act: Act::Begin(Rule::RawInterpolatedStringTripleQuoteSingleInterpolation),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::InterpolatedString => PatData {
+            Pat::InterpolatedString => PatDefinition {
                 act: Act::Begin(Rule::InterpolatedString),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
             Pat::InterpolatedStringEnd
-            | Pat::StringLiteralEnd => PatData {
+            | Pat::StringLiteralEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionStringEnd]), (2, scopes![S::InvIllegalNewline])],
                 nested: &[],
             },
             Pat::StringCharacterEscape
             | Pat::VerbatimStringCharacterEscape
-            | Pat::CharCharacterEscape => PatData {
+            | Pat::CharCharacterEscape => PatDefinition {
                 act: Act::Match(scopes![S::ConstCharacterEscape]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Interpolation => PatData {
+            Pat::Interpolation => PatDefinition {
                 act: Act::Begin(Rule::Interpolation),
                 captures: &[(1, scopes![S::StrQuotedDouble]), (2, scopes![S::PDefinitionInterpolationBegin])],
                 nested: &[],
             },
-            Pat::VerbatimInterpolatedString => PatData {
+            Pat::VerbatimInterpolatedString => PatDefinition {
                 act: Act::Begin(Rule::VerbatimInterpolatedString),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::LanguageVariableAt0Base => PatData {
+            Pat::LanguageVariableAt0Base => PatDefinition {
                 act: Act::Match(scopes![S::VarLanguageBase]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LanguageVariableAt0This => PatData {
+            Pat::LanguageVariableAt0This => PatDefinition {
                 act: Act::Match(scopes![S::VarLanguageThis]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LanguageVariableAt1Value => PatData {
+            Pat::LanguageVariableAt1Value => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherValue]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SwitchStatementOrExpression => PatData {
+            Pat::SwitchStatementOrExpression => PatDefinition {
                 act: Act::Begin(Rule::SwitchStatementOrExpression),
                 captures: &[(1, scopes![S::KwControlConditionalSwitch])],
                 nested: &[],
             },
-            Pat::SwitchStatementOrExpressionAt1 => PatData {
+            Pat::SwitchStatementOrExpressionAt1 => PatDefinition {
                 act: Act::Begin(Rule::SwitchStatementOrExpressionAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SwitchStatementAt1 => PatData {
+            Pat::SwitchStatementAt1 => PatDefinition {
                 act: Act::Begin(Rule::SwitchStatementAt1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::WithExpression => PatData {
+            Pat::WithExpression => PatDefinition {
                 act: Act::Begin(Rule::WithExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionWith])],
                 nested: &[],
             },
-            Pat::InitializerExpression => PatData {
+            Pat::InitializerExpression => PatDefinition {
                 act: Act::Begin(Rule::InitializerExpression),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
@@ -4938,1347 +4938,1347 @@ impl Pat {
             | Pat::StructDeclarationAt1End
             | Pat::UnionDeclarationAt1End
             | Pat::RecordDeclarationAt1End
-            | Pat::EventAccessorsEnd => PatData {
+            | Pat::EventAccessorsEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PCurlybraceClose])],
                 nested: &[],
             },
-            Pat::ConditionalOperatorAt0 => PatData {
+            Pat::ConditionalOperatorAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorConditionalQuestionMark]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ConditionalOperatorAt1 => PatData {
+            Pat::ConditionalOperatorAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorConditionalColon]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AssignmentOperatorsAt0 => PatData {
+            Pat::AssignmentOperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignmentCompound]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AssignmentOperatorsAt1 => PatData {
+            Pat::AssignmentOperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorAssignmentCompoundBitwise]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AssignmentExpression => PatData {
+            Pat::AssignmentExpression => PatDefinition {
                 act: Act::Begin(Rule::AssignmentExpression),
                 captures: &[],
                 nested: &[(0, Nested::AssignmentOperators)],
             },
-            Pat::ExpressionOperatorsAt0 => PatData {
+            Pat::ExpressionOperatorsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorBitwiseShift]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt1 => PatData {
+            Pat::ExpressionOperatorsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorComparison]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt2 => PatData {
+            Pat::ExpressionOperatorsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorRelational]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt3 => PatData {
+            Pat::ExpressionOperatorsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorLogical]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt4 => PatData {
+            Pat::ExpressionOperatorsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorBitwise]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt5 => PatData {
+            Pat::ExpressionOperatorsAt5 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorDecrement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt6 => PatData {
+            Pat::ExpressionOperatorsAt6 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorIncrement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt7 => PatData {
+            Pat::ExpressionOperatorsAt7 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorArithmetic]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ExpressionOperatorsAt8 => PatData {
+            Pat::ExpressionOperatorsAt8 => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorNullCoalescing]),
                 captures: &[],
                 nested: &[],
             },
             Pat::ExpressionOperatorsAt9
-            | Pat::SlicePattern => PatData {
+            | Pat::SlicePattern => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorRange]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::AwaitExpression => PatData {
+            Pat::AwaitExpression => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorExpressionAwait]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::QueryExpression => PatData {
+            Pat::QueryExpression => PatDefinition {
                 act: Act::Begin(Rule::QueryExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryFrom]), (7, scopes![S::EntNameVariableRangeVariable]), (8, scopes![S::KwOperatorExpressionQueryIn])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::LetClause => PatData {
+            Pat::LetClause => PatDefinition {
                 act: Act::Begin(Rule::LetClause),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryLet]), (2, scopes![S::EntNameVariableRangeVariable]), (3, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::WhereClause => PatData {
+            Pat::WhereClause => PatDefinition {
                 act: Act::Begin(Rule::WhereClause),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryWhere])],
                 nested: &[],
             },
-            Pat::JoinClause => PatData {
+            Pat::JoinClause => PatDefinition {
                 act: Act::Begin(Rule::JoinClause),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryJoin]), (7, scopes![S::EntNameVariableRangeVariable]), (8, scopes![S::KwOperatorExpressionQueryIn])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::JoinOn => PatData {
+            Pat::JoinOn => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryOn])],
                 nested: &[],
             },
-            Pat::JoinEquals => PatData {
+            Pat::JoinEquals => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryEquals])],
                 nested: &[],
             },
             Pat::JoinInto
-            | Pat::GroupInto => PatData {
+            | Pat::GroupInto => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryInto]), (2, scopes![S::EntNameVariableRangeVariable])],
                 nested: &[],
             },
-            Pat::OrderbyClause => PatData {
+            Pat::OrderbyClause => PatDefinition {
                 act: Act::Begin(Rule::OrderbyClause),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryOrderby])],
                 nested: &[],
             },
-            Pat::OrderingDirectionAscending => PatData {
+            Pat::OrderingDirectionAscending => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryAscending])],
                 nested: &[],
             },
-            Pat::OrderingDirectionDescending => PatData {
+            Pat::OrderingDirectionDescending => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryDescending])],
                 nested: &[],
             },
-            Pat::SelectClause => PatData {
+            Pat::SelectClause => PatDefinition {
                 act: Act::Begin(Rule::SelectClause),
                 captures: &[(1, scopes![S::KwOperatorExpressionQuerySelect])],
                 nested: &[],
             },
-            Pat::GroupClause => PatData {
+            Pat::GroupClause => PatDefinition {
                 act: Act::Begin(Rule::GroupClause),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryGroup])],
                 nested: &[],
             },
-            Pat::GroupBy => PatData {
+            Pat::GroupBy => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionQueryBy])],
                 nested: &[],
             },
-            Pat::AsExpression => PatData {
+            Pat::AsExpression => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionAs])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::IsExpression => PatData {
+            Pat::IsExpression => PatDefinition {
                 act: Act::Begin(Rule::IsExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionPatternIs])],
                 nested: &[],
             },
-            Pat::CombinatorPatternAnd => PatData {
+            Pat::CombinatorPatternAnd => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorExpressionPatternCombinatorAnd]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CombinatorPatternOr => PatData {
+            Pat::CombinatorPatternOr => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorExpressionPatternCombinatorOr]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::CombinatorPatternNot => PatData {
+            Pat::CombinatorPatternNot => PatDefinition {
                 act: Act::Match(scopes![S::KwOperatorExpressionPatternCombinatorNot]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DiscardPattern => PatData {
+            Pat::DiscardPattern => PatDefinition {
                 act: Act::Match(scopes![S::VarLanguageDiscard]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BooleanLiteralAt0 => PatData {
+            Pat::BooleanLiteralAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguageBooleanTrue]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BooleanLiteralAt1 => PatData {
+            Pat::BooleanLiteralAt1 => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguageBooleanFalse]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NullLiteral => PatData {
+            Pat::NullLiteral => PatDefinition {
                 act: Act::Match(scopes![S::ConstLanguageNull]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NestedBeginAt0 => PatData {
+            Pat::NestedBeginAt0 => PatDefinition {
                 act: Act::Begin(Rule::NestedBeginAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NestedPatternAt0 => PatData {
+            Pat::NestedPatternAt0 => PatDefinition {
                 act: Act::Match(scopes![S::ConstNumericOtherSeparatorThousands]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NestedBeginAt0At0 => PatData {
+            Pat::NestedBeginAt0At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(2, scopes![S::ConstNumericDecimal]), (3, scopes![S::ConstNumericOtherSeparatorThousands]), (4, scopes![S::ConstNumericOtherSeparatorDecimals]), (5, scopes![S::ConstNumericDecimal]), (6, scopes![S::ConstNumericOtherSeparatorThousands]), (8, scopes![S::ConstNumericOtherExponent]), (9, scopes![S::KwOperatorArithmetic]), (10, scopes![S::KwOperatorArithmetic]), (11, scopes![S::ConstNumericDecimal]), (12, scopes![S::ConstNumericOtherSuffix])],
                 nested: &[(2, Nested::Pattern), (5, Nested::Pattern), (11, Nested::Pattern)],
             },
-            Pat::NestedBeginAt0At1 => PatData {
+            Pat::NestedBeginAt0At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::ConstNumericOtherPrefixBinary]), (2, scopes![S::ConstNumericBinary]), (3, scopes![S::ConstNumericOtherSeparatorThousands]), (4, scopes![S::ConstNumericOtherSuffix])],
                 nested: &[(2, Nested::Pattern)],
             },
-            Pat::NestedBeginAt0At2 => PatData {
+            Pat::NestedBeginAt0At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::ConstNumericOtherPrefixHex]), (2, scopes![S::ConstNumericHex]), (3, scopes![S::ConstNumericOtherSeparatorThousands]), (4, scopes![S::ConstNumericOtherSuffix])],
                 nested: &[(2, Nested::Pattern)],
             },
-            Pat::NestedBeginAt0At3 => PatData {
+            Pat::NestedBeginAt0At3 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(2, scopes![S::ConstNumericDecimal]), (3, scopes![S::ConstNumericOtherSeparatorThousands]), (5, scopes![S::ConstNumericOtherExponent]), (6, scopes![S::KwOperatorArithmetic]), (7, scopes![S::KwOperatorArithmetic]), (8, scopes![S::ConstNumericDecimal]), (9, scopes![S::ConstNumericOtherSuffix])],
                 nested: &[(2, Nested::Pattern), (8, Nested::Pattern)],
             },
-            Pat::NestedBeginAt0At4 => PatData {
+            Pat::NestedBeginAt0At4 => PatDefinition {
                 act: Act::Match(scopes![S::InvIllegalConstantNumeric]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NumericLiteral => PatData {
+            Pat::NumericLiteral => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(0, Nested::Begin)],
             },
-            Pat::CharLiteral => PatData {
+            Pat::CharLiteral => PatDefinition {
                 act: Act::Begin(Rule::CharLiteral),
                 captures: &[(0, scopes![S::PDefinitionCharBegin])],
                 nested: &[],
             },
-            Pat::CharLiteralEnd => PatData {
+            Pat::CharLiteralEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PDefinitionCharEnd]), (2, scopes![S::InvIllegalNewline])],
                 nested: &[],
             },
-            Pat::StringLiteral => PatData {
+            Pat::StringLiteral => PatDefinition {
                 act: Act::Begin(Rule::StringLiteral),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RawStringLiteralMore => PatData {
+            Pat::RawStringLiteralMore => PatDefinition {
                 act: Act::Begin(Rule::RawStringLiteralMore),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RawStringLiteralQuadruple => PatData {
+            Pat::RawStringLiteralQuadruple => PatDefinition {
                 act: Act::Begin(Rule::RawStringLiteralQuadruple),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::RawStringLiteralTriple => PatData {
+            Pat::RawStringLiteralTriple => PatDefinition {
                 act: Act::Begin(Rule::RawStringLiteralTriple),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::VerbatimStringLiteral => PatData {
+            Pat::VerbatimStringLiteral => PatDefinition {
                 act: Act::Begin(Rule::VerbatimStringLiteral),
                 captures: &[(0, scopes![S::PDefinitionStringBegin])],
                 nested: &[],
             },
-            Pat::CastedConstantPattern => PatData {
+            Pat::CastedConstantPattern => PatDefinition {
                 act: Act::Begin(Rule::CastedConstantPattern),
                 captures: &[(1, scopes![S::PParenthesisOpen]), (3, scopes![S::PParenthesisClose])],
                 nested: &[(2, Nested::TypeBuiltinAndTypeName)],
             },
-            Pat::CastedConstantPatternAt1 => PatData {
+            Pat::CastedConstantPatternAt1 => PatDefinition {
                 act: Act::Begin(Rule::CastedConstantPatternAt1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::CastedConstantPatternAt5 => PatData {
+            Pat::CastedConstantPatternAt5 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherConstant]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RelationalPattern => PatData {
+            Pat::RelationalPattern => PatDefinition {
                 act: Act::Begin(Rule::RelationalPattern),
                 captures: &[(0, scopes![S::KwOperatorRelational])],
                 nested: &[],
             },
             Pat::NestedPattern7At0Async
-            | Pat::StorageModifierAsync => PatData {
+            | Pat::StorageModifierAsync => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierAsync]),
                 captures: &[],
                 nested: &[],
             },
             Pat::NestedPattern7At0Static
-            | Pat::StorageModifierStatic => PatData {
+            | Pat::StorageModifierStatic => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierStatic]),
                 captures: &[],
                 nested: &[],
             },
             Pat::ExplicitAnonymousFunctionParameterRef
-            | Pat::ParameterRef => PatData {
+            | Pat::ParameterRef => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierRef]), (7, scopes![S::EntNameVariableParameter])],
                 nested: &[(2, Nested::Type)],
             },
             Pat::ExplicitAnonymousFunctionParameterParams
-            | Pat::ParameterParams => PatData {
+            | Pat::ParameterParams => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierParams]), (7, scopes![S::EntNameVariableParameter])],
                 nested: &[(2, Nested::Type)],
             },
             Pat::ExplicitAnonymousFunctionParameterOut
-            | Pat::ParameterOut => PatData {
+            | Pat::ParameterOut => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierOut]), (7, scopes![S::EntNameVariableParameter])],
                 nested: &[(2, Nested::Type)],
             },
             Pat::ExplicitAnonymousFunctionParameterIn
-            | Pat::ParameterIn => PatData {
+            | Pat::ParameterIn => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierIn]), (7, scopes![S::EntNameVariableParameter])],
                 nested: &[(2, Nested::Type)],
             },
             Pat::ExplicitAnonymousFunctionParameter
-            | Pat::Parameter => PatData {
+            | Pat::Parameter => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(7, scopes![S::EntNameVariableParameter])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::ImplicitAnonymousFunctionParameter => PatData {
+            Pat::ImplicitAnonymousFunctionParameter => PatDefinition {
                 act: Act::Match(scopes![S::EntNameVariableParameter]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DefaultArgument => PatData {
+            Pat::DefaultArgument => PatDefinition {
                 act: Act::Begin(Rule::DefaultArgument),
                 captures: &[(0, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::AnonymousMethodExpressionAt0 => PatData {
+            Pat::AnonymousMethodExpressionAt0 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousMethodExpressionAt0),
                 captures: &[(2, scopes![S::EntNameVariableParameter]), (3, scopes![S::PParenthesisOpen]), (5, scopes![S::PParenthesisClose]), (6, scopes![S::KwOperatorArrow])],
                 nested: &[(1, Nested::Pattern7), (4, Nested::CommentAndExplicitAnonymousFunctionParameterAndImplicitAnonymousFunctionParameterAndDefaultArgumentAndPunctuationComma)],
             },
-            Pat::AnonymousMethodExpressionAt0At1 => PatData {
+            Pat::AnonymousMethodExpressionAt0At1 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousMethodExpressionAt0At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::Block => PatData {
+            Pat::Block => PatDefinition {
                 act: Act::Begin(Rule::Block),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::WhileStatement => PatData {
+            Pat::WhileStatement => PatDefinition {
                 act: Act::Begin(Rule::WhileStatement),
                 captures: &[(1, scopes![S::KwControlLoopWhile])],
                 nested: &[],
             },
-            Pat::WhileStatementAt0 => PatData {
+            Pat::WhileStatementAt0 => PatDefinition {
                 act: Act::Begin(Rule::WhileStatementAt0),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::AnonymousMethodExpressionAt1 => PatData {
+            Pat::AnonymousMethodExpressionAt1 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousMethodExpressionAt1),
                 captures: &[(2, scopes![S::StorTypeDelegate])],
                 nested: &[(1, Nested::Pattern7)],
             },
-            Pat::AnonymousMethodExpressionAt1At1 => PatData {
+            Pat::AnonymousMethodExpressionAt1At1 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousMethodExpressionAt1At1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::ObjectCreationExpressionWithParameters => PatData {
+            Pat::ObjectCreationExpressionWithParameters => PatDefinition {
                 act: Act::Begin(Rule::ObjectCreationExpressionWithParameters),
                 captures: &[(1, scopes![S::KwOperatorExpressionNew])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::ArgumentList => PatData {
+            Pat::ArgumentList => PatDefinition {
                 act: Act::Begin(Rule::ArgumentList),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::NamedArgument => PatData {
+            Pat::NamedArgument => PatDefinition {
                 act: Act::Begin(Rule::NamedArgument),
                 captures: &[(1, scopes![S::EntNameVariableParameter]), (2, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
             Pat::ArgumentAt0In
-            | Pat::TypeParameterListAt0In => PatData {
+            | Pat::TypeParameterListAt0In => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierIn]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ArgumentAt1 => PatData {
+            Pat::ArgumentAt1 => PatDefinition {
                 act: Act::Begin(Rule::ArgumentAt1),
                 captures: &[(1, scopes![S::StorModifierOut])],
                 nested: &[],
             },
-            Pat::DeclarationExpressionLocal => PatData {
+            Pat::DeclarationExpressionLocal => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorTypeVar]), (7, scopes![S::EntNameVariableLocal])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::ObjectCreationExpressionWithNoParameters => PatData {
+            Pat::ObjectCreationExpressionWithNoParameters => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionNew])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::ArrayCreationExpressionNew => PatData {
+            Pat::ArrayCreationExpressionNew => PatDefinition {
                 act: Act::Begin(Rule::ArrayCreationExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionNew])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::ArrayCreationExpressionStackalloc => PatData {
+            Pat::ArrayCreationExpressionStackalloc => PatDefinition {
                 act: Act::Begin(Rule::ArrayCreationExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionStackalloc])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::BracketedArgumentList => PatData {
+            Pat::BracketedArgumentList => PatDefinition {
                 act: Act::Begin(Rule::BracketedArgumentList),
                 captures: &[(0, scopes![S::PSquarebracketOpen])],
                 nested: &[],
             },
-            Pat::AnonymousObjectCreationExpression => PatData {
+            Pat::AnonymousObjectCreationExpression => PatDefinition {
                 act: Act::Begin(Rule::AnonymousObjectCreationExpression),
                 captures: &[(1, scopes![S::KwOperatorExpressionNew])],
                 nested: &[],
             },
-            Pat::InvocationExpression => PatData {
+            Pat::InvocationExpression => PatDefinition {
                 act: Act::Begin(Rule::InvocationExpression),
                 captures: &[(1, scopes![S::KwOperatorNullConditional]), (2, scopes![S::PAccessor]), (3, scopes![S::PAccessorPointer]), (4, scopes![S::EntNameFunction])],
                 nested: &[(5, Nested::TypeArguments)],
             },
-            Pat::MemberAccessExpressionAt0 => PatData {
+            Pat::MemberAccessExpressionAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorNullConditional]), (2, scopes![S::PAccessor]), (3, scopes![S::PAccessorPointer]), (4, scopes![S::VarOtherObjectProperty])],
                 nested: &[],
             },
-            Pat::MemberAccessExpressionAt1 => PatData {
+            Pat::MemberAccessExpressionAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::PAccessor]), (2, scopes![S::VarOtherObject])],
                 nested: &[(3, Nested::TypeArguments)],
             },
-            Pat::MemberAccessExpressionAt2 => PatData {
+            Pat::MemberAccessExpressionAt2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarOtherObject])],
                 nested: &[],
             },
-            Pat::ElementAccessExpression => PatData {
+            Pat::ElementAccessExpression => PatDefinition {
                 act: Act::Begin(Rule::ElementAccessExpression),
                 captures: &[(1, scopes![S::KwOperatorNullConditional]), (2, scopes![S::PAccessor]), (3, scopes![S::PAccessorPointer]), (4, scopes![S::VarOtherObjectProperty]), (5, scopes![S::KwOperatorNullConditional])],
                 nested: &[],
             },
-            Pat::CastExpression => PatData {
+            Pat::CastExpression => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::PParenthesisOpen]), (7, scopes![S::PParenthesisClose])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::TupleLiteral => PatData {
+            Pat::TupleLiteral => PatDefinition {
                 act: Act::Begin(Rule::TupleLiteral),
                 captures: &[(1, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TupleLiteralElement => PatData {
+            Pat::TupleLiteralElement => PatDefinition {
                 act: Act::Begin(Rule::TupleLiteralElement),
                 captures: &[(1, scopes![S::EntNameVariableTupleElement])],
                 nested: &[],
             },
-            Pat::TupleLiteralElementEnd => PatData {
+            Pat::TupleLiteralElementEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(0, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::ParenthesizedExpression => PatData {
+            Pat::ParenthesizedExpression => PatDefinition {
                 act: Act::Begin(Rule::ParenthesizedExpression),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TupleDeconstructionElementList => PatData {
+            Pat::TupleDeconstructionElementList => PatDefinition {
                 act: Act::Begin(Rule::TupleDeconstructionElementList),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::DeclarationExpressionTuple => PatData {
+            Pat::DeclarationExpressionTuple => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorTypeVar]), (7, scopes![S::EntNameVariableTupleElement])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::TupleDeconstructionElementListAt4 => PatData {
+            Pat::TupleDeconstructionElementListAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::VarOtherReadwrite])],
                 nested: &[],
             },
-            Pat::TupleDeconstructionAssignment => PatData {
+            Pat::TupleDeconstructionAssignment => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Nested::TupleDeconstructionElementList)],
             },
-            Pat::Identifier => PatData {
+            Pat::Identifier => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherReadwrite]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DoStatement => PatData {
+            Pat::DoStatement => PatDefinition {
                 act: Act::Begin(Rule::DoStatement),
                 captures: &[(1, scopes![S::KwControlLoopDo])],
                 nested: &[],
             },
-            Pat::ForStatement => PatData {
+            Pat::ForStatement => PatDefinition {
                 act: Act::Begin(Rule::ForStatement),
                 captures: &[(1, scopes![S::KwControlLoopFor])],
                 nested: &[],
             },
-            Pat::ForStatementAt0 => PatData {
+            Pat::ForStatementAt0 => PatDefinition {
                 act: Act::Begin(Rule::ForStatementAt0),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::ForStatementAt0At0 => PatData {
+            Pat::ForStatementAt0At0 => PatDefinition {
                 act: Act::Begin(Rule::ForStatementAt0At0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LocalVariableDeclaration => PatData {
+            Pat::LocalVariableDeclaration => PatDefinition {
                 act: Act::Begin(Rule::LocalVariableDeclaration),
                 captures: &[(1, scopes![S::StorModifierRef]), (2, scopes![S::StorModifierReadonly]), (3, scopes![S::StorTypeVar]), (9, scopes![S::EntNameVariableLocal])],
                 nested: &[(4, Nested::Type)],
             },
             Pat::LocalVariableDeclarationAt0
             | Pat::LocalConstantDeclarationAt0
-            | Pat::SimpleDesignationPatternAt1 => PatData {
+            | Pat::SimpleDesignationPatternAt1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameVariableLocal]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::VariableInitializer => PatData {
+            Pat::VariableInitializer => PatDefinition {
                 act: Act::Begin(Rule::VariableInitializer),
                 captures: &[(1, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::TupleDeclarationDeconstructionElementList => PatData {
+            Pat::TupleDeclarationDeconstructionElementList => PatDefinition {
                 act: Act::Begin(Rule::TupleDeclarationDeconstructionElementList),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TupleDeclarationDeconstructionElementListAt4 => PatData {
+            Pat::TupleDeclarationDeconstructionElementListAt4 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntNameVariableTupleElement])],
                 nested: &[],
             },
-            Pat::LocalTupleVarDeconstruction => PatData {
+            Pat::LocalTupleVarDeconstruction => PatDefinition {
                 act: Act::Begin(Rule::LocalTupleVarDeconstruction),
                 captures: &[(1, scopes![S::StorTypeVar])],
                 nested: &[(2, Nested::TupleDeclarationDeconstructionElementList)],
             },
-            Pat::ForStatementAt0At1 => PatData {
+            Pat::ForStatementAt0At1 => PatDefinition {
                 act: Act::Begin(Rule::ForStatementAt0At1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PunctuationSemicolon => PatData {
+            Pat::PunctuationSemicolon => PatDefinition {
                 act: Act::Match(scopes![S::PTerminatorStatement]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ForeachStatement => PatData {
+            Pat::ForeachStatement => PatDefinition {
                 act: Act::Begin(Rule::ForeachStatement),
                 captures: &[(1, scopes![S::KwControlLoopForeach])],
                 nested: &[],
             },
-            Pat::ForeachStatementAt1 => PatData {
+            Pat::ForeachStatementAt1 => PatDefinition {
                 act: Act::Begin(Rule::ForeachStatementAt1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::ForeachStatementAt1At1 => PatData {
+            Pat::ForeachStatementAt1At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierRef]), (2, scopes![S::StorTypeVar]), (8, scopes![S::EntNameVariableLocal]), (9, scopes![S::KwControlLoopIn])],
                 nested: &[(3, Nested::Type)],
             },
-            Pat::ForeachStatementAt1At2 => PatData {
+            Pat::ForeachStatementAt1At2 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorTypeVar]), (3, scopes![S::KwControlLoopIn])],
                 nested: &[(2, Nested::TupleDeclarationDeconstructionElementList)],
             },
-            Pat::IfStatement => PatData {
+            Pat::IfStatement => PatDefinition {
                 act: Act::Begin(Rule::IfStatement),
                 captures: &[(1, scopes![S::KwControlConditionalIf])],
                 nested: &[],
             },
-            Pat::IfStatementAt0 => PatData {
+            Pat::IfStatementAt0 => PatDefinition {
                 act: Act::Begin(Rule::IfStatementAt0),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::ElsePart => PatData {
+            Pat::ElsePart => PatDefinition {
                 act: Act::Begin(Rule::ElsePart),
                 captures: &[(1, scopes![S::KwControlConditionalElse])],
                 nested: &[],
             },
-            Pat::GotoStatement => PatData {
+            Pat::GotoStatement => PatDefinition {
                 act: Act::Begin(Rule::GotoStatement),
                 captures: &[(1, scopes![S::KwControlFlowGoto])],
                 nested: &[],
             },
-            Pat::GotoStatementAt0 => PatData {
+            Pat::GotoStatementAt0 => PatDefinition {
                 act: Act::Begin(Rule::GotoStatementAt0),
                 captures: &[(1, scopes![S::KwControlConditionalCase])],
                 nested: &[],
             },
-            Pat::GotoStatementAt1 => PatData {
+            Pat::GotoStatementAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlConditionalDefault])],
                 nested: &[],
             },
-            Pat::GotoStatementAt2 => PatData {
+            Pat::GotoStatementAt2 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameLabel]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ReturnStatement => PatData {
+            Pat::ReturnStatement => PatDefinition {
                 act: Act::Begin(Rule::ReturnStatement),
                 captures: &[(1, scopes![S::KwControlFlowReturn])],
                 nested: &[],
             },
-            Pat::BreakOrContinueStatementBreak => PatData {
+            Pat::BreakOrContinueStatementBreak => PatDefinition {
                 act: Act::Match(scopes![S::KwControlFlowBreak]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::BreakOrContinueStatementContinue => PatData {
+            Pat::BreakOrContinueStatementContinue => PatDefinition {
                 act: Act::Match(scopes![S::KwControlFlowContinue]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ThrowStatement => PatData {
+            Pat::ThrowStatement => PatDefinition {
                 act: Act::Begin(Rule::ThrowStatement),
                 captures: &[(1, scopes![S::KwControlFlowThrow])],
                 nested: &[],
             },
-            Pat::YieldReturnStatement => PatData {
+            Pat::YieldReturnStatement => PatDefinition {
                 act: Act::Begin(Rule::YieldReturnStatement),
                 captures: &[(1, scopes![S::KwControlFlowYield]), (2, scopes![S::KwControlFlowReturn])],
                 nested: &[],
             },
-            Pat::YieldBreakStatement => PatData {
+            Pat::YieldBreakStatement => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwControlFlowYield]), (2, scopes![S::KwControlFlowBreak])],
                 nested: &[],
             },
-            Pat::AwaitStatement => PatData {
+            Pat::AwaitStatement => PatDefinition {
                 act: Act::Begin(Rule::AwaitStatement),
                 captures: &[(1, scopes![S::KwOperatorExpressionAwait])],
                 nested: &[],
             },
-            Pat::UsingStatement => PatData {
+            Pat::UsingStatement => PatDefinition {
                 act: Act::Begin(Rule::UsingStatement),
                 captures: &[(1, scopes![S::KwControlContextUsing])],
                 nested: &[],
             },
-            Pat::UsingStatementAt1 => PatData {
+            Pat::UsingStatementAt1 => PatDefinition {
                 act: Act::Begin(Rule::UsingStatementAt1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TryBlock => PatData {
+            Pat::TryBlock => PatDefinition {
                 act: Act::Begin(Rule::TryBlock),
                 captures: &[(1, scopes![S::KwControlExceptionTry])],
                 nested: &[],
             },
-            Pat::CatchClause => PatData {
+            Pat::CatchClause => PatDefinition {
                 act: Act::Begin(Rule::CatchClause),
                 captures: &[(1, scopes![S::KwControlExceptionCatch])],
                 nested: &[],
             },
-            Pat::CatchClauseAt0 => PatData {
+            Pat::CatchClauseAt0 => PatDefinition {
                 act: Act::Begin(Rule::CatchClauseAt0),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::CatchClauseAt0At0 => PatData {
+            Pat::CatchClauseAt0At0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(6, scopes![S::EntNameVariableLocal])],
                 nested: &[(1, Nested::Type)],
             },
-            Pat::WhenClause => PatData {
+            Pat::WhenClause => PatDefinition {
                 act: Act::Begin(Rule::WhenClause),
                 captures: &[(1, scopes![S::KwControlExceptionWhen]), (2, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::FinallyClause => PatData {
+            Pat::FinallyClause => PatDefinition {
                 act: Act::Begin(Rule::FinallyClause),
                 captures: &[(1, scopes![S::KwControlExceptionFinally])],
                 nested: &[],
             },
-            Pat::ContextControlStatementChecked => PatData {
+            Pat::ContextControlStatementChecked => PatDefinition {
                 act: Act::Match(scopes![S::KwControlContextChecked]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ContextControlStatementUnchecked => PatData {
+            Pat::ContextControlStatementUnchecked => PatDefinition {
                 act: Act::Match(scopes![S::KwControlContextUnchecked]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ContextControlStatementUnsafe => PatData {
+            Pat::ContextControlStatementUnsafe => PatDefinition {
                 act: Act::Match(scopes![S::KwControlContextUnsafe]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::FixedStatement => PatData {
+            Pat::FixedStatement => PatDefinition {
                 act: Act::Begin(Rule::FixedStatement),
                 captures: &[(1, scopes![S::KwControlContextFixed])],
                 nested: &[],
             },
-            Pat::FixedStatementAt1 => PatData {
+            Pat::FixedStatementAt1 => PatDefinition {
                 act: Act::Begin(Rule::FixedStatementAt1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::LockStatement => PatData {
+            Pat::LockStatement => PatDefinition {
                 act: Act::Begin(Rule::LockStatement),
                 captures: &[(1, scopes![S::KwControlContextLock])],
                 nested: &[],
             },
-            Pat::LockStatementAt1 => PatData {
+            Pat::LockStatementAt1 => PatDefinition {
                 act: Act::Begin(Rule::LockStatementAt1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::LabeledStatement => PatData {
+            Pat::LabeledStatement => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::EntNameLabel]), (2, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::LocalConstantDeclaration => PatData {
+            Pat::LocalConstantDeclaration => PatDefinition {
                 act: Act::Begin(Rule::LocalConstantDeclaration),
                 captures: &[(1, scopes![S::StorModifierConst]), (7, scopes![S::EntNameVariableLocal])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::StorageModifierNew => PatData {
+            Pat::StorageModifierNew => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierNew]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierPublic => PatData {
+            Pat::StorageModifierPublic => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierPublic]),
                 captures: &[],
                 nested: &[],
             },
             Pat::StorageModifierProtected
-            | Pat::PropertyAccessorsAt2Protected => PatData {
+            | Pat::PropertyAccessorsAt2Protected => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierProtected]),
                 captures: &[],
                 nested: &[],
             },
             Pat::StorageModifierInternal
-            | Pat::PropertyAccessorsAt2Internal => PatData {
+            | Pat::PropertyAccessorsAt2Internal => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierInternal]),
                 captures: &[],
                 nested: &[],
             },
             Pat::StorageModifierPrivate
-            | Pat::PropertyAccessorsAt2Private => PatData {
+            | Pat::PropertyAccessorsAt2Private => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierPrivate]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierAbstract => PatData {
+            Pat::StorageModifierAbstract => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierAbstract]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierVirtual => PatData {
+            Pat::StorageModifierVirtual => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierVirtual]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierOverride => PatData {
+            Pat::StorageModifierOverride => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierOverride]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierSealed => PatData {
+            Pat::StorageModifierSealed => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierSealed]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierPartial => PatData {
+            Pat::StorageModifierPartial => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierPartial]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierVolatile => PatData {
+            Pat::StorageModifierVolatile => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierVolatile]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierConst => PatData {
+            Pat::StorageModifierConst => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierConst]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierExtern => PatData {
+            Pat::StorageModifierExtern => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierExtern]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierUnsafe => PatData {
+            Pat::StorageModifierUnsafe => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierUnsafe]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierRequired => PatData {
+            Pat::StorageModifierRequired => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierRequired]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StorageModifierFile => PatData {
+            Pat::StorageModifierFile => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierFile]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TypeParameterList => PatData {
+            Pat::TypeParameterList => PatDefinition {
                 act: Act::Begin(Rule::TypeParameterList),
                 captures: &[(0, scopes![S::PDefinitionTypeparametersBegin])],
                 nested: &[],
             },
-            Pat::TypeParameterListAt0Out => PatData {
+            Pat::TypeParameterListAt0Out => PatDefinition {
                 act: Act::Match(scopes![S::StorModifierOut]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TypeParameterListAt1 => PatData {
+            Pat::TypeParameterListAt1 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameTypeTypeParameter]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::LocalFunctionDeclaration => PatData {
+            Pat::LocalFunctionDeclaration => PatDefinition {
                 act: Act::Begin(Rule::LocalFunctionDeclaration),
                 captures: &[(7, scopes![S::EntNameFunction])],
                 nested: &[(1, Nested::StorageModifier), (2, Nested::Type), (8, Nested::TypeParameterList)],
             },
-            Pat::ParenthesizedParameterList => PatData {
+            Pat::ParenthesizedParameterList => PatDefinition {
                 act: Act::Begin(Rule::ParenthesizedParameterList),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::ParameterThis => PatData {
+            Pat::ParameterThis => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierThis]), (7, scopes![S::EntNameVariableParameter])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::GenericConstraints => PatData {
+            Pat::GenericConstraints => PatDefinition {
                 act: Act::Begin(Rule::GenericConstraints),
                 captures: &[(1, scopes![S::StorModifierWhere]), (2, scopes![S::EntNameTypeTypeParameter]), (3, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::GenericConstraintsAt0 => PatData {
+            Pat::GenericConstraintsAt0 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeClass]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::GenericConstraintsAt1 => PatData {
+            Pat::GenericConstraintsAt1 => PatDefinition {
                 act: Act::Match(scopes![S::StorTypeStruct]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::GenericConstraintsAt2 => PatData {
+            Pat::GenericConstraintsAt2 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherConstraintDefault]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::GenericConstraintsAt3 => PatData {
+            Pat::GenericConstraintsAt3 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherConstraintNotnull]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::GenericConstraintsAt4 => PatData {
+            Pat::GenericConstraintsAt4 => PatDefinition {
                 act: Act::Match(scopes![S::KwOtherConstraintUnmanaged]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::GenericConstraintsAt5 => PatData {
+            Pat::GenericConstraintsAt5 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::KwOperatorExpressionNew]), (2, scopes![S::PParenthesisOpen]), (3, scopes![S::PParenthesisClose])],
                 nested: &[],
             },
-            Pat::ExpressionBody => PatData {
+            Pat::ExpressionBody => PatDefinition {
                 act: Act::Begin(Rule::ExpressionBody),
                 captures: &[(0, scopes![S::KwOperatorArrow])],
                 nested: &[],
             },
-            Pat::LocalTupleDeclarationDeconstruction => PatData {
+            Pat::LocalTupleDeclarationDeconstruction => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[],
                 nested: &[(1, Nested::TupleDeclarationDeconstructionElementList)],
             },
-            Pat::AnonymousMethodExpressionAt0At2 => PatData {
+            Pat::AnonymousMethodExpressionAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::AnonymousMethodExpressionAt0At2),
                 captures: &[(1, scopes![S::StorModifierRef])],
                 nested: &[],
             },
-            Pat::VarPattern => PatData {
+            Pat::VarPattern => PatDefinition {
                 act: Act::Begin(Rule::VarPattern),
                 captures: &[(1, scopes![S::StorTypeVar])],
                 nested: &[],
             },
-            Pat::DesignationPatternAt1 => PatData {
+            Pat::DesignationPatternAt1 => PatDefinition {
                 act: Act::Begin(Rule::DesignationPatternAt1),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::TypePattern => PatData {
+            Pat::TypePattern => PatDefinition {
                 act: Act::Begin(Rule::TypePattern),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TypePatternAt0 => PatData {
+            Pat::TypePatternAt0 => PatDefinition {
                 act: Act::Begin(Rule::TypePatternAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::TypeSubpatternAt1 => PatData {
+            Pat::TypeSubpatternAt1 => PatDefinition {
                 act: Act::Begin(Rule::TypeSubpatternAt1),
                 captures: &[(1, scopes![S::EntNameTypeAlias]), (2, scopes![S::PSeparatorColoncolon])],
                 nested: &[],
             },
-            Pat::TypeSubpatternAt3 => PatData {
+            Pat::TypeSubpatternAt3 => PatDefinition {
                 act: Act::Begin(Rule::TypeSubpatternAt3),
                 captures: &[(0, scopes![S::PAccessor])],
                 nested: &[],
             },
-            Pat::TypePatternAt1 => PatData {
+            Pat::TypePatternAt1 => PatDefinition {
                 act: Act::Begin(Rule::TypePatternAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PositionalPattern => PatData {
+            Pat::PositionalPattern => PatDefinition {
                 act: Act::Begin(Rule::PositionalPattern),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PositionalPatternAt0 => PatData {
+            Pat::PositionalPatternAt0 => PatDefinition {
                 act: Act::Begin(Rule::PositionalPatternAt0),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::NestedPatternAndPunctuationAccessorAt0 => PatData {
+            Pat::NestedPatternAndPunctuationAccessorAt0 => PatDefinition {
                 act: Act::Match(scopes![S::VarOtherObjectProperty]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SubpatternAt0 => PatData {
+            Pat::SubpatternAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(2, scopes![S::PSeparatorColon])],
                 nested: &[(1, Nested::PatternAndPunctuationAccessor)],
             },
-            Pat::PropertyPattern => PatData {
+            Pat::PropertyPattern => PatDefinition {
                 act: Act::Begin(Rule::PropertyPattern),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PropertyPatternAt0 => PatData {
+            Pat::PropertyPatternAt0 => PatDefinition {
                 act: Act::Begin(Rule::PropertyPatternAt0),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::ListPattern => PatData {
+            Pat::ListPattern => PatDefinition {
                 act: Act::Begin(Rule::ListPattern),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ListPatternAt0 => PatData {
+            Pat::ListPatternAt0 => PatDefinition {
                 act: Act::Begin(Rule::ListPatternAt0),
                 captures: &[(0, scopes![S::PSquarebracketOpen])],
                 nested: &[],
             },
-            Pat::ListPatternAt1 => PatData {
+            Pat::ListPatternAt1 => PatDefinition {
                 act: Act::Begin(Rule::ListPatternAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PropertyPatternAt1 => PatData {
+            Pat::PropertyPatternAt1 => PatDefinition {
                 act: Act::Begin(Rule::PropertyPatternAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::PositionalPatternAt1 => PatData {
+            Pat::PositionalPatternAt1 => PatDefinition {
                 act: Act::Begin(Rule::PositionalPatternAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SwitchStatementAt2 => PatData {
+            Pat::SwitchStatementAt2 => PatDefinition {
                 act: Act::Begin(Rule::SwitchStatementAt2),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::SwitchLabelCase => PatData {
+            Pat::SwitchLabelCase => PatDefinition {
                 act: Act::Begin(Rule::SwitchLabel),
                 captures: &[(1, scopes![S::KwControlConditionalCase])],
                 nested: &[],
             },
-            Pat::SwitchLabelDefault => PatData {
+            Pat::SwitchLabelDefault => PatDefinition {
                 act: Act::Begin(Rule::SwitchLabel),
                 captures: &[(1, scopes![S::KwControlConditionalDefault])],
                 nested: &[],
             },
-            Pat::SwitchLabelEnd => PatData {
+            Pat::SwitchLabelEnd => PatDefinition {
                 act: Act::End,
                 captures: &[(1, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::SwitchLabelAt0 => PatData {
+            Pat::SwitchLabelAt0 => PatDefinition {
                 act: Act::Begin(Rule::SwitchLabelAt0),
                 captures: &[(1, scopes![S::KwControlConditionalWhen])],
                 nested: &[],
             },
-            Pat::SwitchLabelAt1 => PatData {
+            Pat::SwitchLabelAt1 => PatDefinition {
                 act: Act::Begin(Rule::SwitchLabelAt1),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SwitchStatementOrExpressionAt2 => PatData {
+            Pat::SwitchStatementOrExpressionAt2 => PatDefinition {
                 act: Act::Begin(Rule::SwitchStatementOrExpressionAt2),
                 captures: &[],
                 nested: &[],
             },
-            Pat::SwitchExpression => PatData {
+            Pat::SwitchExpression => PatDefinition {
                 act: Act::Begin(Rule::SwitchExpression),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::SwitchExpressionAt1 => PatData {
+            Pat::SwitchExpressionAt1 => PatDefinition {
                 act: Act::Begin(Rule::SwitchExpressionAt1),
                 captures: &[(0, scopes![S::KwOperatorArrow])],
                 nested: &[],
             },
-            Pat::SwitchExpressionAt2 => PatData {
+            Pat::SwitchExpressionAt2 => PatDefinition {
                 act: Act::Begin(Rule::SwitchExpressionAt2),
                 captures: &[(1, scopes![S::KwControlConditionalWhen])],
                 nested: &[],
             },
-            Pat::SwitchExpressionAt3 => PatData {
+            Pat::SwitchExpressionAt3 => PatDefinition {
                 act: Act::Begin(Rule::SwitchExpressionAt3),
                 captures: &[],
                 nested: &[],
             },
-            Pat::NamespaceDeclaration => PatData {
+            Pat::NamespaceDeclaration => PatDefinition {
                 act: Act::Begin(Rule::NamespaceDeclaration),
                 captures: &[(1, scopes![S::StorTypeNamespace])],
                 nested: &[],
             },
-            Pat::NamespaceDeclarationAt3 => PatData {
+            Pat::NamespaceDeclarationAt3 => PatDefinition {
                 act: Act::Begin(Rule::NamespaceDeclarationAt3),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::ClassDeclaration => PatData {
+            Pat::ClassDeclaration => PatDefinition {
                 act: Act::Begin(Rule::ClassDeclaration),
                 captures: &[],
                 nested: &[],
             },
-            Pat::ClassDeclarationAt0 => PatData {
+            Pat::ClassDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::ClassDeclarationAt0),
                 captures: &[(2, scopes![S::StorTypeRecord]), (3, scopes![S::StorTypeClass]), (4, scopes![S::EntNameTypeClass])],
                 nested: &[],
             },
-            Pat::BaseTypes => PatData {
+            Pat::BaseTypes => PatDefinition {
                 act: Act::Begin(Rule::BaseTypes),
                 captures: &[(0, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::BaseClassConstructorCall => PatData {
+            Pat::BaseClassConstructorCall => PatDefinition {
                 act: Act::Begin(Rule::BaseClassConstructorCall),
                 captures: &[(1, scopes![S::EntNameType]), (2, scopes![S::PAccessor]), (3, scopes![S::EntNameType])],
                 nested: &[(4, Nested::TypeArguments)],
             },
-            Pat::ClassDeclarationAt1 => PatData {
+            Pat::ClassDeclarationAt1 => PatDefinition {
                 act: Act::Begin(Rule::ClassDeclarationAt1),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::DelegateDeclaration => PatData {
+            Pat::DelegateDeclaration => PatDefinition {
                 act: Act::Begin(Rule::DelegateDeclaration),
                 captures: &[(1, scopes![S::StorTypeDelegate]), (7, scopes![S::EntNameTypeDelegate])],
                 nested: &[(2, Nested::Type), (8, Nested::TypeParameterList)],
             },
-            Pat::EnumDeclaration => PatData {
+            Pat::EnumDeclaration => PatDefinition {
                 act: Act::Begin(Rule::EnumDeclaration),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EnumDeclarationAt0 => PatData {
+            Pat::EnumDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::EnumDeclarationAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EnumDeclarationAt0At1 => PatData {
+            Pat::EnumDeclarationAt0At1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorTypeEnum]), (2, scopes![S::EntNameTypeEnum])],
                 nested: &[],
             },
-            Pat::EnumDeclarationAt0At2 => PatData {
+            Pat::EnumDeclarationAt0At2 => PatDefinition {
                 act: Act::Begin(Rule::EnumDeclarationAt0At2),
                 captures: &[(0, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::EnumDeclarationAt1 => PatData {
+            Pat::EnumDeclarationAt1 => PatDefinition {
                 act: Act::Begin(Rule::EnumDeclarationAt1),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::EnumDeclarationAt1At4 => PatData {
+            Pat::EnumDeclarationAt1At4 => PatDefinition {
                 act: Act::Begin(Rule::EnumDeclarationAt1At4),
                 captures: &[(0, scopes![S::EntNameVariableEnumMember])],
                 nested: &[],
             },
-            Pat::InterfaceDeclaration => PatData {
+            Pat::InterfaceDeclaration => PatDefinition {
                 act: Act::Begin(Rule::InterfaceDeclaration),
                 captures: &[],
                 nested: &[],
             },
-            Pat::InterfaceDeclarationAt0 => PatData {
+            Pat::InterfaceDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::InterfaceDeclarationAt0),
                 captures: &[(1, scopes![S::StorTypeInterface]), (2, scopes![S::EntNameTypeInterface])],
                 nested: &[],
             },
-            Pat::InterfaceDeclarationAt1 => PatData {
+            Pat::InterfaceDeclarationAt1 => PatDefinition {
                 act: Act::Begin(Rule::InterfaceDeclarationAt1),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::PropertyDeclaration => PatData {
+            Pat::PropertyDeclaration => PatDefinition {
                 act: Act::Begin(Rule::PropertyDeclaration),
                 captures: &[(8, scopes![S::EntNameVariableProperty])],
                 nested: &[(1, Nested::Type), (7, Nested::TypeAndPunctuationAccessor)],
             },
-            Pat::PropertyAccessors => PatData {
+            Pat::PropertyAccessors => PatDefinition {
                 act: Act::Begin(Rule::PropertyAccessors),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::PropertyAccessorsAt3 => PatData {
+            Pat::PropertyAccessorsAt3 => PatDefinition {
                 act: Act::Begin(Rule::PropertyAccessorsAt3),
                 captures: &[(1, scopes![S::StorModifierReadonly]), (2, scopes![S::StorTypeAccessorGet])],
                 nested: &[],
             },
-            Pat::AccessorGetterAt0 => PatData {
+            Pat::AccessorGetterAt0 => PatDefinition {
                 act: Act::Begin(Rule::AccessorGetterAt0),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::AccessorGetterExpression => PatData {
+            Pat::AccessorGetterExpression => PatDefinition {
                 act: Act::Begin(Rule::AccessorGetterExpression),
                 captures: &[(0, scopes![S::KwOperatorArrow])],
                 nested: &[],
             },
-            Pat::PropertyAccessorsAt4Set => PatData {
+            Pat::PropertyAccessorsAt4Set => PatDefinition {
                 act: Act::Begin(Rule::PropertyAccessorsAt4),
                 captures: &[(1, scopes![S::StorTypeAccessorSet])],
                 nested: &[],
             },
-            Pat::PropertyAccessorsAt4Init => PatData {
+            Pat::PropertyAccessorsAt4Init => PatDefinition {
                 act: Act::Begin(Rule::PropertyAccessorsAt4),
                 captures: &[(1, scopes![S::StorTypeAccessorInit])],
                 nested: &[],
             },
-            Pat::AccessorSetterAt0 => PatData {
+            Pat::AccessorSetterAt0 => PatDefinition {
                 act: Act::Begin(Rule::AccessorSetterAt0),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::AccessorSetterAt1 => PatData {
+            Pat::AccessorSetterAt1 => PatDefinition {
                 act: Act::Begin(Rule::AccessorSetterAt1),
                 captures: &[(0, scopes![S::KwOperatorArrow])],
                 nested: &[],
             },
-            Pat::StructDeclaration => PatData {
+            Pat::StructDeclaration => PatDefinition {
                 act: Act::Begin(Rule::StructDeclaration),
                 captures: &[],
                 nested: &[],
             },
-            Pat::StructDeclarationAt0 => PatData {
+            Pat::StructDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::StructDeclarationAt0),
                 captures: &[(2, scopes![S::StorTypeRecord]), (3, scopes![S::StorTypeStruct]), (4, scopes![S::EntNameTypeStruct])],
                 nested: &[],
             },
-            Pat::StructDeclarationAt1 => PatData {
+            Pat::StructDeclarationAt1 => PatDefinition {
                 act: Act::Begin(Rule::StructDeclarationAt1),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::UnionDeclaration => PatData {
+            Pat::UnionDeclaration => PatDefinition {
                 act: Act::Begin(Rule::UnionDeclaration),
                 captures: &[],
                 nested: &[],
             },
-            Pat::UnionDeclarationAt0 => PatData {
+            Pat::UnionDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::UnionDeclarationAt0),
                 captures: &[(1, scopes![S::StorTypeUnion]), (2, scopes![S::EntNameTypeUnion])],
                 nested: &[],
             },
-            Pat::ParenthesizedTypeList => PatData {
+            Pat::ParenthesizedTypeList => PatDefinition {
                 act: Act::Begin(Rule::ParenthesizedTypeList),
                 captures: &[(0, scopes![S::PParenthesisOpen])],
                 nested: &[],
             },
-            Pat::UnionDeclarationAt1 => PatData {
+            Pat::UnionDeclarationAt1 => PatDefinition {
                 act: Act::Begin(Rule::UnionDeclarationAt1),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::RecordDeclaration => PatData {
+            Pat::RecordDeclaration => PatDefinition {
                 act: Act::Begin(Rule::RecordDeclaration),
                 captures: &[],
                 nested: &[],
             },
-            Pat::RecordDeclarationAt0 => PatData {
+            Pat::RecordDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::RecordDeclarationAt0),
                 captures: &[(1, scopes![S::StorTypeRecord]), (2, scopes![S::EntNameTypeClass])],
                 nested: &[],
             },
-            Pat::RecordDeclarationAt1 => PatData {
+            Pat::RecordDeclarationAt1 => PatDefinition {
                 act: Act::Begin(Rule::RecordDeclarationAt1),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::ConstructorDeclaration => PatData {
+            Pat::ConstructorDeclaration => PatDefinition {
                 act: Act::Begin(Rule::ConstructorDeclaration),
                 captures: &[(1, scopes![S::EntNameFunction])],
                 nested: &[],
             },
-            Pat::ConstructorDeclarationAt0 => PatData {
+            Pat::ConstructorDeclarationAt0 => PatDefinition {
                 act: Act::Begin(Rule::ConstructorDeclarationAt0),
                 captures: &[(1, scopes![S::PSeparatorColon])],
                 nested: &[],
             },
-            Pat::ConstructorInitializerBase => PatData {
+            Pat::ConstructorInitializerBase => PatDefinition {
                 act: Act::Begin(Rule::ConstructorInitializer),
                 captures: &[(1, scopes![S::VarLanguageBase])],
                 nested: &[],
             },
-            Pat::ConstructorInitializerThis => PatData {
+            Pat::ConstructorInitializerThis => PatDefinition {
                 act: Act::Begin(Rule::ConstructorInitializer),
                 captures: &[(1, scopes![S::VarLanguageThis])],
                 nested: &[],
             },
-            Pat::FixedSizeBufferDeclaration => PatData {
+            Pat::FixedSizeBufferDeclaration => PatDefinition {
                 act: Act::Begin(Rule::FixedSizeBufferDeclaration),
                 captures: &[(1, scopes![S::StorModifierFixed]), (6, scopes![S::EntNameVariableField])],
                 nested: &[(2, Nested::Type)],
             },
-            Pat::FieldDeclaration => PatData {
+            Pat::FieldDeclaration => PatDefinition {
                 act: Act::Begin(Rule::FieldDeclaration),
                 captures: &[(6, scopes![S::EntNameVariableField])],
                 nested: &[(1, Nested::Type)],
             },
-            Pat::FieldDeclarationAt0 => PatData {
+            Pat::FieldDeclarationAt0 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameVariableField]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EventDeclaration => PatData {
+            Pat::EventDeclaration => PatDefinition {
                 act: Act::Begin(Rule::EventDeclaration),
                 captures: &[(1, scopes![S::StorTypeEvent]), (9, scopes![S::EntNameVariableEvent])],
                 nested: &[(2, Nested::Type), (8, Nested::TypeAndPunctuationAccessor)],
             },
-            Pat::EventAccessors => PatData {
+            Pat::EventAccessors => PatDefinition {
                 act: Act::Begin(Rule::EventAccessors),
                 captures: &[(0, scopes![S::PCurlybraceOpen])],
                 nested: &[],
             },
-            Pat::EventAccessorsAt2Add => PatData {
+            Pat::EventAccessorsAt2Add => PatDefinition {
                 act: Act::Begin(Rule::EventAccessorsAt2),
                 captures: &[(1, scopes![S::StorTypeAccessorAdd])],
                 nested: &[],
             },
-            Pat::EventAccessorsAt2Remove => PatData {
+            Pat::EventAccessorsAt2Remove => PatDefinition {
                 act: Act::Begin(Rule::EventAccessorsAt2),
                 captures: &[(1, scopes![S::StorTypeAccessorRemove])],
                 nested: &[],
             },
-            Pat::EventDeclarationAt2 => PatData {
+            Pat::EventDeclarationAt2 => PatDefinition {
                 act: Act::Match(scopes![S::EntNameVariableEvent]),
                 captures: &[],
                 nested: &[],
             },
-            Pat::EventDeclarationAt4 => PatData {
+            Pat::EventDeclarationAt4 => PatDefinition {
                 act: Act::Begin(Rule::EventDeclarationAt4),
                 captures: &[(0, scopes![S::KwOperatorAssignment])],
                 nested: &[],
             },
-            Pat::IndexerDeclaration => PatData {
+            Pat::IndexerDeclaration => PatDefinition {
                 act: Act::Begin(Rule::IndexerDeclaration),
                 captures: &[(8, scopes![S::VarLanguageThis])],
                 nested: &[(1, Nested::Type), (7, Nested::TypeAndPunctuationAccessor)],
             },
-            Pat::BracketedParameterList => PatData {
+            Pat::BracketedParameterList => PatDefinition {
                 act: Act::Begin(Rule::BracketedParameterList),
                 captures: &[(1, scopes![S::PSquarebracketOpen])],
                 nested: &[],
             },
-            Pat::BracketedParameterListAt0 => PatData {
+            Pat::BracketedParameterListAt0 => PatDefinition {
                 act: Act::Begin(Rule::BracketedParameterListAt0),
                 captures: &[],
                 nested: &[],
             },
-            Pat::DestructorDeclaration => PatData {
+            Pat::DestructorDeclaration => PatDefinition {
                 act: Act::Begin(Rule::DestructorDeclaration),
                 captures: &[(1, scopes![S::PTilde]), (2, scopes![S::EntNameFunction])],
                 nested: &[],
             },
-            Pat::OperatorDeclaration => PatData {
+            Pat::OperatorDeclaration => PatDefinition {
                 act: Act::Begin(Rule::OperatorDeclaration),
                 captures: &[(6, scopes![S::StorTypeOperator]), (7, scopes![S::EntNameFunction])],
                 nested: &[(1, Nested::Type)],
             },
-            Pat::NestedPatternAndPatternAt0 => PatData {
+            Pat::NestedPatternAndPatternAt0 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierExplicit])],
                 nested: &[],
             },
-            Pat::NestedPatternAndPatternAt1 => PatData {
+            Pat::NestedPatternAndPatternAt1 => PatDefinition {
                 act: Act::Match(S::NO_SCOPES),
                 captures: &[(1, scopes![S::StorModifierImplicit])],
                 nested: &[],
             },
-            Pat::ConversionOperatorDeclaration => PatData {
+            Pat::ConversionOperatorDeclaration => PatDefinition {
                 act: Act::Begin(Rule::ConversionOperatorDeclaration),
                 captures: &[(2, scopes![S::StorTypeOperator])],
                 nested: &[(1, Nested::PatternAndPattern), (3, Nested::Type)],
             },
-            Pat::MethodDeclaration => PatData {
+            Pat::MethodDeclaration => PatDefinition {
                 act: Act::Begin(Rule::MethodDeclaration),
                 captures: &[(8, scopes![S::EntNameFunction])],
                 nested: &[(1, Nested::Type), (7, Nested::TypeAndPunctuationAccessor), (9, Nested::TypeParameterList)],
@@ -10082,7 +10082,7 @@ impl rules::Tabled for CSharp {
             reason = "a fieldless `repr(u8)` enum has no `From` impl"
         )]
         let index = rule as usize;
-        TABLES[index].get_or_init(move || rules::Tables::build(rule.data()))
+        TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
 }
 
