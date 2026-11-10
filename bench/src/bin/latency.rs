@@ -96,23 +96,9 @@ fn passes(document: &Document, passes: usize, overhead: Duration) -> Vec<Vec<Dur
         .collect()
 }
 
-fn main() -> ExitCode {
-    let options = match options() {
-        Ok(options) => options,
-        Err(message) => {
-            eprintln!("{message}");
-            return ExitCode::FAILURE;
-        }
-    };
-    let documents = match corpus() {
-        Ok(documents) => documents,
-        Err(error) => {
-            eprintln!("cannot read bench/corpus: {error}");
-            return ExitCode::FAILURE;
-        }
-    };
-    let overhead = timer_overhead();
-    let resolution = overhead * 4;
+/// Prints the head of the TSV rows, or the timer's figures and the head of the
+/// table.
+fn print_head(options: &Options, overhead: Duration, resolution: Duration) {
     if options.tsv {
         println!(
             "language\ttier\tlines\tbelow_resolution\tsteady_p50_ns\tsteady_p99_ns\tsteady_max_ns\tfirst_contact_max_ns\tresolution_ns"
@@ -130,6 +116,26 @@ fn main() -> ExitCode {
         );
         println!("|:--|:--|--:|--:|--:|--:|--:|--:|");
     }
+}
+
+fn main() -> ExitCode {
+    let options = match options() {
+        Ok(options) => options,
+        Err(message) => {
+            eprintln!("{message}");
+            return ExitCode::FAILURE;
+        }
+    };
+    let documents = match corpus() {
+        Ok(documents) => documents,
+        Err(error) => {
+            eprintln!("cannot read bench/corpus: {error}");
+            return ExitCode::FAILURE;
+        }
+    };
+    let overhead = timer_overhead();
+    let resolution = overhead * 4;
+    print_head(&options, overhead, resolution);
 
     let selected = documents.iter().filter(|document| {
         options.tier.is_none_or(|tier| document.tier == tier)

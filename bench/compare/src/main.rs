@@ -261,15 +261,8 @@ impl Row {
     }
 }
 
-fn runner(options: &Options) -> Result<(), String> {
-    let documents = corpus().map_err(|error| format!("cannot read bench/corpus: {error}"))?;
-    let selected: Vec<&Document> = documents
-        .iter()
-        .filter(|document| {
-            document.tier == options.tier
-                && (options.languages.is_empty() || options.languages.contains(&document.language))
-        })
-        .collect();
+/// Prints the head of the table or of the TSV rows, as `--tsv` asks.
+fn print_head(options: &Options) {
     match options.output {
         Output::Table => {
             println!(
@@ -286,6 +279,18 @@ fn runner(options: &Options) -> Result<(), String> {
         }
         Output::Tsv => println!("file\tengine\tsetup_ms\tfirst_ms\tmib_per_s\ttokens\tfidelity"),
     }
+}
+
+fn runner(options: &Options) -> Result<(), String> {
+    let documents = corpus().map_err(|error| format!("cannot read bench/corpus: {error}"))?;
+    let selected: Vec<&Document> = documents
+        .iter()
+        .filter(|document| {
+            document.tier == options.tier
+                && (options.languages.is_empty() || options.languages.contains(&document.language))
+        })
+        .collect();
+    print_head(options);
     for document in selected {
         if !nishiki_complete(document) {
             return Err(format!(

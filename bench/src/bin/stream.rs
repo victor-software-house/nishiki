@@ -257,6 +257,21 @@ fn median(mut values: Vec<Duration>) -> Duration {
     values.get(values.len() / 2).copied().unwrap_or_default()
 }
 
+/// Prints the timer's figures and the head of the table of traces.
+fn print_head(options: &Options, overhead: Duration, resolution: Duration) {
+    println!(
+        "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; {} passes, the first apart",
+        overhead.as_secs_f64() * 1e9,
+        resolution.as_secs_f64() * 1e6,
+        options.passes
+    );
+    println!();
+    println!(
+        "| trace | deltas | setup µs | first delta µs | steady p50 µs | steady p99 µs | steady max µs | whole file µs | exact | fidelity |"
+    );
+    println!("|:--|--:|--:|--:|--:|--:|--:|--:|:--|--:|");
+}
+
 fn main() -> ExitCode {
     let options = match options() {
         Ok(options) => options,
@@ -281,17 +296,7 @@ fn main() -> ExitCode {
     };
     let overhead = timer_overhead();
     let resolution = overhead * 4;
-    println!(
-        "timer overhead {:.1} ns, subtracted; below {:.3} µs is below resolution; {} passes, the first apart",
-        overhead.as_secs_f64() * 1e9,
-        resolution.as_secs_f64() * 1e6,
-        options.passes
-    );
-    println!();
-    println!(
-        "| trace | deltas | setup µs | first delta µs | steady p50 µs | steady p99 µs | steady max µs | whole file µs | exact | fidelity |"
-    );
-    println!("|:--|--:|--:|--:|--:|--:|--:|--:|:--|--:|");
+    print_head(&options, overhead, resolution);
     let mut all_exact = true;
     for trace in traces.iter().filter(|trace| {
         options.filters.is_empty()
