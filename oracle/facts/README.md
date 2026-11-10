@@ -14,4 +14,5 @@ Until it does, each script also writes its Rust table.
 - A code point is written in Unicode's notation: four hex digits or more, upper case, such as `00AA`.
   A range is two of them joined by `..`, such as `0041..005A`.
 - [`facts.ts`](../facts.ts) writes them.
+- Each script's check, such as `mise run check:case-folds`, fails when a file differs from what the script writes.
 - Never edit a file here by hand: run its script.

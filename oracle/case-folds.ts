@@ -14,8 +14,8 @@
 // CaseFolding.txt, as Oniguruma applies them: those of Unicode 14 and 15, none
 // of 16.
 //
-// Usage: bun oracle/case-folds.ts [out file]
-// `mise run check:case-folds` writes to a temporary file and compares.
+// Usage: bun oracle/case-folds.ts
+// `mise run check:case-folds` runs it and fails when a file it writes changes.
 import { type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
@@ -224,7 +224,7 @@ function rust({ largest, next, multi, folds, wideLead, wideSecond, wideTails }: 
     `;
 }
 
-const output = process.argv[2] ?? new URL("../src/textmate/regex/folds.rs", import.meta.url).pathname;
+const output = new URL("../src/textmate/regex/folds.rs", import.meta.url).pathname;
 /** The facts case-folds.json records: the orbits, and the folds of more than one character. */
 function facts({ orbitOf, foldOf }: Measured): CaseFoldsFacts {
   const orbits = [...new Set(orbitOf.values())].sort((a, b) => a[0]! - b[0]!);

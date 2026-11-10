@@ -5,6 +5,7 @@
 // takes that step over.
 //
 // Usage: bun oracle/unicode-tables.ts
+// `mise run check:unicode-tables` runs it and fails when a file it writes changes.
 import { type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";

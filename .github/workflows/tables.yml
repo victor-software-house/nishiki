@@ -2,8 +2,14 @@ name: Generated tables
 
 # Regenerates each table that a script writes from Shiki.
 # A check fails when the committed table differs.
-# - src/textmate/regex/folds.rs: oracle/case-folds.ts measures it on
-#   Oniguruma (`mise run check:case-folds`).
+# - src/textmate/regex/folds.rs and oracle/facts/case-folds.json:
+#   oracle/case-folds.ts measures them on Oniguruma
+#   (`mise run check:case-folds`).
+# - src/textmate/regex/unicode.rs and oracle/facts/unicode-sets.json:
+#   oracle/unicode-tables.ts measures them on Oniguruma
+#   (`mise run check:unicode-tables`).
+# - src/classes/table.rs and oracle/facts/classes.json: oracle/classes.ts
+#   measures them on Shiki (`mise run check:classes`).
 # - src/css/words.rs: oracle/css-words.ts reads it from the css grammar
 #   (`mise run check:css-words`).
 # - Each rule-engine language's tables: its oracle/<language>-grammar.ts
@@ -15,8 +21,9 @@ name: Generated tables
 # Bun fetches Shiki from npm.
 # The checks therefore sit outside the offline verify in ci.yml.
 # The template renders ci.yml.
-# This workflow runs only on a pull request that touches a table or its
-# script.
+# This workflow runs only on a pull request that touches a table, its
+# facts, its script, a helper the scripts share, the pinned packages or this
+# workflow.
 
 on:
   pull_request:
@@ -25,6 +32,19 @@ on:
       - oracle/case-folds.ts
       - src/textmate/regex/folds.rs
       - mise-tasks/check/case-folds.sh
+      - oracle/unicode-tables.ts
+      - src/textmate/regex/unicode.rs
+      - mise-tasks/check/unicode-tables.sh
+      - oracle/classes.ts
+      - src/classes/table.rs
+      - mise-tasks/check/classes.sh
+      - oracle/facts.ts
+      - oracle/facts/**
+      - oracle/scalars.ts
+      - oracle/dedent.ts
+      - package.json
+      - bun.lock
+      - .github/workflows/tables.yml
       - oracle/alternation.ts
       - oracle/css-words.ts
       - src/css/words.rs
@@ -78,9 +98,59 @@ jobs:
       - name: Install bun
         timeout-minutes: 3
         run: mise install --locked bun@1.4.4
-      - name: Compare the fold table with what its script measures
+      - name: Compare the fold table and its facts with what their script measures
         timeout-minutes: 3
         run: mise run check:case-folds
+
+  unicode-tables:
+    name: Unicode sets
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        timeout-minutes: 3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install mise
+        timeout-minutes: 3
+        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
+        with:
+          version: 2026.10.25
+          install: false
+          cache: false
+      - name: Install bun
+        timeout-minutes: 3
+        run: mise install --locked bun@1.4.4
+      - name: Compare the Unicode sets and their facts with what their script measures
+        timeout-minutes: 6
+        run: mise run check:unicode-tables
+
+  classes:
+    name: Character classes
+    if: ${{ !github.event.pull_request.draft }}
+    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        timeout-minutes: 3
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install mise
+        timeout-minutes: 3
+        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
+        with:
+          version: 2026.10.25
+          install: false
+          cache: false
+      - name: Install bun
+        timeout-minutes: 3
+        run: mise install --locked bun@1.4.4
+      - name: Compare the character classes and their facts with what their script measures
+        timeout-minutes: 6
+        run: mise run check:classes
 
   css-words:
     name: CSS words
