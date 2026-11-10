@@ -393,6 +393,33 @@ impl<const D: u8> Lexer<'_, D> {
         self.type_(p).or_else(|| self.punctuation_comma(p))
     }
 
+    /// The patterns of the string of Vue's `generic` attribute.
+    /// They copy those of `source.ts#type-parameters` with no `const`.
+    ///
+    /// Only Vue opens it, in the TypeScript dialect.
+    /// The test of `D` drops the code from every other dialect's lexer.
+    /// Out of line, it keeps the rule dispatch of TypeScript's lexer as it
+    /// was.
+    #[cold]
+    #[inline(never)]
+    pub(crate) fn generic_attribute_rules(&mut self, p: usize) -> Option<usize> {
+        if !cfg!(feature = "lang-vue") || D != super::Dialect::TYPESCRIPT {
+            return None;
+        }
+        if let Some(r) = self.comment(p) {
+            return Some(r);
+        }
+        if let Some(e) = self.keyword_of(p, &["extends", "in", "out"]) {
+            return self.token_rule(p, e, S::StorageModifier);
+        }
+        self.type_(p)
+            .or_else(|| self.punctuation_comma(p))
+            .or_else(|| {
+                (self.byte(p) == b'=' && self.byte(p + 1) != b'>')
+                    .then(|| self.token_rule(p, p + 1, S::KeywordOperatorAssignment))?
+            })
+    }
+
     pub(crate) fn type_parameters_rules(&mut self, p: usize) -> Option<usize> {
         if let Some(r) = self.comment(p) {
             return Some(r);

@@ -9,7 +9,7 @@
 
 use memchr::{memchr, memchr2};
 
-use super::lexer::Lexer;
+use super::lexer::{Lexer, Mode};
 use super::scope::S;
 use crate::classes::space_width;
 use crate::utf8::char_start;
@@ -38,7 +38,7 @@ fn is_bare(b: u8) -> bool {
     b.is_ascii_alphanumeric() || b == b'_' || b == b'-'
 }
 
-impl Lexer<'_> {
+impl<H: Mode> Lexer<'_, H> {
     /// A key, its `=` and the value after it, at `p`.
     pub(super) fn key_value(&mut self, p: usize) -> Option<usize> {
         let b = self.s[p];

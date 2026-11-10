@@ -306,6 +306,7 @@ impl Lexer<'_> {
             | Rule::VueScriptStuff
             | Rule::VueStyleStuff
             | Rule::VueLangGroup
+            | Rule::VueCommentKeyValue
             | Rule::VueBody
             | Rule::VueDirective
             | Rule::VueExpressionString
@@ -345,7 +346,7 @@ impl Lexer<'_> {
             | Rule::BladeBalance
             | Rule::BladePhpSection
             | Rule::BladeAttribute => self.blade_candidate(rule, p, cut),
-            Rule::VueComment | Rule::VueCommentKeyValue => {
+            Rule::VueComment => {
                 if cfg!(feature = "lang-vue") {
                     find(memchr(b'-', rest))
                 } else {

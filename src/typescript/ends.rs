@@ -46,6 +46,7 @@ impl<const D: u8> Lexer<'_, D> {
             | Rule::EntryArrayBinding
             | Rule::EntryArrayBindingConst
             | Rule::EntryTypeParameters
+            | Rule::EntryGenericAttribute
             | Rule::EntryTemplate => None,
             Rule::JsxExpressionNoAttributes => {
                 self.end_zero(self.jsx_expression_no_attributes_ends(p), p)

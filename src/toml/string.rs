@@ -2,11 +2,11 @@
 
 use memchr::{memchr, memchr2};
 
-use super::lexer::Lexer;
+use super::lexer::{Lexer, Mode};
 use super::scope::S;
 use super::state::Rule;
 
-impl Lexer<'_> {
+impl<H: Mode> Lexer<'_, H> {
     /// Takes the text of a `"` or `"""` string up to its next escape or
     /// closing quote.
     ///

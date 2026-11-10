@@ -28,6 +28,8 @@ use state::Rule;
 
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Line};
+#[cfg(feature = "lang-vue")]
+use crate::language::{Halt, Stopped};
 use crate::limits::Finished;
 
 /// The state at the start of a TOML document whose scopes sit on the stack
@@ -40,9 +42,9 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// The state at the start of a TOML body whose text sits on the stack `base`.
 /// The body has no `source.toml` of its own, as an embedding language would
 /// start it.
+/// A Vue block in `lang="toml"` starts here.
 /// No Markdown fence embeds TOML, because Shiki's Markdown grammar has no
 /// rule for it.
-/// This completes the contract every language keeps.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Rule::Top.code(), 0, base).unwrap_or(ROOT)
 }
@@ -59,10 +61,40 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
         if rest.is_empty() {
             return Finished::unspent(state);
         }
-        let mut lexer = lexer::Lexer::new(cx, rest.as_bytes(), state);
+        let mut lexer = lexer::Lexer::new(cx, rest.as_bytes(), state, lexer::NoHalts);
         lexer.run();
         lexer.finish_line()
     })
+}
+
+/// Lexes `line` like [`lex`], for TOML that a Vue block embeds from
+/// [`start_embedded`], and returns where the line went back to Vue.
+///
+/// The halt `end` is tested where a step begins at the top of the document.
+/// There no array, inline table, string or key is open.
+/// Only there does Shiki try the block's end beside TOML's patterns.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn lex_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+) -> (Finished, Option<Stopped>) {
+    let mut halted = None;
+    let next = cx.lex_from_start(line, |cx, rest| {
+        if rest.is_empty() {
+            return Finished::unspent(state);
+        }
+        let mode = lexer::Halts {
+            line: line.text.as_bytes(),
+            start: line.start,
+            end,
+        };
+        let mut lexer = lexer::Lexer::new(cx, rest.as_bytes(), state, mode);
+        halted = lexer.run().map(|p| line.start + p);
+        lexer.finish_line()
+    });
+    (next, halted.map(Stopped::halt))
 }
 
 #[cfg(test)]

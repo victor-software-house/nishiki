@@ -119,17 +119,20 @@ impl Lang {
     }
 
     /// Whether the grammar of the language exists here.
-    /// nishiki does not lex Pug, Stylus, `PostCSS` or JSON5, and lexes Sass
-    /// and `CoffeeScript` only with their features. vscode-textmate skips a
-    /// rule whose only pattern includes a missing grammar, so such a block
-    /// opens no body: its text stays the block's.
+    /// nishiki does not lex Pug, Stylus, `PostCSS` or JSON5.
+    /// It lexes Sass, `CoffeeScript`, Markdown, JSON and TOML only with their
+    /// features.
+    /// vscode-textmate skips a rule whose only pattern includes a missing
+    /// grammar, so such a block opens no body: its text stays the block's.
     pub(crate) const fn has_grammar(self) -> bool {
         match self {
             Lang::Pug | Lang::Stylus | Lang::Postcss | Lang::Json5 => false,
             Lang::Sass => cfg!(feature = "lang-sass"),
             Lang::Coffee => cfg!(feature = "lang-coffee"),
-            Lang::Md
-            | Lang::Html
+            Lang::Md => cfg!(feature = "lang-markdown"),
+            Lang::Json | Lang::Jsonc => cfg!(feature = "lang-json"),
+            Lang::Toml => cfg!(feature = "lang-toml"),
+            Lang::Html
             | Lang::Css
             | Lang::Scss
             | Lang::Less
@@ -137,10 +140,7 @@ impl Lang {
             | Lang::Ts
             | Lang::Jsx
             | Lang::Tsx
-            | Lang::Json
-            | Lang::Jsonc
             | Lang::Yaml
-            | Lang::Toml
             | Lang::Graphql
             | Lang::Vue => true,
         }
@@ -201,12 +201,77 @@ pub(crate) enum Element {
 }
 
 /// The directive rule that matched, which names its scope.
+/// The grammar lists the rules of `generic` and `style` among its directives.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Directive {
     /// `v-for`, `v-if`, `v-else-if` or `v-else`.
     Control,
     /// Any other `v-` name, or `:`, `.`, `@` or `#`.
     Original,
+    /// `generic`, whose string holds TypeScript type parameters.
+    Generic,
+    /// `style`, whose string holds CSS.
+    Style,
+}
+
+impl Directive {
+    /// The directive a directive rule's carried value names.
+    pub(crate) fn from_carried(carried: u32) -> Directive {
+        match carried {
+            1 => Directive::Control,
+            2 => Directive::Generic,
+            3 => Directive::Style,
+            _ => Directive::Original,
+        }
+    }
+
+    /// The directive's carried value in its rule.
+    pub(crate) const fn carried(self) -> u32 {
+        match self {
+            Directive::Original => 0,
+            Directive::Control => 1,
+            Directive::Generic => 2,
+            Directive::Style => 3,
+        }
+    }
+}
+
+/// Whose value a quoted string of Vue's holds.
+/// A string's carried value holds its quote in the low byte, and this above it.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub(crate) enum StringOf {
+    /// A directive's: a TypeScript expression.
+    Directive,
+    /// `generic`'s: TypeScript type parameters.
+    Generic,
+    /// `style`'s: CSS.
+    Style,
+}
+
+impl StringOf {
+    /// Whose value the string with `carried` holds.
+    pub(crate) fn from_carried(carried: u32) -> StringOf {
+        match carried >> 8 {
+            1 => StringOf::Generic,
+            2 => StringOf::Style,
+            _ => StringOf::Directive,
+        }
+    }
+
+    /// The carried value of a string that `quote` opens, holding this value.
+    pub(crate) fn carried(self, quote: u8) -> u32 {
+        let owner = match self {
+            StringOf::Directive => 0,
+            StringOf::Generic => 1,
+            StringOf::Style => 2,
+        };
+        u32::from(quote) | owner << 8
+    }
+}
+
+/// The quote of the string with `carried`.
+pub(crate) fn string_quote(carried: u32) -> u8 {
+    u8::try_from(carried & 0xff).unwrap_or(b'"')
 }
 
 /// A match of one of Vue's patterns.
@@ -247,6 +312,13 @@ pub(crate) enum VuePattern {
     ExprString,
     /// `=` before a directive's value that no quote opens.
     ExprBare,
+    /// `generic=` or `style=`, the start of a rule of Vue's own.
+    /// Its bits are the [`Directive`]'s carried value.
+    /// Its hit's first two slots hold where the name ends and where `=` is.
+    AttributeDirective,
+    /// The quote of the value of `generic` or `style`.
+    /// Its bits are the string's carried value ([`StringOf::carried`]).
+    AttributeString,
 }
 
 /// What follows a directive's name: no argument, `[expression]`, or a plain
@@ -428,6 +500,12 @@ pub(super) fn body_end(s: &[u8], p: usize) -> bool {
     s.get(p..).is_some_and(|rest| rest.starts_with(b"</"))
 }
 
+/// `-->` at `p` of `s`: the end of a key-value comment's JSON.
+#[cfg(all(feature = "lang-vue", feature = "lang-json"))]
+fn comment_end(s: &[u8], p: usize) -> bool {
+    s.get(p..).is_some_and(|rest| rest.starts_with(b"-->"))
+}
+
 /// `</name` followed by `>` or white space at `p` of `s`.
 /// The end of the line counts as white space: Shiki's lines end in a line feed.
 fn end_tag(s: &[u8], p: usize, name: &[u8]) -> bool {
@@ -451,6 +529,16 @@ pub(super) fn style_end(s: &[u8], p: usize) -> bool {
 /// `</template[>\s]` at `p` of `s`.
 pub(super) fn template_end(s: &[u8], p: usize) -> bool {
     end_tag(s, p, b"template")
+}
+
+/// The end of the value in the string with `carried`: its quote.
+#[cfg(feature = "lang-vue")]
+fn quote_halt(carried: u32) -> VueHalt {
+    match string_quote(carried) {
+        b'\'' => single_quote,
+        b'`' => backtick,
+        _ => double_quote,
+    }
 }
 
 /// `"` at `p` of `s`: the end of a directive's value in double quotes.
@@ -499,7 +587,7 @@ impl Lexer<'_> {
         }
         if self.starts(p, b"<!--") {
             let at = self.skip_ascii_ws(p + 4);
-            if self.at(at) == b'@' {
+            if cfg!(feature = "lang-json") && self.at(at) == b'@' {
                 let mut end = at + 1;
                 while let Some((c, n)) = self.char_at(end) {
                     if c == '$' || is_word(c) {
@@ -744,6 +832,9 @@ impl Lexer<'_> {
                 }
             }
         }
+        if let Some(hit) = self.vue_attribute_directive(p) {
+            return Some(hit);
+        }
         let (name_end, colon_end) = match b {
             b'v' if self.starts(p, b"v-") => {
                 let mut q = p + 2;
@@ -804,8 +895,34 @@ impl Lexer<'_> {
     /// The end `(?=\s*[^=\s])` of a directive at `p`.
     #[inline(never)]
     pub(super) fn vue_directive_end(&self, p: usize) -> Option<Hit> {
-        let q = self.skip_ws(p);
-        (q < self.lim && self.at(q) != b'=').then(|| Hit::new(Pattern::End, p, p))
+        match Directive::from_carried(self.top().carried) {
+            Directive::Control | Directive::Original => {
+                let q = self.skip_ws(p);
+                (q < self.lim && self.at(q) != b'=').then(|| Hit::new(Pattern::End, p, p))
+            }
+            Directive::Generic | Directive::Style => (p > 0
+                && matches!(self.s.get(p - 1), Some(b'"' | b'\'')))
+            .then(|| Hit::new(Pattern::End, p, p)),
+        }
+    }
+
+    /// `\b(generic)\s*(=)` or `\b(style)\s*(=)` at `p`: an attribute with a
+    /// rule of Vue's own.
+    fn vue_attribute_directive(&self, p: usize) -> Option<Hit> {
+        let (word, directive) = match self.at(p) {
+            b'g' => (&b"generic"[..], Directive::Generic),
+            b's' => (&b"style"[..], Directive::Style),
+            _ => return None,
+        };
+        if !self.starts(p, word) || word_before(self.s, p) {
+            return None;
+        }
+        let name_end = p + word.len();
+        let equals = self.skip_ws(name_end);
+        (equals < self.lim && self.at(equals) == b'=').then(|| {
+            Hit::new(Pattern::Vue(VuePattern::AttributeDirective), p, equals + 1)
+                .with([name_end, equals, 0, 0, 0], directive.carried())
+        })
     }
 
     /// The patterns of a directive: a modifier `(\.)([-\w]*)` of the
@@ -813,6 +930,17 @@ impl Lexer<'_> {
     #[inline(never)]
     pub(super) fn vue_directive_patterns(&self, p: usize, directive: Directive) -> Option<Hit> {
         let b = self.at(p);
+        let of = match directive {
+            Directive::Generic => Some(StringOf::Generic),
+            Directive::Style => Some(StringOf::Style),
+            Directive::Control | Directive::Original => None,
+        };
+        if let Some(of) = of {
+            return matches!(b, b'"' | b'\'').then(|| {
+                Hit::new(Pattern::Vue(VuePattern::AttributeString), p, p + 1)
+                    .with([0; 5], of.carried(b))
+            });
+        }
         if directive == Directive::Original && b == b'.' {
             let mut q = p + 1;
             while let Some((c, n)) = self.char_at(q) {
@@ -997,7 +1125,7 @@ impl Lexer<'_> {
             }
             VueRule::TemplateTagEnd => self.vue_template_tag_end(p),
             VueRule::Directive => self.vue_directive_end(p),
-            VueRule::ExprString => (u32::from(b) == self.top().carried).then(|| one(1)),
+            VueRule::ExprString => (b == string_quote(self.top().carried)).then(|| one(1)),
             VueRule::ExprBare => bare_end(&self.s[..self.lim], p).then(zero),
             VueRule::Body | VueRule::BodyWhile | VueRule::Expr => None,
         }
@@ -1032,20 +1160,22 @@ impl Lexer<'_> {
                 .g(p)
                 .then(|| Hit::new(Pattern::Zero(Rule::VueCapitalizedAttributes), p, p)),
             VueRule::Directive => {
-                let directive = if self.top().carried == 1 {
-                    Directive::Control
-                } else {
-                    Directive::Original
-                };
-                self.vue_directive_patterns(p, directive)
+                self.vue_directive_patterns(p, Directive::from_carried(self.top().carried))
             }
-            VueRule::ExprString => (p > 0
-                && matches!(self.s.get(p - 1), Some(b'"' | b'\'' | b'`')))
-            .then(|| Hit::new(Pattern::Zero(Rule::VueExpression), p, p)),
+            VueRule::ExprString => match StringOf::from_carried(self.top().carried) {
+                StringOf::Directive => (p > 0
+                    && matches!(self.s.get(p - 1), Some(b'"' | b'\'' | b'`')))
+                .then(|| Hit::new(Pattern::Zero(Rule::VueExpression), p, p)),
+                StringOf::Generic | StringOf::Style => {
+                    (p < self.lim).then(|| Hit::new(Pattern::Zero(Rule::VueBody), p, p))
+                }
+            },
             VueRule::ExprBare => (p < self.lim && !matches!(b, b'"' | b'\'' | b'`'))
                 .then(|| Hit::new(Pattern::Zero(Rule::VueExpression), p, p)),
+            VueRule::CommentKv => {
+                (p < self.lim).then(|| Hit::new(Pattern::Zero(Rule::VueBody), p, p))
+            }
             VueRule::Comment
-            | VueRule::CommentKv
             | VueRule::Element
             | VueRule::Body
             | VueRule::BodyWhile
@@ -1073,8 +1203,22 @@ pub(super) enum Lexed {
     /// CoffeeScript, through `Language::CoffeeScript`.
     #[cfg(feature = "lang-coffee")]
     Coffee,
+    /// Markdown.
+    #[cfg(feature = "lang-markdown")]
+    Markdown,
+    /// JSON or JSONC.
+    #[cfg(feature = "lang-json")]
+    Json(crate::json::Dialect),
+    #[cfg(feature = "lang-toml")]
+    Toml,
+    /// A component: the block includes Vue's own root.
+    Vue,
     /// A TypeScript expression: a directive's value.
     Expression,
+    /// TypeScript type parameters: the value of `generic`.
+    TypeParameters,
+    /// CSS declarations: the value of `style`.
+    StyleAttribute,
 }
 
 /// The lexer of `lang`'s body; none for a language that nishiki does not
@@ -1099,16 +1243,22 @@ fn lexed(lang: Lang) -> Option<Lexed> {
         Lang::Coffee => Some(Lexed::Coffee),
         #[cfg(not(feature = "lang-coffee"))]
         Lang::Coffee => None,
-        Lang::Md
-        | Lang::Html
-        | Lang::Pug
-        | Lang::Stylus
-        | Lang::Postcss
-        | Lang::Json
-        | Lang::Jsonc
-        | Lang::Json5
-        | Lang::Toml
-        | Lang::Vue => None,
+        #[cfg(feature = "lang-markdown")]
+        Lang::Md => Some(Lexed::Markdown),
+        #[cfg(feature = "lang-json")]
+        Lang::Json => Some(Lexed::Json(crate::json::Dialect::Json)),
+        #[cfg(feature = "lang-json")]
+        Lang::Jsonc => Some(Lexed::Json(crate::json::Dialect::Jsonc)),
+        #[cfg(feature = "lang-toml")]
+        Lang::Toml => Some(Lexed::Toml),
+        #[cfg(not(feature = "lang-markdown"))]
+        Lang::Md => None,
+        #[cfg(not(feature = "lang-json"))]
+        Lang::Json | Lang::Jsonc => None,
+        #[cfg(not(feature = "lang-toml"))]
+        Lang::Toml => None,
+        Lang::Vue => Some(Lexed::Vue),
+        Lang::Html | Lang::Pug | Lang::Stylus | Lang::Postcss | Lang::Json5 => None,
     }
 }
 
@@ -1129,23 +1279,34 @@ pub(super) fn body_lang(parent: Rule, carried: u32) -> Option<Lang> {
     (parent == Rule::VueLangGroup).then(|| Lang::from_bits(carried))
 }
 
-/// What reads the text of `rule`, a Vue body or directive value inside
-/// `parent`, and where the text ends.
+/// What reads the text of `rule`, a Vue body, directive value or comment
+/// value inside `parent`, and where the text ends.
 /// The answer is the lexer, if any, and the halt.
 /// The halt is none for a body that runs to the end of each line.
 #[cfg(feature = "lang-vue")]
 pub(super) fn target(rule: Rule, parent: Rule, carried: u32) -> (Option<Lexed>, Option<VueHalt>) {
     if rule == Rule::VueExpression {
-        let halt: VueHalt = if parent != Rule::VueExpressionString {
-            bare_end
-        } else if carried == u32::from(b'\'') {
-            single_quote
-        } else if carried == u32::from(b'`') {
-            backtick
+        let halt: VueHalt = if parent == Rule::VueExpressionString {
+            quote_halt(carried)
         } else {
-            double_quote
+            bare_end
         };
         return (Some(Lexed::Expression), Some(halt));
+    }
+    if parent == Rule::VueExpressionString {
+        let lexed = match StringOf::from_carried(carried) {
+            StringOf::Generic => Lexed::TypeParameters,
+            StringOf::Style => Lexed::StyleAttribute,
+            StringOf::Directive => Lexed::Expression,
+        };
+        return (Some(lexed), Some(quote_halt(carried)));
+    }
+    #[cfg(feature = "lang-json")]
+    if parent == Rule::VueCommentKeyValue {
+        return (
+            Some(Lexed::Json(crate::json::Dialect::Json)),
+            Some(comment_end),
+        );
     }
     let lang = body_lang(parent, carried);
     if rule == Rule::VueBodyWhile {

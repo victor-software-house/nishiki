@@ -68,6 +68,7 @@ impl<const D: u8> Lexer<'_, D> {
                 self.entry(Entry::Binding(Pattern::Array, Binding::Constant), p)
             }
             Rule::EntryTypeParameters => self.entry(Entry::TypeParameters, p),
+            Rule::EntryGenericAttribute => self.generic_attribute_rules(p),
             Rule::Expression
             | Rule::JsxEmbeddedExpression
             | Rule::ArrayLiteral

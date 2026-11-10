@@ -44,6 +44,17 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     rules::start_embedded::<Css>(arena, base)
 }
 
+/// The state at the start of the string of a Vue `style` attribute, whose
+/// text sits on the stack `base`.
+/// Its rule holds the string's patterns, which include CSS's.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn start_vue_style_attribute(arena: &mut Arena, base: u32) -> u32 {
+    let code = grammar::Rule::VueStyleAttribute.code();
+    arena
+        .push(crate::arena::ROOT, code, 0, base)
+        .unwrap_or(crate::arena::ROOT)
+}
+
 /// Lexes one line under the crate's lexer contract.
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {

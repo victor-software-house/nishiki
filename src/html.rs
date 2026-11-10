@@ -345,5 +345,35 @@ pub(crate) fn lex_vue(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finis
     engine::Lexer::new(cx, line, state, engine::Document::Vue).run()
 }
 
+/// The state at the start of a Vue block in `lang="vue"`, whose text sits
+/// on the stack `base`.
+/// The block's own scope is `text.html.vue`, so the root adds none.
+/// The block includes the grammar's root, so its rules are a component's.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn start_vue_block(arena: &mut Arena, base: u32) -> u32 {
+    arena.push(ROOT, Rule::Root.code(), 0, base).unwrap_or(ROOT)
+}
+
+/// Lexes a line of a Vue block in `lang="vue"` like [`lex_vue`].
+/// While no rule of the block is open, the line halts where `end` holds
+/// before the root's patterns.
+/// The second value is where.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn lex_vue_until(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    end: &dyn Halt,
+) -> (Finished, Option<Stopped>) {
+    if line.text.len() <= line.start {
+        return (Finished::unspent(state), None);
+    }
+    let halts = (end, None);
+    let mut lexer = engine::Lexer::new(cx, line, state, engine::Document::Vue);
+    lexer.give_back = Some(engine::GiveBack::Halts(&halts));
+    let (finished, halt) = lexer.run_until();
+    (finished, halt.map(Stopped::halt))
+}
+
 #[cfg(test)]
 mod tests;
