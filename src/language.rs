@@ -1447,6 +1447,9 @@ languages! {
     /// - A one-line `ts` or `tsx` script block whose code ends without `;` runs past
     ///   `</script>`.
     ///   TypeScript's expression is still open there, so the block's end is not tried.
+    /// - A one-line Markdown block runs to the end of the document.
+    ///   Markdown's paragraph is still open at the end tag.
+    ///   It reads `</docs>` as an inline HTML tag.
     /// - A comment that starts `<!-- @name` holds JSON, which the JSON lexer reads.
     ///   It ends at a `-->` outside every JSON object, array and string.
     ///   Without `lang-json` it is a plain comment.

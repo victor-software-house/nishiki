@@ -877,6 +877,7 @@ The fixtures are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `vue/coverage` | `oracle/inputs/vue-coverage.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/coverage-blocks` | `oracle/inputs/vue-coverage-blocks.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/less-pop` | `oracle/inputs/vue-less-pop.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
+| `vue/md-one-line` | `oracle/inputs/vue-md-one-line.vue`, written for nishiki | MIT or Apache-2.0, as nishiki |
 | `vue/playground-app` | [`packages-private/sfc-playground/src/App.vue`][vue-playground-app] in vuejs/core | [MIT][vue-licence] |
 | `vue/playground-header` | [`packages-private/sfc-playground/src/Header.vue`][vue-playground-header] in vuejs/core | [MIT][vue-licence] |
 | `vue/playground-sun` | [`packages-private/sfc-playground/src/icons/Sun.vue`][vue-playground-sun] in vuejs/core | [MIT][vue-licence] |
@@ -1105,8 +1106,8 @@ They are Vue's examples: HTML with custom elements and components at the top lev
 The other `vue` inputs are held out, and `vue/coverage` and `vue/coverage-blocks` were added to exercise the rest of the grammar, as [`COVERAGE.md`](COVERAGE.md) counts it.
 `markdown/vitepress-runtime-api` is the development input for `vue` fences in Markdown.
 `markdown/vue-fence` was added to exercise the rest of the `markdown-vue` grammar.
-`vue/ts-end-tag` pins a block that Shiki runs past its end tag.
-It has an input of its own, so the rest of the document it takes is short.
+`vue/md-one-line` and `vue/ts-end-tag` pin two blocks that Shiki runs past their end tags.
+They have inputs of their own, so the rest of the document they take is short.
 
 `postcss/sample`, `postcss/custom-media-basic`, `postcss/mixins-spaces`, `postcss/nesting-spec-examples` and `postcss/tailwind-preflight` are the development inputs for PostCSS.
 `postcss/custom-selectors-basic`, `postcss/mixins-arguments` and `postcss/nesting-at-nest` are held out: they were added after the development inputs passed.
