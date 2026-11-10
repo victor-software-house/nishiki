@@ -1462,7 +1462,7 @@ impl Language {
     /// The language's grammar has a root `match` that can match an empty text
     /// without advancing.
     /// vscode-textmate then pops the innermost rule, the fence's body
-    /// ([`StopKind::PopHost`]).
+    /// ([`StopReason::PopHost`]).
     /// Less is the one: `(;)|(?=[)}])`.
     ///
     /// `oracle/fence-stops.ts`, a step of `mise run check:rule-grammars`,
@@ -1540,12 +1540,12 @@ pub(crate) struct Parts<'a> {
 pub(crate) struct Stopped {
     /// The byte the line stopped at.
     pub(crate) at: usize,
-    pub(crate) kind: StopKind,
+    pub(crate) reason: StopReason,
 }
 
 /// Why a line that another language embeds stopped ([`Stopped`]).
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
-pub(crate) enum StopKind {
+pub(crate) enum StopReason {
     /// A halt of the language that embeds it held.
     /// That language goes on from the byte.
     #[default]
@@ -1566,7 +1566,7 @@ pub(crate) enum StopKind {
 }
 
 /// Cuts the tokens in `out` back to `at`, for a host that pops the rule that
-/// embeds a language ([`StopKind::PopHost`]).
+/// embeds a language ([`StopReason::PopHost`]).
 /// The language lexed the rest of the line from `at` as its own.
 ///
 /// The line's tokens start at `first` in `out` ([`Context::first_token`]).
@@ -1599,7 +1599,7 @@ impl Stopped {
     pub(crate) const fn halt(at: usize) -> Stopped {
         Stopped {
             at,
-            kind: StopKind::Halt,
+            reason: StopReason::Halt,
         }
     }
 }

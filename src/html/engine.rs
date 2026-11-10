@@ -35,7 +35,7 @@ use super::vue::VuePat;
 use crate::arena::{Arena, ROOT};
 #[cfg(feature = "lang-vue")]
 use crate::language::cut_tokens;
-use crate::language::{Context, Halt, Line, StopKind, Stopped};
+use crate::language::{Context, Halt, Line, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch as AllScratch;
 use crate::{Stack, Token, case_fold};
@@ -1139,14 +1139,14 @@ impl<'a> Lexer<'a> {
         match stopped {
             Some(Stopped {
                 at,
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
             }) => {
                 self.advance_to(pos, Some(at));
                 Some(Hit::new(Pat::End, at, at))
             }
             Some(Stopped {
                 at,
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
             }) => {
                 self.advance_to(pos, None);
                 self.pop_body(at);
@@ -1162,7 +1162,7 @@ impl<'a> Lexer<'a> {
 
     /// Pops the Vue body on top, as vscode-textmate does where the language
     /// it embeds matched an empty text at its root without advancing
-    /// ([`StopKind::PopHost`]).
+    /// ([`StopReason::PopHost`]).
     /// The rest of the line from `at` sits on the rule below, in place of the
     /// tokens the language gave it.
     /// The line stops there.
@@ -1831,10 +1831,10 @@ fn resumes_at(stopped: Option<Stopped>) -> Option<usize> {
     match stopped {
         Some(Stopped {
             at,
-            kind: StopKind::Halt,
+            reason: StopReason::Halt,
         }) => Some(at),
         Some(Stopped {
-            kind: StopKind::PopHost,
+            reason: StopReason::PopHost,
             ..
         })
         | None => None,

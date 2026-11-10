@@ -22,7 +22,7 @@ use super::Embedding;
 use super::Stop;
 use super::{Act, Captures, DynName, Grammar, NameCase, Payload, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
-use crate::language::{Halt, Halts, Parts, StopKind, Stopped};
+use crate::language::{Halt, Halts, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scope::{PATH_SLOTS, Scopes, path_slot};
 use crate::{Language, Stack, Token};
@@ -340,7 +340,7 @@ pub(crate) struct Lexer<'a, G: Grammar> {
     /// The field is one reference to the caller's pair.
     /// It is as wide as the function pointer it replaced.
     /// A line that pops the rule that embeds the grammar drops them, since
-    /// that rule's end no longer applies ([`StopKind::PopHost`]).
+    /// that rule's end no longer applies ([`StopReason::PopHost`]).
     halt: Option<&'a Halts<'a>>,
     /// Where the line halted.
     halted: Option<usize>,
@@ -808,19 +808,19 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Where and why the line stopped for the grammar that embeds this one.
     ///
-    /// The `kind` rests on one invariant: only [`Lexer::match_rule`] takes the
-    /// halts.
+    /// The `reason` rests on one invariant: only [`Lexer::match_rule`] takes
+    /// the halts.
     /// It takes them where an empty match at the root of a halting line pops
     /// the rule that embeds the grammar.
     /// A halt, the end of the line and every other path leave them set.
     /// Less's tests `an_embedded_line_halts_at_the_hosts_end` and
     /// `an_embedded_line_pops_the_host_at_a_root_close` check both kinds.
     fn stopped(&self) -> Option<Stopped> {
-        let kind = match self.halt {
-            Some(_) => StopKind::Halt,
-            None => StopKind::PopHost,
+        let reason = match self.halt {
+            Some(_) => StopReason::Halt,
+            None => StopReason::PopHost,
         };
-        self.halted.map(|at| Stopped { at, kind })
+        self.halted.map(|at| Stopped { at, reason })
     }
 
     /// Whether `\G` matches at `p`.
@@ -1937,7 +1937,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// At the root of a halting line, the rule an empty match drops is the
     /// one that embeds the grammar.
     /// The line then drops its halts and stops at the match
-    /// ([`StopKind::PopHost`]).
+    /// ([`StopReason::PopHost`]).
     ///
     /// That stop is read from the cursor, which equals `start` there:
     /// - the scan searches from the cursor, so `start` is at or past it;

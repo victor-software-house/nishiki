@@ -15,7 +15,7 @@ use super::rules::{Pat, next_start, patterns};
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, ROOT};
-use crate::language::{Context, Halts, Line, StopKind, Stopped};
+use crate::language::{Context, Halts, Line, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scratch::Scratch;
 use crate::{Stack, Token, java};
@@ -499,10 +499,10 @@ impl<'a> Lexer<'a> {
         let at = match stopped {
             Some(Stopped {
                 at,
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
             }) => Some(at),
             Some(Stopped {
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
                 ..
             })
             | None => None,

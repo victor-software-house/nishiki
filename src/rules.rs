@@ -82,7 +82,7 @@ use crate::Language;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, Stopped};
 #[cfg(feature = "_embedding")]
-use crate::language::{Halts, Parts, StopKind, cut_tokens};
+use crate::language::{Halts, Parts, StopReason, cut_tokens};
 use crate::limits::Finished;
 #[cfg(feature = "_embedding")]
 use crate::limits::{Limit, Steps};
@@ -433,7 +433,7 @@ pub(crate) fn lex<G: Grammar>(
 ///
 /// The second value holds where the line halted.
 /// It also holds where a pattern matched an empty text at the root without
-/// advancing ([`StopKind::PopHost`]); the grammar lexes the rest of the line.
+/// advancing ([`StopReason::PopHost`]); the grammar lexes the rest of the line.
 /// Without one, the state resumes on the next line.
 #[inline]
 pub(crate) fn lex_until<G: Grammar>(
@@ -1045,7 +1045,7 @@ fn hand_over<G: Embeds>(
                 Finished::unspent(inner),
                 Some(Stopped {
                     at,
-                    kind: StopKind::Halt,
+                    reason: StopReason::Halt,
                 }),
             ))
         } else {
@@ -1190,11 +1190,11 @@ fn resume_at<G: Grammar>(
     match stopped {
         Some(Stopped {
             at,
-            kind: StopKind::Halt,
+            reason: StopReason::Halt,
         }) => ControlFlow::Continue((at, resumed_with(cx, scratch, embedding, inner))),
         Some(Stopped {
             at,
-            kind: StopKind::PopHost,
+            reason: StopReason::PopHost,
         }) => ControlFlow::Break(pop_host(cx, line, scratch, embedding, at)),
         None => ControlFlow::Break(resumed_with(cx, scratch, embedding, inner)),
     }
@@ -1230,7 +1230,7 @@ fn with_inner(cx: &mut Context<'_>, embedding: u32, inner: u32) -> u32 {
 /// Pops the embedding rule on top of `state`, and returns the state below it.
 ///
 /// vscode-textmate pops it where the language it embeds matched an empty text
-/// at its root without advancing ([`StopKind::PopHost`]).
+/// at its root without advancing ([`StopReason::PopHost`]).
 /// The rest of the line from `at` sits on that state's content scopes, in
 /// place of the tokens the language gave it.
 /// The line stops there.

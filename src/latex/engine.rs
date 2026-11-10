@@ -7,7 +7,7 @@ use super::grammar::{Expr, Nested, Pat, Rule, Sc};
 use super::scope::S;
 use crate::arena::Arena;
 use crate::classes::space_width;
-use crate::language::{Context, Halt, Language, Line, StopKind, Stopped};
+use crate::language::{Context, Halt, Language, Line, StopReason, Stopped};
 use crate::limits::Finished;
 use crate::rules::{self, Act, Captures, FnHalt, Grammar, Payload, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -240,7 +240,7 @@ impl rules::Embeds for Latex {
             finished,
             Some(Stopped {
                 at,
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
             }),
         ))
     }

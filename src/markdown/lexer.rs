@@ -22,7 +22,7 @@ use super::state::{Container, Fence};
 use super::text::{Cx, LineFacts};
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
-use crate::language::{Context, Line, Parts, StopKind, Stopped};
+use crate::language::{Context, Line, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
 
@@ -1511,7 +1511,7 @@ fn lex_fence(
 
 /// Lexes a fence's line in a language that can pop the fence's body, through
 /// [`Language::lex_until`] with a halt that never holds.
-/// The halt lets the language report the pop ([`StopKind::PopHost`]).
+/// The halt lets the language report the pop ([`StopReason::PopHost`]).
 /// It costs a call at each byte the language tries at its root.
 #[cold]
 #[inline(never)]
@@ -1527,13 +1527,13 @@ fn lex_popping(
             finished,
             Some(Stopped {
                 at,
-                kind: StopKind::PopHost,
+                reason: StopReason::PopHost,
             }),
         )) => (finished, Some(at)),
         Some((
             finished,
             Some(Stopped {
-                kind: StopKind::Halt,
+                reason: StopReason::Halt,
                 ..
             })
             | None,
