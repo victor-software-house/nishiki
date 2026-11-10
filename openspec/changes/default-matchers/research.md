@@ -51,6 +51,10 @@ Lexing ratios against the hand matchers, at one codegen unit:
 | 6. only the groups nishiki reads recorded | 1.0998 | 0.9027 | 1.1476 |
 | 7. a back-reference to one character | 1.0696 | 0.9027 | 1.1476 |
 | 8. group 0 left to the lexer | 1.0632 | 0.8537 | 1.1039 |
+| 9. `record` always inlined | 1.0632 | 0.8516 | 1.0870 |
+| 10. each pattern's code in its own function, out of line | 1.0495 | 0.8339 | 1.0351 |
+| 11. an optional character its run covers dropped | 1.0409 | 0.8339 | 1.0352 |
+| 12. a small pattern with no loop or lookbehind offered inline | 1.0402 | 0.8265 | 1.0345 |
 
 - The first row for Protocol Buffers has `OptionStmt` generated.
 - Step 2 kept the `\b` test out of line.
@@ -71,6 +75,15 @@ Lexing ratios against the hand matchers, at one codegen unit:
 - Step 8 stops the generated code writing group 0.
   The lexer writes it before any reader runs: `tokenize` after the scan picks a match, and `emit_captures` for every act and while pattern.
 - Steps 6 to 8 are measured on [`research/default-matchers`][prototype] against the hand matchers at [851351f0][base].
+- Step 9 makes the probe of section 2.3 a step: `record` is inlined at every call site ([e7f46604][step-9]).
+- Step 10 gives each pattern's code its own function, kept out of line, which returns the match end in registers ([9101b496][step-10]).
+  Section 2.5 has its shape.
+- Step 11 is the arm drop, fix 1 of [`field-pattern-fixes`][field-pattern-fixes] ([9d804fae][arm-drop]).
+  Of the three languages, only Protocol Buffers' generated code changes.
+- Step 12 marks a pattern's function `#[inline]` when its code has no loop and no lookbehind and is at most 256 bytes ([0647d46a][step-12]).
+  Section 2.6 has the reason.
+- Steps 9 to 12 are each measured against the step before.
+  Their rows multiply that ratio by the row above.
 
 Steps 5 and 8 in two more measures:
 
@@ -81,6 +94,29 @@ Steps 5 and 8 in two more measures:
 | the first document, at one codegen unit | 5 | 1.0765 | 0.9229 | 1.0952 |
 | the first document, at one codegen unit | 8 | 1.0431 | 0.8710 | 1.0608 |
 | colouring, at one codegen unit | 8 | 1.0602 | 0.8626 | 1.0967 |
+
+Steps 9 to 12 against the step before, at one codegen unit, with 16 units in parentheses:
+
+| Measure | Step | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|--:|
+| lexing | 9 | 1.0000 (0.9999) | 0.9975 (0.9998) | 0.9847 (0.9900) |
+| lexing | 10 | 0.9871 (0.9877) | 0.9792 (1.0126) | 0.9523 (0.9777) |
+| lexing | 11 | 0.9918 (0.9962) | 1.0000 (0.9995) | 1.0001 (0.9999) |
+| lexing | 12 | 0.9993 (0.9312) | 0.9911 (0.9560) | 0.9993 (0.9988) |
+| the first document | 10 | 0.9910 (0.9925) | 0.9815 (1.0110) | 0.9710 (0.9869) |
+| the first document | 11 | 0.9943 (0.9977) | 1.0000 (0.9996) | 1.0001 (1.0000) |
+| the first document | 12 | 0.9995 (0.9582) | 0.9920 (0.9616) | 0.9996 (1.0034) |
+| colouring | 10 | 0.9877 (0.9882) | 0.9807 (1.0116) | 0.9553 (0.9791) |
+| colouring | 11 | 0.9921 (0.9964) | 1.0000 (0.9996) | 0.9999 (1.0000) |
+| colouring | 12 | 0.9993 (0.9343) | 0.9917 (0.9593) | 0.9993 (0.9990) |
+
+- The gate is one codegen unit, and there every row of steps 10 and 12 falls (lead, 2026-11-10).
+- Zig rises at 16 units at step 10, and step 12 brings it back below step 9.
+- At step 11, the field pattern's inner loop falls from 137,634 to 99,118 instructions.
+- Lua's 1.0001 at step 11 is 547 instructions.
+  545 of them are in the C library's allocator and `memcpy`.
+  Lua's generated code does not change at step 11.
+- The differential test found 0 differences at steps 9 to 12.
 
 ### 2.1 A dropped step: a cache of class runs
 
@@ -136,60 +172,21 @@ A group is recorded when one of these reads it:
 
 ### 2.3 Where step 8's saving comes from
 
-Step 8 dropped the group-0 write.
-It also changed what the compiler inlined: Lua's `record` copies went inline.
-A probe splits the two: step 7 with `record` always inlined.
-Lexing ratios at one codegen unit, with 16 units in parentheses:
-
-| Change | Protocol Buffers | Zig | Lua |
-|:--|--:|--:|--:|
-| step 7 to the probe | 1.0000 (1.0000) | 0.9681 (0.9718) | 0.9682 (0.9506) |
-| the probe to step 8 | 0.9940 (0.9938) | 0.9768 (0.9391) | 0.9934 (0.9867) |
-
-The three builds call each function the same number of times.
-In Lua, `scan` runs 87,906 times and `matcher` 364,404 times.
-
-- Step 7 to the probe saves 1.00 million instructions in Lua.
-  The four `record` copies, 0.88 million, go inline and cost nothing of their own.
-  `matcher` falls 0.12 million.
-- The probe to step 8 saves 0.20 million in Lua.
-  `scan` falls 0.24 million and `matcher` 0.21 million.
-  Three `record` copies go out of line again, at 0.25 million.
-
-So most of step 8's Lua saving is inlining, not the group-0 write.
+Most of step 8's Lua saving is inlining of `record`, not the group-0 write ([note][note-step-8]).
 
 ### 2.4 The costs after step 8
 
-The profile of step 8 against the hand matchers names the costs left.
+Lua's `matcher` costs 34.9 instructions per entry after step 8, against 11.4 by hand ([note][note-costs]).
 
-Lua's own functions run 12.93 million instructions, against 9.89 million by hand.
-Most of the gap is `matcher`'s own cost: 4.24 million, against 1.38 million.
-It is entered 121,468 times, so it costs 34.9 instructions per entry, against 11.4 by hand.
-Per entry, by pattern:
+### 2.5 The matcher's frame
 
-| Pattern | Generated, per entry | Hand, per entry |
-|:--|--:|--:|
-| `RootAt25`, `RootAt26` and `RootAt28`, the identifiers | 197 to 220 | 144 (`bounded_name`) |
-| `RootAt16` | 146 | 111 (`global_declaration`) |
-| `StringAt3` | 38.6 | 28.5 (`cdef_open`) |
-| `LdocTag` | 24.4 | 12.8 (`ldoc_tag`) |
-| the builtins | 188 | 203 (`word_in`) |
+At step 9, every pattern is inlined into `matcher`, and each entry pays for a 136-byte frame.
+Step 10 removes the frame, and Lua's entry falls from 33 to 23 instructions ([note][note-frame]).
 
-- The three identifier patterns are entered 11,629 times, and `bounded_name` 12,867 times.
-- The builtins are the one pattern where the generated code wins.
+### 2.6 Small patterns inline
 
-Protocol Buffers' `matcher` costs 1.11 million over 26,476 entries, 41.9 each.
-By hand it costs 0.93 million, 35.1 each.
-The field pattern's inner loop costs 137,634 over 668 entries, 206 each.
-Its hand code, `field_rest`, costs 33,207 over 275 entries, 121 each.
-[`field-pattern-fixes`][field-pattern-fixes] changes that pattern.
-
-These per-entry costs come from Callgrind as follows:
-
-- The `lex` example lexes the fixtures three times: the first-document pass, the measured pass and the colouring pass.
-- Callgrind counts instructions only in the measured pass, but it counts calls in all three.
-- So the number of entries is the instruction count of a function's first instruction, from a profile taken with `--dump-instr=yes`.
-  It is a third of the call count.
+At step 10, 16 codegen units put tiny Zig patterns out of line that step 9 had inline, and Zig rose.
+Step 12 offers such patterns inline again, but not one with a lookbehind, whose closure gave Lua's `matcher` a frame ([note][note-small]).
 
 ## 3. Coverage
 
@@ -202,22 +199,34 @@ They keep their hand code, a coverage gap that task 1.3 closes.
 These lines test Protocol Buffers' field pattern on step 2b ([`field-pattern-fixes`][field-pattern-fixes]).
 Under the default limits, on a box:
 
-| Line | Hand matcher, at base | Generated matcher, step 2b |
-|:--|:--|:--|
-| 101 bytes, one short of the longest fixture line (102) | uncut | ends at `Limit::Work` |
-| 12,001 bytes | ends at `Limit::Work` | ends at `Limit::Work` |
+| Line | Hand matcher, at base | Generated matcher, step 2b | Step 10 with the arm drop |
+|:--|:--|:--|:--|
+| 101 bytes, one short of the longest fixture line (102) | uncut | ends at `Limit::Work` | uncut |
+| 12,001 bytes | ends at `Limit::Work` | ends at `Limit::Work` | ends at `Limit::Work` |
 
 So the generated matcher cuts a 101-byte line that the hand matcher lexes whole.
 The 12,001-byte line is the pattern's limit line.
+
+The arm drop is fix 1 of [`field-pattern-fixes`][field-pattern-fixes], prototyped in the writer ([9d804fae][arm-drop]).
+It clears the 101-byte line alone, in release and debug builds.
+The 12,001-byte line still needs fix 2.
 
 A 102-byte line was not measured.
 From 101 bytes, its work grows by about `2L`, some 200 steps, and the budget by 64.
 So it would end at the limit too.
 The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 bytes.
 
+[arm-drop]: https://github.com/victor-software-house/nishiki-archive/commit/9d804fae0de3b6073f38e3faf57d77ca915583cf
 [base]: https://github.com/victor-software-house/nishiki-archive/commit/851351f064d86c429f4652af2c59af138dcf6ba2
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [design]: design.md
 [field-pattern-fixes]: ../field-pattern-fixes/design.md
+[note-costs]: ../../research/2026-11-10-default-matchers.md#the-costs-after-step-8
+[note-frame]: ../../research/2026-11-10-default-matchers.md#the-matchers-frame
+[note-small]: ../../research/2026-11-10-default-matchers.md#small-patterns-inline
+[note-step-8]: ../../research/2026-11-10-default-matchers.md#where-step-8s-saving-comes-from
 [prototype]: https://github.com/victor-software-house/nishiki/tree/818ebaa1aa569c6f2c0ac025090c644658f47b33
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
+[step-9]: https://github.com/victor-software-house/nishiki-archive/commit/e7f466043e2d3440c2266c94e2de9cb5ef6a02d7
+[step-10]: https://github.com/victor-software-house/nishiki-archive/commit/9101b49627ddeab7635df84334595e7a2fb8740a
+[step-12]: https://github.com/victor-software-house/nishiki-archive/commit/0647d46a4b192320f8212b852633bf6c7482c943

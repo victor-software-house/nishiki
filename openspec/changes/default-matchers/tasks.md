@@ -23,6 +23,12 @@
     [The research][research] has them in sections 2.2 and 2.3.
     Step 8 reads 1.0632, 0.8537 and 1.1039.
     Most of Lua's saving at step 8 came from inlining, not from the group-0 write.
+  - 2026-11-10: steps 9, 10 and 11 measured on boxes, each with 0 differences ([research][research], section 2).
+    Step 11 reads 1.0409, 0.8339 and 1.0352.
+    - Step 10 cuts each entry to Lua's `matcher` from 33 to 23 instructions, but raises Zig at 16 units.
+    - Step 11, the arm drop, clears the 101-byte field line.
+  - 2026-11-10: step 12 measured on a box, with 0 differences ([research][research], section 2.6).
+    It reads 1.0402, 0.8265 and 1.0345, and brings Zig at 16 units back below step 9.
   - Next: Lua's identifier patterns, the costliest shape left ([research][research], section 2.4).
 - [ ] 1.3 The regex engine path gives an end pattern's back-reference the groups its begin pattern took.
   Then no pattern is left with hand code only.
