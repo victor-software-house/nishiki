@@ -332,6 +332,40 @@ fn case_insensitive_matching_answers_as_oniguruma() {
     );
 }
 
+/// The absent operator `(?~X)` matches as Oniguruma does.
+/// The cases include both patterns of C#'s rule for `/** */` documentation
+/// comments.
+/// They are in tests/engine/absent, written by `oracle/absent-probe.ts`.
+#[test]
+fn absent_operator_answers_as_oniguruma() {
+    let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("tests/engine/absent");
+    let differ = differential(&dir);
+    assert!(
+        differ.is_empty(),
+        "{} cases differ from Oniguruma:\n{}",
+        differ.len(),
+        differ.join("\n")
+    );
+}
+
+/// The absent operator's other forms, which start `(?~|`, do not compile.
+/// Nor does the operator inside a lookbehind or inside another absent
+/// operator's body, where Oniguruma's answers differ from its reading
+/// elsewhere.
+#[test]
+fn absent_operator_refuses_what_it_does_not_read() {
+    for pattern in [
+        "(?~|a)",
+        "(?~|a|b)",
+        "(?<=(?~a))b",
+        "(?<!x(?~a))b",
+        "^(?~a(?~b)c)",
+        "(?~(?=(?~a))b)",
+    ] {
+        assert!(Regex::new(pattern).is_err(), "{pattern} compiled");
+    }
+}
+
 /// The guards on a fold's branches never turn a fold string away.
 ///
 /// The test takes every fold of more than one character, such as `ß` and

@@ -1,9 +1,9 @@
 # Shiki fidelity
 
-242 of 242 languages match Shiki on every non-whitespace byte of their input.
-2 patterns are refused outside the known list, and 0 known refusals no longer occur.
+243 of 243 inputs match Shiki on every non-whitespace byte.
+0 patterns are refused outside the known list, and 0 known refusals no longer occur.
 
-| Language | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
+| Input | Result | Bytes that differ | First difference | Shiki | nishiki | Refused patterns | Limits reached |
 |:--|:--|--:|:--|:--|:--|:--|:--|
 | abap | equal | 0 of 357 | | | |  |  |
 | actionscript-3 | equal | 0 of 659 | | | |  |  |
@@ -46,7 +46,8 @@
 | coq | equal | 0 of 658 | | | |  |  |
 | cpp | equal | 0 of 332 | | | |  |  |
 | crystal | equal | 0 of 467 | | | |  |  |
-| csharp | equal | 0 of 693 | | | | 2: Error("unsupported group syntax") in \G(?=(?~\*/)$) |  |
+| csharp | equal | 0 of 693 | | | |  |  |
+| csharp-coverage | equal | 0 of 3688 | | | |  |  |
 | css | equal | 0 of 455 | | | |  |  |
 | csv | equal | 0 of 223 | | | |  |  |
 | cue | equal | 0 of 1593 | | | |  |  |
@@ -152,7 +153,7 @@
 | ocaml | equal | 0 of 570 | | | |  |  |
 | odin | equal | 0 of 1217 | | | |  |  |
 | openscad | equal | 0 of 389 | | | |  |  |
-| org | equal | 0 of 1199 | | | | 2: Error("unsupported group syntax") in \G(?=(?~\*/)$) |  |
+| org | equal | 0 of 1199 | | | |  |  |
 | pascal | equal | 0 of 1962 | | | |  |  |
 | perl | equal | 0 of 417 | | | |  |  |
 | php | equal | 0 of 515 | | | |  |  |
@@ -176,7 +177,7 @@
 | r | equal | 0 of 816 | | | |  |  |
 | racket | equal | 0 of 348 | | | |  |  |
 | raku | equal | 0 of 675 | | | |  |  |
-| razor | equal | 0 of 514 | | | | 2: Error("unsupported group syntax") in \G(?=(?~\*/)$) |  |
+| razor | equal | 0 of 514 | | | |  |  |
 | rbs | equal | 0 of 635 | | | |  |  |
 | reg | equal | 0 of 961 | | | |  |  |
 | regexp | equal | 0 of 231 | | | |  |  |
@@ -225,7 +226,7 @@
 | twig | equal | 0 of 273 | | | |  |  |
 | typescript | equal | 0 of 1779 | | | |  |  |
 | typespec | equal | 0 of 558 | | | |  |  |
-| typst | equal | 0 of 504 | | | | 2: Error("unsupported group syntax") in \G(?=(?~\*/)$) |  |
+| typst | equal | 0 of 504 | | | |  |  |
 | v | equal | 0 of 520 | | | |  |  |
 | vala | equal | 0 of 391 | | | |  |  |
 | vb | equal | 0 of 663 | | | |  |  |

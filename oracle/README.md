@@ -23,7 +23,7 @@ The rules for working here are in [AGENTS.md](AGENTS.md).
 - [`onig.ts`](onig.ts): compares a language's hand matchers with Oniguruma, one expression at a time.
 - [`coverage.ts`](coverage.ts): writes [`tests/oracle/COVERAGE.md`](../tests/oracle/COVERAGE.md), how much of each hand-lexed grammar the fixtures exercise.
   [`coverage-waivers.ts`](coverage-waivers.ts) lists the waivers and the complete grammars.
-- [`fidelity.ts`](fidelity.ts): writes every grammar Shiki bundles, Shiki's scopes for its sample and the engine's tables, into `target/fidelity/`.
+- [`fidelity.ts`](fidelity.ts): writes every grammar Shiki bundles, Shiki's scopes for its sample and for a few extra inputs, and the engine's tables, into `target/fidelity/`.
   `mise run check:fidelity` compares the engine with Shiki there, and the Shiki fidelity workflow runs it on every pull request.
 - [`fence-stops.ts`](fence-stops.ts): checks that `Language::pops_fence` names every Markdown fence grammar whose root can stop without advancing.
   `mise run check:rule-grammars` runs it.
@@ -40,6 +40,7 @@ The file it writes marks itself as generated in its first line; edit the script,
 | [`engine-tables.ts`](engine-tables.ts) | The tables of a language on nishiki's TextMate engine, from the two lists below the table. |
 | [`classes.ts`](classes.ts) | `src/classes/table.rs`: Oniguruma's character classes. |
 | [`unicode-tables.ts`](unicode-tables.ts) | `src/textmate/regex/unicode.rs`: Oniguruma's Unicode sets. |
+| [`absent-probe.ts`](absent-probe.ts) | `tests/engine/absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which test how `src/textmate/regex/parse.rs` reads it. |
 | [`case-folds.ts`](case-folds.ts) | `src/textmate/regex/folds.rs`: Oniguruma's case folds. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
 
 `engine-tables.ts` reads two lists:

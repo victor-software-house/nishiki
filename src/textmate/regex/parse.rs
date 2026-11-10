@@ -51,6 +51,7 @@ pub(super) fn parse(pattern: &str, dialect: Dialect) -> Result<Parsed> {
         },
         isolated: false,
         lookbehind: false,
+        absent: false,
         groups: 0,
         names: HashMap::new(),
     };
@@ -83,6 +84,9 @@ struct Parser {
     isolated: bool,
     /// Set inside a lookbehind, where `(?i)` folds only one character to one.
     lookbehind: bool,
+    /// Set inside an absent operator's body.
+    /// Oniguruma reads another absent operator there otherwise.
+    absent: bool,
     groups: usize,
     names: HashMap<String, usize>,
 }
@@ -329,6 +333,32 @@ impl Parser {
         Ok(name)
     }
 
+    /// The absent operator `(?~X)`, after its `(?`, read as [`absent`] says.
+    ///
+    /// Its other forms, which start `(?~|`, are refused.
+    /// So is the operator inside a lookbehind or inside another absent
+    /// operator's body, where Oniguruma gives other answers.
+    /// For example, Oniguruma's `^(?~a(?~b))` takes all of `bad cab`: the body
+    /// never matches.
+    fn absent_operator(&mut self) -> Result<Node> {
+        if self.chars.get(self.at + 1) == Some(&'|') {
+            return err("unsupported absent expression");
+        }
+        if self.lookbehind {
+            return err("absent operator in a lookbehind");
+        }
+        if self.absent {
+            return err("absent operator in another's body");
+        }
+        self.at += 1;
+        self.absent = true;
+        let inner = self.alternation();
+        self.absent = false;
+        let inner = inner?;
+        self.expect_close()?;
+        Ok(absent(inner))
+    }
+
     /// Flags with no colon, such as `(?i)`, stay on for the rest of the
     /// enclosing group.
     fn group(&mut self) -> Result<Option<Node>> {
@@ -356,6 +386,7 @@ impl Parser {
                     self.expect_close()?;
                     Node::Atomic(Box::new(inner))
                 }
+                Some('~') => self.absent_operator()?,
                 Some('#') => {
                     while self.peek().is_some_and(|c| c != ')') {
                         self.at += 1;
@@ -706,6 +737,37 @@ impl Parser {
             return Ok(Item::Range(lo, hi));
         }
         Ok(Item::Range(lo, lo))
+    }
+}
+
+/// The absent operator `(?~X)`, read as `(?:(?!X)\O)*`.
+///
+/// It takes characters, newlines too, while `X` does not match where the next
+/// one starts.
+/// A match of `X` that starts inside the range ends it, even when that match
+/// runs past the range's end.
+/// The loop is greedy and gives characters back on backtracking.
+///
+/// Oniguruma documents the operator as the longest string with no match of
+/// `X` inside it.
+/// Its answers follow this reading instead.
+/// On 2026-11-10, Shiki 4.6.0's Oniguruma gave the same spans for both forms
+/// on 124,800 random cases.
+/// They put 26 bodies in 16 surrounding patterns, none of them nested.
+/// `tests/engine/absent/` holds its answers for the regex tests.
+fn absent(body: Node) -> Node {
+    Node::Repeat {
+        node: Box::new(Node::Seq(vec![
+            Node::Look {
+                ahead: true,
+                negative: true,
+                node: Box::new(body),
+            },
+            Node::Any(true),
+        ])),
+        min: 0,
+        max: None,
+        kind: Kind::Greedy,
     }
 }
 
