@@ -41,7 +41,8 @@ caller=${1:-}
 case $caller in
   "" | pre-push) ;;
   *)
-    echo "✘ unknown argument $caller; the pre-push wrapper passes pre-push, and a run by hand passes none"
+    usage="the pre-push wrapper passes pre-push, and a run by hand passes none"
+    echo "✘ unknown argument $caller; $usage"
     exit 2
     ;;
 esac
