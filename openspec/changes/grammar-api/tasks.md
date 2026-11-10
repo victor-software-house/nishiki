@@ -9,15 +9,25 @@
 
 ## 2. Public API
 
-- [ ] 2.1 `Grammar`, `Grammars`, `GrammarError` and `Grammar::from_json`, with process-wide interning keyed on the full source.
+- [x] 2.1 `Grammar`, `Grammars`, `GrammarError` and `Grammar::from_json`, with process-wide interning keyed on the full source.
   → verify: a unit test loads one grammar twice and gets one handle
-- [ ] 2.2 `Highlighter::for_grammar` and its limits variant → verify: a doctest highlights a grammar loaded from JSON
+  2026-11-10 UTC: `loading_one_grammar_twice_gives_one_handle` in `src/grammar/tests.rs` passes on a box, in debug.
+- [x] 2.2 `Highlighter::for_grammar` and its limits variant.
+  → verify: a doctest highlights a grammar loaded from JSON
+  2026-11-10 UTC: the "Any language" doctest in `src/lib.rs` passes on a box.
 - [ ] 2.3 Includes across grammars, linked through the `Grammars` set when the highlighter is built, and hand-offs to hand lexers.
   → verify:
   - an HTML grammar loaded from JSON hands its `<style>` to the CSS lexer, and the fixture matches Shiki;
   - two grammars that include each other, loaded in either order, both match Shiki.
-- [ ] 2.4 `to_bytes` and `from_bytes`, with a versioned header.
-  → verify: a round trip gives the same output; bytes of another version, truncated bytes and an out-of-range index each fail with `GrammarError`
+- [x] 2.4 `to_bytes` and `from_bytes`, with a versioned header.
+  → verify:
+  - a round trip gives the same output;
+  - bytes of another version, truncated bytes and an out-of-range index each fail with `GrammarError`.
+  2026-11-10 UTC: in `src/grammar/tests.rs`, these pass on a box, in debug:
+  - `a_grammar_from_bytes_equals_the_grammar_from_json`;
+  - `bytes_of_another_version_fail`;
+  - `every_truncation_fails`;
+  - `a_rule_index_out_of_range_fails`.
 
 ## 3. Fidelity
 

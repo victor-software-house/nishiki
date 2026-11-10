@@ -144,6 +144,87 @@
 //! }
 //! ```
 //!
+//! # Any language
+//!
+//! With the `textmate` feature, nishiki highlights any `TextMate` grammar you
+//! bring, on its own `TextMate` engine.
+//! The crate bundles no grammar.
+//!
+//! - [`Grammar::from_json`] compiles a grammar in the JSON form Shiki and VS
+//!   Code use, such as a file of Shiki's `tm-grammars` package.
+//! - [`Grammars`] holds the grammars an include can name.
+//! - [`Highlighter::for_grammar`] links a grammar with a set into a
+//!   `Highlighter<Grammar>`. Its [`line`](Highlighter::line),
+//!   [`scopes`](Highlighter::scopes) and [`style`](Highlighter::style) work as
+//!   they do for a [`Language`].
+//!
+//! ```
+//! # #[cfg(feature = "textmate")]
+//! # fn main() -> Result<(), nishiki::GrammarError> {
+//! use nishiki::{Grammar, Grammars, Highlighter, State};
+//!
+//! let grammar = Grammar::from_json(
+//!     r#"{
+//!         "scopeName": "source.demo",
+//!         "patterns": [{ "match": "\\b(let|fn)\\b", "name": "keyword.demo" }]
+//!     }"#,
+//! )?;
+//! let mut highlighter = Highlighter::for_grammar(grammar, &Grammars::new())?;
+//! let mut tokens = Vec::new();
+//! let _ = highlighter.line("let x", &mut State::default(), &mut tokens);
+//! let scopes: Vec<&str> = highlighter.scopes(tokens[0].stack()).collect();
+//! assert_eq!(scopes, ["keyword.demo", "source.demo"]);
+//! # Ok(())
+//! # }
+//! # #[cfg(not(feature = "textmate"))]
+//! # fn main() {}
+//! ```
+//!
+//! An include of a whole grammar resolves when the highlighter is built:
+//!
+//! 1. to a language named with [`Grammars::hand_off`], whose own lexer takes
+//!    the region;
+//! 2. to a grammar in the set;
+//! 3. to a language nishiki lexes by hand, such as CSS for `source.css`, when
+//!    no language is named and its feature is on;
+//! 4. else to nothing, as in vscode-textmate.
+//!
+//! A build script can compile a grammar ahead of time, so the crate parses no
+//! JSON at run time:
+//!
+//! 1. In `build.rs`, write `Grammar::from_json(&json)?.to_bytes()` to a file in
+//!    `OUT_DIR`.
+//! 2. In the crate, load it with [`Grammar::from_bytes`] and
+//!    `include_bytes!(concat!(env!("OUT_DIR"), "/demo.grammar"))`.
+//!
+//! The bytes name their format version.
+//! Bytes from another version fail to load with a [`GrammarError`], as do
+//! bytes that are cut short or crafted.
+//!
+//! ```
+//! # #[cfg(feature = "textmate")]
+//! # fn main() -> Result<(), nishiki::GrammarError> {
+//! use nishiki::Grammar;
+//!
+//! let json = r#"{ "scopeName": "source.demo", "patterns": [] }"#;
+//! let bytes = Grammar::from_json(json)?.to_bytes();
+//! let grammar = Grammar::from_bytes(&bytes)?;
+//! assert_eq!(grammar.scope(), "source.demo");
+//! assert!(Grammar::from_bytes(&bytes[..bytes.len() - 1]).is_err());
+//! # Ok(())
+//! # }
+//! # #[cfg(not(feature = "textmate"))]
+//! # fn main() {}
+//! ```
+//!
+//! A grammar runs under the highlighter's [`Limits`], as every language does.
+//! The engine's fixed bounds are in the table under [Limits](#limits).
+//!
+//! Every distinct grammar, and every distinct link of a grammar with a set,
+//! stays in memory until the process ends.
+//! A service that loads grammars from untrusted input needs its own bound on
+//! how many it loads.
+//!
 //! # Limits
 //!
 //! [`Limits`] bounds every line:
@@ -221,11 +302,11 @@
 //! | `systems` | Rust, C, C++, Objective-C, Objective-C++, Shell, Java, Kotlin, Go, Swift |
 //! | `docs` | Markdown, LaTeX, TeX and `config` |
 //!
-//! The `textmate` feature builds nishiki's own `TextMate` engine, which runs
-//! Shiki's grammars from tables compiled in.
-//! No language uses it now.
-//! It is off by default and not in `all`,
-//! so the default build carries no grammar tables.
+//! The `textmate` feature builds nishiki's own `TextMate` engine and the
+//! [grammar API](#any-language).
+//! It turns on `json`.
+//! No bundled language uses the engine now.
+//! It is off by default and not in `all`.
 //!
 //! # Markdown fences
 //!
@@ -327,6 +408,8 @@ mod fnv;
 mod gdscript;
 #[cfg(feature = "lang-go")]
 mod go;
+#[cfg(feature = "textmate")]
+mod grammar;
 #[cfg(feature = "lang-graphql")]
 mod graphql;
 #[cfg(feature = "lang-hack")]
@@ -460,6 +543,8 @@ mod zig;
 
 pub use arena::Scopes;
 pub use document::{Changes, Document, DocumentLine, EditError, LineKind, Tail, Until};
+#[cfg(feature = "textmate")]
+pub use grammar::{Grammar, GrammarError, Grammars};
 pub use highlighter::{Highlighter, Syntax};
 pub use language::Language;
 pub use limits::{Budget, Limit, Limits, LineReport, Work};

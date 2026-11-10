@@ -614,10 +614,10 @@ pub(crate) struct Scratch {
     /// buffers and caches stay as they were. Each engine level keeps the next
     /// level's scratch. The depth of the nesting bounds their number.
     #[cfg_attr(
-        not(test),
+        not(any(test, feature = "json")),
         expect(
             dead_code,
-            reason = "no language runs on the TextMate engine now; its hand-off tests do"
+            reason = "without json, no grammar reaches the engine; its tests run it"
         )
     )]
     spare: Option<Box<Scratch>>,
@@ -626,10 +626,10 @@ pub(crate) struct Scratch {
 /// The state at the start of a document in `grammar`, whose text sits on the
 /// stack `base` with the grammar's root scope on top.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 pub(crate) fn start(arena: &mut Arena, grammar: &Grammar, base: u32) -> u32 {
@@ -654,7 +654,7 @@ fn pack(rule: usize, end: u32) -> u32 {
     not(test),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "no language embeds an engine grammar now; its tests do"
     )
 )]
 pub(crate) fn start_embedded(arena: &mut Arena, grammar: &Grammar, base: u32) -> u32 {
@@ -665,10 +665,10 @@ pub(crate) fn start_embedded(arena: &mut Arena, grammar: &Grammar, base: u32) ->
 
 /// A line to lex.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 #[derive(Clone, Copy)]
@@ -690,10 +690,10 @@ pub(crate) struct Text<'a> {
 /// The tokens cover the line from `text.start`, with ends counted from the
 /// line's start. An empty line leaves the state as it is.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 pub(crate) fn line(
@@ -714,10 +714,10 @@ pub(crate) fn line(
 /// The tokens then end at the halt, and the second value is where. The state
 /// at a halt is the root's, since a halt holds only with the root rule open.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 #[expect(
@@ -803,10 +803,10 @@ pub(crate) fn line_until<H: Halting>(
 /// `first_token` is the caller's [`Lexing::first_token`].
 /// A hand-off passes it on to its language.
 #[cfg_attr(
-    not(test),
+    not(any(test, feature = "json")),
     expect(
         dead_code,
-        reason = "no language runs on the TextMate engine now; its hand-off tests do"
+        reason = "without json, no grammar reaches the engine; its tests run it"
     )
 )]
 #[expect(

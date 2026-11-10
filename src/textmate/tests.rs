@@ -85,8 +85,6 @@ impl Sealed for Table {
         tokenizer::start(arena, lexer.0, base)
     }
 
-    /// A grammar that hands regions to languages lexed by hand runs with
-    /// the handing loop, as its language would.
     fn line(
         highlighter: &mut Highlighter<Table>,
         line: &str,
@@ -94,11 +92,7 @@ impl Sealed for Table {
         out: &mut Vec<Token>,
     ) -> LineReport {
         lex_line(highlighter, line, state, out, |table, cx, text, from| {
-            if table.0.hand_offs.is_empty() {
-                super::lex(cx, table.0, text, from)
-            } else {
-                super::lex_handing(cx, table.0, text, from)
-            }
+            super::lex_linked(cx, table.0, text, from)
         })
     }
 }

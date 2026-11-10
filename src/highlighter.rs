@@ -65,7 +65,9 @@ impl Sealed for Language {
     }
 }
 
-/// Highlights one language, a line at a time.
+/// Highlights text in one [`Syntax`], `S`, a line at a time.
+///
+/// `S` is a [`Language`] unless named.
 ///
 /// It owns the scope stacks and states its tokens and [`State`]s name.
 /// Both therefore belong to the highlighter that made them.
@@ -73,14 +75,12 @@ impl Sealed for Language {
 /// The state after one line is the input of the next.
 /// An editor can therefore keep each line's state and re-highlight from any
 /// line.
-///
-/// `S` is what it lexes, a [`Language`] unless named.
 #[derive(Debug)]
 pub struct Highlighter<S: Syntax = Language> {
     /// What the highlighter lexes with.
     lexer: S::Lexer,
     /// Everything else the highlighter keeps.
-    core: Core,
+    store: Store,
 }
 
 /// The limits, stacks, states, buffers and styles of a highlighter.
@@ -88,7 +88,7 @@ pub struct Highlighter<S: Syntax = Language> {
 /// They do not depend on its [`Syntax`].
 /// Their methods are therefore not generic, so nishiki compiles them once.
 #[derive(Debug)]
-struct Core {
+struct Store {
     limits: Limits,
     arena: Arena,
     /// Buffers and caches of the lexers, one field per language.
@@ -174,7 +174,7 @@ impl<S: Syntax> Highlighter<S> {
         let start = S::start(lexer, &mut arena, ROOT);
         Highlighter {
             lexer,
-            core: Core {
+            store: Store {
                 limits,
                 arena,
                 scratch: Scratch::default(),
@@ -184,10 +184,16 @@ impl<S: Syntax> Highlighter<S> {
         }
     }
 
+    /// What the highlighter lexes with.
+    #[cfg(feature = "textmate")]
+    pub(crate) fn lexer(&self) -> S::Lexer {
+        self.lexer
+    }
+
     /// The limits this highlighter applies to every line.
     #[must_use]
     pub fn limits(&self) -> Limits {
-        self.core.limits
+        self.store.limits
     }
 
     /// Forgets every interned state and stack, and keeps the syntax and
@@ -203,11 +209,11 @@ impl<S: Syntax> Highlighter<S> {
     /// The new arena gives its ids to other stacks, so a style kept for an
     /// old id would colour an unrelated stack.
     pub(crate) fn renew(&mut self) {
-        let core = &mut self.core;
-        core.arena = Arena::new(core.limits.nodes);
-        core.start = S::start(self.lexer, &mut core.arena, ROOT);
-        core.scratch = Scratch::default();
-        core.styles.forget();
+        let store = &mut self.store;
+        store.arena = Arena::new(store.limits.nodes);
+        store.start = S::start(self.lexer, &mut store.arena, ROOT);
+        store.scratch = Scratch::default();
+        store.styles.forget();
     }
 
     /// Lexes `line`, which excludes its line ending, starting from `state`.
@@ -228,7 +234,7 @@ impl<S: Syntax> Highlighter<S> {
     /// nothing.
     #[must_use]
     pub fn scopes(&self, stack: Stack) -> Scopes<'_> {
-        self.core.arena.scopes(stack.0)
+        self.store.arena.scopes(stack.0)
     }
 
     /// The style `theme` gives `stack`: the style [`Theme::style`] gives the
@@ -241,7 +247,7 @@ impl<S: Syntax> Highlighter<S> {
     /// It allocates only when a new stack first appears.
     #[must_use]
     pub fn style(&mut self, theme: &Theme, stack: Stack) -> Style {
-        self.core.style(theme, stack)
+        self.store.style(theme, stack)
     }
 
     /// The style [`Highlighter::style`] keeps for `stack` under `theme`.
@@ -250,7 +256,7 @@ impl<S: Syntax> Highlighter<S> {
     /// It is `None` for a stack not styled yet, and for a theme in neither
     /// slot, so no caller reads a style left from another theme.
     pub(crate) fn cached_style(&self, theme: &Theme, stack: Stack) -> Option<Style> {
-        let slot = [&self.core.styles.current, &self.core.styles.previous]
+        let slot = [&self.store.styles.current, &self.store.styles.previous]
             .into_iter()
             .find(|slot| slot.theme == Some(theme.id()))?;
         usize::try_from(stack.0)
@@ -264,8 +270,8 @@ impl<S: Syntax> Highlighter<S> {
     #[cfg(test)]
     #[cfg(feature = "_language")]
     pub(crate) fn frame(&self, state: State) -> crate::arena::Frame {
-        self.core.arena.frame(if state.0 == ROOT {
-            self.core.start
+        self.store.arena.frame(if state.0 == ROOT {
+            self.store.start
         } else {
             state.0
         })
@@ -275,7 +281,7 @@ impl<S: Syntax> Highlighter<S> {
     #[cfg(test)]
     #[cfg(feature = "_textmate")]
     pub(crate) fn scratch_mut(&mut self) -> &mut Scratch {
-        &mut self.core.scratch
+        &mut self.store.scratch
     }
 }
 
@@ -290,24 +296,28 @@ pub(crate) fn lex_line<S: Syntax>(
     out: &mut Vec<Token>,
     lex: impl FnOnce(S::Lexer, &mut Context<'_>, Line<'_>, u32) -> u32,
 ) -> LineReport {
-    let Highlighter { lexer, core } = highlighter;
+    let Highlighter { lexer, store } = highlighter;
     let mut report = LineReport::default();
-    let from = if state.0 == ROOT { core.start } else { state.0 };
-    if core.limits.line_bytes.is_some_and(|max| line.len() > max) {
+    let from = if state.0 == ROOT {
+        store.start
+    } else {
+        state.0
+    };
+    if store.limits.line_bytes.is_some_and(|max| line.len() > max) {
         report.record(Limit::LineBytes);
-        let stack = Stack(core.arena.frame(from).stack);
+        let stack = Stack(store.arena.frame(from).stack);
         out.push(Token {
             end: line.len(),
             stack,
         });
         return report;
     }
-    core.scratch.start_line();
+    store.scratch.start_line();
     let first_token = out.len();
     let mut cx = Context {
-        scratch: &mut core.scratch,
-        arena: &mut core.arena,
-        limits: &core.limits,
+        scratch: &mut store.scratch,
+        arena: &mut store.arena,
+        limits: &store.limits,
         out,
         report: &mut report,
         first_token,
@@ -318,11 +328,11 @@ pub(crate) fn lex_line<S: Syntax>(
         embedded: false,
     };
     let to = lex(*lexer, &mut cx, text, from);
-    *state = State(if to == core.start { ROOT } else { to });
+    *state = State(if to == store.start { ROOT } else { to });
     report
 }
 
-impl Core {
+impl Store {
     /// [`Highlighter::style`].
     ///
     /// Not generic, so nishiki compiles it once, whatever the syntax.
