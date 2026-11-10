@@ -164,23 +164,32 @@ The profile of step 8 against the hand matchers names the costs left.
 
 Lua's own functions run 12.93 million instructions, against 9.89 million by hand.
 Most of the gap is `matcher`'s own cost: 4.24 million, against 1.38 million.
-Per call, by pattern:
+It is entered 121,468 times, so it costs 34.9 instructions per entry, against 11.4 by hand.
+Per entry, by pattern:
 
-| Pattern | Generated, per call | Hand, per call |
+| Pattern | Generated, per entry | Hand, per entry |
 |:--|--:|--:|
-| `RootAt25`, `RootAt26` and `RootAt28`, the identifiers | 66 to 73 | 48.1 (`bounded_name`) |
-| `RootAt16` | 48.6 | 37.1 |
-| `StringAt3` | 12.9 | 9.5 |
-| `LdocTag` | 8.1 | 4.3 |
-| the builtins | 62.8 | 67.5 (`word_in`) |
+| `RootAt25`, `RootAt26` and `RootAt28`, the identifiers | 197 to 220 | 144 (`bounded_name`) |
+| `RootAt16` | 146 | 111 (`global_declaration`) |
+| `StringAt3` | 38.6 | 28.5 (`cdef_open`) |
+| `LdocTag` | 24.4 | 12.8 (`ldoc_tag`) |
+| the builtins | 188 | 203 (`word_in`) |
 
-- The three identifier patterns run 34,887 times, and `bounded_name` 38,601 times.
+- The three identifier patterns are entered 11,629 times, and `bounded_name` 12,867 times.
 - The builtins are the one pattern where the generated code wins.
 
-Protocol Buffers' `matcher` costs 1.11 million, against 0.93 million by hand, over 79,428 calls.
-The field pattern's inner loop costs 137,634 over 2,004 calls.
-Its hand code, `field_rest`, costs 33,207 over 825 calls.
+Protocol Buffers' `matcher` costs 1.11 million over 26,476 entries, 41.9 each.
+By hand it costs 0.93 million, 35.1 each.
+The field pattern's inner loop costs 137,634 over 668 entries, 206 each.
+Its hand code, `field_rest`, costs 33,207 over 275 entries, 121 each.
 [`field-pattern-fixes`][field-pattern-fixes] changes that pattern.
+
+These per-entry costs come from Callgrind as follows:
+
+- The `lex` example lexes the fixtures three times: the first-document pass, the measured pass and the colouring pass.
+- Callgrind counts instructions only in the measured pass, but it counts calls in all three.
+- So the number of entries is the instruction count of a function's first instruction, from a profile taken with `--dump-instr=yes`.
+  It is a third of the call count.
 
 ## 3. Coverage
 
