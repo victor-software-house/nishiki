@@ -131,7 +131,7 @@ impl Skip {
     /// A match of the prefix `P` begins with at most `reach` bytes of run
     /// characters.
     /// So every start within `reach` bytes of `run_end` is still tried.
-    /// A text too long for 32 bits gets no skip.
+    /// A text past `u32::MAX / 2` bytes gets no skip.
     pub(crate) fn after<G: Grammar>(
         lexer: &Lexer<'_, G>,
         p: usize,
@@ -139,12 +139,9 @@ impl Skip {
         reach: usize,
     ) -> Skip {
         let to = run_end.saturating_sub(reach).max(p + 1);
+        let text = skip_text(lexer);
         match (u32::try_from(p), u32::try_from(to)) {
-            (Ok(from), Ok(to)) => Skip {
-                from,
-                to,
-                text: skip_text(lexer),
-            },
+            (Ok(from), Ok(to)) if text != u32::MAX => Skip { from, to, text },
             _ => Skip::default(),
         }
     }
