@@ -37,7 +37,7 @@ None.
 
 ### Modified Capabilities
 
-- `engine-handoff`, which the `engine-handoff` change adds: an injection halts at any depth, a language can start at an entry, and one entry point serves every embedding.
+- `engine-handoff`, added by the `engine-handoff` change: an injection halts at any depth, a language can start at an entry, and one entry point serves every embedding.
 
 ## Impact
 

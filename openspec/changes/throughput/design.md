@@ -153,7 +153,7 @@ The projections are arithmetic on the profile in sections 2 to 5.
 | 1 | A per-stack style cache, `Highlighter::style` | `highlighter.rs`, `theme.rs` | warm colour 8,512 M to about 3,050 M; the per-language gain is below | the colour row of Callgrind (lever 0); the style test below |
 | 2 | Linear candidate tables | `rules/tables.rs` | first document falls by 541 M over the corpus, up to 98 M for C++ | the first-document row of Callgrind; a one-off check that the new tables equal the old for every rule of every grammar |
 | 3 | A memo of the shared character steps at one position | `rules/chars.rs`, `rules/lexer.rs` | not yet projected: C++ spends 27% in those steps, and task 5.1 counts how often a position repeats them | the lexing rows of Callgrind |
-| 4 | `Theme::style` without allocation or SipHash | `theme.rs`, `theme/trie.rs` | about half of warm style for callers of `Theme::style`: the allocation is 9% and SipHash 40% | the style-only row; the colour test |
+| 4 | `Theme::style` without allocation or SipHash | `theme.rs`, `theme/trie.rs` | about half of warm style, for callers of `Theme::style`: the allocation is 9% and SipHash 40% | the style-only row; the colour test |
 | 5 | Per-language matchers, by use and by instructions per byte | each language | per language | the lexing rows of Callgrind, the Shiki differential |
 | 6 | Per-language one-time work: shell's `rule_info` 56 M, C's list tables 34 M | `shell/`, `c/` | first document of those languages | the first-document row |
 
@@ -199,7 +199,7 @@ The comparison's Shiki and Pierre rows already show what a user of each library 
 ### Lexing beyond lever 3
 
 Pierre's lexers reach about 63 instructions per byte on the comparison host.
-That figure is an estimate from its throughput, not a count.
+That figure is estimated from its throughput and was never counted.
 After lever 1, the geometric mean of colour is about 221, of which lexing is 216.
 So the rest of the road is lexing.
 
@@ -223,7 +223,7 @@ This plan and slices 1 to 3 form one stack, the plan at the bottom.
 6. The per-stack style cache (lever 1), last.
 
 The style cache needs a public method.
-`Theme::style` takes scope names, not a stack id, so no cache can sit behind it.
+`Theme::style` takes scope names instead of a stack id, so no cache can sit behind it.
 The operator approves public API.
 
 A document-level streaming API is being designed in `openspec/changes/streaming/`, and styled output per change belongs to it.

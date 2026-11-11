@@ -37,7 +37,7 @@ When the dropped arm is preferred, its unit's ends SHALL be the kept unit's firs
 
 #### Scenario: The optional dot
 
-- **WHEN** `\.?[.\w]+` runs at a dot with one arm of `\.?` dropped
+- **WHEN** `\.?[.\w]+` runs at a dot, with one arm of `\.?` dropped
 - **THEN** it gives the same match and groups as with both arms
 
 ### Requirement: Protocol Buffers' field lines end uncut

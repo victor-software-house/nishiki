@@ -29,7 +29,7 @@ Only permissively licensed files SHALL be used.
 
 #### Scenario: A file has no manifest row
 
-- **WHEN** a file sits in the corpus directory without a row in the manifest
+- **WHEN** a file is in the corpus directory without a row in the manifest
 - **THEN** the corpus check fails
 
 ### Requirement: Figures from two corpus versions are never compared
@@ -43,7 +43,7 @@ A record SHALL name the corpus version it ran on, and a regression or speed clai
 
 ### Requirement: A language's throughput weighs files by their size
 
-A language's throughput in a tier SHALL be its files' total bytes over their total time, not the mean of per-file speeds.
+A language's throughput in a tier SHALL be its files' total bytes over their total time, instead of the mean of per-file speeds.
 
 #### Scenario: A tier holds a small and a large file
 

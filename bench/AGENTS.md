@@ -51,7 +51,7 @@ The reasons for these rules are in the [`bench-methodology` design](../openspec/
    No comparator becomes a dependency of the crate or of `bench/`.
 9. A speed change never changes output.
    The oracle, colour, fuzz and limit tests stay green, and the run's report records it.
-10. Termination on hostile input is a test, not a benchmark (`tests/it/limits/<language>.rs`).
+10. Termination on hostile input is a test (`tests/it/limits/<language>.rs`) and no benchmark.
     Each language's generated hostile lines must finish within the default limits.
 11. `mise run bench` builds with Cargo's default release profile on purpose.
     A downstream binary builds nishiki that way, so the figures are what it sees.

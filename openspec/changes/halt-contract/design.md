@@ -64,7 +64,7 @@ The generator hands off only to entries the list in section 1 names, so the case
 
 xml-html adds TypeScript's `expression`; no other entry is planned.
 Shiki's `html-derivative` is a language of its own, `Language::HtmlDerivative` (approved as xml-html's language PR).
-So Vue's `include text.html.derivative` is a hand-off to its root, not an entry of HTML.
+So Vue's `include text.html.derivative` is a hand-off to its root and no entry of HTML.
 
 ## 4. Halts
 
@@ -100,7 +100,8 @@ TypeScript skips `any` in its comment kinds.
 Where the halts live, in the rule engine (go-lexer):
 
 1. On the `Lexer`, not in `rules::Scratch`: a `&'a dyn Fn` cannot live in the long-lived scratch.
-   `Lexer::new`, `run_halting`, `open` and `finish` are `#[inline(always)]`, so the extra fields cost the plain path nothing; they must not move back into the scratch.
+   `Lexer::new`, `run_halting`, `open` and `finish` are `#[inline(always)]`, so the extra fields cost the plain path nothing.
+   They must not move back into the scratch.
 2. `before` and `after` keep today's root-only test (`root_halt`, one frame open).
    `any` has its own test outside that filter, and it lives in the `HALTING` instance only, so the plain scan stays as it is.
 3. SQL and C have scans of their own, generic over `const HALTING`, and shell and GraphQL have private engines; each gets the same split.
@@ -233,7 +234,7 @@ Two lines that reach the same embedded state reach the same engine state.
 
 ## 11. Order of work
 
-1. `Halts`, its contract, `Grammar::rule_halts` and `Language::lex_until(…, &Halts)`, in one PR on top of [#159][pr159] and primitives' GraphQL port.
+1. `Halts`, its contract, `Grammar::rule_halts` and `Language::lex_until(…, &Halts)`, in one PR stacked on [#159][pr159] and primitives' GraphQL port.
    The rule engine, SQL, C, shell, GraphQL and TypeScript honour all three tests.
    HTML, GraphQL and Ruby heredoc fixtures stay unchanged.
 2. Entries: `start_embedded(arena, base, entry)`; xml-html adds TypeScript's `expression`.

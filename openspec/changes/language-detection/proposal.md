@@ -24,7 +24,7 @@ Work starts after the TextMate engine covers the long tail of languages.
   It weighs the evidence strongest first:
   a file name or extension, a shebang, an editor modeline, then the content itself.
 - Shell commands that move a file's text name its language.
-  - A here-document written to a file carries the file name, as in `cat > x.py <<'EOF'` and `tee x.ts`.
+  - A here-document written to a file names that file, as in `cat > x.py <<'EOF'` and `tee x.ts`.
   - `cat`, `head`, `less` and their kin carry the name of the file they print.
   - The lines they write or print are highlighted as that file's language.
 - An extensionless file or a bare snippet falls back to content detection.

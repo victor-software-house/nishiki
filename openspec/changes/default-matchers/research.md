@@ -188,7 +188,7 @@ A group is recorded when one of these reads it:
 
 ### 2.3 Where step 8's saving comes from
 
-Most of step 8's Lua saving is inlining of `record`, not the group-0 write ([note][note-step-8]).
+Most of step 8's Lua saving comes from inlining `record` instead of the group-0 write ([note][note-step-8]).
 
 ### 2.4 The costs after step 8
 

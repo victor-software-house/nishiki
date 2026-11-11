@@ -39,7 +39,7 @@ What nishiki highlights stays as specified.
   That memory is part of the bar.
 - No dependency is added.
 - The public API does not change.
-- The bar is first token and steady state at or under main for every TextMate language, with three clean builds per side.
+- The bar is first token and steady state no higher than main for every TextMate language, with three clean builds per side.
 
 [pr336]: https://github.com/victor-software-house/nishiki-archive/pull/336
 [pr347]: https://github.com/victor-software-house/nishiki-archive/pull/347

@@ -12,7 +12,7 @@ The finding is Protocol Buffers' field pattern (lead, 2026-11-10):
 - At each start the pattern takes the rest of the `[.\w]` run, gives it back, finds no name, and fails.
 - At a start on a `.`, it does that twice: once with `\.?` taking the dot, once without.
   So the line costs more than `L²` steps.
-- Shiki 4.6.0 lexes the line uncut, as one token, in under a millisecond at 101 and at 12,001 bytes.
+- Shiki 4.6.0 lexes the line uncut, as one token, in under a millisecond, at 101 and at 12,001 bytes.
 
 The generated matcher cuts a 101-byte line that the hand matcher lexes whole.
 The 12,001-byte line is the pattern's limit line.
@@ -84,7 +84,7 @@ The pattern is a prefix `P`, then `R`, the `[.\w]+` that takes a run, then a suf
   The same holds for every group `S` reaches through calls, directly or through other calls.
   `\g<0>` reruns the whole pattern, so it reaches every group.
 
-The check lives in `codegen/`'s skip test, not only in the writer's fallback.
+The check is in `codegen/`'s skip test as well as the writer's fallback.
 It refuses the skip when `S` reaches a call, so it holds even once the writer learns calls.
 The parser refuses callouts such as `(*COUNT)` ([#720][pr-720]), so no callout carries state from one try to the next.
 
@@ -217,8 +217,8 @@ Its rise at `30390626`, 12,225 instructions:
 
 | Function | Instructions | What it is |
 |:--|--:|:--|
-| `m36`, the field pattern | +8,515 | about 10 for each of its 825 tries |
-| `proto::lex` | +3,710 | about one store for each of 3,374 lines, as the lexer is built |
+| `m36`, the field pattern | +8,515 | about 10 per try over its 825 tries |
+| `proto::lex` | +3,710 | about one store per line across 3,374 lines, as the lexer is built |
 | `char_at::<Proto>` | +6,370 | one folded function, named for Zig at step 14 |
 | `char_at::<Zig>` | −6,370 | the same function |
 

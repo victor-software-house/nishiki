@@ -45,7 +45,7 @@ These tasks were tasks 1.2, 2, 5 and 6 of the [`streaming` change][streaming] un
 - [x] 4.1 Design decision 2's five needs are sent to perf-34 for the throughput change.
   → verify: perf-34's reply, and the tasks they added, recorded here
 
-  2026-11-05 UTC: sent with the figures of section 4 of the research note.
+  2026-11-05 UTC: sent with the figures from the research note's section 4.
   perf-34 replied that the throughput change takes needs 1 to 4:
   - first contact, through the candidate tables built from bit sets, then per-language slices for shell's `rule_info` and C's list tables.
     Each slice is checked with `bench:cold` and `bench:latency` before and after;

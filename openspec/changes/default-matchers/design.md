@@ -86,7 +86,7 @@ The steps bound the work of each try of a pattern:
 
 - Every byte the matcher reads lies inside a loop, or inside straight-line code between loops.
 - Straight-line code reads a number of bytes the pattern fixes: its characters, classes, anchors and fixed-width lookbehinds.
-- Each loop turn takes at least one byte, which the loop spends, or gives back a turn, which spends one step.
+- Each loop turn takes at least one byte and spends it, or gives back a turn that spends one step.
 - So a try that spends `s` steps does at most `c × (s + 1)` work, where `c` depends only on the pattern.
 - The scanner tries patterns at each start, and each try spends its own steps.
 
@@ -138,7 +138,7 @@ A retry line holds only at fixture length:
   A `\b` fails at once inside a word, which the scanner skips, or another pattern takes the run first.
 - On step 2b, Zig's and Lua's retry lines pass at fixture length.
   Protocol Buffers' field line ends at the work limit at 101 bytes, one short of its longest fixture line (section 2.5).
-- This is a measured fact about the fixtures, not a bound.
+- This is a fact measured on the fixtures and sets no bound.
   The hand lexers and Shiki have no linear scan either.
 
 A retry line that reaches the limit at fixture length is a finding, because Shiki would not cut that line.

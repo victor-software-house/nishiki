@@ -18,7 +18,7 @@ the multi-colour Japanese woodblock prints of the 1760s.
 cargo add nishiki
 ```
 
-Print each token of a line of Rust with its scopes:
+Print each token in a Rust line with its scopes:
 
 ```rust
 use nishiki::{Highlighter, Language, State};
@@ -53,7 +53,7 @@ The API docs are on [docs.rs](https://docs.rs/nishiki):
 
 Each language is a cargo feature.
 The Tier column names the tier that turns each one on.
-The `all` tier is on by default.
+Tier `all` is on by default.
 The opt-in `textmate` tier holds no language now.
 
 Any other language takes a TextMate grammar, such as a file of Shiki's `tm-grammars` package.

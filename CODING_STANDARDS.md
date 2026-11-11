@@ -9,7 +9,7 @@ Reviews cite the number.
   The general rules come from:
   - the `rust-projects` skill's code rules;
   - the [Rust API Guidelines](https://rust-lang.github.io/api-guidelines/);
-  - [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html), its general rules, not the Chrome, Fuchsia or Android ones;
+  - [Google's Rust style guide](https://google.github.io/styleguide/rustguide.html), its general rules, leaving out the Chrome, Fuchsia and Android ones;
   - [BeautifulRust's rust-best-practices](https://github.com/morganlinton/BeautifulRust).
 
 ## 1. Lexers
@@ -175,7 +175,7 @@ A language embedded in another, such as Rust in a Markdown fence, runs on the em
 ### 2.6 State on the hot path has no `Drop` impl
 
 - A value a lexer holds while it lexes a line, such as its `Steps`, has no `Drop` impl.
-  Drop glue turns every call made while the value lives into an unwinding call with a cleanup path.
+  Drop glue turns every call made while the value is alive into an unwinding call with a cleanup path.
   That path grows the caller and changes what LLVM inlines into it.
 - Work that must happen when the value is done goes in one consuming method.
   The type system makes every exit call it.
@@ -339,7 +339,7 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
 ### 4.1 Shiki is the test
 
 - A language is done when every oracle fixture matches Shiki on every non-whitespace byte.
-  It matches in scopes and in colours under every oracle theme, held-out inputs included.
+  It matches the scopes and the colours under every oracle theme, held-out inputs included.
 - Unit tests cover what the oracle cannot reach:
   states across lines, limits, embedding, and edge cases a fixture lacks.
 
@@ -357,7 +357,7 @@ Before its pull request opens, a language has:
 ### 4.3 One integration binary
 
 Integration tests are modules of `tests/it/main.rs`.
-A new file is a module there, not a new binary.
+A new file adds a module to it and builds no new binary.
 
 ## 5. Crates and publishing
 
@@ -391,7 +391,7 @@ A new file is a module there, not a new binary.
   Every `lang-*` feature and the TextMate engine turn it on.
 - Every `lang-*` feature turns on the private `_hand-lexers` feature, which turns on `_language`.
   The TextMate engine alone leaves the code only hand-written lexers use unused.
-  That code carries `expect(dead_code)` under `not(feature = "_hand-lexers")`.
+  That code has `expect(dead_code)` under `not(feature = "_hand-lexers")`.
 - Unit tests that name another language require its feature.
 
 ### 5.3 What ships

@@ -163,7 +163,7 @@ pub enum EditError { OutOfBounds, NotCharBoundary }
 - Mutations change the text and mark lines stale.
   `lex` does the lexing, so a caller can lex its viewport first and the rest later.
   A caller with no viewport calls `lex(Until::End)` after each mutation.
-- `take_changes` merges every change since the last call into one span, in line numbers before and after.
+- `take_changes` merges every change since the last call into one span, given as line numbers before and after.
   A renderer calls it once a frame, whether one delta or ten arrived.
   The span is conservative: it may include lines that ended up unchanged.
 - `Freshness` is an enum, not flags, so a renderer matches every case.
@@ -263,10 +263,10 @@ A long-lived document under many edits can fill it to `Limits::nodes`.
 
 ## Risks / Trade-offs
 
-- [Shiki's states stand in for nishiki's in the speculation and edit measurements] → The stream tests check nishiki's own tokens.
+- [Shiki's states substitute for nishiki's in the speculation and edit measurements] → The stream tests check nishiki's own tokens.
   They compare them with one-shot lexing on every fixture.
 - [A splice on a large document costs a memory move per edit] → The edit trace times it; a gap buffer comes only if it shows.
-- [`hold-last` keeps the last token uncoloured, which reads as lag on long tokens] → `stable` is advice; every token is still given.
+- [`hold-last` keeps the last token uncoloured, which reads as lag on long tokens] → `stable` is advice. Every token is still given.
 
 ## Open Questions
 
