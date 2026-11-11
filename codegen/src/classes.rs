@@ -312,8 +312,8 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
     Ok(File { path: PATH, text })
 }
 
-/// The lines of the attribute that keeps an item out of builds without one
-/// of `features`, or none when `features` is empty.
+/// The lines of a `cfg` attribute that requires one of `features`.
+/// An empty `features` gives no lines.
 /// More than two features go one to a line.
 fn gate(features: &[&str]) -> Vec<String> {
     let named: Vec<String> = features
