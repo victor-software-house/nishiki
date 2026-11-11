@@ -22,7 +22,7 @@
 // tokenizes the text of every fixture, and fails when a scope stack differs
 // from the fixture's, so the tags provably change nothing. Where a grammar has
 // injections, it counts only the match vscode-textmate keeps. It measures a
-// fixed fuzz corpus from oracle/fuzz.ts the same way, and writes, per
+// fixed fuzz corpus from oracle/fuzz-texts.ts the same way, and writes, per
 // hand-lexed grammar, the reachable expressions and captures the fixtures
 // exercise, those only the fuzz corpus exercises, and the units no root
 // reaches, to tests/oracle/COVERAGE.md. Every loaded grammar must be listed
@@ -32,13 +32,13 @@
 // lexer. The run fails after writing the report when a waiver in
 // oracle/coverage-waivers.ts is wrong, or when a grammar listed complete there
 // has a unit that neither a fixture nor a waiver covers.
-import { mkdtempSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
-import { tmpdir } from "node:os";
+import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { createHighlighter, type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import { handLexed as handOffs } from "./hand-lexed.ts";
 import { fixtureParts, type Highlighter } from "./fixture.ts";
+import { extrasOf, fixtureTexts, fuzzTexts, type Mode } from "./fuzz-texts.ts";
 import { grammars } from "./grammars.ts";
 import { complete, waivers } from "./coverage-waivers.ts";
 import { inputs } from "./inputs.ts";
@@ -442,23 +442,18 @@ function exercise(highlighter: Highlighter, text: string, lang: string): void {
 /** The fuzz corpus: per hand-lexed input language, `fuzzCount` mutated
  * windows of its fixtures, and as many generated documents where
  * oracle/fuzz/<lang>.ts has pieces, at seed 1. oracle/fuzz.ts writes the
- * same documents for the same arguments. Only their text is read: fuzz.ts
- * loads one grammar, so its scopes leave other languages' fences plain. */
+ * same documents for the same arguments. The run draws them in its own
+ * process, from oracle/fuzz-texts.ts. A process per language and mode spent
+ * about 45% of the run starting Bun and Shiki. */
 const fuzzCount = 100;
-const corpus = mkdtempSync(join(tmpdir(), "nishiki-coverage-"));
 /** Tokenizes the fuzz corpus of `lang`, counting what it exercises. */
 async function fuzz(highlighter: Highlighter, lang: string): Promise<void> {
-  const pieces = `${root}oracle/fuzz/${lang}.ts`;
-  const extras = (await Bun.file(pieces).exists()) ? await import(pieces) : {};
-  for (const mode of extras.pieces === undefined ? ["win"] : ["win", "gen"]) {
-    const dir = join(corpus, `${lang}-${mode}`);
-    const run = Bun.spawnSync(
-      [process.execPath, "run", `${root}oracle/fuzz.ts`, lang, mode, "1", String(fuzzCount), dir],
-      { stdout: "ignore", stderr: "pipe" },
-    );
-    if (run.exitCode !== 0) throw new Error(`fuzz.ts ${lang} ${mode}: ${run.stderr.toString()}`);
-    for (const name of readdirSync(dir).sort()) {
-      exercise(highlighter, textOf(readFileSync(join(dir, name), "utf8")), lang);
+  const extras = await extrasOf(lang);
+  const texts = fixtureTexts(lang);
+  const modes: Mode[] = extras.pieces === undefined ? ["win"] : ["win", "gen"];
+  for (const mode of modes) {
+    for (const text of fuzzTexts(lang, mode, 1, fuzzCount, extras, texts)) {
+      exercise(highlighter, text, lang);
     }
     Bun.gc(true);
   }
@@ -488,7 +483,6 @@ for (const lang of inputLangs) {
   Bun.gc(true);
   console.error(`✔ ${lang}: ${((performance.now() - started) / 1000).toFixed(1)} s`);
 }
-rmSync(corpus, { recursive: true });
 
 if (picking) {
   const highlighter = await newHighlighter();
