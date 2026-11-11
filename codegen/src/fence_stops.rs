@@ -28,8 +28,8 @@ use crate::source::Source;
 /// The scopes that Markdown's fences include and the check cannot read, each
 /// with why.
 ///
-/// - `source.groovy` and `source.r`: `oracle/licences.ts` refuses their
-///   grammars, so they are not committed.
+/// - `source.groovy`: `oracle/licences.ts` refuses its grammar, so it is not
+///   committed.
 /// - `source.ignore`, `source.js.regexp`, `source.twig` and `source.yang`:
 ///   Shiki bundles no grammar with the scope.
 pub(crate) const UNCHECKED: &[(&str, &str)] = &[
@@ -41,10 +41,6 @@ pub(crate) const UNCHECKED: &[(&str, &str)] = &[
     (
         "source.js.regexp",
         "Shiki bundles no grammar with this scope",
-    ),
-    (
-        "source.r",
-        "oracle/licences.ts refuses r, whose source is under the Elastic License 2.0",
     ),
     ("source.twig", "Shiki bundles no grammar with this scope"),
     ("source.yang", "Shiki bundles no grammar with this scope"),

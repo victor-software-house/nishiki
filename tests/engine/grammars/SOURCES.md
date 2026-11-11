@@ -57,6 +57,7 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `powershell` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][powershell-source] | [MIT][powershell-licence] |
 | `pug` | [microsoft/vscode at 6ac83c7c7dda9f27ca1fe9d98675253e010b75d1][pug-source] | [MIT][pug-licence] |
 | `python` | [microsoft/vscode at cf4c9e469d521fa5f33353737e8157eb0789ad02][python-source] | [MIT][python-licence] |
+| `r` | [posit-dev/positron at c4d6bab60dd914427a2d47a4b64e75e025d94059][r-source] | [MIT][r-licence] |
 | `raku` | [microsoft/vscode at 8fdf170a0850c1cc027382f31650aaf300d3ae2a][raku-source] | [TextMate bundle licence][raku-licence] |
 | `regexp` | [MagicStack/MagicPython at c9b3409deb69acec31bbf7913830e93a046b30cc][regexp-source] | [MIT][regexp-licence] |
 | `rst` | [microsoft/vscode at 48e93f756b764991ede33ad09781a863aca6907a][rst-source] | [MIT][rst-licence] |
@@ -183,6 +184,8 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [pug-licence]: https://github.com/davidrios/pug-tmbundle/blob/HEAD/LICENSE
 [python-source]: https://github.com/microsoft/vscode/tree/cf4c9e469d521fa5f33353737e8157eb0789ad02
 [python-licence]: https://github.com/MagicStack/MagicPython/blob/HEAD/LICENSE
+[r-source]: https://github.com/posit-dev/positron/tree/c4d6bab60dd914427a2d47a4b64e75e025d94059
+[r-licence]: https://github.com/posit-dev/positron/blob/c4d6bab60dd914427a2d47a4b64e75e025d94059/extensions/positron-r/syntaxes/LICENSE.md
 [raku-source]: https://github.com/microsoft/vscode/tree/8fdf170a0850c1cc027382f31650aaf300d3ae2a
 [raku-licence]: https://github.com/textmate/perl.tmbundle/blob/HEAD/README.mdown
 [regexp-source]: https://github.com/MagicStack/MagicPython/tree/c9b3409deb69acec31bbf7913830e93a046b30cc

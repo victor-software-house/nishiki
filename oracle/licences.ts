@@ -328,9 +328,10 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
-  // The repository has no licence that GitHub identifies.
-  // The grammar's own folder holds an MIT licence,
-  // read at f18e8663177f72eb94e4568ea583c277692014dd.
+  // The repository's root licence is the Elastic License 2.0, with no
+  // exception for this folder. The grammar's own folder, at the commit Shiki
+  // bundles, holds an MIT licence from the same holder, and its README states
+  // that the code in the folder is under MIT. The folder's licence is read as the grammar's.
   r: {
     bundled: "posit-dev/positron@c4d6bab60dd914427a2d47a4b64e75e025d94059",
     origin: "posit-dev/positron",
@@ -565,5 +566,4 @@ export const refused: Record<string, string> = {
   groovy:
     "textmate/groovy.tmbundle, which VS Code converted it from, " +
     "states no licence in a file or its README; only VS Code's notices do",
-  r: "posit-dev/positron, where Shiki takes it from, is under the Elastic License 2.0",
 };
