@@ -16,7 +16,9 @@
 
 mod classes;
 mod error;
+mod facts;
 mod fence_stops;
+mod folds;
 mod header;
 mod matchers;
 mod numbers;
@@ -88,6 +90,7 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     let mut files = words::files(&root)?;
     files.extend(matchers::files(&root)?);
     files.push(classes::file(&root)?);
+    files.push(folds::file(&root)?);
     for file in files {
         let path = root.join(file.path);
         let current = fs::read(&path).ok();
