@@ -26,9 +26,9 @@ jobs:
     with:
       mise-version: 2026.11.6
       mise-env: ci,release
-      # A private repository: the plan, publish, docs and propose jobs run on
-      # Namespace, as its CI does.
-      runner: '["nscloud-ubuntu-24.04-amd64-4x8"]'
+      # A public repository: the plan, publish, docs and propose jobs run on
+      # GitHub-hosted runners, as its CI does.
+      runner: '["ubuntu-latest"]'
       # Publishing waits for the operator (2026-11-02): the Version PR stays
       # open until the operator merges it.
       auto-merge: false

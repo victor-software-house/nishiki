@@ -32,7 +32,7 @@ jobs:
   refresh:
     if: github.event_name == 'schedule'
     # One API call on the runner chosen when this repository was rendered.
-    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    runs-on: ubuntu-latest
     timeout-minutes: 2
     permissions:
       actions: write
@@ -48,31 +48,24 @@ jobs:
 
   verify:
     if: ${{ !github.event.pull_request.draft && github.event_name != 'schedule' }}
-    # The shared jobs that install tools download through the release mirror
-    # with the organization's ci login. They still ask for id-token: write,
-    # the mise action's fallback, so the caller grants it.
+    # The shared jobs that install tools download through the release mirror:
+    # they exchange the job's OIDC token for a session token, with the
+    # organization's mirror key, so the caller grants id-token: write.
     permissions:
       actions: read
       contents: read
       id-token: write
       pull-requests: read
-    uses: victor-software-house/actions/.github/workflows/rust-ci.yml@e6e13c808cce87ac8f1faf59cfaf2bab34bda7aa # main, 2026-11-11
+    uses: victor-software-house/actions/.github/workflows/rust-ci.yml@4168002fe58fd0b310bd2b65f9db2262fc0e21d3 # main, 2026-11-11
     with:
       mise-version: 2026.11.6
       advisories: true
       semver: true
       timeout-minutes: 16
-      build-runner: >-
-        ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki",
-        "nscloud-cache-size-50gb"]
-      read-only-runner: >-
-        ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki",
-        "nscloud-cache-size-50gb", "nscloud-cache-exp-do-not-commit"]
-      light-runner: nscloud-ubuntu-24.04-amd64-2x4
-      cache-volume: true
-      cache-size: 50
-      cache-size-label: nscloud-cache-size-50gb
-      read-only-label: nscloud-cache-exp-do-not-commit
+      build-runner: '["ubuntu-latest"]'
+      read-only-runner: '["ubuntu-latest"]'
+      light-runner: ubuntu-latest
+      cache-volume: false
     secrets:
       RELEASE_MIRROR_URL: ${{ secrets.RELEASE_MIRROR_URL }}
-      RELEASE_MIRROR_CI_PASSWORD: ${{ secrets.RELEASE_MIRROR_CI_PASSWORD }}
+      RELEASE_MIRROR_CI_KEY: ${{ secrets.RELEASE_MIRROR_CI_KEY }}

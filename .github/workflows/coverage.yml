@@ -38,7 +38,7 @@ jobs:
   coverage:
     name: Coverage
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - name: Check out repository

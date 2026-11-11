@@ -75,7 +75,7 @@ jobs:
   case-folds:
     name: Case folds
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - name: Check out repository
@@ -100,7 +100,7 @@ jobs:
   unicode-tables:
     name: Unicode sets
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - name: Check out repository
@@ -125,7 +125,7 @@ jobs:
   classes:
     name: Character classes
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
       - name: Check out repository
@@ -150,7 +150,7 @@ jobs:
   rule-grammars:
     name: Rule-engine grammar tables
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Check out repository
@@ -175,7 +175,7 @@ jobs:
   engine-grammars:
     name: Engine test grammars
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: nscloud-ubuntu-24.04-amd64-2x4
+    runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
       - name: Check out repository
