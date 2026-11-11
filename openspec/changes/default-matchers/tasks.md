@@ -29,11 +29,18 @@
     - Step 11, the arm drop, clears the 101-byte field line.
   - 2026-11-10: step 12 measured on a box, with 0 differences ([research][research], section 2.6).
     It reads 1.0402, 0.8265 and 1.0345, and brings Zig at 16 units back below step 9.
+  - 2026-11-11: steps 13 and 14 measured on a box, each with 0 differences ([research][research], section 2).
+    Step 14 reads 1.0346, 0.8014 and 1.0028.
+    Lua's patterns `m127`, `m128` and `m130` fall from 2.39 to 1.98 million instructions.
   - Next: Lua's identifier patterns, the costliest shape left ([research][research], section 2.4).
 - [ ] 1.3 The regex engine path gives an end pattern's back-reference the groups its begin pattern took.
   Then no pattern is left with hand code only.
   It covers Lua's five long-string and long-comment ends ([research][research], section 3).
   → verify: the differential test covers those five patterns, and Lua's matcher has no hand path left
+- [ ] 1.4 After a failed try, a skipping pattern reads its run again only up to `k + 2` bytes.
+  It reads on to the run's end only to keep the failure.
+  It follows up fix 2's cost ([`field-pattern-fixes`][field-pattern-fixes], section 3.4).
+  → verify: `m36` costs fewer instructions per try than at `30390626`, with 0 differences and both field lines uncut
 
 The first language moves to default matchers in [rule-table-codegen][rule-table-codegen] task 1.1.
 
