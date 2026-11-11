@@ -56,6 +56,10 @@ The [research note][note] holds the numbers each task starts from.
   → verify: it reports, for each language, the documents and bytes that differ
 - [ ] 7.2 The textmate tier's differences are measured at seeds 1, 2 and 3.
   → verify: the numbers are recorded here, and each difference gets a task or a fix
+- [ ] 7.3 Five textmate-tier grammars embed Objective-C: asciidoc, mdx, org, typst and wikitext.
+  In each, Objective-C's `$base` slot tries the embedder's root patterns.
+  The TextMate engine answers the slot's query, as Markdown does once task 1.1 lands.
+  → verify: at every seed, no document differs in a corpus of Objective-C embedded in each of the five
 
 ## 8. Bounds
 
