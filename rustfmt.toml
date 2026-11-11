@@ -13,3 +13,6 @@ format_macro_bodies = true
 format_macro_matchers = true
 imports_granularity = "Module"
 group_imports = "StdExternalCrate"
+# `mise run codegen -- --check` owns the bytes of each @generated file.
+# A second formatter would fight it, so rustfmt leaves those files alone.
+format_generated_files = false
