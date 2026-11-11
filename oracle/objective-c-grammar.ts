@@ -5,8 +5,9 @@
 // The matchers that decide whether a pattern matches are written by hand in src/objective_c.
 //
 // The grammar's `c_lang` entry carries a repository of its own.
-// Where Markdown embeds Objective-C, the engine resolves `$base` to the grammar's root,
-// as the generator does.
+// Each `$base` include is a slot, as vscode-textmate resolves `$base` to the document's root.
+// Where Markdown embeds Objective-C, Markdown's root patterns compete there.
+// Where Objective-C is the document, its own root patterns stand in the slot's place.
 //
 // Run with `bun run oracle/objective-c-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
@@ -25,6 +26,7 @@ export const objectiveC: Config = {
   table: "OBJECTIVE_C",
   prefixes: { c_lang: "C" },
   literal: [],
+  baseSlots: true,
   words: ({ between, inside }) => {
     const lists: WordList[] = [
       {

@@ -23,7 +23,7 @@ use super::Stop;
 use super::{Act, Captures, CarriedState, DynName, Grammar, NameCase, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
 #[cfg(feature = "_rule-tables")]
-use crate::language::Halt;
+use crate::language::{Halt, RootStart};
 use crate::language::{Halts, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scope::{PATH_SLOTS, Scopes, path_slot};
@@ -868,6 +868,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         end.deep()
             .filter(|_| G::deep_halts_open(self))
             .map(|deep| (deep, end.deep_loses_ties()))
+    }
+
+    /// The root patterns of the document that embeds the line, which compete
+    /// at a `$base` slot at any depth ([`Halt::root`]).
+    #[cfg(feature = "_rule-tables")]
+    pub(crate) fn base_root(&self) -> Option<&'a dyn RootStart> {
+        self.halt.and_then(|&(end, _)| end.root())
     }
 
     /// Records that the scan stopped at the halt at `p`, where the line ends.

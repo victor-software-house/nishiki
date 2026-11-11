@@ -989,8 +989,9 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
  * `src/tag.rs`, in the high bits, and its position in `Rule::ALL` in the low
  * `bits`, 8 unless the grammar has more rules than a byte numbers (C++, whose
  * tag claims a wider range). Then its `Tabled` implementation, which serves
- * the pattern tables above to `rules::table_scan`. */
-export function ruleCodes(engine: string, tag: string, bits = 8): string {
+ * the pattern tables above to `rules::table_scan`.
+ * With `baseSlots`, it also serves the tables of `Rule::base_definition`. */
+export function ruleCodes(engine: string, tag: string, bits = 8, baseSlots = false): string {
   const low = (1 << bits) - 1;
   const hex = (n: number) => `0x${n.toString(16)}`;
   const repr = bits > 8 ? "u16" : "u8";
@@ -1037,9 +1038,31 @@ impl rules::Tabled for ${engine} {
         let index = rule as usize;
         TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
     }
-}
+${baseSlots ? baseTables(engine, repr) : ""}}
 `;
 }
+
+/** The `Tabled` items of a grammar whose `$base` includes are slots. */
+const baseTables = (engine: string, repr: string) => `
+    const BASE_SLOTS: bool = true;
+
+    fn is_base_slot(pattern: Pattern) -> bool {
+        matches!(pattern, Pattern::Base)
+    }
+
+    fn base_tables(rule: Rule) -> Option<&'static rules::Tables<Self>> {
+        static TABLES: [std::sync::OnceLock<Option<rules::Tables<${engine}>>>; Rule::ALL.len()] =
+            [const { std::sync::OnceLock::new() }; Rule::ALL.len()];
+        #[expect(
+            clippy::as_conversions,
+            reason = "a fieldless \`repr(${repr})\` enum has no \`From\` impl"
+        )]
+        let index = rule as usize;
+        TABLES[index]
+            .get_or_init(move || rule.base_definition().map(rules::Tables::build))
+            .as_ref()
+    }
+`;
 
 /** A compile-time check that `GROUPS` of the grammar `engine` (such as
  * `Css`) holds the highest capture group its tables name: an index past it

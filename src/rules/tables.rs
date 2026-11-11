@@ -249,6 +249,10 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 /// A begin pattern of a rule the depth limit keeps closed is tried only to
 /// record the limit, and its text stays plain.
 ///
+/// A line whose document has root patterns for `$base` slots scans with the
+/// halt tests ([`scan_tables`]).
+/// Below the root, its halt never holds.
+///
 /// A pattern that fails at a blank fails at the blanks after it.
 /// The blanks are consumed first and what follows decides.
 /// No lookbehind or boundary holds between two of them.
@@ -274,8 +278,52 @@ pub(crate) fn table_scan<G: Tabled>(
                 scan::<G, true>(lexer, deep, None)
             }
         }
+        None if G::BASE_SLOTS && lexer.base_root().is_some() => {
+            scan::<G, true>(lexer, crate::language::NO_HALTS.0, None)
+        }
         None => scan::<G, false>(lexer, &|_: &[u8], _: usize| false, None),
     }
+}
+
+/// The tables of the innermost rule, and where a `$base` slot holds.
+///
+/// A line that another document embeds scans a rule with a `$base` include
+/// with the rule's base tables ([`Tabled::base_tables`]).
+/// The slot then holds where the document's root patterns first match
+/// ([`Halt::root`](crate::language::Halt::root)).
+/// The scan stops there, as at a halt, unless a pattern listed before the slot
+/// matches first.
+/// Then the document goes on from there.
+///
+/// The root is asked once per scan, from the scan's start.
+/// Its answer is the first match at or after that place.
+/// The scan only moves forward and ends at the slot, so the answer holds for
+/// the whole scan.
+/// The next scan starts after its match and asks again.
+///
+/// A grammar with no slot compiles to its plain tables.
+///
+/// Only a halting scan has slots.
+/// [`table_scan`] sends a line whose document has a root into one.
+/// A document of the grammar itself then scans as a grammar with no slot.
+#[expect(
+    clippy::inline_always,
+    reason = "a grammar with no slot must fold the tables and the place as before"
+)]
+#[inline(always)]
+fn scan_tables<G: Tabled, const HALTING: bool>(
+    lexer: &Lexer<'_, G>,
+) -> (&'static Tables<G>, Option<usize>) {
+    let rule = lexer.top_rule();
+    if G::BASE_SLOTS
+        && HALTING
+        && let Some(root) = lexer.base_root()
+        && let Some(tables) = G::base_tables(rule)
+    {
+        let anchor = lexer.g.then_some(lexer.pos);
+        return (tables, root.first(lexer.s, lexer.nl, lexer.pos, anchor));
+    }
+    (G::tables(rule), None)
 }
 
 /// [`table_scan`], with the halt tests compiled in only when `HALTING`.
@@ -313,7 +361,7 @@ fn scan<G: Tabled, const HALTING: bool>(
     end: &dyn Halt,
     after: Option<&dyn Halt>,
 ) -> Option<(usize, G::Pattern, usize)> {
-    let tables = G::tables(lexer.top_rule());
+    let (tables, base_at) = scan_tables::<G, HALTING>(lexer);
     let full = lexer.at_depth_limit();
     let s = lexer.s;
     let lim = s.len();
@@ -353,6 +401,13 @@ fn scan<G: Tabled, const HALTING: bool>(
             };
             let mut hit = None;
             for &pattern in list {
+                if G::BASE_SLOTS && HALTING && G::is_base_slot(pattern) {
+                    if base_at == Some(p) {
+                        lexer.halt_here(p);
+                        break $scan None;
+                    }
+                    continue;
+                }
                 if full && matches!(G::pattern_act(pattern), Act::Begin(_)) {
                     if lexer.try_pattern(pattern, p).is_some() {
                         lexer.record_depth();

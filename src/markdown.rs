@@ -91,6 +91,8 @@ mod html;
 mod inline;
 mod lexer;
 mod limits;
+#[cfg(feature = "lang-objective-c")]
+mod root;
 mod rules;
 mod runs;
 mod scope;
