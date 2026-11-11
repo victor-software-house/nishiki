@@ -45,7 +45,7 @@ The file it writes marks itself as generated in its first line; edit the script,
 | [`classes.ts`](classes.ts) | `facts/classes.json`: the five classes it reads by tokenizing, over the points it probes. `codegen/src/classes.rs` writes `src/classes/table.rs` from it and `facts/unicode-sets.json`. |
 | [`unicode-tables.ts`](unicode-tables.ts) | `src/textmate/regex/unicode.rs` and `facts/unicode-sets.json`: Oniguruma's Unicode sets. |
 | [`absent-probe.ts`](absent-probe.ts) | `tests/engine/absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which test how `src/textmate/regex/parse.rs` reads it. |
-| [`case-folds.ts`](case-folds.ts) | `src/textmate/regex/folds.rs`: Oniguruma's case folds. `facts/case-folds.json`: its orbits and the folds of more than one character. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
+| [`case-folds.ts`](case-folds.ts) | `facts/case-folds.json`: Oniguruma's case orbits and the folds of more than one character. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
 
 Both regex probes read each Oniguruma answer with [`oniguruma-answer.ts`](oniguruma-answer.ts).
 

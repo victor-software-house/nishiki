@@ -12,6 +12,11 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
     Each table holds its set among the points `classes.json` lists, with the same ranges as before; only the header changes.
     `oracle/classes.ts` keeps the five sets it measures by tokenizing and drops its twelve Oniguruma scans, which `unicode-sets.json` already holds.
     The case folds and the Unicode sets stay open.
+  - 2026-11-11: `codegen/src/folds.rs` writes `src/textmate/regex/folds.rs` from `case-folds.json`.
+    It derives the next member of each orbit, the folds in canonical characters, and the bytes of the wide characters they involve.
+    The tokens are the same as before; the numbers now fill lines of up to 100 columns.
+    `oracle/case-folds.ts` keeps its measuring and drops the derivation and its Rust template.
+    The Unicode sets stay open.
 - [ ] 1.3 The word scripts and `fence-stops.ts` move into `codegen/`.
   `numbers.rs` fills each word table into lines of up to 100 columns, with no backslash line continuation.
   → verify: each `words.rs` keeps its entries in order, and the size example's `.text` and `.rodata` keep their hashes.

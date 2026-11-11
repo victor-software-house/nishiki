@@ -13,13 +13,13 @@
 //! Each lookup is one call of `contains`, which `src/classes.rs` holds by
 //! hand.
 
-use std::fs;
 use std::path::Path;
 
 use serde_json::Value;
 
 use crate::File;
 use crate::error::Error;
+use crate::facts::{Range, array, ranges, read};
 use crate::header::header;
 
 /// The file this module writes, from the repository root.
@@ -227,9 +227,6 @@ const TABLES: &[Class] = &[
     },
 ];
 
-/// An inclusive range of code points.
-type Range = (u32, u32);
-
 /// The sets of a facts file, by key, as its `sets` array holds them.
 struct Sets(Vec<(String, Vec<Range>)>);
 
@@ -358,46 +355,6 @@ fn within(members: Vec<Range>, points: &[Range]) -> Vec<Range> {
         }
     }
     joined
-}
-
-/// The facts file at `path` under `root`, read as JSON.
-fn read(root: &Path, path: &str) -> Result<Value, Error> {
-    let file = root.join(path);
-    let text = fs::read_to_string(&file).map_err(|source| Error::Io {
-        path: file.clone(),
-        source,
-    })?;
-    serde_json::from_str(&text).map_err(|source| Error::Json { path: file, source })
-}
-
-/// The array `value` holds at `key`.
-fn array<'a>(path: &str, value: &'a Value, key: &str) -> Result<&'a [Value], Error> {
-    value
-        .get(key)
-        .and_then(Value::as_array)
-        .map(Vec::as_slice)
-        .ok_or_else(|| Error::Shape(format!("{path}: no array {key}")))
-}
-
-/// The ranges that `values` spell, each as `0660..0669` or `00AA`, in hex.
-fn ranges(path: &str, values: &[Value]) -> Result<Vec<Range>, Error> {
-    values
-        .iter()
-        .map(|value| {
-            let text = value
-                .as_str()
-                .ok_or_else(|| Error::Shape(format!("{path}: a range is not a string")))?;
-            let (lo, hi) = text.split_once("..").unwrap_or((text, text));
-            let point = |hex: &str| {
-                u32::from_str_radix(hex, 16).map_err(|error| {
-                    Error::Shape(format!(
-                        "{path}: {text} is not a range of hex points: {error}"
-                    ))
-                })
-            };
-            Ok((point(lo)?, point(hi)?))
-        })
-        .collect()
 }
 
 #[cfg(test)]
