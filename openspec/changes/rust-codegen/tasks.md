@@ -15,5 +15,8 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   - 2026-11-10: `oracle/rule-generator.ts` writes the Objective-C, TeX and LaTeX blobs as `concat!` of one literal per line, with the same bytes.
     `check:literals` now checks every generated Rust file.
     The move into `codegen/` stays open.
+  - 2026-11-10: `codegen/src/fence_stops.rs` replaces `fence-stops.ts`.
+    It reads the fence grammars committed under `tests/engine/grammars/`, and `mise run codegen -- --check` runs it.
+    Its test `compare_fails_on_a_different_list` covers a wrong `pops_host` list.
 
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
