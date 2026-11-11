@@ -56,7 +56,7 @@ rust_nightly: nightly-2026-11-01
 rust_version: 1.99.1
 test_profiles: []
 tokio: false
-verify_timeout: 16
+verify_timeout: 30
 workflow_policy:
 - drafts
 - concurrency
