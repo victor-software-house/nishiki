@@ -55,6 +55,7 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `perl` | [microsoft/vscode at e637ff1bf7f481134849625e982ec80df9b35bc8][perl-source] | [TextMate bundle licence][perl-licence] |
 | `php` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][php-source] | [MIT][php-licence] |
 | `powershell` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][powershell-source] | [MIT][powershell-licence] |
+| `proto` | [zxh0/vscode-proto3 at 274be763ecae7055505354b44f4892a2669e1da8][proto-source] | [MIT][proto-licence] |
 | `pug` | [microsoft/vscode at 6ac83c7c7dda9f27ca1fe9d98675253e010b75d1][pug-source] | [MIT][pug-licence] |
 | `python` | [microsoft/vscode at cf4c9e469d521fa5f33353737e8157eb0789ad02][python-source] | [MIT][python-licence] |
 | `r` | [posit-dev/positron at c4d6bab60dd914427a2d47a4b64e75e025d94059][r-source] | [MIT][r-licence] |
@@ -180,6 +181,8 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [php-licence]: https://github.com/KapitanOczywisty/language-php/blob/HEAD/LICENSE.md
 [powershell-source]: https://github.com/microsoft/vscode/tree/af600487b1e94374d9f48f57cbf2cad24656b07f
 [powershell-licence]: https://github.com/PowerShell/EditorSyntax/blob/HEAD/LICENSE
+[proto-source]: https://github.com/zxh0/vscode-proto3/tree/274be763ecae7055505354b44f4892a2669e1da8
+[proto-licence]: https://github.com/zxh0/vscode-proto3/blob/274be763ecae7055505354b44f4892a2669e1da8/LICENSE.txt
 [pug-source]: https://github.com/microsoft/vscode/tree/6ac83c7c7dda9f27ca1fe9d98675253e010b75d1
 [pug-licence]: https://github.com/davidrios/pug-tmbundle/blob/HEAD/LICENSE
 [python-source]: https://github.com/microsoft/vscode/tree/cf4c9e469d521fa5f33353737e8157eb0789ad02

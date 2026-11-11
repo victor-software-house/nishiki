@@ -893,3 +893,55 @@ pub enum Node {
     /// An anchor.
     Anchor(Anchor),
 }
+
+impl Node {
+    /// The fewest and the most characters a match of the node takes.
+    ///
+    /// The most is `None` when nothing bounds it.
+    /// A repeat with no `max` takes no most, unless its node takes no
+    /// character, and its fewest is its node's fewest times its `min`.
+    /// A back-reference or a subexpression call takes no most, and a
+    /// back-reference's fewest is 0.
+    #[must_use]
+    #[cfg_attr(
+        not(all(nishiki_unstable, feature = "_rule-engine")),
+        expect(unreachable_pub, reason = "public only through nishiki::unstable")
+    )]
+    pub fn width(&self) -> (usize, Option<usize>) {
+        match self {
+            Node::Empty | Node::Anchor(_) | Node::Lookaround { .. } => (0, Some(0)),
+            Node::Subroutine(_)
+            | Node::NamedSubroutine(_)
+            | Node::BackReference(..)
+            | Node::NamedBackReference(..) => (0, None),
+            Node::Char(..) | Node::Any { .. } | Node::Class(..) => (1, Some(1)),
+            Node::Sequence(items) => items.iter().fold((0, Some(0)), |(lo, hi), item| {
+                let (a, b) = item.width();
+                (lo + a, hi.zip(b).map(|(x, y)| x + y))
+            }),
+            Node::Alternation(alts) | Node::Folds(alts) => {
+                let mut lo = usize::MAX;
+                let mut hi = Some(0);
+                for alt in alts {
+                    let (a, b) = alt.width();
+                    lo = lo.min(a);
+                    hi = hi.zip(b).map(|(x, y)| x.max(y));
+                }
+                (if lo == usize::MAX { 0 } else { lo }, hi)
+            }
+            Node::Repeat { node, min, max, .. } => {
+                let (a, b) = node.width();
+                let min = usize::try_from(*min).unwrap_or(usize::MAX);
+                let high = match (max, b) {
+                    (Some(max), Some(b)) => {
+                        Some(b.saturating_mul(usize::try_from(*max).unwrap_or(usize::MAX)))
+                    }
+                    (_, Some(0)) => Some(0),
+                    _ => None,
+                };
+                (a.saturating_mul(min), high)
+            }
+            Node::Group { node, .. } | Node::Atomic(node) => node.width(),
+        }
+    }
+}

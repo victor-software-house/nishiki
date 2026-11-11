@@ -19,6 +19,15 @@ nishiki = { path = "..", default-features = false, features = [
   "textmate",
   "lang-c",
 ] }
+# The matcher writer builds tokens with quote and lays them out with
+# prettyplease, at the versions the root crate pins.
+proc-macro2 = { version = "1.0.107", default-features = false }
+quote = { version = "1.0.47", default-features = false }
+prettyplease = { version = "0.3.0", default-features = false }
+syn = { version = "3.0.10", default-features = false, features = [
+  "full",
+  "parsing",
+] }
 
 [lints.rust]
 unsafe_code = "forbid"

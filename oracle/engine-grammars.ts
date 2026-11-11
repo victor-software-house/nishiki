@@ -10,7 +10,7 @@
 // - `SOURCES.md`: each grammar's source, commit and licence.
 //
 // It also writes the grammars that `codegen/` reads and no table links: the
-// grammars it reads word lists from, and the grammars of Markdown's fences.
+// grammars it reads word lists and matchers from, and the grammars of Markdown's fences.
 //
 // A table is a Shiki language id, with the languages it may embed joined by
 // `+`, then the languages it hands regions to, each after `>`. A table loads
@@ -123,8 +123,8 @@ for (const spec of tables) {
   linked.push({ name: ids[0], root, grammars: names, handOffs });
 }
 
-/** The grammars `codegen/` reads word lists from that no table links. */
-const wordGrammars = ["c", "less", "sql"];
+/** The grammars `codegen/` reads that no table links: word lists and matchers. */
+const codegenGrammars = ["c", "less", "proto", "sql"];
 /**
  * The grammars of Markdown's fences that no table links, which
  * `codegen/src/fence_stops.rs` checks.
@@ -166,7 +166,7 @@ const fenceGrammars = [
   "xml",
   "xsl",
 ];
-for (const id of [...wordGrammars, ...fenceGrammars]) {
+for (const id of [...codegenGrammars, ...fenceGrammars]) {
   const own = (await registrations(id)).find((grammar) => grammar.name === id);
   if (!own) throw new Error(`Shiki registers no grammar named ${id}`);
   grammars.set(own.name, own);
@@ -176,8 +176,8 @@ const both = Object.keys(testData).filter((name) => allowed[name]);
 if (both.length > 0) {
   throw new Error(`both allowed and testData in oracle/licences.ts: ${both.sort().join(", ")}`);
 }
-/** The grammars a table links or a word list is read from. */
-const tabled = [...linked.flatMap((table) => table.grammars), ...wordGrammars];
+/** The grammars a table links or `codegen/` reads. */
+const tabled = [...linked.flatMap((table) => table.grammars), ...codegenGrammars];
 const tabledTestData = tabled.filter((name) => testData[name]);
 if (tabledTestData.length > 0) {
   throw new Error(

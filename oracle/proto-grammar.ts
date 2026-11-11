@@ -3,7 +3,7 @@
 // It writes the scope names.
 // For every rule it writes the scopes the rule adds, how it ends and the patterns it tries.
 // The patterns keep the grammar's order, with its `include`s flattened.
-// The matchers that decide whether a pattern matches are written by hand in src/proto/matchers.
+// codegen/ writes the matchers that decide whether a pattern matches, in src/proto/matchers.rs.
 //
 // Run with `bun run oracle/proto-grammar.ts` and commit the result.
 // The output is generated; do not edit it.
