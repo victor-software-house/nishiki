@@ -142,7 +142,8 @@ fn includes(source: Source, id: RuleId, into: &mut BTreeSet<&'static str>) -> Re
 }
 
 /// Whether a root rule of `source` is a `match` that can match the empty text.
-/// It follows `$self`, `$base` and the grammar's own repository.
+/// It follows `$self`, `$base` and the grammar's own repository, through an
+/// entry that is itself an include too.
 fn stops_at_root(source: Source) -> Result<bool, Error> {
     stops(source, source.patterns(), &mut BTreeSet::new())
 }
@@ -162,14 +163,7 @@ fn stops(source: Source, ids: &[RuleId], seen: &mut BTreeSet<RuleId>) -> Result<
                 .strip_prefix('#')
                 .and_then(|key| source.entry_id(key))
             {
-                Some(entry) => {
-                    let found = source.rule(entry)?;
-                    if found.matched.is_some() || found.begin.is_some() {
-                        stops(source, &[entry], seen)?
-                    } else {
-                        stops(source, &found.patterns, seen)?
-                    }
-                }
+                Some(entry) => stops(source, &[entry], seen)?,
                 None => false,
             },
             None if rule.begin.is_some() => false,

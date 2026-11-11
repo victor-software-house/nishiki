@@ -1,5 +1,6 @@
-use super::{can_match_empty, check, compare, kebab};
+use super::{can_match_empty, check, compare, kebab, stops_at_root};
 use crate::root;
+use crate::source::Source;
 
 /// The committed grammars hold one fence grammar that can stop at its root,
 /// Less's, and `pops_host` names it.
@@ -33,4 +34,20 @@ fn a_variant_is_named_in_kebab_case() {
     assert_eq!(kebab("Less"), "less");
     assert_eq!(kebab("ObjectiveCpp"), "objective-cpp");
     assert_eq!(kebab("Css"), "css");
+}
+
+/// A root include reaches an empty match through an entry that is itself an
+/// include.
+#[test]
+fn an_entry_that_includes_another_is_followed() {
+    let text = r##"{
+        "scopeName": "source.alias",
+        "patterns": [{ "include": "#alias" }],
+        "repository": {
+            "alias": { "include": "#empty" },
+            "empty": { "match": "(?=x)" }
+        }
+    }"##;
+    let stops = Source::parse("alias", text).map(stops_at_root);
+    assert!(matches!(stops, Ok(Ok(true))), "{stops:?}");
 }
