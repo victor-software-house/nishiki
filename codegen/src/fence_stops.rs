@@ -28,8 +28,8 @@ use crate::source::Source;
 /// The scopes that Markdown's fences include and the check cannot read, each
 /// with why.
 ///
-/// - `source.groovy` and `source.r`: `oracle/licences.ts` refuses their
-///   grammars, so they are not committed.
+/// - `source.groovy`: `oracle/licences.ts` refuses its grammar, so it is not
+///   committed.
 /// - `source.ignore`, `source.js.regexp`, `source.twig` and `source.yang`:
 ///   Shiki bundles no grammar with the scope.
 pub(crate) const UNCHECKED: &[(&str, &str)] = &[
@@ -41,10 +41,6 @@ pub(crate) const UNCHECKED: &[(&str, &str)] = &[
     (
         "source.js.regexp",
         "Shiki bundles no grammar with this scope",
-    ),
-    (
-        "source.r",
-        "oracle/licences.ts refuses r, whose source is under the Elastic License 2.0",
     ),
     ("source.twig", "Shiki bundles no grammar with this scope"),
     ("source.yang", "Shiki bundles no grammar with this scope"),
@@ -146,7 +142,8 @@ fn includes(source: Source, id: RuleId, into: &mut BTreeSet<&'static str>) -> Re
 }
 
 /// Whether a root rule of `source` is a `match` that can match the empty text.
-/// It follows `$self`, `$base` and the grammar's own repository.
+/// It follows `$self`, `$base` and the grammar's own repository, through an
+/// entry that is itself an include too.
 fn stops_at_root(source: Source) -> Result<bool, Error> {
     stops(source, source.patterns(), &mut BTreeSet::new())
 }
@@ -166,14 +163,7 @@ fn stops(source: Source, ids: &[RuleId], seen: &mut BTreeSet<RuleId>) -> Result<
                 .strip_prefix('#')
                 .and_then(|key| source.entry_id(key))
             {
-                Some(entry) => {
-                    let found = source.rule(entry)?;
-                    if found.matched.is_some() || found.begin.is_some() {
-                        stops(source, &[entry], seen)?
-                    } else {
-                        stops(source, &found.patterns, seen)?
-                    }
-                }
+                Some(entry) => stops(source, &[entry], seen)?,
                 None => false,
             },
             None if rule.begin.is_some() => false,

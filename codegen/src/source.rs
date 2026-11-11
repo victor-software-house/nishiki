@@ -3,8 +3,8 @@
 use std::fs;
 use std::path::Path;
 
-use nishiki::Grammar;
 use nishiki::unstable::grammar::{Repository, RuleId, UnlinkedGrammar, UnlinkedRule, unlinked};
+use nishiki::{Grammar, GrammarError};
 
 use crate::error::Error;
 
@@ -28,8 +28,12 @@ impl Source {
             path: path.clone(),
             source,
         })?;
-        let grammar =
-            Grammar::from_json(&text).map_err(|source| Error::Grammar { path, source })?;
+        Source::parse(name, &text).map_err(|source| Error::Grammar { path, source })
+    }
+
+    /// Reads the grammar named `name` from its JSON `text`.
+    pub(crate) fn parse(name: &'static str, text: &str) -> Result<Source, GrammarError> {
+        let grammar = Grammar::from_json(text)?;
         Ok(Source {
             name,
             grammar: unlinked(grammar),

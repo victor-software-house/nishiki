@@ -128,7 +128,8 @@ const wordGrammars = ["c", "less", "sql"];
 /**
  * The grammars of Markdown's fences that no table links, which
  * `codegen/src/fence_stops.rs` checks.
- * `groovy` and `r` stay out: `oracle/licences.ts` refuses them.
+ * `groovy` stays out: `oracle/licences.ts` refuses it.
+ * `r` is not listed: TeX's table hands regions to it, so it is written already.
  */
 const fenceGrammars = [
   "abap",
