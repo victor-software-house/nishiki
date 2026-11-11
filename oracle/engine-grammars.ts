@@ -9,6 +9,9 @@
 //   languages it hands regions to;
 // - `SOURCES.md`: each grammar's source, commit and licence.
 //
+// It also writes the grammars that `codegen/` reads word lists from, which
+// no table links.
+//
 // A table is a Shiki language id, with the languages it may embed joined by
 // `+`, then the languages it hands regions to, each after `>`. A table loads
 // the grammars Shiki registers for each language joined by `+`. A handed
@@ -116,6 +119,14 @@ for (const spec of tables) {
     if (!refused[id]) add(own);
   }
   linked.push({ name: ids[0], root, grammars: names, handOffs });
+}
+
+/** The grammars `codegen/` reads word lists from that no table links. */
+const wordGrammars = ["c", "less", "sql"];
+for (const id of wordGrammars) {
+  const own = (await registrations(id)).find((grammar) => grammar.name === id);
+  if (!own) throw new Error(`Shiki registers no grammar named ${id}`);
+  grammars.set(own.name, own);
 }
 
 const unlicensed = [...grammars.keys()].filter((name) => refused[name] || !allowed[name]);
