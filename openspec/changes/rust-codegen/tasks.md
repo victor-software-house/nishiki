@@ -10,7 +10,8 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   → verify: `codegen --compare` shows equal tokens for the three files
   - 2026-11-11: `codegen/src/classes.rs` writes `src/classes/table.rs` from `classes.json` and `unicode-sets.json`.
     Each table holds its set among the points `classes.json` lists, with the same ranges as before.
-  - 2026-11-11: the lookups call `contains`, which moved to the hand-written `src/classes.rs`, so the generated file holds only data.
+  - 2026-11-11: the lookups call `contains` in the hand-written `src/classes.rs`.
+    The generated file holds only data.
     `oracle/classes.ts` keeps the five sets it measures by tokenizing and drops its twelve Oniguruma scans, which `unicode-sets.json` already holds.
     The case folds and the Unicode sets stay open.
   - 2026-11-11: `codegen/src/folds.rs` writes `src/textmate/regex/folds.rs` from `case-folds.json`.

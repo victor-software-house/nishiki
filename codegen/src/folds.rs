@@ -343,8 +343,8 @@ fn slice_literal<T: Into<u32> + Copy>(values: &[T]) -> String {
     format!("&[{}]", items.join(", "))
 }
 
-/// `mask` in hex, its digits in groups of four from the right, as
-/// `0x8000_0000`.
+/// `mask` in hex, as `0x8000_0000`.
+/// Underscores split its digits into fours, counted from the right.
 fn hex_grouped(mask: u64) -> String {
     let digits = format!("{mask:x}");
     let mut out = String::new();

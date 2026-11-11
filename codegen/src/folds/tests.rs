@@ -1,6 +1,6 @@
 use super::{Folds, Tables, hex_grouped, tables, utf8_split};
 
-/// A mask's hex digits go in groups of four from the right.
+/// A mask's hex digits split into fours, counted from the right.
 #[test]
 fn a_mask_groups_its_digits_by_four() {
     assert_eq!(hex_grouped(0x200), "0x200");
