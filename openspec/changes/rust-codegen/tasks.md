@@ -8,6 +8,10 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   → verify: review
 - [ ] 1.2 Unicode sets, case folds and classes are written from `oracle/facts/`.
   → verify: `codegen --compare` shows equal tokens for the three files
+  - 2026-11-11: `codegen/src/classes.rs` writes `src/classes/table.rs` from `classes.json` and `unicode-sets.json`.
+    Each table holds its set among the points `classes.json` lists, with the same ranges as before; only the header changes.
+    `oracle/classes.ts` keeps the five sets it measures by tokenizing and drops its twelve Oniguruma scans, which `unicode-sets.json` already holds.
+    The case folds and the Unicode sets stay open.
 - [ ] 1.3 The word scripts and `fence-stops.ts` move into `codegen/`.
   `numbers.rs` fills each word table into lines of up to 100 columns, with no backslash line continuation.
   → verify: each `words.rs` keeps its entries in order, and the size example's `.text` and `.rodata` keep their hashes.
@@ -18,6 +22,9 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   - 2026-11-10: `codegen/src/fence_stops.rs` replaces `fence-stops.ts`.
     It reads the fence grammars committed under `tests/engine/grammars/`, and `mise run codegen -- --check` runs it.
     Its test `compare_fails_on_a_different_list` covers a wrong `pops_host` list.
+  - 2026-11-11: the standalone word scripts are in `codegen/src/words/`.
+    The other `words.rs` files come from the `oracle/<language>-grammar.ts` scripts, which the families of [rule-table-codegen][rule-table-codegen] move.
+    The verify waits for them: until then `check:literals` and `check:line-width` still leave those scripts alone.
 - [x] 1.4 The library `codegen/` builds, `textmate` and `lang-c` with `--cfg nishiki_unstable`, warns of nothing, and so does `lang-vue` with `lang-markdown`.
   Each item those builds left unused takes a cfg gate at its source, named for the features whose modules use it.
   → verify: `check:features` builds both libraries with warnings denied, dead code included.

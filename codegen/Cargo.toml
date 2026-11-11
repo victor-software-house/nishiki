@@ -28,6 +28,10 @@ syn = { version = "3.0.10", default-features = false, features = [
   "full",
   "parsing",
 ] }
+# The facts files of oracle/facts/ read as `serde_json::Value`, with no derive
+# (operator, 2026-11-11). nishiki's `textmate` already builds serde_json, so
+# the lock gains no crate.
+serde_json = "1.0.154"
 
 [lints.rust]
 unsafe_code = "forbid"

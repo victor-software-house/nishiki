@@ -42,6 +42,7 @@ dependencies = [
  "prettyplease",
  "proc-macro2",
  "quote",
+ "serde_json",
  "syn",
 ]
 

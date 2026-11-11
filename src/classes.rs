@@ -20,6 +20,23 @@ use crate::utf8::char_start;
 ))]
 use crate::utf8::multibyte_at;
 
+/// Whether `c` is in the sorted `table` of inclusive ranges.
+/// Each lookup of the generated `table` module calls it.
+fn contains(table: &[(u32, u32)], c: char) -> bool {
+    let c = u32::from(c);
+    table
+        .binary_search_by(|&(lo, hi)| {
+            if hi < c {
+                std::cmp::Ordering::Less
+            } else if lo > c {
+                std::cmp::Ordering::Greater
+            } else {
+                std::cmp::Ordering::Equal
+            }
+        })
+        .is_ok()
+}
+
 /// The regex `\s` for a character: the table measured on Shiki.
 #[cfg_attr(
     not(all(nishiki_unstable, feature = "_rule-engine")),
