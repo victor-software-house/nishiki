@@ -5,12 +5,14 @@
 //! change.
 //! Both also check `Language::pops_host` against the grammars, in
 //! [`fence_stops`].
+//!
 //! The writers read the grammars in `tests/engine/grammars/`, which
 //! `oracle/engine-grammars.ts` writes.
-//! The word writers write text; the matcher writer builds tokens with `quote`
-//! and lays them out with `prettyplease`.
 //! They read each grammar through `nishiki::unstable`, the surface a caller has
 //! (openspec rust-codegen, design section 3).
+//! The word writers write text.
+//! The matcher writer builds tokens with `quote` and lays them out with
+//! `prettyplease`.
 
 mod error;
 mod fence_stops;

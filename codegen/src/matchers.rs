@@ -81,7 +81,13 @@ fn language(root: &Path, name: &'static str, path: &'static str) -> Result<File,
         let call = quote!(#function(self, p));
         let call = match leading {
             Some(anchor) => {
-                let test = anchor_test(anchor, &format_ident!("self"), &format_ident!("p"));
+                let test = anchor_test(anchor, &format_ident!("self"), &format_ident!("p"))
+                    .map_err(|Refusal(why)| {
+                        Error::Shape(format!(
+                            "{name}: {} has no dispatch test: {why}",
+                            pattern.name
+                        ))
+                    })?;
                 quote!(if #test { #call } else { None })
             }
             None => call,

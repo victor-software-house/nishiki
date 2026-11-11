@@ -196,3 +196,20 @@ fn every_written_line_fits_the_width() {
         long.join("\n")
     );
 }
+
+#[test]
+fn a_pattern_the_lexer_cannot_test_has_no_matcher() {
+    for (regex, why) in [
+        (r"\Afoo", "`\\A` holds only at the start of the first line"),
+        (
+            r"(?:a|)+b",
+            "the regex engine counts an empty turn toward the least",
+        ),
+        (r"b(?:c?){2,}d", "the same, for a least of two"),
+    ] {
+        assert!(
+            matcher(regex, &format_ident!("m"), &[], None).is_err(),
+            "{regex}: {why}"
+        );
+    }
+}

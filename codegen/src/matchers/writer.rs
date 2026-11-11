@@ -179,18 +179,31 @@ fn bound(max: Option<u32>) -> TokenStream {
     )
 }
 
+/// Why a pattern with a text anchor, such as `\A`, has no matcher.
+///
+/// The lexer reads one line, and holds no mark of the first line.
+/// The regex engine matches `\A` only at the start of the first line.
+/// A grammar's `\z` parses as a lookahead, not as a text anchor.
+fn text_anchor() -> Refusal {
+    Refusal("a text anchor, such as `\\A`, which the line's lexer cannot test".to_owned())
+}
+
 /// The test of `anchor` at `pos`, on the lexer `lx`.
-pub(super) fn anchor_test(anchor: Anchor, lx: &Ident, pos: &Ident) -> TokenStream {
-    match anchor {
+///
+/// # Errors
+///
+/// [`text_anchor`] for the text start and end anchors.
+pub(super) fn anchor_test(anchor: Anchor, lx: &Ident, pos: &Ident) -> Result<TokenStream, Refusal> {
+    Ok(match anchor {
         Anchor::LineStart => quote!(#pos == 0),
         Anchor::LineEnd | Anchor::TextEndOrFinalNewline => {
             quote!(#pos == #lx.s.len() || (#lx.nl && #pos == #lx.s.len() + 1))
         }
-        Anchor::TextStart | Anchor::TextEnd => quote!(false),
+        Anchor::TextStart | Anchor::TextEnd => return Err(text_anchor()),
         Anchor::LastMatchEnd => quote!(#lx.g && #pos == #lx.pos),
         Anchor::WordBoundary => quote!(#lx.boundary(#pos)),
         Anchor::NotWordBoundary => quote!(!#lx.boundary(#pos)),
-    }
+    })
 }
 
 /// The name of the placeholder macro that marks where code leaves its
@@ -298,17 +311,21 @@ fn label(name: &Ident) -> TokenStream {
 }
 
 /// The test that `anchor` does not hold at `pos`.
-fn anchor_fails(anchor: Anchor) -> TokenStream {
-    match anchor {
+///
+/// # Errors
+///
+/// [`text_anchor`] for the text start and end anchors.
+fn anchor_fails(anchor: Anchor) -> Result<TokenStream, Refusal> {
+    Ok(match anchor {
         Anchor::LineStart => quote!(pos != 0),
         Anchor::LineEnd | Anchor::TextEndOrFinalNewline => {
             quote!(pos != lx.s.len() && (!lx.nl || pos != lx.s.len() + 1))
         }
-        Anchor::TextStart | Anchor::TextEnd => quote!(true),
+        Anchor::TextStart | Anchor::TextEnd => return Err(text_anchor()),
         Anchor::LastMatchEnd => quote!(!lx.g || pos != lx.pos),
         Anchor::WordBoundary => quote!(!lx.boundary(pos)),
         Anchor::NotWordBoundary => quote!(lx.boundary(pos)),
-    }
+    })
 }
 
 /// The pattern of the bytes an ASCII mask takes, such as `b'0'..=b'9' | b'_'`.
@@ -536,7 +553,7 @@ impl Writer {
                 })
             }
             Node::Anchor(anchor) => {
-                let fails = anchor_fails(*anchor);
+                let fails = anchor_fails(*anchor)?;
                 let (code, fail) = (next.code(), fail());
                 Ok(quote! {
                     if #fails {
@@ -866,6 +883,11 @@ impl Writer {
     /// - One character a turn loops ([`Writer::repeat_one`]).
     /// - An optional node tries it, then what follows.
     /// - A whole group a turn loops over a closure ([`Writer::repeat_group`]).
+    ///
+    /// A repeated group with a least of one or more whose turn can match empty
+    /// has no generated matcher.
+    /// The regex engine counts an empty turn toward the least.
+    /// The group loop stops at an empty turn and does not count it.
     fn repeat(
         &mut self,
         node: &Node,
@@ -891,6 +913,12 @@ impl Writer {
                 }
             };
             return Ok(quote!(#prelude #tries));
+        }
+        if min > 0 && first_of(node).1 {
+            return Err(Refusal(
+                "a repeated group whose turn can match empty, with a least of one or more"
+                    .to_owned(),
+            ));
         }
         self.repeat_group(node, min, max, greediness, next, follow)
     }
@@ -1079,6 +1107,7 @@ impl Writer {
         next: &Next,
         follow: &Follow,
     ) -> Result<TokenStream, Refusal> {
+        let (set, empty) = first_of(node);
         let limit = bound(max);
         let least = Literal::u32_unsuffixed(min);
         let (caps, found) = (self.caps(), self.found());
@@ -1113,7 +1142,6 @@ impl Writer {
                 #code
             });
         }
-        let (set, empty) = first_of(node);
         if !follow.always && !unique(node, &follow.after_turn(&set, empty)) {
             return Err(Refusal(
                 "a repeated group whose turn can match more than one way".to_owned(),
