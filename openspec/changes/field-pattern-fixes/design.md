@@ -134,6 +134,106 @@ With the skip, the 12,001-byte line no longer reaches the limit, and the pattern
 
 [The research of `default-matchers`][dm-research], section 4, has the results at 101 and 12,001 bytes before the fixes.
 
+### 3.4 Fix 2 measured
+
+Fix 2 is prototyped in the writer of `research/matchers-on-main`, on main [6a4ce168][main-base], at [30390626][fix-2-prototype].
+Its rows are measured against step 14 of [`default-matchers`][dm-research], [dbcea536][step-14-base].
+`research/default-matchers` holds fix 2 on the old base, at [e5280db7][fix-2-old-base], unmeasured.
+
+The writer adds three rules to section 3.1:
+
+- A run of `\s` characters earns no skip.
+  The scan already passes the later blanks of a run of spaces and tabs.
+  On Protocol Buffers, four such skips cost about 65,000 instructions.
+- A failure is kept only when its run is longer than `k + 1` bytes.
+  A shorter run holds no start the skip could pass.
+- `k` counts bytes, as section 3.3 defines it.
+  The skip's end is then the run's end less `k`, with no walk back over characters.
+
+A kept failure is a 12-byte `Skip` in the lexer's per-line state, one per skipping pattern.
+Its end is 0 when no failure is kept.
+So each try first compares its start with that end alone.
+
+Protocol Buffers has three skipping patterns: `Field`, `Kv` and `ReservedAt0`.
+Zig has none.
+Lua writes none, for two reasons:
+
+- Its two candidates are emmydoc patterns.
+- Without a skip, three emmydoc lines of 12,001 bytes end uncut in release and debug builds, and match Shiki 4.6.0's tokens.
+  The test is `emmydoc_runs_end_uncut`.
+
+Each commit measured, in order:
+
+| Commit | Change |
+|:--|:--|
+| [a16e5b8b][form-a] | skips under section 3.1 alone |
+| [e5e470b0][form-b] | no skip for a `\s` run |
+| [26f320ab][form-c] | a failure kept only from a run longer than `k + 1` bytes |
+| [fa35de31][follow-up-a] | the run's end carried out of the failed try in a `Cell` |
+| [90195ea2][follow-up-b] | no skip for Lua |
+| [b5934aba][byte-reach] | `k` in bytes |
+| [30390626][fix-2-prototype] | `fa35de31` reverted, and the one-compare test |
+
+Ratios against step 14, at one codegen unit, with 16 units in parentheses:
+
+| Commit | Measure | Protocol Buffers | Zig | Lua |
+|:--|:--|--:|--:|--:|
+| `a16e5b8b` | lexing | 1.0244 (1.0240) | 1.0000 (0.9993) | 1.0010 (1.0005) |
+| `a16e5b8b` | the first document | 1.0168 (1.0145) | 1.0000 (0.9994) | 1.0007 (1.0004) |
+| `a16e5b8b` | colouring | 1.0233 (1.0229) | 1.0000 (0.9994) | 1.0009 (1.0004) |
+| `e5e470b0` | lexing | 1.0042 (1.0041) | 1.0000 (0.9981) | 1.0008 (1.0001) |
+| `e5e470b0` | the first document | 1.0029 (1.0025) | 1.0000 (0.9984) | 1.0007 (1.0001) |
+| `e5e470b0` | colouring | 1.0040 (1.0039) | 1.0000 (0.9983) | 1.0007 (1.0003) |
+| `26f320ab` | lexing | 1.0032 (1.0029) | 1.0000 (0.9981) | 1.0009 (1.0000) |
+| `26f320ab` | the first document | 1.0022 (1.0018) | 1.0000 (0.9984) | 1.0003 (1.0001) |
+| `26f320ab` | colouring | 1.0031 (1.0028) | 1.0000 (0.9983) | 1.0008 (1.0002) |
+| `fa35de31` | lexing | 1.0036 (1.0031) | 1.0000 (0.9993) | 1.0009 (1.0002) |
+| `fa35de31` | the first document | 1.0025 (1.0019) | 1.0000 (0.9994) | 1.0006 (1.0001) |
+| `fa35de31` | colouring | 1.0035 (1.0030) | 1.0000 (0.9993) | 1.0009 (1.0003) |
+| `90195ea2` | lexing | 1.0036 (1.0031) | 1.0000 (0.9993) | 0.9999 (0.9995) |
+| `90195ea2` | the first document | 1.0025 (1.0019) | 1.0000 (0.9994) | 0.9999 (0.9998) |
+| `90195ea2` | colouring | 1.0035 (1.0030) | 1.0000 (0.9993) | 1.0001 (0.9996) |
+| `b5934aba` | lexing | 1.0036 (1.0031) | 1.0000 (0.9993) | 1.0000 (0.9994) |
+| `b5934aba` | the first document | 1.0025 (1.0019) | 1.0000 (0.9994) | 0.9997 (0.9998) |
+| `b5934aba` | colouring | 1.0035 (1.0030) | 1.0000 (0.9993) | 1.0000 (0.9995) |
+| `30390626` | lexing | 1.0026 (1.0020) | 1.0000 (0.9976) | 1.0000 (0.9995) |
+| `30390626` | the first document | 1.0018 (1.0012) | 1.0000 (0.9979) | 1.0001 (0.9996) |
+| `30390626` | colouring | 1.0025 (1.0019) | 1.0000 (0.9978) | 1.0001 (0.9995) |
+
+- Allocations are the same at every commit: 148 for Protocol Buffers, 171 for Zig and 414 for Lua.
+- The differential test found 0 differences at every commit.
+- Both field lines end uncut at every commit, in release and debug builds.
+
+What the commits changed, from the lexing pass at one codegen unit:
+
+- At `a16e5b8b`, a skip took 32 bytes, and Protocol Buffers' `lex` gained 2,211 calls to `memcpy`.
+- `fa35de31` saved 1,138 instructions in the field pattern's function.
+  The `Cell` cost 3,254 in the closure that reads the run.
+- Lua's two skips cost 17,140 instructions in `lua::lex` and 6,407 in the pattern `m48`.
+- `30390626`'s test saved 1,443 instructions against `b5934aba`.
+
+Protocol Buffers ends above 1.000.
+Its rise at `30390626`, 12,225 instructions:
+
+| Function | Instructions | What it is |
+|:--|--:|:--|
+| `m36`, the field pattern | +8,515 | about 10 for each of its 825 tries |
+| `proto::lex` | +3,710 | about one store for each of 3,374 lines, as the lexer is built |
+| `char_at::<Proto>` | +6,370 | one folded function, named for Zig at step 14 |
+| `char_at::<Zig>` | −6,370 | the same function |
+
+- No skip passes a start in the fixtures, so the tries are as many as at step 14.
+- The cost buys linear time on long field lines.
+- After a failed try, `m36` reads the run again to its end.
+  A read that stops `k + 2` bytes in would decide the store, and read on only to store it.
+  That read is [`default-matchers`][dm-tasks] task 1.4.
+  Whether the read is most of the `+8,515` is unverified: nobody has read the machine code.
+- Lua's 1.0001 rows are the C library's allocator, 636 instructions.
+  Lua's generated code is the same as at `b5934aba`.
+
+The research branch is not clippy-clean.
+The code that moves into `codegen/` must be.
+
 ## 4. Before the fixes
 
 Until both land, a caller that needs such lines uncut raises `Limits::work`.
@@ -141,5 +241,16 @@ Protocol Buffers moves to generated matchers only after them, since Identity and
 
 [dm-design]: ../default-matchers/design.md
 [dm-research]: ../default-matchers/research.md
+[dm-tasks]: ../default-matchers/tasks.md
 [fix-1-prototype]: https://github.com/victor-software-house/nishiki-archive/commit/9d804fae0de3b6073f38e3faf57d77ca915583cf
+[fix-2-prototype]: https://github.com/victor-software-house/nishiki-archive/commit/30390626b75a582a60da875573339ee08c0286a9
+[form-a]: https://github.com/victor-software-house/nishiki-archive/commit/a16e5b8bfcf1728f5832a75d2a75a72261c94839
+[form-b]: https://github.com/victor-software-house/nishiki-archive/commit/e5e470b0e4ced93466b3beb1a3b93524baefc634
+[form-c]: https://github.com/victor-software-house/nishiki-archive/commit/26f320abb0c0928dcae67e649d42946febdbe2d9
+[follow-up-a]: https://github.com/victor-software-house/nishiki-archive/commit/fa35de31405172090702f2e32a26a456c448e867
+[follow-up-b]: https://github.com/victor-software-house/nishiki-archive/commit/90195ea2ed475989b84c8e023e742ba2d565e533
+[byte-reach]: https://github.com/victor-software-house/nishiki-archive/commit/b5934abaa7eee719889120a2b7876a854f025e75
+[fix-2-old-base]: https://github.com/victor-software-house/nishiki-archive/commit/e5280db7dbf98e2e6ac6de6e87149959d6b3fa93
+[main-base]: https://github.com/victor-software-house/nishiki-archive/commit/6a4ce168c9eae2bbacf22a3a6c0600c6f12758ad
+[step-14-base]: https://github.com/victor-software-house/nishiki-archive/commit/dbcea5367efd7c0fb79750b0f4930961ca987e3f
 [pr-720]: https://github.com/victor-software-house/nishiki-archive/pull/720

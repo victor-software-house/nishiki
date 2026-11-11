@@ -55,6 +55,8 @@ Lexing ratios against the hand matchers, at one codegen unit:
 | 10. each pattern's code in its own function, out of line | 1.0495 | 0.8339 | 1.0351 |
 | 11. an optional character its run covers dropped | 1.0409 | 0.8339 | 1.0352 |
 | 12. a small pattern with no loop or lookbehind offered inline | 1.0402 | 0.8265 | 1.0345 |
+| 13. a space run read with the lexer's `space_end` | 1.0348 | 0.8234 | 1.0256 |
+| 14. one side of a word boundary tested when the other is known | 1.0346 | 0.8014 | 1.0028 |
 
 - The first row for Protocol Buffers has `OptionStmt` generated.
 - Step 2 kept the `\b` test out of line.
@@ -82,7 +84,11 @@ Lexing ratios against the hand matchers, at one codegen unit:
   Of the three languages, only Protocol Buffers' generated code changes.
 - Step 12 marks a pattern's function `#[inline]` when its code has no loop and no lookbehind and is at most 256 bytes ([0647d46a][step-12]).
   Section 2.6 has the reason.
-- Steps 9 to 12 are each measured against the step before.
+- Step 13 reads a `\s` run that gives back nothing with the lexer's `space_end` ([0ecbda47][step-13]).
+  It applies only when the class holds exactly the characters `space_end` takes.
+- Step 14 tests one side of a `\b` or `\B` when the writer knows the other ([88bcd18c][step-14]).
+  The known side is the node before, or the first character of what follows.
+- Steps 9 to 14 are each measured against the step before.
   Their rows multiply that ratio by the row above.
 
 Steps 5 and 8 in two more measures:
@@ -95,7 +101,7 @@ Steps 5 and 8 in two more measures:
 | the first document, at one codegen unit | 8 | 1.0431 | 0.8710 | 1.0608 |
 | colouring, at one codegen unit | 8 | 1.0602 | 0.8626 | 1.0967 |
 
-Steps 9 to 12 against the step before, at one codegen unit, with 16 units in parentheses:
+Steps 9 to 14 against the step before, at one codegen unit, with 16 units in parentheses:
 
 | Measure | Step | Protocol Buffers | Zig | Lua |
 |:--|--:|--:|--:|--:|
@@ -103,20 +109,30 @@ Steps 9 to 12 against the step before, at one codegen unit, with 16 units in par
 | lexing | 10 | 0.9871 (0.9877) | 0.9792 (1.0126) | 0.9523 (0.9777) |
 | lexing | 11 | 0.9918 (0.9962) | 1.0000 (0.9995) | 1.0001 (0.9999) |
 | lexing | 12 | 0.9993 (0.9312) | 0.9911 (0.9560) | 0.9993 (0.9988) |
+| lexing | 13 | 0.9948 (1.0668) | 0.9963 (1.0011) | 0.9914 (0.9927) |
+| lexing | 14 | 0.9998 (0.9999) | 0.9733 (0.9784) | 0.9778 (0.9806) |
 | the first document | 10 | 0.9910 (0.9925) | 0.9815 (1.0110) | 0.9710 (0.9869) |
 | the first document | 11 | 0.9943 (0.9977) | 1.0000 (0.9996) | 1.0001 (1.0000) |
 | the first document | 12 | 0.9995 (0.9582) | 0.9920 (0.9616) | 0.9996 (1.0034) |
+| the first document | 13 | 0.9964 (1.0394) | 0.9967 (1.0009) | 0.9949 (0.9920) |
+| the first document | 14 | 0.9999 (0.9999) | 0.9763 (0.9813) | 0.9868 (0.9889) |
 | colouring | 10 | 0.9877 (0.9882) | 0.9807 (1.0116) | 0.9553 (0.9791) |
 | colouring | 11 | 0.9921 (0.9964) | 1.0000 (0.9996) | 0.9999 (1.0000) |
 | colouring | 12 | 0.9993 (0.9343) | 0.9917 (0.9593) | 0.9993 (0.9990) |
+| colouring | 13 | 0.9950 (1.0636) | 0.9966 (1.0010) | 0.9918 (0.9931) |
+| colouring | 14 | 0.9998 (0.9999) | 0.9753 (0.9801) | 0.9793 (0.9819) |
 
-- The gate is one codegen unit, and there every row of steps 10 and 12 falls (lead, 2026-11-10).
+- The gate is one codegen unit, and there every row of steps 10, 12, 13 and 14 falls (lead, 2026-11-10).
 - Zig rises at 16 units at step 10, and step 12 brings it back below step 9.
 - At step 11, the field pattern's inner loop falls from 137,634 to 99,118 instructions.
 - Lua's 1.0001 at step 11 is 547 instructions.
   545 of them are in the C library's allocator and `memcpy`.
   Lua's generated code does not change at step 11.
-- The differential test found 0 differences at steps 9 to 12.
+- At 16 units, Protocol Buffers rises at step 13, for information only.
+  Its `matcher` goes from 252,950 to 568,727 instructions, back to its count at one unit.
+- Step 14 writes 119 one-sided tests.
+  Lua's generated patterns `m127`, `m128` and `m130` fall from 2.39 to 1.98 million instructions.
+- The differential test found 0 differences at steps 9 to 14.
 
 ### 2.1 A dropped step: a cache of class runs
 
@@ -230,3 +246,5 @@ The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 byt
 [step-9]: https://github.com/victor-software-house/nishiki-archive/commit/e7f466043e2d3440c2266c94e2de9cb5ef6a02d7
 [step-10]: https://github.com/victor-software-house/nishiki-archive/commit/9101b49627ddeab7635df84334595e7a2fb8740a
 [step-12]: https://github.com/victor-software-house/nishiki-archive/commit/0647d46a4b192320f8212b852633bf6c7482c943
+[step-13]: https://github.com/victor-software-house/nishiki-archive/commit/0ecbda472d369abaa18367b174983002f3ffff41
+[step-14]: https://github.com/victor-software-house/nishiki-archive/commit/88bcd18c6a0cb8297f28263a23a1b8e696c2ffd1
