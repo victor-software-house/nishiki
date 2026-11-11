@@ -32,6 +32,8 @@ pub(crate) enum Error {
     },
     /// A grammar lacks a rule, a text or a shape that a writer reads.
     Shape(String),
+    /// A check found the repository out of step with its grammars.
+    Check(String),
 }
 
 impl fmt::Display for Error {
@@ -40,7 +42,7 @@ impl fmt::Display for Error {
             Error::Io { path, source } => write!(f, "{}: {source}", path.display()),
             Error::Grammar { path, source } => write!(f, "{}: {source}", path.display()),
             Error::Pattern { pattern, source } => write!(f, "{pattern}: {source}"),
-            Error::Shape(message) => f.write_str(message),
+            Error::Shape(message) | Error::Check(message) => f.write_str(message),
         }
     }
 }
@@ -51,7 +53,7 @@ impl error::Error for Error {
             Error::Io { source, .. } => Some(source),
             Error::Grammar { source, .. } => Some(source),
             Error::Pattern { source, .. } => Some(source),
-            Error::Shape(_) => None,
+            Error::Shape(_) | Error::Check(_) => None,
         }
     }
 }

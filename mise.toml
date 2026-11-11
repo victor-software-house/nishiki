@@ -57,6 +57,7 @@ depends = [
   "check:unstable",
   "codegen:lint",
   "codegen:check",
+  "codegen:test",
   "test:miri",
   "doc",
   "check:docs",
@@ -137,6 +138,16 @@ description = "Each generated Rust file is what codegen/ writes"
 wait_for = ["codegen:lint"]
 run = "mise run codegen -- --check"
 env = { CARGO_BUILD_JOBS = "1" }
+
+[tasks."codegen:test"]
+description = "codegen/'s tests pass"
+wait_for = ["codegen:check"]
+run = "cargo test --locked --manifest-path codegen/Cargo.toml"
+
+[tasks."codegen:test".env]
+CARGO_BUILD_JOBS = "2"
+CARGO_TARGET_DIR = "target/codegen"
+RUSTFLAGS = "--cfg nishiki_unstable"
 
 # cargo deny reads one workspace's graph, and codegen/ is its own.
 [tasks."deny:codegen"]

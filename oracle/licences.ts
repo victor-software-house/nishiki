@@ -3,8 +3,9 @@
 //
 // Invariant 2 (AGENTS.md): every grammar is read as its language's reference,
 // whatever its licence. A grammar enters the repository only when its licence
-// permits it. `engine-grammars.ts` commits the engine's test grammars, and
-// refuses any grammar this list refuses or lacks.
+// permits it. `engine-grammars.ts` commits the engine's test grammars. It
+// refuses a grammar that `refused` lists, or that neither `allowed` nor
+// `testData` lists.
 
 /** A grammar whose licence was read at its source. */
 type Allowed = {
@@ -18,6 +19,10 @@ type Allowed = {
   file: string;
 };
 
+/**
+ * The grammars a table the crate ships may be compiled from.
+ * Each origin has an entry in `THIRD-PARTY-NOTICES.md` (`tests/it/notices.rs`).
+ */
 export const allowed: Record<string, Allowed> = {
   asm: {
     bundled: "13xforever/x86_64-assembly-vscode@5c1958f4283d260f5dc88fa4f5f31c620e061a5a",
@@ -61,6 +66,18 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  cpp: {
+    bundled: "microsoft/vscode@8623a79836fba2e7e058e3493345ee068d28ce4f",
+    origin: "jeff-hykin/better-cpp-syntax",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  csharp: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "dotnet/csharp-tmLanguage",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   css: {
     bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
     origin: "microsoft/vscode-css",
@@ -73,6 +90,18 @@ export const allowed: Record<string, Allowed> = {
     licence: "BSD-3-Clause",
     file: "LICENSE",
   },
+  diff: {
+    bundled: "microsoft/vscode@4549bd26c7b799284e0ebd8dc1e0310e6a8707a1",
+    origin: "textmate/diff.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
+  docker: {
+    bundled: "microsoft/vscode@8270a86019db7551da42b71d15c6080a414d8c81",
+    origin: "moby/moby",
+    licence: "Apache-2.0",
+    file: "LICENSE",
+  },
   elixir: {
     bundled: "elixir-editors/elixir-tmbundle@43c8cd957d5ac6e1abbd8730fc7a08c81a6e76c9",
     origin: "elixir-editors/elixir-tmbundle",
@@ -82,6 +111,12 @@ export const allowed: Record<string, Allowed> = {
   gdscript: {
     bundled: "godotengine/godot-vscode-plugin@3f2860fd76c591a6010f0d35220490933e41d01d",
     origin: "godotengine/godot-vscode-plugin",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  go: {
+    bundled: "microsoft/vscode@091ef378baaa141c8bc4bbe9775d4cb3bd655a80",
+    origin: "worlpaker/go-syntax",
     licence: "MIT",
     file: "LICENSE",
   },
@@ -128,6 +163,19 @@ export const allowed: Record<string, Allowed> = {
     origin: "textmate/html.tmbundle",
     licence: "TextMate bundle licence",
     file: "README.mdown",
+  },
+  ini: {
+    bundled: "microsoft/vscode@8fdf170a0850c1cc027382f31650aaf300d3ae2a",
+    origin: "textmate/ini.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
+  // vscode-java is EPL-2.0, but its grammar states its own MIT licence, from atom/language-java.
+  java: {
+    bundled: "microsoft/vscode@3c86ede5f554f6e196c832394e126b291a1de606",
+    origin: "atom/language-java",
+    licence: "MIT",
+    file: "LICENSE.md",
   },
   javascript: {
     bundled: "microsoft/vscode@210541906e5a96ab39f9c753f921b1bd35f4138b",
@@ -186,6 +234,12 @@ export const allowed: Record<string, Allowed> = {
   less: {
     bundled: "microsoft/vscode@03dc55030b3b2b5c4779d4ac1e2e46cd1f5a6b7c",
     origin: "radium-v/Better-Less",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  lua: {
+    bundled: "microsoft/vscode@c8fdd1650c06321d687ddfd1eff06aae4b616256",
+    origin: "sumneko/lua.tmbundle",
     licence: "MIT",
     file: "LICENSE",
   },
@@ -274,9 +328,10 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
-  // The repository has no licence that GitHub identifies.
-  // The grammar's own folder holds an MIT licence,
-  // read at f18e8663177f72eb94e4568ea583c277692014dd.
+  // The repository's root licence is the Elastic License 2.0, with no
+  // exception for this folder. The grammar's own folder, at the commit Shiki
+  // bundles, holds an MIT licence from the same holder, and its README states
+  // that the code in the folder is under MIT. The folder's licence is read as the grammar's.
   r: {
     bundled: "posit-dev/positron@c4d6bab60dd914427a2d47a4b64e75e025d94059",
     origin: "posit-dev/positron",
@@ -307,6 +362,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.md",
   },
+  scss: {
+    bundled: "microsoft/vscode@cf8d61ebd2f022f4ce8280171f0360d1fe0a206d",
+    origin: "atom/language-sass",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   shaderlab: {
     bundled: "microsoft/vscode@8fdf170a0850c1cc027382f31650aaf300d3ae2a",
     origin: "tgjones/shaders-tmLanguage",
@@ -324,6 +385,12 @@ export const allowed: Record<string, Allowed> = {
     origin: "microsoft/vscode-mssql",
     licence: "MIT",
     file: "LICENSE.txt",
+  },
+  swift: {
+    bundled: "jtbandes/swift-tmlanguage@2be007b6bc88e54a0edfd3c313ff31276edc923d",
+    origin: "jtbandes/swift-tmlanguage",
+    licence: "MIT",
+    file: "LICENSE.md",
   },
   tex: {
     bundled: "microsoft/vscode@609f17a76734f092792a33c891af40bbcaea0c64",
@@ -379,6 +446,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE",
   },
+  xml: {
+    bundled: "microsoft/vscode@10a1d2a50a2882f5ae85bdb51eb04d3064fb9de9",
+    origin: "atom/language-xml",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
   yaml: {
     bundled: "textmate/yaml.tmbundle@e54ceae3b719506dba7e481a77cea4a8b576ae46",
     origin: "textmate/yaml.tmbundle",
@@ -393,11 +466,104 @@ export const allowed: Record<string, Allowed> = {
   },
 };
 
+/**
+ * Grammars committed under `tests/engine/grammars/` only, for checks that
+ * read them, such as `codegen/src/fence_stops.rs`.
+ * No table the crate ships is compiled from them, so they need no entry in
+ * `THIRD-PARTY-NOTICES.md`. `engine-grammars.ts` fails if a table or a word
+ * list reads one.
+ */
+export const testData: Record<string, Allowed> = {
+  abap: {
+    bundled: "pvl/abap.tmbundle@92e17e62a9449d2a6f87bfb30b4f920986c24018",
+    origin: "pvl/abap.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.md",
+  },
+  bibtex: {
+    bundled: "microsoft/vscode@9a2c94d213696a4453b6d9988b003d98e7646e75",
+    origin: "jlelong/vscode-latex-basics",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
+  clojure: {
+    bundled: "microsoft/vscode@a1a4c0a63b1ad59e84f54b874744fe35dea9abe1",
+    origin: "atom/language-clojure",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
+  erlang: {
+    bundled: "erlang-ls/grammar@fe898becd3004bcb4947ab50d6b6b830fbfb9228",
+    origin: "erlang-ls/grammar",
+    licence: "Apache-2.0",
+    file: "LICENSE",
+  },
+  fsharp: {
+    bundled: "microsoft/vscode@e6cffb21362b6d7addb977ff7db14f0681228780",
+    origin: "ionide/ionide-fsgrammar",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
+  "git-commit": {
+    bundled: "microsoft/vscode@f8c3f89468fea14103d8790d59ea8594d6e644eb",
+    origin: "walles/git-commit-message-plus",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  "git-rebase": {
+    bundled: "microsoft/vscode@e95c74c4c7af876e79ec58df262464467c06df28",
+    origin: "textmate/git.tmbundle",
+    licence: "MIT",
+    file: "MIT-LICENSE",
+  },
+  handlebars: {
+    bundled: "microsoft/vscode@af600487b1e94374d9f48f57cbf2cad24656b07f",
+    origin: "daaain/Handlebars",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  log: {
+    bundled: "emilast/vscode-logfile-highlighter@396c8552ff99d0e07142fdd940d75dae212dd28c",
+    origin: "emilast/vscode-logfile-highlighter",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  pug: {
+    bundled: "microsoft/vscode@6ac83c7c7dda9f27ca1fe9d98675253e010b75d1",
+    origin: "davidrios/pug-tmbundle",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  raku: {
+    bundled: "microsoft/vscode@8fdf170a0850c1cc027382f31650aaf300d3ae2a",
+    origin: "textmate/perl.tmbundle",
+    licence: "TextMate bundle licence",
+    file: "README.mdown",
+  },
+  regexp: {
+    bundled: "MagicStack/MagicPython@c9b3409deb69acec31bbf7913830e93a046b30cc",
+    origin: "MagicStack/MagicPython",
+    licence: "MIT",
+    file: "LICENSE",
+  },
+  rst: {
+    bundled: "microsoft/vscode@48e93f756b764991ede33ad09781a863aca6907a",
+    origin: "trond-snekvik/vscode-rst",
+    licence: "MIT",
+    file: "LICENSE.txt",
+  },
+  xsl: {
+    bundled: "microsoft/vscode@8fdf170a0850c1cc027382f31650aaf300d3ae2a",
+    origin: "atom/language-xml",
+    licence: "MIT",
+    file: "LICENSE.md",
+  },
+};
+
 /** Grammars that must never be bundled, with the reason. */
 export const refused: Record<string, string> = {
   glsl: "polym0rph/GLSL.tmbundle states no licence, in a file or its README",
   groovy:
     "textmate/groovy.tmbundle, which VS Code converted it from, " +
     "states no licence in a file or its README; only VS Code's notices do",
-  r: "posit-dev/positron, where Shiki takes it from, is under the Elastic License 2.0",
 };

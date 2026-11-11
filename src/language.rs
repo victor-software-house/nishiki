@@ -1954,9 +1954,9 @@ impl Language {
     /// Both then lex through [`Language::lex_until`], so the language can
     /// report the pop.
     ///
-    /// `oracle/fence-stops.ts`, a step of `mise run check:rule-grammars`,
-    /// recomputes the list from the grammars that Shiki's Markdown fences
-    /// include, and fails when it differs, which keeps it true.
+    /// `codegen/src/fence_stops.rs`, run by `mise run codegen -- --check`,
+    /// recomputes the list from the committed grammars that Markdown's fences
+    /// include. It fails when the list differs, which keeps it true.
     /// It is one comparison instead of a `match`, so no row's flag reaches the
     /// lowering of Markdown's `step`.
     #[cfg(any(feature = "lang-markdown", feature = "_textmate"))]

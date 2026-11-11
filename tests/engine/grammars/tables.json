@@ -184,7 +184,8 @@
     "name": "tex",
     "root": "text.tex",
     "grammars": [
-      "tex"
+      "tex",
+      "r"
     ],
     "handOffs": [
       "r"

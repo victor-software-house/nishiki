@@ -57,6 +57,10 @@ Lexing ratios against the hand matchers, at one codegen unit:
 | 12. a small pattern with no loop or lookbehind offered inline | 1.0402 | 0.8265 | 1.0345 |
 | 13. a space run read with the lexer's `space_end` | 1.0348 | 0.8234 | 1.0256 |
 | 14. one side of a word boundary tested when the other is known | 1.0346 | 0.8014 | 1.0028 |
+| fix 2 of `field-pattern-fixes`, on 14 | 1.0373 | 0.8014 | 1.0028 |
+| 15. an alternation of literals dispatched on its first byte | 1.0373 | 0.7991 | 0.9864 |
+| 16. `\G` tested before the pattern's call | 1.0373 | 0.7991 | 0.9702 |
+| 17. any leading position anchor tested before the call | 0.9964 | 0.7991 | 0.9700 |
 
 - The first row for Protocol Buffers has `OptionStmt` generated.
 - Step 2 kept the `\b` test out of line.
@@ -88,51 +92,53 @@ Lexing ratios against the hand matchers, at one codegen unit:
   It applies only when the class holds exactly the characters `space_end` takes.
 - Step 14 tests one side of a `\b` or `\B` when the writer knows the other ([88bcd18c][step-14]).
   The known side is the node before, or the first character of what follows.
-- Steps 9 to 14 are each measured against the step before.
+- Fix 2 is measured against step 14 at [30390626][fix-2].
+  Its split is in [`field-pattern-fixes`][field-pattern-fixes], section 3.4.
+- Step 15 applies to an alternation whose arms all start with a literal character, with at least three different first bytes ([11456f4b][step-15]).
+  It reads the byte once and tries only the arms that start with it, in their order.
+  Unlike the start tables, it works inside one pattern.
+- Step 16 tests `\G` in the dispatch arm of a pattern that starts with it ([b4deb9f2][step-16]).
+  The pattern's function runs only where the search began.
+- Step 17 extends step 16 to `^`, `$`, `\A`, `\z` and `\Z` ([d5053f14][step-17]).
+  Word boundaries stay in the function, where step 14 reads one side.
+- Steps 9 to 17 are each measured against the step before.
   Their rows multiply that ratio by the row above.
 
-Steps 5 and 8 in two more measures:
+Steps 5 to 14 in the other measures, and at 16 codegen units, are in [the note][note-measures].
+
+Steps 15 to 17 against the step before, at one codegen unit, with 16 units in parentheses:
 
 | Measure | Step | Protocol Buffers | Zig | Lua |
 |:--|--:|--:|--:|--:|
-| lexing, at 16 codegen units | 5 | 1.1032 | 0.8973 | 1.1452 |
-| lexing, at 16 codegen units | 8 | 1.0596 | 0.8139 | 1.0615 |
-| the first document, at one codegen unit | 5 | 1.0765 | 0.9229 | 1.0952 |
-| the first document, at one codegen unit | 8 | 1.0431 | 0.8710 | 1.0608 |
-| colouring, at one codegen unit | 8 | 1.0602 | 0.8626 | 1.0967 |
+| lexing | 15 | 1.0000 (0.9980) | 0.9971 (1.0386) | 0.9836 (0.9803) |
+| lexing | 16 | 1.0000 (1.0000) | 1.0000 (1.0000) | 0.9836 (0.9868) |
+| lexing | 17 | 0.9606 (0.9606) | 1.0000 (1.0000) | 0.9998 (1.0000) |
+| the first document | 15 | 1.0000 (0.9987) | 0.9974 (1.0334) | 0.9904 (0.9886) |
+| the first document | 16 | 1.0000 (1.0000) | 1.0000 (1.0000) | 0.9904 (0.9926) |
+| the first document | 17 | 0.9728 (0.9761) | 1.0000 (1.0000) | 0.9999 (1.0004) |
+| colouring | 15 | 1.0000 (0.9980) | 0.9973 (1.0355) | 0.9849 (0.9814) |
+| colouring | 16 | 1.0000 (1.0000) | 1.0000 (1.0000) | 0.9847 (0.9877) |
+| colouring | 17 | 0.9624 (0.9624) | 1.0000 (1.0000) | 0.9998 (1.0000) |
 
-Steps 9 to 14 against the step before, at one codegen unit, with 16 units in parentheses:
+- Step 15 halves Lua's `m122`, from 757,323 to 385,062 instructions, and cuts `m124` by 90,461.
+- At 16 units, Zig rises at step 15, for information only.
+  Its `matcher` gains 795,870 instructions from changed inlining.
+- Step 16 cuts Lua's `m111` from 489,890 to 44,275 instructions over 66,552 calls.
+- Step 17 cuts Protocol Buffers' `m3`, `$\n?`, from 264,310 to 10,298 instructions.
+  Its start table allows every byte, so the scan tried it at every byte of a line comment.
+- Lua's 1.0004 at step 17 is at 16 units, for information only.
+- The differential test found 0 differences at steps 15 to 17, and allocations did not change.
 
-| Measure | Step | Protocol Buffers | Zig | Lua |
-|:--|--:|--:|--:|--:|
-| lexing | 9 | 1.0000 (0.9999) | 0.9975 (0.9998) | 0.9847 (0.9900) |
-| lexing | 10 | 0.9871 (0.9877) | 0.9792 (1.0126) | 0.9523 (0.9777) |
-| lexing | 11 | 0.9918 (0.9962) | 1.0000 (0.9995) | 1.0001 (0.9999) |
-| lexing | 12 | 0.9993 (0.9312) | 0.9911 (0.9560) | 0.9993 (0.9988) |
-| lexing | 13 | 0.9948 (1.0668) | 0.9963 (1.0011) | 0.9914 (0.9927) |
-| lexing | 14 | 0.9998 (0.9999) | 0.9733 (0.9784) | 0.9778 (0.9806) |
-| the first document | 10 | 0.9910 (0.9925) | 0.9815 (1.0110) | 0.9710 (0.9869) |
-| the first document | 11 | 0.9943 (0.9977) | 1.0000 (0.9996) | 1.0001 (1.0000) |
-| the first document | 12 | 0.9995 (0.9582) | 0.9920 (0.9616) | 0.9996 (1.0034) |
-| the first document | 13 | 0.9964 (1.0394) | 0.9967 (1.0009) | 0.9949 (0.9920) |
-| the first document | 14 | 0.9999 (0.9999) | 0.9763 (0.9813) | 0.9868 (0.9889) |
-| colouring | 10 | 0.9877 (0.9882) | 0.9807 (1.0116) | 0.9553 (0.9791) |
-| colouring | 11 | 0.9921 (0.9964) | 1.0000 (0.9996) | 0.9999 (1.0000) |
-| colouring | 12 | 0.9993 (0.9343) | 0.9917 (0.9593) | 0.9993 (0.9990) |
-| colouring | 13 | 0.9950 (1.0636) | 0.9966 (1.0010) | 0.9918 (0.9931) |
-| colouring | 14 | 0.9998 (0.9999) | 0.9753 (0.9801) | 0.9793 (0.9819) |
+Step 17 measured directly against the hand matchers, on main at [6a4ce168][main-base]:
 
-- The gate is one codegen unit, and there every row of steps 10, 12, 13 and 14 falls (lead, 2026-11-10).
-- Zig rises at 16 units at step 10, and step 12 brings it back below step 9.
-- At step 11, the field pattern's inner loop falls from 137,634 to 99,118 instructions.
-- Lua's 1.0001 at step 11 is 547 instructions.
-  545 of them are in the C library's allocator and `memcpy`.
-  Lua's generated code does not change at step 11.
-- At 16 units, Protocol Buffers rises at step 13, for information only.
-  Its `matcher` goes from 252,950 to 568,727 instructions, back to its count at one unit.
-- Step 14 writes 119 one-sided tests.
-  Lua's generated patterns `m127`, `m128` and `m130` fall from 2.39 to 1.98 million instructions.
-- The differential test found 0 differences at steps 9 to 14.
+| Measure | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|
+| lexing | 0.9963 (0.9975) | 0.7992 (0.7997) | 0.9700 (0.9668) |
+| the first document | 0.9975 (0.9985) | 0.8213 (0.8244) | 0.9822 (0.9798) |
+| colouring | 0.9965 (0.9976) | 0.8115 (0.8120) | 0.9719 (0.9690) |
+
+- Every row is at or below 1.000, at one and at 16 codegen units.
+- The direct lexing rows match the chained rows of the first table within 0.0001.
 
 ### 2.1 A dropped step: a cache of class runs
 
@@ -237,7 +243,10 @@ The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 byt
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [design]: design.md
 [field-pattern-fixes]: ../field-pattern-fixes/design.md
+[fix-2]: https://github.com/victor-software-house/nishiki-archive/commit/30390626b75a582a60da875573339ee08c0286a9
+[main-base]: https://github.com/victor-software-house/nishiki-archive/commit/6a4ce168c9eae2bbacf22a3a6c0600c6f12758ad
 [note-costs]: ../../research/2026-11-10-default-matchers.md#the-costs-after-step-8
+[note-measures]: ../../research/2026-11-10-default-matchers.md#steps-5-to-14-in-every-measure
 [note-frame]: ../../research/2026-11-10-default-matchers.md#the-matchers-frame
 [note-small]: ../../research/2026-11-10-default-matchers.md#small-patterns-inline
 [note-step-8]: ../../research/2026-11-10-default-matchers.md#where-step-8s-saving-comes-from
@@ -248,3 +257,6 @@ The tests of [rule-table-codegen][rule-table-codegen] task 1.1 run it at 102 byt
 [step-12]: https://github.com/victor-software-house/nishiki-archive/commit/0647d46a4b192320f8212b852633bf6c7482c943
 [step-13]: https://github.com/victor-software-house/nishiki-archive/commit/0ecbda472d369abaa18367b174983002f3ffff41
 [step-14]: https://github.com/victor-software-house/nishiki-archive/commit/88bcd18c6a0cb8297f28263a23a1b8e696c2ffd1
+[step-15]: https://github.com/victor-software-house/nishiki-archive/commit/11456f4b1ce35e5d81a86c72b76619b5652ff6ea
+[step-16]: https://github.com/victor-software-house/nishiki-archive/commit/b4deb9f2504f9e28e2c17138b5b22c926c726e6b
+[step-17]: https://github.com/victor-software-house/nishiki-archive/commit/d5053f14a76b9c48b6f4b1959803d5d23d4357b9
