@@ -216,7 +216,9 @@ pub(super) fn property_named(name: &str) -> Option<Property> {
         "hex" | "hexdigit" | "asciihexdigit" => "xdigit",
         other => other,
     };
-    super::unicode::lookup(key).map(Property)
+    let names = super::unicode::NAMES;
+    let index = names.binary_search_by(|&(name, _)| name.cmp(key)).ok()?;
+    names.get(index).map(|&(_, set)| Property(set))
 }
 
 /// A set `property_named` is known to have.

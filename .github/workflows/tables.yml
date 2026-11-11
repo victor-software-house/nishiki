@@ -5,9 +5,9 @@ name: Generated tables
 # - oracle/facts/case-folds.json: oracle/case-folds.ts measures it on
 #   Oniguruma (`mise run check:case-folds`). codegen/ writes
 #   src/textmate/regex/folds.rs from it, and verify checks the table.
-# - src/textmate/regex/unicode.rs and oracle/facts/unicode-sets.json:
-#   oracle/unicode-tables.ts measures them on Oniguruma
-#   (`mise run check:unicode-tables`).
+# - oracle/facts/unicode-sets.json: oracle/unicode-tables.ts measures it on
+#   Oniguruma (`mise run check:unicode-tables`). codegen/ writes
+#   src/textmate/regex/unicode.rs from it, and verify checks the table.
 # - oracle/facts/classes.json: oracle/classes.ts measures it on Shiki
 #   (`mise run check:classes`). codegen/ writes src/classes/table.rs from
 #   it, and verify checks the table.
@@ -31,7 +31,6 @@ on:
       - oracle/case-folds.ts
       - mise-tasks/check/case-folds.sh
       - oracle/unicode-tables.ts
-      - src/textmate/regex/unicode.rs
       - mise-tasks/check/unicode-tables.sh
       - oracle/classes.ts
       - mise-tasks/check/classes.sh
@@ -119,7 +118,7 @@ jobs:
       - name: Install bun
         timeout-minutes: 3
         run: mise install --locked bun@1.4.4
-      - name: Compare the Unicode sets and their facts with what their script measures
+      - name: Compare the Unicode sets' facts with what their script measures
         timeout-minutes: 6
         run: mise run check:unicode-tables
 

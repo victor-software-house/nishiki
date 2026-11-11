@@ -1,16 +1,13 @@
 // Measures the character sets that Oniguruma, as Shiki bundles it, gives
 // \p{..}, [[:..:]], \w, \d and \s, by asking it about every code point.
 // It records them as ranges in oracle/facts/unicode-sets.json.
-// It also writes src/textmate/regex/unicode.rs from them, until a Rust writer
-// takes that step over.
+// codegen/src/unicode.rs writes src/textmate/regex/unicode.rs from them.
 //
 // Usage: bun oracle/unicode-tables.ts
 // `mise run check:unicode-tables` runs it and fails when a file it writes changes.
 import { type RegexEngine } from "shiki@4.6.0";
 import { createOnigurumaEngine } from "shiki@4.6.0/engine/oniguruma";
 import wasm from "shiki@4.6.0/wasm";
-import { writeFileSync } from "node:fs";
-import { dedent } from "./dedent.ts";
 import { bundledOniguruma, rangeNotation, type UnicodeSetsFacts, writeFacts } from "./facts.ts";
 import { type PointText, pointText, scalarValues } from "./scalars.ts";
 
@@ -138,44 +135,6 @@ function measure(engine: RegexEngine): CharacterSet[] {
   ];
 }
 
-/** The Rust name of the set `key`. */
-const ident = (key: string) => `SET_${key.toUpperCase()}`;
-
-/** The Rust source of unicode.rs. */
-function rust(sets: readonly CharacterSet[]): string {
-  let source = dedent`
-    //! Character sets.
-    //! \`oracle/unicode-tables.ts\` measures them on Oniguruma as Shiki bundles it.
-    //! Do not edit: regenerate with \`bun oracle/unicode-tables.ts\`.
-
-    #![cfg_attr(rustfmt, rustfmt::skip)]
-    #![expect(clippy::unreadable_literal, reason = "generated tables of code points")]
-
-    `;
-  for (const { key, ranges } of sets) {
-    source += `static ${ident(key)}: &[(u32, u32)] = &[${ranges.map(([a, b]) => `(0x${a.toString(16)}, 0x${b.toString(16)})`).join(", ")}];\n`;
-  }
-  const setArms = sets
-    .filter(({ key }) => !key.startsWith("posix_"))
-    .map(({ key }) => `"${key}" => ${ident(key)},`)
-    .join("\n");
-  const posixArms = posix.map((p) => `"${p}" => SET_POSIX_${p.toUpperCase()},`).join("\n");
-  source += dedent`
-
-    /// The set a normalized name stands for.
-    /// A normalized name is lower case, without \`_\`, \`-\` or spaces.
-    /// Returns \`None\` for a name this table lacks.
-    pub(super) fn lookup(name: &str) -> Option<&'static [(u32, u32)]> {
-        Some(match name {
-            ${setArms}
-            ${posixArms}
-            _ => return None,
-        })
-    }
-    `;
-  return source;
-}
-
 /** The facts unicode-sets.json records: every set, as ranges in Unicode's notation. */
 function facts(sets: readonly CharacterSet[]): UnicodeSetsFacts {
   return {
@@ -187,5 +146,4 @@ function facts(sets: readonly CharacterSet[]): UnicodeSetsFacts {
 
 const sets = measure(await createOnigurumaEngine(wasm as any));
 writeFacts("unicode-sets", facts(sets));
-writeFileSync(new URL("../src/textmate/regex/unicode.rs", import.meta.url).pathname, rust(sets));
 console.log(sets.map(({ key, ranges }) => `${key}:${ranges.length}`).join(" "));
