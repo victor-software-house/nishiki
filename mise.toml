@@ -132,6 +132,19 @@ run = "mise run codegen -- --check"
 description = "codegen/'s dependencies pass the deny rules"
 run = "cargo deny --locked --manifest-path codegen/Cargo.toml check licenses bans sources"
 
+# A version bump leaves every Cargo.lock that records nishiki stale.
+# codegen/, bench/ and bench/compare/ are workspaces of their own, each with its
+# own lock, and their tasks pass --locked.
+# The Version PR runs this task after each bump (.ctl/ver.yaml).
+[tasks."release:locks"]
+description = "Every Cargo.lock records nishiki's current version"
+run = [
+  "cargo update --workspace",
+  "cargo update --manifest-path codegen/Cargo.toml --package nishiki",
+  "cargo update --manifest-path bench/Cargo.toml --package nishiki",
+  "cargo update --manifest-path bench/compare/Cargo.toml --package nishiki",
+]
+
 # The tests of the Bun scripts under oracle/, bench/ and mise-tasks/.
 # They need no network, unlike the oracle runs.
 [tasks."test:scripts"]

@@ -1,7 +1,13 @@
-# A bump leaves Cargo.lock stale, and ci.yml runs `cargo package --locked`.
+# A bump leaves every Cargo.lock that records nishiki stale.
+# ci.yml runs `cargo package --locked`, and the codegen and bench tasks pass
+# --locked to their own workspaces.
 prepare:
-  after: [cargo, update, --workspace]
-  stage: [Cargo.lock]
+  after: [mise, run, "release:locks"]
+  stage:
+    - Cargo.lock
+    - codegen/Cargo.lock
+    - bench/Cargo.lock
+    - bench/compare/Cargo.lock
 
 packages:
   - name: nishiki
