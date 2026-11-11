@@ -9,8 +9,8 @@
 //   languages it hands regions to;
 // - `SOURCES.md`: each grammar's source, commit and licence.
 //
-// It also writes the grammars that `codegen/` reads word lists from, which
-// no table links.
+// It also writes the grammars that `codegen/` reads and no table links: the
+// grammars it reads word lists from, and the grammars of Markdown's fences.
 //
 // A table is a Shiki language id, with the languages it may embed joined by
 // `+`, then the languages it hands regions to, each after `>`. A table loads
@@ -22,11 +22,13 @@
 // A grammar that `oracle/licences.ts` refuses stays out of the repository,
 // tests included. A handed language's refused grammar is left out, so an
 // include of one of its rules matches nothing. The run fails on any other
-// grammar that `oracle/licences.ts` refuses or lacks.
+// grammar that `oracle/licences.ts` refuses or lacks. A table or a word list
+// reads only grammars that `allowed` lists: a grammar in `testData` may be
+// committed for a check, never compiled into a table the crate ships.
 import { bundledLanguages } from "shiki@4.6.0";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { allowed, refused } from "./licences.ts";
+import { allowed, refused, testData } from "./licences.ts";
 
 /** One registered grammar, as Shiki ships it. */
 type ShikiGrammar = { name: string; scopeName: string } & Record<string, unknown>;
@@ -123,16 +125,72 @@ for (const spec of tables) {
 
 /** The grammars `codegen/` reads word lists from that no table links. */
 const wordGrammars = ["c", "less", "sql"];
-for (const id of wordGrammars) {
+/**
+ * The grammars of Markdown's fences that no table links, which
+ * `codegen/src/fence_stops.rs` checks.
+ * `groovy` and `r` stay out: `oracle/licences.ts` refuses them.
+ */
+const fenceGrammars = [
+  "abap",
+  "bat",
+  "bibtex",
+  "clojure",
+  "cpp",
+  "csharp",
+  "dart",
+  "diff",
+  "docker",
+  "erlang",
+  "fsharp",
+  "git-commit",
+  "git-rebase",
+  "go",
+  "handlebars",
+  "ini",
+  "java",
+  "julia",
+  "latex",
+  "log",
+  "lua",
+  "perl",
+  "php",
+  "powershell",
+  "pug",
+  "raku",
+  "regexp",
+  "rst",
+  "scala",
+  "scss",
+  "swift",
+  "xml",
+  "xsl",
+];
+for (const id of [...wordGrammars, ...fenceGrammars]) {
   const own = (await registrations(id)).find((grammar) => grammar.name === id);
   if (!own) throw new Error(`Shiki registers no grammar named ${id}`);
   grammars.set(own.name, own);
 }
 
-const unlicensed = [...grammars.keys()].filter((name) => refused[name] || !allowed[name]);
+const both = Object.keys(testData).filter((name) => allowed[name]);
+if (both.length > 0) {
+  throw new Error(`both allowed and testData in oracle/licences.ts: ${both.sort().join(", ")}`);
+}
+/** The grammars a table links or a word list is read from. */
+const tabled = [...linked.flatMap((table) => table.grammars), ...wordGrammars];
+const tabledTestData = tabled.filter((name) => testData[name]);
+if (tabledTestData.length > 0) {
+  throw new Error(
+    `a table or word list reads testData grammars: ${tabledTestData.sort().join(", ")}`,
+  );
+}
+const unlicensed = [...grammars.keys()].filter(
+  (name) => refused[name] || !(allowed[name] ?? testData[name]),
+);
 if (unlicensed.length > 0) {
   throw new Error(`not allowed in oracle/licences.ts: ${unlicensed.sort().join(", ")}`);
 }
+/** The licence record of a committed grammar. */
+const licensed = (name: string) => allowed[name] ?? testData[name];
 
 rmSync(out, { recursive: true, force: true });
 mkdirSync(out, { recursive: true });
@@ -143,14 +201,14 @@ for (const name of names) {
 writeFileSync(`${out}tables.json`, `${JSON.stringify(linked, null, 2)}\n`);
 
 const rows = names.map((name) => {
-  const { bundled, licence } = allowed[name];
+  const { bundled, licence } = licensed(name);
   return (
     `| \`${name}\` | [${bundled.replace("@", " at ")}][${name}-source] | ` +
     `[${licence}][${name}-licence] |`
   );
 });
 const links = names.flatMap((name) => {
-  const { bundled, origin, file } = allowed[name];
+  const { bundled, origin, file } = licensed(name);
   const [repository, commit] = bundled.split("@");
   const licenceCommit = origin === repository ? commit : "HEAD";
   return [
