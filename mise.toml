@@ -81,11 +81,17 @@ env = { CARGO_BUILD_JOBS = "2" }
 [tasks.test]
 env = { CARGO_BUILD_JOBS = "2" }
 
-# check:size waits for lint, in its own file, and test:doc waits for
-# check:size.
-# That chain ends before test, which runs the longest.
+# A chain of tasks runs beside test, one after another: check:size, test:doc,
+# check:unstable, codegen:lint and codegen:check.
+# check:size waits for lint, in its own file, and each later task waits for
+# the one before.
+# test's integration binary, `it`, holds up to 3.3 GiB while it runs.
+# With two jobs, a task of the chain compiled two copies of the crate beside
+# it, which overran the 8 GiB CI runner.
+# One job keeps a single compile beside it.
 [tasks."test:doc"]
 wait_for = ["check:size"]
+env = { CARGO_BUILD_JOBS = "1" }
 
 # nishiki::unstable compiles only with --cfg nishiki_unstable.
 # This lints every target with the cfg and runs the module's doctests.
@@ -101,7 +107,7 @@ run = [
 ]
 
 [tasks."check:unstable".env]
-CARGO_BUILD_JOBS = "2"
+CARGO_BUILD_JOBS = "1"
 CARGO_TARGET_DIR = "target/unstable"
 RUSTFLAGS = "--cfg nishiki_unstable"
 RUSTDOCFLAGS = "--cfg nishiki_unstable"
@@ -118,7 +124,7 @@ run = [
 ]
 
 [tasks."codegen:lint".env]
-CARGO_BUILD_JOBS = "2"
+CARGO_BUILD_JOBS = "1"
 CARGO_TARGET_DIR = "target/codegen"
 RUSTFLAGS = "--cfg nishiki_unstable"
 
@@ -126,6 +132,7 @@ RUSTFLAGS = "--cfg nishiki_unstable"
 description = "Each generated Rust file is what codegen/ writes"
 wait_for = ["codegen:lint"]
 run = "mise run codegen -- --check"
+env = { CARGO_BUILD_JOBS = "1" }
 
 # cargo deny reads one workspace's graph, and codegen/ is its own.
 [tasks."deny:codegen"]
