@@ -144,8 +144,8 @@ fn number(n: usize) -> Literal {
     Literal::usize_unsuffixed(n)
 }
 
-/// `value` in hexadecimal, padded to `digits` digits, with an underscore
-/// between each group of four from the right, and `suffix` after it.
+/// `value` in hexadecimal, padded to `digits` digits, then `suffix`.
+/// An underscore separates each group of four digits, counted from the right.
 pub(super) fn hex(value: u128, digits: usize, suffix: &str) -> Literal {
     let text = format!("{value:0digits$x}");
     let mut grouped = String::new();
@@ -932,12 +932,11 @@ impl Writer {
     /// - Such a `\s*` or `\s+` calls the lexer's `space_end`, which tests ASCII
     ///   by byte and decodes only above it.
     ///
-    /// A loop that takes turns spends the bytes it took when it ends.
-    /// A lazy loop spends each turn's bytes as it takes the turn.
+    /// A loop that takes turns spends the bytes it took when it ends, and a
+    /// lazy loop spends each turn's bytes as it takes the turn.
     /// Each turn given back spends one step.
     /// A loop that gives back, or tries the continuation first, checks the
-    /// budget on each turn.
-    /// Once the budget is spent, the loop stops with no match.
+    /// budget on each turn, and stops with no match once the budget is spent.
     #[expect(
         clippy::too_many_arguments,
         reason = "the repeat's own fields, then the continuation and its analysis"

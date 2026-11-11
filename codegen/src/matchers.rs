@@ -1,5 +1,6 @@
-//! The matchers: for each pattern of a language on the rule engine, the
-//! function that decides whether it matches at a position and where.
+//! The matchers of a language on the rule engine.
+//! Each pattern gets a function that decides whether it matches at a position,
+//! and where the match ends.
 //!
 //! Each is written from the pattern's parsed tree ([`writer`]).
 //! [`shape`] holds the analysis that lets a matcher skip giving characters
