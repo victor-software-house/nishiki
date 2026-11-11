@@ -17,8 +17,8 @@ use super::rules::Pattern;
 use super::text::{Cx, LineFacts};
 use crate::language::{Halt, RootStart};
 
-/// A root pattern's test of a place: whether it matches there.
-type Test = fn(&Cx<'_>, usize, &mut Captures) -> bool;
+/// A root pattern's test of a place: the end of its match there.
+type Test = fn(&Cx<'_>, usize, &mut Captures) -> Option<usize>;
 
 /// Markdown's root patterns in the grammar's order, each with its test.
 ///
@@ -33,46 +33,42 @@ type Test = fn(&Cx<'_>, usize, &mut Captures) -> bool;
 /// None needs the arena or the lexer, so the slot's answer is exact.
 /// The rule that needs the arena, `Pattern::Html`, sits only in the
 /// `HEADING_TEXT` and `PARAGRAPH` lists, not at the root.
+///
+/// Only the link definition's test reads the line's work, which each test
+/// spends.
+/// Every other test gives the same answer when tried again at the same place.
 pub(super) const TESTS: &[(Pattern, Test)] = &[
-    (Pattern::Separator, |cx, p, _| {
-        block::separator(cx, p).is_some()
-    }),
+    (Pattern::Separator, |cx, p, _| block::separator(cx, p)),
     (Pattern::Heading, |cx, p, captures| {
-        block::heading(cx, p, captures).is_some()
+        block::heading(cx, p, captures)
     }),
     (Pattern::Quote, |cx, p, captures| {
-        block::quote(cx, p, captures).is_some()
+        block::quote(cx, p, captures)
     }),
     (Pattern::Bullet, |cx, p, captures| {
-        block::bullet(cx, p, captures).is_some()
+        block::bullet(cx, p, captures)
     }),
     (Pattern::Ordered, |cx, p, captures| {
-        block::ordered(cx, p, captures).is_some()
+        block::ordered(cx, p, captures)
     }),
     (Pattern::Fence, |cx, p, captures| {
-        block::fence_open(cx, p, captures).is_some()
+        block::fence_open(cx, p, captures).map(|open| open.end)
     }),
-    (Pattern::RawBlock, |cx, p, _| {
-        block::raw_block(cx, p).is_some()
-    }),
+    (Pattern::RawBlock, |cx, p, _| block::raw_block(cx, p)),
     (Pattern::LinkDefinition, |cx, p, captures| {
-        block::link_definition(cx, p, captures).is_some()
+        block::link_definition(cx, p, captures)
     }),
     (Pattern::Comment, |cx, p, captures| {
-        block::comment_open(cx, p, captures).is_some()
+        block::comment_open(cx, p, captures)
     }),
     #[cfg(feature = "lang-html-derivative")]
-    (Pattern::HtmlRaw, |cx, p, _| html::raw_open(cx, p).is_some()),
+    (Pattern::HtmlRaw, |cx, p, _| html::raw_open(cx, p)),
     #[cfg(feature = "lang-html-derivative")]
-    (Pattern::HtmlBlock, |cx, p, _| {
-        html::block_open(cx, p).is_some()
-    }),
+    (Pattern::HtmlBlock, |cx, p, _| html::block_open(cx, p)),
     (Pattern::Table, |cx, p, captures| {
-        block::table(cx, p, captures).is_some()
+        block::table(cx, p, captures)
     }),
-    (Pattern::Paragraph, |cx, p, _| {
-        block::paragraph(cx, p).is_some()
-    }),
+    (Pattern::Paragraph, |cx, p, _| block::paragraph(cx, p)),
 ];
 
 /// Markdown's root patterns on one line of an Objective-C fence, for the
@@ -86,12 +82,41 @@ pub(super) struct RootPatterns<'a> {
     facts: &'a LineFacts,
     /// The last search for a link definition.
     definition: Cell<Option<Search>>,
-    /// Whether `^` or `\G` held at the last place [`RootStart::first`] gave.
-    anchored: Cell<bool>,
+    /// The root pattern that matched at the last place [`RootStart::first`]
+    /// gave.
+    opening: Cell<Option<Opening>>,
+}
+
+/// The root pattern of Markdown that matched first at a `$base` slot.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct Slot {
+    /// The pattern that matched.
+    pub(super) pattern: Pattern,
+    /// Whether `^` or `\G` held there.
+    /// Where neither held, only a link definition can match.
+    pub(super) anchored: bool,
+}
+
+/// The root pattern that matched at a place, with a link definition's match.
+///
+/// A link definition's test reads the line's work, so a second try could fail
+/// where the first matched.
+/// Markdown applies that match as it is.
+#[derive(Clone, Copy)]
+struct Opening {
+    slot: Slot,
+    definition: Option<Definition>,
+}
+
+/// The match of a link definition: its end and its groups.
+#[derive(Clone, Copy, Debug)]
+pub(super) struct Definition {
+    pub(super) end: usize,
+    pub(super) captures: Captures,
 }
 
 /// A search for a link definition: the text it read, where it started, and
-/// the first start it found.
+/// the first definition it found.
 #[derive(Clone, Copy)]
 struct Search {
     /// The length of the text, without its line feed.
@@ -99,7 +124,7 @@ struct Search {
     /// The end of the text, after its line feed if it has one.
     end: usize,
     from: usize,
-    start: Option<usize>,
+    found: Option<(usize, Definition)>,
 }
 
 impl<'a> RootPatterns<'a> {
@@ -107,15 +132,22 @@ impl<'a> RootPatterns<'a> {
         RootPatterns {
             facts,
             definition: Cell::new(None),
-            anchored: Cell::new(false),
+            opening: Cell::new(None),
         }
     }
 
-    /// Whether `^` or `\G` held at the last place [`RootStart::first`] gave.
-    /// Markdown then tries every root pattern there.
-    /// Where neither held, only a link definition can match there.
-    pub(super) fn anchored(&self) -> bool {
-        self.anchored.get()
+    /// The root pattern that matched at the last place [`RootStart::first`]
+    /// gave, or `None` where it gave none.
+    pub(super) fn slot(&self) -> Option<Slot> {
+        self.opening.get().map(|opening| opening.slot)
+    }
+
+    /// The match of the link definition that matched at the last place
+    /// [`RootStart::first`] gave, if one did.
+    /// There is one exactly when [`RootPatterns::slot`] gives
+    /// `Pattern::LinkDefinition`.
+    pub(super) fn definition(&self) -> Option<Definition> {
+        self.opening.get()?.definition
     }
 
     /// The first start of a link definition in `from..`.
@@ -128,23 +160,23 @@ impl<'a> RootPatterns<'a> {
     /// - It finds none where the last search found none.
     /// - A start behind the new place is never given. The text is searched
     ///   again from there.
-    fn definition_from(&self, cx: &Cx<'_>, from: usize) -> Option<usize> {
+    fn definition_from(&self, cx: &Cx<'_>, from: usize) -> Option<(usize, Definition)> {
         if let Some(last) = self.definition.get()
             && last.len == cx.line.len()
             && last.end == cx.end
             && last.from <= from
-            && last.start.is_none_or(|start| start >= from)
+            && last.found.is_none_or(|(start, _)| start >= from)
         {
-            return last.start;
+            return last.found;
         }
-        let start = definition_start(cx, from);
+        let found = first_definition(cx, from);
         self.definition.set(Some(Search {
             len: cx.line.len(),
             end: cx.end,
             from,
-            start,
+            found,
         }));
-        start
+        found
     }
 }
 
@@ -169,33 +201,53 @@ impl RootStart for RootPatterns<'_> {
             anchor,
             facts: self.facts,
         };
-        let anchored = cx.at_start(from) && opens_at(&cx, from);
-        self.anchored.set(anchored);
-        if anchored {
+        if cx.at_start(from)
+            && let Some(opening) = opening_at(&cx, from)
+        {
+            self.opening.set(Some(opening));
             return Some(from);
         }
-        self.definition_from(&cx, from)
+        let found = self.definition_from(&cx, from);
+        self.opening.set(found.map(|(_, definition)| Opening {
+            slot: Slot {
+                pattern: Pattern::LinkDefinition,
+                anchored: false,
+            },
+            definition: Some(definition),
+        }));
+        found.map(|(start, _)| start)
     }
 }
 
-/// Whether one of the root patterns matches at `p`, where `^` or `\G` holds.
-fn opens_at(cx: &Cx<'_>, p: usize) -> bool {
+/// The first root pattern that matches at `p`, where `^` or `\G` holds.
+fn opening_at(cx: &Cx<'_>, p: usize) -> Option<Opening> {
     let at = cx.line.get(p).copied().unwrap_or(b'\n');
     let first = cx.at(cx.skip_space(p));
     let mut captures = Captures::new();
-    TESTS.iter().any(|&(pattern, test)| {
+    TESTS.iter().find_map(|&(pattern, test)| {
         captures.clear();
-        pattern.opens_block(true, at, first) && test(cx, p, &mut captures)
+        if !pattern.opens_block(true, at, first) {
+            return None;
+        }
+        let end = test(cx, p, &mut captures)?;
+        Some(Opening {
+            slot: Slot {
+                pattern,
+                anchored: true,
+            },
+            definition: (pattern == Pattern::LinkDefinition)
+                .then_some(Definition { end, captures }),
+        })
     })
 }
 
-/// The first start of a link definition in `from..`.
+/// The first link definition in `from..`: its start and its match.
 ///
 /// A definition leads with `\s*`.
 /// It starts at the first blank before its `[`, or at `from` when the blanks
 /// run back past it.
 /// A line whose work is spent has none.
-fn definition_start(cx: &Cx<'_>, from: usize) -> Option<usize> {
+fn first_definition(cx: &Cx<'_>, from: usize) -> Option<(usize, Definition)> {
     let mut captures = Captures::new();
     let mut search = from;
     while let Some(offset) = memchr::memchr(b'[', cx.line.get(search..)?) {
@@ -209,8 +261,8 @@ fn definition_start(cx: &Cx<'_>, from: usize) -> Option<usize> {
             start = start.saturating_sub(len).max(from);
         }
         captures.clear();
-        if block::link_definition(cx, start, &mut captures).is_some() {
-            return Some(start);
+        if let Some(end) = block::link_definition(cx, start, &mut captures) {
+            return Some((start, Definition { end, captures }));
         }
         if cx.over() {
             return None;

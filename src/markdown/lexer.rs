@@ -16,7 +16,7 @@ use super::captures::{Captures, NESTING};
 use super::html;
 use super::inline::Emphasis;
 #[cfg(feature = "lang-objective-c")]
-use super::root::RootPatterns;
+use super::root::{Definition, RootPatterns, Slot};
 use super::rules::{self, Capture, End, List, Pattern};
 use super::runs::Runs;
 use super::scope::S;
@@ -245,11 +245,20 @@ pub(crate) struct Scratch {
     pub(super) start: Start,
     /// Whether the line stopped at its start, with no tokens.
     pub(super) stopped: bool,
-    /// Whether `^` or `\G` held where a `$base` slot of an Objective-C fence
-    /// took the line.
+    /// The root pattern that took the line at a `$base` slot of an
+    /// Objective-C fence.
     /// Only [`lex_with_root`] sets it, for the hand-back that follows.
     #[cfg(feature = "lang-objective-c")]
-    slot_anchored: Option<bool>,
+    slot: Option<Slot>,
+    /// The match of the last link definition that took a slot.
+    /// It is boxed, since a link definition takes a slot rarely and the
+    /// scratch of every language holds this one.
+    /// The first such line allocates the box, and later ones overwrite it,
+    /// so a scratch allocates for this once in its life.
+    /// It is read only where `slot` names a link definition, which
+    /// [`lex_with_root`] writes it for.
+    #[cfg(feature = "lang-objective-c")]
+    definition: Option<Box<Definition>>,
 }
 
 /// How a line starts: as a line of a document, or as Markdown that another
@@ -1518,8 +1527,11 @@ impl<'a> Lexer<'a> {
     )]
     fn hand_back(&mut self, at: usize, end: usize, state: u32) {
         #[cfg(feature = "lang-objective-c")]
-        if let Some(anchored) = self.scratch.markdown.slot_anchored.take() {
-            self.open_at_slot(at, anchored, state);
+        if let Some(slot) = self.scratch.markdown.slot.take() {
+            let definition = (slot.pattern == Pattern::LinkDefinition)
+                .then(|| self.scratch.markdown.definition.as_deref().copied())
+                .flatten();
+            self.open_at_slot(at, slot, definition.as_ref(), state);
             return;
         }
         self.pop_body(at, end);
@@ -1542,10 +1554,18 @@ impl<'a> Lexer<'a> {
     ///
     /// `step` would otherwise try only the open container's own rules.
     ///
-    /// `anchored` says whether `^` or `\G` held at `at` in the language's
-    /// rules. Where neither held, only a link definition can match.
+    /// `slot` is the pattern that matched at `at`, and whether `^` or `\G`
+    /// held there.
+    /// The pattern always matches again:
+    ///
+    /// - The slot's test read the whole line and its line feed, as
+    ///   [`Lexer::try_rule`] does in a fence's body.
+    /// - `^` or `\G` holds at `at` here where it held for the slot's test.
+    /// - Of the root patterns, only a link definition reads the line's work,
+    ///   which the first try spent. Its match comes as `definition` and is
+    ///   applied as it is.
     #[cfg(feature = "lang-objective-c")]
-    fn open_at_slot(&mut self, at: usize, anchored: bool, state: u32) {
+    fn open_at_slot(&mut self, at: usize, slot: Slot, definition: Option<&Definition>, state: u32) {
         let Some(&Frame {
             rule: Rule::Open(container),
             content,
@@ -1556,28 +1576,27 @@ impl<'a> Lexer<'a> {
         else {
             return;
         };
-        self.keep_body_state(container, content, carried, kept, state);
-        self.last = at;
-        self.pos = at;
-        self.anchor = anchored.then_some(at);
-        let body = self.frames.len().saturating_sub(1);
-        let language = self.arena.frame(state).stack;
-        let cx = cx!(self);
-        let byte = cx.line.get(at).copied().unwrap_or(b'\n');
-        let first = cx.at(cx.skip_space(at));
-        let anchored = cx.at_start(at);
+        self.anchor = slot.anchored.then_some(at);
         let mut captures = Captures::new();
-        let hit = rules::patterns(Container::Base)
-            .iter()
-            .filter(|rule| rule.opens_block(anchored, byte, first))
-            .find_map(|&rule| self.try_rule(rule, at, &mut captures));
-        debug_assert!(
-            hit.is_some(),
-            "no root pattern of Markdown matches at byte {at}"
-        );
+        let hit = match definition {
+            Some(definition) => {
+                captures = definition.captures;
+                Some(Hit {
+                    rule: Some(slot.pattern),
+                    start: at,
+                    end: definition.end,
+                })
+            }
+            None => self.try_rule(slot.pattern, at, &mut captures),
+        };
         let Some(hit) = hit else {
             return;
         };
+        self.keep_body_state(container, content, carried, kept, state);
+        self.last = at;
+        self.pos = at;
+        let body = self.frames.len().saturating_sub(1);
+        let language = self.arena.frame(state).stack;
         if let Some(frame) = self.frames.get_mut(body) {
             frame.content = language;
         }
@@ -1651,8 +1670,10 @@ fn lex_fence(
 /// root patterns ([`RootPatterns`]).
 ///
 /// It returns where Objective-C gave the line back.
-/// Where a slot took the line, the scratch marks whether `^` or `\G` held
-/// there, for [`Lexer::hand_back`].
+/// Where a slot took the line, the scratch holds the root pattern that
+/// matched there, for [`Lexer::hand_back`].
+/// The halt stops the scan only at the place the last query gave, so that
+/// query's pattern is the one that took the line.
 /// Elsewhere Objective-C popped the fence's body, as at [`lex_popping`].
 ///
 /// Like [`lex_popping`], it costs a call at each byte Objective-C tries.
@@ -1674,7 +1695,13 @@ fn lex_with_root(
                 reason: StopReason::Halt,
             }),
         ) => {
-            cx.scratch.markdown.slot_anchored = Some(root.anchored());
+            cx.scratch.markdown.slot = root.slot();
+            if let Some(definition) = root.definition() {
+                match &mut cx.scratch.markdown.definition {
+                    Some(kept) => **kept = definition,
+                    kept @ None => *kept = Some(Box::new(definition)),
+                }
+            }
             (finished, Some(at))
         }
         (
@@ -1925,19 +1952,22 @@ mod tests {
     /// the same place where Markdown's root patterns first match.
     #[cfg(feature = "lang-objective-c")]
     mod root_slot {
-        use super::super::super::root::{RootPatterns, TESTS};
         use super::super::{Captures, Container, Lexer, Pattern, rules};
         use crate::arena::{Arena, ROOT};
         use crate::language::{Parts, RootStart};
         use crate::limits::{Limits, LineReport, Steps};
+        use crate::markdown::root::{RootPatterns, TESTS};
         use crate::markdown::text::LineFacts;
 
         /// A place for a slot: where the scan starts, and where `\G` holds.
         type Place = (usize, Option<usize>);
 
+        /// A place where a root pattern first matches, and that pattern.
+        type Found = Option<(usize, Pattern)>;
+
         /// Where Markdown's rules at the document's root first match in
-        /// `line`, from `from`, with `\G` at `anchor`.
-        fn markdown_first(line: &str, (from, anchor): Place) -> Option<usize> {
+        /// `line`, from `from`, with `\G` at `anchor`, and which rule.
+        fn markdown_first(line: &str, (from, anchor): Place) -> Found {
             let mut arena = Arena::new(None);
             let limits = Limits::default();
             let mut out = Vec::new();
@@ -1952,12 +1982,14 @@ mod tests {
             let mut lexer = Lexer::new(parts, &mut scratch, line, ROOT);
             lexer.pos = from;
             lexer.anchor = anchor;
-            lexer.find(&mut Captures::new()).map(|hit| hit.start)
+            let hit = lexer.find(&mut Captures::new())?;
+            Some((hit.start, hit.rule?))
         }
 
-        /// What one slot query of `line` answers at each place, in order.
+        /// What one slot query of `line` answers at each place, in order,
+        /// with the pattern it keeps for the hand-back.
         /// The places share the query, and so its kept search.
-        fn slot_first(line: &str, places: &[Place]) -> Vec<Option<usize>> {
+        fn slot_first(line: &str, places: &[Place]) -> Vec<Found> {
             let limits = Limits::default();
             let facts = LineFacts {
                 steps: Steps::new(&limits, line.len()),
@@ -1966,19 +1998,26 @@ mod tests {
             let root = RootPatterns::new(&facts);
             places
                 .iter()
-                .map(|&(from, anchor)| RootStart::first(&root, line.as_bytes(), true, from, anchor))
+                .map(|&(from, anchor)| {
+                    let at = RootStart::first(&root, line.as_bytes(), true, from, anchor)?;
+                    Some((at, root.slot()?.pattern))
+                })
                 .collect()
         }
 
         /// Checks that the slot and Markdown both answer `expected` at each
-        /// place of `line`.
+        /// place of `line`, with the same pattern.
         fn agree(line: &str, places: &[Place], expected: &[Option<usize>]) {
-            let markdown: Vec<Option<usize>> = places
+            let markdown: Vec<Found> = places
                 .iter()
                 .map(|&place| markdown_first(line, place))
                 .collect();
-            assert_eq!(markdown, expected, "Markdown on {line:?}");
-            assert_eq!(slot_first(line, places), expected, "the slot on {line:?}");
+            let starts: Vec<Option<usize>> = markdown
+                .iter()
+                .map(|found| found.map(|(at, _)| at))
+                .collect();
+            assert_eq!(starts, expected, "Markdown on {line:?}");
+            assert_eq!(slot_first(line, places), markdown, "the slot on {line:?}");
         }
 
         /// The tests are Markdown's root patterns, in order, without front
