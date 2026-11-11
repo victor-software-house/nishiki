@@ -1235,25 +1235,32 @@ pub(crate) mod probe {
         /// The injection's dispatch, [`at`], answers its patterns.
         /// A rule's end answers through the rule.
         pub(crate) fn answer(self, arena: &mut Arena, case: &Case<'_>) -> Answer {
-            let s = case.text.as_bytes();
-            let p = case.p;
-            let g = matches!(case.anchor, Anchor::G);
+            let bytes = case.text.as_bytes();
+            let start = case.p;
+            let at_anchor = matches!(case.anchor, Anchor::G);
             let end_of = |rule: BladeRule| {
-                let end = rule.php_end(s, p)?;
-                Some((end, vec![Some((p, end))]))
+                let end = rule.php_end(bytes, start)?;
+                Some((end, vec![Some((start, end))]))
             };
             match self {
-                Expression::BladeAt0At0 => match at(s, p)? {
-                    (Blade::PhpWrap, end) => Some((end, vec![Some((p, end)), Some((p, end))])),
+                Expression::BladeAt0At0 => match at(bytes, start)? {
+                    (Blade::PhpWrap, end) => {
+                        Some((end, vec![Some((start, end)), Some((start, end))]))
+                    }
                     _ => None,
                 },
                 Expression::BladeAt0At0End => wrap_end(arena, case),
                 Expression::BladeAt0At2At0 => {
-                    let question = empty_tag(s, p).filter(|_| g)?;
-                    let mark = Some((question, question + 1));
+                    let question_mark = empty_tag(bytes, start).filter(|_| at_anchor)?;
+                    let mark_span = Some((question_mark, question_mark + 1));
                     Some((
-                        question + 1,
-                        vec![Some((p, question + 1)), Some((p, question)), mark, mark],
+                        question_mark + 1,
+                        vec![
+                            Some((start, question_mark + 1)),
+                            Some((start, question_mark)),
+                            mark_span,
+                            mark_span,
+                        ],
                     ))
                 }
                 Expression::BladeAt1End => end_of(BladeRule::EchoTriple),
@@ -1261,14 +1268,14 @@ pub(crate) mod probe {
                 Expression::BladeAt3End => end_of(BladeRule::EchoRaw),
                 Expression::BladeAt4End => end_of(BladeRule::EchoEscaped),
                 Expression::BladeAt9End => end_of(BladeRule::PhpSection),
-                Expression::BladeAt14 => match at(s, p)? {
-                    (Blade::Attribute(name), end) => Some((
+                Expression::BladeAt14 => match at(bytes, start)? {
+                    (Blade::Attribute(name_end), end) => Some((
                         end,
                         vec![
-                            Some((p, end)),
-                            Some((p, name)),
-                            Some((name, name + 1)),
-                            Some((name + 1, end)),
+                            Some((start, end)),
+                            Some((start, name_end)),
+                            Some((name_end, name_end + 1)),
+                            Some((name_end + 1, end)),
                         ],
                     )),
                     _ => None,
@@ -1282,14 +1289,14 @@ pub(crate) mod probe {
     fn wrap_end(arena: &mut Arena, case: &Case<'_>) -> Answer {
         let mut scratch = Scratch::default();
         let limits = Limits::default();
-        let mut out = Vec::new();
+        let mut tokens = Vec::new();
         let mut report = LineReport::default();
         let state = crate::html::start_blade(arena, ROOT);
-        let mut cx = Context {
+        let mut context = Context {
             scratch: &mut scratch,
             arena,
             limits: &limits,
-            out: &mut out,
+            out: &mut tokens,
             report: &mut report,
             first_token: 0,
         };
@@ -1299,7 +1306,7 @@ pub(crate) mod probe {
             embedded: false,
             anchored_at_root: false,
         };
-        let mut lexer = Lexer::new(&mut cx, line, state, Document::Blade);
+        let mut lexer = Lexer::new(&mut context, line, state, Document::Blade);
         lexer.lf = matches!(case.after, After::LineFeed);
         lexer.anchor = matches!(case.anchor, Anchor::G).then_some(case.p);
         let hit = lexer.erb_wrap_end(case.p)?;
