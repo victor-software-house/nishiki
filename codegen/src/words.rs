@@ -16,16 +16,14 @@ mod python;
 mod sql;
 
 use std::collections::BTreeSet;
-use std::fs;
 use std::path::Path;
 
-use nishiki::Grammar;
-use nishiki::unstable::grammar::{Repository, RuleId, UnlinkedGrammar, UnlinkedRule, unlinked};
 use nishiki::unstable::regex::{Class, Dialect, Greediness, Member, Node, parse};
 
 use crate::File;
 use crate::error::Error;
 use crate::numbers::fill;
+use crate::source::{Source, has_name};
 
 /// Every word file, generated.
 pub(crate) fn files(root: &Path) -> Result<Vec<File>, Error> {
@@ -33,131 +31,6 @@ pub(crate) fn files(root: &Path) -> Result<Vec<File>, Error> {
     files.extend(html::files(root)?);
     files.extend([less::file(root)?, python::file(root)?, sql::file(root)?]);
     Ok(files)
-}
-
-/// A grammar of `tests/engine/grammars/` that a writer reads.
-#[derive(Clone, Copy, Debug)]
-struct Source {
-    /// The grammar's file name, without `.json`.
-    name: &'static str,
-    /// The grammar's rules, as its JSON holds them.
-    grammar: &'static UnlinkedGrammar,
-}
-
-impl Source {
-    /// Reads `tests/engine/grammars/<name>.json` under `root`.
-    fn load(root: &Path, name: &'static str) -> Result<Source, Error> {
-        let path = root.join(Source::path_of(name));
-        let text = fs::read_to_string(&path).map_err(|source| Error::Io {
-            path: path.clone(),
-            source,
-        })?;
-        let grammar =
-            Grammar::from_json(&text).map_err(|source| Error::Grammar { path, source })?;
-        Ok(Source {
-            name,
-            grammar: unlinked(grammar),
-        })
-    }
-
-    /// The grammar file's path from the repository root.
-    fn path(self) -> String {
-        Source::path_of(self.name)
-    }
-
-    /// The path of the grammar file named `name`, from the repository root.
-    fn path_of(name: &str) -> String {
-        format!("tests/engine/grammars/{name}.json")
-    }
-
-    /// The grammar's top-level patterns.
-    fn patterns(self) -> &'static [RuleId] {
-        &self.grammar.patterns
-    }
-
-    /// The rule with index `id`.
-    fn rule(self, id: RuleId) -> Result<&'static UnlinkedRule, Error> {
-        self.grammar
-            .rules
-            .get(id)
-            .ok_or_else(|| Error::Shape(format!("{}: no rule {id}", self.name)))
-    }
-
-    /// The rule of the grammar's top-level repository named `key`.
-    fn entry(self, key: &str) -> Result<&'static UnlinkedRule, Error> {
-        self.entry_in(&self.grammar.repository, key)
-    }
-
-    /// The rule of `rule`'s own repository named `key`.
-    fn nested_entry(self, rule: &UnlinkedRule, key: &str) -> Result<&'static UnlinkedRule, Error> {
-        let repository = rule
-            .repository
-            .as_ref()
-            .ok_or_else(|| Error::Shape(format!("{}: no repository holds {key}", self.name)))?;
-        self.entry_in(repository, key)
-    }
-
-    /// The rule of `repository` named `key`.
-    /// A repository is sorted by name.
-    fn entry_in(self, repository: &Repository, key: &str) -> Result<&'static UnlinkedRule, Error> {
-        let (_, id) = repository
-            .binary_search_by(|(name, _)| (**name).cmp(key))
-            .ok()
-            .and_then(|index| repository.get(index))
-            .ok_or_else(|| Error::Shape(format!("{}: no repository entry {key}", self.name)))?;
-        self.rule(*id)
-    }
-
-    /// The `index`th pattern of `rule`.
-    fn pattern(self, rule: &UnlinkedRule, index: usize) -> Result<&'static UnlinkedRule, Error> {
-        let id = rule
-            .patterns
-            .get(index)
-            .ok_or_else(|| Error::Shape(format!("{}: no pattern {index}", self.name)))?;
-        self.rule(*id)
-    }
-
-    /// The pattern text of the rule that `path` picks under repository entry
-    /// `key`: each index picks one of the patterns of the rule before it.
-    fn pattern_at(self, key: &str, path: &[usize]) -> Result<&'static str, Error> {
-        let mut rule = self.entry(key)?;
-        for &index in path {
-            rule = self.pattern(rule, index)?;
-        }
-        self.text(rule)
-    }
-
-    /// The one rule of `ids` whose scope is `name`.
-    fn named(self, ids: &[RuleId], name: &str) -> Result<&'static UnlinkedRule, Error> {
-        let mut found = Vec::new();
-        for &id in ids {
-            let rule = self.rule(id)?;
-            if has_name(rule, name) {
-                found.push(rule);
-            }
-        }
-        match found.as_slice() {
-            [rule] => Ok(*rule),
-            rules => Err(Error::Shape(format!(
-                "{}: {} patterns named {name}",
-                self.name,
-                rules.len()
-            ))),
-        }
-    }
-
-    /// `rule`'s `match`, or its `begin` when it has no `match`.
-    fn text(self, rule: &'static UnlinkedRule) -> Result<&'static str, Error> {
-        rule.matched
-            .as_deref()
-            .or(rule.begin.as_deref())
-            .ok_or_else(|| Error::Shape(format!("{}: a rule with no match or begin", self.name)))
-    }
-}
-
-/// Whether `rule`'s `name` is the one scope `name`.
-fn has_name(rule: &UnlinkedRule, name: &str) -> bool {
-    matches!(&*rule.name, [scope] if scope == name)
 }
 
 /// Where a word list sits in a pattern.

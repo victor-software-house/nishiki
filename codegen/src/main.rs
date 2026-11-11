@@ -2,14 +2,19 @@
 //!
 //! `mise run codegen` writes each file whose bytes would change.
 //! `mise run codegen -- --check` writes nothing, and fails when a file would
-//! change. The writers read the grammars in `tests/engine/grammars/`, which
+//! change.
+//! Both also check `Language::pops_host` against the grammars, in
+//! [`fence_stops`].
+//! The writers read the grammars in `tests/engine/grammars/`, which
 //! `oracle/engine-grammars.ts` writes.
 //! They read each grammar through `nishiki::unstable`, the surface a caller has
 //! (openspec rust-codegen, design section 3).
 
 mod error;
+mod fence_stops;
 mod header;
 mod numbers;
+mod source;
 mod words;
 
 use std::path::{Path, PathBuf};
@@ -65,6 +70,14 @@ fn main() -> ExitCode {
 /// Returns the files a check found stale; a write leaves none.
 fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     let root = root()?;
+    let stopping = fence_stops::check(&root)?;
+    println!(
+        "✔ fence grammars that can stop at their root: {}",
+        fence_stops::listed(&stopping)
+    );
+    for (scope, reason) in fence_stops::UNCHECKED {
+        println!("not checked: {scope}: {reason}");
+    }
     let mut stale = Vec::new();
     for file in words::files(&root)? {
         let path = root.join(file.path);
