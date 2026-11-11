@@ -1397,6 +1397,24 @@ pub(crate) trait Tabled: Grammar {
     fn pattern_start(pattern: Self::Pattern) -> Start;
     /// The tables of `rule`, built on first use.
     fn tables(rule: Self::Rule) -> &'static Tables<Self>;
+
+    /// Whether the grammar's `$base` includes are slots.
+    /// There the root patterns of the document that embeds the grammar
+    /// compete ([`crate::language::Halt::root`]).
+    /// `false` compiles the slot out of the scan.
+    const BASE_SLOTS: bool = false;
+
+    /// Whether `pattern` is the slot that stands for a `$base` include.
+    fn is_base_slot(_pattern: Self::Pattern) -> bool {
+        false
+    }
+
+    /// The tables of `rule` with its `$base` includes as slots,
+    /// built on first use; `None` for a rule with no `$base`.
+    /// A line that another document embeds scans with them.
+    fn base_tables(_rule: Self::Rule) -> Option<&'static Tables<Self>> {
+        None
+    }
 }
 
 /// What the scan does with the rest of a space and tab run where no

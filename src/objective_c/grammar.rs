@@ -7770,6 +7770,1182 @@ impl Rule {
     }
 }
 
+impl Rule {
+    /// The rule with each `$base` include as the slot [`Pattern::Base`], for a
+    /// line that another document embeds.
+    /// `None` for a rule whose patterns include no `$base`.
+    #[expect(clippy::too_many_lines, reason = "a generated table")]
+    pub(crate) fn base_definition(self) -> Option<RuleDefinition> {
+        match self {
+            Rule::AnonymousPattern1 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaInterfaceOrProtocol)],
+                content: scopes![Sc::S(S::MetaScopeInterface)],
+                end: Some(Pattern::AnonymousPattern1End),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledInterface,
+                    Pattern::PreprocessorRuleDisabledInterface,
+                    Pattern::PreprocessorRuleOtherInterface,
+                    Pattern::PropertiesAt0,
+                    Pattern::PropertiesAt1,
+                    Pattern::ProtocolList,
+                    Pattern::Method,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::PreprocessorRuleEnabledInterface
+            | Rule::PreprocessorRuleEnabledInterfaceAt0
+            | Rule::Disabled
+            | Rule::PreprocessorRuleDisabledInterface
+            | Rule::PreprocessorRuleDisabledInterfaceAt1
+            | Rule::PropertiesAt0
+            | Rule::ProtocolList
+            | Rule::Method
+            | Rule::PreprocessorRuleEnabledImplementation
+            | Rule::PreprocessorRuleEnabledImplementationAt0
+            | Rule::PreprocessorRuleDisabledImplementation
+            | Rule::PreprocessorRuleDisabledImplementationAt1
+            | Rule::AnonymousPattern3
+            | Rule::AnonymousPattern4
+            | Rule::AppleFoundationFunctionalMacros
+            | Rule::CPreprocessorRuleEnabledAt0
+            | Rule::CPreprocessorRuleEnabledAt0At0
+            | Rule::CCommentsAt1
+            | Rule::CCommentsAt3
+            | Rule::CCommentsAt3At0
+            | Rule::CStringsAt0
+            | Rule::CStringsAt1
+            | Rule::CNumbers
+            | Rule::CPreprocessorRuleConditionalLineAt5
+            | Rule::CPreprocessorRuleEnabledBlockAt0
+            | Rule::CPreprocessorRuleEnabledBlockAt0At0
+            | Rule::CPreprocessorRuleEnabledBlockAt0At2
+            | Rule::CDisabled
+            | Rule::CPreprocessorRuleEnabledBlockAt0At3
+            | Rule::CPreprocessorRuleDisabledBlockAt0
+            | Rule::CPreprocessorRuleDisabledBlockAt0At0
+            | Rule::CPreprocessorRuleEnabledElifBlock
+            | Rule::CPreprocessorRuleEnabledElifBlockAt0
+            | Rule::CPreprocessorRuleEnabledElifBlockAt2At0
+            | Rule::CPreprocessorRuleEnabledElifBlockAt2At1
+            | Rule::CPreprocessorRuleDisabledElif
+            | Rule::CPreprocessorRuleDisabledElifAt0
+            | Rule::CPreprocessorRuleDisabledElifAt2
+            | Rule::CPreprocessorRuleDisabledBlockAt0At5At0
+            | Rule::CPreprocessorRuleDisabledBlockAt0At6
+            | Rule::CPreprocessorRuleConditionalBlockAt0At0
+            | Rule::CPreprocessorRuleConditionalBlockAt0At4
+            | Rule::CPreprocessorRuleConditionalLineAt10
+            | Rule::CPreprocessorRuleEnabledAt0At2
+            | Rule::CPreprocessorRuleEnabledAt0At3
+            | Rule::CPreprocessorRuleDisabledAt0
+            | Rule::CPreprocessorRuleDisabledAt0At0
+            | Rule::CPreprocessorRuleEnabledElif
+            | Rule::CPreprocessorRuleEnabledElifAt0
+            | Rule::CPreprocessorRuleEnabledElifAt2At0
+            | Rule::CPreprocessorRuleEnabledElifAt2At1
+            | Rule::CPreprocessorRuleDisabledAt0At5At0
+            | Rule::CPreprocessorRuleDisabledAt0At6
+            | Rule::CPreprocessorRuleConditionalAt0At0
+            | Rule::CPreprocessorRuleConditionalAt0At4
+            | Rule::CSwitchStatement
+            | Rule::CPreprocessorRuleDefineLineContentsAt5
+            | Rule::CPreprocessorRuleDefineLineContentsAt6
+            | Rule::CLangAt19
+            | Rule::CLangAt19At0
+            | Rule::CLangAt19At1
+            | Rule::CLangAt19At2
+            | Rule::CLangAt20
+            | Rule::CLangAt20At1
+            | Rule::CLangAt20At2
+            | Rule::CLangAt22
+            | Rule::CLangAt23
+            | Rule::CLangAt24
+            | Rule::AnonymousPattern14
+            | Rule::BracketedContent
+            | Rule::BracketedContentAt0At2
+            | Rule::CommentAt0
+            | Rule::CommentAt1
+            | Rule::CommentAt1At0
+            | Rule::Root
+            | Rule::CNumbersAt0Capture2
+            | Rule::CNumbersAt0Capture5
+            | Rule::CNumbersAt0Capture11
+            | Rule::CNumbersAt1Capture2
+            | Rule::CNumbersAt1Capture5
+            | Rule::CNumbersAt1Capture11
+            | Rule::CNumbersAt2Capture2
+            | Rule::CNumbersAt3Capture2
+            | Rule::CNumbersAt4Capture2
+            | Rule::CNumbersAt4Capture8
+            | Rule::CNumbersAt5Capture2
+            | Rule::CNumbersAt5Capture8
+            | Rule::CMethodAccessCapture1
+            | Rule::CMemberAccessCapture1
+            | Rule::CMemberAccessCapture4At2Capture1
+            | Rule::CMemberAccessCapture4
+            | Rule::CMethodAccessCapture4At2Capture1
+            | Rule::CMethodAccessCapture4 => None,
+            Rule::PreprocessorRuleEnabledInterfaceAt1 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::PreprocessorRuleEnabledInterfaceAt1End),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledInterface,
+                    Pattern::PreprocessorRuleDisabledInterface,
+                    Pattern::PreprocessorRuleOtherInterface,
+                    Pattern::PropertiesAt0,
+                    Pattern::PropertiesAt1,
+                    Pattern::ProtocolList,
+                    Pattern::Method,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::PreprocessorRuleDisabledInterfaceAt0 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::PreprocessorRuleDisabledInterfaceAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledInterface,
+                    Pattern::PreprocessorRuleDisabledInterface,
+                    Pattern::PreprocessorRuleOtherInterface,
+                    Pattern::PropertiesAt0,
+                    Pattern::PropertiesAt1,
+                    Pattern::ProtocolList,
+                    Pattern::Method,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::PreprocessorRuleOtherInterface => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::PreprocessorRuleOtherInterfaceEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledInterface,
+                    Pattern::PreprocessorRuleDisabledInterface,
+                    Pattern::PreprocessorRuleOtherInterface,
+                    Pattern::PropertiesAt0,
+                    Pattern::PropertiesAt1,
+                    Pattern::ProtocolList,
+                    Pattern::Method,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::MethodAt0 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaReturnType)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::MethodAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::ProtocolList,
+                    Pattern::ProtocolTypeQualifier,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::AnonymousPattern2 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaImplementation)],
+                content: scopes![Sc::S(S::MetaScopeImplementation)],
+                end: Some(Pattern::AnonymousPattern2End),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledImplementation,
+                    Pattern::PreprocessorRuleDisabledImplementation,
+                    Pattern::PreprocessorRuleOtherImplementation,
+                    Pattern::PropertyDirective,
+                    Pattern::MethodSuper,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::PreprocessorRuleEnabledImplementationAt1 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::PreprocessorRuleEnabledImplementationAt1End),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledImplementation,
+                    Pattern::PreprocessorRuleDisabledImplementation,
+                    Pattern::PreprocessorRuleOtherImplementation,
+                    Pattern::PropertyDirective,
+                    Pattern::MethodSuper,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::PreprocessorRuleDisabledImplementationAt0 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::PreprocessorRuleDisabledImplementationAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledInterface,
+                    Pattern::PreprocessorRuleDisabledInterface,
+                    Pattern::PreprocessorRuleOtherInterface,
+                    Pattern::PropertiesAt0,
+                    Pattern::PropertiesAt1,
+                    Pattern::ProtocolList,
+                    Pattern::Method,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::PreprocessorRuleOtherImplementation => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::PreprocessorRuleOtherImplementationEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::PreprocessorRuleEnabledImplementation,
+                    Pattern::PreprocessorRuleDisabledImplementation,
+                    Pattern::PreprocessorRuleOtherImplementation,
+                    Pattern::PropertyDirective,
+                    Pattern::MethodSuper,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::MethodSuper => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaFunctionWithBody)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::MethodSuperEnd),
+                backref: None,
+                patterns: &[Pattern::Method, Pattern::Base],
+            }),
+            Rule::COperatorsAt11 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::COperatorsAt11End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CFunctionCallInnardsAt5,
+                    Pattern::CFunctionCallInnardsAt6,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CMethodAccess => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: scopes![Sc::S(S::MetaFunctionCallMember)],
+                end: Some(Pattern::CMethodAccessEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CFunctionCallInnardsAt5,
+                    Pattern::CFunctionCallInnardsAt6,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CFunctionCallInnardsAt5 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CFunctionCallInnardsAt5End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CFunctionCallInnardsAt5,
+                    Pattern::CFunctionCallInnardsAt6,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CFunctionCallInnardsAt6 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CFunctionCallInnardsAt6End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CFunctionCallInnardsAt5,
+                    Pattern::CFunctionCallInnardsAt6,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleEnabledBlockAt0At4 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleEnabledBlockAt0At4End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleEnabledElifBlockAt2 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleEnabledElifBlockAt2End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleEnabledElifBlockAt2At0,
+                    Pattern::CPreprocessorRuleEnabledElifBlockAt2At1,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleEnabledElseBlock => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleEnabledElseBlockEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleDisabledBlockAt0At5 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleDisabledBlockAt0At5End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleDisabledBlockAt0At5At0,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleConditionalBlockAt0 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleConditionalBlockAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleConditionalBlockAt0At0,
+                    Pattern::CPreprocessorRuleEnabledElifBlock,
+                    Pattern::CPreprocessorRuleEnabledElseBlock,
+                    Pattern::CPreprocessorRuleDisabledElif,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0At4,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CCFunctionCall => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaFunctionCall)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CCFunctionCallEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CFunctionCallInnardsAt5,
+                    Pattern::CFunctionCallInnardsAt6,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CBlockInnardsAt6 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaInitialization)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CBlockInnardsAt6End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CFunctionCallInnardsAt5,
+                    Pattern::CFunctionCallInnardsAt6,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CBlockInnardsAt7 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CBlockInnardsAt7End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CParensBlock => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaParensBlock)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CParensBlockEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                    Pattern::CParensBlockAt1,
+                ],
+            }),
+            Rule::CPreprocessorRuleEnabledAt0At4 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleEnabledAt0At4End),
+                backref: None,
+                patterns: &[Pattern::Base],
+            }),
+            Rule::CPreprocessorRuleEnabledElifAt2 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleEnabledElifAt2End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleEnabledElifAt2At0,
+                    Pattern::CPreprocessorRuleEnabledElifAt2At1,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleEnabledElse => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleEnabledElseEnd),
+                backref: None,
+                patterns: &[Pattern::Base],
+            }),
+            Rule::CPreprocessorRuleDisabledAt0At5 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleDisabledAt0At5End),
+                backref: None,
+                patterns: &[Pattern::CPreprocessorRuleDisabledAt0At5At0, Pattern::Base],
+            }),
+            Rule::CPreprocessorRuleConditionalAt0 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleConditionalAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleConditionalAt0At0,
+                    Pattern::CPreprocessorRuleEnabledElif,
+                    Pattern::CPreprocessorRuleEnabledElse,
+                    Pattern::CPreprocessorRuleDisabledElif,
+                    Pattern::CPreprocessorRuleConditionalAt0At4,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CSwitchStatementAt0 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaHeadSwitch)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CSwitchStatementAt0End),
+                backref: None,
+                patterns: &[Pattern::CSwitchConditionalParentheses, Pattern::Base],
+            }),
+            Rule::CSwitchConditionalParentheses => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaConditionalSwitch)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CSwitchConditionalParenthesesEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::Base,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CSwitchStatementAt1 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaBodySwitch)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CSwitchStatementAt1End),
+                backref: None,
+                patterns: &[
+                    Pattern::CDefaultStatement,
+                    Pattern::CCaseStatement,
+                    Pattern::Base,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CDefaultStatement => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaConditionalCase)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CDefaultStatementEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::Base,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CCaseStatement => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaConditionalCase)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CCaseStatementEnd),
+                backref: None,
+                patterns: &[
+                    Pattern::Base,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CSwitchStatementAt2 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaTailSwitch)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CSwitchStatementAt2End),
+                backref: None,
+                patterns: &[Pattern::Base],
+            }),
+            Rule::CLangAt18 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaPreprocessorMacro)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CLangAt18End),
+                backref: None,
+                patterns: &[
+                    Pattern::CVarargEllipses,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt1,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt2,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt3,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt4,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt5,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt6,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleDefineLineContentsAt1 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaBlock)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleDefineLineContentsAt1End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleDefineLineBlocksAt0,
+                    Pattern::CVarargEllipses,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt1,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt2,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt3,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt4,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt5,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt6,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleDefineLineBlocksAt0 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleDefineLineBlocksAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleDefineLineBlocksAt0,
+                    Pattern::CVarargEllipses,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt1,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt2,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt3,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt4,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt5,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt6,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::Base,
+                    Pattern::CVarargEllipses,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt1,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt2,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt3,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt4,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt5,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt6,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleDefineLineContentsAt4 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaFunction)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleDefineLineContentsAt4End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CVarargEllipses,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CPreprocessorRuleDefineLineFunctionsAt6,
+                    Pattern::CPreprocessorRuleDefineLineFunctionsAt7,
+                    Pattern::CVarargEllipses,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt1,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt2,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt3,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt4,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt5,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt6,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleDefineLineFunctionsAt6 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleDefineLineFunctionsAt6End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CVarargEllipses,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CPreprocessorRuleDefineLineFunctionsAt6,
+                    Pattern::CPreprocessorRuleDefineLineFunctionsAt7,
+                    Pattern::CVarargEllipses,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt1,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt2,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt3,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt4,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt5,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt6,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CPreprocessorRuleDefineLineFunctionsAt7 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CPreprocessorRuleDefineLineFunctionsAt7End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CVarargEllipses,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CPreprocessorRuleDefineLineFunctionsAt6,
+                    Pattern::CPreprocessorRuleDefineLineFunctionsAt7,
+                    Pattern::CVarargEllipses,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt1,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt2,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt3,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt4,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt5,
+                    Pattern::CPreprocessorRuleDefineLineContentsAt6,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CBlockAt0 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaBlock)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CBlockAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CParens => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaParens)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CParensEnd),
+                backref: None,
+                patterns: &[Pattern::Base],
+            }),
+            Rule::CLangAt33 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaFunction)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CLangAt33End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CVarargEllipses,
+                    Pattern::CFunctionInnardsAt4,
+                    Pattern::CFunctionInnardsAt5,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CFunctionInnardsAt4 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaFunctionDefinitionParameters)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CFunctionInnardsAt4End),
+                backref: None,
+                patterns: &[
+                    Pattern::CProbablyAParameter,
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CVarargEllipses,
+                    Pattern::CFunctionInnardsAt4,
+                    Pattern::CFunctionInnardsAt5,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CFunctionInnardsAt5 => Some(RuleDefinition {
+                name: Sc::NO_SCOPES,
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CFunctionInnardsAt5End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CVarargEllipses,
+                    Pattern::CFunctionInnardsAt4,
+                    Pattern::CFunctionInnardsAt5,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::CLangAt35 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaBracketSquareAccess)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::CLangAt35End),
+                backref: None,
+                patterns: &[
+                    Pattern::CCommentsAt0,
+                    Pattern::CCommentsAt1,
+                    Pattern::CCommentsAt2,
+                    Pattern::CCommentsAt3,
+                    Pattern::CStorageTypesAt0,
+                    Pattern::CStorageTypesAt1,
+                    Pattern::CStorageTypesAt2,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::COperatorsAt0,
+                    Pattern::COperatorsAt1,
+                    Pattern::COperatorsAt2,
+                    Pattern::COperatorsAt3,
+                    Pattern::COperatorsAt4,
+                    Pattern::COperatorsAt5,
+                    Pattern::COperatorsAt6,
+                    Pattern::COperatorsAt7,
+                    Pattern::COperatorsAt8,
+                    Pattern::COperatorsAt9,
+                    Pattern::COperatorsAt10,
+                    Pattern::COperatorsAt11,
+                    Pattern::CFunctionCallInnardsAt5,
+                    Pattern::CFunctionCallInnardsAt6,
+                    Pattern::CPreprocessorRuleEnabledBlockAt0,
+                    Pattern::CPreprocessorRuleDisabledBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt0,
+                    Pattern::CPreprocessorRuleConditionalBlockAt1,
+                    Pattern::CMethodAccess,
+                    Pattern::CMemberAccess,
+                    Pattern::CCFunctionCall,
+                    Pattern::CBlockInnardsAt6,
+                    Pattern::CBlockInnardsAt7,
+                    Pattern::CParensBlock,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::BracketedContentAt0 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaFunctionCallPredicate)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::BracketedContentAt0End),
+                backref: None,
+                patterns: &[
+                    Pattern::BracketedContentAt0At0,
+                    Pattern::BracketedContentAt0At1,
+                    Pattern::BracketedContentAt0At2,
+                    Pattern::SpecialVariablesAt0,
+                    Pattern::SpecialVariablesAt1,
+                    Pattern::CFunctionsAt0,
+                    Pattern::CFunctionsAt1,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::BracketedContentAt1 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaFunctionCall)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::BracketedContentAt1End),
+                backref: None,
+                patterns: &[
+                    Pattern::BracketedContentAt1At0,
+                    Pattern::SpecialVariablesAt0,
+                    Pattern::SpecialVariablesAt1,
+                    Pattern::CFunctionsAt0,
+                    Pattern::CFunctionsAt1,
+                    Pattern::Base,
+                ],
+            }),
+            Rule::MethodAt2 => Some(RuleDefinition {
+                name: scopes![Sc::S(S::MetaArgumentType)],
+                content: Sc::NO_SCOPES,
+                end: Some(Pattern::MethodAt2End),
+                backref: None,
+                patterns: &[
+                    Pattern::ProtocolList,
+                    Pattern::ProtocolTypeQualifier,
+                    Pattern::Base,
+                ],
+            }),
+        }
+    }
+}
+
 /// A pattern of the grammar.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 #[repr(u16)]
@@ -8528,6 +9704,9 @@ pub(crate) enum Pattern {
     CommentAt1At0End,
     /// The match: `(?>\\\s*\n)`.
     CommentAt1At0At0,
+    /// The `$base` slot: the root patterns of the document that embeds the
+    /// grammar compete here, in their order.
+    Base,
 }
 
 impl Pattern {
@@ -10413,6 +11592,11 @@ impl Pattern {
                 captures: &[],
                 nested: &[],
             },
+            Pattern::Base => PatternDefinition {
+                act: Act::Match(Sc::NO_SCOPES),
+                captures: &[],
+                nested: &[],
+            },
         }
     }
 }
@@ -11109,9 +12293,8 @@ impl Pattern {
             Pattern::PreprocessorRuleEnabledInterfaceAt1
             | Pattern::PreprocessorRuleDisabledInterfaceAt1
             | Pattern::PreprocessorRuleEnabledImplementationAt1
-            | Pattern::PreprocessorRuleDisabledImplementationAt1 => {
-                Rx::PreprocessorRuleEnabledInterfaceAt1
-            }
+            | Pattern::PreprocessorRuleDisabledImplementationAt1
+            | Pattern::Base => Rx::PreprocessorRuleEnabledInterfaceAt1,
             Pattern::PreprocessorRuleEnabledInterfaceAt1End
             | Pattern::PreprocessorRuleDisabledInterfaceAt1End
             | Pattern::PreprocessorRuleEnabledImplementationAt1End
@@ -11670,7 +12853,8 @@ impl Pattern {
             | Pattern::CSwitchStatementEnd
             | Pattern::CSwitchStatementAt0
             | Pattern::CPreprocessorRuleDefineLineContentsAt4End
-            | Pattern::CommentAt1End => Start {
+            | Pattern::CommentAt1End
+            | Pattern::Base => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -12816,6 +14000,25 @@ impl rules::Tabled for ObjectiveC {
         )]
         let index = rule as usize;
         TABLES[index].get_or_init(move || rules::Tables::build(rule.definition()))
+    }
+
+    const BASE_SLOTS: bool = true;
+
+    fn is_base_slot(pattern: Pattern) -> bool {
+        matches!(pattern, Pattern::Base)
+    }
+
+    fn base_tables(rule: Rule) -> Option<&'static rules::Tables<Self>> {
+        static TABLES: [std::sync::OnceLock<Option<rules::Tables<ObjectiveC>>>; Rule::ALL.len()] =
+            [const { std::sync::OnceLock::new() }; Rule::ALL.len()];
+        #[expect(
+            clippy::as_conversions,
+            reason = "a fieldless `repr(u8)` enum has no `From` impl"
+        )]
+        let index = rule as usize;
+        TABLES[index]
+            .get_or_init(move || rule.base_definition().map(rules::Tables::build))
+            .as_ref()
     }
 }
 

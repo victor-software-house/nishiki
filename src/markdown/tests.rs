@@ -771,6 +771,104 @@ fn coffee_fences_embed_the_coffee_lexer() {
     }
 }
 
+/// Each token's text with its innermost scope.
+#[cfg(feature = "lang-objective-c")]
+fn innermost(row: &[(String, Vec<String>)]) -> Vec<(&str, &str)> {
+    row.iter()
+        .map(|(text, scopes)| (text.as_str(), scopes.last().map_or("", String::as_str)))
+        .collect()
+}
+
+/// A `$base` slot of an Objective-C fence tries Markdown's root patterns, as
+/// vscode-textmate resolves `$base` to the root grammar of the document.
+/// After `(`, where `\G` holds, a link definition and then a paragraph open
+/// inside the parameters.
+/// The definition only matches, so the parameters stay open on the next
+/// line.
+/// The scopes are Shiki's.
+#[cfg(feature = "lang-objective-c")]
+#[test]
+fn an_objc_base_slot_opens_markdowns_root_patterns() {
+    let lines = lex(indoc! {"
+        ```objc
+        f(   [a]: b
+        g(x [a]: b
+        ```
+    "});
+    assert_eq!(
+        innermost(&lines[1]),
+        [
+            ("f", "entity.name.function.objc"),
+            (
+                "(",
+                "punctuation.section.parameters.begin.bracket.round.objc"
+            ),
+            ("   ", "meta.link.reference.def.markdown"),
+            ("[", "punctuation.definition.constant.markdown"),
+            ("a", "constant.other.reference.link.markdown"),
+            ("]", "punctuation.definition.constant.markdown"),
+            (":", "punctuation.separator.key-value.markdown"),
+            (" ", "meta.link.reference.def.markdown"),
+            ("b", "markup.underline.link.markdown"),
+        ]
+    );
+    assert_eq!(
+        innermost(&lines[2]),
+        [
+            ("g", "entity.name.function.objc"),
+            (
+                "(",
+                "punctuation.section.parameters.begin.bracket.round.objc"
+            ),
+            ("x ", "meta.paragraph.markdown"),
+            ("[", "punctuation.definition.link.title.begin.markdown"),
+            ("a", "string.other.link.title.markdown"),
+            ("]", "punctuation.definition.link.title.end.markdown"),
+            (": b", "meta.paragraph.markdown"),
+        ]
+    );
+    let (_, paragraph) = &lines[2][6];
+    assert_eq!(
+        paragraph,
+        &[
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.objc",
+            "meta.function.objc",
+            "meta.function.definition.parameters.objc",
+            "meta.function.definition.parameters.objc",
+            "meta.paragraph.markdown",
+        ]
+    );
+}
+
+/// An HTML block that opens at a `$base` slot hands the rest of its line to
+/// html-derivative at once, as in Shiki.
+#[cfg(all(feature = "lang-objective-c", feature = "lang-html-derivative"))]
+#[test]
+fn an_objc_base_slot_hands_an_html_block_to_html() {
+    let stack = stack_of(
+        indoc! {"
+            ```objc
+            f(   <div>
+            ```
+        "},
+        "<",
+    );
+    assert_eq!(
+        stack,
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.objc",
+            "meta.function.objc",
+            "meta.function.definition.parameters.objc",
+            "meta.tag.structure.div.start.html",
+            "punctuation.definition.tag.begin.html",
+        ]
+    );
+}
+
 /// Objective-C runs on the engine. Every word of the grammar's fence but `h`
 /// embeds it: the grammar's C fence comes first and takes `h`.
 #[cfg(all(feature = "lang-objective-c", feature = "lang-c"))]

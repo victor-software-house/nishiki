@@ -138,11 +138,23 @@ export type Config = {
   /** What a back-reference can start with, for the start table: a quote by default.
    * TeX's math ends at a repeat of `$` or `$$`, so it takes `"any"`. */
   backrefStart?: Backref;
+  /** Whether each `$base` include is a slot, [`Pattern::Base`].
+   * There the root patterns of the document that embeds the grammar compete,
+   * as vscode-textmate resolves `$base` to the document's root grammar.
+   * The rule keeps a second list with the slot, for a line another document embeds.
+   * Its first list keeps the grammar's own root in place of the slot, for a document.
+   * Without it, `$base` names the grammar's own root alone.
+   * A capture group's list that includes `$base` fails the generator. */
+  baseSlots?: boolean;
   /** The word lists, read from the expressions. */
   words(read: Reader): WordList[];
 };
 
 const root_dir = new URL("..", import.meta.url).pathname;
+
+/** The marks around the root patterns a `$base` include expands to, with `baseSlots`. */
+const BASE_OPEN = "$base{";
+const BASE_CLOSE = "$base}";
 
 // Scope names.
 
@@ -261,6 +273,8 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     endLast: boolean;
     backref: number | null;
     patterns: string[];
+    /** The patterns with each `$base` include as the slot `Base`, where the rule has one. */
+    basePatterns?: string[];
   };
 
   const patternById = new Map<string, Pattern>();
@@ -420,11 +434,11 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
    * The drop check is not strict: inside a rule that vscode-textmate drops,
    * such an include does no harm.
    */
-  type Target = { node: Node; sc: Scope; id: string } | { embed: Embed } | null;
+  type Target = { node: Node; sc: Scope; id: string; base?: boolean } | { embed: Embed } | null;
   function resolve(sc: Scope, include: string, strict = true): Target {
     if (include === "$self")
       return { node: sc.grammar.root, sc: sc.grammar.top, id: sc.grammar.rootId };
-    if (include === "$base") return { node: root, sc: top, id: "Root" };
+    if (include === "$base") return { node: root, sc: top, id: "Root", base: cfg.baseSlots };
     if (include.startsWith("#")) {
       const key = include.slice(1);
       const target = sc.repository[key];
@@ -501,8 +515,9 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
           out.push(embedMark(target.embed));
           return;
         }
-        if (!dropped(target.sc, target.node))
-          out.push(...expand(target.sc, target.node, target.id, true));
+        if (dropped(target.sc, target.node)) return;
+        const patterns = expand(target.sc, target.node, target.id, true);
+        out.push(...(target.base ? [BASE_OPEN, ...patterns, BASE_CLOSE] : patterns));
       } else {
         if (node.repository) throw new Error(`${context}At${index}: an inline repository`);
         if (!dropped(sc, node)) out.push(...expand(sc, node, `${context}At${index}`, false));
@@ -564,6 +579,31 @@ export async function generate(cfg: Config, write = true): Promise<Map<string, s
     }
     capture.nested = rule.id;
   }
+
+  // A `$base` include left its root patterns between two marks.
+  // The rule's own list keeps them, and its second list holds the slot in their place.
+  for (const r of rules.values()) {
+    if (!r.patterns.includes(BASE_OPEN)) continue;
+    if (r.end === "") throw new Error(`${r.id}: a capture group's list includes $base`);
+    const slotted: string[] = [];
+    let depth = 0;
+    for (const p of r.patterns) {
+      if (p === BASE_OPEN) {
+        if (depth++ === 0) slotted.push("Base");
+      } else if (p === BASE_CLOSE) depth--;
+      else if (depth === 0) slotted.push(p);
+    }
+    r.basePatterns = slotted;
+    r.patterns = r.patterns.filter((p) => p !== BASE_OPEN && p !== BASE_CLOSE);
+  }
+  const slotted = [...rules.values()].filter((r) => r.basePatterns !== undefined);
+  if (slotted.length)
+    patternById.set("Base", {
+      id: "Base",
+      regex: "",
+      act: { role: "match", name: [] },
+      captures: [],
+    });
 
   // Output.
 
@@ -690,6 +730,19 @@ pub(crate) struct Nested {
     "Rule",
   );
   g += `        }\n    }\n}\n\n`;
+  if (slotted.length) {
+    g += `impl Rule {\n    /// The rule with each \`$base\` include as the slot [\`Pattern::Base\`], for a\n    /// line that another document embeds.\n    /// \`None\` for a rule whose patterns include no \`$base\`.\n${tooLong}    pub(crate) fn base_definition(self) -> Option<RuleDefinition> {\n        match self {\n`;
+    g += arms(
+      ruleList.map((r): [string, string] => [
+        r.id,
+        r.basePatterns
+          ? `Some(RuleDefinition {\n                name: ${scText(r.name)},\n                content: ${scText(r.content)},\n                end: ${r.end && !r.endLast ? `Some(Pattern::${r.end})` : "None"},\n                backref: ${r.backref === null ? "None" : `Some(${r.backref})`},\n                patterns: &[${[...r.basePatterns, ...(r.end && r.endLast ? [r.end] : [])].map((p) => `Pattern::${p}`).join(", ")}],\n            })`
+          : "None",
+      ]),
+      "Rule",
+    );
+    g += `        }\n    }\n}\n\n`;
+  }
   g += embedTables(ruleList, embeds, deferred);
   if (cfg.endHalts)
     g += endHaltTable(ruleList, embeds, cfg.endHalts, (r) => patternById.get(r.end)!.regex);
@@ -702,7 +755,11 @@ pub(crate) struct Nested {
   /** An expression as a doc comment shows it; the empty one has no code span. */
   const shown = (s: string) =>
     s === "" ? "the empty expression" : `\`${docs(s).replaceAll("`", "'")}\``;
-  for (const p of patternList) g += `    /// The ${p.act.role}: ${shown(p.regex)}.\n    ${p.id},\n`;
+  for (const p of patternList)
+    g +=
+      p.id === "Base"
+        ? "    /// The `$base` slot: the root patterns of the document that embeds the\n    /// grammar compete here, in their order.\n    Base,\n"
+        : `    /// The ${p.act.role}: ${shown(p.regex)}.\n    ${p.id},\n`;
   g += `}\n\nimpl Pattern {\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
   g += arms(
     patternList.map((p): [string, string] => {
@@ -771,7 +828,7 @@ pub(crate) struct Nested {
 
   g += startTable(patternList, cfg.backrefStart);
   if (cfg.toLast) g += oneBlankTable(patternList, cfg.backrefStart);
-  g += ruleCodes(cfg.engine, cfg.table);
+  g += ruleCodes(cfg.engine, cfg.table, 8, slotted.length > 0);
   g += groupsCheck(
     cfg.engine,
     patternList.flatMap((p) => p.captures.map((c) => c.group)),

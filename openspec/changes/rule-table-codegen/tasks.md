@@ -17,6 +17,8 @@
 
 - [ ] 2.1 One task per family, added as each starts.
   → verify: the proof of design section 4 passes, and the family's scripts are deleted
+  - Objective-C's family keeps its `$base` slots.
+    The writer emits `Pattern::Base`, each rule's base list and `BASE_SLOTS`, as `oracle/rule-generator.ts` does with `baseSlots`.
 - [ ] 2.2 The last family deletes the shared scripts and `check:rule-grammars`.
   → verify: no `oracle/*-grammar.ts` remains
 

@@ -15,6 +15,8 @@ use super::captures::{Captures, NESTING};
 #[cfg(feature = "lang-html-derivative")]
 use super::html;
 use super::inline::Emphasis;
+#[cfg(feature = "lang-objective-c")]
+use super::root::RootPatterns;
 use super::rules::{self, Capture, End, List, Pattern};
 use super::runs::Runs;
 use super::scope::S;
@@ -243,6 +245,11 @@ pub(crate) struct Scratch {
     pub(super) start: Start,
     /// Whether the line stopped at its start, with no tokens.
     pub(super) stopped: bool,
+    /// Whether `^` or `\G` held where a `$base` slot of an Objective-C fence
+    /// took the line.
+    /// Only [`lex_with_root`] sets it, for the hand-back that follows.
+    #[cfg(feature = "lang-objective-c")]
+    slot_anchored: Option<bool>,
 }
 
 /// How a line starts: as a line of a document, or as Markdown that another
@@ -1356,6 +1363,14 @@ impl<'a> Lexer<'a> {
     /// Haskell's row turned it into a copy of the stack frame and a
     /// jump table.
     /// `step` then ran 2.1% more of its own instructions.
+    ///
+    /// [`Lexer::open_at_slot`] calls it too, out of line.
+    /// The attribute keeps `step` inlining it all the same.
+    #[expect(
+        clippy::inline_always,
+        reason = "a second call site must not move it out of `step`"
+    )]
+    #[inline(always)]
     fn embedded(&mut self) {
         let start = self.pos;
         let Some(&Frame {
@@ -1416,7 +1431,7 @@ impl<'a> Lexer<'a> {
                 );
                 ((state, None), back)
             }
-            None => (lex_fence(&mut cx, lang, line, carried), None),
+            None => (lex_fence(&mut cx, lang, line, carried, &self.facts), None),
         };
         #[cfg(feature = "lang-html-derivative")]
         let state = self.facts.steps.take_back(state);
@@ -1426,11 +1441,11 @@ impl<'a> Lexer<'a> {
             return;
         }
         #[cfg(not(feature = "lang-html-derivative"))]
-        let (state, popped) = lex_fence(&mut cx, lang, line, carried);
+        let (state, popped) = lex_fence(&mut cx, lang, line, carried, &self.facts);
         #[cfg(not(feature = "lang-html-derivative"))]
         let state = self.facts.steps.take_back(state);
         if let Some(at) = popped {
-            self.pop_body(at, end);
+            self.hand_back(at, end, state);
             return;
         }
         self.last = end;
@@ -1485,6 +1500,96 @@ impl<'a> Lexer<'a> {
         }
     }
 
+    /// Takes the line back at `at`, where the fence's language stopped.
+    /// The language reached `state` there.
+    ///
+    /// A language stops for one of two reasons.
+    /// A `$base` slot of an Objective-C fence can take the line
+    /// ([`lex_with_root`]), which marks the scratch.
+    /// Otherwise the language popped the fence's body.
+    #[cold]
+    #[inline(never)]
+    #[cfg_attr(
+        not(feature = "lang-objective-c"),
+        expect(
+            unused_variables,
+            reason = "only an Objective-C fence's slot reads the state"
+        )
+    )]
+    fn hand_back(&mut self, at: usize, end: usize, state: u32) {
+        #[cfg(feature = "lang-objective-c")]
+        if let Some(anchored) = self.scratch.markdown.slot_anchored.take() {
+            self.open_at_slot(at, anchored, state);
+            return;
+        }
+        self.pop_body(at, end);
+    }
+
+    /// Opens the root pattern of Markdown that took a `$base` slot of an
+    /// Objective-C fence at `at`.
+    ///
+    /// vscode-textmate pushes that rule onto the fence language's stack.
+    /// So the fence's frame keeps the language's state, `state`.
+    /// The rule opens above it, inside the language's scopes.
+    /// When the rule closes, the language goes on from the state kept.
+    ///
+    /// Where the rule leaves the line to a language, that language takes the
+    /// rest of it at once:
+    ///
+    /// - An HTML block hands its text to html-derivative.
+    /// - A rule that only matches, such as a heading, gives the line back to
+    ///   the fence's language at its end.
+    ///
+    /// `step` would otherwise try only the open container's own rules.
+    ///
+    /// `anchored` says whether `^` or `\G` held at `at` in the language's
+    /// rules. Where neither held, only a link definition can match.
+    #[cfg(feature = "lang-objective-c")]
+    fn open_at_slot(&mut self, at: usize, anchored: bool, state: u32) {
+        let Some(&Frame {
+            rule: Rule::Open(container),
+            content,
+            carried,
+            state: kept,
+            ..
+        }) = self.frames.last()
+        else {
+            return;
+        };
+        self.keep_body_state(container, content, carried, kept, state);
+        self.last = at;
+        self.pos = at;
+        self.anchor = anchored.then_some(at);
+        let body = self.frames.len().saturating_sub(1);
+        let language = self.arena.frame(state).stack;
+        let cx = cx!(self);
+        let byte = cx.line.get(at).copied().unwrap_or(b'\n');
+        let first = cx.at(cx.skip_space(at));
+        let anchored = cx.at_start(at);
+        let mut captures = Captures::new();
+        let hit = rules::patterns(Container::Base)
+            .iter()
+            .filter(|rule| rule.opens_block(anchored, byte, first))
+            .find_map(|&rule| self.try_rule(rule, at, &mut captures));
+        debug_assert!(
+            hit.is_some(),
+            "no root pattern of Markdown matches at byte {at}"
+        );
+        let Some(hit) = hit else {
+            return;
+        };
+        if let Some(frame) = self.frames.get_mut(body) {
+            frame.content = language;
+        }
+        self.apply(&hit, &captures);
+        if let Some(frame) = self.frames.get_mut(body) {
+            frame.content = content;
+        }
+        if self.frames.last().is_some_and(|frame| embeds(frame.rule)) {
+            self.embedded();
+        }
+    }
+
     /// Pops the fence's body where its language stopped at `at`, at its root,
     /// without advancing ([`Language::pops_host`]).
     /// vscode-textmate pops the innermost rule there, the body.
@@ -1507,23 +1612,79 @@ impl<'a> Lexer<'a> {
 }
 
 /// Lexes a fence's line in `lang` from `state`, and returns where the
-/// language popped the fence's body, if it did.
-/// Only a language that [`Language::pops_host`] names can.
+/// language gave the line back, if it did.
+///
+/// A language that [`Language::pops_host`] names can pop the fence's body.
+/// A `$base` slot of Objective-C can take the line for Markdown's root
+/// patterns ([`lex_with_root`]).
+/// `facts` are the line's, for those patterns.
 #[expect(
     clippy::inline_always,
     reason = "out of line at one codegen unit, its call on every fence line cost Markdown 0.4%"
 )]
 #[inline(always)]
+#[cfg_attr(
+    not(feature = "lang-objective-c"),
+    expect(
+        unused_variables,
+        reason = "only an Objective-C fence's slots read the facts"
+    )
+)]
 fn lex_fence(
     cx: &mut Context<'_>,
     lang: Language,
     line: Line<'_>,
     state: u32,
+    facts: &LineFacts,
 ) -> (Finished, Option<usize>) {
     if lang.pops_host() {
-        lex_popping(cx, lang, line, state)
-    } else {
-        (lang.lex_embedded(cx, line, state), None)
+        return lex_popping(cx, lang, line, state);
+    }
+    #[cfg(feature = "lang-objective-c")]
+    if matches!(lang, Language::ObjectiveC) {
+        return lex_with_root(cx, line, state, facts);
+    }
+    (lang.lex_embedded(cx, line, state), None)
+}
+
+/// Lexes a line of an Objective-C fence, whose `$base` slots try Markdown's
+/// root patterns ([`RootPatterns`]).
+///
+/// It returns where Objective-C gave the line back.
+/// Where a slot took the line, the scratch marks whether `^` or `\G` held
+/// there, for [`Lexer::hand_back`].
+/// Elsewhere Objective-C popped the fence's body, as at [`lex_popping`].
+///
+/// Like [`lex_popping`], it costs a call at each byte Objective-C tries.
+#[cfg(feature = "lang-objective-c")]
+#[cold]
+#[inline(never)]
+fn lex_with_root(
+    cx: &mut Context<'_>,
+    line: Line<'_>,
+    state: u32,
+    facts: &LineFacts,
+) -> (Finished, Option<usize>) {
+    let root = RootPatterns::new(facts);
+    match crate::objective_c::lex_until(cx, line, state, &root, None) {
+        (
+            finished,
+            Some(Stopped {
+                at,
+                reason: StopReason::Halt,
+            }),
+        ) => {
+            cx.scratch.markdown.slot_anchored = Some(root.anchored());
+            (finished, Some(at))
+        }
+        (
+            finished,
+            Some(Stopped {
+                at,
+                reason: StopReason::PopHost,
+            }),
+        ) => (finished, Some(at)),
+        (finished, None) => (finished, None),
     }
 }
 
@@ -1757,6 +1918,136 @@ mod tests {
             .chain([Rule::Capture(List::Inline)]);
         for rule in rules {
             assert_eq!(embeds(rule), embedded_language(rule).is_some(), "{rule:?}");
+        }
+    }
+
+    /// The `$base` slots of an Objective-C fence and Markdown's own root give
+    /// the same place where Markdown's root patterns first match.
+    #[cfg(feature = "lang-objective-c")]
+    mod root_slot {
+        use super::super::super::root::{RootPatterns, TESTS};
+        use super::super::{Captures, Container, Lexer, Pattern, rules};
+        use crate::arena::{Arena, ROOT};
+        use crate::language::{Parts, RootStart};
+        use crate::limits::{Limits, LineReport, Steps};
+        use crate::markdown::text::LineFacts;
+
+        /// A place for a slot: where the scan starts, and where `\G` holds.
+        type Place = (usize, Option<usize>);
+
+        /// Where Markdown's rules at the document's root first match in
+        /// `line`, from `from`, with `\G` at `anchor`.
+        fn markdown_first(line: &str, (from, anchor): Place) -> Option<usize> {
+            let mut arena = Arena::new(None);
+            let limits = Limits::default();
+            let mut out = Vec::new();
+            let mut report = LineReport::default();
+            let mut scratch = crate::scratch::Scratch::default();
+            let parts = Parts {
+                arena: &mut arena,
+                limits: &limits,
+                out: &mut out,
+                report: &mut report,
+            };
+            let mut lexer = Lexer::new(parts, &mut scratch, line, ROOT);
+            lexer.pos = from;
+            lexer.anchor = anchor;
+            lexer.find(&mut Captures::new()).map(|hit| hit.start)
+        }
+
+        /// What one slot query of `line` answers at each place, in order.
+        /// The places share the query, and so its kept search.
+        fn slot_first(line: &str, places: &[Place]) -> Vec<Option<usize>> {
+            let limits = Limits::default();
+            let facts = LineFacts {
+                steps: Steps::new(&limits, line.len()),
+                before_start: None,
+            };
+            let root = RootPatterns::new(&facts);
+            places
+                .iter()
+                .map(|&(from, anchor)| RootStart::first(&root, line.as_bytes(), true, from, anchor))
+                .collect()
+        }
+
+        /// Checks that the slot and Markdown both answer `expected` at each
+        /// place of `line`.
+        fn agree(line: &str, places: &[Place], expected: &[Option<usize>]) {
+            let markdown: Vec<Option<usize>> = places
+                .iter()
+                .map(|&place| markdown_first(line, place))
+                .collect();
+            assert_eq!(markdown, expected, "Markdown on {line:?}");
+            assert_eq!(slot_first(line, places), expected, "the slot on {line:?}");
+        }
+
+        /// The tests are Markdown's root patterns, in order, without front
+        /// matter.
+        #[test]
+        fn the_slot_tests_follow_the_root_patterns() {
+            let tested: Vec<Pattern> = TESTS.iter().map(|&(pattern, _)| pattern).collect();
+            let root: Vec<Pattern> = rules::patterns(Container::Base)
+                .iter()
+                .copied()
+                .filter(|&pattern| pattern != Pattern::FrontMatter)
+                .collect();
+            assert_eq!(tested, root);
+        }
+
+        /// One to three spaces and a tab, then a tag, after `(`, where `\G`
+        /// holds: an HTML block opens there, as in Shiki.
+        #[cfg(feature = "lang-html-derivative")]
+        #[test]
+        fn a_tag_after_blanks_and_a_tab_opens_an_html_block() {
+            for line in ["f( \t<div>", "f(  \t<div>", "f(   \t<div>"] {
+                agree(line, &[(2, Some(2))], &[Some(2)]);
+            }
+        }
+
+        /// A `<` and a space after the tab opens nothing.
+        /// The tab keeps a paragraph from opening, so Objective-C lexes on.
+        #[test]
+        fn a_lone_angle_after_blanks_and_a_tab_opens_nothing() {
+            for line in ["f( \t< x)", "f(  \t< x)", "f(   \t< x)"] {
+                agree(line, &[(2, Some(2))], &[None]);
+            }
+        }
+
+        /// Two such starts on one line: the first opens nothing, and the
+        /// second, after the nested `(`, opens an HTML block.
+        #[cfg(feature = "lang-html-derivative")]
+        #[test]
+        fn two_starts_on_one_line_answer_each_for_itself() {
+            agree(
+                "f( \t< x, g( \t<div>",
+                &[(2, Some(2)), (11, Some(11))],
+                &[None, Some(11)],
+            );
+        }
+
+        /// A link definition starts at the first blank before its `[`, but not
+        /// before the place the scan starts from.
+        #[test]
+        fn a_link_definition_starts_at_its_blanks() {
+            agree(
+                "g(x  [a]: b",
+                &[(2, None), (3, None), (4, None)],
+                &[Some(3), Some(3), Some(4)],
+            );
+        }
+
+        /// The kept search answers a later place only with a start at or after
+        /// it.
+        /// `[y]` is no definition, and `[a]: b` is one.
+        /// From 6 the start found from 1 is behind, so it is searched again.
+        /// From 7 no `[` is left.
+        #[test]
+        fn the_kept_search_never_gives_a_start_behind_the_place() {
+            agree(
+                "x [y] [a]: b",
+                &[(1, None), (3, None), (6, None), (7, None), (8, None)],
+                &[Some(5), Some(5), Some(6), None, None],
+            );
         }
     }
 }

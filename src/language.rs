@@ -1377,6 +1377,11 @@ languages! {
     /// # Behaviour kept from Shiki
     ///
     /// - A Markdown fence named `h` embeds C, not Objective-C: the grammar's C fence comes first.
+    /// - In a Markdown fence, each `$base` include of the grammar tries Markdown's root patterns,
+    ///   since vscode-textmate resolves `$base` to the root grammar of the document.
+    ///   After `(`, where `\G` holds, a paragraph, an HTML block or a link definition can open
+    ///   inside the parentheses.
+    ///   Where Objective-C is the document, `$base` is its own root.
     /// - A member name after `.` or `->` that starts with a C type, such as `integer` or `int8_t`,
     ///   is no member: the grammar excludes the type as a prefix.
     /// - `#define` names its parameters only when `...`, if any, follows the last name:
@@ -2148,6 +2153,31 @@ pub(crate) trait Halt {
     fn deep_loses_ties(&self) -> bool {
         false
     }
+
+    /// The root patterns of the document that embeds the language, which
+    /// compete at a `$base` slot of the language's rules.
+    ///
+    /// vscode-textmate resolves `$base` to the document's root grammar.
+    /// Markdown answers for its fences of Objective-C.
+    /// Every other halt has none, and the slot is then the language's own root.
+    #[cfg(feature = "_rule-tables")]
+    fn root(&self) -> Option<&dyn RootStart> {
+        None
+    }
+}
+
+/// The root patterns of a document that embeds a language with `$base`
+/// slots ([`Halt::root`]).
+#[cfg(feature = "_rule-tables")]
+pub(crate) trait RootStart {
+    /// The first place in `from..` where one of the root patterns matches.
+    ///
+    /// `s` is the whole line, without its line feed, and `nl` says whether one
+    /// follows.
+    /// `\G` holds only at `anchor`, and `^` only at 0.
+    /// A match's start is where its expression starts, so a pattern that
+    /// leads with blanks starts at the first of them, never before `from`.
+    fn first(&self, s: &[u8], nl: bool, from: usize, anchor: Option<usize>) -> Option<usize>;
 }
 
 /// Places in order, as a halt that holds at each of them, such as the starts
