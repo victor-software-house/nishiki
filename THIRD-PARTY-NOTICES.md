@@ -1203,7 +1203,7 @@ VS Code's copy of the grammar is licensed under the MIT License, whose text is u
 
 ## Java
 
-Its Java lexer emits the scope names of the Java TextMate grammar that Shiki bundles through VS Code as `java`, which VS Code took from [redhat-developer/vscode-java](https://github.com/redhat-developer/vscode-java), and tries that grammar's rules in its order.
+Its Java lexer emits the scope names of the Java TextMate grammar that Shiki bundles through VS Code as `java`, which VS Code took from [redhat-developer/vscode-java](https://github.com/redhat-developer/vscode-java), whose grammar comes from [atom/language-java](https://github.com/atom/language-java), and tries that grammar's rules in its order.
 VS Code records the grammar's licence as follows, and the grammar derives from a TextMate bundle that carries its own, which the second paragraph below quotes.
 
 ```text
