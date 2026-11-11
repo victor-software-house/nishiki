@@ -96,6 +96,12 @@ impl Grammar {
     pub fn scope(self) -> &'static str {
         &self.0.scope
     }
+
+    /// The grammar as its JSON reads, before any include is linked.
+    #[cfg(all(nishiki_unstable, feature = "_rule-engine"))]
+    pub(crate) fn unlinked(self) -> &'static UnlinkedGrammar {
+        self.0
+    }
 }
 
 /// The format of the tokens that `Grammar`'s `ToTokens` writes.
