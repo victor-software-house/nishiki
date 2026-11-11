@@ -22,7 +22,9 @@ use super::Embedding;
 use super::Stop;
 use super::{Act, Captures, CarriedState, DynName, Grammar, NameCase, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
-use crate::language::{Halt, Halts, Parts, StopReason, Stopped};
+#[cfg(feature = "_rule-tables")]
+use crate::language::Halt;
+use crate::language::{Halts, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::scope::{PATH_SLOTS, Scopes, path_slot};
 use crate::{Language, Stack, Token};
@@ -271,6 +273,7 @@ enum NameSource {
     /// A string the arena interned, such as a rule's begin text.
     Interned(u32),
     /// The text of a capture group of the match.
+    #[cfg(any(test, nishiki_unstable, feature = "_capture-names"))]
     Group(u8),
 }
 
@@ -622,6 +625,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// It needs them where it starts inside a rule that embeds one, or opens
     /// one. The caller then lexes the line again with [`Lexer::run_embedding`].
     #[cfg(feature = "_embedding")]
+    #[cfg(any(feature = "lang-elixir", feature = "lang-lua"))]
     pub(crate) fn run_on_demand(mut self) -> (Finished, bool) {
         self.open();
         self.check_while();
@@ -795,6 +799,32 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     // Bytes.
 
     /// Whether a character stands at `i`: the text, or its line feed.
+    #[cfg(any(
+        test,
+        feature = "lang-astro",
+        feature = "lang-blade",
+        feature = "lang-coffee",
+        feature = "lang-csharp",
+        feature = "lang-dart",
+        feature = "lang-gdscript",
+        feature = "lang-go",
+        feature = "lang-hack",
+        feature = "lang-haskell",
+        feature = "lang-jinja",
+        feature = "lang-lua",
+        feature = "lang-make",
+        feature = "lang-matlab",
+        feature = "lang-nix",
+        feature = "lang-perl",
+        feature = "lang-php",
+        feature = "lang-powershell",
+        feature = "lang-r",
+        feature = "lang-ruby",
+        feature = "lang-tex",
+        feature = "lang-vb",
+        feature = "lang-zig",
+        feature = "_php-family"
+    ))]
     pub(crate) fn avail(&self, i: usize) -> bool {
         i < self.s.len() || (i == self.s.len() && self.nl)
     }
@@ -831,6 +861,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     ///
     /// There is one where the grammar takes one ([`Grammar::DEPTH_HALTS`])
     /// and no open rule shuts it out.
+    #[cfg(feature = "_rule-tables")]
     pub(crate) fn deep_halt(&self) -> Option<(&'a dyn Halt, bool)> {
         let &(end, _) = self.halt?;
         end.deep()
@@ -861,11 +892,41 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Whether `\G` matches at `p`.
+    #[cfg(any(
+        test,
+        feature = "lang-astro",
+        feature = "lang-blade",
+        feature = "lang-c",
+        feature = "lang-common-lisp",
+        feature = "lang-cpp",
+        feature = "lang-csharp",
+        feature = "lang-gdscript",
+        feature = "lang-hack",
+        feature = "lang-haml",
+        feature = "lang-haskell",
+        feature = "lang-latex",
+        feature = "lang-lua",
+        feature = "lang-make",
+        feature = "lang-matlab",
+        feature = "lang-mermaid",
+        feature = "lang-objective-c",
+        feature = "lang-pascal",
+        feature = "lang-perl",
+        feature = "lang-php",
+        feature = "lang-powershell",
+        feature = "lang-ruby",
+        feature = "lang-shaderlab",
+        feature = "lang-svelte",
+        feature = "lang-swift",
+        feature = "lang-tex",
+        feature = "lang-vb"
+    ))]
     pub(crate) fn at_g(&self, p: usize) -> bool {
         self.g && p == self.pos
     }
 
     /// The regex `$` at `i`: before the line feed or at the end of the text.
+    #[cfg(any(feature = "_rule-tables", feature = "lang-make"))]
     pub(crate) fn at_eol(&self, i: usize) -> bool {
         i == self.s.len() || (self.nl && i == self.s.len() + 1)
     }
@@ -894,6 +955,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// The end of the run of bytes from `i` that `class` accepts.
+    #[cfg(any(test, feature = "_rule-tables"))]
     pub(crate) fn skip(&self, mut i: usize, class: impl Fn(u8) -> bool) -> usize {
         let from = i;
         while let Some(&b) = self.s.get(i)
@@ -947,6 +1009,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     // Captures.
 
     /// Records capture group `group` of the match being tried.
+    #[cfg(any(test, feature = "_rule-tables"))]
     pub(crate) fn capture(&mut self, group: usize, start: usize, end: usize) {
         self.captures[group] = Some((start, end));
         self.dirty = true;
@@ -976,6 +1039,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     // Spans.
 
     /// Names `start..end` with `scopes`.
+    #[cfg(any(feature = "lang-asm", feature = "lang-c"))]
     pub(crate) fn span(&mut self, start: usize, end: usize, scopes: Scopes<G::Scope>) {
         self.spans.push(Span {
             start,
@@ -990,6 +1054,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Lexes `start..end` again with the patterns of `rule`, under the
     /// match's stack and `scopes`.
+    #[cfg(feature = "lang-c")]
     pub(crate) fn span_retok(
         &mut self,
         start: usize,
@@ -1023,6 +1088,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Names `start..end` with `scope`, a scope the matcher chose, and lexes
     /// it again with `retok` when it names a rule.
+    #[cfg(any(
+        feature = "lang-css",
+        feature = "lang-graphql",
+        feature = "lang-make",
+        feature = "lang-sql"
+    ))]
     pub(crate) fn span_one(
         &mut self,
         start: usize,
@@ -1077,12 +1148,41 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The width of the innermost rule's begin text when the line has it at
     /// `p`.
+    #[cfg(any(
+        test,
+        feature = "lang-astro",
+        feature = "lang-elixir",
+        feature = "lang-gdscript",
+        feature = "lang-hack",
+        feature = "lang-haskell",
+        feature = "lang-latex",
+        feature = "lang-python",
+        feature = "lang-ruby",
+        feature = "lang-svelte",
+        feature = "lang-swift",
+        feature = "lang-tex"
+    ))]
     pub(crate) fn begin_text_at(&self, p: usize) -> Option<usize> {
         let text = self.arena.string(self.top().carried).as_bytes();
         (!text.is_empty() && self.starts(p, text)).then_some(text.len())
     }
 
     /// The innermost rule's begin text.
+    #[cfg(any(
+        feature = "lang-blade",
+        feature = "lang-cmake",
+        feature = "lang-cpp",
+        feature = "lang-elixir",
+        feature = "lang-haml",
+        feature = "lang-haskell",
+        feature = "lang-lua",
+        feature = "lang-objective-cpp",
+        feature = "lang-perl",
+        feature = "lang-php",
+        feature = "lang-r",
+        feature = "lang-sass",
+        feature = "lang-svelte"
+    ))]
     pub(crate) fn begin_text(&self) -> &str {
         self.arena.string(self.top().carried)
     }
@@ -1117,6 +1217,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     }
 
     /// Whether the line has the innermost rule's begin text right before `p`.
+    #[cfg(feature = "lang-python")]
     pub(crate) fn begin_text_before(&self, p: usize) -> bool {
         let text = self.arena.string(self.top().carried).as_bytes();
         !text.is_empty() && p >= text.len() && self.text(p - text.len(), p) == text
@@ -1137,6 +1238,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// It moves the cursor to `next`.
     /// A language calls it for a rule that the depth limit keeps closed when
     /// it has not skipped the pattern.
+    #[cfg(any(feature = "lang-graphql", feature = "lang-make", feature = "lang-sql"))]
     pub(crate) fn skip_plain(&mut self, start: usize, next: usize) {
         let next = next.min(self.s.len());
         let node = self.top().content;
@@ -1179,10 +1281,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     fn path_miss(&mut self, base: u32, scopes: Scopes<G::Scope>, slot: usize) -> u32 {
         let mut stack = base;
         let mut whole = true;
+        #[cfg_attr(
+            not(any(test, nishiki_unstable, feature = "_capture-names")),
+            expect(
+                unused_mut,
+                reason = "only a scope named from a capture group clears it"
+            )
+        )]
         let mut fixed = true;
         for &scope in &scopes.list {
             let fixed_scope = match G::scope(scope) {
                 ScopeName::Fixed(fixed_scope) => fixed_scope,
+                #[cfg(any(test, nishiki_unstable, feature = "_capture-names"))]
                 ScopeName::Capture { .. } => {
                     fixed = false;
                     stack = self.path_one(stack, scope);
@@ -1209,6 +1319,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// The stack `base` with `scope` on top: a scope outside the grammar's
     /// own table, such as CSS's in SCSS, which runs CSS's nested patterns.
+    #[cfg(feature = "lang-scss")]
     pub(crate) fn path_fixed(&mut self, base: u32, scope: crate::scope::Scope) -> u32 {
         self.arena.child(base, scope).unwrap_or_else(|| {
             self.report.record(Limit::Nodes);
@@ -1227,6 +1338,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 self.flags.failed = true;
                 base
             }),
+            #[cfg(any(test, nishiki_unstable, feature = "_capture-names"))]
             ScopeName::Capture {
                 prefix,
                 group,
@@ -1259,6 +1371,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 NameSource::Interned(id) => {
                     name.push_str(self.arena.string(id).trim_start_matches('.'));
                 }
+                #[cfg(any(test, nishiki_unstable, feature = "_capture-names"))]
                 NameSource::Group(group) => {
                     let text = String::from_utf8_lossy(self.capture_text(group.into()));
                     push_spelled(&mut name, &text, G::dyn_name_case(prefix));

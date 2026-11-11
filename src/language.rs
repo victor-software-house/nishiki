@@ -2133,14 +2133,7 @@ pub(crate) trait Halt {
     /// So it does not hold under an embedded source, a `source` scope inside a
     /// `meta` scope, which the selector shuts out.
     /// Most halts have none, and a language that does not read it ignores it.
-    #[cfg(feature = "_language")]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
+    #[cfg(feature = "_rule-tables")]
     fn deep(&self) -> Option<&dyn Halt> {
         None
     }
@@ -2148,14 +2141,7 @@ pub(crate) trait Halt {
     /// Whether [`Halt::deep`] loses a tie with the embedded patterns.
     /// It then holds only where none of them matches, as an injection without
     /// `L:` does, such as Blade's between tags.
-    #[cfg(feature = "_language")]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
+    #[cfg(feature = "_rule-tables")]
     fn deep_loses_ties(&self) -> bool {
         false
     }
@@ -2365,13 +2351,14 @@ impl Context<'_> {
         reason = "in Markdown's arm of the dispatch it stayed a call at one codegen unit"
     )]
     #[inline(always)]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
+    #[cfg(any(
+        feature = "lang-hcl",
+        feature = "lang-json",
+        feature = "lang-markdown",
+        feature = "lang-rust",
+        feature = "lang-toml",
+        feature = "lang-yaml"
+    ))]
     pub(crate) fn lex_from_start(
         &mut self,
         line: Line<'_>,
@@ -2394,16 +2381,16 @@ impl Context<'_> {
 /// The rest of a line whose start lies past its text: nothing.
 /// Cold and out of line, so [`Context::lex_from_start`] keeps the shape a
 /// slice had.
-#[cfg(feature = "_language")]
+#[cfg(any(
+    feature = "lang-hcl",
+    feature = "lang-json",
+    feature = "lang-markdown",
+    feature = "lang-rust",
+    feature = "lang-toml",
+    feature = "lang-yaml"
+))]
 #[cold]
 #[inline(never)]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
 fn past_end() -> &'static str {
     ""
 }

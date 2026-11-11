@@ -9,12 +9,12 @@
 use super::Dialect;
 
 macro_rules! scopes {
-    ($($id:ident $ts:literal $js:literal $jsx:literal $tsx:literal)*) => {
+    ($($(#[cfg($($cfg:tt)*)])* $id:ident $ts:literal $js:literal $jsx:literal $tsx:literal)*) => {
         /// A scope name.
         /// The discriminant indexes the table of each dialect.
         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
         #[repr(u16)]
-        pub(crate) enum S { $($id),* }
+        pub(crate) enum S { $($(#[cfg($($cfg)*)])* $id),* }
 
         /// The number of scope names a dialect has.
         #[expect(
@@ -22,7 +22,7 @@ macro_rules! scopes {
             clippy::cast_possible_truncation,
             reason = "`u16::try_from` is not const; the table has a few hundred names"
         )]
-        const COUNT: u16 = [$($ts),*].len() as u16;
+        const COUNT: u16 = [$($(#[cfg($($cfg)*)])* $ts),*].len() as u16;
 
         impl S {
             /// The scope in `dialect`'s spelling, in the crate's shared
@@ -42,10 +42,10 @@ macro_rules! scopes {
         /// The name of every scope of every dialect: `typescript`, then
         /// `javascript`, then `jsx`, then `tsx`.
         pub(crate) const NAMES: &[&str] = &[
-            $($ts,)*
-            $($js,)*
-            $($jsx,)*
-            $($tsx,)*
+            $($(#[cfg($($cfg)*)])* $ts,)*
+            $($(#[cfg($($cfg)*)])* $js,)*
+            $($(#[cfg($($cfg)*)])* $jsx,)*
+            $($(#[cfg($($cfg)*)])* $tsx,)*
         ];
     };
 }
@@ -1441,6 +1441,7 @@ scopes! {
         "support.class.component.js"
         "support.class.component.js.jsx"
         "support.class.component.tsx"
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     PunctuationDefinitionVariableSvelte
         "punctuation.definition.variable.svelte"
         "punctuation.definition.variable.svelte"

@@ -842,6 +842,22 @@ const SPACES: &[(u32, u32)] = &[
 ];
 
 /// The non-ASCII characters `[[:alpha:]]` matches.
+#[cfg(any(
+    feature = "lang-asm",
+    feature = "lang-astro",
+    feature = "lang-coffee",
+    feature = "lang-gdscript",
+    feature = "lang-hcl",
+    feature = "lang-julia",
+    feature = "lang-latex",
+    feature = "lang-python",
+    feature = "lang-svelte",
+    feature = "lang-tex",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx",
+    feature = "lang-typescript"
+))]
 const ALPHAS: &[(u32, u32)] = &[
     (0xaa, 0xaa),
     (0xb5, 0xb5),
@@ -1566,6 +1582,7 @@ const ALPHAS: &[(u32, u32)] = &[
 ];
 
 /// The non-ASCII characters `\p{upper}` matches.
+#[cfg(feature = "lang-python")]
 const UPPERS: &[(u32, u32)] = &[
     (0xc0, 0xd6),
     (0xd8, 0xde),
@@ -2220,6 +2237,14 @@ const UPPERS: &[(u32, u32)] = &[
 ];
 
 /// The non-ASCII characters `\p{L}` matches.
+#[cfg(any(
+    feature = "lang-hack",
+    feature = "lang-julia",
+    feature = "lang-mermaid",
+    feature = "lang-powershell",
+    feature = "lang-r",
+    feature = "lang-swift"
+))]
 const LETTERS: &[(u32, u32)] = &[
     (0xaa, 0xaa),
     (0xb5, 0xb5),
@@ -2870,6 +2895,11 @@ const LETTERS: &[(u32, u32)] = &[
 ];
 
 /// The non-ASCII characters `\p{N}` matches.
+#[cfg(any(
+    feature = "lang-latex",
+    feature = "lang-powershell",
+    feature = "lang-swift"
+))]
 const NUMBERS: &[(u32, u32)] = &[
     (0xb2, 0xb3),
     (0xb9, 0xb9),
@@ -3007,6 +3037,7 @@ const NUMBERS: &[(u32, u32)] = &[
 ];
 
 /// The non-ASCII characters `\p{M}` matches.
+#[cfg(feature = "lang-swift")]
 const MARKS: &[(u32, u32)] = &[
     (0x300, 0x36f),
     (0x483, 0x489),
@@ -6697,26 +6728,57 @@ pub(super) fn is_space(c: char) -> bool {
 }
 
 /// The regex `[[:alpha:]]` for a non-ASCII character.
+#[cfg(any(
+    feature = "lang-asm",
+    feature = "lang-astro",
+    feature = "lang-coffee",
+    feature = "lang-gdscript",
+    feature = "lang-hcl",
+    feature = "lang-julia",
+    feature = "lang-latex",
+    feature = "lang-python",
+    feature = "lang-svelte",
+    feature = "lang-tex",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx",
+    feature = "lang-typescript"
+))]
 pub(super) fn is_alpha(c: char) -> bool {
     contains(ALPHAS, c)
 }
 
 /// The regex `\p{upper}` for a non-ASCII character.
+#[cfg(feature = "lang-python")]
 pub(super) fn is_upper(c: char) -> bool {
     contains(UPPERS, c)
 }
 
 /// The regex `\p{L}` for a non-ASCII character.
+#[cfg(any(
+    feature = "lang-hack",
+    feature = "lang-julia",
+    feature = "lang-mermaid",
+    feature = "lang-powershell",
+    feature = "lang-r",
+    feature = "lang-swift"
+))]
 pub(super) fn is_letter(c: char) -> bool {
     contains(LETTERS, c)
 }
 
 /// The regex `\p{N}` for a non-ASCII character.
+#[cfg(any(
+    feature = "lang-latex",
+    feature = "lang-powershell",
+    feature = "lang-swift"
+))]
 pub(super) fn is_number(c: char) -> bool {
     contains(NUMBERS, c)
 }
 
 /// The regex `\p{M}` for a non-ASCII character.
+#[cfg(feature = "lang-swift")]
 pub(super) fn is_mark(c: char) -> bool {
     contains(MARKS, c)
 }

@@ -165,7 +165,13 @@ codegen = ["textmate", "dep:proc-macro2", "dep:quote"]
 format = ["codegen", "dep:prettyplease", "dep:syn"]
 
 # One feature per lexer module. A language that embeds another needs it.
-lang-asm = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-asm = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_blank-runs-to-last",
+]
 lang-astro = [
   "_hand-lexers",
   "_scope-table",
@@ -183,6 +189,7 @@ lang-astro = [
   "lang-sass",
   "_classes",
   "_utf8",
+  "_capture-names",
 ]
 lang-bat = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-blade = [
@@ -198,6 +205,7 @@ lang-blade = [
   "lang-javascript",
   "lang-json",
   "lang-css",
+  "_capture-names",
 ]
 lang-c = ["_hand-lexers", "_scope-table", "_rule-engine", "_classes", "_utf8"]
 lang-cmake = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
@@ -208,17 +216,24 @@ lang-coffee = [
   "_classes",
   "_halting-embedding",
   "lang-javascript",
+  "_blank-runs-to-last",
 ]
 lang-common-lisp = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-cpp = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-cpp = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_class-widths",
+  "_capture-names",
+]
 lang-csharp = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-css = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-dart = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-diff = ["_hand-lexers", "_scope-table", "_classes", "_utf8"]
+lang-diff = ["_hand-lexers", "_scope-table", "_class-widths", "_utf8"]
 lang-dockerfile = [
   "_hand-lexers",
   "_scope-table",
-  "_classes",
+  "_class-widths",
   "_utf8",
   "_frame-rules",
 ]
@@ -229,6 +244,7 @@ lang-elixir = [
   "_classes",
   "_utf8",
   "_halting-embedding",
+  "_blank-runs-to-last",
 ]
 lang-erb = ["_hand-lexers", "lang-html", "lang-ruby"]
 lang-gdscript = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
@@ -258,7 +274,7 @@ lang-haml = [
   "_hand-lexers",
   "_scope-table",
   "_rule-tables",
-  "_classes",
+  "_class-widths",
   "_halting-embedding",
   "lang-coffee",
   "lang-css",
@@ -267,8 +283,20 @@ lang-haml = [
   "lang-ruby",
   "lang-sass",
 ]
-lang-haskell = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-hcl = ["_hand-lexers", "_scope-table", "_classes", "_utf8", "_frame-rules"]
+lang-haskell = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_capture-names",
+]
+lang-hcl = [
+  "_hand-lexers",
+  "_scope-table",
+  "_class-widths",
+  "_utf8",
+  "_frame-rules",
+]
 lang-hlsl = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-html = [
   "_hand-lexers",
@@ -279,13 +307,19 @@ lang-html = [
   "_html-words",
 ]
 lang-html-derivative = ["_hand-lexers", "lang-html"]
-lang-ini = ["_hand-lexers", "_scope-table", "_classes", "_utf8", "_frame-rules"]
+lang-ini = [
+  "_hand-lexers",
+  "_scope-table",
+  "_class-widths",
+  "_utf8",
+  "_frame-rules",
+]
 lang-java = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 # The typescript module lexes four dialects, lang-javascript, lang-jsx,
 # lang-tsx and lang-typescript, each a copy of the lexer.
 lang-javascript = ["_hand-lexers", "_classes", "_space"]
 lang-jinja = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-json = ["_hand-lexers", "_classes", "_utf8", "_frame-rules"]
+lang-json = ["_hand-lexers", "_class-widths", "_utf8", "_frame-rules"]
 lang-jsx = ["_hand-lexers", "_classes", "_space"]
 lang-julia = [
   "_hand-lexers",
@@ -304,9 +338,10 @@ lang-latex = [
   "_hand-lexers",
   "_scope-table",
   "_rule-tables",
-  "_classes",
+  "_class-widths",
   "_halting-embedding",
   "lang-tex",
+  "_capture-names",
 ]
 lang-less = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-lua = [
@@ -325,10 +360,28 @@ lang-make = [
   "_frame-rules",
 ]
 lang-markdown = ["_hand-lexers", "_scope-table", "_classes", "_utf8"]
-lang-matlab = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-mermaid = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-matlab = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_blank-runs-to-last",
+]
+lang-mermaid = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_blank-runs-to-last",
+]
 lang-nix = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-objective-c = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-objective-c = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_capture-names",
+]
 lang-objective-cpp = ["_hand-lexers", "lang-objective-c"]
 lang-pascal = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-perl = [
@@ -357,8 +410,15 @@ lang-php = [
   "lang-json",
   "lang-sql",
   "lang-xml",
+  "_capture-names",
 ]
-lang-postcss = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-postcss = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_blank-runs-to-last",
+]
 lang-powershell = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-proto = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-python = ["_hand-lexers", "_scope-table", "_rule-tables"]
@@ -371,14 +431,26 @@ lang-ruby = [
   "_embedding",
 ]
 lang-rust = ["_hand-lexers", "_scope-table", "_classes", "_space", "_utf8"]
-lang-sass = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-scala = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-sass = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_blank-runs-to-last",
+]
+lang-scala = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_blank-runs-to-last",
+]
 lang-scss = ["_hand-lexers", "lang-css"]
 lang-shaderlab = [
   "_hand-lexers",
   "_scope-table",
   "_rule-tables",
-  "_classes",
+  "_class-widths",
   "_embedding",
   "lang-hlsl",
 ]
@@ -393,7 +465,7 @@ lang-sql = [
   "_hand-lexers",
   "_scope-table",
   "_rule-engine",
-  "_classes",
+  "_class-widths",
   "_utf8",
   "_frame-rules",
 ]
@@ -423,7 +495,7 @@ lang-tex = [
 lang-toml = [
   "_hand-lexers",
   "_scope-table",
-  "_classes",
+  "_class-widths",
   "_utf8",
   "_frame-rules",
 ]
@@ -456,6 +528,9 @@ _language = []
 _hand-lexers = ["_language"]
 # The classes read characters through the UTF-8 helpers.
 _classes = ["_utf8"]
+# The widths of the `\s` and `\w` characters at a byte, and `\w` before one,
+# for the lexers that read the classes byte by byte.
+_class-widths = ["_classes"]
 # The rule engine's hand-over to a language a rule embeds, for Ruby's here
 # documents, Lua's `ffi.cdef`, GraphQL's interpolations, Svelte's
 # expressions and blocks, and Astro's expressions and bodies.
@@ -476,6 +551,13 @@ _scope-table = []
 # tag::frame_rules!, for the lexers that declare their frame rules with it.
 _frame-rules = []
 _rule-engine = ["_classes"]
+# The scan's step to the last blank of a run (`BlankRuns::ToLast`), for a
+# grammar with a pattern that takes one blank and then a character that is not
+# one.
+_blank-runs-to-last = ["_rule-tables"]
+# Scope names that repeat the text of a capture group, as `storage.type.$1.cpp`
+# does (`ScopeName::Capture`).
+_capture-names = ["_rule-engine"]
 # The engine's candidate tables and shared character classes, for a language
 # whose matchers come from a grammar's generated tables; Makefiles use neither.
 _rule-tables = ["_rule-engine"]

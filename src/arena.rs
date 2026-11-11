@@ -15,7 +15,15 @@ use std::collections::HashMap;
 use std::collections::hash_map::Entry;
 use std::hash::{BuildHasherDefault, Hasher};
 
-#[cfg(feature = "_language")]
+#[cfg(any(
+    feature = "lang-diff",
+    feature = "lang-dockerfile",
+    feature = "lang-hcl",
+    feature = "lang-ini",
+    feature = "lang-json",
+    feature = "lang-toml",
+    feature = "lang-yaml"
+))]
 use crate::limits::{Limit, LineReport};
 use crate::scope::Scope;
 
@@ -188,14 +196,15 @@ impl Arena {
     /// The node limit can keep a new stack from being made.
     /// The scope it stops is then left off with every scope after it.
     /// `report` records the limit.
-    #[cfg(feature = "_language")]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
+    #[cfg(any(
+        feature = "lang-diff",
+        feature = "lang-dockerfile",
+        feature = "lang-hcl",
+        feature = "lang-ini",
+        feature = "lang-json",
+        feature = "lang-toml",
+        feature = "lang-yaml"
+    ))]
     pub(crate) fn path(
         &mut self,
         base: u32,
