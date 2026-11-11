@@ -7,7 +7,7 @@ This note lists the gaps that the [`shiki-exact-gaps` change][change] closes.
 
 ## Answer
 
-Six hand lexers differ from Shiki on mutated or fenced text.
+Five hand lexers differ from Shiki on mutated or fenced text.
 The textmate tier differs nowhere that CI measures.
 CI gives it one input per language.
 
@@ -38,7 +38,7 @@ Objective-C's bare corpora have none either.
    Its grammars are those of `@shikijs/langs` 4.6.0, which the root `bun.lock` pins.
    Its per-line limits were off, as [`oracle/fixture.ts`][fixture] sets them.
    The corpora:
-   - for each of the 72 languages with oracle fixtures, 300 `win` documents and 100 `mdw` documents from [`oracle/fuzz.ts`][fuzz];
+   - for each of the 73 languages with oracle fixtures, 300 `win` documents and 100 `mdw` documents from [`oracle/fuzz.ts`][fuzz];
    - for each of the 21 languages with a file in `oracle/fuzz/`, 300 `gen` documents and 100 `mdg` documents;
    - for each of the 39 languages of [`oracle/differential.ts`][differential], 100 documents of 30 lines, bare and in a Markdown fence.
 4. `the_corpus_matches_shiki` in [`tests/it/oracle.rs`][oracle-test] compared each corpus with nishiki, built with every feature.
@@ -62,7 +62,8 @@ The columns Bytes that differ, First difference, Shiki, nishiki, Refused pattern
 - [`oracle/rule-generator.ts`][generator] resolves `$base` to the grammar's own root (line 427).
 - The TextMate engine resolves `$base` to the root of the grammar it links ([`link.rs`][link], line 444).
 - Objective-C++'s fenced corpora have no differing document.
-  Why not is unchecked.
+  Shiki's Markdown has no Objective-C++ fence: its `mm` fence takes Objective-C.
+  So those fences are plain text in both.
 
 ### Vue in list-item fences
 

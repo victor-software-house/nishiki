@@ -20,12 +20,23 @@ Where Markdown embeds Objective-C, that root is Markdown, so Markdown's rules ru
 `oracle/rule-generator.ts` resolves `$base` to the grammar's own root.
 The TextMate engine already resolves it to the root it links.
 
-In a fence, Markdown embeds the generated lexer and lends it a halt for the fence's end.
-The planned fix lexes that embedder's root at the `$base` include, under the halt and the scopes around it.
-Its pull request confirms that shape or records another.
+The fix follows vscode-textmate and the TextMate engine:
+
+- A `$base` include is a slot in a generated pattern list, capture lists included.
+- At that slot, the embedder's root patterns compete in their order.
+  The same leftmost-first rule as the grammar's own patterns applies.
+- When one of them wins, the embedder's rule opens as a frame on the shared stack.
+- When the grammar is the document, the slot is its own root, as now.
+
+The rule engine holds the slot's runtime part.
+`oracle/rule-generator.ts` only emits the slot, so the port to `codegen/` stays mechanical.
+The pull request records the runtime design.
+It also records the cost to languages with no `$base`, which stays at today's.
 
 Objective-C and Objective-C++ are the two hand lexers whose grammars include `$base`.
 Both change in one pull request.
+Shiki's Markdown has no Objective-C++ fence, so no document embeds Objective-C++.
+Its slot is always its own root.
 
 ## 3. The fuzz script's guard
 

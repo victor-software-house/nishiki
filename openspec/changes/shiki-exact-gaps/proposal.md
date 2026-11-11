@@ -7,7 +7,7 @@ CI's oracle test and the Shiki fidelity job pass on main.
 Mutated and fenced text still finds differences.
 
 The [research note][note] measured 262 corpora at 5c1daf55.
-Six hand lexers differ on some of them: Objective-C, Vue, Rust, Ruby and Mermaid.
+Five hand lexers differ on some of them: Objective-C, Vue, Rust, Ruby and Mermaid.
 Go and LaTeX list differences from Shiki in their own docs.
 Two parts of the measurement have gaps of their own:
 

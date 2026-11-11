@@ -5,8 +5,9 @@ The [research note][note] holds the numbers each task starts from.
 
 ## 1. `$base`
 
-- [ ] 1.1 Objective-C and Objective-C++ resolve `$base` to the root of the document that embeds them.
-  → verify: at every seed, no document differs in Objective-C's fenced differential, `mdw` and `mdg` corpora, nor in Objective-C++'s, and the oracle test passes
+- [ ] 1.1 Objective-C and Objective-C++ try the root patterns of the document that embeds them at each `$base` include, as design section 2 says.
+  → verify: at every seed, no document differs in Objective-C's fenced differential, `mdw` and `mdg` corpora.
+  Nor does one differ in Objective-C++'s `win` corpus and bare differential, and the oracle test passes.
 
 ## 2. The fuzz script
 
