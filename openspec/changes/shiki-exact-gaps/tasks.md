@@ -8,17 +8,19 @@ The [research note][note] holds the numbers each task starts from.
 - [x] 1.1 Objective-C and Objective-C++ try the root patterns of the document that embeds them at each `$base` include, as design section 2 says.
   → verify: at every seed, no document differs in Objective-C's fenced differential, `mdw` and `mdg` corpora.
   Nor does one differ in Objective-C++'s `win` corpus and bare differential, and the oracle test passes.
-  - 2026-11-11: measured on a box at seeds 1, 2 and 3, 100 documents per corpus.
-
-    | Corpus | Before | After |
-    |:--|:--|:--|
-    | Objective-C fenced differential | 89, 85 and 90 differ | 0 |
-    | Objective-C `mdw` | 87, 88 and 84 differ | 0 |
-    | Objective-C `mdg` | 87, 95 and 90 differ | 0 |
-    | Objective-C++ `win` and bare differential | 0 | 0 |
-
-  - The oracle test passes.
-  - Callgrind against main, three builds per side, reads Objective-C at 0.9996 for lexing.
+  - 2026-11-11: Objective-C's fenced differential, on a box, 100 documents per seed.
+    Before, 89, 85 and 90 differed at seeds 1, 2 and 3.
+    After, none differs at any seed.
+  - 2026-11-11: Objective-C's `mdw` corpus, on a box, 100 documents per seed.
+    Before, 87, 88 and 84 differed at seeds 1, 2 and 3.
+    After, none differs at any seed.
+  - 2026-11-11: Objective-C's `mdg` corpus, on a box, 100 documents per seed.
+    Before, 87, 95 and 90 differed at seeds 1, 2 and 3.
+    After, none differs at any seed.
+  - 2026-11-11: Objective-C++'s `win` corpus and bare differential, on a box.
+    No document differs at any seed, before or after.
+    The oracle test passes.
+  - 2026-11-11: Callgrind against main, three builds per side, reads Objective-C at 0.9996 for lexing.
 
 ## 2. The fuzz script
 
