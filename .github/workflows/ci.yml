@@ -61,7 +61,7 @@ jobs:
       mise-version: 2026.11.6
       advisories: true
       semver: true
-      timeout-minutes: 12
+      timeout-minutes: 16
       build-runner: >-
         ["nscloud-ubuntu-24.04-amd64-4x8-with-cache", "nscloud-cache-tag-rust-nishiki",
         "nscloud-cache-size-50gb"]
