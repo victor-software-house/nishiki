@@ -293,7 +293,7 @@ pub(crate) fn table_scan<G: Tabled>(
 /// ([`Halt::root`](crate::language::Halt::root)).
 /// The scan stops there, as at a halt, unless a pattern listed before the slot
 /// matches first.
-/// The document then goes on from that place.
+/// Then the document goes on from there.
 ///
 /// The root is asked once per scan, from the scan's start.
 /// Its answer is the first match at or after that place.

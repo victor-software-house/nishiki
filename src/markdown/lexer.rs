@@ -2075,7 +2075,7 @@ mod tests {
             );
         }
 
-        /// The kept search answers a later place only with a start at or after
+        /// The kept search never gives a later place a start that lies behind
         /// it.
         /// `[y]` is no definition, and `[a]: b` is one.
         /// From 6 the start found from 1 is behind, so it is searched again.

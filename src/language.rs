@@ -2175,8 +2175,9 @@ pub(crate) trait RootStart {
     /// `s` is the whole line, without its line feed, and `nl` says whether one
     /// follows.
     /// `\G` holds only at `anchor`, and `^` only at 0.
-    /// A match's start is where its expression starts, so a pattern that
-    /// leads with blanks starts at the first of them, never before `from`.
+    /// A match's start is where its expression starts.
+    /// A pattern that leads with blanks starts at its first blank, and never
+    /// before `from`.
     fn first(&self, s: &[u8], nl: bool, from: usize, anchor: Option<usize>) -> Option<usize>;
 }
 
