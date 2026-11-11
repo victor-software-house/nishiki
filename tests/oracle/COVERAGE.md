@@ -3,7 +3,7 @@
 How much of each grammar that a hand-written lexer follows the oracle fixtures exercise.
 `mise run oracle:coverage` writes this file
 from [`oracle/coverage.ts`](../../oracle/coverage.ts); do not edit it.
-The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) defines the units.
+The [oracle-coverage design](../../openspec/changes/archive/2026-11-10-oracle-coverage/design.md) defines the units.
 
 - An expression is exercised when Shiki takes its match on a fixture.
 - A capture is exercised when its group takes part in such a match

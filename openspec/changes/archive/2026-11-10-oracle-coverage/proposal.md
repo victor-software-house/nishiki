@@ -46,7 +46,7 @@ It does not change what a fixture must match.
   The script uses Shiki 4.6.0 and Bun 1.4.4, which the oracle already pins.
 - The published crate does not change.
 
-[oracle-test]: ../../../tests/it/oracle.rs
-[sources]: ../../../tests/oracle/SOURCES.md
-[onig]: ../../../oracle/onig.ts
-[fidelity]: ../../specs/shiki-fidelity/spec.md
+[oracle-test]: ../../../../tests/it/oracle.rs
+[sources]: ../../../../tests/oracle/SOURCES.md
+[onig]: ../../../../oracle/onig.ts
+[fidelity]: ../../../specs/shiki-fidelity/spec.md

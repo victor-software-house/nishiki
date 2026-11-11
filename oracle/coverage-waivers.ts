@@ -3,7 +3,7 @@
 // A grammar is complete when each unit it reaches is exercised by a fixture
 // or waived here. Once complete, it stays so: a change that leaves one of its
 // units unexercised and unwaived fails `mise run check:oracle-coverage`.
-// openspec/changes/oracle-coverage/design.md, section 5.
+// openspec/changes/archive/2026-11-10-oracle-coverage/design.md, section 5.
 
 /** A unit no document can reach, such as a branch that an earlier pattern
  * always takes first. */
