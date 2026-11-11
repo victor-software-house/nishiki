@@ -149,11 +149,16 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     The 12 in Blade's own rules set `unprobed`.
     Task 3.24 gives them probes.
     On `ee3eae06`, which holds PR 743, the [oracle test][run-745-ci] and the [coverage check][run-745-cov] passed.
-- [ ] 3.24 Probe Blade's own rules
+- [x] 3.24 Probe Blade's own rules
   - `oracle/blade-grammar.ts` gives ids only to Blade's copy of PHP.
     The hand engine answers the `#blade` rules and the injection rules outside `Pattern::ALL`.
   - Give those rules dump ids and probe cases, then name each probe in its waiver.
   - Verify: no waiver sets `unprobed`, and the field is gone from `Waiver` and `coverage.ts`.
+  - 2026-11-11 UTC, [PR 748][pr748] and [PR 752][pr752]: nine of Blade's own expressions get probe ids.
+    On a box, `oracle/onig.ts` found no difference on any Blade expression.
+    Each of the 12 waivers names its probe, and `unprobed` is gone.
+    On `829cb3f1` the [coverage check][run-748-cov] passed.
+    On `5c5c854c`, which holds both, the [oracle test][run-752-ci] passed.
 
 [checks]: ../../research/2026-11-10-oracle-coverage-gate-checks.md
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
@@ -242,3 +247,7 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
 [pr743]: https://github.com/victor-software-house/nishiki-archive/pull/743
 [run-745-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42916505148
 [run-745-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42916504586
+[pr748]: https://github.com/victor-software-house/nishiki-archive/pull/748
+[pr752]: https://github.com/victor-software-house/nishiki-archive/pull/752
+[run-748-cov]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42924988658
+[run-752-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/42928844162
