@@ -7,13 +7,14 @@
 //! [`fence_stops`].
 //!
 //! The writers read the grammars in `tests/engine/grammars/`, which
-//! `oracle/engine-grammars.ts` writes.
+//! `oracle/engine-grammars.ts` writes, and the facts in `oracle/facts/`.
 //! They read each grammar through `nishiki::unstable`, the surface a caller has
 //! (openspec rust-codegen, design section 3).
 //! The word writers write text.
 //! The matcher writer builds tokens with `quote` and lays them out with
 //! `prettyplease`.
 
+mod classes;
 mod error;
 mod fence_stops;
 mod header;
@@ -86,6 +87,7 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     let mut stale = Vec::new();
     let mut files = words::files(&root)?;
     files.extend(matchers::files(&root)?);
+    files.push(classes::file(&root)?);
     for file in files {
         let path = root.join(file.path);
         let current = fs::read(&path).ok();

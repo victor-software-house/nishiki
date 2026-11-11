@@ -23,6 +23,13 @@ pub(crate) enum Error {
         /// What nishiki reported.
         source: GrammarError,
     },
+    /// A facts file holds no JSON.
+    Json {
+        /// The facts file.
+        path: PathBuf,
+        /// What the parser reported.
+        source: serde_json::Error,
+    },
     /// A word list does not parse as a pattern.
     Pattern {
         /// The word list's text.
@@ -41,6 +48,7 @@ impl fmt::Display for Error {
         match self {
             Error::Io { path, source } => write!(f, "{}: {source}", path.display()),
             Error::Grammar { path, source } => write!(f, "{}: {source}", path.display()),
+            Error::Json { path, source } => write!(f, "{}: {source}", path.display()),
             Error::Pattern { pattern, source } => write!(f, "{pattern}: {source}"),
             Error::Shape(message) | Error::Check(message) => f.write_str(message),
         }
@@ -52,6 +60,7 @@ impl error::Error for Error {
         match self {
             Error::Io { source, .. } => Some(source),
             Error::Grammar { source, .. } => Some(source),
+            Error::Json { source, .. } => Some(source),
             Error::Pattern { source, .. } => Some(source),
             Error::Shape(_) | Error::Check(_) => None,
         }

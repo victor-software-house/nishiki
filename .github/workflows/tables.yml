@@ -8,8 +8,9 @@ name: Generated tables
 # - src/textmate/regex/unicode.rs and oracle/facts/unicode-sets.json:
 #   oracle/unicode-tables.ts measures them on Oniguruma
 #   (`mise run check:unicode-tables`).
-# - src/classes/table.rs and oracle/facts/classes.json: oracle/classes.ts
-#   measures them on Shiki (`mise run check:classes`).
+# - oracle/facts/classes.json: oracle/classes.ts measures it on Shiki
+#   (`mise run check:classes`). codegen/ writes src/classes/table.rs from
+#   it, and verify checks the table.
 # - Each rule-engine language's tables: its oracle/<language>-grammar.ts
 #   writes them and formats them with rustfmt
 #   (`mise run check:rule-grammars`), after the tests in
@@ -34,7 +35,6 @@ on:
       - src/textmate/regex/unicode.rs
       - mise-tasks/check/unicode-tables.sh
       - oracle/classes.ts
-      - src/classes/table.rs
       - mise-tasks/check/classes.sh
       - oracle/facts.ts
       - oracle/facts/**
@@ -145,7 +145,7 @@ jobs:
       - name: Install bun
         timeout-minutes: 3
         run: mise install --locked bun@1.4.4
-      - name: Compare the character classes and their facts with what their script measures
+      - name: Compare the character classes' facts with what their script measures
         timeout-minutes: 6
         run: mise run check:classes
 
