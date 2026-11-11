@@ -7,7 +7,7 @@
 
 use std::collections::HashMap;
 
-use super::analysis::{first_bytes, second_bytes, width};
+use super::analysis::{first_bytes, second_bytes};
 use super::ast::{Anchor, Case, Class, Greediness, Member, Node};
 use super::parse::{Error, ParsedPattern};
 
@@ -302,7 +302,7 @@ fn has_calls(node: &Node) -> bool {
 /// Whether the node can match without consuming a character.
 /// A loop around such a node must check that it advances.
 fn nullable(node: &Node) -> bool {
-    width(node).0 == 0
+    node.width().0 == 0
 }
 
 struct Compiler<'a> {
@@ -406,7 +406,7 @@ impl Compiler<'_> {
                 negative,
                 node,
             } => {
-                let (min, max) = width(node);
+                let (min, max) = node.width();
                 let at = self.push(Instruction::Look {
                     ahead: *ahead,
                     negative: *negative,

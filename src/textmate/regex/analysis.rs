@@ -15,54 +15,6 @@ pub(super) struct Starts {
     pub(super) search: bool,
 }
 
-/// The shortest and, when bounded, the longest number of characters a match
-/// of `node` takes.
-pub(super) fn width(node: &Node) -> (usize, Option<usize>) {
-    match node {
-        Node::Empty
-        | Node::Anchor(_)
-        | Node::Lookaround { .. }
-        | Node::Subroutine(_)
-        | Node::NamedSubroutine(_) => (
-            0,
-            if matches!(node, Node::Subroutine(_) | Node::NamedSubroutine(_)) {
-                None
-            } else {
-                Some(0)
-            },
-        ),
-        Node::Char(..) | Node::Any { .. } | Node::Class(..) => (1, Some(1)),
-        Node::BackReference(..) | Node::NamedBackReference(..) => (0, None),
-        Node::Sequence(items) => items.iter().fold((0, Some(0)), |(lo, hi), item| {
-            let (a, b) = width(item);
-            (lo + a, hi.zip(b).map(|(x, y)| x + y))
-        }),
-        Node::Alternation(alts) | Node::Folds(alts) => {
-            let mut lo = usize::MAX;
-            let mut hi = Some(0);
-            for alt in alts {
-                let (a, b) = width(alt);
-                lo = lo.min(a);
-                hi = hi.zip(b).map(|(x, y)| x.max(y));
-            }
-            (if lo == usize::MAX { 0 } else { lo }, hi)
-        }
-        Node::Repeat { node, min, max, .. } => {
-            let (a, b) = width(node);
-            let min = usize::try_from(*min).unwrap_or(usize::MAX);
-            let high = match (max, b) {
-                (Some(max), Some(b)) => {
-                    Some(b.saturating_mul(usize::try_from(*max).unwrap_or(usize::MAX)))
-                }
-                (_, Some(0)) => Some(0),
-                _ => None,
-            };
-            (a.saturating_mul(min), high)
-        }
-        Node::Group { node, .. } | Node::Atomic(node) => width(node),
-    }
-}
-
 /// Adds the bytes a match of `node` can start with to `set`.
 /// Returns true when the node can match without consuming anything.
 /// Then the bytes of what follows count too.
