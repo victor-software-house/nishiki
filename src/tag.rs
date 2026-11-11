@@ -27,7 +27,7 @@ struct Tag {
 /// A row holds the constant and its value.
 /// A lexer that claims a wider range for flag bits adds the mask that covers
 /// it.
-/// A language's row is on only when its feature is.
+/// Each language's row is on only when its feature is.
 /// So the overlap check below counts the languages that are built.
 macro_rules! tags {
     (@mask) => { 0xff00 };

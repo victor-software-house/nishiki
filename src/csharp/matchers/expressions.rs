@@ -35,8 +35,8 @@ impl Lexer<'_> {
         }
     }
 
-    /// `\([^()<>]*\)` or `<[^()<>]*>` at `i`: the end of one level of
-    /// brackets with plain text inside.
+    /// `\([^()<>]*\)` or `<[^()<>]*>` at `i`: the end of one bracket
+    /// level with plain text inside.
     fn flat_group(&self, i: usize, close: u8) -> Option<usize> {
         let mut j = i + 1;
         while self.plain_at(j) {
@@ -739,8 +739,8 @@ impl Lexer<'_> {
         self.tuple_assigned(p, open)
     }
 
-    /// `(?<tuple>\((?:[^()]|\g<tuple>)+\))\s*(?!=[=>])(?==)`: a tuple of
-    /// declarations on the left of an assignment.
+    /// `(?<tuple>\((?:[^()]|\g<tuple>)+\))\s*(?!=[=>])(?==)`: a declaration
+    /// tuple on the left of an assignment.
     pub(in crate::csharp) fn local_tuple_assignment(&mut self, p: usize) -> Option<usize> {
         self.tuple_assigned(p, p)
     }

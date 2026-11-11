@@ -46,9 +46,9 @@ pub(crate) enum GapForm {
 /// It keeps the longest [`MAX_COMMENT_RUNS`] runs, so making it allocates
 /// nothing.
 ///
-/// It holds where the first kept run opens, not every run.
+/// It holds only where the first kept run opens.
 /// It finds each run again from there as it gives it.
-/// It then stays small enough to be returned without a call to copy it.
+/// Then it stays small enough to be returned without a call to copy it.
 pub(crate) struct Gaps<'a> {
     /// The text the runs lie in.
     s: &'a [u8],

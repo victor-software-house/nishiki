@@ -488,8 +488,8 @@ impl Compiler<'_> {
     /// `leads`.
     ///
     /// The first starts with an [`Instruction::ClassOr`] and runs inline.
-    /// The others are compiled after the program.
-    /// They are entered only where their lead admits the text.
+    /// The others are compiled after the program and entered only where their
+    /// lead admits the text.
     /// A fold the text does not hold then costs nothing over the first
     /// alternative alone.
     /// A first alternative that does not start with a class compiles as a

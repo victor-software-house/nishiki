@@ -48,8 +48,8 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
 ///
 /// The decoder builds the character from the bits of its bytes.
 /// It runs no separate validation pass.
-/// It returns `None` for a byte that cannot lead a character.
-/// It returns `None` when a continuation byte is missing or out of place.
+/// It returns `None` for a byte that cannot lead a character, and when a
+/// continuation byte is missing or out of place.
 /// [`char::from_u32`] rejects a surrogate and a value past U+10FFFF.
 /// The width check rejects an overlong form.
 ///

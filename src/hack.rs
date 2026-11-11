@@ -5,7 +5,7 @@
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
 //! The tables in `grammar` and `words` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
+//! Its `matchers` decide where each pattern matches.
 //!
 //! Where an expression is PHP's word for word, the matcher is the one PHP
 //! uses, in [`crate::php_family`].

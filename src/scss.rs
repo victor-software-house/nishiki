@@ -4,7 +4,7 @@
 //! The lexer runs the grammar's begin/end rules with hand-written matchers
 //! over bytes (see the `engine` module).
 //! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
+//! Its `matchers` decide where each pattern matches.
 //! The grammar includes rules of CSS's (`source.css#…`), which run on the CSS
 //! lexer's matchers.
 //!

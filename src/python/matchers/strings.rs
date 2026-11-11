@@ -193,7 +193,7 @@ impl Lexer<'_> {
         Some(p + 2 + width)
     }
 
-    /// The end of a string: its quote text, which the begin kept.
+    /// The end of a string: its quote text, the one the begin kept.
     /// A single-line string also ends at a line feed that no backslash
     /// precedes.
     fn string_end(&mut self, p: usize, close: Close) -> Option<usize> {

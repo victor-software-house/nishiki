@@ -275,8 +275,8 @@ impl Lexer<'_> {
 
     /// The ends of `#+|[OP]+(?<!#)` at `i`, in the order backtracking tries
     /// them.
-    /// The first is the run of hashes when one starts there.
-    /// The second is the operator characters up to the last that is no hash.
+    /// First is the run of hashes when one starts there.
+    /// Second is the operator characters up to the last that is no hash.
     pub(super) fn operator_ends(&self, i: usize) -> [Option<usize>; 2] {
         let hashes = (self.at(i) == b'#' && i < self.lim()).then(|| self.skip(i, |b| b == b'#'));
         let mut end = self.class_end(i, is_op);

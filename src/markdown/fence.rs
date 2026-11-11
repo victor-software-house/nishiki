@@ -73,7 +73,8 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::TypeScript),
     },
-    // The grammar sends `jsx` to the JavaScript grammar, not the JSX one.
+    // The grammar sends `jsx` to the JavaScript grammar, instead of the JSX
+    // one.
     #[cfg(feature = "lang-javascript")]
     Name {
         words: &["javascript", "jsx", "js", "es6", "mjs", "cjs", "dataviewjs"],
@@ -267,8 +268,8 @@ const NAMES: &[Name] = &[
         brace: None,
         embed: Embed::Lang(Language::CSharp),
     },
-    // The grammar's `xsl` rule embeds the XSL grammar, which nishiki does not
-    // lex, so an `xsl` or `xslt` fence is plain.
+    // The grammar's `xsl` rule embeds the XSL grammar, and nishiki does not
+    // lex it, so an `xsl` or `xslt` fence is plain.
     #[cfg(feature = "lang-xml")]
     Name {
         words: &[

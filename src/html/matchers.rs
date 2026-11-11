@@ -195,7 +195,7 @@ impl Lexer<'_> {
     }
 
     /// [`Lexer::lit_ci`] from the first byte that differs, at `i`, with the
-    /// rest of the literal from the same place. The byte at `i` is above
+    /// literal's rest from the same place. The byte at `i` is above
     /// ASCII.
     #[cold]
     fn folded_lit(&self, i: usize, rest: &[u8]) -> Option<usize> {
@@ -1342,7 +1342,7 @@ impl Lexer<'_> {
 
     // Elements of an SVG or MathML tree.
 
-    /// The end of `(([^"'>]|"[^"]*"|'[^']*')*)` from `from`, which is where
+    /// The end of `(([^"'>]|"[^"]*"|'[^']*')*)` from `from`, where
     /// the run of attributes stops: at a `>`, or at a quote that nothing
     /// closes.
     fn attribute_run(&self, from: usize) -> usize {

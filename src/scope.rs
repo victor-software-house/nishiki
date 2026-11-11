@@ -443,8 +443,8 @@ pub type Scopes<S> = &'static Keyed<[S]>;
 ///
 /// A list of one scope keys by its code plus one.
 /// Codes are numbered in order, so these keys are near consecutive.
-/// The path caches' multiplicative hash spreads consecutive keys evenly.
-/// A random key collides more.
+/// The path caches' multiplicative hash spreads consecutive keys evenly, and a
+/// random key collides more.
 /// An FNV key missed a third more often in CSS: 3,110 misses against 2,330.
 ///
 /// The plus one keeps a list apart from the same list after a code 0.

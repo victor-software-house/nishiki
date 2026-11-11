@@ -59,7 +59,7 @@ impl Lexer<'_> {
     }
 
     /// `(^[\t ]+)?(?=#)`: where a comment starts, with the indentation before
-    /// it at the start of a line.
+    /// it, at the start of a line.
     pub(in crate::ruby) fn comment_start(&mut self, p: usize) -> Option<usize> {
         if p == 0 {
             let hash = self.skip(p, |b| b == b'\t' || b == b' ');

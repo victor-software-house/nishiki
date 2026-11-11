@@ -21,7 +21,7 @@ use crate::scratch::Scratch;
 use crate::{Stack, Token, java};
 
 /// The most capture groups a match carries.
-/// The end of a tag with nothing in it has a name of three parts between
+/// The end of an empty tag has a three-part name between
 /// three punctuation marks.
 const CAPTURES: usize = 7;
 
@@ -395,7 +395,7 @@ impl<'a> Lexer<'a> {
         None
     }
 
-    /// Where the search goes on after nothing matched at `p`.
+    /// Where the search resumes after nothing matched at `p`.
     /// In a rule whose patterns start at white space, a run of it is tried
     /// once.
     /// Every position in the run ends in the same place.

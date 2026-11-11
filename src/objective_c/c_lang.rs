@@ -165,8 +165,8 @@ where
         matches!(self.prev(p), Some(b']' | b')')).then(|| self.space_end(p))
     }
 
-    /// The final identifier of a member access, which must not start with a
-    /// word of [`words::MEMBER_EXCLUDED`]: where it ends.
+    /// Where the final identifier of a member access ends, when it does not
+    /// start with a word of [`words::MEMBER_EXCLUDED`].
     fn member_name(&self, q: usize) -> Option<usize> {
         if !self.boundary(q) {
             return None;

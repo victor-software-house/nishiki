@@ -123,7 +123,8 @@ impl Lang {
     /// It lexes Sass, `CoffeeScript`, Markdown, JSON and TOML only with their
     /// features.
     /// vscode-textmate skips a rule whose only pattern includes a missing
-    /// grammar, so such a block opens no body: its text stays the block's.
+    /// grammar, so such a block opens no body.
+    /// Its text stays the block's.
     pub(crate) const fn has_grammar(self) -> bool {
         match self {
             Lang::Pug | Lang::Stylus | Lang::Postcss | Lang::Json5 => false,
@@ -531,7 +532,7 @@ pub(super) fn template_end(s: &[u8], p: usize) -> bool {
     end_tag(s, p, b"template")
 }
 
-/// The end of the value in the string with `carried`: its quote.
+/// The end of the value in the string that has `carried`: its quote.
 #[cfg(feature = "lang-vue")]
 fn quote_halt(carried: u32) -> VueHalt {
     match string_quote(carried) {

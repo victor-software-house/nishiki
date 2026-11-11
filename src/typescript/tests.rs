@@ -904,8 +904,8 @@ fn an_embedding_end_halts_where_a_rule_of_the_root_would_start() {
     fn at_c(bytes: &[u8], p: usize) -> bool {
         bytes.get(p) == Some(&b'c')
     }
-    // The name `abc` is one match, which covers its `c`; the `c` in the
-    // call's parentheses is inside a context.
+    // The name `abc` is one match, which covers its `c`.
+    // The `c` in the call's parentheses is inside a context.
     let rows = until(&[], super::start_embedded, &["abc + f(c) c"], &at_c, None);
     assert_eq!(rows[0].0, Some(11));
 }

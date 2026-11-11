@@ -37,7 +37,7 @@ impl Lexer<'_> {
         }
     }
 
-    /// The end of the run of white space from `i`: the regex `\s*`.
+    /// The end of the white space run from `i`: the regex `\s*`.
     pub(super) fn ws(&self, i: usize) -> usize {
         let (from, to) = self.x.space_run.get();
         if from <= i && i < to {

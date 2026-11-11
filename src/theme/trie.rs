@@ -190,7 +190,7 @@ pub(super) struct Trie {
 }
 
 /// The child built for each parent and part while a trie is built.
-/// std's map draws a random key, so a theme cannot pick parts that collide.
+/// std's map draws a random key, so no theme can pick parts that collide.
 type Found<'a> = HashMap<(usize, &'a str), usize>;
 
 impl Trie {

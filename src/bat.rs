@@ -3,9 +3,9 @@
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
-//! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
-//! The rules left open at the end of a line are frames of the highlighter's
+//! The tables in `grammar` are generated from the grammar, and its
+//! `matchers` decide where each pattern matches.
+//! Rules left open at the end of a line are frames of the highlighter's
 //! interned state.
 //! Shiki's Markdown grammar embeds Batch in `bat` and `batch` fences.
 

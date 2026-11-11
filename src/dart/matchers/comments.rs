@@ -82,7 +82,7 @@ impl Lexer<'_> {
     /// block comment.
     ///
     /// When a `/` follows the blanks, the match gives the last blank back.
-    /// A blank then follows, and the blanks after it reach the `/`, not a
+    /// A blank then follows, and the blanks after it reach the `/` instead of a
     /// fence.
     pub(super) fn block_code_line(&self, p: usize) -> Option<usize> {
         if p != 0 {

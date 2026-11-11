@@ -143,7 +143,7 @@ impl Lexer<'_> {
         })
     }
 
-    /// The first end of a run of units from `from` for which `then` matches,
+    /// The first end of a unit run from `from` for which `then` matches,
     /// in the order a backtracking matcher tries them.
     ///
     /// The longest run comes first.

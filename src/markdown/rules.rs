@@ -89,8 +89,8 @@ impl Pattern {
     /// It takes the byte there (`at`) and the first byte after the blanks that
     /// follow (`first`). It also takes whether `^` or `\G` matches there
     /// (`anchored`).
-    /// Every block rule but the definition starts at such a position.
-    /// Each begins by testing one of the two bytes.
+    /// Every block rule but the definition starts at such a position, and each
+    /// begins by testing one of the two bytes.
     /// The lexer asserts in debug builds that a rule this skips would have
     /// failed.
     pub(crate) fn opens_block(self, anchored: bool, at: u8, first: u8) -> bool {

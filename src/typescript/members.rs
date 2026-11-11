@@ -874,7 +874,7 @@ impl<const D: u8> Lexer<'_, D> {
             .or_else(|| self.expression(p))
     }
 
-    /// The four forms of arrow parameters at the start of an object value.
+    /// The four forms of arrow parameters at an object value's start.
     ///
     /// `(?<=:)\s*(async)?(?=\s*(<…>)\(\s*(…open…))`.
     ///

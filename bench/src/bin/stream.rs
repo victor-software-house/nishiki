@@ -101,7 +101,7 @@ fn reference(name: &str) -> Option<Colours> {
     )
 }
 
-/// The colour of each byte of a line of `length` bytes, from its spans.
+/// The colour of each byte, for a line of `length` bytes, from its spans.
 fn per_byte(spans: &[(usize, String)], length: usize) -> Vec<&str> {
     let mut colours = vec![""; length];
     let mut start = 0;

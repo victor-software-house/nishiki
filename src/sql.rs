@@ -2,7 +2,7 @@
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
-//! The rules left open at the end of a line (a string, a block comment,
+//! Rules left open at the end of a line (a string, a block comment,
 //! brackets) are frames of the highlighter's interned state.
 //! The keyword and function tables in `words` are generated from the grammar by
 //! `codegen/src/words/sql.rs`.

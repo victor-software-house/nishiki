@@ -53,7 +53,7 @@ pub(crate) struct Words {
 }
 
 impl Words {
-    /// The first list that holds `word`, which the table spells: lowercase
+    /// The first list that holds `word` as the table spells it: lowercase
     /// for a folded table.
     fn list(&self, word: &[u8]) -> Option<u8> {
         let (mut low, mut high) = (0, self.ends.len());

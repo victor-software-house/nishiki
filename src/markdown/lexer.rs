@@ -7,7 +7,7 @@
 //! fails closes itself and every container inside it.
 //!
 //! Then the rules of the innermost container, and its closing rule, are tried
-//! at each position from the cursor on. The match that starts first wins, and
+//! at each position, from the cursor on. The match that starts first wins, and
 //! among matches that start together the rule listed first. A match opens a
 //! container, closes one, or only scopes text.
 
@@ -640,7 +640,7 @@ impl<'a> Lexer<'a> {
 
     /// The match of the open container's closing rule at `start`.
     ///
-    /// Front matter's closing rule applies last, so on the first line, which
+    /// Front matter's closing rule applies last, so on the first line that
     /// it would close, the front matter begins instead.
     fn try_end(
         &mut self,
@@ -1344,7 +1344,7 @@ impl<'a> Lexer<'a> {
     /// html-derivative in a paragraph, a heading or emphasis gives the line
     /// back after its construct, which closes the container.
     ///
-    /// A fence's `while` rule puts `\G` at the start of each of its lines.
+    /// A fence's `while` rule puts `\G` at the start of every fence line.
     /// A `vue` fence has no `while` rule.
     /// Its lines have `\G` there only where `self.anchor` is
     /// (`vue_body_line`).
@@ -1353,7 +1353,7 @@ impl<'a> Lexer<'a> {
     /// It does not copy the frame.
     /// With a copy, one `Language` row's flags could change how `step`
     /// lowers it, since `step` inlines this function.
-    /// Haskell's row turned it into a copy of the frame on the stack and a
+    /// Haskell's row turned it into a copy of the stack frame and a
     /// jump table.
     /// `step` then ran 2.1% more of its own instructions.
     fn embedded(&mut self) {
@@ -1488,7 +1488,7 @@ impl<'a> Lexer<'a> {
     /// Pops the fence's body where its language stopped at `at`, at its root,
     /// without advancing ([`Language::pops_host`]).
     /// vscode-textmate pops the innermost rule there, the body.
-    /// The rest of the line, up to `end`, sits on the fence in place of the
+    /// The rest of the line, up to `end`, sits on the fence instead of the
     /// tokens the language gave it.
     /// The fence's next line opens the body again, as its rule does.
     #[cold]
@@ -1656,7 +1656,7 @@ fn html_give_back(container: Container) -> Option<crate::html::GiveBack<'static>
 /// - Otherwise the fence's closing rule ends the body where Vue is outside
 ///   every rule.
 ///
-/// It takes the fields it changes, not the lexer.
+/// It takes the fields it changes instead of the lexer.
 /// So `check_whiles`, which calls it in a loop, keeps the lexer's other fields
 /// in registers around the call.
 #[cfg(feature = "lang-vue")]

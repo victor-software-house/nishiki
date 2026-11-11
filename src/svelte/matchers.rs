@@ -647,7 +647,7 @@ impl Lexer<'_> {
         Some(self.ident_end(i + first))
     }
 
-    /// The end of the run of characters from `i` that `class` accepts.
+    /// The end of the run from `i` whose characters `class` accepts.
     fn skip_chars(&self, mut i: usize, class: impl Fn(char) -> bool) -> usize {
         while let Some((c, end)) = self.char_at(i)
             && i < self.lim()

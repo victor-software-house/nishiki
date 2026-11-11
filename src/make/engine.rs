@@ -211,11 +211,10 @@ impl Grammar for Make {
 /// the rule's patterns in order.
 ///
 /// A rule the depth limit keeps closed leaves its text plain.
-/// That rule matched nothing.
-/// It would match again at the same place.
+/// That rule matched nothing and would match again at the same place.
 /// The search goes on one character later instead.
-/// The halt test is compiled in only when `HALTING`.
-/// A Makefile that no other grammar embeds pays nothing for it.
+/// The halt test is compiled in only when `HALTING`, so a Makefile that no
+/// other grammar embeds pays nothing for it.
 fn scan<const HALTING: bool>(
     lexer: &mut Lexer<'_>,
     halts: &Halts<'_>,

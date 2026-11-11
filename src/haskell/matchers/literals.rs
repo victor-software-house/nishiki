@@ -280,7 +280,7 @@ impl Lexer<'_> {
         self.quoted_end(p)
     }
 
-    /// The end of the run of characters from `i` that are not `\s`.
+    /// The end of the run from `i` whose characters are not `\s`.
     pub(super) fn token_end(&self, i: usize) -> usize {
         let mut at = i;
         while at < self.lim() && self.space_at(at) == 0 {

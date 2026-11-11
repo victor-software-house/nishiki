@@ -4,7 +4,7 @@
 //! Each rule's pattern is widened to a plain expression (see `regex::relax`).
 //! The patterns are compiled together into one `regex-automata` searcher.
 //! The searcher reports the first position where some pattern may match.
-//! The exact machine then tries the patterns that can start with the byte
+//! Then the exact machine tries the patterns that can start with the byte
 //! there.
 //!
 //! Two kinds of pattern stay out of the searcher and are searched alone:
@@ -29,7 +29,7 @@ pub(crate) struct Scanner {
     /// The list's rules, in the order of the grammar.
     pub(crate) rules: &'static [usize],
     meta: Option<meta::Regex>,
-    /// The position in the list of each pattern of the automaton.
+    /// The list position of each pattern of the automaton.
     set: Vec<usize>,
     /// The positions in the list searched one by one.
     pub(crate) residual: Vec<usize>,
@@ -132,8 +132,7 @@ impl Scanner {
     /// The scanner of the list `rules` of the grammar of `cells`, from the
     /// patterns in them.
     ///
-    /// The build reads each pattern's sketch.
-    /// It compiles no pattern's program.
+    /// The build reads each pattern's sketch and compiles no pattern's program.
     /// A pattern the engine cannot parse never matches, so it is left out.
     /// When the automaton refuses the patterns together, each is tried alone.
     /// The ones it refuses are searched alone.

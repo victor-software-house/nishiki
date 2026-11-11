@@ -96,7 +96,7 @@ pub(in crate::swift) fn is_op_ascii(b: u8) -> bool {
 }
 
 impl Lexer<'_> {
-    /// The end of the run of identifier characters from `from`.
+    /// The end of the identifier run from `from`.
     /// A start inside the run last scanned reuses its end.
     pub(in crate::swift) fn ident_tail_end(&self, from: usize) -> usize {
         let (lo, hi) = self.x.names.tail.get();

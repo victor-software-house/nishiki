@@ -605,7 +605,7 @@ impl<const D: u8> Lexer<'_, D> {
 
     /// The tail of a string key.
     /// The grammar misspells `satisfies` here.
-    /// The byte escape keeps the misspelling out of the source.
+    /// A byte escape keeps the misspelling out of the source.
     fn key_string_tail(&self, p: usize) -> bool {
         let j = self.ws(p);
         if matches!(self.byte(j), b'(' | b',' | b'<' | b'}') {

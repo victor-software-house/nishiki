@@ -27,7 +27,7 @@ use crate::{Highlighter, Stack, State, Syntax, Token};
 /// The tables the engine's tests run, one cell per table name.
 ///
 /// The lock guards only the list of cells.
-/// Each cell links its table once a process, so a test waits only for the
+/// Each cell links its table once a process, so a test blocks only on the
 /// table it runs.
 static LINKED_TABLES: Mutex<Vec<(&str, &OnceLock<&Grammar>)>> = Mutex::new(Vec::new());
 
@@ -348,7 +348,7 @@ fn unknown_fences(grammar: &Grammar, lines: &[Line], embedding: Embedding) -> Ve
     skip
 }
 
-/// The bytes of `lines` whose stack differs from Shiki's, with a message for
+/// The bytes of `lines` whose stack differs from Shiki's, and a message for
 /// each of the first few.
 /// Blocks of languages the tables do not hold are left out, as
 /// [`unknown_fences`] finds them.
@@ -925,7 +925,7 @@ fn next(seed: &mut u64) -> u64 {
 /// corpus.
 ///
 /// - One has a third of its letters turned into the letters of the folds.
-/// - One has a pair of them put in at a random place.
+/// - One has a pair of them inserted at a random place.
 fn fold_mutations(line: &str, seed: &mut u64) -> [String; 2] {
     let letters: String = line
         .chars()
@@ -948,7 +948,7 @@ fn fold_mutations(line: &str, seed: &mut u64) -> [String; 2] {
     [letters, format!("{}{pair}{}", &line[..at], &line[at..])]
 }
 
-/// Every match of `regex` in `text`, each with its groups, searching on
+/// Every match of `regex` in `text`, each with its groups, searching again
 /// from the end of the last as the tokenizer does, with `\G` where each
 /// search starts.
 fn every_match(regex: &Regex, text: &[u8]) -> Vec<Vec<Option<(usize, usize)>>> {
@@ -2159,7 +2159,7 @@ mod hand_offs {
     }
 
     /// Three engine levels nest here, each on its own spare scratch. A
-    /// `:ruby` filter hands its lines to Ruby. Ruby's `<<~HAML` hands its
+    /// `:ruby` filter hands its lines to Ruby, and Ruby's `<<~HAML` hands its
     /// lines to HAML. That HAML's `:markdown` filter hands its lines to
     /// Markdown, whose fence runs Objective-C on the engine. Lexing the
     /// document again allocates nothing.

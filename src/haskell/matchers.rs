@@ -269,7 +269,7 @@ impl Lexer<'_> {
         }
     }
 
-    /// The end of the run of characters from `i` that `class` accepts.
+    /// The end of the run from `i` whose characters `class` accepts.
     fn class_end(&self, i: usize, class: fn(char) -> bool) -> usize {
         let mut at = i;
         while let Some((c, next)) = self.char_here(at)

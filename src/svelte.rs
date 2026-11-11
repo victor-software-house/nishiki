@@ -4,12 +4,12 @@
 //! The lexer runs the grammar's begin/end rules on the shared rule engine
 //! ([`crate::rules`]).
 //! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
+//! Its `matchers` decide where each pattern matches.
 //! A rule left open at the end of a line is a frame of the highlighter's
 //! interned state.
 //!
 //! A rule that includes another grammar embeds that language.
-//! Expressions go to the TypeScript lexer, some of them at an entry of
+//! Expressions go to the TypeScript lexer, some starting at an entry of
 //! TypeScript's grammar, such as an object literal.
 //! `<script>` bodies go to the JavaScript or TypeScript lexer, and `<style>`
 //! bodies to the CSS lexer.

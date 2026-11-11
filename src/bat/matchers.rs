@@ -239,7 +239,7 @@ impl Lexer<'_> {
         self.at_eol(p) || self.space_at(p) > 0
     }
 
-    /// The end of the run of characters from `i` that are not `\s`: the
+    /// The end of the run from `i` whose characters are not `\s`: the
     /// regex `\S*`.
     fn token_end(&self, i: usize) -> usize {
         let mut at = i;

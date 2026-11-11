@@ -541,7 +541,7 @@ fn xml_fences_embed_the_xml_lexer_without_its_root() {
     }
 }
 
-/// The `xsl` rule embeds the XSL grammar, which nishiki does not lex, so
+/// The `xsl` rule embeds the XSL grammar, and nishiki does not lex it, so
 /// its fences are plain, as in Shiki without that grammar.
 #[test]
 fn xsl_fences_are_plain() {
@@ -1284,7 +1284,7 @@ fn the_state_resumes_from_any_line() {
         let _ = highlighter.line(line, &mut state, &mut tokens);
         states.push(state);
     }
-    // Resume from the state after line 1: the same highlighter, which owns
+    // Resume from the state after line 1. The same highlighter, which owns
     // the state, reaches the same state again.
     let mut resumed = states[1];
     let mut second = Vec::new();
@@ -1441,8 +1441,8 @@ fn second_line_is_embedded(text: &str) -> bool {
 /// Shiki matches the names without regard to case under Oniguruma's folding.
 ///
 /// The Kelvin sign is `k`, the long s is `s`, `ß` is `ss`, and a ligature is
-/// the letters it stands for. A fold stands for all its letters, so `rußt`,
-/// which reads as `russt`, is no name.
+/// the letters it stands for. A fold stands for all its letters, so `rußt`
+/// reads as `russt` and is no name.
 #[test]
 fn a_fence_name_matches_with_oracles_case_folding() {
     for name in [

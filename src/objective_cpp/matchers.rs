@@ -492,7 +492,8 @@ impl Lexer<'_> {
         }
     }
 
-    /// `CppLangAt12`: `((?:name::)*)(name)(::)`, which gives back names until
+    /// `CppLangAt12`: `((?:name::)*)(name)(::)`.
+    /// It gives back names until
     /// one is followed by `::`: the last name of the chain before its `::`.
     fn scope_resolution(&mut self, p: usize) -> Option<usize> {
         let mut at = p;

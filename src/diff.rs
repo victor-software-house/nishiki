@@ -2,7 +2,7 @@
 //!
 //! The grammar has no state: every rule is one regular expression over a line,
 //! and all but one start with `^`.
-//! A line is therefore lexed on its own, by matchers written by hand for each
+//! A line is therefore lexed on its own, by hand-written matchers for each
 //! rule, in `rules`.
 //! The state after any line is the state before it.
 //!

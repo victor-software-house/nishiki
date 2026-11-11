@@ -84,7 +84,7 @@ pub(crate) struct Text<'a> {
 /// An empty line leaves the state as it is.
 /// Shiki does not tokenize empty lines.
 /// The grammar would otherwise close a statement it left open at the end of
-/// the line before.
+/// the previous line.
 pub(crate) fn line(cx: &mut crate::language::Context<'_>, line: Text<'_>, state: u32) -> Finished {
     if line.bytes.is_empty() {
         return Finished::unspent(state);

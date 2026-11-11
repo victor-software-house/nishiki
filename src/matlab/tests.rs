@@ -29,7 +29,7 @@ fn a_command_names_its_call_and_comment() {
     assert_eq!(leaf_in(&row, "% c"), "comment.line.percentage.matlab");
 }
 
-/// The indexing braces end at the last of two blanks before the line feed.
+/// The indexing braces end at the last of two blanks, before the line feed.
 /// The next line is then a command again.
 #[test]
 fn indexing_braces_end_at_the_last_trailing_blank() {

@@ -18,7 +18,7 @@ pub(crate) fn rebuilds() -> bool {
     REBUILDS.with(Cell::get)
 }
 
-/// The scopes of each token of each line of `text`, innermost last, lexed
+/// The scopes of each token in `text`, grouped by line, innermost last, lexed
 /// under `limits`.
 fn scopes(
     language: crate::Language,

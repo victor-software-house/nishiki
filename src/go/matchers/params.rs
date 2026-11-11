@@ -5,7 +5,7 @@ use super::super::engine::Lexer;
 use super::types::Lead;
 use crate::rules::{CachedRuns, Chars};
 
-/// Whether white space may stand before each comma of a list of names.
+/// Whether white space may stand before each comma of a name list.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(in crate::go) enum Commas {
     /// `name(?:,\s*name)*`

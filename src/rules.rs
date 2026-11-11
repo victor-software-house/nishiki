@@ -189,11 +189,11 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     /// Whether a rule of the grammar has a `while` pattern
     /// ([`Grammar::rule_while`]).
     /// The engine then keeps the indices of the open ones between lines.
-    /// A line that continues the last tries only those frames.
-    /// Without the flag, a line visits every frame.
+    /// A line that continues the last tries only those frames, and without the
+    /// flag it visits every frame.
     /// The flag only saves work: the tokens are the same either way.
     const WHILES: bool = false;
-    /// What the scan does with the rest of a run of spaces and tabs where no
+    /// What the scan does with the rest of a space and tab run where no
     /// pattern matched at its first byte ([`BlankRuns`]).
     const BLANK_RUNS: BlankRuns = BlankRuns::Skip;
     /// Whether `pattern` takes exactly one blank and then requires a character
@@ -399,7 +399,7 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     }
 }
 
-/// The state at the start of a document of grammar `G` whose scopes sit on
+/// The state at the start of a `G` document whose scopes sit on
 /// the stack `base`: the root rule with [`Grammar::SOURCE`] on top of it.
 pub(crate) fn start<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena.child(base, G::SOURCE).unwrap_or(base);
@@ -409,7 +409,7 @@ pub(crate) fn start<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The state at the start of the lines of grammar `G` in a fenced code block.
+/// The start state of grammar `G`'s lines in a fenced code block.
 ///
 /// The block's text sits on the stack `base` with no source scope of its own,
 /// as in Shiki's embedding.
@@ -600,11 +600,11 @@ pub(crate) trait Embeds: Grammar {
     /// By default, none does, and the test compiles out.
     const HALTS: bool = false;
 
-    /// The halts for `embedding`.
+    /// Halts for `embedding`.
     /// The first is tried before the embedded patterns at each place.
-    /// The second stands for the patterns after the embedded grammar.
-    /// It is tried where none of the embedded patterns match.
-    /// The halts may read the begin text of the embedding rule's parent.
+    /// The second stands for the patterns after the embedded grammar, and is
+    /// tried where none of the embedded patterns match.
+    /// They may read the begin text of the embedding rule's parent.
     fn embed_halts(embedding: &Embedding, arena: &Arena) -> (Self::End, Option<FnHalt>);
 
     /// The halts for `embedding` by `rule`, the embedding rule.
@@ -687,7 +687,7 @@ pub(crate) trait Embeds: Grammar {
     ///
     /// The group is the text from `line.start` to the end of `line.text`, with
     /// no line feed after it.
-    /// The end of `line.text` is the group's end.
+    /// `line.text` ends where the group ends.
     /// The group's text sits on the stack `base`.
     /// Its tokens must end inside the group.
     /// None leaves the group as its one placeholder token, as the default
@@ -725,7 +725,7 @@ fn settle_deferred<G: Embeds>(
 }
 
 /// Lexes each deferred capture group with [`Embeds::lex_nested`], and puts
-/// its tokens in place of its placeholder in the output.
+/// its tokens where its placeholder stood in the output.
 ///
 /// The groups go from the last to the first.
 /// Each splice moves only the tokens after it, so the placeholders before it
@@ -815,11 +815,12 @@ impl<G: Embeds> Halt for ParentTextEnd<'_, G> {
 
 /// Lexes `line` like [`lex`], for grammar `G` whose rules embed other languages
 /// ([`CarriedState::Embed`]). The engine stops where the innermost rule embeds
-/// a language. That language lexes the text from there.
-/// It stops where the halts from [`Embeds::embed_halts`] hold.
-/// The engine goes on from there.
-/// The rule's carried value keeps the embedded language's state.
-/// A language that cannot halt lexes the rest of the line.
+/// a language, and that language lexes the text from there.
+///
+/// The language stops where the halts from [`Embeds::embed_halts`] hold, and
+/// the engine goes on from there.
+/// The rule's carried value keeps the embedded language's state, and a language
+/// that cannot halt lexes the rest of the line.
 #[cfg(feature = "_embedding")]
 pub(crate) fn lex_embedding<G: Embeds>(
     cx: &mut Context<'_>,
@@ -1263,7 +1264,7 @@ fn resume_at<G: Grammar>(
 /// `inner` as its carried value ([`with_inner`]).
 /// The frames the grammar kept for `embedding` move to that state, since
 /// only the top frame's carried value differs.
-/// The next lexer then takes them over instead of opening every rule again.
+/// Then the next lexer takes them over instead of opening every rule again.
 #[cfg(feature = "_embedding")]
 fn resumed_with<G: Grammar>(
     cx: &mut Context<'_>,
@@ -1315,7 +1316,7 @@ fn pop_host<G: Grammar>(
     parent
 }
 
-/// Fills `starts` with where the own patterns of the rule on top of
+/// Fills `starts` with where the top rule's own patterns in
 /// `state` start on `line` from `at`.
 ///
 /// It is for a rule that lists them after the language it embeds
@@ -1393,7 +1394,7 @@ pub(crate) trait Tabled: Grammar {
     fn tables(rule: Self::Rule) -> &'static Tables<Self>;
 }
 
-/// What the scan does with the rest of a run of spaces and tabs where no
+/// What the scan does with the rest of a space and tab run where no
 /// pattern matched at the run's first blank.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg_attr(
@@ -1471,9 +1472,9 @@ pub(crate) enum Stop {
 
 /// Where a line stopped for an embedded language.
 /// It holds the cursor, the language and its state (0 before it lexed
-/// anything). It holds the scope stack the language's text sits on.
-/// It holds the carried value of the embedding rule's parent frame, such as
-/// the outer rule's begin text.
+/// anything), and the scope stack the language's text sits on.
+/// It also holds the carried value of the embedding rule's parent frame, such
+/// as the outer rule's begin text.
 #[cfg(feature = "_embedding")]
 #[derive(Clone, Copy, Debug)]
 pub(crate) struct Embedding {
@@ -1615,9 +1616,9 @@ pub(crate) struct Start {
     pub(crate) bytes: [u64; 4],
     /// Where in the line a match can start.
     /// A pattern that opens with `^` matches only at the start of the line.
-    /// A lookbehind that needs a byte keeps a match off the start of the line.
-    /// A `\b`, or a lookbehind that fails after a word character, keeps it out
-    /// of words: `(?<!\w)` and `(?<=\.)` are such lookbehinds.
+    /// Any lookbehind that needs a byte keeps a match off the start of the
+    /// line. A `\b`, or a lookbehind that fails after a word character, keeps
+    /// it out of words: `(?<!\w)` and `(?<=\.)` are such lookbehinds.
     pub(crate) places: PlaceSet,
     /// The pattern can match where no byte follows: past the line feed, or
     /// at the end of a last line without one.

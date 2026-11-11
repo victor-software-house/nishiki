@@ -138,8 +138,9 @@ impl Lexer<'_> {
     ///
     /// Each part gives characters back in the order a backtracking matcher
     /// tries them.
-    /// The name gives back characters from its end; the last character is
-    /// then the next character of the name, which only `-` can be.
+    /// The name gives back characters from its end.
+    /// The last character is then the next character of the name, which only
+    /// `-` can be.
     pub(super) fn sub(&mut self, p: usize) -> Option<usize> {
         if !self.boundary(p) {
             return None;

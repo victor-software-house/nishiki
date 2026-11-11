@@ -164,7 +164,7 @@ impl Lexer<'_> {
             .or_else(|| self.escape_at(i, escape))
     }
 
-    /// The end of the run of characters of `class` and escapes from `i`. A
+    /// The end of the run from `i` of `class` characters and escapes. A
     /// run without an escape is remembered, and a later read from inside it
     /// ends where it does.
     pub(super) fn units_end(&self, i: usize, class: Class, escape: Escape) -> usize {
@@ -197,7 +197,7 @@ impl Lexer<'_> {
         self.name_with(p, (first, escape), (rest, escape))
     }
 
-    /// [`Lexer::name`] with an escape of its own for the first character.
+    /// [`Lexer::name`] plus an escape of its own for the first character.
     pub(super) fn name_with(
         &self,
         p: usize,
@@ -275,7 +275,7 @@ impl Lexer<'_> {
         end
     }
 
-    /// The end of the run of bytes of `class` from `p`, read no further than
+    /// The end of the run from `p` of `class` bytes, read no further than
     /// `p + most`.
     pub(super) fn bounded(&self, p: usize, most: usize, class: impl Fn(u8) -> bool) -> usize {
         let stop = (p + most).min(self.lim());

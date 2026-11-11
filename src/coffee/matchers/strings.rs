@@ -117,9 +117,10 @@ where
     }
 
     /// `[*+?]|\{(\d+,\d+|\d+,|,\d+|\d+)}\??`.
-    /// The branches take digits, a comma and digits, with a digit on at
-    /// least one side and a comma after a missing first number.
-    /// Giving back digits leaves a digit where a comma or `}` must stand.
+    /// The branches take digits, a comma and digits.
+    /// At least one side has a digit, and a comma follows a missing first
+    /// number. Giving back digits leaves a digit where a comma or `}` must
+    /// stand.
     pub(super) fn quantifier(&self, p: usize) -> Option<usize> {
         if matches!(self.at(p), b'*' | b'+' | b'?') {
             return Some(p + 1);

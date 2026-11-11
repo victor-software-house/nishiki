@@ -6,7 +6,7 @@
 //! The lexer runs the grammar's begin/end rules on the shared rule engine, in
 //! the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
-//! The grammar repeats every expression of Objective-C's, and Objective-C's
+//! This grammar repeats every expression of Objective-C's, and Objective-C's
 //! matchers answer those.
 //! The `matchers` here answer the rest, which come from the grammar's C++
 //! rules.

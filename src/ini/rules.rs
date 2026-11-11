@@ -137,7 +137,7 @@ impl<'a> Line<'a> {
         }
     }
 
-    /// The end of the run of white space from `i`.
+    /// The end of the white space run from `i`.
     fn spaces(&mut self, mut i: usize) -> usize {
         let from = i;
         while let width @ 1.. = self.space_at(i) {

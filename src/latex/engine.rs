@@ -19,7 +19,8 @@ pub(crate) type Scratch = rules::Scratch<Latex>;
 
 /// How many capture groups can be lexed again inside one another.
 /// A macro's arguments lex their text again, and those lex their own, so
-/// the depth stays small; the bound only stops a runaway.
+/// the depth stays small.
+/// The bound only stops a runaway.
 /// Past it, a group keeps its own scopes, and the line reports the depth
 /// limit.
 pub(crate) const MAX_NESTED: u32 = 64;
@@ -88,7 +89,7 @@ impl Grammar for Latex {
 
     /// A code environment's rule carries the language it embeds, and an
     /// environment's rule the name its end repeats.
-    /// A sectioning command carries its name, group 3, which its name scope
+    /// A sectioning command keeps its name, group 3, which its name scope
     /// `meta.function.section.$3.latex` repeats.
     fn rule_carried_state(rule: Rule) -> CarriedState {
         if matches!(rule, Rule::SectionsMacro) {

@@ -5,7 +5,7 @@
 //! number-like characters, as their closing lookahead requires.
 //! The seventh marks what none of them takes.
 //! The rule ends where the run does.
-//! The digit groups are lexed again for their `'` separators.
+//! Digit groups are lexed again for their `'` separators.
 
 use super::engine::ObjcMemory;
 use crate::rules::{Chars, Grammar, Lexer};
@@ -137,7 +137,7 @@ where
                     && matches!(self.prev(i), Some(b'E' | b'P' | b'e' | b'p'))))
     }
 
-    /// The end of the run of number-like characters from `i`: the place where
+    /// The end of the number-like run from `i`: the place where
     /// the closing lookahead holds.
     pub(super) fn number_run_end(&self, i: usize) -> usize {
         let mut j = i;
@@ -255,7 +255,7 @@ where
     /// Whether what follows the digits from `i` to `b` is nothing, or a
     /// suffix the number takes.
     /// A suffix needs `(?!\w)` after it.
-    /// The run ends before a non-ASCII letter, which `\w` still takes, so
+    /// The run ends before a non-ASCII letter that `\w` still takes, so
     /// `10ULé` has no suffix.
     fn suffix_ok(&self, i: usize, b: usize, suffix: Suffix) -> bool {
         let rest = self.text(i, b);

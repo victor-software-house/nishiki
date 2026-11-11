@@ -407,7 +407,7 @@ fn scan<G: Tabled, const HALTING: bool>(
 ///
 /// It breaks with `None` when the halt `end` holds at `p`.
 /// It breaks with the first one-blank pattern that matches at `p`.
-/// It continues when neither happens.
+/// When neither happens, it continues.
 /// A begin pattern of a rule the depth limit keeps closed is tried only to
 /// record the limit, as in the scan.
 ///

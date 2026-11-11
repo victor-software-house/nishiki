@@ -2,7 +2,7 @@
 //! The expression matches everything the pattern matches, and perhaps more.
 //! An automaton uses it to find where a match can start.
 //!
-//! What a plain expression cannot express is dropped or widened:
+//! What no plain expression can express is dropped or widened:
 //!
 //! - lookaround, `\A`, `\G` and `\b` become nothing;
 //! - a back-reference or a call matches any text;
@@ -23,8 +23,8 @@ use super::ast::{Anchor, Class, Greediness, Member, Node};
 ///
 /// A match that starts at `s` has the text before the lookahead.
 /// The lookahead's pattern then matches at the end of that text.
-/// The two in a row therefore match wherever a match can start.
-/// The cut applies on the path from the root through groups, atomic groups
+/// So the two in a row match wherever a match can start.
+/// The cut applies on the path from the root, through groups, atomic groups
 /// and lookaheads, as each one is walked.
 pub(super) fn relaxed(node: &Node) -> Hir {
     match node {

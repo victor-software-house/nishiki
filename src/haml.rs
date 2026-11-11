@@ -3,9 +3,9 @@
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
-//! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
-//! The rules left open at the end of a line are frames of the highlighter's
+//! The tables in `grammar` are generated from the grammar, and its
+//! `matchers` decide where each pattern matches.
+//! Rules left open at the end of a line are frames of the highlighter's
 //! interned state.
 //! Filters, comment blocks, attribute hashes and Ruby lines are such rules.
 //!
@@ -57,8 +57,8 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 }
 
 /// Lexes `line` like [`lex`], for HAML that another language embeds.
-/// The line halts where `end` holds before HAML's patterns are tried.
-/// It also halts where `after` holds and the patterns fail.
+/// The line halts where `end` holds before HAML's patterns are tried,
+/// and also where `after` holds and the patterns fail.
 /// Both apply only while no HAML rule is open.
 /// The second value holds where and why the line stopped (see
 /// [`rules::lex_until`]).

@@ -3,8 +3,8 @@
 //!
 //! Each module under `words/` writes one language's tables.
 //! It names the rules it reads and where each list sits in their patterns.
-//! This module holds what they share.
-//! It loads a grammar, finds a rule and cuts a list out of a pattern.
+//! This module holds what they share: it loads a grammar, finds a rule and
+//! cuts a list out of a pattern.
 //! It then expands the list into words and lays out a table.
 
 mod c;
@@ -118,7 +118,7 @@ impl Source {
     }
 
     /// The pattern text of the rule that `path` picks under repository entry
-    /// `key`: each index picks one of the patterns of the rule before it.
+    /// `key`: each index picks a pattern from the rule before it.
     fn pattern_at(self, key: &str, path: &[usize]) -> Result<&'static str, Error> {
         let mut rule = self.entry(key)?;
         for &index in path {

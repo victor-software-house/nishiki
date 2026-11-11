@@ -423,8 +423,8 @@ impl Lexer<'_> {
     }
 
     /// `\s*+(?<!\w)(?:(LIST)|(LIST)|(pthread_…t)|([A-Z_a-z]\w*_t))(?!\w)`: the
-    /// ways a builtin storage type matches at `p`, as a group, its end and the
-    /// start after the white space.
+    /// ways a builtin storage type can match at `p`, as a group, its end and
+    /// the start after the white space.
     ///
     /// - A listed word that no word character follows is the whole run of word
     ///   characters at `start`. The lists are sorted.

@@ -128,7 +128,8 @@ impl Lexer<'_> {
     /// one, before a colon.
     ///
     /// The optional `(\.)?` matches, empty if it must, so the `\b` branch
-    /// adds nothing: the label may start inside a word.
+    /// adds nothing.
+    /// The label may start inside a word.
     /// Left out, the `.` would have to start the name, which neither head
     /// takes.
     /// The name's class holds no `:`, so the colon follows the whole run.

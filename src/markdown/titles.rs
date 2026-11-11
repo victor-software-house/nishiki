@@ -119,8 +119,8 @@ mod tests {
         }
     }
 
-    /// Rising starts on a line with no stop before its end step past each
-    /// position once in all.
+    /// Rising starts on a line, with no stop before its end, and steps past
+    /// each position once in all.
     #[test]
     fn rising_starts_without_a_stop_step_past_each_position_once() {
         let line = [b'x'; 64];

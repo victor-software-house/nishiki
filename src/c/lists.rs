@@ -636,7 +636,7 @@ impl Rule {
     }
 }
 
-/// The index of the bucket for the byte at `p`.
+/// The bucket index for the byte at `p`.
 /// Bucket 256 is the end of the text.
 pub(super) const EOT: usize = 256;
 
@@ -1030,13 +1030,12 @@ impl Table {
     /// The table of context `r`, built the first time a line reaches `r`.
     /// A line pays only for the contexts it opens.
     ///
-    /// Bytes that start the same patterns share a class.
-    /// Each `place` has a column per class.
+    /// Bytes that start the same patterns share a class, and each `place` has a
+    /// column per class.
     /// A class index fits a `u8`, and a list index fits a `u16`.
-    /// `tables_fit_their_indices` checks both.
-    /// The fallbacks therefore never apply.
-    /// It is `None` only for an `r` outside [`Rule::ALL`].
-    /// No such `r` exists.
+    /// `tables_fit_their_indices` checks both, so the fallbacks never apply.
+    /// It is `None` only for an `r` outside [`Rule::ALL`], and no such `r`
+    /// exists.
     pub(super) fn of(r: Rule) -> Option<&'static Table> {
         static TABLES: [OnceLock<Table>; Rule::ALL.len()] =
             [const { OnceLock::new() }; Rule::ALL.len()];
@@ -1047,9 +1046,9 @@ impl Table {
 
     /// Builds the table over sets of the context's patterns.
     /// A set has one bit per pattern, in the order the context tries them.
-    /// A class is the set of patterns a byte can start.
-    /// A `place` is the set of patterns it allows.
-    /// A list is made only for a set not seen before.
+    /// A class is the set of patterns a byte can start, and a `place` is the
+    /// set of patterns it allows.
+    /// Only a set not seen before gets a list.
     fn build(r: Rule) -> Table {
         let mut flat = Vec::new();
         for list in r.items() {

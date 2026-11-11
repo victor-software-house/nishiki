@@ -41,7 +41,7 @@ use super::grammar::Rx;
 use crate::rules::Chars;
 
 /// Texts that some expressions always contain after where they start.
-/// A line without one of them after `p` cannot match the expression, which
+/// If none of them follows `p`, the line cannot match the expression, which
 /// saves running its matcher at every word of the line.
 pub(super) const NEEDS: &[&[u8]] = &[
     b"[",

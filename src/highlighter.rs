@@ -83,8 +83,8 @@ impl Sealed for Language {
 ///
 /// It owns the scope stacks and states its tokens and [`State`]s name.
 /// Both therefore belong to the highlighter that made them.
-/// Lines are lexed in order from [`State::default`].
-/// The state after one line is the input of the next.
+/// Lines are lexed in order from [`State::default`], and the state after one
+/// line is the input of the next.
 /// An editor can therefore keep each line's state and re-highlight from any
 /// line.
 #[derive(Debug)]
@@ -258,8 +258,8 @@ impl<S: Syntax> Highlighter<S> {
     ///
     /// The highlighter keeps each stack's style once computed.
     /// Styling another token with the same stack is then one lookup.
-    /// It keeps the styles of the two themes used last.
-    /// A call with a third theme drops the styles of the older one.
+    /// It keeps the styles of the two themes used last, and a call with a third
+    /// theme drops the styles of the older one.
     /// It allocates only when a new stack first appears.
     #[must_use]
     pub fn style(&mut self, theme: &Theme, stack: Stack) -> Style {

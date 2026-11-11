@@ -4,15 +4,15 @@
 //! The lexer runs the grammar's begin/end rules on the shared rule engine
 //! ([`crate::rules`]).
 //! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
+//! Its `matchers` decide where each pattern matches.
 //! A rule left open at the end of a line is a frame of the highlighter's
 //! interned state.
 //!
 //! A rule that includes another grammar embeds that language:
 //!
 //! - the frontmatter goes to the TypeScript lexer;
-//! - expressions and backtick attribute values go to the TSX lexer, some of
-//!   them at an entry of its grammar, such as an object literal;
+//! - expressions and backtick attribute values go to the TSX lexer, some
+//!   starting at an entry of its grammar, such as an object literal;
 //! - event handler values go to the JavaScript lexer;
 //! - `<script>` bodies go to the JavaScript, TypeScript or JSON lexer;
 //! - `<style>` bodies go to the CSS, PostCSS, SCSS, Less or Sass lexer.

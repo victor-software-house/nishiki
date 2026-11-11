@@ -2,8 +2,8 @@
 //!
 //! Shiki's grammar is MPL-2.0, so nothing is generated from it.
 //! It is read as the reference only.
-//! The lexer is written by hand from Shiki's output on probe lines and on
-//! the oracle's inputs.
+//! The lexer is hand-written from Shiki's output for probe lines and the
+//! oracle's inputs.
 //!
 //! It is a hand-written state machine over bytes.
 //! Its contexts are frames of the highlighter's interned state, one per

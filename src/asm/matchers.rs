@@ -343,13 +343,13 @@ impl Lexer<'_> {
         .then_some(end)
     }
 
-    /// `\b(?:…)\b` for a list of words made of `\w` and `?`, such as
+    /// `\b(?:…)\b` for a word list made of `\w` and `?`, such as
     /// `__?FILE?__`, as written.
     ///
     /// A word can end only where a `\w` stands before and none after.
     /// The generator checks that no word of a list is another followed by
     /// such a place.
-    /// The first word that the list holds is therefore the match.
+    /// So the first word that the list holds is the match.
     /// The search stops past the list's longest word, so a long run of
     /// `__?` costs no more than that at each place.
     fn literal(&self, p: usize, words: &[&[u8]]) -> Option<usize> {

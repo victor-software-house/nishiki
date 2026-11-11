@@ -326,8 +326,8 @@ impl Parser {
     }
 
     /// Whether a quantifier comes next.
-    /// A quantifier takes only the character before it out of a run of
-    /// literals.
+    /// A quantifier takes only the last character of a literal
+    /// run.
     fn quantifier_follows(&mut self) -> bool {
         match self.peek() {
             Some('*' | '+' | '?') => true,
@@ -403,8 +403,8 @@ impl Parser {
         Ok(absent(inner))
     }
 
-    /// Flags with no colon, such as `(?i)`, stay on for the rest of the
-    /// enclosing group.
+    /// Flags with no colon, such as `(?i)`, stay on until the
+    /// enclosing group ends.
     fn group(&mut self) -> Result<Option<Node>> {
         let outer = self.flags;
         let node = if self.eat('?') {

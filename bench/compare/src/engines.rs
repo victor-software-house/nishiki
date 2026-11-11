@@ -301,7 +301,7 @@ const PIERRE: &[(&str, &str)] = &[
 /// Shiki's github-dark as a Zed theme for `@pierre/highlights`, which takes
 /// no `TextMate` theme. Each token name of [`CAPTURES`] and [`PIERRE`] gets
 /// the colour nishiki's theme gives its scope. Pierre's fidelity to Shiki
-/// depends on this map, so a low figure can come from the map, not the
+/// depends on this map, so a low figure can come from the map instead of the
 /// engine.
 pub fn pierre_theme() -> Option<String> {
     let theme = Theme::from_json(GITHUB_DARK).ok()?;

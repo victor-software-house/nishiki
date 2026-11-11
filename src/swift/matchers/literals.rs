@@ -79,7 +79,7 @@ enum StringLiteral {
 
 impl Lexer<'_> {
     /// Whether `.` and then a character of `[]()\[_{}\p{L}\p{N}\p{M}]` stand
-    /// right before `p`: a member access, as in `a.0`, not a number.
+    /// right before `p`: a member access such as `a.0` instead of a number.
     fn member_dot_before(&self, p: usize) -> bool {
         self.prev_is(p, b'.') && self.char_before(p - 1).is_some_and(is_member_context)
     }
@@ -87,8 +87,8 @@ impl Lexer<'_> {
     /// Where the digits start after `(\B-|\b)` and, when `after` refuses a
     /// member access, the lookbehind `(?<![]()\[_{}\p{L}\p{N}\p{M}]\.)`.
     ///
-    /// A `-` that no word precedes is taken.
-    /// Neither alternative can then hold elsewhere.
+    /// A `-` that no word precedes is taken, and neither alternative can then
+    /// hold elsewhere.
     /// Anything else needs `\b`, and the lookbehind only follows that
     /// alternative.
     /// The lookbehind reads the two characters before `p`.

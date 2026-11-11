@@ -251,18 +251,18 @@ impl Lexer<'_> {
             .then_some(end)
     }
 
-    /// The end of the run of symbol characters from `i`.
+    /// The end of the symbol run from `i`.
     pub(super) fn symbol_end(&self, i: usize) -> usize {
         self.class_end(i, self.lim(), symbol_byte)
     }
 
-    /// The end of the run of symbol characters from `i`, stopping at `stop`.
+    /// The end of the symbol run from `i`, stopping at `stop`.
     pub(super) fn symbol_end_before(&self, i: usize, stop: usize) -> usize {
         self.class_end(i, stop, symbol_byte)
     }
 
-    /// The end of the run of characters from `i` that `ascii` accepts, or
-    /// that fold to an ASCII letter under `(?i)`, stopping at `stop`.
+    /// The end of the run from `i` whose characters `ascii` accepts, or fold to
+    /// an ASCII letter under `(?i)`, stopping at `stop`.
     fn class_end(&self, mut i: usize, stop: usize, ascii: fn(u8) -> bool) -> usize {
         let from = i;
         while i < stop

@@ -452,7 +452,8 @@ impl Lexer<'_> {
     }
 
     /// The name of a function definition after its return type, which ends at
-    /// `at`: the gap, calling convention, gap, scope chain, name and gap
+    /// `at`.
+    /// It is the gap, calling convention, gap, scope chain, name and gap
     /// before the `(`.
     fn definition_name(&self, at: usize) -> Option<DefinitionName> {
         for fifth in self.gaps(at) {

@@ -41,7 +41,7 @@ mod tests;
 
 /// The frame kind of the engine's states, tagged as the engine's.
 const TAG: u16 = crate::tag::TEXTMATE;
-/// The frame kind of a hand-off region. The frame sits on top of the frame of
+/// The frame kind of a hand-off region. The frame sits above the frame of
 /// the rule that opened the region. Its carried value is the state of the
 /// language lexed by hand.
 const HAND_OFF_TAG: u16 = TAG | 1;
@@ -163,7 +163,8 @@ enum Stop {
 /// Where a line halts for the language that embeds the grammar. It also says
 /// whether the grammar hands regions to languages lexed by hand.
 pub(crate) trait Halting: Copy {
-    /// Whether the line can halt at all: false compiles the test out, so a
+    /// Whether the line can halt at all.
+    /// When false, the test compiles out, so a
     /// line lexed on its own pays nothing for it.
     const HALTS: bool;
 
@@ -375,7 +376,7 @@ struct Frame {
     /// Where the rule was entered on this line, or `usize::MAX`.
     enter: usize,
     /// Where `\G` matches while the rule is the innermost: the end of its
-    /// last begin, while or end match; `usize::MAX` for none.
+    /// last begin, while or end match, or `usize::MAX` for none.
     anchor: usize,
     /// Whether the rule's begin match reached the end of its line.
     eol: bool,
@@ -459,7 +460,8 @@ impl Scratch {
         cells
     }
 
-    /// The steps of the work limit the last line spent: its machine steps
+    /// The steps of the work limit the last line spent.
+    /// They are its machine steps
     /// over [`STEP`], rounded up, so a line that spent any spent a step.
     pub(crate) fn work_spent(&self) -> u64 {
         self.spent.div_ceil(STEP)
@@ -481,7 +483,7 @@ impl Scratch {
     /// on its first line.
     /// The current grammar's caches are parked in their place.
     ///
-    /// A document may switch between grammars, as a Markdown document with
+    /// A document may switch between grammars, as a Markdown document that has
     /// fences in two of the engine's languages does.
     /// It builds each grammar's caches once, and lexing it again allocates
     /// nothing.
@@ -690,7 +692,7 @@ pub(crate) struct Scratch {
     /// The places in `frames` of the open `while` rules, from the bottom.
     whiles: Vec<usize>,
     locals: Vec<Vec<(u32, usize)>>,
-    /// Spans of the groups of matches in progress, kept for reuse.
+    /// Spans of the groups of in-progress matches, kept for reuse.
     caps: Vec<Vec<Option<(usize, usize)>>>,
     /// The machine's buffers, which every search reuses.
     cur: regex::Scratch,
@@ -729,9 +731,9 @@ pub(crate) struct Scratch {
     part: Part,
     /// The scratch for an engine line inside a hand-off. An example is
     /// PowerShell in a Markdown fence inside a HAML filter. It swaps in for
-    /// this scratch while the hand-lexed language runs. The outer line's
+    /// this scratch while the hand-lexed language runs, and the outer line's
     /// buffers and caches stay as they were. Each engine level keeps the next
-    /// level's scratch. The depth of the nesting bounds their number.
+    /// level's scratch, and nesting depth bounds their number.
     #[cfg_attr(
         not(any(test, feature = "json")),
         expect(
@@ -742,7 +744,7 @@ pub(crate) struct Scratch {
     spare: Option<Box<Scratch>>,
 }
 
-/// The state at the start of a document in `grammar`, whose text sits on the
+/// The state at the start of a `grammar` document, whose text sits on the
 /// stack `base` with the grammar's root scope on top.
 #[cfg_attr(
     not(any(test, feature = "json")),
@@ -765,7 +767,7 @@ fn pack(rule: usize, end: u32) -> u32 {
     u32::try_from(rule).unwrap_or(0) | (end << END_SHIFT)
 }
 
-/// The state at the start of the body of a fence in `grammar`.
+/// The start state of a fence body in `grammar`.
 ///
 /// The body's text sits on the stack `base` with no root scope of the
 /// grammar's own, as in Shiki's embedding. `\A` never matches there.
@@ -924,7 +926,7 @@ pub(crate) fn line_until<H: Halting>(
 ///
 /// The language needs the whole scratch. The line swaps the engine's scratch
 /// for its spare, two pointers, and lexes with the engine's scratch apart from
-/// the whole one. The spare then sits in the whole scratch for any engine line
+/// the whole one. Then the spare sits in the whole scratch for any engine line
 /// inside a hand-off. The line swaps them back at its end.
 ///
 /// `first_token` is the caller's [`Lexing::first_token`].
@@ -2003,8 +2005,8 @@ impl Tokenizer<'_> {
         Flow::Next
     }
 
-    /// Lexes the line from `from` with the language of the hand-off on top
-    /// of `frames`. The language halts at the starts the step found. Its
+    /// Lexes the line from `from` with the hand-off's language above
+    /// `frames`. The language halts at the starts the step found. Its
     /// state goes into the hand-off frame. Returns where the engine goes on,
     /// or `None` when the language ran to `end`.
     ///
@@ -2166,7 +2168,7 @@ impl Tokenizer<'_> {
     }
 
     /// Writes into `into` where the rules of `list` and the given end start
-    /// on the rest of the line from `from`. It writes the first start, then
+    /// on the line's rest from `from`. It writes the first start, then
     /// the first start past each one.
     /// `\G` in these rules matches only where the embedding rule's begin
     /// ended, which hand-lexed tokens never move.
@@ -2249,7 +2251,8 @@ impl Tokenizer<'_> {
         false
     }
 
-    /// Opens `id`, which matched `(s, e)`; true when the line is done.
+    /// Opens `id`, which matched `(s, e)`, and returns true when the line is
+    /// done.
     ///
     /// Out of line, it cost a call once a step.
     #[expect(

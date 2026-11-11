@@ -149,7 +149,7 @@ impl Lexer<'_> {
         self.at_eol(p).then_some(p)
     }
 
-    /// The end of the run of characters from `i` that are not `'`, the line
+    /// The end of the run from `i` whose characters are not `'`, the line
     /// feed after the text included.
     fn not_quote_end(&self, i: usize) -> usize {
         let mut end = self.skip(i, |b| b != b'\'');

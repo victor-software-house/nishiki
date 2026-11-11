@@ -74,7 +74,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
 
     /// Skips `\s*`.
     ///
-    /// Rules need the end of a run of blanks at every position inside it.
+    /// At every position inside a blank run, rules need the run's end.
     /// So the last run found is remembered, and a long run costs one scan.
     pub(crate) fn ws(&self, i: usize) -> usize {
         let (start, end) = self.blanks.get();

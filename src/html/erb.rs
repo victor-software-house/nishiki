@@ -21,9 +21,9 @@
 /// One of the injection's patterns.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Erb {
-    /// The blanks at the start of a line before a comment it does not close.
+    /// The blanks at the start of a line, before a comment it does not close.
     CommentWrap,
-    /// The blanks at the start of a line before code it does not close.
+    /// The blanks at the start of a line, before code it does not close.
     TagWrap,
     /// `<%#`: a comment.
     Comment,

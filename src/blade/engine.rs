@@ -288,8 +288,7 @@ fn word_at(s: &[u8], i: usize) -> bool {
 /// The patterns of `#interpolation`, in a heredoc or a double-quoted string:
 /// - `\\[0-7]{1,3}`, `\\x\h{1,2}`, `\\u\{\h+}` and `\\["$\\efnrtv]`;
 /// - `\{(?=\$.*?})`;
-/// - `$name`, which `#variable-name` starts with in each of its forms, and
-///   `${name}`.
+/// - `$name`, which `#variable-name` starts with in every form, and `${name}`.
 ///
 /// Blade's names take `[_a-z\x7F-ÿ]`, so a name ends at a character past `ÿ`.
 fn interpolation(s: &[u8], p: usize) -> bool {

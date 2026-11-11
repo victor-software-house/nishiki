@@ -156,13 +156,13 @@ impl<G: CssLike> Lexer<'_, G> {
         None
     }
 
-    /// The end of the run of characters from `p` other than `stop`.
+    /// The end of the run from `p` whose characters differ from `stop`.
     /// The line feed after the line is one of them.
     fn skip_to(&self, p: usize, stop: u8) -> usize {
         self.skip_to_any(p, &[stop])
     }
 
-    /// The end of the run of characters from `p` other than those in `stops`;
+    /// The end of the run from `p` whose characters are not in `stops`;
     /// the line feed after the line is one of them.
     fn skip_to_any(&self, p: usize, stops: &[u8]) -> usize {
         let lim = self.lim();

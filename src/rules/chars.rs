@@ -7,8 +7,8 @@
 use super::{Grammar, Lexer};
 use crate::classes::{is_ascii_word, is_digit, is_space, is_word};
 
-/// The character classes and literal tests, for the matchers of every grammar
-/// on the rule engine.
+/// The character classes and literal tests that the matchers of every grammar
+/// on the rule engine share.
 ///
 /// A method of the same name that a language defines on its own lexer takes
 /// precedence.

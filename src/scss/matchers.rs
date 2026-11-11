@@ -4,7 +4,7 @@
 //! [`Lexer::capture`](crate::rules::Lexer::capture).
 //! The engine names them.
 //! The patterns that `source.css#…` brings in go to CSS's matchers instead.
-//! The `engine` module shows how.
+//! How that works is in the `engine` module.
 //!
 //! Each follows its expression as an Oniguruma-style backtracking matcher
 //! would.

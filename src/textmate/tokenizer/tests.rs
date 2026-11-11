@@ -3,7 +3,7 @@ use super::fill_name;
 /// A `$` form names a group of the pattern that matched.
 /// A group the pattern does not have keeps the form as written, as in
 /// vscode-textmate.
-/// A group that took no part writes nothing.
+/// Any group that took no part writes nothing.
 #[test]
 fn a_dollar_form_without_its_group_stays_as_written() {
     let text = b"namespace x";

@@ -4,7 +4,7 @@
 
 /// Deepest `[` nesting that a link or image label is scanned through.
 /// A deeper `[` ends the label there.
-/// It bounds the matcher's recursion, not the work.
+/// It bounds the matcher's recursion and puts no bound on the work.
 pub(crate) const MAX_BRACKET_DEPTH: usize = 32;
 
 /// Deepest `(` nesting that a link destination is scanned through.

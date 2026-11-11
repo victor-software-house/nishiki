@@ -280,7 +280,7 @@ impl Scratch {
     }
 
     /// Starts the next line, so the lexers forget what they kept for every
-    /// text of the line before.
+    /// text of the previous line.
     pub(crate) fn start_line(&mut self) {
         self.line = self.line.wrapping_add(1);
     }

@@ -762,7 +762,7 @@ impl Class {
     /// The class as `(?i)` reads it, as Oniguruma does.
     /// The characters it holds before its negation take in the rest of their
     /// orbits.
-    /// The negation applies after.
+    /// Its negation applies after.
     /// For example, `(?i)[^k]` refuses the Kelvin sign.
     ///
     /// A class of ASCII ranges meets only the orbits of ASCII characters.

@@ -144,9 +144,9 @@ pub fn measure<R>(f: impl FnOnce() -> R) -> Usage {
     reason = "GlobalAlloc is an unsafe trait, so counting allocations needs unsafe code"
 )]
 // SAFETY: each method forwards its arguments unchanged to `System`, which
-// meets the `GlobalAlloc` contract, and the counting touches only
-// thread-local integers, which no allocation depends on. A call that
-// returns null allocated nothing and is not counted.
+// meets the `GlobalAlloc` contract. The counting touches only thread-local
+// integers that no allocation depends on. A call that returns null allocated
+// nothing and is not counted.
 unsafe impl GlobalAlloc for CountingAllocator {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         // SAFETY: the caller upholds `alloc`'s contract for `layout`, which

@@ -233,9 +233,8 @@ impl Lexer<'_> {
     /// The bytes the rule's skip passes start none of its patterns and end it
     /// nowhere.
     /// A rule the depth limit keeps closed leaves its text plain.
-    /// That rule matched nothing.
-    /// It would match again at the same place.
-    /// The search goes on one character later instead.
+    /// That rule matched nothing and would match again at the same place, so
+    /// the search goes on one character later instead.
     ///
     /// When `HALTING`, a language that embeds SQL takes the text back at a
     /// place where `halt` holds before the patterns.

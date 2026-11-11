@@ -168,7 +168,7 @@ impl Lexer<'_> {
         is_digit(c).then_some(end - p)
     }
 
-    /// `\d(?>_?\d)*`: the end of a run of digits at `p`.
+    /// `\d(?>_?\d)*`: the end of a digit run at `p`.
     fn digit_run(&self, p: usize) -> Option<usize> {
         let mut end = p + self.digit_width(p)?;
         loop {

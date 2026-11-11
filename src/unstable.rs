@@ -14,7 +14,7 @@
 //! It also needs a language on the rule engine, such as Python or Java.
 //! The default features turn several on.
 //!
-//! A cfg is the opt-in, not a Cargo feature.
+//! A cfg is the opt-in. No Cargo feature turns the API on.
 //! Features unify across a dependency graph, so a crate that depends on
 //! nishiki could turn the API on for every other crate that does.
 //!

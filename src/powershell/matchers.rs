@@ -186,7 +186,7 @@ impl Lexer<'_> {
         words.contains(&&lower[..len]).then_some(end)
     }
 
-    /// The end of the run of characters from `i` that `class` accepts.
+    /// The end of the run from `i` whose characters `class` accepts.
     fn class_end(&self, i: usize, class: fn(char) -> bool) -> usize {
         let mut at = i;
         while let Some((c, next)) = self.char_at(at)

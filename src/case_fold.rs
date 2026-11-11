@@ -2,12 +2,12 @@
 //! fold is ASCII letters.
 //! The hand lexers use them to match keywords without regard to case.
 //!
-//! A lexer matches a literal with [`literal_end`].
-//! Its ASCII loop inlines into the caller.
+//! A lexer matches a literal with [`literal_end`], whose ASCII loop inlines
+//! into the caller.
 //! Its cold half, [`literal_at`], reads a character above ASCII.
 //! A lexer lowers a word for a list lookup with [`lower_into`].
-//! Each takes the text slice its caller bounds.
-//! A character that runs past the bound therefore does not match.
+//! Each takes the text slice its caller bounds, so a character that runs past
+//! the bound does not match.
 
 use crate::utf8::char_at;
 
@@ -53,7 +53,7 @@ pub(crate) fn literal_at(text: &[u8], at: usize, word: &[u8]) -> Option<(usize, 
 /// The end of `word` at `at` of `text`, without regard to ASCII case, a
 /// character above ASCII standing for the letters it folds to.
 ///
-/// `#[inline]`, so that the ASCII loop sits in each caller and only
+/// `#[inline]`, so that the ASCII loop is inlined into each caller and only
 /// [`literal_at`] stays out of line.
 #[inline]
 pub(crate) fn literal_end(text: &[u8], at: usize, word: &[u8]) -> Option<usize> {

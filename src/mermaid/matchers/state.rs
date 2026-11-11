@@ -214,7 +214,7 @@ impl Lexer<'_> {
     /// `(?i)^\s*(note (?:left|right) of)\s+([-\w]+)(.|\n)`: the head of a
     /// note on several lines.
     /// The last group takes any character.
-    /// So the name gives one back only at the end of a text with no line
+    /// So the name gives one back only at the end of a text that has no line
     /// feed.
     pub(super) fn state_note_block(&mut self, p: usize) -> Option<usize> {
         let [start, words, name, greedy] = self.note_head(p)?;

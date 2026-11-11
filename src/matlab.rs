@@ -4,7 +4,7 @@
 //! The lexer runs the grammar's begin/end rules on the shared rule engine, in
 //! the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each regular expression matches.
+//! Its `matchers` decide where each regular expression matches.
 //! The rules left open at the end of a line are frames of the highlighter's
 //! interned state.
 //! Shiki's Markdown grammar has no MATLAB fence.

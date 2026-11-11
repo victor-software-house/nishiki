@@ -2,9 +2,8 @@
 //!
 //! These rules all start with a group of white space and comments.
 //! The grammar lexes that group again as comments.
-//! The group has two spellings.
-//! One takes a run of white space only after a non-space.
-//! The other is lazy.
+//! The group has two spellings: one takes a run of white space only after a
+//! non-space, and the other is lazy.
 
 use super::engine::Lexer;
 use super::scope::S;

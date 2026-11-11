@@ -4,7 +4,7 @@
 //! A rule whose begin takes a delimiter character repeats it in its end
 //! (`\1` or `\2`), which the begin text holds.
 //! The flags after a closing delimiter, `[acdegil-prsux]*`, are followed by
-//! a lookahead that a flag letter cannot satisfy.
+//! a lookahead that no flag letter can satisfy.
 //! So only the longest run of flags can match, and the matchers take it
 //! without giving letters back.
 
@@ -21,7 +21,7 @@ fn is_flag(b: u8) -> bool {
 }
 
 /// `[acdegilmoprsu]`: a flag other than `n` and `x`, in the flags of a
-/// substitution with the `x` flag.
+/// substitution that has the `x` flag.
 fn is_x_flag(b: u8) -> bool {
     matches!(
         b,
@@ -264,8 +264,8 @@ impl Lexer<'_> {
 
     /// `(?<!->)\bqw?\s*([^(<\[{\w\s])`: `q` or `qw`, its blanks and a
     /// delimiter that its end repeats.
-    /// A `w` after the `q` is never the delimiter, which leaves out `\w`, so
-    /// the `w?` gives nothing back.
+    /// A `w` after the `q` is never the delimiter, because the delimiter class
+    /// leaves out `\w`, so the `w?` gives nothing back.
     pub(super) fn q_words(&mut self, p: usize) -> Option<usize> {
         if !Lead::NoArrow.holds(self, p) || self.at(p) != b'q' || p >= self.lim() {
             return None;

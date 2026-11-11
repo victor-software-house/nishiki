@@ -62,7 +62,7 @@ impl Lexer<'_> {
         accept(c).then_some(end)
     }
 
-    /// The end of the run of characters from `p` that `accept` takes.
+    /// The end of the run from `p` whose characters `accept` takes.
     pub(crate) fn span_of(&self, mut p: usize, accept: impl Fn(char) -> bool) -> usize {
         let from = p;
         while let Some((c, end)) = self.ch(p) {

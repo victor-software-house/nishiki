@@ -207,10 +207,10 @@ impl Lexer<'_> {
     /// Where the scan goes on after no pattern matched at `p`.
     ///
     /// At an ASCII letter or `_` that no quote or backtick precedes, it goes
-    /// on after the run of ASCII word characters there.
+    /// on after the ASCII word-character run there.
     /// No pattern can match inside that run:
-    /// - a pattern that starts with an identifier needs the same text after the
-    ///   identifier at every place in the run, and it missed at `p`;
+    /// - a pattern that starts with an identifier needs, at every place in the
+    ///   run, the same text after the identifier, and it missed at `p`;
     /// - a string macro the grammar names, such as `py"""`, needs a quote after
     ///   the run, and then the general string macro would have matched at `p`;
     /// - the end of `py"""` takes the whole run and needs quotes after it;

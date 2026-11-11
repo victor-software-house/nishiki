@@ -579,8 +579,8 @@ fn every_lead_byte_classifies() {
     }
 }
 
-/// A line is full exactly when it holds a character beyond ASCII from one of
-/// two kinds of orbit, as `MULTI` lists them:
+/// A line is full exactly when it holds a character beyond ASCII, from one of
+/// two orbit kinds, as `MULTI` lists them:
 ///
 /// - the orbit of a character that folds to a string;
 /// - the orbit of a character of such a string.
@@ -639,7 +639,7 @@ fn lean_programs_leave_out_the_wide_alternatives() {
 
 /// The relaxed form cuts a sequence at its first positive lookahead.
 /// The lookahead's pattern takes the place of the lookahead and the rest.
-/// The cut follows groups and atomic groups from the root.
+/// Cutting follows groups and atomic groups from the root.
 #[test]
 fn the_relaxed_form_ends_with_the_first_positive_lookahead() {
     let cases = [
