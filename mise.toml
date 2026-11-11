@@ -51,10 +51,13 @@ depends = [
   "test",
   "test:doc",
   "check:unstable",
+  "codegen:lint",
+  "codegen:check",
   "test:miri",
   "doc",
   "check:docs",
   "deny",
+  "deny:codegen",
   "deps",
   "check:versions",
   "check:repo",
@@ -102,6 +105,32 @@ CARGO_BUILD_JOBS = "2"
 CARGO_TARGET_DIR = "target/unstable"
 RUSTFLAGS = "--cfg nishiki_unstable"
 RUSTDOCFLAGS = "--cfg nishiki_unstable"
+
+# codegen/ writes the generated Rust files (mise-tasks/codegen.sh).
+# Its builds compile nishiki once more, in target/codegen.
+# They wait for check:unstable, so they compile beside test only.
+[tasks."codegen:lint"]
+description = "codegen/ is formatted and linted"
+wait_for = ["check:unstable"]
+run = [
+  "cargo ${RUSTFMT_TOOLCHAIN:-} fmt --manifest-path codegen/Cargo.toml -- --check",
+  "cargo clippy --locked --manifest-path codegen/Cargo.toml --all-targets -- -D warnings",
+]
+
+[tasks."codegen:lint".env]
+CARGO_BUILD_JOBS = "2"
+CARGO_TARGET_DIR = "target/codegen"
+RUSTFLAGS = "--cfg nishiki_unstable"
+
+[tasks."codegen:check"]
+description = "Each generated Rust file is what codegen/ writes"
+wait_for = ["codegen:lint"]
+run = "mise run codegen -- --check"
+
+# cargo deny reads one workspace's graph, and codegen/ is its own.
+[tasks."deny:codegen"]
+description = "codegen/'s dependencies pass the deny rules"
+run = "cargo deny --locked --manifest-path codegen/Cargo.toml check licenses bans sources"
 
 # The tests of the Bun scripts under oracle/, bench/ and mise-tasks/.
 # They need no network, unlike the oracle runs.

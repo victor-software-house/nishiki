@@ -7,6 +7,7 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | Grammar | Source | Licence |
 |:--|:--|:--|
 | `asm` | [13xforever/x86_64-assembly-vscode at 5c1958f4283d260f5dc88fa4f5f31c620e061a5a][asm-source] | [MIT][asm-licence] |
+| `c` | [microsoft/vscode at bd1abe08c38bb5deccf65610f8f3c03d2338d20d][c-source] | [MIT][c-licence] |
 | `coffee` | [microsoft/vscode at ff58f5083f57b50e6a100ab60454dfb72fe21e80][coffee-source] | [MIT][coffee-licence] |
 | `common-lisp` | [qingpeng9802/vscode-common-lisp at 79d04dc9ca80d98e65c4f28b3d67a24a7829b18f][common-lisp-source] | [MIT][common-lisp-licence] |
 | `css` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][css-source] | [MIT][css-licence] |
@@ -23,6 +24,7 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `jsonc` | [microsoft/vscode at 0adddd82816db666c52038e8277312dc55da2756][jsonc-source] | [MIT][jsonc-licence] |
 | `jsonl` | [microsoft/vscode at 0adddd82816db666c52038e8277312dc55da2756][jsonl-source] | [MIT][jsonl-licence] |
 | `jsx` | [microsoft/vscode at 210541906e5a96ab39f9c753f921b1bd35f4138b][jsx-source] | [MIT][jsx-licence] |
+| `less` | [microsoft/vscode at 03dc55030b3b2b5c4779d4ac1e2e46cd1f5a6b7c][less-source] | [MIT][less-licence] |
 | `make` | [microsoft/vscode at 91db8ea85fee30ebb3c7a5e7939aa2a8d79811c5][make-source] | [MIT][make-licence] |
 | `markdown` | [microsoft/vscode at 6d8ab9737d58fc5eaf07e2ae6553b38183a5de47][markdown-source] | [MIT][markdown-licence] |
 | `markdown-vue` | [vuejs/language-tools at 784dd56026e07f1dadb9ef2498418eccbb3dee29][markdown-vue-source] | [MIT][markdown-vue-licence] |
@@ -34,6 +36,7 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `rust` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][rust-source] | [MIT][rust-licence] |
 | `sass` | [TheRealSyler/vscode-sass-indented at f0e50cfaca4b64a1d49f8d938f188d6fd0bcfb6f][sass-source] | [MIT][sass-licence] |
 | `shellscript` | [microsoft/vscode at 9473445f7d3dcb5c579f42ece8b6c18c43c63ed3][shellscript-source] | [MIT][shellscript-licence] |
+| `sql` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][sql-source] | [MIT][sql-licence] |
 | `tex` | [microsoft/vscode at 609f17a76734f092792a33c891af40bbcaea0c64][tex-source] | [MIT][tex-licence] |
 | `toml` | [textmate/toml.tmbundle at e82b64c1e86396220786846201e9aa3f0a2d9ca2][toml-source] | [TextMate bundle licence][toml-licence] |
 | `tsx` | [microsoft/vscode at 210541906e5a96ab39f9c753f921b1bd35f4138b][tsx-source] | [MIT][tsx-licence] |
@@ -47,6 +50,8 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 
 [asm-source]: https://github.com/13xforever/x86_64-assembly-vscode/tree/5c1958f4283d260f5dc88fa4f5f31c620e061a5a
 [asm-licence]: https://github.com/13xforever/x86_64-assembly-vscode/blob/5c1958f4283d260f5dc88fa4f5f31c620e061a5a/LICENSE.txt
+[c-source]: https://github.com/microsoft/vscode/tree/bd1abe08c38bb5deccf65610f8f3c03d2338d20d
+[c-licence]: https://github.com/jeff-hykin/better-c-syntax/blob/HEAD/LICENSE
 [coffee-source]: https://github.com/microsoft/vscode/tree/ff58f5083f57b50e6a100ab60454dfb72fe21e80
 [coffee-licence]: https://github.com/atom/language-coffee-script/blob/HEAD/LICENSE.md
 [common-lisp-source]: https://github.com/qingpeng9802/vscode-common-lisp/tree/79d04dc9ca80d98e65c4f28b3d67a24a7829b18f
@@ -79,6 +84,8 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [jsonl-licence]: https://github.com/microsoft/vscode-JSON.tmLanguage/blob/HEAD/LICENSE
 [jsx-source]: https://github.com/microsoft/vscode/tree/210541906e5a96ab39f9c753f921b1bd35f4138b
 [jsx-licence]: https://github.com/microsoft/TypeScript-TmLanguage/blob/HEAD/LICENSE.txt
+[less-source]: https://github.com/microsoft/vscode/tree/03dc55030b3b2b5c4779d4ac1e2e46cd1f5a6b7c
+[less-licence]: https://github.com/radium-v/Better-Less/blob/HEAD/LICENSE
 [make-source]: https://github.com/microsoft/vscode/tree/91db8ea85fee30ebb3c7a5e7939aa2a8d79811c5
 [make-licence]: https://github.com/fadeevab/make.tmbundle/blob/HEAD/LICENSE.md
 [markdown-source]: https://github.com/microsoft/vscode/tree/6d8ab9737d58fc5eaf07e2ae6553b38183a5de47
@@ -101,6 +108,8 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [sass-licence]: https://github.com/TheRealSyler/vscode-sass-indented/blob/f0e50cfaca4b64a1d49f8d938f188d6fd0bcfb6f/LICENSE
 [shellscript-source]: https://github.com/microsoft/vscode/tree/9473445f7d3dcb5c579f42ece8b6c18c43c63ed3
 [shellscript-licence]: https://github.com/jeff-hykin/better-shell-syntax/blob/HEAD/LICENSE
+[sql-source]: https://github.com/microsoft/vscode/tree/af600487b1e94374d9f48f57cbf2cad24656b07f
+[sql-licence]: https://github.com/microsoft/vscode-mssql/blob/HEAD/LICENSE.txt
 [tex-source]: https://github.com/microsoft/vscode/tree/609f17a76734f092792a33c891af40bbcaea0c64
 [tex-licence]: https://github.com/jlelong/vscode-latex-basics/blob/HEAD/LICENSE.txt
 [toml-source]: https://github.com/textmate/toml.tmbundle/tree/e82b64c1e86396220786846201e9aa3f0a2d9ca2

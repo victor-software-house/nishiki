@@ -33,6 +33,7 @@ mod rules;
 mod scope;
 mod state;
 mod vue;
+#[rustfmt::skip]
 mod words;
 
 #[cfg(test)]

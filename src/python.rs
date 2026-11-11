@@ -15,6 +15,7 @@ mod engine;
 mod grammar;
 mod matchers;
 mod scope;
+#[rustfmt::skip]
 mod words;
 
 use engine::Python;

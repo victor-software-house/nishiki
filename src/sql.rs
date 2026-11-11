@@ -5,7 +5,7 @@
 //! The rules left open at the end of a line (a string, a block comment,
 //! brackets) are frames of the highlighter's interned state.
 //! The keyword and function tables in `words` are generated from the grammar by
-//! `oracle/sql-words.ts`.
+//! `codegen/src/words/sql.rs`.
 //!
 //! It reproduces Shiki's output, quirks included:
 //! - a `#` comment is no comment;
@@ -23,6 +23,7 @@ mod matchers;
 mod rules;
 mod scope;
 mod state;
+#[rustfmt::skip]
 mod words;
 
 pub(crate) use engine::Scratch;

@@ -29,6 +29,7 @@ mod state;
 mod strings;
 mod switch;
 mod text;
+#[rustfmt::skip]
 mod words;
 mod wordset;
 

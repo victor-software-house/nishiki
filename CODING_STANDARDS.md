@@ -332,7 +332,7 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
   - the Bun scripts that write Rust, and the files they write, until rust-codegen moves each writer to Rust;
   - the Swift matcher names, until the Swift generator moves to `codegen/` (rule-table-codegen design 2.4).
 - A list puts one entry per line.
-  Only a table of short numeric entries, such as byte ranges, packs several entries on a line.
+  Only a table of short plain values packs several entries on a line, such as byte ranges or the word tables that `codegen/src/numbers.rs` fills.
 
 ## 4. Tests
 

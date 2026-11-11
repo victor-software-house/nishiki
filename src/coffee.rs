@@ -22,6 +22,7 @@ mod matchers;
 mod scope;
 #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 mod svelte;
+#[rustfmt::skip]
 mod words;
 
 use engine::Coffee;

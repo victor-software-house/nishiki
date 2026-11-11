@@ -3339,8 +3339,3 @@ export const standIns: Record<string, string> = {
   "html-derivative": `${h5bp}/src/index.html`,
   "nextflow-groovy": `${vscodeColorizeFixtures}/test.groovy`,
 };
-
-/** The `sql` grammar at the commit Shiki 4.6.0 bundles, which `sql-words.ts`
- * reads. It is MIT, as microsoft/vscode. */
-export const sqlGrammar =
-  "https://raw.githubusercontent.com/microsoft/vscode/af600487b1e94374d9f48f57cbf2cad24656b07f/extensions/sql/syntaxes/sql.tmLanguage.json";

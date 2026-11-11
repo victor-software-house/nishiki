@@ -37,6 +37,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.md",
   },
+  c: {
+    bundled: "microsoft/vscode@bd1abe08c38bb5deccf65610f8f3c03d2338d20d",
+    origin: "jeff-hykin/better-c-syntax",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   cmake: {
     bundled: "twxs/vs.language.cmake@19b1b8fe2d68d72cf294d0c3c22f0a3fc54f8f6f",
     origin: "twxs/vs.language.cmake",
@@ -176,6 +182,12 @@ export const allowed: Record<string, Allowed> = {
     origin: "jlelong/vscode-latex-basics",
     licence: "MIT",
     file: "LICENSE.txt",
+  },
+  less: {
+    bundled: "microsoft/vscode@03dc55030b3b2b5c4779d4ac1e2e46cd1f5a6b7c",
+    origin: "radium-v/Better-Less",
+    licence: "MIT",
+    file: "LICENSE",
   },
   make: {
     bundled: "microsoft/vscode@91db8ea85fee30ebb3c7a5e7939aa2a8d79811c5",

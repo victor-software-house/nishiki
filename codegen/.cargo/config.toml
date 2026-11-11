@@ -1,0 +1,6 @@
+# nishiki::unstable compiles only with this cfg.
+# Cargo and rust-analyzer read this file when they run in codegen/.
+# A set RUSTFLAGS replaces it, so `mise run codegen` appends the cfg to RUSTFLAGS
+# (openspec rust-codegen, design section 3).
+[build]
+rustflags = ["--cfg", "nishiki_unstable"]
