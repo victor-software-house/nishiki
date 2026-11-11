@@ -206,6 +206,10 @@ fn a_pattern_the_lexer_cannot_test_has_no_matcher() {
             "the regex engine counts an empty turn toward the least",
         ),
         (r"b(?:c?){2,}d", "the same, for a least of two"),
+        (
+            r"(?:xa*?)*c",
+            "a turn's first match takes no `a`, and only the longest run of `a` can succeed",
+        ),
     ] {
         assert!(
             matcher(regex, &format_ident!("m"), &[], None).is_err(),

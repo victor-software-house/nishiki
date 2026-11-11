@@ -245,9 +245,11 @@ fn unconditional(node: &Node) -> bool {
 /// - A sequence is unique when each part is, given what follows that part.
 /// - An alternation is unique when its arms are, and no two arms can start with
 ///   the same character.
-/// - A repeat that can give back a turn is unique when what follows must read a
-///   character its body cannot start with. Giving back a turn leaves a position
-///   where the body matched, so what follows fails there.
+/// - A greedy repeat that can give back a turn is unique when what follows must
+///   read a character its body cannot start with. Giving back a turn leaves a
+///   position where the body matched, so what follows fails there.
+/// - A lazy repeat is unique only with a fixed count. Its first match takes the
+///   fewest turns, and only the most turns can lead to success.
 pub(super) fn unique(node: &Node, follow: &Follow) -> bool {
     if follow.always {
         return true;
@@ -288,11 +290,16 @@ pub(super) fn unique(node: &Node, follow: &Follow) -> bool {
                 !clash && unique(arm, follow)
             })
         }
-        Node::Repeat { node, min, max, .. } => {
+        Node::Repeat {
+            node,
+            min,
+            max,
+            greediness,
+        } => {
             let (set, empty) = first_of(node);
             let fixed = *max == Some(*min);
-            (fixed || (!empty && follow.shuns(&set)))
-                && unique(node, &follow.after_turn(&set, empty))
+            let longest = *greediness == Greediness::Greedy && !empty && follow.shuns(&set);
+            (fixed || longest) && unique(node, &follow.after_turn(&set, empty))
         }
     }
 }
