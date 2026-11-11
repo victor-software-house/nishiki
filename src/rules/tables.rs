@@ -3,6 +3,7 @@
 //!
 //! The engine tries only those where a byte stands.
 
+#[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
 use std::ops::ControlFlow;
 
 use super::{Act, BlankRuns, Lexer, RuleDefinition, Start, Tabled};
@@ -121,10 +122,15 @@ impl<G: Tabled> Tables<G> {
             .filter_map(|&index| all.get(index).copied())
             .collect();
         let lists: &'static [G::Pattern] = Box::leak(lists.into_boxed_slice());
+        #[cfg_attr(
+            not(any(nishiki_unstable, feature = "_blank-runs-to-last")),
+            expect(unused_mut, reason = "only a `BlankRuns::ToLast` grammar adds a list")
+        )]
         let mut by_byte: Vec<&'static [G::Pattern]> = spans
             .into_iter()
             .map(|(start, len)| lists.get(start..start + len).unwrap_or_default())
             .collect();
+        #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
         if matches!(G::BLANK_RUNS, BlankRuns::ToLast) {
             let one_blank: Vec<G::Pattern> = all
                 .iter()
@@ -160,12 +166,14 @@ impl<G: Tabled> Tables<G> {
     /// The patterns tried at the last blank of a run, the end pattern first
     /// when it is one of them.
     /// Empty for a grammar that does not use [`BlankRuns::ToLast`].
+    #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
     pub(crate) fn one_blank(&self) -> &[G::Pattern] {
         self.by_byte.get(3 * 256).copied().unwrap_or_default()
     }
 
     /// Whether the rule has patterns to try at the last blank of a run.
     /// It reads only the length of the byte table.
+    #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
     pub(crate) fn tries_final_blank(&self) -> bool {
         self.by_byte.len() > 3 * 256
     }
@@ -296,6 +304,10 @@ pub(crate) fn table_scan<G: Tabled>(
 /// | A test for the first position in the loop, against a position known only at run time | About 30 grammars ran 0.5% to 1.9% more instructions. |
 /// | A flag on [`Tables`] | The struct grew from 32 to 40 bytes, and every grammar ran 0.1% to 0.2% more. |
 /// | The first step as a function out of line, with a test before the loop | Go ran 1.1% more, and PowerShell 0.7% more under a per-grammar constant, about seven instructions per scan. |
+#[expect(
+    clippy::too_many_lines,
+    reason = "it keeps the shape measured above; the gates on its blank-run arms add the lines"
+)]
 fn scan<G: Tabled, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
     end: &dyn Halt,
@@ -362,6 +374,7 @@ fn scan<G: Tabled, const HALTING: bool>(
             p = match s.get(p) {
                 Some(b' ' | b'\t') => match G::BLANK_RUNS {
                     BlankRuns::Skip => lexer.skip(p, |b| matches!(b, b' ' | b'\t')),
+                    #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
                     BlankRuns::ToLast => {
                         if matches!(s.get(p + 1), Some(b' ' | b'\t')) {
                             let run_end = lexer.skip(p, |b| matches!(b, b' ' | b'\t'));
@@ -381,7 +394,9 @@ fn scan<G: Tabled, const HALTING: bool>(
                             p + 1
                         }
                     }
+                    #[cfg(any(nishiki_unstable, feature = "lang-objective-c"))]
                     BlankRuns::Visit if G::SKIPS_PLACES => G::next_place(lexer, p),
+                    #[cfg(any(nishiki_unstable, feature = "lang-objective-c"))]
                     BlankRuns::Visit => lexer.char_end(p),
                 },
                 Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
@@ -415,6 +430,7 @@ fn scan<G: Tabled, const HALTING: bool>(
 /// Inlined, its values stayed live across the scan's loop, and the loop
 /// reloaded spilled registers at every byte.
 #[inline(never)]
+#[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
 fn at_final_blank<G: Tabled, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
     tables: &Tables<G>,

@@ -134,13 +134,7 @@ impl Steps {
     /// Counts one turn of a lexer's main loop, and says whether the line
     /// has now spent more than it may.
     #[inline]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
+    #[cfg(any(feature = "lang-hcl", feature = "lang-markdown"))]
     pub(crate) fn step(&self) -> bool {
         let spent = self.spent.get().saturating_add(1);
         self.spent.set(spent);
@@ -168,13 +162,13 @@ impl Steps {
     /// That is far above the default limits of the longest line they allow.
     /// The function is out of line, because few lines embed a language.
     #[cold]
-    #[cfg_attr(
-        all(not(feature = "_hand-lexers"), not(test)),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers and the engine tests use it"
-        )
-    )]
+    #[cfg(any(
+        test,
+        feature = "_embedding",
+        feature = "lang-html",
+        feature = "lang-markdown",
+        feature = "lang-xml"
+    ))]
     pub(crate) fn lend(&self, limits: &Limits) -> Limits {
         let left = self.limit.saturating_sub(self.spent.get());
         Limits {

@@ -169,6 +169,39 @@ const scalaOrHaskell = `#[cfg(any(feature = "lang-scala", feature = "lang-haskel
  * languages read none of them. */
 const identifier = `#[cfg(feature = "_identifier-classes")]\n`;
 
+/** The attribute that keeps a table and its lookup out of builds without any
+ * of the `lang-` features named. */
+function languages(names: string[]): string {
+  const features = names.map((name) => `feature = "lang-${name}"`);
+  if (features.length === 1) return `#[cfg(${features[0]})]\n`;
+  return `#[cfg(any(\n${features.map((feature) => `    ${feature}`).join(",\n")}\n))]\n`;
+}
+/** The languages that read `[[:alpha:]]` beyond ASCII. */
+const alpha = languages([
+  "asm",
+  "astro",
+  "coffee",
+  "gdscript",
+  "hcl",
+  "julia",
+  "latex",
+  "python",
+  "svelte",
+  "tex",
+  "javascript",
+  "jsx",
+  "tsx",
+  "typescript",
+]);
+/** The languages that read `\p{upper}` beyond ASCII. */
+const upper = languages(["python"]);
+/** The languages that read `\p{L}` beyond ASCII. */
+const letter = languages(["hack", "julia", "mermaid", "powershell", "r", "swift"]);
+/** The languages that read `\p{N}` beyond ASCII. */
+const number = languages(["latex", "powershell", "swift"]);
+/** The languages that read `\p{M}` beyond ASCII. */
+const mark = languages(["swift"]);
+
 const out = dedent`
   //! The characters Oniguruma's \`\\d\`, \`\\w\`, \`\\s\`, \`[[:alpha:]]\`, \`\\p{upper}\`,
   //! \`\\p{L}\`, \`\\p{N}\`, \`\\p{M}\`, \`[\\p{Lt}\\p{Lu}]\`, \`[\\p{Lo}\\p{Nl}\\p{Ll}]\`,
@@ -179,11 +212,11 @@ const out = dedent`
   ${table("DIGITS", "The non-ASCII characters `\\d` matches.", digits)}
   ${table("WORDS", "The non-ASCII characters `\\w` matches.", words)}
   ${table("SPACES", "The non-ASCII characters `\\s` matches.", spaces)}
-  ${table("ALPHAS", "The non-ASCII characters `[[:alpha:]]` matches.", alphas)}
-  ${table("UPPERS", "The non-ASCII characters `\\p{upper}` matches.", uppers)}
-  ${table("LETTERS", "The non-ASCII characters `\\p{L}` matches.", letters)}
-  ${table("NUMBERS", "The non-ASCII characters `\\p{N}` matches.", numbers)}
-  ${table("MARKS", "The non-ASCII characters `\\p{M}` matches.", marks)}
+  ${table("ALPHAS", "The non-ASCII characters `[[:alpha:]]` matches.", alphas, alpha)}
+  ${table("UPPERS", "The non-ASCII characters `\\p{upper}` matches.", uppers, upper)}
+  ${table("LETTERS", "The non-ASCII characters `\\p{L}` matches.", letters, letter)}
+  ${table("NUMBERS", "The non-ASCII characters `\\p{N}` matches.", numbers, number)}
+  ${table("MARKS", "The non-ASCII characters `\\p{M}` matches.", marks, mark)}
   ${table("TITLE_UPPERS", "The non-ASCII characters `[\\p{Lt}\\p{Lu}]` matches.", titleUppers, scalaOrHaskell)}
   ${table("LOWER_OTHERS", "The non-ASCII characters `[\\p{Lo}\\p{Nl}\\p{Ll}]` matches.", lowerOthers, scala)}
   ${table("SYMBOLS", "The non-ASCII characters `[\\p{Sm}\\p{So}]` matches.", symbols, scala)}
@@ -225,27 +258,27 @@ const out = dedent`
   }
 
   /// The regex \`[[:alpha:]]\` for a non-ASCII character.
-  pub(super) fn is_alpha(c: char) -> bool {
+  ${alpha}pub(super) fn is_alpha(c: char) -> bool {
       contains(ALPHAS, c)
   }
 
   /// The regex \`\\p{upper}\` for a non-ASCII character.
-  pub(super) fn is_upper(c: char) -> bool {
+  ${upper}pub(super) fn is_upper(c: char) -> bool {
       contains(UPPERS, c)
   }
 
   /// The regex \`\\p{L}\` for a non-ASCII character.
-  pub(super) fn is_letter(c: char) -> bool {
+  ${letter}pub(super) fn is_letter(c: char) -> bool {
       contains(LETTERS, c)
   }
 
   /// The regex \`\\p{N}\` for a non-ASCII character.
-  pub(super) fn is_number(c: char) -> bool {
+  ${number}pub(super) fn is_number(c: char) -> bool {
       contains(NUMBERS, c)
   }
 
   /// The regex \`\\p{M}\` for a non-ASCII character.
-  pub(super) fn is_mark(c: char) -> bool {
+  ${mark}pub(super) fn is_mark(c: char) -> bool {
       contains(MARKS, c)
   }
 

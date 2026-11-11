@@ -9,6 +9,7 @@
 //! The per-line loop, `\G`, capture groups, `while` rules, the limits and the
 //! frames that carry a rule from line to line are here, once.
 
+#[cfg(feature = "_rule-tables")]
 mod chars;
 mod lexer;
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
@@ -18,6 +19,7 @@ mod runs;
 // So the module exists only where it is used: with the cfg and in its test.
 #[cfg(any(nishiki_unstable, all(test, feature = "lang-toml")))]
 mod syntax;
+#[cfg(feature = "_rule-tables")]
 mod tables;
 
 use std::fmt::Debug;
@@ -92,6 +94,7 @@ pub(crate) use runs::{CachedRuns, HasRuns, Runs};
 pub use syntax::RuleSyntax;
 #[cfg(feature = "_rule-tables")]
 pub(crate) use tables::{Place, table_scan};
+#[cfg(feature = "_rule-tables")]
 pub(crate) use tables::{PlaceSet, Tables};
 
 use crate::Language;
@@ -202,6 +205,7 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     /// of a run.
     /// Its generator writes them from `oracle/rule-grammar.ts`'s
     /// `takesOneBlank`.
+    #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
     fn takes_one_blank(_pattern: Self::Pattern) -> bool {
         false
     }
@@ -870,7 +874,7 @@ pub(crate) fn lex_embedding_until<G: Embeds>(
 /// There only the line feed is left, where an open rule's end, such as a line
 /// comment's `\n`, can still match.
 /// Blade's PHP resumes there after a Blade rule that ends the line.
-#[cfg(feature = "_halting-embedding")]
+#[cfg(feature = "lang-blade")]
 pub(crate) fn lex_embedding_until_resuming<G: Embeds>(
     cx: &mut Context<'_>,
     line: Line<'_>,
@@ -926,7 +930,7 @@ fn lex_embedding_through<G: Embeds>(
 /// Most lines need none of the embedded languages.
 /// The line is lexed without them first.
 /// A line that needs them is lexed again with them.
-#[cfg(feature = "_embedding")]
+#[cfg(any(feature = "lang-elixir", feature = "lang-lua"))]
 #[inline]
 pub(crate) fn lex_on_demand<G: Embeds>(
     cx: &mut Context<'_>,
@@ -970,7 +974,7 @@ pub(crate) fn lex_on_demand<G: Embeds>(
 /// Its tokens start at `first` in the output.
 /// The second pass gets the work the first pass left.
 /// The line spends one budget.
-#[cfg(feature = "_embedding")]
+#[cfg(any(feature = "lang-elixir", feature = "lang-lua"))]
 #[cold]
 fn lex_again<G: Embeds>(
     cx: &mut Context<'_>,
@@ -1377,6 +1381,7 @@ pub type Captures<G> = (
 
 /// A grammar whose rules are generated tables: the patterns of each rule and
 /// the bytes each can start at.
+#[cfg(feature = "_rule-tables")]
 pub(crate) trait Tabled: Grammar {
     /// Whether a pattern is left out inside words only past the scan's first
     /// position.
@@ -1427,12 +1432,14 @@ pub enum BlankRuns {
     /// It can let the pattern fail at the first blank and at the last, and
     /// match between them.
     /// A grammar with such a pattern takes [`BlankRuns::Visit`].
+    #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
     ToLast,
     /// It tries every blank of the run, one byte at a time.
     ///
     /// Sound for every grammar.
     /// A grammar takes it when a lookbehind on the blank before a pattern
     /// rules out [`BlankRuns::ToLast`], as Objective-C's parameter name does.
+    #[cfg(any(nishiki_unstable, feature = "lang-objective-c"))]
     Visit,
 }
 
@@ -1529,6 +1536,7 @@ pub enum ScopeName {
     /// A scope whose name repeats the text of a capture group of the match,
     /// as `storage.type.$1.cpp` does: `prefix`, the text of group `group`
     /// and `suffix`.
+    #[cfg(any(test, nishiki_unstable, feature = "_capture-names"))]
     Capture {
         /// The name's text before the group's.
         prefix: &'static str,
@@ -1569,6 +1577,7 @@ pub enum Act<G: Grammar> {
 impl<G: Grammar> Act<G> {
     /// The same act for `H`, a dialect of `G` with its rules and scopes, such
     /// as the CoffeeScript that Svelte embeds.
+    #[cfg(feature = "lang-coffee")]
     pub(crate) fn dialect<H: Grammar<Rule = G::Rule, Scope = G::Scope>>(self) -> Act<H> {
         match self {
             Act::Match(name) => Act::Match(name),
@@ -1580,6 +1589,7 @@ impl<G: Grammar> Act<G> {
 
 /// What one pattern does when it matches, and the scopes of its captures.
 #[derive(Clone, Copy, Debug)]
+#[cfg(feature = "_rule-tables")]
 pub(crate) struct PatternDefinition<G: Grammar> {
     pub(crate) act: Act<G>,
     /// The scopes of the match's capture groups, by group number; group 0 is
@@ -1592,6 +1602,7 @@ pub(crate) struct PatternDefinition<G: Grammar> {
 
 /// The scopes and patterns of one rule.
 #[derive(Clone, Copy, Debug)]
+#[cfg(feature = "_rule-tables")]
 pub(crate) struct RuleDefinition<G: Grammar> {
     /// The scopes of its begin and end text and everything between.
     pub(crate) name: Scopes<G::Scope>,
@@ -1611,6 +1622,7 @@ pub(crate) struct RuleDefinition<G: Grammar> {
 
 /// The bytes a pattern can start at.
 #[derive(Clone, Copy, Debug)]
+#[cfg(feature = "_rule-tables")]
 pub(crate) struct Start {
     /// Bit `b` of word `b / 64` marks that a match can start before byte `b`.
     pub(crate) bytes: [u64; 4],

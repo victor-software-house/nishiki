@@ -68,6 +68,7 @@ crate::scope::scope_table! {
     TagStartInline "meta.tag.inline.start.html"
     TagStartObject "meta.tag.object.start.html"
     TagStartOther "meta.tag.other.start.html"
+    #[cfg(feature = "lang-erb")]
     TextHtmlErb "text.html.erb"
     TextHtmlDerivative "text.html.derivative"
     ErbBlock "meta.embedded.block.erb"
@@ -84,6 +85,7 @@ crate::scope::scope_table! {
     ErbCommentTrailing "punctuation.whitespace.comment.trailing.erb"
     ErbEmbeddedLeading "punctuation.whitespace.embedded.leading.erb"
     ErbEmbeddedTrailing "punctuation.whitespace.embedded.trailing.erb"
+    #[cfg(feature = "lang-blade")]
     TextHtmlPhpBlade "text.html.php.blade"
     SourcePhp "source.php"
     BladeComment "comment.block.blade"

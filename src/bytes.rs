@@ -6,6 +6,20 @@
 //! A change to another language's tables then moved Pascal's and Common
 //! Lisp's rows by up to 1%, at equal call counts.
 
+#[cfg(any(
+    test,
+    feature = "lang-asm",
+    feature = "lang-astro",
+    feature = "lang-cmake",
+    feature = "lang-coffee",
+    feature = "lang-common-lisp",
+    feature = "lang-hlsl",
+    feature = "lang-html",
+    feature = "lang-pascal",
+    feature = "lang-postcss",
+    feature = "lang-shaderlab",
+    feature = "lang-tex"
+))]
 use std::cmp::Ordering;
 
 /// Whether `a` and `b` hold the same bytes, as `==` on byte slices does.
@@ -45,13 +59,20 @@ pub(crate) fn contains(list: &[&[u8]], word: &[u8]) -> bool {
 }
 
 /// `a` against `b`, in the order `Ord` on byte slices gives.
-#[cfg_attr(
-    all(not(feature = "_hand-lexers"), not(test)),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers and the engine tests use it"
-    )
-)]
+#[cfg(any(
+    test,
+    feature = "lang-asm",
+    feature = "lang-astro",
+    feature = "lang-cmake",
+    feature = "lang-coffee",
+    feature = "lang-common-lisp",
+    feature = "lang-hlsl",
+    feature = "lang-html",
+    feature = "lang-pascal",
+    feature = "lang-postcss",
+    feature = "lang-shaderlab",
+    feature = "lang-tex"
+))]
 pub(crate) fn order(a: &[u8], b: &[u8]) -> Ordering {
     for (x, y) in a.iter().zip(b) {
         if x != y {
