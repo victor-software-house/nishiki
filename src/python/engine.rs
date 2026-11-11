@@ -30,7 +30,7 @@ enum Seen {
     At(usize),
 }
 
-/// A thing a lookahead looks for on the rest of the line, found once for the
+/// A thing a lookahead looks for in the line's rest, found once for the
 /// whole line.
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Ahead {

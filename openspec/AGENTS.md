@@ -29,7 +29,7 @@ The writing rules are in the root guide's Documentation section.
 6. Inputs are pinned to commits, and their licences are read at the source before use.
    Held-out inputs stay unseen until the development inputs pass.
    The note records the held-out score before any fix.
-7. Prototype code lives on a pushed branch, and the note links it at a pinned commit.
+7. Prototype code stays on a pushed branch, and the note links it at a pinned commit.
    A prototype is written from scratch, as the crate is.
    The crate takes none of its code until a decision allows it.
 8. A note ends with what it did not verify, and with its compute: each machine, its minutes and its cost.

@@ -15,7 +15,7 @@ fn answer(arena: &mut Arena, pattern: Pattern, case: &Case<'_>) -> Option<(usize
 /// The type and the name in `foreach` split the blanks between them as
 /// Oniguruma does, which `oracle/onig.ts` gave for each case.
 /// The type's last part takes them all and gives back one to `\s+`.
-/// The type's group thus keeps all but the last.
+/// So the type's group keeps all but the last.
 #[test]
 fn a_foreach_type_keeps_all_but_the_last_blank_before_the_name() {
     let mut arena = Arena::new(None);

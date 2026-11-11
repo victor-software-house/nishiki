@@ -129,8 +129,8 @@ impl Lexer<'_> {
         (self.at(p) == b'\\' || self.name_starts(p)).then(|| self.qualified_end(p))
     }
 
-    /// `(^\s+)?(?=#)`: where a `#` comment opens, with the spaces before it at
-    /// the line's start as group 1.
+    /// `(^\s+)?(?=#)`: where a `#` comment opens, and group 1 holds the spaces
+    /// before it at the line's start.
     pub(super) fn hash_comment(&mut self, p: usize) -> Option<usize> {
         if p == 0 {
             let end = self.space_end(0);

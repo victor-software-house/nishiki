@@ -55,7 +55,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// An empty line leaves the state as it is.
 /// Shiki does not tokenize empty lines.
 /// The grammar would otherwise close a rule it left open at the end of the
-/// line before.
+/// previous line.
 #[inline]
 pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.is_empty() {

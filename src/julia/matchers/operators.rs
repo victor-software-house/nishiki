@@ -12,7 +12,7 @@ const UPDATES: &[&str] = &[
     ".%=", "÷=", ".÷=", "|=", "&=", ".&=", "⊻=", ".⊻=", "$=", "<<=", ">>=", ">>>=",
 ];
 
-/// Whether `c` is in `[!.′⁺-ₜ[:word:]]`, the characters a type name goes on
+/// Whether `c` is in `[!.′⁺-ₜ[:word:]]`, the characters a type name continues
 /// with after `::`.
 fn is_type_rest(c: char) -> bool {
     matches!(c, '!' | '.' | '′' | '\u{207a}'..='\u{209c}') || is_word(c)

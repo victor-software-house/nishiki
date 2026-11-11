@@ -1,12 +1,10 @@
 # Tasks
 
-Every step is measured against its base on a Linux box.
-Builds use one codegen unit and `MBX_DISABLE=1`.
+Every step is measured against its base on a Linux box, and builds use one codegen unit and `MBX_DISABLE=1`.
 Each measurement covers first token for every TextMate language in both tiers.
 It covers steady state with `mise run callgrind`'s harness.
 It covers `examples/memory.rs` and `size -A`.
-Each side builds three times from clean target directories.
-Each side must repeat across its three builds.
+Each side builds three times from clean target directories and must repeat across the three builds.
 
 ## 1. Design
 
@@ -26,7 +24,7 @@ Each side must repeat across its three builds.
     The one-off check compared 3,152 pattern and line-kind pairs, and all were equal.
     `the_relaxed_form_ends_with_the_first_positive_lookahead` and `a_relaxed_form_needs_a_character` pass.
     Clippy, the `textmate::` unit tests and the oracle pass.
-- [ ] 2.2 Measured → verify: first token falls, steady state is at or under main for every TextMate language, and memory is equal or lower
+- [ ] 2.2 Measured → verify: first token falls, steady state is no higher than main for every TextMate language, and memory is equal or lower
 
 ## 3. One parse in two stages
 
@@ -38,7 +36,7 @@ Each side must repeat across its three builds.
     `every_listed_pattern_that_parses_compiles` passes.
     The Identity workflow runs on the pull request.
 - [ ] 3.3 Measured, with the held trees' memory.
-  → verify: first token falls, and steady state and memory are at or under main for every TextMate language
+  → verify: first token falls, and steady state and memory are no higher than main for every TextMate language
   - 2026-11-04: first token falls by 3% to 23%, and steady state is 1.0000 to 1.0015 ([measurements][measurements], section 3.3).
     Memory is equal or lower for every TextMate language.
     A regex cell went from 152 to 144 bytes.
@@ -51,7 +49,7 @@ Each side must repeat across its three builds.
 - [x] 4.1 Options 2 to 4 of the design, each measured against option 1.
   → verify: a table of first token and steady state per language and option is recorded here
   - 2026-11-04: first token and steady state for options 2 to 6b, each against option 1 ([measurements][measurements], section 4.1).
-- [ ] 4.2 The option that meets the bar lands → verify: first token falls, and steady state is at or under main for every TextMate language
+- [ ] 4.2 The option that meets the bar lands → verify: first token falls, and steady state is no higher than main for every TextMate language
   - 2026-11-04: option 6b cuts first token by 0.3% to 60%, and steady state is at most 1.0013 ([measurements][measurements], section 4.2).
   - Lead, 2026-11-04: land it, with that split in the pull request.
 

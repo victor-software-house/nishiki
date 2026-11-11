@@ -191,8 +191,7 @@ fn closes(s: &[u8], p: usize, label: &[u8]) -> bool {
 /// The patterns of `#interpolation`, in a heredoc or a double-quoted string:
 /// - `\\[0-7]{1,3}`, `\\x\h{1,2}`, `\\u\{\h+}` and `\\[$\\efnrtv]`;
 /// - `\{(?=\$.*?})`;
-/// - `$name`, which `#variable-name` starts with in each of its forms, and
-///   `${name}`.
+/// - `$name`, which `#variable-name` starts with in every form, and `${name}`.
 fn interpolation(s: &[u8], p: usize) -> bool {
     let next = s.get(p + 1).copied();
     match s.get(p) {

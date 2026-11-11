@@ -36,7 +36,7 @@ pub(crate) struct Extra {
     /// - how long the text it searched was;
     /// - the first place at or after the start where the text lies.
     ///
-    /// It answers every later search in a text of that length from a place up
+    /// It answers every later search of a text that long, from a place up
     /// to that one.
     /// A capture group lexed again sees a shorter text.
     needs: [Cell<(usize, usize, Option<usize>)>; NEEDS.len()],

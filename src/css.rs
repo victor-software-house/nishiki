@@ -4,7 +4,7 @@
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
+//! Its `matchers` decide where each pattern matches.
 //! The rules left open at the end of a line (rule lists, at-rules, comments,
 //! strings, selectors) are frames of the highlighter's interned state.
 
@@ -45,7 +45,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     rules::start_embedded::<Css>(arena, base)
 }
 
-/// The state at the start of the string of a Vue `style` attribute, whose
+/// The state at the start of a Vue `style` attribute's string, whose
 /// text sits on the stack `base`.
 /// Its rule holds the string's patterns, which include CSS's.
 #[cfg(feature = "lang-vue")]

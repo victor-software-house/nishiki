@@ -80,7 +80,7 @@ impl Lexer<'_> {
     /// `` (`{3,})\s*(.*) ``: a fence in a roxygen comment.
     /// The fence's end repeats its backticks.
     /// The blanks take the line feed of a line that ends after them.
-    /// The run of backticks gives nothing back: `\s*(.*)` matches after any
+    /// A run of backticks gives nothing back: `\s*(.*)` matches after any
     /// run.
     pub(super) fn fence(&mut self, p: usize) -> Option<usize> {
         let ticks = self.skip(p, |b| b == b'`');

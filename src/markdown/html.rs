@@ -36,7 +36,7 @@ fn raw_closes<'a>(cx: &'a Cx<'a>, from: usize) -> impl Iterator<Item = usize> + 
 }
 
 /// `(?i)(^|\G)\s*(?=<(script|style|pre)(\s|$|>)(?!.*?</(script|style|pre)>))`,
-/// which opens a raw HTML block: one its line does not close.
+/// which opens a raw HTML block that its line does not close.
 pub(crate) fn raw_open(cx: &Cx<'_>, p: usize) -> Option<usize> {
     if !cx.at_start(p) {
         return None;

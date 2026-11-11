@@ -3,8 +3,8 @@
 //!
 //! Each module under `words/` writes one language's tables.
 //! It names the rules it reads and where each list sits in their patterns.
-//! This module holds what they share.
-//! It loads a grammar, finds a rule and cuts a list out of a pattern.
+//! This module holds what they share: it loads a grammar, finds a rule and
+//! cuts a list out of a pattern.
 //! It then expands the list into words and lays out a table.
 
 mod c;

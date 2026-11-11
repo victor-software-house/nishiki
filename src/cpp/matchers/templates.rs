@@ -28,8 +28,8 @@ impl Lexer<'_> {
     /// Oniguruma lets a group call itself 19 times inside the group that
     /// defines it.
     /// That allows 20 levels of `<`, and a match with a 21st fails.
-    /// The body is a possessive run of `[^"'/<>]` and `/[^*]`.
-    /// The line feed is a character the class takes.
+    /// The body is a possessive run of `[^"'/<>]` and `/[^*]`, and the line
+    /// feed is a character the class takes.
     fn template_args_in(&self, p: usize, last: &mut LastComment, depth: usize) -> Option<usize> {
         if depth >= MAX_CALL_DEPTH || self.at(p) != b'<' || p >= self.lim() {
             return None;

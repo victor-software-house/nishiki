@@ -8,7 +8,8 @@
     A nightly rustdoc build with both cfgs passes under `-D warnings`.
     Its module list shows the `nishiki_unstable` badge on `unstable`.
     The semver job sets no `RUSTFLAGS`, so it builds without the cfg.
-- [x] 1.2 `RuleSyntax<G>` under `nishiki::unstable`, so `Highlighter<S: Syntax>` runs a caller's grammar; its own pull request, with the `bench` label.
+- [x] 1.2 `RuleSyntax<G>` under `nishiki::unstable`, so `Highlighter<S: Syntax>` runs a caller's grammar.
+  It gets its own pull request, with the `bench` label.
   → verify: a test highlights a line with a grammar the test defines, and Callgrind shows no language's count rising
   - 2026-11-10: on a box, lint, `check:features`, `check:unstable`, tests and doctests pass.
     `a_grammar_the_test_defines_highlights_lines` highlights two lines with a grammar the test defines.

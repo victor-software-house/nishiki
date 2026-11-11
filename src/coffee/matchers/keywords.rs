@@ -145,7 +145,7 @@ where
 
     /// `\b(debugger|\\)\b`.
     /// A backslash is not a word character, so `\b` holds on both sides of
-    /// it only between two words.
+    /// it, only between two words.
     pub(super) fn debugger(&self, p: usize) -> Option<usize> {
         if self.at(p) == b'\\' {
             return (self.boundary(p) && self.boundary(p + 1)).then_some(p + 1);

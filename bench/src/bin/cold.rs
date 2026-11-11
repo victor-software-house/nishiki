@@ -3,8 +3,8 @@
 //!
 //! The runner starts this program once per sample. Every sample begins with
 //! empty lazy state. No pattern tables, decoded grammars or lazily built
-//! automata survive from an earlier sample. The binary is in the page cache.
-//! The figure is a fresh process, not a cold disk.
+//! automata survive from an earlier sample. The binary is in the page cache, so
+//! the figure measures a fresh process with a warm disk cache.
 //!
 //! - A sample creates a highlighter, lexes the document's first line, then the
 //!   rest. It prints the three times, counted from right before the highlighter

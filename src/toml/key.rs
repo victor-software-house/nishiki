@@ -4,8 +4,8 @@
 //! Some keys begin with a `"` and end with the first later `"` that an `=`
 //! follows.
 //! Such a key is read as a single quoted name, whatever its dots and quotes.
-//! Its inner quotes are then marked invalid.
-//! Shiki's output does this, so the lexer does it too.
+//! Its inner quotes are then marked invalid, as Shiki's output does and the
+//! lexer does too.
 
 use memchr::{memchr, memchr2};
 

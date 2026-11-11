@@ -3,8 +3,8 @@
 //!
 //! Each benchmark lexes every file of one language and tier, line by line.
 //! Each file starts from a fresh highlighter, as an editor opening the file
-//! does. The throughput is the files' total bytes over their total time. A
-//! small file then weighs no more than its size. The small tier shows what
+//! does. The throughput is the files' total bytes over their total time, so a
+//! small file weighs no more than its size. The small tier shows what
 //! creating a highlighter costs. `new/<language>` times that alone.
 //!
 //! `mise run bench lex/python` runs only the benchmarks whose name holds

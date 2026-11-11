@@ -325,7 +325,7 @@ pub(crate) enum Start {
     Class(fn(u8) -> bool),
     /// A zero-width match after one of these bytes.
     After(&'static [u8]),
-    /// Anywhere: the rule cannot skip positions.
+    /// Anywhere: the rule skips no positions.
     Any,
     /// Only where [`Pattern::anchored`] or [`Pattern::at_line_start`] allow.
     Never,
@@ -399,8 +399,8 @@ fn function_start(b: u8) -> bool {
 }
 
 impl Pattern {
-    /// Whether the pattern can match at the first position of a search without
-    /// starting at a byte in its [`Start`]: it is `\\G`.
+    /// Whether the pattern can match at the first position of a search, with
+    /// no starting byte in its [`Start`]: it is `\\G`.
     pub(crate) fn anchored(self) -> bool {
         matches!(
             self,
@@ -411,8 +411,8 @@ impl Pattern {
         )
     }
 
-    /// Whether the pattern can match at the start of the line without starting
-    /// at a byte in its [`Start`]: it is `^`.
+    /// Whether the pattern can match at the start of the line, with no starting
+    /// byte in its [`Start`]: it is `^`.
     pub(crate) fn at_line_start(self) -> bool {
         matches!(
             self,
@@ -1361,7 +1361,7 @@ fn build(rule: Rule) -> RuleDefinition {
 /// patterns that can match there.
 /// Positions whose list is empty are skipped without trying anything.
 ///
-/// The zero-width patterns that depend on the byte before are listed in
+/// The zero-width patterns that depend on the previous byte are listed in
 /// order.
 /// Each byte before a position activates a set of them, a bit each.
 /// There are at most eight such patterns and at most 256 distinct sets.

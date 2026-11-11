@@ -18,7 +18,7 @@ impl Lexer<'_> {
         Some(self.blanks(hash + 1))
     }
 
-    /// `(?<=$)`, which holds where `$` does: at the end of the line.
+    /// `(?<=$)`, which holds where `$` does, at the end of the line.
     pub(in crate::csharp) fn after_line_end(&self, p: usize) -> Option<usize> {
         self.at_eol(p).then_some(p)
     }

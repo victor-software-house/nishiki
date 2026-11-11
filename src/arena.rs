@@ -4,8 +4,8 @@
 //! Both are persistent linked lists, hash-consed.
 //! A node is its parent's id and one step, created once.
 //! A push is one hash lookup, and a pop follows the parent link.
-//! Two equal stacks or states have the same id.
-//! Comparing them is therefore one integer comparison.
+//! Two equal stacks or states have the same id, so comparing them is one
+//! integer comparison.
 //!
 //! Memory grows with the number of distinct nodes, not with depth times the
 //! number of lines.
@@ -194,7 +194,7 @@ impl Arena {
 
     /// The stack `base` with `scopes` on top, in order.
     /// The node limit can keep a new stack from being made.
-    /// The scope it stops is then left off with every scope after it.
+    /// Then the scope it stops, and every scope after it, is left off.
     /// `report` records the limit.
     #[cfg(any(
         feature = "lang-diff",

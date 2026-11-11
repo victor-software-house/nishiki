@@ -89,10 +89,10 @@ pub(crate) enum Rule {
     /// The text of a capture group that the grammar tokenizes with the
     /// attribute rules. It never outlives the line.
     Region,
-    /// ERB: the blanks at the start of a line before a comment that the line
+    /// ERB: the blanks at the start of a line, before a comment that the line
     /// does not close, up to the comment's end.
     ErbCommentWrap,
-    /// ERB: the blanks at the start of a line before code that the line does
+    /// ERB: the blanks at the start of a line, before code that the line does
     /// not close, up to the code's end.
     ErbTagWrap,
     /// ERB: `<%#` up to `%>`.

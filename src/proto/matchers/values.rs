@@ -58,7 +58,7 @@ impl Lexer<'_> {
     }
 
     /// `([Ee])([-+])?[0-9]+` from `i`.
-    /// A sign with no digit after it leaves the sign itself, which is no
+    /// A sign with no digit after it leaves the sign itself, and that is no
     /// digit, so the exponent fails.
     fn exponent_end(&self, i: usize) -> Option<usize> {
         if !matches!(self.at(i), b'E' | b'e') {
@@ -81,7 +81,8 @@ impl Lexer<'_> {
     /// `\\.` and `[^\\]` start with different bytes, so the loop has one way to
     /// go on.
     /// `.` takes no line feed, so a backslash before the line's end stops the
-    /// string; `[^\\]` takes the line feed, after which no quote can stand.
+    /// string.
+    /// `[^\\]` takes the line feed, after which no quote can stand.
     pub(super) fn string(&self, p: usize) -> Option<usize> {
         let quote = self.at(p);
         if !matches!(quote, b'"' | b'\'') {

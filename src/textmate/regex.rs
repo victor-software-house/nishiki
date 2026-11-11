@@ -91,8 +91,8 @@ pub(crate) enum Programs {
 
 impl Programs {
     /// The programs `line` runs, found without decoding.
-    /// One pass checks that the line is ASCII.
-    /// A second pass runs only for a line that is not.
+    /// One pass checks that the line is ASCII, and a second pass runs only for
+    /// a line that is not.
     /// It looks up each byte in a table of the first bytes of those
     /// characters' UTF-8 forms.
     /// It then checks the bytes after that first byte.
@@ -119,7 +119,7 @@ impl Programs {
     ///
     /// A lead byte's second byte is checked against [`folds::WIDE_SECOND`]
     /// before the rest.
-    /// A two-byte character is decided there.
+    /// Two-byte characters are decided there.
     /// A three-byte one whose second byte no such character has, such as `∈`,
     /// is passed over.
     ///

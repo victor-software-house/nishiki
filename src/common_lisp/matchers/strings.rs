@@ -67,7 +67,7 @@ impl Lexer<'_> {
     ///
     /// A search that fails is kept.
     /// A tilde inside its path is the character of a `'.`.
-    /// A search from that tilde therefore starts on the path, and fails where
+    /// From that tilde, a search therefore starts on the path, and fails where
     /// the first did.
     /// A line of many such tildes is then lexed in linear time.
     pub(super) fn directive(&mut self, p: usize, directive: Directive) -> Option<usize> {
@@ -115,7 +115,7 @@ impl Lexer<'_> {
         }
     }
 
-    /// The end of the run of ASCII digits from `i`.
+    /// The end of the ASCII digit run from `i`.
     fn digit_run(&self, i: usize) -> usize {
         self.skip(i, |b| b.is_ascii_digit())
     }

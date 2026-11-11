@@ -111,7 +111,7 @@ fn uri_text(text: &[u8], extra: &[u8]) -> bool {
 }
 
 /// Whether a tag is well formed: `!`, a shorthand `!suffix`, `!!suffix` or
-/// `!handle!suffix`, or a verbatim `!<uri>`.
+/// `!handle!suffix`, or a tag written as a full URI, `!<uri>`.
 fn tag_valid(tag: &[u8]) -> bool {
     match tag {
         b"!" => true,
@@ -580,8 +580,7 @@ impl<'a> Lexer<'a> {
     /// Scans the plain scalar that starts at `p`.
     /// It returns where its text ends, before the blanks that trail it.
     /// It also returns whether a `:` that makes it a key follows.
-    /// A lone `-` or `:` cannot be a key.
-    /// The scalar goes on past it.
+    /// A lone `-` or `:` cannot be a key, so the scalar goes on past it.
     fn scan_plain(&self, p: usize, flow: bool) -> (usize, bool) {
         let len = self.s.len();
         let mut i = p;
@@ -966,7 +965,7 @@ impl<'a> Lexer<'a> {
         i
     }
 
-    /// The end of the run of bytes from `from` that `class` accepts.
+    /// The end of the run from `from` whose bytes `class` accepts.
     fn run_end(&self, from: usize, class: fn(u8) -> bool) -> usize {
         let mut i = from;
         while i < self.s.len() && class(self.s[i]) && self.blank_at(i) == 0 {

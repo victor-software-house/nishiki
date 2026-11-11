@@ -24,7 +24,7 @@ jobs:
       id-token: write # crates.io trusted publishing
     uses: victor-software-house/verctl/.github/workflows/release.yml@f5937655e6c5531255cf59b5ab9732572897db44 # v0.7.1
     with:
-      mise-version: 2026.10.25
+      mise-version: 2026.11.6
       mise-env: ci,release
       # A private repository: the plan, publish, docs and propose jobs run on
       # Namespace, as its CI does.

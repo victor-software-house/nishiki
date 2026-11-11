@@ -18,9 +18,9 @@ The engine's logic does not change when they do.
     - mixed repository rules compiled into the engine's table;
     - ERB moves onto `Halts` in its second PR.
 - [x] 1.2 Engine profile agreed with engine-spans (cost of a `&dyn` halt per place) → verify: their reply recorded in design section 10
-  - engine-spans, 2026-11-03: `&dyn Fn` is fine; keep the `halt: None` branch; `#[inline]` dispatch; halts stay pure; label the PR `bench`.
+  - engine-spans, 2026-11-03: `&dyn Fn` is fine. Keep the `halt: None` branch. Keep `#[inline]` dispatch. Halts stay pure. Label the PR `bench`.
 - [x] 1.3 GraphQL port's embedding agreed with primitives → verify: their reply recorded in design section 10
-  - primitives, 2026-11-03: `lex_embedding_until` maps onto `Halts`; nested hand-offs forward only the outer `any`; halts per rule from the grammar.
+  - primitives, 2026-11-03: `lex_embedding_until` maps onto `Halts`. Nested hand-offs forward only the outer `any`. Halts per rule come from the grammar.
 - [x] 1.4 [#159][pr159]'s dispatch agreed with go-lexer → verify: their reply recorded in design section 10
   - go-lexer, 2026-11-03:
     - halts on the `Lexer`;

@@ -289,11 +289,11 @@ where
 
     /// Where the scan goes on after no pattern matched at `p`.
     ///
-    /// At an ASCII letter or `_`, it goes on after the run of ASCII word
-    /// characters there.
+    /// At an ASCII letter or `_`, it goes on after the ASCII word-character run
+    /// there.
     /// No pattern can match inside that run:
-    /// - a pattern that starts with a name reads the whole run of `[$\w]`. It
-    ///   needs the same text after the name at every place in the run, and it
+    /// - a pattern that starts with a name reads the whole run of `[$\w]`. At
+    ///   every place in the run, it needs the same text after the name, and it
     ///   missed at `p`;
     /// - `[A-Z][$0-9A-Z_]*` before a member reaches the run's end only where a
     ///   name before the same member matched at `p`;

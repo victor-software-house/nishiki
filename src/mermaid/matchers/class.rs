@@ -28,8 +28,8 @@ pub(super) enum After {
 }
 
 /// The arrows of a relation, in the grammar's order.
-/// The grammar's `--\*?` tries `--*` first, which an earlier alternative
-/// already tried, so it stands here as `--`.
+/// The grammar's `--\*?` tries `--*` first, and an earlier alternative
+/// already tried that, so it stands here as `--`.
 const ARROWS: &[&[u8]] = &[
     b"--o", b"--*", b"<--", b"-->", b"<..", b"..>", b"<|..", b"..|>", b"<|--", b"--|>", b"--",
     b"..", b"*--", b"o--",

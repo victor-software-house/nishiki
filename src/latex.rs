@@ -53,8 +53,8 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 }
 
 /// Lexes `line` like [`lex`], for LaTeX that another language embeds.
-/// The line halts where `end` holds before LaTeX's patterns are tried.
-/// It also halts where `after` holds and the patterns fail.
+/// The line halts where `end` holds before LaTeX's patterns are tried,
+/// and also where `after` holds and the patterns fail.
 /// Both apply only while no LaTeX rule is open.
 /// The second value holds where the line stopped, and why.
 #[inline]

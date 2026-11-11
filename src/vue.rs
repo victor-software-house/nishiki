@@ -17,8 +17,8 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
     crate::html::start_vue(arena, base)
 }
 
-/// The state at the start of Vue embedded in another language, whose text
-/// sits on `base` with no `text.html.vue` of its own.
+/// The state at the start of Vue when another language embeds it.
+/// Its text sits on `base` with no `text.html.vue` of its own.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     crate::html::start_embedded(arena, base)
 }

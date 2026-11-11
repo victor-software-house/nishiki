@@ -5,7 +5,7 @@
 //! the `engine` module.
 //! The tables in `grammar` are generated from the grammar, and `words` holds
 //! its long word lists.
-//! The `matchers` decide where each regular expression matches.
+//! Its `matchers` decide where each regular expression matches.
 //! LaTeX's lexer reaches the same matchers for the TeX rules its grammar
 //! includes.
 //!

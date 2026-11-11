@@ -52,8 +52,9 @@ fn a_bare_less_than_is_text() {
     );
 }
 
-/// In JavaScript the `<` of `<%=` is an operator, which matches where the
-/// injection would and so wins: the `%=` after it is JavaScript too.
+/// In JavaScript the `<` of `<%=` is an operator that matches where the
+/// injection would, and so it wins.
+/// The `%=` after it is JavaScript too.
 #[test]
 fn javascript_code_takes_the_less_than_first() {
     assert_eq!(
@@ -146,7 +147,7 @@ fn the_end_takes_a_dash_and_skips_strings() {
 }
 
 /// Code that its line does not close runs on to the next line.
-/// The blanks before and after it at the ends of its lines get scopes of
+/// The blanks before and after it, at the ends of its lines, get scopes of
 /// their own.
 #[test]
 fn code_across_lines_has_its_blanks_named() {

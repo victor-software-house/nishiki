@@ -307,7 +307,7 @@ impl Lexer<'_> {
     /// directive at the start of the line.
     ///
     /// The rules hold only their ends and the string's escape, which start
-    /// with no `\w`, and the line comment's `$`, which a run cannot pass.
+    /// with no `\w`, and the line comment's `$` that a run cannot pass.
     pub(super) fn after_missed_word(&self, p: usize) -> usize {
         if !is_word(self.at(p)) {
             return self.char_end(p);

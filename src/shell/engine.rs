@@ -295,7 +295,7 @@ pub(crate) struct Lexer<'a> {
     flags: Flags,
     /// The lowest index the line pushed a frame at.
     /// The frames below it are ones the line started with.
-    /// The line that left them already cleared their `enter` and `anchor`.
+    /// Whichever line left them already cleared their `enter` and `anchor`.
     low: usize,
     /// The searches that scan ahead, one per `Lazy` test.
     finds: Finds,

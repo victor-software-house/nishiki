@@ -2,8 +2,8 @@
 //!
 //! Three rules of the grammar start with `^`: the `FROM ... AS` line, the
 //! instruction keywords, and the comment.
-//! Only the first byte of a line can start them.
-//! A line is therefore tried against them once.
+//! Only the first byte of a line can start them, so a line is tried against
+//! them once.
 //! The rest of the line holds strings and escapes, which `super::line` scans
 //! for.
 //! Each matcher answers what its regular expression would, including where
@@ -100,7 +100,7 @@ impl<'a> Line<'a> {
         }
     }
 
-    /// The end of the run of white space from `i`.
+    /// The end of the white space run from `i`.
     fn spaces(&mut self, mut i: usize) -> usize {
         let from = i;
         while let width @ 1.. = self.space_at(i) {

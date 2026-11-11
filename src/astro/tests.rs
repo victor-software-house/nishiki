@@ -97,8 +97,8 @@ mod probe {
 
     /// Answers the cases of `oracle/onig.ts` with Astro's matchers
     /// (see [`answer_cases`]).
-    /// A case has no open rules, so no body opens, and no line is the
-    /// document's first, so the frontmatter never opens.
+    /// A case has no open rules, so no body opens.
+    /// No line is the document's first, so the frontmatter never opens.
     #[test]
     #[ignore = "a tool: it needs a cases file"]
     fn matchers_answer_the_probe_cases() {

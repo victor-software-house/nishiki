@@ -133,8 +133,8 @@ impl<G: CssLike> Lexer<'_, G> {
         (end > p).then_some(end)
     }
 
-    /// The end of the run of characters from `p` that `class` accepts and that
-    /// are not white space.
+    /// The end of the run from `p` whose characters `class` accepts and are
+    /// not white space.
     /// `class` sees every byte of a character.
     fn skip_chars(&self, p: usize, class: impl Fn(u8) -> bool) -> usize {
         let mut i = p;
@@ -423,7 +423,7 @@ impl<G: CssLike> Lexer<'_, G> {
     /// The number followed by one of [`UNITS`], in any case, with a boundary
     /// after it.
     /// The grammar's unit alternatives are one pattern here.
-    /// Every unit is letters only, so at most one of them ends at `\b`.
+    /// Every unit is letters only, so at most one unit ends at `\b`.
     ///
     /// The grammar names the unit `keyword.other.unit.${2:/downcase}.css`.
     /// A unit of ASCII takes its scope from `UNIT_SCOPES`.

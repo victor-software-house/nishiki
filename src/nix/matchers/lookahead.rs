@@ -5,7 +5,7 @@ use super::Lexer;
 use crate::rules::Chars;
 
 impl Lexer<'_> {
-    /// The end of the run of bytes from `p` that are none of `stops`.
+    /// The end of the run from `p` whose bytes are none of `stops`.
     /// It ends at the line's end, after the line feed when there is one.
     fn run_until(&self, p: usize, stops: &[u8]) -> usize {
         let mut i = p;
@@ -16,7 +16,7 @@ impl Lexer<'_> {
         i
     }
 
-    /// Whether `[,?]` follows some part of the run of bytes from `p` that are
+    /// Whether `[,?]` follows some part of the run from `p` whose bytes are
     /// none of `stops`, with `stops` free of `,` and `?`.
     ///
     /// The run is greedy and gives bytes back until `[,?]` follows it.
@@ -30,8 +30,8 @@ impl Lexer<'_> {
     /// ]))`.
     ///
     /// The first branch: a name, then `:` or `@`.
-    /// The second: a brace, a run free of quotes and braces, its `}` and a `:`.
-    /// The third: a brace and a run free of quotes, `#`, `/`, `=` and `}` that
+    /// Second: a brace, a run free of quotes and braces, its `}` and a `:`.
+    /// Third: a brace and a run free of quotes, `#`, `/`, `=` and `}` that
     /// holds a `,` or a `?`.
     pub(super) fn function_ahead(&self, p: usize) -> Option<usize> {
         if let Some(end) = self.name(p) {

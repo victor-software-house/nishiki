@@ -60,13 +60,13 @@ pub(super) enum Blade {
     Function,
     /// 15: a bound attribute. The value is where `=` stands.
     Attribute(usize),
-    /// 16: the blanks at the start of a line before PHP it does not close.
+    /// 16: the blanks at the start of a line, before PHP it does not close.
     PhpWrap,
     /// 17: PHP that its line does not close.
     PhpBlock,
     /// 18: PHP, up to `>`.
     PhpLine,
-    /// In a comment: the blanks at the start of a line before PHP it does not
+    /// In a comment: the blanks at the start of a line, before PHP it does not
     /// close.
     CommentPhpWrap,
     /// In a comment: PHP that its line does not close.

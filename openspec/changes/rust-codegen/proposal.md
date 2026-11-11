@@ -46,7 +46,7 @@ The operator chose Rust for every generator (2026-11-10).
 
 - `codegen/`: a new crate, with its own manifest, lock file and target directory.
 - Every generated file: a `// @generated` header, and `#[rustfmt::skip]` on its `mod`.
-  prettyplease lays out the structured files, so their lines change; their tokens do not.
+  prettyplease lays out the structured files, so their lines change but their tokens do not.
 - `oracle/`: the 7 word scripts go, and `fence-stops.ts` becomes a check in `codegen/`.
 - `oracle/facts/`: three fact files, written by the scripts that keep measuring.
 - `AGENTS.md` and `CODING_STANDARDS.md`: the rule that Rust writes generated Rust.

@@ -256,7 +256,7 @@ impl<G: CssLike> Lexer<'_, G> {
     /// folded to lower case.
     /// The patterns tried at one place look up the same word, each in its
     /// own list.
-    /// The word is looked up once, among the words of its first byte
+    /// It is looked up once, among the words of its first byte
     /// ([`STARTS`]).
     /// The answer is kept until another word is asked for.
     fn lists_of(&self, from: usize, to: usize) -> u32 {

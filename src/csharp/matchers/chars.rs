@@ -35,7 +35,7 @@ pub(in crate::csharp) enum Body {
 }
 
 impl Lexer<'_> {
-    /// The character at `p`: never one at or after the end of the text.
+    /// The character at `p`, never one past the end of the text.
     pub(in crate::csharp) fn cp(&self, p: usize) -> Option<(char, usize)> {
         if p >= self.lim() {
             return None;
@@ -152,7 +152,8 @@ impl Lexer<'_> {
         p < self.lim() && set.contains(&self.s[p])
     }
 
-    /// The regex `(?=[set])` at `p`; the line feed after the line is a byte
+    /// The regex `(?=[set])` at `p`.
+    /// The line feed after the line is a byte
     /// of the text, so a set that lists it matches there.
     pub(in crate::csharp) fn ahead_in(&self, p: usize, set: &[u8]) -> bool {
         let b = self.at(p);

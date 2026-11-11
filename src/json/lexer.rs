@@ -160,7 +160,7 @@ impl<'a, H: Mode<'a>> Lexer<'a, H> {
         self.gap(self.mode.halted().unwrap_or(len));
     }
 
-    /// A step at the top of the document for a lexer that halts.
+    /// A step at the document's top for a lexer that halts.
     ///
     /// Only there do the embedding language's patterns stand beside JSON's.
     /// Inside an array, an object, a string or a comment, JSON's rule alone

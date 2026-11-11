@@ -21,8 +21,7 @@ It clones the tree in `relax::widen` and builds the relaxed `Hir` from the clone
 Callgrind measured it at one codegen unit, at [38ab4d76][head].
 The harness is a scratch example outside the repository.
 It calls `Highlighter::new`, then lexes lines from the first until one yields a token.
-The input is CMake's first small bench-corpus file.
-It ran locally on a Linux box on 2026-11-04.
+The input is CMake's first small bench-corpus file, and the measurement ran locally on a Linux box on 2026-11-04.
 
 | Part | Instructions | Share |
 |:--|--:|--:|
@@ -62,10 +61,9 @@ It reads no captures.
    It tries the one-pass DFA, then the bounded backtracker, then the PikeVM.
 
 The one-pass DFA serves anchored searches only.
-The relaxed patterns are never anchored at the start.
-So the scan never uses the one-pass DFA.
-The scan uses the forward NFA, the reverse NFA, the lazy DFA and the prefilter.
-The bounded backtracker and the PikeVM serve only the fallback.
+The relaxed patterns are never anchored at the start, so the scan never uses the one-pass DFA.
+It uses the forward NFA, the reverse NFA, the lazy DFA and the prefilter.
+Only the fallback uses the bounded backtracker and the PikeVM.
 
 ## Goals / Non-Goals
 
@@ -73,7 +71,7 @@ The bounded backtracker and the PikeVM serve only the fallback.
 
 - Cut the cost of a scanner's build on the first line.
 - Parse each pattern once.
-- Keep steady state at or under main for every TextMate language.
+- Keep steady state no higher than main for every TextMate language.
 - Keep every pattern's output unchanged.
 - Keep the work budget's charges unchanged.
 
@@ -108,12 +106,11 @@ The regex cell's fast path stays one `OnceLock` load.
 A search can try a pattern before any scanner reaches it.
 That pattern then runs both stages from one parse, as `Regex::for_scanner` does today.
 
-The sketch uses the full tree, not the lean tree.
+The sketch uses the full tree instead of the lean tree.
 A lean list's scanner then no longer waits on the lean rewrite.
 
 The lean rewrite only drops alternatives.
-So the full tree's relaxed `Hir` matches a superset of the lean tree's.
-The full tree's first bytes are a superset too.
+So the full tree's relaxed `Hir` matches a superset of the lean tree's, and its first bytes are a superset too.
 The automaton can report extra candidates on a lean line.
 The exact lean program rejects those candidates.
 Output does not change.
@@ -171,7 +168,7 @@ Each option is measured on its own, on first token and steady state:
    It needs no literal extraction.
 
 The option that lands is the one that lowers first token most.
-Its steady state must stay at or under main for every language.
+Its steady state must stay no higher than main for every language.
 
 ## Risks / Trade-offs
 
@@ -181,7 +178,7 @@ Its steady state must stay at or under main for every language.
   If the held trees cost more than they save, `Cells` keeps the tree only while `Scanner::build` runs.
 - [Risk] A cheaper automaton reports more false candidates.
   The exact machine then runs more often.
-  → Option 3 must keep steady state at or under main for every language.
+  → Option 3 must keep steady state no higher than main for every language.
 - [Rejected] Cutting the relaxed pattern short would shrink the automaton further.
   The work budget charges up to the candidate's end, in [`Tokenizer::scan_list`][tokenizer].
   A shorter relaxed pattern would change those charges.

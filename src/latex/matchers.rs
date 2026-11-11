@@ -1675,7 +1675,7 @@ impl Lexer<'_> {
     /// Each group takes its text up to the last `]` before the next `[`.
     /// A group whose last `]` a `[` follows can be followed by another.
     /// When `rest` fails, the last group gives back to its earlier `]`s, from
-    /// the right; then the group before it does; then no group is tried.
+    /// the right; then the group before it does, and then no group is tried.
     /// The first value is the last group's span.
     fn greedy_brackets<T>(
         &self,

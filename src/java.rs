@@ -4,7 +4,7 @@
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
+//! Its `matchers` decide where each pattern matches.
 //! The rules left open at the end of a line (blocks, parentheses, comments,
 //! text blocks) are frames of the highlighter's interned state.
 

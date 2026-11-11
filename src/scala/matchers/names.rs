@@ -64,7 +64,7 @@ pub(super) fn is_lower_start(c: char) -> bool {
 }
 
 impl Lexer<'_> {
-    /// The end of the run of characters from `i` that `class` accepts.
+    /// The end of the run from `i` whose characters `class` accepts.
     /// Each character counts against the line's work budget.
     pub(super) fn chars_while(&self, mut i: usize, class: impl Fn(char) -> bool) -> usize {
         let from = i;

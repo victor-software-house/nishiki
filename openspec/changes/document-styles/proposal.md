@@ -27,7 +27,7 @@ None.
 
 ### Modified Capabilities
 
-- `streaming`, which the `streaming` change adds: a document's tokens come styled with its theme.
+- `streaming`, added by the `streaming` change: a document's tokens come styled with its theme.
 
 ## Impact
 

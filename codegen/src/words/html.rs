@@ -23,7 +23,7 @@ const TAGS: Cut = Cut::After("(?i)(<)(", ")(?=");
 /// An attribute's name, which ends where the grammar's `(?![-:\w])` follows.
 const ATTRIBUTE_END: &str = r")(?![-:\w])";
 
-/// A table of tag names from the patterns of `tags-valid`.
+/// A table of tag names, read from the patterns of `tags-valid`.
 #[derive(Debug)]
 struct Tags {
     /// The table's name.

@@ -4,8 +4,8 @@
 //! At each position the engine tries the end pattern of the innermost rule.
 //! Then it tries the rule's patterns in order.
 //! It takes the first that matches at the earliest position.
-//! A begin match opens a rule and an end match closes it.
-//! A match's capture groups name parts of it.
+//! A begin match opens a rule and an end match closes it, and each capture
+//! group of a match names part of it.
 //!
 //! The corner cases of `TextMate` engines are kept because Shiki's output
 //! depends on them:
@@ -17,7 +17,7 @@
 //! - A capture group that the grammar tokenizes with patterns of its own is
 //!   lexed on its text alone.
 //!
-//! The grammar's injection, which flags a bare `<`, joins the search: it
+//! The grammar's injection, which flags a bare `<`, joins the search and
 //! wins only where it starts before every match of the current rule. In an
 //! ERB document ERB's injection takes its place, and opens Ruby code there.
 
@@ -145,14 +145,14 @@ pub(super) enum Document {
     /// HTML's list.
     /// Compiled through HTML, they resolve to MathML's.
     DerivativeFirst,
-    /// html-derivative: HTML with a rule of its own for the tags no other
+    /// html-derivative: HTML plus a rule of its own for the tags no other
     /// rule takes, which Vue's templates use.
     #[cfg_attr(
         not(feature = "lang-html-derivative"),
         expect(dead_code, reason = "only the html-derivative language lexes it")
     )]
     Derivative,
-    /// ERB: HTML with ERB's injection in place of the HTML grammar's.
+    /// ERB: HTML with ERB's injection instead of the HTML grammar's.
     #[cfg_attr(
         not(feature = "lang-erb"),
         expect(dead_code, reason = "only the ERB language lexes ERB")
@@ -165,7 +165,7 @@ pub(super) enum Document {
         expect(dead_code, reason = "only the Vue language lexes Vue")
     )]
     Vue,
-    /// Blade: html-derivative with Blade's injection in place of the
+    /// Blade: html-derivative with Blade's injection instead of the
     /// grammar's.
     #[cfg_attr(
         not(feature = "lang-blade"),
@@ -347,8 +347,8 @@ pub(super) struct Lexer<'a> {
     /// The open rules, the root first.
     frames: Vec<Frame>,
     /// A search's last answer, as the position searched from and the place
-    /// found. It holds only for the text it was found in: a region, which
-    /// ends the text early, forgets it on the way in and out.
+    /// found. It holds only for the text it was found in.
+    /// A region, which ends the text early, forgets it on the way in and out.
     /// It caches one of two searches, by document:
     /// - in an HTML or html-derivative document, the next `<` where the
     ///   grammar's injection applies ([`Lexer::find_lt`]);

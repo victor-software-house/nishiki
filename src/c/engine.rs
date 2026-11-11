@@ -4,7 +4,7 @@
 //! - the search that finds the next match;
 //! - what the matchers remember about a line.
 //!
-//! The search is C's own, not the engine's table scan.
+//! The search is C's own instead of the engine's table scan.
 //! At each position it tries the end of the innermost rule first.
 //! Then it tries only the patterns that the position's place allows
 //! (`lists::place`).

@@ -32,12 +32,12 @@ nishiki never reads it as a grammar source (invariant 1).
    - Pierre takes Zed themes keyed by its token names.
      `compare --pierre-theme` writes one from `CAPTURES` and `PIERRE` in `src/engines.rs`.
      Pierre's fidelity depends on that map.
-     A low figure can come from the map, not the engine.
+     A low figure can come from the map instead of the engine.
 3. Setup, the first document in a fresh process, and warm throughput are three figures, never one.
 4. Every engine does the full work: Shiki's and Pierre's line limits are off, and the run stops if nishiki reports a limit reached.
 5. Every Rust engine builds with the default release profile and the same rustc.
 6. TypeScript's tree-sitter query is joined to JavaScript's, and C++'s to C's, because each extends its base.
-7. Each row carries the engine's token count and its fidelity to Shiki.
+7. Each row holds the engine's token count and its fidelity to Shiki.
    Fidelity is the share of non-whitespace bytes whose colour matches Shiki's.
 8. The engine order rotates every round, five rounds at least, and the median counts.
 9. Shiki and Pierre run in Bun.
@@ -57,7 +57,7 @@ None ships: `publish = false` and the crate's `include` both leave `bench/` out.
 | tree-sitter, tree-sitter-highlight | 0.27.1 | MIT | crates.io manifest |
 | tree-sitter-bash | 0.25.1 | MIT | [LICENSE][ts-bash] |
 | tree-sitter-c | 0.24.2 | MIT | [LICENSE][ts-c] |
-| tree-sitter-c-sharp | 0.23.5 | MIT | [LICENSE][ts-c-sharp] |
+| `tree-sitter-c-sharp` | 0.23.5 | MIT | [LICENSE][ts-c-sharp] |
 | tree-sitter-cpp | 0.23.4 | MIT | [LICENSE][ts-cpp] |
 | tree-sitter-css | 0.25.0 | MIT | [LICENSE][ts-css] |
 | tree-sitter-go | 0.25.0 | MIT | [LICENSE][ts-go] |

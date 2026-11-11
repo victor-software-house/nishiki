@@ -96,7 +96,7 @@ impl Lexer<'_> {
         Some(end)
     }
 
-    /// The end of the run of characters from `i` that are not `\s`.
+    /// The end of the run from `i` whose characters are not `\s`.
     pub(super) fn non_space_end(&self, mut i: usize) -> usize {
         while i < self.lim() && self.space_at(i) == 0 {
             i = self.char_end(i);

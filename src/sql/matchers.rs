@@ -75,7 +75,7 @@ impl Lexer<'_> {
         word_width(self.s, i) > 0 && !word_before(self.s, i)
     }
 
-    /// The end of the run of word characters from `i`.
+    /// The end of the word character run from `i`.
     pub(super) fn word_run(&self, mut i: usize) -> usize {
         let from = i;
         let (start, end) = self.x.run.get();
@@ -90,7 +90,7 @@ impl Lexer<'_> {
         i
     }
 
-    /// The end of the run of digits from `i`.
+    /// The end of the digit run from `i`.
     pub(super) fn digits(&self, mut i: usize) -> usize {
         while let width @ 1.. = digit_width(self.s, i) {
             i += width;
@@ -153,7 +153,7 @@ impl Lexer<'_> {
     // Skipping.
 
     /// The first position from `p` where `rule` can match.
-    /// The bytes in between start none of its patterns and end it nowhere.
+    /// The bytes between start none of its patterns and end it nowhere.
     ///
     /// It is `#[inline]` because the scan in the engine module calls it after
     /// every miss.

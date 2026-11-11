@@ -199,7 +199,7 @@ macro_rules! languages {
             /// containers.
             /// The other lexers leave their state alone for such a line.
             ///
-            /// It reads a table, not a `match`.
+            /// It reads a table instead of a `match`.
             /// LLVM lowers a `match` on the language as a switch, and weighs
             /// the switch's branches by how many rows set the flag.
             /// Markdown's `step` inlines this test.
@@ -572,7 +572,8 @@ languages! {
     /// - `def` opens a function after the end of any word, as in `x def f(): pass`.
     /// - An empty line leaves the state as it is.
     /// - A single-quoted docstring ends at the line end even after a backslash,
-    ///   so the next line is code; a single-quoted string goes on.
+    ///   so the next line is code.
+    ///   A single-quoted string goes on.
     /// - `\d`, `\w`, `\s`, `[[:alpha:]]` and `\p{upper}` for non-ASCII characters come from tables
     ///   measured on Shiki 4.6.0 (`oracle/classes.ts`).
     ///   A later Unicode version in Shiki's engine would need them regenerated.
@@ -680,7 +681,7 @@ languages! {
     ///
     /// - A string without its closing quote keeps the lines after it until a quote closes it.
     /// - A Javadoc comment is read only where `/**` starts a line, after blanks.
-    /// - A declaration is found by a lookahead over the rest of the line, as in the grammar:
+    /// - A lookahead finds a declaration in the rest of the line, as in the grammar:
     ///   - a method is a line that has a blank and then a `(`, with no `=` or `//` before it;
     ///   - a variable is a type, a name and a `:`, `;` or `=`.
     /// - `\w`, `\s` and `\d` for non-ASCII characters come from the table measured for JSON
@@ -813,7 +814,7 @@ languages! {
     ///
     /// - `/**/` opens a `KDoc` comment, because `/**` is read before `/**/` could close,
     ///   so the comment runs on until a later `*/`.
-    /// - A `KDoc` tag is read anywhere inside a `KDoc` comment, not only at the start of a line.
+    /// - A `KDoc` tag is read anywhere inside a `KDoc` comment, even away from the start of a line.
     /// - `a==b` is a key, `a=`, and an assignment: the key pattern needs one word character,
     ///   `=` and then another `=`.
     /// - `@a.b:` is the annotation `@a.`,
@@ -923,7 +924,7 @@ languages! {
     ///   The rest of the document has the scope of the document alone.
     /// - An attribute is read only after white space or at the start of a line,
     ///   so `a="b"c="d"` has one.
-    ///   An attribute's name takes the white space before it, not the `=`.
+    ///   An attribute's name takes the white space before it and stops short of the `=`.
     /// - A `&` that does not start an entity, as in `&a b`, is an illegal ampersand.
     /// - A tag whose first line holds its closing tag, as in `<a b></a>`, is one rule,
     ///   and the closing tag must repeat the name.
@@ -1061,7 +1062,7 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - The HTML lexer runs ERB, with ERB's injection in place of the HTML grammar's,
+    /// - The HTML lexer runs ERB, with ERB's injection instead of the HTML grammar's,
     ///   so a bare `<` is text.
     /// - A `<%` opens ERB where no HTML rule matches at it, outside comments.
     ///   That is in text and in a quoted attribute value, but not inside a start tag,
@@ -1072,7 +1073,7 @@ languages! {
     ///   so a `%>` inside a Ruby string belongs to Ruby.
     ///   A `#` before the end on its line starts ERB's comment, and Ruby's own comment otherwise.
     /// - Code that its line does not close is `meta.embedded.block.erb`.
-    ///   The blanks before it at the start of a line and after its end get scopes of their own.
+    ///   The blanks before it, at the start of a line, and after its end get scopes of their own.
     /// - In a `<style>` element ERB opens between CSS rules,
     ///   and in a `<script>` element where no JavaScript rule matches,
     ///   so JavaScript's `<` operator takes `<%=` in code.
@@ -1122,15 +1123,16 @@ languages! {
         module: proto,
     }
     /// html-derivative, with the scopes of Shiki's `html-derivative`
-    /// grammar: HTML with a rule of its own for the tags no other rule takes.
+    /// grammar: HTML plus a rule of its own for the tags no other rule takes.
     ///
     /// # Behaviour kept from Shiki
     ///
     /// - The HTML lexer runs html-derivative,
-    ///   the HTML grammar with a rule of its own for a tag that no rule before it takes.
+    ///   the HTML grammar plus a rule of its own for a tag that no earlier rule takes.
     ///   Such a tag, as `<Foo/>` or `<x:y>`, is `meta.tag.other.unrecognized.html.derivative`,
     ///   where HTML reads an invalid tag.
-    /// - That rule applies at the document's top level only; inside a template `<script>`,
+    /// - That rule applies at the document's top level only.
+    ///   Inside a template `<script>`,
     ///   which the grammar reads as `text.html.basic`, unknown tags are HTML's invalid tags.
     /// - A bare `<` is an illegal angle bracket, as in HTML.
     ///   It is not one where another grammar embeds html-derivative, as Vue's templates do,
@@ -1222,7 +1224,7 @@ languages! {
     ///   and keep CSS's scope names.
     /// - A `///` comment is a plain line comment.
     ///   The grammar's doc-comment rule includes only `SassDoc`'s grammar,
-    ///   which Shiki does not bundle, so Shiki drops the rule.
+    ///   and Shiki does not bundle that grammar, so Shiki drops the rule.
     /// - The whole suffix after a parent selector, as `-b` in `&-b`,
     ///   is `punctuation.definition.entity.css`.
     /// - In an attribute selector such as `[x="y"]`,
@@ -1340,7 +1342,7 @@ languages! {
     ///   up to the last backtick of the line.
     ///   It is lexed as if the line ended there.
     /// - A regular expression literal is plain operators and words.
-    ///   The grammar's rule for it includes only `source.js.regexp`, which no grammar provides,
+    ///   The grammar's rule for it includes only `source.js.regexp`, and no grammar provides it,
     ///   so Shiki skips the rule.
     CoffeeScript {
         feature: "lang-coffee",
@@ -1535,8 +1537,8 @@ languages! {
     ///
     /// # Behaviour kept from Shiki
     ///
-    /// - A quote right after a name, `)`, `]` or `}` is a transpose;
-    ///   after a blank or an operator it opens a string, so `[a ' b']` holds a string.
+    /// - A quote right after a name, `)`, `]` or `}` is a transpose.
+    ///   After a blank or an operator it opens a string, so `[a ' b']` holds a string.
     /// - A line that starts with a name and a blank, such as `hold on`, is a command.
     ///   Its arguments read as one interpolated string.
     ///   `ans`, `eps`, `i`, `j`, `inf`, `NaN`, `nargin`, `nargout` and `pi` never start one.
@@ -1567,7 +1569,8 @@ languages! {
     /// - `{$…}` is a compiler directive, scoped `string.regexp`.
     /// - An `asm` block lexes as Pascal.
     /// - A number's first branch, `\b\d+`, has no `\b` after it,
-    ///   so `12ab` starts with the number `12`; its second, `\d*\.\d+`, has none before it,
+    ///   so `12ab` starts with the number `12`.
+    ///   Its second, `\d*\.\d+`, has none before it,
     ///   so `x1.5` holds the number `1.5`.
     /// - Words match without regard to case,
     ///   and `ſ`, the Kelvin sign, `ß` and the Latin ligatures match the letters they fold to.
@@ -1711,7 +1714,7 @@ languages! {
     ///   The block ends at a line that does not start with `#'`,
     ///   or that goes on with a tag such as `#' @export`.
     ///   An indented `#'` line ends it too, one blank before the `#`.
-    /// - `.5` is a name, not a number, because names come first and may start with a dot.
+    /// - `.5` is a name instead of a number, because names come first and may start with a dot.
     /// - `return`, `library`, `stop` and the other built-in functions
     ///   are `keyword.other` only before a `(`.
     /// - `%` starts an operator that runs to the next `%` on the line, such as `%in%` or `%>%`.
@@ -1745,7 +1748,7 @@ languages! {
     ///   gets no scope as a local name, a block type or an object key.
     ///   As an attribute's member it loses the scope on its first character only.
     /// - A name drops trailing dashes, so `a-` is the name `a` and the operator `-`.
-    /// - Inside a block, `map {` is the type keyword `map` and an object, not a nested block.
+    /// - Inside a block, `map {` is the type keyword `map` and an object, with no nested block.
     /// - An object reads no brackets, parentheses or attribute access,
     ///   so `[1]` and `a.b` there are plain.
     /// - A `(` that starts an object's line opens a key that runs to the next `)` followed by `=`
@@ -1764,13 +1767,13 @@ languages! {
     ///
     /// - `\Sexpr{…}` in math is R.
     ///   R hands the text back at a `}` where no R rule is open.
-    /// - A `%!TEX root = …` magic comment is an ordinary comment:
-    ///   the comment's `%:?` matches at the same `%` first,
+    /// - A `%!TEX root = …` magic comment is an ordinary comment.
+    ///   The comment's `%:?` matches at the same `%` first,
     ///   so the grammar's rule for magic comments never applies.
     /// - `\bogoplus`, a typo for `\bigoplus` in the grammar's list of big operators,
     ///   is a math constant.
-    ///   Every other big operator is also in the symbol list, which comes first,
-    ///   so only that word reaches the operator rule.
+    ///   Every other big operator is also in the symbol list, which comes first.
+    ///   So only that word reaches the operator rule.
     Tex { feature: "lang-tex", names: ["tex"], scope: "text.tex", module: tex }
     /// LaTeX, with the scopes of Shiki's `latex` grammar.
     /// The grammar includes TeX's rules, which [`Language::Tex`]'s matchers
@@ -1824,7 +1827,7 @@ languages! {
     /// Astro, with the scopes of Shiki's `astro` grammar.
     /// The TypeScript lexer lexes its frontmatter.
     /// The TSX lexer lexes its expressions and backtick attribute values.
-    /// The JavaScript lexer lexes its event handler values.
+    /// Its event handler values go to the JavaScript lexer.
     /// A `<script>` body goes to the JavaScript, TypeScript or JSON lexer,
     /// and a `<style>` body to the CSS, PostCSS, SCSS, Less or Sass lexer.
     ///
@@ -1840,7 +1843,7 @@ languages! {
     ///   That is because the injection holds while Shiki lexes the tag's capture again.
     ///   The result is JavaScript's `<` and a name, or plain CSS.
     /// - Any `</` where the embedded language's root is open ends a body,
-    ///   not only the tag's own closing tag.
+    ///   as well as the tag's own closing tag.
     /// - A `lang` or `type` value counts only on the line that opens the tag.
     /// - An event attribute's name may be followed by any character but `-`, `:`, `\` and `w`,
     ///   so `onclickx=` is the event `onclick` and an `x`.
@@ -1911,7 +1914,7 @@ languages! {
     /// - Blade's echoes and directives open inside the PHP of another echo or directive,
     ///   at any depth, even inside a PHP string, as in `{{ "a {{ b }} c" }}`.
     /// - Between tags, a PHP rule that starts at the same place wins:
-    ///   `@if(@isset($x))` holds PHP's `@` operator, not the directive `@isset`.
+    ///   `@if(@isset($x))` holds PHP's `@` operator instead of the directive `@isset`.
     /// - Inside a tag, Blade wins that tie, so `<div @click="x">` holds the directive `@click`.
     /// - A `<script>` or `<style>` body holds no Blade.
     /// - A PHP name is `[_a-z\x7F-ÿ]` and the digits, ignoring case: the class stops at U+00FF.
@@ -1951,10 +1954,10 @@ impl Language {
     /// Both then lex through [`Language::lex_until`], so the language can
     /// report the pop.
     ///
-    /// `codegen/src/fence_stops.rs`, which `mise run codegen -- --check`
-    /// runs, recomputes the list from the committed grammars that Markdown's
-    /// fences include, and fails when it differs, which keeps it true.
-    /// It is one comparison, not a `match`, so no row's flag reaches the
+    /// `codegen/src/fence_stops.rs`, run by `mise run codegen -- --check`,
+    /// recomputes the list from the committed grammars that Markdown's fences
+    /// include. It fails when the list differs, which keeps it true.
+    /// It is one comparison instead of a `match`, so no row's flag reaches the
     /// lowering of Markdown's `step`.
     #[cfg(any(feature = "lang-markdown", feature = "_textmate"))]
     pub(crate) const fn pops_host(self) -> bool {
@@ -1995,11 +1998,11 @@ pub(crate) struct Context<'a> {
     /// A caller of `Highlighter::line` may keep earlier lines' tokens before
     /// them, so a lexer that cuts tokens back reads only the line's own.
     ///
-    /// An embedded language gets its host's index, not the end of `out`.
+    /// An embedded language gets its host's index instead of the end of `out`.
     /// A cut then reads the host's tokens of the same line.
     /// The last of them bounds the token that `cut_tokens` shortens.
-    /// XML passes Java the end of `out`.
-    /// Java embeds no language, so no cut runs inside it.
+    /// XML passes Java the end of `out`, because Java embeds no language and no
+    /// cut runs inside it.
     pub(crate) first_token: usize,
 }
 
@@ -2104,8 +2107,8 @@ impl Stopped {
 /// Within one call of a lexer's `lex_until`, `s` is the whole line.
 /// It holds the same bytes on every call.
 /// Places count from the line's start.
-/// A halt may keep context, such as the level of a long bracket.
-/// Its answer still depends only on the bytes and the place.
+/// A halt may keep context, such as the level of a long bracket, but its
+/// answer still depends only on the bytes and the place.
 /// A function `fn(&[u8], usize) -> bool` is a halt without context.
 pub(crate) trait Halt {
     /// The first character start in `from..=to` where the halt holds.
@@ -2162,8 +2165,8 @@ impl Halt for Places<'_> {
 
 /// The halts of a line that another language embeds.
 ///
-/// The first is the embedding rule's end.
-/// A lexer tries it before the embedded patterns at each place.
+/// The first is the embedding rule's end, which a lexer tries before the
+/// embedded patterns at each place.
 /// The second stands for the patterns the embedding rule lists after the
 /// embedded grammar. A lexer tries it where none of the embedded patterns
 /// match. A lexer keeps one reference to the caller's pair.

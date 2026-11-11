@@ -414,7 +414,7 @@ impl Lexer<'_> {
         }
     }
 
-    /// The end of the run of characters from `p` that `class` accepts.
+    /// The end of the run from `p` whose characters `class` accepts.
     fn chars_while(&self, mut p: usize, class: fn(char) -> bool) -> usize {
         while p < self.lim() {
             match self.char_at(p) {

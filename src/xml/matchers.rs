@@ -22,7 +22,7 @@ enum Names {
     /// The namespace, the colon and the local name each carry their own
     /// scope.
     Tag,
-    /// The name of a tag with nothing in it: each part also carries the scope
+    /// The name of an empty tag: each part also carries the scope
     /// of the whole name.
     NoContent,
     /// The name of an attribute.
@@ -34,7 +34,7 @@ fn is_pi_name(b: u8) -> bool {
     b == b'-' || b == b'_' || b.is_ascii_alphanumeric()
 }
 
-/// A byte of `[-0-:A-Z_a-z]`: the local name of a tag with nothing in it.
+/// A byte of `[-0-:A-Z_a-z]`: the local name of an empty tag.
 fn is_plain_name(b: u8) -> bool {
     is_pi_name(b) || b == b':'
 }
@@ -72,7 +72,7 @@ impl Lexer<'_> {
         }
     }
 
-    /// The end of the run of white space from `i`: the regex `\s*`.
+    /// The end of the white space run from `i`: the regex `\s*`.
     pub(super) fn ws(&self, i: usize) -> usize {
         let (from, to) = self.space_run.get();
         if from <= i && i < to {
@@ -117,7 +117,7 @@ impl Lexer<'_> {
         j
     }
 
-    /// The end of the run of ASCII bytes from `i` that `class` accepts.
+    /// The end of the ASCII byte run from `i` that `class` accepts.
     fn scan(&self, i: usize, class: fn(u8) -> bool) -> usize {
         let mut j = i;
         while self.s.get(j).is_some_and(|&b| class(b)) {

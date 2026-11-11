@@ -3,8 +3,8 @@
 //!
 //! The names share one repeated group, `(?:[-0-9A-Z_a-z[^\x00-\x7F]]|
 //! \\(?:\h{1,6}|.)|#\{|\.?\$|})+`.
-//! Each place in the line starts at most one of its alternatives.
-//! A backslash's hex digits are name characters too.
+//! Each place in the line starts at most one of its alternatives, and a
+//! backslash's hex digits are name characters too.
 //! The ends the group can stop at are therefore the ends of the units read
 //! one after another.
 //! A backslash with `\h{1,6}` stops at no end that this misses.

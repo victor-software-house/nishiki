@@ -3,8 +3,8 @@
 //!
 //! The grammar follows each list with `\b`.
 //! Several words may end where `\b` holds.
-//! The matcher takes the one the alternation tries first, not the longest, as
-//! a backtracking matcher does.
+//! The matcher takes the one the alternation tries first, as
+//! a backtracking matcher does, even when another is longer.
 //! For example, `\b(auto|auto-fill)\b` takes the `auto` of `auto-fill`.
 
 use std::collections::BTreeMap;
@@ -22,7 +22,7 @@ const LONGEST_WORD: usize = 64;
 const PLAIN: Cut = Cut::Inside(r"\b(", r")\b");
 
 /// Each table: its name, what its doc line names, and where its list sits.
-/// The list sits in a repository entry, at a path of patterns under it.
+/// The list is in a repository entry, at a pattern path under it.
 const LISTS: &[(&str, &str, &str, &[usize], Cut)] = &[
     (
         "EXTENDED_COLORS",
@@ -81,8 +81,8 @@ pub(super) fn file(root: &Path) -> Result<File, Error> {
     let mut text = header("codegen/src/words/less.rs", &source.path());
     for line in [
         "//! The words that the big alternations of the `less` grammar spell out.",
-        "//! Each comes with its place in the alternation and whether it ignores case.",
-        "//! They are sorted by word.",
+        "//! Each comes with its place in the alternation and whether it ignores case,",
+        "//! and they are sorted by word.",
         "",
         "use super::matchers::Word;",
     ] {

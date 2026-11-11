@@ -1265,7 +1265,7 @@ impl Lexer<'_> {
     ///
     /// The group calls itself for each `{` that opens the code.
     /// The code therefore ends at the first run of as many `}`.
-    /// The atomic group keeps the first way the recursion found.
+    /// It is atomic and keeps the first way the recursion found.
     fn code_callout(&self, p: usize, spans: &mut Spans) -> Option<usize> {
         let open = p + 2;
         if self.at(open) != b'{' {
@@ -1454,7 +1454,7 @@ impl Lexer<'_> {
         self.at(i) == b'/' && (hashes.is_empty() || self.starts(i + 1, hashes))
     }
 
-    /// The end of the contents of a literal from `start`: the position after
+    /// The end of a literal's contents from `start`: the position after
     /// the last item, where the closing delimiter must stand.
     /// It is `None` when an unbalanced `(` makes the match fail.
     ///

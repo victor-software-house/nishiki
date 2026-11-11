@@ -3,8 +3,8 @@
 //!
 //! Each non-whitespace byte must carry the same scope stack as Shiki gives it,
 //! the measure the research note used. Whitespace is left out because Shiki
-//! and nishiki may split a run of spaces between tokens differently without
-//! any colour changing.
+//! and nishiki may split a run of spaces between tokens differently, and no
+//! colour changes.
 
 use std::fmt::Write as _;
 use std::fs;

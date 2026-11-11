@@ -1,6 +1,6 @@
 //! The declarations: classes, records, enums, modules, methods and
 //! variables.
-//! Their rules open on a lookahead over the rest of the line.
+//! Their rules open on a lookahead over the line's rest.
 
 use crate::java::engine::Lexer;
 use crate::rules::Chars;

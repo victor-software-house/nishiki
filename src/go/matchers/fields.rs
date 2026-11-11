@@ -233,7 +233,7 @@ impl Lexer<'_> {
         start
     }
 
-    /// The end of the list of names from `p` that stops before the name at
+    /// The end of the name list from `p` that stops before the name at
     /// `last`: the list without its last name.
     fn names_before(&self, p: usize, last: usize) -> Option<usize> {
         let mut end = self.word_name(p);

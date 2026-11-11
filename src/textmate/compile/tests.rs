@@ -12,7 +12,7 @@ fn grammar(json: &str) -> UnlinkedGrammar {
     compile(json).unwrap()
 }
 
-/// The patterns of the rules in the list of `rule`.
+/// The patterns of the rules in `rule`'s list.
 fn list_patterns(grammar: &Grammar, rule: usize) -> Vec<&'static str> {
     let list = grammar.rules[rule].list;
     grammar.lists[list]

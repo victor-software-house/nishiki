@@ -574,8 +574,8 @@ impl Lexer<'_> {
 
     /// The ends a run of name characters `from..end` can give a `\s` that
     /// follows it.
-    /// The first is its whole length.
-    /// The second is the start of the spaces past ASCII it ends with, if any.
+    /// First is its whole length.
+    /// Second is the start of the spaces past ASCII it ends with, if any.
     fn q_ends(&self, from: usize, end: usize) -> [Option<usize>; 2] {
         let mut trimmed = end;
         while trimmed > from

@@ -338,8 +338,8 @@ impl Table {
     /// The span at `open`.
     /// It also returns its lookups, for the caller to spend.
     ///
-    /// The table assumes the text runs to the end of the line.
-    /// A run that ends past `open.line_end` does not count.
+    /// The table assumes the text runs to the end of the line, so a run that
+    /// ends past `open.line_end` does not count.
     /// When the closing run found is such a run, the lookup tries the next
     /// shorter length.
     /// The one run that reaches `open.line_end` is checked separately.

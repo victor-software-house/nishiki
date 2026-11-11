@@ -70,8 +70,8 @@ fn a_delta_inside_a_line_lexes_only_the_last_line() {
     assert_eq!(document.counts.tail, before.tail + 1);
 }
 
-/// A document built around a highlighter that already met every state of
-/// `text` and styled its stacks under `theme`, with room for all of it.
+/// A document built on a highlighter that already met every state of
+/// `text`, and styled its stacks under `theme`, with room for everything.
 fn warm(
     highlighter: Highlighter,
     theme: Theme,

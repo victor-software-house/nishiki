@@ -149,8 +149,8 @@ impl crate::language::Halt for End {
     }
 }
 
-/// `\\.`, which every pattern of `#escaped_char` starts with: a backslash
-/// and a character other than the line feed.
+/// `\\.`, a backslash and a character other than the line feed, which every
+/// pattern of `#escaped_char` starts with.
 fn escape(s: &[u8], p: usize) -> bool {
     s.get(p) == Some(&b'\\') && s.get(p + 1).is_some_and(|&b| b != b'\n')
 }

@@ -17,8 +17,8 @@ impl Lexer<'_> {
     /// `([^ ][^=]*)(=)`: a variable's name and its `=`, with groups around
     /// both.
     ///
-    /// `[^=]*` stops at the first `=`, which the match needs next; giving
-    /// characters back leaves no `=` after them.
+    /// `[^=]*` stops at the first `=`, which the match needs next.
+    /// Giving characters back leaves no `=` after them.
     pub(super) fn assignment(&mut self, p: usize) -> Option<usize> {
         let after = self.not_space(p)?;
         let equals = self.equals_from(after)?;

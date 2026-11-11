@@ -140,7 +140,7 @@ impl Lexer<'_> {
         }))
     }
 
-    /// The end of the run of colons from `i`.
+    /// The end of the colon run from `i`.
     pub(super) fn colons_end(&self, i: usize) -> usize {
         self.run_end(i, &self.x.runs.colons, |j| {
             usize::from(self.b(j) == b':' && j < self.len_all())

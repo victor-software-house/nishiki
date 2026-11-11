@@ -101,7 +101,7 @@ The [codegen research][research] read how mature crates generate committed Rust.
 
 ### 5.1 The files
 
-Every fact file sits in `oracle/facts/`.
+Every fact file is in `oracle/facts/`.
 readable-sources-c9 writes the JavaScript side, and both sides agreed the format on 2026-11-10.
 
 | File | Script | Holds |
@@ -209,7 +209,7 @@ The five changes land in this order:
 [ra-codegen]: https://github.com/rust-lang/rust-analyzer/blob/2a362a41a8eb6e090f1a12d9b712df85af6f0c33/xtask/src/codegen.rs
 [research]: ../../research/2026-11-10-rust-codegen-practice.md
 [rule-table-codegen]: ../rule-table-codegen/proposal.md
-[rustfmt-config]: https://github.com/rust-lang/rustfmt/blob/main/Configurations.md#format_generated_files
+[rustfmt-config]: https://github.com/rust-lang/rustfmt/blob/29fe6749fce2082c4a45982e8d23bba0dc034fe1/Configurations.md#format_generated_files
 [standards]: ../../../CODING_STANDARDS.md
 [syn-codegen]: https://github.com/dtolnay/syn/blob/97ec37dda8a893a460066da694fd1eb7cb30538a/codegen/src/file.rs
 [unicode-ident-write]: https://github.com/dtolnay/unicode-ident/blob/28018f288934fa6be60a6e791e071b7a7195643e/generate/src/write.rs

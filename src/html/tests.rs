@@ -153,7 +153,7 @@ fn an_event_handler_reads_a_less_than_after_its_quote_as_an_operator() {
 /// An attribute's `=` in JSX needs a quote, a brace, a comment or a line feed
 /// after it.
 /// An event handler's code ends before its line's line feed.
-/// An `=` at the end of a quoted value's line is therefore an illegal
+/// So an `=` at the end of a quoted value's line is an illegal
 /// attribute.
 #[test]
 fn an_event_handler_line_ending_in_a_jsx_assignment_has_no_line_feed() {

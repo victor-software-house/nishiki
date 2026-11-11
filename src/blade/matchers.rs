@@ -4,7 +4,7 @@
 //! Where an expression is PHP's word for word, the arm calls PHP's matcher in
 //! [`crate::php_family`].
 //! Blade's copy of PHP is older than Shiki's `php` grammar.
-//! Its name class is `[_a-z\x7F-ÿ]` under `(?i)`, which ends at U+00FF, so
+//! Its name class is `[_a-z\x7F-ÿ]` under `(?i)` and ends at U+00FF, so
 //! Blade's names are read by character, never by PHP's byte test.
 
 use super::engine::Lexer;
@@ -76,7 +76,7 @@ impl Lexer<'_> {
         class(c).then_some(end)
     }
 
-    /// The end of the run of characters from `p` for which `class` holds.
+    /// The end of the run from `p` whose characters satisfy `class`.
     fn run_end(&self, mut p: usize, class: fn(char) -> bool) -> usize {
         let from = p;
         while let Some(end) = self.char_if(p, class) {

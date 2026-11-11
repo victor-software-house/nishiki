@@ -56,7 +56,7 @@ pub struct Limits {
 ///
 /// A step is one turn of a lexer's main loop or one byte a lookahead reads.
 /// A linear lexer spends a few steps per byte.
-/// A superlinear path runs into the limit.
+/// Any superlinear path runs into the limit.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Work {
     /// Steps allowed per byte of the line.
@@ -213,7 +213,7 @@ impl Steps {
 }
 
 /// The state after a line and the steps the lexer spent on it.
-/// The lexer that embeds it adds the steps to its own count
+/// A lexer that embeds it adds the steps to its own count
 /// ([`Steps::take_back`]).
 /// The highlighter ignores them.
 ///

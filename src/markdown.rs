@@ -59,7 +59,7 @@
 //! emphasis and link text.
 //! Each step of the lexer's loop, and each byte a look-ahead reads, counts
 //! against `Limits::work`.
-//! A line that runs out of work ends in one token from that point.
+//! A line that runs out of work ends in one token, from that point.
 //!
 //! Lines such as `**`, `[` or `![a](` repeated cost work linear in their
 //! length, so they stay within the default limit.
@@ -194,7 +194,7 @@ pub(crate) fn lex_until(
 /// Where `end` holds in the rest of a line that a block closed inside, and
 /// the rest's token cut there.
 /// The rest is now at Markdown's root in the state `state`.
-/// The line's tokens start at `first` in the output.
+/// Tokens of the line start at `first` in the output.
 /// The rest is the line's last token, on the root's stack, after another
 /// token of the line.
 fn halt_after_block(

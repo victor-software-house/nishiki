@@ -308,7 +308,7 @@ fn loaded_grammars() -> MutexGuard<'static, LoadedGrammars> {
 /// What a link reads: the root, every grammar of the set in order, and the
 /// languages named for hand-offs.
 ///
-/// The whole set is the key, not only the grammars the link reached.
+/// The whole set is the key and extends past the grammars the link reached.
 /// A scope the link looked up and missed changes the tables too, as does a
 /// grammar that injects itself into the root.
 #[derive(PartialEq, Eq, Hash)]

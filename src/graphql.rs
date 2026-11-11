@@ -62,8 +62,8 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 ///
 /// Lexing starts at `line.start`, where an embedding language's text begins.
 /// The bytes before it stay in the line, because the grammar looks at them.
-/// An empty line leaves the state as it is.
-/// Shiki does not tokenize empty lines.
+/// An empty line leaves the state as it is, because Shiki does not tokenize
+/// empty lines.
 /// Otherwise the grammar would close a rule the line before left open.
 ///
 /// An interpolation's text goes to the JavaScript lexer, up to its `}`
@@ -80,8 +80,8 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 }
 
 /// Lexes `line` like [`lex`], for GraphQL that another language embeds.
-/// The line halts where `end` holds before GraphQL's patterns are tried.
-/// It also halts where `after` holds and the patterns fail.
+/// The line halts where `end` holds before GraphQL's patterns are tried,
+/// and also where `after` holds and the patterns fail.
 /// Both apply only while no GraphQL rule is open.
 /// The second value is where the line halted.
 pub(crate) fn lex_until(

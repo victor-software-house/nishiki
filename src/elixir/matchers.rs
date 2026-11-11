@@ -277,7 +277,8 @@ impl Lexer<'_> {
         }
     }
 
-    /// `\b[A-Z]\w*`, which `\b` may follow: a run of `\w` always ends at one.
+    /// `\b[A-Z]\w*`, which `\b` may follow, because a run of `\w` always ends
+    /// at one.
     fn module_name(&self, p: usize) -> Option<usize> {
         (p < self.lim() && self.at(p).is_ascii_uppercase() && !self.word_before(p))
             .then(|| self.word_end(p + 1))

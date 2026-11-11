@@ -3,9 +3,9 @@
 //!
 //! The lexer runs the grammar's begin/end rules with hand-written matchers over
 //! bytes, in the `engine` module.
-//! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
-//! The rules left open at the end of a line are frames of the highlighter's
+//! The tables in `grammar` are generated from the grammar, and its
+//! `matchers` decide where each pattern matches.
+//! Rules left open at the end of a line are frames of the highlighter's
 //! interned state.
 //! Heredocs, block comments, brackets and function heads are such rules.
 //!
@@ -61,8 +61,8 @@ pub(crate) fn lex(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished 
 }
 
 /// Lexes `line` like [`lex`], for CoffeeScript that another language embeds.
-/// The line halts where `end` holds before CoffeeScript's patterns are tried.
-/// It also halts where `after` holds and the patterns fail.
+/// The line halts where `end` holds before CoffeeScript's patterns are tried,
+/// and also where `after` holds and the patterns fail.
 /// Both apply only while no CoffeeScript rule is open.
 /// The second value is where the line halted.
 pub(crate) fn lex_until(

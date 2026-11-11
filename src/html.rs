@@ -228,8 +228,8 @@ pub(crate) fn start_erb(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// Lexes a line of an ERB document like [`lex`], with ERB's injection in
-/// place of the grammar's.
+/// Lexes a line of an ERB document like [`lex`], with ERB's injection
+/// instead of the grammar's.
 #[cfg(feature = "lang-erb")]
 pub(crate) fn lex_erb(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.len() <= line.start {
@@ -250,7 +250,7 @@ pub(crate) fn start_blade(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The state at the start of the HTML of a Blade heredoc in Blade's PHP,
+/// The start state of a Blade heredoc's HTML in Blade's PHP,
 /// whose text sits on `base` (see [`state::ROOT_BLADE_HEREDOC`]).
 #[cfg(feature = "lang-blade")]
 pub(crate) fn start_blade_heredoc(arena: &mut Arena, base: u32) -> u32 {
@@ -287,8 +287,8 @@ pub(crate) fn lex_blade_until(
     (finished, halt.map(Stopped::halt))
 }
 
-/// Lexes a line of a Blade document like [`lex`], with Blade's injection in
-/// place of the grammar's.
+/// Lexes a line of a Blade document like [`lex`], with Blade's injection
+/// instead of the grammar's.
 #[cfg(feature = "lang-blade")]
 pub(crate) fn lex_blade(cx: &mut Context<'_>, line: Line<'_>, state: u32) -> Finished {
     if line.text.len() <= line.start {

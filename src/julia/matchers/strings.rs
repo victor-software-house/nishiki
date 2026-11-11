@@ -116,7 +116,7 @@ impl Lexer<'_> {
     }
 
     /// `\$START REST*`, with `$` left out of both classes: an interpolated
-    /// name, which a `$` ends.
+    /// name that a `$` ends.
     pub(super) fn interpolated_name(&self, p: usize) -> Option<usize> {
         if self.at(p) != b'$' {
             return None;

@@ -2,7 +2,7 @@
 
 The programs the benchmark tasks run, and a grammar compiled ahead of time.
 The benchmark programs are built by `nishiki-examples`, the package of [`Cargo.toml`](Cargo.toml) here.
-The package is never published, so the published nishiki declares none of them.
+`nishiki-examples` is never published, so the published nishiki declares none of them.
 
 | Program | Run by | Does |
 |:--|:--|:--|

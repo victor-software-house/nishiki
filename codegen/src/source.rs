@@ -42,7 +42,7 @@ impl Source {
 
     /// Reads every grammar of `tests/engine/grammars/` under `root`, sorted by
     /// name.
-    /// `tables.json` there lists the engine's test tables, not a grammar.
+    /// It skips `tables.json` there, which lists the engine's test tables.
     pub(crate) fn all(root: &Path) -> Result<Vec<Source>, Error> {
         let dir = root.join(DIR);
         let entries = fs::read_dir(&dir).map_err(|source| Error::Io {
@@ -160,7 +160,7 @@ impl Source {
     }
 
     /// The pattern text of the rule that `path` picks under repository entry
-    /// `key`: each index picks one of the patterns of the rule before it.
+    /// `key`: each index picks a pattern from the rule before it.
     pub(crate) fn pattern_at(self, key: &str, path: &[usize]) -> Result<&'static str, Error> {
         let mut rule = self.entry(key)?;
         for &index in path {

@@ -434,8 +434,8 @@ where
 
     /// `(?:(\.)|(::))\s*([A-Z][$0-9A-Z_]*\b\$*)`, followed by
     /// `(?=\s*\??(\.\s*[$A-Z_a-z]\w*|::))` when `ahead` is [`Ahead::Member`].
-    /// The run takes `$` too, so it gives characters back until `\b` holds:
-    /// between a word character and a `$`, or at its end.
+    /// The run takes `$` too, so it gives characters back until `\b` holds.
+    /// That is between a word character and a `$`, or at its end.
     pub(super) fn constant_property(&mut self, p: usize, ahead: Ahead) -> Option<usize> {
         let (sign, group) = self.member_sign(p)?;
         let from = self.space_end(sign);

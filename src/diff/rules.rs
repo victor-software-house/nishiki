@@ -73,7 +73,7 @@ impl<'a> Line<'a> {
         i
     }
 
-    /// The end of the run of white space from `i`.
+    /// The end of the white space run from `i`.
     fn spaces(&mut self, mut i: usize) -> usize {
         let from = i;
         while let width @ 1.. = space_width(self.s, i) {
@@ -177,9 +177,8 @@ impl<'a> Line<'a> {
 
     /// `^(@@)\s*(.+?)\s*(@@)($\n?)?`
     ///
-    /// The first `\s*` is greedy.
-    /// It gives back one character only when the closing `@@` follows it
-    /// directly.
+    /// The first `\s*` is greedy, and it gives back one character only when the
+    /// closing `@@` follows it directly.
     /// The lazy group ends at the first place where white space and then `@@`
     /// follow.
     /// That place is the first `@@` at least one character past the group's

@@ -85,8 +85,8 @@ pub(crate) struct Halts<'a> {
 /// A context opened on the current line, which `TextMate` remembers to
 /// catch a grammar that loops.
 ///
-/// Only the contexts opened on the line need this.
-/// They are always the top of the stack.
+/// Only the contexts opened on the line need this, and they are always the top
+/// of the stack.
 /// A frame from an earlier line is popped only when nothing opened on the
 /// line sits above it.
 /// The highlighter keeps the stack across lines.
@@ -116,7 +116,7 @@ impl<'a, const D: u8> Lexer<'a, D> {
     /// The lexer of the line `src` from byte `from` and `state`, which `halts`
     /// may stop.
     /// The bytes before `from` belong to the language that embeds this one.
-    /// The scan never starts there, but lookbehinds read them.
+    /// No scan starts there, but lookbehinds read them.
     /// `^` matches only at byte 0, as in `TextMate`, where an embedded grammar
     /// sees the whole line.
     ///
@@ -527,8 +527,8 @@ impl<'a, const D: u8> Lexer<'a, D> {
         self.capture(rule, to, to, &[]);
     }
 
-    /// A match of a rule without scopes of its own: plain text up to `a`, then
-    /// `a..b` with `leaf`.
+    /// A match of a rule that has no scopes of its own: plain text up to `a`,
+    /// then `a..b` with `leaf`.
     pub(crate) fn token(&mut self, a: usize, b: usize, leaf: &[S]) {
         self.flush(a);
         self.capture(Rule::Top, a, b, leaf);
@@ -675,8 +675,8 @@ impl<const D: u8> Lexer<'_, D> {
         Some(p)
     }
 
-    /// A match of a rule with no scopes of its own and no context: the token
-    /// `a..b` with `leaf`.
+    /// A match of a rule that has no scopes of its own and no context: the
+    /// token `a..b` with `leaf`.
     #[expect(
         clippy::unnecessary_wraps,
         reason = "a rule function returns `Option<usize>`, and this is its tail"

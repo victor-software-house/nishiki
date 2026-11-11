@@ -59,7 +59,7 @@ impl Lexer<'_> {
     }
 
     /// The end of the `\s*` from `p`.
-    /// A lookahead asks it at every position of a run of blanks.
+    /// A lookahead asks it at every position in a blank run.
     /// The run is therefore read once.
     fn blanks_end(&self, p: usize) -> usize {
         let memo = &self.x.types.blanks;
@@ -636,7 +636,7 @@ impl Lexer<'_> {
     ///
     /// The class is `;`, `}` or anything but a comma or a blank.
     /// The third member already holds the first two.
-    /// The class is therefore the case clause's lookahead.
+    /// So the class is the case clause's lookahead.
     pub(in crate::swift) fn rx_declarations_type_enum_more_cases_end(
         &mut self,
         p: usize,

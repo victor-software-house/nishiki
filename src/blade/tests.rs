@@ -162,7 +162,7 @@ mod probe {
     use crate::test_support::probe::{answer_cases, lexer};
 
     /// An expression the probe answers: one of the copy of PHP, or one of
-    /// Blade's own rules, which the HTML engine matches.
+    /// Blade's own rules that the HTML engine matches.
     #[derive(Clone, Copy)]
     enum Probed {
         /// A pattern of the copy of PHP.

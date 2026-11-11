@@ -6,8 +6,8 @@
 //! It takes the first that matches at the earliest position.
 //! A begin match opens a rule and an end match closes it.
 //!
-//! A match's capture groups name parts of it, through the pattern's table or
-//! through spans that the matcher records.
+//! Each capture group of a match names part of it, through the pattern's table
+//! or through spans that the matcher records.
 //! A span may be lexed again with the patterns of another rule.
 //!
 //! The corner cases of `TextMate` engines are kept because Shiki's output
@@ -59,8 +59,8 @@ struct Frame<G: Grammar> {
 ///
 /// The slot comes from the list's key ([`Keyed`](crate::scope::Keyed)), not its
 /// address.
-/// A change to another language's tables then cannot move it.
-/// The entry holds the address of the list's key.
+/// A change to another language's tables then cannot move it, and the entry
+/// holds the address of the list's key.
 /// Every list is a static with its own key, so that address names one list.
 /// A thin reference keeps the entry at 16 bytes.
 #[derive(Clone, Copy, Debug)]
@@ -340,7 +340,7 @@ pub struct Lexer<'a, G: Grammar> {
     flags: Flags,
     /// The lowest index the line pushed a frame at.
     /// The frames below it are ones the line started with.
-    /// The line that left them already cleared their `enter` and `anchor`.
+    /// Whichever line left them already cleared their `enter` and `anchor`.
     low: usize,
     /// Whether the `while` links of the frames below `low` hold.
     /// They hold when the line took over the last line's frames.
@@ -364,7 +364,8 @@ pub struct Lexer<'a, G: Grammar> {
     /// A line run any other way lexes such a rule's text as the rule's own.
     embedding: bool,
     /// The language the innermost rule embeds, which the loop hands the
-    /// text to at the cursor; only an embedding line sets it.
+    /// text to at the cursor.
+    /// Only an embedding line sets it.
     embeds: Option<Language>,
     /// Whether the cursor is where an embedded language halted, so the
     /// rule's own patterns are tried there before the text goes back to it.
@@ -385,7 +386,7 @@ enum Entry {
     Resume,
 }
 
-/// Shows where the lexer stands in its line, not the buffers it writes.
+/// Shows where the lexer stands in its line and omits the buffers it writes.
 impl<G: Grammar> core::fmt::Debug for Lexer<'_, G> {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         f.debug_struct("Lexer")
@@ -486,8 +487,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Ends the line where the first of `halts` holds before the patterns.
     /// It also ends the line where the second holds and no pattern matches.
     /// Both apply only while the root rule alone is open.
-    /// The patterns still see the whole line.
-    /// A lookahead reads past the halt, as the grammar's does.
+    /// The patterns still see the whole line, and a lookahead reads past the
+    /// halt, as the grammar's does.
     pub(crate) fn halting(mut self, halts: &'a Halts<'a>) -> Self {
         self.halt = Some(halts);
         self
@@ -939,7 +940,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     ///
     /// A needle that can be empty goes through `Chars::lit`, where it matches
     /// as an empty literal does in a regular expression.
-    /// Matchers call this one with words from lists in their hot loops, where
+    /// Matchers call this one with words from lists, in their hot loops, where
     /// one more test costs (Make +1.9% instructions, 2026-11-03).
     ///
     /// Out of line, it cost a call per place.
@@ -954,7 +955,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
             && self.s.get(i..).is_some_and(|rest| rest.starts_with(text))
     }
 
-    /// The end of the run of bytes from `i` that `class` accepts.
+    /// The end of the run from `i` whose bytes `class` accepts.
     #[cfg(any(test, feature = "_rule-tables"))]
     pub(crate) fn skip(&self, mut i: usize, class: impl Fn(u8) -> bool) -> usize {
         let from = i;
@@ -1975,8 +1976,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.note_embedding();
         self.anchor = popped.anchor;
         if !advanced && popped.enter == Some(self.pos) {
-            // The rule opened and closed without advancing: the grammar would
-            // loop, so the rest of the line is the rule's.
+            // The rule opened and closed without advancing.
+            // The grammar would loop, so the rest of the line is the rule's.
             self.flags.kept = true;
             self.frames.push(Frame {
                 content: popped.name,
@@ -2046,8 +2047,8 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Runs after a rule that embeds `language` opened with a begin match
     /// ending at `end`. A grammar with the per-step test
     /// ([`Grammar::EMBEDS`]) does nothing here.
-    /// On an embedding line, it hands the line to `language` past the match.
-    /// It returns true there, to stop the line.
+    /// On an embedding line, it hands the line to `language` past the match and
+    /// returns true, to stop the line.
     /// On another line, it notes the language and the line goes on.
     /// [`Lexer::run_on_demand`] reads that note.
     #[cold]
@@ -2120,8 +2121,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         let base = self.path(top_content, name);
         self.emit_match(table, base, start, end);
         if !advanced {
-            // A match that is empty and not at an advance: the grammar would
-            // loop, so the enclosing rule is dropped and the line stops.
+            // A match that is empty and not at an advance.
+            // The grammar would loop, so the enclosing rule is dropped and the
+            // line stops.
             if self.depth() > 0 {
                 self.pop_frame();
             } else if self.halt.take().is_some() {
@@ -2646,7 +2648,7 @@ mod tests {
 
     impl Name {
         /// The code that keys a list of names: a fixed scope's, or none for a
-        /// name a capture group spells, which is never cached.
+        /// name a capture group spells, and such a name is never cached.
         const fn code(self) -> u16 {
             match self {
                 Name::Fixed(scope) => scope.code(),

@@ -1,7 +1,7 @@
 use crate::Language;
 use crate::test_support::{leaf, scopes_of};
 
-/// A tag that no HTML rule names is html-derivative's own, not an invalid
+/// A tag that no HTML rule names is html-derivative's own and not an invalid
 /// tag, and its name is a plain tag name.
 #[test]
 fn an_unknown_tag_is_the_grammar_s_own() {

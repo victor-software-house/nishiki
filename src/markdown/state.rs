@@ -28,7 +28,7 @@ pub(crate) enum Container {
     FencePlain,
     /// The lines inside a [`Container::Fence`].
     /// The embedded language's rules take them.
-    /// The carried value of an embedded body is the state of the embedded
+    /// An embedded body's carried value is the state of the embedded
     /// lexer.
     Body(Language),
     /// Four spaces or a tab up to a line without them.
@@ -85,7 +85,7 @@ pub(crate) enum Container {
 }
 
 impl Container {
-    /// The `Container` values whose code is their own, not a language's, in
+    /// The `Container` values whose code is their own and no language's, in
     /// code order.
     /// A test checks that [`Container::code`] matches it.
     pub(super) const FIXED: &[Container] = &[

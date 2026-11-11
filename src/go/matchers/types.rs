@@ -41,8 +41,8 @@ impl Lexer<'_> {
     /// The positions are found again from checkpoints, not kept.
     /// A chain longer than [`CHECKPOINTS`] keeps that many evenly spaced
     /// positions.
-    /// It walks each stretch between them the same way, from the last.
-    /// A hostile line therefore costs no allocation.
+    /// It walks each stretch between them the same way, from the last, so a
+    /// hostile line costs no allocation.
     /// Its walk stays near linear, because each level of checkpoints walks
     /// the chain once.
     fn backwards<T>(

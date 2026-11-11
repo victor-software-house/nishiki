@@ -67,7 +67,7 @@ fn lexing_a_line_again_allocates_nothing() {
 }
 
 /// YAML directives, which no fixture had. Each directive reads its name. The
-/// name must be a view of the line, not a copy.
+/// name must be a view of the line and never a copy.
 #[test]
 fn lexing_yaml_directives_again_allocates_nothing() {
     let lines = [
@@ -103,7 +103,7 @@ fn lexing_event_handlers_again_allocates_nothing() {
     assert_eq!(allocations, 0, "allocations lexing the lines a second time");
 }
 
-/// A Markdown document with fences in two of the engine's languages, which
+/// A Markdown document that has fences in two of the engine's languages, which
 /// no fixture had. Each fence's first line switches the engine's scratch to
 /// the other grammar. The first pass already built that grammar's caches.
 #[test]
@@ -167,9 +167,9 @@ fn switching_between_fenced_lexers_again_allocates_nothing() {
 
 /// A Ruby document whose stack deepens by one rule per call, as Shiki's
 /// does. In `expect(<<~RUBY)` the here document takes the `)`, and the
-/// call's rule stays open. Each call adds one state on top of the last. Every
-/// later line shares that state. Twice the calls hold about twice the memory.
-/// Lexing the document again allocates nothing.
+/// call's rule stays open. Each call adds one state on top of the last, and
+/// every later line shares that state. Twice the calls hold about twice the
+/// memory. Lexing the document again allocates nothing.
 #[test]
 fn a_deepening_ruby_stack_costs_one_state_per_open_call() {
     let document = |calls: usize| -> Vec<String> {

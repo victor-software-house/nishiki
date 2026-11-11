@@ -371,7 +371,7 @@ impl<const D: u8> Lexer<'_, D> {
     }
 
     /// The lookbehind of a cast: an operator, or a keyword that takes an
-    /// operand, not a `++` or `--` suffix.
+    /// operand, and excludes a `++` or `--` suffix.
     ///
     /// `[^+]\+` and `[^-]-`: a lone plus or minus, with a character before it.
     fn cast_before(&self, p: usize) -> bool {

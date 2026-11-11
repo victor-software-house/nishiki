@@ -176,7 +176,7 @@ pub(crate) fn ordered(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Option<
     Some(digits + 2)
 }
 
-/// `((^|\G)( {2,4}|\t))|^([\t ]*)$`, which keeps a list item open: an
+/// `((^|\G)( {2,4}|\t))|^([\t ]*)$`, which keeps a list item open for an
 /// indented line, or a blank one.
 pub(crate) fn list_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
     if cx.at_start(p) {
@@ -307,8 +307,9 @@ pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> 
     })
 }
 
-/// `(^|\G)(\2|\s{0,3})(\3)\s*$`, which closes the fence: the opening fence's
-/// own run of characters, indented as the opening one or by at most three.
+/// `(^|\G)(\2|\s{0,3})(\3)\s*$`, which closes the fence with the opening
+/// fence's own run of characters, indented as the opening one or by at most
+/// three.
 ///
 /// Out of line, it cost a call once a fence line.
 #[expect(
@@ -404,7 +405,7 @@ pub(crate) fn paragraph(cx: &Cx<'_>, p: usize) -> Option<usize> {
 }
 
 /// `(^|\G)((?=\s*[-=]{3,}\s*$)| {4,}(?=[^\t\n ]))`, which keeps a paragraph
-/// open: a setext underline, or a line indented by four spaces or more.
+/// open for a setext underline, or a line indented by four spaces or more.
 pub(crate) fn paragraph_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
     if !cx.at_start(p) {
         return None;
@@ -573,7 +574,7 @@ pub(crate) fn link_definition(cx: &Cx<'_>, p: usize, captures: &mut Captures) ->
 }
 
 /// Where the whitespace that ends the text starts: `\s*$` matches from
-/// there on and nowhere before it. Spends the whitespace it reads.
+/// there on, and nowhere before it. Spends the whitespace it reads.
 fn trailing_space_start(cx: &Cx<'_>) -> usize {
     let mut p = cx.end;
     loop {
@@ -639,9 +640,9 @@ pub(crate) fn front_matter_begin(cx: &Cx<'_>, p: usize, captures: &mut Captures)
     Some(cx.end)
 }
 
-/// `^(?: {0,3}\1-*[\t ]*|[\t ]*\.{3})$`, which ends front matter: the opening
-/// dashes, indented by at most three spaces and followed by more dashes, or
-/// three dots. The whole line is group 0.
+/// `^(?: {0,3}\1-*[\t ]*|[\t ]*\.{3})$`, which ends front matter with the
+/// opening dashes, indented by at most three spaces and followed by more
+/// dashes, or with three dots. The whole line is group 0.
 pub(crate) fn front_matter_close(
     cx: &Cx<'_>,
     p: usize,

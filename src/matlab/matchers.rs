@@ -37,7 +37,7 @@ const CLOSERS: [bool; 256] = table(b"]&)*,/:;<=>@\\^|}");
 /// `memchr` reads bytes one at a time up to the first aligned word.
 /// So its cost follows where the set sits in the binary, and another
 /// language's tables can move that place.
-/// A table lookup costs one load wherever the table sits.
+/// A table lookup costs one load wherever the table is placed.
 #[expect(
     clippy::as_conversions,
     reason = "`usize::from` is not `const`, and a byte always fits"
@@ -603,7 +603,7 @@ impl Lexer<'_> {
             .then_some(p + 1)
     }
 
-    /// `quote(?=.)`, a quote with a character after it on the line.
+    /// `quote(?=.)`, a quote followed by a character on the line.
     fn lone_quote(&self, p: usize, quote: u8) -> Option<usize> {
         (self.at(p) == quote && p + 1 < self.lim()).then_some(p + 1)
     }
@@ -843,8 +843,8 @@ impl Lexer<'_> {
     ///
     /// The name is a whole run of word characters that [`command_name`]
     /// accepts.
-    /// The arguments start right after the blanks: an earlier start would be
-    /// a blank, which no argument shape takes.
+    /// The arguments start right after the blanks, because an earlier start
+    /// would be a blank, which no argument shape takes.
     fn command_dual(&mut self, p: usize) -> Option<usize> {
         if p != 0 {
             return None;

@@ -143,7 +143,7 @@ impl Dialect {
         }
     }
 
-    /// Whether the dialect reads JSX, which `<` then starts a tag instead of
+    /// Whether the dialect reads JSX, where `<` then starts a tag instead of
     /// type arguments or a cast: every dialect but `typescript`.
     pub(crate) const fn jsx(self) -> bool {
         self.index() != 0
@@ -160,7 +160,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
 /// The state at the start of the TypeScript lines of a fenced code block.
 /// The block's text sits on the stack `base` with no `source.ts` of its own,
 /// as in Shiki's embedding.
-/// The marker rule keeps `\A`, which only the first line of
+/// Here the marker rule keeps `\A`, which only the first line of
 /// the document matches, from matching in a fence.
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena
@@ -168,7 +168,7 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
         .unwrap_or(ROOT)
 }
 
-/// The state at the start of the JavaScript of an HTML `<script>` element,
+/// The state at the start of an HTML `<script>` element's JavaScript,
 /// whose text sits on `base`.
 /// It is one context with `source.js` on top of it, as HTML's grammar names
 /// it.
@@ -205,7 +205,7 @@ fn start_entry(arena: &mut Arena, base: u32, rule: Rule) -> u32 {
 }
 
 /// The start of `source.ts#object-literal`, which Svelte's `{ {a: 1} }`
-/// includes, and of `source.tsx#object-literal`, which Astro's does.
+/// includes, and of `source.tsx#object-literal`, included by Astro's.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
 #[cfg(any(
     feature = "lang-svelte",
@@ -256,8 +256,8 @@ pub(crate) fn start_array_binding_const(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Rule::EntryArrayBindingConst)
 }
 
-/// The start of the body of `source.ts#type-parameters`, which Svelte's
-/// `generics="T extends U"` copies: its comments, modifiers, types, commas
+/// The start of the body of `source.ts#type-parameters`, copied by Svelte's
+/// `generics="T extends U"`: its comments, modifiers, types, commas
 /// and `=`, with no `<` or `>`.
 #[cfg(feature = "lang-svelte")]
 pub(crate) fn start_type_parameters(arena: &mut Arena, base: u32) -> u32 {
@@ -272,7 +272,7 @@ pub(crate) fn start_generic_attribute(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// Lexes the text of `line` from byte `from` and `state`, appending its
-/// tokens with ends counted from the start of `line`.
+/// tokens with end offsets counted from `line`'s start.
 /// It returns the state after it and where `halts` stopped it.
 /// The bytes before `from` belong to the language that embeds this one.
 /// Lookbehinds read them as `TextMate` does.

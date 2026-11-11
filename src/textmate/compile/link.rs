@@ -415,7 +415,7 @@ impl<'a> Builder<'a> {
     }
 
     /// The number of the rule object `rule` of `source`, compiled on first
-    /// use with the repositories of `env`.
+    /// use, with the repositories of `env`.
     fn entry(&mut self, source: Source, rule: RuleId, env: &Repositories<'a>) -> usize {
         if let Some(&id) = self.compiled.get(&(source, rule)) {
             return id;
@@ -650,7 +650,7 @@ impl<'a> Builder<'a> {
         id
     }
 
-    /// Replaces every container in a list with the rules of its own list,
+    /// Replaces each container in a list with its own list's rules,
     /// each container once, so only rules that match are left.
     ///
     /// It fails past [`MAX_FLATTEN_STEPS`] entries visited.
@@ -1073,7 +1073,7 @@ struct OwnedCapture {
     retokenize: usize,
 }
 
-/// The groups of `captures` as the engine reads them, on the heap for the
+/// The groups of `captures` as the engine reads them, on the heap, for the
 /// rest of the process.
 fn leak_captures(captures: Vec<OwnedCapture>) -> &'static [Capture] {
     leak(
@@ -1089,12 +1089,12 @@ fn leak_captures(captures: Vec<OwnedCapture>) -> &'static [Capture] {
     )
 }
 
-/// `items` on the heap for the rest of the process.
+/// `items` on the heap, for the rest of the process.
 fn leak<T>(items: Vec<T>) -> &'static [T] {
     Box::leak(items.into_boxed_slice())
 }
 
-/// A copy of `text` on the heap for the rest of the process.
+/// A copy of `text` on the heap, for the rest of the process.
 fn leak_str(text: &str) -> &'static str {
     Box::leak(text.to_owned().into_boxed_str())
 }

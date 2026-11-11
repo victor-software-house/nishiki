@@ -166,7 +166,8 @@ impl Lexer<'_> {
     /// included.
     /// Only the first blank of a run has the operator before it.
     /// The second branch needs an operator character after the name and its
-    /// blanks; a blank is never one, so the blanks give nothing back.
+    /// blanks.
+    /// A blank is never one, so the blanks give nothing back.
     pub(super) fn variable(&self, p: usize) -> Option<usize> {
         if matches!(
             self.prev(p),

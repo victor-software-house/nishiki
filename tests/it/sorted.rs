@@ -199,7 +199,7 @@ fn the_oracle_inputs_are_sorted() {
     assert_sorted("oracle/inputs.ts's inputs", &keys);
 }
 
-/// Every fixture row sits in the one fixture table, and a blank line ends it.
+/// Every fixture row is in the one fixture table, and a blank line ends it.
 /// A row outside the table escapes this sort check, and GitHub renders it as
 /// part of a paragraph or of the next table.
 #[test]

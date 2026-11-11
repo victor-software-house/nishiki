@@ -61,7 +61,8 @@ impl Lexer<'_> {
 
     /// `^\s*\*\s*(@access)\s+((public|private|protected|internal)|(.+))\s*$`.
     /// A keyword that more text follows is read by `(.+)`, which runs to the
-    /// end of the text, so the trailing `\s*` takes only the line feed.
+    /// end of the text.
+    /// So the trailing `\s*` takes only the line feed.
     pub(super) fn doc_access(&mut self, p: usize) -> Option<usize> {
         if p != 0 {
             return None;

@@ -55,7 +55,7 @@ The decisions that created nishiki live in a private planning repository:
 
    The caller brings each grammar.
    The crate bundles none for this and fetches none.
-   The engine adds about 1.7 MB once (operator, 2026-11-03).
+   Including the engine adds about 1.7 MB once (operator, 2026-11-03).
 5. **Nothing private ships.**
    The repository is private, but the crate's published source is public on crates.io,
    so nothing private goes into a packaged file.
@@ -146,7 +146,7 @@ The decisions that created nishiki live in a private planning repository:
    That covers guides, research notes, doc comments, code and script comments, commit messages, pull-request bodies and changesets.
    - short sentences, one idea each, with Semantic Line Breaks;
    - one claim per sentence: a sentence that chains clauses with "which", a colon and "so" is split into several;
-   - concrete names: "the base commit's build", not a coined phrase such as "beside this tree" or "the change";
+   - concrete names such as "the base commit's build" in place of a coined phrase such as "beside this tree" or "the change";
    - a list for a set of items, a table for a comparison, a heading per topic;
    - a blank line between blocks;
    - plain words: no filler, no flourish, no affected phrasing;
@@ -175,7 +175,7 @@ The decisions that created nishiki live in a private planning repository:
 
 1. A language lives in `src/<language>/`.
 2. Every language gets a hand-written lexer, in order of use, several in parallel (operator, 2026-11-02, revising the 2026-10-24 decision).
-   With the oracle and a Shiki differential, Python took under an hour, not the days its line count suggested.
+   With the oracle and a Shiki differential, Python took under an hour, where its line count suggested days.
 3. nishiki's own TextMate engine is built in parallel, as fast as it can be made.
    - Its approved dependencies beyond `memchr` are `regex-automata` and `regex-syntax` (operator, 2026-11-04).
    - It covers every bundled language not yet hand-written.

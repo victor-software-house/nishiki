@@ -119,8 +119,8 @@ impl List {
 }
 
 /// An include of a whole grammar that nishiki lexes by hand. The rule whose
-/// list held the include opens a region. That language lexes the region. The
-/// region ends where the rule's end matches. A rule listed around the include
+/// list held the include opens a region. That language lexes the region, which
+/// ends where the rule's end matches. A rule listed around the include
 /// also takes the line back where it matches.
 ///
 /// [`Grammar::list_hand_offs`] names each list's hand-off. A [`List`] does
@@ -148,8 +148,8 @@ pub(crate) struct HandOff {
 /// they try.
 /// The cell's size sets the code for that index.
 ///
-/// At 152 bytes LLVM emits one `imul`.
-/// At 144 bytes it emits `lea` and `shl`, and at 128 bytes `mov` and `shl`.
+/// At 152 bytes LLVM emits one `imul`, at 144 bytes `lea` and `shl`, and at 128
+/// bytes `mov` and `shl`.
 /// Callgrind counts the two-instruction forms as one instruction more per
 /// lookup.
 /// On hardware they cost the same or less, since `imul` takes about three
@@ -257,7 +257,7 @@ pub(crate) struct Grammar {
     /// The most memory, in bytes, that the lazy DFA of one of the grammar's
     /// scanners may hold in a cache.
     ///
-    /// It is a ceiling, not an allocation.
+    /// It sets a ceiling and allocates nothing up front.
     /// A cache grows only as the searches need states.
     /// Past it, the lazy DFA clears and builds its states again, and each new
     /// state allocates.

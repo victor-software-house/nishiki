@@ -6,7 +6,7 @@
 //! The lexer runs the grammar's rules with hand-written matchers over bytes,
 //! in the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
-//! The `matchers` decide where each pattern matches.
+//! Its `matchers` decide where each pattern matches.
 //!
 //! A `CGPROGRAM` or `HLSLPROGRAM` block hands its text to the HLSL lexer.
 //! That lexer halts at the block's end.

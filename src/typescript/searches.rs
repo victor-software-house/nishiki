@@ -86,7 +86,7 @@ impl Searches {
         self.listed_last(line, bytes, from)
     }
 
-    /// [`Searches::last`] for a text after the first of its line, from the
+    /// [`Searches::last`] for a text after its line's first, from the
     /// line's lists.
     /// It starts the lists when the line has none yet.
     #[cold]

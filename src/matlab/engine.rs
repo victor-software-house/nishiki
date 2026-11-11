@@ -15,7 +15,8 @@ pub(crate) type Scratch = rules::Scratch<Matlab>;
 
 /// How many capture groups can be lexed again inside one another.
 /// A `classdef` line lexes its attributes again, and their strings lex their
-/// own text, so the depth stays small; the bound only stops a runaway.
+/// own text, so the depth stays small.
+/// The bound only stops a runaway.
 /// Past it, a group keeps its own scopes, and the line reports the depth
 /// limit.
 pub(crate) const MAX_NESTED: u32 = 64;
