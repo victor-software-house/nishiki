@@ -207,6 +207,11 @@ fn start_entry(arena: &mut Arena, base: u32, rule: Rule) -> u32 {
 /// The start of `source.ts#object-literal`, which Svelte's `{ {a: 1} }`
 /// includes, and of `source.tsx#object-literal`, which Astro's does.
 #[cfg(any(feature = "lang-svelte", feature = "lang-tsx"))]
+#[cfg(any(
+    feature = "lang-svelte",
+    feature = "lang-astro",
+    all(test, feature = "lang-tsx")
+))]
 pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Rule::EntryObjectLiteral)
 }
@@ -218,6 +223,7 @@ pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
 /// Unlike a template string, it has no end of its own: the end of the rule
 /// that embeds it, the closing backtick, ends it.
 #[cfg(feature = "lang-tsx")]
+#[cfg(any(feature = "lang-astro", all(test, feature = "lang-tsx")))]
 pub(crate) fn start_template(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Rule::EntryTemplate)
 }

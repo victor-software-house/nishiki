@@ -9,7 +9,16 @@
 
 mod table;
 
-use crate::utf8::{char_start, multibyte_at};
+#[cfg(feature = "_class-widths")]
+use crate::utf8::char_start;
+#[cfg(any(
+    feature = "_class-widths",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx",
+    feature = "lang-typescript"
+))]
+use crate::utf8::multibyte_at;
 
 /// The regex `\s` for a character: the table measured on Shiki.
 #[cfg_attr(
@@ -40,6 +49,22 @@ pub fn is_word(c: char) -> bool {
 }
 
 /// The regex `[[:alpha:]]` for a character, from the same measured table.
+#[cfg(any(
+    feature = "lang-asm",
+    feature = "lang-astro",
+    feature = "lang-coffee",
+    feature = "lang-gdscript",
+    feature = "lang-hcl",
+    feature = "lang-julia",
+    feature = "lang-latex",
+    feature = "lang-python",
+    feature = "lang-svelte",
+    feature = "lang-tex",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx",
+    feature = "lang-typescript"
+))]
 pub(crate) fn is_alpha(c: char) -> bool {
     if c.is_ascii() {
         c.is_ascii_alphabetic()
@@ -58,6 +83,7 @@ pub(crate) fn is_digit(c: char) -> bool {
 }
 
 /// The regex `\p{upper}` for a character, from the same measured tables.
+#[cfg(feature = "lang-python")]
 pub(crate) fn is_upper(c: char) -> bool {
     if c.is_ascii() {
         c.is_ascii_uppercase()
@@ -67,6 +93,14 @@ pub(crate) fn is_upper(c: char) -> bool {
 }
 
 /// The regex `\p{alnum}` for a character: `[[:alpha:]]` or `\d`.
+#[cfg(any(
+    feature = "lang-asm",
+    feature = "lang-astro",
+    feature = "lang-coffee",
+    feature = "lang-hcl",
+    feature = "lang-python",
+    feature = "lang-svelte"
+))]
 pub(crate) fn is_alnum(c: char) -> bool {
     is_alpha(c) || is_digit(c)
 }
@@ -76,6 +110,11 @@ pub(crate) fn is_alnum(c: char) -> bool {
 ///
 /// One load from a table, which measured faster than the range tests of
 /// [`u8::is_ascii_alphanumeric`] in the rule engine's matchers.
+#[cfg(any(
+    feature = "_rule-tables",
+    feature = "_class-widths",
+    feature = "lang-rust"
+))]
 #[inline]
 pub(crate) fn is_ascii_word(b: u8) -> bool {
     WORD_BYTES[usize::from(b)]
@@ -83,6 +122,11 @@ pub(crate) fn is_ascii_word(b: u8) -> bool {
 
 /// Which bytes are `\w`: the ASCII digits, upper-case letters, `_` and
 /// lower-case letters.
+#[cfg(any(
+    feature = "_rule-tables",
+    feature = "_class-widths",
+    feature = "lang-rust"
+))]
 const WORD_BYTES: [bool; 256] = {
     let mut table = [false; 256];
     let mut i = 0;
@@ -94,6 +138,14 @@ const WORD_BYTES: [bool; 256] = {
 };
 
 /// The regex `\p{L}` for a character: a letter.
+#[cfg(any(
+    feature = "lang-hack",
+    feature = "lang-julia",
+    feature = "lang-mermaid",
+    feature = "lang-powershell",
+    feature = "lang-r",
+    feature = "lang-swift"
+))]
 pub(crate) fn is_letter(c: char) -> bool {
     if c.is_ascii() {
         c.is_ascii_alphabetic()
@@ -103,6 +155,11 @@ pub(crate) fn is_letter(c: char) -> bool {
 }
 
 /// The regex `\p{N}` for a character: a number.
+#[cfg(any(
+    feature = "lang-latex",
+    feature = "lang-powershell",
+    feature = "lang-swift"
+))]
 pub(crate) fn is_number(c: char) -> bool {
     if c.is_ascii() {
         c.is_ascii_digit()
@@ -113,6 +170,7 @@ pub(crate) fn is_number(c: char) -> bool {
 
 /// The regex `\p{M}` for a character: a combining mark, which no ASCII
 /// character is.
+#[cfg(feature = "lang-swift")]
 pub(crate) fn is_mark(c: char) -> bool {
     !c.is_ascii() && table::is_mark(c)
 }
@@ -222,6 +280,13 @@ pub(crate) fn is_ascii_space(b: u8) -> bool {
 /// The width of the character at byte `i` of `s` when `class` holds for it.
 /// For an ASCII character, `ascii` must hold for its byte instead.
 /// The width is 0 otherwise, past the end too.
+#[cfg(any(
+    feature = "_class-widths",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx",
+    feature = "lang-typescript"
+))]
 #[inline]
 fn width_if(s: &[u8], i: usize, ascii: fn(u8) -> bool, class: fn(char) -> bool) -> usize {
     match s.get(i) {
@@ -236,6 +301,7 @@ fn width_if(s: &[u8], i: usize, ascii: fn(u8) -> bool, class: fn(char) -> bool) 
 /// The width of the `\s` character at byte `i` of `s`, 0 when none starts
 /// there. Past the end is 0: a lexer that counts the line feed after the line
 /// as white space reads it itself.
+#[cfg(feature = "_class-widths")]
 #[inline]
 pub(crate) fn space_width(s: &[u8], i: usize) -> usize {
     width_if(s, i, is_ascii_space, is_space)
@@ -243,6 +309,7 @@ pub(crate) fn space_width(s: &[u8], i: usize) -> usize {
 
 /// The width of the `\w` character at byte `i` of `s`, 0 when none starts
 /// there.
+#[cfg(feature = "_class-widths")]
 #[inline]
 pub(crate) fn word_width(s: &[u8], i: usize) -> usize {
     width_if(s, i, is_ascii_word, is_word)
@@ -250,12 +317,20 @@ pub(crate) fn word_width(s: &[u8], i: usize) -> usize {
 
 /// The width of the `\d` character at byte `i` of `s`, 0 when none starts
 /// there.
+#[cfg(any(
+    feature = "_class-widths",
+    feature = "lang-javascript",
+    feature = "lang-jsx",
+    feature = "lang-tsx",
+    feature = "lang-typescript"
+))]
 #[inline]
 pub(crate) fn digit_width(s: &[u8], i: usize) -> usize {
     width_if(s, i, |b| b.is_ascii_digit(), is_digit)
 }
 
 /// Whether the character that ends at byte `i` of `s` is a `\w`.
+#[cfg(feature = "_class-widths")]
 #[inline]
 pub(crate) fn word_before(s: &[u8], i: usize) -> bool {
     i.checked_sub(1)
@@ -263,9 +338,11 @@ pub(crate) fn word_before(s: &[u8], i: usize) -> bool {
 }
 
 #[cfg(test)]
+#[cfg(any(feature = "_class-widths", feature = "_identifier-classes"))]
 mod tests {
     use super::*;
 
+    #[cfg(feature = "_class-widths")]
     #[test]
     fn widths_follow_the_classes() {
         let s = "a_1 \u{3000}\u{663}\u{e9}".as_bytes();

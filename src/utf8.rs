@@ -29,13 +29,13 @@ pub(crate) const fn is_continuation(b: u8) -> bool {
 
 /// The start of the character that holds byte `i` of `s`: `i` itself unless
 /// it continues a character, and never before 0.
-#[cfg_attr(
-    all(not(feature = "_hand-lexers"), not(test)),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers and the engine tests use it"
-    )
-)]
+#[cfg(any(
+    test,
+    feature = "_class-widths",
+    feature = "lang-html",
+    feature = "lang-julia",
+    feature = "lang-perl"
+))]
 pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
     while i > 0 && s.get(i).is_some_and(|&b| is_continuation(b)) {
         i -= 1;
@@ -59,13 +59,34 @@ pub(crate) fn char_start(s: &[u8], mut i: usize) -> usize {
 /// A multibyte character goes to [`multibyte_at`], which is out of line.
 /// A caller that has already tested for ASCII calls [`multibyte_at`] directly.
 #[inline]
-#[cfg_attr(
-    all(not(feature = "_hand-lexers"), not(test)),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers and the engine tests use it"
-    )
-)]
+#[cfg(any(
+    test,
+    feature = "lang-asm",
+    feature = "lang-bat",
+    feature = "lang-blade",
+    feature = "lang-cmake",
+    feature = "lang-common-lisp",
+    feature = "lang-css",
+    feature = "lang-dockerfile",
+    feature = "lang-haskell",
+    feature = "lang-hlsl",
+    feature = "lang-html",
+    feature = "lang-json",
+    feature = "lang-julia",
+    feature = "lang-latex",
+    feature = "lang-less",
+    feature = "lang-markdown",
+    feature = "lang-mermaid",
+    feature = "lang-pascal",
+    feature = "lang-perl",
+    feature = "lang-php",
+    feature = "lang-powershell",
+    feature = "lang-shell",
+    feature = "lang-sql",
+    feature = "lang-vb",
+    feature = "lang-xml",
+    feature = "_php-family"
+))]
 pub(crate) fn char_at(s: &[u8], i: usize) -> Option<(char, usize)> {
     let lead = *s.get(i)?;
     if lead.is_ascii() {

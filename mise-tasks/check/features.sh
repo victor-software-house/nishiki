@@ -17,6 +17,11 @@ RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features
 RUSTFLAGS="-D warnings" cargo check --locked --tests --no-default-features --features json
 cargo check --locked --tests --no-default-features --features config
 cargo check --locked --tests --no-default-features --features docs
+# Two libraries warn of nothing, dead code included: the engine with C and
+# the unstable module, as codegen builds them, and Vue with Markdown.
+unstable="--cfg nishiki_unstable -D warnings"
+RUSTFLAGS="$unstable" cargo check --locked --no-default-features --features textmate,lang-c
+RUSTFLAGS="-D warnings" cargo check --locked --no-default-features --features lang-vue,lang-markdown
 cargo check --locked --tests --no-default-features --features lang-asm
 cargo check --locked --tests --no-default-features --features lang-astro
 cargo check --locked --tests --no-default-features --features lang-bat
