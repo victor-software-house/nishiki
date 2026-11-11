@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="Write the Rust files codegen/ generates; --check fails on a stale one"
-#MISE env={CARGO_TARGET_DIR = "target/codegen", CARGO_BUILD_JOBS = "2"}
+#MISE env={CARGO_TARGET_DIR = "target/codegen"}
 # codegen/ is a workspace of its own (openspec rust-codegen, design section 3).
 # It builds in target/codegen, apart from the root's builds, as bench/ builds in target/bench.
 # nishiki::unstable compiles only with --cfg nishiki_unstable.

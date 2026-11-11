@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #MISE description="Fail when a size program's sections at a tier grow past its budgets"
 #MISE wait_for=["lint"]
+#MISE env={CARGO_BUILD_JOBS = "1"}
 # Builds one program with the release profile at each tier in
 # [workspace.metadata.size] of the root Cargo.toml.
 # A tier names its package and binary, or builds the `size` example of
@@ -14,7 +15,8 @@
 # The budgets are linux-x64 numbers, so other platforms skip the check.
 # It waits for lint when verify runs both, so their compiles of the whole crate
 # do not overlap.
-# mise.toml says why, beside test:doc, which waits for this task.
+# It runs beside test with one job.
+# mise.toml says why, beside test:doc.
 set -euo pipefail
 platform="$(uname -s)-$(uname -m)"
 if [[ "${platform}" != "Linux-x86_64" ]]; then
