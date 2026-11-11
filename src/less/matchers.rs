@@ -23,8 +23,8 @@ use super::words;
 use crate::case_fold;
 use crate::rules::Chars;
 
-/// The longest word of any table in [`words`], in bytes; `oracle/less-words.ts`
-/// fails on a longer one.
+/// The longest word of any table in [`words`], in bytes;
+/// `codegen/src/words/less.rs` fails on a longer one.
 const LONGEST_WORD: usize = 64;
 
 /// The word of `table` that `key` is, and whether a longer word of the

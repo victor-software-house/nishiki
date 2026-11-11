@@ -70,7 +70,7 @@ const htmlRepository = (html as unknown as Grammar[]).find(
 
 // Edit 1: the event names and the entity names are html's.
 // The matchers test them against the lists in src/html_words.rs, which
-// oracle/html-words.ts writes from html's grammar.
+// codegen/src/words/html.rs writes from html's grammar.
 {
   const events = repository["attributes-events"]!.begin!;
   const htmlEvents = htmlRepository["attribute"]!.patterns![2]!.begin!;

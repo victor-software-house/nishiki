@@ -533,7 +533,7 @@ workspace = true
 # own (CODING_STANDARDS 5.3).
 [workspace]
 members = ["examples", "examples/build-script", "nishiki-alloc-count", "tests"]
-exclude = ["bench"]
+exclude = ["bench", "codegen"]
 resolver = "3"
 
 # The development dependencies that nishiki and its test members share.

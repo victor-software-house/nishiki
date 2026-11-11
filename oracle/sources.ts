@@ -20,7 +20,7 @@
 import { bundledLanguagesInfo } from "shiki@4.6.0";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
-import { inputs, samples, sqlGrammar, standIns } from "./inputs.ts";
+import { inputs, samples, standIns } from "./inputs.ts";
 import { mirroredPaths } from "./mirror-paths.ts";
 
 const repository = new URL("..", import.meta.url).pathname;
@@ -94,14 +94,6 @@ const qmlLicence: Omit<PinnedFile, "url"> = {
   ),
 };
 
-/** The `sql` grammar is MIT, as microsoft/vscode. */
-const sqlGrammarLicence: Omit<PinnedFile, "url"> = {
-  licence: "MIT",
-  licenceSources: [
-    "https://github.com/microsoft/vscode/blob/af600487b1e94374d9f48f57cbf2cad24656b07f/LICENSE.txt",
-  ],
-};
-
 /** SPDX ids for the licence names `tests/oracle/SOURCES.md` uses. */
 const spdxIds: Record<string, string> = {
   "Apache-2.0 with the Runtime Library Exception": "Apache-2.0 WITH Swift-exception",
@@ -161,7 +153,6 @@ export function pinnedFiles(): PinnedFile[] {
       throw new Error(`${input.url}: an input sample of a language Shiki does not bundle`);
     }
   }
-  add(sqlGrammar, sqlGrammarLicence, "sql-words.ts");
   return [...files.values()];
 }
 

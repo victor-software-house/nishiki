@@ -14,6 +14,7 @@ mod grammar;
 mod matchers;
 mod nested;
 mod scope;
+#[rustfmt::skip]
 mod words;
 
 use engine::Css;

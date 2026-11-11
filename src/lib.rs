@@ -452,6 +452,7 @@ mod html;
 #[cfg(feature = "lang-html-derivative")]
 mod html_derivative;
 #[cfg(feature = "_html-words")]
+#[rustfmt::skip]
 mod html_words;
 #[cfg(feature = "lang-ini")]
 mod ini;
