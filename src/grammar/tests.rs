@@ -278,10 +278,18 @@ fn a_link_the_engine_refuses_fails() {
     assert!(matches!(failed.unwrap_err().0, Reason::Link(_)));
 }
 
+/// A link that fails leaves no entry in [`LINKED_TABLES`] for its key.
+///
+/// The grammar is [`FAILING`] under a scope name of its own.
+/// `a_link_the_engine_refuses_fails` links `FAILING` on another thread.
+/// With the same key, its entry could stand in the table when this test
+/// reads it.
 #[cfg(feature = "lang-rust")]
 #[test]
 fn a_failed_link_keeps_no_entry() {
-    let grammar = Grammar::from_json(FAILING).unwrap();
+    let grammar =
+        Grammar::from_json(&FAILING.replace("\"source.failing\"", "\"source.failing.entry\""))
+            .unwrap();
     let mut set = Grammars::new();
     set.hand_off(crate::Language::Rust);
     assert!(linked_table(grammar, &set).is_err());
