@@ -254,6 +254,53 @@ Then Lua's `matcher` has no frame, as at step 11.
 - Zig at 16 units, against step 9: 0.9676 lexing, 0.9718 the first document, 0.9700 colouring.
 - Lua at one unit, against step 10: 0.9994 lexing, 0.9997 the first document, 0.9992 colouring.
 
+### Steps 5 to 14 in every measure
+
+These rows moved here from [the change's research][dm-research], section 2.
+
+Steps 5 and 8 in two more measures:
+
+| Measure | Step | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|--:|
+| lexing, at 16 codegen units | 5 | 1.1032 | 0.8973 | 1.1452 |
+| lexing, at 16 codegen units | 8 | 1.0596 | 0.8139 | 1.0615 |
+| the first document, at one codegen unit | 5 | 1.0765 | 0.9229 | 1.0952 |
+| the first document, at one codegen unit | 8 | 1.0431 | 0.8710 | 1.0608 |
+| colouring, at one codegen unit | 8 | 1.0602 | 0.8626 | 1.0967 |
+
+Steps 9 to 14 against the step before, at one codegen unit, with 16 units in parentheses:
+
+| Measure | Step | Protocol Buffers | Zig | Lua |
+|:--|--:|--:|--:|--:|
+| lexing | 9 | 1.0000 (0.9999) | 0.9975 (0.9998) | 0.9847 (0.9900) |
+| lexing | 10 | 0.9871 (0.9877) | 0.9792 (1.0126) | 0.9523 (0.9777) |
+| lexing | 11 | 0.9918 (0.9962) | 1.0000 (0.9995) | 1.0001 (0.9999) |
+| lexing | 12 | 0.9993 (0.9312) | 0.9911 (0.9560) | 0.9993 (0.9988) |
+| lexing | 13 | 0.9948 (1.0668) | 0.9963 (1.0011) | 0.9914 (0.9927) |
+| lexing | 14 | 0.9998 (0.9999) | 0.9733 (0.9784) | 0.9778 (0.9806) |
+| the first document | 10 | 0.9910 (0.9925) | 0.9815 (1.0110) | 0.9710 (0.9869) |
+| the first document | 11 | 0.9943 (0.9977) | 1.0000 (0.9996) | 1.0001 (1.0000) |
+| the first document | 12 | 0.9995 (0.9582) | 0.9920 (0.9616) | 0.9996 (1.0034) |
+| the first document | 13 | 0.9964 (1.0394) | 0.9967 (1.0009) | 0.9949 (0.9920) |
+| the first document | 14 | 0.9999 (0.9999) | 0.9763 (0.9813) | 0.9868 (0.9889) |
+| colouring | 10 | 0.9877 (0.9882) | 0.9807 (1.0116) | 0.9553 (0.9791) |
+| colouring | 11 | 0.9921 (0.9964) | 1.0000 (0.9996) | 0.9999 (1.0000) |
+| colouring | 12 | 0.9993 (0.9343) | 0.9917 (0.9593) | 0.9993 (0.9990) |
+| colouring | 13 | 0.9950 (1.0636) | 0.9966 (1.0010) | 0.9918 (0.9931) |
+| colouring | 14 | 0.9998 (0.9999) | 0.9753 (0.9801) | 0.9793 (0.9819) |
+
+- The gate is one codegen unit, and there every row of steps 10, 12, 13 and 14 falls (lead, 2026-11-10).
+- Zig rises at 16 units at step 10, and step 12 brings it back below step 9.
+- At step 11, the field pattern's inner loop falls from 137,634 to 99,118 instructions.
+- Lua's 1.0001 at step 11 is 547 instructions.
+  545 of them are in the C library's allocator and `memcpy`.
+  Lua's generated code does not change at step 11.
+- At 16 units, Protocol Buffers rises at step 13, for information only.
+  Its `matcher` goes from 252,950 to 568,727 instructions, back to its count at one unit.
+- Step 14 writes 119 one-sided tests.
+  Lua's generated patterns `m127`, `m128` and `m130` fall from 2.39 to 1.98 million instructions.
+- The differential test found 0 differences at steps 9 to 14.
+
 ## Not verified
 
 - A profile per function of the code at [5df96cd8][prototype].

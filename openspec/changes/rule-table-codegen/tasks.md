@@ -9,6 +9,9 @@
   - Its grammar goes into `tests/engine/grammars/`, and `unstable::codegen` writes its tables with default matchers.
   - This pull request builds on `codegen/`, which [rust-codegen][rust-codegen] task 1.3 creates with the word tables, and deletes `oracle/proto-grammar.ts`.
   - It needs [unstable-rule-engine][unstable-rule-engine] task 1.1, and the two fixes of the [default-matchers][default-matchers] design, section 2.5.
+- [ ] 1.2 The generator refuses to write a shipped table from a test-only grammar.
+  It reads `oracle/licences.ts`, whose `testData` record lists those grammars ([PR 762][nishiki#762]).
+  → verify: a test points the generator at a `testData` grammar and sees the refusal
 
 ## 2. Families
 
@@ -18,5 +21,6 @@
   → verify: no `oracle/*-grammar.ts` remains
 
 [default-matchers]: ../default-matchers/design.md
+[nishiki#762]: https://github.com/victor-software-house/nishiki-archive/pull/762
 [rust-codegen]: ../rust-codegen/design.md
 [unstable-rule-engine]: ../unstable-rule-engine/tasks.md

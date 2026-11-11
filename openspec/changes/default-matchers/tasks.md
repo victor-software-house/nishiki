@@ -8,7 +8,7 @@
     The regex engine runs 2.56 to 4.54 times the hand matchers, and generated Rust 1.17 to 1.54 times.
     The differential test found 0 differences in 343 million matches.
     [The research note][default-matchers-note] has the method and every row.
-- [ ] 1.2 The steps of the research's section 2, one at a time.
+- [x] 1.2 The steps of the research's section 2, one at a time.
   → verify: each step's Callgrind rows and a clean differential test, in the research
   - 2026-11-10: steps 1, 2 and 2b measured on boxes, each with 0 differences.
     The steps go on until each language reaches 1.000.
@@ -32,7 +32,10 @@
   - 2026-11-11: steps 13 and 14 measured on a box, each with 0 differences ([research][research], section 2).
     Step 14 reads 1.0346, 0.8014 and 1.0028.
     Lua's patterns `m127`, `m128` and `m130` fall from 2.39 to 1.98 million instructions.
-  - Next: Lua's identifier patterns, the costliest shape left ([research][research], section 2.4).
+  - 2026-11-11: fix 2 and steps 15, 16 and 17 measured on boxes ([research][research], section 2).
+    Each found 0 differences.
+    Step 17 reads 0.9963, 0.7992 and 0.9700, measured directly against the hand matchers.
+    Every row of the three measures is at or below 1.000, at one and at 16 codegen units.
 - [ ] 1.3 The regex engine path gives an end pattern's back-reference the groups its begin pattern took.
   Then no pattern is left with hand code only.
   It covers Lua's five long-string and long-comment ends ([research][research], section 3).
