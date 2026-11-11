@@ -624,8 +624,8 @@ resolver = "3"
 [workspace.dependencies]
 indoc = "2.0.8"
 # nishiki itself, for the test and example members, declared once
-# (Kody, #609). Both entries are paths only, so cargo drops them from the
-# published manifest.
+# (Kody, nishiki-archive#609). Both entries are paths only, so cargo drops
+# them from the published manifest.
 # Each member asks for nishiki's default features itself.
 # `check:size` can then build the examples with one tier alone.
 nishiki = { path = ".", default-features = false }

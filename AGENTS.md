@@ -16,13 +16,8 @@ Each directory below has a README that says what it holds, and an `AGENTS.md` wi
 - [bench/AGENTS.md](bench/AGENTS.md): the rules for measuring.
 - [mise-tasks/](mise-tasks/README.md): the repository's tasks.
 
-The decisions that created nishiki live in a private planning repository:
-
-- `openspec/decisions/2026-10-21-highlighting-*.md`
-- `openspec/decisions/2026-10-21-engine-name-nishiki.md`
-- `openspec/decisions/2026-10-24-highlighting-engine.md`
-- the research notes `docs/research/2026-10-21-syntax-engine-direction.md`
-  and `docs/research/2026-10-22-highlighting-engine-comparison.md`
+The decisions that created nishiki were made before this repository existed.
+This guide and `openspec/` hold what they decided.
 
 ## Invariants
 
@@ -57,8 +52,8 @@ The decisions that created nishiki live in a private planning repository:
    The crate bundles none for this and fetches none.
    Including the engine adds about 1.7 MB once (operator, 2026-11-03).
 5. **Nothing private ships.**
-   The repository is private, but the crate's published source is public on crates.io,
-   so nothing private goes into a packaged file.
+   The repository and the crate's published source on crates.io are public.
+   Nothing private goes into a tracked file, a commit message or a pull request.
 6. **Releases.**
    - Conventional Commits; the first release was `0.0.1`.
    - Versions follow semver but never take a major.
@@ -141,7 +136,7 @@ The decisions that created nishiki live in a private planning repository:
    - rustfmt's `wrap_comments` reflows a list item in a doc comment, so its lines break where rustfmt puts them.
 2. The README is the GitHub page: what nishiki is, `cargo add`, one example, a docs.rs link, the language table, the status and the licence.
    - It holds no API reference; the crate docs do.
-   - It links to files through docs.rs source URLs, because the repository is private.
+   - It links to files through docs.rs source URLs, which match the published version.
 3. All prose in the repository is written to be scanned (operator, 2026-11-02, 2026-11-03 and 2026-11-04).
    That covers guides, research notes, doc comments, code and script comments, commit messages, pull-request bodies and changesets.
    - short sentences, one idea each, with Semantic Line Breaks;

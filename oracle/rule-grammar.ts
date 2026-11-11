@@ -82,7 +82,7 @@ const safeInWord = (fragment: Analysis): boolean =>
 
 /** Whether `fragment` can match empty only where a condition holds, beside paths
  * that consume: a lookaround, an anchor or `\b` on its empty path, as in
- * `(?:(?=b)|-)` or `-?(?=b)` (Kody, #632).
+ * `(?:(?=b)|-)` or `-?(?=b)` (Kody, nishiki-archive#632).
  * The flags may come from a consuming path too, which only makes the answer
  * stricter. */
 const conditionedEmpty = (fragment: Analysis): boolean =>

@@ -64,7 +64,7 @@ const HISTORY: [path: string, language: string][] = [
 ];
 
 /** The last commit the edit traces replay. */
-const HISTORY_END = "68620d9ef4c7eb99a91c30f3a3d6788a2c4aaebf";
+const HISTORY_END = "c4d7eefbbcf782eea6807fe8b05944fcdeaa20a0";
 const REPOSITORY = "https://github.com/victor-software-house/nishiki";
 const NISHIKI_LICENCE = "MIT OR Apache-2.0";
 
