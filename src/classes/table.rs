@@ -5,6 +5,8 @@
 //! `[\p{Sm}\p{So}]`, `\p{Ll}`, `[\p{S}\p{P}]`, `\p{Nl}`, `[\p{Mn}\p{Mc}]` and
 //! `\p{Pc}` match beyond ASCII, as Shiki 4.6.0 reads them.
 
+use super::contains;
+
 /// The non-ASCII characters `\d` matches.
 const DIGITS: &[(u32, u32)] = &[
     (0x660, 0x669),
@@ -6696,22 +6698,6 @@ const CONNECTORS: &[(u32, u32)] = &[
     (0xfe4d, 0xfe4f),
     (0xff3f, 0xff3f),
 ];
-
-/// Whether `c` is in the sorted `table` of inclusive ranges.
-fn contains(table: &[(u32, u32)], c: char) -> bool {
-    let c = u32::from(c);
-    table
-        .binary_search_by(|&(lo, hi)| {
-            if hi < c {
-                std::cmp::Ordering::Less
-            } else if lo > c {
-                std::cmp::Ordering::Greater
-            } else {
-                std::cmp::Ordering::Equal
-            }
-        })
-        .is_ok()
-}
 
 /// The regex `\d` for a non-ASCII character.
 pub(super) fn is_digit(c: char) -> bool {

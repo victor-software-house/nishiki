@@ -8,6 +8,10 @@
 //! `oracle/facts/unicode-sets.json`.
 //! Each table holds its set's characters among the points `classes.json`
 //! lists, as sorted inclusive ranges, one to a line.
+//!
+//! The file holds data only.
+//! Each lookup is one call of `contains`, which `src/classes.rs` holds by
+//! hand.
 
 use std::fs;
 use std::path::Path;
@@ -33,25 +37,6 @@ const DOCS: &[&str] = &[
     "`\\p{L}`, `\\p{N}`, `\\p{M}`, `[\\p{Lt}\\p{Lu}]`, `[\\p{Lo}\\p{Nl}\\p{Ll}]`,",
     "`[\\p{Sm}\\p{So}]`, `\\p{Ll}`, `[\\p{S}\\p{P}]`, `\\p{Nl}`, `[\\p{Mn}\\p{Mc}]` and",
     "`\\p{Pc}` match beyond ASCII, as Shiki 4.6.0 reads them.",
-];
-
-/// The search every lookup runs, written after the tables.
-const CONTAINS: &[&str] = &[
-    "/// Whether `c` is in the sorted `table` of inclusive ranges.",
-    "fn contains(table: &[(u32, u32)], c: char) -> bool {",
-    "    let c = u32::from(c);",
-    "    table",
-    "        .binary_search_by(|&(lo, hi)| {",
-    "            if hi < c {",
-    "                std::cmp::Ordering::Less",
-    "            } else if lo > c {",
-    "                std::cmp::Ordering::Greater",
-    "            } else {",
-    "                std::cmp::Ordering::Equal",
-    "            }",
-    "        })",
-    "        .is_ok()",
-    "}",
 ];
 
 /// Where a table's characters come from.
@@ -280,6 +265,8 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
     let measured = Sets::read(CLASSES, &classes)?;
     let categories = Sets::read(UNICODE_SETS, &read(root, UNICODE_SETS)?)?;
     let mut lines: Vec<String> = DOCS.iter().map(|line| format!("//! {line}")).collect();
+    lines.push(String::new());
+    lines.push("use super::contains;".to_owned());
     for class in TABLES {
         let members = match class.members {
             Members::Measured(key) => measured.get(CLASSES, key)?.to_vec(),
@@ -303,8 +290,6 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
         }
         lines.push("];".to_owned());
     }
-    lines.push(String::new());
-    lines.extend(CONTAINS.iter().map(|&line| line.to_owned()));
     for class in TABLES {
         lines.push(String::new());
         lines.push(format!(
