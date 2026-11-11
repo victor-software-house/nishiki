@@ -213,11 +213,11 @@ Each language is one pull request, or a short stack when its gaps are many.
 Rollback is deleting the workflow.
 The report and inputs stay useful without it.
 
-[generate]: ../../../oracle/generate.ts
-[oracle-test]: ../../../tests/it/oracle.rs
-[fuzz]: ../../../oracle/fuzz.ts
-[onig]: ../../../oracle/onig.ts
-[tables]: ../../../.github/workflows/tables.yml
-[agents]: ../../../AGENTS.md
+[generate]: ../../../../oracle/generate.ts
+[oracle-test]: ../../../../tests/it/oracle.rs
+[fuzz]: ../../../../oracle/fuzz.ts
+[onig]: ../../../../oracle/onig.ts
+[tables]: ../../../../.github/workflows/tables.yml
+[agents]: ../../../../AGENTS.md
 [onig-re]: https://github.com/kkos/oniguruma/blob/f95747b462de672b6f8dbdeb478245ddf061ca53/doc/RE#L262
 [shiki-engines]: https://github.com/shikijs/shiki/blob/167a38fea19cfa92b760ba36e157589ca5801274/docs/guide/regex-engines.md

@@ -160,7 +160,7 @@ Each verifies the same way: the grammar's row reads complete in `tests/oracle/CO
     On `829cb3f1` the [coverage check][run-748-cov] passed.
     On `5c5c854c`, which holds both, the [oracle test][run-752-ci] passed.
 
-[checks]: ../../research/2026-11-10-oracle-coverage-gate-checks.md
+[checks]: ../../../research/2026-11-10-oracle-coverage-gate-checks.md
 [pr238]: https://github.com/victor-software-house/nishiki-archive/pull/238
 [pr259]: https://github.com/victor-software-house/nishiki-archive/pull/259
 [run-259-ci]: https://github.com/victor-software-house/nishiki-archive/actions/runs/41757301609

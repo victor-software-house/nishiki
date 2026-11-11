@@ -1,6 +1,6 @@
 // Measures how much of each grammar that a hand-written lexer follows the
-// oracle fixtures exercise, as openspec/changes/oracle-coverage/design.md
-// defines it (sections 2 and 3).
+// oracle fixtures exercise. Sections 2 and 3 of
+// openspec/changes/archive/2026-11-10-oracle-coverage/design.md define it.
 //
 //   bun run oracle/coverage.ts [report]
 //   bun run oracle/coverage.ts --pick <grammar> <lang> <file or directory>…
@@ -730,7 +730,7 @@ const report = dedent`
   How much of each grammar that a hand-written lexer follows the oracle fixtures exercise.
   \`mise run oracle:coverage\` writes this file
   from [\`oracle/coverage.ts\`](../../oracle/coverage.ts); do not edit it.
-  The [oracle-coverage design](../../openspec/changes/oracle-coverage/design.md) defines the units.
+  The [oracle-coverage design](../../openspec/changes/archive/2026-11-10-oracle-coverage/design.md) defines the units.
 
   - An expression is exercised when Shiki takes its match on a fixture.
   - A capture is exercised when its group takes part in such a match
