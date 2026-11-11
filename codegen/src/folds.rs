@@ -99,7 +99,7 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
         tables
             .multi
             .iter()
-            .map(|(c, fold)| format!("({c:#x}, {})", list(fold))),
+            .map(|(c, fold)| format!("({c:#x}, {})", slice_literal(fold))),
     );
     table(
         &mut text,
@@ -111,7 +111,7 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
         tables
             .unfold
             .iter()
-            .map(|(fold, chars)| format!("({}, {})", list(fold), list(chars))),
+            .map(|(fold, chars)| format!("({}, {})", slice_literal(fold), slice_literal(chars))),
     );
     table(
         &mut text,
@@ -132,9 +132,9 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
             "have, as a bit per value of the second byte's low six bits.",
         ],
         "pub(super) static WIDE_SECOND: &[u64] = &[",
-        tables.wide_second.iter().map(|&mask| grouped(mask)),
+        tables.wide_second.iter().map(|&mask| hex_grouped(mask)),
     );
-    head(
+    declaration(
         &mut text,
         &[
             "Per first byte of [`WIDE_LEAD`], the bytes after it of each such",
@@ -144,7 +144,7 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
         "pub(super) static WIDE_TAILS: &[&[u16]] = &[",
     );
     for tails in &tables.wide_tails {
-        groups(&mut text, tails);
+        tail_group(&mut text, tails);
     }
     text.push_str("];\n");
     Ok(File { path: PATH, text })
@@ -160,7 +160,14 @@ impl Folds {
                 let members = orbit
                     .as_array()
                     .ok_or_else(|| Error::Shape(format!("{FACTS}: an orbit is not an array")))?;
-                points(FACTS, members)
+                let orbit = points(FACTS, members)?;
+                if orbit.len() < 2 {
+                    return Err(Error::Shape(format!(
+                        "{FACTS}: an orbit of {} members",
+                        orbit.len()
+                    )));
+                }
+                Ok(orbit)
             })
             .collect::<Result<_, _>>()?;
         let folds = array(FACTS, &value, "folds")?
@@ -190,12 +197,20 @@ fn tables(folds: &Folds) -> Result<Tables, Error> {
     let mut next = Vec::new();
     for orbit in &folds.orbits {
         for (index, &member) in orbit.iter().enumerate() {
-            let following = orbit.get((index + 1) % orbit.len()).copied();
-            next.push((member, following.unwrap_or(member)));
+            let following = orbit
+                .get((index + 1) % orbit.len())
+                .copied()
+                .ok_or_else(|| Error::Shape(format!("{FACTS}: no member follows {member:#x}")))?;
+            next.push((member, following));
         }
     }
     next.sort_unstable();
-    let largest = folds.orbits.iter().map(Vec::len).max().unwrap_or(0);
+    let largest = folds
+        .orbits
+        .iter()
+        .map(Vec::len)
+        .max()
+        .ok_or_else(|| Error::Shape(format!("{FACTS}: no orbits")))?;
     let canonical = |c: u32| {
         orbit_of
             .get(&c)
@@ -278,35 +293,31 @@ fn utf8_split(c: u32) -> Result<(u8, u16), Error> {
     }
 }
 
-/// Appends a blank line, `doc` as doc lines, then `declaration`, `items` filled
+/// Appends a blank line, `doc` as doc lines, then `opening`, `items` filled
 /// into lines, and the closing `];`.
-fn table(
-    text: &mut String,
-    doc: &[&str],
-    declaration: &str,
-    items: impl IntoIterator<Item = String>,
-) {
-    head(text, doc, declaration);
+fn table(text: &mut String, doc: &[&str], opening: &str, items: impl IntoIterator<Item = String>) {
+    declaration(text, doc, opening);
     fill(text, items);
     text.push_str("];\n");
 }
 
-/// Appends a blank line, `doc` as doc lines, then `declaration` on a line.
-fn head(text: &mut String, doc: &[&str], declaration: &str) {
+/// Appends a blank line, `doc` as doc lines, then `opening` on a line: a
+/// declaration with its docs.
+fn declaration(text: &mut String, doc: &[&str], opening: &str) {
     text.push('\n');
     for line in doc {
         text.push_str("/// ");
         text.push_str(line);
         text.push('\n');
     }
-    text.push_str(declaration);
+    text.push_str(opening);
     text.push('\n');
 }
 
 /// Appends the group `tails` of `WIDE_TAILS` on a line of its own.
 /// A group wider than a line opens a block of filled lines.
-fn groups(text: &mut String, tails: &[u16]) {
-    let line = format!("{INDENT}{},", list(tails));
+fn tail_group(text: &mut String, tails: &[u16]) {
+    let line = format!("{INDENT}{},", slice_literal(tails));
     if line.chars().count() <= WIDTH {
         text.push_str(&line);
         text.push('\n');
@@ -317,14 +328,14 @@ fn groups(text: &mut String, tails: &[u16]) {
     fill_at(
         text,
         tails.iter().map(|tail| format!("{tail:#x}")),
-        "        ",
+        &format!("{INDENT}{INDENT}"),
     );
     text.push_str(INDENT);
     text.push_str("],\n");
 }
 
 /// `values` as a slice literal of hex numbers, such as `&[0x53, 0x53]`.
-fn list<T: Into<u32> + Copy>(values: &[T]) -> String {
+fn slice_literal<T: Into<u32> + Copy>(values: &[T]) -> String {
     let items: Vec<String> = values
         .iter()
         .map(|&value| format!("{:#x}", value.into()))
@@ -334,7 +345,7 @@ fn list<T: Into<u32> + Copy>(values: &[T]) -> String {
 
 /// `mask` in hex, its digits in groups of four from the right, as
 /// `0x8000_0000`.
-fn grouped(mask: u64) -> String {
+fn hex_grouped(mask: u64) -> String {
     let digits = format!("{mask:x}");
     let mut out = String::new();
     for (index, digit) in digits.chars().enumerate() {

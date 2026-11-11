@@ -1,11 +1,11 @@
-use super::{Folds, Tables, grouped, tables, utf8_split};
+use super::{Folds, Tables, hex_grouped, tables, utf8_split};
 
 /// A mask's hex digits go in groups of four from the right.
 #[test]
 fn a_mask_groups_its_digits_by_four() {
-    assert_eq!(grouped(0x200), "0x200");
-    assert_eq!(grouped(0x8000_0000), "0x8000_0000");
-    assert_eq!(grouped(0x1_0000_0000_0000), "0x1_0000_0000_0000");
+    assert_eq!(hex_grouped(0x200), "0x200");
+    assert_eq!(hex_grouped(0x8000_0000), "0x8000_0000");
+    assert_eq!(hex_grouped(0x1_0000_0000_0000), "0x1_0000_0000_0000");
 }
 
 /// A two-byte form keeps its second byte, a three-byte form its second and
