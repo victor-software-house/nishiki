@@ -3,6 +3,7 @@
 use std::convert::Infallible;
 
 use super::grammar::{Pattern, Rule};
+use super::matchers::Skips;
 use super::scope::S;
 use crate::rules::{self, Act, Captures, CarriedState, Grammar, ScopeName, table_scan};
 use crate::scope::Scopes;
@@ -22,7 +23,7 @@ impl Grammar for Proto {
     type Rule = Rule;
     type Pattern = Pattern;
     type Nested = Infallible;
-    type Extra = ();
+    type Extra = Skips;
     type Kept = ();
 
     const NAME: &'static str = "Protobuf";

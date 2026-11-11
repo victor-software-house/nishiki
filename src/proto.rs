@@ -1,10 +1,11 @@
 //! Protobuf, with the scopes of the `proto` grammar that Shiki bundles.
 //! The grammar comes from zxh0's vscode-proto3.
 //!
-//! The lexer runs the grammar's begin/end rules with hand-written matchers over
-//! bytes, in the `engine` module.
+//! The lexer runs the grammar's begin/end rules on the shared rule engine, in
+//! the `engine` module.
 //! The tables in `grammar` are generated from the grammar.
 //! Its `matchers` decide where each pattern matches.
+//! `codegen/` writes them from each pattern's parsed tree.
 //!
 //! The rules left open at the end of a line are frames of the highlighter's
 //! interned state.

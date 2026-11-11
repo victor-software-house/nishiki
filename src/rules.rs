@@ -11,6 +11,8 @@
 
 #[cfg(feature = "_rule-tables")]
 mod chars;
+#[cfg(feature = "lang-proto")]
+pub(crate) mod generated;
 mod lexer;
 #[cfg(any(feature = "lang-go", feature = "lang-ruby", feature = "lang-lua"))]
 mod runs;
