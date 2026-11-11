@@ -43,7 +43,7 @@ The file it writes marks itself as generated in its first line; edit the script,
 | `<language>-grammar.ts` | `src/<language>/scope.rs` and `grammar.rs` for a language on the rule engine. [`rule-grammar.ts`](rule-grammar.ts) holds what they share, and [`rule-grammar.test.ts`](rule-grammar.test.ts) tests its pattern analysis. |
 | [`engine-grammars.ts`](engine-grammars.ts) | `tests/engine/grammars/`: the Shiki grammars the engine's tests link into tables, with what each table links and where each grammar comes from. |
 | [`classes.ts`](classes.ts) | `facts/classes.json`: the five classes it reads by tokenizing, over the points it probes. `codegen/src/classes.rs` writes `src/classes/table.rs` from it and `facts/unicode-sets.json`. |
-| [`unicode-tables.ts`](unicode-tables.ts) | `src/textmate/regex/unicode.rs` and `facts/unicode-sets.json`: Oniguruma's Unicode sets. |
+| [`unicode-tables.ts`](unicode-tables.ts) | `facts/unicode-sets.json`: Oniguruma's Unicode sets. |
 | [`absent-probe.ts`](absent-probe.ts) | `tests/engine/absent/`: Oniguruma's answers for patterns with the absent operator `(?~…)`, which test how `src/textmate/regex/parse.rs` reads it. |
 | [`case-folds.ts`](case-folds.ts) | `facts/case-folds.json`: Oniguruma's case orbits and the folds of more than one character. [`case-fold-probe.ts`](case-fold-probe.ts) writes the cases that test them. |
 

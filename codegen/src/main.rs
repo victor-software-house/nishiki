@@ -23,6 +23,7 @@ mod header;
 mod matchers;
 mod numbers;
 mod source;
+mod unicode;
 mod words;
 
 use std::path::{Path, PathBuf};
@@ -91,6 +92,7 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     files.extend(matchers::files(&root)?);
     files.push(classes::file(&root)?);
     files.push(folds::file(&root)?);
+    files.push(unicode::file(&root)?);
     for file in files {
         let path = root.join(file.path);
         let current = fs::read(&path).ok();
