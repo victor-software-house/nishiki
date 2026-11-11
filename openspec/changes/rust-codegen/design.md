@@ -15,7 +15,7 @@ A part that only reads grammars and writes Rust moves to Rust.
 | `case-folds.ts` | `src/textmate/regex/folds.rs` | Oniguruma's orbits and string folds, recorded in `case-folds.json` | `NEXT`, `LARGEST_ORBIT`, `MULTI`, `UNFOLD`, the `WIDE_*` tables, and the file |
 | `classes.ts` | `src/classes/table.rs` | the five sets read by tokenizing (`\d`, `\w`, `\s`, `[[:alpha:]]`, `\p{upper}`), recorded in `classes.json` | the file; its `\p{…}` unions come from `unicode-sets.json` |
 | `engine-tables.ts` | JSON tables for the compiler's survey test | all of it: it writes no Rust | nothing |
-| `fence-stops.ts` | nothing: it checks `Language::pops_fence` | nothing: it reads grammars only | all of it, as a check in `codegen/` |
+| `fence-stops.ts` | nothing: it checks `Language::pops_host` | nothing: it reads grammars only | all of it, as a check in `codegen/` |
 | 7 word scripts | `src/{c,coffee,css,html,less,python,sql}/words.rs` | nothing: they read grammars only | all of it |
 | 48 grammar scripts | each language's `grammar.rs`, `scope.rs` and rule tables | nothing: `RX_DUMP` writes expressions for `onig.ts` | all of it; `codegen --expressions` writes the list `onig.ts` reads, in [rule-table-codegen][rule-table-codegen] |
 | `fuzz.ts` and its 21 data files | test fixtures, through Shiki | all of it | nothing |
@@ -50,7 +50,7 @@ The [codegen research][research] read how mature crates generate committed Rust.
   [rust-analyzer][ra-codegen] runs `cargo codegen --check` in CI.
   Each CI job regenerates the files and fails on `git diff --exit-code`.
 - nishiki follows syn: `codegen/` is a crate named `nishiki-codegen`, with `publish = false`, in a workspace of its own.
-  - Its manifest has its own `[workspace]`, its own `Cargo.lock` and its own `target/`.
+  - Its manifest has its own `[workspace]` and its own `Cargo.lock`.
     The root manifest lists `codegen` under `exclude`, beside `bench`.
   - It keeps its own dependencies, such as `serde_json` for the facts, out of nishiki's manifest.
   - `mise run codegen` runs it, and `mise run codegen -- --check` fails when a file would change.
@@ -64,11 +64,12 @@ The [codegen research][research] read how mature crates generate committed Rust.
   - A member's features unify across a workspace build.
     As a member, `codegen/` would turn `codegen` and `format` on for every root build, `check:size` included.
   - The cfg sits in `codegen/.cargo/config.toml`, for `cargo` and rust-analyzer run in `codegen/`.
-    Cargo reads that file from the directory it runs in, and the mise task runs in `codegen/`.
-    Its builds then use `codegen/target/`, so they never rebuild the root's target directory.
+    Cargo reads that file from the directory it runs in.
+  - The mise tasks run from the root with `--manifest-path codegen/Cargo.toml`.
+    They build in `target/codegen`, as `bench/` builds in `target/bench`, so they never rebuild the root's builds.
   - A set `RUSTFLAGS` or `CARGO_ENCODED_RUSTFLAGS` replaces `build.rustflags` ([Cargo book][cargo-rustflags]).
     A caller or a CI job may set `RUSTFLAGS`, as `check:features` does for its own builds.
-    So `mise run codegen` appends `--cfg nishiki_unstable` to `RUSTFLAGS` and keeps the caller's flags.
+    So `mise run codegen` sets `RUSTFLAGS` to the caller's flags and `--cfg nishiki_unstable`.
     It fails when `CARGO_ENCODED_RUSTFLAGS` is set, because that variable replaces `RUSTFLAGS` too.
   - `cargo deny` runs on its manifest too, in `verify`.
 
@@ -79,13 +80,14 @@ The [codegen research][research] read how mature crates generate committed Rust.
 | Module | Job |
 |:--|:--|
 | `main.rs` | the command line: write, `--check`, `--expressions <file>`, `--compare <base>` |
+| `error.rs` | the error enum of every writer |
 | `facts.rs` | reads `oracle/facts/*.json` into typed values, once, at the boundary |
 | `numbers.rs` | the line-filling writer for numeric tables |
 | `header.rs` | the `// @generated` header each file opens with |
 | `unicode_sets.rs` | writes `unicode.rs` from `unicode-sets.json` |
 | `case_folds.rs` | derives the fold tables from `case-folds.json` and writes `folds.rs` |
 | `classes.rs` | writes `table.rs` from `classes.json` and `unicode-sets.json` |
-| `words.rs` | writes each `words.rs` from the alternatives of a grammar's expressions |
+| `words.rs` beside `words/` | writes each `words.rs` from the alternatives of a grammar's expressions, one module per language |
 | `rule_tables.rs` | calls `nishiki::unstable::codegen` for each rule-engine language |
 | `languages.rs` beside `languages/` | one value per rule-engine language, as [rule-table-codegen][rule-table-codegen] gives it |
 | `fence_stops.rs` | the check `oracle/fence-stops.ts` runs today |
@@ -93,7 +95,7 @@ The [codegen research][research] read how mature crates generate committed Rust.
 
 - `codegen/` adds `serde_json` and `serde` with `derive`, for the facts, in its own manifest only.
   nishiki's own JSON reader is `pub(crate)` and built for grammars, so the facts use serde_json in `codegen/` alone.
-- `codegen/` has its own error enum for a fact file it cannot read.
+- `codegen/` has its own error enum for a file it cannot read or a grammar that lacks what a writer reads.
 
 ## 5. Facts
 
@@ -163,7 +165,7 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
 | Output | Writer | Why |
 |:--|:--|:--|
 | Structured code: enums, `match` arms, rule tables, start tables | `quote`, laid out by `prettyplease` | syn and rust-analyzer build code this way, by the [research][research] |
-| Numeric tables: Unicode ranges, folds, word blobs | `numbers.rs`, which fills each line up to 100 columns | prettyplease fills only arrays of plain literals ([`simple_array`][prettyplease-array]) |
+| Numeric tables: Unicode ranges, folds, word blobs and word tables | `numbers.rs`, which fills each line up to 100 columns | prettyplease fills only arrays of plain literals ([`simple_array`][prettyplease-array]) |
 
 - prettyplease's output depends only on its version.
   rustfmt's output depends on the toolchain, so the system rustfmt never lays out a committed file.
@@ -173,7 +175,7 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
 
 ### 6.2 Headers, formatting and lints
 
-- Each file opens with `// @generated by mise run codegen. Regenerate with mise run codegen.`, as unicode-ident's does, then the `//!` docs that name the inputs.
+- Each file opens with `// @generated by <writer> from <input>.` and `` // Regenerate with `mise run codegen`; do not edit. ``, as unicode-ident's does, then its `//!` docs.
 - Its `mod` line carries `#[rustfmt::skip]`, as [unicode-ident's `lib.rs`][unicode-ident-write] does.
   The `@generated` marker alone does not stop rustfmt: `format_generated_files` is unstable and defaults to `true` ([rustfmt configuration][rustfmt-config]).
 - A lint the generated code trips gets `#[expect(lint, reason = "…")]` on the smallest item, as [`CODING_STANDARDS.md`][standards] 3.3 asks.
@@ -185,15 +187,18 @@ The five changes land in this order:
 
 1. [grammar-to-rust][grammar-to-rust]: the `Cow` model, the crate-visible regex parser, then the `codegen` and `format` features.
 2. [unstable-rule-engine][unstable-rule-engine]: `nishiki::unstable` and its cfg setup.
-3. [default-matchers][default-matchers]: the prototype's steps, measured until each language reaches the hand matchers.
-4. [rule-table-codegen][rule-table-codegen]: `codegen/` writes Protocol Buffers' tables, then one family at a time.
-   - The first pull request creates `codegen/` as this design describes.
+3. This change's word tables: the pull request that moves the 7 word scripts into `codegen/` creates the crate as this design describes.
+   - It moved ahead of [rule-table-codegen][rule-table-codegen] task 1.1.
+     The word tables need only the grammar model and the regex parser under `nishiki::unstable`, and no rule table.
+   - So the crate, its tasks and its checks land with one small writer, before the rule tables depend on them.
+   - `fence-stops.ts` follows in its own pull request.
+4. [default-matchers][default-matchers]: the prototype's steps, measured until each language reaches the hand matchers.
+5. [rule-table-codegen][rule-table-codegen]: `codegen/` writes Protocol Buffers' tables, then one family at a time.
    - Each move first adds its grammars to `tests/engine/grammars/` through `oracle/engine-grammars.ts`, with their licences in `oracle/licences.ts`.
    - The last family deletes `oracle/rule-generator.ts`, `oracle/rule-grammar.ts`, `oracle/php-family-grammar.ts` and `check:rule-grammars`.
-5. This change, once `codegen/` exists:
+6. The rest of this change:
    - `AGENTS.md`, `CODING_STANDARDS.md` and `oracle/AGENTS.md` gain the rules of the proposal and how to move one language;
-   - Unicode sets, case folds and classes are written from readable-sources-c9's fact files;
-   - the 7 word scripts and `fence-stops.ts` move into `codegen/`.
+   - Unicode sets, case folds and classes are written from readable-sources-c9's fact files.
 
 [cargo-build-scripts]: https://doc.rust-lang.org/cargo/reference/build-scripts.html
 [cargo-rustflags]: https://doc.rust-lang.org/cargo/reference/config.html#buildrustflags

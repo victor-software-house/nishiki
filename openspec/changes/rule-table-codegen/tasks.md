@@ -7,7 +7,7 @@
   `mise run codegen -- --check` and the differential and hostile-line tests of the default-matchers design pass in CI.
   Identity shows no change.
   - Its grammar goes into `tests/engine/grammars/`, and `unstable::codegen` writes its tables with default matchers.
-  - This pull request creates `codegen/`, as the [rust-codegen][rust-codegen] design describes, and deletes `oracle/proto-grammar.ts`.
+  - This pull request builds on `codegen/`, which [rust-codegen][rust-codegen] task 1.3 creates with the word tables, and deletes `oracle/proto-grammar.ts`.
   - It needs [unstable-rule-engine][unstable-rule-engine] task 1.1, and the two fixes of the [default-matchers][default-matchers] design, section 2.5.
 
 ## 2. Families
