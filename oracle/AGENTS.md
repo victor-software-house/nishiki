@@ -23,7 +23,6 @@ Rules for the Shiki oracle, beside the root guide's invariants.
    - `coverage-waivers.ts` waives the units no document can reach, each with a reason, and lists the grammars that are complete.
    - A waiver names the `onig.ts` probe of its expression where the language has probe support.
      A waiver for a dropped rule sets `dropped` instead.
-     A waiver sets `unprobed` only for a rule that a hand matcher answers outside the generated table, which the grammar script gives no id.
    - The Oracle coverage workflow (`.github/workflows/coverage.yml`) runs `mise run check:oracle-coverage`.
      It fails on a stale report, a wrong waiver, or a gap in a complete grammar.
    - A new hand lexer adds its grammar to `handLexed` in `coverage.ts`; the run fails on a loaded grammar it cannot place.

@@ -18,16 +18,12 @@ export type Waiver = {
   reason: string;
   /** The oracle/onig.ts expression id whose probe cases check the matcher,
    * required where oracle/fuzz/<grammar>.ts has probe support, unless the
-   * waiver is `dropped` or `unprobed`. */
+   * waiver is for a rule vscode-textmate drops. */
   probe?: string;
   /** Set for a rule that vscode-textmate drops, such as one whose only
    * patterns include a grammar or a rule that is never loaded.
    * No matcher answers for such a unit, so the waiver names no probe. */
   dropped?: true;
-  /** Set for a rule that a hand matcher answers outside the generated table.
-   * The grammar script's dump gives the rule no id, so no probe can name it.
-   * Only Blade's own rules use it, until they get ids and probe cases. */
-  unprobed?: true;
 };
 
 /** The TypeScript family's grammars. They share their units' paths. */
@@ -2356,7 +2352,7 @@ export const waivers: Waiver[] = [
     probe: "SupportTailAt0",
   },
   ...["#blade.patterns[0].patterns[0].begin", `${bladeInjection}.patterns[1].begin`].map(
-    (path): Waiver => ({ grammar: "blade", path, group: 0, reason: blanks, unprobed: true }),
+    (path): Waiver => ({ grammar: "blade", path, group: 0, reason: blanks, probe: "BladeAt0At0" }),
   ),
   ...["#blade.patterns[0].patterns[0].end", `${bladeInjection}.patterns[1].end`].map(
     (path): Waiver => ({
@@ -2366,27 +2362,39 @@ export const waivers: Waiver[] = [
       reason:
         "the group matches only blanks and the line feed that ends the line, " +
         "and the oracle compares no blank",
-      unprobed: true,
+      probe: "BladeAt0At0End",
     }),
   ),
   ...[
     "#blade.patterns[0].patterns[2].patterns[0].match",
     `${bladeInjection}.patterns[3].patterns[0].match`,
-  ].map((path): Waiver => ({ grammar: "blade", path, group: 1, reason: blanks, unprobed: true })),
+  ].map((path): Waiver => ({
+    grammar: "blade",
+    path,
+    group: 1,
+    reason: blanks,
+    probe: "BladeAt0At2At0",
+  })),
   ...[1, 2, 3, 4].map((n): Waiver => ({
     grammar: "blade",
     path: `#blade.patterns[${n}].end`,
     group: 1,
     reason: missing(0),
-    unprobed: true,
+    probe: `BladeAt${n}End`,
   })),
-  { grammar: "blade", path: "#blade.patterns[9].end", group: 0, reason: lookahead, unprobed: true },
+  {
+    grammar: "blade",
+    path: "#blade.patterns[9].end",
+    group: 0,
+    reason: lookahead,
+    probe: "BladeAt9End",
+  },
   {
     grammar: "blade",
     path: "#blade.patterns[14].begin",
     group: 4,
     reason: missing(3),
-    unprobed: true,
+    probe: "BladeAt14",
   },
   {
     grammar: "hack",
