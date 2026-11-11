@@ -15,9 +15,11 @@ export type Mode = "win" | "gen" | "mdw" | "mdg";
 
 const root = new URL("..", import.meta.url).pathname;
 
-/** What `oracle/fuzz/<lang>.ts` exports, or nothing where the file is missing. */
+/** What `oracle/fuzz/<lang>.ts` exports, or nothing where the file is missing.
+ * Only a missing file reads as nothing; an error in the file stops the run. */
 export async function extrasOf(lang: string): Promise<Extras> {
-  return await import(`./fuzz/${lang}.ts`).catch(() => ({}));
+  const path = `${root}oracle/fuzz/${lang}.ts`;
+  return (await Bun.file(path).exists()) ? await import(path) : {};
 }
 
 /** The text of every fixture of `lang`, in name order: `readdirSync` order
@@ -89,76 +91,77 @@ export function fuzzTexts(
     state >>>= 0;
     return state / 4294967296;
   };
-  const int = (n: number) => Math.floor(random() * n);
-  const pick = <T>(choices: T[]): T => choices[int(choices.length)] as T;
+  /** A whole number from 0 up to, but not including, `limit`. */
+  const below = (limit: number) => Math.floor(random() * limit);
+  const pick = <T>(choices: T[]): T => choices[below(choices.length)] as T;
   const mutations = [...MUTATIONS, ...(extras.mutations ?? [])];
 
   /** `text` with a few insertions, deletions, and repeated, dropped or cut lines. */
   const mutate = (text: string): string => {
-    let out = text;
-    for (let n = 1 + int(5); n > 0; n--) {
-      const op = int(6);
-      const at = int(out.length + 1);
-      const lines = out.split("\n");
-      const k = int(lines.length);
-      const line = lines[k] ?? "";
-      if (op === 0) out = out.slice(0, at) + pick(mutations) + out.slice(at);
-      else if (op === 1) out = out.slice(0, at) + out.slice(at + 1 + int(4));
+    let mutated = text;
+    for (let edits = 1 + below(5); edits > 0; edits--) {
+      const edit = below(6);
+      const at = below(mutated.length + 1);
+      const lines = mutated.split("\n");
+      const lineIndex = below(lines.length);
+      const line = lines[lineIndex] ?? "";
+      if (edit === 0) mutated = mutated.slice(0, at) + pick(mutations) + mutated.slice(at);
+      else if (edit === 1) mutated = mutated.slice(0, at) + mutated.slice(at + 1 + below(4));
       else {
-        if (op === 2) lines[k] = `${line}\\`;
-        else if (op === 3) lines.splice(k, 1);
-        else if (op === 4) lines.splice(k, 0, line);
-        else lines[k] = line.slice(0, int(line.length + 1));
-        out = lines.join("\n");
+        if (edit === 2) lines[lineIndex] = `${line}\\`;
+        else if (edit === 3) lines.splice(lineIndex, 1);
+        else if (edit === 4) lines.splice(lineIndex, 0, line);
+        else lines[lineIndex] = line.slice(0, below(line.length + 1));
+        mutated = lines.join("\n");
       }
     }
-    return out;
+    return mutated;
   };
 
   const sources = texts.map((text) => text.replaceAll("\r\n", "\n").split("\n"));
 
   const window = (): string => {
     const lines = pick(sources);
-    const length = 8 + int(60);
-    const start = int(Math.max(1, lines.length - length));
+    const length = 8 + below(60);
+    const start = below(Math.max(1, lines.length - length));
     return mutate(lines.slice(start, start + length).join("\n"));
   };
 
   const generated = (): string => {
     const pieces = extras.pieces ?? [];
-    const out: string[] = [];
-    for (let n = 3 + int(25); n > 0; n--) {
+    const lines: string[] = [];
+    for (let linesLeft = 3 + below(25); linesLeft > 0; linesLeft--) {
       let line = "";
-      for (let k = int(14); k > 0; k--) {
+      for (let piecesLeft = below(14); piecesLeft > 0; piecesLeft--) {
         line += pick(pieces);
         if (random() < 0.4) line += " ";
       }
-      out.push(line);
+      lines.push(line);
     }
-    return out.join("\n");
+    return lines.join("\n");
   };
 
   const markdown = (): string => {
     const fences = extras.fences ?? [lang];
-    const out: string[] = [];
-    for (let blocks = 1 + int(4); blocks > 0; blocks--) {
+    const lines: string[] = [];
+    for (let blocks = 1 + below(4); blocks > 0; blocks--) {
       const code = (mode === "mdg" ? generated() : window()).split("\n").slice(0, 25);
       const fence = pick(["```", "```", "~~~", "````"]);
       const info = pick(fences);
       const prefix = pick(["", "", "> ", "  ", "   "]);
       const opener = prefix === "  " ? "- item" : prefix === "   " ? "1. item" : "";
-      if (opener) out.push(opener);
-      out.push(`${prefix}${fence}${info}`, ...code.map((line) => `${prefix}${line}`));
-      out.push(random() < 0.8 ? `${prefix}${fence}` : "text after");
-      out.push("", pick(["para", "# head", "- li", ""]));
+      if (opener) lines.push(opener);
+      lines.push(`${prefix}${fence}${info}`, ...code.map((line) => `${prefix}${line}`));
+      lines.push(random() < 0.8 ? `${prefix}${fence}` : "text after");
+      lines.push("", pick(["para", "# head", "- li", ""]));
     }
-    return out.join("\n");
+    return lines.join("\n");
   };
 
-  const md = mode.startsWith("md");
+  const inMarkdown = mode.startsWith("md");
   const documents: string[] = [];
-  for (let n = 0; n < count; n++) {
-    documents.push(md ? markdown() : mode === "gen" ? generated() : window());
+  while (documents.length < count) {
+    documents.push(inMarkdown ? markdown() : mode === "gen" ? generated() : window());
   }
   return documents;
 }

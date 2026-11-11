@@ -443,8 +443,7 @@ function exercise(highlighter: Highlighter, text: string, lang: string): void {
  * windows of its fixtures, and as many generated documents where
  * oracle/fuzz/<lang>.ts has pieces, at seed 1. oracle/fuzz.ts writes the
  * same documents for the same arguments. The run draws them in its own
- * process, from oracle/fuzz-texts.ts. A process per language and mode spent
- * about 45% of the run starting Bun and Shiki. */
+ * process, from oracle/fuzz-texts.ts. */
 const fuzzCount = 100;
 /** Tokenizes the fuzz corpus of `lang`, counting what it exercises. */
 async function fuzz(highlighter: Highlighter, lang: string): Promise<void> {
