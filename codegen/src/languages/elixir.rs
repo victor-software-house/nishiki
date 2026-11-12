@@ -1,7 +1,7 @@
 //! Elixir's tables.
 
 use nishiki::unstable::codegen::tables::{
-    CaptureLists, External, LonePattern, Reentry, RuleTables, Split,
+    CaptureLists, External, Identity, LonePattern, Reentry, RuleTables, Split,
 };
 
 /// Elixir's tables, from `tests/engine/grammars/elixir.json`.
@@ -13,6 +13,7 @@ pub(crate) const ELIXIR: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    identity: Identity::Id,
     reentry: Reentry::WithinWalk,
     externals: &[
         ("text.elixir", External::AddsNothing),

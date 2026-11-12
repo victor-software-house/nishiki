@@ -1,6 +1,8 @@
 //! PowerShell's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{
+    CaptureLists, Identity, LonePattern, Reentry, RuleTables, Split,
+};
 
 /// PowerShell's tables, from `tests/engine/grammars/powershell.json`.
 pub(crate) const POWERSHELL: RuleTables = RuleTables {
@@ -19,6 +21,7 @@ pub(crate) const POWERSHELL: RuleTables = RuleTables {
     ],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::ListId,
+    identity: Identity::Id,
     reentry: Reentry::WithinRule,
     externals: &[],
 };

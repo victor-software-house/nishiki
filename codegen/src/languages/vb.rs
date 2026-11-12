@@ -1,6 +1,8 @@
 //! Visual Basic's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{
+    CaptureLists, Identity, LonePattern, Reentry, RuleTables, Split,
+};
 
 /// Visual Basic's tables, from `tests/engine/grammars/vb.json`.
 pub(crate) const VB: RuleTables = RuleTables {
@@ -37,6 +39,7 @@ pub(crate) const VB: RuleTables = RuleTables {
     ],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    identity: Identity::Id,
     reentry: Reentry::WithinWalk,
     externals: &[],
 };
