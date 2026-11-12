@@ -20,6 +20,8 @@ Two parts of the measurement have gaps of their own:
   So does every generated lexer whose grammar includes `$base`.
 - `oracle/fuzz.ts` checks both modes that need pieces in the same way.
 - Rust reads non-ASCII digits and names with the classes Shiki's engine uses.
+- Svelte's `{#each}` with a `$` index and its `<script lang="` case give Shiki's scopes.
+  A third document that differs at seed 2 gets its language found.
 - Ruby's three cases and Mermaid's trailing backslash give Shiki's scopes.
 - Vue in a list-item fence ends its regions where Shiki does.
 - Go's three documented cases and LaTeX's braced-argument embeds give Shiki's scopes.
@@ -41,7 +43,7 @@ None: the fixes bring nishiki to the `shiki-fidelity` spec as written.
 ## Impact
 
 - `src/objective_c/`, `src/objective_cpp/` and their generators.
-- `src/rust/`, `src/ruby/`, `src/mermaid/`, `src/vue.rs`, `src/go/` and `src/latex/`.
+- `src/rust/`, `src/svelte/`, `src/ruby/`, `src/mermaid/`, `src/vue.rs`, `src/go/` and `src/latex/`.
 - `oracle/fuzz.ts`, and a corpus run for the TextMate engine.
 - The `Language` docs in `src/language.rs`.
 
