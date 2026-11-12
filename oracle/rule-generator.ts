@@ -1015,7 +1015,7 @@ function wordFile(generator: string, wordLists: WordList[]): string {
   // The words go end to end in one byte string, with where each ends, so the
   // table holds no pointer per word. `concat!` joins one literal per line of
   // whole words, so no literal continues through a backslash line break.
-  // rust-codegen moves this writer to codegen/ (CODING_STANDARDS 3.10).
+  // rule-table-codegen moves this writer to codegen/ (CODING_STANDARDS 3.10).
   const blob = sorted.map(([word]) => word).join("");
   if (blob.length > 0xffff) throw new Error(`${blob.length} bytes of words do not fit u16 ends`);
   const ends: number[] = [];

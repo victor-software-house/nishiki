@@ -228,17 +228,17 @@ The five changes land in this order:
 
 [cargo-build-scripts]: https://doc.rust-lang.org/cargo/reference/build-scripts.html
 [cargo-rustflags]: https://doc.rust-lang.org/cargo/reference/config.html#buildrustflags
-[default-matchers]: ../default-matchers/proposal.md
-[grammar-to-rust]: ../grammar-to-rust/proposal.md
+[default-matchers]: ../../default-matchers/proposal.md
+[grammar-to-rust]: ../../grammar-to-rust/proposal.md
 [prettyplease-array]: https://github.com/dtolnay/prettyplease/blob/49e50897b580a5b7591ead6ef73f3fe09e76d896/src/expr.rs
 [proposal]: proposal.md
 [ra-dead-code]: https://github.com/rust-lang/regex/blob/3d79fe92666a9f191d7677ebc123ac165eac200c/regex-automata/src/lib.rs#L578-L603
 [ra-codegen]: https://github.com/rust-lang/rust-analyzer/blob/2a362a41a8eb6e090f1a12d9b712df85af6f0c33/xtask/src/codegen.rs
-[research]: ../../research/2026-11-10-rust-codegen-practice.md
-[rule-table-codegen]: ../rule-table-codegen/proposal.md
+[research]: ../../../research/2026-11-10-rust-codegen-practice.md
+[rule-table-codegen]: ../../rule-table-codegen/proposal.md
 [rustfmt-config]: https://github.com/rust-lang/rustfmt/blob/29fe6749fce2082c4a45982e8d23bba0dc034fe1/Configurations.md#format_generated_files
-[standards]: ../../../CODING_STANDARDS.md
+[standards]: ../../../../CODING_STANDARDS.md
 [syn-codegen]: https://github.com/dtolnay/syn/blob/97ec37dda8a893a460066da694fd1eb7cb30538a/codegen/src/file.rs
 [tokio-dead-code]: https://github.com/tokio-rs/tokio/blob/ab0814fc8c62b3d8be40aad068e2fed6562cfeb0/tokio/src/sync/batch_semaphore.rs#L1
 [unicode-ident-write]: https://github.com/dtolnay/unicode-ident/blob/28018f288934fa6be60a6e791e071b7a7195643e/generate/src/write.rs
-[unstable-rule-engine]: ../unstable-rule-engine/proposal.md
+[unstable-rule-engine]: ../../unstable-rule-engine/proposal.md

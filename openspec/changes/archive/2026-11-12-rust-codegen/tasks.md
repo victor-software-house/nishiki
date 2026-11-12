@@ -4,8 +4,10 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
 
 ## 1. The writer
 
-- [ ] 1.1 `AGENTS.md`, `CODING_STANDARDS.md` and `oracle/AGENTS.md` gain the rules of the proposal and how to move one language.
+- [x] 1.1 `AGENTS.md`, `CODING_STANDARDS.md` and `oracle/AGENTS.md` gain the rules of the proposal and how to move one language.
   → verify: review
+  - 2026-11-12: [pull request #35][pr-35] adds `CODING_STANDARDS.md` 3.11, with the steps the seven word scripts took to move.
+    Reviewed by the lead, 2026-11-12, [#35][pr-35].
 - [x] 1.2 Unicode sets, case folds and classes are written from `oracle/facts/`.
   → verify: `codegen --compare` shows equal tokens for the three files
   - 2026-11-11: `codegen/src/classes.rs` writes `src/classes/table.rs` from `classes.json` and `unicode-sets.json`.
@@ -20,7 +22,7 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   - 2026-11-11: `codegen/src/unicode.rs` writes `src/textmate/regex/unicode.rs` from `unicode-sets.json`, with the same tables.
     The `lookup` match becomes `NAMES`, a sorted list of each name with its set, which `ast::property_named` searches by hand.
     On a box, each file's tables hold the tokens the Bun scripts wrote.
-- [ ] 1.3 The word scripts and `fence-stops.ts` move into `codegen/`.
+- [x] 1.3 The word scripts and `fence-stops.ts` move into `codegen/`.
   `numbers.rs` fills each word table into lines of up to 100 columns, with no backslash line continuation.
   → verify: each `words.rs` keeps its entries in order, and the size example's `.text` and `.rodata` keep their hashes.
   `check:literals` passes on it without the writer exemption, and the fence check fails on a wrong `pops_host` list.
@@ -33,6 +35,7 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   - 2026-11-11: the standalone word scripts are in `codegen/src/words/`.
     The other `words.rs` files come from the `oracle/<language>-grammar.ts` scripts, which the families of [rule-table-codegen][rule-table-codegen] move.
     The verify waits for them: until then `check:literals` and `check:line-width` still leave those scripts alone.
+  - 2026-11-12: the checks still open move to [rule-table-codegen][rule-table-codegen] task 2.5, whose slice deletes those scripts (lead, 2026-11-12).
 - [x] 1.4 The library `codegen/` builds, `textmate` and `lang-c` with `--cfg nishiki_unstable`, warns of nothing, and so does `lang-vue` with `lang-markdown`.
   Each item those builds left unused takes a cfg gate at its source, named for the features whose modules use it.
   → verify: `check:features` builds both libraries with warnings denied, dead code included.
@@ -68,6 +71,7 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
 [design-gates]: design.md#63-feature-gates-and-dead-code
 [pr-12]: https://github.com/victor-software-house/nishiki/pull/12
 [pr-16]: https://github.com/victor-software-house/nishiki/pull/16
+[pr-35]: https://github.com/victor-software-house/nishiki/pull/35
 [pr-7]: https://github.com/victor-software-house/nishiki/pull/7
 [pr-8]: https://github.com/victor-software-house/nishiki/pull/8
-[rule-table-codegen]: ../rule-table-codegen/tasks.md
+[rule-table-codegen]: ../../rule-table-codegen/tasks.md

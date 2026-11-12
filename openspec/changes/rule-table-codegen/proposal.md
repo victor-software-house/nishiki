@@ -43,5 +43,5 @@ The scripts read grammars and regular expressions a second time, beside the crat
 [default-matchers]: ../default-matchers/proposal.md
 [grammar-to-rust]: ../grammar-to-rust/proposal.md
 [rule-table-codegen]: proposal.md
-[rust-codegen]: ../rust-codegen/proposal.md
+[rust-codegen]: ../archive/2026-11-12-rust-codegen/proposal.md
 [unstable-rule-engine]: ../unstable-rule-engine/proposal.md

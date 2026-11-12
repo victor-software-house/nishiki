@@ -14,7 +14,7 @@
 // and tests/oracle holds the oracle's output.
 // dedent's own tests write escaped line feeds on purpose, to test how it reads them.
 // The Bun scripts that write Rust build it from templates with escaped line feeds,
-// so they are left alone until rust-codegen moves them to codegen/.
+// so they are left alone until rule-table-codegen moves them to codegen/.
 // The Rust files they write are checked like any other.
 import { $ } from "bun";
 import { continuedLiterals } from "../lib/rust-literals.ts";
