@@ -92,3 +92,68 @@ mod probe {
         });
     }
 }
+
+mod generated {
+    use crate::proto::engine::Proto;
+    use crate::proto::grammar::Pattern;
+    use crate::proto::matchers::EXPRESSIONS;
+    use crate::test_support::differential::read_groups;
+
+    /// The table lists every pattern once, in the enum's order.
+    #[test]
+    fn the_expressions_cover_every_pattern() {
+        let listed = EXPRESSIONS.map(|expression| expression.pattern);
+        assert_eq!(format!("{listed:?}"), format!("{:?}", Pattern::ALL));
+    }
+
+    /// Each matcher records exactly the groups the lexer reads after its
+    /// pattern matches.
+    /// A group it left out would reach the lexer empty.
+    #[test]
+    fn each_matcher_records_the_groups_the_lexer_reads() {
+        for expression in &EXPRESSIONS {
+            assert_eq!(
+                expression.records,
+                read_groups::<Proto>(expression.pattern),
+                "{:?}",
+                expression.pattern
+            );
+        }
+    }
+
+    /// Each generated matcher matches what the regex engine matches.
+    #[cfg(feature = "_textmate")]
+    #[test]
+    fn the_matchers_match_the_regex_engine() {
+        let compared =
+            crate::test_support::differential::differential::<Proto>("proto", &EXPRESSIONS);
+        assert!(compared > 0, "the differential test compared nothing");
+    }
+
+    /// On `xoptional foo bar = 1`, the field pattern fails at 0 and matches
+    /// at 1.
+    /// The failure at 0 leaves a skip that stops before 1.
+    /// There the keyword `optional` can start the prefix
+    /// (`field-pattern-fixes` design, section 3.3).
+    #[test]
+    fn a_skip_keeps_a_match_inside_the_failed_run() {
+        use crate::arena::Arena;
+        use crate::test_support::probe::{After, Anchor, Case, lexer};
+
+        let text = "xoptional foo bar = 1";
+        let case = Case {
+            text,
+            p: 0,
+            anchor: Anchor::Free,
+            after: After::LineFeed,
+        };
+        let ends = lexer::<Proto, _>(&mut Arena::new(None), &case, |lexer| {
+            [0, 1].map(|p| {
+                lexer
+                    .probe_matcher(p, false, |lexer, p| lexer.matcher(Pattern::Field, p))
+                    .map(|(end, _)| end)
+            })
+        });
+        assert_eq!(ends, [None, Some(text.len())]);
+    }
+}

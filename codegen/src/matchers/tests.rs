@@ -217,3 +217,16 @@ fn a_pattern_the_lexer_cannot_test_has_no_matcher() {
         );
     }
 }
+
+#[test]
+fn an_expression_cut_into_pieces_joins_back() {
+    let regex = format!(r#"(?<!\.)\b(\w+)"{}é{}"#, "a".repeat(58), "b".repeat(70));
+    let pieces = super::pieces(&regex)
+        .expect("raw literals")
+        .iter()
+        .map(|piece| syn::parse_str::<syn::LitStr>(&piece.to_string()).expect("a string literal"))
+        .map(|piece| piece.value())
+        .collect::<Vec<_>>();
+    assert!(pieces.iter().all(|piece| piece.len() <= super::PIECE_BYTES));
+    assert_eq!(pieces.concat(), regex);
+}

@@ -18,7 +18,7 @@ use std::collections::BTreeSet;
 use std::path::Path;
 
 use chars::Chars;
-use proc_macro2::{Ident, TokenStream, TokenTree};
+use proc_macro2::{Ident, Literal, TokenStream, TokenTree};
 use quote::{format_ident, quote};
 use syn::parse::Parser;
 use writer::{ClassFunction, Matcher, Refusal, anchor_test, hex, matcher};
@@ -61,6 +61,7 @@ fn language(root: &Path, name: &'static str, path: &'static str) -> Result<File,
     let mut items = Vec::new();
     let mut fields = Vec::new();
     let mut tables = Tables::default();
+    let mut expressions = Vec::new();
     for pattern in patterns::patterns(source)? {
         let field = format_ident!("{}", snake(&pattern.name));
         let function = format_ident!("match_{field}");
@@ -94,6 +95,7 @@ fn language(root: &Path, name: &'static str, path: &'static str) -> Result<File,
             None => call,
         };
         arms.push(quote!(Pattern::#variant => #call,));
+        expressions.push(expression(&variant, &pattern)?);
         if skipping {
             fields.push(quote!(#field: Skip,));
         }
@@ -129,6 +131,7 @@ fn language(root: &Path, name: &'static str, path: &'static str) -> Result<File,
 
         #tables
     };
+    let expressions = expressions_table(&expressions);
     let imports = imports(&body);
     let file = quote! {
         #![doc = " The matchers: for each pattern of the grammar, the function that decides"]
@@ -142,8 +145,12 @@ fn language(root: &Path, name: &'static str, path: &'static str) -> Result<File,
         use super::engine::Lexer;
         use super::grammar::Pattern;
         #imports
+        #[cfg(test)]
+        use crate::test_support::differential::Expression;
 
         #body
+
+        #expressions
     };
     let mut syntax = syn::parse2::<syn::File>(file).map_err(|error| {
         Error::Shape(format!("{name}: the written code does not parse: {error}"))
@@ -343,4 +350,68 @@ fn snake(name: &str) -> String {
         }
     }
     out
+}
+
+/// The `EXPRESSIONS` row of `pattern`, the variant `variant`.
+fn expression(variant: &Ident, pattern: &patterns::Pattern) -> Result<TokenStream, Error> {
+    let pieces = pieces(pattern.regex)?;
+    let records = pattern
+        .reads
+        .iter()
+        .map(|&group| Literal::usize_unsuffixed(group));
+    Ok(quote! {
+        Expression {
+            pattern: Pattern::#variant,
+            pieces: &[#(#pieces),*],
+            records: &[#(#records),*],
+        },
+    })
+}
+
+/// The test-only `EXPRESSIONS` table of a matcher file, from its rows.
+fn expressions_table(rows: &[TokenStream]) -> TokenStream {
+    let count = Literal::usize_unsuffixed(rows.len());
+    quote! {
+        /// Each pattern's expression, in pieces that fit the line width, and
+        /// the groups its matcher records.
+        /// The tests compare each matcher with the regex engine on the
+        /// expression.
+        #[cfg(test)]
+        pub(super) const EXPRESSIONS: [Expression<Pattern>; #count] = [
+            #(#rows)*
+        ];
+    }
+}
+
+/// The most bytes of an expression one piece of [`pieces`] holds.
+/// A piece then fits the line width inside the `EXPRESSIONS` table.
+const PIECE_BYTES: usize = 60;
+
+/// `regex` cut into raw string literals of at most [`PIECE_BYTES`] bytes,
+/// each cut at a character boundary.
+/// Joined in order, the pieces give `regex` back.
+fn pieces(regex: &str) -> Result<Vec<Literal>, Error> {
+    let mut pieces = Vec::new();
+    let mut rest = regex;
+    while !rest.is_empty() {
+        let mut cut = rest.len().min(PIECE_BYTES);
+        while !rest.is_char_boundary(cut) {
+            cut -= 1;
+        }
+        let (piece, after) = rest.split_at(cut);
+        pieces.push(raw(piece)?);
+        rest = after;
+    }
+    Ok(pieces)
+}
+
+/// `text` as a raw string literal, with as many `#` as its quotes need.
+fn raw(text: &str) -> Result<Literal, Error> {
+    let mut hashes = String::new();
+    while text.contains(&format!("\"{hashes}")) {
+        hashes.push('#');
+    }
+    format!("r{hashes}\"{text}\"{hashes}")
+        .parse()
+        .map_err(|error| Error::Shape(format!("{text:?} as a raw string: {error}")))
 }

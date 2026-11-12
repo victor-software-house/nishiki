@@ -261,6 +261,9 @@ pub(crate) fn ruby_heredoc_halts(
     halting.into_iter().map(|(halt, _)| halt).collect()
 }
 
+/// The tests of the languages whose matchers `codegen/` writes.
+#[cfg(feature = "lang-proto")]
+pub(crate) mod differential;
 #[cfg(feature = "_rule-engine")]
 pub(crate) mod probe;
 
