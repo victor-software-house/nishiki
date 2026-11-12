@@ -94,6 +94,14 @@ Design section 2 names the runs that found each case.
   - 2026-11-12: the matchers read `\s*` to its end and then need a name.
     Oniguruma gives the last space back when no name starts there, and U+00A0 and U+3000 are name characters.
     About 16 matchers in `src/php/` and `src/blade/` have that shape.
+  - 2026-11-12: `Lexer::after_spaces` in `src/php_family/matchers.rs` reads the run and tries the part after it again at the run's last space past ASCII.
+    Each such matcher in PHP and Blade calls it.
+    Possessive runs give nothing back and keep their reads.
+  - 2026-11-12: `white_space_gives_its_last_unicode_space_to_a_name`, in each lexer, holds Shiki's scopes for labels, calls, `class` and `goto`.
+    Both fail on the base and pass with the fix, on a box.
+  - 2026-11-12: on a box, the corpora at seeds 1 and 3 and the 20 documents from the fixtures: none differs.
+    At seed 2, one document differs, by 4 bytes, in CSS inside a heredoc.
+    The line is `CSS` and three U+00A0, where Shiki gives the last two `meta.selector.css`.
 
 ## 7. Vue fences where a hand lexer's rule begins
 
