@@ -5,6 +5,7 @@
 
 mod coffee;
 mod common_lisp;
+mod css;
 mod dart;
 mod elixir;
 mod gdscript;
@@ -25,9 +26,10 @@ mod vb;
 use nishiki::unstable::codegen::tables::RuleTables;
 
 /// The languages whose tables codegen builds, by module name.
-pub(crate) const ALL: [RuleTables; 18] = [
+pub(crate) const ALL: [RuleTables; 19] = [
     coffee::COFFEE,
     common_lisp::COMMON_LISP,
+    css::CSS,
     dart::DART,
     elixir::ELIXIR,
     gdscript::GDSCRIPT,

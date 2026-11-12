@@ -2,8 +2,8 @@ use nishiki::Grammar;
 use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
-    Act, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern, Reentry,
-    RuleTables, Split, Tables,
+    Act, AddedRule, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern,
+    Reentry, RuleTables, Split, Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -21,6 +21,7 @@ const PLAIN: RuleTables = RuleTables {
     reentry: Reentry::WithinRule,
     externals: &[],
     injected: None,
+    added_rules: &[],
 };
 
 /// Why a test grammar gave no tables.
@@ -871,6 +872,89 @@ fn a_dropped_begin_with_end_capture_rules_is_an_error() {
         ids(json, &missing),
         Err(Failure::Generate(GenerateError::DroppedBeginCaptures {
             id: "RootAt0".to_owned()
+        }))
+    );
+}
+
+/// A language that adds a rule from a list in the grammar `host`.
+const ADDS_STYLE: RuleTables = RuleTables {
+    added_rules: &[AddedRule {
+        id: "Style",
+        grammar: "host",
+        key: "style-attr",
+        path: &[0],
+    }],
+    ..PLAIN
+};
+
+/// The grammar `host`, whose `style-attr` entry holds a string begin.
+/// The string's list includes an entry of the demo grammar.
+const HOST: &str = r#"{"scopeName": "text.host", "patterns": [],
+    "repository": {"style-attr": {"begin": "s=", "end": "$", "patterns": [
+        {"begin": "'", "end": "'", "patterns": [
+            {"include": "source.demo#escapes"}, {"match": "--\\w+"}]}]}}}"#;
+
+/// The tables of the grammar `json`, read as `language` says, with `host`
+/// as the grammar `host`.
+fn with_host(json: &str, host: &str, language: &RuleTables) -> Result<Tables, Failure> {
+    let load = |json| {
+        Grammar::from_json(json)
+            .map(unlinked)
+            .map_err(|error| Failure::Grammar(error.to_string()))
+    };
+    flatten(load(json)?, &[("host", load(host)?)], language).map_err(Failure::Generate)
+}
+
+/// An added rule lists the patterns of the list its path reaches, after
+/// `Root`'s.
+/// An include of the language's own scope with a key adds its own entry.
+#[test]
+fn an_added_rule_lists_another_grammars_list() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [{"match": "a"}],
+        "repository": {"escapes": {"match": "\\\\."}}}"#;
+    let tables = with_host(json, HOST, &ADDS_STYLE).map(|tables| {
+        let patterns = tables
+            .patterns
+            .iter()
+            .map(|pattern| (pattern.id.clone(), pattern.regex.clone()))
+            .collect::<Vec<_>>();
+        let style = tables
+            .rules
+            .iter()
+            .find(|rule| rule.id == "Style")
+            .map(|rule| rule.patterns.clone());
+        (patterns, style)
+    });
+    assert_eq!(
+        tables,
+        Ok((
+            vec![
+                ("RootAt0".to_owned(), "a".to_owned()),
+                ("Escapes".to_owned(), "\\\\.".to_owned()),
+                ("StyleAt1".to_owned(), "--\\w+".to_owned()),
+            ],
+            Some(vec![1, 2]),
+        ))
+    );
+}
+
+/// An added rule whose path reaches no list is an error.
+#[test]
+fn an_added_rule_past_the_list_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": []}"#;
+    let past = RuleTables {
+        added_rules: &[AddedRule {
+            id: "Style",
+            grammar: "host",
+            key: "style-attr",
+            path: &[0, 5],
+        }],
+        ..PLAIN
+    };
+    assert_eq!(
+        with_host(json, HOST, &past).map(|tables| tables.patterns.len()),
+        Err(Failure::Generate(GenerateError::AddedRule {
+            id: "Style".to_owned()
         }))
     );
 }

@@ -28,6 +28,10 @@
 //!
 //! The matches another grammar injects, [`RuleTables::injected`], follow
 //! every other pattern.
+//! A rule of [`RuleTables::added_rules`] tries the patterns of a list in
+//! another grammar, walked after `Root`'s list.
+//! An include of the language's own scope with a key, such as
+//! `source.css#escapes`, adds the language's own entry, in any list.
 //!
 //! A pattern reached again keeps its first id, so an include repeats no
 //! pattern.
@@ -56,15 +60,15 @@ use std::fmt::Write as _;
 use super::error::GenerateError;
 use super::split;
 use super::tables::{
-    Act, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern, Pattern, Reentry,
-    Rule, RuleTables, Tables,
+    Act, AddedRule, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern,
+    Pattern, Reentry, Rule, RuleTables, Tables,
 };
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
 /// The tables of `grammar`, read as `language` says.
 ///
-/// `others` holds each grammar that an [`External::Pattern`] or the
-/// [`Injection`] of `language` names, by file name.
+/// `others` holds each grammar that an [`External::Pattern`], the
+/// [`Injection`] or an [`AddedRule`] of `language` names, by file name.
 ///
 /// # Errors
 ///
@@ -77,6 +81,7 @@ pub fn flatten(
 ) -> Result<Tables, GenerateError> {
     let mut walk = Walk {
         grammar,
+        own: grammar,
         others,
         language,
         tables: Tables::default(),
@@ -87,17 +92,21 @@ pub fn flatten(
         expanding_top_level: false,
         opened: Vec::new(),
     };
+    walk.expanding_top_level = language.reentry == Reentry::WithinRule;
+    let first = walk.list(&grammar.patterns, "Root")?;
+    for &added in language.added_rules {
+        walk.add_rule(added)?;
+    }
     let root = match language.reentry {
-        Reentry::WithinRule => {
-            walk.expanding_top_level = true;
-            walk.list(&grammar.patterns, "Root")?
-        }
+        Reentry::WithinRule => first,
         Reentry::WithinWalk => {
-            walk.list(&grammar.patterns, "Root")?;
-            for (index, list, id) in std::mem::take(&mut walk.opened) {
+            for (index, list_grammar, list, id) in std::mem::take(&mut walk.opened) {
                 walk.expanding.clear();
                 walk.expanding_top_level = false;
-                walk.tables.rules[index].patterns = walk.list(list, &id)?;
+                walk.grammar = list_grammar;
+                let patterns = walk.list(list, &id);
+                walk.grammar = grammar;
+                walk.tables.rules[index].patterns = patterns?;
             }
             walk.expanding.clear();
             walk.expanding_top_level = true;
@@ -115,9 +124,13 @@ pub fn flatten(
 /// The state of one walk over a grammar.
 #[derive(Debug)]
 struct Walk<'a> {
-    /// The grammar.
+    /// The grammar whose rule objects the walk reads now: the language's
+    /// own, or the grammar of a rule in [`RuleTables::added_rules`].
     grammar: &'a UnlinkedGrammar,
-    /// The grammars that [`External::Pattern`] reads, by file name.
+    /// The language's own grammar.
+    own: &'a UnlinkedGrammar,
+    /// The grammars that [`External::Pattern`], [`Injection`] and
+    /// [`AddedRule`] read, by file name.
     others: &'a [(&'a str, &'a UnlinkedGrammar)],
     /// What the language does differently.
     language: &'a RuleTables,
@@ -138,9 +151,10 @@ struct Walk<'a> {
     /// It stays out of [`Walk::expanding`], so no repository key, such as
     /// `root` or `$self`, can share it.
     expanding_top_level: bool,
-    /// Each rule the walk opened: its index in the tables, its pattern list
-    /// and its id, for the second pass of [`Reentry::WithinWalk`].
-    opened: Vec<(usize, &'a [RuleId], String)>,
+    /// Each rule the walk opened: its index in the tables, the grammar that
+    /// holds its pattern list, the list and its id, for the second pass of
+    /// [`Reentry::WithinWalk`].
+    opened: Vec<(usize, &'a UnlinkedGrammar, &'a [RuleId], String)>,
 }
 
 impl<'a> Walk<'a> {
@@ -198,27 +212,81 @@ impl<'a> Walk<'a> {
                 }
                 continue;
             }
-            let target = include
-                .strip_prefix('#')
-                .and_then(|key| Some((key, entry(&grammar.repository, key)?)));
-            let Some((key, target)) = target else {
-                if include.starts_with('#') {
-                    continue;
-                }
+            let own_key = include
+                .strip_prefix(&*self.own.scope)
+                .and_then(|rest| rest.strip_prefix('#'));
+            if let Some(key) = own_key {
+                let walked = std::mem::replace(&mut self.grammar, self.own);
+                let patterns = self.key(key);
+                self.grammar = walked;
+                out.extend(patterns?);
+                continue;
+            }
+            let Some(key) = include.strip_prefix('#') else {
                 return Err(GenerateError::Include {
                     rule: context.to_owned(),
                     include: include.to_string(),
                 });
             };
-            let id = pascal(key, self.language.key_spellings);
-            if acts(&grammar.rules[target]) {
-                out.extend(self.expand(target, &id)?);
-            } else if self.expanding.insert(id.clone()) {
-                out.extend(self.expand(target, &id)?);
-                self.expanding.remove(&id);
-            }
+            out.extend(self.key(key)?);
         }
         Ok(out)
+    }
+
+    /// The patterns that the repository entry `key` of the grammar being
+    /// walked adds.
+    ///
+    /// A key the grammar lacks adds nothing, as vscode-textmate skips such
+    /// an include.
+    /// So does an entry with no expression of its own while it is being
+    /// expanded.
+    fn key(&mut self, key: &str) -> Result<Vec<usize>, GenerateError> {
+        let grammar = self.grammar;
+        let Some(target) = entry(&grammar.repository, key) else {
+            return Ok(Vec::new());
+        };
+        let id = pascal(key, self.language.key_spellings);
+        if acts(&grammar.rules[target]) {
+            return self.expand(target, &id);
+        }
+        if !self.expanding.insert(id.clone()) {
+            return Ok(Vec::new());
+        }
+        let patterns = self.expand(target, &id);
+        self.expanding.remove(&id);
+        patterns
+    }
+
+    /// Adds the rule `added`, whose patterns are a list in another grammar.
+    ///
+    /// The walk reads that list's rule objects from the other grammar.
+    /// An include of this grammar's scope with a key, such as
+    /// `source.css#escapes`, adds this grammar's entry.
+    ///
+    /// # Errors
+    ///
+    /// [`GenerateError::AddedRule`] when `others` lacks the grammar, the
+    /// grammar lacks the key, or a position along the path is missing.
+    fn add_rule(&mut self, added: AddedRule) -> Result<(), GenerateError> {
+        let failed = || GenerateError::AddedRule {
+            id: added.id.to_owned(),
+        };
+        let other = self.other(added.grammar).ok_or_else(failed)?;
+        let mut rule = entry(&other.repository, added.key).ok_or_else(failed)?;
+        for &position in added.path {
+            rule = *other.rules[rule]
+                .patterns
+                .get(position)
+                .ok_or_else(failed)?;
+        }
+        let list: &'a [RuleId] = &other.rules[rule].patterns;
+        let index = self.put_rule(added.id, None)?;
+        self.opened.push((index, other, list, added.id.to_owned()));
+        let walked = std::mem::replace(&mut self.grammar, other);
+        let patterns = self.rule_list(list, added.id);
+        self.grammar = walked;
+        self.tables.rules[index].patterns = patterns?;
+        Ok(())
     }
 
     /// What the include of another grammar `include` adds, from
@@ -514,7 +582,8 @@ impl<'a> Walk<'a> {
         )?;
         let closed = self.put(format!("{id}End"), end.to_string(), Act::End)?;
         let index = self.put_rule(id, Some(closed))?;
-        self.opened.push((index, &object.patterns, id.to_owned()));
+        self.opened
+            .push((index, self.grammar, &object.patterns, id.to_owned()));
         let patterns = self.rule_list(&object.patterns, id)?;
         let own = object
             .patterns
@@ -535,7 +604,7 @@ impl<'a> Walk<'a> {
             }
             let body = self.made_begin(&format!("{id}Body"), "\\G", &format!("(?={end})"))?;
             self.tables.rules[index].patterns = vec![body];
-            self.opened.retain(|&(at, _, _)| at != index);
+            self.opened.retain(|&(at, ..)| at != index);
             return Ok(Some(opened));
         }
         self.tables.rules[index].patterns = patterns;
@@ -558,7 +627,7 @@ impl<'a> Walk<'a> {
                 *known = None;
             }
         }
-        self.opened.retain(|&(at, _, _)| at < rule);
+        self.opened.retain(|&(at, ..)| at < rule);
     }
 
     /// The index of a begin that the language makes up, named `id`, which it
@@ -686,7 +755,7 @@ impl<'a> Walk<'a> {
         };
         self.capture_lists.insert(text, id.clone());
         let index = self.put_rule(&id, None)?;
-        self.opened.push((index, list, id.clone()));
+        self.opened.push((index, self.grammar, list, id.clone()));
         self.tables.rules[index].patterns = self.rule_list(list, &id)?;
         Ok(())
     }

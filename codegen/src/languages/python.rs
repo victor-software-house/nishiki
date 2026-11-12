@@ -18,4 +18,5 @@ pub(crate) const PYTHON: RuleTables = RuleTables {
     reentry: Reentry::WithinRule,
     externals: &[],
     injected: None,
+    added_rules: &[],
 };

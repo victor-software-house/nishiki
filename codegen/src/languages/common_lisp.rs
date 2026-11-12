@@ -18,4 +18,5 @@ pub(crate) const COMMON_LISP: RuleTables = RuleTables {
     reentry: Reentry::WithinWalk,
     externals: &[],
     injected: None,
+    added_rules: &[],
 };
