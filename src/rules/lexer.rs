@@ -1025,17 +1025,18 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     ///
     /// A run of wide spaces then costs work in step with its length.
     ///
-    /// The scan of a grammar that looks behind at a wide space does not call
-    /// it, and tries each wide space
+    /// With `each`, it is the end of the character at `i` at a wide space too.
+    /// The scan of a grammar that looks behind at a wide space passes it, so
+    /// the scan tries each wide space of a run
     /// ([`WideSpaceLookbehind`](super::WideSpaceLookbehind)).
     ///
     /// [`BlankRuns::Skip`]: super::BlankRuns::Skip
     #[cfg(feature = "_rule-tables")]
     #[inline]
-    pub(crate) fn pass_char(&self, i: usize, mixed: bool) -> usize {
+    pub(crate) fn pass_char(&self, i: usize, mixed: bool, each: bool) -> usize {
         match self.s.get(i) {
             Some(&b) if b < 0x80 => i + 1,
-            Some(&b) if starts_wide_space(b) => self.pass_wide_space(i, mixed),
+            Some(&b) if !each && starts_wide_space(b) => self.pass_wide_space(i, mixed),
             _ => self.char_end(i),
         }
     }
@@ -2570,9 +2571,10 @@ mod tests {
         };
         let lexer = Lexer::new(parts, text, ROOT, &mut scratch);
         let vertical_tab = line.find('\u{b}');
-        assert_eq!(Some(lexer.pass_char(0, true)), vertical_tab);
-        assert_eq!(lexer.pass_char(0, false), 4);
-        assert_eq!(lexer.pass_char(line.len() - 1, true), line.len());
+        assert_eq!(Some(lexer.pass_char(0, true, false)), vertical_tab);
+        assert_eq!(lexer.pass_char(0, false, false), 4);
+        assert_eq!(lexer.pass_char(0, false, true), 2);
+        assert_eq!(lexer.pass_char(line.len() - 1, true, false), line.len());
     }
 
     #[cfg(feature = "_rule-tables")]
