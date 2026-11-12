@@ -256,7 +256,13 @@ impl Lexer<'_> {
     }
 
     /// `\1`: the delimiter the percent literal opened with.
+    /// A delimiter that was the line feed lies outside the line's text.
+    /// Its begin text is therefore empty, and the next line feed closes the
+    /// literal.
     pub(in crate::ruby) fn repeated_delimiter(&mut self, p: usize) -> Option<usize> {
+        if self.begin_text().is_empty() {
+            return (p == self.lim() && self.at(p) == b'\n').then_some(p + 1);
+        }
         self.begin_text_at(p).map(|width| p + width)
     }
 

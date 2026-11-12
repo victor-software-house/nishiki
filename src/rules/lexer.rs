@@ -1275,6 +1275,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         feature = "lang-perl",
         feature = "lang-php",
         feature = "lang-r",
+        feature = "lang-ruby",
         feature = "lang-sass"
     ))]
     pub(crate) fn begin_text(&self) -> &str {

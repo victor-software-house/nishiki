@@ -112,6 +112,61 @@ fn a_word_array_repeats_its_delimiter() {
 }
 
 #[test]
+fn a_word_array_at_the_end_of_a_line_holds_the_next_line() {
+    let rows = lex_lines(indoc! {r"
+        [200, [%w(content-type text/plain), %w
+        }).call(env({}))\
+        }.must_raise(Rack::Lint::LintError).
+    "});
+    assert_eq!(
+        scope_of(&rows[0], "%w"),
+        "punctuation.section.array.begin.ruby"
+    );
+    assert_eq!(
+        rows[1],
+        [(
+            r"}).call(env({}))\".to_owned(),
+            "string.quoted.other.ruby".to_owned()
+        )]
+    );
+    assert_eq!(
+        scope_of(&rows[2], "}"),
+        "punctuation.section.scope.end.ruby"
+    );
+    assert_eq!(
+        scope_of(&rows[2], "must_raise"),
+        "entity.name.function.ruby"
+    );
+}
+
+#[test]
+fn an_interpolated_word_array_at_the_end_of_a_line_holds_the_next_line() {
+    let rows = lex_lines(indoc! {r"
+        words_pipe = %W
+        plain_words_angle = %w<a <b> c\> d>
+        plain_words_curly = %w{a {b} c\} d}
+    "});
+    assert_eq!(
+        scope_of(&rows[0], "%W"),
+        "punctuation.section.array.begin.ruby"
+    );
+    assert_eq!(
+        scope_of(&rows[1], "plain_words_angle = %w<a <b> c"),
+        "string.quoted.other.interpolated.ruby"
+    );
+    assert_eq!(scope_of(&rows[1], r"\>"), "constant.character.escape.ruby");
+    assert_eq!(
+        scope_of(&rows[1], " d>"),
+        "string.quoted.other.interpolated.ruby"
+    );
+    assert_eq!(scope_of(&rows[2], "plain_words_curly"), "variable.ruby");
+    assert_eq!(
+        scope_of(&rows[2], "%w{"),
+        "punctuation.section.array.begin.ruby"
+    );
+}
+
+#[test]
 fn a_slash_after_a_match_operator_starts_a_regular_expression() {
     let row = lex(r"args.shift if meth && (map[meth] || meth !~ /^\-/)");
     assert_eq!(scope_of(&row, "!~"), "keyword.operator.comparison.ruby");
