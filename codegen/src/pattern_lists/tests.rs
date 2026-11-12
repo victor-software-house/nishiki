@@ -390,3 +390,21 @@ fn the_second_pass_lists_what_the_walk_cut_short() {
         Ok(Some(vec!["ListAt0".to_owned(), "ListAt1".to_owned()]))
     );
 }
+
+/// A list whose key takes a begin's id in Pascal case gives its patterns ids
+/// from that context, and takes no pattern id itself.
+#[test]
+fn a_list_takes_no_pattern_id() {
+    let json = r##"{"scopeName": "source.demo",
+        "patterns": [{"include": "#foo"}, {"include": "#foo-"}],
+        "repository": {"foo": {"begin": "b", "end": "e"},
+            "foo-": {"patterns": [{"match": "m"}]}}}"##;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Ok(expected(&[
+            ("Foo", Act::Begin),
+            ("FooEnd", Act::End),
+            ("FooAt0", Act::Match),
+        ]))
+    );
+}

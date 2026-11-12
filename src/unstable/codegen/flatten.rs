@@ -240,6 +240,10 @@ impl<'a> Walk<'a> {
     /// The index of the pattern of `rule`, named `id`, which it adds the first
     /// time.
     /// A begin also adds its end, then its rule.
+    /// A rule with neither a match nor a begin with an end is
+    /// [`GenerateError::NoAct`], before any id is looked up.
+    /// `expand` calls it only for a rule with an expression, so a
+    /// list never takes a pattern's id.
     ///
     /// A begin's capture lists can reach the begin itself.
     /// The begin, its end and its rule are then written before the lists
