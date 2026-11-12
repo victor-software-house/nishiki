@@ -452,3 +452,15 @@ fn an_external_begin_takes_the_include_id() {
     );
     assert_eq!(tried(json, &made, "BlockAt1"), Ok(Some(Vec::new())));
 }
+
+/// A repository key `root`, whose list takes the id `Root`, still adds its
+/// patterns to the top-level list.
+#[test]
+fn a_list_under_the_key_root_adds_its_patterns() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#root"}],
+        "repository": {"root": {"patterns": [{"match": "r"}]}}}"##;
+    assert_eq!(
+        tried(json, &PLAIN, "Root"),
+        Ok(Some(vec!["RootAt0".to_owned()]))
+    );
+}

@@ -50,6 +50,11 @@ use super::tables::{
 };
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
+/// The key of the top-level list in the set of lists being expanded.
+/// No repository key gives it in Pascal case, so a key such as `root`,
+/// whose lists take the id `Root`, does not share it.
+const TOP_LEVEL: &str = "$self";
+
 /// The tables of `grammar`, read as `language` says.
 ///
 /// # Errors
@@ -68,7 +73,7 @@ pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Table
     };
     let root = match language.reentry {
         Reentry::WithinRule => {
-            walk.expanding.insert("Root".to_owned());
+            walk.expanding.insert(TOP_LEVEL.to_owned());
             walk.list(&grammar.patterns, "Root")?
         }
         Reentry::WithinWalk => {
@@ -78,7 +83,7 @@ pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Table
                 walk.tables.rules[index].patterns = walk.list(list, &id)?;
             }
             walk.expanding.clear();
-            walk.expanding.insert("Root".to_owned());
+            walk.expanding.insert(TOP_LEVEL.to_owned());
             walk.list(&grammar.patterns, "Root")?
         }
     };
@@ -145,9 +150,9 @@ impl<'a> Walk<'a> {
             let at = index;
             index += 1;
             if include == "$self" || *include == grammar.scope {
-                if self.expanding.insert("Root".to_owned()) {
+                if self.expanding.insert(TOP_LEVEL.to_owned()) {
                     out.extend(self.list(&grammar.patterns, "Root")?);
-                    self.expanding.remove("Root");
+                    self.expanding.remove(TOP_LEVEL);
                 }
                 continue;
             }
