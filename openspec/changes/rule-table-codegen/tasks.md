@@ -47,5 +47,5 @@ Each proves byte-identical output, as design section 4 says.
 
 [default-matchers]: ../default-matchers/design.md
 [nishiki#762]: https://github.com/victor-software-house/nishiki-archive/pull/762
-[rust-codegen]: ../archive/2026-11-12-rust-codegen/design.md
+[rust-codegen]: ../archive/2026-11-12-rust-codegen/tasks.md
 [unstable-rule-engine]: ../unstable-rule-engine/tasks.md
