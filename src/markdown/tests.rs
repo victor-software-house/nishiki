@@ -842,6 +842,49 @@ fn an_objc_base_slot_opens_markdowns_root_patterns() {
     );
 }
 
+/// A fence of any language opens at a `$base` slot, since Markdown's own
+/// fence rule takes the slot.
+/// The `vue` fence of Shiki's injection is a rule apart.
+/// The scopes are Shiki's.
+#[cfg(all(feature = "lang-objective-c", feature = "lang-javascript"))]
+#[test]
+fn an_objc_base_slot_opens_a_fence_of_any_language() {
+    let text = indoc! {"
+        ```objc
+        f(   ~~~js
+        x
+        ~~~
+        ```
+        after"};
+    let parameters = [
+        "text.html.markdown",
+        "markup.fenced_code.block.markdown",
+        "meta.embedded.block.objc",
+        "meta.function.objc",
+        "meta.function.definition.parameters.objc",
+        "markup.fenced_code.block.markdown",
+    ];
+    assert_eq!(
+        stack_of(text, "js"),
+        [&parameters[..], &["fenced_code.block.language.markdown"]].concat()
+    );
+    assert_eq!(
+        stack_of(text, "x"),
+        [
+            &parameters[..],
+            &[
+                "meta.embedded.block.javascript",
+                "variable.other.readwrite.js"
+            ]
+        ]
+        .concat()
+    );
+    assert_eq!(
+        stack_of(text, "after"),
+        ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+}
+
 /// An HTML block that opens at a `$base` slot hands the rest of its line to
 /// html-derivative at once, as in Shiki.
 #[cfg(all(feature = "lang-objective-c", feature = "lang-html-derivative"))]
@@ -2176,7 +2219,7 @@ fn a_tilde_after_vue_makes_a_plain_fence() {
     );
 }
 
-/// A `vue` fence opens at the start of a line in another language's fence.
+/// A `vue` fence opens where a line starts in another language's fence.
 /// The fence's `while` rule puts `\G` there.
 #[cfg(all(feature = "lang-vue", feature = "lang-python"))]
 #[test]

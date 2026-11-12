@@ -1500,9 +1500,9 @@ languages! {
     /// - A `vue` fence has no `while` rule.
     ///   It closes only where Vue is outside every rule,
     ///   so a block left open runs past the closing fence.
-    /// - A `vue` fence also opens at the start of a line inside Vue's rules, on their scopes.
+    /// - A `vue` fence also opens where a line starts in any fence's body, Vue's included.
+    ///   It sits on the scopes of the text there, such as a template string's.
     ///   Elsewhere it opens only where Markdown's own fences open.
-    ///   Shiki's injection also opens it in another language's fence or in a raw block.
     /// - A `vue` fence opens only at the start of a line, or after a quote's or list's prefix.
     ///   Shiki's injection also opens one where an inner rule's match ended, at its `\G`,
     ///   such as after a JSX tag's `>`.

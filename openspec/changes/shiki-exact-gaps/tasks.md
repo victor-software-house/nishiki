@@ -258,8 +258,8 @@ The [research note][note] holds the numbers each task starts from.
     - `^(?!\s*</script[>\s])`, the `while` rule of a Vue body.
   - 2026-11-12: four tests hold these cases with Shiki's scopes, at U+00A0 and U+3000.
     They are `a_vue_end_tag_closes_with_unicode_white_space`, `a_vue_lang_attribute_takes_unicode_white_space_around_its_equals`, `a_bare_vue_directive_value_ends_at_unicode_white_space` and `a_vue_comment_tag_takes_unicode_white_space_before_its_at`.
-- [ ] 6.4 A `vue` fence opens inside other embedded languages where Shiki's `markdown-vue` injection opens it.
-  → verify: a Shiki probe settles where `\G` sits after a quote's `>`, a test holds the case, and at every seed no document differs in Vue's `mdw` corpus
+- [ ] 6.4 A `vue` fence opens at the start of a line in the body of any fence, as Shiki's `markdown-vue` injection opens it.
+  → verify: a Shiki probe settles where `\G` sits after a quote's `>`, tests hold the case, a sweep of every fenced language matches Shiki, and in Vue's `mdw` corpus only tasks 6.6 to 6.8's documents differ
 - [ ] 6.5 On a line whose containers took all its text, such as `>` alone in a quote, the `while` rules of the languages embedded below run, as in Shiki.
   → verify: a test holds a list in a Vue `lang="md"` block in a quote, ended by a `>` line, with Shiki's scopes
   - 2026-11-12: a Shiki probe shows it, in task 6.2's work.
@@ -267,6 +267,15 @@ The [research note][note] holds the numbers each task starts from.
   - 2026-11-12: nishiki skips the line at each layer.
     The outer Markdown, `html::lex_vue` and `markdown::line` each return early when nothing is left of the line.
     Changing two of the three left the case as it was.
+- [ ] 6.6 A `vue` fence opens in the middle of a line where an embedded language's begin rule leaves `\G`, as in Shiki.
+  → verify: tests hold a JSX `>` and a template string's opening backtick before a `vue` fence, and a probe sweep of every other language either matches Shiki or names the task of each language that differs
+  - 2026-11-12: Vue's `mdw` corpus shows it in documents 16 at seed 1, 25 at seed 2, and 17 and 76 at seed 3.
+- [ ] 6.7 A whitespace-only line ends a `vue` fence that opened in a one-line `lang="md"` block, as in Shiki.
+  → verify: a Shiki probe names the rule whose `while` fails there, and a test holds the case
+  - 2026-11-12: Vue's `mdw` corpus shows it in documents 21 at seed 2, and 3, 83 and 94 at seed 3.
+- [ ] 6.8 A `<style lang="less">)` in a `vue` fence that opened in TypeScript ends where Shiki ends it.
+  → verify: a Shiki probe shows the case, a test holds it, and at every seed no document differs in Vue's `mdw` corpus
+  - 2026-11-12: Vue's `mdw` corpus shows it in document 53 at seed 3.
 
 ## 7. Go and LaTeX
 
