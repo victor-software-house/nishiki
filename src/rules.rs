@@ -1445,6 +1445,27 @@ pub(crate) trait Tabled: Grammar {
     }
 }
 
+/// Whether a grammar has a pattern with a lookbehind that can pass after a
+/// wide space, and a start that can be one.
+///
+/// At a run of one repeated wide space, such a pattern can match at a later
+/// space of the run and not at its first.
+/// Only the later space has a wide space behind it.
+/// CSS's selector begin is one: `(?<=[^:]\s)` with a start of `[^\x00-\x7F]`.
+/// So the scan of a [`BlankRuns::Skip`] grammar tries each wide space of a run
+/// when this holds ([`Lexer::pass_char`]).
+///
+/// `codegen/src/blank_runs.rs` decides it per grammar with
+/// `nishiki::unstable::codegen::blank_runs::looks_behind_at_a_wide_space`.
+/// It writes one impl per grammar to `src/rules/blank_runs.rs`.
+/// [`table_scan`] bounds its grammar on this trait, so a [`Tabled`] grammar
+/// with no impl fails to compile.
+#[cfg(feature = "_rule-tables")]
+pub(crate) trait WideSpaceLookbehind {
+    /// Whether the scan tries each wide space of a run.
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool;
+}
+
 /// What the scan does with the rest of a space and tab run where no
 /// pattern matched at the run's first blank.
 #[cfg(any(nishiki_unstable, feature = "_rule-tables"))]

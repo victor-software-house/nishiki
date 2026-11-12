@@ -46,6 +46,9 @@ Each proves byte-identical output, as design section 4 says.
   - It also closes the checks of [rust-codegen][rust-codegen] task 1.3 for the 13 `words.rs` files those scripts write.
     Each keeps its entries in order, and the size example's `.text` and `.rodata` keep their hashes.
     `check:literals` and `check:line-width` pass with `mise-tasks/lib/rust-writers.ts` and its writer exemption deleted.
+  - 2026-11-12: each grammar's impl of `rules::WideSpaceLookbehind` is in `src/rules/blank_runs.rs`, which `codegen/src/blank_runs.rs` writes.
+    Each `grammar.rs` still reads its `MIXED_BLANK_RUNS` from a constant there.
+    Once Rust writes `grammar.rs`, that line can move into the same Rust output.
 
 [default-matchers]: ../default-matchers/design.md
 [nishiki#762]: https://github.com/victor-software-house/nishiki-archive/pull/762

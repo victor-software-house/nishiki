@@ -70,7 +70,7 @@ Design section 2 names the runs that found each case.
   - 2026-11-12: seed 2's `mdw` corpus of YAML shows it in document 28, by 2 bytes.
     Shiki gives the key `entity.name.tag.yaml`, and nishiki leaves it out.
 
-## 6. Blade
+## 6. PHP, Blade and CSS
 
 - [x] 6.1 Blade's PHP gives a typed parameter after U+00A0 Shiki's scopes.
   → verify: a test holds the case with Shiki's scopes, and no ASCII-only stand-in for `\s` is left in `src/php/` or `src/blade/`
@@ -87,7 +87,7 @@ Design section 2 names the runs that found each case.
     They are `a_type_gives_back_its_last_unicode_space_for_the_variable` and `a_heredoc_label_after_unicode_white_space_closes_it`.
   - 2026-11-12: the other ASCII-only white space in both lexers is the class `[-\t !,.?]` of a comment's text, which holds no `\s`.
   - 2026-11-12: on a box, PHP's `win` corpora at seeds 1, 2 and 3, 300 documents each: none differs with the fix, nor at seed 1 on the base.
-- [ ] 6.2 In PHP and Blade, a `\s*` or `\s+` before a name gives the name its last space past ASCII, as Oniguruma does.
+- [x] 6.2 In PHP and Blade, a `\s*` or `\s+` before a name gives the name its last space past ASCII, as Oniguruma does.
   → verify: a test holds `^\s*(NAME)\s*(?=:)` after U+3000 with Shiki's scopes, and no document differs in PHP's `win` corpora with U+00A0 or U+3000 for each space
   - 2026-11-12: those corpora, on a box, at seeds 1, 2 and 3: 13, 10 and 14 of 300 documents differ with task 6.1's fix, and seed 1's same 13 on the base.
     Each is a line of spaces, `:` and `$value`, where Shiki gives the last space `entity.name.goto-label.php`.
@@ -102,6 +102,31 @@ Design section 2 names the runs that found each case.
   - 2026-11-12: on a box, the corpora at seeds 1 and 3 and the 20 documents from the fixtures: none differs.
     At seed 2, one document differs, by 4 bytes, in CSS inside a heredoc.
     The line is `CSS` and three U+00A0, where Shiki gives the last two `meta.selector.css`.
+  - 2026-11-12: with task 6.3's fix, on a box, that corpus at seed 2: none differs.
+- [x] 6.3 CSS opens a selector at a wide space that follows another, as Shiki does.
+  → verify: a test holds `CSS` and three U+00A0 with Shiki's scopes, and no document differs in CSS's `win` corpora with U+00A0 or U+3000 for each space
+  - 2026-11-12: task 6.2's PHP corpus at seed 2 shows it in a heredoc's CSS.
+    Shiki gives the last two U+00A0 `meta.selector.css`, and nishiki gives the run `source.css`.
+  - 2026-11-12: the selector begin of Shiki's CSS grammar is `(?<=^|(^|[^:])\s|[;{}]|…)(?=[…[^\x00-\x7F]]|…)`.
+    At the second U+00A0, the lookbehind reads `[^:]\s` and the class `[^\x00-\x7F]` takes the space.
+    The selector opens and closes there without advancing.
+    It keeps the rest of the line.
+  - 2026-11-12: `Lexer::pass_wide_space` in `src/rules/lexer.rs` passes a run of one repeated wide space in one step.
+    It tried the first U+00A0 only.
+  - 2026-11-12: `looks_behind_at_a_wide_space` in `src/unstable/codegen/blank_runs.rs` finds a pattern with a lookbehind that can pass after a wide space and a start that can be one.
+    `codegen/src/blank_runs.rs` writes each grammar's `rules::WideSpaceLookbehind` impl from it.
+    The scan of a grammar it marks tries each wide space of a run.
+    It marks 25 of the 48 rule-engine grammars.
+  - 2026-11-12: `a_selector_opens_at_a_wide_space_after_another` holds Shiki's scopes for U+00A0 and U+3000.
+    It fails on the base and passes with the fix, on a box.
+  - 2026-11-12: on a box, CSS's `win` corpora at seeds 1, 2 and 3, 300 documents each, with U+00A0 or U+3000 for each space: none differs.
+    Nor does any of the plain `win` corpora at those seeds.
+- [ ] 6.4 A pattern that matches only at the last wide space of a run matches there, as in Shiki.
+  → verify: a test holds a run of U+00A0 before such a pattern with Shiki's scopes
+  - 2026-11-12: such a pattern is `\s(?!\s)`.
+    It fails at each wide space of a run but the last.
+    The scan of a `BlankRuns::Skip` grammar tries a run of one repeated wide space at its first space only.
+    `BlankRuns::ToLast` tries such patterns at the last blank of a run of spaces and tabs only.
 
 ## 7. Vue fences where a hand lexer's rule begins
 
