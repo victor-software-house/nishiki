@@ -22,12 +22,13 @@ mod proto;
 mod python;
 mod sass;
 mod scala;
+mod swift;
 mod vb;
 
 use nishiki::unstable::codegen::tables::RuleTables;
 
 /// The languages whose tables codegen builds, by module name.
-pub(crate) const ALL: [RuleTables; 20] = [
+pub(crate) const ALL: [RuleTables; 21] = [
     asm::ASM,
     coffee::COFFEE,
     common_lisp::COMMON_LISP,
@@ -47,5 +48,6 @@ pub(crate) const ALL: [RuleTables; 20] = [
     python::PYTHON,
     sass::SASS,
     scala::SCALA,
+    swift::SWIFT,
     vb::VB,
 ];
