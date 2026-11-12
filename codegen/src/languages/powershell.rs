@@ -1,7 +1,7 @@
 //! PowerShell's tables.
 
 use nishiki::unstable::codegen::tables::{
-    CaptureLists, Identity, LonePattern, Reentry, RuleTables, Split,
+    CaptureLists, CaptureNames, Identity, LonePattern, Reentry, RuleTables, Split,
 };
 
 /// PowerShell's tables, from `tests/engine/grammars/powershell.json`.
@@ -20,6 +20,7 @@ pub(crate) const POWERSHELL: RuleTables = RuleTables {
         ("RootAt23", "StopParsing"),
     ],
     split: Split::KeepsGroup,
+    capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::ListId,
     identity: Identity::Id,
     reentry: Reentry::WithinRule,

@@ -64,6 +64,113 @@ pub(super) fn alternatives<'n>(
     ))
 }
 
+/// The expression of each pattern that a match `regex` becomes when only
+/// its capture names, `names`, hold a group's text, or `None` when none
+/// does.
+///
+/// The innermost optional group `(?:…)?` around the named group splits.
+/// Each of its alternatives gives one pattern, inside `(?:…)`.
+/// A last pattern leaves the group out.
+/// So `1(?:(%)|(px|em)\b)?` gives `1(?:(%))`, `1(?:(px|em)\b)` and `1`.
+/// The named group stays whole, and the language's code names its text.
+///
+/// # Errors
+///
+/// [`GenerateError::Split`], naming `id` and `regex`, when the names hold
+/// several groups, or when no optional group holds the named one.
+pub(super) fn optional_alternatives<'n>(
+    regex: &str,
+    names: impl IntoIterator<Item = &'n str>,
+    id: &str,
+) -> Result<Option<Vec<String>>, GenerateError> {
+    let refused = || GenerateError::Split {
+        id: id.to_owned(),
+        regex: regex.to_owned(),
+    };
+    let mut numbers = names.into_iter().flat_map(references).collect::<Vec<_>>();
+    numbers.sort_unstable();
+    numbers.dedup();
+    let number = match *numbers {
+        [] => return Ok(None),
+        [number] => number,
+        _ => return Err(refused()),
+    };
+    let (start, _) = group(regex, number).ok_or_else(refused)?;
+    let (open, close) = spans(regex)
+        .into_iter()
+        .filter(|&(open, close)| open < start && start < close)
+        .max_by_key(|&(open, _)| open)
+        .filter(|&(open, close)| {
+            regex[open..].starts_with("(?:") && regex[close + 1..].starts_with('?')
+        })
+        .ok_or_else(refused)?;
+    let (before, after) = (&regex[..open], &regex[close + 2..]);
+    let mut out = top_level(&regex[open + 3..close])
+        .into_iter()
+        .map(|alternative| format!("{before}(?:{alternative}){after}"))
+        .collect::<Vec<_>>();
+    out.push(format!("{before}{after}"));
+    Ok(Some(out))
+}
+
+/// The byte offsets of each group's `(` and its matching `)`, in the order
+/// the groups close.
+///
+/// Escaped bytes and character classes open and close no group.
+fn spans(regex: &str) -> Vec<(usize, usize)> {
+    let bytes = regex.as_bytes();
+    let mut open = Vec::new();
+    let mut out = Vec::new();
+    let mut in_class = false;
+    let mut index = 0;
+    while index < bytes.len() {
+        match bytes[index] {
+            b'\\' => index += 1,
+            b']' if in_class => in_class = false,
+            _ if in_class => {}
+            b'[' => in_class = true,
+            b'(' => open.push(index),
+            b')' => {
+                if let Some(start) = open.pop() {
+                    out.push((start, index));
+                }
+            }
+            _ => {}
+        }
+        index += 1;
+    }
+    out
+}
+
+/// The alternatives of `body` at its own level, split at each `|` outside
+/// a group or a character class.
+fn top_level(body: &str) -> Vec<&str> {
+    let bytes = body.as_bytes();
+    let mut out = Vec::new();
+    let mut depth = 0_usize;
+    let mut in_class = false;
+    let mut from = 0;
+    let mut index = 0;
+    while index < bytes.len() {
+        match bytes[index] {
+            b'\\' => index += 1,
+            b']' if in_class => in_class = false,
+            _ if in_class => {}
+            b'[' => in_class = true,
+            b'(' => depth += 1,
+            b')' => depth = depth.saturating_sub(1),
+            b'|' if depth == 0 => {
+                out.push(&body[from..index]);
+                from = index + 1;
+            }
+            _ => {}
+        }
+        index += 1;
+    }
+    out.push(&body[from..]);
+    out
+}
+
 /// The number of each group whose text the scope name `name` holds.
 ///
 /// `$2` and `${2:/downcase}` each give 2.
