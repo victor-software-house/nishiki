@@ -142,6 +142,72 @@ fn a_click_gives_the_space_before_its_tooltip_back() {
     assert_eq!(leaf(text, "\"https://x\""), "string");
 }
 
+/// The innermost scope of each byte of `row`, as `lex` gives it.
+fn byte_leaves(row: &[(String, String)]) -> Vec<&str> {
+    row.iter()
+        .flat_map(|(text, leaf)| std::iter::repeat_n(leaf.as_str(), text.len()))
+        .collect()
+}
+
+/// A click's tooltip, `("*.*")`, ends at the line's last `"`, as in Shiki.
+/// The text after it is left to the other patterns, and a click with no `"`
+/// after its name is no click.
+/// Each row is the text and scope of Shiki 4.6.0's tokens.
+#[test]
+fn a_clicks_tooltip_ends_at_its_last_quote() {
+    let lines = [
+        "graph TD",
+        r#"  click B "https://example.com"\"#,
+        r#"  click B "a" x\"#,
+        "  click B x",
+        r#"  click B "a b"#,
+    ];
+    let rows = lex(&lines.join("\n"));
+    let key = "keyword.control.mermaid";
+    let lead = [
+        ("  ", ""),
+        ("click", key),
+        (" ", ""),
+        ("B", "variable"),
+        (" ", ""),
+    ];
+    let want: [Vec<(&str, &str)>; 4] = [
+        [
+            &lead[..],
+            &[("\"https://example.com\"", "string"), ("\\", "")],
+        ]
+        .concat(),
+        [
+            &lead[..],
+            &[
+                ("\"a\"", "string"),
+                (" ", ""),
+                ("x", "variable"),
+                ("\\", ""),
+            ],
+        ]
+        .concat(),
+        vec![
+            ("  ", ""),
+            ("click ", "variable"),
+            ("B ", "variable"),
+            ("x", "variable"),
+        ],
+        [
+            &lead[..],
+            &[("\"", "string"), ("a ", "variable"), ("b", "variable")],
+        ]
+        .concat(),
+    ];
+    for (row, want) in rows[1..].iter().zip(want) {
+        let want: Vec<&str> = want
+            .iter()
+            .flat_map(|(text, leaf)| std::iter::repeat_n(*leaf, text.len()))
+            .collect();
+        assert_eq!(byte_leaves(row), want, "{row:?}");
+    }
+}
+
 #[test]
 fn a_node_name_that_ends_in_a_dash_gives_it_back() {
     let rows = lex(indoc! {"
