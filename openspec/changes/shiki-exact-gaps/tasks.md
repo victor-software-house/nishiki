@@ -256,10 +256,11 @@ The [research note][note] holds the numbers each task starts from.
     nishiki took only ASCII white space there.
   - 2026-11-12: Oniguruma 6.9.8's `\s` is its `Space` set, in `src/unicode_property_data.c`.
     It is the `posix_space` set in `oracle/facts/unicode-sets.json`, which `crate::classes::is_space` holds.
-  - 2026-11-12: Vue's `\s` now matches that set at every place nishiki read it as ASCII:
+  - 2026-11-12: Vue's `\s` now matches that set in a block's tags:
     - `[>\s]` after `</style`, `</script` and `</template`;
     - `\s*` between `</name` and `>` in a block's end tag;
-    - `\s*` around the `=` of a block's `lang` lookahead;
+    - `\s*` around the `=` of a block's `lang` lookahead.
+  - 2026-11-12: it matches that set at the other places nishiki read it as ASCII:
     - `(?=([>\s]|/>))` at the end of a directive's bare value;
     - `\s*` between `<!--` and `@` in a comment's tag;
     - `^(?!\s*</script[>\s])`, the `while` rule of a Vue body.
