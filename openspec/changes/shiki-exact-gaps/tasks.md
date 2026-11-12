@@ -228,6 +228,13 @@ The [research note][note] holds the numbers each task starts from.
     No gated row reads over that.
     A first build set the character before the start in `run`, which held two copies of the `while` checks.
     It read Markdown at 1.0054, so the lexer now sets that character when it is made.
+  - 2026-11-12: design section 1 asks for 300 `win` documents per seed, and the runs above had 100.
+    A box ran the `win` corpora of Markdown, Svelte, Haml, TOML and Vue again, with the fix.
+    Each had 300 documents at each of seeds 1, 2 and 3.
+  - 2026-11-12: at 300 documents, Markdown's seed 3 has three that differ, by 227 bytes.
+    They are documents 0, 28 and 286, of task 6.4's kind.
+    Vue's seed 3 has document 280, task 6.3's U+00A0 case.
+    No other corpus has one.
 - [x] 6.3 Vue gives `<styl/>` and the `</st` after it Shiki's scopes.
   → verify: a test holds the case with Shiki's scopes, and no Vue `win` document differs at any seed
   - 2026-11-12: Vue's `win` corpus at seed 2 shows it in document 78, at [98bb9820][base] and at [d36a1da6][s2-head].
@@ -258,8 +265,48 @@ The [research note][note] holds the numbers each task starts from.
     - `^(?!\s*</script[>\s])`, the `while` rule of a Vue body.
   - 2026-11-12: four tests hold these cases with Shiki's scopes, at U+00A0 and U+3000.
     They are `a_vue_end_tag_closes_with_unicode_white_space`, `a_vue_lang_attribute_takes_unicode_white_space_around_its_equals`, `a_bare_vue_directive_value_ends_at_unicode_white_space` and `a_vue_comment_tag_takes_unicode_white_space_before_its_at`.
-- [ ] 6.4 A `vue` fence opens at the start of a line in the body of any fence, as Shiki's `markdown-vue` injection opens it.
-  → verify: a Shiki probe settles where `\G` sits after a quote's `>`, tests hold the case, a sweep of every fenced language matches Shiki, and in Vue's `mdw` corpus only tasks 6.6 to 6.8's documents differ
+- [x] 6.4 A `vue` fence opens where a line starts in any fence's body, as Shiki's `markdown-vue` injection opens it.
+  → verify: a Shiki probe settles where `\G` sits after a quote's `>`, and tests hold the case.
+  A sweep of every fenced language matches Shiki but for the cases [`shiki-exact-fence-gaps`][fence-gaps] holds.
+  In Vue's `mdw` corpus, only tasks 6.6 to 6.8's documents differ.
+  - 2026-11-12: Shiki probes show where the `vue` fence opens in a quote.
+    It opens after `> `, after `>` and after `>    `.
+  - 2026-11-12: in a JavaScript, TypeScript or Python fence, a Shiki probe opens the `vue` fence where a line starts.
+    The fence may sit in a list, a quote or neither.
+  - 2026-11-12: in a fence whose language Markdown does not name, a Shiki probe opens the `vue` fence too.
+    It closes on its own fence, and the text after it belongs to the outer fence again.
+  - 2026-11-12: Shiki probes show where else the `vue` fence opens.
+    - It opens in front matter, whose closing `---` ends both.
+    - It opens in an HTML block.
+      The block runs past a blank line, and so does the fence.
+    - Four spaces into a paragraph's line, it opens too, [`shiki-exact-fence-gaps`][fence-gaps] task 1.1's case.
+  - 2026-11-12: the injection's begin rule applies wherever the stack holds `text.html.markdown`.
+    nishiki tried it only where a Vue body's line starts.
+    Now every fence body, front matter and HTML block tries it at the start of a line.
+    The rule is apart from Markdown's own fence rule, which opens fences of every language.
+  - 2026-11-12: a first build broke Objective-C's `$base` slot.
+    The slot runs Markdown's own fence rule, and that build gave it only `vue` fences.
+    Seed 2's `mdw` corpus of Objective-C had five documents that differ, and the base had none.
+    The injection's fence is now a rule of its own, and the slot has none again.
+  - 2026-11-12: five tests hold the cases with Shiki's scopes.
+    On a box, four fail on the tests alone and all pass with the fix.
+    The fifth holds Objective-C's slot.
+  - 2026-11-12: a sweep covers the 73 languages with oracle fixtures, 8 documents each.
+    Each document puts a `vue` fence inside a fence of its language.
+    Before, 566 of the 584 differ.
+    After, 10 differ.
+    Six are C#'s, and the other four are PHP's, Ruby's, Pascal's and R's.
+    [`shiki-exact-fence-gaps`][fence-gaps] section 2 holds them.
+  - 2026-11-12: the `win` corpora on a box, 300 documents per seed, at seeds 1, 2 and 3.
+    Those of Markdown, Svelte, Haml, TOML and Vue match.
+    The one exception is Vue's seed 3 document 280, task 6.3's U+00A0 case.
+  - 2026-11-12: the `mdw` corpora on a box, 100 documents per seed.
+    In Vue's, 1, 2 and 6 documents differ at seeds 1, 2 and 3: tasks 6.6 to 6.8's nine.
+    Markdown's seed 3 has document 12, [`shiki-exact-fence-gaps`][fence-gaps] task 1.2's.
+  - 2026-11-12: seed 2's `mdw` corpora of the 73 languages.
+    Bat, LaTeX, Python, YAML and Vue have documents that differ, and they differ at the base too.
+    [`shiki-exact-fence-gaps`][fence-gaps] sections 4 and 5 hold the ones outside Vue.
+    Svelte's bare differential at seed 2 has document 46, that change's task 3.1.
 - [ ] 6.5 On a line whose containers took all its text, such as `>` alone in a quote, the `while` rules of the languages embedded below run, as in Shiki.
   → verify: a test holds a list in a Vue `lang="md"` block in a quote, ended by a `>` line, with Shiki's scopes
   - 2026-11-12: a Shiki probe shows it, in task 6.2's work.
@@ -307,5 +354,6 @@ The [research note][note] holds the numbers each task starts from.
   → verify: every bound constant in the lexers' sources has its line in the docs
 
 [note]: ../../research/2026-11-11-shiki-exact-gaps.md
+[fence-gaps]: ../shiki-exact-fence-gaps/tasks.md
 [base]: https://github.com/victor-software-house/nishiki/commit/98bb9820
 [s2-head]: https://github.com/victor-software-house/nishiki/commit/d36a1da6
