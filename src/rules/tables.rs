@@ -460,7 +460,9 @@ fn scan<G: Tabled, const HALTING: bool>(
                     lexer.skip(p, |b| b == byte)
                 }
                 Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
-                Some(_) if matches!(G::BLANK_RUNS, BlankRuns::Skip) => lexer.pass_char(p),
+                Some(_) if matches!(G::BLANK_RUNS, BlankRuns::Skip) => {
+                    lexer.pass_char(p, G::MIXED_BLANK_RUNS && !HALTING)
+                }
                 Some(_) => lexer.char_end(p),
                 None => p + 1,
             };

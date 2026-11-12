@@ -48,6 +48,8 @@ fn hostile_proto_lines_end_under_the_work_limit() {
         format!("{}//", " ".repeat(12_000)),
         format!("{}x", "\u{a0}".repeat(4_000)),
         format!("{}x", "\u{3000}".repeat(4_000)),
+        format!("{}x", "\u{a0} ".repeat(4_000)),
+        format!("{}x", "\u{3000}\t\u{a0}".repeat(3_000)),
         "x".repeat(12_000),
     ] {
         let (rows, _) = lex(&mut highlighter, &[&line]);
@@ -95,15 +97,19 @@ fn a_long_failing_field_ends_under_the_work_limit() {
     );
 }
 
-/// A limit line: no-break spaces, each followed by a space.
+/// A limit line: no-break spaces, each followed by a space, inside a
+/// message.
 ///
-/// The scan passes a run of one blank character in one step, but here each
-/// run is one character long.
-/// So the scan tries every no-break space.
-/// At each, a pattern that begins with `\s*` takes the rest of the line, and
-/// the work grows with the square of the line's length.
+/// The scan tries the field pattern once, at the first no-break space.
+/// That pattern begins `\s*(optional|repeated|required)?\s*`.
+/// For each length the first `\s*` gives back, the second runs over the
+/// rest of the run.
+///
+/// So the one try costs work that grows with the square of the line's
+/// length, as a run of spaces alone does.
+/// The same line outside a message is a bound line.
 #[test]
-fn no_break_spaces_between_spaces_end_at_the_work_limit() {
+fn no_break_spaces_between_spaces_end_at_the_work_limit_in_a_message() {
     let line = format!("{}x", "\u{a0} ".repeat(4_000));
     let limits = limits_in_a_message(&line);
     assert!(limits.contains(&Limit::Work), "reached {limits:?}");

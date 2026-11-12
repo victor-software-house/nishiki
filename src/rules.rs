@@ -1396,6 +1396,21 @@ pub(crate) trait Tabled: Grammar {
     /// It compiles that step out where no pattern needs it.
     const WORDS_AT_START: bool;
 
+    /// Whether every pattern treats a wide space as a space.
+    ///
+    /// A wide space is a `\s` character above ASCII, such as the no-break
+    /// space.
+    /// Then a run of spaces, tabs and wide spaces looks to every pattern like a
+    /// run of spaces and tabs.
+    /// So the scan of a [`BlankRuns::Skip`] grammar passes it in one step
+    /// ([`Lexer::pass_char`]).
+    /// `oracle/rule-grammar.ts` decides it per grammar, in
+    /// `treatsWideSpacesAsSpaces`.
+    ///
+    /// A halting scan passes only runs of one wide space.
+    /// The halt comes from another grammar, which the analysis has not read.
+    const MIXED_BLANK_RUNS: bool = false;
+
     /// The bytes `pattern` can start at.
     fn pattern_start(pattern: Self::Pattern) -> Start;
     /// The tables of `rule`, built on first use.

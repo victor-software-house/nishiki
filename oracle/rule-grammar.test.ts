@@ -2,7 +2,7 @@
 // `mise run test:scripts` and `mise run check:rule-grammars` run them.
 import { expect, test } from "bun:test";
 
-import { canMatchEmpty, startOf, takesOneBlank } from "./rule-grammar.ts";
+import { canMatchEmpty, startOf, takesOneBlank, treatsWideSpacesAsSpaces } from "./rule-grammar.ts";
 
 test("a single blank, then a character that is not a blank, takes one blank", () => {
   expect(takesOneBlank("\\s-\\s")).toBe(true);
@@ -164,4 +164,67 @@ test("a run after a lookaround cannot move a match inside a word to the word's s
   expect(startOf("-?\\w*\\b-", "any").wb).toBe(true);
   expect(startOf("\\w*\\b-", "any").wb).toBe(true);
   expect(startOf("(?:\\w*)\\b-", "any").wb).toBe(true);
+});
+
+test("a pattern that takes any blank treats a wide space as a space", () => {
+  expect(treatsWideSpacesAsSpaces("\\s*(//)")).toBe(true);
+  expect(treatsWideSpacesAsSpaces("[[:space:]]+x")).toBe(true);
+  expect(treatsWideSpacesAsSpaces("^\\s*$")).toBe(true);
+});
+
+test("a pattern that takes spaces only tells a wide space from a space", () => {
+  expect(treatsWideSpacesAsSpaces("[ \\t]+$")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("^[\\t ]+")).toBe(false);
+  expect(treatsWideSpacesAsSpaces(" {2,}$")).toBe(false);
+});
+
+test("a class that holds some wide spaces tells them from a space", () => {
+  expect(treatsWideSpacesAsSpaces("[^\\x00-\\x7F]+")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("[\\x{80}-\\x{10FFFF}]")).toBe(false);
+});
+
+test("what follows a character that leaves the run is not read", () => {
+  expect(treatsWideSpacesAsSpaces("\\s*x[ \\t]")).toBe(true);
+  expect(treatsWideSpacesAsSpaces("(?:\\s|a) ")).toBe(false);
+});
+
+test("a lookbehind is read in full, wherever it stands", () => {
+  expect(treatsWideSpacesAsSpaces("(?<= )x")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("x(?<=[ ]x)")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("(?<=\\S)x")).toBe(true);
+});
+
+test("a back reference to a group with no blank repeats the same text", () => {
+  expect(treatsWideSpacesAsSpaces("([\"'])(?:\\\\.|[^\\\\])*?\\1")).toBe(true);
+  expect(treatsWideSpacesAsSpaces("(a)x\\1")).toBe(true);
+});
+
+test("a back reference that can repeat a blank fails the pattern", () => {
+  expect(treatsWideSpacesAsSpaces("(\\s)x\\1")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("(a\\1)")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("\\1")).toBe(false);
+});
+
+test("a named reference to a group with no blank repeats the same text", () => {
+  expect(treatsWideSpacesAsSpaces("(?<q>'?)x\\k<q>")).toBe(true);
+  expect(treatsWideSpacesAsSpaces("(?<q>\\s?)x\\k<q>")).toBe(false);
+});
+
+test("a call passes once the match has left the run", () => {
+  expect(treatsWideSpacesAsSpaces("(?<b>\\[(?:[^]\\[]|\\g<b>)*])")).toBe(true);
+});
+
+test("an end pattern's back reference repeats the begin's text and fails", () => {
+  expect(treatsWideSpacesAsSpaces("(a)x\\1", true)).toBe(false);
+});
+
+test("a call inside the run or unknown syntax fails the pattern", () => {
+  expect(treatsWideSpacesAsSpaces("(?<n>\\s)\\g<n>")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("[a&&b]")).toBe(false);
+  expect(treatsWideSpacesAsSpaces("\\K")).toBe(false);
+});
+
+test("extended mode skips its blanks and comments", () => {
+  expect(treatsWideSpacesAsSpaces("(?x) \\s* # a comment\n x")).toBe(true);
+  expect(treatsWideSpacesAsSpaces("(?x: \\s* ) ")).toBe(false);
 });
