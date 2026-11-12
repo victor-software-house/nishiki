@@ -377,7 +377,9 @@ impl Lexer<'_> {
     /// - Its spaces give back one at a time.
     /// - At each place the callback is taken when a white space follows it, and
     ///   skipped otherwise.
-    /// - The tooltip, `"*.*`, matches anything after one white space.
+    /// - The tooltip, `"*.*"`, starts after one white space and ends at the
+    ///   line's last `"`. Without a `"` there, no choice matches: the name, its
+    ///   spaces and the callback hold no `"`.
     ///
     /// So `click A "tip"` takes `A` and gives the space to the `\s`.
     pub(super) fn click(&mut self, p: usize) -> Option<usize> {
@@ -400,12 +402,13 @@ impl Lexer<'_> {
                 return None;
             }
         };
+        let quote = memchr::memrchr(b'"', self.text(tip, self.lim()))?;
         self.capture(1, start, word);
         self.capture(2, name, spaces);
         if let Some(to) = callback {
             self.capture(3, spaces, to);
         }
-        let end = tip.max(self.lim());
+        let end = tip + quote + 1;
         self.capture(4, tip, end);
         Some(end)
     }

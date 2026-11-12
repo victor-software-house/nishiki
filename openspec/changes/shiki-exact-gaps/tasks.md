@@ -134,11 +134,19 @@ The [research note][note] holds the numbers each task starts from.
     nishiki stops at `meta.statement.command.shell`.
 - [ ] 5.3 In a fence, the text after a line's second here document opener gets the embed Shiki gives it.
   → verify: at every seed, no document differs in Ruby's `mdw` corpus
-- [ ] 5.4 Mermaid leaves a backslash after a closed string plain, as Shiki does.
+- [x] 5.4 Mermaid leaves a backslash after a closed string plain, as Shiki does.
   → verify: at every seed, no document differs in Mermaid's `win` and `mdw` corpora and its differential
   - 2026-11-12: at [98bb9820][base], Mermaid's `win` corpus at seed 1 shows it, at line 38, column 32.
     The line holds `click B "https://example.com"\` after two blanks.
     Shiki gives `markdown.mermaid.codeblock`, and nishiki adds `string`.
+  - 2026-11-12: the click rule's tooltip is `("*.*")`, and its closing `"` is literal.
+    So the string ends at the line's last `"`, and a click with no `"` after its name does not match.
+    nishiki's matcher read `"*.*` and ran the string to the end of the line.
+  - 2026-11-12: `a_clicks_tooltip_ends_at_its_last_quote` holds four click lines with Shiki's scopes.
+    On a box, it fails on the base and passes with the fix.
+  - 2026-11-12: Mermaid's corpora on a box, at seeds 1, 2 and 3: 300 `win`, 100 `mdw`, and 100 bare and 100 fenced differential documents per seed.
+    Before, seed 1's `win` corpus had one that differs, document 94, by 1 byte.
+    After, none differs in any corpus at any seed.
 
 ## 6. Vue
 
