@@ -218,7 +218,6 @@ fn looks_behind(node: &Node, behind: bool) -> bool {
         Node::Empty => false,
         Node::Anchor(anchor) => matches!(anchor, Anchor::NotWordBoundary),
         Node::Char(c) => behind && reads_a_wide_space(|x| x == *c),
-        Node::Any { .. } => behind,
         Node::Class(class) => behind && reads_a_wide_space(|x| class.matches(x)),
         Node::Sequence(items) | Node::Alternation(items) | Node::Folds(items) => {
             items.iter().any(|item| looks_behind(item, behind))
@@ -231,7 +230,8 @@ fn looks_behind(node: &Node, behind: bool) -> bool {
             negative,
             node,
         } => (!*ahead && *negative) || looks_behind(node, behind || !*ahead),
-        Node::BackReference(..)
+        Node::Any { .. }
+        | Node::BackReference(..)
         | Node::NamedBackReference(..)
         | Node::Subroutine(_)
         | Node::NamedSubroutine(_) => behind,
