@@ -12,4 +12,5 @@ pub(crate) const PROTO: RuleTables = RuleTables {
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
     reentry: Reentry::WithinRule,
+    externals: &[],
 };

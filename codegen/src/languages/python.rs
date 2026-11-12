@@ -12,4 +12,5 @@ pub(crate) const PYTHON: RuleTables = RuleTables {
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
     reentry: Reentry::WithinRule,
+    externals: &[],
 };

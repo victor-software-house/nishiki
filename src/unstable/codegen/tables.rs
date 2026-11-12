@@ -26,6 +26,26 @@ pub struct RuleTables {
     pub lone_pattern: LonePattern,
     /// Where a list that reaches itself again adds nothing.
     pub reentry: Reentry,
+    /// What each include of another grammar adds, by the include, such as
+    /// Lua's `source.c`.
+    /// Any other include of another grammar is an error.
+    pub externals: &'static [(&'static str, External)],
+}
+
+/// What an include of another grammar adds to its list.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum External {
+    /// Nothing.
+    /// Shiki does not load the grammar, or the language embeds it by hand.
+    AddsNothing,
+    /// A begin that the script makes up in the include's place.
+    /// It takes the include's inline id, and its rule has no patterns.
+    Begin {
+        /// The begin's expression.
+        begin: &'static str,
+        /// The end's expression.
+        end: &'static str,
+    },
 }
 
 /// Where a list reached again while it is being expanded adds nothing.

@@ -12,4 +12,5 @@ pub(crate) const COMMON_LISP: RuleTables = RuleTables {
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
     reentry: Reentry::WithinWalk,
+    externals: &[],
 };
