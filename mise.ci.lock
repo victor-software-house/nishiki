@@ -96,21 +96,21 @@ url_api = "https://api.github.com/repos/Fission-AI/OpenSpec/releases/assets/6937
 provenance = "github-attestations"
 
 [[tools."github:victor-software-house/verctl"]]
-version = "0.7.1"
+version = "0.8.3"
 backend = "github:victor-software-house/verctl"
-specifiers = ["0.7.1"]
+specifiers = ["0.8.3"]
 
 [tools."github:victor-software-house/verctl"."platforms.linux-x64"]
-checksum = "sha256:5a744979411cec04bcba0561e71f22dd02b3547553faf87787d8bf7ca158de3c"
+checksum = "sha256:aa839d16eec741c53cbc0c158696fc5af854f9ab3d82e03e09aee4a47a3e0643"
 checksum_source = "mise-versions"
-url = "https://github.com/victor-software-house/verctl/releases/download/v0.7.1/verctl_0.7.1_linux_x64.tar.gz"
-url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/673936434"
+url = "https://github.com/victor-software-house/verctl/releases/download/v0.8.3/verctl_0.8.3_linux_x64.tar.gz"
+url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/738640797"
 
 [tools."github:victor-software-house/verctl"."platforms.macos-arm64"]
-checksum = "sha256:02ee5f0ebb8bc8c9f05454676326079b27d06c28a70022ab24cd82924893e1bb"
+checksum = "sha256:e2c025efb30f79bb285a14a4de6f5475507f3937408e148768b67195f9b14df4"
 checksum_source = "mise-versions"
-url = "https://github.com/victor-software-house/verctl/releases/download/v0.7.1/verctl_0.7.1_macos_arm64.tar.gz"
-url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/673939154"
+url = "https://github.com/victor-software-house/verctl/releases/download/v0.8.3/verctl_0.8.3_macos_arm64.tar.gz"
+url_api = "https://api.github.com/repos/victor-software-house/verctl/releases/assets/738648597"
 
 [[tools.jactionlint]]
 version = "2.5.0"
