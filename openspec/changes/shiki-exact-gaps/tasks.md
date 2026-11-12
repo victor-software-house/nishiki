@@ -34,8 +34,18 @@ The [research note][note] holds the numbers each task starts from.
 
 ## 3. Rust
 
-- [ ] 3.1 Rust reads non-ASCII digits and names with the classes of Shiki's engine, after reading the grammar's exact classes.
+- [x] 3.1 Rust reads non-ASCII digits and names with the classes of Shiki's engine, after reading the grammar's exact classes.
   → verify: at every seed, no document differs in Rust's `win` and `mdw` corpora
+  - 2026-11-12: the grammar's Unicode classes are `\w`, `\b` and `\d`.
+    `\d` sits in its decimal, hex and escape digits.
+    Every other class is an ASCII range.
+  - 2026-11-12: Rust's `win` corpus, on a box, 300 documents per seed.
+    Before, 3, 3 and 1 differed at seeds 1, 2 and 3.
+    After, none differs at any seed.
+  - 2026-11-12: Rust's `mdw` corpus, on a box, 100 documents per seed.
+    Before, 5, 3 and 0 differed at seeds 1, 2 and 3.
+    After, none differs at any seed.
+  - 2026-11-12: Callgrind against the base, one build per side, reads Rust at 0.9893 for lexing.
 
 ## 4. Ruby and Mermaid
 

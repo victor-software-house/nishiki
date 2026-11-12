@@ -7,7 +7,7 @@ use memchr::memmem;
 use super::scope::S;
 use super::state::Rule;
 use crate::arena::{Arena, Frame};
-use crate::classes::{is_ascii_space, is_ascii_word};
+use crate::classes::{self, is_ascii_space, is_ascii_word};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Stack, Token};
 
@@ -30,17 +30,10 @@ pub(crate) struct Lexer<'a> {
     /// searched for it.
     last_call: OnceCell<Option<usize>>,
     /// End of the ASCII identifier run at the cursor, and of the word run.
-    /// The word run also covers non-ASCII bytes.
+    /// The word run also covers the non-ASCII characters of `\w`.
     /// [`Lexer::scan_word`] sets both.
     pub(crate) ident_end: usize,
     pub(crate) word_end: usize,
-}
-
-/// The regex `\w`, with non-ASCII bytes counted as word characters.
-/// A Unicode space is not one.
-/// [`Lexer::word_at`] and [`Lexer::word_before`] distinguish it.
-pub(crate) fn is_word(b: u8) -> bool {
-    is_ascii_word(b) || b >= 0x80
 }
 
 impl<'a> Lexer<'a> {
@@ -165,37 +158,35 @@ impl<'a> Lexer<'a> {
         self.word_before(i) != self.word_at(i)
     }
 
-    /// Whether the character at `i` is a word character.
+    /// Whether the character at `i` is a `\w` character.
     #[inline]
     pub(crate) fn word_at(&self, i: usize) -> bool {
         match self.s.get(i) {
             None => false,
-            Some(&b) if b < 0xc2 => is_word(b),
-            Some(_) => crate::space::len(&self.s[i..]) == 0,
+            Some(&b) if b < 0x80 => is_ascii_word(b),
+            Some(_) => classes::word_width(self.s, i) > 0,
         }
     }
 
-    /// Whether the character that ends at `i` is a word character.
+    /// Whether the character that ends at `i` is a `\w` character.
     #[inline]
     pub(crate) fn word_before(&self, i: usize) -> bool {
         match i.checked_sub(1).map(|j| self.s[j]) {
             None => false,
             Some(b) if b < 0x80 => is_ascii_word(b),
-            Some(_) => !self.space_before(i),
+            Some(_) => classes::word_before(self.s, i),
         }
-    }
-
-    /// Whether a Unicode space ends at `i`.
-    fn space_before(&self, i: usize) -> bool {
-        (i >= 2 && crate::space::len(&self.s[i - 2..i]) == 2)
-            || (i >= 3 && crate::space::len(&self.s[i - 3..i]) == 3)
     }
 
     /// The end of the word characters at `i`.
     pub(crate) fn word_run(&self, mut i: usize) -> usize {
         let from = i;
-        while self.word_at(i) {
-            i += 1;
+        loop {
+            let width = classes::word_width(self.s, i);
+            if width == 0 {
+                break;
+            }
+            i += width;
         }
         self.spend(i - from);
         i
@@ -338,7 +329,7 @@ impl<'a> Lexer<'a> {
                 return end;
             }
         }
-        p + 1
+        p + crate::utf8::char_len(b)
     }
 
     /// Skips blanks.

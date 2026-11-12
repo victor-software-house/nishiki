@@ -39,9 +39,8 @@ impl Group {
         match self {
             BlockComments | Comments => b == b'/',
             Attributes => b == b'#',
-            Lvariables | Constants | Gtypes | Functions | Types | Namespaces | Variables => {
-                is_ascii_word(b)
-            }
+            Lvariables | Gtypes | Functions | Types | Namespaces | Variables => is_ascii_word(b),
+            Constants => is_ascii_word(b) || b >= 0xc2,
             Macros => b.is_ascii_alphabetic() || b == b'_',
             Lifetimes => matches!(b, b'\'' | b'&'),
             Strings => matches!(b, b'"' | b'\'' | b'b' | b'r'),
@@ -500,6 +499,9 @@ impl Lexer<'_> {
     // Constants and numbers.
 
     fn constants(&mut self, p: usize, b: u8) -> Option<usize> {
+        if b >= 0x80 {
+            return self.decimal(p);
+        }
         if !is_ascii_word(b) || !self.word_start(p) {
             return None;
         }

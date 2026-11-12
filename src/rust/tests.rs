@@ -392,3 +392,35 @@ fn unicode_spaces_are_blanks_as_in_the_grammars_whitespace_class() {
         );
     }
 }
+
+/// `\w`, `\b` and `\d` read Unicode as Shiki's engine does.
+/// A digit such as `٣` is `\d`, and an emoji such as `🦀` is not `\w`.
+/// Each scope is Shiki's for the token.
+#[test]
+fn unicode_digits_and_word_characters_follow_the_engines_classes() {
+    let cases = [
+        ("x = ٣;", "٣", "constant.numeric.decimal.rust"),
+        ("x = ٣.٥e٣u8;", "e", "keyword.operator.exponent.rust"),
+        ("x = ٣.٥e٣u8;", "u8", "entity.name.type.numeric.rust"),
+        ("1٣", "1٣", "constant.numeric.decimal.rust"),
+        ("🦀1", "1", "constant.numeric.decimal.rust"),
+        ("é1", "é1", "source.rust"),
+        ("x = 0x٣;", "0x٣", "constant.numeric.hex.rust"),
+        ("\"\\x7٣\"", "x7٣", "constant.character.escape.bit.rust"),
+        (
+            "\"\\u{٣٣٣٣}\"",
+            "٣٣٣٣",
+            "constant.character.escape.unicode.rust",
+        ),
+        ("a🦀b = 1;", "a", "variable.other.rust"),
+        ("a🦀b = 1;", "b", "variable.other.rust"),
+        ("self🦀", "self", "variable.language.self.rust"),
+        ("Foo🦀", "Foo", "entity.name.type.rust"),
+        ("$X٣🦀", "X٣", "entity.name.type.metavariable.rust"),
+        ("$a🦀:expr", "a", "variable.other.metavariable.name.rust"),
+        ("x🦀 < y", "<", "punctuation.brackets.angle.rust"),
+    ];
+    for (text, token, scope) in cases {
+        assert_eq!(scope_of(text, token), scope, "{text:?}");
+    }
+}
