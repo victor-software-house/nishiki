@@ -2553,6 +2553,66 @@ fn a_vue_fence_anchors_the_lines_its_own_rule_starts() {
     );
 }
 
+/// A `vue` fence opens mid-line where a TypeScript or JSX rule's begin
+/// match ends, since `\G` holds there.
+/// It sits on the scopes of that rule, and Vue lexes its body.
+/// The outer fence's `while` rule closes both at the next fence line.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_fence_opens_where_a_typescript_rule_begins() {
+    let cases: [(&str, &str, &str, &[&str]); 6] = [
+        (
+            "typescript",
+            "\"",
+            "typescript",
+            &["string.quoted.double.ts"],
+        ),
+        ("typescript", "(", "typescript", &[]),
+        ("typescript", "{", "typescript", &["meta.block.ts"]),
+        (
+            "typescript",
+            "//",
+            "typescript",
+            &["comment.line.double-slash.ts"],
+        ),
+        ("typescript", ";", "typescript", &["string.template.ts"]),
+        (
+            "jsx",
+            "x = <a>",
+            "javascript",
+            &["meta.tag.without-attributes.js", "meta.jsx.children.js"],
+        ),
+    ];
+    for (fence, opener, embedded, rules) in cases {
+        let text = formatdoc! {"
+            ```{fence}
+            x
+            {opener}````vue
+            <p>a</p>
+            ````
+            ```
+            after"};
+        let mut body = vec![
+            "text.html.markdown".to_owned(),
+            "markup.fenced_code.block.markdown".to_owned(),
+            format!("meta.embedded.block.{embedded}"),
+        ];
+        body.extend(rules.iter().map(|rule| (*rule).to_owned()));
+        body.push("markup.fenced_code.block.markdown".to_owned());
+        let mut language = body.clone();
+        language.push("fenced_code.block.language.markdown".to_owned());
+        assert_eq!(stack_of(&text, "vue"), language, "{opener:?}");
+        let mut tag = body;
+        tag.push("entity.name.tag.p.html.vue".to_owned());
+        assert_eq!(stack_of(&text, "p"), tag, "{opener:?}");
+        assert_eq!(
+            stack_of(&text, "after"),
+            ["text.html.markdown", "meta.paragraph.markdown"],
+            "{opener:?}"
+        );
+    }
+}
+
 /// Markdown as another language embeds it, from its start over that
 /// language's scopes.
 const EMBEDDED: test_support::embedded::Embedded = test_support::embedded::Embedded {
