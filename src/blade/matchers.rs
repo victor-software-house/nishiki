@@ -6,6 +6,10 @@
 //! Blade's copy of PHP is older than Shiki's `php` grammar.
 //! Its name class is `[_a-z\x7F-ÿ]` under `(?i)` and ends at U+00FF, so
 //! Blade's names are read by character, never by PHP's byte test.
+//!
+//! U+0085 and U+00A0 are both name characters and `\s`.
+//! Where a name follows a `\s*` or a `\s+`, the run gives such a space back
+//! when no name starts after it ([`Lexer::after_spaces`]).
 
 use super::engine::Lexer;
 use super::grammar::{Pattern, table_patterns};

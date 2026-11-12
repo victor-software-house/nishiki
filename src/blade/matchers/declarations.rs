@@ -203,11 +203,7 @@ impl Lexer<'_> {
             let Some(word) = self.ilit(at, b"class") else {
                 continue;
             };
-            let name_at = self.space_end(word);
-            if name_at == word {
-                continue;
-            }
-            let Some(name) = self.bname(name_at) else {
+            let Some((name_at, name)) = self.after_spaces(word, true, Self::bname) else {
                 continue;
             };
             if let Some(end) = modifier {
@@ -274,7 +270,7 @@ impl Lexer<'_> {
             if self.at(bar) != b'|' || bar >= self.lim() {
                 break;
             }
-            let Some(next) = self.bname(self.space_end(bar + 1)) else {
+            let Some((_, next)) = self.after_spaces(bar + 1, false, Self::bname) else {
                 break;
             };
             types = next;
@@ -652,8 +648,8 @@ impl Lexer<'_> {
         self.capture(1, p, p + 1);
         let colon = self.space_end(p + 1);
         if self.at(colon) == b':' && colon < self.lim() {
-            let ty = self.space_end(colon + 1);
-            if let Some(end) = self.bname_exact(ty) {
+            let ty = self.after_spaces(colon + 1, false, Self::bname_exact);
+            if let Some((ty, end)) = ty {
                 self.capture(2, colon, colon + 1);
                 self.capture(3, ty, end);
                 return Some(end);
@@ -664,13 +660,10 @@ impl Lexer<'_> {
 
     /// `(?i)\b(as)\s+(MODIFIER)\s+(NAME)\b`.
     pub(super) fn use_as_modifier(&mut self, p: usize) -> Option<usize> {
-        let (word, at) = self.as_word(p, b"as")?;
-        let modifier = MODIFIERS.iter().find_map(|word| self.ilit(at, word))?;
-        let name_at = self.space_end(modifier);
-        if name_at == modifier {
-            return None;
-        }
-        let end = self.bname_bounded(name_at)?;
+        let (word, (at, modifier)) = self.as_word(p, b"as", |lexer, at| {
+            MODIFIERS.iter().find_map(|word| lexer.ilit(at, word))
+        })?;
+        let (name_at, end) = self.after_spaces(modifier, true, Self::bname_bounded)?;
         self.capture(1, p, word);
         self.capture(2, at, modifier);
         self.capture(3, name_at, end);
@@ -679,8 +672,7 @@ impl Lexer<'_> {
 
     /// `(?i)\b(as)\s+(NAME)\b`.
     pub(super) fn use_as_name(&mut self, p: usize) -> Option<usize> {
-        let (word, at) = self.as_word(p, b"as")?;
-        let end = self.bname_bounded(at)?;
+        let (word, (at, end)) = self.as_word(p, b"as", Self::bname_bounded)?;
         self.capture(1, p, word);
         self.capture(2, at, end);
         Some(end)
@@ -688,21 +680,26 @@ impl Lexer<'_> {
 
     /// `(?i)\b(insteadof)\s+(NAME)`.
     pub(super) fn insteadof(&mut self, p: usize) -> Option<usize> {
-        let (word, at) = self.as_word(p, b"insteadof")?;
-        let end = self.bname(at)?;
+        let (word, (at, end)) = self.as_word(p, b"insteadof", Self::bname)?;
         self.capture(1, p, word);
         self.capture(2, at, end);
         Some(end)
     }
 
-    /// `(?i)\b(word)\s+` at `p`: where the word ends and its spaces end.
-    fn as_word(&self, p: usize, word: &[u8]) -> Option<(usize, usize)> {
+    /// `(?i)\b(word)\s+` at `p`, then `then` after the spaces: where the
+    /// word ends, where `then` starts and what it gives.
+    fn as_word<R>(
+        &self,
+        p: usize,
+        word: &[u8],
+        then: impl FnMut(&Self, usize) -> Option<R>,
+    ) -> Option<(usize, (usize, R))> {
         if !self.boundary(p) {
             return None;
         }
         let end = self.ilit(p, word)?;
-        let at = self.space_end(end);
-        (at > end).then_some((end, at))
+        let found = self.after_spaces(end, true, then)?;
+        Some((end, found))
     }
 
     /// `^(?:final|abstract|public|private|protected|static)$`, on a capture's
@@ -724,11 +721,7 @@ impl Lexer<'_> {
         }
         let start = self.space_end(0);
         let end = self.ilit(start, word)?;
-        let at = self.space_end(end);
-        if at == end {
-            return None;
-        }
-        let name = self.bname(at)?;
+        let (at, name) = self.after_spaces(end, true, Self::bname)?;
         Some(((start, end), at, name))
     }
 }

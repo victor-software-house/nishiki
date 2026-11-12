@@ -117,8 +117,7 @@ impl Lexer<'_> {
         if p != 0 && !matches!(self.prev(p), Some(b'(' | b',')) {
             return None;
         }
-        let at = self.space_end(p);
-        let end = self.name(at)?;
+        let (at, end) = self.after_spaces(p, false, Self::name)?;
         let colon = self.space_end(end);
         if self.at(colon) != b':' || self.at(colon + 1) == b':' {
             return None;
@@ -150,11 +149,7 @@ impl Lexer<'_> {
         let (end, group) = words
             .iter()
             .find_map(|&(word, group)| self.ilit(at, word).map(|end| (end, group)))?;
-        let name_at = self.space_end(end);
-        if name_at == end {
-            return None;
-        }
-        let name = self.name(name_at)?;
+        let (name_at, name) = self.after_spaces(end, true, Self::name)?;
         self.capture(1, p, as_end);
         self.capture(2, at, end);
         self.capture(group, at, end);
@@ -176,25 +171,20 @@ impl Lexer<'_> {
             return None;
         }
         let word_end = self.ilit(p, b"const")?;
-        let at = self.space_end(word_end);
-        if at == word_end {
-            return None;
-        }
-        let typed = self.each_type(at, &mut |lexer, end| {
-            let name_at = lexer.space_end(end);
-            if name_at == end {
-                return None;
-            }
-            lexer.name(name_at).map(|name| (end, name_at, name))
-        });
+        let (at, (ty_end, (name_at, name))) = self.after_spaces(word_end, true, |lexer, at| {
+            lexer
+                .each_type(at, &mut |lexer, end| {
+                    lexer
+                        .after_spaces(end, true, Self::name)
+                        .map(|named| (Some(end), named))
+                })
+                .or_else(|| lexer.name(at).map(|name| (None, (at, name))))
+        })?;
         self.capture(1, p, word_end);
-        if let Some((end, name_at, name)) = typed {
+        if let Some(end) = ty_end {
             self.capture(2, at, end);
-            self.capture(3, name_at, name);
-            return Some(name);
         }
-        let name = self.name(at)?;
-        self.capture(3, at, name);
+        self.capture(3, name_at, name);
         Some(name)
     }
 
@@ -223,8 +213,7 @@ impl Lexer<'_> {
             return None;
         }
         let word_end = self.ilit(p, b"case")?;
-        let at = self.space_end(word_end);
-        let name = self.name(at)?;
+        let (at, name) = self.after_spaces(word_end, false, Self::name)?;
         self.capture(1, p, word_end);
         self.capture(2, p, word_end);
         self.capture(3, at, name);
@@ -293,10 +282,8 @@ impl Lexer<'_> {
             at = next;
         }
         if let Some(class_end) = self.ilit(at, b"class") {
-            let name_at = self.space_end(class_end);
-            if name_at > class_end
-                && let Some(name) = self.name(name_at)
-            {
+            let named = self.after_spaces(class_end, true, Self::name);
+            if let Some((name_at, name)) = named {
                 self.capture(1, p, at);
                 self.capture(2, at, class_end);
                 self.capture(3, name_at, name);
@@ -443,16 +430,18 @@ impl Lexer<'_> {
         if self.at(p) != b':' {
             return None;
         }
-        let at = self.space_end(p + 1);
-        let end = self.each_type(at, &mut |lexer, end| {
-            let next = lexer.space_end(end);
-            let body = match follows {
-                ReturnEnd::Brace => lexer.at(next) == b'{' && next < lexer.lim(),
-                ReturnEnd::Arrow => lexer.starts(next, b"=>"),
-            };
-            let comment =
-                lexer.starts(next, b"/*") || lexer.starts(next, b"//") || lexer.starts(next, b"#");
-            (body || comment || lexer.at_eol(next)).then_some(end)
+        let (at, end) = self.after_spaces(p + 1, false, |lexer, at| {
+            lexer.each_type(at, &mut |lexer, end| {
+                let next = lexer.space_end(end);
+                let body = match follows {
+                    ReturnEnd::Brace => lexer.at(next) == b'{' && next < lexer.lim(),
+                    ReturnEnd::Arrow => lexer.starts(next, b"=>"),
+                };
+                let comment = lexer.starts(next, b"/*")
+                    || lexer.starts(next, b"//")
+                    || lexer.starts(next, b"#");
+                (body || comment || lexer.at_eol(next)).then_some(end)
+            })
         })?;
         self.capture(1, p, p + 1);
         self.capture(2, at, end);
@@ -780,8 +769,12 @@ impl Lexer<'_> {
             }
         }
         let amp = self.at(name_at) == b'&';
-        let name_from = self.space_end(name_at + usize::from(amp));
-        let name = self.name(name_from)?;
+        let spaces = if amp {
+            (name_at + 1, false)
+        } else {
+            (function_end, true)
+        };
+        let (name_from, name) = self.after_spaces(spaces.0, spaces.1, Self::name)?;
         let open = opens(self, name)?;
         self.capture(1, p, at);
         self.capture(2, at, function_end);
@@ -799,16 +792,15 @@ impl Lexer<'_> {
             return None;
         }
         let colon = self.space_end(p + 1);
-        if self.at(colon) == b':' {
-            let at = self.space_end(colon + 1);
-            if let Some(end) =
-                self.each_type(at, &mut |lexer, end| lexer.body_follows(end).then_some(end))
-            {
-                self.capture(1, p, p + 1);
-                self.capture(2, colon, colon + 1);
-                self.capture(3, at, end);
-                return Some(end);
-            }
+        if self.at(colon) == b':'
+            && let Some((at, end)) = self.after_spaces(colon + 1, false, |lexer, at| {
+                lexer.each_type(at, &mut |lexer, end| lexer.body_follows(end).then_some(end))
+            })
+        {
+            self.capture(1, p, p + 1);
+            self.capture(2, colon, colon + 1);
+            self.capture(3, at, end);
+            return Some(end);
         }
         if !self.body_follows(p + 1) {
             return None;
