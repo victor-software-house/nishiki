@@ -21,8 +21,14 @@
 //! pattern.
 //!
 //! A list reached again while it is being expanded adds nothing there.
+//! The top-level list counts as being expanded from the start, so a `$self`
+//! in it adds nothing.
 //! A rule a begin opens lists its patterns afresh, so a list being expanded
 //! around it still counts in full inside it.
+//!
+//! Two patterns or rules with different contents never share an id.
+//! The scripts let the later one replace the earlier one.
+//! The walk fails instead.
 //!
 //! The walk ports the copies of `flatten`, `expand` and `register` in the
 //! `oracle/<language>-grammar.ts` scripts.
@@ -41,7 +47,7 @@ use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, U
 /// # Errors
 ///
 /// [`GenerateError`] when an include names no rule, when a rule has nothing
-/// to match, or when two rules take one id.
+/// to match, or when two patterns or rules take one id.
 pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Tables, GenerateError> {
     let mut walk = Walk {
         grammar,
@@ -51,12 +57,10 @@ pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Table
         capture_lists: HashMap::new(),
         expanding: HashSet::new(),
     };
-    let root = walk.rule_list(&grammar.patterns, "Root")?;
-    walk.tables.rules.push(Rule {
-        id: "Root".to_owned(),
-        end: None,
-        patterns: root,
-    });
+    walk.expanding.insert("Root".to_owned());
+    let root = walk.list(&grammar.patterns, "Root")?;
+    let index = walk.put_rule("Root", None)?;
+    walk.tables.rules[index].patterns = root;
     Ok(walk.tables)
 }
 
@@ -196,10 +200,7 @@ impl<'a> Walk<'a> {
         id: &str,
         regex: String,
     ) -> Result<usize, GenerateError> {
-        if let Some(&known) = self.patterns.get(id) {
-            if regex != self.tables.patterns[known].regex {
-                return Err(GenerateError::TwoRulesOneId { id: id.to_owned() });
-            }
+        if let Some(known) = self.known(id, &regex, Act::Match)? {
             return Ok(known);
         }
         self.captures(self.grammar.rules[rule].captures.as_deref())?;
@@ -209,30 +210,30 @@ impl<'a> Walk<'a> {
     /// The index of the pattern of `rule`, named `id`, which it adds the first
     /// time.
     /// A begin also adds its end, then its rule.
+    ///
+    /// A begin's capture lists can reach the begin itself.
+    /// The begin, its end and its rule are then written before the lists
+    /// return, and the begin returns that index.
     fn register(&mut self, rule: RuleId, id: &str) -> Result<usize, GenerateError> {
         let object: &'a UnlinkedRule = &self.grammar.rules[rule];
         if let Some(matched) = &object.matched {
             return self.register_match(rule, id, matched.to_string());
         }
-        if let Some(&known) = self.patterns.get(id) {
-            if object
-                .begin
-                .as_deref()
-                .is_some_and(|regex| regex != self.tables.patterns[known].regex)
-            {
-                return Err(GenerateError::TwoRulesOneId { id: id.to_owned() });
-            }
-            return Ok(known);
-        }
         let (Some(begin), Some(end)) = (&object.begin, &object.end) else {
             return Err(GenerateError::NoAct { id: id.to_owned() });
         };
+        if let Some(known) = self.known(id, begin, Act::Begin)? {
+            return Ok(known);
+        }
         self.captures(
             object
                 .begin_captures
                 .as_deref()
                 .or(object.captures.as_deref()),
         )?;
+        if let Some(known) = self.known(id, begin, Act::Begin)? {
+            return Ok(known);
+        }
         let opened = self.put(id.to_owned(), begin.to_string(), Act::Begin)?;
         self.captures(
             object
@@ -241,49 +242,66 @@ impl<'a> Walk<'a> {
                 .or(object.captures.as_deref()),
         )?;
         let closed = self.put(format!("{id}End"), end.to_string(), Act::End)?;
-        let index = self.put_rule(id, Some(closed));
+        let index = self.put_rule(id, Some(closed))?;
         self.tables.rules[index].patterns = self.rule_list(&object.patterns, id)?;
         Ok(opened)
     }
 
-    /// Writes a pattern, and returns its index.
-    ///
-    /// A pattern a capture list reached while its id waited keeps its place,
-    /// as a JavaScript `Map` keeps a key's first place.
+    /// The index of the pattern `id`, or `None` when no pattern has that id
+    /// yet.
     ///
     /// # Errors
     ///
-    /// [`GenerateError::TwoRulesOneId`] when the id names another expression
-    /// or act, such as a begin's end id `FooEnd` and a repository entry
+    /// [`GenerateError::IdTaken`] when the pattern `id` has another
+    /// expression than `regex`, or another act than `act`.
+    fn known(&self, id: &str, regex: &str, act: Act) -> Result<Option<usize>, GenerateError> {
+        let Some(&index) = self.patterns.get(id) else {
+            return Ok(None);
+        };
+        let pattern = &self.tables.patterns[index];
+        if pattern.regex != regex || pattern.act != act {
+            return Err(GenerateError::IdTaken { id: id.to_owned() });
+        }
+        Ok(Some(index))
+    }
+
+    /// Writes a pattern, and returns its index.
+    ///
+    /// A pattern written again unchanged keeps its first place.
+    /// A capture list can reach a match while the match waits for its
+    /// captures, and the match then keeps the place the list gave it.
+    ///
+    /// # Errors
+    ///
+    /// [`GenerateError::IdTaken`] when the id names another expression or
+    /// act, such as a begin's end id `FooEnd` and a repository entry
     /// `foo-end`.
     fn put(&mut self, id: String, regex: String, act: Act) -> Result<usize, GenerateError> {
-        let pattern = Pattern { id, regex, act };
-        if let Some(&index) = self.patterns.get(&pattern.id) {
-            if self.tables.patterns[index] != pattern {
-                return Err(GenerateError::TwoRulesOneId { id: pattern.id });
-            }
-            return Ok(index);
+        if let Some(known) = self.known(&id, &regex, act)? {
+            return Ok(known);
         }
         let index = self.tables.patterns.len();
-        self.patterns.insert(pattern.id.clone(), index);
-        self.tables.patterns.push(pattern);
+        self.patterns.insert(id.clone(), index);
+        self.tables.patterns.push(Pattern { id, regex, act });
         Ok(index)
     }
 
     /// Writes an empty rule, and returns its index.
-    /// A rule written before keeps its place.
-    fn put_rule(&mut self, id: &str, end: Option<usize>) -> usize {
-        let rule = Rule {
+    ///
+    /// # Errors
+    ///
+    /// [`GenerateError::IdTaken`] when a rule already has the id, such as a
+    /// capture list's `Nested0` and a begin under the key `nested0`.
+    fn put_rule(&mut self, id: &str, end: Option<usize>) -> Result<usize, GenerateError> {
+        if self.tables.rules.iter().any(|known| known.id == id) {
+            return Err(GenerateError::IdTaken { id: id.to_owned() });
+        }
+        self.tables.rules.push(Rule {
             id: id.to_owned(),
             end,
             patterns: Vec::new(),
-        };
-        if let Some(index) = self.tables.rules.iter().position(|known| known.id == id) {
-            self.tables.rules[index] = rule;
-            return index;
-        }
-        self.tables.rules.push(rule);
-        self.tables.rules.len() - 1
+        });
+        Ok(self.tables.rules.len() - 1)
     }
 
     /// Adds a rule for each capture whose own pattern list is new, in group
@@ -320,7 +338,7 @@ impl<'a> Walk<'a> {
         }
         let id = format!("Nested{}", self.capture_lists.len());
         self.capture_lists.insert(text, id.clone());
-        let index = self.put_rule(&id, None);
+        let index = self.put_rule(&id, None)?;
         self.tables.rules[index].patterns = self.rule_list(list, &id)?;
         Ok(())
     }

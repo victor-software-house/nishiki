@@ -147,7 +147,10 @@ The readability exemption for Swift's generated names ends with that pull reques
 - a hand matcher names a pattern the grammar lacks;
 - a derived name passes 40 characters, and `names` gives none (section 2.4);
 - two patterns take the same name, derived or from `names`, and the error names both pattern ids (section 2.4);
-- a `names` entry names a pattern the grammar lacks, breaks rule 3.9, or passes 40 characters (section 2.4).
+- a `names` entry names a pattern the grammar lacks, breaks rule 3.9, or passes 40 characters (section 2.4);
+- two patterns with different expressions or acts take one id, or two rules do (`IdTaken`).
+  The scripts let the later one replace the earlier one there.
+  The port fails instead, so a grammar that relied on the replacement fails its check.
 
 Each variant names the pattern id or include that failed.
 The stable surface of [grammar-to-rust][grammar-to-rust] cannot fail.

@@ -24,9 +24,12 @@ pub enum GenerateError {
     Split {
         /// The id of the match.
         id: String,
+        /// The match's expression.
+        regex: String,
     },
-    /// Two rules with different expressions take one id.
-    TwoRulesOneId {
+    /// Two patterns with different expressions or acts take one id, or two
+    /// rules do.
+    IdTaken {
         /// The id.
         id: String,
     },
@@ -44,14 +47,17 @@ impl fmt::Display for GenerateError {
                     "{id}: neither a match, a begin with an end, nor patterns"
                 )
             }
-            GenerateError::Split { id } => {
+            GenerateError::Split { id, regex } => {
                 write!(
                     f,
-                    "{id}: $1 names a first group that is missing or not plain words"
+                    "{id}: $1 names a first group that is missing or not plain words in {regex}"
                 )
             }
-            GenerateError::TwoRulesOneId { id } => {
-                write!(f, "{id}: two rules with different expressions take this id")
+            GenerateError::IdTaken { id } => {
+                write!(
+                    f,
+                    "{id}: two patterns or rules with different contents take this id"
+                )
             }
         }
     }
