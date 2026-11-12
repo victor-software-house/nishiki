@@ -89,16 +89,30 @@ The [research note][note] holds the numbers each task starts from.
     Each now matches Shiki.
   - 2026-11-12: Callgrind against the base, one build per side, reads Svelte at 1.0024 for lexing.
     No gated row reads over that.
-- [ ] 4.3 Find the language of the document that differs at seed 2.
+- [x] 4.3 Find the language of the document that differs at seed 2.
   → verify: the language and the document are recorded here, and its difference gets a task or a fix
   - 2026-11-12: at [98bb9820][base], the `win` corpora at seed 2 hold 4,796 documents without Svelte's four.
     One of them differs, by 151 bytes.
     Its language was not recorded.
+  - 2026-11-12: on a box, at [d36a1da6][s2-head], seed 2 wrote 100 `win` documents for each of the 73 languages with oracle fixtures.
+    Two documents differ, and the other 71 languages have none.
+    At [98bb9820][base], the same two differ by the same bytes.
+  - 2026-11-12: the 151 bytes are Ruby's document 76.
+    Its line 2 ends in `%W`.
+    nishiki keeps the literal open to line 9, where Shiki closes it at the end of line 3.
+    That is task 5.1's case.
+  - 2026-11-12: Vue's document 78 differs by 12 bytes, at `<styl/> c` and the `</st` after it.
+    Task 6.3 holds it.
 
 ## 5. Ruby and Mermaid
 
-- [ ] 5.1 A `%w` at the end of a line opens no percent literal, as in Shiki.
+- [ ] 5.1 A `%w` or `%W` at the end of a line opens a percent literal that ends with the next line, as in Shiki.
   → verify: at every seed, no document differs in Ruby's `win` corpus, and the research note's document 296 matches
+  - 2026-11-12: Shiki 4.6.0 reads the line's newline as the literal's delimiter.
+    In `a = %W`, then `b c`, then `d = 1`, the string holds `b c`.
+    `d` is `variable.ruby`.
+    `%w` gives the same, with `string.quoted.other.ruby`.
+  - 2026-11-12: Ruby's `win` corpus at seed 2 shows it with `%W`, in document 76 (task 4.3).
 - [ ] 5.2 After a here document that runs on past a blank line, the next line's command name gets Shiki's shell scopes.
   → verify: the research note's document 59 matches, and no Ruby `win` document differs at any seed
   - 2026-11-12: at [98bb9820][base], Ruby's `win` corpus at seed 1 shows it, at line 12, column 1, in `sh = <<~'SH'`.
@@ -118,6 +132,15 @@ The [research note][note] holds the numbers each task starts from.
   → verify: the cause is recorded here, with the rule it comes from
 - [ ] 6.2 Vue in a list-item fence ends its regions where Shiki does.
   → verify: at every seed, no document differs in Vue's `mdw` corpus
+- [ ] 6.3 Vue gives `<styl/>` and the `</st` after it Shiki's scopes.
+  → verify: a test holds the case with Shiki's scopes, and no Vue `win` document differs at any seed
+  - 2026-11-12: Vue's `win` corpus at seed 2 shows it in document 78, at [98bb9820][base] and at [d36a1da6][s2-head].
+    At line 9, column 1, Shiki gives `self-closing-tag punctuation.definition.tag.begin.html.vue`.
+    nishiki gives no `self-closing-tag`.
+  - 2026-11-12: at line 10, column 1, Shiki gives `</` the scope `punctuation.definition.tag.begin.html.vue`.
+    nishiki gives `meta.tag-stuff invalid.illegal.character-not-allowed-here.html`.
+  - 2026-11-12: Shiki 4.6.0 scopes `<div/>` and `<style/>` as it scopes `<styl/>`.
+    The cause in nishiki is unchecked.
 
 ## 7. Go and LaTeX
 
@@ -150,3 +173,4 @@ The [research note][note] holds the numbers each task starts from.
 
 [note]: ../../research/2026-11-11-shiki-exact-gaps.md
 [base]: https://github.com/victor-software-house/nishiki/commit/98bb9820
+[s2-head]: https://github.com/victor-software-house/nishiki/commit/d36a1da6

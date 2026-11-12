@@ -59,8 +59,9 @@ A seed corpus at 100 `win` documents per language found two Svelte cases on main
 - after a `<script lang="` whose value runs into the script, Svelte stays in the string where Shiki enters the script.
 
 Each is one rule, found from its documents.
-One more document at seed 2 differs, in a language the run did not record.
-Its task finds the language first.
+At seed 2, one Ruby document differs and one Vue document differs.
+The Ruby document is task 5.1's case.
+The Vue document gets task 6.3.
 
 ## 6. Ruby, Mermaid and Vue
 
