@@ -653,15 +653,12 @@ impl Reader {
     /// word characters before it too.
     /// A match inside a word can then start at the word's start, with the
     /// same groups unless the pattern repeats one.
-    ///
-    /// Oniguruma reads a reversed interval such as `{1,0}` as a possessive
-    /// `{0,1}`, so that repeat is optional here.
     fn quantified(self, node: &Node) -> Analysis {
         let mut inner = node;
         let mut optional = false;
         let mut unbounded = false;
         while let Node::Repeat { node, min, max, .. } = inner {
-            optional |= *min == 0 || max.is_some_and(|max| max < *min);
+            optional |= *min == 0;
             unbounded |= max.is_none();
             inner = node;
         }
