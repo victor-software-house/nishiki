@@ -411,13 +411,13 @@ g += `
 /// One expression of the grammar, for the tool that compares the matchers
 /// with Oniguruma: a pattern, or one of the patterns merged into
 /// [\`Pattern::Word\`].
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Rx {
 ${rxList.map((id) => `    ${id},\n`).join("")}}
 
 /// What answers an expression of [\`Rx\`].
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Answer {
     /// The pattern's own matcher.
@@ -426,7 +426,7 @@ pub(crate) enum Answer {
     List(u8),
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 impl Rx {
     /// Every expression.
     pub(crate) const ALL: [Rx; ${rxList.length}] = [
@@ -564,7 +564,7 @@ ${mergedPats.map((p) => `    ${p.act.role === "match" ? scText(p.act.name) : "S:
 
 /// The words that a later merged pattern lists too, with its index, for the
 /// probe that checks each pattern alone.
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 pub(super) const ALSO_IN: &[(&[u8], u8)] = &[${alsoIn.map(([word, index]) => `(${bytes(word)}, ${index})`).join(", ")}];
 
 /// The spellings of the merged words with \`ß\` or a Latin ligature that
@@ -580,7 +580,7 @@ pub(super) const SPELLING_OWNERS: [u8; ${sortedSpellings.length}] = [${sortedSpe
 
 /// The spellings that a later merged pattern accepts too, with its index,
 /// for the probe.
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 pub(super) const SPELLINGS_ALSO_IN: &[(&[u8], u8)] = &[${sortedSpellings
   .flatMap((s) =>
     spelled

@@ -17238,7 +17238,7 @@ pub(crate) enum Rx {
 
 impl Rx {
     /// Every expression, in code order.
-    #[cfg(test)]
+    #[cfg(all(test, feature = "json"))]
     pub(crate) const ALL: [Rx; 37] = [
         Rx::CppSpecialBlockAt0,
         Rx::CppSpecialBlockAt1,

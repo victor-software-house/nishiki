@@ -2303,7 +2303,7 @@ pub(crate) enum Rx {
 
 impl Rx {
     /// Every expression, in code order.
-    #[cfg(test)]
+    #[cfg(all(test, feature = "json"))]
     pub(crate) const ALL: [Rx; 87] = [
         Rx::ClassdefAt0,
         Rx::ClassdefAt0End,

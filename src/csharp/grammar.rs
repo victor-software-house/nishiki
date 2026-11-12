@@ -3490,7 +3490,7 @@ pub(crate) enum Pattern {
 
 impl Pattern {
     /// Every pattern, for the probe test.
-    #[cfg(test)]
+    #[cfg(all(test, feature = "json"))]
     pub(crate) const ALL: [Pattern; 607] = [
         Pattern::Preprocessor,
         Pattern::PreprocessorEnd,

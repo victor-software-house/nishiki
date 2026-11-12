@@ -1057,7 +1057,7 @@ pub(crate) enum Pattern {
 
 impl Pattern {
     /// Every pattern, for the tool that compares the matchers with Oniguruma.
-    #[cfg(test)]
+    #[cfg(all(test, feature = "json"))]
     pub(crate) const ALL: [Pattern; 106] = [
         Pattern::Arrow,
         Pattern::Update,

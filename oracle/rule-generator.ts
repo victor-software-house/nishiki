@@ -794,7 +794,7 @@ pub(crate) struct Nested {
     if (!rxOf.has(p.regex) && !shared?.ids.has(p.regex)) rxOf.set(p.regex, p.id);
   g += `\n/// A regular expression of the grammar, which several patterns can share.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u16)]\npub(crate) enum Rx {\n`;
   for (const [regex, id] of rxOf) g += `    /// ${shown(regex).replace(/^t/, "T")}.\n    ${id},\n`;
-  g += `}\n\nimpl Rx {\n    /// Every expression, in code order.\n    #[cfg(test)]\n    pub(crate) const ALL: [Rx; ${rxOf.size}] = [\n`;
+  g += `}\n\nimpl Rx {\n    /// Every expression, in code order.\n    #[cfg(all(test, feature = "json"))]\n    pub(crate) const ALL: [Rx; ${rxOf.size}] = [\n`;
   for (const id of rxOf.values()) g += `        Rx::${id},\n`;
   // A table of one line per arm is long only past clippy's hundred lines.
   const exprArms = shared
