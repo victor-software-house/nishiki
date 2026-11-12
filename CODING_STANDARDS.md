@@ -329,7 +329,7 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
   - a JSON string.
 - `bench/corpus/`, `oracle/inputs/` and `tests/oracle/` hold language text and the oracle's output, outside the bound.
 - Two exemptions are temporary, each until the change that removes it:
-  - the Bun scripts that write Rust, and the files they write, until rust-codegen moves each writer to Rust;
+  - the Bun scripts that write Rust, and the files they write, until rule-table-codegen moves each writer to Rust;
   - the Swift matcher names, until the Swift generator moves to `codegen/` (rule-table-codegen design 2.4).
 - A list puts one entry per line.
   Only a table of short plain values packs several entries on a line, such as byte ranges or the word tables that `codegen/src/numbers.rs` fills.
