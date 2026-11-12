@@ -1390,6 +1390,13 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         )]
         let mut fixed = true;
         for &scope in &scopes.list {
+            #[cfg_attr(
+                not(any(test, nishiki_unstable, feature = "_capture-names")),
+                expect(
+                    clippy::infallible_destructuring_match,
+                    reason = "only a scope named from a capture group is a second case"
+                )
+            )]
             let fixed_scope = match G::scope(scope) {
                 ScopeName::Fixed(fixed_scope) => fixed_scope,
                 #[cfg(any(test, nishiki_unstable, feature = "_capture-names"))]

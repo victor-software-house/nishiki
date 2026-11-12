@@ -456,6 +456,10 @@ impl Lexer<'_> {
 
     /// `base`: without the `lang-vue` feature no rule is Vue's.
     #[cfg(not(feature = "lang-vue"))]
+    #[expect(
+        clippy::unused_self,
+        reason = "it takes `self` as the Vue build's method does, so the call sites need no cfg"
+    )]
     fn vue_name_stack(&mut self, base: u32, _rule: Rule, _carried: u32) -> u32 {
         base
     }
@@ -528,6 +532,10 @@ impl Lexer<'_> {
 
     /// `name`: without the `lang-vue` feature no rule is Vue's.
     #[cfg(not(feature = "lang-vue"))]
+    #[expect(
+        clippy::unused_self,
+        reason = "it takes `self` as the Vue build's method does, so the call sites need no cfg"
+    )]
     fn vue_content_stack(&mut self, name: u32, _rule: Rule, _carried: u32) -> u32 {
         name
     }
@@ -548,6 +556,10 @@ impl Lexer<'_> {
 
     /// Nothing: without the `lang-vue` feature no rule is Vue's.
     #[cfg(not(feature = "lang-vue"))]
+    #[expect(
+        clippy::unused_self,
+        reason = "it takes `self` as the Vue build's method does, so the call sites need no cfg"
+    )]
     fn vue_end_captures(&mut self, _top: &super::engine::Frame, _hit: &Hit) {}
 
     /// The end captures of a Vue rule, as [`Self::end_captures`] emits them.
