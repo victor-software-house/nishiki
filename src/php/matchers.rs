@@ -22,8 +22,8 @@
 //! A space past ASCII, such as U+00A0, is both a name character and `\s`.
 //! Where a `\s` follows a name, the name gives the last such space back
 //! ([`Lexer::q_ends`]).
-//! A `\s*` before a name does not give such spaces back for the name to start
-//! with.
+//! Where a name follows a `\s*` or a `\s+`, the run gives its last such space
+//! back when no name starts after it ([`Lexer::after_spaces`]).
 
 mod comments;
 mod declarations;
@@ -600,11 +600,7 @@ impl Lexer<'_> {
     /// `(?i)(word)\s+(NAME)`, with the word and the name as groups 1 and 2.
     fn word_spaces_name(&mut self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.ilit(p, word)?;
-        let at = self.space_end(end);
-        if at == end {
-            return None;
-        }
-        let name = self.name(at)?;
+        let (at, name) = self.after_spaces(end, true, Self::name)?;
         self.capture(1, p, end);
         self.capture(2, at, name);
         Some(name)
@@ -625,17 +621,14 @@ impl Lexer<'_> {
     /// character would be a name character, which no part after a type starts
     /// with.
     fn each_type<R>(&self, p: usize, then: &mut dyn FnMut(&Self, usize) -> Option<R>) -> Option<R> {
-        let from = if self.at(p) == b'?' {
-            self.space_end(p + 1)
+        let named = if self.at(p) == b'?' {
+            self.after_spaces(p + 1, false, |lexer, from| lexer.q_then(from, &mut *then))
+                .map(|(_, found)| found)
         } else {
-            p
+            self.q_then(p, then)
         };
-        if let Some(end) = self.qualified(from) {
-            for end in self.q_ends(from, end).into_iter().flatten() {
-                if let Some(found) = then(self, end) {
-                    return Some(found);
-                }
-            }
+        if named.is_some() {
+            return named;
         }
         for end in self.type_atom(p).into_iter().flatten() {
             if let Some(found) = self.type_union(end, true, then) {
@@ -643,6 +636,16 @@ impl Lexer<'_> {
             }
         }
         None
+    }
+
+    /// `then` at each end of the qualified name `Q` at `from`
+    /// ([`Lexer::q_ends`]), until it accepts one.
+    fn q_then<R>(&self, from: usize, then: &mut dyn FnMut(&Self, usize) -> Option<R>) -> Option<R> {
+        let end = self.qualified(from)?;
+        self.q_ends(from, end)
+            .into_iter()
+            .flatten()
+            .find_map(|end| then(self, end))
     }
 
     /// The ends of `Q|\(\s*Q(?:\s*&\s*Q)+\s*\)` at `p`.
@@ -653,7 +656,7 @@ impl Lexer<'_> {
                 None => [None, None],
             };
         }
-        let Some(mut at) = self.qualified(self.space_end(p + 1)) else {
+        let Some((_, mut at)) = self.after_spaces(p + 1, false, Self::qualified) else {
             return [None, None];
         };
         let mut parts = 0;
@@ -662,7 +665,7 @@ impl Lexer<'_> {
             if self.at(amp) != b'&' {
                 break;
             }
-            let Some(end) = self.qualified(self.space_end(amp + 1)) else {
+            let Some((_, end)) = self.after_spaces(amp + 1, false, Self::qualified) else {
                 break;
             };
             at = end;
@@ -686,11 +689,11 @@ impl Lexer<'_> {
         self.spend(1);
         let sep = self.space_end(at);
         if matches!(self.at(sep), b'&' | b'|') {
-            for end in self
-                .type_atom(self.space_end(sep + 1))
-                .into_iter()
-                .flatten()
-            {
+            let atom = self.after_spaces(sep + 1, false, |lexer, at| {
+                let ends = lexer.type_atom(at);
+                ends[0].map(|_| ends)
+            });
+            for end in atom.map(|(_, ends)| ends).into_iter().flatten().flatten() {
                 if let Some(found) = self.type_union(end, false, then) {
                     return Some(found);
                 }

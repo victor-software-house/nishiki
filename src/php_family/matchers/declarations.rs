@@ -25,7 +25,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
             self.capture(1, word, word_end);
             return Some(at);
         }
-        let end = self.qualified(at)?;
+        let (at, end) = self.after_spaces(word_end, true, Self::qualified)?;
         if self.at(self.space_end(end)) != b';' {
             return None;
         }
