@@ -48,13 +48,22 @@ pub(crate) fn lexer<G: Grammar, R>(
     case: &Case<'_>,
     probe: impl FnOnce(&mut Lexer<'_, G>) -> R,
 ) -> R {
-    let limits = Limits::default();
+    lexer_under(arena, case, &Limits::default(), probe)
+}
+
+/// [`lexer`], under `limits` in place of the default ones.
+pub(crate) fn lexer_under<G: Grammar, R>(
+    arena: &mut Arena,
+    case: &Case<'_>,
+    limits: &Limits,
+    probe: impl FnOnce(&mut Lexer<'_, G>) -> R,
+) -> R {
     let mut tokens = Vec::new();
     let mut report = LineReport::default();
     let mut scratch = Scratch::<G>::default();
     let parts = Parts {
         arena,
-        limits: &limits,
+        limits,
         out: &mut tokens,
         report: &mut report,
     };

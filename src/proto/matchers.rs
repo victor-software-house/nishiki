@@ -13,6 +13,8 @@ use crate::rules::Chars;
 use crate::rules::generated::{
     Found, Skip, byte_at, char_at, in_ranges, prev_boundary, record,
 };
+#[cfg(test)]
+use crate::test_support::differential::Expression;
 /// Each skipping pattern's last failure on the line.
 #[derive(Debug, Default)]
 pub(crate) struct Skips {
@@ -4725,4 +4727,220 @@ static MATCH_RESERVED_AT0_CLASS3_ABOVE_ASCII: [(u32, u32); 61] = [
     (0x1_e2f0, 0x1_e2f9),
     (0x1_e950, 0x1_e959),
     (0x1_fbf0, 0x1_fbf9),
+];
+/// Each pattern's expression, in pieces that fit the line width, and
+/// the groups its matcher records.
+/// The tests compare each matcher with the regex engine on the
+/// expression.
+#[cfg(test)]
+pub(super) const EXPRESSIONS: [Expression<Pattern>; 40] = [
+    Expression {
+        pattern: Pattern::CommentsAt0,
+        pieces: &[r"/\*"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::CommentsAt0End,
+        pieces: &[r"\*/"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::CommentsAt1,
+        pieces: &[r"//"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::CommentsAt1End,
+        pieces: &[r"$\n?"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Syntax,
+        pieces: &[r#"\s*(syntax)\s*(=)\s*("proto[23]")\s*(;)"#],
+        records: &[1, 2, 3, 4],
+    },
+    Expression {
+        pattern: Pattern::Package,
+        pieces: &[r"\s*(package)\s+([.\w]+)\s*(;)"],
+        records: &[1, 2, 3],
+    },
+    Expression {
+        pattern: Pattern::Import,
+        pieces: &[r#"\s*(import)\s+(weak|public)?\s*("[^"]+")\s*(;)"#],
+        records: &[1, 2, 3, 4],
+    },
+    Expression {
+        pattern: Pattern::OptionStmt,
+        pieces: &[r"(option)\s+(\w+|\(\w+(\.\w+)*\))(\.\w+)*\s*(=)"],
+        records: &[1, 2, 3, 4, 5],
+    },
+    Expression {
+        pattern: Pattern::OptionStmtEnd,
+        pieces: &[r"(;)"],
+        records: &[1],
+    },
+    Expression {
+        pattern: Pattern::Constants,
+        pieces: &[r"\b(true|false|max|[A-Z_]+)\b"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Number,
+        pieces: &[
+            r"\b((0([Xx])\h*)|(([0-9]+\.?[0-9]*)|(\.[0-9]+))(([Ee])([-+])?",
+            r"[0-9]+)?)\b",
+        ],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::String,
+        pieces: &[r#"(["'])(?:\\.|[^\\])*?\1"#],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::SubMsgOption,
+        pieces: &[r"\{"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::SubMsgOptionEnd,
+        pieces: &[r"}"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Kv,
+        pieces: &[r"(\w+)\s*(:)"],
+        records: &[1, 2],
+    },
+    Expression {
+        pattern: Pattern::KvEnd,
+        pieces: &[r"(;)|,|(?=[/A-Z_a-z}])"],
+        records: &[1],
+    },
+    Expression {
+        pattern: Pattern::Message,
+        pieces: &[r"(message|extend)(\s+)([A-Z_a-z][.0-9A-Z_a-z]*)(\s*)(\{)?"],
+        records: &[1, 3],
+    },
+    Expression {
+        pattern: Pattern::MessageEnd,
+        pieces: &[r"}"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Reserved,
+        pieces: &[r"(reserved)\s+"],
+        records: &[1],
+    },
+    Expression {
+        pattern: Pattern::ReservedEnd,
+        pieces: &[r"(;)"],
+        records: &[1],
+    },
+    Expression {
+        pattern: Pattern::ReservedAt0,
+        pieces: &[r"(\d+)(\s+(to)\s+(\d+))?"],
+        records: &[1, 3, 4],
+    },
+    Expression {
+        pattern: Pattern::Enum,
+        pieces: &[r"(enum)(\s+)([A-Za-z][0-9A-Z_a-z]*)(\s*)(\{)?"],
+        records: &[1, 3],
+    },
+    Expression {
+        pattern: Pattern::EnumEnd,
+        pieces: &[r"}"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::EnumAt3,
+        pieces: &[r"([A-Za-z][0-9A-Z_a-z]*)\s*(=)\s*(-?0[Xx]\h+|-?[0-9]+)"],
+        records: &[1, 2, 3],
+    },
+    Expression {
+        pattern: Pattern::EnumAt3End,
+        pieces: &[r"(;)"],
+        records: &[1],
+    },
+    Expression {
+        pattern: Pattern::FieldOptions,
+        pieces: &[r"\["],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::FieldOptionsEnd,
+        pieces: &[r"]"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::OptionName,
+        pieces: &[r"(\w+|\(\w+(\.\w+)*\))(\.\w+)*"],
+        records: &[1, 2, 3],
+    },
+    Expression {
+        pattern: Pattern::Service,
+        pieces: &[r"(service)\s+([A-Za-z][.0-9A-Z_a-z]*)\s*\{?"],
+        records: &[1, 2],
+    },
+    Expression {
+        pattern: Pattern::ServiceEnd,
+        pieces: &[r"}"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Method,
+        pieces: &[r"(rpc)\s+([A-Za-z][0-9A-Z_a-z]*)"],
+        records: &[1, 2],
+    },
+    Expression {
+        pattern: Pattern::MethodEnd,
+        pieces: &[r"}|(;)"],
+        records: &[1],
+    },
+    Expression {
+        pattern: Pattern::RpcKeywords,
+        pieces: &[r"\b(stream|returns)\b"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Ident,
+        pieces: &[r"\.?[A-Za-z][.0-9A-Z_a-z]*"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Oneof,
+        pieces: &[r"(oneof)\s+([A-Za-z][0-9A-Z_a-z]*)\s*\{?"],
+        records: &[1, 2],
+    },
+    Expression {
+        pattern: Pattern::OneofEnd,
+        pieces: &[r"}"],
+        records: &[],
+    },
+    Expression {
+        pattern: Pattern::Field,
+        pieces: &[
+            r"\s*(optional|repeated|required)?\s*(\.?[.\w]+)\s+(\w+)\s*(=)",
+            r"\s*(0[Xx]\h+|[0-9]+)",
+        ],
+        records: &[1, 2, 3, 4, 5],
+    },
+    Expression {
+        pattern: Pattern::FieldEnd,
+        pieces: &[r"(;)"],
+        records: &[1],
+    },
+    Expression {
+        pattern: Pattern::Mapfield,
+        pieces: &[
+            r"\s*(map)\s*(<)\s*(\.?[.\w]+)\s*,\s*(\.?[.\w]+)\s*(>)\s+(\w+)",
+            r"\s*(=)\s*(\d+)",
+        ],
+        records: &[1, 2, 3, 4, 5, 6, 7, 8],
+    },
+    Expression {
+        pattern: Pattern::MapfieldEnd,
+        pieces: &[r"(;)"],
+        records: &[1],
+    },
 ];
