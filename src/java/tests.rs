@@ -206,20 +206,8 @@ fn until(lines: &[&str]) -> Vec<(Option<usize>, usize)> {
     for text in lines {
         let mut out: Vec<Token> = Vec::new();
         let mut report = LineReport::default();
-        let mut cx = Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = Line {
-            text,
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = Line::new(text, 0);
         let (next, halted) = super::lex_until(&mut cx, line, state, &|s: &[u8], p: usize| {
             s.get(p..).is_some_and(|rest| rest.starts_with(b"%>"))
         });

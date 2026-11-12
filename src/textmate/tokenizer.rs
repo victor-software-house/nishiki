@@ -2085,6 +2085,7 @@ impl Tokenizer<'_> {
                 at,
                 reason: StopReason::Halt,
             }) => (Some(at), None),
+            #[cfg(feature = "_rule-engine")]
             Some(Stopped {
                 at,
                 reason: StopReason::PopHost,

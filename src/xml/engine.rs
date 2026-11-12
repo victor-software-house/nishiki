@@ -474,21 +474,14 @@ impl<'a> Lexer<'a> {
     /// copy of it per line.
     fn java(&mut self, from: usize, state: u32) -> (u32, Option<usize>) {
         let lent = self.steps.lend(self.limits);
-        let first_token = self.out.len();
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token,
-        };
-        let line = Line {
-            text: self.text,
-            start: from,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        );
+        let line = Line::new(self.text, from);
         let (finished, at) = Self::lex_jsp(&mut cx, line, state);
         (self.steps.take_back(finished), at)
     }
@@ -506,11 +499,12 @@ impl<'a> Lexer<'a> {
                 at,
                 reason: StopReason::Halt,
             }) => Some(at),
+            #[cfg(feature = "_rule-engine")]
             Some(Stopped {
                 reason: StopReason::PopHost,
                 ..
-            })
-            | None => None,
+            }) => None,
+            None => None,
         };
         (finished, at)
     }

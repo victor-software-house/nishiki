@@ -228,7 +228,15 @@ pub(crate) struct Scratch {
     pub(crate) swift: crate::swift::Scratch,
     /// The buffers of a test grammar of the rule engine, which has no field
     /// of its own here.
-    #[cfg(all(test, feature = "_embedding"))]
+    #[cfg(all(
+        test,
+        feature = "_embedding",
+        any(
+            feature = "lang-javascript",
+            feature = "lang-html",
+            feature = "lang-rust"
+        )
+    ))]
     pub(crate) test_grammar: Option<Box<dyn std::any::Any>>,
     /// The TeX lexer's, for TeX documents.
     /// It is boxed and allocated by the first TeX line, as MATLAB's is.

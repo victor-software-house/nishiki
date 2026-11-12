@@ -329,6 +329,7 @@ lang-html = [
   "_classes",
   "_html-words",
   "_test-scopes",
+  "_stopped-halt",
 ]
 lang-html-derivative = ["_hand-lexers", "lang-html"]
 lang-ini = [
@@ -348,7 +349,13 @@ lang-java = [
 ]
 # The typescript module lexes four dialects, lang-javascript, lang-jsx,
 # lang-tsx and lang-typescript, each a copy of the lexer.
-lang-javascript = ["_hand-lexers", "_classes", "_space"]
+lang-javascript = [
+  "_hand-lexers",
+  "_classes",
+  "_space",
+  "_context-scratch",
+  "_stopped-halt",
+]
 lang-jinja = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-json = [
   "_hand-lexers",
@@ -356,8 +363,15 @@ lang-json = [
   "_utf8",
   "_frame-rules",
   "_test-scopes",
+  "_stopped-halt",
 ]
-lang-jsx = ["_hand-lexers", "_classes", "_space"]
+lang-jsx = [
+  "_hand-lexers",
+  "_classes",
+  "_space",
+  "_context-scratch",
+  "_stopped-halt",
+]
 lang-julia = [
   "_hand-lexers",
   "_scope-table",
@@ -411,6 +425,7 @@ lang-markdown = [
   "_classes",
   "_utf8",
   "_start-embedded",
+  "_stopped-halt",
 ]
 lang-matlab = [
   "_hand-lexers",
@@ -529,6 +544,8 @@ lang-shell = [
   "_classes",
   "_utf8",
   "_frame-rules",
+  "_context-scratch",
+  "_stopped-halt",
 ]
 lang-sql = [
   "_hand-lexers",
@@ -576,8 +593,20 @@ lang-toml = [
   "_utf8",
   "_frame-rules",
 ]
-lang-tsx = ["_hand-lexers", "_classes", "_space"]
-lang-typescript = ["_hand-lexers", "_classes", "_space"]
+lang-tsx = [
+  "_hand-lexers",
+  "_classes",
+  "_space",
+  "_context-scratch",
+  "_stopped-halt",
+]
+lang-typescript = [
+  "_hand-lexers",
+  "_classes",
+  "_space",
+  "_context-scratch",
+  "_stopped-halt",
+]
 lang-vb = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-vue = [
   "_hand-lexers",
@@ -598,6 +627,7 @@ lang-xml = [
   "_classes",
   "_utf8",
   "_test-rows",
+  "_stopped-halt",
 ]
 lang-yaml = [
   "_hand-lexers",
@@ -606,6 +636,7 @@ lang-yaml = [
   "_space",
   "_frame-rules",
   "_test-rows",
+  "_stopped-halt",
 ]
 lang-zig = [
   "_hand-lexers",
@@ -635,7 +666,13 @@ _embedding = ["_rule-engine", "_start-embedded"]
 # `Language::start_embedded`, which starts a language that another embeds by
 # its `Language`: in Markdown's fences, the rule engine's hand-over and the
 # TextMate engine's.
-_start-embedded = []
+_start-embedded = ["_context-scratch"]
+# The lexers' reusable buffers in a line's context, for the lexers that keep
+# some there.
+_context-scratch = []
+# `Stopped::halt`, for the hand-written lexers that stop where a halt of the
+# language embedding them holds.
+_stopped-halt = []
 # The test helpers that lex a text into rows of each token's text and
 # scopes. Only the tests read them.
 _test-rows = []
@@ -659,7 +696,7 @@ _php-family = ["_rule-tables"]
 _scope-table = []
 # tag::frame_rules!, for the lexers that declare their frame rules with it.
 _frame-rules = []
-_rule-engine = ["_classes"]
+_rule-engine = ["_classes", "_context-scratch"]
 # The scan's step to the last blank of a run (`BlankRuns::ToLast`), for a
 # grammar with a pattern that takes one blank and then a character that is not
 # one.
@@ -678,6 +715,7 @@ _textmate = [
   "_utf8",
   "_language",
   "_start-embedded",
+  "_stopped-halt",
 ]
 _utf8 = []
 

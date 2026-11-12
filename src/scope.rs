@@ -402,15 +402,8 @@ mod tests {
 /// An address moves when another language's tables change, which moved the
 /// caches' hits and misses with it.
 /// A `&Keyed<[S]>` is as wide as the `&[S]` it replaces.
-#[cfg(feature = "_language")]
+#[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
 #[derive(Debug)]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
 #[cfg_attr(
     not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
@@ -424,14 +417,7 @@ pub struct Keyed<T: ?Sized> {
 }
 
 /// A static scope list with its key; `scopes!` makes one.
-#[cfg(feature = "_language")]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
+#[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
 #[cfg_attr(
     not(all(nishiki_unstable, feature = "_rule-engine")),
     expect(unreachable_pub, reason = "public only through nishiki::unstable")
@@ -448,26 +434,12 @@ pub type Scopes<S> = &'static Keyed<[S]>;
 /// An FNV key missed a third more often in CSS: 3,110 misses against 2,330.
 ///
 /// The plus one keeps a list apart from the same list after a code 0.
-#[cfg(feature = "_language")]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
+#[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
 const KEY_STEP: u16 = 0x9e37;
 
-#[cfg(feature = "_language")]
+#[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
 impl<S, const N: usize> Keyed<[S; N]> {
     /// The list `list`, keyed by `codes`, the codes of its scopes in order.
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
     pub(crate) const fn new(list: [S; N], codes: [u16; N]) -> Self {
         let mut key: u16 = 0;
         let mut i = 0;
@@ -526,7 +498,7 @@ impl Scope {
     /// The low half of the scope's number.
     /// It keys the scope lists of the engine's test grammars, whose scopes are
     /// made at run time.
-    #[cfg(feature = "_hand-lexers")]
+    #[cfg(feature = "_rule-engine")]
     #[expect(
         clippy::as_conversions,
         clippy::cast_possible_truncation,
@@ -537,6 +509,6 @@ impl Scope {
     }
 
     /// The empty scope list.
-    #[cfg(feature = "_hand-lexers")]
+    #[cfg(feature = "_rule-engine")]
     pub(crate) const NO_SCOPES: Scopes<Scope> = &Keyed::new([], []);
 }

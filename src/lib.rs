@@ -426,7 +426,7 @@ mod elixir;
 mod emit;
 #[cfg(feature = "lang-erb")]
 mod erb;
-#[cfg(feature = "_rule-engine")]
+#[cfg(any(feature = "_rule-tables", feature = "lang-c"))]
 mod fnv;
 #[cfg(feature = "lang-gdscript")]
 mod gdscript;

@@ -1999,6 +1999,8 @@ impl Language {
     )
 )]
 pub(crate) struct Context<'a> {
+    /// The lexers' reusable buffers, for the lexers that keep some there.
+    #[cfg(feature = "_context-scratch")]
     pub(crate) scratch: &'a mut Scratch,
     pub(crate) arena: &'a mut Arena,
     pub(crate) limits: &'a Limits,
@@ -2013,19 +2015,66 @@ pub(crate) struct Context<'a> {
     /// The last of them bounds the token that `cut_tokens` shortens.
     /// XML passes Java the end of `out`, because Java embeds no language and no
     /// cut runs inside it.
+    #[cfg(any(feature = "_embedding", feature = "lang-html", feature = "_textmate"))]
     pub(crate) first_token: usize,
+}
+
+impl<'a> Context<'a> {
+    /// A context whose line's tokens start at the end of `out`.
+    ///
+    /// Rust takes no `cfg` on a call's argument, so every caller passes the
+    /// scratch.
+    /// A build without `_context-scratch`, whose lexers read no scratch, drops
+    /// it with `let _`, as `Language::pops_host` drops `self`.
+    pub(crate) fn new(
+        scratch: &'a mut Scratch,
+        arena: &'a mut Arena,
+        limits: &'a Limits,
+        out: &'a mut Vec<Token>,
+        report: &'a mut LineReport,
+    ) -> Context<'a> {
+        #[cfg(not(feature = "_context-scratch"))]
+        let _ = scratch;
+        Context {
+            #[cfg(feature = "_context-scratch")]
+            scratch,
+            arena,
+            limits,
+            #[cfg(any(feature = "_embedding", feature = "lang-html", feature = "_textmate"))]
+            first_token: out.len(),
+            out,
+            report,
+        }
+    }
+
+    /// The context with its line's tokens starting at `first_token` in
+    /// `out`, as a host passes the start of its own line.
+    ///
+    /// A build whose lexers never cut tokens back drops it with `let _`, as
+    /// [`Context::new`] drops the scratch.
+    #[cfg(any(
+        feature = "_embedding",
+        feature = "lang-html",
+        feature = "lang-markdown"
+    ))]
+    pub(crate) fn with_first_token(self, first_token: usize) -> Context<'a> {
+        #[cfg(not(any(feature = "_embedding", feature = "lang-html", feature = "_textmate")))]
+        let _ = first_token;
+        Context {
+            #[cfg(any(feature = "_embedding", feature = "lang-html", feature = "_textmate"))]
+            first_token,
+            ..self
+        }
+    }
 }
 
 /// A [`Context`] without its scratch, for a lexer that keeps its buffers in
 /// one field of the scratch and borrows that field beside these.
-#[cfg(feature = "_language")]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
+#[cfg(any(
+    feature = "_rule-engine",
+    feature = "lang-markdown",
+    feature = "lang-shell"
+))]
 pub(crate) struct Parts<'a> {
     pub(crate) arena: &'a mut Arena,
     pub(crate) limits: &'a Limits,
@@ -2053,14 +2102,7 @@ pub(crate) enum StopReason {
     /// vscode-textmate then pops the innermost rule, which there is the rule
     /// that embeds the language, and ends the line.
     /// The language has lexed the rest of the line as its own, from the byte.
-    #[cfg(feature = "_language")]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
+    #[cfg(feature = "_rule-engine")]
     PopHost,
 }
 
@@ -2095,7 +2137,7 @@ pub(crate) fn cut_tokens(out: &mut Vec<Token>, first: usize, at: usize) {
 
 impl Stopped {
     /// A stop at `at` where a halt held.
-    #[cfg(feature = "_language")]
+    #[cfg(feature = "_stopped-halt")]
     pub(crate) const fn halt(at: usize) -> Stopped {
         Stopped {
             at,
@@ -2206,37 +2248,20 @@ impl Halt for Places<'_> {
 /// The second stands for the patterns the embedding rule lists after the
 /// embedded grammar. A lexer tries it where none of the embedded patterns
 /// match. A lexer keeps one reference to the caller's pair.
-#[cfg(feature = "_language")]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
+#[cfg(any(
+    feature = "_rule-engine",
+    feature = "lang-markdown",
+    feature = "lang-shell"
+))]
 pub(crate) type Halts<'a> = (&'a dyn Halt, Option<&'a dyn Halt>);
 
 /// The halts of a scan compiled without halts.
 /// They never hold.
-#[cfg(feature = "_language")]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
+#[cfg(any(feature = "_rule-engine", feature = "lang-markdown"))]
 pub(crate) const NO_HALTS: Halts<'static> = (&never, None);
 
 /// A halt that never holds.
-#[cfg(feature = "_language")]
-#[cfg_attr(
-    not(feature = "_hand-lexers"),
-    expect(
-        dead_code,
-        reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-    )
-)]
+#[cfg(any(feature = "_rule-engine", feature = "lang-markdown"))]
 fn never(_: &[u8], _: usize) -> bool {
     false
 }
@@ -2285,7 +2310,7 @@ impl<F: Fn(&[u8], usize) -> bool> Halt for F {
 ///
 /// `#[inline]` because the HTML and XML lexers, in other modules, call it
 /// (`bench/AGENTS.md` rule 13).
-#[cfg(feature = "_utf8")]
+#[cfg(any(feature = "lang-html", feature = "lang-xml", feature = "_textmate"))]
 #[inline]
 pub(crate) fn halt_before(
     s: &[u8],
@@ -2332,6 +2357,11 @@ pub(crate) struct Line<'a> {
     /// Whether the anchor `\G` sits at `start`, as a Markdown fence's `while`
     /// rule leaves it in Shiki.
     /// It holds whatever contexts of the language are open.
+    #[cfg(any(
+        feature = "_rule-engine",
+        feature = "_textmate",
+        feature = "lang-shell"
+    ))]
     pub(crate) embedded: bool,
     /// Whether `\G` sits at `start` while only the language's root is open.
     ///
@@ -2344,20 +2374,62 @@ pub(crate) struct Line<'a> {
     /// Only the rule engine and nishiki's own engine read it.
     /// The other lexers' grammars have no `\G` at their root that `^` does not
     /// already match at a line's start.
+    #[cfg(any(feature = "_rule-engine", feature = "_textmate"))]
     pub(crate) anchored_at_root: bool,
+}
+
+impl<'a> Line<'a> {
+    /// The line `text`, whose lexer's own text starts at `start`, with `\G`
+    /// at no place.
+    pub(crate) const fn new(text: &'a str, start: usize) -> Line<'a> {
+        Line {
+            text,
+            start,
+            #[cfg(any(
+                feature = "_rule-engine",
+                feature = "_textmate",
+                feature = "lang-shell"
+            ))]
+            embedded: false,
+            #[cfg(any(feature = "_rule-engine", feature = "_textmate"))]
+            anchored_at_root: false,
+        }
+    }
+
+    /// The line with `\G` at `start` when `anchored`, whatever contexts of
+    /// the language are open, as a Markdown fence's `while` rule leaves it.
+    ///
+    /// A build whose lexers read no `\G` there drops it with `let _`, as
+    /// [`Context::new`] drops the scratch.
+    #[cfg(feature = "lang-markdown")]
+    pub(crate) const fn with_anchor(self, anchored: bool) -> Line<'a> {
+        #[cfg(not(any(
+            feature = "_rule-engine",
+            feature = "_textmate",
+            feature = "lang-shell"
+        )))]
+        let _ = anchored;
+        Line {
+            #[cfg(any(
+                feature = "_rule-engine",
+                feature = "_textmate",
+                feature = "lang-shell"
+            ))]
+            embedded: anchored,
+            ..self
+        }
+    }
 }
 
 #[cfg(feature = "_language")]
 impl Context<'_> {
     /// The context split into its scratch and the rest.
     #[inline]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
+    #[cfg(any(
+        feature = "_rule-engine",
+        feature = "lang-markdown",
+        feature = "lang-shell"
+    ))]
     pub(crate) fn parts(&mut self) -> (Parts<'_>, &mut Scratch) {
         let parts = Parts {
             arena: &mut *self.arena,

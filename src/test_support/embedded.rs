@@ -95,20 +95,8 @@ pub(crate) fn lex_embedded_stops(
         let mut out: Vec<Token> = Vec::new();
         let mut report = LineReport::default();
         scratch.start_line();
-        let mut cx = Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = Line {
-            text,
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = Line::new(text, 0);
         let (next, stopped) = match halts {
             Some((end, after)) => (language.lex_until)(&mut cx, line, state, end, after),
             None => ((language.lex)(&mut cx, line, state), None),
@@ -128,11 +116,12 @@ pub(crate) fn lex_embedded_stops(
                 at,
                 reason: StopReason::Halt,
             }) => at,
+            #[cfg(feature = "_rule-engine")]
             Some(Stopped {
                 reason: StopReason::PopHost,
                 ..
-            })
-            | None => text.len(),
+            }) => text.len(),
+            None => text.len(),
         };
         assert_eq!(from, end, "tokens up to the stop: {text:?}");
         rows.push((stopped, row));
