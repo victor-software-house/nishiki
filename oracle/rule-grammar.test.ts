@@ -172,3 +172,14 @@ test("an unbraced \\x takes at most two hex digits, as Oniguruma's \\xHH does", 
   expect(has(0x41)).toBe(true);
   expect(has(0xd0)).toBe(false);
 });
+
+test("\\u takes exactly four hex digits, and a pattern with fewer is unread", () => {
+  const { set } = startOf("\\u00410");
+  const has = (b: number) => ((set[b >> 6]! >> BigInt(b & 63)) & 1n) !== 0n;
+  expect(has(0x41)).toBe(true);
+  expect(has(0xe0)).toBe(false);
+  const refused = startOf("\\u20");
+  expect(refused.any).toBe(true);
+  expect(refused.atEnd).toBe(true);
+  expect(startOf("a\\u").any).toBe(false);
+});

@@ -443,9 +443,8 @@ class RegexParser {
       case "u": {
         const m = hexEscape(c, this.src.slice(this.pos));
         if (!m) return analysis(single(c.charCodeAt(0)));
-        this.pos += m[0].length;
-        const cp = parseInt((m[1] ?? m[2])!, 16);
-        return analysis(codePoints(cp, cp));
+        this.pos += m.text.length;
+        return analysis(codePoints(m.code, m.code));
       }
       case "k": {
         // A back reference to a named group repeats text the group matched.
@@ -518,8 +517,8 @@ class RegexParser {
       case "u": {
         const m = hexEscape(e, this.src.slice(this.pos));
         if (!m) return e.charCodeAt(0);
-        this.pos += m[0].length;
-        return parseInt((m[1] ?? m[2])!, 16);
+        this.pos += m.text.length;
+        return m.code;
       }
       default:
         return e.codePointAt(0)!;
@@ -582,13 +581,20 @@ class RegexParser {
   }
 }
 
-/** The digits of a `\x` or `\u` escape at the start of `rest`, after the letter.
- * Unbraced, `\x` takes at most two digits, as Oniguruma's `\xHH` does.
- * `\u` takes two to four. */
-function hexEscape(letter: string, rest: string): RegExpExecArray | null {
-  return letter === "x"
-    ? /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{1,2}))/.exec(rest)
-    : /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{2,4}))/.exec(rest);
+/** The text and code point of a `\x` or `\u` escape at the start of `rest`, after the letter.
+ * `\x` takes a braced number, or at most two digits, as Oniguruma's `\xHH` does.
+ * `\u` takes exactly four digits, as Oniguruma's `\uHHHH` does.
+ * Oniguruma refuses a pattern with fewer, so this throws.
+ * A `\u` that ends the pattern is a literal `u`, so this gives null. */
+function hexEscape(letter: string, rest: string): { text: string; code: number } | null {
+  if (letter === "u") {
+    if (rest === "") return null;
+    const m = /^[0-9A-Fa-f]{4}/.exec(rest);
+    if (!m) throw new Error(`\\u${rest.slice(0, 4)}: \\u takes four hex digits`);
+    return { text: m[0], code: parseInt(m[0], 16) };
+  }
+  const m = /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{1,2}))/.exec(rest);
+  return m && { text: m[0], code: parseInt((m[1] ?? m[2])!, 16) };
 }
 
 /** The first bytes of the UTF-8 encodings of the code points `lo` to `hi`. */

@@ -647,16 +647,17 @@ impl Parser {
             'e' => '\u{1b}',
             'a' => '\u{7}',
             '0' => '\0',
-            'x' => self.hex_escape(2)?,
-            'u' => self.hex_escape(4)?,
+            'x' => self.hex_escape()?,
+            'u' => self.unicode_escape()?,
             other => other,
         })
     }
 
-    fn hex_escape(&mut self, digits: usize) -> Result<char> {
+    /// `\x{H…}`, or `\xHH` with one or two digits.
+    fn hex_escape(&mut self) -> Result<char> {
         let braced = self.eat('{');
         let start = self.at;
-        let limit = if braced { usize::MAX } else { digits };
+        let limit = if braced { usize::MAX } else { 2 };
         while self.at - start < limit && self.peek().is_some_and(|c| c.is_ascii_hexdigit()) {
             self.at += 1;
         }
@@ -664,6 +665,31 @@ impl Parser {
         if braced && !self.eat('}') {
             return err("unterminated \\x{");
         }
+        u32::from_str_radix(&text, 16)
+            .ok()
+            .and_then(char::from_u32)
+            .map_or_else(|| err("bad hex escape"), Ok)
+    }
+
+    /// `\uHHHH`: exactly four hex digits.
+    ///
+    /// Oniguruma refuses the pattern when fewer follow.
+    /// Its `fetch_token` in `regparse.c` reads at least four and at most four.
+    /// A `\u` that ends the pattern is a literal `u` there.
+    fn unicode_escape(&mut self) -> Result<char> {
+        if self.at == self.chars.len() {
+            return Ok('u');
+        }
+        let end = self.at + 4;
+        let Some(digits) = self
+            .chars
+            .get(self.at..end)
+            .filter(|digits| digits.iter().all(char::is_ascii_hexdigit))
+        else {
+            return err("\\u takes four hex digits");
+        };
+        let text: String = digits.iter().collect();
+        self.at = end;
         u32::from_str_radix(&text, 16)
             .ok()
             .and_then(char::from_u32)

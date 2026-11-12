@@ -132,6 +132,17 @@ fn a_reversed_interval_is_a_possessive_one() {
     assert_eq!(find("a{1,0}?", "a"), Some((0, 1)));
 }
 
+/// `\u` takes exactly four hex digits, as Oniguruma's `\uHHHH` does.
+/// A pattern with fewer is refused.
+#[test]
+fn a_unicode_escape_takes_exactly_four_digits() {
+    assert_eq!(find("\\u00410", "A0"), Some((0, 2)));
+    assert_eq!(find("[\\u0041-\\u0043]+", "xABCD"), Some((1, 4)));
+    assert!(parse::parse("\\u20", Dialect::Grammar).is_err());
+    assert!(parse::parse("[\\u20]", Dialect::Grammar).is_err());
+    assert_eq!(find("a\\u", "au"), Some((0, 2)));
+}
+
 /// The class a pattern of one class parses to.
 fn class_of(pattern: &str) -> super::ast::Class {
     let root = parse::parse(pattern, Dialect::Grammar).unwrap().root;
