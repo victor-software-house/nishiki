@@ -181,6 +181,32 @@ readable-sources-c9 writes the JavaScript side, and both sides agreed the format
 - A lint the generated code trips gets `#[expect(lint, reason = "…")]` on the smallest item, as [`CODING_STANDARDS.md`][standards] 3.3 asks.
 - Every map the writers walk is a `BTreeMap`, or the writer sorts it first, so a run writes the same bytes every time.
 
+### 6.3 Feature gates and dead code
+
+An item takes a cfg gate only at a real feature boundary:
+
+- a language;
+- an engine, such as the rule engine or the TextMate engine;
+- an embedding;
+- test code that one feature owns.
+
+A shared helper that different sets of languages call stays ungated.
+
+- A reduced build reports it as dead code, and `check:features` allows that with `-A dead_code`.
+- The linker drops it from the binary.
+- `verify` still denies dead code in the full build: clippy runs with `--all-features -D warnings`.
+
+This follows established practice:
+
+- regex-automata denies dead code only in its full feature set.
+  Every other set gets `allow(dead_code, unused_imports, unused_variables)` ([`src/lib.rs`][ra-dead-code]).
+  Its comment calls a warning-free build of every feature combination "a fool's errand".
+- tokio allows dead code file by file where a feature is off, as `cfg_attr(not(feature = "sync"), allow(unreachable_pub, dead_code))` ([`batch_semaphore.rs`][tokio-dead-code]).
+
+A private `_…` feature per helper was rejected (operator, 2026-11-12).
+About 20 language modules define methods with the same names as the shared helpers.
+A generated list of which helpers each language calls would then need the compiler instead of a name scan.
+
 ## 7. Order
 
 The five changes land in this order:
@@ -206,11 +232,13 @@ The five changes land in this order:
 [grammar-to-rust]: ../grammar-to-rust/proposal.md
 [prettyplease-array]: https://github.com/dtolnay/prettyplease/blob/49e50897b580a5b7591ead6ef73f3fe09e76d896/src/expr.rs
 [proposal]: proposal.md
+[ra-dead-code]: https://github.com/rust-lang/regex/blob/3d79fe92666a9f191d7677ebc123ac165eac200c/regex-automata/src/lib.rs#L578-L603
 [ra-codegen]: https://github.com/rust-lang/rust-analyzer/blob/2a362a41a8eb6e090f1a12d9b712df85af6f0c33/xtask/src/codegen.rs
 [research]: ../../research/2026-11-10-rust-codegen-practice.md
 [rule-table-codegen]: ../rule-table-codegen/proposal.md
 [rustfmt-config]: https://github.com/rust-lang/rustfmt/blob/29fe6749fce2082c4a45982e8d23bba0dc034fe1/Configurations.md#format_generated_files
 [standards]: ../../../CODING_STANDARDS.md
 [syn-codegen]: https://github.com/dtolnay/syn/blob/97ec37dda8a893a460066da694fd1eb7cb30538a/codegen/src/file.rs
+[tokio-dead-code]: https://github.com/tokio-rs/tokio/blob/ab0814fc8c62b3d8be40aad068e2fed6562cfeb0/tokio/src/sync/batch_semaphore.rs#L1
 [unicode-ident-write]: https://github.com/dtolnay/unicode-ident/blob/28018f288934fa6be60a6e791e071b7a7195643e/generate/src/write.rs
 [unstable-rule-engine]: ../unstable-rule-engine/proposal.md
