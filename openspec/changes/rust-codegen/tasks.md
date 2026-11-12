@@ -47,5 +47,20 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   - the variants `Backref`, `Embed` and `Lowered`, and `Lexer::char_end`.
 
   → verify: `check:features` passes without `-A dead_code`.
+- [ ] 1.6 `check:features` builds each test gate of two or more features, one line per gate.
+  Only `--all-features` compiles that test code now.
+  A narrower gate inside it then goes unbuilt.
+  The generator writes the lines, or a check compares them with the cfgs.
+  The gates found on 2026-11-12:
+  - TypeScript's tests, with its four dialects;
+  - Svelte's tests, with `lang-html` and `lang-markdown`;
+  - `scope.rs`'s tests, with `all`;
+  - 34 probe test gates in 31 files, each with its language and `json`;
+  - CoffeeScript's probe tests, with `json` and `lang-svelte` or the TextMate engine.
 
+  → verify: `check:features` has a line for every test gate of two or more features, and fails when one lacks it.
+  - 2026-11-12: a build of the four TypeScript dialects alone failed to resolve `start_embedded` in their tests.
+    [Pull request #12][pr-12] gates those tests on the function's own gate.
+
+[pr-12]: https://github.com/victor-software-house/nishiki/pull/12
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
