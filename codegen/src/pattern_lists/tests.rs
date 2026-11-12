@@ -464,3 +464,15 @@ fn a_list_under_the_key_root_adds_its_patterns() {
         Ok(Some(vec!["RootAt0".to_owned()]))
     );
 }
+
+/// A repository key `$self`, which Pascal case leaves as it is, still adds
+/// its patterns to the top-level list.
+#[test]
+fn a_list_under_the_key_self_adds_its_patterns() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#$self"}],
+        "repository": {"$self": {"patterns": [{"match": "s"}]}}}"##;
+    assert_eq!(
+        tried(json, &PLAIN, "Root"),
+        Ok(Some(vec!["$selfAt0".to_owned()]))
+    );
+}
