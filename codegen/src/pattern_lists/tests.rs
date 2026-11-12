@@ -857,6 +857,48 @@ fn an_escaped_backslash_before_a_digit_is_no_backreference() {
     );
 }
 
+/// A group number runs over every digit, so `\1` and `\10` are two groups,
+/// and an embedding rule whose end holds both lists no body.
+#[test]
+fn a_two_digit_backreference_is_its_own_group() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "a", "end": "\\1\\10", "patterns": [{"include": "source.ruby"}]}]}"#;
+    let embeds = RuleTables {
+        externals: &[("source.ruby", External::Embeds)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &embeds),
+        Ok(expected(&[
+            ("RootAt0", Act::Begin),
+            ("RootAt0End", Act::End)
+        ]))
+    );
+}
+
+/// A named backreference, `\k<name>`, repeats a group of the end itself.
+/// An end that holds it beside `\1` repeats one group of the begin, and an
+/// embedding rule lists a body.
+#[test]
+fn a_named_backreference_repeats_no_begin_group() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "(a)", "end": "(?<q>e)\\k<q>\\1",
+            "patterns": [{"include": "source.ruby"}]}]}"#;
+    let embeds = RuleTables {
+        externals: &[("source.ruby", External::Embeds)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &embeds),
+        Ok(expected(&[
+            ("RootAt0", Act::Begin),
+            ("RootAt0End", Act::End),
+            ("RootAt0Body", Act::Begin),
+            ("RootAt0BodyEnd", Act::End)
+        ]))
+    );
+}
+
 /// A begin to drop whose end captures add rules is an error, as the walk
 /// drops only the begin, its end and its rule.
 #[test]
