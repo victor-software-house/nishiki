@@ -124,11 +124,12 @@ Swift's script breaks both today:
 
 The same rule names every generated identifier, such as a frame's `Rule` variant.
 A hand matcher takes the name of its pattern, so a move renames the hand-written function too.
-Swift's slice maps each old name to its new one by pattern id, and compares the tokens after that with `syn`.
+Swift's port keeps its old names byte for byte (section 4).
+Its shorter names follow in their own slice (section 5).
+That slice proves the rule:
 
-The first Swift move proves the rule:
-
-- its pull request renames Swift's matchers and their hand-written overrides;
+- it renames Swift's matchers and their hand-written overrides;
+- it maps each old name to its new one by pattern id, and compares the tokens after that with `syn`;
 - no generated Swift name passes 40 characters, and no line that holds one passes 100 columns.
 
 The readability exemption for Swift's generated names ends with that pull request.
@@ -191,13 +192,15 @@ The `codegen/` binary drives it, and `codegen/src/languages/` holds each languag
      Astro, Kotlin, PostCSS and Svelte have no row in `oracle/licences.ts` yet.
    - Proof: section 4, on the family's files.
    - The order:
-     1. the scripts with no logic of their own (section 1);
+     1. Protocol Buffers (task 1.1), then the other scripts with no logic of their own (section 1);
      2. `oracle/rule-generator.ts`'s family: LaTeX, TeX, Objective-C, Objective-C++ and MATLAB;
      3. `oracle/php-family-grammar.ts`'s family: PHP, Blade and Hack;
      4. the other short scripts, a few to a slice;
-     5. one slice each for C#, Astro, Perl, Swift, Svelte with CoffeeScript, C++ and Julia, with their added outputs (section 2.2).
-5. The last slice deletes `oracle/rule-grammar.ts`, `codegen/patterns/` and `check:rule-grammars`.
-   - Proof: no `oracle/*-grammar.ts` remains, and no generated file changes.
+     5. one slice each for C#, Astro, Perl, Swift, Svelte with CoffeeScript, C++ and Julia, with their added outputs (section 2.2);
+     6. Swift's shorter names (section 2.4), after Swift's port.
+        Proof: the diff holds only the renames, with Callgrind rows and Identity.
+5. The last slice deletes `oracle/rule-grammar.ts`, `oracle/rule-generator.ts`, `codegen/patterns/` and `check:rule-grammars`.
+   - Proof: no `oracle/*-grammar.ts` or `oracle/rule-generator.ts` remains, and no generated file changes.
 
 [default-matchers]: ../default-matchers/proposal.md
 [grammar-to-rust]: ../grammar-to-rust/proposal.md
