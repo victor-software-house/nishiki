@@ -9,21 +9,31 @@
 //!   `RootAt3`;
 //! - a begin's end takes the begin's id and `End`.
 //!
+//! A language can name an inline pattern itself, in
+//! [`RuleTables::pattern_names`].
+//! A match named after its first group, `$1`, becomes one pattern for each
+//! alternative of the group, each with its own place in the list.
+//!
 //! A rule a begin opens takes the begin's id, and lists its own patterns.
 //! An entry with patterns and no expression adds its patterns in its place.
-//! `$self` adds the top-level patterns.
+//! `$self`, or the grammar's own scope name, adds the top-level patterns.
 //! A pattern reached again keeps its first id, so an include repeats no
 //! pattern.
+//!
+//! A list reached again while it is being expanded adds nothing there.
+//! A rule a begin opens lists its patterns afresh, so a list being expanded
+//! around it still counts in full inside it.
 //!
 //! The walk ports the copies of `flatten`, `expand` and `register` in the
 //! `oracle/<language>-grammar.ts` scripts.
 //! [`RuleTables`] holds what each copy does differently.
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fmt::Write as _;
 
 use super::error::GenerateError;
-use super::tables::{Act, CaptureLists, Pattern, Rule, RuleTables, Tables};
+use super::split;
+use super::tables::{Act, CaptureLists, LonePattern, Pattern, Rule, RuleTables, Tables};
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
 /// The tables of `grammar`, read as `language` says.
@@ -39,8 +49,9 @@ pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Table
         tables: Tables::default(),
         patterns: HashMap::new(),
         capture_lists: HashMap::new(),
+        expanding: HashSet::new(),
     };
-    let root = walk.list(&grammar.patterns, "Root")?;
+    let root = walk.rule_list(&grammar.patterns, "Root")?;
     walk.tables.rules.push(Rule {
         id: "Root".to_owned(),
         end: None,
@@ -62,20 +73,44 @@ struct Walk<'a> {
     patterns: HashMap<String, usize>,
     /// Each capture list's rule id, by the list's text.
     capture_lists: HashMap<String, String>,
+    /// The ids of the lists being expanded in the current rule's list.
+    expanding: HashSet<String>,
 }
 
 impl<'a> Walk<'a> {
     /// The patterns of `list`, whose patterns take ids from `context`.
-    fn list(&mut self, list: &[RuleId], context: &str) -> Result<Vec<usize>, GenerateError> {
+    ///
+    /// A match named after its first group counts as one entry for each
+    /// alternative.
+    fn list(&mut self, list: &'a [RuleId], context: &str) -> Result<Vec<usize>, GenerateError> {
         let grammar = self.grammar;
         let mut out = Vec::new();
-        for (index, &rule) in list.iter().enumerate() {
-            let Some(include) = &grammar.rules[rule].include else {
-                out.extend(self.expand(rule, &format!("{context}At{index}"))?);
+        let mut index = 0;
+        for &rule in list {
+            let object: &'a UnlinkedRule = &grammar.rules[rule];
+            let Some(include) = &object.include else {
+                let split = object.matched.as_deref().and_then(|matched| {
+                    split::alternatives(matched, &object.name, self.language.split)
+                });
+                if let Some(regexes) = split {
+                    for regex in regexes {
+                        let id = self.inline_id(context, index);
+                        out.push(self.register_match(rule, &id, regex)?);
+                        index += 1;
+                    }
+                } else {
+                    let id = self.inline_id(context, index);
+                    out.extend(self.expand(rule, &id)?);
+                    index += 1;
+                }
                 continue;
             };
-            if include == "$self" {
-                out.extend(self.list(&grammar.patterns, "Root")?);
+            index += 1;
+            if include == "$self" || *include == grammar.scope {
+                if self.expanding.insert("Root".to_owned()) {
+                    out.extend(self.list(&grammar.patterns, "Root")?);
+                    self.expanding.remove("Root");
+                }
                 continue;
             }
             let target = include
@@ -87,16 +122,56 @@ impl<'a> Walk<'a> {
                     include: include.to_string(),
                 });
             };
-            out.extend(self.expand(target, &pascal(key, self.language.key_spellings))?);
+            let id = pascal(key, self.language.key_spellings);
+            if acts(&grammar.rules[target]) {
+                out.extend(self.expand(target, &id)?);
+            } else if self.expanding.insert(id.clone()) {
+                out.extend(self.expand(target, &id)?);
+                self.expanding.remove(&id);
+            }
         }
         Ok(out)
+    }
+
+    /// The patterns of a rule's own list, `list`, whose patterns take ids
+    /// from `context`.
+    /// The lists being expanded around the rule do not count inside it.
+    fn rule_list(
+        &mut self,
+        list: &'a [RuleId],
+        context: &str,
+    ) -> Result<Vec<usize>, GenerateError> {
+        let around = std::mem::take(&mut self.expanding);
+        let patterns = self.list(list, context);
+        self.expanding = around;
+        patterns
+    }
+
+    /// The id of the inline pattern at `index` in the list `context`: the
+    /// language's name for it, or `<context>At<index>`.
+    fn inline_id(&self, context: &str, index: usize) -> String {
+        let id = format!("{context}At{index}");
+        self.language
+            .pattern_names
+            .iter()
+            .find(|&&(derived, _)| derived == id)
+            .map_or(id, |&(_, name)| name.to_owned())
     }
 
     /// The patterns of the rule object `rule`, named `id`.
     fn expand(&mut self, rule: RuleId, id: &str) -> Result<Vec<usize>, GenerateError> {
         let object: &'a UnlinkedRule = &self.grammar.rules[rule];
-        if object.matched.is_some() || object.begin.is_some() {
+        if acts(object) {
             return Ok(vec![self.register(rule, id)?]);
+        }
+        if let [lone] = *object.patterns {
+            let takes_id = match self.language.lone_pattern {
+                LonePattern::OwnId => false,
+                LonePattern::ListId => self.grammar.rules[lone].include.is_none(),
+            };
+            if takes_id {
+                return Ok(vec![self.register(lone, id)?]);
+            }
         }
         if object.has_patterns {
             return self.list(&object.patterns, id);
@@ -104,21 +179,41 @@ impl<'a> Walk<'a> {
         Err(GenerateError::NoAct { id: id.to_owned() })
     }
 
+    /// The index of the match of `rule` with the expression `regex`, named
+    /// `id`, which it adds the first time.
+    fn register_match(
+        &mut self,
+        rule: RuleId,
+        id: &str,
+        regex: String,
+    ) -> Result<usize, GenerateError> {
+        if let Some(&known) = self.patterns.get(id) {
+            if regex != self.tables.patterns[known].regex {
+                return Err(GenerateError::TwoRulesOneId { id: id.to_owned() });
+            }
+            return Ok(known);
+        }
+        self.captures(self.grammar.rules[rule].captures.as_deref())?;
+        Ok(self.put(id.to_owned(), regex, Act::Match))
+    }
+
     /// The index of the pattern of `rule`, named `id`, which it adds the first
     /// time.
     /// A begin also adds its end, then its rule.
     fn register(&mut self, rule: RuleId, id: &str) -> Result<usize, GenerateError> {
         let object: &'a UnlinkedRule = &self.grammar.rules[rule];
-        let regex = object.matched.as_deref().or(object.begin.as_deref());
+        if let Some(matched) = &object.matched {
+            return self.register_match(rule, id, matched.to_string());
+        }
         if let Some(&known) = self.patterns.get(id) {
-            if regex.is_some_and(|regex| regex != self.tables.patterns[known].regex) {
+            if object
+                .begin
+                .as_deref()
+                .is_some_and(|regex| regex != self.tables.patterns[known].regex)
+            {
                 return Err(GenerateError::TwoRulesOneId { id: id.to_owned() });
             }
             return Ok(known);
-        }
-        if let Some(matched) = &object.matched {
-            self.captures(object.captures.as_deref())?;
-            return Ok(self.put(id.to_owned(), matched.to_string(), Act::Match));
         }
         let (Some(begin), Some(end)) = (&object.begin, &object.end) else {
             return Err(GenerateError::NoAct { id: id.to_owned() });
@@ -138,7 +233,7 @@ impl<'a> Walk<'a> {
         )?;
         let closed = self.put(format!("{id}End"), end.to_string(), Act::End);
         let index = self.put_rule(id, Some(closed));
-        self.tables.rules[index].patterns = self.list(&object.patterns, id)?;
+        self.tables.rules[index].patterns = self.rule_list(&object.patterns, id)?;
         Ok(opened)
     }
 
@@ -209,9 +304,14 @@ impl<'a> Walk<'a> {
         let id = format!("Nested{}", self.capture_lists.len());
         self.capture_lists.insert(text, id.clone());
         let index = self.put_rule(&id, None);
-        self.tables.rules[index].patterns = self.list(list, &id)?;
+        self.tables.rules[index].patterns = self.rule_list(list, &id)?;
         Ok(())
     }
+}
+
+/// Whether `object` has an expression of its own, a `match` or a `begin`.
+const fn acts(object: &UnlinkedRule) -> bool {
+    object.matched.is_some() || object.begin.is_some()
 }
 
 /// The rule object of the repository entry `key`.

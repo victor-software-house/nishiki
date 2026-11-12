@@ -12,6 +12,8 @@ pub mod blank_runs;
 mod error;
 #[cfg(feature = "textmate")]
 pub mod flatten;
+#[cfg(feature = "textmate")]
+mod split;
 pub mod starts;
 pub mod tables;
 
