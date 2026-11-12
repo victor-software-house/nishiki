@@ -7,11 +7,11 @@ use std::{error, fmt};
 /// Each variant names the pattern id or the include that failed.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum GenerateError {
-    /// An include names no rule of the grammar's repository.
+    /// An include names another grammar.
     Include {
         /// The id of the rule whose list holds the include.
         rule: String,
-        /// The include, such as `#strings` or `source.css`.
+        /// The include, such as `source.css`.
         include: String,
     },
     /// A rule has no `match`, no `begin` with an `end`, and no patterns.
@@ -39,7 +39,7 @@ impl fmt::Display for GenerateError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
             GenerateError::Include { rule, include } => {
-                write!(f, "{rule}: the include {include} names no rule")
+                write!(f, "{rule}: the include {include} names another grammar")
             }
             GenerateError::NoAct { id } => {
                 write!(

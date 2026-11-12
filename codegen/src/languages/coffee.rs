@@ -1,6 +1,6 @@
 //! CoffeeScript's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// CoffeeScript's tables, from `tests/engine/grammars/coffee.json`.
 pub(crate) const COFFEE: RuleTables = RuleTables {
@@ -128,4 +128,5 @@ pub(crate) const COFFEE: RuleTables = RuleTables {
     ],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    reentry: Reentry::WithinRule,
 };

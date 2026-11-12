@@ -1,6 +1,6 @@
 //! Swift's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// Swift's tables, from `tests/engine/grammars/swift.json`.
 pub(crate) const SWIFT: RuleTables = RuleTables {
@@ -11,4 +11,5 @@ pub(crate) const SWIFT: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    reentry: Reentry::WithinRule,
 };

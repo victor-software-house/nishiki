@@ -1,6 +1,6 @@
 //! Lua's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// Lua's tables, from `tests/engine/grammars/lua.json`.
 pub(crate) const LUA: RuleTables = RuleTables {
@@ -11,4 +11,5 @@ pub(crate) const LUA: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    reentry: Reentry::WithinRule,
 };

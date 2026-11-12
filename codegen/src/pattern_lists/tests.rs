@@ -2,7 +2,7 @@ use nishiki::Grammar;
 use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
-    Act, CaptureLists, LonePattern, RuleTables, Split, Tables,
+    Act, CaptureLists, LonePattern, Reentry, RuleTables, Split, Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -15,6 +15,7 @@ const PLAIN: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    reentry: Reentry::WithinRule,
 };
 
 /// Why a test grammar gave no tables.
@@ -137,15 +138,23 @@ fn a_misspelled_key_takes_the_spelling_the_language_gives() {
     );
 }
 
-/// An include of a key the repository lacks names the rule that holds it.
+/// An include of a key the repository lacks adds nothing.
 #[test]
-fn an_include_of_a_missing_key_is_an_error() {
-    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#gone"}]}"##;
+fn an_include_of_a_missing_key_adds_nothing() {
+    let json =
+        r##"{"scopeName": "source.demo", "patterns": [{"include": "#gone"}, {"match": "x"}]}"##;
+    assert_eq!(ids(json, &PLAIN), Ok(expected(&[("RootAt1", Act::Match)])));
+}
+
+/// An include of another grammar names the rule that holds it.
+#[test]
+fn an_include_of_another_grammar_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [{"include": "source.gone"}]}"#;
     assert_eq!(
         ids(json, &PLAIN),
         Err(Failure::Generate(GenerateError::Include {
             rule: "Root".to_owned(),
-            include: "#gone".to_owned(),
+            include: "source.gone".to_owned(),
         }))
     );
 }
@@ -362,4 +371,22 @@ fn a_lone_list_still_adds_its_patterns() {
         ..PLAIN
     };
     assert_eq!(ids(json, &lone), Ok(expected(&[("OuterAt0", Act::Match)])));
+}
+
+/// Under `Reentry::WithinWalk`, a rule a begin opens inside a list that
+/// reaches itself gets its full list from the second pass.
+#[test]
+fn the_second_pass_lists_what_the_walk_cut_short() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#list"}],
+        "repository": {"list": {"patterns": [
+            {"begin": "b", "end": "e", "patterns": [{"include": "#list"}]},
+            {"match": "m"}]}}}"##;
+    let walk_wide = RuleTables {
+        reentry: Reentry::WithinWalk,
+        ..PLAIN
+    };
+    assert_eq!(
+        tried(json, &walk_wide, "ListAt0"),
+        Ok(Some(vec!["ListAt0".to_owned(), "ListAt1".to_owned()]))
+    );
 }

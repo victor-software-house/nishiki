@@ -1,6 +1,6 @@
 //! Julia's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// Julia's tables, from `tests/engine/grammars/julia.json`.
 pub(crate) const JULIA: RuleTables = RuleTables {
@@ -81,4 +81,5 @@ pub(crate) const JULIA: RuleTables = RuleTables {
     ],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::ListId,
+    reentry: Reentry::WithinRule,
 };

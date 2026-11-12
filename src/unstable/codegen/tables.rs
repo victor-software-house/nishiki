@@ -24,6 +24,21 @@ pub struct RuleTables {
     pub split: Split,
     /// The id of a list entry's one inline pattern.
     pub lone_pattern: LonePattern,
+    /// Where a list that reaches itself again adds nothing.
+    pub reentry: Reentry,
+}
+
+/// Where a list reached again while it is being expanded adds nothing.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Reentry {
+    /// Within one rule's list.
+    /// A rule a begin opens lists its patterns afresh, so a list being
+    /// expanded around it still counts in full inside it.
+    WithinRule,
+    /// Anywhere in the walk, rules included.
+    /// A rule cut short that way gets its full list from a second pass,
+    /// once every pattern has its id.
+    WithinWalk,
 }
 
 /// How a match whose scope name holds `$1` becomes one pattern for each

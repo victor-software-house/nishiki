@@ -21,10 +21,12 @@
 //! pattern.
 //!
 //! A list reached again while it is being expanded adds nothing there.
-//! The top-level list counts as being expanded from the start, so a `$self`
-//! in it adds nothing.
-//! A rule a begin opens lists its patterns afresh, so a list being expanded
-//! around it still counts in full inside it.
+//! When `Root` takes its patterns, the top-level list counts as being
+//! expanded, so a `$self` in it adds nothing.
+//! [`RuleTables::reentry`] sets whether that holds within one rule's list
+//! or in the whole walk.
+//! An include of a repository key the grammar lacks adds nothing, as
+//! vscode-textmate skips it.
 //!
 //! Two patterns or rules with different contents never share an id.
 //! The scripts let the later one replace the earlier one.
@@ -39,15 +41,15 @@ use std::fmt::Write as _;
 
 use super::error::GenerateError;
 use super::split;
-use super::tables::{Act, CaptureLists, LonePattern, Pattern, Rule, RuleTables, Tables};
+use super::tables::{Act, CaptureLists, LonePattern, Pattern, Reentry, Rule, RuleTables, Tables};
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
 /// The tables of `grammar`, read as `language` says.
 ///
 /// # Errors
 ///
-/// [`GenerateError`] when an include names no rule, when a rule has nothing
-/// to match, or when two patterns or rules take one id.
+/// [`GenerateError`] when an include names another grammar, when a rule has
+/// nothing to match, or when two patterns or rules take one id.
 pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Tables, GenerateError> {
     let mut walk = Walk {
         grammar,
@@ -56,9 +58,24 @@ pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Table
         patterns: HashMap::new(),
         capture_lists: HashMap::new(),
         expanding: HashSet::new(),
+        opened: Vec::new(),
     };
-    walk.expanding.insert("Root".to_owned());
-    let root = walk.list(&grammar.patterns, "Root")?;
+    let root = match language.reentry {
+        Reentry::WithinRule => {
+            walk.expanding.insert("Root".to_owned());
+            walk.list(&grammar.patterns, "Root")?
+        }
+        Reentry::WithinWalk => {
+            walk.list(&grammar.patterns, "Root")?;
+            for (index, list, id) in std::mem::take(&mut walk.opened) {
+                walk.expanding.clear();
+                walk.tables.rules[index].patterns = walk.list(list, &id)?;
+            }
+            walk.expanding.clear();
+            walk.expanding.insert("Root".to_owned());
+            walk.list(&grammar.patterns, "Root")?
+        }
+    };
     let index = walk.put_rule("Root", None)?;
     walk.tables.rules[index].patterns = root;
     Ok(walk.tables)
@@ -77,8 +94,12 @@ struct Walk<'a> {
     patterns: HashMap<String, usize>,
     /// Each capture list's rule id, by the list's text.
     capture_lists: HashMap<String, String>,
-    /// The ids of the lists being expanded in the current rule's list.
+    /// The ids of the lists being expanded, in the scope
+    /// [`RuleTables::reentry`] sets.
     expanding: HashSet<String>,
+    /// Each rule the walk opened: its index in the tables, its pattern list
+    /// and its id, for the second pass of [`Reentry::WithinWalk`].
+    opened: Vec<(usize, &'a [RuleId], String)>,
 }
 
 impl<'a> Walk<'a> {
@@ -127,6 +148,9 @@ impl<'a> Walk<'a> {
                 .strip_prefix('#')
                 .and_then(|key| Some((key, entry(&grammar.repository, key)?)));
             let Some((key, target)) = target else {
+                if include.starts_with('#') {
+                    continue;
+                }
                 return Err(GenerateError::Include {
                     rule: context.to_owned(),
                     include: include.to_string(),
@@ -145,16 +169,22 @@ impl<'a> Walk<'a> {
 
     /// The patterns of a rule's own list, `list`, whose patterns take ids
     /// from `context`.
-    /// The lists being expanded around the rule do not count inside it.
+    /// Under [`Reentry::WithinRule`], the lists being expanded around the
+    /// rule do not count inside it.
     fn rule_list(
         &mut self,
         list: &'a [RuleId],
         context: &str,
     ) -> Result<Vec<usize>, GenerateError> {
-        let around = std::mem::take(&mut self.expanding);
-        let patterns = self.list(list, context);
-        self.expanding = around;
-        patterns
+        match self.language.reentry {
+            Reentry::WithinRule => {
+                let around = std::mem::take(&mut self.expanding);
+                let patterns = self.list(list, context);
+                self.expanding = around;
+                patterns
+            }
+            Reentry::WithinWalk => self.list(list, context),
+        }
     }
 
     /// The id of the inline pattern at `index` in the list `context`: the
@@ -243,6 +273,7 @@ impl<'a> Walk<'a> {
         )?;
         let closed = self.put(format!("{id}End"), end.to_string(), Act::End)?;
         let index = self.put_rule(id, Some(closed))?;
+        self.opened.push((index, &object.patterns, id.to_owned()));
         self.tables.rules[index].patterns = self.rule_list(&object.patterns, id)?;
         Ok(opened)
     }
@@ -339,6 +370,7 @@ impl<'a> Walk<'a> {
         let id = format!("Nested{}", self.capture_lists.len());
         self.capture_lists.insert(text, id.clone());
         let index = self.put_rule(&id, None)?;
+        self.opened.push((index, list, id.clone()));
         self.tables.rules[index].patterns = self.rule_list(list, &id)?;
         Ok(())
     }

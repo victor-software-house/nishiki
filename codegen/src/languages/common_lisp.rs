@@ -1,6 +1,6 @@
 //! Common Lisp's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// Common Lisp's tables, from `tests/engine/grammars/common-lisp.json`.
 pub(crate) const COMMON_LISP: RuleTables = RuleTables {
@@ -11,4 +11,5 @@ pub(crate) const COMMON_LISP: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    reentry: Reentry::WithinWalk,
 };

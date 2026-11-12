@@ -1,6 +1,6 @@
 //! HAML's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// HAML's tables, from `tests/engine/grammars/haml.json`.
 pub(crate) const HAML: RuleTables = RuleTables {
@@ -37,4 +37,5 @@ pub(crate) const HAML: RuleTables = RuleTables {
     ],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::ListId,
+    reentry: Reentry::WithinRule,
 };
