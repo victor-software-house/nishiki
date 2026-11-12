@@ -37728,7 +37728,7 @@ impl Pattern {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
             Pattern::MethodAccessCapture13At0
@@ -37740,7 +37740,7 @@ impl Pattern {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pattern::PredefinedMacrosAt0 => Start {
@@ -38504,7 +38504,7 @@ impl Pattern {
             },
             Pattern::LambdasAt2At1 | Pattern::MacroLambdasAt2At1 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
+                    0xffff_fffe_ffff_c1ff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,

@@ -4738,7 +4738,9 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::AnonymousClassesAndNewAt3 | Pattern::EnumsAt2At0 => Start {
+            Pattern::AnonymousClassesAndNewAt3
+            | Pattern::AnonymousClassesAndNewAt4
+            | Pattern::EnumsAt2At0 => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -4829,16 +4831,6 @@ impl Pattern {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
-            },
-            Pattern::AnonymousClassesAndNewAt4 => Start {
-                bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::InWord]),
-                matches_at_end: true,
             },
             Pattern::RecordAt4End | Pattern::RecordConstructorAt1End => Start {
                 bytes: [

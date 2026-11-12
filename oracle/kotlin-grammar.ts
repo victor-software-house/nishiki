@@ -12,7 +12,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -307,14 +307,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("kotlin", patternList);
+g += await startTableFromCodegen("kotlin", patternList);
 g += ruleCodes("Kotlin", "KOTLIN");
 g += groupsCheck(
   "Kotlin",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("kotlin", patternList);
 
 await writeRust(`${root_dir}src/kotlin/grammar.rs`, g);
 

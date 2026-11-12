@@ -26,10 +26,10 @@ Each proves byte-identical output, as design section 4 says.
 - [ ] 2.3 `flatten.rs` and `split.rs` build each pattern list, and codegen's check compares it with `codegen/patterns/`.
   → verify: no file changes, and the check passes for the 34 languages whose grammar `tests/engine/grammars/` holds
 - [ ] 2.4 One task per family, added as each starts, in design section 5's order, after task 1.1.
-  → verify: design section 4's proof passes on the family's files, and its scripts and pattern files are deleted
+  → verify: section 4's proof passes on the family's files, whose scripts, pattern and start files are deleted
   - Objective-C's family keeps its `$base` slots.
     The writer emits `Pattern::Base`, each rule's base list and `BASE_SLOTS`, as `oracle/rule-generator.ts` does with `baseSlots`.
-- [ ] 2.5 The last slice deletes the shared scripts, `oracle/rule-generator.ts` among them, `codegen/patterns/` and `check:rule-grammars`.
+- [ ] 2.5 The last slice deletes the shared scripts, `oracle/rule-generator.ts` among them, `codegen/patterns/`, `codegen/starts/` and `check:rule-grammars`.
   → verify: no `oracle/*-grammar.ts` or `oracle/rule-generator.ts` remains, and no generated file changes
 
 [default-matchers]: ../default-matchers/design.md

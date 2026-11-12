@@ -14,7 +14,7 @@ import {
   oneBlankTable,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -295,15 +295,14 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("postcss", patternList);
+g += await startTableFromCodegen("postcss", patternList);
 g += oneBlankTable(patternList, "any");
 g += groupsCheck(
   "PostCss",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("PostCss", "POSTCSS");
-
-await writePatterns("postcss", patternList);
 
 await writeRust(`${root_dir}src/postcss/grammar.rs`, g);
 

@@ -215,11 +215,11 @@ pub(super) fn files(root: &Path) -> Result<[File; 2], Error> {
     tables(&mut common, "pub(crate)", &shared);
     Ok([
         File {
-            path: "src/html/words.rs",
+            path: "src/html/words.rs".to_owned(),
             text: own,
         },
         File {
-            path: "src/html_words.rs",
+            path: "src/html_words.rs".to_owned(),
             text: common,
         },
     ])

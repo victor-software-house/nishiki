@@ -139,7 +139,7 @@ pub(super) fn file(root: &Path) -> Result<File, Error> {
     );
     text.push_str("];\n");
     Ok(File {
-        path: "src/css/words.rs",
+        path: "src/css/words.rs".to_owned(),
         text,
     })
 }

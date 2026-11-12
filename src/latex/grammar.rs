@@ -13458,7 +13458,7 @@ impl Pattern {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pattern::ColumnSpecials => Start {

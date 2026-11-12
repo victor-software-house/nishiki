@@ -12,7 +12,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -438,14 +438,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("ruby", patternList);
+g += await startTableFromCodegen("ruby", patternList);
 g += ruleCodes("Ruby", "RUBY");
 g += groupsCheck(
   "Ruby",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("ruby", patternList);
 
 await writeRust(`${root_dir}src/ruby/grammar.rs`, g);
 

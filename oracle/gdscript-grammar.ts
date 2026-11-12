@@ -17,7 +17,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -350,14 +350,13 @@ g += wordList(
   words("StatementKeywordAt0", /^\\b\(\?<!\\\.\)\(([a-z_|]*)\)\\b$/),
 );
 
-g += startTable(patternList, "any");
+await writePatterns("gdscript", patternList);
+g += await startTableFromCodegen("gdscript", patternList);
 g += ruleCodes("Gdscript", "GDSCRIPT");
 g += groupsCheck(
   "Gdscript",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-
-await writePatterns("gdscript", patternList);
 
 await writeRust(`${root_dir}src/gdscript/grammar.rs`, g);
 

@@ -13,7 +13,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -286,14 +286,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("zig", patternList);
+g += await startTableFromCodegen("zig", patternList);
 g += groupsCheck(
   "Zig",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("Zig", "ZIG");
-
-await writePatterns("zig", patternList);
 
 await writeRust(`${root_dir}src/zig/grammar.rs`, g);
 

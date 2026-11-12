@@ -2036,17 +2036,12 @@ impl Pattern {
             },
             Pattern::DeclarationsAt8At1
             | Pattern::ImportsAt4
-            | Pattern::ImportsAt6At0
             | Pattern::ImportsAt6At2
             | Pattern::ExportsAt3
-            | Pattern::ExportsAt5At0
-            | Pattern::ExportsAt5At2
-            | Pattern::KeywordsAt10
-            | Pattern::KeywordsAt11
-            | Pattern::KeywordsAt12 => Start {
+            | Pattern::ExportsAt5At2 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0xf400_ac7a_0000_0000,
+                    0x57ff_ffff_c7ff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -2116,7 +2111,7 @@ impl Pattern {
             Pattern::ImportsAt3 | Pattern::ExportsAt2 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
-                    0x07ff_fffe_07ff_fffe,
+                    0x0000_0000_07ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -2137,6 +2132,16 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
+            Pattern::ImportsAt6At0 | Pattern::ExportsAt5At0 => Start {
+                bytes: [
+                    0xf400_ac7b_0000_3e00,
+                    0x57ff_ffff_c7ff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
             Pattern::Exports => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
@@ -2149,7 +2154,7 @@ impl Pattern {
             },
             Pattern::StringsAt2 | Pattern::StringsAt5 => Start {
                 bytes: [
-                    0x03ff_0010_0000_0000,
+                    0x0000_0010_0000_0000,
                     0x07ff_fffe_87ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -2286,6 +2291,26 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
+            Pattern::KeywordsAt10 | Pattern::KeywordsAt12 => Start {
+                bytes: [
+                    0xf400_ac6a_0000_0000,
+                    0x5000_0000_5000_0001,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pattern::KeywordsAt11 => Start {
+                bytes: [
+                    0xf400_ac6a_0000_0000,
+                    0x5000_0000_d000_0001,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
             Pattern::UsingAt0 => Start {
                 bytes: [
                     0x0000_0001_0000_3e00,
@@ -2318,8 +2343,8 @@ impl Pattern {
             },
             Pattern::ParameterListAt0 => Start {
                 bytes: [
-                    0x03ff_0010_0000_0000,
-                    0x07ff_ffff_87ff_fffe,
+                    0x0000_0010_0000_0000,
+                    0x07ff_ffff_8000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],

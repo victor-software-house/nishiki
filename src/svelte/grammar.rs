@@ -2544,7 +2544,9 @@ impl Pattern {
             | Pattern::BodyScss
             | Pattern::SpecialTagsModesAt1At1
             | Pattern::DestructuringConstAt0End
+            | Pattern::DestructuringConstAt1End
             | Pattern::DestructuringAt0End
+            | Pattern::DestructuringAt1End
             | Pattern::InterpolationAt0At0End
             | Pattern::ScopeAt4
             | Pattern::Body => Start {
@@ -2802,9 +2804,7 @@ impl Pattern {
             | Pattern::SpecialTagsModesAt1
             | Pattern::SpecialTagsModesAt1At2
             | Pattern::SpecialTagsModesAt2
-            | Pattern::DestructuringConstAt1End
             | Pattern::SpecialTagsModesAt3
-            | Pattern::DestructuringAt1End
             | Pattern::SpecialTagsModesAt4
             | Pattern::SpecialTagsModesAt4At1
             | Pattern::SpecialTagsModesAt5

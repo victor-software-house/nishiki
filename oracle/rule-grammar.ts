@@ -969,11 +969,74 @@ const hex = (w: bigint) => {
   return `0x${digits.match(/.{4}/g)!.join("_")}`;
 };
 
-/** `Pattern::start`: the bytes each pattern can start at, and its anchors. */
+/** A pattern's start as a table writes it. */
+type StartRow = {
+  /** The four words of its bytes, such as `0x0000_0000_ffff_0000`. */
+  bytes: string[];
+  /** The places a match can start, in the order Away, LineStart, InWord. */
+  places: string[];
+  /** Whether a match can start where no byte follows. */
+  matches_at_end: boolean;
+};
+
+/** `Pattern::start`: the bytes each pattern can start at, and its anchors,
+ * as this file's `startOf` reads each expression.
+ * PHP's, Blade's, Hack's and Julia's scripts call it, since they rewrite
+ * each expression before it is read. */
 export function startTable(
   patternById: { id: string; regex: string }[],
   backref: Backref = "quote",
 ): string {
+  let wordsAtStart = false;
+  const rows = patternById.map((p): [string, StartRow] => {
+    const { set, bol, any, wb, behind, atEnd, inWordFirst } = startOf(p.regex, backref);
+    wordsAtStart ||= inWordFirst;
+    // `^` keeps a match at the start of the line, a lookbehind that needs a
+    // byte keeps it off there, and `\\b` or a lookbehind that fails after a
+    // word character keeps it out of words.
+    const places = [
+      ...(bol ? [] : ["Away"]),
+      ...(behind ? [] : ["LineStart"]),
+      ...(bol || wb ? [] : ["InWord"]),
+    ];
+    return [p.id, { bytes: (any ? FULL() : set).map(hex), places, matches_at_end: atEnd }];
+  });
+  return writeStartTable(rows, wordsAtStart);
+}
+
+/** `Pattern::start` from `codegen/starts/<dir>.json`, which codegen
+ * writes from `codegen/patterns/<dir>.json`.
+ * Call [`writePatterns`] first.
+ * A pattern with no start there throws: run `mise run codegen`, then the
+ * script again. */
+export async function startTableFromCodegen(
+  dir: string,
+  patternById: { id: string }[],
+): Promise<string> {
+  const root = new URL("..", import.meta.url).pathname;
+  const file: {
+    starts: Record<string, { bytes: string; places: string; matches_at_end: boolean }>;
+    words_at_start: boolean;
+  } = await Bun.file(`${root}codegen/starts/${dir}.json`).json();
+  const missing = patternById.filter((p) => !(p.id in file.starts)).map((p) => p.id);
+  if (missing.length > 0)
+    throw new Error(
+      `codegen/starts/${dir}.json has no start for ${missing.join(", ")}; run \`mise run codegen\`, then this script again`,
+    );
+  const rows = patternById.map((p): [string, StartRow] => {
+    const { bytes, places, matches_at_end } = file.starts[p.id]!;
+    const row = {
+      bytes: bytes.split(", "),
+      places: places.split(", ").filter(Boolean),
+      matches_at_end,
+    };
+    return [p.id, row];
+  });
+  return writeStartTable(rows, file.words_at_start);
+}
+
+/** The text of `Pattern::start` and `Pattern::WORDS_AT_START`. */
+function writeStartTable(rows: [string, StartRow][], wordsAtStart: boolean): string {
   let starts = `
 
 impl Pattern {
@@ -981,28 +1044,17 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
         use crate::rules::{Place, PlaceSet};
         match self {
 `;
-  let wordsAtStart = false;
   starts += arms(
-    patternById.map((p): [string, string] => {
-      const { set, bol, any, wb, behind, atEnd, inWordFirst } = startOf(p.regex, backref);
-      wordsAtStart ||= inWordFirst;
-      const words = (any ? FULL() : set).map(hex).join(", ");
-      // `^` keeps a match at the start of the line, a lookbehind that needs a
-      // byte keeps it off there, and `\\b` or a lookbehind that fails after a
-      // word character keeps it out of words.
-      const places = [
-        ...(bol ? [] : ["Place::Away"]),
-        ...(behind ? [] : ["Place::LineStart"]),
-        ...(bol || wb ? [] : ["Place::InWord"]),
-      ];
+    rows.map(([id, row]): [string, string] => {
       // The scan counts its first position inside a word as away from words,
       // which is sound only while Away holds every pattern InWord holds.
-      if (places.includes("Place::InWord") && !places.includes("Place::Away")) {
-        throw new Error(`${p.id}: a pattern tried inside words must be tried away from them`);
+      if (row.places.includes("InWord") && !row.places.includes("Away")) {
+        throw new Error(`${id}: a pattern tried inside words must be tried away from them`);
       }
+      const places = row.places.map((place) => `Place::${place}`).join(", ");
       return [
-        p.id,
-        `Start {\n                bytes: [${words}],\n                places: PlaceSet::of(&[${places.join(", ")}]),\n                matches_at_end: ${atEnd},\n            }`,
+        id,
+        `Start {\n                bytes: [${row.bytes.join(", ")}],\n                places: PlaceSet::of(&[${places}]),\n                matches_at_end: ${row.matches_at_end},\n            }`,
       ];
     }),
     "Pattern",

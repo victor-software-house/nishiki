@@ -21,7 +21,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -477,14 +477,13 @@ g += wordList(
   words("StringLiteralAt0", /^\\\\\(([A-Z0-9|]*)\|\["\\&'\\\\abfnrtv\]\)$/),
 );
 
-g += startTable(patternList, "any");
+await writePatterns("haskell", patternList);
+g += await startTableFromCodegen("haskell", patternList);
 g += ruleCodes("Haskell", "HASKELL");
 g += groupsCheck(
   "Haskell",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("haskell", patternList);
 
 await writeRust(`${root_dir}src/haskell/grammar.rs`, g);
 

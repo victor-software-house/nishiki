@@ -14,7 +14,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -304,14 +304,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("powershell", patternList);
+g += await startTableFromCodegen("powershell", patternList);
 g += ruleCodes("PowerShell", "POWERSHELL");
 g += groupsCheck(
   "PowerShell",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("powershell", patternList);
 
 await writeRust(`${root_dir}src/powershell/grammar.rs`, g);
 

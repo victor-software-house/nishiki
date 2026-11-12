@@ -13,7 +13,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -366,14 +366,13 @@ pub(crate) const COMMAND_PAIRS: &[&[u8]] = &[${pairs.map(bytes).join(", ")}];
 pub(crate) const LONGEST_COMMAND: usize = ${Math.max(...commandList.map((w) => w.length))};
 `;
 
-g += startTable(patternList);
+await writePatterns("bat", patternList);
+g += await startTableFromCodegen("bat", patternList);
 g += ruleCodes("Bat", "BAT");
 g += groupsCheck(
   "Bat",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-
-await writePatterns("bat", patternList);
 
 await writeRust(`${root_dir}src/bat/grammar.rs`, g);
 

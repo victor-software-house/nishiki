@@ -21,7 +21,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -312,14 +312,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("lua", patternList);
+g += await startTableFromCodegen("lua", patternList);
 g += groupsCheck(
   "Lua",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("Lua", "LUA");
-
-await writePatterns("lua", patternList);
 
 await writeRust(`${root_dir}src/lua/grammar.rs`, g);
 

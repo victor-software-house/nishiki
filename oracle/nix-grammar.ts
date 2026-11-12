@@ -13,7 +13,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -286,14 +286,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("nix", patternList);
+g += await startTableFromCodegen("nix", patternList);
 g += groupsCheck(
   "Nix",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("Nix", "NIX");
-
-await writePatterns("nix", patternList);
 
 await writeRust(`${root_dir}src/nix/grammar.rs`, g);
 

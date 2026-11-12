@@ -8442,7 +8442,6 @@ impl Pattern {
             | Pattern::PreprocessorLineEnd
             | Pattern::PreprocessorAppDirectiveEnd
             | Pattern::CommentAt1At0
-            | Pattern::CommentAt1At0While
             | Pattern::TupleElement
             | Pattern::SwitchStatementOrExpressionEnd
             | Pattern::SwitchStatementOrExpressionAt1End
@@ -8464,7 +8463,6 @@ impl Pattern {
             | Pattern::FixedStatementEnd
             | Pattern::LockStatementEnd
             | Pattern::LocalFunctionDeclarationEnd
-            | Pattern::AnonymousMethodExpressionAt0At2
             | Pattern::TypePatternAt0
             | Pattern::TypeSubpatternAt1End
             | Pattern::TypeSubpatternAt3End
@@ -8897,20 +8895,10 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::XmlAttributeAt0
-            | Pattern::DeclarationExpressionLocal
-            | Pattern::DeclarationExpressionTuple
-            | Pattern::LocalVariableDeclaration
-            | Pattern::ForeachStatementAt1At1
-            | Pattern::Parameter
-            | Pattern::PropertyDeclaration
-            | Pattern::FieldDeclaration
-            | Pattern::IndexerDeclaration
-            | Pattern::OperatorDeclaration
-            | Pattern::MethodDeclaration => Start {
+            Pattern::XmlAttributeAt0 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x03ff_2001_0000_3e00,
+                    0x07ff_fffe_87ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -8936,6 +8924,16 @@ impl Pattern {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
+            },
+            Pattern::CommentAt1At0While => Start {
+                bytes: [
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::LineStart]),
+                matches_at_end: true,
             },
             Pattern::ExternAliasDirectiveEnd
             | Pattern::UsingDirectiveAt0End
@@ -9360,11 +9358,14 @@ impl Pattern {
             },
             Pattern::WithExpressionEnd
             | Pattern::ObjectCreationExpressionWithParametersEnd
+            | Pattern::ArrayCreationExpressionEnd
             | Pattern::AnonymousObjectCreationExpressionEnd
             | Pattern::InvocationExpressionEnd
+            | Pattern::ElementAccessExpressionEnd
             | Pattern::TryBlockEnd
             | Pattern::CatchClauseEnd
             | Pattern::FinallyClauseEnd
+            | Pattern::ListPatternAt1
             | Pattern::PropertyPatternAt1
             | Pattern::PositionalPatternAt1
             | Pattern::BaseClassConstructorCallEnd
@@ -9725,17 +9726,24 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::ArrayCreationExpressionEnd
-            | Pattern::ElementAccessExpressionEnd
-            | Pattern::ListPatternAt1 => Start {
+            Pattern::DeclarationExpressionLocal
+            | Pattern::DeclarationExpressionTuple
+            | Pattern::LocalVariableDeclaration
+            | Pattern::ForeachStatementAt1At1
+            | Pattern::Parameter
+            | Pattern::PropertyDeclaration
+            | Pattern::FieldDeclaration
+            | Pattern::IndexerDeclaration
+            | Pattern::OperatorDeclaration
+            | Pattern::MethodDeclaration => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::InWord]),
-                matches_at_end: true,
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
             },
             Pattern::InvocationExpression => Start {
                 bytes: [
@@ -9870,6 +9878,16 @@ impl Pattern {
                     0x0880_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pattern::AnonymousMethodExpressionAt0At2 => Start {
+                bytes: [
+                    0xffff_fffe_ffff_c1ff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,

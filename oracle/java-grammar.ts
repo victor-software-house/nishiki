@@ -12,7 +12,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -324,14 +324,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("java", patternList);
+g += await startTableFromCodegen("java", patternList);
 g += ruleCodes("Java", "JAVA");
 g += groupsCheck(
   "Java",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("java", patternList);
 
 await writeRust(`${root_dir}src/java/grammar.rs`, g);
 

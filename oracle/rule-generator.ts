@@ -26,7 +26,7 @@ import {
   requireGroup,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -827,7 +827,8 @@ pub(crate) struct Nested {
   }
   g += `        }\n    }\n}\n`;
 
-  g += startTable(patternList, cfg.backrefStart);
+  if (write) await writePatterns(cfg.dir, patternList);
+  g += await startTableFromCodegen(cfg.dir, patternList);
   if (cfg.toLast) g += oneBlankTable(patternList, cfg.backrefStart);
   g += ruleCodes(cfg.engine, cfg.table, 8, slotted.length > 0);
   g += groupsCheck(
@@ -855,7 +856,6 @@ pub(crate) struct Nested {
   const wordLists = cfg.words(read);
 
   if (write) {
-    await writePatterns(cfg.dir, patternList);
     await writeRust(`${root_dir}src/${cfg.dir}/grammar.rs`, g);
     await writeRust(
       `${root_dir}src/${cfg.dir}/scope.rs`,

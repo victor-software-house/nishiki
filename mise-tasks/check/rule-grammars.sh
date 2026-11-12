@@ -8,6 +8,9 @@
 # Each generator regenerates its language's tables under src/ in place.
 # It formats them as `mise run format` does.
 # Each also writes its patterns to codegen/patterns/<language>.json.
+# Most read their start sets from codegen/starts/<language>.json.
+# `mise run codegen` writes those from the patterns.
+# PHP's, Blade's, Hack's and Julia's compute their own.
 # The check fails when a file under src/ or codegen/patterns/ then differs from the committed one.
 # The generators and their output cannot drift apart.
 # Bun fetches Shiki from npm.

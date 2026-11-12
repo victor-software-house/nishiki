@@ -13,7 +13,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -294,14 +294,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("dart", patternList);
+g += await startTableFromCodegen("dart", patternList);
 g += ruleCodes("Dart", "DART");
 g += groupsCheck(
   "Dart",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("dart", patternList);
 
 await writeRust(`${root_dir}src/dart/grammar.rs`, g);
 

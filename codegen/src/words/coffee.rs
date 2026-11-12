@@ -190,7 +190,7 @@ pub(super) fn file(root: &Path) -> Result<File, Error> {
         table(&mut text, &[list.doc], &declaration, bytes(&words));
     }
     Ok(File {
-        path: "src/coffee/words.rs",
+        path: "src/coffee/words.rs".to_owned(),
         text,
     })
 }

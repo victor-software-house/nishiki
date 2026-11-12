@@ -17,7 +17,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -459,14 +459,13 @@ pub(crate) const LONGEST_UNIT: usize = ${Math.max(...units.map((u) => u.length))
 /// The scope that names each of [\`UNITS\`], in the same order.
 pub(crate) const UNIT_SCOPES: [S; ${units.length}] = [${unitScopes.map((u) => `S::${u}`).join(", ")}];
 `;
-  g += startTable(patternList);
+  await writePatterns("css", patternList);
+  g += await startTableFromCodegen("css", patternList);
   g += ruleCodes("Css", "CSS");
   g += groupsCheck(
     "Css",
     patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
   );
-
-  await writePatterns("css", patternList);
 
   await writeRust(`${root_dir}src/css/grammar.rs`, g);
 

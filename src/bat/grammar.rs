@@ -1895,7 +1895,7 @@ impl Pattern {
                     0x0000_0000_0000_0000,
                     0x03ff_fffe_03ff_fffe,
                     0x0000_0000_0000_0000,
-                    0x0000_8004_0000_0028,
+                    0x0000_8006_0000_0028,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
@@ -2384,7 +2384,7 @@ impl Pattern {
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
         }

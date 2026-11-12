@@ -13,7 +13,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -288,14 +288,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("proto", patternList);
+g += await startTableFromCodegen("proto", patternList);
 g += groupsCheck(
   "Proto",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("Proto", "PROTO");
-
-await writePatterns("proto", patternList);
 
 await writeRust(`${root_dir}src/proto/grammar.rs`, g);
 

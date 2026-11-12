@@ -32,7 +32,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -729,14 +729,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "quote");
+await writePatterns("svelte", patternList);
+g += await startTableFromCodegen("svelte", patternList);
 g += groupsCheck(
   "Svelte",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
 g += ruleCodes("Svelte", "SVELTE");
-
-await writePatterns("svelte", patternList);
 
 await writeRust(`${root_dir}src/svelte/grammar.rs`, g);
 

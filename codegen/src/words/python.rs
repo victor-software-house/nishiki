@@ -69,7 +69,7 @@ pub(super) fn file(root: &Path) -> Result<File, Error> {
         table(&mut text, &[doc], &declaration, bytes(&words));
     }
     Ok(File {
-        path: "src/python/words.rs",
+        path: "src/python/words.rs".to_owned(),
         text,
     })
 }

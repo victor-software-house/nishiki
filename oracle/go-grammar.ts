@@ -12,7 +12,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -344,14 +344,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("go", patternList);
+g += await startTableFromCodegen("go", patternList);
 g += ruleCodes("Go", "GO");
 g += groupsCheck(
   "Go",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("go", patternList);
 
 await writeRust(`${root_dir}src/go/grammar.rs`, g);
 

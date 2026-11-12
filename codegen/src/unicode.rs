@@ -77,7 +77,10 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
             .map(|(name, key)| format!("({name:?}, {})", ident(key))),
     );
     text.push_str("];\n");
-    Ok(File { path: PATH, text })
+    Ok(File {
+        path: PATH.to_owned(),
+        text,
+    })
 }
 
 /// The name of each set, with its key, sorted by name.

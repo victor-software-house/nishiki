@@ -63,7 +63,7 @@ pub(super) fn file(root: &Path) -> Result<File, Error> {
         table(&mut text, &[], &declaration, quoted(&words));
     }
     Ok(File {
-        path: "src/c/words.rs",
+        path: "src/c/words.rs".to_owned(),
         text,
     })
 }

@@ -16,7 +16,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
@@ -265,13 +265,13 @@ g += arms(
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
-g += startTable(patternById);
+await writePatterns("cmake", patternById);
+g += await startTableFromCodegen("cmake", patternById);
 g += ruleCodes("CMake", "CMAKE");
 g += groupsCheck(
   "CMake",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
-await writePatterns("cmake", patternById);
 await writeRust(`${root_dir}src/cmake/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

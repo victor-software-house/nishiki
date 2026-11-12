@@ -35,7 +35,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -817,11 +817,10 @@ const groupsOf = (p: Pattern): number[] => {
   ].sort((a, b) => a - b);
 };
 
-g += startTable(patternList, "quote");
+await writePatterns("astro", patternList);
+g += await startTableFromCodegen("astro", patternList);
 g += groupsCheck("Astro", patternList.flatMap(groupsOf));
 g += ruleCodes("Astro", "ASTRO");
-
-await writePatterns("astro", patternList);
 
 await writeRust(`${root_dir}src/astro/grammar.rs`, g);
 

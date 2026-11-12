@@ -7747,7 +7747,7 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
-            Pattern::FunctionsEnd => Start {
+            Pattern::FunctionsEnd | Pattern::SingleTypeAt1End => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -7844,8 +7844,8 @@ impl Pattern {
             },
             Pattern::AfterControlVariables => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x77ff_ec23_0000_3e00,
+                    0x07ff_fffe_afff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -7881,16 +7881,6 @@ impl Pattern {
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
-            },
-            Pattern::SingleTypeAt1End => Start {
-                bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
-                ],
-                places: PlaceSet::of(&[Place::Away, Place::InWord]),
-                matches_at_end: true,
             },
             Pattern::DoubleParenthesesTypes => Start {
                 bytes: [

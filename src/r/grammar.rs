@@ -1252,7 +1252,7 @@ impl Pattern {
             },
             Pattern::IdentifierSyntactic => Start {
                 bytes: [
-                    0x03ff_4000_0000_0000,
+                    0x0000_4000_0000_0000,
                     0x07ff_fffe_07ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
