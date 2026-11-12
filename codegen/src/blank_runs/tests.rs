@@ -1,4 +1,4 @@
-use super::{looks_behind_at_a_wide_space, treats_wide_spaces_as_spaces};
+use super::{impl_parts, looks_behind_at_a_wide_space, treats_wide_spaces_as_spaces};
 
 /// Whether `regex`, as a match or a begin, treats a wide space as a space.
 fn alike(regex: &str) -> bool {
@@ -138,4 +138,29 @@ fn the_css_selector_begin_looks_behind_at_a_wide_space() {
     let behind = r"(?i)(?<=^|(^|[^:])\s|[;{}]|\*/|\\(?:\h{1,6}|.))";
     let ahead = r"(?=[\&*+>A-\[a-z|~[^\x00-\x7F]]|\.|#|\(|$)";
     assert!(looks_behind_at_a_wide_space(&format!("{behind}{ahead}")));
+}
+
+/// The impl parts for the struct `source`, named `T`, in a made-up `lang`.
+fn parts(source: &str) -> Result<(String, String), String> {
+    let item = syn::parse_str::<syn::ItemStruct>(source).map_err(|error| error.to_string())?;
+    impl_parts("engine.rs", "lang", "T", &item.generics).map_err(|error| error.to_string())
+}
+
+/// An impl takes the struct's const parameters.
+/// It refuses a type or a lifetime parameter, which it would drop.
+#[test]
+fn an_impl_takes_const_parameters_and_refuses_the_others() {
+    assert_eq!(
+        parts("struct T;"),
+        Ok((String::new(), "crate::lang::engine::T".to_owned()))
+    );
+    assert_eq!(
+        parts("struct T<const D: u8>;"),
+        Ok((
+            "<const D: u8>".to_owned(),
+            "crate::lang::engine::T<D>".to_owned()
+        ))
+    );
+    assert!(parts("struct T<U>(U);").is_err());
+    assert!(parts("struct T<'a>(&'a str);").is_err());
 }
