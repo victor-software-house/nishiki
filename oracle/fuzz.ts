@@ -35,7 +35,7 @@ if (
   process.exit(2);
 }
 const extras = await extrasOf(lang);
-if (mode.endsWith("g") && !extras.pieces) {
+if ((mode === "gen" || mode === "mdg") && !extras.pieces) {
   console.error(`mode ${mode} needs pieces in oracle/fuzz/${lang}.ts`);
   process.exit(2);
 }

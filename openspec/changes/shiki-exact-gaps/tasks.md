@@ -24,8 +24,13 @@ The [research note][note] holds the numbers each task starts from.
 
 ## 2. The fuzz script
 
-- [ ] 2.1 `oracle/fuzz.ts` refuses `gen` and `mdg` alike for a language with no pieces.
+- [x] 2.1 `oracle/fuzz.ts` refuses `gen` and `mdg` alike for a language with no pieces.
   → verify: both modes give the same answer for C#, Lua, R and Swift, and the pull request records where their `gen` documents came from
+  - 2026-11-12: the guard tested `mode.endsWith("g")`, which `gen` fails.
+    Without pieces, `gen` drew from an empty list.
+    Each line held the word `undefined`, repeated.
+  - 2026-11-12: locally, `gen` and `mdg` both exit 2 for C#, Lua, R and Swift, with "needs pieces".
+    C++, which has pieces, still writes both.
 
 ## 3. Rust
 
