@@ -206,6 +206,10 @@ impl Steps {
 
     /// What the lexer spent, for a lexer that only tests the line and
     /// returns no state.
+    #[cfg(any(
+        feature = "_textmate",
+        all(feature = "lang-html-derivative", feature = "lang-markdown")
+    ))]
     #[inline]
     pub(crate) fn into_spent(self) -> u64 {
         self.spent.get()

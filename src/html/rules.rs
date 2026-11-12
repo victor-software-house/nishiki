@@ -9,6 +9,7 @@ use super::state::{
     AttributeRule, Category, ElementClass, Flavor, Namespace, Rule, TagClass, TagRule,
     carried_bits, name,
 };
+#[cfg(feature = "lang-vue")]
 use super::vue::{self, TemplateTag, VuePattern, VueRule};
 
 impl Lexer<'_> {
@@ -317,6 +318,7 @@ impl Lexer<'_> {
             Pattern::JsBlock => (Rule::JsBlockComment, top.carried),
             Pattern::Erb(erb) => (erb_rule(erb), 0),
             Pattern::Blade(blade) => (Self::blade_opens(blade)?, 0),
+            #[cfg(feature = "lang-vue")]
             Pattern::Vue(pattern) => return self.vue_opens(pattern, hit),
             Pattern::End
             | Pattern::Inject
@@ -427,6 +429,7 @@ impl Lexer<'_> {
                 self.capture(base, start, end, &[scope]);
             }
             Pattern::Blade(blade) => self.blade_begin_captures(base, blade, start, end),
+            #[cfg(feature = "lang-vue")]
             Pattern::Vue(pattern) => self.vue_begin_captures(hit, pattern, frame),
             Pattern::End
             | Pattern::Inject
@@ -451,8 +454,15 @@ impl Lexer<'_> {
         }
     }
 
+    /// `base`: without the `lang-vue` feature no rule is Vue's.
+    #[cfg(not(feature = "lang-vue"))]
+    fn vue_name_stack(&mut self, base: u32, _rule: Rule, _carried: u32) -> u32 {
+        base
+    }
+
     /// The scopes of a Vue rule's name on `base`, as [`Self::name_stack`] gives
     /// them.
+    #[cfg(feature = "lang-vue")]
     #[cold]
     #[inline(never)]
     fn vue_name_stack(&mut self, base: u32, rule: Rule, carried: u32) -> u32 {
@@ -516,8 +526,15 @@ impl Lexer<'_> {
         }
     }
 
+    /// `name`: without the `lang-vue` feature no rule is Vue's.
+    #[cfg(not(feature = "lang-vue"))]
+    fn vue_content_stack(&mut self, name: u32, _rule: Rule, _carried: u32) -> u32 {
+        name
+    }
+
     /// The scopes of a Vue rule's content on `name`: an html block holds
     /// html-derivative.
+    #[cfg(feature = "lang-vue")]
     #[cold]
     #[inline(never)]
     fn vue_content_stack(&mut self, name: u32, rule: Rule, carried: u32) -> u32 {
@@ -529,7 +546,12 @@ impl Lexer<'_> {
         name
     }
 
+    /// Nothing: without the `lang-vue` feature no rule is Vue's.
+    #[cfg(not(feature = "lang-vue"))]
+    fn vue_end_captures(&mut self, _top: &super::engine::Frame, _hit: &Hit) {}
+
     /// The end captures of a Vue rule, as [`Self::end_captures`] emits them.
+    #[cfg(feature = "lang-vue")]
     #[cold]
     #[inline(never)]
     fn vue_end_captures(&mut self, top: &super::engine::Frame, hit: &Hit) {
@@ -579,6 +601,7 @@ impl Lexer<'_> {
     /// The rule a begin match of one of Vue's patterns opens, as
     /// [`Self::opens`] gives it.
     /// Without the `lang-vue` feature it opens none, and its code folds away.
+    #[cfg(feature = "lang-vue")]
     #[cold]
     #[inline(never)]
     fn vue_opens(&mut self, pattern: VuePattern, hit: &Hit) -> Option<(Rule, u32)> {
@@ -612,6 +635,7 @@ impl Lexer<'_> {
 
     /// The scope `entity.name.tag.NAME.html.vue` of a Vue block's tag name
     /// on `base`, for the interned `word`.
+    #[cfg(feature = "lang-vue")]
     #[inline(never)]
     fn vue_tag_name(&mut self, base: u32, word: u32) -> u32 {
         self.dynamic(
@@ -626,6 +650,7 @@ impl Lexer<'_> {
 
     /// Emits the capture groups of a begin match of one of Vue's patterns.
     /// Without the `lang-vue` feature it emits none, and its code folds away.
+    #[cfg(feature = "lang-vue")]
     #[cold]
     #[inline(never)]
     fn vue_begin_captures(&mut self, hit: &Hit, pattern: VuePattern, frame: &super::engine::Frame) {
@@ -779,6 +804,7 @@ impl Lexer<'_> {
                 let base = self.blade_base(top.rule, top.state, top.content);
                 self.blade_match_captures(base, blade, start, end);
             }
+            #[cfg(feature = "lang-vue")]
             Pattern::Vue(VuePattern::Modifier) => {
                 self.capture(base, start, start + 1, &[S::VueKeyValue]);
                 self.capture(base, start + 1, end, &[S::VueAttributeName]);
@@ -805,8 +831,9 @@ impl Lexer<'_> {
             | Pattern::JsLine
             | Pattern::JsBlock
             | Pattern::Erb(_)
-            | Pattern::Blade(_)
-            | Pattern::Vue(
+            | Pattern::Blade(_) => {}
+            #[cfg(feature = "lang-vue")]
+            Pattern::Vue(
                 VuePattern::CommentKv
                 | VuePattern::Comment
                 | VuePattern::SelfClosing

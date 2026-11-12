@@ -32,6 +32,7 @@ mod matchers;
 mod rules;
 mod scope;
 mod state;
+#[cfg(feature = "lang-vue")]
 mod vue;
 #[rustfmt::skip]
 mod words;
@@ -176,6 +177,7 @@ pub(crate) enum Span {
     /// A line, which a line feed ends.
     Line,
     /// A capture group, which `TextMate` lexes again on its text alone.
+    #[cfg(feature = "lang-markdown")]
     Capture,
 }
 
@@ -205,7 +207,7 @@ pub(crate) fn lex_derivative_until(
 /// Whether one of html-derivative's root patterns matches at `line.start`,
 /// with the steps the test spent. It tests as it would from `state`, an
 /// embedded start. It lexes nothing.
-#[cfg(feature = "lang-html-derivative")]
+#[cfg(all(feature = "lang-html-derivative", feature = "lang-markdown"))]
 pub(crate) fn derivative_opens_at(
     cx: &mut Context<'_>,
     line: Line<'_>,
