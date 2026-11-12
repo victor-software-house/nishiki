@@ -1,6 +1,6 @@
 //! Jinja's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// Jinja's tables, from `tests/engine/grammars/jinja.json`.
 pub(crate) const JINJA: RuleTables = RuleTables {
@@ -35,4 +35,5 @@ pub(crate) const JINJA: RuleTables = RuleTables {
     ],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    reentry: Reentry::WithinWalk,
 };

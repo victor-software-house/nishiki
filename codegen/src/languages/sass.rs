@@ -1,6 +1,6 @@
 //! Sass's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
 
 /// Sass's tables, from `tests/engine/grammars/sass.json`.
 pub(crate) const SASS: RuleTables = RuleTables {
@@ -11,4 +11,5 @@ pub(crate) const SASS: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    reentry: Reentry::WithinRule,
 };

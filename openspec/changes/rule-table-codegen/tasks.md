@@ -29,11 +29,13 @@ Each proves byte-identical output, as design section 4 says.
     → verify: the check passes for those five
   - [ ] 2.3.2 `split.rs`, and the names a language gives its patterns: Java, Dart, PowerShell, VB and Jinja.
     → verify: the check passes for those five, and for the languages before them
-  - [ ] 2.3.3 Includes that add nothing, and embedded grammars: CoffeeScript, Julia, Less, Swift, Asm, HAML, Elixir, Lua, GDScript and Common Lisp.
+  - [ ] 2.3.3 Includes that add nothing, and where a list that reaches itself stops: Common Lisp, GDScript and Less.
+    → verify: the check passes for those three, and for the languages before them
+  - [ ] 2.3.4 Embedded grammars: CoffeeScript, Elixir, HAML, Julia and Lua.
+    → verify: the check passes for those five, and for the languages before them
+  - [ ] 2.3.5 The scripts with logic of their own: CSS, Assembly, Swift, Ruby, Perl, SCSS, C++, C#, Bat and R.
     → verify: the check passes for those ten, and for the languages before them
-  - [ ] 2.3.4 The scripts with logic of their own: CSS, Ruby, Perl, SCSS, C++, C#, Bat and R.
-    → verify: the check passes for those eight, and for the languages before them
-  - [ ] 2.3.5 `oracle/rule-generator.ts`'s five languages, and PHP.
+  - [ ] 2.3.6 `oracle/rule-generator.ts`'s five languages, and PHP.
     → verify: the check passes for all 34
 - [ ] 2.4 One task per family, added as each starts, in design section 5's order, after task 1.1.
   → verify: section 4's proof passes on the family's files, whose scripts, pattern and start files are deleted
