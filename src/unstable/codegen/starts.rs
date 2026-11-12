@@ -875,13 +875,21 @@ fn one_char(node: &Node) -> bool {
 }
 
 /// Whether the body of a lookbehind is one character or one escape, not `.`.
+///
+/// An anchor counts only where it cannot hold between two word characters.
+/// `\B` and `\G` can, so a match after them can start inside a word.
 fn one_char_behind(node: &Node) -> bool {
     match node {
-        Node::Char(_)
-        | Node::Class(_)
-        | Node::Folds(_)
-        | Node::Anchor(_)
-        | Node::BackReference(..) => true,
+        Node::Char(_) | Node::Class(_) | Node::Folds(_) | Node::BackReference(..) => true,
+        Node::Anchor(anchor) => match anchor {
+            Anchor::LineStart
+            | Anchor::LineEnd
+            | Anchor::TextStart
+            | Anchor::TextEnd
+            | Anchor::TextEndOrFinalNewline
+            | Anchor::WordBoundary => true,
+            Anchor::LastMatchEnd | Anchor::NotWordBoundary => false,
+        },
         Node::Empty
         | Node::Any { .. }
         | Node::Sequence(_)

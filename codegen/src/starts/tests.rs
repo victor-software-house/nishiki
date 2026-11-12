@@ -287,3 +287,16 @@ fn an_insensitive_lookbehind_that_holds_a_word_class_keeps_out_of_words() {
     assert!(!quoted(r"(?i)(?<![-\w])ab").places.in_word);
     assert!(!quoted(r"(?<![-\w])ab").places.in_word);
 }
+
+/// A lookbehind of `\B` or `\G` can hold inside a word, so a match after it
+/// can start there.
+/// One of `\b` or `^` cannot.
+#[test]
+fn a_lookbehind_of_an_anchor_keeps_out_of_words_only_where_the_anchor_cannot_hold() {
+    for regex in [r"(?<=\B)x", r"(?<=\G)x"] {
+        assert!(quoted(regex).places.in_word, "{regex}");
+    }
+    for regex in [r"(?<=\b)x", r"(?<=^)x"] {
+        assert!(!quoted(regex).places.in_word, "{regex}");
+    }
+}
