@@ -330,6 +330,7 @@ lang-html = [
   "_html-words",
   "_test-scopes",
   "_stopped-halt",
+  "_context-first-token",
 ]
 lang-html-derivative = ["_hand-lexers", "lang-html"]
 lang-ini = [
@@ -662,7 +663,7 @@ _class-widths = ["_classes"]
 # The rule engine's hand-over to a language a rule embeds, for Ruby's here
 # documents, Lua's `ffi.cdef`, GraphQL's interpolations, Svelte's
 # expressions and blocks, and Astro's expressions and bodies.
-_embedding = ["_rule-engine", "_start-embedded"]
+_embedding = ["_rule-engine", "_start-embedded", "_context-first-token"]
 # `Language::start_embedded`, which starts a language that another embeds by
 # its `Language`: in Markdown's fences, the rule engine's hand-over and the
 # TextMate engine's.
@@ -670,6 +671,9 @@ _start-embedded = ["_context-scratch"]
 # The lexers' reusable buffers in a line's context, for the lexers that keep
 # some there.
 _context-scratch = []
+# Where a line's tokens start in a context, for the lexers that cut tokens
+# back to a place: the rule engine's hand-over, HTML and the TextMate engine.
+_context-first-token = []
 # `Stopped::halt`, for the hand-written lexers that stop where a halt of the
 # language embedding them holds.
 _stopped-halt = []
@@ -716,6 +720,7 @@ _textmate = [
   "_language",
   "_start-embedded",
   "_stopped-halt",
+  "_context-first-token",
 ]
 _utf8 = []
 
