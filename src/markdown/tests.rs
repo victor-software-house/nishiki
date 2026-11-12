@@ -2335,6 +2335,98 @@ fn a_vue_fence_opens_in_an_html_block_and_in_front_matter() {
     );
 }
 
+/// In an HTML block's `<script>` or `<style>`, a `vue` fence opens on the
+/// scopes of the innermost text, the script's or the style's.
+/// That holds where the tag starts the block, a raw block, and where it sits in
+/// a `<div>` block.
+/// The cases come from Shiki's dumps.
+#[cfg(all(
+    feature = "lang-vue",
+    feature = "lang-html-derivative",
+    feature = "lang-css"
+))]
+#[test]
+fn a_vue_fence_in_an_html_blocks_script_sits_on_its_scopes() {
+    struct Case {
+        div: bool,
+        tag: &'static str,
+        code: &'static str,
+        inner: &'static [&'static str],
+        after: &'static [&'static str],
+    }
+    let cases = [
+        Case {
+            div: false,
+            tag: "script",
+            code: "let x = 1",
+            inner: &["source.js"],
+            after: &["text.html.markdown", "meta.paragraph.markdown"],
+        },
+        Case {
+            div: false,
+            tag: "script",
+            code: "let x = `",
+            inner: &["source.js", "meta.var.expr.js", "string.template.js"],
+            after: &["text.html.markdown", "meta.paragraph.markdown"],
+        },
+        Case {
+            div: false,
+            tag: "style",
+            code: "a { color: red }",
+            inner: &["source.css"],
+            after: &["text.html.markdown", "meta.paragraph.markdown"],
+        },
+        Case {
+            div: true,
+            tag: "script",
+            code: "let x = 1",
+            inner: &["source.js"],
+            after: &["text.html.markdown"],
+        },
+    ];
+    for Case {
+        div,
+        tag,
+        code,
+        inner,
+        after,
+    } in cases
+    {
+        let block = formatdoc! {"
+            <{tag}>
+            {code}
+            ```vue
+            <p>a</p>
+            ```
+            </{tag}>"};
+        let block = if div {
+            formatdoc! {"
+                <div>
+                {block}
+                </div>"}
+        } else {
+            block
+        };
+        let text = formatdoc! {"
+            {block}
+
+            after"};
+        let mut body = vec![
+            "text.html.markdown".to_owned(),
+            "meta.embedded.block.html".to_owned(),
+        ];
+        body.extend(inner.iter().map(|scope| (*scope).to_owned()));
+        body.push("markup.fenced_code.block.markdown".to_owned());
+        let mut language = body.clone();
+        language.push("fenced_code.block.language.markdown".to_owned());
+        assert_eq!(stack_of(&text, "vue"), language, "{text:?}");
+        let mut name = body;
+        name.push("entity.name.tag.p.html.vue".to_owned());
+        assert_eq!(stack_of(&text, "p"), name, "{text:?}");
+        assert_eq!(stack_of(&text, "after"), after, "{text:?}");
+    }
+}
+
 /// In a quote, `\G` sits right after the quote's `> `.
 /// The new fence sits on the scopes of the text around it, here a template
 /// string's.

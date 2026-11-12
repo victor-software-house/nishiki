@@ -1373,6 +1373,10 @@ impl<'a> Lexer<'a> {
             Language::Vue => crate::vue::innermost_stack(self.arena, state),
             #[cfg(feature = "lang-html")]
             Language::Html => crate::html::innermost_stack(self.arena, state),
+            #[cfg(feature = "lang-html-derivative")]
+            Language::HtmlDerivative if state != ROOT => {
+                crate::html::innermost_stack(self.arena, state)
+            }
             _ if state == ROOT => self.frames[body].content,
             _ => self.arena.frame(state).stack,
         };

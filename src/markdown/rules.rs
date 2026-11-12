@@ -407,7 +407,10 @@ pub(crate) const fn injects_vue_fence(container: Container) -> bool {
         Container::Body(language) => !matches!(language, Language::Markdown),
         #[cfg(feature = "lang-html")]
         Container::BodyPhp => true,
-        Container::FencePlain | Container::FrontMatterBody | Container::HtmlBlock => true,
+        Container::FencePlain
+        | Container::FrontMatterBody
+        | Container::HtmlRawBody
+        | Container::HtmlBlock => true,
         #[cfg(feature = "lang-html")]
         Container::FencePhp => false,
         Container::Base
@@ -425,7 +428,6 @@ pub(crate) const fn injects_vue_fence(container: Container) -> bool {
         | Container::ItalicUnder
         | Container::FrontMatter
         | Container::HtmlRaw
-        | Container::HtmlRawBody
         | Container::HtmlInline
         | Container::HtmlWrap => false,
     }
