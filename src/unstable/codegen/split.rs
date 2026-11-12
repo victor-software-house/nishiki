@@ -68,9 +68,11 @@ pub(super) fn alternatives<'n>(
 /// its capture names, `names`, hold a group's text, or `None` when none
 /// does.
 ///
-/// The innermost optional group `(?:…)?` around the named group splits.
-/// Each of its alternatives gives one pattern, inside `(?:…)`.
-/// A last pattern leaves the group out.
+/// The innermost optional group `(?:…)?` around the named group splits:
+///
+/// - each of its alternatives gives one pattern, inside `(?:…)`;
+/// - a last pattern leaves the group out.
+///
 /// So `1(?:(%)|(px|em)\b)?` gives `1(?:(%))`, `1(?:(px|em)\b)` and `1`.
 /// The named group stays whole, and the language's code names its text.
 ///
