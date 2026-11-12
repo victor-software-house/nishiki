@@ -336,6 +336,45 @@ fn an_end_at_the_anchor_matches_only_there() {
     }));
 }
 
+/// A reversed interval such as `{1,0}` repeats at most once, possessively.
+///
+/// C++'s doc comments begin with `^\s+{1,0}(//[!/]+)` and
+/// `\s+{1,0}/\*[!*]+`.
+/// Shiki matches both at a line's start with no blank before them.
+#[test]
+fn a_reversed_interval_repeats_at_most_once() {
+    let grammar = Grammar::from_json(indoc! {r#"
+        {
+          "scopeName": "source.wrap",
+          "patterns": [
+            {
+              "begin": "^\\s+{1,0}(//[!/]+)",
+              "end": "$",
+              "name": "comment.doc.wrap",
+              "beginCaptures": { "1": { "name": "punctuation.doc.wrap" } }
+            },
+            { "begin": "\\s+{1,0}/\\*[!*]+", "end": "\\*/", "name": "comment.block.doc.wrap" }
+          ]
+        }
+    "#})
+    .unwrap();
+    let mut highlighter = highlighter(grammar);
+    let scopes = |names: &[&str]| names.iter().map(|&name| name.to_owned()).collect();
+    assert_eq!(
+        tokens(&mut highlighter, "//! x").first(),
+        Some(&(
+            "//!".to_owned(),
+            scopes(&["punctuation.doc.wrap", "comment.doc.wrap", "source.wrap"])
+        ))
+    );
+    let block = tokens(&mut highlighter, "/** x */");
+    assert!(
+        block
+            .iter()
+            .all(|(_, names)| names.first().map(String::as_str) == Some("comment.block.doc.wrap"))
+    );
+}
+
 /// The innermost scope of the first `$` in `line`, lexed by a loaded grammar
 /// named `source.svelte` that hands its `<script>` to `script`.
 /// The grammar holds the injection that adds Svelte's `$` prefixes, with

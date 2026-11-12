@@ -233,6 +233,12 @@ impl Parser {
         })
     }
 
+    /// `atom` with the quantifiers that follow it.
+    ///
+    /// Oniguruma reads `{n,m}` with `n > m` as a possessive `{m,n}`.
+    /// A `?` after it repeats it again instead of making it lazy.
+    /// Its `fetch_interval` in `regparse.c` swaps the bounds, and
+    /// `doc/RE` lists the form under possessive quantifiers.
     fn quantified(&mut self, mut atom: Node) -> Result<Node> {
         loop {
             let (min, max) = match self.peek() {
@@ -249,6 +255,15 @@ impl Parser {
                     (0, Some(1))
                 }
                 Some('{') => match self.braces() {
+                    Some((low, Some(high))) if high < low => {
+                        atom = Node::Repeat {
+                            node: Box::new(atom),
+                            min: high,
+                            max: Some(low),
+                            greediness: Greediness::Possessive,
+                        };
+                        continue;
+                    }
                     Some(range) => range,
                     None => return Ok(atom),
                 },

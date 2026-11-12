@@ -122,6 +122,16 @@ fn classes_with_intersection_and_posix() {
     assert_eq!(find("\\p{Lu}\\p{Ll}", "xAb"), Some((1, 3)));
 }
 
+/// `{n,m}` with `n > m` is a possessive `{m,n}`, as in Oniguruma.
+/// A `?` after it repeats it again instead of making it lazy.
+#[test]
+fn a_reversed_interval_is_a_possessive_one() {
+    assert_eq!(find("x{1,0}y", "y"), Some((0, 1)));
+    assert_eq!(find("a{2,1}", "aaa"), Some((0, 2)));
+    assert_eq!(find("a{2,1}a", "aa"), None);
+    assert_eq!(find("a{1,0}?", "a"), Some((0, 1)));
+}
+
 /// The class a pattern of one class parses to.
 fn class_of(pattern: &str) -> super::ast::Class {
     let root = parse::parse(pattern, Dialect::Grammar).unwrap().root;
