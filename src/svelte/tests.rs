@@ -1,3 +1,5 @@
+use indoc::indoc;
+
 use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
 use crate::{Language, test_support};
 
@@ -42,6 +44,43 @@ fn a_debug_name_is_lexed_again_by_typescript() {
 fn a_mode_reads_the_whole_line_before_the_tag() {
     let row = lex("{#if a}{:else b}");
     assert_eq!(leaf_in(&row, "b"), "variable.other.readwrite.ts");
+}
+
+/// An `{#each}` tag left open holds the next line's `{c}` as destructuring.
+/// After its `}`, the destructuring rule opens at `{/each}` and closes there
+/// without advancing, so the rest of the line keeps its scopes, as in Shiki.
+/// The next line goes on inside it.
+#[test]
+fn destructuring_that_closes_without_advancing_stops_the_line() {
+    let text = indoc! {"
+        {#each a as b
+        {c}{/each}
+        d}"};
+    let rows = test_support::rows::lex(Language::Svelte, text);
+    let tag = [
+        "source.svelte",
+        "meta.special.each.svelte",
+        "meta.special.start.svelte",
+        "meta.embedded.expression.svelte",
+        "source.ts",
+    ];
+    let brace = [
+        &tag[..],
+        &["punctuation.definition.binding-pattern.object.ts"],
+    ]
+    .concat();
+    let cases: [(usize, std::ops::Range<usize>, &[&str]); 3] =
+        [(1, 0..1, &brace), (1, 3..10, &tag), (2, 0..2, &tag)];
+    for (row, bytes, want) in cases {
+        let mut start = 0;
+        for (token, scopes) in &rows[row] {
+            let end = start + token.len();
+            if start < bytes.end && bytes.start < end {
+                assert_eq!(scopes, want, "{token:?} on line {row}");
+            }
+            start = end;
+        }
+    }
 }
 
 #[cfg(feature = "json")]

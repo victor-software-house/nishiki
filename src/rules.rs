@@ -1032,6 +1032,12 @@ fn lex_again<G: Embeds>(
 /// At the start of a later line inside the rule, no match has ended on the
 /// line, so `\G` does not hold there.
 ///
+/// Each part keeps where the line's rules opened.
+/// So a rule that opens at a halt and closes there without advancing stops
+/// the line, as in one `TextMate` stack.
+/// Svelte's `{#each}` destructuring opens and closes at the text after its
+/// `}` so.
+///
 /// A rule whose begin took the line feed embeds from past the text.
 /// No text is left on the line, so the line ends there.
 /// The language starts on the next line, from the rule's empty carried value.
@@ -1173,6 +1179,7 @@ fn hand_over<G: Embeds>(
     if let Some((_, buffer)) = starts {
         cx.scratch.rule_starts = buffer;
     }
+    scratch(cx.scratch).forget_enters();
     (steps.finish(state), halted)
 }
 

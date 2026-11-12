@@ -49,11 +49,27 @@ The [research note][note] holds the numbers each task starts from.
 
 ## 4. Svelte and seed 2
 
-- [ ] 4.1 Svelte lexes `{#each items as item, $i}{/each}` within the default work limit, as Shiki does.
+- [x] 4.1 Svelte lexes `{#each items as item, $i}{/each}` within the default work limit, as Shiki does.
   → verify: a test holds the line with Shiki's scopes, and no Svelte `win` document stops or differs at any seed
   - 2026-11-12: at [98bb9820][base], Svelte's `win` corpus at seed 2 holds the line in documents 2, 17, 76 and 91.
-    The line reaches the work limit there.
-    The corpus test stops at it.
+    The corpus test stops at document 17, where the line reaches the work limit.
+  - 2026-11-12: the line stops only after `{#each items as item, i{/each}`, which leaves the tag open.
+    Any line that starts with `{` stops there.
+    Alone, the line matches Shiki.
+  - 2026-11-12: the cause is in the rule engine.
+    The `{` opens the `{#each}` tag's destructuring, whose text goes to TypeScript.
+    After its `}`, the destructuring opens again and TypeScript halts at once.
+  - 2026-11-12: vscode-textmate then closes the rule without advancing and stops the line.
+    nishiki cleared where rules opened at each hand-over, so the rule opened again until the work limit.
+  - 2026-11-12: Svelte's `win` corpus, on a box, 100 documents per seed.
+    Before, seed 2 stopped and seed 3 had one document that differs.
+    After, no document stops, and seed 3's one document still differs.
+    That document is task 4.2's case.
+    Svelte's `mdw` corpus had no document that differs before or after.
+  - 2026-11-12: Identity changes three edited copies of Svelte's `capture-ends` fixture.
+    Each now matches Shiki.
+  - 2026-11-12: Callgrind against the base, one build per side, reads Svelte at 1.0022 for lexing.
+    No gated row reads over 1.0039.
 - [ ] 4.2 After `<script lang=">let one: number = 1;</script>`, Svelte enters the embedded script where Shiki does.
   So do the `<script lang="coffee">` lines after it.
   → verify: a test holds the case with Shiki's scopes, and no Svelte `win` document differs at any seed
