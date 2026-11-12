@@ -1,7 +1,8 @@
 //! CoffeeScript's tables.
 
 use nishiki::unstable::codegen::tables::{
-    CaptureLists, External, Identity, Injection, LonePattern, Reentry, RuleTables, Split,
+    CaptureLists, CaptureNames, External, Identity, Injection, LonePattern, Reentry, RuleTables,
+    Split,
 };
 
 /// CoffeeScript's tables, from `tests/engine/grammars/coffee.json`.
@@ -129,6 +130,7 @@ pub(crate) const COFFEE: RuleTables = RuleTables {
         ("RegexCharacterClassAt3", "BackslashEscape"),
     ],
     split: Split::KeepsGroup,
+    capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,
     reentry: Reentry::WithinRule,

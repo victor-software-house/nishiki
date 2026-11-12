@@ -2,8 +2,8 @@ use nishiki::Grammar;
 use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
-    Act, CaptureLists, External, Identity, Injection, LonePattern, Reentry, RuleTables, Split,
-    Tables,
+    Act, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern, Reentry,
+    RuleTables, Split, Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -15,6 +15,7 @@ const PLAIN: RuleTables = RuleTables {
     capture_lists: CaptureLists::Rules,
     pattern_names: &[],
     split: Split::KeepsGroup,
+    capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,
     reentry: Reentry::WithinRule,
@@ -279,6 +280,64 @@ fn names_of_two_groups_do_not_split() {
         Err(Failure::Generate(GenerateError::Split {
             id: "RootAt0".to_owned(),
             regex: "(a|b)(c|d)".to_owned(),
+        }))
+    );
+}
+
+/// A match whose capture name alone holds a group's text stays one pattern,
+/// or splits the optional group around it, as `capture_names` sets.
+#[test]
+fn a_capture_named_after_a_group_splits_its_optional_group() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "1(?:(%)|(px|em)\\b)?",
+            "captures": {"2": {"name": "unit.${2:/downcase}.demo"}}},
+        {"match": "x"}]}"#;
+    let regexes = |capture_names| {
+        tables(
+            json,
+            &RuleTables {
+                capture_names,
+                ..PLAIN
+            },
+        )
+        .map(|tables| {
+            tables
+                .patterns
+                .into_iter()
+                .map(|pattern| pattern.regex)
+                .collect::<Vec<_>>()
+        })
+    };
+    assert_eq!(
+        regexes(CaptureNames::Kept),
+        Ok(vec![r"1(?:(%)|(px|em)\b)?".to_owned(), "x".to_owned()])
+    );
+    assert_eq!(
+        regexes(CaptureNames::SplitsOptionalGroup),
+        Ok(vec![
+            "1(?:(%))".to_owned(),
+            r"1(?:(px|em)\b)".to_owned(),
+            "1".to_owned(),
+            "x".to_owned(),
+        ])
+    );
+}
+
+/// A capture named after a group that no optional group holds gives no
+/// split.
+#[test]
+fn a_capture_named_after_a_required_group_does_not_split() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [{"match": "1(px|em)",
+        "captures": {"1": {"name": "unit.$1.demo"}}}]}"#;
+    let splits = RuleTables {
+        capture_names: CaptureNames::SplitsOptionalGroup,
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &splits),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+            regex: "1(px|em)".to_owned(),
         }))
     );
 }
