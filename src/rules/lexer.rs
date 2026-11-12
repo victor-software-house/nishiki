@@ -3198,20 +3198,9 @@ mod tests {
         scratch.start_line();
         let mut out = Vec::new();
         let mut report = LineReport::default();
-        let mut cx = crate::language::Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = crate::language::Line {
-            text: "@@1 x @@2",
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx =
+            crate::language::Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = crate::language::Line::new("@@1 x @@2", 0);
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         let ends: Vec<usize> = out.iter().map(|token| token.end()).collect();
         assert!(ends.windows(2).all(|pair| pair[0] < pair[1]), "{ends:?}");
@@ -3288,20 +3277,9 @@ mod tests {
         scratch.start_line();
         let mut out = Vec::new();
         let mut report = LineReport::default();
-        let mut cx = crate::language::Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = crate::language::Line {
-            text: "%%!x",
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx =
+            crate::language::Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = crate::language::Line::new("%%!x", 0);
         ASKED.with(|asked| asked.set(0));
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         assert_ne!(
@@ -3335,20 +3313,9 @@ mod tests {
         scratch.start_line();
         let mut out = Vec::new();
         let mut report = LineReport::default();
-        let mut cx = crate::language::Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = crate::language::Line {
-            text: "a %%",
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx =
+            crate::language::Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = crate::language::Line::new("a %%", 0);
         ASKED.with(|asked| asked.set(0));
         let next =
             crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
@@ -3397,20 +3364,14 @@ mod tests {
         for text in [">>", "fn"] {
             scratch.start_line();
             out.clear();
-            let mut cx = crate::language::Context {
-                scratch: &mut scratch,
-                arena: &mut arena,
-                limits: &limits,
-                out: &mut out,
-                report: &mut report,
-                first_token: 0,
-            };
-            let line = crate::language::Line {
-                text,
-                start: 0,
-                embedded: false,
-                anchored_at_root: false,
-            };
+            let mut cx = crate::language::Context::new(
+                &mut scratch,
+                &mut arena,
+                &limits,
+                &mut out,
+                &mut report,
+            );
+            let line = crate::language::Line::new(text, 0);
             state =
                 crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         }
@@ -3436,20 +3397,9 @@ mod tests {
         scratch.start_line();
         let mut out = Vec::new();
         let mut report = LineReport::default();
-        let mut cx = crate::language::Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = crate::language::Line {
-            text: "<<ab ##x y",
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx =
+            crate::language::Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = crate::language::Line::new("<<ab ##x y", 0);
         PARENT_TEXTS.with_borrow_mut(Vec::clear);
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         let texts = PARENT_TEXTS.with_borrow(Clone::clone);
@@ -3479,20 +3429,9 @@ mod tests {
         scratch.start_line();
         let mut out = Vec::new();
         let mut report = LineReport::default();
-        let mut cx = crate::language::Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = crate::language::Line {
-            text: "##a ! b",
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx =
+            crate::language::Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = crate::language::Line::new("##a ! b", 0);
         crate::rules::lex_embedding::<Named>(&mut cx, line, state, named_buffers).state();
         let bang = out
             .iter()

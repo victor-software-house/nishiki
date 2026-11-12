@@ -663,20 +663,8 @@ fn until_in(
         let mut out: Vec<Token> = Vec::new();
         let mut report = LineReport::default();
         scratch.start_line();
-        let mut cx = Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &limits,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = Line {
-            text,
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+        let line = Line::new(text, 0);
         let (next, stopped) = super::lex_until(&mut cx, dialect, line, state, end, after);
         let halt = stopped.map(|stopped| stopped.at);
         state = next.state();

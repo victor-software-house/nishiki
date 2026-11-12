@@ -762,20 +762,14 @@ fn lex_deferred<G: Embeds>(
     for group in groups.iter().rev() {
         tokens.clear();
         let lent = steps.lend(cx.limits);
-        let mut part_cx = Context {
-            scratch: &mut *cx.scratch,
-            arena: &mut *cx.arena,
-            limits: &lent,
-            out: &mut *tokens,
-            report: &mut *cx.report,
-            first_token: 0,
-        };
-        let part = Line {
-            text: line.text.get(..group.to).unwrap_or(line.text),
-            start: group.from,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut part_cx = Context::new(
+            &mut *cx.scratch,
+            &mut *cx.arena,
+            &lent,
+            &mut *tokens,
+            &mut *cx.report,
+        );
+        let part = Line::new(line.text.get(..group.to).unwrap_or(line.text), group.from);
         let Some(finished) = G::lex_nested(group.language, &mut part_cx, part, group.base) else {
             continue;
         };
@@ -995,14 +989,14 @@ fn lex_again<G: Embeds>(
     let steps = Steps::new(cx.limits, line.text.len());
     steps.take_back(finished);
     let lent = steps.lend(cx.limits);
-    let mut again = Context {
-        scratch: &mut *cx.scratch,
-        arena: &mut *cx.arena,
-        limits: &lent,
-        out: &mut *cx.out,
-        report: &mut *cx.report,
-        first_token: cx.first_token,
-    };
+    let mut again = Context::new(
+        &mut *cx.scratch,
+        &mut *cx.arena,
+        &lent,
+        &mut *cx.out,
+        &mut *cx.report,
+    )
+    .with_first_token(cx.first_token);
     let state = lex_embedding::<G>(&mut again, line, state, scratch);
     let state = steps.take_back(state);
     let rule = G::rule_from_code(cx.arena.frame(state).rule);
@@ -1075,12 +1069,7 @@ fn hand_over<G: Embeds>(
             },
             known => known,
         };
-        let part = Line {
-            text: line.text,
-            start: embedding.at,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let part = Line::new(line.text, embedding.at);
         let (end, after) = G::embed_halts_for(rule, &embedding, cx.arena);
         let own = G::embeds_after_own(rule);
         if own && starts.as_ref().map(|&(code, _)| code) != Some(G::rule_code(rule)) {
@@ -1107,14 +1096,14 @@ fn hand_over<G: Embeds>(
         };
         let ends = ends_at_line_end::<G>(cx.arena, line, &end, &embedding);
         let lent = steps.lend(cx.limits);
-        let mut part_cx = Context {
-            scratch: &mut *cx.scratch,
-            arena: &mut *cx.arena,
-            limits: &lent,
-            out: &mut *cx.out,
-            report: &mut *cx.report,
-            first_token: cx.first_token,
-        };
+        let mut part_cx = Context::new(
+            &mut *cx.scratch,
+            &mut *cx.arena,
+            &lent,
+            &mut *cx.out,
+            &mut *cx.report,
+        )
+        .with_first_token(cx.first_token);
         let halted = if ends {
             let at = embedding.at;
             Some((

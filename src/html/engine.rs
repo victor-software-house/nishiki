@@ -1043,20 +1043,15 @@ impl<'a> Lexer<'a> {
             return None;
         }
         let lent = self.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
-        let line = Line {
-            text: self.text,
-            start: pos,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
+        let line = Line::new(self.text, pos);
         let script = match self.document {
             Document::Erb => Script::Erb,
             Document::Html
@@ -1134,20 +1129,15 @@ impl<'a> Lexer<'a> {
             return None;
         }
         let lent = self.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
-        let line = Line {
-            text: self.text,
-            start: pos,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
+        let line = Line::new(self.text, pos);
         let (next, stopped) = vue_lex(&mut cx, lexed, line, inner, end);
         let next = self.steps.take_back(next);
         match stopped {
@@ -1158,6 +1148,7 @@ impl<'a> Lexer<'a> {
                 self.advance_to(pos, Some(at));
                 Some(Hit::new(Pattern::End, at, at))
             }
+            #[cfg(feature = "_rule-engine")]
             Some(Stopped {
                 at,
                 reason: StopReason::PopHost,
@@ -1193,20 +1184,15 @@ impl<'a> Lexer<'a> {
         let stack = self.path(base, &[S::TsEmbedded]);
         let state = crate::typescript::start_expression(self.arena, stack);
         let lent = self.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
-        let line = Line {
-            text: self.text.get(..to).unwrap_or(self.text),
-            start: from,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
+        let line = Line::new(self.text.get(..to).unwrap_or(self.text), from);
         let (next, _) = crate::typescript::lex_until(
             &mut cx,
             crate::typescript::Dialect::TypeScript,
@@ -1348,20 +1334,15 @@ impl<'a> Lexer<'a> {
             return None;
         }
         let lent = self.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
-        let line = Line {
-            text: self.text.get(..self.lim).unwrap_or(self.text),
-            start: pos,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
+        let line = Line::new(self.text.get(..self.lim).unwrap_or(self.text), pos);
         let (next, halt) = Self::lex_erb_ruby(&mut cx, line, inner);
         let next = self.steps.take_back(next);
         self.advance_to(pos, halt);
@@ -1416,20 +1397,15 @@ impl<'a> Lexer<'a> {
             inner = blade::php_start(self.arena, top.content);
         }
         let lent = self.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
-        let line = Line {
-            text: self.text.get(..self.lim).unwrap_or(self.text),
-            start: pos,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
+        let line = Line::new(self.text.get(..self.lim).unwrap_or(self.text), pos);
         let (next, halt) = Self::lex_blade_php(&mut cx, line, inner, rule, top.injection);
         let next = self.steps.take_back(next);
         self.advance_to(pos, halt);
@@ -1791,21 +1767,16 @@ impl<'a> Lexer<'a> {
         self.spend(to - from);
         let state = crate::typescript::start_embedded(self.arena, base);
         let lent = self.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
         let text = self.text.get(..to).unwrap_or(self.text);
-        let line = Line {
-            text,
-            start: from,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let line = Line::new(text, from);
         let finished = crate::typescript::lex_capture(&mut cx, line, state);
         self.steps.take_back(finished);
         self.last = self.last.max(to);
@@ -1925,11 +1896,12 @@ fn resumes_at(stopped: Option<Stopped>) -> Option<usize> {
             at,
             reason: StopReason::Halt,
         }) => Some(at),
+        #[cfg(feature = "_rule-engine")]
         Some(Stopped {
             reason: StopReason::PopHost,
             ..
-        })
-        | None => None,
+        }) => None,
+        None => None,
     }
 }
 

@@ -284,7 +284,15 @@ impl<S: Syntax> Highlighter<S> {
 
     /// The open context of `state`, for the lexers' tests.
     #[cfg(test)]
-    #[cfg(feature = "_hand-lexers")]
+    #[cfg(any(
+        feature = "lang-rust",
+        all(
+            feature = "lang-typescript",
+            feature = "lang-javascript",
+            feature = "lang-jsx",
+            feature = "lang-tsx"
+        )
+    ))]
     pub(crate) fn frame(&self, state: State) -> crate::arena::Frame {
         self.store.arena.frame(if state.0 == ROOT {
             self.store.start
@@ -333,21 +341,14 @@ pub(crate) fn lex_line<S: Syntax>(
         return report;
     }
     store.scratch.start_line();
-    let first_token = out.len();
-    let mut cx = Context {
-        scratch: &mut store.scratch,
-        arena: &mut store.arena,
-        limits: &store.limits,
+    let mut cx = Context::new(
+        &mut store.scratch,
+        &mut store.arena,
+        &store.limits,
         out,
-        report: &mut report,
-        first_token,
-    };
-    let text = Line {
-        text: line,
-        start: 0,
-        embedded: false,
-        anchored_at_root: false,
-    };
+        &mut report,
+    );
+    let text = Line::new(line, 0);
     let to = lex(*lexer, buffers, &mut cx, text, from);
     *state = State(if to == store.start { ROOT } else { to });
     report

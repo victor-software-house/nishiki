@@ -163,11 +163,11 @@ impl Steps {
     /// The function is out of line, because few lines embed a language.
     #[cold]
     #[cfg(any(
-        test,
         feature = "_embedding",
         feature = "lang-html",
         feature = "lang-markdown",
-        feature = "lang-xml"
+        feature = "lang-xml",
+        all(test, feature = "_textmate")
     ))]
     pub(crate) fn lend(&self, limits: &Limits) -> Limits {
         let left = self.limit.saturating_sub(self.spent.get());
@@ -183,6 +183,13 @@ impl Steps {
     /// Counts what an embedded lexer spent, from the [`Finished`] it
     /// returned, and gives back its state.
     #[inline]
+    #[cfg(any(
+        feature = "_embedding",
+        feature = "_textmate",
+        feature = "lang-html",
+        feature = "lang-markdown",
+        feature = "lang-xml"
+    ))]
     pub(crate) fn take_back(&self, finished: Finished) -> u32 {
         self.add(finished.spent);
         finished.state
@@ -190,6 +197,13 @@ impl Steps {
 
     /// Counts `spent` steps that an embedded lexer spent testing the line.
     #[inline]
+    #[cfg(any(
+        feature = "_embedding",
+        feature = "_textmate",
+        feature = "lang-html",
+        feature = "lang-markdown",
+        feature = "lang-xml"
+    ))]
     pub(crate) fn add(&self, spent: u64) {
         self.spent.set(self.spent.get().saturating_add(spent));
     }
@@ -200,6 +214,13 @@ impl Steps {
     pub(crate) fn finish(self, state: u32) -> Finished {
         Finished {
             state,
+            #[cfg(any(
+                feature = "_embedding",
+                feature = "_textmate",
+                feature = "lang-html",
+                feature = "lang-markdown",
+                feature = "lang-xml"
+            ))]
             spent: self.spent.get(),
         }
     }
@@ -236,6 +257,14 @@ impl Steps {
 )]
 pub(crate) struct Finished {
     state: u32,
+    /// What the lexer spent, for a lexer that embeds it and takes it back.
+    #[cfg(any(
+        feature = "_embedding",
+        feature = "_textmate",
+        feature = "lang-html",
+        feature = "lang-markdown",
+        feature = "lang-xml"
+    ))]
     spent: u64,
 }
 
@@ -254,7 +283,17 @@ impl Finished {
         )
     )]
     pub(crate) fn unspent(state: u32) -> Self {
-        Finished { state, spent: 0 }
+        Finished {
+            state,
+            #[cfg(any(
+                feature = "_embedding",
+                feature = "_textmate",
+                feature = "lang-html",
+                feature = "lang-markdown",
+                feature = "lang-xml"
+            ))]
+            spent: 0,
+        }
     }
 
     /// The state after the line.

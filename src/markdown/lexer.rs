@@ -1206,20 +1206,15 @@ impl<'a> Lexer<'a> {
         let text = &self.line[..self.limit.min(self.line.len())];
         let state = crate::html::start_embedded(self.arena, ROOT);
         let lent = self.facts.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
-        let line = Line {
-            text,
-            start,
-            embedded: true,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
+        let line = Line::new(text, start).with_anchor(true);
         let (opens, spent) = crate::html::derivative_opens_at(&mut cx, line, state, span);
         self.facts.steps.add(spent);
         opens
@@ -1267,20 +1262,15 @@ impl<'a> Lexer<'a> {
         if text < close {
             let state = crate::html::start_embedded(self.arena, base);
             let lent = self.facts.steps.lend(self.limits);
-            let mut cx = Context {
-                scratch: &mut *self.scratch,
-                arena: &mut *self.arena,
-                limits: &lent,
-                out: &mut *self.out,
-                report: &mut *self.report,
-                first_token: self.first_token,
-            };
-            let line = Line {
-                text: &self.line[..close],
-                start: text,
-                embedded: false,
-                anchored_at_root: false,
-            };
+            let mut cx = Context::new(
+                &mut *self.scratch,
+                &mut *self.arena,
+                &lent,
+                &mut *self.out,
+                &mut *self.report,
+            )
+            .with_first_token(self.first_token);
+            let line = Line::new(&self.line[..close], text);
             let (finished, _) = crate::html::lex_derivative_until(
                 &mut cx,
                 line,
@@ -1410,24 +1400,19 @@ impl<'a> Lexer<'a> {
         #[cfg(feature = "lang-html-derivative")]
         let span = self.span();
         let lent = self.facts.steps.lend(self.limits);
-        let mut cx = Context {
-            scratch: &mut *self.scratch,
-            arena: &mut *self.arena,
-            limits: &lent,
-            out: &mut *self.out,
-            report: &mut *self.report,
-            first_token: self.first_token,
-        };
+        let mut cx = Context::new(
+            &mut *self.scratch,
+            &mut *self.arena,
+            &lent,
+            &mut *self.out,
+            &mut *self.report,
+        )
+        .with_first_token(self.first_token);
         #[cfg(feature = "lang-vue")]
         let anchored = !vue || self.anchor == Some(start);
         #[cfg(not(feature = "lang-vue"))]
         let anchored = true;
-        let line = Line {
-            text: &self.line[..end],
-            start,
-            embedded: anchored,
-            anchored_at_root: false,
-        };
+        let line = Line::new(&self.line[..end], start).with_anchor(anchored);
         #[cfg(feature = "lang-html-derivative")]
         let ((state, popped), back) = match html_give_back(container) {
             Some(give_back) => {
@@ -1704,6 +1689,7 @@ fn lex_with_root(
             }
             (finished, Some(at))
         }
+        #[cfg(feature = "_rule-engine")]
         (
             finished,
             Some(Stopped {
@@ -1729,6 +1715,7 @@ fn lex_popping(
 ) -> (Finished, Option<usize>) {
     let (never, _) = crate::language::NO_HALTS;
     match lang.lex_until(cx, line, state, never, None) {
+        #[cfg(feature = "_rule-engine")]
         Some((
             finished,
             Some(Stopped {

@@ -1292,20 +1292,8 @@ pub(crate) mod probe {
         let mut tokens = Vec::new();
         let mut report = LineReport::default();
         let state = crate::html::start_blade(arena, ROOT);
-        let mut context = Context {
-            scratch: &mut scratch,
-            arena,
-            limits: &limits,
-            out: &mut tokens,
-            report: &mut report,
-            first_token: 0,
-        };
-        let line = Line {
-            text: case.text,
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut context = Context::new(&mut scratch, arena, &limits, &mut tokens, &mut report);
+        let line = Line::new(case.text, 0);
         let mut lexer = Lexer::new(&mut context, line, state, Document::Blade);
         lexer.lf = matches!(case.after, After::LineFeed);
         lexer.anchor = matches!(case.anchor, Anchor::G).then_some(case.p);

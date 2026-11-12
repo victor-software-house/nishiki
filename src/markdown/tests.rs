@@ -2414,20 +2414,9 @@ fn a_lookbehind_at_an_embedded_start_reads_the_line_before_it() {
     let limits = crate::limits::Limits::default();
     let mut out = Vec::new();
     let mut report = crate::limits::LineReport::default();
-    let mut cx = crate::language::Context {
-        scratch: &mut scratch,
-        arena: &mut arena,
-        limits: &limits,
-        out: &mut out,
-        report: &mut report,
-        first_token: 0,
-    };
-    let line = crate::language::Line {
-        text: "@component*{x}* ",
-        start: 10,
-        embedded: false,
-        anchored_at_root: false,
-    };
+    let mut cx =
+        crate::language::Context::new(&mut scratch, &mut arena, &limits, &mut out, &mut report);
+    let line = crate::language::Line::new("@component*{x}* ", 10);
     let (_, halt) = super::lex_until(&mut cx, line, state, &never, None);
     assert_eq!(halt, None);
     let italic = out.iter().any(|token| {

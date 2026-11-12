@@ -1869,20 +1869,8 @@ mod halts {
         let mut out = Vec::new();
         let mut report = LineReport::default();
         scratch.start_line();
-        let mut cx = Context {
-            scratch: &mut scratch,
-            arena: &mut arena,
-            limits: &lent,
-            out: &mut out,
-            report: &mut report,
-            first_token: 0,
-        };
-        let text = Line {
-            text: line,
-            start: 0,
-            embedded: false,
-            anchored_at_root: false,
-        };
+        let mut cx = Context::new(&mut scratch, &mut arena, &lent, &mut out, &mut report);
+        let text = Line::new(line, 0);
         let (finished, _) = crate::textmate::lex_until(&mut cx, grammar, text, state, &never, None);
         steps.take_back(finished);
         (
@@ -2006,20 +1994,14 @@ mod hand_offs {
                 self.tokens.clear();
                 let mut report = LineReport::default();
                 self.scratch.start_line();
-                let mut cx = Context {
-                    scratch: &mut self.scratch,
-                    arena: &mut self.arena,
-                    limits: &limits,
-                    out: &mut self.tokens,
-                    report: &mut report,
-                    first_token: 0,
-                };
-                let text = Line {
-                    text: line,
-                    start: 0,
-                    embedded: false,
-                    anchored_at_root: false,
-                };
+                let mut cx = Context::new(
+                    &mut self.scratch,
+                    &mut self.arena,
+                    &limits,
+                    &mut self.tokens,
+                    &mut report,
+                );
+                let text = Line::new(line, 0);
                 state = crate::textmate::lex_handing(&mut cx, self.grammar, text, state);
                 each(line, &self.tokens, &self.arena);
             }
@@ -2284,20 +2266,8 @@ mod hand_offs {
             out.clear();
             let mut report = LineReport::default();
             scratch.start_line();
-            let mut cx = Context {
-                scratch: &mut scratch,
-                arena: &mut arena,
-                limits: &lent,
-                out: &mut out,
-                report: &mut report,
-                first_token: 0,
-            };
-            let text = Line {
-                text: line,
-                start: 0,
-                embedded: false,
-                anchored_at_root: false,
-            };
+            let mut cx = Context::new(&mut scratch, &mut arena, &lent, &mut out, &mut report);
+            let text = Line::new(line, 0);
             let finished =
                 crate::textmate::lex_handing_embedded(&mut cx, table("haml"), text, state);
             state = steps.take_back(finished);

@@ -11,7 +11,7 @@
 //! number of lines.
 
 use std::collections::HashMap;
-#[cfg(feature = "_language")]
+#[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
 use std::collections::hash_map::Entry;
 use std::hash::{BuildHasherDefault, Hasher};
 
