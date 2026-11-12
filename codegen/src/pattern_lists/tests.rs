@@ -454,19 +454,39 @@ fn a_self_in_the_top_level_list_adds_nothing() {
     );
 }
 
-/// A match named after its first group fails when it has no group, or when
-/// the group holds more than words between `|`.
+/// A match named after its first group fails when it has no group.
 #[test]
-fn a_group_that_is_not_plain_words_does_not_split() {
-    for regex in [r"\b(foo(?:bar)?|baz)\b", r"(a\)|b)", r"([)]|b)", r"\bfoo\b"] {
+fn a_name_of_a_missing_group_does_not_split() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "\\bfoo\\b", "name": "keyword.$1.demo"}]}"#;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+            regex: r"\bfoo\b".to_owned(),
+        }))
+    );
+}
+
+/// A group splits at each `|` at its own level.
+/// A `|` or `)` in an inner group, after a `\`, or in a character class
+/// splits nothing and ends nothing.
+#[test]
+fn a_group_splits_at_its_own_level() {
+    for (regex, split) in [
+        (
+            r"\b(foo(?:bar|qux)?|baz)\b",
+            [r"\b(foo(?:bar|qux)?)\b", r"\b(baz)\b"],
+        ),
+        (r"(a\)|b)c", [r"(a\))c", "(b)c"]),
+        (r"([)|]|b)c", ["([)|])c", "(b)c"]),
+        (r"([_[:alpha:]]|b)c", ["([_[:alpha:]])c", "(b)c"]),
+    ] {
         let json = serde_json::json!({"scopeName": "source.demo", "patterns": [
             {"match": regex, "name": "keyword.$1.demo"}]});
         assert_eq!(
-            ids(&json.to_string(), &PLAIN),
-            Err(Failure::Generate(GenerateError::Split {
-                id: "RootAt0".to_owned(),
-                regex: regex.to_owned(),
-            })),
+            regexes(&json.to_string(), &PLAIN),
+            Ok(split.map(str::to_owned).to_vec()),
             "{regex}"
         );
     }
