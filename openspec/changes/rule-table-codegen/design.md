@@ -89,7 +89,7 @@ What a nishiki language needs beyond its grammar is one `RuleTables` value, in `
 - The tree folds `(?i)` characters into classes of their orbits, which the TypeScript reader does not.
   A set can then gain the first byte of a character such as the Kelvin sign.
   Such a set is still sound, but it differs.
-- `codegen --compare` reports a differing set by its pattern.
+- codegen's check reports a differing set by its pattern (section 5, slice 1).
   The pull request lists it, and Identity and Callgrind check it.
   The `generated-rule-tables` spec allows such a set and no other token change.
 - `oracle/rule-grammar.test.ts`'s 24 cases become unit tests with typed inputs.
@@ -124,7 +124,7 @@ Swift's script breaks both today:
 
 The same rule names every generated identifier, such as a frame's `Rule` variant.
 A hand matcher takes the name of its pattern, so a move renames the hand-written function too.
-`codegen --compare` maps each old name to its new one by pattern id, and compares the tokens after that.
+Swift's slice maps each old name to its new one by pattern id, and compares the tokens after that with `syn`.
 
 The first Swift move proves the rule:
 
@@ -153,14 +153,51 @@ The stable surface of [grammar-to-rust][grammar-to-rust] cannot fail.
 
 ## 4. The proof
 
-- `mise run codegen -- --check` passes in `verify`.
-- Each move is checked against its base commit in a build box, `8x16` or smaller, `--ttl 2h`, ephemeral:
-  - `codegen --compare <base>` parses each changed file on both sides with `syn` and compares the tokens.
-    Layout and `//` comments differ; tokens, doc comments included, do not.
-  - Identity and `check:features` pass.
-- A changed start set (section 2.3) is listed in the pull request, with its Callgrind rows.
-- The output of the compare goes in the pull request body, under "How it was verified".
+Every slice proves byte-identical output against its base commit (lead, 2026-11-12).
+
+- codegen formats each file it writes with rustfmt, on the nightly `RUSTFMT_TOOLCHAIN` names, as `writeRust` does.
+- A slice runs codegen and the scripts it replaces on one base.
+  `git diff --exit-code` over the slice's files then shows no change.
+- `mise run codegen -- --check` passes in `verify`, and Identity passes.
+- Two kinds of change are allowed, each in a slice of its own, with its Callgrind rows:
+  - a start set that the tree reads differently (section 2.3);
+  - Swift's shorter names (section 2.4).
 - `check:rule-grammars` runs the remaining scripts until the last one goes, then it is deleted.
+
+## 5. The slices
+
+Each slice puts its logic in `unstable::codegen` from the start (section 2.1).
+The `codegen/` binary drives it, and `codegen/src/languages/` holds each language's `RuleTables` value.
+
+1. The analyses.
+   - `starts.rs` ports `startOf`, `canMatchEmpty` and `takesOneBlank` over the parser's tree.
+   - The blank-run analysis moves from `codegen/src/blank_runs.rs` into `unstable::codegen` beside it.
+     The `codegen/` binary keeps only the writer of `src/rules/blank_runs.rs`.
+   - Both read `codegen/patterns/`.
+   - `starts.rs` writes nothing yet.
+     codegen's check compares its result with the tables in each `grammar.rs`, for all 48 languages.
+   - Proof: no file changes, and the check lists each start set that differs.
+2. The changed start sets, if slice 1 finds any.
+   - The scripts take codegen's sets from a generated file, as they take `blank_runs.rs`.
+   - Proof: the diff holds only the listed sets, with Callgrind rows and Identity.
+3. The model.
+   - `flatten.rs` and `split.rs` build each language's pattern list from its grammar in `tests/engine/grammars/` and its `RuleTables` value.
+   - codegen's check compares that list with `codegen/patterns/<language>.json`, byte for byte, for each of the 34 languages whose grammar is there.
+   - Proof: no file changes, and the check passes for all 34.
+4. One slice per family: codegen writes the family's `grammar.rs`, `scope.rs` and `words.rs`.
+   - The slice deletes the family's scripts and pattern files.
+     The blank-run analysis and `starts.rs` then read `unstable::codegen`'s own model for it.
+   - A family whose grammar is missing adds it to `tests/engine/grammars/`, after its licence is read at its source.
+     Astro, Kotlin, PostCSS and Svelte have no row in `oracle/licences.ts` yet.
+   - Proof: section 4, on the family's files.
+   - The order:
+     1. the scripts with no logic of their own (section 1);
+     2. `oracle/rule-generator.ts`'s family: LaTeX, TeX, Objective-C, Objective-C++ and MATLAB;
+     3. `oracle/php-family-grammar.ts`'s family: PHP, Blade and Hack;
+     4. the other short scripts, a few to a slice;
+     5. one slice each for C#, Astro, Perl, Swift, Svelte with CoffeeScript, C++ and Julia, with their added outputs (section 2.2).
+5. The last slice deletes `oracle/rule-grammar.ts`, `codegen/patterns/` and `check:rule-grammars`.
+   - Proof: no `oracle/*-grammar.ts` remains, and no generated file changes.
 
 [default-matchers]: ../default-matchers/proposal.md
 [grammar-to-rust]: ../grammar-to-rust/proposal.md
