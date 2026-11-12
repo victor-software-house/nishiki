@@ -445,10 +445,18 @@ function expand(node: Node, id: string): Member[] {
 
 // The injections: the bodies of the language tags.
 // vscode-textmate tries an `L:` injection before the rule's own patterns,
-// in every rule whose scopes its selector matches. Inside a language tag
-// those are the tag's rule and its `meta.lang.$3` rule. Each body becomes a
-// rule those two try first; its matcher checks the tag and the `lang` value
-// from their begin texts, which stand for the selector.
+// in every rule whose scopes its selector matches.
+// Inside a language tag's start, those are the rules that tag opens, such as
+// an attribute's string.
+// A `>` in that string opens the body, as in Shiki.
+// Each body becomes a rule.
+// Those rules try all the bodies first, as one pattern, `Body`.
+// Its matcher walks the open rules to the tag, for the tag and its `lang`
+// value, which stand for the selectors.
+// At most one body holds there, so the scan names it in place of `Body`.
+// The nine bodies as nine more patterns at every byte of an attribute cost
+// Svelte 2.9% more instructions.
+// As one, `Body` costs what `BodyTemplate` cost there before.
 
 /** Each body rule and the selectors it stands for. */
 const bodies = new Map<string, string[]>();
@@ -482,11 +490,54 @@ rules.set("Root", {
   before: 0,
   injected: 0,
 });
-for (const id of ["TagsLang", "TagsLangAt0"]) {
+/** The scopes the rule itself adds: its name and its content name. */
+function ownScopes(rule: Rule): string[] {
+  const idents = [
+    ...rule.name,
+    ...rule.content,
+    ...(rule.dynamic?.before ?? []),
+    ...(rule.dynamic?.after ?? []),
+  ];
+  return [...idents.map((ident) => scopes.get(ident)!), rule.dynamic?.prefix ?? ""];
+}
+
+/** Whether one of the rule's own scopes is a `source` scope.
+ * Inside a tag, whose `meta` scope lies below, that hides every body's
+ * selector, through its `- (meta source)`. */
+function hidesBodies(rule: Rule): boolean {
+  return ownScopes(rule).some((name) => name.startsWith("source."));
+}
+
+/** The rules a language tag's start opens, the tag's own included.
+ * A body, an embedding rule, a deferred list and a rule that hides the
+ * bodies open none of them. */
+const tagRules = new Set<string>();
+function reach(id: string) {
   const rule = rules.get(id);
   if (rule === undefined) throw new Error(`no rule ${id} for the bodies`);
-  rule.patterns = [...bodies.keys(), ...rule.patterns];
-  rule.injected += bodies.size;
+  const deferred = Object.values(deferredNames).includes(id);
+  if (tagRules.has(id) || bodies.has(id) || rule.embed !== null || deferred || hidesBodies(rule))
+    return;
+  tagRules.add(id);
+  for (const pattern of rule.patterns) {
+    const act = patternById.get(pattern)!.act;
+    if (act.role === "begin") reach(act.rule);
+  }
+}
+reach("TagsLang");
+// `(?<=>)` gives the start every body's begin has.
+// The act is a begin, as every body's is, for the scan at the depth limit.
+patternById.set("Body", {
+  id: "Body",
+  regex: "(?<=>)",
+  act: { role: "begin", rule: "BodyJavaScript" },
+  captures: [],
+  nested: [],
+});
+for (const id of tagRules) {
+  const rule = rules.get(id)!;
+  rule.patterns = ["Body", ...rule.patterns];
+  rule.injected += 1;
 }
 
 // The template body's selector, `L:meta.template.svelte - meta.lang - (meta
@@ -496,18 +547,12 @@ for (const id of ["TagsLang", "TagsLangAt0"]) {
 // `source` or a `meta.lang` scope.
 // Every other rule tries the template body first; its matcher walks the
 // open rules to the template.
+// A rule that tries `Body` tries the template body there.
 // The root, the embedding rules and the deferred lists run no such patterns.
 
 /** Whether one of the rule's own scopes hides the template body's selector. */
 function hidesTemplate(rule: Rule): boolean {
-  const idents = [
-    ...rule.name,
-    ...rule.content,
-    ...(rule.dynamic?.before ?? []),
-    ...(rule.dynamic?.after ?? []),
-  ];
-  const names = [...idents.map((ident) => scopes.get(ident)!), rule.dynamic?.prefix ?? ""];
-  return names.some((name) => name.startsWith("source.") || name.startsWith("meta.lang"));
+  return ownScopes(rule).some((name) => name.startsWith("source.") || name.startsWith("meta.lang"));
 }
 for (const rule of rules.values()) {
   const deferred = Object.values(deferredNames).includes(rule.id);
@@ -516,6 +561,7 @@ for (const rule of rules.values()) {
     rule.embed !== null ||
     deferred ||
     rule.patterns.includes("BodyTemplate") ||
+    tagRules.has(rule.id) ||
     hidesTemplate(rule)
   )
     continue;
@@ -656,7 +702,10 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patternList) {
-  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  g +=
+    p.id === "Body"
+      ? `    /// Every body's begin, tried as one; the scan names the body that opens.\n    Body,\n`
+      : `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
 }
 g += `}\n\nimpl Pattern {\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(all(test, feature = "json"))]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
 g += arms(
@@ -701,7 +750,7 @@ if (Bun.env["RX_DUMP"]) {
   await Bun.write(
     Bun.env["RX_DUMP"],
     patternList
-      .filter((p) => !(p.act.role === "end" && /\\[1-9]/.test(p.regex)))
+      .filter((p) => p.id !== "Body" && !(p.act.role === "end" && /\\[1-9]/.test(p.regex)))
       .map((p) => JSON.stringify({ id: p.id, regex: p.regex, groups: p.captures.map(([n]) => n) }))
       .join("\n") + "\n",
   );

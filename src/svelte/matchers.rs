@@ -64,6 +64,7 @@ impl Lexer<'_> {
     #[inline]
     pub(super) fn matcher(&mut self, pattern: Pattern, p: usize) -> Option<usize> {
         match pattern {
+            Pattern::Body => self.body_at(p).map(|(_, end)| end),
             Pattern::BodyJavaScript => self.body_opens(p, Body::JavaScript),
             Pattern::BodyTypeScriptBlock => self.body_opens(p, Body::TypeScript),
             Pattern::BodyCss => self.body_opens(p, Body::Css),
@@ -74,12 +75,9 @@ impl Lexer<'_> {
             Pattern::BodySass => self.body_opens(p, Body::Sass),
             Pattern::BodyTypeScriptLine => (self.prev(p) == Some(b'>')
                 && self.body() == Body::TypeScript
-                && (p + 1..self.lim()).any(|q| closing_tag(self.text(q, self.lim()))))
+                && self.closes_later(p))
             .then_some(p),
-            Pattern::BodyTemplate => {
-                (self.prev(p) == Some(b'>') && self.space_at(p) > 0 && self.in_template())
-                    .then(|| p + self.space_at(p))
-            }
+            Pattern::BodyTemplate => self.template_opens(p),
             Pattern::BodyJavaScriptEnd
             | Pattern::BodyCssEnd
             | Pattern::BodyPostCssEnd
@@ -488,13 +486,22 @@ impl Lexer<'_> {
     /// sits in.
     /// It comes from the injections' selectors: the tag (`meta.$1`) and its
     /// `lang` value (`meta.lang.$3`), when it has one.
+    /// The walk reads both from the open rules' begin texts.
+    /// A rule between them that hides the bodies ([`Rule::hides_template`])
+    /// keeps the selectors from holding.
     fn body(&self) -> Body {
-        let top = self.top_rule();
-        let (tag, lang) = if top == Rule::TagsLang {
-            (self.begin_text(), None)
-        } else if top == Rule::TagsLangAt0 {
-            (self.parent_begin_text(), Some(self.begin_text()))
-        } else {
+        let mut lang = None;
+        let tag = self.open_rules().find_map(|(index, rule)| {
+            if rule == Rule::TagsLang {
+                Some(Some(self.begin_text_of(index)))
+            } else if rule == Rule::TagsLangAt0 {
+                lang = Some(self.begin_text_of(index));
+                None
+            } else {
+                rule.hides_template().then_some(None)
+            }
+        });
+        let Some(tag) = tag.flatten() else {
             return Body::Plain;
         };
         let script_or_style = tag == "script" || tag == "style";
@@ -527,6 +534,47 @@ impl Lexer<'_> {
                 }
             })
             .unwrap_or(false)
+    }
+
+    /// The body that opens at `p`, and where its begin ends.
+    /// It tries the bodies in the grammar's order.
+    /// The tag and its `lang` pick one language, so at most one other than
+    /// TypeScript's two can match.
+    #[inline]
+    pub(super) fn body_at(&self, p: usize) -> Option<(Pattern, usize)> {
+        if self.prev(p) != Some(b'>') {
+            return None;
+        }
+        let pattern = match self.body() {
+            Body::Plain => {
+                return self
+                    .template_opens(p)
+                    .map(|end| (Pattern::BodyTemplate, end));
+            }
+            Body::TypeScript if self.closes_later(p) => {
+                return Some((Pattern::BodyTypeScriptLine, p));
+            }
+            Body::TypeScript => Pattern::BodyTypeScriptBlock,
+            Body::JavaScript => Pattern::BodyJavaScript,
+            Body::CoffeeScript => Pattern::BodyCoffeeScript,
+            Body::Css => Pattern::BodyCss,
+            Body::Less => Pattern::BodyLess,
+            Body::PostCss => Pattern::BodyPostCss,
+            Body::Sass => Pattern::BodySass,
+            Body::Scss => Pattern::BodyScss,
+        };
+        (!self.starts(p, b"</")).then_some((pattern, p))
+    }
+
+    /// Whether a closing tag starts later on the line, past `p`.
+    fn closes_later(&self, p: usize) -> bool {
+        (p + 1..self.lim()).any(|q| closing_tag(self.text(q, self.lim())))
+    }
+
+    /// `(?<=>)\s`, inside a template without `lang`.
+    fn template_opens(&self, p: usize) -> Option<usize> {
+        (self.prev(p) == Some(b'>') && self.space_at(p) > 0 && self.in_template())
+            .then(|| p + self.space_at(p))
     }
 
     /// `(?<=>)(?!</)`, where the tag's body is in `body`.

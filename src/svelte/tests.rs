@@ -83,6 +83,86 @@ fn destructuring_that_closes_without_advancing_stops_the_line() {
     }
 }
 
+/// The scopes of the token that holds byte `at` of line `row`.
+fn scopes_at(rows: &[test_support::rows::Row], row: usize, at: usize) -> &[String] {
+    let mut end = 0;
+    let (_, scopes) = rows[row]
+        .iter()
+        .find(|(token, _)| {
+            end += token.len();
+            at < end
+        })
+        .unwrap_or_else(|| panic!("no byte {at} on line {row}"));
+    scopes
+}
+
+/// A `>` in a language tag's attribute value opens the tag's body there.
+/// The body's end, `</`, closes it, and the string goes on.
+/// A `>` at the end of that line opens the body again, so the next lines
+/// stay in it, as in Shiki.
+#[test]
+fn a_gt_in_a_language_tags_attribute_opens_its_body() {
+    let text = indoc! {r#"
+        <script lang=">let one: number = 1;</script>
+        <script lang="coffee">
+        x = 1"#};
+    let rows = test_support::rows::lex(Language::Svelte, text);
+    let string = [
+        "source.svelte",
+        "meta.script.svelte",
+        "meta.tag.start.svelte",
+        "meta.attribute.lang.svelte",
+        "string.quoted.svelte",
+    ];
+    let body = [&string[..], &["meta.embedded.block.svelte", "source.js"]].concat();
+    let cases: [(usize, usize, Vec<&str>); 4] = [
+        (
+            0,
+            15,
+            [&body[..], &["meta.var.expr.js", "storage.type.js"]].concat(),
+        ),
+        (0, 36, string.to_vec()),
+        (
+            1,
+            0,
+            [
+                &body[..],
+                &["meta.tag.js", "punctuation.definition.tag.begin.js"],
+            ]
+            .concat(),
+        ),
+        (
+            2,
+            2,
+            [&body[..], &["meta.tag.js", "meta.jsx.children.js"]].concat(),
+        ),
+    ];
+    for (row, at, want) in cases {
+        assert_eq!(scopes_at(&rows, row, at), want, "byte {at} of line {row}");
+    }
+}
+
+/// A style tag's attribute value opens a CSS body the same way.
+#[test]
+fn a_gt_in_a_style_tags_attribute_opens_a_css_body() {
+    let text = indoc! {r#"
+        <style x=">a">
+        b {}"#};
+    let rows = test_support::rows::lex(Language::Svelte, text);
+    let body = [
+        "source.svelte",
+        "meta.style.svelte",
+        "meta.tag.start.svelte",
+        "meta.attribute.x.svelte",
+        "string.quoted.svelte",
+        "meta.embedded.block.svelte",
+        "source.css",
+    ];
+    assert_eq!(scopes_at(&rows, 0, 11), body);
+    let tag = [&body[..], &["meta.selector.css", "entity.name.tag.css"]].concat();
+    assert_eq!(scopes_at(&rows, 1, 0), tag);
+}
+
 #[cfg(feature = "json")]
 mod probe {
     use crate::svelte::engine::Svelte;

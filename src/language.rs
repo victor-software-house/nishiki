@@ -1702,6 +1702,9 @@ languages! {
     ///   After its `}`, the destructuring opens and closes again without advancing.
     ///   vscode-textmate stops the line there, and the rest of it keeps the destructuring's scopes.
     ///   The next line goes on inside the destructuring.
+    /// - A `>` in an attribute value of a `<script>` or `<style>` tag opens the tag's body there.
+    ///   The body closes at the next `</`, and the attribute value goes on.
+    ///   A `>` at the end of that line opens the body again, so the lines after it stay in it.
     /// - Svelte's `$` prefixes reach its own TypeScript, JavaScript and CoffeeScript,
     ///   as Shiki's injection `L:(source.ts, source.js, source.coffee)` does.
     ///   That includes a `<script>` in the HTML of an `@component` comment's Markdown.

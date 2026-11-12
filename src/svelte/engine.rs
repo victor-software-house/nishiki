@@ -102,8 +102,13 @@ impl Grammar for Svelte {
         (definition.act, (definition.captures, definition.nested))
     }
 
+    /// The scan names the body that [`Pattern::Body`] opens.
     fn scan(lexer: &mut Lexer<'_>) -> Option<(usize, Pattern, usize)> {
-        table_scan(lexer)
+        let (at, pattern, end) = table_scan(lexer)?;
+        if pattern == Pattern::Body {
+            return lexer.body_at(at).map(|(body, _)| (at, body, end));
+        }
+        Some((at, pattern, end))
     }
 
     fn matcher(lexer: &mut Lexer<'_>, pattern: Pattern, p: usize) -> Option<usize> {

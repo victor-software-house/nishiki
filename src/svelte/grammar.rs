@@ -587,16 +587,7 @@ impl Rule {
                 end: None,
                 backref: Some(1),
                 patterns: &[
-                    Pattern::BodyJavaScript,
-                    Pattern::BodyTypeScriptLine,
-                    Pattern::BodyTypeScriptBlock,
-                    Pattern::BodyCoffeeScript,
-                    Pattern::BodyCss,
-                    Pattern::BodyLess,
-                    Pattern::BodyPostCss,
-                    Pattern::BodySass,
-                    Pattern::BodyScss,
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::TagsLangEnd,
                     Pattern::TagsLangAt0,
                     Pattern::TagsLangStartAttributes,
@@ -608,16 +599,7 @@ impl Rule {
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::BodyJavaScript,
-                    Pattern::BodyTypeScriptLine,
-                    Pattern::BodyTypeScriptBlock,
-                    Pattern::BodyCoffeeScript,
-                    Pattern::BodyCss,
-                    Pattern::BodyLess,
-                    Pattern::BodyPostCss,
-                    Pattern::BodySass,
-                    Pattern::BodyScss,
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::TagsLangAt0End,
                     Pattern::TagsLangStartAttributes,
                 ],
@@ -628,7 +610,7 @@ impl Rule {
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::TagsLangStartAttributesEnd,
                     Pattern::GenericsDoubleQuoted,
                     Pattern::GenericsSingleQuoted,
@@ -659,7 +641,7 @@ impl Rule {
                 content: S::NO_SCOPES,
                 end: None,
                 backref: None,
-                patterns: &[Pattern::BodyTemplate, Pattern::AttributesCommentsAt1End],
+                patterns: &[Pattern::Body, Pattern::AttributesCommentsAt1End],
             },
             Rule::NestedAttributesDirectivesKeywords => RuleDefinition {
                 name: S::NO_SCOPES,
@@ -721,7 +703,7 @@ impl Rule {
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::AttributesDirectivesEnd,
                     Pattern::AttributesDirectivesAt0,
                 ],
@@ -732,7 +714,7 @@ impl Rule {
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::AttributesDirectivesAt0End,
                     Pattern::InterpolationAt0,
                     Pattern::AttributesValueAt1,
@@ -760,7 +742,7 @@ impl Rule {
                 end: None,
                 backref: Some(1),
                 patterns: &[
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::AttributesValueAt3End,
                     Pattern::InterpolationAt0,
                 ],
@@ -782,7 +764,7 @@ impl Rule {
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::AttributesKeyvalueEnd,
                     Pattern::AttributesKeyvalueAt0,
                 ],
@@ -793,7 +775,7 @@ impl Rule {
                 end: None,
                 backref: None,
                 patterns: &[
-                    Pattern::BodyTemplate,
+                    Pattern::Body,
                     Pattern::AttributesKeyvalueAt0End,
                     Pattern::InterpolationAt0,
                     Pattern::AttributesValueAt1,
@@ -1756,12 +1738,14 @@ pub(crate) enum Pattern {
     ScopeAt4,
     /// The end `(?=[<{])`.
     ScopeAt4End,
+    /// Every body's begin, tried as one; the scan names the body that opens.
+    Body,
 }
 
 impl Pattern {
     /// Every pattern, for the tool that compares the matchers with Oniguruma.
     #[cfg(all(test, feature = "json"))]
-    pub(crate) const ALL: [Pattern; 156] = [
+    pub(crate) const ALL: [Pattern; 157] = [
         Pattern::BodyJavaScript,
         Pattern::BodyJavaScriptEnd,
         Pattern::BodyTypeScriptLine,
@@ -1918,12 +1902,13 @@ impl Pattern {
         Pattern::TagsStartAttributesEnd,
         Pattern::ScopeAt4,
         Pattern::ScopeAt4End,
+        Pattern::Body,
     ];
 
     #[expect(clippy::too_many_lines, reason = "a generated table")]
     pub(crate) fn definition(self) -> PatternDefinition {
         match self {
-            Pattern::BodyJavaScript => PatternDefinition {
+            Pattern::BodyJavaScript | Pattern::Body => PatternDefinition {
                 act: Act::Begin(Rule::BodyJavaScript),
                 captures: &[],
                 nested: &[],
@@ -2561,7 +2546,8 @@ impl Pattern {
             | Pattern::DestructuringConstAt0End
             | Pattern::DestructuringAt0End
             | Pattern::InterpolationAt0At0End
-            | Pattern::ScopeAt4 => Start {
+            | Pattern::ScopeAt4
+            | Pattern::Body => Start {
                 bytes: [
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
