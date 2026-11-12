@@ -11,13 +11,15 @@
 //!
 //! A language can name an inline pattern itself, in
 //! [`RuleTables::pattern_names`].
-//! A match or begin named after a group, such as `$1`, becomes one pattern
-//! for each alternative of the group.
-//! In a list, each takes its own place.
-//! A repository entry's patterns take the entry's id, `At` and their
-//! position, such as `FontFeaturesAt2`.
-//! [`RuleTables::capture_names`] sets what a match becomes when only a
-//! capture's name holds a group's text.
+//!
+//! A pattern named after a group's text splits:
+//!
+//! - a match or begin named after a group, such as `$1`, becomes one pattern
+//!   for each alternative of the group, each in its own place;
+//! - a repository entry's split patterns take the entry's id, `At` and their
+//!   position, such as `FontFeaturesAt2`;
+//! - [`RuleTables::capture_names`] sets what a match becomes when only a
+//!   capture's name holds a group's text.
 //!
 //! A rule a begin opens takes the begin's id, and lists its own patterns.
 //! An entry with patterns and no expression adds its patterns in its place.
