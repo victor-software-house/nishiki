@@ -246,3 +246,17 @@ fn a_lone_pattern_takes_the_entry_id_under_list_id() {
     assert_eq!(ids(json, &PLAIN), Ok(expected(&[("WordAt0", Act::Match)])));
     assert_eq!(ids(json, &lone), Ok(expected(&[("Word", Act::Match)])));
 }
+
+/// A begin's end id that a repository entry also takes is an error, not a
+/// silent replacement.
+#[test]
+fn an_end_id_another_pattern_takes_is_an_error() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#foo-end"}, {"include": "#foo"}],
+        "repository": {"foo": {"begin": "b", "end": "e"}, "foo-end": {"match": "f"}}}"##;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Err(Failure::Generate(GenerateError::TwoRulesOneId {
+            id: "FooEnd".to_owned(),
+        }))
+    );
+}

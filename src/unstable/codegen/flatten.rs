@@ -194,7 +194,7 @@ impl<'a> Walk<'a> {
             return Ok(known);
         }
         self.captures(self.grammar.rules[rule].captures.as_deref())?;
-        Ok(self.put(id.to_owned(), regex, Act::Match))
+        self.put(id.to_owned(), regex, Act::Match)
     }
 
     /// The index of the pattern of `rule`, named `id`, which it adds the first
@@ -224,14 +224,14 @@ impl<'a> Walk<'a> {
                 .as_deref()
                 .or(object.captures.as_deref()),
         )?;
-        let opened = self.put(id.to_owned(), begin.to_string(), Act::Begin);
+        let opened = self.put(id.to_owned(), begin.to_string(), Act::Begin)?;
         self.captures(
             object
                 .end_captures
                 .as_deref()
                 .or(object.captures.as_deref()),
         )?;
-        let closed = self.put(format!("{id}End"), end.to_string(), Act::End);
+        let closed = self.put(format!("{id}End"), end.to_string(), Act::End)?;
         let index = self.put_rule(id, Some(closed));
         self.tables.rules[index].patterns = self.rule_list(&object.patterns, id)?;
         Ok(opened)
@@ -241,16 +241,24 @@ impl<'a> Walk<'a> {
     ///
     /// A pattern a capture list reached while its id waited keeps its place,
     /// as a JavaScript `Map` keeps a key's first place.
-    fn put(&mut self, id: String, regex: String, act: Act) -> usize {
+    ///
+    /// # Errors
+    ///
+    /// [`GenerateError::TwoRulesOneId`] when the id names another expression
+    /// or act, such as a begin's end id `FooEnd` and a repository entry
+    /// `foo-end`.
+    fn put(&mut self, id: String, regex: String, act: Act) -> Result<usize, GenerateError> {
         let pattern = Pattern { id, regex, act };
         if let Some(&index) = self.patterns.get(&pattern.id) {
-            self.tables.patterns[index] = pattern;
-            return index;
+            if self.tables.patterns[index] != pattern {
+                return Err(GenerateError::TwoRulesOneId { id: pattern.id });
+            }
+            return Ok(index);
         }
         let index = self.tables.patterns.len();
         self.patterns.insert(pattern.id.clone(), index);
         self.tables.patterns.push(pattern);
-        index
+        Ok(index)
     }
 
     /// Writes an empty rule, and returns its index.
