@@ -1583,8 +1583,10 @@ pub(crate) enum Pattern {
     /// The end `}`.
     JsxExpressionEnd,
     /// The match `(?<!["$'./_[:alnum:]])\$(?=[_[:alpha:]][$_[:alnum:]]*)`.
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     SvelteVariable,
     /// The match `(?<!["$'./_[:alnum:]])(\$\$)(?=props|restProps|slots)`.
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     SvelteProps,
 }
 
@@ -1595,7 +1597,11 @@ impl Pattern {
     pub(crate) const SVELTE: [Pattern; 2] = [Pattern::SvelteVariable, Pattern::SvelteProps];
 
     /// Every pattern, for the tool that compares the matchers with Oniguruma.
-    #[cfg(test)]
+    #[cfg(all(
+        test,
+        feature = "json",
+        any(feature = "lang-svelte", feature = "_textmate")
+    ))]
     pub(crate) const ALL: [Pattern; 148] = [
         Pattern::JsxTag,
         Pattern::JsxTagEnd,
@@ -2488,6 +2494,7 @@ impl Pattern {
                 captures: &[(0, scopes![S::MetaBraceCurly])],
                 nested: &[],
             },
+            #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
             Pattern::SvelteVariable | Pattern::SvelteProps => PatternDefinition {
                 act: Act::Match(scopes![S::PDefinitionVariableSvelte]),
                 captures: &[],
@@ -3369,6 +3376,7 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
+            #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
             Pattern::SvelteVariable | Pattern::SvelteProps => Start {
                 bytes: [
                     0x0000_0010_0000_0000,

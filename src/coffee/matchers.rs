@@ -219,7 +219,9 @@ where
                 let end = self.lit(p, b"@")?;
                 Some(self.short_ident(end).unwrap_or(end))
             }
+            #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
             Pattern::SvelteVariable => self.svelte_variable(p),
+            #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
             Pattern::SvelteProps => self.svelte_props(p),
         }
     }
@@ -228,6 +230,7 @@ where
     /// `(?<!["$'./_[:alnum:]])\$(?=[_[:alpha:]][$_[:alnum:]]*)`.
     /// The lookahead's tail can be empty, so a letter or `_` after the `$`
     /// decides.
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     fn svelte_variable(&self, p: usize) -> Option<usize> {
         if !self.svelte_dollar(p) {
             return None;
@@ -244,6 +247,7 @@ where
 
     /// The `$$` of Svelte's `$$props`, `$$restProps` and `$$slots`:
     /// `(?<!["$'./_[:alnum:]])(\$\$)(?=props|restProps|slots)`.
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     fn svelte_props(&self, p: usize) -> Option<usize> {
         if !self.svelte_dollar(p) || self.s.get(p + 1) != Some(&b'$') {
             return None;
@@ -257,6 +261,7 @@ where
 
     /// A `$` at `p` with no `"`, `$`, `'`, `.`, `/`, `_` or `[:alnum:]`
     /// character before it.
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     fn svelte_dollar(&self, p: usize) -> bool {
         if self.s.get(p) != Some(&b'$') {
             return false;

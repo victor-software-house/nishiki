@@ -16,6 +16,7 @@
 // They become `Pattern::SvelteVariable` and `Pattern::SvelteProps`, listed in `Pattern::SVELTE`.
 // No rule lists them.
 // The tables of the dialect that Svelte embeds put them first in every rule (src/coffee/svelte.rs).
+// Only Svelte and the TextMate engine build them, so they and their arms compile only there.
 //
 // The script string `` (`)(.*)(`) `` lexes its middle group as JavaScript.
 // That group's nested list is `Rule::Javascript`, a rule with no patterns.
@@ -419,9 +420,12 @@ const injected = svelteGrammar.injections["L:(source.ts, source.js, source.coffe
 const svelteIds = ["SvelteVariable", "SvelteProps"];
 if (injected.length !== svelteIds.length)
   throw new Error(`Svelte injects ${injected.length} patterns, not ${svelteIds.length}`);
+const beforeSvelte = new Set(scopes.keys());
 injected.forEach((node, index) =>
   register({ match: node.match, name: node.name }, svelteIds[index]!),
 );
+// The scopes that only the Svelte patterns name.
+const svelteScopes = [...scopes.keys()].filter((ident) => !beforeSvelte.has(ident));
 const unused = Object.keys(names).filter((id) => !used.has(id));
 if (unused.length) throw new Error(`names for no pattern: ${unused.join(", ")}`);
 const unnamed = [...patternById.keys()].filter((id) => /At\d/.test(id));
@@ -459,6 +463,21 @@ pub(crate) type Nested = Rule;
 
 const ruleList = [...rules.values()];
 const patternList = [...patternById.values()];
+const svelteGate = '#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]';
+// Puts the Svelte gate above the one arm that matches the Svelte patterns.
+// `arms` writes that arm as `Pattern::SvelteVariable`, then a line with
+// `| Pattern::SvelteProps =>`.
+const gateSvelteArms = (code: string): string => {
+  const lines = code.split("\n");
+  const at = lines.findIndex((line) => line.trim() === `Pattern::${svelteIds[0]}`);
+  const own =
+    at >= 0 &&
+    lines[at + 1]!.trim().startsWith(`| Pattern::${svelteIds[1]} =>`) &&
+    !lines.slice(at + 2).some((line) => line.includes("Pattern::Svelte"));
+  if (!own) throw new Error(`the Svelte patterns are not one arm of their own`);
+  lines.splice(at, 0, `${lines[at]!.match(/^\s*/)![0]}${svelteGate}`);
+  return lines.join("\n");
+};
 if (ruleList.length > 256) throw new Error(`${ruleList.length} rules do not fit one byte`);
 
 g += `/// A rule of the grammar that can be open at the end of a line.\n#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]\n#[repr(u8)]\npub(crate) enum Rule {\n`;
@@ -481,30 +500,33 @@ const docs = (s: string) => {
   return one.length > 56 ? `…` : one;
 };
 for (const p of patternList) {
-  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n    ${p.id},\n`;
+  const gate = svelteIds.includes(p.id) ? `    ${svelteGate}\n` : "";
+  g += `    /// The ${p.act.role} \`${docs(p.regex).replaceAll("`", "'")}\`.\n${gate}    ${p.id},\n`;
 }
-g += `}\n\nimpl Pattern {\n    /// Svelte's \`$\` prefixes, which its grammar injects into the CoffeeScript it\n    /// embeds, in the grammar's order.\n    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]\n    pub(crate) const SVELTE: [Pattern; ${svelteIds.length}] = [${svelteIds.map((id) => `Pattern::${id}`).join(", ")}];\n\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(test)]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
-g += arms(
-  patternList.map((p): [string, string] => {
-    const act =
-      p.act.role === "match"
-        ? `Act::Match(${list(p.act.name)})`
-        : p.act.role === "begin"
-          ? `Act::Begin(Rule::${p.act.rule})`
-          : "Act::End";
-    const captures = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
-    const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
-    return [
-      p.id,
-      `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
-    ];
-  }),
-  "Pattern",
+g += `}\n\nimpl Pattern {\n    /// Svelte's \`$\` prefixes, which its grammar injects into the CoffeeScript it\n    /// embeds, in the grammar's order.\n    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]\n    pub(crate) const SVELTE: [Pattern; ${svelteIds.length}] = [${svelteIds.map((id) => `Pattern::${id}`).join(", ")}];\n\n    /// Every pattern, for the tool that compares the matchers with Oniguruma.\n    #[cfg(all(test, feature = "json", any(feature = "lang-svelte", feature = "_textmate")))]\n    pub(crate) const ALL: [Pattern; ${patternList.length}] = [\n${patternList.map((p) => `        Pattern::${p.id},\n`).join("")}    ];\n\n${tooLong}    pub(crate) fn definition(self) -> PatternDefinition {\n        match self {\n`;
+g += gateSvelteArms(
+  arms(
+    patternList.map((p): [string, string] => {
+      const act =
+        p.act.role === "match"
+          ? `Act::Match(${list(p.act.name)})`
+          : p.act.role === "begin"
+            ? `Act::Begin(Rule::${p.act.rule})`
+            : "Act::End";
+      const captures = p.captures.map(([n, names]) => `(${n}, ${list(names)})`).join(", ");
+      const nested = p.nested.map(([n, name]) => `(${n}, Rule::${name})`).join(", ");
+      return [
+        p.id,
+        `PatternDefinition {\n                act: ${act},\n                captures: &[${captures}],\n                nested: &[${nested}],\n            }`,
+      ];
+    }),
+    "Pattern",
+  ),
 );
 g += `        }\n    }\n}\n`;
 
 g += oneBlankTable(patternList);
-g += startTable(patternList);
+g += gateSvelteArms(startTable(patternList));
 g += groupsCheck(
   "Coffee",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
@@ -513,7 +535,12 @@ g += ruleCodes("Coffee", "COFFEE");
 
 await writeRust(`${root_dir}src/coffee/grammar.rs`, g);
 
-const s = scopeFile("coffee-grammar.ts", "COFFEE", scopes);
+for (const ident of svelteScopes)
+  if (g.split(`S::${ident}]`).length !== 2) throw new Error(`${ident} is not only Svelte's`);
+const s = svelteScopes.reduce(
+  (file, ident) => file.replace(`\n    ${ident} "`, `\n    ${svelteGate}\n    ${ident} "`),
+  scopeFile("coffee-grammar.ts", "COFFEE", scopes),
+);
 await writeRust(`${root_dir}src/coffee/scope.rs`, s);
 
 // With RX_DUMP set to a file, writes each pattern for oracle/onig.ts.

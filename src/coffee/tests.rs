@@ -158,6 +158,7 @@ fn a_vue_script_closes_with_no_coffee_rule_open() {
     );
 }
 
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 #[cfg(feature = "json")]
 mod probe {
     use crate::coffee::engine::Coffee;
