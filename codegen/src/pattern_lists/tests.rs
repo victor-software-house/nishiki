@@ -1453,3 +1453,25 @@ fn an_overflowing_group_number_repeats_no_group() {
         ]))
     );
 }
+
+/// A begin with a `while` adds that pattern in its end's place, as
+/// `<id>While`.
+#[test]
+fn a_begin_with_a_while_adds_its_while() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "^>", "while": "^>", "whileCaptures": {"0": {"patterns": [{"match": "m"}]}},
+            "patterns": [{"match": "w"}]}]}"#;
+    let rules = RuleTables {
+        capture_lists: CaptureLists::Rules,
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &rules),
+        Ok(expected(&[
+            ("RootAt0", Act::Begin),
+            ("Nested0At0", Act::Match),
+            ("RootAt0While", Act::While),
+            ("RootAt0At0", Act::Match),
+        ]))
+    );
+}
