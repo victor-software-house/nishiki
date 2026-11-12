@@ -35,9 +35,19 @@ Each proves byte-identical output, as design section 4 says.
     → verify: the check passes for those three, and for the languages before them
   - [ ] 2.3.5 The scripts with logic of their own: CSS, Assembly, Swift, CoffeeScript, HAML, Ruby, Perl, SCSS, C++, C#, Bat and R.
     → verify: the check passes for those twelve, and for the languages before them
+    - 2026-11-12: C++ takes `Split::KeepsGroup`.
+      Its raw-string begin splits on a group that its end repeats, and `Split::DropsGroup` refuses that ([PR 79][nishiki#79]).
+    - 2026-11-12: two C++ split groups hold a nested group: the preprocessor line of `#else`, `#elif` and `#endif`, and the raw-string begin.
+      The level-aware split of [PR 75][nishiki#75] reads them; check each against `codegen/patterns/cpp.json`.
   - [ ] 2.3.6 `oracle/rule-generator.ts`'s five languages, and PHP.
     → verify: the check passes for all 34
+    - 2026-11-12: three split groups hold a nested group, which the split of [PR 75][nishiki#75] reads.
+      Two are in Objective-C++, the access modifiers and the C++ casts, and one is in LaTeX, the section commands.
 - [ ] 2.4 One task per family, added as each starts, in design section 5's order, after task 1.1.
+  - 2026-11-12: a scan of `tests/engine/grammars/` lists what languages outside task 2.3 need, if they move to codegen.
+    - Svelte, shell and HTML take `Split::KeepsGroup`.
+      Begins in each repeat their split group in the end: one Svelte tag, four shell heredocs and ten HTML tags ([PR 79][nishiki#79]).
+    - One Svelte split group and 20 HTML ones hold a nested group, which the split of [PR 75][nishiki#75] reads.
   → verify: section 4's proof passes on the family's files, whose scripts, pattern and start files are deleted
   - Objective-C's family keeps its `$base` slots.
     The writer emits `Pattern::Base`, each rule's base list and `BASE_SLOTS`, as `oracle/rule-generator.ts` does with `baseSlots`.
@@ -51,6 +61,8 @@ Each proves byte-identical output, as design section 4 says.
     Once Rust writes `grammar.rs`, that line can move into the same Rust output.
 
 [default-matchers]: ../default-matchers/design.md
+[nishiki#75]: https://github.com/victor-software-house/nishiki/pull/75
+[nishiki#79]: https://github.com/victor-software-house/nishiki/pull/79
 [nishiki#762]: https://github.com/victor-software-house/nishiki-archive/pull/762
 [rust-codegen]: ../archive/2026-11-12-rust-codegen/tasks.md
 [unstable-rule-engine]: ../unstable-rule-engine/tasks.md
