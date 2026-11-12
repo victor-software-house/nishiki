@@ -65,10 +65,12 @@ pub(crate) fn raw_close(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> Optio
 
 /// `(?i)^(?!.*</(script|style|pre)>)`.
 /// It keeps the lines of a raw HTML block going up to the closing one.
-/// `^` matches at the start of the line only.
+/// `^` matches at the start of the line only ([`Cx::at_line_start`]).
 /// A block inside a container therefore ends with its first line.
+/// So does a block in Markdown that another language embeds from the middle
+/// of its line.
 pub(crate) fn raw_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
-    (p == 0 && raw_closes(cx, 0).next().is_none()).then_some(p)
+    (cx.at_line_start(p) && raw_closes(cx, 0).next().is_none()).then_some(p)
 }
 
 /// The two other HTML blocks:
@@ -143,10 +145,12 @@ fn short_tag_line(cx: &Cx<'_>, p: usize) -> bool {
 
 /// `^(?!\s*$)`.
 /// It keeps an HTML block going up to a blank line.
-/// `^` matches at the start of the line only.
+/// `^` matches at the start of the line only ([`Cx::at_line_start`]).
 /// A block inside a container therefore ends with its first line.
+/// So does a block in Markdown that another language embeds from the middle
+/// of its line.
 pub(crate) fn block_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
-    (p == 0 && !cx.only_space_after(0)).then_some(p)
+    (cx.at_line_start(p) && !cx.only_space_after(0)).then_some(p)
 }
 
 /// `(?=<[^>]*?>)`, the rule that emphasis tries first.

@@ -99,7 +99,7 @@ pub(crate) fn heading_part(
 
 /// `^(={3,})(?=[\t ]*$\n?)` and the `-` form: a setext underline.
 pub(crate) fn setext(cx: &Cx<'_>, p: usize, mark: u8) -> Option<usize> {
-    if p != 0 {
+    if !cx.at_line_start(p) {
         return None;
     }
     let end = cx.skip(p, |b| b == mark);
@@ -188,7 +188,7 @@ pub(crate) fn list_while(cx: &Cx<'_>, p: usize) -> Option<usize> {
             return Some(p + 1);
         }
     }
-    if p == 0 {
+    if cx.at_line_start(p) {
         let i = cx.skip(p, |b| matches!(b, b' ' | b'\t'));
         if cx.at_eol(i) {
             return Some(i);

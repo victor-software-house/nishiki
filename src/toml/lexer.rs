@@ -30,6 +30,9 @@ pub(crate) struct Lexer<'a, H> {
     /// The first byte that is not white space.
     /// A table header, or a comment that gets the leading-space scope, starts
     /// here at the earliest.
+    /// Their patterns begin with `^\s*`.
+    /// Text that starts after its line's start has no `^`, so `first` is then
+    /// `usize::MAX`, and they match nowhere.
     first: usize,
     /// Where the table header at `first` ends, and whether it is `[[…]]`.
     /// It is scanned once.
@@ -64,6 +67,10 @@ pub(crate) trait Mode {
 
     /// Whether the halt holds at `p`, from the start of the lexed text.
     fn holds(&self, p: usize) -> bool;
+
+    /// Whether the lexed text starts at the start of its line, where `^`
+    /// matches.
+    fn at_line_start(&self) -> bool;
 }
 
 /// The mode of a lexer for a TOML document, which never halts.
@@ -74,6 +81,10 @@ impl Mode for NoHalts {
 
     fn holds(&self, _: usize) -> bool {
         false
+    }
+
+    fn at_line_start(&self) -> bool {
+        true
     }
 }
 
@@ -94,6 +105,12 @@ impl Mode for Halts<'_> {
 
     fn holds(&self, p: usize) -> bool {
         self.end.holds(self.line, self.start + p)
+    }
+
+    /// A Vue block in a list item's or a quote's fence starts after the
+    /// line's start.
+    fn at_line_start(&self) -> bool {
+        self.start == 0
     }
 }
 
@@ -118,7 +135,11 @@ impl<'a, H: Mode> Lexer<'a, H> {
             failed_chain: Cell::new((usize::MAX, 0)),
             mode,
         };
-        lexer.first = lexer.skip_space(0);
+        lexer.first = if lexer.mode.at_line_start() {
+            lexer.skip_space(0)
+        } else {
+            usize::MAX
+        };
         lexer
     }
 

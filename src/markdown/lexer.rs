@@ -315,6 +315,10 @@ impl<'a> Lexer<'a> {
         let first_line = frames.first().is_some_and(|root| {
             matches!(root.rule, Rule::Open(Container::Base)) && root.carried == 1
         });
+        let before_start = match scratch.markdown.start {
+            Start::Document => None,
+            Start::Embedded { before, .. } => before,
+        };
         Lexer {
             arena,
             limits,
@@ -330,7 +334,7 @@ impl<'a> Lexer<'a> {
             last: 0,
             facts: LineFacts {
                 steps: Steps::new(limits, line.len()),
-                before_start: None,
+                before_start,
             },
             opened: None,
             scratch,
@@ -391,18 +395,18 @@ impl<'a> Lexer<'a> {
     /// At the document's level every line opens a block at its start, and
     /// inside a block the embedding rule's end is not tried.
     ///
-    /// The character before an embedded start is read only here, after the
-    /// `while` rules, which read nothing before the start.
-    /// A document's line reads only the one test it read before.
+    /// [`Lexer::new`] reads the character before an embedded start, so the
+    /// `while` rules see it.
+    /// A start with a character before it is not the line's start, so a bare
+    /// `^` fails there ([`Cx::at_line_start`]).
     pub(crate) fn run(&mut self) {
         let mut captures = Captures::new();
         self.check_whiles(&mut captures);
-        if let Start::Embedded { stop, before } = self.scratch.markdown.start {
-            if stop && self.frames.len() == 1 {
-                self.scratch.markdown.stopped = true;
-                return;
-            }
-            self.facts.before_start = before;
+        if let Start::Embedded { stop: true, .. } = self.scratch.markdown.start
+            && self.frames.len() == 1
+        {
+            self.scratch.markdown.stopped = true;
+            return;
         }
         while self.step(&mut captures) {}
         if self.facts.steps.exhausted() {
