@@ -6,36 +6,13 @@ use crate::arena::Arena;
 use crate::rules::Grammar;
 use crate::swift::engine::Swift;
 use crate::swift::grammar::Pattern;
+use crate::test_support::leaves::{leaf_in, merge_by_leaf};
 use crate::test_support::probe::{After, Anchor, Case, lexer};
-use crate::test_support::{leaf_in, merge_by_leaf};
-use crate::{Highlighter, Language, State};
-
-/// One lexed line: each token's text and its scope names, outermost first.
-type Row = Vec<(String, Vec<String>)>;
+use crate::test_support::rows::Row;
+use crate::{Language, test_support};
 
 fn lex(text: &str) -> Vec<Row> {
-    let mut highlighter = Highlighter::new(Language::Swift);
-    let mut state = State::default();
-    let mut rows = Vec::new();
-    for line in text.split('\n') {
-        let mut tokens = Vec::new();
-        let report = highlighter.line(line, &mut state, &mut tokens);
-        assert!(report.is_complete(), "{line:?} reached a limit");
-        let mut start = 0;
-        let mut row = Vec::new();
-        for token in &tokens {
-            let mut scopes: Vec<String> = highlighter
-                .scopes(token.stack())
-                .map(ToString::to_string)
-                .collect();
-            scopes.reverse();
-            row.push((line[start..token.end()].to_owned(), scopes));
-            start = token.end();
-        }
-        assert_eq!(start, line.len(), "the tokens cover the line {line:?}");
-        rows.push(row);
-    }
-    rows
+    test_support::rows::lex(Language::Swift, text)
 }
 
 /// The innermost scope of the first token whose text is `token`.

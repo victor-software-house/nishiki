@@ -1,8 +1,8 @@
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::{Language, test_support};
 
 fn lex(line: &str) -> LeafRow {
-    merge_by_leaf(test_support::lex(Language::ObjectiveCpp, line)).remove(0)
+    merge_by_leaf(test_support::rows::lex(Language::ObjectiveCpp, line)).remove(0)
 }
 
 #[test]

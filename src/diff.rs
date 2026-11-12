@@ -41,6 +41,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// The state at the start of a diff fence of a Markdown document whose
 /// scopes sit on the stack `base`.
 /// The stack has no `source.diff` of its own, as in Shiki's embedding.
+#[cfg(feature = "_start-embedded")]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, TAG, 0, base).unwrap_or(ROOT)
 }

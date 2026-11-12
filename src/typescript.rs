@@ -96,8 +96,10 @@ impl Dialect {
     /// The index of `TypeScript`, the lexer's const parameter for it.
     pub(crate) const TYPESCRIPT: u8 = 0;
     /// The index of `JavaScript`.
+    #[cfg(feature = "lang-javascript")]
     pub(crate) const JAVASCRIPT: u8 = 1;
     /// The index of JSX.
+    #[cfg(feature = "lang-jsx")]
     pub(crate) const JSX: u8 = 2;
     /// The index of TSX.
     pub(crate) const TSX: u8 = 3;
@@ -162,6 +164,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
 /// as in Shiki's embedding.
 /// Here the marker rule keeps `\A`, which only the first line of
 /// the document matches, from matching in a fence.
+#[cfg(any(feature = "_start-embedded", feature = "lang-html"))]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena
         .push(ROOT, Rule::Started.code(), 0, base)
@@ -174,7 +177,16 @@ pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
 /// it.
 /// The state also holds the two comment rules HTML puts before JavaScript's.
 /// HTML lexes it with [`lex_until`] and an end at `</script`.
-#[cfg(feature = "lang-javascript")]
+#[cfg(any(
+    feature = "lang-html",
+    all(
+        test,
+        feature = "lang-typescript",
+        feature = "lang-javascript",
+        feature = "lang-jsx",
+        feature = "lang-tsx"
+    )
+))]
 pub(crate) fn start_script(arena: &mut Arena, base: u32) -> u32 {
     let stack = arena
         .child(base, S::Source.scope(Dialect::JavaScript))
@@ -199,7 +211,18 @@ pub(crate) fn start_expression(arena: &mut Arena, base: u32) -> u32 {
 /// entry of TypeScript's grammar, as Svelte does.
 /// It is a context that runs that entry's patterns only.
 /// Its text sits on `base`, which holds the embedding's own scope.
-#[cfg(any(feature = "lang-svelte", feature = "lang-tsx", feature = "lang-vue"))]
+#[cfg(any(
+    feature = "lang-svelte",
+    feature = "lang-vue",
+    feature = "lang-astro",
+    all(
+        test,
+        feature = "lang-typescript",
+        feature = "lang-javascript",
+        feature = "lang-jsx",
+        feature = "lang-tsx"
+    )
+))]
 fn start_entry(arena: &mut Arena, base: u32, rule: Rule) -> u32 {
     arena.push(ROOT, rule.code(), 0, base).unwrap_or(ROOT)
 }
@@ -210,7 +233,13 @@ fn start_entry(arena: &mut Arena, base: u32, rule: Rule) -> u32 {
 #[cfg(any(
     feature = "lang-svelte",
     feature = "lang-astro",
-    all(test, feature = "lang-tsx")
+    all(
+        test,
+        feature = "lang-typescript",
+        feature = "lang-javascript",
+        feature = "lang-jsx",
+        feature = "lang-tsx"
+    )
 ))]
 pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Rule::EntryObjectLiteral)
@@ -223,7 +252,16 @@ pub(crate) fn start_object_literal(arena: &mut Arena, base: u32) -> u32 {
 /// Unlike a template string, it has no end of its own: the end of the rule
 /// that embeds it, the closing backtick, ends it.
 #[cfg(feature = "lang-tsx")]
-#[cfg(any(feature = "lang-astro", all(test, feature = "lang-tsx")))]
+#[cfg(any(
+    feature = "lang-astro",
+    all(
+        test,
+        feature = "lang-typescript",
+        feature = "lang-javascript",
+        feature = "lang-jsx",
+        feature = "lang-tsx"
+    )
+))]
 pub(crate) fn start_template(arena: &mut Arena, base: u32) -> u32 {
     start_entry(arena, base, Rule::EntryTemplate)
 }

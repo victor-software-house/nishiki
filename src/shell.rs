@@ -55,6 +55,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// Shiki includes the grammar's patterns there without its `source.shell`
 /// root.
 /// The rule therefore sits on `base` itself.
+#[cfg(feature = "_start-embedded")]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Rule::Root.code(), 0, base).unwrap_or(ROOT)
 }

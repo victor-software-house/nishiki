@@ -1,32 +1,18 @@
 use indoc::indoc;
 
-use crate::{Highlighter, Language, Limit, Limits, State};
+use crate::test_support::rows::Row;
+use crate::{Highlighter, Language, Limit, Limits, State, test_support};
 
 /// Lexes `text` and returns, per line, each token's text with its scope
 /// stack, outermost first, without the `.yaml` suffix.
-fn lex(text: &str) -> Vec<Vec<(String, Vec<String>)>> {
-    let mut highlighter = Highlighter::new(Language::Yaml);
-    let mut state = State::default();
-    let mut lines = Vec::new();
-    for line in text.split('\n') {
-        let mut tokens = Vec::new();
-        let report = highlighter.line(line, &mut state, &mut tokens);
-        assert!(report.is_complete(), "{line:?} reached a limit");
-        let mut start = 0;
-        let mut row = Vec::new();
-        for token in &tokens {
-            let mut scopes: Vec<String> = highlighter
-                .scopes(token.stack())
-                .map(|scope| scope.trim_end_matches(".yaml").to_owned())
-                .collect();
-            scopes.reverse();
-            row.push((line[start..token.end()].to_owned(), scopes));
-            start = token.end();
+fn lex(text: &str) -> Vec<Row> {
+    let mut rows = test_support::rows::lex(Language::Yaml, text);
+    for (_, scopes) in rows.iter_mut().flatten() {
+        for scope in scopes {
+            scope.truncate(scope.trim_end_matches(".yaml").len());
         }
-        assert_eq!(start, line.len(), "tokens must cover the line: {line:?}");
-        lines.push(row);
     }
-    lines
+    rows
 }
 
 /// The scopes after `source`, joined, of the first token of `text` that
@@ -508,7 +494,7 @@ fn unicode_spaces_separate_as_blanks_where_the_grammar_reads_them() {
 }
 
 /// YAML as another language embeds it.
-const EMBEDDED: crate::test_support::Embedded = crate::test_support::Embedded {
+const EMBEDDED: crate::test_support::embedded::Embedded = crate::test_support::embedded::Embedded {
     start: super::start_embedded,
     lex: super::lex,
     lex_until: super::lex_until,
@@ -523,7 +509,9 @@ const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.yaml", "sou
 fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
     lines
         .iter()
-        .flat_map(|line| crate::test_support::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, &[line]))
+        .flat_map(|line| {
+            crate::test_support::embedded::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, &[line])
+        })
         .collect()
 }
 

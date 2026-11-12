@@ -237,7 +237,7 @@ macro_rules! languages {
             ///
             /// The body's text sits on `base` with no root scope of the
             /// language's own, as in Shiki's embedding.
-            #[cfg(feature = "_language")]
+            #[cfg(feature = "_start-embedded")]
             #[cfg_attr(
                 not(any($(feature = $feature),*)),
                 expect(

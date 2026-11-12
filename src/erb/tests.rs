@@ -1,7 +1,8 @@
 use indoc::indoc;
 
 use crate::Language;
-use crate::test_support::{leaf, lex, scopes_of};
+use crate::test_support::rows::lex;
+use crate::test_support::scopes::{leaf, scopes_of};
 
 /// `<%=` opens code that the line closes, whose Ruby ends at `%>`: the `%`
 /// is Ruby too, as the end's first group names it.

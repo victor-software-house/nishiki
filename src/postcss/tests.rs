@@ -1,8 +1,9 @@
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf, scopes_of};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::scopes::scopes_of;
+use crate::{Language, test_support};
 
 fn lex(line: &str) -> LeafRow {
-    merge_by_leaf(test_support::lex(Language::PostCss, line)).remove(0)
+    merge_by_leaf(test_support::rows::lex(Language::PostCss, line)).remove(0)
 }
 
 #[test]
@@ -73,13 +74,13 @@ fn style_end(bytes: &[u8], p: usize) -> bool {
 /// Embedded, PostCSS halts at the host's end once only its root rule is open.
 #[test]
 fn an_embedded_line_halts_at_the_hosts_end() {
-    let embedded = test_support::Embedded {
+    let embedded = test_support::embedded::Embedded {
         start: super::start,
         lex: super::lex,
         lex_until: super::lex_until,
     };
     let line = "a { color: red; }</style>";
-    let rows = test_support::lex_embedded(
+    let rows = test_support::embedded::lex_embedded(
         embedded,
         &["source.svelte"],
         &[line],

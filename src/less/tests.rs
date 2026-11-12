@@ -1,9 +1,10 @@
-use crate::Language;
 use crate::language::{StopReason, Stopped};
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf, scopes_of};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::scopes::scopes_of;
+use crate::{Language, test_support};
 
 fn lex(line: &str) -> LeafRow {
-    merge_by_leaf(test_support::lex(Language::Less, line)).remove(0)
+    merge_by_leaf(test_support::rows::lex(Language::Less, line)).remove(0)
 }
 
 #[test]
@@ -130,12 +131,12 @@ fn style_end(bytes: &[u8], p: usize) -> bool {
 
 /// Where and why each line stops, as Svelte embeds Less up to `</style`.
 fn stops(lines: &[&str]) -> Vec<Option<Stopped>> {
-    let embedded = test_support::Embedded {
+    let embedded = test_support::embedded::Embedded {
         start: super::start,
         lex: super::lex,
         lex_until: super::lex_until,
     };
-    test_support::lex_embedded_stops(
+    test_support::embedded::lex_embedded_stops(
         embedded,
         &["source.svelte"],
         lines,

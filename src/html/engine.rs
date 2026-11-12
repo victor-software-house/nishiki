@@ -1830,7 +1830,7 @@ fn vue_start(arena: &mut Arena, lexed: vue_rules::Lexed, base: u32) -> u32 {
         Lexed::Yaml => crate::yaml::start_embedded(arena, base),
         Lexed::Graphql => crate::graphql::start_embedded(arena, base),
         #[cfg(feature = "lang-sass")]
-        Lexed::Sass => crate::Language::Sass.start_embedded(arena, base),
+        Lexed::Sass => crate::sass::start_embedded(arena, base),
         #[cfg(feature = "lang-coffee")]
         Lexed::Coffee => crate::Language::CoffeeScript.start_embedded(arena, base),
         #[cfg(feature = "lang-markdown")]

@@ -93,6 +93,7 @@ crate::scope::scope_table! {
     PDefinitionStringBegin "punctuation.definition.string.begin.coffee"
     PDefinitionStringEnd "punctuation.definition.string.end.coffee"
     PDefinitionTag "punctuation.definition.tag.coffee"
+    #[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
     PDefinitionVariableSvelte "punctuation.definition.variable.svelte"
     PSectionEmbedded "punctuation.section.embedded.coffee"
     PSeparatorDecimalPeriod "punctuation.separator.decimal.period.coffee"

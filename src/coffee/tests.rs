@@ -1,11 +1,11 @@
 use indoc::indoc;
 
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::{Language, test_support};
 
 /// Lexes the lines of `text` in order from one start state.
 fn lex_lines(text: &str) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::CoffeeScript, text))
+    merge_by_leaf(test_support::rows::lex(Language::CoffeeScript, text))
 }
 
 fn lex(line: &str) -> LeafRow {
@@ -142,7 +142,7 @@ fn a_block_comment_and_a_heredoc_go_on_across_lines() {
 #[cfg(feature = "lang-vue")]
 #[test]
 fn a_vue_script_closes_with_no_coffee_rule_open() {
-    let rows = merge_by_leaf(test_support::lex(
+    let rows = merge_by_leaf(test_support::rows::lex(
         Language::Vue,
         indoc! {r#"
             <script lang="coffee">
@@ -158,6 +158,7 @@ fn a_vue_script_closes_with_no_coffee_rule_open() {
     );
 }
 
+#[cfg(any(feature = "lang-svelte", feature = "_textmate"))]
 #[cfg(feature = "json")]
 mod probe {
     use crate::coffee::engine::Coffee;

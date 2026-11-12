@@ -1,11 +1,11 @@
 use indoc::indoc;
 
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::{Language, test_support};
 
 /// Lexes the lines of `text` in order from one start state.
 fn lex_lines(text: &str) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::Nix, text))
+    merge_by_leaf(test_support::rows::lex(Language::Nix, text))
 }
 
 fn lex(line: &str) -> LeafRow {

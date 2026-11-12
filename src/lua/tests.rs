@@ -1,13 +1,13 @@
 use indoc::indoc;
 
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
 #[cfg(feature = "lang-c")]
 use crate::{Highlighter, Limit, Limits, State, Work};
+use crate::{Language, test_support};
 
 /// Lexes the lines of `text` in order from one start state.
 fn lex_lines(text: &str) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::Lua, text))
+    merge_by_leaf(test_support::rows::lex(Language::Lua, text))
 }
 
 fn lex(line: &str) -> LeafRow {

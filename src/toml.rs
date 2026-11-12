@@ -45,6 +45,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// A Vue block in `lang="toml"` starts here.
 /// No Markdown fence embeds TOML, because Shiki's Markdown grammar has no
 /// rule for it.
+#[cfg(any(feature = "_start-embedded", feature = "lang-html"))]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Rule::Top.code(), 0, base).unwrap_or(ROOT)
 }

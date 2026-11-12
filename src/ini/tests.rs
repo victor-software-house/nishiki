@@ -1,9 +1,9 @@
-use crate::test_support::{self, LeafRow, leaf_row, merge_by_leaf};
-use crate::{Highlighter, Language, Limits, State, Work};
+use crate::test_support::leaves::{LeafRow, leaf_row, merge_by_leaf};
+use crate::{Highlighter, Language, Limits, State, Work, test_support};
 
 /// Lexes `lines` in order from one start state.
 fn lex_lines(lines: &[&str]) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::Ini, &lines.join("\n")))
+    merge_by_leaf(test_support::rows::lex(Language::Ini, &lines.join("\n")))
 }
 
 fn lex(line: &str) -> LeafRow {
@@ -160,7 +160,7 @@ fn only_a_single_quoted_string_has_escapes() {
 #[test]
 #[cfg(feature = "lang-markdown")]
 fn a_fence_inside_a_quote_loses_its_line_start_anchors() {
-    let rows = merge_by_leaf(test_support::lex(
+    let rows = merge_by_leaf(test_support::rows::lex(
         Language::Markdown,
         &["> ```ini", ">   [a]"].join("\n"),
     ));

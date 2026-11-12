@@ -516,7 +516,7 @@ pub(super) const NAMES: [Scopes<S>; 222] = [
 
 /// The words that a later merged pattern lists too, with its index, for the
 /// probe that checks each pattern alone.
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 pub(super) const ALSO_IN: &[(&[u8], u8)] = &[
     (b"eadd", 155),
     (b"eblock", 155),
@@ -765,7 +765,7 @@ pub(super) const SPELLING_OWNERS: [u8; 205] = [
 
 /// The spellings that a later merged pattern accepts too, with its index,
 /// for the probe.
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 pub(super) const SPELLINGS_ALSO_IN: &[(&[u8], u8)] = &[];
 
 /// The words of the `SupportAt0` pattern, read between two `\b`.

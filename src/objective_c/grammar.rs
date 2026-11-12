@@ -12039,7 +12039,7 @@ pub(crate) enum Rx {
 
 impl Rx {
     /// Every expression, in code order.
-    #[cfg(test)]
+    #[cfg(all(test, feature = "json"))]
     pub(crate) const ALL: [Rx; 215] = [
         Rx::AnonymousPattern1,
         Rx::AnonymousPattern1End,

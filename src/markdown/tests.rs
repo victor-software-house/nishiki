@@ -2332,7 +2332,7 @@ fn a_vue_fence_anchors_the_lines_its_own_rule_starts() {
 
 /// Markdown as another language embeds it, from its start over that
 /// language's scopes.
-const EMBEDDED: test_support::Embedded = test_support::Embedded {
+const EMBEDDED: test_support::embedded::Embedded = test_support::embedded::Embedded {
     start: super::start_embedded,
     lex: |cx, line, state| cx.lex_from_start(line, |cx, rest| super::line(cx, rest, state)),
     lex_until: super::lex_until,
@@ -2348,7 +2348,7 @@ fn comment_end(bytes: &[u8], p: usize) -> bool {
 /// the line.
 #[test]
 fn an_embedding_rule_takes_a_line_back_where_no_block_is_open() {
-    let rows = test_support::lex_embedded(
+    let rows = test_support::embedded::lex_embedded(
         EMBEDDED,
         &["comment.block.documentation.svelte"],
         &["Top bar.", "-->", "x -->"],
@@ -2384,7 +2384,7 @@ fn an_embedding_rule_takes_a_line_back_after_a_block_closes_inside_it() {
         "{@html --> {/snippet}out:slide ",
         "</script>generics+ :-->const module function debug < x$state ",
     ];
-    let rows = test_support::lex_embedded(
+    let rows = test_support::embedded::lex_embedded(
         EMBEDDED,
         &["comment.block.documentation.svelte"],
         &lines,

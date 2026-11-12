@@ -1,7 +1,7 @@
 use indoc::indoc;
 
 use crate::Language;
-use crate::test_support::leaf;
+use crate::test_support::scopes::leaf;
 
 #[test]
 fn a_script_body_follows_its_lang() {

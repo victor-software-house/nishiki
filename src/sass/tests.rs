@@ -1,11 +1,11 @@
 use indoc::indoc;
 
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::{Language, test_support};
 
 /// Lexes the lines of `text` in order from one start state.
 fn lex_lines(text: &str) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::Sass, text))
+    merge_by_leaf(test_support::rows::lex(Language::Sass, text))
 }
 
 fn lex(line: &str) -> LeafRow {
@@ -103,7 +103,7 @@ fn a_block_comment_ends_at_the_first_unindented_line() {
 #[cfg(feature = "lang-vue")]
 #[test]
 fn a_vue_style_closes_only_with_no_sass_rule_open() {
-    let rows = merge_by_leaf(test_support::lex(
+    let rows = merge_by_leaf(test_support::rows::lex(
         Language::Vue,
         indoc! {r#"
             <style lang="sass">

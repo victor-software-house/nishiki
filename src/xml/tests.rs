@@ -1,10 +1,10 @@
 use crate::language::Halt;
-use crate::test_support::{self, LeafRow, leaf_row, merge_by_leaf};
-use crate::{Highlighter, Language, Limits, State};
+use crate::test_support::leaves::{LeafRow, leaf_row, merge_by_leaf};
+use crate::{Highlighter, Language, Limits, State, test_support};
 
 /// Lexes `lines` in order from one start state.
 fn lex_lines(lines: &[&str]) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::Xml, &lines.join("\n")))
+    merge_by_leaf(test_support::rows::lex(Language::Xml, &lines.join("\n")))
 }
 
 fn lex(line: &str) -> LeafRow {
@@ -342,7 +342,7 @@ fn java_does_not_read_into_the_middle_of_a_character_after_its_end() {
 }
 
 /// XML as another language embeds it.
-const EMBEDDED: test_support::Embedded = test_support::Embedded {
+const EMBEDDED: test_support::embedded::Embedded = test_support::embedded::Embedded {
     start: super::start_embedded,
     lex: super::lex,
     lex_until: super::lex_until,
@@ -356,12 +356,12 @@ const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.xml", "text
 
 /// Where each line halts under a Ruby here document's halts.
 fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
-    test_support::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, lines)
+    test_support::embedded::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, lines)
 }
 
 /// Where each line halts under `end` and `after`.
 fn halts(lines: &[&str], end: &dyn Halt, after: Option<&dyn Halt>) -> Vec<Option<usize>> {
-    test_support::lex_embedded(EMBEDDED, &RUBY_HEREDOC, lines, Some((end, after)))
+    test_support::embedded::lex_embedded(EMBEDDED, &RUBY_HEREDOC, lines, Some((end, after)))
         .into_iter()
         .map(|(halt, _)| halt)
         .collect()
@@ -381,11 +381,11 @@ fn at_lt(bytes: &[u8], p: usize) -> bool {
 /// that spans lines.
 #[test]
 fn ruby_takes_an_xml_heredoc_line_back_only_where_no_xml_rule_is_open() {
-    let rows = test_support::lex_embedded(
+    let rows = test_support::embedded::lex_embedded(
         EMBEDDED,
         &RUBY_HEREDOC,
         &["  x #{a} <b>y</b>"],
-        Some(test_support::RUBY_HALTS),
+        Some(test_support::embedded::RUBY_HALTS),
     );
     assert_eq!(rows[0].0, Some(4));
     assert_eq!(

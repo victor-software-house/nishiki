@@ -1,15 +1,15 @@
 use indoc::indoc;
 
-use crate::Language;
-use crate::test_support::{self, Row};
+use crate::test_support::rows::Row;
+use crate::{Language, test_support};
 
 fn lex(text: &str) -> Vec<Row> {
-    test_support::lex(Language::Python, text)
+    test_support::rows::lex(Language::Python, text)
 }
 
 /// The scopes of the first token whose text is `token`, outermost first.
 fn scopes_of(text: &str, token: &str) -> Vec<String> {
-    test_support::scopes_of(Language::Python, text, token)
+    test_support::scopes::scopes_of(Language::Python, text, token)
 }
 
 fn last(text: &str, token: &str) -> String {

@@ -34858,7 +34858,7 @@ pub(crate) enum Rx {
 
 impl Rx {
     /// Every expression, in code order.
-    #[cfg(test)]
+    #[cfg(all(test, feature = "json"))]
     pub(crate) const ALL: [Rx; 300] = [
         Rx::PragmaMark,
         Rx::InlineComment,

@@ -1,5 +1,5 @@
 use crate::Language;
-use crate::test_support::{leaf, scopes_of};
+use crate::test_support::scopes::{leaf, scopes_of};
 
 /// A tag that no HTML rule names is html-derivative's own and not an invalid
 /// tag, and its name is a plain tag name.

@@ -406,7 +406,7 @@ impl Lexer<'_> {
     }
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 impl Lexer<'_> {
     /// Whether the merged pattern at `index` alone matches at `p`.
     /// The answer is the end of the run of `\w` there when that pattern lists

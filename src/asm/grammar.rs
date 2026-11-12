@@ -655,7 +655,7 @@ impl Pattern {
 /// One expression of the grammar, for the tool that compares the matchers
 /// with Oniguruma: a pattern, or one of the patterns merged into
 /// [`Pattern::Word`].
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Rx {
     RegistersAt0,
@@ -960,7 +960,7 @@ pub(crate) enum Rx {
 }
 
 /// What answers an expression of [`Rx`].
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(crate) enum Answer {
     /// The pattern's own matcher.
@@ -969,7 +969,7 @@ pub(crate) enum Answer {
     List(u8),
 }
 
-#[cfg(test)]
+#[cfg(all(test, feature = "json"))]
 impl Rx {
     /// Every expression.
     pub(crate) const ALL: [Rx; 299] = [
