@@ -82,6 +82,7 @@ This guide and `openspec/` hold what they decided.
    - tests and doctests;
    - docs, as docs.rs builds them;
    - `cargo deny`;
+   - `codegen:check`: every generated Rust file is what `codegen/` writes;
    - the size budgets: `check:size` builds the `size` example per tier in `[workspace.metadata.size]` and fails a tier past its budgets;
    - the repository checks.
 2. Three more workflows check a pull request against its base:
@@ -178,6 +179,9 @@ This guide and `openspec/` hold what they decided.
    - Every grammar the repository holds has its licence, read at its source, in `oracle/licences.ts`.
      `oracle/engine-grammars.ts` refuses a grammar that list refuses or lacks.
 4. Several lexers are written in parallel, each by its own agent, and land one at a time.
+5. Rust writes every generated Rust file, through `codegen/` (operator, 2026-11-10).
+   A Bun script under `oracle/` only records facts from Shiki or Oniguruma, in `oracle/facts/`.
+   [CODING_STANDARDS.md](CODING_STANDARDS.md) 3.11 holds the rules and how a generator moves to `codegen/`.
 
 ### The Shiki oracle
 
