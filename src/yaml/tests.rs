@@ -1,32 +1,18 @@
 use indoc::indoc;
 
-use crate::{Highlighter, Language, Limit, Limits, State};
+use crate::test_support::rows::Row;
+use crate::{Highlighter, Language, Limit, Limits, State, test_support};
 
 /// Lexes `text` and returns, per line, each token's text with its scope
 /// stack, outermost first, without the `.yaml` suffix.
-fn lex(text: &str) -> Vec<Vec<(String, Vec<String>)>> {
-    let mut highlighter = Highlighter::new(Language::Yaml);
-    let mut state = State::default();
-    let mut lines = Vec::new();
-    for line in text.split('\n') {
-        let mut tokens = Vec::new();
-        let report = highlighter.line(line, &mut state, &mut tokens);
-        assert!(report.is_complete(), "{line:?} reached a limit");
-        let mut start = 0;
-        let mut row = Vec::new();
-        for token in &tokens {
-            let mut scopes: Vec<String> = highlighter
-                .scopes(token.stack())
-                .map(|scope| scope.trim_end_matches(".yaml").to_owned())
-                .collect();
-            scopes.reverse();
-            row.push((line[start..token.end()].to_owned(), scopes));
-            start = token.end();
+fn lex(text: &str) -> Vec<Row> {
+    let mut rows = test_support::rows::lex(Language::Yaml, text);
+    for (_, scopes) in rows.iter_mut().flatten() {
+        for scope in scopes {
+            scope.truncate(scope.trim_end_matches(".yaml").len());
         }
-        assert_eq!(start, line.len(), "tokens must cover the line: {line:?}");
-        lines.push(row);
     }
-    lines
+    rows
 }
 
 /// The scopes after `source`, joined, of the first token of `text` that

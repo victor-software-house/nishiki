@@ -1,8 +1,9 @@
 use indoc::indoc;
 
-use crate::Language;
 use crate::language::Halt;
-use crate::test_support::{self, leaf, lex, scopes_of};
+use crate::test_support::rows::lex;
+use crate::test_support::scopes::{leaf, scopes_of};
+use crate::{Language, test_support};
 
 /// The innermost scope of each token of `row`.
 fn leaves(row: &[(String, Vec<String>)]) -> Vec<(&str, &str)> {

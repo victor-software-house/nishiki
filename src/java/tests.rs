@@ -1,15 +1,15 @@
 use indoc::indoc;
 
-use crate::test_support::{self, Row};
-use crate::{Highlighter, Language, Limit, Limits, State};
+use crate::test_support::rows::Row;
+use crate::{Highlighter, Language, Limit, Limits, State, test_support};
 
 fn lex(text: &str) -> Vec<Row> {
-    test_support::lex(Language::Java, text)
+    test_support::rows::lex(Language::Java, text)
 }
 
 /// The innermost scope of the first token whose text is `token`.
 fn leaf(text: &str, token: &str) -> String {
-    test_support::leaf(Language::Java, text, token)
+    test_support::scopes::leaf(Language::Java, text, token)
 }
 
 #[test]

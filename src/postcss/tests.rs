@@ -1,8 +1,9 @@
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf, scopes_of};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::scopes::scopes_of;
+use crate::{Language, test_support};
 
 fn lex(line: &str) -> LeafRow {
-    merge_by_leaf(test_support::lex(Language::PostCss, line)).remove(0)
+    merge_by_leaf(test_support::rows::lex(Language::PostCss, line)).remove(0)
 }
 
 #[test]

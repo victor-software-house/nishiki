@@ -1,10 +1,10 @@
 use indoc::indoc;
 
-use crate::test_support::{self, Row};
-use crate::{Highlighter, Language, Limit, Limits, State};
+use crate::test_support::rows::Row;
+use crate::{Highlighter, Language, Limit, Limits, State, test_support};
 
 fn lex_as(language: Language, text: &str) -> Vec<Row> {
-    test_support::lex(language, text)
+    test_support::rows::lex(language, text)
 }
 
 fn lex(text: &str) -> Vec<Row> {
@@ -14,7 +14,7 @@ fn lex(text: &str) -> Vec<Row> {
 /// The scopes of the first token whose text is `token`, outermost first,
 /// without the document's `source.c`.
 fn scopes_of(text: &str, token: &str) -> Vec<String> {
-    test_support::scopes_in(test_support::without_root(lex(text)), text, token)
+    test_support::scopes::scopes_of(Language::C, text, token).split_off(1)
 }
 
 #[test]

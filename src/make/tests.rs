@@ -1,12 +1,12 @@
 use indoc::indoc;
 
-use crate::test_support::{self, Row};
-use crate::{Highlighter, Language, Limit, Limits, State, Work};
+use crate::test_support::rows::Row;
+use crate::{Highlighter, Language, Limit, Limits, State, Work, test_support};
 
 /// Lexes `text` with `highlighter`.
 /// Each token's scopes leave out the document's `source.makefile`.
 fn lex_with(highlighter: &mut Highlighter, text: &str) -> Vec<Row> {
-    test_support::without_root(test_support::lex_with(highlighter, text))
+    test_support::rows::without_root(test_support::rows::lex_with(highlighter, text))
 }
 
 fn lex(text: &str) -> Vec<Row> {
@@ -16,7 +16,7 @@ fn lex(text: &str) -> Vec<Row> {
 /// The scopes of the first token whose text is `token`, outermost first,
 /// without `source.makefile`.
 fn scopes_of(text: &str, token: &str) -> Vec<String> {
-    test_support::scopes_in(lex(text), text, token)
+    test_support::scopes::scopes_of(Language::Make, text, token).split_off(1)
 }
 
 fn names(scopes: &[&str]) -> Vec<String> {

@@ -1,8 +1,8 @@
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::{Language, test_support};
 
 fn lex(line: &str) -> LeafRow {
-    merge_by_leaf(test_support::lex(Language::Matlab, line)).remove(0)
+    merge_by_leaf(test_support::rows::lex(Language::Matlab, line)).remove(0)
 }
 
 #[test]
@@ -34,7 +34,7 @@ fn a_command_names_its_call_and_comment() {
 #[test]
 fn indexing_braces_end_at_the_last_trailing_blank() {
     let text = ["a {", "y ,  ", "format on"].join("\n");
-    let rows = merge_by_leaf(test_support::lex(Language::Matlab, &text));
+    let rows = merge_by_leaf(test_support::rows::lex(Language::Matlab, &text));
     assert_eq!(leaf_in(&rows[2], "format"), "variable.other.command.matlab");
 }
 

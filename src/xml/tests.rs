@@ -1,10 +1,10 @@
 use crate::language::Halt;
-use crate::test_support::{self, LeafRow, leaf_row, merge_by_leaf};
-use crate::{Highlighter, Language, Limits, State};
+use crate::test_support::leaves::{LeafRow, leaf_row, merge_by_leaf};
+use crate::{Highlighter, Language, Limits, State, test_support};
 
 /// Lexes `lines` in order from one start state.
 fn lex_lines(lines: &[&str]) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::Xml, &lines.join("\n")))
+    merge_by_leaf(test_support::rows::lex(Language::Xml, &lines.join("\n")))
 }
 
 fn lex(line: &str) -> LeafRow {

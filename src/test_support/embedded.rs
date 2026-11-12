@@ -1,7 +1,7 @@
 //! Lexing the lines that another language embeds, as the tests of the
 //! languages that embed or are embedded do.
 
-use super::Row;
+use super::rows::Row;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, StopReason, Stopped};
 use crate::limits::Finished;

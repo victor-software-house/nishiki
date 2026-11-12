@@ -2,7 +2,7 @@
 
 mod raw_strings {
     use crate::Language;
-    use crate::test_support::scopes_of;
+    use crate::test_support::scopes::scopes_of;
 
     const LONG: &str =
         "auto s = R\"abcdefghijklmnopqrstuvwxyz(text)abcdefghijklmnopqrstuvwxyz\";\nint n;";

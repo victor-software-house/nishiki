@@ -190,6 +190,7 @@ lang-astro = [
   "_classes",
   "_utf8",
   "_capture-names",
+  "_test-scopes",
 ]
 lang-bat = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-blade = [
@@ -207,7 +208,14 @@ lang-blade = [
   "lang-css",
   "_capture-names",
 ]
-lang-c = ["_hand-lexers", "_scope-table", "_rule-engine", "_classes", "_utf8"]
+lang-c = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-engine",
+  "_classes",
+  "_utf8",
+  "_test-scopes",
+]
 lang-cmake = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-coffee = [
   "_hand-lexers",
@@ -217,6 +225,7 @@ lang-coffee = [
   "_halting-embedding",
   "lang-javascript",
   "_blank-runs-to-last",
+  "_test-leaves",
 ]
 lang-common-lisp = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-cpp = [
@@ -225,9 +234,16 @@ lang-cpp = [
   "_rule-tables",
   "_class-widths",
   "_capture-names",
+  "_test-scopes",
 ]
 lang-csharp = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-css = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-css = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-leaves",
+]
 lang-dart = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
 lang-diff = ["_hand-lexers", "_scope-table", "_class-widths", "_utf8"]
 lang-dockerfile = [
@@ -236,6 +252,7 @@ lang-dockerfile = [
   "_class-widths",
   "_utf8",
   "_frame-rules",
+  "_test-rows",
 ]
 lang-elixir = [
   "_hand-lexers",
@@ -248,7 +265,13 @@ lang-elixir = [
 ]
 lang-erb = ["_hand-lexers", "lang-html", "lang-ruby"]
 lang-gdscript = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-go = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-go = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-leaves",
+]
 lang-graphql = [
   "_hand-lexers",
   "_scope-table",
@@ -305,6 +328,7 @@ lang-html = [
   "lang-javascript",
   "_classes",
   "_html-words",
+  "_test-scopes",
 ]
 lang-html-derivative = ["_hand-lexers", "lang-html"]
 lang-ini = [
@@ -313,13 +337,26 @@ lang-ini = [
   "_class-widths",
   "_utf8",
   "_frame-rules",
+  "_test-rows",
 ]
-lang-java = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-java = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-scopes",
+]
 # The typescript module lexes four dialects, lang-javascript, lang-jsx,
 # lang-tsx and lang-typescript, each a copy of the lexer.
 lang-javascript = ["_hand-lexers", "_classes", "_space"]
 lang-jinja = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-json = ["_hand-lexers", "_class-widths", "_utf8", "_frame-rules"]
+lang-json = [
+  "_hand-lexers",
+  "_class-widths",
+  "_utf8",
+  "_frame-rules",
+  "_test-scopes",
+]
 lang-jsx = ["_hand-lexers", "_classes", "_space"]
 lang-julia = [
   "_hand-lexers",
@@ -343,13 +380,21 @@ lang-latex = [
   "lang-tex",
   "_capture-names",
 ]
-lang-less = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-less = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-scopes",
+  "_test-leaves",
+]
 lang-lua = [
   "_hand-lexers",
   "_scope-table",
   "_rule-tables",
   "_classes",
   "_embedding",
+  "_test-leaves",
 ]
 lang-make = [
   "_hand-lexers",
@@ -358,6 +403,7 @@ lang-make = [
   "_classes",
   "_utf8",
   "_frame-rules",
+  "_test-scopes",
 ]
 lang-markdown = [
   "_hand-lexers",
@@ -372,6 +418,7 @@ lang-matlab = [
   "_rule-tables",
   "_classes",
   "_blank-runs-to-last",
+  "_test-leaves",
 ]
 lang-mermaid = [
   "_hand-lexers",
@@ -380,13 +427,20 @@ lang-mermaid = [
   "_classes",
   "_blank-runs-to-last",
 ]
-lang-nix = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-nix = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-leaves",
+]
 lang-objective-c = [
   "_hand-lexers",
   "_scope-table",
   "_rule-tables",
   "_classes",
   "_capture-names",
+  "_test-leaves",
 ]
 lang-objective-cpp = ["_hand-lexers", "lang-objective-c"]
 lang-pascal = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
@@ -424,10 +478,18 @@ lang-postcss = [
   "_rule-tables",
   "_classes",
   "_blank-runs-to-last",
+  "_test-scopes",
+  "_test-leaves",
 ]
 lang-powershell = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-proto = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
-lang-python = ["_hand-lexers", "_scope-table", "_rule-tables"]
+lang-proto = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-leaves",
+]
+lang-python = ["_hand-lexers", "_scope-table", "_rule-tables", "_test-scopes"]
 lang-r = ["_hand-lexers", "_scope-table", "_rule-tables", "_identifier-classes"]
 lang-ruby = [
   "_hand-lexers",
@@ -443,6 +505,7 @@ lang-sass = [
   "_rule-tables",
   "_classes",
   "_blank-runs-to-last",
+  "_test-leaves",
 ]
 lang-scala = [
   "_hand-lexers",
@@ -474,6 +537,7 @@ lang-sql = [
   "_class-widths",
   "_utf8",
   "_frame-rules",
+  "_test-scopes",
 ]
 lang-svelte = [
   "_hand-lexers",
@@ -490,13 +554,20 @@ lang-svelte = [
   "_classes",
   "_utf8",
 ]
-lang-swift = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-swift = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-leaves",
+]
 lang-tex = [
   "_hand-lexers",
   "_scope-table",
   "_rule-tables",
   "_classes",
   "_embedding",
+  "_test-leaves",
 ]
 lang-toml = [
   "_hand-lexers",
@@ -520,9 +591,29 @@ lang-vue = [
   "lang-yaml",
   "lang-graphql",
 ]
-lang-xml = ["_hand-lexers", "_scope-table", "lang-java", "_classes", "_utf8"]
-lang-yaml = ["_hand-lexers", "_scope-table", "_utf8", "_space", "_frame-rules"]
-lang-zig = ["_hand-lexers", "_scope-table", "_rule-tables", "_classes"]
+lang-xml = [
+  "_hand-lexers",
+  "_scope-table",
+  "lang-java",
+  "_classes",
+  "_utf8",
+  "_test-rows",
+]
+lang-yaml = [
+  "_hand-lexers",
+  "_scope-table",
+  "_utf8",
+  "_space",
+  "_frame-rules",
+  "_test-rows",
+]
+lang-zig = [
+  "_hand-lexers",
+  "_scope-table",
+  "_rule-tables",
+  "_classes",
+  "_test-leaves",
+]
 
 # Shared code that only some languages use; not for callers.
 # The code every lexer shares, on with any language and with the TextMate
@@ -545,6 +636,14 @@ _embedding = ["_rule-engine", "_start-embedded"]
 # its `Language`: in Markdown's fences, the rule engine's hand-over and the
 # TextMate engine's.
 _start-embedded = []
+# The test helpers that lex a text into rows of each token's text and
+# scopes. Only the tests read them.
+_test-rows = []
+# The test helpers that read one token's scopes from lexed rows.
+_test-scopes = ["_test-rows"]
+# The test helpers that cut lexed rows to each token's innermost scope and
+# read one token's.
+_test-leaves = ["_test-rows"]
 # The hand-over of a grammar that embeds a language and is itself embedded,
 # for GraphQL in Vue, CoffeeScript in Vue and HAML, PHP, and Elixir and LaTeX
 # in Markdown, and HAML in Ruby.

@@ -1,10 +1,10 @@
 use indoc::indoc;
 
-use crate::Language;
-use crate::test_support::{self, LeafRow, leaf_in, merge_by_leaf};
+use crate::test_support::leaves::{LeafRow, leaf_in, merge_by_leaf};
+use crate::{Language, test_support};
 
 fn lex(text: &str) -> Vec<LeafRow> {
-    merge_by_leaf(test_support::lex(Language::Latex, text))
+    merge_by_leaf(test_support::rows::lex(Language::Latex, text))
 }
 
 #[test]
