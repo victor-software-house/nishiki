@@ -23,6 +23,8 @@ use super::Stop;
 use super::{Act, Captures, CarriedState, DynName, Grammar, NameCase, ScopeName, Span, Text};
 use crate::arena::{Arena, ROOT};
 #[cfg(feature = "_rule-tables")]
+use crate::classes::is_space;
+#[cfg(feature = "_rule-tables")]
 use crate::language::{Halt, RootStart};
 use crate::language::{Halts, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
@@ -983,6 +985,45 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Whether the line has spent its work budget.
     pub(crate) fn over_budget(&self) -> bool {
         self.steps.exhausted()
+    }
+
+    /// Where the scan of a [`BlankRuns::Skip`] grammar goes on after no
+    /// pattern matched at `i`.
+    ///
+    /// It is the end of the character at `i`.
+    /// For a `\s` character above ASCII, it is the end of the run of that
+    /// one character, as the scan passes a run of spaces and tabs.
+    /// A run of no-break spaces then costs work in step with its length.
+    ///
+    /// [`BlankRuns::Skip`]: super::BlankRuns::Skip
+    #[cfg(feature = "_rule-tables")]
+    #[inline]
+    pub(crate) fn pass_char(&self, i: usize) -> usize {
+        match self.s.get(i) {
+            Some(&b) if b < 0x80 => i + 1,
+            Some(&b) if starts_wide_space(b) => self.pass_wide_space(i),
+            _ => self.char_end(i),
+        }
+    }
+
+    /// [`Lexer::pass_char`] at a byte that may start a `\s` character above
+    /// ASCII.
+    ///
+    /// Kept out of line: the scan's loop holds its call only.
+    #[cfg(feature = "_rule-tables")]
+    #[inline(never)]
+    fn pass_wide_space(&self, i: usize) -> usize {
+        let end = self.char_end(i);
+        if !self.char_at(i).is_some_and(|(c, _)| is_space(c)) {
+            return end;
+        }
+        let space = &self.s[i..end];
+        let mut run_end = end;
+        while self.s.get(run_end..run_end + space.len()) == Some(space) {
+            run_end += space.len();
+        }
+        self.spend(run_end - i);
+        run_end
     }
 
     /// The end of the character at `i`, which is a whole UTF-8 sequence.
@@ -2194,6 +2235,13 @@ fn lower_with_final_sigma(name: &mut String, text: &str) {
     name.push_str(&text.to_lowercase());
 }
 
+/// Whether `byte` can start a `\s` character above ASCII.
+/// Each such character starts with `0xc2`, `0xe1`, `0xe2` or `0xe3`.
+#[cfg(feature = "_rule-tables")]
+fn starts_wide_space(byte: u8) -> bool {
+    matches!(byte, 0xc2 | 0xe1..=0xe3)
+}
+
 /// The state `state` with its innermost rule's carried value replaced by
 /// `carried`.
 ///
@@ -2209,6 +2257,21 @@ pub(crate) fn with_carried(arena: &mut Arena, state: u32, carried: u32) -> Optio
 
 #[cfg(test)]
 mod tests {
+
+    /// Every `\s` character above ASCII starts with a byte that
+    /// `starts_wide_space` takes.
+    #[cfg(feature = "_rule-tables")]
+    #[test]
+    fn every_wide_space_starts_with_a_byte_the_scan_checks() {
+        let mut bytes = [0_u8; 4];
+        for c in (char::from(0x80_u8)..=char::MAX).filter(|&c| crate::classes::is_space(c)) {
+            let first = c.encode_utf8(&mut bytes).as_bytes()[0];
+            assert!(
+                super::starts_wide_space(first),
+                "{c:?} starts with {first:#x}"
+            );
+        }
+    }
 
     #[cfg(feature = "_embedding")]
     use super::Deferrals;
