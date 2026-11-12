@@ -702,37 +702,6 @@ fn until_in(
     rows
 }
 
-/// The end of an interpolation, as GraphQL passes it.
-fn closing_brace(bytes: &[u8], p: usize) -> bool {
-    bytes.get(p) == Some(&b'}')
-}
-
-/// Where each line of an interpolation halts.
-fn interpolation(lines: &[&str]) -> Vec<Option<usize>> {
-    until(&[], super::start_embedded, lines, &closing_brace, None)
-        .into_iter()
-        .map(|(halt, _)| halt)
-        .collect()
-}
-
-#[test]
-fn an_interpolation_ends_at_the_brace_that_no_context_is_waiting_for() {
-    // Braces that code opens close in the code; braces in strings, comments
-    // and nested templates are not told apart by counting.
-    for (line, close) in [
-        ("a.b(1) } c", 7),
-        ("{x: 1}.x } c", 9),
-        ("f(() => { return 1; }) } c", 23),
-        ("\"}\" } c", 4),
-        ("'}' + `a${b}` } c", 14),
-        ("a /* } */ } c", 10),
-        ("a // } ", usize::MAX),
-    ] {
-        let expected = (close != usize::MAX).then_some(close);
-        assert_eq!(interpolation(&[line])[0], expected, "{line:?}");
-    }
-}
-
 /// The end of a backtick attribute value, as Astro passes it.
 fn backtick(bytes: &[u8], p: usize) -> bool {
     bytes.get(p) == Some(&b'`')
@@ -794,12 +763,6 @@ fn tsx_runs_the_object_literal_entry() {
     assert_eq!(*halt, Some(10));
     assert_eq!(leaf_of(row, "a"), "meta.object-literal.key.tsx");
     assert_eq!(leaf_of(row, "b"), "entity.name.tag.tsx");
-}
-
-#[test]
-fn an_interpolation_carries_its_state_to_the_next_line() {
-    let rows = interpolation(&["f(1,", "  {a: 2}) + `x", "y${z}` } w"]);
-    assert_eq!(rows, [None, None, Some(7)]);
 }
 
 /// The end of a script, as HTML passes it: `</script` in any case.
@@ -899,31 +862,77 @@ fn a_script_carries_its_state_to_the_next_line() {
     assert_eq!(rows[3].0, Some(0));
 }
 
-#[test]
-fn an_embedding_end_halts_where_a_rule_of_the_root_would_start() {
-    fn at_c(bytes: &[u8], p: usize) -> bool {
-        bytes.get(p) == Some(&b'c')
-    }
-    // The name `abc` is one match, which covers its `c`.
-    // The `c` in the call's parentheses is inside a context.
-    let rows = until(&[], super::start_embedded, &["abc + f(c) c"], &at_c, None);
-    assert_eq!(rows[0].0, Some(11));
-}
+/// The tests of [`crate::typescript::start_embedded`].
+/// The function compiles only with a language that embeds TypeScript's
+/// dialects, or with HTML.
+#[cfg(any(feature = "_start-embedded", feature = "lang-html"))]
+mod embedded {
+    use super::until;
+    use crate::typescript::start_embedded;
 
-#[test]
-fn an_embedding_after_halts_only_where_no_rule_matches() {
-    fn digit_or_backslash(bytes: &[u8], p: usize) -> bool {
-        matches!(bytes.get(p), Some(b'1' | b'\\'))
+    /// The end of an interpolation, as GraphQL passes it.
+    fn closing_brace(bytes: &[u8], p: usize) -> bool {
+        bytes.get(p) == Some(&b'}')
     }
-    // The number rule matches at the `1`, so only the backslash halts.
-    let rows = until(
-        &[],
-        super::start_embedded,
-        &["1 + \\ 2"],
-        &|_: &[u8], _: usize| false,
-        Some(&digit_or_backslash),
-    );
-    assert_eq!(rows[0].0, Some(4));
+
+    /// Where each line of an interpolation halts.
+    fn interpolation(lines: &[&str]) -> Vec<Option<usize>> {
+        until(&[], start_embedded, lines, &closing_brace, None)
+            .into_iter()
+            .map(|(halt, _)| halt)
+            .collect()
+    }
+
+    #[test]
+    fn an_interpolation_ends_at_the_brace_that_no_context_is_waiting_for() {
+        // Braces that code opens close in the code; braces in strings, comments
+        // and nested templates are not told apart by counting.
+        for (line, close) in [
+            ("a.b(1) } c", 7),
+            ("{x: 1}.x } c", 9),
+            ("f(() => { return 1; }) } c", 23),
+            ("\"}\" } c", 4),
+            ("'}' + `a${b}` } c", 14),
+            ("a /* } */ } c", 10),
+            ("a // } ", usize::MAX),
+        ] {
+            let expected = (close != usize::MAX).then_some(close);
+            assert_eq!(interpolation(&[line])[0], expected, "{line:?}");
+        }
+    }
+
+    #[test]
+    fn an_interpolation_carries_its_state_to_the_next_line() {
+        let rows = interpolation(&["f(1,", "  {a: 2}) + `x", "y${z}` } w"]);
+        assert_eq!(rows, [None, None, Some(7)]);
+    }
+
+    #[test]
+    fn an_embedding_end_halts_where_a_rule_of_the_root_would_start() {
+        fn at_c(bytes: &[u8], p: usize) -> bool {
+            bytes.get(p) == Some(&b'c')
+        }
+        // The name `abc` is one match, which covers its `c`.
+        // The `c` in the call's parentheses is inside a context.
+        let rows = until(&[], start_embedded, &["abc + f(c) c"], &at_c, None);
+        assert_eq!(rows[0].0, Some(11));
+    }
+
+    #[test]
+    fn an_embedding_after_halts_only_where_no_rule_matches() {
+        fn digit_or_backslash(bytes: &[u8], p: usize) -> bool {
+            matches!(bytes.get(p), Some(b'1' | b'\\'))
+        }
+        // The number rule matches at the `1`, so only the backslash halts.
+        let rows = until(
+            &[],
+            start_embedded,
+            &["1 + \\ 2"],
+            &|_: &[u8], _: usize| false,
+            Some(&digit_or_backslash),
+        );
+        assert_eq!(rows[0].0, Some(4));
+    }
 }
 
 #[test]
