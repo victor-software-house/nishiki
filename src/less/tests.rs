@@ -130,12 +130,12 @@ fn style_end(bytes: &[u8], p: usize) -> bool {
 
 /// Where and why each line stops, as Svelte embeds Less up to `</style`.
 fn stops(lines: &[&str]) -> Vec<Option<Stopped>> {
-    let embedded = test_support::Embedded {
+    let embedded = test_support::embedded::Embedded {
         start: super::start,
         lex: super::lex,
         lex_until: super::lex_until,
     };
-    test_support::lex_embedded_stops(
+    test_support::embedded::lex_embedded_stops(
         embedded,
         &["source.svelte"],
         lines,

@@ -73,13 +73,13 @@ fn style_end(bytes: &[u8], p: usize) -> bool {
 /// Embedded, PostCSS halts at the host's end once only its root rule is open.
 #[test]
 fn an_embedded_line_halts_at_the_hosts_end() {
-    let embedded = test_support::Embedded {
+    let embedded = test_support::embedded::Embedded {
         start: super::start,
         lex: super::lex,
         lex_until: super::lex_until,
     };
     let line = "a { color: red; }</style>";
-    let rows = test_support::lex_embedded(
+    let rows = test_support::embedded::lex_embedded(
         embedded,
         &["source.svelte"],
         &[line],

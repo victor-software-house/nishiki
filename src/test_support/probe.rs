@@ -13,6 +13,7 @@ use crate::rules::{Grammar, Lexer, Scratch, Text};
 /// Whether `\G` holds where a matcher is tried.
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum Anchor {
+    #[cfg(any(feature = "json", feature = "lang-swift", feature = "_textmate"))]
     G,
     Free,
 }
@@ -21,6 +22,7 @@ pub(crate) enum Anchor {
 #[derive(Clone, Copy, Debug)]
 pub(crate) enum After {
     LineFeed,
+    #[cfg(any(feature = "json", feature = "lang-swift", feature = "_textmate"))]
     Nothing,
 }
 
@@ -76,7 +78,7 @@ pub(crate) fn lexer_under<G: Grammar, R>(
     let mut lexer = Lexer::new(parts, text, ROOT, &mut scratch);
     lexer.nl = matches!(case.after, After::LineFeed);
     lexer.pos = case.p;
-    lexer.g = matches!(case.anchor, Anchor::G);
+    lexer.g = !matches!(case.anchor, Anchor::Free);
     probe(&mut lexer)
 }
 

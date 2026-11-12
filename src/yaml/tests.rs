@@ -508,7 +508,7 @@ fn unicode_spaces_separate_as_blanks_where_the_grammar_reads_them() {
 }
 
 /// YAML as another language embeds it.
-const EMBEDDED: crate::test_support::Embedded = crate::test_support::Embedded {
+const EMBEDDED: crate::test_support::embedded::Embedded = crate::test_support::embedded::Embedded {
     start: super::start_embedded,
     lex: super::lex,
     lex_until: super::lex_until,
@@ -523,7 +523,9 @@ const RUBY_HEREDOC: [&str; 3] = ["source.ruby", "meta.embedded.block.yaml", "sou
 fn ruby_halts(lines: &[&str]) -> Vec<Option<usize>> {
     lines
         .iter()
-        .flat_map(|line| crate::test_support::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, &[line]))
+        .flat_map(|line| {
+            crate::test_support::embedded::ruby_heredoc_halts(EMBEDDED, &RUBY_HEREDOC, &[line])
+        })
         .collect()
 }
 

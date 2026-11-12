@@ -161,7 +161,7 @@ fn a_value_ends_at_the_brace_that_closes_its_object() {
 }
 
 /// JSON as a PHP heredoc tagged `JSON` embeds it.
-const EMBEDDED: test_support::Embedded = test_support::Embedded {
+const EMBEDDED: test_support::embedded::Embedded = test_support::embedded::Embedded {
     start: super::start_embedded,
     lex: |cx, line, state| super::lex(cx, super::Dialect::Json, line, state),
     lex_until: |cx, line, state, end, after| {
@@ -178,7 +178,7 @@ fn heredoc_end(bytes: &[u8], p: usize) -> bool {
 
 /// Where each line halts under [`heredoc_end`], and its tokens.
 fn heredoc_rows(lines: &[&str]) -> Vec<(Option<usize>, Row)> {
-    test_support::lex_embedded(EMBEDDED, &[], lines, Some((&heredoc_end, None)))
+    test_support::embedded::lex_embedded(EMBEDDED, &[], lines, Some((&heredoc_end, None)))
 }
 
 #[test]
@@ -202,8 +202,12 @@ fn embedded_json_halts_only_where_no_array_or_object_is_open() {
 #[test]
 fn embedded_json_without_halts_lexes_as_a_document_does() {
     let lines = ["{\"a\": [1, true]}", "  // c"];
-    let plain = test_support::lex_embedded(EMBEDDED, &[], &lines, None);
-    let halting =
-        test_support::lex_embedded(EMBEDDED, &[], &lines, Some((&|_: &[u8], _| false, None)));
+    let plain = test_support::embedded::lex_embedded(EMBEDDED, &[], &lines, None);
+    let halting = test_support::embedded::lex_embedded(
+        EMBEDDED,
+        &[],
+        &lines,
+        Some((&|_: &[u8], _| false, None)),
+    );
     assert_eq!(plain, halting);
 }
