@@ -261,6 +261,101 @@ fn white_space_gives_its_last_unicode_space_to_a_name() {
     }
 }
 
+/// A \s* or a \s+ before a name gives back each space until a name starts.
+/// U+3000 is \s but not one of Blade's name characters, so a name starts at
+/// the U+00A0 before it, or at the U+00A0 before an ASCII space.
+#[test]
+fn white_space_gives_back_spaces_until_a_name_starts() {
+    let lines = [
+        "<?php",
+        "\u{a0}\u{3000}:",
+        "A::\u{a0}\u{3000}();",
+        "$a->\u{a0}\u{3000}();",
+        "class\u{a0}\u{3000}{}",
+        "goto\u{a0}\u{3000};",
+        "\u{a0} :",
+    ];
+    let rows = lex(&lines.join("\n"));
+    let expected: [(usize, &[(&str, &str)]); 6] = [
+        (
+            1,
+            &[
+                ("\u{a0}", "entity.name.goto-label.php"),
+                ("\u{3000}:", "source.php"),
+            ],
+        ),
+        (
+            2,
+            &[
+                ("A", "entity.name.class.php"),
+                ("::", "keyword.operator.class.php"),
+                ("\u{a0}", "entity.name.function.php"),
+                ("\u{3000}", "meta.method-call.static.php"),
+                (
+                    "(",
+                    "punctuation.definition.arguments.begin.bracket.round.php",
+                ),
+                (
+                    ")",
+                    "punctuation.definition.arguments.end.bracket.round.php",
+                ),
+                (";", "punctuation.terminator.expression.php"),
+            ],
+        ),
+        (
+            3,
+            &[
+                ("$", "punctuation.definition.variable.php"),
+                ("a", "variable.other.php"),
+                ("->", "keyword.operator.class.php"),
+                ("\u{a0}", "entity.name.function.php"),
+                ("\u{3000}", "meta.method-call.php"),
+                (
+                    "(",
+                    "punctuation.definition.arguments.begin.bracket.round.php",
+                ),
+                (
+                    ")",
+                    "punctuation.definition.arguments.end.bracket.round.php",
+                ),
+                (";", "punctuation.terminator.expression.php"),
+            ],
+        ),
+        (
+            4,
+            &[
+                ("class", "storage.type.php"),
+                ("\u{a0}", "constant.other.php"),
+                ("\u{3000}", "source.php"),
+                ("{", "punctuation.definition.begin.bracket.curly.php"),
+                ("}", "punctuation.definition.end.bracket.curly.php"),
+            ],
+        ),
+        (
+            5,
+            &[
+                ("goto\u{a0}", "constant.other.php"),
+                ("\u{3000}", "source.php"),
+                (";", "punctuation.terminator.expression.php"),
+            ],
+        ),
+        (
+            6,
+            &[
+                ("\u{a0}", "entity.name.goto-label.php"),
+                (" :", "source.php"),
+            ],
+        ),
+    ];
+    for (row, tokens) in expected {
+        let got: Vec<(&str, &str)> = rows[row]
+            .iter()
+            .map(|(text, leaf)| (text.as_str(), leaf.as_str()))
+            .collect();
+        assert_eq!(got, tokens, "line {row}");
+    }
+}
+
 #[cfg(feature = "json")]
 mod probe {
     use std::fmt;

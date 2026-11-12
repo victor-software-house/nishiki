@@ -195,6 +195,86 @@ fn white_space_gives_its_last_unicode_space_to_a_name() {
     }
 }
 
+/// A \s* or a \s+ before a name gives back each space until a name starts,
+/// past an ASCII space at the end of the run.
+#[test]
+fn white_space_gives_back_spaces_until_a_name_starts() {
+    let lines = [
+        "x;",
+        "\u{a0} :",
+        "A::\u{a0} ();",
+        "$a->\u{3000} ();",
+        "goto\u{a0} ;",
+        "class\u{a0} {}",
+    ];
+    let rows = lex(&lines.join("\n"));
+    let expected: [(usize, &[(&str, &str)]); 5] = [
+        (1, &[("\u{a0}", "entity.name.goto-label.php"), (" :", "")]),
+        (
+            2,
+            &[
+                ("A", "support.class.php"),
+                ("::", "keyword.operator.class.php"),
+                ("\u{a0}", "entity.name.function.php"),
+                (" ", "meta.method-call.static.php"),
+                (
+                    "(",
+                    "punctuation.definition.arguments.begin.bracket.round.php",
+                ),
+                (
+                    ")",
+                    "punctuation.definition.arguments.end.bracket.round.php",
+                ),
+                (";", "punctuation.terminator.expression.php"),
+            ],
+        ),
+        (
+            3,
+            &[
+                ("$", "punctuation.definition.variable.php"),
+                ("a", "variable.other.php"),
+                ("->", "keyword.operator.class.php"),
+                ("\u{3000}", "entity.name.function.php"),
+                (" ", "meta.method-call.php"),
+                (
+                    "(",
+                    "punctuation.definition.arguments.begin.bracket.round.php",
+                ),
+                (
+                    ")",
+                    "punctuation.definition.arguments.end.bracket.round.php",
+                ),
+                (";", "punctuation.terminator.expression.php"),
+            ],
+        ),
+        (
+            4,
+            &[
+                ("goto\u{a0}", "constant.other.php"),
+                (" ", ""),
+                (";", "punctuation.terminator.expression.php"),
+            ],
+        ),
+        (
+            5,
+            &[
+                ("class", "storage.type.php"),
+                ("\u{a0}", "constant.other.php"),
+                (" ", ""),
+                ("{", "punctuation.definition.begin.bracket.curly.php"),
+                ("}", "punctuation.definition.end.bracket.curly.php"),
+            ],
+        ),
+    ];
+    for (row, tokens) in expected {
+        let got: Vec<(&str, &str)> = rows[row]
+            .iter()
+            .map(|(text, leaf)| (text.as_str(), leaf.as_str()))
+            .collect();
+        assert_eq!(got, tokens, "line {row}");
+    }
+}
+
 #[test]
 fn a_heredoc_label_after_unicode_white_space_closes_it() {
     let lines = [
