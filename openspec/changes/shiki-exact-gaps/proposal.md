@@ -21,9 +21,10 @@ Two parts of the measurement have gaps of their own:
 - `oracle/fuzz.ts` checks both modes that need pieces in the same way.
 - Rust reads non-ASCII digits and names with the classes Shiki's engine uses.
 - Svelte's `{#each}` with a `$` index and its `<script lang="` case give Shiki's scopes.
-  A third document that differs at seed 2 gets its language found.
+  A third document that differs at seed 2 is Ruby's.
 - Ruby's three cases and Mermaid's trailing backslash give Shiki's scopes.
 - Vue in a list-item fence ends its regions where Shiki does.
+- Vue gives a self-closing `<styl/>` and the line after it Shiki's scopes.
 - Go's three documented cases and LaTeX's braced-argument embeds give Shiki's scopes.
 - A fuzz run sends mutated and fenced text through the TextMate engine with Shiki's grammars.
 
