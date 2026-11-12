@@ -22,4 +22,5 @@ pub(crate) const LUA: RuleTables = RuleTables {
             end: "(?=]\\2])",
         },
     )],
+    injected: None,
 };

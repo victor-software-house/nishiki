@@ -3,6 +3,7 @@
 //!
 //! [`ALL`] lists the languages whose tables codegen builds so far.
 
+mod coffee;
 mod common_lisp;
 mod dart;
 mod elixir;
@@ -24,7 +25,8 @@ mod vb;
 use nishiki::unstable::codegen::tables::RuleTables;
 
 /// The languages whose tables codegen builds, by module name.
-pub(crate) const ALL: [RuleTables; 17] = [
+pub(crate) const ALL: [RuleTables; 18] = [
+    coffee::COFFEE,
     common_lisp::COMMON_LISP,
     dart::DART,
     elixir::ELIXIR,

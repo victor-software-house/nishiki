@@ -40,4 +40,5 @@ pub(crate) const JINJA: RuleTables = RuleTables {
     identity: Identity::Id,
     reentry: Reentry::WithinWalk,
     externals: &[],
+    injected: None,
 };

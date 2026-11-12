@@ -16,4 +16,5 @@ pub(crate) const GDSCRIPT: RuleTables = RuleTables {
     identity: Identity::Id,
     reentry: Reentry::WithinWalk,
     externals: &[],
+    injected: None,
 };

@@ -2313,7 +2313,7 @@ CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFT
 
 ## Svelte
 
-Its Svelte lexer emits the scope names of the Svelte TextMate grammar in [sveltejs/language-tools](https://github.com/sveltejs/language-tools), `packages/svelte-vscode/syntaxes/svelte.tmLanguage.src.yaml` at commit `d12a9ae276c9f4c6a62964bbdca074424cbab123`, which Shiki bundles as `svelte`.
+Its Svelte lexer emits the scope names of the Svelte TextMate grammar in [sveltejs/language-tools](https://github.com/sveltejs/language-tools), `packages/svelte-vscode/syntaxes/svelte.tmLanguage.src.yaml` at commit `2cfcc15b4c44dfc1128432e20ca663fe20bdd12e`, which Shiki bundles as `svelte`.
 It tries that grammar's rules in its order, from tables generated from it (`src/svelte/grammar.rs`).
 That repository's `LICENSE` reads as follows:
 

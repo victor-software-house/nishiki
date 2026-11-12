@@ -2,7 +2,8 @@ use nishiki::Grammar;
 use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
-    Act, CaptureLists, External, Identity, LonePattern, Reentry, RuleTables, Split, Tables,
+    Act, CaptureLists, External, Identity, Injection, LonePattern, Reentry, RuleTables, Split,
+    Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -18,6 +19,7 @@ const PLAIN: RuleTables = RuleTables {
     identity: Identity::Id,
     reentry: Reentry::WithinRule,
     externals: &[],
+    injected: None,
 };
 
 /// Why a test grammar gave no tables.
@@ -624,6 +626,107 @@ fn an_external_pattern_that_is_no_match_is_an_error() {
         with_ruby(json, ruby).map(|tables| tables.patterns.len()),
         Err(Failure::Generate(GenerateError::ExternalPattern {
             include: "source.ruby#escaped_char".to_owned()
+        }))
+    );
+}
+
+/// A list entry whose own patterns are one dropped include is left out, and
+/// the entries after it take its place.
+#[test]
+fn an_entry_of_one_dropped_include_takes_no_place() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "/", "end": "/", "patterns": [{"include": "source.js.regexp"}]},
+        {"match": "a"}]}"#;
+    let drops = RuleTables {
+        externals: &[("source.js.regexp", External::DropsItsEntry)],
+        ..PLAIN
+    };
+    assert_eq!(ids(json, &drops), Ok(expected(&[("RootAt0", Act::Match)])));
+}
+
+/// Under named capture rules, a capture list of one repository include takes
+/// the key's id, a list of one capture-rule include takes that rule's id,
+/// and any other list takes `Nested` and a number.
+#[test]
+fn named_capture_rules_take_the_key_or_the_external_id() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"match": "(a)(b)(c)",
+        "captures": {"1": {"patterns": [{"include": "#function_names"}]},
+            "2": {"patterns": [{"include": "source.js"}]},
+            "3": {"patterns": [{"match": "c"}]}}}],
+        "repository": {"function_names": {"patterns": [{"match": "f"}]}}}"##;
+    let named = RuleTables {
+        capture_lists: CaptureLists::NamedRules,
+        externals: &[("source.js", External::CaptureRule { id: "Javascript" })],
+        ..PLAIN
+    };
+    assert_eq!(
+        rule_ids(json, &named),
+        Ok(vec![
+            "FunctionNames".to_owned(),
+            "Javascript".to_owned(),
+            "Nested2".to_owned(),
+            "Root".to_owned(),
+        ])
+    );
+    assert_eq!(tried(json, &named, "Javascript"), Ok(Some(Vec::new())));
+}
+
+/// A language that takes the matches Svelte injects into it.
+const INJECTED: RuleTables = RuleTables {
+    injected: Some(Injection {
+        grammar: "svelte",
+        selector: "L:source.demo",
+        ids: &["SvelteVariable", "SvelteProps"],
+    }),
+    ..PLAIN
+};
+
+/// The tables of the grammar `json`, read as [`INJECTED`] says, with
+/// `svelte` as the grammar `svelte`.
+fn with_svelte(json: &str, svelte: &str) -> Result<Tables, Failure> {
+    let load = |json| {
+        Grammar::from_json(json)
+            .map(unlinked)
+            .map_err(|error| Failure::Grammar(error.to_string()))
+    };
+    flatten(load(json)?, &[("svelte", load(svelte)?)], &INJECTED).map_err(Failure::Generate)
+}
+
+/// Injected matches follow every other pattern, and no rule lists them.
+#[test]
+fn injected_matches_follow_every_pattern_and_no_rule_lists_them() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [{"match": "a"}]}"#;
+    let svelte = r#"{"scopeName": "source.svelte", "patterns": [],
+        "injections": {"L:source.demo": {"patterns": [{"match": "v"}, {"match": "p"}]}}}"#;
+    let tables = with_svelte(json, svelte);
+    assert_eq!(
+        tables.as_ref().map(|tables| tables
+            .patterns
+            .iter()
+            .map(|pattern| pattern.id.as_str())
+            .collect::<Vec<_>>()),
+        Ok(vec!["RootAt0", "SvelteVariable", "SvelteProps"])
+    );
+    assert_eq!(
+        tables.map(|tables| tables
+            .rules
+            .into_iter()
+            .map(|rule| rule.patterns)
+            .collect::<Vec<_>>()),
+        Ok(vec![vec![0]])
+    );
+}
+
+/// An injection with another number of patterns than ids is an error.
+#[test]
+fn an_injection_of_another_length_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": []}"#;
+    let svelte = r#"{"scopeName": "source.svelte", "patterns": [],
+        "injections": {"L:source.demo": {"patterns": [{"match": "v"}]}}}"#;
+    assert_eq!(
+        with_svelte(json, svelte).map(|tables| tables.patterns.len()),
+        Err(Failure::Generate(GenerateError::Injection {
+            selector: "L:source.demo".to_owned()
         }))
     );
 }

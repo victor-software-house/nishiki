@@ -69,6 +69,7 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 | `scss` | [microsoft/vscode at cf8d61ebd2f022f4ce8280171f0360d1fe0a206d][scss-source] | [MIT][scss-licence] |
 | `shellscript` | [microsoft/vscode at 9473445f7d3dcb5c579f42ece8b6c18c43c63ed3][shellscript-source] | [MIT][shellscript-licence] |
 | `sql` | [microsoft/vscode at af600487b1e94374d9f48f57cbf2cad24656b07f][sql-source] | [MIT][sql-licence] |
+| `svelte` | [sveltejs/language-tools at 2cfcc15b4c44dfc1128432e20ca663fe20bdd12e][svelte-source] | [MIT][svelte-licence] |
 | `swift` | [jtbandes/swift-tmlanguage at 2be007b6bc88e54a0edfd3c313ff31276edc923d][swift-source] | [MIT][swift-licence] |
 | `tex` | [microsoft/vscode at 609f17a76734f092792a33c891af40bbcaea0c64][tex-source] | [MIT][tex-licence] |
 | `toml` | [textmate/toml.tmbundle at e82b64c1e86396220786846201e9aa3f0a2d9ca2][toml-source] | [TextMate bundle licence][toml-licence] |
@@ -209,6 +210,8 @@ The grammars are test data: `Cargo.toml` leaves `tests/` out of the published cr
 [shellscript-licence]: https://github.com/jeff-hykin/better-shell-syntax/blob/HEAD/LICENSE
 [sql-source]: https://github.com/microsoft/vscode/tree/af600487b1e94374d9f48f57cbf2cad24656b07f
 [sql-licence]: https://github.com/microsoft/vscode-mssql/blob/HEAD/LICENSE.txt
+[svelte-source]: https://github.com/sveltejs/language-tools/tree/2cfcc15b4c44dfc1128432e20ca663fe20bdd12e
+[svelte-licence]: https://github.com/sveltejs/language-tools/blob/2cfcc15b4c44dfc1128432e20ca663fe20bdd12e/LICENSE
 [swift-source]: https://github.com/jtbandes/swift-tmlanguage/tree/2be007b6bc88e54a0edfd3c313ff31276edc923d
 [swift-licence]: https://github.com/jtbandes/swift-tmlanguage/blob/2be007b6bc88e54a0edfd3c313ff31276edc923d/LICENSE.md
 [tex-source]: https://github.com/microsoft/vscode/tree/609f17a76734f092792a33c891af40bbcaea0c64
