@@ -236,6 +236,53 @@ fn a_match_named_after_its_group_becomes_one_pattern_per_alternative() {
     );
 }
 
+/// A repository entry whose begin is named after a later group, in lower
+/// case, becomes one begin per alternative.
+/// Each takes the entry's id and its position, and lists its own patterns.
+#[test]
+fn an_entry_begin_named_after_a_group_becomes_one_begin_per_alternative() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#at-rule"}],
+        "repository": {"at-rule": {"begin": "((@)(page|font))\\b", "end": ";",
+            "name": "meta.at-rule.${3:/downcase}.demo", "patterns": [{"match": "x"}]}}}"##;
+    let begins = tables(json, &PLAIN).map(|tables| {
+        tables
+            .patterns
+            .into_iter()
+            .filter(|pattern| pattern.act == Act::Begin)
+            .map(|pattern| (pattern.id, pattern.regex))
+            .collect::<Vec<_>>()
+    });
+    assert_eq!(
+        begins,
+        Ok(vec![
+            ("AtRuleAt0".to_owned(), r"((@)(page))\b".to_owned()),
+            ("AtRuleAt1".to_owned(), r"((@)(font))\b".to_owned()),
+        ])
+    );
+    assert_eq!(
+        tried(json, &PLAIN, "Root"),
+        Ok(Some(vec!["AtRuleAt0".to_owned(), "AtRuleAt1".to_owned()]))
+    );
+    assert_eq!(
+        tried(json, &PLAIN, "AtRuleAt1"),
+        Ok(Some(vec!["AtRuleAt1At0".to_owned()]))
+    );
+}
+
+/// Names that hold the text of two groups give no split.
+#[test]
+fn names_of_two_groups_do_not_split() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "(a|b)(c|d)", "name": "keyword.$1.$2.demo"}]}"#;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+            regex: "(a|b)(c|d)".to_owned(),
+        }))
+    );
+}
+
 /// A language's name for an inline pattern replaces its derived id, and the
 /// patterns inside it take their ids from that name.
 #[test]

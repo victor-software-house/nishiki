@@ -20,7 +20,7 @@ pub struct RuleTables {
     /// such as `("RootAt0", "Shebang")`.
     /// The patterns inside it take their ids from the name.
     pub pattern_names: &'static [(&'static str, &'static str)],
-    /// What a pattern named after its first group, `$1`, becomes.
+    /// What a pattern named after a group, such as `$1`, becomes.
     pub split: Split,
     /// The id of a list entry's one inline pattern.
     pub lone_pattern: LonePattern,
@@ -127,8 +127,8 @@ pub enum Reentry {
     WithinWalk,
 }
 
-/// How a match whose scope name holds `$1` becomes one pattern for each
-/// alternative of its first group.
+/// How a match or begin whose scope name holds a group's text, such as
+/// `$1`, becomes one pattern for each alternative of that group.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Split {
     /// The alternative stays in its group: `\b(extends|super)\b` gives
