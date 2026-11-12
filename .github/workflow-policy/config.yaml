@@ -16,10 +16,6 @@
 workflow_policy:
   # mise_env:
   #   profiles: [ci, release]
-  # The release job runs on a Namespace machine with no cache volume, which
-  # .github/actionlint.yaml does not list.
-  labels:
-    allowed: [nscloud-ubuntu-24.04-amd64-4x8]
   # concurrency:
   #   endings: ["${{ github.ref }}"]
   exceptions:
