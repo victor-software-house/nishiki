@@ -1078,7 +1078,7 @@ fn hand_over<G: Embeds>(
             },
             known => known,
         };
-        let part = Line::new(line.text, embedding.at);
+        let part = Line::new(line.text, embedding.at).with_anchor(embedding.anchored);
         let (end, after) = G::embed_halts_for(rule, &embedding, cx.arena);
         let own = G::embeds_after_own(rule);
         if own && starts.as_ref().map(|&(code, _)| code) != Some(G::rule_code(rule)) {

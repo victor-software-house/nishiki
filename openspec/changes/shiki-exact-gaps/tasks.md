@@ -106,7 +106,7 @@ The [research note][note] holds the numbers each task starts from.
 
 ## 5. Ruby and Mermaid
 
-- [ ] 5.1 A `%w` or `%W` at the end of a line opens a percent literal that ends with the next line, as in Shiki.
+- [x] 5.1 A `%w` or `%W` at the end of a line opens a percent literal that ends with the next line, as in Shiki.
   → verify: at every seed, no document differs in Ruby's `win` corpus, and the research note's document 296 matches
   - 2026-11-12: Shiki 4.6.0 reads the line's newline as the literal's delimiter.
     In `a = %W`, then `b c`, then `d = 1`, the string holds `b c`.
@@ -127,11 +127,30 @@ The [research note][note] holds the numbers each task starts from.
   - 2026-11-12: Identity changes no fixture.
     Callgrind against the base, one build per side, reads Ruby at 1.0001 for lexing.
     No gated row reads over 1.0012.
-- [ ] 5.2 After a here document that runs on past a blank line, the next line's command name gets Shiki's shell scopes.
+  - 2026-11-12: with task 5.2's fix, on a box, no Ruby `win` document differs at seed 1, 2 or 3.
+    Document 296 matches.
+- [x] 5.2 After a here document that runs on past a blank line, the next line's command name gets Shiki's shell scopes.
   → verify: the research note's document 59 matches, and no Ruby `win` document differs at any seed
   - 2026-11-12: at [98bb9820][base], Ruby's `win` corpus at seed 1 shows it, at line 12, column 1, in `sh = <<~'SH'`.
     Shiki gives `meta.statement.command.name.shell entity.name.function.call.shell entity.name.command.shell`.
     nishiki stops at `meta.statement.command.shell`.
+  - 2026-11-12: the line `SHELL\` misses the here document's end, and its `\` continues the shell command.
+    Shiki skips the blank line after it.
+    So in bare shell, `sh` is in the continued command.
+    `\G` fails there, and `sh` gets no command name.
+  - 2026-11-12: in Ruby, the here document's `while` rule matches at the start of each line.
+    vscode-textmate then puts `\G` there, and the command name's rule begins with `\G`.
+    The rule engine handed the embedded language its line without that anchor.
+    It now passes the anchor, as a Markdown fence does.
+  - 2026-11-12: two tests hold the case, after `echo a \` and after `SHELL\`.
+    On a box, both fail before the fix and pass after it.
+    Shiki fixtures of ten probes and of document 59 all match after it.
+  - 2026-11-12: Ruby's `win` corpus, on a box, 300 documents per seed: no document differs at any seed.
+    Seed 2's `win` corpora of the 73 languages with oracle fixtures, 100 documents each, have none either.
+  - 2026-11-12: Identity changes one edited copy of Ruby's `html-heredocs` fixture, edit 34.
+    It now matches Shiki.
+    Callgrind against the base, one build per side, reads Ruby at 0.9999 for lexing.
+    No gated row reads over 1.0005.
 - [ ] 5.3 In a fence, the text after a line's second here document opener gets the embed Shiki gives it.
   → verify: at every seed, no document differs in Ruby's `mdw` corpus
 - [x] 5.4 Mermaid leaves a backslash after a closed string plain, as Shiki does.

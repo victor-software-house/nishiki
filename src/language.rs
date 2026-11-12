@@ -883,6 +883,10 @@ languages! {
     ///   so it never matches.
     /// - A percent literal such as `%w` at the end of a line takes the line feed as its delimiter.
     ///   It holds the next line, and that line's line feed closes it.
+    /// - A here document's `while` rule leaves `\G` where each of its lines starts.
+    ///   In a shell here document, a line after one that ends in `\` therefore starts with a
+    ///   command name.
+    ///   Bare shell continues the command there instead.
     Ruby {
         feature: "lang-ruby",
         names: ["ruby", "rb"],
@@ -2367,6 +2371,8 @@ pub(crate) struct Line<'a> {
     pub(crate) start: usize,
     /// Whether the anchor `\G` sits at `start`, as a Markdown fence's `while`
     /// rule leaves it in Shiki.
+    /// A rule-engine rule that embeds the language leaves it there too, where
+    /// its `while` pattern or its begin match ended.
     /// It holds whatever contexts of the language are open.
     #[cfg(any(
         feature = "_rule-engine",
@@ -2409,10 +2415,12 @@ impl<'a> Line<'a> {
 
     /// The line with `\G` at `start` when `anchored`, whatever contexts of
     /// the language are open, as a Markdown fence's `while` rule leaves it.
+    /// A rule that embeds the language through the rule engine leaves it so
+    /// too.
     ///
     /// A build whose lexers read no `\G` there drops it with `let _`, as
     /// [`Context::new`] drops the scratch.
-    #[cfg(feature = "lang-markdown")]
+    #[cfg(any(feature = "lang-markdown", feature = "_embedding"))]
     pub(crate) const fn with_anchor(self, anchored: bool) -> Line<'a> {
         #[cfg(not(any(
             feature = "_rule-engine",

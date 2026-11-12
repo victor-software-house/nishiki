@@ -167,6 +167,33 @@ fn an_interpolated_word_array_at_the_end_of_a_line_holds_the_next_line() {
 }
 
 #[test]
+fn a_shell_heredoc_line_names_its_command_after_a_continued_one() {
+    let rows = lex_lines(indoc! {r"
+        run = <<~SHELL
+          echo a \
+
+        ls
+        SHELL
+    "});
+    assert_eq!(scope_of(&rows[3], "ls"), "entity.name.command.shell");
+}
+
+#[test]
+fn a_shell_heredoc_past_its_unmatched_end_names_the_next_command() {
+    let rows = lex_lines(indoc! {r"
+        run = <<~SHELL
+          echo a
+        SHELL\
+
+        sh = <<~'SH'
+          ls -la
+        SH
+    "});
+    assert_eq!(scope_of(&rows[2], r"SHELL\"), "entity.name.command.shell");
+    assert_eq!(scope_of(&rows[4], "sh"), "entity.name.command.shell");
+}
+
+#[test]
 fn a_slash_after_a_match_operator_starts_a_regular_expression() {
     let row = lex(r"args.shift if meth && (map[meth] || meth !~ /^\-/)");
     assert_eq!(scope_of(&row, "!~"), "keyword.operator.comparison.ruby");
