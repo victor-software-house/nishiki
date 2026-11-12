@@ -1350,3 +1350,106 @@ fn a_begin_capture_name_splits_the_group() {
         Ok(vec![r"\b(enum|union)\s+(\w+)".to_owned(), "}".to_owned()])
     );
 }
+
+/// A `|` outside every group leaves a `\b` on one side of it only, so the
+/// match is no plain words and does not merge.
+#[test]
+fn an_alternation_outside_a_group_does_not_merge() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#a"}],
+        "repository": {"a": {"match": "(?i)\\b(ax)|(bx)\\b"}}}"##;
+    let merges = RuleTables {
+        merged_words: Some(MergedWords {
+            id: "Word",
+            entries: 1,
+        }),
+        ..PLAIN
+    };
+    assert_eq!(
+        merged(json, &merges),
+        Err(Failure::Generate(GenerateError::NotWords {
+            id: "A".to_owned(),
+        }))
+    );
+}
+
+/// Entries that add no match give no words to merge.
+/// An empty merge would match nothing at every word boundary.
+#[test]
+fn entries_without_a_match_do_not_merge() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [{"match": "x"}]}"#;
+    let merges = RuleTables {
+        merged_words: Some(MergedWords {
+            id: "Word",
+            entries: 0,
+        }),
+        ..PLAIN
+    };
+    assert_eq!(
+        merged(json, &merges),
+        Err(Failure::Generate(GenerateError::NotWords {
+            id: "Word".to_owned(),
+        }))
+    );
+}
+
+/// A group between the optional group and the named group could let the
+/// named group match nothing, so the split refuses it.
+/// It has several alternatives, or a quantifier that allows nothing.
+#[test]
+fn a_group_that_can_skip_the_named_group_is_an_error() {
+    let splits = RuleTables {
+        capture_names: CaptureNames::SplitsOptionalGroup,
+        ..PLAIN
+    };
+    for regex in ["1(?:x(?:(a)|(b)))?", "1(?:x(?:(a)y)*)?"] {
+        let json = serde_json::json!({"scopeName": "source.demo", "patterns": [
+            {"match": regex, "captures": {"1": {"name": "unit.$1.demo"}}}]});
+        assert_eq!(
+            regexes(&json.to_string(), &splits),
+            Err(Failure::Generate(GenerateError::Split {
+                id: "RootAt0".to_owned(),
+                regex: regex.to_owned(),
+            })),
+            "{regex}"
+        );
+    }
+}
+
+/// Under `Split::DropsGroup`, a begin whose end repeats the group would
+/// lose the group the end repeats, so the split refuses it.
+#[test]
+fn dropping_a_group_the_end_repeats_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "\\b(a|b)\\b", "end": "\\1", "name": "keyword.$1.demo"}]}"#;
+    let drops = RuleTables {
+        split: Split::DropsGroup,
+        ..PLAIN
+    };
+    assert_eq!(
+        regexes(json, &drops),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+            regex: r"\b(a|b)\b".to_owned(),
+        }))
+    );
+}
+
+/// A group number too large for `usize` names no group a begin has, so an
+/// embedding rule whose end holds only it lists no body.
+#[test]
+fn an_overflowing_group_number_repeats_no_group() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "(a)", "end": "\\99999999999999999999999",
+            "patterns": [{"include": "source.ruby"}]}]}"#;
+    let embeds = RuleTables {
+        externals: &[("source.ruby", External::Embeds)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &embeds),
+        Ok(expected(&[
+            ("RootAt0", Act::Begin),
+            ("RootAt0End", Act::End)
+        ]))
+    );
+}

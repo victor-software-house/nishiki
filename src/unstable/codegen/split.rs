@@ -26,6 +26,7 @@ pub(super) struct Variant {
 
 /// The expression of each pattern that a match or begin `regex`, named with
 /// `names`, becomes, or `None` when no name holds a group's text.
+/// A begin passes its `end`.
 ///
 /// A name holds group `n`'s text as `$n` or as `${n:/downcase}`.
 /// Group `n` is the `n`th group that captures, as [`group`] counts them.
@@ -39,9 +40,12 @@ pub(super) struct Variant {
 /// - the names hold several groups, or the expression has no such group;
 /// - the group is named, since its name would repeat in each pattern;
 /// - `split` is [`Split::DropsGroup`] and a later group captures, since
-///   dropping the group would change that group's number.
+///   dropping the group would change that group's number;
+/// - `split` is [`Split::DropsGroup`] and `end` repeats the group, since the
+///   begins of the split hold no such group.
 pub(super) fn alternatives<'n>(
     regex: &str,
+    end: Option<&str>,
     names: impl IntoIterator<Item = &'n str>,
     split: Split,
     id: &str,
@@ -58,15 +62,17 @@ pub(super) fn alternatives<'n>(
         [number] => number,
         _ => return Err(refused()),
     };
-    let (start, end) = group(regex, number).ok_or_else(refused)?;
-    let words = &regex[start + 1..end];
+    let (start, close) = group(regex, number).ok_or_else(refused)?;
+    let words = &regex[start + 1..close];
     if words.starts_with('?') {
         return Err(refused());
     }
-    if split == Split::DropsGroup && group(regex, number + 1).is_some() {
+    if split == Split::DropsGroup
+        && (group(regex, number + 1).is_some() || end.is_some_and(|end| repeats(end, number)))
+    {
         return Err(refused());
     }
-    let (before, after) = (&regex[..start], &regex[end + 1..]);
+    let (before, after) = (&regex[..start], &regex[close + 1..]);
     Ok(Some(
         top_level(words)
             .into_iter()
@@ -96,10 +102,14 @@ pub(super) fn alternatives<'n>(
 ///
 /// # Errors
 ///
-/// [`GenerateError::Split`], naming `id` and `regex`, when the names hold
-/// several groups, or when no optional group holds the named one.
-/// A group `(?:…)??` or `(?:…)?+` counts as none: the split reads only a
-/// plain `?`.
+/// [`GenerateError::Split`], naming `id` and `regex`, when:
+///
+/// - the names hold several groups;
+/// - no optional group holds the named one;
+/// - the innermost one is lazy or possessive, `(?:…)??` or `(?:…)?+`, since the
+///   split reads only a plain `?`;
+/// - a group between them has several alternatives, or a `?`, `*` or `{` after
+///   it, since the named group could then match nothing.
 pub(super) fn optional_alternatives<'n>(
     regex: &str,
     names: impl IntoIterator<Item = &'n str>,
@@ -125,10 +135,22 @@ pub(super) fn optional_alternatives<'n>(
                 && start < close
                 && regex[open..].starts_with("(?:")
                 && regex[close + 1..].starts_with('?')
-                && !regex[close + 2..].starts_with(['?', '+'])
         })
         .max_by_key(|&(open, _)| open)
         .ok_or_else(refused)?;
+    if regex[close + 2..].starts_with(['?', '+']) {
+        return Err(refused());
+    }
+    let between = spans(regex)
+        .into_iter()
+        .filter(|&(inner, end)| open < inner && inner < start && start < end);
+    for (inner, end) in between {
+        if top_level(&regex[inner + 1..end]).len() > 1
+            || regex[end + 1..].starts_with(['?', '*', '{'])
+        {
+            return Err(refused());
+        }
+    }
     let (before, after) = (&regex[..open], &regex[close + 2..]);
     let mut out = top_level(&regex[open + 3..close])
         .into_iter()
@@ -202,6 +224,18 @@ fn word(alternative: &str) -> String {
         .chars()
         .take_while(char::is_ascii_alphabetic)
         .collect()
+}
+
+/// Whether the end `end` repeats group `number` of its begin.
+///
+/// It reads `end` as vscode-textmate's `resolveBackReferences` does: every
+/// `\\` before digits repeats the group they number.
+fn repeats(end: &str, number: usize) -> bool {
+    end.match_indices('\\').any(|(at, _)| {
+        let rest = &end[at + 1..];
+        let digits = rest.bytes().take_while(u8::is_ascii_digit).count();
+        rest[..digits].parse() == Ok(number)
+    })
 }
 
 /// The number of each group whose text the scope name `name` holds.
