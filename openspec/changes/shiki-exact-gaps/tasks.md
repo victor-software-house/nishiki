@@ -183,13 +183,51 @@ The [research note][note] holds the numbers each task starts from.
   - 2026-11-12: Mermaid's corpora on a box, at seeds 1, 2 and 3: 300 `win`, 100 `mdw`, and 100 bare and 100 fenced differential documents per seed.
     Before, seed 1's `win` corpus had one that differs, document 94, by 1 byte.
     After, none differs in any corpus at any seed.
+- [ ] 5.5 After a second here document opener, the embedded language lexes the rest of the line, as in Shiki.
+  → verify: a test holds `x = [<<~A>1, <<~SQL] SELECT 1` with Shiki's scopes, and no Ruby document differs at any seed
 
 ## 6. Vue
 
-- [ ] 6.1 Find why Vue's regions end at other lines in a list-item fence.
+- [x] 6.1 Find why Vue's regions end at other lines in a list-item fence.
   → verify: the cause is recorded here, with the rule it comes from
-- [ ] 6.2 Vue in a list-item fence ends its regions where Shiki does.
-  → verify: at every seed, no document differs in Vue's `mdw` corpus
+  - 2026-11-12: Vue's `mdw` corpora at seeds 1, 2 and 3 have 6, 7 and 10 documents that differ.
+    They come from three causes.
+  - 2026-11-12: first cause: a Vue `lang="md"` block in a list item's or a quote's fence.
+    Its Markdown starts after the item's indent or the quote's `>`.
+    Markdown's HTML block `while` patterns begin with a bare `^`, which fails there.
+    So the block ends with its first line, and the Markdown block's end `(?=</)` closes it at `</template>`.
+  - 2026-11-12: second cause: a Vue `lang="toml"` block in the same place.
+    TOML's table header `^\s*(\[)` fails there too, so Shiki gives `[server]` `invalid.illegal.not-allowed-here.toml`.
+  - 2026-11-12: nishiki lexes both from a slice of the line.
+    It took the slice's start for `^`.
+  - 2026-11-12: third cause: Vue's `markdown-vue` fence injection opens inside other embedded languages, such as JSX children or a TypeScript string.
+    nishiki tries it only where a Vue body's line starts.
+    Task 6.4 holds it.
+- [x] 6.2 Text that another language embeds from the middle of its line has no `^` at its start, as in Shiki.
+  → verify: a Shiki probe of each language that nishiki lexes from a slice of the line matches but for task 6.5's case, and at every seed only task 6.4's documents differ in Vue's `mdw` corpus
+  - 2026-11-12: nishiki lexes HCL, JSON, Markdown, Rust, TOML and YAML from a slice of the line.
+    Of their Shiki grammars, HCL, Markdown, TOML and YAML have a bare `^`.
+    JSON has none, and Rust's one sits in a character class.
+  - 2026-11-12: no Shiki grammar that nishiki lexes embeds HCL.
+    Shiki probes put YAML in list and quote fences, in Vue and Ruby blocks inside them, and in LaTeX's `minted`.
+    They put Markdown in Haml's `:markdown` filter and Svelte's `@component` comments.
+    All of these match.
+  - 2026-11-12: the probes of Markdown and TOML in a Vue block in a list or quote fence differ.
+    Markdown's HTML block, raw block, setext and blank list line patterns now need the line's start instead of the slice's.
+    So does TOML's table header, and the leading space of a comment.
+  - 2026-11-12: two tests hold the cases with Shiki's scopes.
+    On a box, both fail before the fix and pass after it.
+  - 2026-11-12: on a box, 21 probes: the three that differ are task 6.5's case.
+  - 2026-11-12: Vue's `mdw` corpora on a box, at seeds 1, 2 and 3: 1, 2 and 6 documents differ, from 6, 7 and 10.
+    They are task 6.4's nine.
+  - 2026-11-12: the `win` and `mdw` corpora of Markdown, Svelte, Haml, TOML and Vue at seeds 1 and 3, and seed 2's `win` corpora of the 73 languages.
+    Only Vue's task 6.4 documents differ, plus three Markdown documents at seed 3, which differ at the base too.
+    Those three are `vue` fences nested in other fences, task 6.4's kind.
+  - 2026-11-12: Identity changes no fixture.
+  - 2026-11-12: Callgrind against the base, one build per side, reads Markdown at 1.0018 for lexing.
+    No gated row reads over that.
+    A first build set the character before the start in `run`, which held two copies of the `while` checks.
+    It read Markdown at 1.0054, so the lexer now sets that character when it is made.
 - [x] 6.3 Vue gives `<styl/>` and the `</st` after it Shiki's scopes.
   → verify: a test holds the case with Shiki's scopes, and no Vue `win` document differs at any seed
   - 2026-11-12: Vue's `win` corpus at seed 2 shows it in document 78, at [98bb9820][base] and at [d36a1da6][s2-head].
@@ -208,6 +246,15 @@ The [research note][note] holds the numbers each task starts from.
   - 2026-11-12: Vue's `win` corpus, on a box, 100 documents per seed.
     Before, seed 2 had one, document 78, by 12 bytes.
     After, none differs at any seed.
+- [ ] 6.4 A `vue` fence opens inside other embedded languages where Shiki's `markdown-vue` injection opens it.
+  → verify: a Shiki probe settles where `\G` sits after a quote's `>`, a test holds the case, and at every seed no document differs in Vue's `mdw` corpus
+- [ ] 6.5 On a line whose containers took all its text, such as `>` alone in a quote, the `while` rules of the languages embedded below run, as in Shiki.
+  → verify: a test holds a list in a Vue `lang="md"` block in a quote, ended by a `>` line, with Shiki's scopes
+  - 2026-11-12: a Shiki probe shows it, in task 6.2's work.
+    Shiki runs the inner list's `while` rule after the `>`, where its bare `^` fails, so the list ends.
+  - 2026-11-12: nishiki skips the line at each layer.
+    The outer Markdown, `html::lex_vue` and `markdown::line` each return early when nothing is left of the line.
+    Changing two of the three left the case as it was.
 
 ## 7. Go and LaTeX
 

@@ -74,6 +74,15 @@ impl Cx<'_> {
             .all(|(i, &b)| self.get(p + i) == Some(b))
     }
 
+    /// A bare `^`: the start of the whole line.
+    /// Markdown that another language embeds from the middle of its line
+    /// starts after the line's start, so `^` fails at its start.
+    /// vscode-textmate matches on the whole line.
+    #[inline]
+    pub(crate) fn at_line_start(&self, p: usize) -> bool {
+        p == 0 && self.facts.before_start.is_none()
+    }
+
     /// `^` or `\G`: the start of the line, or where the last rule ended.
     #[inline]
     pub(crate) fn at_start(&self, p: usize) -> bool {

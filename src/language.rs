@@ -429,6 +429,10 @@ languages! {
     ///   It hands them up to the first place after a `>` where no tag starts.
     /// - An HTML block inside a quote or a list starts again on each line, from a fresh HTML state.
     ///   This follows from the grammar's `while` rules, which match only at the start of a line.
+    /// - Markdown that another language embeds from the middle of its line has no line start
+    ///   there.
+    ///   A Vue `lang="md"` block in a list item's or a quote's fence is one.
+    ///   Its HTML blocks, setext underlines and blank list lines match nowhere at that start.
     /// - A label or link destination nested deeper than 32 brackets ends there.
     /// - The grammar's backtracking is followed where it matters in practice, not everywhere.
     ///   A code span gives back backticks,

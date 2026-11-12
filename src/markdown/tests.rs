@@ -2253,6 +2253,45 @@ fn a_vue_fence_line_is_anchored_only_after_a_quote() {
     );
 }
 
+/// In a list item, a `vue` fence's Markdown block starts after the item's
+/// indent.
+/// An HTML block's `while` pattern begins with a bare `^`, which fails there.
+/// So the block ends with its first line.
+/// The Markdown block's end `(?=</)` then closes it at `</template>`.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn an_html_block_in_a_vue_markdown_block_in_a_list_ends_with_its_line() {
+    let text = indoc! {r#"
+        - item
+          ```vue
+          <docs lang="md">
+          <template>
+          </template>"#};
+    assert_eq!(
+        stack_of(text, "</template>"),
+        [
+            "text.html.markdown",
+            "markup.list.unnumbered.markdown",
+            "markup.fenced_code.block.markdown",
+        ]
+    );
+}
+
+/// In a quote, a `vue` fence's TOML block starts after the quote's `>`.
+/// A table header's pattern begins with `^\s*`, which fails there.
+#[cfg(all(feature = "lang-vue", feature = "lang-toml"))]
+#[test]
+fn a_table_header_in_a_vue_toml_block_in_a_quote_is_not_allowed() {
+    let text = indoc! {r#"
+        > ```vue
+        > <settings lang="toml">
+        > [server]"#};
+    assert_eq!(
+        scope_of(text, "[server]"),
+        "invalid.illegal.not-allowed-here.toml"
+    );
+}
+
 /// A `vue` fence nested in a TypeScript body closes with that body.
 /// The body's `while` rule fails at `</script>`, under the nested fence.
 #[cfg(feature = "lang-vue")]
