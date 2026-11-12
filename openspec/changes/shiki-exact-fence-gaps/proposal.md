@@ -17,6 +17,7 @@ Its sweep and corpora found twelve more cases that differ from Shiki.
 - Svelte opens a block in a TypeScript template string.
 - Lua in LaTeX's `\verb` gives its words Shiki's scopes.
 - Bat, Python and YAML give four cases in fences Shiki's scopes.
+- Blade's PHP and PHP read Oniguruma's Unicode `\s` after a type and before a heredoc's label.
 
 ## Out of scope
 
@@ -31,7 +32,7 @@ None: the fixes bring nishiki to the `shiki-fidelity` spec as written.
 ## Impact
 
 - `src/markdown/`, `src/vue.rs`, `src/csharp/`, `src/php/`, `src/ruby/` and `src/svelte/`.
-- `src/latex/`, `src/bat/`, `src/python/` and `src/yaml/`.
+- `src/latex/`, `src/bat/`, `src/python/`, `src/yaml/` and `src/blade/`.
 - The `Language` docs in `src/language.rs`.
 
 [gaps]: ../shiki-exact-gaps/tasks.md

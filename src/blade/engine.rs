@@ -276,7 +276,7 @@ fn closes(s: &[u8], p: usize, label: &[u8]) -> bool {
     if p != 0 {
         return false;
     }
-    let at = s.iter().position(|&b| !is_space(b)).unwrap_or(s.len());
+    let at = blanks_end(s);
     s[at..].starts_with(label) && !word_at(s, at + label.len())
 }
 
@@ -331,7 +331,15 @@ fn interpolation(s: &[u8], p: usize) -> bool {
     }
 }
 
-/// `\s`.
-fn is_space(b: u8) -> bool {
-    matches!(b, b' ' | b'\t' | b'\n' | b'\x0B' | b'\x0C' | b'\r')
+/// The end of the `\s*` that starts `s`.
+/// `\s` is Oniguruma's Unicode white space, such as U+00A0, as
+/// [`crate::classes::is_space`] holds it.
+fn blanks_end(s: &[u8]) -> usize {
+    let mut at = 0;
+    while let Some((c, n)) = crate::utf8::char_at(s, at)
+        && crate::classes::is_space(c)
+    {
+        at += n;
+    }
+    at
 }
