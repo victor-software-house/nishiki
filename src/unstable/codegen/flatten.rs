@@ -50,11 +50,6 @@ use super::tables::{
 };
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
-/// The key of the top-level list in the set of lists being expanded.
-/// No repository key gives it in Pascal case, so a key such as `root`,
-/// whose lists take the id `Root`, does not share it.
-const TOP_LEVEL: &str = "$self";
-
 /// The tables of `grammar`, read as `language` says.
 ///
 /// # Errors
@@ -69,21 +64,23 @@ pub fn flatten(grammar: &UnlinkedGrammar, language: &RuleTables) -> Result<Table
         patterns: HashMap::new(),
         capture_lists: HashMap::new(),
         expanding: HashSet::new(),
+        expanding_top_level: false,
         opened: Vec::new(),
     };
     let root = match language.reentry {
         Reentry::WithinRule => {
-            walk.expanding.insert(TOP_LEVEL.to_owned());
+            walk.expanding_top_level = true;
             walk.list(&grammar.patterns, "Root")?
         }
         Reentry::WithinWalk => {
             walk.list(&grammar.patterns, "Root")?;
             for (index, list, id) in std::mem::take(&mut walk.opened) {
                 walk.expanding.clear();
+                walk.expanding_top_level = false;
                 walk.tables.rules[index].patterns = walk.list(list, &id)?;
             }
             walk.expanding.clear();
-            walk.expanding.insert(TOP_LEVEL.to_owned());
+            walk.expanding_top_level = true;
             walk.list(&grammar.patterns, "Root")?
         }
     };
@@ -108,6 +105,10 @@ struct Walk<'a> {
     /// The ids of the lists being expanded, in the scope
     /// [`RuleTables::reentry`] sets.
     expanding: HashSet<String>,
+    /// Whether the top-level list is being expanded, in the same scope.
+    /// It stays out of [`Walk::expanding`], so no repository key, such as
+    /// `root` or `$self`, can share it.
+    expanding_top_level: bool,
     /// Each rule the walk opened: its index in the tables, its pattern list
     /// and its id, for the second pass of [`Reentry::WithinWalk`].
     opened: Vec<(usize, &'a [RuleId], String)>,
@@ -150,9 +151,10 @@ impl<'a> Walk<'a> {
             let at = index;
             index += 1;
             if include == "$self" || *include == grammar.scope {
-                if self.expanding.insert(TOP_LEVEL.to_owned()) {
+                if !self.expanding_top_level {
+                    self.expanding_top_level = true;
                     out.extend(self.list(&grammar.patterns, "Root")?);
-                    self.expanding.remove(TOP_LEVEL);
+                    self.expanding_top_level = false;
                 }
                 continue;
             }
@@ -206,8 +208,10 @@ impl<'a> Walk<'a> {
         match self.language.reentry {
             Reentry::WithinRule => {
                 let around = std::mem::take(&mut self.expanding);
+                let top_level = std::mem::replace(&mut self.expanding_top_level, false);
                 let patterns = self.list(list, context);
                 self.expanding = around;
+                self.expanding_top_level = top_level;
                 patterns
             }
             Reentry::WithinWalk => self.list(list, context),
