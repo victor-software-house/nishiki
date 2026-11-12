@@ -17,7 +17,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   takesOneBlank,
   tooLong,
   writePatterns,
@@ -271,13 +271,13 @@ g += arms(
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
-g += startTable(patternById);
+await writePatterns("pascal", patternById);
+g += await startTableFromCodegen("pascal", patternById);
 g += ruleCodes("Pascal", "PASCAL");
 g += groupsCheck(
   "Pascal",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
-await writePatterns("pascal", patternById);
 await writeRust(`${root_dir}src/pascal/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

@@ -45,7 +45,7 @@ import {
   oneBlankTable,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   takesOneBlank,
   tooLong,
   writePatterns,
@@ -442,14 +442,14 @@ ${mergedPats.map((p, index) => `            Rx::${p.id} => Answer::List(${index}
     }
 }
 `;
-g += startTable(patternList);
+await writePatterns("asm", patternList);
+g += await startTableFromCodegen("asm", patternList);
 if (toLast) g += oneBlankTable(patternList);
 g += ruleCodes("Asm", "ASM");
 g += groupsCheck(
   "Asm",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-await writePatterns("asm", patternList);
 await writeRust(`${root_dir}src/asm/grammar.rs`, g);
 
 // Spellings with `ß` or a ligature.

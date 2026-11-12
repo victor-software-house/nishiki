@@ -13,7 +13,7 @@ import {
   oneBlankTable,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -316,15 +316,14 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("scala", patternList);
+g += await startTableFromCodegen("scala", patternList);
 g += oneBlankTable(patternList);
 g += ruleCodes("Scala", "SCALA");
 g += groupsCheck(
   "Scala",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("scala", patternList);
 
 await writeRust(`${root_dir}src/scala/grammar.rs`, g);
 

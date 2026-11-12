@@ -1,0 +1,790 @@
+{
+  "starts": {
+    "AttributesAttach": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0800_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesAttachEnd": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesCommentsAt0": {
+      "bytes": "0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesCommentsAt1": {
+      "bytes": "0x0000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesCommentsAt1End": {
+      "bytes": "0x0000_0400_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectives": {
+      "bytes": "0x0000_0000_0000_0000, 0x0038_920e_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesAt0": {
+      "bytes": "0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesAt0End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesEnd": {
+      "bytes": "0xdfff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesKeywordsAt0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0020_8004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesKeywordsAt1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0010_8202_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesKeywordsAt2": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesKeywordsAt3": {
+      "bytes": "0x0000_0000_0000_0000, 0x0008_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesDirectivesTypesAssignedAt0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0010_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, InWord"
+    },
+    "AttributesDirectivesTypesAssignedAt1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "AttributesDirectivesTypesAssignedAt2": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "AttributesDirectivesTypesAssignedAt3": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "AttributesDirectivesTypesAt0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "AttributesDirectivesTypesAt1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "AttributesDirectivesTypesAt2": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "AttributesDirectivesTypesAt3": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "AttributesInterpolated": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0800_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesInterpolatedEnd": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesKeyvalue": {
+      "bytes": "0x0000_2010_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesKeyvalueAt0": {
+      "bytes": "0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesKeyvalueAt0End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesKeyvalueEnd": {
+      "bytes": "0xdfff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesValueAt1": {
+      "bytes": "0x03ff_4084_0000_0000, 0x0000_0000_8000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesValueAt2": {
+      "bytes": "0x8fff_ff7a_ffff_c1ff, 0xffff_fffe_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesValueAt3": {
+      "bytes": "0x0000_0084_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "AttributesValueAt3End": {
+      "bytes": "0x0000_0084_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "Body": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyCoffeeScript": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyCoffeeScriptEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodyCss": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyCssEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodyJavaScript": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyJavaScriptEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodyLess": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyLessEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodyPostCss": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyPostCssEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodySass": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodySassEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodyScss": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyScssEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodyTemplate": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away"
+    },
+    "BodyTemplateEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "BodyTypeScriptBlock": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "BodyTypeScriptBlockWhile": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "LineStart"
+    },
+    "BodyTypeScriptLine": {
+      "bytes": "0xffff_ffff_ffff_fbff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away"
+    },
+    "BodyTypeScriptLineEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "Comments": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentsAt0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentsAt0At0": {
+      "bytes": "0xffff_ffff_ffff_fbff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentsAt0End": {
+      "bytes": "0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentsAt1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentsEnd": {
+      "bytes": "0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "DestructuringAt0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "DestructuringAt0End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "DestructuringAt1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0000_0800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "DestructuringAt1End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "DestructuringConstAt0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "DestructuringConstAt0End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "DestructuringConstAt1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0000_0800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "DestructuringConstAt1End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "GenericsDoubleQuoted": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0080_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GenericsDoubleQuotedEnd": {
+      "bytes": "0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GenericsSingleQuoted": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0080_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GenericsSingleQuotedEnd": {
+      "bytes": "0x0000_0080_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "InterpolationAt0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "InterpolationAt0At0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "InterpolationAt0At0End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "InterpolationAt0End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedAttributesDirectivesGroup5At0": {
+      "bytes": "0x03ff_0000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedAttributesDirectivesGroup5At1": {
+      "bytes": "0x0000_0000_0000_0000, 0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedAttributesKeyvalueGroup0At0": {
+      "bytes": "0x0000_2000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedAttributesKeyvalueGroup0At1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0220_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0820_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At2": {
+      "bytes": "0x0000_0000_0000_0000, 0x0010_000a_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At3": {
+      "bytes": "0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At4": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At5": {
+      "bytes": "0x0000_0000_0000_0000, 0x0004_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At6": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedSpecialTagsKeywordsGroup2At7": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0008_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedTagsNameAt2Group1At0": {
+      "bytes": "0x03ff_0000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "NestedTagsNameAt2Group1At1": {
+      "bytes": "0x0000_4000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ScopeAt4": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "ScopeAt4End": {
+      "bytes": "0x1000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsBlockBegin": {
+      "bytes": "0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsBlockBeginEnd": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsBlockEnd": {
+      "bytes": "0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsBlockEndEnd": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsKeywords": {
+      "bytes": "0x0400_8008_0000_0000, 0x0000_0000_0000_0001, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt0End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt1At0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt1At1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away"
+    },
+    "SpecialTagsModesAt1At1End": {
+      "bytes": "0x4000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt1At2": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt1At2End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt1At3": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt1At3End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt1End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt2": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt2At1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt2At1End": {
+      "bytes": "0x2400_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt2At2": {
+      "bytes": "0x0400_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt2At2End": {
+      "bytes": "0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt2At3": {
+      "bytes": "0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt2At3End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt2End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt3At0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3At0End": {
+      "bytes": "0x0000_1001_0000_3e00, 0x2000_0002_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3At1": {
+      "bytes": "0x0000_1000_0000_0000, 0x2000_0002_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3At1At1": {
+      "bytes": "0x0000_0100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3At1At1End": {
+      "bytes": "0x0000_0200_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3At1At2": {
+      "bytes": "0x0000_0011_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3At1At3": {
+      "bytes": "0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3At1End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt3End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt4": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt4At0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt4At0End": {
+      "bytes": "0x0000_0001_0000_3e00, 0x2000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt4At1": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt4At1End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt4End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt5": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, InWord"
+    },
+    "SpecialTagsModesAt5At0": {
+      "bytes": "0x0000_0010_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt5At1": {
+      "bytes": "0x0000_1000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsModesAt5End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsVoid": {
+      "bytes": "0x0000_0000_0000_0000, 0x0800_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpecialTagsVoidEnd": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsEndNode": {
+      "bytes": "0x1000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsGeneralEnd": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsGeneralEndEnd": {
+      "bytes": "0x4000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsGeneralStart": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsGeneralStartEnd": {
+      "bytes": "0x4000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsLang": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsLangAt0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsLangAt0End": {
+      "bytes": "0x1000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsLangEnd": {
+      "bytes": "0x1000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsLangStartAttributes": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsLangStartAttributesEnd": {
+      "bytes": "0x4000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsNameAt0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsNameAt1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0008_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsNameAt2": {
+      "bytes": "0x03ff_0000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsNameAt3": {
+      "bytes": "0x0000_0000_0000_0000, 0x07ff_fffe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsNameAt4": {
+      "bytes": "0x0000_0000_0000_0000, 0x07ff_fffe_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsStartAttributes": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsStartAttributesEnd": {
+      "bytes": "0x4000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsStartNode": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsVoid": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TagsVoidEnd": {
+      "bytes": "0x4000_8000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    }
+  },
+  "words_at_start": false
+}

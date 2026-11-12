@@ -306,7 +306,10 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
         text.push_str(&line);
         text.push('\n');
     }
-    Ok(File { path: PATH, text })
+    Ok(File {
+        path: PATH.to_owned(),
+        text,
+    })
 }
 
 /// The lines of a `cfg` attribute that requires one of `features`.

@@ -1724,8 +1724,8 @@ impl Pattern {
                 bytes: [
                     0x0000_0004_0000_0000,
                     0x0000_0000_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_0000_0000_0000,
+                    0x0000_0004_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
@@ -1757,8 +1757,8 @@ impl Pattern {
                 bytes: [
                     0x0000_0080_0000_0000,
                     0x0000_0000_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_0000_0000_0000,
+                    0x0000_0004_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
@@ -1767,8 +1767,8 @@ impl Pattern {
                 bytes: [
                     0x0000_0004_0000_0000,
                     0x0000_0000_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_0000_0000_0000,
+                    0x0000_0004_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,
@@ -1777,8 +1777,8 @@ impl Pattern {
                 bytes: [
                     0x0000_0080_0000_0000,
                     0x0000_0000_0000_0000,
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_0000_0000_0000,
+                    0x0000_0004_0000_0000,
                 ],
                 places: PlaceSet::of(&[Place::LineStart]),
                 matches_at_end: false,

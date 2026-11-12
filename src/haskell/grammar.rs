@@ -4787,7 +4787,7 @@ impl Pattern {
             Pattern::TypeVariable | Pattern::ExportConstructsAt3 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
-                    0x07ff_fffe_87ff_fffe,
+                    0x07ff_fffe_8000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -4828,14 +4828,9 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
-            Pattern::StringLiteralAt3At0
-            | Pattern::TypeOperatorAt0
-            | Pattern::InfixOpAt0
-            | Pattern::QuasiQuoteAt0End
-            | Pattern::QuasiQuoteAt1End
-            | Pattern::QuasiQuoteAt2End => Start {
+            Pattern::StringLiteralAt3At0 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
+                    0xffff_fffe_ffff_c1ff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -4856,15 +4851,14 @@ impl Pattern {
             Pattern::TypeApplicationAt0
             | Pattern::TypeApplicationAt1
             | Pattern::TypeApplicationAt2
-            | Pattern::TypeApplicationAt3
-            | Pattern::ReservedSymbolAt2 => Start {
+            | Pattern::TypeApplicationAt3 => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0001,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pattern::TypeApplicationAt0End
@@ -4912,12 +4906,32 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::InWord]),
                 matches_at_end: false,
             },
+            Pattern::ReservedSymbolAt2 => Start {
+                bytes: [
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0001,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::InWord]),
+                matches_at_end: false,
+            },
             Pattern::ReservedSymbolAt3 => Start {
                 bytes: [
                     0x0000_2012_0000_0000,
                     0x4000_0000_0000_0000,
                     0x0000_0000_0000_0000,
                     0x0000_0000_0000_0000,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pattern::TypeOperatorAt0 | Pattern::InfixOpAt0 => Start {
+                bytes: [
+                    0xf400_ecfa_0000_0000,
+                    0x5000_0000_57ff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
@@ -4935,7 +4949,7 @@ impl Pattern {
             Pattern::TypeConstructorAt0 => Start {
                 bytes: [
                     0x0000_0080_0000_0000,
-                    0x07ff_fffe_07ff_fffe,
+                    0x0000_0000_07ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5028,7 +5042,7 @@ impl Pattern {
             Pattern::ModuleName => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
-                    0x07ff_fffe_07ff_fffe,
+                    0x0000_0000_07ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5060,7 +5074,7 @@ impl Pattern {
             | Pattern::GadtConstructorAt1 => Start {
                 bytes: [
                     0x0000_0100_0000_0000,
-                    0x07ff_fffe_07ff_fffe,
+                    0x0000_0000_07ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5080,7 +5094,7 @@ impl Pattern {
             Pattern::ExportConstructsAt4 | Pattern::DataConstructor | Pattern::Qualifier => Start {
                 bytes: [
                     0x0000_0000_0000_0000,
-                    0x07ff_fffe_07ff_fffe,
+                    0x0000_0000_07ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5130,7 +5144,7 @@ impl Pattern {
             Pattern::FfiAt2 => Start {
                 bytes: [
                     0x0000_0004_0000_0000,
-                    0x07ff_fffe_87ff_fffe,
+                    0x07ff_fffe_8000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5147,10 +5161,10 @@ impl Pattern {
                 places: PlaceSet::of(&[Place::Away, Place::LineStart]),
                 matches_at_end: false,
             },
-            Pattern::FfiAt2At4 | Pattern::RecordDeclField | Pattern::RecordFieldAt0 => Start {
+            Pattern::FfiAt2At4 | Pattern::RecordDeclField => Start {
                 bytes: [
                     0x0000_0100_0000_0000,
-                    0x07ff_fffe_87ff_fffe,
+                    0x07ff_fffe_8000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5229,7 +5243,7 @@ impl Pattern {
             Pattern::GadtConstructorAt0 => Start {
                 bytes: [
                     0x0000_0101_0000_3e00,
-                    0x07ff_fffe_07ff_fffe,
+                    0x0000_0000_07ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5399,7 +5413,7 @@ impl Pattern {
             Pattern::FunDecl => Start {
                 bytes: [
                     0x0000_0101_0000_3e00,
-                    0x07ff_fffe_87ff_fffe,
+                    0x07ff_fffe_8000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -5414,6 +5428,28 @@ impl Pattern {
                     0xffff_ffff_ffff_ffff,
                 ],
                 places: PlaceSet::of(&[Place::LineStart]),
+                matches_at_end: false,
+            },
+            Pattern::QuasiQuoteAt0End | Pattern::QuasiQuoteAt1End | Pattern::QuasiQuoteAt2End => {
+                Start {
+                    bytes: [
+                        0xffff_ffff_ffff_ffff,
+                        0xffff_ffff_ffff_ffff,
+                        0xffff_ffff_ffff_ffff,
+                        0xffff_ffff_ffff_ffff,
+                    ],
+                    places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                    matches_at_end: false,
+                }
+            }
+            Pattern::RecordFieldAt0 => Start {
+                bytes: [
+                    0x0000_0100_0000_0000,
+                    0x07ff_fffe_87ff_fffe,
+                    0xffff_ffff_ffff_ffff,
+                    0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
         }

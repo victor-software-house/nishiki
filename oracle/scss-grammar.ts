@@ -22,7 +22,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -394,14 +394,13 @@ g += `
 /// The scope that names each of CSS's units, in the order of CSS's \`UNITS\`.
 pub(crate) const UNIT_SCOPES: [S; ${css.unitScopes.length}] = [${css.unitScopes.map((u) => `S::${fromCss(u)}`).join(", ")}];
 `;
-g += startTable(patternList);
+await writePatterns("scss", patternList);
+g += await startTableFromCodegen("scss", patternList);
 g += ruleCodes("Scss", "SCSS");
 g += groupsCheck(
   "Scss",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("scss", patternList);
 
 await writeRust(`${root_dir}src/scss/grammar.rs`, g);
 

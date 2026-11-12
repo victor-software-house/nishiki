@@ -5,6 +5,8 @@
 //! change.
 //! Both also check `Language::pops_host` against the grammars, in
 //! [`fence_stops`].
+//! [`starts`] writes the start sets each `oracle/<language>-grammar.ts`
+//! reads, to `codegen/starts/`.
 //! Both list each start set in a `grammar.rs` that differs from the one
 //! [`starts`] computes.
 //!
@@ -43,7 +45,7 @@ use error::Error;
 #[derive(Debug)]
 struct File {
     /// The path, such as `src/c/words.rs`.
-    path: &'static str,
+    path: String,
     /// The whole text the file holds.
     text: String,
 }
@@ -84,7 +86,7 @@ fn main() -> ExitCode {
 
 /// Generates every file, then writes or checks each.
 /// Returns the files a check found stale; a write leaves none.
-fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
+fn run(mode: Mode) -> Result<Vec<String>, Error> {
     let root = root()?;
     let stopping = fence_stops::check(&root)?;
     println!(
@@ -98,7 +100,9 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     let mut files = words::files(&root)?;
     files.extend(matchers::files(&root)?);
     files.push(blank_runs::file(&root)?);
-    let differing = starts::differences(&root, &blank_runs::grammars(&root)?)?;
+    let grammars = blank_runs::grammars(&root)?;
+    files.extend(starts::files(&root, &grammars)?);
+    let differing = starts::differences(&root, &grammars)?;
     println!(
         "start sets that differ from the tables: {}",
         differing.len()
@@ -111,7 +115,7 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     files.push(unicode::file(&root)?);
     files.push(test_gates::file(&root)?);
     for file in files {
-        let path = root.join(file.path);
+        let path = root.join(&file.path);
         let current = fs::read(&path).ok();
         if current.as_deref() == Some(file.text.as_bytes()) {
             continue;

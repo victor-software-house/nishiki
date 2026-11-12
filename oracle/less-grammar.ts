@@ -13,7 +13,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -308,14 +308,13 @@ g += `        }\n    }\n\n`;
 g += `}
 `;
 
-g += startTable(patternList);
+await writePatterns("less", patternList);
+g += await startTableFromCodegen("less", patternList);
 g += ruleCodes("Less", "LESS");
 g += groupsCheck(
   "Less",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("less", patternList);
 
 await writeRust(`${root_dir}src/less/grammar.rs`, g);
 

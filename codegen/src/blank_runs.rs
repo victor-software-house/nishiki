@@ -90,11 +90,14 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
             text.push('\n');
         }
     }
-    Ok(File { path: PATH, text })
+    Ok(File {
+        path: PATH.to_owned(),
+        text,
+    })
 }
 
 /// The names in `dir` that end in `suffix`, without it.
-fn names(dir: &Path, suffix: &str) -> Result<BTreeSet<String>, Error> {
+pub(crate) fn names(dir: &Path, suffix: &str) -> Result<BTreeSet<String>, Error> {
     let io = |source| Error::Io {
         path: dir.to_path_buf(),
         source,

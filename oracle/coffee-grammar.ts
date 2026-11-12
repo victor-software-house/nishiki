@@ -32,7 +32,7 @@ import {
   oneBlankTable,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -527,14 +527,13 @@ g += gateSvelteArms(
 g += `        }\n    }\n}\n`;
 
 g += oneBlankTable(patternList);
-g += gateSvelteArms(startTable(patternList));
+await writePatterns("coffee", patternList);
+g += gateSvelteArms(await startTableFromCodegen("coffee", patternList));
 g += groupsCheck(
   "Coffee",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
 g += ruleCodes("Coffee", "COFFEE");
-
-await writePatterns("coffee", patternList);
 
 await writeRust(`${root_dir}src/coffee/grammar.rs`, g);
 

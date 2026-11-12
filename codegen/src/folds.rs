@@ -147,7 +147,10 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
         tail_group(&mut text, tails);
     }
     text.push_str("];\n");
-    Ok(File { path: PATH, text })
+    Ok(File {
+        path: PATH.to_owned(),
+        text,
+    })
 }
 
 impl Folds {

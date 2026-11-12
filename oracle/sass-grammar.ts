@@ -14,7 +14,7 @@ import {
   oneBlankTable,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -289,15 +289,14 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("sass", patternList);
+g += await startTableFromCodegen("sass", patternList);
 g += oneBlankTable(patternList, "any");
 g += groupsCheck(
   "Sass",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("Sass", "SASS");
-
-await writePatterns("sass", patternList);
 
 await writeRust(`${root_dir}src/sass/grammar.rs`, g);
 

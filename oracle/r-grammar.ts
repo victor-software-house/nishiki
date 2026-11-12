@@ -24,7 +24,7 @@ import {
   ruleCodes,
   scopeFile,
   startOf,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -350,17 +350,13 @@ for (const p of patternList) {
     throw new Error(`${p.id}: the first-byte analysis does not read ${p.regex}`);
   }
 }
-g += startTable(
-  patternList.map((p) => ({ id: p.id, regex: p.regex })),
-  "any",
-);
+await writePatterns("r", patternList);
+g += await startTableFromCodegen("r", patternList);
 g += ruleCodes("R", "R");
 g += groupsCheck(
   "R",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("r", patternList);
 
 await writeRust(`${root_dir}src/r/grammar.rs`, g);
 await writeRust(`${root_dir}src/r/scope.rs`, scopeFile("r-grammar.ts", "R", scopes));

@@ -15,6 +15,8 @@ name: Generated tables
 #   writes them and formats them with rustfmt
 #   (`mise run check:rule-grammars`), after the tests in
 #   oracle/rule-grammar.test.ts.
+#   Most of them read their start sets from codegen/starts/, which
+#   codegen/ writes.
 # - tests/engine/grammars/: oracle/engine-grammars.ts writes the engine's
 #   test grammars as indented JSON (`mise run check:engine-grammars`).
 # Bun fetches Shiki from npm.
@@ -48,6 +50,7 @@ on:
       - src/*/scope.rs
       - src/cpp/types.rs
       - src/swift/dispatch.rs
+      - codegen/starts/**
       - mise-tasks/check/rule-grammars.sh
       - oracle/engine-grammars.ts
       - oracle/licences.ts

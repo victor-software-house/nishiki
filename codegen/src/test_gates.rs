@@ -277,7 +277,7 @@ pub(crate) fn file(root: &Path) -> Result<File, Error> {
     };
     let sets = sets(Path::new("src/lib.rs"), &read, &features)?;
     Ok(File {
-        path: PATH,
+        path: PATH.to_owned(),
         text: script(&sets),
     })
 }

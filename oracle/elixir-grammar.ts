@@ -23,7 +23,7 @@ import {
   oneBlankTable,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -371,14 +371,13 @@ g += wordList(
 );
 
 g += oneBlankTable(patternList, "any");
-g += startTable(patternList, "any");
+await writePatterns("elixir", patternList);
+g += await startTableFromCodegen("elixir", patternList);
 g += ruleCodes("Elixir", "ELIXIR");
 g += groupsCheck(
   "Elixir",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-
-await writePatterns("elixir", patternList);
 
 await writeRust(`${root_dir}src/elixir/grammar.rs`, g);
 

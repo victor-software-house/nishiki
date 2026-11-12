@@ -21,7 +21,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   takesOneBlank,
   tooLong,
   writePatterns,
@@ -400,13 +400,13 @@ g += arms(
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
-g += startTable(patternList);
+await writePatterns("common_lisp", patternList);
+g += await startTableFromCodegen("common_lisp", patternList);
 g += ruleCodes("CommonLisp", "COMMON_LISP");
 g += groupsCheck(
   "CommonLisp",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-await writePatterns("common_lisp", patternList);
 await writeRust(`${root_dir}src/common_lisp/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word.replaceAll("\\", "\\\\")}"`;

@@ -4395,7 +4395,6 @@ impl Pattern {
             | Pattern::DeclarationsProtocolProtocolMethodEnd
             | Pattern::DeclarationsTypeEnumEnumCaseEnd
             | Pattern::DeclarationsTypeEnumAssociatedValues
-            | Pattern::DeclarationsTypeEnumAssociatedValuesAt3
             | Pattern::DeclarationsTypeEnumRawValueAssignmentEnd
             | Pattern::LiteralsStringAt2At0
             | Pattern::OperatorsAt1End
@@ -4424,7 +4423,6 @@ impl Pattern {
             | Pattern::Nested12At0
             | Pattern::OperatorsAt1At5
             | Pattern::ConditionalsAt1End
-            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2
             | Pattern::DeclarationsExtensionExtensionAt0
             | Pattern::DeclarationsTypealiasEnd
             | Pattern::DeclarationsTypealiasAt0
@@ -4513,10 +4511,12 @@ impl Pattern {
             },
             Pattern::Nested0At0
             | Pattern::DeclarationsOperatorAt2
+            | Pattern::DeclarationsTypeEnumAssociatedValuesAt3
+            | Pattern::ExpressionsWithoutTrailingClosuresOrMemberReferencesExpressionElementListAt2
             | Pattern::LiteralsStringAt1At3
             | Pattern::LiteralsStringAt0At3
             | Pattern::Nested1At3 => Start {
-                bytes: [0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
+                bytes: [0xffff_fffe_ffff_c1ff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },
@@ -5006,7 +5006,7 @@ impl Pattern {
             },
             Pattern::DeclarationsImportAt0At2
             | Pattern::OperatorsAt1 => Start {
-                bytes: [0xf000_ec62_0000_0000, 0x5000_0000_4000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff],
+                bytes: [0xf000_ec62_0000_0000, 0x5000_0000_4000_0000, 0x0000_0000_0000_0000, 0x0000_000c_0000_000c],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,
             },

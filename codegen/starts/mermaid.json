@@ -1,0 +1,880 @@
+{
+  "starts": {
+    "Architecture": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0002_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ArchitectureAt0": {
+      "bytes": "0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ArchitectureAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0080_0008_0080, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ArchitectureAt2": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ArchitectureAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0400_0000_0400, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ArchitectureEnd": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "C4Component": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0010_0000_0010_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt10": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_1100_0008_1100, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt11": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0020_0000_0020_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt12": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0020_0000_0020_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt13": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0002_0000_0002, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt14": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt16": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt17": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_4010_0000_4010, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0001_0000_0001_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0001_0000_0001_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt4": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0008_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt5": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0008_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt6": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0004_0004_0004_0004, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt7": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0004_0004_0004_0004, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt8": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0024_0008_0024, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ComponentAt9": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0024_0008_0024, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4Container": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ContainerAt10": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_002c_0008_002c, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ContainerAt11": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_002c_0008_002c, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ContainerAt6": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4ContainerAt7": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4Deployment": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4Dynamic": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4DynamicAt8": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0004_0000_0004_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "C4DynamicAt9": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0004_0000_0004_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ClassDiagram": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ClassDiagramAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_4000_0000_4000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ClassDiagramAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_4000_0000_4000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ClassDiagramAt2At1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0008_0000_0008, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2At1At1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2At1At1At0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2At1At1End": {
+      "bytes": "0x0000_0200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2At1At2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_2000_0000_2000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ClassDiagramAt2At1At3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2At1At4": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2At1At5": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2At1End": {
+      "bytes": "0x0000_0000_0000_0000, 0x2000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt2End": {
+      "bytes": "0x0000_0001_0000_3e00, 0x2000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ClassDiagramAt3": {
+      "bytes": "0x03ff_6000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt4": {
+      "bytes": "0x03ff_6000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt5": {
+      "bytes": "0x03ff_6000_0000_0000, 0x07ff_ffff_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt6": {
+      "bytes": "0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt7": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0008_0000_0008, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ClassDiagramAt8": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0008_0000_0008, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ErDiagram": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0020_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ErDiagramAt1": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "ErDiagramAt2": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ErDiagramAt2At0": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "ErDiagramAt3": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "Flowchart": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_00c0_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "FlowchartAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0008_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "FlowchartAt10": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt11": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt12": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt13": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0001, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt13At0": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0008_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt13At1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_1000_0000_1000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "FlowchartAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0010_0000_0010, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "FlowchartAt4": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0020_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "FlowchartAt5": {
+      "bytes": "0x03ff_2000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "FlowchartAt5At0": {
+      "bytes": "0x0000_0005_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt5At0At0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt5At0At0At0": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt5At0At0End": {
+      "bytes": "0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt5At0End": {
+      "bytes": "0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt5At1": {
+      "bytes": "0xdfff_dcfb_0000_3e00, 0x07ff_fffe_d7ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt5End": {
+      "bytes": "0x0000_0200_0000_0000, 0x2000_0000_2000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt6": {
+      "bytes": "0x2000_6001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt6End": {
+      "bytes": "0x0000_0000_0000_0000, 0x1000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt7": {
+      "bytes": "0x3000_2001_0000_3e00, 0x0100_8000_0100_8000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt8": {
+      "bytes": "0x3000_6001_0000_3e00, 0x0100_8000_0100_8000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FlowchartAt9": {
+      "bytes": "0x03ff_2000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "Gantt": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0080_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GanttAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0010_0000_0010, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GanttAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0002_0000_0002, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GanttAt3": {
+      "bytes": "0x0000_0000_0000_0000, 0x0010_0000_0010_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GanttAt5": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0020_0000_0020, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GanttAt6": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GanttAt7": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0008_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GanttAt8": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GanttAt8At0": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_001a_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GanttAt8End": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "GitGraph": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0080_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GitGraphAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GitGraphAt1At0": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0200_0000_0200, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GitGraphAt1At1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0010_0000_0010_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GitGraphAt1At2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0010_0000_0010_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "GitGraphAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GitGraphAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0004_0000_0004, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GitGraphAt4": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_2000_0000_2000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "GitGraphAt5": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0008_0000_0008, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "Journey": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0400_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "JourneyAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0018_0000_0018_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "JourneyAt2": {
+      "bytes": "0xf7ff_fff7_0000_3e00, 0x07ff_fffe_d7ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "JourneyAt2At0": {
+      "bytes": "0xffff_fff7_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "MermaidAdoCodeBlock": {
+      "bytes": "0x0400_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "MermaidAdoCodeBlockEnd": {
+      "bytes": "0x0400_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "MermaidCodeBlock": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_2000_0000_2000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away"
+    },
+    "MermaidCodeBlockEnd": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "MermaidCodeBlockWithAttributes": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0800_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away"
+    },
+    "Mindmap": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_2000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "MindmapAt1": {
+      "bytes": "0x0400_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "MindmapAt2": {
+      "bytes": "0x0400_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "MindmapAt3": {
+      "bytes": "0xffff_ffdf_0000_3e00, 0x0fff_fffe_dfff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "MindmapAt4": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "LineStart"
+    },
+    "Pie": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0001_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "PieAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "QuadrantChart": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0002_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "QuadrantChartAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0010_0000_0010_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "QuadrantChartAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0300_0000_0300_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "QuadrantChartAt2At0": {
+      "bytes": "0x0000_2001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "QuadrantChartAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0002_0000_0002_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "QuadrantChartAt4": {
+      "bytes": "0xa7ff_fcfb_0000_3e00, 0x07ff_fffe_97ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagram": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0004_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "RequirementDiagramAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0005_0250_0005_0250, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "RequirementDiagramAt1At0": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0200_0000_0200, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagramAt1At1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0010_0000_0010_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagramAt1At2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0004_0000_0004_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagramAt1At3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0040_0000_0040_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagramAt1End": {
+      "bytes": "0x0000_0001_0000_3e00, 0x2000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagramAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0020_0000_0020, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "RequirementDiagramAt2At0": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0010_0000_0010_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagramAt2At1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0010_0000_0010, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RequirementDiagramAt3": {
+      "bytes": "0x03ff_0001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "RequirementDiagramAt4": {
+      "bytes": "0x03ff_0001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "SequenceDiagram": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "SequenceDiagramAt0": {
+      "bytes": "0x0000_0028_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0010_0000_0010_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt10": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0004_0000_0004, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0001_0002_0001_0002, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0012_0000_0012, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt4": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_4000_0000_4000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt5": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_1000_0000_1000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt6": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0020_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt7": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0005_802a_0005_802a, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SequenceDiagramAt8": {
+      "bytes": "0xf3ff_c7ff_0000_3e00, 0x07ff_fffe_d7ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "SequenceDiagramAt9": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0004_0000_0004, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagram": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "StateDiagramAt1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0010_0000_0010, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "StateDiagramAt10": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_4000_0000_4000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "StateDiagramAt10End": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0020_0000_0020, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt4": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "StateDiagramAt5": {
+      "bytes": "0x03ff_2000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt6": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0000_0008_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "StateDiagramAt6At0": {
+      "bytes": "0x0000_0005_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt6At1": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt6At2": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt7": {
+      "bytes": "0x03ff_2000_0000_0000, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt7At0": {
+      "bytes": "0x03ff_2001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt7At1": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0000_0800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt8": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0000_0800_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StateDiagramAt9": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_4000_0000_4000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "XyChart": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0100_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "XyChartAt2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0100_0000_0100_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "XyChartAt2At0": {
+      "bytes": "0x03ff_2801_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At1": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At2": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_0800_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At3At0": {
+      "bytes": "0x03ff_2801_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At3At1": {
+      "bytes": "0x0000_0005_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At3At2": {
+      "bytes": "0xffff_edfb_0000_3e00, 0x07ff_fffe_d7ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At3At3": {
+      "bytes": "0x0000_1001_0000_3e00, 0x0000_0000_0000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt2At3End": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_0000_2000_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "XyChartAt3": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0200_0000_0200_0000, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "XyChartAt4": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0000_1004_0000_1004, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    }
+  },
+  "words_at_start": false
+}

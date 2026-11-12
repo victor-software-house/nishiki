@@ -1,0 +1,185 @@
+{
+  "starts": {
+    "AsType": {
+      "bytes": "0x0080_0000_0000_0000, 0x07ff_fffe_87ff_fffe, 0x0000_0000_0000_0000, 0x0000_8004_0000_0028",
+      "matches_at_end": false,
+      "places": "Away"
+    },
+    "AspClasses": {
+      "bytes": "0x0000_0000_0000_0000, 0x000c_8002_000c_8002, 0x0000_0000_0000_0000, 0x0000_8000_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "AspCollections": {
+      "bytes": "0x0000_0000_0000_0000, 0x000a_0048_000a_0048, 0x0000_0000_0000_0000, 0x0000_8000_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "AspConstants": {
+      "bytes": "0x0000_0000_0000_0000, 0x0019_122c_0019_122c, 0x0000_0000_0000_0000, 0x0000_8000_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "AspEvents": {
+      "bytes": "0x0000_0000_0000_0000, 0x0008_8002_0008_8002, 0x0000_0000_0000_0000, 0x0000_8000_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "AspFunctions": {
+      "bytes": "0x0000_0000_0000_0000, 0x00ac_316e_00ac_316e, 0x0000_0000_0000_0000, 0x0000_8000_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "Comment": {
+      "bytes": "0x0000_0081_0000_0200, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentAt0": {
+      "bytes": "0x0000_0080_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentAt0End": {
+      "bytes": "0x0000_0000_0000_0400, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "CommentEnd": {
+      "bytes": "0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": true,
+      "places": "Away, LineStart, InWord"
+    },
+    "Constants": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0010_4060_0010_4060, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "Control": {
+      "bytes": "0x0000_0000_0000_0000, 0x00bc_5278_00bc_5278, 0x0000_0000_0000_0000, 0x0000_8000_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "DimName": {
+      "bytes": "0x0000_0000_0000_0000, 0x0000_0010_0000_0010, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "DollarVariable": {
+      "bytes": "0x0000_0010_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "FunctionCall": {
+      "bytes": "0x0080_0000_0000_0000, 0x07ff_fffe_87ff_fffe, 0x0000_0000_0000_0000, 0x0000_8004_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "FunctionHead": {
+      "bytes": "0x0000_0001_0000_3e00, 0x0008_0040_0008_0040, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "Functions": {
+      "bytes": "0x0000_0000_0000_0000, 0x02fc_fffa_02fc_fffa, 0x0000_0000_0000_0000, 0x0000_8004_0000_0028",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "JsOperators": {
+      "bytes": "0xf000_ac72_0000_0000, 0x5050_4210_4000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "LineFeed": {
+      "bytes": "0x0000_0000_0000_0400, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "Modifiers": {
+      "bytes": "0x0000_0000_0000_0000, 0x0001_0010_0001_0010, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "Numbers": {
+      "bytes": "0x03ff_6000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "Operators": {
+      "bytes": "0x0000_0000_0000_0000, 0x0100_e002_0100_e002, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "RoundBrackets": {
+      "bytes": "0x0000_0100_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "RoundBracketsEnd": {
+      "bytes": "0x0000_0200_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "Spaces": {
+      "bytes": "0x0000_0001_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "SpacesAt0": {
+      "bytes": "0x0000_0001_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "SpacesEnd": {
+      "bytes": "0xffff_fffe_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "Storage": {
+      "bytes": "0x0000_0001_0000_3e00, 0x000d_d0f8_000d_d0f8, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "String": {
+      "bytes": "0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StringAt0": {
+      "bytes": "0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "StringEnd": {
+      "bytes": "0x0000_0004_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "Tabs": {
+      "bytes": "0x0000_0000_0000_0200, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "LineStart"
+    },
+    "TabsAt0": {
+      "bytes": "0x0000_0000_0000_0200, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "TabsEnd": {
+      "bytes": "0xffff_ffff_ffff_fdff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart, InWord"
+    },
+    "Variable": {
+      "bytes": "0x0080_0001_0000_3e00, 0x07ff_fffe_87ff_fffe, 0xffff_ffff_ffff_ffff, 0xffff_ffff_ffff_ffff",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    },
+    "VbConstants": {
+      "bytes": "0x0000_0000_0000_0000, 0x0040_0200_0040_0200, 0x0000_0000_0000_0000, 0x0000_0000_0000_0000",
+      "matches_at_end": false,
+      "places": "Away, LineStart"
+    }
+  },
+  "words_at_start": false
+}

@@ -29,7 +29,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -663,14 +663,13 @@ for (const [source, id] of hand)
   g += `    /// \`${docs(source).replaceAll("`", "'")}\`.\n    ${id},\n`;
 g += `}\n`;
 
-g += startTable(patternList);
+await writePatterns("csharp", patternList);
+g += await startTableFromCodegen("csharp", patternList);
 g += ruleCodes("CSharp", "CSHARP");
 g += groupsCheck(
   "CSharp",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("csharp", patternList);
 
 await writeRust(`${root_dir}src/csharp/grammar.rs`, g);
 

@@ -179,14 +179,18 @@ The `codegen/` binary drives it, and `codegen/src/languages/` holds each languag
      codegen's check compares its result with the tables in each `grammar.rs`, for all 48 languages.
    - Proof: no file changes, and the check lists each start set that differs.
 2. The changed start sets, if slice 1 finds any.
-   - The scripts take codegen's sets from a generated file, as they take `blank_runs.rs`.
+   - codegen writes each pattern's start to `codegen/starts/<language>.json`, and each script reads its language's file.
+   - A script writes its pattern file before it reads its start file.
+     A new pattern then takes three steps: run the script, `mise run codegen`, then the script again.
+   - PHP's, Blade's, Hack's and Julia's scripts rewrite each expression before the TypeScript reader reads it.
+     They keep that reader until their family slices.
    - Proof: the diff holds only the listed sets, with Callgrind rows and Identity.
 3. The model.
    - `flatten.rs` and `split.rs` build each language's pattern list from its grammar in `tests/engine/grammars/` and its `RuleTables` value.
    - codegen's check compares that list with `codegen/patterns/<language>.json`, byte for byte, for each of the 34 languages whose grammar is there.
    - Proof: no file changes, and the check passes for all 34.
 4. One slice per family: codegen writes the family's `grammar.rs`, `scope.rs` and `words.rs`.
-   - The slice deletes the family's scripts and pattern files.
+   - The slice deletes the family's scripts, pattern files and start files.
      The blank-run analysis and `starts.rs` then read `unstable::codegen`'s own model for it.
    - A family whose grammar is missing adds it to `tests/engine/grammars/`, after its licence is read at its source.
      Astro, Kotlin, PostCSS and Svelte have no row in `oracle/licences.ts` yet.
@@ -199,7 +203,7 @@ The `codegen/` binary drives it, and `codegen/src/languages/` holds each languag
      5. one slice each for C#, Astro, Perl, Swift, Svelte with CoffeeScript, C++ and Julia, with their added outputs (section 2.2);
      6. Swift's shorter names (section 2.4), after Swift's port.
         Proof: the diff holds only the renames, with Callgrind rows and Identity.
-5. The last slice deletes `oracle/rule-grammar.ts`, `oracle/rule-generator.ts`, `codegen/patterns/` and `check:rule-grammars`.
+5. The last slice deletes `oracle/rule-grammar.ts`, `oracle/rule-generator.ts`, `codegen/patterns/`, `codegen/starts/` and `check:rule-grammars`.
    - Proof: no `oracle/*-grammar.ts` or `oracle/rule-generator.ts` remains, and no generated file changes.
 
 [default-matchers]: ../default-matchers/proposal.md

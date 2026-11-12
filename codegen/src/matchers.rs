@@ -161,7 +161,10 @@ fn language(root: &Path, name: &'static str, path: &'static str) -> Result<File,
     }
     let mut text = header("codegen/src/matchers.rs", &source.path());
     text.push_str(&prettyplease::unparse(&syntax));
-    Ok(File { path, text })
+    Ok(File {
+        path: path.to_owned(),
+        text,
+    })
 }
 
 /// The ranges above ASCII that the file's class functions read, each table

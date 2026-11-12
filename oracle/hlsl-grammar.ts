@@ -17,7 +17,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   takesOneBlank,
   tooLong,
   writePatterns,
@@ -338,13 +338,13 @@ g += arms(
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
-g += startTable(patternById);
+await writePatterns("hlsl", patternById);
+g += await startTableFromCodegen("hlsl", patternById);
 g += ruleCodes("Hlsl", "HLSL");
 g += groupsCheck(
   "Hlsl",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
-await writePatterns("hlsl", patternById);
 await writeRust(`${root_dir}src/hlsl/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

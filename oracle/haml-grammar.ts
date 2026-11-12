@@ -41,7 +41,7 @@ import {
   ruleCodes,
   scopeFile,
   startOf,
-  startTable,
+  startTableFromCodegen,
   takesOneBlank,
   tooLong,
   writePatterns,
@@ -513,14 +513,13 @@ for (const p of patternList) {
     throw new Error(`${p.id}: the first-byte analysis does not read ${p.regex}`);
   }
 }
-g += startTable(patternList, "any");
+await writePatterns("haml", patternList);
+g += await startTableFromCodegen("haml", patternList);
 g += ruleCodes("Haml", "HAML");
 g += groupsCheck(
   "Haml",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-
-await writePatterns("haml", patternList);
 
 await writeRust(`${root_dir}src/haml/grammar.rs`, g);
 // A dropped rule's scopes are emitted by no pattern, so the table leaves them

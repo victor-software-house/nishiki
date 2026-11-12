@@ -12,7 +12,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -336,14 +336,13 @@ g += `\n/// The kinds of pattern a regular-expression string has for each quote 
 for (const pattern of rePatterns) g += `    ${pattern},\n`;
 g += `}\n`;
 
-g += startTable(patternList);
+await writePatterns("python", patternList);
+g += await startTableFromCodegen("python", patternList);
 g += ruleCodes("Python", "PYTHON");
 g += groupsCheck("Python", [
   ...patternList.flatMap((p) => [...p.captures.map(([n]) => n)]),
   ...ruleList.flatMap((r) => (r.backref === null ? [] : [r.backref])),
 ]);
-
-await writePatterns("python", patternList);
 
 await writeRust(`${root_dir}src/python/grammar.rs`, g);
 

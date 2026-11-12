@@ -13656,13 +13656,9 @@ impl Pattern {
             Pattern::AttrFunctionAt0At2
             | Pattern::CounterFunctionsAt0At0At3
             | Pattern::CounterFunctionsAt1At0At0
-            | Pattern::PseudoSelectorsAt6At0At0
             | Pattern::SelectorsAt10At2
-            | Pattern::MediaQueryAt2At0
             | Pattern::AtNamespaceAt2
-            | Pattern::RuleListBodyAt5At5At2
-            | Pattern::RuleListBodyAt5At12At0At3
-            | Pattern::AtContainerAt0At0At3 => Start {
+            | Pattern::RuleListBodyAt5At5At2 => Start {
                 bytes: [
                     0x0000_2000_0000_0000,
                     0x07ff_fffe_97ff_fffe,
@@ -14566,6 +14562,19 @@ impl Pattern {
                     0x0000_4000_0000_0000,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
+                ],
+                places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
+                matches_at_end: false,
+            },
+            Pattern::PseudoSelectorsAt6At0At0
+            | Pattern::MediaQueryAt2At0
+            | Pattern::RuleListBodyAt5At12At0At3
+            | Pattern::AtContainerAt0At0At3 => Start {
+                bytes: [
+                    0x0000_2000_0000_0000,
+                    0x07ff_fffe_97ff_fffe,
+                    0x0000_0000_0000_0000,
+                    0x000f_bfff_ffff_fffc,
                 ],
                 places: PlaceSet::of(&[Place::Away, Place::LineStart, Place::InWord]),
                 matches_at_end: false,

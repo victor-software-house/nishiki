@@ -23,7 +23,7 @@ import {
   ruleCodes,
   scopeFile,
   startOf,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -321,15 +321,14 @@ for (const p of patternList) {
     throw new Error(`${p.id}: the first-byte analysis does not read ${p.regex}`);
   }
 }
-g += startTable(patternList);
+await writePatterns("mermaid", patternList);
+g += await startTableFromCodegen("mermaid", patternList);
 g += oneBlankTable(patternList);
 g += ruleCodes("Mermaid", "MERMAID");
 g += groupsCheck(
   "Mermaid",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-
-await writePatterns("mermaid", patternList);
 
 await writeRust(`${root_dir}src/mermaid/grammar.rs`, g);
 await writeRust(

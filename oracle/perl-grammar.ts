@@ -33,7 +33,7 @@ import {
   ruleCodes,
   scopeFile,
   startOf,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -574,10 +574,8 @@ for (const p of patternList) {
     throw new Error(`${p.id}: the first-byte analysis does not read ${p.regex}`);
   }
 }
-g += startTable(
-  patternList.map((p) => ({ id: p.id, regex: p.regex })),
-  "any",
-);
+await writePatterns("perl", patternList);
+g += await startTableFromCodegen("perl", patternList);
 g += ruleCodes("Perl", "PERL");
 g += groupsCheck(
   "Perl",
@@ -601,8 +599,6 @@ pub(crate) const FUNCTIONS: &str = ${JSON.stringify(text)};
 /// Where each word of [\`FUNCTIONS\`] ends.
 pub(crate) static FUNCTION_ENDS: [u16; ${ends.length}] = [${ends.join(", ")}];
 `;
-
-await writePatterns("perl", patternList);
 
 await writeRust(`${root_dir}src/perl/grammar.rs`, g);
 await writeRust(`${root_dir}src/perl/words.rs`, w);

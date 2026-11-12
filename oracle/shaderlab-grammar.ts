@@ -27,7 +27,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   takesOneBlank,
   tooLong,
   writePatterns,
@@ -351,13 +351,13 @@ g += arms(
   "Pattern",
 );
 g += `        }\n    }\n}\n`;
-g += startTable(patternById);
+await writePatterns("shaderlab", patternById);
+g += await startTableFromCodegen("shaderlab", patternById);
 g += ruleCodes("ShaderLab", "SHADERLAB");
 g += groupsCheck(
   "ShaderLab",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
-await writePatterns("shaderlab", patternById);
 await writeRust(`${root_dir}src/shaderlab/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

@@ -15,7 +15,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -337,14 +337,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList, "any");
+await writePatterns("jinja", patternList);
+g += await startTableFromCodegen("jinja", patternList);
 g += ruleCodes("Jinja", "JINJA");
 g += groupsCheck(
   "Jinja",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-
-await writePatterns("jinja", patternList);
 
 await writeRust(`${root_dir}src/jinja/grammar.rs`, g);
 

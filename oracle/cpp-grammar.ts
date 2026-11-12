@@ -17,7 +17,7 @@ import {
   requireGroup,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -518,14 +518,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("cpp", patternList);
+g += await startTableFromCodegen("cpp", patternList);
 g += ruleCodes("Cpp", "CPP", 9);
 g += groupsCheck(
   "Cpp",
   patternList.flatMap((p) => p.captures.map((c) => c.group)),
 );
-
-await writePatterns("cpp", patternList);
 
 await writeRust(`${root_dir}src/cpp/grammar.rs`, g);
 

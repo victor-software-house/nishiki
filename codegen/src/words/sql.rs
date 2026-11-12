@@ -106,7 +106,7 @@ pub(super) fn file(root: &Path) -> Result<File, Error> {
         quoted(&globals),
     );
     Ok(File {
-        path: "src/sql/words.rs",
+        path: "src/sql/words.rs".to_owned(),
         text,
     })
 }

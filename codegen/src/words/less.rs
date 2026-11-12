@@ -121,7 +121,7 @@ pub(super) fn file(root: &Path) -> Result<File, Error> {
         table(&mut text, &[&doc], &declaration, rows);
     }
     Ok(File {
-        path: "src/less/words.rs",
+        path: "src/less/words.rs".to_owned(),
         text,
     })
 }

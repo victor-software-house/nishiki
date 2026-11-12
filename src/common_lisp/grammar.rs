@@ -862,7 +862,7 @@ impl Pattern {
             },
             Pattern::StyleGuideAt0 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
+                    0xffff_fffe_ffff_c1ff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
@@ -902,7 +902,7 @@ impl Pattern {
             },
             Pattern::Nested0At1 | Pattern::Nested1At1 => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
+                    0xffff_fffe_ffff_c1ff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,

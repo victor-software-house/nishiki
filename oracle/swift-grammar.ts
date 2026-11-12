@@ -12,7 +12,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -426,14 +426,13 @@ g += arms(
 );
 g += `        }\n    }\n}\n`;
 
-g += startTable(patternList);
+await writePatterns("swift", patternList);
+g += await startTableFromCodegen("swift", patternList);
 g += ruleCodes("Swift", "SWIFT");
 g += groupsCheck(
   "Swift",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
-
-await writePatterns("swift", patternList);
 
 await writeRust(`${root_dir}src/swift/grammar.rs`, g);
 

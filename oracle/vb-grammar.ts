@@ -16,7 +16,7 @@ import {
   groupsCheck,
   ruleCodes,
   scopeFile,
-  startTable,
+  startTableFromCodegen,
   tooLong,
   writePatterns,
   writeRust,
@@ -409,14 +409,13 @@ for (const [name, id, doc] of lists) {
   g += `\n/// ${doc}\npub(crate) const ${name}: Buckets = [\n${buckets.map((b) => `    &[${b.map(bytes).join(", ")}],`).join("\n")}\n];\n`;
 }
 
-g += startTable(patternList, "any");
+await writePatterns("vb", patternList);
+g += await startTableFromCodegen("vb", patternList);
 g += ruleCodes("Vb", "VB");
 g += groupsCheck(
   "Vb",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
-
-await writePatterns("vb", patternList);
 
 await writeRust(`${root_dir}src/vb/grammar.rs`, g);
 

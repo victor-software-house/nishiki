@@ -7966,8 +7966,8 @@ impl Pattern {
             },
             Pattern::SpecialNames => Start {
                 bytes: [
-                    0xffff_ffff_ffff_ffff,
-                    0xffff_ffff_ffff_ffff,
+                    0x0000_0000_0000_0000,
+                    0x0000_0000_87ff_fffe,
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
@@ -7981,7 +7981,7 @@ impl Pattern {
                     0xffff_ffff_ffff_ffff,
                     0xffff_ffff_ffff_ffff,
                 ],
-                places: PlaceSet::of(&[Place::Away, Place::InWord]),
+                places: PlaceSet::of(&[Place::Away]),
                 matches_at_end: false,
             },
             Pattern::OddFunctionCallEnd
