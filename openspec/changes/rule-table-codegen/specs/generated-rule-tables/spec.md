@@ -27,9 +27,9 @@ The writer SHALL distinguish two equal names by the nearest enclosing repository
 Where no enclosing key differs, it SHALL add each pattern's place in its pattern list as a suffix.
 It SHALL NOT append a pattern's whole path.
 
-#### Scenario: Swift moves to the writer
+#### Scenario: Swift's names move to the writer
 
-- **WHEN** the first Swift move runs the writer
+- **WHEN** Swift's rename slice runs the writer, after its byte-identical port
 - **THEN** no generated Swift name passes 40 characters
 - **AND** no line that holds one passes 100 columns
 
