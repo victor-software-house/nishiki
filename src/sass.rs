@@ -13,7 +13,7 @@
 //! Shiki's Markdown grammar has no Sass fence.
 //! Vue's `<style lang="sass">` and HAML's `:sass` filter embed Sass through
 //! [`lex_until`].
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

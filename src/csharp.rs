@@ -10,7 +10,7 @@
 //! interned state.
 //! Blocks, parentheses, comments, strings and interpolations are such rules.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod limits;
 mod matchers;

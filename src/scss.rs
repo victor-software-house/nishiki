@@ -12,7 +12,7 @@
 //! interned state.
 //! Property lists, at-rules, comments, strings and maps are such rules.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

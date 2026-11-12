@@ -12,7 +12,7 @@
 //! to that language's lexer, which halts at the line feed.
 //! So does a POD `=begin html` block, up to its `=end html` or `=cut`.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

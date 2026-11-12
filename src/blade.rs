@@ -13,7 +13,7 @@
 //! It also hands the line back where Blade's injection starts, at any depth
 //! of the PHP, as in Shiki.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

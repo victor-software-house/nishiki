@@ -10,7 +10,7 @@
 //! Strings and brackets are such rules.
 //! Markdown's `vb` fence embeds it.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;
