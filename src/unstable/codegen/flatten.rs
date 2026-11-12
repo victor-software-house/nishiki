@@ -17,6 +17,9 @@
 //! A rule a begin opens takes the begin's id, and lists its own patterns.
 //! An entry with patterns and no expression adds its patterns in its place.
 //! `$self`, or the grammar's own scope name, adds the top-level patterns.
+//! A list being expanded, `Root` included, adds nothing when it is reached
+//! again.
+//!
 //! A pattern reached again keeps its first id, so an include repeats no
 //! pattern.
 //!
