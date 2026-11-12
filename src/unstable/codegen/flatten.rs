@@ -496,7 +496,22 @@ impl<'a> Walk<'a> {
             return Ok(None);
         };
         let names = object.name.iter().chain(object.content_name.iter());
-        let split = split::alternatives(regex, names.map(|name| &**name), self.language.split, id)?;
+        let captured = [&object.captures, &object.begin_captures]
+            .into_iter()
+            .flatten()
+            .flat_map(|list| list.iter())
+            .flat_map(|capture| self.grammar.rules[capture.rule].name.iter());
+        let split = match self.language.capture_names {
+            CaptureNames::Kept | CaptureNames::SplitsOptionalGroup => {
+                split::alternatives(regex, names.map(|name| &**name), self.language.split, id)?
+            }
+            CaptureNames::SplitsGroup => split::alternatives(
+                regex,
+                names.chain(captured).map(|name| &**name),
+                self.language.split,
+                id,
+            )?,
+        };
         match (
             split,
             self.language.capture_names,
@@ -512,7 +527,11 @@ impl<'a> Walk<'a> {
                     .flat_map(|capture| self.grammar.rules[capture.rule].name.iter());
                 split::optional_alternatives(matched, names.map(|name| &**name), id)
             }
-            (None, CaptureNames::Kept | CaptureNames::SplitsOptionalGroup, _) => Ok(None),
+            (
+                None,
+                CaptureNames::Kept | CaptureNames::SplitsGroup | CaptureNames::SplitsOptionalGroup,
+                _,
+            ) => Ok(None),
         }
     }
 

@@ -220,6 +220,11 @@ pub enum SplitIds {
 pub enum CaptureNames {
     /// It stays one pattern.
     Kept,
+    /// The names of `captures` and `beginCaptures` split the group as the
+    /// pattern's own name does.
+    /// vscode-textmate fills a capture's `$1` from the same match, so each
+    /// pattern gets a fixed name.
+    SplitsGroup,
     /// The innermost optional group `(?:…)?` around the named group splits.
     /// Each alternative gives one pattern, and a last one leaves the group
     /// out.
