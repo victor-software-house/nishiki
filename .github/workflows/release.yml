@@ -22,16 +22,13 @@ jobs:
       contents: write # tags, Releases, and verctl/release/main without the App
       pull-requests: write # the Version PR without the App
       id-token: write # crates.io trusted publishing
-    uses: victor-software-house/verctl/.github/workflows/release.yml@f5937655e6c5531255cf59b5ab9732572897db44 # v0.7.1
+    uses: victor-software-house/verctl/.github/workflows/release.yml@61f95f1cd5eba628938dd883f217289690f126e7 # v0.8.3
     with:
       mise-version: 2026.11.6
       mise-env: ci,release
       # A public repository: the plan, publish, docs and propose jobs run on
       # GitHub-hosted runners, as its CI does.
       runner: '["ubuntu-26.04"]'
-      # Publishing waits for the operator (2026-11-02): the Version PR stays
-      # open until the operator merges it.
-      auto-merge: false
       crates-io-trusted-publishing: true
     # The App token opens the Version PR so that its CI starts; a PR opened
     # with GITHUB_TOKEN starts no workflow.
