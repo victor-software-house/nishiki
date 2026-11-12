@@ -2015,7 +2015,7 @@ pub(crate) struct Context<'a> {
     /// The last of them bounds the token that `cut_tokens` shortens.
     /// XML passes Java the end of `out`, because Java embeds no language and no
     /// cut runs inside it.
-    #[cfg(any(feature = "_embedding", feature = "lang-html", feature = "_textmate"))]
+    #[cfg(feature = "_context-first-token")]
     pub(crate) first_token: usize,
 }
 
@@ -2040,7 +2040,7 @@ impl<'a> Context<'a> {
             scratch,
             arena,
             limits,
-            #[cfg(any(feature = "_embedding", feature = "lang-html", feature = "_textmate"))]
+            #[cfg(feature = "_context-first-token")]
             first_token: out.len(),
             out,
             report,
@@ -2052,16 +2052,22 @@ impl<'a> Context<'a> {
     ///
     /// A build whose lexers never cut tokens back drops it with `let _`, as
     /// [`Context::new`] drops the scratch.
+    ///
+    /// It compiles with its callers: the rule engine's hand-over, HTML and
+    /// Markdown.
+    /// The `TextMate` engine reads the field but never calls the method.
+    /// Markdown passes its fence's line start whatever its fence's language.
+    /// A build of Markdown alone has no lexer that reads the field.
     #[cfg(any(
         feature = "_embedding",
         feature = "lang-html",
         feature = "lang-markdown"
     ))]
     pub(crate) fn with_first_token(self, first_token: usize) -> Context<'a> {
-        #[cfg(not(any(feature = "_embedding", feature = "lang-html", feature = "_textmate")))]
+        #[cfg(not(feature = "_context-first-token"))]
         let _ = first_token;
         Context {
-            #[cfg(any(feature = "_embedding", feature = "lang-html", feature = "_textmate"))]
+            #[cfg(feature = "_context-first-token")]
             first_token,
             ..self
         }

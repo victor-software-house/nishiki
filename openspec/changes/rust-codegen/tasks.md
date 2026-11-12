@@ -38,15 +38,12 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   → verify: `check:features` builds both libraries with warnings denied, dead code included.
   - 2026-11-10: the private features `_class-widths`, `_blank-runs-to-last` and `_capture-names` hold the helpers that one set of languages shares.
     On a box, `check:features`, lint, `check:unstable`, `codegen:lint`, `codegen:test` and the tests pass.
-- [ ] 1.5 Each language alone builds without dead code, so `check:features` drops `-A dead_code`.
-  `lang-c` alone still warns 13 times, for these items:
-  - `start_embedded` in `c.rs`, `rules.rs` and `language.rs`;
-  - `Halt::halt` and `halt_before`;
-  - the field `first_token`, and the field `spent` with the `Steps` methods `take_back`, `add` and `into_spent`;
-  - the `Grammar` items `BLANK_RUNS`, `deep_halts_open`, `DEFERS_NESTED`, `defers_nested`, `SKIPS_PLACES` and `next_place`, and `BlankRuns`;
-  - the variants `Backref`, `Embed` and `Lowered`, and `Lexer::char_end`.
-
-  → verify: `check:features` passes without `-A dead_code`.
+- [ ] 1.5 An item compiles only under the features of the language, engine, embedding or test code that uses it.
+  [Design section 6.3][design-gates] holds the rule.
+  Shared helpers stay ungated, and `check:features` keeps `-A dead_code`.
+  → verify: on a box, with `-W dead_code`, no single-language or TextMate set reports a dead item that one language or engine owns.
+  - 2026-11-12: [pull request #7][pr-7] gates Vue's and PHP's own code, and [pull request #8][pr-8] the language-specific items and test helpers.
+  - 2026-11-12: [pull request #16][pr-16] gates the line context's fields, the keyed scope lists and the arena's inserts on their readers.
 - [ ] 1.6 `check:features` builds each test gate of two or more features, one line per gate.
   Only `--all-features` compiles that test code now.
   A narrower gate inside it then goes unbuilt.
@@ -62,5 +59,9 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   - 2026-11-12: a build of the four TypeScript dialects alone failed to resolve `start_embedded` in their tests.
     [Pull request #12][pr-12] gates those tests on the function's own gate.
 
+[design-gates]: design.md#63-feature-gates-and-dead-code
 [pr-12]: https://github.com/victor-software-house/nishiki/pull/12
+[pr-16]: https://github.com/victor-software-house/nishiki/pull/16
+[pr-7]: https://github.com/victor-software-house/nishiki/pull/7
+[pr-8]: https://github.com/victor-software-house/nishiki/pull/8
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
