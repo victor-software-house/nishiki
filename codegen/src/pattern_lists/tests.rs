@@ -1114,3 +1114,133 @@ fn a_merged_match_in_another_rule_is_an_error() {
         }))
     );
 }
+
+/// Each pattern's expression, in table order, from the grammar `json` read
+/// as `language` says.
+fn regexes(json: &str, language: &RuleTables) -> Result<Vec<String>, Failure> {
+    Ok(tables(json, language)?
+        .patterns
+        .into_iter()
+        .map(|pattern| pattern.regex)
+        .collect())
+}
+
+/// `$0` names the whole match.
+/// No group holds it, so the pattern does not split.
+#[test]
+fn a_name_of_the_whole_match_does_not_split() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "\\b(a|b)\\b", "name": "keyword.$0.demo"}]}"#;
+    assert_eq!(regexes(json, &PLAIN), Ok(vec![r"\b(a|b)\b".to_owned()]));
+}
+
+/// A named group takes a number, as Shiki's Oniguruma gives it one.
+/// A lookbehind takes none.
+#[test]
+fn a_named_group_counts_and_a_lookbehind_does_not() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "(?<=y)(?<q>x)(a|b)", "name": "keyword.$2.demo"}]}"#;
+    assert_eq!(
+        regexes(json, &PLAIN),
+        Ok(vec![
+            "(?<=y)(?<q>x)(a)".to_owned(),
+            "(?<=y)(?<q>x)(b)".to_owned()
+        ])
+    );
+}
+
+/// A name that holds a named group's text does not split, as the split
+/// reads only a plain group as words.
+#[test]
+fn a_name_of_a_named_group_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "(?<q>a|b)", "name": "keyword.$1.demo"}]}"#;
+    assert_eq!(
+        regexes(json, &PLAIN),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+            regex: "(?<q>a|b)".to_owned(),
+        }))
+    );
+}
+
+/// Dropping a group that a later group follows would change the later
+/// group's number, so the split refuses it.
+#[test]
+fn dropping_a_group_before_another_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "(a|b)(c)", "name": "keyword.$1.demo"}]}"#;
+    let drops = RuleTables {
+        split: Split::DropsGroup,
+        ..PLAIN
+    };
+    assert_eq!(
+        regexes(json, &drops),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+            regex: "(a|b)(c)".to_owned(),
+        }))
+    );
+}
+
+/// The optional group that splits is the innermost optional one, past any
+/// plain group that lies between it and the named group.
+#[test]
+fn the_innermost_optional_group_splits_past_a_plain_one() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "1(?:(%)|((px|em))\\b)?",
+            "captures": {"3": {"name": "unit.$3.demo"}}}]}"#;
+    let splits = RuleTables {
+        capture_names: CaptureNames::SplitsOptionalGroup,
+        ..PLAIN
+    };
+    assert_eq!(
+        regexes(json, &splits),
+        Ok(vec![
+            "1(?:(%))".to_owned(),
+            r"1(?:((px|em))\b)".to_owned(),
+            "1".to_owned(),
+        ])
+    );
+}
+
+/// A lazy or possessive optional group is no plain `?`, so it does not
+/// split.
+#[test]
+fn a_lazy_optional_group_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "1(?:(%)|(px))??",
+            "captures": {"2": {"name": "unit.$2.demo"}}}]}"#;
+    let splits = RuleTables {
+        capture_names: CaptureNames::SplitsOptionalGroup,
+        ..PLAIN
+    };
+    assert_eq!(
+        regexes(json, &splits),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+            regex: "1(?:(%)|(px))??".to_owned(),
+        }))
+    );
+}
+
+/// `\01` and `\1` both repeat group 1, as vscode-textmate reads them, so an
+/// embedding rule whose end holds both lists a body.
+#[test]
+fn a_leading_zero_names_the_same_group() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "(a)", "end": "\\1\\01", "patterns": [{"include": "source.ruby"}]}]}"#;
+    let embeds = RuleTables {
+        externals: &[("source.ruby", External::Embeds)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &embeds),
+        Ok(expected(&[
+            ("RootAt0", Act::Begin),
+            ("RootAt0End", Act::End),
+            ("RootAt0Body", Act::Begin),
+            ("RootAt0BodyEnd", Act::End)
+        ]))
+    );
+}
