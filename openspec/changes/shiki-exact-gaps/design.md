@@ -51,12 +51,23 @@ Other lexers read them from the tables in `oracle/classes.ts`.
 Rust takes the same tables where its grammar's classes need them.
 The grammar's exact classes are read first.
 
-## 5. Ruby, Mermaid and Vue
+## 5. Svelte and seed 2
+
+A seed corpus at 100 `win` documents per language found two Svelte cases on main:
+
+- `{#each items as item, $i}{/each}` reaches the work limit, which stops the corpus test;
+- after a `<script lang="` whose value runs into the script, Svelte stays in the string where Shiki enters the script.
+
+Each is one rule, found from its documents.
+One more document at seed 2 differs, in a language the run did not record.
+Its task finds the language first.
+
+## 6. Ruby, Mermaid and Vue
 
 Each case is one rule, found from the documents in the research note.
 Vue's cause is not known yet, so its task starts with a diagnosis.
 
-## 6. Go and LaTeX
+## 7. Go and LaTeX
 
 Go's `Language` docs list three cases that differ from Shiki:
 
@@ -71,14 +82,14 @@ Each gets Shiki's behaviour, and its doc line moves to "Behaviour kept from Shik
 The retry limit is Oniguruma's.
 Its task first measures the limit on Shiki's engine, as `oracle/classes.ts` measures the classes.
 
-## 7. The textmate tier
+## 8. The textmate tier
 
 The Shiki fidelity job runs the engine on one input per language.
 A run over `win` and `mdw` corpora sends mutated text through it, with every grammar Shiki loads.
 It reports what the hand lexers' runs report.
 It is a tool, as `the_corpus_matches_shiki` is, and not a CI gate.
 
-## 8. Bounds
+## 9. Bounds
 
 A lexer's own bounds, such as C++'s nesting depths, are per-line limits.
 The next minor release moves them into `Limits`.
