@@ -501,7 +501,10 @@ impl<'a> Walk<'a> {
             .flatten()
             .flat_map(|list| list.iter())
             .flat_map(|capture| self.grammar.rules[capture.rule].name.iter());
-        let end = object.begin.as_ref().and(object.end.as_deref());
+        let end = object
+            .begin
+            .as_ref()
+            .and(object.until.as_deref().or(object.end.as_deref()));
         let split = match self.language.capture_names {
             CaptureNames::Kept | CaptureNames::SplitsOptionalGroup => split::alternatives(
                 regex,
@@ -668,8 +671,10 @@ impl<'a> Walk<'a> {
     /// The index of the pattern of `rule`, named `id`, which it adds the first
     /// time, or `None` for a rule the walk drops.
     /// A begin also adds its end, then its rule.
+    /// A begin with a `while` adds that pattern, `<id>While`, in its end's
+    /// place, as vscode-textmate reads `while` before `end`.
     ///
-    /// A rule with neither a match nor a begin with an end is
+    /// A rule with neither a match nor a begin with an end or a while is
     /// [`GenerateError::NoAct`], before any id is looked up.
     /// `expand` calls it only for a rule with an expression, so a
     /// list never takes a pattern's id.
@@ -713,8 +718,12 @@ impl<'a> Walk<'a> {
             }
             return Ok(Some(index));
         }
-        let (Some(begin), Some(end)) = (&object.begin, &object.end) else {
-            return Err(GenerateError::NoAct { id: id.to_owned() });
+        let no_act = || GenerateError::NoAct { id: id.to_owned() };
+        let begin = object.begin.as_ref().ok_or_else(no_act)?;
+        let (end, end_act, suffix, close_captures) = match (&object.until, &object.end) {
+            (Some(until), _) => (until, Act::While, "While", &object.while_captures),
+            (None, Some(end)) => (end, Act::End, "End", &object.end_captures),
+            (None, None) => return Err(no_act()),
         };
         let begin = variant.unwrap_or_else(|| begin.to_string());
         if let Some(known) = self.known(id, &begin, Act::Begin)? {
@@ -734,13 +743,8 @@ impl<'a> Walk<'a> {
         if let Some(text) = content {
             self.contents.insert(text, Some(opened));
         }
-        self.captures(
-            object
-                .end_captures
-                .as_deref()
-                .or(object.captures.as_deref()),
-        )?;
-        let closed = self.put(format!("{id}End"), end.to_string(), Act::End)?;
+        self.captures(close_captures.as_deref().or(object.captures.as_deref()))?;
+        let closed = self.put(format!("{id}{suffix}"), end.to_string(), end_act)?;
         let index = self.put_rule(id, Some(closed))?;
         self.opened
             .push((index, self.grammar, &object.patterns, id.to_owned()));
@@ -758,7 +762,7 @@ impl<'a> Walk<'a> {
             self.drop_begin(opened, index);
             return Ok(None);
         }
-        if embeds && one_backref(end) {
+        if embeds && end_act == Act::End && one_backref(end) {
             if !patterns.is_empty() {
                 return Err(GenerateError::EmbedsBesidePatterns { id: id.to_owned() });
             }

@@ -286,16 +286,21 @@ pub enum Act {
     Begin,
     /// It closes the rule that lists it as its end.
     End,
+    /// It keeps open, on each later line, the rule that lists it as its
+    /// end.
+    /// The rule closes on the first line it does not match.
+    While,
 }
 
 impl Act {
-    /// The act's name in a grammar's `match`, `begin` or `end` key.
+    /// The act's name in a grammar's `match`, `begin`, `end` or `while` key.
     #[must_use]
     pub const fn role(self) -> &'static str {
         match self {
             Act::Match => "match",
             Act::Begin => "begin",
             Act::End => "end",
+            Act::While => "while",
         }
     }
 }
@@ -306,8 +311,9 @@ pub struct Rule {
     /// The rule's name: its begin pattern's id, `Root`, or `Nested` and a
     /// number.
     pub id: String,
-    /// The index of its end pattern in [`Tables::patterns`], for a rule that a
-    /// begin opens.
+    /// The index of its end or while pattern in [`Tables::patterns`], for a
+    /// rule that a begin opens.
+    /// That pattern's act is [`Act::End`] or [`Act::While`].
     pub end: Option<usize>,
     /// The indices of the patterns it tries, in [`Tables::patterns`], in the
     /// grammar's order with its includes flattened.
