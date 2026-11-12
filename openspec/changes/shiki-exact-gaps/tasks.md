@@ -151,8 +151,25 @@ The [research note][note] holds the numbers each task starts from.
     It now matches Shiki.
     Callgrind against the base, one build per side, reads Ruby at 0.9999 for lexing.
     No gated row reads over 1.0005.
-- [ ] 5.3 In a fence, the text after a line's second here document opener gets the embed Shiki gives it.
+- [x] 5.3 In a fence, the text after a line's second here document opener gets the embed Shiki gives it.
   → verify: at every seed, no document differs in Ruby's `mdw` corpus
+  - 2026-11-12: bare Ruby shows it too, in `pair = [<<~YAM>L, <<~SQL]`.
+    `<<~YAM` opens the grammar's general here document, whose group 7 holds the rest of the line.
+    The grammar lexes that group as Ruby, and there `<<~SQL` opens the SQL here document.
+    So Shiki gives the `]` after it `source.sql`.
+  - 2026-11-12: nishiki lexed the group again, and stopped where the SQL rule handed its text over.
+    The rest of the group kept Ruby's scopes.
+    It now takes the embedding rule's content scopes.
+  - 2026-11-12: one test holds the line with Shiki's scopes.
+    On a box, it fails before the fix and passes after it.
+  - 2026-11-12: SQL is not lexed in that rest of the group.
+    In `x = [<<~A>1, <<~SQL] SELECT 1`, Shiki gives `SELECT` `keyword.other.DML.sql`, and nishiki gives `source.sql`.
+    Ruby's `Language` docs list it under "Differences from Shiki".
+  - 2026-11-12: Ruby's corpora on a box, at seeds 1, 2 and 3: 100 `mdw` and 300 `win` documents per seed.
+    Before, seed 1's `mdw` corpus had one document that differs, document 14, by 1 byte.
+    After, none differs in any corpus at any seed.
+  - 2026-11-12: Identity changes two edited copies, `ruby/cpp-lua-heredocs` edit 46 and `ruby/xml-heredocs` edit 45.
+    Their texts, rebuilt and lexed by Shiki, match nishiki: 2 documents, 0 differ.
 - [x] 5.4 Mermaid leaves a backslash after a closed string plain, as Shiki does.
   → verify: at every seed, no document differs in Mermaid's `win` and `mdw` corpora and its differential
   - 2026-11-12: at [98bb9820][base], Mermaid's `win` corpus at seed 1 shows it, at line 38, column 32.

@@ -194,6 +194,15 @@ fn a_shell_heredoc_past_its_unmatched_end_names_the_next_command() {
 }
 
 #[test]
+fn a_second_heredoc_opener_embeds_the_rest_of_its_line() {
+    let row = lex("pair = [<<~YAM>L, <<~SQL]");
+    assert_eq!(scope_of(&row, "<<~YAM"), "string.definition.begin.ruby");
+    assert_eq!(scope_of(&row, ">"), "keyword.operator.comparison.ruby");
+    assert_eq!(scope_of(&row, "<<~SQL"), "string.definition.begin.ruby");
+    assert_eq!(scope_of(&row, "]"), "source.sql");
+}
+
+#[test]
 fn a_slash_after_a_match_operator_starts_a_regular_expression() {
     let row = lex(r"args.shift if meth && (map[meth] || meth !~ /^\-/)");
     assert_eq!(scope_of(&row, "!~"), "keyword.operator.comparison.ruby");

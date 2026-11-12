@@ -887,6 +887,13 @@ languages! {
     ///   In a shell here document, a line after one that ends in `\` therefore starts with a
     ///   command name.
     ///   Bare shell continues the command there instead.
+    ///
+    /// # Differences from Shiki
+    ///
+    /// - After a here document opener such as `<<~A`, the rest of its line is Ruby.
+    ///   A second opener there, such as `<<~SQL`, puts the text after it in the embedded
+    ///   language's scopes as plain text.
+    ///   Shiki lexes that text in the embedded language.
     Ruby {
         feature: "lang-ruby",
         names: ["ruby", "rb"],

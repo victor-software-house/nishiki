@@ -1827,6 +1827,9 @@ impl<'a, G: Grammar> Lexer<'a, G> {
 
     /// Lexes `start..end` again with the patterns of `rule`, in a stack whose
     /// innermost scopes are `node`. Whatever it opens is dropped at `end`.
+    ///
+    /// A rule it opens that embeds a language holds the rest of the text in
+    /// its content scopes, as plain text: the embedded language is not lexed.
     /// Afterwards the groups are the inner matches', and the spans of the
     /// match being emitted are still recorded, so the next try clears both.
     pub(crate) fn retokenise(&mut self, rule: G::Rule, start: usize, end: usize, node: u32) {
@@ -1860,6 +1863,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         self.pos = start;
         self.anchor = None;
         self.tokenize();
+        if G::EMBEDS && self.yielded.take().is_some() {
+            let node = self.top().content;
+            self.emit(end, node);
+        }
         let depth;
         (self.s, self.nl, self.pos, self.anchor, depth) = saved;
         self.frames.truncate(depth);
