@@ -9,7 +9,7 @@
 //! interned state.
 //! Shiki's Markdown grammar has no MATLAB fence.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

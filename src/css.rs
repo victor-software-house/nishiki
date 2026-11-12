@@ -9,7 +9,7 @@
 //! strings, selectors) are frames of the highlighter's interned state.
 
 mod ahead;
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

@@ -17,7 +17,7 @@
 //! Markdown cannot embed it, because Shiki's Markdown grammar has no HAML
 //! fence.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

@@ -11,7 +11,7 @@
 //! Triple-quoted strings, brackets and a statement continued by a backslash are
 //! such rules.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

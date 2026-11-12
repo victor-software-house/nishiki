@@ -15,7 +15,7 @@
 //! Shiki's Markdown grammar has no fence of its own for TeX: its `tex` fence
 //! embeds LaTeX.
 
-mod engine;
+pub(crate) mod engine;
 pub(crate) mod grammar;
 pub(crate) mod matchers;
 mod scope;

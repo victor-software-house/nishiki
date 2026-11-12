@@ -13,7 +13,7 @@
 //! interned state.
 //! Shiki's Markdown grammar embeds LaTeX in its `latex` and `tex` fences.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

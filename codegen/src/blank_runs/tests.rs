@@ -1,4 +1,4 @@
-use super::treats_wide_spaces_as_spaces;
+use super::{looks_behind_at_a_wide_space, treats_wide_spaces_as_spaces};
 
 /// Whether `regex`, as a match or a begin, treats a wide space as a space.
 fn alike(regex: &str) -> bool {
@@ -102,4 +102,40 @@ fn extended_mode_skips_its_blanks_and_comments() {
  x"
     ));
     assert!(!alike(r"(?x: \s* ) "));
+}
+
+/// A lookbehind that reads a wide space, before a start that can be one,
+/// looks behind at a wide space.
+#[test]
+fn a_lookbehind_that_reads_a_wide_space_before_one_looks_behind_at_it() {
+    assert!(looks_behind_at_a_wide_space(r"(?<=\s)(?=[^\x00-\x7F])"));
+    assert!(looks_behind_at_a_wide_space(r"(?<=[^:]\s)\s"));
+    assert!(looks_behind_at_a_wide_space(r"(?<=.)[\x{a0}]"));
+}
+
+/// A negative lookbehind and `\B` pass between two wide spaces whatever they
+/// read.
+#[test]
+fn a_negative_lookbehind_and_not_a_boundary_pass_between_wide_spaces() {
+    assert!(looks_behind_at_a_wide_space(r"(?<!\S)\s"));
+    assert!(looks_behind_at_a_wide_space(r"(?<![;])[^a]"));
+    assert!(looks_behind_at_a_wide_space(r"\B\s"));
+}
+
+/// A lookbehind that reads no wide space, or a start that cannot be one,
+/// does not look behind at a wide space.
+#[test]
+fn a_lookbehind_that_reads_none_or_a_start_that_is_none_does_not() {
+    assert!(!looks_behind_at_a_wide_space(r"(?<=[;{}])\s"));
+    assert!(!looks_behind_at_a_wide_space(r"(?<=\s)x"));
+    assert!(!looks_behind_at_a_wide_space(r"\s+x"));
+    assert!(!looks_behind_at_a_wide_space(r"(?<!\S)[ \t]"));
+}
+
+/// CSS's selector begin looks behind at a wide space.
+#[test]
+fn the_css_selector_begin_looks_behind_at_a_wide_space() {
+    let behind = r"(?i)(?<=^|(^|[^:])\s|[;{}]|\*/|\\(?:\h{1,6}|.))";
+    let ahead = r"(?=[\&*+>A-\[a-z|~[^\x00-\x7F]]|\.|#|\(|$)";
+    assert!(looks_behind_at_a_wide_space(&format!("{behind}{ahead}")));
 }
