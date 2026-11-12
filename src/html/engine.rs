@@ -31,6 +31,7 @@ use super::scope::S;
 use super::state::{self, Injection, ROOT_DERIVATIVE_FIRST, ROOT_EMBEDDED, ROOT_SVELTE, Rule};
 #[cfg(feature = "lang-vue")]
 use super::vue as vue_rules;
+#[cfg(feature = "lang-vue")]
 use super::vue::VuePattern;
 use crate::arena::{Arena, ROOT};
 #[cfg(feature = "lang-vue")]
@@ -125,6 +126,7 @@ pub(super) enum Pattern {
     /// ERB: `(#).*?(?=-?%>)` in code, a comment up to the code's end.
     ErbHash,
     /// A pattern of Vue's rules.
+    #[cfg(feature = "lang-vue")]
     Vue(VuePattern),
     /// A pattern of Blade's injection or of Blade's rules that opens a rule.
     Blade(Blade),
@@ -206,11 +208,13 @@ pub(crate) enum GiveBack<'a> {
     /// Back at the root after one root-level construct, because the
     /// rule's own patterns compete at every position: a Markdown paragraph
     /// or heading.
+    #[cfg(feature = "lang-markdown")]
     AtRoot,
     /// At the root, at the first position after a `>` where no root rule
     /// matches.
     /// There the end `(?<=>)` of the rule that Markdown's emphasis opens at a
     /// tag is tried, after the patterns.
+    #[cfg(feature = "lang-markdown")]
     AfterTag,
     /// At the root, where `end` holds before the root's patterns at a place,
     /// or `after` holds where none of them matches.
@@ -499,7 +503,7 @@ impl<'a> Lexer<'a> {
 
     /// Whether a root pattern matches at `p`, with the steps the test spent.
     /// The test lexes nothing.
-    #[cfg(feature = "lang-html-derivative")]
+    #[cfg(all(feature = "lang-html-derivative", feature = "lang-markdown"))]
     pub(super) fn opens_at(mut self, p: usize) -> (bool, u64) {
         let opens = self.match_at(Rule::Root, p).is_some();
         self.keep_frames();
@@ -774,6 +778,7 @@ impl<'a> Lexer<'a> {
                 self.finish();
                 return;
             }
+            #[cfg(feature = "lang-markdown")]
             if matches!(self.give_back, Some(GiveBack::AtRoot))
                 && self.applied
                 && self.frames.len() == 1
@@ -916,7 +921,9 @@ impl<'a> Lexer<'a> {
             return None;
         }
         match give_back {
+            #[cfg(feature = "lang-markdown")]
             GiveBack::AtRoot => None,
+            #[cfg(feature = "lang-markdown")]
             GiveBack::AfterTag => self.after_tag(found),
             GiveBack::Halts(&(end, after)) => self.halt_before(found, end, after),
         }
@@ -924,6 +931,7 @@ impl<'a> Lexer<'a> {
 
     /// Where the end `(?<=>)` of [`GiveBack::AfterTag`] matches before `found`:
     /// after a `>` at or past the position.
+    #[cfg(feature = "lang-markdown")]
     fn after_tag(&self, found: Option<&Hit>) -> Option<usize> {
         let before = found.map_or(self.lim, |hit| hit.start.saturating_sub(1));
         let from = self.pos.max(1) - 1;
@@ -1233,10 +1241,6 @@ impl<'a> Lexer<'a> {
         self.search()
     }
 
-    /// Without Vue, no directive matches, so it has no argument to emit.
-    #[cfg(not(feature = "lang-vue"))]
-    pub(super) fn vue_argument(&mut self, _base: u32, _from: usize, _to: usize) {}
-
     /// Moves past the text that an embedded lexer took from `pos`: up to its
     /// halt, or the end of the text.
     fn advance_to(&mut self, pos: usize, halt: Option<usize>) {
@@ -1482,8 +1486,9 @@ impl<'a> Lexer<'a> {
             | Pattern::UnquotedJs
             | Pattern::JsText
             | Pattern::ErbHash
-            | Pattern::BladeMatch(_)
-            | Pattern::Vue(VuePattern::Modifier) => self.match_rule(&hit),
+            | Pattern::BladeMatch(_) => self.match_rule(&hit),
+            #[cfg(feature = "lang-vue")]
+            Pattern::Vue(VuePattern::Modifier) => self.match_rule(&hit),
             Pattern::Zero(_)
             | Pattern::Processing
             | Pattern::Comment
@@ -1503,7 +1508,9 @@ impl<'a> Lexer<'a> {
             | Pattern::JsLine
             | Pattern::JsBlock
             | Pattern::Erb(_)
-            | Pattern::Vue(
+            | Pattern::Blade(_) => self.open(&hit),
+            #[cfg(feature = "lang-vue")]
+            Pattern::Vue(
                 VuePattern::CommentKv
                 | VuePattern::Comment
                 | VuePattern::SelfClosing
@@ -1519,8 +1526,7 @@ impl<'a> Lexer<'a> {
                 | VuePattern::ExprBare
                 | VuePattern::AttributeDirective
                 | VuePattern::AttributeString,
-            )
-            | Pattern::Blade(_) => self.open(&hit),
+            ) => self.open(&hit),
         }
     }
 

@@ -70,6 +70,7 @@ crate::scope::scope_table! {
     TagStartOther "meta.tag.other.start.html"
     #[cfg(feature = "lang-erb")]
     TextHtmlErb "text.html.erb"
+    #[cfg(feature = "lang-html-derivative")]
     TextHtmlDerivative "text.html.derivative"
     ErbBlock "meta.embedded.block.erb"
     ErbLine "meta.embedded.line.erb"
@@ -115,50 +116,96 @@ crate::scope::scope_table! {
     PhpLeading "punctuation.whitespace.embedded.leading.php"
     PhpTrailing "punctuation.whitespace.embedded.trailing.php"
     PhpEmptyTag "meta.special.empty-tag.php"
+    #[cfg(feature = "lang-vue")]
     TextHtmlVue "text.html.vue"
+    #[cfg(feature = "lang-vue")]
     VueTagBegin "punctuation.definition.tag.begin.html.vue"
+    #[cfg(feature = "lang-vue")]
     VueTagEnd "punctuation.definition.tag.end.html.vue"
+    #[cfg(feature = "lang-vue")]
     VueComment "comment.block.vue"
+    #[cfg(feature = "lang-vue")]
     VueCommentPunctuation "punctuation.definition.comment.vue"
+    #[cfg(feature = "lang-vue")]
     VueBlockTag "punctuation.definition.block.tag.comment.vue"
+    #[cfg(feature = "lang-vue")]
     VueStorageClass "storage.type.class.comment.vue"
+    #[cfg(feature = "lang-vue")]
     SelfClosingTag "self-closing-tag"
+    #[cfg(feature = "lang-vue")]
     TagStuff "meta.tag-stuff"
+    #[cfg(feature = "lang-vue")]
     VueNameTag "entity.name.tag.html.vue"
+    #[cfg(feature = "lang-vue")]
     TemplateTagStart "meta.template-tag.start"
+    #[cfg(feature = "lang-vue")]
     TemplateTagEnd "meta.template-tag.end"
+    #[cfg(feature = "lang-vue")]
     DirectiveVue "meta.attribute.directive.vue"
+    #[cfg(feature = "lang-vue")]
     DirectiveControl "meta.attribute.directive.control.vue"
+    #[cfg(feature = "lang-vue")]
     LoopVue "keyword.control.loop.vue"
+    #[cfg(feature = "lang-vue")]
     ConditionalVue "keyword.control.conditional.vue"
+    #[cfg(feature = "lang-vue")]
     VueAttributeName "entity.other.attribute-name.html.vue"
+    #[cfg(feature = "lang-vue")]
     VueKeyValue "punctuation.separator.key-value.html.vue"
+    #[cfg(feature = "lang-vue")]
     ShorthandBind "punctuation.attribute-shorthand.bind.html.vue"
+    #[cfg(feature = "lang-vue")]
     ShorthandEvent "punctuation.attribute-shorthand.event.html.vue"
+    #[cfg(feature = "lang-vue")]
     ShorthandSlot "punctuation.attribute-shorthand.slot.html.vue"
+    #[cfg(feature = "lang-vue")]
     VueStringBegin "punctuation.definition.string.begin.html.vue"
+    #[cfg(feature = "lang-vue")]
     VueStringEnd "punctuation.definition.string.end.html.vue"
+    #[cfg(feature = "lang-vue")]
     TsEmbedded "source.ts.embedded.html.vue"
+    #[cfg(feature = "lang-vue")]
     GenericAttribute "meta.attribute.generic.vue"
+    #[cfg(feature = "lang-vue")]
     StyleAttribute "meta.attribute.style.vue"
+    #[cfg(feature = "lang-vue")]
     TypeParameters "meta.type.parameters.vue"
+    #[cfg(feature = "lang-vue")]
     CssEmbedded "source.css.embedded.html.vue"
+    #[cfg(feature = "lang-vue")]
     Text "text"
+    #[cfg(feature = "lang-vue")]
     TextHtmlMarkdown "text.html.markdown"
+    #[cfg(feature = "lang-vue")]
     TextPug "text.pug"
+    #[cfg(feature = "lang-vue")]
     SourceStylus "source.stylus"
+    #[cfg(feature = "lang-vue")]
     SourcePostcss "source.postcss"
+    #[cfg(feature = "lang-vue")]
     SourceSass "source.sass"
+    #[cfg(feature = "lang-vue")]
     SourceScss "source.css.scss"
+    #[cfg(feature = "lang-vue")]
     SourceLess "source.css.less"
+    #[cfg(feature = "lang-vue")]
     SourceTs "source.ts"
+    #[cfg(feature = "lang-vue")]
     SourceJsx "source.js.jsx"
+    #[cfg(feature = "lang-vue")]
     SourceTsx "source.tsx"
+    #[cfg(feature = "lang-vue")]
     SourceCoffee "source.coffee"
+    #[cfg(feature = "lang-vue")]
     SourceJson "source.json"
+    #[cfg(feature = "lang-vue")]
     SourceJsonComments "source.json.comments"
+    #[cfg(feature = "lang-vue")]
     SourceJson5 "source.json5"
+    #[cfg(feature = "lang-vue")]
     SourceYaml "source.yaml"
+    #[cfg(feature = "lang-vue")]
     SourceToml "source.toml"
+    #[cfg(feature = "lang-vue")]
     SourceGraphql "source.graphql"
 }

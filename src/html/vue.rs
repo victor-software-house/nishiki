@@ -17,7 +17,6 @@ use super::engine::{Hit, Lexer, Pattern};
 use super::scope::S;
 use super::state::Rule;
 use crate::classes::is_word;
-#[cfg(feature = "lang-vue")]
 use crate::typescript::Dialect;
 
 /// A language that a block names in its `lang` attribute, in the order the
@@ -533,7 +532,6 @@ pub(super) fn template_end(s: &[u8], p: usize) -> bool {
 }
 
 /// The end of the value in the string that has `carried`: its quote.
-#[cfg(feature = "lang-vue")]
 fn quote_halt(carried: u32) -> VueHalt {
     match string_quote(carried) {
         b'\'' => single_quote,
@@ -1194,7 +1192,6 @@ impl Lexer<'_> {
 }
 
 /// The lexer that reads a Vue body or directive value.
-#[cfg(feature = "lang-vue")]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub(super) enum Lexed {
     Css,
@@ -1228,7 +1225,6 @@ pub(super) enum Lexed {
 
 /// The lexer of `lang`'s body; none for a language that nishiki does not
 /// lex, whose body is plain text.
-#[cfg(feature = "lang-vue")]
 fn lexed(lang: Lang) -> Option<Lexed> {
     match lang {
         Lang::Css => Some(Lexed::Css),
@@ -1287,7 +1283,6 @@ pub(super) fn body_lang(parent: Rule, carried: u32) -> Option<Lang> {
 /// value inside `parent`, and where the text ends.
 /// The answer is the lexer, if any, and the halt.
 /// The halt is none for a body that runs to the end of each line.
-#[cfg(feature = "lang-vue")]
 pub(super) fn target(rule: Rule, parent: Rule, carried: u32) -> (Option<Lexed>, Option<VueHalt>) {
     if rule == Rule::VueExpression {
         let halt: VueHalt = if parent == Rule::VueExpressionString {
@@ -1332,17 +1327,14 @@ pub(super) fn target(rule: Rule, parent: Rule, carried: u32) -> (Option<Lexed>, 
 }
 
 /// Where a Vue body or directive value ends: a test of the text at a place.
-#[cfg(feature = "lang-vue")]
 pub(super) type VueHalt = fn(&[u8], usize) -> bool;
 
 /// A halt that never stops a line, for a body that a `while` rule holds.
-#[cfg(feature = "lang-vue")]
 pub(super) fn never(_: &[u8], _: usize) -> bool {
     false
 }
 
 /// The first place at or after `from` of `s` where `halt` holds.
-#[cfg(feature = "lang-vue")]
 pub(super) fn halt_at(s: &[u8], from: usize, halt: VueHalt) -> Option<usize> {
     (from..=s.len()).find(|&at| halt(s, at))
 }
@@ -1407,7 +1399,6 @@ pub(super) enum VueRule {
 impl Rule {
     /// The Vue rule this is, or none for HTML's and ERB's own rules.
     /// Each entry to Vue's code tests it, or the feature, first.
-    #[cfg(feature = "lang-vue")]
     pub(super) const fn vue(self) -> Option<VueRule> {
         Some(match self {
             Rule::VueComment => VueRule::Comment,
@@ -1493,14 +1484,6 @@ impl Rule {
             | Rule::BladePhpSection
             | Rule::BladeAttribute => return None,
         })
-    }
-
-    /// None: without the `lang-vue` feature no rule is Vue's.
-    /// The engine's entries to Vue's code then fold away, and a build
-    /// without Vue keeps none of its code.
-    #[cfg(not(feature = "lang-vue"))]
-    pub(super) const fn vue(self) -> Option<VueRule> {
-        None
     }
 }
 

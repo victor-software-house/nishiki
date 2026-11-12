@@ -92,6 +92,19 @@ enum TagName {
 }
 
 impl Lexer<'_> {
+    /// No end pattern: without the `lang-vue` feature no rule is Vue's, and
+    /// a build without Vue keeps none of Vue's code.
+    #[cfg(not(feature = "lang-vue"))]
+    fn vue_end_at(&self, _rule: Rule, _p: usize) -> Option<Hit> {
+        None
+    }
+
+    /// No patterns: without the `lang-vue` feature no rule is Vue's.
+    #[cfg(not(feature = "lang-vue"))]
+    fn vue_patterns_at(&self, _rule: Rule, _p: usize) -> Option<Hit> {
+        None
+    }
+
     // Characters.
 
     /// The length of the white space (`\s`) that stands at `i`: the line
@@ -1598,6 +1611,7 @@ impl Lexer<'_> {
     }
 
     /// The HTML attribute rules at `p`, with HTML's attribute list.
+    #[cfg(feature = "lang-vue")]
     pub(super) fn html_attribute(&self, p: usize) -> Option<Hit> {
         self.attribute_patterns(p, Attributes::Html)
     }

@@ -11,9 +11,13 @@ use super::PhpFamily;
 use crate::case_fold;
 use crate::rules::{Chars, Lexer};
 
+#[cfg(any(feature = "lang-php", feature = "lang-blade"))]
 mod comments;
+#[cfg(any(feature = "lang-php", feature = "lang-blade"))]
 mod declarations;
+#[cfg(any(feature = "lang-php", feature = "lang-blade"))]
 mod expressions;
+#[cfg(any(feature = "lang-php", feature = "lang-blade"))]
 mod strings;
 
 /// `[_a-z\x7F-\x{10FFFF}]` under `(?i)`, by byte: every byte of a character
@@ -37,6 +41,7 @@ pub(crate) fn is_flag(b: u8) -> bool {
 
 /// `[0-9\\_a-z\x7F-\x{10FFFF}]` under `(?i)`: a character of a qualified
 /// name.
+#[cfg(any(feature = "lang-php", feature = "lang-blade"))]
 pub(crate) fn is_qualified(b: u8) -> bool {
     is_name(b) || b == b'\\'
 }
@@ -48,6 +53,7 @@ pub(crate) fn is_qualified(b: u8) -> bool {
 )]
 impl<G: PhpFamily> Lexer<'_, G> {
     /// `[_a-z\x7F-\x{10FFFF}][0-9_a-z\x7F-\x{10FFFF}]*` under `(?i)`: a name.
+    #[cfg(any(feature = "lang-php", feature = "lang-hack"))]
     pub(crate) fn name(&self, p: usize) -> Option<usize> {
         (p < self.lim() && is_name_start(self.at(p))).then(|| self.skip(p + 1, is_name))
     }
@@ -263,6 +269,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
         Some(open + 1)
     }
     /// `(?i)\bword\b`.
+    #[cfg(any(feature = "lang-php", feature = "lang-blade"))]
     pub(crate) fn ikeyword(&self, p: usize, word: &[u8]) -> Option<usize> {
         if !self.boundary(p) {
             return None;
@@ -340,6 +347,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
         (self.at(p) == b'\\' && matches!(self.at(p + 1), b'\'' | b'\\')).then_some(p + 2)
     }
     /// `X|(?=\?>)` for the byte `close`.
+    #[cfg(any(feature = "lang-php", feature = "lang-blade"))]
     pub(crate) fn close_or_php(&self, p: usize, close: u8) -> Option<usize> {
         if self.at(p) == close && p < self.lim() {
             Some(p + 1)
@@ -349,6 +357,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
     }
 
     /// `\S+`.
+    #[cfg(any(feature = "lang-php", feature = "lang-blade"))]
     pub(crate) fn non_spaces(&self, p: usize) -> Option<usize> {
         let mut at = p;
         while at < self.lim() && self.space_at(at) == 0 {
@@ -360,6 +369,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
     /// `\s+(?=word\b)`: the spaces before a keyword.
     /// A shorter run would leave a space before the word, so the whole run is
     /// the only match.
+    #[cfg(any(feature = "lang-php", feature = "lang-blade"))]
     pub(crate) fn spaces_before(&self, p: usize, word: &[u8]) -> Option<usize> {
         let end = self.space_end(p);
         (end > p
@@ -371,6 +381,7 @@ impl<G: PhpFamily> Lexer<'_, G> {
 
     /// `[0-9\\_a-z\x7F-\x{10FFFF}]+` under `(?i)`: a qualified name, which may
     /// start with a digit.
+    #[cfg(any(feature = "lang-php", feature = "lang-blade"))]
     pub(crate) fn qualified(&self, p: usize) -> Option<usize> {
         let end = self.skip(p, is_qualified);
         (end > p).then_some(end)
