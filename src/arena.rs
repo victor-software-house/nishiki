@@ -173,15 +173,8 @@ impl Arena {
     /// One hash of the key serves the lookup and the insert.
     /// A hit costs more than `child`'s, so a caller that usually hits calls
     /// `child`.
-    #[cfg(feature = "_language")]
+    #[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
     #[inline(never)]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
     pub(crate) fn child_or_insert(&mut self, parent: u32, scope: Scope) -> Option<u32> {
         match self.scope_ids.entry((parent, scope.id())) {
             Entry::Occupied(found) => Some(*found.get()),
@@ -335,15 +328,8 @@ impl Arena {
     /// A [`push`](Self::push) for a caller that expects to make the state,
     /// such as a lexer after its push cache misses.
     /// One hash of the key serves the lookup and the insert.
-    #[cfg(feature = "_language")]
+    #[cfg(any(feature = "_rule-engine", feature = "lang-shell"))]
     #[inline(never)]
-    #[cfg_attr(
-        not(feature = "_hand-lexers"),
-        expect(
-            dead_code,
-            reason = "only hand-written lexers use it, and the TextMate engine alone turns none on"
-        )
-    )]
     pub(crate) fn push_or_insert(
         &mut self,
         parent: u32,
