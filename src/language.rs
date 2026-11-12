@@ -1698,6 +1698,10 @@ languages! {
     ///   Less's `(;)|(?=[)}])` matches there without advancing,
     ///   and vscode-textmate then pops the innermost rule, Svelte's Less body.
     ///   The rest of the body is plain text up to `</style>`.
+    /// - After an `{#each}` tag left open, a `{` on the next line opens destructuring.
+    ///   After its `}`, the destructuring opens and closes again without advancing.
+    ///   vscode-textmate stops the line there, and the rest of it keeps the destructuring's scopes.
+    ///   The next line goes on inside the destructuring.
     /// - Svelte's `$` prefixes reach its own TypeScript, JavaScript and CoffeeScript,
     ///   as Shiki's injection `L:(source.ts, source.js, source.coffee)` does.
     ///   That includes a `<script>` in the HTML of an `@component` comment's Markdown.

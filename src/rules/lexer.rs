@@ -14,7 +14,8 @@
 //! depends on them:
 //!
 //! - `\G` matches only where the enclosing begin ended.
-//! - A rule that opens or closes without advancing stops the line.
+//! - A rule that opens or closes without advancing stops the line. That holds
+//!   where an embedded language hands the line back too.
 
 #[cfg(feature = "_embedding")]
 use super::Embedding;
@@ -230,6 +231,17 @@ impl<G: Grammar> Scratch<G> {
         self.resume = None;
     }
 
+    /// Clears where the kept frames opened, at the end of a line that handed
+    /// its text to an embedded language.
+    /// The next line's frames opened on an earlier line.
+    #[cfg(feature = "_embedding")]
+    #[cold]
+    pub(crate) fn forget_enters(&mut self) {
+        for frame in &mut self.resume_frames {
+            frame.enter = None;
+        }
+    }
+
     /// Sets what the next line's matchers start from ([`Grammar::Kept`]).
     /// Batch's matchers find there whether a Markdown fence embeds it.
     #[cfg(feature = "lang-bat")]
@@ -342,7 +354,9 @@ pub struct Lexer<'a, G: Grammar> {
     flags: Flags,
     /// The lowest index the line pushed a frame at.
     /// The frames below it are ones the line started with.
-    /// Whichever line left them already cleared their `enter` and `anchor`.
+    /// Whichever line left them already cleared their `anchor`.
+    /// Their `enter` is clear too, unless an earlier part of this line set it
+    /// before an embedded language took the text.
     low: usize,
     /// Whether the `while` links of the frames below `low` hold.
     /// They hold when the line took over the last line's frames.
@@ -760,6 +774,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Where the open rules are the state's chain, they are kept for the next
     /// line (see [`Lexer::run`]).
     /// The line's count goes back to the lender (see [`Steps::finish`]).
+    ///
+    /// Where the line hands its text to an embedded language, the frames keep
+    /// where they opened.
+    /// The part of the line after that language halts reads it, as
+    /// vscode-textmate's one stack does.
+    /// [`Scratch::forget_enters`] clears it once the line ends.
     #[expect(
         clippy::inline_always,
         reason = "a call here, with the lexer moved into it, costs CSS 0.7% at one codegen unit"
@@ -778,8 +798,12 @@ impl<'a, G: Grammar> Lexer<'a, G> {
                 top.content = self.arena.frame(top.state).stack;
             }
             let low = self.low.min(self.frames.len());
+            let handed_over = self.embedding && self.yielded.is_some();
             for frame in &mut self.frames[low..] {
-                (frame.enter, frame.anchor) = (None, None);
+                frame.anchor = None;
+                if !handed_over {
+                    frame.enter = None;
+                }
             }
             if G::WHILES && (!self.linked || low < self.frames.len()) {
                 self.link_whiles(low);
