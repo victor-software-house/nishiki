@@ -1,7 +1,7 @@
 //! Java's tables.
 
 use nishiki::unstable::codegen::tables::{
-    CaptureLists, CaptureNames, Identity, LonePattern, Reentry, RuleTables, Split,
+    CaptureLists, CaptureNames, Identity, LonePattern, Reentry, RuleTables, Split, SplitIds,
 };
 
 /// Java's tables, from `tests/engine/grammars/java.json`.
@@ -12,6 +12,7 @@ pub(crate) const JAVA: RuleTables = RuleTables {
     capture_lists: CaptureLists::ByHand,
     pattern_names: &[],
     split: Split::DropsGroup,
+    split_ids: SplitIds::Positions,
     capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,

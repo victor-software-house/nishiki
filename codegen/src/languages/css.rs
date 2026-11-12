@@ -2,6 +2,7 @@
 
 use nishiki::unstable::codegen::tables::{
     AddedRule, CaptureLists, CaptureNames, Identity, LonePattern, Reentry, RuleTables, Split,
+    SplitIds,
 };
 
 /// CSS's tables, from `tests/engine/grammars/css.json`.
@@ -16,6 +17,7 @@ pub(crate) const CSS: RuleTables = RuleTables {
     capture_lists: CaptureLists::ByHand,
     pattern_names: &[],
     split: Split::KeepsGroup,
+    split_ids: SplitIds::Positions,
     capture_names: CaptureNames::SplitsOptionalGroup,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,

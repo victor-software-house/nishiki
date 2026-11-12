@@ -28,6 +28,15 @@ pub enum GenerateError {
         /// The pattern's expression.
         regex: String,
     },
+    /// A pattern of a split named by its word, as
+    /// [`super::tables::SplitIds::Words`] says, whose alternative starts with
+    /// no letter.
+    NoWord {
+        /// The id of the split pattern.
+        id: String,
+        /// The pattern's expression.
+        regex: String,
+    },
     /// Two patterns with different expressions or acts take one id, or two
     /// rules do.
     IdTaken {
@@ -107,6 +116,9 @@ impl fmt::Display for GenerateError {
                     f,
                     "{id}: the scope names name no one group of plain words in {regex}"
                 )
+            }
+            GenerateError::NoWord { id, regex } => {
+                write!(f, "{id}: an alternative of {regex} starts with no letter")
             }
             GenerateError::IdTaken { id } => {
                 write!(
