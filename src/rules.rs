@@ -419,6 +419,11 @@ pub(crate) fn start<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
 ///
 /// The block's text sits on the stack `base` with no source scope of its own,
 /// as in Shiki's embedding.
+#[cfg(any(
+    feature = "_start-embedded",
+    feature = "lang-html",
+    feature = "lang-java"
+))]
 pub(crate) fn start_embedded<G: Grammar>(arena: &mut Arena, base: u32) -> u32 {
     arena
         .push(ROOT, G::rule_code(G::ROOT), 0, base)

@@ -20,6 +20,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// The state at the start of html-derivative when another language embeds it.
 /// Its text sits on `base` with no `text.html.derivative` of its own.
 /// The grammar's injection does not apply there, as in Shiki.
+#[cfg(feature = "_start-embedded")]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     crate::html::start_embedded(arena, base)
 }

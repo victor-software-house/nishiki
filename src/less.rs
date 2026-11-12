@@ -32,6 +32,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of the Less lines of a fenced code block.
+#[cfg(any(feature = "_start-embedded", feature = "lang-html"))]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     rules::start_embedded::<Less>(arena, base)
 }

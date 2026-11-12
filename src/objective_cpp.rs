@@ -42,6 +42,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 }
 
 /// The state at the start of the Objective-C++ lines of a fenced code block.
+#[cfg(feature = "_start-embedded")]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     rules::start_embedded::<ObjectiveCpp>(arena, base)
 }

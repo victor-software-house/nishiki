@@ -162,6 +162,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32, dialect: Dialect) -> u32 {
 /// as in Shiki's embedding.
 /// Here the marker rule keeps `\A`, which only the first line of
 /// the document matches, from matching in a fence.
+#[cfg(any(feature = "_start-embedded", feature = "lang-html"))]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena
         .push(ROOT, Rule::Started.code(), 0, base)

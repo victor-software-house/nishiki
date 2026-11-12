@@ -42,6 +42,7 @@ pub(crate) fn start(arena: &mut Arena, base: u32) -> u32 {
 /// No Markdown fence embeds HCL, because Shiki's Markdown grammar has no
 /// rule for it.
 /// This completes the contract every language keeps.
+#[cfg(feature = "_start-embedded")]
 pub(crate) fn start_embedded(arena: &mut Arena, base: u32) -> u32 {
     arena.push(ROOT, Rule::Top.code(), 0, base).unwrap_or(ROOT)
 }
