@@ -6,7 +6,7 @@
 #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
 use std::ops::ControlFlow;
 
-use super::{Act, BlankRuns, Lexer, RuleDefinition, Start, Tabled};
+use super::{Act, BlankRuns, Chars, Lexer, RuleDefinition, Start, Tabled};
 use crate::fnv::FnvMap;
 use crate::language::Halt;
 
@@ -454,6 +454,13 @@ fn scan<G: Tabled, const HALTING: bool>(
                     #[cfg(any(nishiki_unstable, feature = "lang-objective-c"))]
                     BlankRuns::Visit => lexer.char_end(p),
                 },
+                Some(&byte)
+                    if matches!(G::BLANK_RUNS, BlankRuns::Skip)
+                        && starts_other_space(byte)
+                        && lexer.space_at(p) > 0 =>
+                {
+                    lexer.space_run_end(p)
+                }
                 Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
                 Some(_) => lexer.char_end(p),
                 None => p + 1,
@@ -523,6 +530,15 @@ fn place_of(s: &[u8], p: usize, byte: u8) -> Place {
     }
 }
 
+/// Whether `byte` can start a `\s` character other than a space or a tab:
+/// the other ASCII ones, or the first byte of one above ASCII.
+/// The scan of a [`BlankRuns::Skip`] grammar passes a run of them as it
+/// passes a run of spaces and tabs.
+#[inline]
+fn starts_other_space(byte: u8) -> bool {
+    matches!(byte, 0x0b | 0x0c | b'\r' | 0xc2 | 0xe1..=0xe3)
+}
+
 /// Whether `byte` is an ASCII word character.
 fn is_word_byte(byte: u8) -> bool {
     byte.is_ascii_alphanumeric() || byte == b'_'
@@ -531,6 +547,21 @@ fn is_word_byte(byte: u8) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// Every `\s` character but the space, the tab and the line feed starts
+    /// with a byte that `starts_other_space` takes.
+    /// The line feed never stands inside a line's text.
+    #[test]
+    fn the_scan_knows_the_first_byte_of_every_space() {
+        let mut first = [0_u8; 4];
+        for c in (char::MIN..=char::MAX).filter(|&c| crate::classes::is_space(c)) {
+            if matches!(c, ' ' | '\t' | '\n') {
+                continue;
+            }
+            let byte = c.encode_utf8(&mut first).as_bytes()[0];
+            assert!(starts_other_space(byte), "{c:?} starts with {byte:#x}");
+        }
+    }
 
     /// Every place.
     const ANYWHERE: &[Place] = &[Place::Away, Place::LineStart, Place::InWord];
