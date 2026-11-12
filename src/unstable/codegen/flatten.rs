@@ -919,7 +919,8 @@ fn words(pattern: &Pattern) -> Option<&str> {
 /// It reads an end as vscode-textmate's `resolveBackReferences` does, with
 /// `/\\(\d+)/g`, as the tokenizer's `fill_backrefs` does too:
 ///
-/// - a group's number is every digit after the `\`, so `\10` repeats group 10;
+/// - a group's number is every digit after the `\`, so `\10` repeats group 10,
+///   and `\01` repeats group 1, as `\1` does;
 /// - every `\` can start one, so `\\1` repeats group 1;
 /// - `\k<name>` is left alone, so it names a group of the end itself and
 ///   repeats no group of the begin.
@@ -937,7 +938,7 @@ fn one_backref(end: &str) -> bool {
             .take_while(u8::is_ascii_digit)
             .count();
         if digits > 0 {
-            groups.push(&end[index + 1..=index + digits]);
+            groups.push(end[index + 1..=index + digits].parse::<usize>().ok());
         }
         index += 1 + digits;
     }
