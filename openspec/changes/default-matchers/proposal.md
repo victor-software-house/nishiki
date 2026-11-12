@@ -41,5 +41,5 @@ Running every pattern on the crate's regex engine costs 2.56 to 4.54 times the h
 [default-matchers]: proposal.md
 [grammar-to-rust]: ../grammar-to-rust/proposal.md
 [rule-table-codegen]: ../rule-table-codegen/proposal.md
-[rust-codegen]: ../rust-codegen/proposal.md
+[rust-codegen]: ../archive/2026-11-12-rust-codegen/proposal.md
 [unstable-rule-engine]: ../unstable-rule-engine/proposal.md

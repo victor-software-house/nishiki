@@ -42,5 +42,5 @@ For TypeScript's grammar, reading the bytes took 312 µs on a box.
 [default-matchers]: ../default-matchers/proposal.md
 [grammar-to-rust]: proposal.md
 [rule-table-codegen]: ../rule-table-codegen/proposal.md
-[rust-codegen]: ../rust-codegen/proposal.md
+[rust-codegen]: ../archive/2026-11-12-rust-codegen/proposal.md
 [unstable-rule-engine]: ../unstable-rule-engine/proposal.md

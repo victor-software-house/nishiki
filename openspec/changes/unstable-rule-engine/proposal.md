@@ -40,5 +40,5 @@ The rule engine's API still changes with each language that moves to it, so it c
 [default-matchers]: ../default-matchers/proposal.md
 [grammar-to-rust]: ../grammar-to-rust/proposal.md
 [rule-table-codegen]: ../rule-table-codegen/proposal.md
-[rust-codegen]: ../rust-codegen/proposal.md
+[rust-codegen]: ../archive/2026-11-12-rust-codegen/proposal.md
 [unstable-rule-engine]: proposal.md

@@ -31,8 +31,11 @@ Each proves byte-identical output, as design section 4 says.
     The writer emits `Pattern::Base`, each rule's base list and `BASE_SLOTS`, as `oracle/rule-generator.ts` does with `baseSlots`.
 - [ ] 2.5 The last slice deletes the shared scripts, `oracle/rule-generator.ts` among them, `codegen/patterns/`, `codegen/starts/` and `check:rule-grammars`.
   → verify: no `oracle/*-grammar.ts` or `oracle/rule-generator.ts` remains, and no generated file changes
+  - It also closes the checks of [rust-codegen][rust-codegen] task 1.3 for the 13 `words.rs` files those scripts write.
+    Each keeps its entries in order, and the size example's `.text` and `.rodata` keep their hashes.
+    `check:literals` and `check:line-width` pass with `mise-tasks/lib/rust-writers.ts` and its writer exemption deleted.
 
 [default-matchers]: ../default-matchers/design.md
 [nishiki#762]: https://github.com/victor-software-house/nishiki-archive/pull/762
-[rust-codegen]: ../rust-codegen/design.md
+[rust-codegen]: ../archive/2026-11-12-rust-codegen/design.md
 [unstable-rule-engine]: ../unstable-rule-engine/tasks.md

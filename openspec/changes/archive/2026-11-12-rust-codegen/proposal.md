@@ -51,8 +51,8 @@ The operator chose Rust for every generator (2026-11-10).
 - `oracle/facts/`: three fact files, written by the scripts that keep measuring.
 - `AGENTS.md` and `CODING_STANDARDS.md`: the rule that Rust writes generated Rust.
 
-[default-matchers]: ../default-matchers/proposal.md
-[grammar-to-rust]: ../grammar-to-rust/proposal.md
-[rule-table-codegen]: ../rule-table-codegen/proposal.md
+[default-matchers]: ../../default-matchers/proposal.md
+[grammar-to-rust]: ../../grammar-to-rust/proposal.md
+[rule-table-codegen]: ../../rule-table-codegen/proposal.md
 [rust-codegen]: proposal.md
-[unstable-rule-engine]: ../unstable-rule-engine/proposal.md
+[unstable-rule-engine]: ../../unstable-rule-engine/proposal.md
