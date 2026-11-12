@@ -70,12 +70,25 @@ The [research note][note] holds the numbers each task starts from.
     Each now matches Shiki.
   - 2026-11-12: Callgrind against the base, one build per side, reads Svelte at 1.0022 for lexing.
     No gated row reads over 1.0039.
-- [ ] 4.2 After `<script lang=">let one: number = 1;</script>`, Svelte enters the embedded script where Shiki does.
+- [x] 4.2 After `<script lang=">let one: number = 1;</script>`, Svelte enters the embedded script where Shiki does.
   So do the `<script lang="coffee">` lines after it.
   → verify: a test holds the case with Shiki's scopes, and no Svelte `win` document differs at any seed
   - 2026-11-12: at [98bb9820][base], Svelte's `win` corpus at seed 3 shows it.
     Shiki enters `meta.embedded.block.svelte source.js`.
     nishiki stays in `string.quoted.svelte`.
+  - 2026-11-12: the bodies are `L:` injections.
+    Every rule inside the tag's start tries them first, the attribute's string included.
+    So the `>` in the string opens the body.
+    nishiki tried them only in the tag's own two rules.
+  - 2026-11-12: the rules a language tag's start opens now try one pattern that stands for every body.
+    Nine separate patterns there cost Svelte 2.9% more instructions.
+  - 2026-11-12: Svelte's `win` and `mdw` corpora, on a box, 100 documents per seed.
+    No document differs at any seed.
+    Before, seed 3's `win` corpus had one, this task's case.
+  - 2026-11-12: Identity changes two edited copies of Svelte's fixtures, `coverage` and `kit-root`.
+    Each now matches Shiki.
+  - 2026-11-12: Callgrind against the base, one build per side, reads Svelte at 1.0024 for lexing.
+    No gated row reads over that.
 - [ ] 4.3 Find the language of the document that differs at seed 2.
   → verify: the language and the document are recorded here, and its difference gets a task or a fix
   - 2026-11-12: at [98bb9820][base], the `win` corpora at seed 2 hold 4,796 documents without Svelte's four.

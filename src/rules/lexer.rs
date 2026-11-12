@@ -1275,8 +1275,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
         feature = "lang-perl",
         feature = "lang-php",
         feature = "lang-r",
-        feature = "lang-sass",
-        feature = "lang-svelte"
+        feature = "lang-sass"
     ))]
     pub(crate) fn begin_text(&self) -> &str {
         self.arena.string(self.top().carried)
@@ -1303,7 +1302,7 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// The begin text of the rule around the innermost one.
     /// An example is the begin capture of an outer rule whose end the innermost
     /// rule waits for.
-    #[cfg(any(feature = "lang-lua", feature = "lang-svelte", feature = "lang-haml"))]
+    #[cfg(any(feature = "lang-lua", feature = "lang-haml"))]
     pub(crate) fn parent_begin_text(&self) -> &str {
         self.frames
             .len()

@@ -622,5 +622,9 @@
   "ScopeAt4End": {
     "role": "end",
     "regex": "(?=[<{])"
+  },
+  "Body": {
+    "role": "begin",
+    "regex": "(?<=>)"
   }
 }
