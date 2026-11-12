@@ -49,7 +49,7 @@
     docsrs,
     doc(auto_cfg(hide(
         feature,
-        values("_embedding", "_language", "_rule-engine", "_textmate")
+        values("_embedding", "_language", "_rule-engine", "_rule-tables", "_textmate")
     )))
 )]
 

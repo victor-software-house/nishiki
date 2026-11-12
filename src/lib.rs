@@ -516,7 +516,7 @@ mod ruby;
 #[cfg(feature = "_rule-engine")]
 #[cfg_attr(
     docsrs,
-    doc(auto_cfg(hide(feature, values("_embedding", "_rule-engine"))))
+    doc(auto_cfg(hide(feature, values("_embedding", "_rule-engine", "_rule-tables"))))
 )]
 mod rules;
 #[cfg(feature = "lang-rust")]
