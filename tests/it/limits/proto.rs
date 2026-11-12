@@ -10,7 +10,7 @@
 //!   that takes a run and fails at each later start, and must end under the
 //!   work limit;
 //! - a limit line drives work that grows faster than the line, and must end at
-//!   the work limit.
+//!   the work limit. No Protobuf pattern does that, so Protobuf has none.
 //!
 //! Each line ends with tokens that cover it.
 
@@ -46,6 +46,8 @@ fn hostile_proto_lines_end_under_the_work_limit() {
         format!("a{} =", "\t".repeat(12_000)),
         format!("map<{}", "string, map<".repeat(1_000)),
         format!("{}//", " ".repeat(12_000)),
+        format!("{}x", "\u{a0}".repeat(4_000)),
+        format!("{}x", "\u{3000}".repeat(4_000)),
         "x".repeat(12_000),
     ] {
         let (rows, _) = lex(&mut highlighter, &[&line]);
@@ -91,19 +93,4 @@ fn a_long_failing_field_ends_under_the_work_limit() {
         limits.iter().all(|&limit| limit == Limit::Depth),
         "reached {limits:?}"
     );
-}
-
-/// A limit line: 4,000 no-break spaces, then `x`.
-/// The scanner skips runs of ASCII blanks, but tries each start of this run.
-/// `Syntax`, `Package` and `Import` begin with `\s*`.
-/// At each start, each takes the rest of the run and fails.
-/// So the work grows with the square of the run, and the work limit ends the
-/// line.
-#[test]
-fn a_long_run_of_no_break_spaces_ends_at_the_work_limit() {
-    let mut highlighter = Highlighter::new(Language::Proto);
-    let line = format!("{}x", "\u{a0}".repeat(4_000));
-    let (rows, _) = lex(&mut highlighter, &[&line]);
-    let limits = rows[0].1.limits().collect::<Vec<_>>();
-    assert!(limits.contains(&Limit::Work), "reached {limits:?}");
 }

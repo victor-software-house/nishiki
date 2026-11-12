@@ -33,6 +33,11 @@ pub(crate) trait Chars {
     /// The end of the `\s*` from `i`.
     fn space_end(&self, i: usize) -> usize;
 
+    /// The end of the run of `\s` characters from `i` inside the line's text,
+    /// without the line feed after it.
+    /// It counts the bytes it passes as work.
+    fn space_run_end(&self, i: usize) -> usize;
+
     /// The end of the run of `\d` characters from `i`.
     fn digit_end(&self, i: usize) -> usize;
 
@@ -136,6 +141,21 @@ impl<G: Grammar> Chars for Lexer<'_, G> {
             }
             i += width;
         }
+    }
+
+    /// The end of the run of `\s` characters from `i` inside the line's text,
+    /// without the line feed after it.
+    fn space_run_end(&self, mut i: usize) -> usize {
+        let from = i;
+        while i < self.s.len() {
+            let width = self.space_at(i);
+            if width == 0 {
+                break;
+            }
+            i += width;
+        }
+        self.spend(i - from);
+        i
     }
 
     /// The end of the run of `\d` characters from `i`.
