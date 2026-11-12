@@ -31,10 +31,10 @@ Each proves byte-identical output, as design section 4 says.
     → verify: the check passes for those five, and for the languages before them
   - [ ] 2.3.3 Includes that add nothing, and where a list that reaches itself stops: Common Lisp, GDScript and Less.
     → verify: the check passes for those three, and for the languages before them
-  - [ ] 2.3.4 Embedded grammars: CoffeeScript, Elixir, HAML, Julia and Lua.
-    → verify: the check passes for those five, and for the languages before them
-  - [ ] 2.3.5 The scripts with logic of their own: CSS, Assembly, Swift, Ruby, Perl, SCSS, C++, C#, Bat and R.
-    → verify: the check passes for those ten, and for the languages before them
+  - [ ] 2.3.4 Includes of other grammars: Elixir, Julia and Lua.
+    → verify: the check passes for those three, and for the languages before them
+  - [ ] 2.3.5 The scripts with logic of their own: CSS, Assembly, Swift, CoffeeScript, HAML, Ruby, Perl, SCSS, C++, C#, Bat and R.
+    → verify: the check passes for those twelve, and for the languages before them
   - [ ] 2.3.6 `oracle/rule-generator.ts`'s five languages, and PHP.
     → verify: the check passes for all 34
 - [ ] 2.4 One task per family, added as each starts, in design section 5's order, after task 1.1.

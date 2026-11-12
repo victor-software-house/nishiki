@@ -2,7 +2,7 @@ use nishiki::Grammar;
 use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
-    Act, CaptureLists, LonePattern, Reentry, RuleTables, Split, Tables,
+    Act, CaptureLists, External, LonePattern, Reentry, RuleTables, Split, Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -16,6 +16,7 @@ const PLAIN: RuleTables = RuleTables {
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
     reentry: Reentry::WithinRule,
+    externals: &[],
 };
 
 /// Why a test grammar gave no tables.
@@ -407,4 +408,47 @@ fn a_list_takes_no_pattern_id() {
             ("FooAt0", Act::Match),
         ]))
     );
+}
+
+/// An include of another grammar that the language lists as adding nothing
+/// adds nothing, and the patterns after it keep their places.
+#[test]
+fn an_external_that_adds_nothing_keeps_the_places_after_it() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"include": "source.gone"}, {"match": "a"}]}"#;
+    let gone = RuleTables {
+        externals: &[("source.gone", External::AddsNothing)],
+        ..PLAIN
+    };
+    assert_eq!(ids(json, &gone), Ok(expected(&[("RootAt1", Act::Match)])));
+}
+
+/// An include of another grammar that the language replaces with a begin
+/// gives a begin with the include's inline id, its end and an empty rule.
+#[test]
+fn an_external_begin_takes_the_include_id() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#block"}],
+        "repository": {"block": {"begin": "b", "end": "e",
+            "patterns": [{"match": "m"}, {"include": "source.c"}]}}}"##;
+    let made = RuleTables {
+        externals: &[(
+            "source.c",
+            External::Begin {
+                begin: "\\G",
+                end: "x",
+            },
+        )],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &made),
+        Ok(expected(&[
+            ("Block", Act::Begin),
+            ("BlockEnd", Act::End),
+            ("BlockAt0", Act::Match),
+            ("BlockAt1", Act::Begin),
+            ("BlockAt1End", Act::End),
+        ]))
+    );
+    assert_eq!(tried(json, &made, "BlockAt1"), Ok(Some(Vec::new())));
 }

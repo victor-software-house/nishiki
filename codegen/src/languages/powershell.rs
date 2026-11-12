@@ -20,4 +20,5 @@ pub(crate) const POWERSHELL: RuleTables = RuleTables {
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::ListId,
     reentry: Reentry::WithinRule,
+    externals: &[],
 };

@@ -38,4 +38,5 @@ pub(crate) const VB: RuleTables = RuleTables {
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
     reentry: Reentry::WithinWalk,
+    externals: &[],
 };

@@ -12,4 +12,5 @@ pub(crate) const DART: RuleTables = RuleTables {
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::ListId,
     reentry: Reentry::WithinRule,
+    externals: &[],
 };

@@ -12,4 +12,5 @@ pub(crate) const JAVA: RuleTables = RuleTables {
     split: Split::DropsGroup,
     lone_pattern: LonePattern::OwnId,
     reentry: Reentry::WithinRule,
+    externals: &[],
 };

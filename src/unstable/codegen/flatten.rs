@@ -17,6 +17,7 @@
 //! A rule a begin opens takes the begin's id, and lists its own patterns.
 //! An entry with patterns and no expression adds its patterns in its place.
 //! `$self`, or the grammar's own scope name, adds the top-level patterns.
+//! An include of another grammar adds what [`RuleTables::externals`] says.
 //! A list being expanded, `Root` included, adds nothing when it is reached
 //! again.
 //!
@@ -44,7 +45,9 @@ use std::fmt::Write as _;
 
 use super::error::GenerateError;
 use super::split;
-use super::tables::{Act, CaptureLists, LonePattern, Pattern, Reentry, Rule, RuleTables, Tables};
+use super::tables::{
+    Act, CaptureLists, External, LonePattern, Pattern, Reentry, Rule, RuleTables, Tables,
+};
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
 /// The tables of `grammar`, read as `language` says.
@@ -139,11 +142,27 @@ impl<'a> Walk<'a> {
                 }
                 continue;
             };
+            let at = index;
             index += 1;
             if include == "$self" || *include == grammar.scope {
                 if self.expanding.insert("Root".to_owned()) {
                     out.extend(self.list(&grammar.patterns, "Root")?);
                     self.expanding.remove("Root");
+                }
+                continue;
+            }
+            let external = self
+                .language
+                .externals
+                .iter()
+                .find(|&&(name, _)| name == &**include);
+            if let Some(&(_, external)) = external {
+                match external {
+                    External::AddsNothing => {}
+                    External::Begin { begin, end } => {
+                        let id = self.inline_id(context, at);
+                        out.push(self.made_begin(&id, begin, end)?);
+                    }
                 }
                 continue;
             }
@@ -282,6 +301,18 @@ impl<'a> Walk<'a> {
         let index = self.put_rule(id, Some(closed))?;
         self.opened.push((index, &object.patterns, id.to_owned()));
         self.tables.rules[index].patterns = self.rule_list(&object.patterns, id)?;
+        Ok(opened)
+    }
+
+    /// The index of a begin that the language makes up, named `id`, which it
+    /// adds the first time with its end and a rule with no patterns.
+    fn made_begin(&mut self, id: &str, begin: &str, end: &str) -> Result<usize, GenerateError> {
+        if let Some(known) = self.known(id, begin, Act::Begin)? {
+            return Ok(known);
+        }
+        let opened = self.put(id.to_owned(), begin.to_owned(), Act::Begin)?;
+        let closed = self.put(format!("{id}End"), end.to_owned(), Act::End)?;
+        self.put_rule(id, Some(closed))?;
         Ok(opened)
     }
 
