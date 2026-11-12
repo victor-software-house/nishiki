@@ -59,4 +59,5 @@ pub(crate) const HAML: RuleTables = RuleTables {
         ("text.plain", External::Missing),
         ("text.html.php#language", External::Missing),
     ],
+    injected: None,
 };

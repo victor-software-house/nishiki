@@ -38,8 +38,11 @@ pub(crate) fn check(root: &Path) -> Result<Vec<&'static str>, Error> {
                 External::AddsNothing
                 | External::Begin { .. }
                 | External::Embeds
-                | External::Missing => None,
+                | External::Missing
+                | External::DropsItsEntry
+                | External::CaptureRule { .. } => None,
             })
+            .chain(language.injected.map(|injection| injection.grammar))
             .map(|name| Ok((name, Source::load(root, name)?.grammar())))
             .collect::<Result<Vec<_>, Error>>()?;
         let tables =

@@ -32,6 +32,23 @@ pub struct RuleTables {
     /// Lua's `source.c`.
     /// Any other include of another grammar is an error.
     pub externals: &'static [(&'static str, External)],
+    /// The matches another grammar injects into this one, when the language
+    /// takes them.
+    pub injected: Option<Injection>,
+}
+
+/// The matches another grammar injects into a language under one selector,
+/// such as Svelte's `$` prefixes in CoffeeScript.
+///
+/// They follow every other pattern, and no rule lists them.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Injection {
+    /// The grammar's file name without `.json`, such as `svelte`.
+    pub grammar: &'static str,
+    /// The selector of the injection in that grammar's `injections`.
+    pub selector: &'static str,
+    /// The id of each injected match, in the grammar's order.
+    pub ids: &'static [&'static str],
 }
 
 /// How the walk finds that it reaches a pattern again.
@@ -83,6 +100,18 @@ pub enum External {
     /// A rule whose own list holds the include is dropped when it lists no
     /// pattern and embeds no grammar, as vscode-textmate drops it.
     Missing,
+    /// Nothing, from a grammar Shiki does not load.
+    /// A list entry whose own patterns are this include alone is left out of
+    /// its list, and takes no place there.
+    DropsItsEntry,
+    /// Nothing in a list.
+    /// A capture list of this include alone becomes the rule `id`, with no
+    /// patterns.
+    /// The language's code lexes such a capture with the other grammar.
+    CaptureRule {
+        /// The rule's id, such as `Javascript`.
+        id: &'static str,
+    },
 }
 
 /// Where a list reached again while it is being expanded adds nothing.
@@ -127,6 +156,9 @@ pub enum CaptureLists {
     /// the order the walk finds them.
     /// Its patterns join the tables.
     Rules,
+    /// As [`CaptureLists::Rules`], except that a list of one include of a
+    /// repository key takes the key in Pascal case, such as `FunctionNames`.
+    NamedRules,
     /// The language's hand-written code lexes a capture's text.
     /// The lists add no rule and no pattern.
     ByHand,

@@ -19,4 +19,5 @@ pub(crate) const ELIXIR: RuleTables = RuleTables {
         ("text.elixir", External::AddsNothing),
         ("text.html.basic", External::AddsNothing),
     ],
+    injected: None,
 };
