@@ -207,6 +207,27 @@ fn grammar_type(root: &Path, language: &str) -> Result<(String, String), Error> 
             }
         })
         .ok_or_else(|| Error::Shape(format!("{path}: no struct {name}")))?;
+    impl_parts(&path, language, &name, &generics)
+}
+
+/// The generic parameters and the path of the impl for `name`.
+///
+/// `generics` are those of its struct, read from the file at `path`.
+///
+/// Only const parameters are written.
+/// A type or lifetime parameter is an error: the impl would name the type
+/// without it.
+fn impl_parts(
+    path: &str,
+    language: &str,
+    name: &str,
+    generics: &syn::Generics,
+) -> Result<(String, String), Error> {
+    if generics.type_params().next().is_some() || generics.lifetimes().next().is_some() {
+        return Err(Error::Shape(format!(
+            "{path}: {name} takes a type or a lifetime parameter"
+        )));
+    }
     let mut params = Vec::new();
     for param in generics.const_params() {
         let syn::Type::Path(ty) = &param.ty else {
