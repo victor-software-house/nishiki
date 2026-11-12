@@ -27,6 +27,8 @@
 //!
 //! [`grammar`] holds a grammar's rules as its JSON reads.
 //! [`regex`] holds the parser the engine compiles patterns with.
+//! [`codegen`] holds the analyses a code generator runs on a grammar's
+//! patterns.
 //! [`is_space`] and [`is_word`] are the classes `\s` and `\w` as Shiki reads
 //! them.
 //!
@@ -64,6 +66,8 @@ pub use crate::scope::Scope;
 #[cfg(feature = "_language")]
 pub use crate::scope::{Keyed, Scopes};
 
+#[cfg(feature = "_textmate")]
+pub mod codegen;
 #[cfg(feature = "textmate")]
 pub mod grammar;
 #[cfg(feature = "_textmate")]

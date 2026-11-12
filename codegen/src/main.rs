@@ -5,6 +5,8 @@
 //! change.
 //! Both also check `Language::pops_host` against the grammars, in
 //! [`fence_stops`].
+//! Both list each start set in a `grammar.rs` that differs from the one
+//! [`starts`] computes.
 //!
 //! The writers read the grammars in `tests/engine/grammars/`, which
 //! `oracle/engine-grammars.ts` writes, and the facts in `oracle/facts/`.
@@ -26,6 +28,7 @@ mod header;
 mod matchers;
 mod numbers;
 mod source;
+mod starts;
 mod test_gates;
 mod unicode;
 mod words;
@@ -95,6 +98,14 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     let mut files = words::files(&root)?;
     files.extend(matchers::files(&root)?);
     files.push(blank_runs::file(&root)?);
+    let differing = starts::differences(&root, &blank_runs::grammars(&root)?)?;
+    println!(
+        "start sets that differ from the tables: {}",
+        differing.len()
+    );
+    for line in &differing {
+        println!("  {line}");
+    }
     files.push(classes::file(&root)?);
     files.push(folds::file(&root)?);
     files.push(unicode::file(&root)?);

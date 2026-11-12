@@ -163,6 +163,12 @@ impl Property {
         let at = self.0.partition_point(|&(_, last)| last < code);
         self.0.get(at).is_some_and(|&(first, _)| first <= code)
     }
+
+    /// Whether the set holds a character above ASCII.
+    #[cfg(all(nishiki_unstable, feature = "_rule-engine"))]
+    pub(crate) fn wide(self) -> bool {
+        self.0.last().is_some_and(|&(_, last)| last >= 0x80)
+    }
 }
 
 /// The set a `\p{..}` or `[:..:]` name stands for, as Oniguruma measures it:
