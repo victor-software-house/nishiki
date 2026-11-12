@@ -451,3 +451,51 @@ fn the_derivative_first_names_are_the_lexers_documents() {
         ]
     );
 }
+
+/// A Vue tag whose name runs into `/>` is self-closing, as in Shiki.
+/// The rule's name `[-0-:A-Za-z]+` gives its last letter back, so the
+/// lookahead's `[^>]+` holds before the `/>`.
+/// That letter reads as an attribute, and the next line is outside the tag.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_name_that_runs_into_its_slash_closes_the_tag() {
+    let rows = lex(Language::Vue, "<styl/> c\n</st");
+    let vue = "text.html.vue";
+    let tag = [vue, "self-closing-tag"];
+    let attribute = [
+        "meta.tag-stuff",
+        "meta.attribute.unrecognized.l.html",
+        "entity.other.attribute-name.html",
+    ];
+    let want: [Vec<(&str, Vec<&str>)>; 2] = [
+        vec![
+            (
+                "<",
+                [&tag[..], &["punctuation.definition.tag.begin.html.vue"]].concat(),
+            ),
+            (
+                "sty",
+                [&tag[..], &["entity.name.tag.sty.html.vue"]].concat(),
+            ),
+            ("l", [&tag[..], &attribute[..]].concat()),
+            (
+                "/>",
+                [&tag[..], &["punctuation.definition.tag.end.html.vue"]].concat(),
+            ),
+            (" c", vec![vue]),
+        ],
+        vec![
+            ("<", vec![vue, "punctuation.definition.tag.begin.html.vue"]),
+            ("/", vec![vue]),
+            ("st", vec![vue, "entity.name.tag.st.html.vue"]),
+        ],
+    ];
+    assert_eq!(rows.len(), want.len());
+    for (row, want) in rows.iter().zip(want) {
+        let got: Vec<(&str, Vec<&str>)> = row
+            .iter()
+            .map(|(text, scopes)| (text.as_str(), scopes.iter().map(String::as_str).collect()))
+            .collect();
+        assert_eq!(got, want);
+    }
+}

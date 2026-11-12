@@ -132,7 +132,7 @@ The [research note][note] holds the numbers each task starts from.
   → verify: the cause is recorded here, with the rule it comes from
 - [ ] 6.2 Vue in a list-item fence ends its regions where Shiki does.
   → verify: at every seed, no document differs in Vue's `mdw` corpus
-- [ ] 6.3 Vue gives `<styl/>` and the `</st` after it Shiki's scopes.
+- [x] 6.3 Vue gives `<styl/>` and the `</st` after it Shiki's scopes.
   → verify: a test holds the case with Shiki's scopes, and no Vue `win` document differs at any seed
   - 2026-11-12: Vue's `win` corpus at seed 2 shows it in document 78, at [98bb9820][base] and at [d36a1da6][s2-head].
     At line 9, column 1, Shiki gives `self-closing-tag punctuation.definition.tag.begin.html.vue`.
@@ -140,7 +140,16 @@ The [research note][note] holds the numbers each task starts from.
   - 2026-11-12: at line 10, column 1, Shiki gives `</` the scope `punctuation.definition.tag.begin.html.vue`.
     nishiki gives `meta.tag-stuff invalid.illegal.character-not-allowed-here.html`.
   - 2026-11-12: Shiki 4.6.0 scopes `<div/>` and `<style/>` as it scopes `<styl/>`.
-    The cause in nishiki is unchecked.
+  - 2026-11-12: the rule is `(<)([-0-:A-Za-z]+)(?=([^>]+/>))`.
+    Its lookahead needs a byte between the name and the `/`, so a name that runs into `/>` gives its last letter back.
+    That letter reads as an unrecognized attribute.
+  - 2026-11-12: nishiki needed a byte after the whole name, so it opened a block tag.
+    `<a/>` has no letter to give back, and both read it as a block tag.
+  - 2026-11-12: `a_vue_name_that_runs_into_its_slash_closes_the_tag` holds the two lines with Shiki's scopes.
+    On a box, it fails on the base and passes with the fix.
+  - 2026-11-12: Vue's `win` corpus, on a box, 100 documents per seed.
+    Before, seed 2 had one, document 78, by 12 bytes.
+    After, none differs at any seed.
 
 ## 7. Go and LaTeX
 
