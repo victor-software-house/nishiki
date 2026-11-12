@@ -1475,3 +1475,24 @@ fn a_begin_with_a_while_adds_its_while() {
         ]))
     );
 }
+
+/// A key resolves first in the own repository of the entry around the
+/// include, then in the grammar's.
+/// Outside that entry, its own keys add nothing.
+#[test]
+fn an_entry_repository_resolves_its_keys_first() {
+    let json = r##"{"scopeName": "source.demo",
+        "patterns": [{"include": "#params"}, {"include": "#inner"}],
+        "repository": {
+            "params": {"patterns": [{"include": "#inner"}, {"include": "#outer"}],
+                "repository": {"inner": {"match": "i"}}},
+            "outer": {"match": "o"}}}"##;
+    assert_eq!(
+        regexes(json, &PLAIN),
+        Ok(vec!["i".to_owned(), "o".to_owned()])
+    );
+    assert_eq!(
+        ids(json, &PLAIN),
+        Ok(expected(&[("Inner", Act::Match), ("Outer", Act::Match)]))
+    );
+}
