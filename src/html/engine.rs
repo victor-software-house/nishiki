@@ -908,7 +908,8 @@ impl<'a> Lexer<'a> {
     #[cold]
     #[inline(never)]
     fn vue_while(&mut self) {
-        if self.pos != 0 || vue_rules::script_end(self.s, self.skip_ascii_ws(0)) {
+        let line = &self.s[..self.lim];
+        if self.pos != 0 || vue_rules::script_end(line, vue_rules::blanks_end(line, 0)) {
             self.frames.pop();
         }
     }
