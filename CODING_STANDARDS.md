@@ -334,6 +334,40 @@ Every file a reader opens reads as it stands: no line to scroll, no escapes to d
 - A list puts one entry per line.
   Only a table of short plain values packs several entries on a line, such as byte ranges or the word tables that `codegen/src/numbers.rs` fills.
 
+### 3.11 Rust writes generated Rust
+
+Every generated Rust file is written by `codegen/`, a crate in a workspace of its own (operator, 2026-11-10).
+
+- A Bun script under `oracle/` only reads facts from Shiki or Oniguruma.
+  It records them as formatted JSON under `oracle/facts/`, and a Rust writer reads them.
+- `codegen/` reads grammars from `tests/engine/grammars/` and parses them through `nishiki::unstable`, the surface a caller has.
+  It never parses a grammar or an expression a second time.
+- `mise run codegen` writes each file whose bytes change.
+  `mise run codegen -- --check` in `verify` fails when one would change, and names the command.
+- A writer lays out its own output and never calls the system rustfmt, so a run writes the same bytes on every machine.
+  - Structured code is built with `quote` and laid out by `prettyplease`.
+  - A numeric or word table is filled to 100 columns by `codegen/src/numbers.rs`.
+  - Every map a writer walks is a `BTreeMap`, or is sorted first.
+- A generated file opens with the header of `codegen/src/header.rs`: the writer, the input and `mise run codegen`.
+  Its `//!` docs follow.
+- The `mod` line that includes it carries `#[rustfmt::skip]`.
+  The `@generated` marker alone does not stop rustfmt.
+- A generated file is never edited by hand.
+  A change goes in its writer, or in the facts or grammar it reads.
+- A lint the output trips gets `#[expect]` on the smallest item, as 3.3 says.
+
+Until [rule-table-codegen](openspec/changes/rule-table-codegen/tasks.md) moves them, the `oracle/<language>-grammar.ts` scripts still write the rule-engine tables and 13 `words.rs` files (3.7).
+A generator moves to `codegen/` in one pull request, as the seven word scripts did:
+
+1. The grammar it reads goes into `tests/engine/grammars/` through `oracle/engine-grammars.ts`, with its licence in `oracle/licences.ts`.
+2. A module under `codegen/src/` writes the file, such as `codegen/src/words/sql.rs`.
+   Its parent module adds it to the files it returns.
+3. `mise run codegen` writes the file.
+   The diff keeps every entry and token, in order; only the layout and the header change.
+4. The language's `mod` line gains `#[rustfmt::skip]`.
+5. The same pull request deletes the script and every check, workflow job and README row that ran it.
+6. `codegen:check` then holds the file in `verify`.
+
 ## 4. Tests
 
 ### 4.1 Shiki is the test
