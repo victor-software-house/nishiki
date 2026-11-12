@@ -30,6 +30,8 @@
 //!
 //! The matches another grammar injects, [`RuleTables::injected`], follow
 //! every other pattern.
+//! [`RuleTables::merged_words`] merges the matches at the start of `Root`
+//! into one, which follows those.
 //! A rule of [`RuleTables::added_rules`] tries the patterns of a list in
 //! another grammar, walked after `Root`'s list.
 //! An include of the language's own scope with a key, such as
@@ -63,7 +65,7 @@ use super::error::GenerateError;
 use super::split;
 use super::tables::{
     Act, AddedRule, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern,
-    Pattern, Reentry, Rule, RuleTables, Tables,
+    MergedWords, Pattern, Reentry, Rule, RuleTables, Tables,
 };
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
@@ -93,6 +95,7 @@ pub fn flatten(
         expanding: HashSet::new(),
         expanding_top_level: false,
         opened: Vec::new(),
+        named_captures: HashSet::new(),
     };
     walk.expanding_top_level = language.reentry == Reentry::WithinRule;
     let first = walk.list(&grammar.patterns, "Root")?;
@@ -118,6 +121,10 @@ pub fn flatten(
     if let Some(injection) = language.injected {
         walk.inject(injection)?;
     }
+    let root = match language.merged_words {
+        Some(merged) => walk.merge_words(merged, &root)?,
+        None => root,
+    };
     let index = walk.put_rule("Root", None)?;
     walk.tables.rules[index].patterns = root;
     Ok(walk.tables)
@@ -157,6 +164,9 @@ struct Walk<'a> {
     /// holds its pattern list, the list and its id, for the second pass of
     /// [`Reentry::WithinWalk`].
     opened: Vec<(usize, &'a UnlinkedGrammar, &'a [RuleId], String)>,
+    /// The index of each match with a capture that names a scope or lists
+    /// patterns, which [`RuleTables::merged_words`] cannot merge.
+    named_captures: HashSet<usize>,
 }
 
 impl<'a> Walk<'a> {
@@ -503,8 +513,114 @@ impl<'a> Walk<'a> {
         if let Some(known) = self.known(id, &regex, Act::Match)? {
             return Ok(known);
         }
-        self.captures(self.grammar.rules[rule].captures.as_deref())?;
-        self.put(id.to_owned(), regex, Act::Match)
+        let captures = self.grammar.rules[rule].captures.as_deref();
+        self.captures(captures)?;
+        let index = self.put(id.to_owned(), regex, Act::Match)?;
+        let named = captures.unwrap_or_default().iter().any(|capture| {
+            let object = &self.grammar.rules[capture.rule];
+            !object.name.is_empty() || !object.patterns.is_empty()
+        });
+        if named {
+            self.named_captures.insert(index);
+        }
+        Ok(index)
+    }
+
+    /// `Root`'s list after the matches that the first `merged.entries`
+    /// entries of `Root` add merge into the match `merged.id`.
+    ///
+    /// The merged match joins their words in their order.
+    /// It follows every other pattern, and `root`'s list starts with it.
+    ///
+    /// # Errors
+    ///
+    /// - [`GenerateError::NotWords`] when one of the matches is not
+    ///   `(?i)\b(…)\b` over plain words, or a capture of it names a scope or
+    ///   lists patterns.
+    /// - [`GenerateError::WordsFollow`] when such a match follows them in
+    ///   `Root`.
+    /// - [`GenerateError::MergedElsewhere`] when a rule lists one of them
+    ///   elsewhere.
+    /// - [`GenerateError::IdTaken`] when a pattern already takes the id.
+    fn merge_words(
+        &mut self,
+        merged: MergedWords,
+        root: &[usize],
+    ) -> Result<Vec<usize>, GenerateError> {
+        let not_words = |id: &str| GenerateError::NotWords { id: id.to_owned() };
+        let entries = self
+            .own
+            .patterns
+            .get(..merged.entries)
+            .ok_or_else(|| not_words(merged.id))?;
+        self.grammar = self.own;
+        self.expanding.clear();
+        self.expanding_top_level = true;
+        let lead = self.list(entries, "Root")?;
+        let mut bodies = Vec::with_capacity(lead.len());
+        for &index in &lead {
+            let pattern = &self.tables.patterns[index];
+            match words(pattern) {
+                Some(body) if !self.named_captures.contains(&index) => bodies.push(body),
+                _ => return Err(not_words(&pattern.id)),
+            }
+        }
+        let regex = format!(r"(?i)\b(?:{})\b", bodies.join("|"));
+        if let Some(&next) = root.get(lead.len())
+            && words(&self.tables.patterns[next]).is_some()
+        {
+            return Err(GenerateError::WordsFollow {
+                id: self.tables.patterns[next].id.clone(),
+            });
+        }
+        if self.patterns.contains_key(merged.id) {
+            return Err(GenerateError::IdTaken {
+                id: merged.id.to_owned(),
+            });
+        }
+        let mut places = Vec::with_capacity(self.tables.patterns.len());
+        let mut kept = Vec::with_capacity(self.tables.patterns.len() + 1 - lead.len());
+        for (index, pattern) in std::mem::take(&mut self.tables.patterns)
+            .into_iter()
+            .enumerate()
+        {
+            if lead.contains(&index) {
+                places.push(None);
+            } else {
+                places.push(Some(kept.len()));
+                kept.push(pattern);
+            }
+        }
+        let word = kept.len();
+        kept.push(Pattern {
+            id: merged.id.to_owned(),
+            regex,
+            act: Act::Match,
+        });
+        self.tables.patterns = kept;
+        self.patterns = self
+            .tables
+            .patterns
+            .iter()
+            .enumerate()
+            .map(|(index, pattern)| (pattern.id.clone(), index))
+            .collect();
+        let moved = |index: usize, rule: &str| {
+            places[index].ok_or_else(|| GenerateError::MergedElsewhere {
+                id: rule.to_owned(),
+            })
+        };
+        for rule in &mut self.tables.rules {
+            rule.end = rule.end.map(|end| moved(end, &rule.id)).transpose()?;
+            for pattern in &mut rule.patterns {
+                *pattern = moved(*pattern, &rule.id)?;
+            }
+        }
+        let mut out = vec![word];
+        for &index in root.get(lead.len()..).unwrap_or_default() {
+            out.push(moved(index, "Root")?);
+        }
+        Ok(out)
     }
 
     /// The index of the pattern of `rule`, named `id`, which it adds the first
@@ -768,6 +884,33 @@ impl<'a> Walk<'a> {
 /// Whether `object` has an expression of its own, a `match` or a `begin`.
 const fn acts(object: &UnlinkedRule) -> bool {
     object.matched.is_some() || object.begin.is_some()
+}
+
+/// The words of the match `pattern` between `(?i)\b` and `\b`, when they
+/// are plain words, or `None` otherwise.
+///
+/// Plain words hold only ASCII `\w`, `|`, groups, `?`, classes of
+/// such characters, `-` in a class, and counts such as `{2}`.
+fn words(pattern: &Pattern) -> Option<&str> {
+    if pattern.act != Act::Match {
+        return None;
+    }
+    let body = pattern.regex.strip_prefix(r"(?i)\b")?.strip_suffix(r"\b")?;
+    let mut rest = body;
+    while let Some(c) = rest.chars().next() {
+        if c == '{' {
+            let digits = rest[1..].bytes().take_while(u8::is_ascii_digit).count();
+            if digits == 0 || rest.as_bytes().get(1 + digits) != Some(&b'}') {
+                return None;
+            }
+            rest = &rest[digits + 2..];
+        } else if c.is_ascii_alphanumeric() || "_|()?:[]-".contains(c) {
+            rest = &rest[1..];
+        } else {
+            return None;
+        }
+    }
+    (!body.is_empty()).then_some(body)
 }
 
 /// Whether the end `end` repeats exactly one group of its begin, such as

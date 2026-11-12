@@ -95,4 +95,5 @@ pub(crate) const JULIA: RuleTables = RuleTables {
     ],
     injected: None,
     added_rules: &[],
+    merged_words: None,
 };

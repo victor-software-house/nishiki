@@ -19,4 +19,5 @@ pub(crate) const JAVA: RuleTables = RuleTables {
     externals: &[],
     injected: None,
     added_rules: &[],
+    merged_words: None,
 };
