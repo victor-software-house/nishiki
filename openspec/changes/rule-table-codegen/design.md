@@ -196,13 +196,16 @@ The `codegen/` binary drives it, and `codegen/src/languages/` holds each languag
      1. the model and `flatten.rs`, for Go, Protocol Buffers, Python, Sass and Scala;
      2. `split.rs` and the names a language gives its patterns, for Java, Dart, PowerShell, VB and Jinja;
      3. includes that add nothing and where a list that reaches itself stops, for Common Lisp, GDScript and Less;
-     4. embedded grammars, for CoffeeScript, Elixir, HAML, Julia and Lua;
-     5. the scripts with logic of their own, for CSS, Assembly, Swift, Ruby, Perl, SCSS, C++, C#, Bat and R;
+     4. includes of other grammars, for Elixir, Julia and Lua;
+     5. the scripts with logic of their own, for CSS, Assembly, Swift, CoffeeScript, HAML, Ruby, Perl, SCSS, C++, C#, Bat and R;
      6. `oracle/rule-generator.ts`'s five languages, and PHP.
    - CoffeeScript and Julia moved from the second to the fourth, and CSS to the fifth (lead, 2026-11-12).
      Their scripts need those pull requests' variants.
    - The third slice split in two, and Assembly and Swift moved to the fifth (lead, 2026-11-12).
      Assembly and Swift each have logic of their own in their scripts.
+   - CoffeeScript and HAML moved from the fourth to the fifth (2026-11-12).
+     CoffeeScript's script drops an entry that holds only `source.js.regexp`, names capture-list rules after their key, and appends Svelte's injected patterns.
+     HAML's script keys patterns by their JSON, drops a begin whose patterns are all missing, and takes a pattern from Ruby's grammar.
    - Each variant of a script is a field or an enum variant in `RuleTables`, never a function per language.
    - `Reentry::WithinWalk` exists only to match the scripts' output (lead, 2026-11-12).
      Under it, one guard covers the whole walk, and a second pass lists what the guard cut short.
