@@ -38,12 +38,16 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   → verify: `check:features` builds both libraries with warnings denied, dead code included.
   - 2026-11-10: the private features `_class-widths`, `_blank-runs-to-last` and `_capture-names` hold the helpers that one set of languages shares.
     On a box, `check:features`, lint, `check:unstable`, `codegen:lint`, `codegen:test` and the tests pass.
-- [ ] 1.5 An item compiles only under the features of the language, engine, embedding or test code that uses it.
+- [x] 1.5 An item compiles only under the features of the language, engine, embedding or test code that uses it.
   [Design section 6.3][design-gates] holds the rule.
   Shared helpers stay ungated, and `check:features` keeps `-A dead_code`.
   → verify: on a box, with `-W dead_code`, no single-language or TextMate set reports a dead item that one language or engine owns.
   - 2026-11-12: [pull request #7][pr-7] gates Vue's and PHP's own code, and [pull request #8][pr-8] the language-specific items and test helpers.
   - 2026-11-12: [pull request #16][pr-16] gates the line context's fields, the keyed scope lists and the arena's inserts on their readers.
+  - 2026-11-12: on a box, on main at 77313ff3, 86 sets built with `-W dead_code`: the 81 of `check:features`, four languages with `textmate`, and the four TypeScript dialects together.
+    All 86 built, with 752 dead-code warnings.
+    Each names a shared helper of `src/rules/`, `src/classes/`, `src/limits.rs` or `src/test_support/probe.rs`.
+    Two or more languages call each one, or another shared helper does.
 - [x] 1.6 `check:test-gates` builds each test gate of two or more features, one line per gate.
   Before it, only `--all-features` compiled that test code.
   A narrower gate inside it then went unbuilt.
