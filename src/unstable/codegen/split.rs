@@ -23,8 +23,8 @@ use crate::textmate::compile::Text;
 ///
 /// # Errors
 ///
-/// [`GenerateError::Split`], naming `id`, when the expression has no such
-/// group, or when the group holds a `(`, a `\` or a `[`.
+/// [`GenerateError::Split`], naming `id` and `regex`, when the expression
+/// has no such group, or when the group holds a `(`, a `\` or a `[`.
 /// The split reads the group as words between `|`, which such a group does
 /// not hold.
 pub(super) fn alternatives(
@@ -36,7 +36,10 @@ pub(super) fn alternatives(
     if !names.iter().any(|name| name.contains("$1")) {
         return Ok(None);
     }
-    let refused = || GenerateError::Split { id: id.to_owned() };
+    let refused = || GenerateError::Split {
+        id: id.to_owned(),
+        regex: regex.to_owned(),
+    };
     let (start, end) = first_group(regex).ok_or_else(refused)?;
     let words = &regex[start + 1..end];
     if words.contains(['(', '\\', '[']) {
@@ -55,6 +58,10 @@ pub(super) fn alternatives(
 }
 
 /// The byte offsets of the first group's `(` and of the next `)`.
+///
+/// A byte after a `\` is skipped, so an escaped `(`, such as the one in
+/// `\(\b(foo|bar)`, opens no group.
+/// So is a character class, so a `(` in `[(]` opens none either.
 fn first_group(regex: &str) -> Option<(usize, usize)> {
     let bytes = regex.as_bytes();
     let mut in_class = false;

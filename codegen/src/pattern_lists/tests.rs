@@ -44,6 +44,16 @@ fn tried(json: &str, language: &RuleTables, id: &str) -> Result<Option<Vec<Strin
     }))
 }
 
+/// Each rule's id, in table order, from the grammar `json` read as
+/// `language` says.
+fn rule_ids(json: &str, language: &RuleTables) -> Result<Vec<String>, Failure> {
+    Ok(tables(json, language)?
+        .rules
+        .into_iter()
+        .map(|rule| rule.id)
+        .collect())
+}
+
 /// Each pattern's id and act, in table order, from the grammar `json` read
 /// as `language` says.
 fn ids(json: &str, language: &RuleTables) -> Result<Vec<(String, Act)>, Failure> {
@@ -255,24 +265,90 @@ fn an_end_id_another_pattern_takes_is_an_error() {
         "repository": {"foo": {"begin": "b", "end": "e"}, "foo-end": {"match": "f"}}}"##;
     assert_eq!(
         ids(json, &PLAIN),
-        Err(Failure::Generate(GenerateError::TwoRulesOneId {
+        Err(Failure::Generate(GenerateError::IdTaken {
             id: "FooEnd".to_owned(),
         }))
     );
 }
 
-/// A match named after its first group fails when the group holds more than
-/// words between `|`.
+/// A begin's end id that a match with the same expression takes is an error,
+/// since the two patterns differ in their act.
 #[test]
-fn a_group_that_holds_a_group_does_not_split() {
-    let json = r#"{"scopeName": "source.demo", "patterns": [
-        {"match": "\\b(foo(?:bar)?|baz)\\b", "name": "keyword.$1.demo"}]}"#;
+fn an_end_id_a_match_with_its_expression_takes_is_an_error() {
+    let json = r##"{"scopeName": "source.demo",
+        "patterns": [{"include": "#foo"}, {"include": "#foo-end"}],
+        "repository": {"foo": {"begin": "b", "end": "e"}, "foo-end": {"match": "e"}}}"##;
     assert_eq!(
         ids(json, &PLAIN),
-        Err(Failure::Generate(GenerateError::Split {
-            id: "RootAt0".to_owned(),
+        Err(Failure::Generate(GenerateError::IdTaken {
+            id: "FooEnd".to_owned(),
         }))
     );
+}
+
+/// A begin's id that a capture list's rule already has is an error.
+#[test]
+fn a_rule_id_a_capture_list_takes_is_an_error() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [
+        {"match": "(w)", "captures": {"1": {"patterns": [{"match": "v"}]}}},
+        {"include": "#nested0"}],
+        "repository": {"nested0": {"begin": "b", "end": "e"}}}"##;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Err(Failure::Generate(GenerateError::IdTaken {
+            id: "Nested0".to_owned(),
+        }))
+    );
+}
+
+/// A begin that its own capture list reaches is written once, with one rule.
+#[test]
+fn a_begin_its_capture_list_reaches_is_written_once() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#foo"}],
+        "repository": {"foo": {"begin": "(b)", "end": "e",
+            "beginCaptures": {"1": {"patterns": [{"include": "#foo"}]}}}}}"##;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Ok(expected(&[("Foo", Act::Begin), ("FooEnd", Act::End)]))
+    );
+    assert_eq!(
+        rule_ids(json, &PLAIN),
+        Ok(["Nested0", "Foo", "Root"].map(str::to_owned).to_vec())
+    );
+    assert_eq!(
+        tried(json, &PLAIN, "Nested0"),
+        Ok(Some(vec!["Foo".to_owned()]))
+    );
+}
+
+/// A `$self` in the top-level list adds nothing, so no pattern repeats in
+/// `Root`.
+#[test]
+fn a_self_in_the_top_level_list_adds_nothing() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "x"}, {"include": "$self"}]}"#;
+    assert_eq!(
+        tried(json, &PLAIN, "Root"),
+        Ok(Some(vec!["RootAt0".to_owned()]))
+    );
+}
+
+/// A match named after its first group fails when it has no group, or when
+/// the group holds more than words between `|`.
+#[test]
+fn a_group_that_is_not_plain_words_does_not_split() {
+    for regex in [r"\b(foo(?:bar)?|baz)\b", r"(a\)|b)", r"([)]|b)", r"\bfoo\b"] {
+        let json = serde_json::json!({"scopeName": "source.demo", "patterns": [
+            {"match": regex, "name": "keyword.$1.demo"}]});
+        assert_eq!(
+            ids(&json.to_string(), &PLAIN),
+            Err(Failure::Generate(GenerateError::Split {
+                id: "RootAt0".to_owned(),
+                regex: regex.to_owned(),
+            })),
+            "{regex}"
+        );
+    }
 }
 
 /// Under `LonePattern::ListId`, an entry whose one pattern is itself a list
