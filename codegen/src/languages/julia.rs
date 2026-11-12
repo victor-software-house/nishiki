@@ -94,4 +94,5 @@ pub(crate) const JULIA: RuleTables = RuleTables {
         ("source.cpp#root_context", External::AddsNothing),
     ],
     injected: None,
+    added_rules: &[],
 };
