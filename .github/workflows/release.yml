@@ -28,7 +28,7 @@ jobs:
       mise-env: ci,release
       # A public repository: the plan, publish, docs and propose jobs run on
       # GitHub-hosted runners, as its CI does.
-      runner: '["ubuntu-latest"]'
+      runner: '["ubuntu-26.04"]'
       # Publishing waits for the operator (2026-11-02): the Version PR stays
       # open until the operator merges it.
       auto-merge: false

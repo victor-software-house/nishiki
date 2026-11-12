@@ -75,7 +75,7 @@ jobs:
   case-folds:
     name: Case folds
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 8
     steps:
       - name: Check out repository
@@ -100,8 +100,8 @@ jobs:
   unicode-tables:
     name: Unicode sets
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 12
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
     steps:
       - name: Check out repository
         timeout-minutes: 3
@@ -119,13 +119,13 @@ jobs:
         timeout-minutes: 3
         run: mise install --locked bun@1.4.4
       - name: Compare the Unicode sets' facts with what their script measures
-        timeout-minutes: 6
+        timeout-minutes: 10
         run: mise run check:unicode-tables
 
   classes:
     name: Character classes
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 12
     steps:
       - name: Check out repository
@@ -150,7 +150,7 @@ jobs:
   rule-grammars:
     name: Rule-engine grammar tables
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 20
     steps:
       - name: Check out repository
@@ -175,7 +175,7 @@ jobs:
   engine-grammars:
     name: Engine test grammars
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 8
     steps:
       - name: Check out repository

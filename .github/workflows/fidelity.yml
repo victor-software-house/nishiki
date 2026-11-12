@@ -39,7 +39,7 @@ jobs:
   fidelity:
     name: Shiki fidelity
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 20
     steps:
       - name: Check out repository

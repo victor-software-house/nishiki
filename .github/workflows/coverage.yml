@@ -38,7 +38,7 @@ jobs:
   coverage:
     name: Coverage
     if: ${{ !github.event.pull_request.draft }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     timeout-minutes: 12
     steps:
       - name: Check out repository
