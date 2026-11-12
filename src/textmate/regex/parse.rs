@@ -675,7 +675,11 @@ impl Parser {
     ///
     /// Oniguruma refuses the pattern when fewer follow.
     /// Its `fetch_token` in `regparse.c` reads at least four and at most four.
+    /// A `\u` that ends the pattern is a literal `u` there.
     fn unicode_escape(&mut self) -> Result<char> {
+        if self.at == self.chars.len() {
+            return Ok('u');
+        }
         let end = self.at + 4;
         let Some(digits) = self
             .chars

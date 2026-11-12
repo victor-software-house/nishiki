@@ -181,4 +181,5 @@ test("\\u takes exactly four hex digits, and a pattern with fewer is unread", ()
   const refused = startOf("\\u20");
   expect(refused.any).toBe(true);
   expect(refused.atEnd).toBe(true);
+  expect(startOf("a\\u").any).toBe(false);
 });
