@@ -842,6 +842,49 @@ fn an_objc_base_slot_opens_markdowns_root_patterns() {
     );
 }
 
+/// A fence of any language opens at a `$base` slot, since Markdown's own
+/// fence rule takes the slot.
+/// The `vue` fence of Shiki's injection is a rule apart.
+/// The scopes are Shiki's.
+#[cfg(all(feature = "lang-objective-c", feature = "lang-javascript"))]
+#[test]
+fn an_objc_base_slot_opens_a_fence_of_any_language() {
+    let text = indoc! {"
+        ```objc
+        f(   ~~~js
+        x
+        ~~~
+        ```
+        after"};
+    let parameters = [
+        "text.html.markdown",
+        "markup.fenced_code.block.markdown",
+        "meta.embedded.block.objc",
+        "meta.function.objc",
+        "meta.function.definition.parameters.objc",
+        "markup.fenced_code.block.markdown",
+    ];
+    assert_eq!(
+        stack_of(text, "js"),
+        [&parameters[..], &["fenced_code.block.language.markdown"]].concat()
+    );
+    assert_eq!(
+        stack_of(text, "x"),
+        [
+            &parameters[..],
+            &[
+                "meta.embedded.block.javascript",
+                "variable.other.readwrite.js"
+            ]
+        ]
+        .concat()
+    );
+    assert_eq!(
+        stack_of(text, "after"),
+        ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+}
+
 /// An HTML block that opens at a `$base` slot hands the rest of its line to
 /// html-derivative at once, as in Shiki.
 #[cfg(all(feature = "lang-objective-c", feature = "lang-html-derivative"))]
@@ -2173,6 +2216,147 @@ fn a_tilde_after_vue_makes_a_plain_fence() {
     assert_eq!(
         stack_of(text, "after"),
         ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+}
+
+/// A `vue` fence opens where a line starts in another language's fence.
+/// The fence's `while` rule puts `\G` there.
+#[cfg(all(feature = "lang-vue", feature = "lang-python"))]
+#[test]
+fn a_vue_fence_opens_at_a_line_start_in_a_python_fence() {
+    let text = indoc! {"
+        ```python
+        x = 1
+          ```vue
+        <p>a</p>
+        ```
+        after"};
+    assert_eq!(
+        stack_of(text, "vue"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.python",
+            "markup.fenced_code.block.markdown",
+            "fenced_code.block.language.markdown",
+        ]
+    );
+    assert_eq!(
+        stack_of(text, "p"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.python",
+            "markup.fenced_code.block.markdown",
+            "entity.name.tag.p.html.vue",
+        ]
+    );
+    assert_eq!(
+        stack_of(text, "after"),
+        ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+}
+
+/// A `vue` fence opens in a fence of a language Markdown does not name.
+/// That fence has no `while` rule, so the `vue` fence closes on its own,
+/// and the text after it is the outer fence's again.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_fence_opens_and_closes_inside_a_plain_fence() {
+    let text = indoc! {"
+        ```zig
+        x
+        ```vue
+        <p>a</p>
+        ```
+        after"};
+    assert_eq!(
+        stack_of(text, "p"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "markup.fenced_code.block.markdown",
+            "entity.name.tag.p.html.vue",
+        ]
+    );
+    assert_eq!(
+        stack_of(text, "after"),
+        ["text.html.markdown", "markup.fenced_code.block.markdown"]
+    );
+}
+
+/// A `vue` fence opens in an HTML block and in YAML front matter.
+/// Front matter's closing `---` ends it.
+/// The HTML block runs on past the blank line, so the fence does too.
+#[cfg(all(
+    feature = "lang-vue",
+    feature = "lang-html-derivative",
+    feature = "lang-yaml"
+))]
+#[test]
+fn a_vue_fence_opens_in_an_html_block_and_in_front_matter() {
+    let html = indoc! {"
+        <div>
+        ```vue
+        <p>a</p>
+
+        after"};
+    assert_eq!(
+        stack_of(html, "p"),
+        [
+            "text.html.markdown",
+            "markup.fenced_code.block.markdown",
+            "entity.name.tag.p.html.vue",
+        ]
+    );
+    assert_eq!(
+        stack_of(html, "after"),
+        ["text.html.markdown", "markup.fenced_code.block.markdown"]
+    );
+    let front = indoc! {"
+        ---
+        a: 1
+        ```vue
+        <p>a</p>
+        ---
+        after"};
+    assert_eq!(
+        stack_of(front, "p"),
+        [
+            "text.html.markdown",
+            "meta.embedded.block.frontmatter",
+            "markup.fenced_code.block.markdown",
+            "entity.name.tag.p.html.vue",
+        ]
+    );
+    assert_eq!(
+        stack_of(front, "after"),
+        ["text.html.markdown", "meta.paragraph.markdown"]
+    );
+}
+
+/// In a quote, `\G` sits right after the quote's `> `.
+/// The new fence sits on the scopes of the text around it, here a template
+/// string's.
+#[cfg(all(feature = "lang-vue", feature = "lang-typescript"))]
+#[test]
+fn a_vue_fence_opens_after_a_quote_mark_in_a_template_string() {
+    let text = indoc! {"
+        > ```ts
+        > x = `a
+        > ```vue
+        > <p>b</p>"};
+    assert_eq!(
+        stack_of(text, "vue"),
+        [
+            "text.html.markdown",
+            "markup.quote.markdown",
+            "markup.fenced_code.block.markdown",
+            "meta.embedded.block.typescript",
+            "string.template.ts",
+            "markup.fenced_code.block.markdown",
+            "fenced_code.block.language.markdown",
+        ]
     );
 }
 

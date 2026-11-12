@@ -21,6 +21,10 @@ pub(crate) enum Pattern {
     /// A fence of any language.
     /// Matching decides which of the two below it is.
     Fence,
+    /// The fence rule of Shiki's `markdown-vue` injection: a `vue` fence
+    /// alone.
+    /// Matching makes it [`Pattern::FenceLanguage`].
+    VueFence,
     FenceLanguage,
     FencePlain,
     RawBlock,
@@ -104,7 +108,7 @@ impl Pattern {
             Pattern::Quote => first == b'>',
             Pattern::Bullet => matches!(first, b'-' | b'*' | b'+'),
             Pattern::Ordered => first.is_ascii_digit(),
-            Pattern::Fence => matches!(first, b'`' | b'~'),
+            Pattern::Fence | Pattern::VueFence => matches!(first, b'`' | b'~'),
             Pattern::RawBlock => matches!(at, b' ' | b'\t'),
             Pattern::LinkDefinition => first == b'[',
             Pattern::Comment => first == b'<',
@@ -180,6 +184,7 @@ impl Pattern {
             | Pattern::Bullet
             | Pattern::Ordered
             | Pattern::Fence
+            | Pattern::VueFence
             | Pattern::FenceLanguage
             | Pattern::FencePlain
             | Pattern::RawBlock
@@ -390,8 +395,47 @@ const TABLE: &[Pattern] = &[
     Pattern::TableCell,
 ];
 
+/// Whether Vue's `markdown-vue` injection reaches the text of `container`
+/// with its fence rule alone.
+/// That text is a fence's body, or a block that another language lexes.
+/// The injection applies wherever the scopes hold `text.html.markdown`.
+pub(crate) const fn injects_vue_fence(container: Container) -> bool {
+    if !cfg!(feature = "lang-vue") {
+        return false;
+    }
+    match container {
+        Container::Body(language) => !matches!(language, Language::Markdown),
+        #[cfg(feature = "lang-html")]
+        Container::BodyPhp => true,
+        Container::FencePlain | Container::FrontMatterBody | Container::HtmlBlock => true,
+        #[cfg(feature = "lang-html")]
+        Container::FencePhp => false,
+        Container::Base
+        | Container::Quote
+        | Container::ListBullet
+        | Container::ListOrdered
+        | Container::Fence(_)
+        | Container::RawBlock
+        | Container::Table
+        | Container::Paragraph
+        | Container::Comment
+        | Container::BoldStar
+        | Container::BoldUnder
+        | Container::ItalicStar
+        | Container::ItalicUnder
+        | Container::FrontMatter
+        | Container::HtmlRaw
+        | Container::HtmlRawBody
+        | Container::HtmlInline
+        | Container::HtmlWrap => false,
+    }
+}
+
 /// The rules that apply inside a container.
 pub(crate) fn patterns(container: Container) -> &'static [Pattern] {
+    if injects_vue_fence(container) {
+        return &[Pattern::VueFence];
+    }
     match container {
         Container::Fence(_) => &[Pattern::EmbedBegin],
         #[cfg(feature = "lang-html")]
@@ -402,8 +446,6 @@ pub(crate) fn patterns(container: Container) -> &'static [Pattern] {
         Container::Base | Container::Quote | Container::ListBullet | Container::ListOrdered => {
             BLOCK
         }
-        #[cfg(feature = "lang-vue")]
-        Container::Body(Language::Vue) => &[Pattern::Fence],
         Container::Body(language) => {
             if language == Language::Markdown {
                 BLOCK
@@ -673,6 +715,7 @@ pub(crate) fn match_name(rule: Pattern) -> Option<S> {
         | Pattern::Bullet
         | Pattern::Ordered
         | Pattern::Fence
+        | Pattern::VueFence
         | Pattern::FenceLanguage
         | Pattern::FencePlain
         | Pattern::RawBlock
@@ -801,6 +844,7 @@ pub(crate) fn capture(rule: Pattern, group: usize) -> Capture {
         Pattern::FrontMatter
         | Pattern::Separator
         | Pattern::Fence
+        | Pattern::VueFence
         | Pattern::RawBlock
         | Pattern::Paragraph
         | Pattern::EmbedBegin
