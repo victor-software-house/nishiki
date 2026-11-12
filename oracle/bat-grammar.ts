@@ -15,6 +15,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -371,6 +372,8 @@ g += groupsCheck(
   "Bat",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+
+await writePatterns("bat", patternList);
 
 await writeRust(`${root_dir}src/bat/grammar.rs`, g);
 

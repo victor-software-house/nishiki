@@ -1,0 +1,702 @@
+{
+  "MermaidCodeBlock": {
+    "role": "begin",
+    "regex": "(?i)(?<=[`~])\\s*mermaid(\\s+[^`~]*)?$"
+  },
+  "MermaidCodeBlockEnd": {
+    "role": "end",
+    "regex": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)"
+  },
+  "Architecture": {
+    "role": "begin",
+    "regex": "^\\s*(architecture-beta)"
+  },
+  "ArchitectureEnd": {
+    "role": "end",
+    "regex": "(^|\\G)(?=\\s*[:`~]{3,}\\s*$)"
+  },
+  "ArchitectureAt0": {
+    "role": "match",
+    "regex": "%%.*"
+  },
+  "ArchitectureAt1": {
+    "role": "match",
+    "regex": "(?i)\\s*(group|service)\\s+([-\\w]+)\\s*(\\()?([-\\w\\s]+)?(:)?([-\\w\\s]+)?(\\))?\\s*(\\[)?([-\\w\\s]+)?\\s*(])?\\s*(in)?\\s*([-\\w]+)?"
+  },
+  "ArchitectureAt2": {
+    "role": "match",
+    "regex": "(?i)\\s*([-\\w]+)\\s*(\\{)?\\s*(group)?(})?\\s*(:)\\s*([BLRT])\\s+(<?-->?)\\s+([BLRT])\\s*(:)\\s*([-\\w]+)\\s*(\\{)?\\s*(group)?(})?"
+  },
+  "ArchitectureAt3": {
+    "role": "match",
+    "regex": "(?i)\\s*(junction)\\s+([-\\w]+)\\s*(in)?\\s*([-\\w]+)?"
+  },
+  "C4Component": {
+    "role": "begin",
+    "regex": "^\\s*(C4Component)"
+  },
+  "C4ComponentAt1": {
+    "role": "match",
+    "regex": "(?i)^\\s*(title)\\s+(\\s*[!-/:-?\\\\^\\w\\s]*)"
+  },
+  "C4ComponentAt2": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Person(?:|_Ext))\\b(\\()?(\\w+)(\\))?(,\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(\\))?"
+  },
+  "C4ComponentAt3": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Person(?:|_Ext))\\b"
+  },
+  "C4ComponentAt4": {
+    "role": "match",
+    "regex": "(?i)^\\s*(System(?:|_Ext|Db|Db_Ext|Queue|Queue_Ext))\\b(\\()?(\\w+)(\\))?(,\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(\\))?"
+  },
+  "C4ComponentAt5": {
+    "role": "match",
+    "regex": "(?i)^\\s*(System(?:|_Ext|Db|Db_Ext|Queue|Queue_Ext))\\b"
+  },
+  "C4ComponentAt6": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Rel|BiRel|Rel_U|Rel_D|Rel_L|Rel_R|Rel_Up|Rel_Down|Rel_Left|Rel_Right)\\b(\\()?\\s*(\\w+)?\\s*(\\))?(,\\s*)(\\w+)(,\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")(,\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")(\\))?"
+  },
+  "C4ComponentAt7": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Rel|BiRel|Rel_U|Rel_D|Rel_L|Rel_R|Rel_Up|Rel_Down|Rel_Left|Rel_Right)\\b"
+  },
+  "C4ComponentAt8": {
+    "role": "match",
+    "regex": "(?i)^\\s*((?:|Enterprise_|System_)Boundary)\\b(\\()?\\s*(\\w+)?\\s*(\\))?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(\\))?"
+  },
+  "C4ComponentAt9": {
+    "role": "match",
+    "regex": "(?i)^\\s*((?:|Enterprise_|System_)Boundary)\\b"
+  },
+  "C4ComponentAt10": {
+    "role": "match",
+    "regex": "(?i)^\\s*(LAYOUT_TOP_DOWN|LAYOUT_LEFT_RIGHT|LAYOUT_LANDSCAPE|LAYOUT_WITH_LEGEND|SHOW_LEGEND|HIDE_STEREOTYPE)\\b"
+  },
+  "C4ComponentAt11": {
+    "role": "match",
+    "regex": "(?i)^\\s*(UpdateElementStyle)\\b"
+  },
+  "C4ComponentAt12": {
+    "role": "match",
+    "regex": "(?i)^\\s*(UpdateRelStyle)\\b"
+  },
+  "C4ComponentAt13": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Add(?:Element|Rel|Boundary|Person|System)Tag)\\b"
+  },
+  "C4ComponentAt14": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Component(?:|Db|Queue|_Ext|Db_Ext|Queue_Ext))\\b(\\()?(\\w+)?(\\))?(,\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(\\))?"
+  },
+  "C4ComponentAt16": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Component(?:|Db|Queue|_Ext|Db_Ext|Queue_Ext))\\b"
+  },
+  "C4ComponentAt17": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Deployment_Node|Node|Node_L|Node_R)\\b"
+  },
+  "C4Container": {
+    "role": "begin",
+    "regex": "^\\s*(C4Container)"
+  },
+  "C4ContainerAt6": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Container(?:|_Ext|Db|Db_Ext|Queue|Queue_Ext))\\b(\\()?(\\w+)?(\\))?(,\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(\\))?"
+  },
+  "C4ContainerAt7": {
+    "role": "match",
+    "regex": "(?i)^\\s*(Container(?:|_Ext|Db|Db_Ext|Queue|Queue_Ext))\\b"
+  },
+  "C4ContainerAt10": {
+    "role": "match",
+    "regex": "(?i)^\\s*((?:|Enterprise_|System_|Container_)Boundary)\\b(\\()?\\s*(\\w+)?\\s*(\\))?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(\\))?"
+  },
+  "C4ContainerAt11": {
+    "role": "match",
+    "regex": "(?i)^\\s*((?:|Enterprise_|System_|Container_)Boundary)\\b"
+  },
+  "C4Deployment": {
+    "role": "begin",
+    "regex": "^\\s*(C4Deployment)"
+  },
+  "C4Dynamic": {
+    "role": "begin",
+    "regex": "^\\s*(C4Dynamic)"
+  },
+  "C4DynamicAt8": {
+    "role": "match",
+    "regex": "(?i)^\\s*(RelIndex)\\b(\\()?(\\d+)(\\))?(,\\s*)(\\w+)(,\\s*)(\\w+)(,\\s*)(\"(?:[^\"\\\\]|\\\\.)*\")(,\\s*)?(\"(?:[^\"\\\\]|\\\\.)*\")?(\\))?"
+  },
+  "C4DynamicAt9": {
+    "role": "match",
+    "regex": "(?i)^\\s*(RelIndex)\\b"
+  },
+  "ClassDiagram": {
+    "role": "begin",
+    "regex": "^\\s*(classDiagram)"
+  },
+  "ClassDiagramAt1": {
+    "role": "match",
+    "regex": "(?i)^\\s*(note)\\s+(for)\\s+(?:(`)([^`]+)(`)|([-.\\w]+))\\s+(\"[^\"]*\")\\s*$"
+  },
+  "ClassDiagramAt2": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(namespace)\\s+([-.\\w]+)\\s*(\\{)"
+  },
+  "ClassDiagramAt2End": {
+    "role": "end",
+    "regex": "(?i)^\\s*(})"
+  },
+  "ClassDiagramAt2At1": {
+    "role": "begin",
+    "regex": "(?i)(class)\\s+(?:(`)([^`]+)(`)|([-.\\w]+)(~)?([-.\\w]+)?(~)?)\\s*(\\{)"
+  },
+  "ClassDiagramAt2At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "ClassDiagramAt2At1At1": {
+    "role": "begin",
+    "regex": "(?i)\\s([-#+~])?([-.\\w]+)(\\()"
+  },
+  "ClassDiagramAt2At1At1End": {
+    "role": "end",
+    "regex": "(?i)(\\))([$*]{0,2})\\s?([-.\\w]+)?(~)?([-.\\w]+)?(~)?$"
+  },
+  "ClassDiagramAt2At1At1At0": {
+    "role": "match",
+    "regex": "(?i)\\s*,?\\s*([-.\\w]+)?(~)?([-.\\w]+)?(~)?\\s?([-.\\w]+)?"
+  },
+  "ClassDiagramAt2At1At2": {
+    "role": "match",
+    "regex": "(?i)^\\s*(map)(~)([^,~]+)(,)([^~]+)(~)\\s*$"
+  },
+  "ClassDiagramAt2At1At3": {
+    "role": "match",
+    "regex": "(?i)\\s([-#+~])?\\s*((?:\\[]\\*?|\\*|\\*?\\*?)[.\\w]+(?:\\.[.\\w]+)*(?:\\[])?)\\s+([.\\w]+)\\s*$"
+  },
+  "ClassDiagramAt2At1At4": {
+    "role": "match",
+    "regex": "(?i)\\s([-#+~])?([-.\\w]+)(~)?([-.\\w]+)?(~)?\\s([-.\\w]+)?$"
+  },
+  "ClassDiagramAt2At1At5": {
+    "role": "match",
+    "regex": "(?i)(<<)([-\\w]+)(>>)\\s?([-.\\w]+)?"
+  },
+  "ClassDiagramAt3": {
+    "role": "match",
+    "regex": "(?i)(?:(`)([^`]+)(`)|([-.\\w]+))\\s*(\"(?:\\d+|\\*|0..\\d+|1..\\d+|1..\\*)\")?\\s*(--o|--\\*|<--|-->|<\\.\\.|\\.\\.>|<\\|\\.\\.|\\.\\.\\|>|<\\|--|--\\|>|--\\*?|\\.\\.|\\*--|o--)\\s*(\"(?:\\d+|\\*|0..\\d+|1..\\d+|1..\\*)\")?\\s*(?:(`)([^`]+)(`)|([-.\\w]+))\\s*(:)?\\s*(.*)$"
+  },
+  "ClassDiagramAt4": {
+    "role": "match",
+    "regex": "(?i)(?:(`)([^`]+)(`)|([-.\\w]+))\\s?(:)\\s([-#+~])?([-.\\w]+)(\\()([-.\\w]+)?(~)?([-.\\w]+)?(~)?\\s?([-.\\w]+)?(\\))([$*]{0,2})\\s?([-.\\w]+)?(~)?([-.\\w]+)?(~)?$"
+  },
+  "ClassDiagramAt5": {
+    "role": "match",
+    "regex": "(?i)(?:(`)([^`]+)(`)|([-.\\w]+))\\s?(:)\\s([-#+~])?([-.\\w]+)(~)?([-.\\w]+)?(~)?\\s([-.\\w]+)?$"
+  },
+  "ClassDiagramAt6": {
+    "role": "match",
+    "regex": "(?i)(<<)([-\\w]+)(>>)\\s?(?:(`)([^`]+)(`)|([-.\\w]+))?"
+  },
+  "ClassDiagramAt7": {
+    "role": "begin",
+    "regex": "(?i)(class)\\s+(?:(`)([^`]+)(`)|([-.\\w]+))(~)?([-.\\w]+)?(~)?\\s?(\\{)"
+  },
+  "ClassDiagramAt8": {
+    "role": "match",
+    "regex": "(?i)(class)\\s+(?:(`)([^`]+)(`)|([-.\\w]+))(~)?([-.\\w]+)?(~)?"
+  },
+  "ErDiagram": {
+    "role": "begin",
+    "regex": "^\\s*(erDiagram)"
+  },
+  "ErDiagramAt1": {
+    "role": "match",
+    "regex": "(?i)^\\s*([-\\w]+)\\s*(\\[)?\\s*([-\\w]+|\"[-\\w\\s]+\")?\\s*(])?$"
+  },
+  "ErDiagramAt2": {
+    "role": "begin",
+    "regex": "(?i)\\s*([-\\w]+)\\s*(\\[)?\\s*([-\\w]+|\"[-\\w\\s]+\")?\\s*(])?\\s*(\\{)"
+  },
+  "ErDiagramAt2At0": {
+    "role": "match",
+    "regex": "(?i)\\s*([-\\w]+)\\s+([-\\w]+)\\s+([FPU]K(?:,\\s*[FPU]K){0,2})?\\s*(\"[^\\n\\r\"]*\")?\\s*"
+  },
+  "ErDiagramAt3": {
+    "role": "match",
+    "regex": "(?i)\\s*([-\\w]+)\\s*((?:\\|o|\\|\\||}o|}\\||one or (?:zero|more|many)|zero or (?:one|more|many)|many\\([01]\\)|only one|0\\+|1\\+?)(?:..|--)(?:o\\||\\|\\||o\\{|\\|\\{|one or (?:zero|more|many)|zero or (?:one|more|many)|many\\([01]\\)|only one|0\\+|1\\+?))\\s*([-\\w]+)\\s*(:)\\s*(\"[\\w\\s]*\"|[-\\w]+)"
+  },
+  "Gantt": {
+    "role": "begin",
+    "regex": "^\\s*(gantt)"
+  },
+  "GanttAt1": {
+    "role": "match",
+    "regex": "(?i)^\\s*(dateFormat)\\s+([-.\\w]+)"
+  },
+  "GanttAt2": {
+    "role": "match",
+    "regex": "(?i)^\\s*(axisFormat)\\s+([-%./\\\\\\w]+)"
+  },
+  "GanttAt3": {
+    "role": "match",
+    "regex": "(?i)(tickInterval)\\s+(([1-9][0-9]*)(millisecond|second|minute|hour|day|week|month))"
+  },
+  "GanttAt5": {
+    "role": "match",
+    "regex": "(?i)^\\s*(excludes)\\s+((?:[-,\\d\\s]|monday|tuesday|wednesday|thursday|friday|saturday|sunday|weekends)+)"
+  },
+  "GanttAt6": {
+    "role": "match",
+    "regex": "(?i)^\\s+(todayMarker)\\s+(.*)$"
+  },
+  "GanttAt7": {
+    "role": "match",
+    "regex": "(?i)^\\s*(section)\\s+(\\s*[!-/:-?\\\\^\\w\\s]*)"
+  },
+  "GanttAt8": {
+    "role": "begin",
+    "regex": "(?i)^\\s(.*)(:)"
+  },
+  "GanttAt8End": {
+    "role": "end",
+    "regex": "$"
+  },
+  "GanttAt8At0": {
+    "role": "match",
+    "regex": "(crit|done|active|after)"
+  },
+  "GitGraph": {
+    "role": "begin",
+    "regex": "^\\s*(gitGraph)"
+  },
+  "GitGraphAt1": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(commit)"
+  },
+  "GitGraphAt1At0": {
+    "role": "match",
+    "regex": "(?i)\\s*(id)(:)\\s?(\"[^\\n\"]*\")"
+  },
+  "GitGraphAt1At1": {
+    "role": "match",
+    "regex": "(?i)\\s*(type)(:)\\s?(NORMAL|REVERSE|HIGHLIGHT)"
+  },
+  "GitGraphAt1At2": {
+    "role": "match",
+    "regex": "(?i)\\s*(tag)(:)\\s?(\"[!#-(*-/:-?\\\\^\\w\\s]*\")"
+  },
+  "GitGraphAt2": {
+    "role": "match",
+    "regex": "(?i)^\\s*(checkout)\\s*([^\"\\s]*)"
+  },
+  "GitGraphAt3": {
+    "role": "match",
+    "regex": "(?i)^\\s*(branch)\\s*([^\"\\s]*)\\s*(?:(order)(:)\\s?(\\d+))?"
+  },
+  "GitGraphAt4": {
+    "role": "match",
+    "regex": "(?i)^\\s*(merge)\\s*([^\"\\s]*)\\s*(?:(tag)(:)\\s?(\"[^\\n\"]*\"))?"
+  },
+  "GitGraphAt5": {
+    "role": "match",
+    "regex": "(?i)^\\s*(cherry-pick)\\s+(id)(:)\\s*(\"[^\\n\"]*\")"
+  },
+  "Flowchart": {
+    "role": "begin",
+    "regex": "^\\s*(graph|flowchart)\\s+([ 0-9\\p{L}]+)?"
+  },
+  "FlowchartAt1": {
+    "role": "match",
+    "regex": "(?i)^\\s*(subgraph)\\s+(\\w+)(\\[)(\"?[!#-'*-/:<-?\\\\^`\\w\\s]*\"?)(])"
+  },
+  "FlowchartAt2": {
+    "role": "match",
+    "regex": "^\\s*(subgraph)\\s+([ 0-9<>\\p{L}]+)"
+  },
+  "FlowchartAt3": {
+    "role": "match",
+    "regex": "^(?i)\\s*(direction)\\s+(RB|BT|RL|TD|LR)"
+  },
+  "FlowchartAt4": {
+    "role": "match",
+    "regex": "\\b(end)\\b"
+  },
+  "FlowchartAt5": {
+    "role": "begin",
+    "regex": "(?i)\\b((?:(?!--|==)[-\\w])+\\b\\s*)(\\(\\[|\\[\\[|\\[\\(?|\\(+|[>{]|\\(\\()"
+  },
+  "FlowchartAt5End": {
+    "role": "end",
+    "regex": "(?i)(]\\)|]]|\\)]|]|\\)+|}|\\)\\))"
+  },
+  "FlowchartAt5At0": {
+    "role": "begin",
+    "regex": "\\s*(\")"
+  },
+  "FlowchartAt5At0End": {
+    "role": "end",
+    "regex": "(\")"
+  },
+  "FlowchartAt5At0At0": {
+    "role": "begin",
+    "regex": "(?i)([^\"]*)"
+  },
+  "FlowchartAt5At0At0End": {
+    "role": "end",
+    "regex": "(?=\")"
+  },
+  "FlowchartAt5At0At0At0": {
+    "role": "match",
+    "regex": "([^\"]*)"
+  },
+  "FlowchartAt5At1": {
+    "role": "match",
+    "regex": "(?i)\\s*([!#-'*+,./:;<>?\\\\^_\\w\\s]+)"
+  },
+  "FlowchartAt6": {
+    "role": "begin",
+    "regex": "(?i)\\s*((?:-?\\.{1,4}-|-{2,5}|={2,5})[>ox]?\\|)"
+  },
+  "FlowchartAt6End": {
+    "role": "end",
+    "regex": "(?i)(\\|)"
+  },
+  "FlowchartAt7": {
+    "role": "match",
+    "regex": "(?i)\\s*([<ox]?(?:-{2,5}|={2,5}|-\\.{1,3}|-\\.))((?:(?!--|==)[!-'*-/:<-?\\[-^`\\w\\s])*)((?:-{2,5}|={2,5}|\\.{1,3}-|\\.-)[>ox]?)"
+  },
+  "FlowchartAt8": {
+    "role": "match",
+    "regex": "(?i)\\s*([<ox]?(?:-?\\.{1,4}-|-{1,4}|={1,4})[>ox]?)"
+  },
+  "FlowchartAt9": {
+    "role": "match",
+    "regex": "\\b((?:(?!--|==)[-\\w])+\\b\\s*)"
+  },
+  "FlowchartAt10": {
+    "role": "match",
+    "regex": "(?i)\\s*(class)\\s+\\b([-,\\w]+)\\s+\\b(\\w+)\\b"
+  },
+  "FlowchartAt11": {
+    "role": "match",
+    "regex": "(?i)\\s*(classDef)\\s+\\b(\\w+)\\b\\s+\\b([-#,:;\\w]+)"
+  },
+  "FlowchartAt12": {
+    "role": "match",
+    "regex": "(?i)\\s*(click)\\s+\\b([-\\w]+\\b\\s*)(\\b\\w+\\b)?\\s(\"*.*\")"
+  },
+  "FlowchartAt13": {
+    "role": "begin",
+    "regex": "\\s*(@\\{)"
+  },
+  "FlowchartAt13At0": {
+    "role": "match",
+    "regex": "(?i)\\s*(shape\\s*:)([^,}]*)(,)?"
+  },
+  "FlowchartAt13At1": {
+    "role": "match",
+    "regex": "(?i)\\s*(label\\s*:)([^,}]*)(,)?"
+  },
+  "Mindmap": {
+    "role": "begin",
+    "regex": "^\\s*(mindmap)"
+  },
+  "MindmapAt1": {
+    "role": "match",
+    "regex": "(?i)(\\s*:::)(\\s*[!-$\\&'*-/;-?\\\\^\\w\\s]*)"
+  },
+  "MindmapAt2": {
+    "role": "match",
+    "regex": "(?i)(\\s*::icon)(\\s*\\()(\\s*[!-$\\&'*-/;-?\\\\^\\w\\s]*)(\\s*\\))"
+  },
+  "MindmapAt3": {
+    "role": "match",
+    "regex": "(?i)(\\s*[!-$\\&'*-/:-?\\\\^\\w\\s]*)(\\s*\\({1,2}|\\){1,2}|\\{\\{|\\[)(\\s*[!-$\\&'*-/:-?\\\\^\\w\\s]*)(\\s*\\){1,2}|\\({1,2}|}}|])"
+  },
+  "MindmapAt4": {
+    "role": "match",
+    "regex": "^(\\s*[!-$\\&'*-/:-?\\\\^\\w\\s]*)"
+  },
+  "Pie": {
+    "role": "begin",
+    "regex": "^\\s*(pie)"
+  },
+  "PieAt2": {
+    "role": "begin",
+    "regex": "(?i)\\s(.*)(:)"
+  },
+  "QuadrantChart": {
+    "role": "begin",
+    "regex": "^\\s*(quadrantChart)"
+  },
+  "QuadrantChartAt1": {
+    "role": "match",
+    "regex": "(?i)^\\s*(title)\\s*([!-/:-?\\\\^\\w\\s]*)"
+  },
+  "QuadrantChartAt2": {
+    "role": "begin",
+    "regex": "(?i)^\\s*([xy]-axis)\\s+((?:(?!-->)[!#-'*-/=?\\\\\\w\\s])*)"
+  },
+  "QuadrantChartAt2At0": {
+    "role": "match",
+    "regex": "(?i)\\s*(-->)\\s*([!#-'*-/=?\\\\\\w\\s]*)"
+  },
+  "QuadrantChartAt3": {
+    "role": "match",
+    "regex": "(?i)^\\s*(quadrant-[1-4])\\s*([!-/:-?\\\\^\\w\\s]*)"
+  },
+  "QuadrantChartAt4": {
+    "role": "match",
+    "regex": "(?i)\\s*([!#-'*-/=?\\\\\\w\\s]*)\\s*(:)\\s*(\\[)\\s*(\\d\\.\\d+)\\s*(,)\\s*(\\d\\.\\d+)\\s*(])"
+  },
+  "RequirementDiagram": {
+    "role": "begin",
+    "regex": "^\\s*(requirementDiagram)"
+  },
+  "RequirementDiagramAt1": {
+    "role": "begin",
+    "regex": "(?i)^\\s*((?:functional|interface|performance|physical)?requirement|designConstraint)\\s*([!-/:-?\\\\^\\w\\s]*)\\s*(\\{)"
+  },
+  "RequirementDiagramAt1End": {
+    "role": "end",
+    "regex": "(?i)\\s*(})"
+  },
+  "RequirementDiagramAt1At0": {
+    "role": "match",
+    "regex": "(?i)\\s*(id:)\\s*([!#-'*+,./:;<>?\\\\^_\\w\\s]+)"
+  },
+  "RequirementDiagramAt1At1": {
+    "role": "match",
+    "regex": "(?i)\\s*(text:)\\s*([!#-'*+,./:;<>?\\\\^_\\w\\s]+)"
+  },
+  "RequirementDiagramAt1At2": {
+    "role": "match",
+    "regex": "(?i)\\s*(risk:)\\s*(low|medium|high)\\s*$"
+  },
+  "RequirementDiagramAt1At3": {
+    "role": "match",
+    "regex": "(?i)\\s*(verifymethod:)\\s*(analysis|inspection|test|demonstration)\\s*$"
+  },
+  "RequirementDiagramAt2": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(element)\\s*([!-/:-?\\\\^\\w\\s]*)\\s*(\\{)"
+  },
+  "RequirementDiagramAt2At0": {
+    "role": "match",
+    "regex": "(?i)\\s*(type:)\\s*([!-'*+,./:;<>?\\\\^_\\w\\s]+)"
+  },
+  "RequirementDiagramAt2At1": {
+    "role": "match",
+    "regex": "(?i)\\s*(docref:)\\s*([!#-'*+,./:;<>?\\\\^_\\w\\s]+)"
+  },
+  "RequirementDiagramAt3": {
+    "role": "match",
+    "regex": "(?i)^\\s*(\\w+)\\s*(-)\\s*((?:contain|copie|derive|satisfie|verifie|refine|trace)s)\\s*(->)\\s*(\\w+)\\s*$"
+  },
+  "RequirementDiagramAt4": {
+    "role": "match",
+    "regex": "(?i)^\\s*(\\w+)\\s*(<-)\\s*((?:contain|copie|derive|satisfie|verifie|refine|trace)s)\\s*(-)\\s*(\\w+)\\s*$"
+  },
+  "SequenceDiagram": {
+    "role": "begin",
+    "regex": "^\\s*(sequenceDiagram)"
+  },
+  "SequenceDiagramAt0": {
+    "role": "match",
+    "regex": "(%%|#).*"
+  },
+  "SequenceDiagramAt1": {
+    "role": "match",
+    "regex": "(?i)(title)\\s*(:)?\\s+(\\s*[!-/:<-?\\\\^\\w\\s]*)"
+  },
+  "SequenceDiagramAt2": {
+    "role": "match",
+    "regex": "(?i)\\s*(participant|actor)\\s+((?:(?! as )[!-*./<-?\\\\^\\w\\s])+)\\s*(as)?\\s([!-*,./<-?\\\\^\\w\\s]+)?"
+  },
+  "SequenceDiagramAt3": {
+    "role": "match",
+    "regex": "(?i)\\s*((?:de)?activate)\\s+\\b([!-*./<-?\\\\^\\w\\s]+\\b\\)?\\s*)"
+  },
+  "SequenceDiagramAt4": {
+    "role": "match",
+    "regex": "(?i)\\s*(Note)\\s+((?:left|right)\\sof|over)\\s+\\b([!-*./<-?\\\\^\\w\\s]+\\b\\)?\\s*)(,)?(\\b[!-*./<-?\\\\^\\w\\s]+\\b\\)?\\s*)?(:)(?:\\s+([^#;]*))?"
+  },
+  "SequenceDiagramAt5": {
+    "role": "match",
+    "regex": "(?i)\\s*(loop)(?:\\s+([^#;]*))?"
+  },
+  "SequenceDiagramAt6": {
+    "role": "match",
+    "regex": "\\s*(end)"
+  },
+  "SequenceDiagramAt7": {
+    "role": "match",
+    "regex": "(?i)\\s*(alt|else|option|par|and|rect|autonumber|critical|opt)(?:\\s+([^#;]*))?$"
+  },
+  "SequenceDiagramAt8": {
+    "role": "match",
+    "regex": "(?i)\\s*\\b([!-*./<-?\\\\^\\w\\s]+\\b\\)?)\\s*(-?-[)>x]>?[-+]?)\\s*([!-*./<-?\\\\^\\w\\s]+\\b\\)?)\\s*(:)\\s*([^#;]*)"
+  },
+  "SequenceDiagramAt9": {
+    "role": "match",
+    "regex": "(?i)\\s*(box)\\s+(transparent)(?:\\s+([^#;]*))?"
+  },
+  "SequenceDiagramAt10": {
+    "role": "match",
+    "regex": "(?i)\\s*(box)(?:\\s+([^#;]*))?"
+  },
+  "StateDiagram": {
+    "role": "begin",
+    "regex": "^\\s*(stateDiagram(?:-v2)?)"
+  },
+  "StateDiagramAt1": {
+    "role": "match",
+    "regex": "^(?i)\\s*(direction)\\s+(BT|RL|TB|LR)"
+  },
+  "StateDiagramAt2": {
+    "role": "match",
+    "regex": "\\s+(})\\s+"
+  },
+  "StateDiagramAt3": {
+    "role": "match",
+    "regex": "\\s+(--)\\s+"
+  },
+  "StateDiagramAt4": {
+    "role": "match",
+    "regex": "^\\s*([-\\w]+)$"
+  },
+  "StateDiagramAt5": {
+    "role": "match",
+    "regex": "(?i)([-\\w]+)\\s*(:)\\s*(\\s*[^:]+)"
+  },
+  "StateDiagramAt6": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(state)\\s+"
+  },
+  "StateDiagramAt6At0": {
+    "role": "match",
+    "regex": "(?i)\\s*(\"[^\"]+\")\\s*(as)\\s+([-\\w]+)\\s*(\\{)?"
+  },
+  "StateDiagramAt6At1": {
+    "role": "match",
+    "regex": "(?i)\\s*([-\\w]+)\\s+(\\{)"
+  },
+  "StateDiagramAt6At2": {
+    "role": "match",
+    "regex": "(?i)\\s*([-\\w]+)\\s+(<<(?:fork|join)>>)"
+  },
+  "StateDiagramAt7": {
+    "role": "begin",
+    "regex": "(?i)([-\\w]+)\\s*(-->)"
+  },
+  "StateDiagramAt7At0": {
+    "role": "match",
+    "regex": "(?i)\\s*([-\\w]+)\\s*(:)?\\s*([^\\n:]+)?"
+  },
+  "StateDiagramAt7At1": {
+    "role": "match",
+    "regex": "(?i)(\\[\\*])\\s*(:)?\\s*([^\\n:]+)?"
+  },
+  "StateDiagramAt8": {
+    "role": "match",
+    "regex": "(?i)(\\[\\*])\\s*(-->)\\s*([-\\w]+)\\s*(:)?\\s*([^\\n:]+)?"
+  },
+  "StateDiagramAt9": {
+    "role": "match",
+    "regex": "(?i)^\\s*(note (?:left|right) of)\\s+([-\\w]+)\\s*(:)\\s*([^\\n:]+)"
+  },
+  "StateDiagramAt10": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(note (?:left|right) of)\\s+([-\\w]+)(.|\\n)"
+  },
+  "StateDiagramAt10End": {
+    "role": "end",
+    "regex": "(?i)(end note)"
+  },
+  "Journey": {
+    "role": "begin",
+    "regex": "^\\s*(journey)"
+  },
+  "JourneyAt1": {
+    "role": "match",
+    "regex": "(?i)^\\s*(title|section)\\s+(\\s*[!-/:-?\\\\^\\w\\s]*)"
+  },
+  "JourneyAt2": {
+    "role": "begin",
+    "regex": "(?i)\\s*([!\"$-/<-?\\\\^\\w\\s]*)\\s*(:)\\s*(\\d+)\\s*(:)"
+  },
+  "JourneyAt2At0": {
+    "role": "match",
+    "regex": "(?i)\\s*,?\\s*([^\\n#,]+)"
+  },
+  "XyChart": {
+    "role": "begin",
+    "regex": "^\\s*(xychart(?:-beta)?(?:\\s+horizontal)?)"
+  },
+  "XyChartAt2": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(x-axis)"
+  },
+  "XyChartAt2At0": {
+    "role": "match",
+    "regex": "(?i)\\s*([-+]?\\d+\\.?\\d*)\\s*(-->)\\s*([-+]?\\d+\\.?\\d*)"
+  },
+  "XyChartAt2At1": {
+    "role": "match",
+    "regex": "(?i)\\s+(\"[!#-(*-/:-?\\\\^\\w\\s]*\")"
+  },
+  "XyChartAt2At2": {
+    "role": "match",
+    "regex": "(?i)\\s+([!#-(*-/:-?\\\\^\\w]*)"
+  },
+  "XyChartAt2At3": {
+    "role": "begin",
+    "regex": "\\s*(\\[)"
+  },
+  "XyChartAt2At3End": {
+    "role": "end",
+    "regex": "\\s*(])"
+  },
+  "XyChartAt2At3At0": {
+    "role": "match",
+    "regex": "(?i)\\s*([-+]?\\d+\\.?\\d*)"
+  },
+  "XyChartAt2At3At1": {
+    "role": "match",
+    "regex": "(?i)\\s*(\"[!#-(*-/:-?\\\\^\\w\\s]*\")"
+  },
+  "XyChartAt2At3At2": {
+    "role": "match",
+    "regex": "(?i)\\s*([-!#-(*+./:-?\\\\^\\w\\s]+)"
+  },
+  "XyChartAt2At3At3": {
+    "role": "match",
+    "regex": "(?i)\\s*(,)"
+  },
+  "XyChartAt3": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(y-axis)"
+  },
+  "XyChartAt4": {
+    "role": "begin",
+    "regex": "(?i)^\\s*(line|bar)\\s*(\\[)"
+  },
+  "MermaidCodeBlockWithAttributes": {
+    "role": "begin",
+    "regex": "(?i)(?<=[`~])\\s*\\{\\s*\\.?mermaid(\\s+[^`~]*)?$"
+  },
+  "MermaidAdoCodeBlock": {
+    "role": "begin",
+    "regex": "(?i)\\s*:::\\s*mermaid\\s*$"
+  },
+  "MermaidAdoCodeBlockEnd": {
+    "role": "end",
+    "regex": "\\s*:::\\s*"
+  }
+}

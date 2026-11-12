@@ -1,0 +1,2362 @@
+{
+  "CommentBlockAt0": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "CommentBlockAt0End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "CommentLine": {
+    "role": "match",
+    "regex": "(//).*$\\n?"
+  },
+  "LessNamespaceAccessorsAt0": {
+    "role": "begin",
+    "regex": "(?=\\s*when\\b)"
+  },
+  "LessNamespaceAccessorsAt0End": {
+    "role": "end",
+    "regex": "\\s*(?:(,)|(?=[;{]))"
+  },
+  "LessNamespaceAccessorsAt0At0": {
+    "role": "match",
+    "regex": "\\s*(when)(?=.*?)"
+  },
+  "LessMixinGuardsAt0": {
+    "role": "begin",
+    "regex": "\\s*(and|not|or)?\\s*(?=\\()"
+  },
+  "LessMixinGuardsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMixinGuardsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMixinGuardsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessVariableComparisonAt0": {
+    "role": "begin",
+    "regex": "(@{1,2})(-?([_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)"
+  },
+  "LessVariableComparisonAt0End": {
+    "role": "end",
+    "regex": "\\s*(?=\\))"
+  },
+  "LessVariableComparisonAt0At0": {
+    "role": "match",
+    "regex": "\\s*(=|(([<>])=?))\\s*"
+  },
+  "LessVariableComparisonAt0At1": {
+    "role": "match",
+    "regex": "\\btrue\\b"
+  },
+  "AttrFunction": {
+    "role": "begin",
+    "regex": "\\b(attr)(?=\\()"
+  },
+  "AttrFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "AttrFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "AttrFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "QualifiedName": {
+    "role": "match",
+    "regex": "(?:(-?(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[A-Z_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)|(\\*))?(\\|)(?!=)"
+  },
+  "LiteralStringAt0": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "LiteralStringAt0End": {
+    "role": "end",
+    "regex": "(')|(\\n)"
+  },
+  "LessVariableInterpolation": {
+    "role": "match",
+    "regex": "(@)(\\{)([-\\w]+)(})"
+  },
+  "StringContentAt1": {
+    "role": "match",
+    "regex": "\\\\\\s*\\n"
+  },
+  "StringContentAt2": {
+    "role": "match",
+    "regex": "\\\\(\\h{1,6}|.)"
+  },
+  "LiteralStringAt1": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "LiteralStringAt1End": {
+    "role": "end",
+    "regex": "(\")|(\\n)"
+  },
+  "LessStringsAt0": {
+    "role": "begin",
+    "regex": "(~)([\"'])"
+  },
+  "LessStringsAt0End": {
+    "role": "end",
+    "regex": "([\"'])|(\\n)"
+  },
+  "AttrFunctionAt0At2": {
+    "role": "begin",
+    "regex": "(-?(?:[A-Z_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)"
+  },
+  "AttrFunctionAt0At2End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "AttrFunctionAt0At2At0": {
+    "role": "match",
+    "regex": "\\b((?i:em|ex|ch|rem)|(?i:v(?:[hw]|min|max))|(?i:cm|mm|q|in|pt|pc|px|fr)|(?i:deg|grad|rad|turn)|(?i:m??s)|(?i:k??Hz)|(?i:dp(?:i|cm|px)))\\b"
+  },
+  "CommaDelimiter": {
+    "role": "match",
+    "regex": "\\s*(,)\\s*"
+  },
+  "PropertyValueConstantsAt0": {
+    "role": "match",
+    "regex": "\\b(flex-start|flex-end|start|end|space-between|space-around|space-evenly|stretch|baseline|safe|unsafe|legacy|anchor-center|first|last|self-start|self-end)\\b"
+  },
+  "PropertyValueConstantsAt1": {
+    "role": "match",
+    "regex": "\\b(text-before-edge|before-edge|middle|central|text-after-edge|after-edge|ideographic|alphabetic|hanging|mathematical|top|center|bottom)\\b"
+  },
+  "GlobalPropertyValues": {
+    "role": "match",
+    "regex": "\\b(?:initial|inherit|unset|revert-layer|revert)\\b"
+  },
+  "CubicBezierFunction": {
+    "role": "begin",
+    "regex": "\\b(cubic-bezier)(\\()"
+  },
+  "CubicBezierFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessBooleanFunction": {
+    "role": "begin",
+    "regex": "\\b(boolean)(?=\\()"
+  },
+  "LessBooleanFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessBooleanFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessBooleanFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessLogicalComparisonsAt0": {
+    "role": "match",
+    "regex": "\\s*(=|(([<>])=?))\\s*"
+  },
+  "LessLogicalComparisonsAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessLogicalComparisonsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessLogicalComparisonsAt2": {
+    "role": "match",
+    "regex": "\\btrue|false\\b"
+  },
+  "LessLogicalComparisonsAt3": {
+    "role": "match",
+    "regex": ","
+  },
+  "CalcFunction": {
+    "role": "begin",
+    "regex": "\\b(calc)(?=\\()"
+  },
+  "CalcFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CalcFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CalcFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "VarFunction": {
+    "role": "begin",
+    "regex": "\\b(var)(?=\\()"
+  },
+  "VarFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "VarFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "VarFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "CustomPropertyName": {
+    "role": "match",
+    "regex": "\\s*(--)((?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))+)"
+  },
+  "LessVariablesAt0": {
+    "role": "match",
+    "regex": "\\s*(@@?)([-\\w]+)"
+  },
+  "ColorFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(rgba?)(?=\\()"
+  },
+  "ColorFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ColorFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ColorFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ValueSeparator": {
+    "role": "match",
+    "regex": "\\s*(/)\\s*"
+  },
+  "PercentageType": {
+    "role": "match",
+    "regex": "[-+]?(?:\\d+\\.\\d+|\\.?\\d+)(?:[Ee][-+]?\\d+)?(%)"
+  },
+  "NumberType": {
+    "role": "match",
+    "regex": "[-+]?(?:\\d+\\.\\d+|\\.?\\d+)(?:[Ee][-+]?\\d+)?"
+  },
+  "ColorFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(hsla?|hwb|oklab|oklch|lab|lch)(?=\\()"
+  },
+  "ColorFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ColorFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ColorFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ColorFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(light-dark)(?=\\()"
+  },
+  "ColorFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ColorFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ColorFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorBlendFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(multiply|screen|overlay|(soft|hard)light|difference|exclusion|negation|average)(?=\\()"
+  },
+  "LessColorBlendFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorBlendFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorBlendFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorChannelFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(hue|saturation|lightness|hsv(hue|saturation|value)|red|green|blue|alpha|luma|luminance)(?=\\()"
+  },
+  "LessColorChannelFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorChannelFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorChannelFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorDefinitionFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(argb)(?=\\()"
+  },
+  "LessColorDefinitionFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorDefinitionFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorDefinitionFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorDefinitionFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(hsva?)(?=\\()"
+  },
+  "LessColorDefinitionFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorDefinitionFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorDefinitionFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "IntegerType": {
+    "role": "match",
+    "regex": "[-+]?\\d+"
+  },
+  "LessColorOperationFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(fade|shade|tint)(?=\\()"
+  },
+  "LessColorOperationFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorOperationFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorOperationFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorOperationFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(spin)(?=\\()"
+  },
+  "LessColorOperationFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorOperationFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorOperationFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorOperationFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(((de)?saturate)|((light|dark)en)|(fade(in|out)))(?=\\()"
+  },
+  "LessColorOperationFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorOperationFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorOperationFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorOperationFunctionsAt3": {
+    "role": "begin",
+    "regex": "\\b(contrast)(?=\\()"
+  },
+  "LessColorOperationFunctionsAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorOperationFunctionsAt3At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorOperationFunctionsAt3At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorOperationFunctionsAt4": {
+    "role": "begin",
+    "regex": "\\b(greyscale)(?=\\()"
+  },
+  "LessColorOperationFunctionsAt4End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorOperationFunctionsAt4At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorOperationFunctionsAt4At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorOperationFunctionsAt5": {
+    "role": "begin",
+    "regex": "\\b(mix)(?=\\()"
+  },
+  "LessColorOperationFunctionsAt5End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessColorOperationFunctionsAt5At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessColorOperationFunctionsAt5At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessIfFunction": {
+    "role": "begin",
+    "regex": "\\b(if)(?=\\()"
+  },
+  "LessIfFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessIfFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessIfFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "CounterFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(counter)(?=\\()"
+  },
+  "CounterFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CounterFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CounterFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "CounterFunctionsAt0At0At3": {
+    "role": "match",
+    "regex": "--(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))+|-?(?:[A-Z_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*"
+  },
+  "CounterFunctionsAt0At0At4": {
+    "role": "begin",
+    "regex": "(?=,)"
+  },
+  "CounterFunctionsAt0At0At4End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "CounterFunctionsAt0At0At4At1": {
+    "role": "match",
+    "regex": "\\b((?i:arabic-indic|armenian|bengali|cambodian|circle|cjk-decimal|cjk-earthly-branch|cjk-heavenly-stem|decimal-leading-zero|decimal|devanagari|disclosure-closed|disclosure-open|disc|ethiopic-numeric|georgian|gujarati|gurmukhi|hebrew|hiragana-iroha|hiragana|japanese-formal|japanese-informal|kannada|katakana-iroha|katakana|khmer|korean-hangul-formal|korean-hanja-formal|korean-hanja-informal|lao|lower-alpha|lower-armenian|lower-greek|lower-latin|lower-roman|malayalam|mongolian|myanmar|oriya|persian|simp-chinese-formal|simp-chinese-informal|square|tamil|telugu|thai|tibetan|trad-chinese-formal|trad-chinese-informal|upper-alpha|upper-armenian|upper-latin|upper-roman)|none)\\b"
+  },
+  "CounterFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(counters)(?=\\()"
+  },
+  "CounterFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CounterFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CounterFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "CounterFunctionsAt1At0At0": {
+    "role": "match",
+    "regex": "(-?(?:[A-Z_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)"
+  },
+  "CounterFunctionsAt1At0At1": {
+    "role": "begin",
+    "regex": "(?=,)"
+  },
+  "CounterFunctionsAt1At0At1End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "CounterFunctionsAt1At0At1At5": {
+    "role": "match",
+    "regex": "\\b((?i:arabic-indic|armenian|bengali|cambodian|circle|cjk-decimal|cjk-earthly-branch|cjk-heavenly-stem|decimal-leading-zero|decimal|devanagari|disclosure-closed|disclosure-open|disc|ethiopic-numeric|georgian|gujarati|gurmukhi|hebrew|hiragana-iroha|hiragana|japanese-formal|japanese-informal|kannada|katakana-iroha|katakana|khmer|korean-hangul-formal|korean-hanja-formal|korean-hanja-informal|lao|lower-alpha|lower-armenian|lower-greek|lower-latin|lower-roman|malayalam|mongolian|myanmar|oriya|persian|simp-chinese-formal|simp-chinese-informal|square|tamil|telugu|thai|tibetan|trad-chinese-formal|trad-chinese-informal|upper-alpha|upper-armenian|upper-latin|upper-roman)|none)\\b"
+  },
+  "CrossFadeFunctionAt0": {
+    "role": "begin",
+    "regex": "\\b(cross-fade)(?=\\()"
+  },
+  "CrossFadeFunctionAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CrossFadeFunctionAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CrossFadeFunctionAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessListFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(length)(?=\\()\\b"
+  },
+  "LessListFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessListFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessListFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "FilterFunction": {
+    "role": "begin",
+    "regex": "\\b(filter)(?=\\()"
+  },
+  "FilterFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FilterFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FilterFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "GradientFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b((?:repeating-)?linear-gradient)(?=\\()"
+  },
+  "GradientFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "GradientFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "GradientFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "AngleType": {
+    "role": "match",
+    "regex": "(?i:[-+]?(?:\\d*\\.\\d+(?:[Ee][-+]?\\d+)*|[-+]?\\d+)(deg|grad|rad|turn))\\b"
+  },
+  "LessListFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(extract)(?=\\()\\b"
+  },
+  "LessListFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessListFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessListFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "FitContentFunction": {
+    "role": "begin",
+    "regex": "\\b(fit-content)(?=\\()"
+  },
+  "FitContentFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FitContentFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FitContentFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LengthTypeAt0": {
+    "role": "match",
+    "regex": "[-+]?(?:\\d+\\.\\d+|\\.?\\d+)(?:[Ee][-+]?\\d+)?(em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|[mq]|in|pt|pc|px|fr|dpi|dpcm|dppx|x)"
+  },
+  "LengthTypeAt1": {
+    "role": "match",
+    "regex": "\\b[-+]?0\\b"
+  },
+  "FormatFunctionAt0": {
+    "role": "begin",
+    "regex": "\\b(format)(?=\\()"
+  },
+  "FormatFunctionAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FormatFunctionAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FormatFunctionAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "GradientFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b((?:repeating-)?radial-gradient)(?=\\()"
+  },
+  "GradientFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "GradientFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "GradientFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessListFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(range)(?=\\()\\b"
+  },
+  "LessListFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessListFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessListFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "GridRepeatFunction": {
+    "role": "begin",
+    "regex": "\\b(repeat)(?=\\()"
+  },
+  "GridRepeatFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "GridRepeatFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "GridRepeatFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "MinmaxFunction": {
+    "role": "begin",
+    "regex": "\\b(minmax)(?=\\()"
+  },
+  "MinmaxFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "MinmaxFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "MinmaxFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "MinmaxFunctionAt0At4": {
+    "role": "match",
+    "regex": "\\b(m(?:ax|in)-content)\\b"
+  },
+  "GridRepeatFunctionAt0At6": {
+    "role": "match",
+    "regex": "\\b(auto-(fi(?:ll|t)))\\b"
+  },
+  "GridRepeatFunctionAt0At7": {
+    "role": "match",
+    "regex": "\\b(((m(?:ax|in))-content)|auto)\\b"
+  },
+  "ImageFunction": {
+    "role": "begin",
+    "regex": "\\b(image)(?=\\()"
+  },
+  "ImageFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ImageFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ImageFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "UrlFunction": {
+    "role": "begin",
+    "regex": "\\b(url)(?=\\()"
+  },
+  "UrlFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "UrlFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "UrlFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "UnquotedString": {
+    "role": "match",
+    "regex": "[^\"'\\s]"
+  },
+  "LessMathFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(ceil|floor|percentage|round|sqrt|abs|a?(sin|cos|tan))(?=\\()"
+  },
+  "LessMathFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMathFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMathFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "FrequencyType": {
+    "role": "match",
+    "regex": "(?i:[-+]?(?:\\d*\\.\\d+(?:[Ee][-+]?\\d+)*|[-+]?\\d+)(k??Hz))\\b"
+  },
+  "TimeType": {
+    "role": "match",
+    "regex": "(?i:[-+]?(?:\\d*\\.\\d+(?:[Ee][-+]?\\d+)*|[-+]?\\d+)(m??s))\\b"
+  },
+  "LessMathFunctionsAt1": {
+    "role": "match",
+    "regex": "((pi)(\\()(\\)))"
+  },
+  "LessMathFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(pow|m(od|in|ax))(?=\\()"
+  },
+  "LessMathFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMathFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMathFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessMiscFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(color)(?=\\()"
+  },
+  "LessMiscFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMiscFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMiscFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessMiscFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(image-(size|width|height))(?=\\()"
+  },
+  "LessMiscFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMiscFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMiscFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessMiscFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(convert|unit)(?=\\()"
+  },
+  "LessMiscFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMiscFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMiscFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessMiscFunctionsAt2At0At4": {
+    "role": "match",
+    "regex": "(([cm])?m|in|p([ctx])|m?s|g?rad|deg|turn|%|r?em|ex|ch)"
+  },
+  "LessMiscFunctionsAt3": {
+    "role": "begin",
+    "regex": "\\b(data-uri)(?=\\()"
+  },
+  "LessMiscFunctionsAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMiscFunctionsAt3At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMiscFunctionsAt3At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessMiscFunctionsAt3At0At2": {
+    "role": "match",
+    "regex": "\\s*(,)"
+  },
+  "LessMiscFunctionsAt4": {
+    "role": "match",
+    "regex": "\\b(default(\\()(\\)))\\b"
+  },
+  "LessMiscFunctionsAt5": {
+    "role": "begin",
+    "regex": "\\b(get-unit)(?=\\()"
+  },
+  "LessMiscFunctionsAt5End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMiscFunctionsAt5At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMiscFunctionsAt5At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessMiscFunctionsAt6": {
+    "role": "begin",
+    "regex": "\\b(svg-gradient)(?=\\()"
+  },
+  "LessMiscFunctionsAt6End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessMiscFunctionsAt6At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMiscFunctionsAt6At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessStringFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(e(scape)?)(?=\\()\\b"
+  },
+  "LessStringFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessStringFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessStringFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessStringFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\s*(%)(?=\\()\\s*"
+  },
+  "LessStringFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessStringFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessStringFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessStringFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(replace)(?=\\()\\b"
+  },
+  "LessStringFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessStringFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessStringFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessTypeFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(is(number|string|color|keyword|url|pixel|em|percentage|ruleset))(?=\\()"
+  },
+  "LessTypeFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessTypeFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessTypeFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessTypeFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(isunit)(?=\\()"
+  },
+  "LessTypeFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessTypeFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessTypeFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessTypeFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(isdefined)(?=\\()"
+  },
+  "LessTypeFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessTypeFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessTypeFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LocalFunction": {
+    "role": "begin",
+    "regex": "\\b(local)(?=\\()"
+  },
+  "LocalFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LocalFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LocalFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "RegexpFunction": {
+    "role": "begin",
+    "regex": "\\b(regexp)(?=\\()"
+  },
+  "RegexpFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "RegexpFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "RegexpFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ShapeFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b(rect)(?=\\()"
+  },
+  "ShapeFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ShapeFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ShapeFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ShapeFunctionsAt0At0At0": {
+    "role": "match",
+    "regex": "\\bauto\\b"
+  },
+  "ShapeFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(inset)(?=\\()"
+  },
+  "ShapeFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ShapeFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ShapeFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ShapeFunctionsAt1At0At0": {
+    "role": "match",
+    "regex": "\\bround\\b"
+  },
+  "ShapeFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(circle|ellipse)(?=\\()"
+  },
+  "ShapeFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ShapeFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ShapeFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ShapeFunctionsAt2At0At0": {
+    "role": "match",
+    "regex": "\\bat\\b"
+  },
+  "ShapeFunctionsAt2At0At1": {
+    "role": "match",
+    "regex": "\\b(top|right|bottom|left|center|closest-side|farthest-side)\\b"
+  },
+  "ShapeFunctionsAt3": {
+    "role": "begin",
+    "regex": "\\b(polygon)(?=\\()"
+  },
+  "ShapeFunctionsAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ShapeFunctionsAt3At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ShapeFunctionsAt3At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ShapeFunctionsAt3At0At0": {
+    "role": "match",
+    "regex": "\\b(nonzero|evenodd)\\b"
+  },
+  "StepsFunction": {
+    "role": "begin",
+    "regex": "\\b(steps)(\\()"
+  },
+  "StepsFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "StepsFunctionAt0": {
+    "role": "match",
+    "regex": "jump-start|jump-end|jump-none|jump-both|start|end"
+  },
+  "SymbolsFunction": {
+    "role": "begin",
+    "regex": "\\b(symbols)(?=\\()"
+  },
+  "SymbolsFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "SymbolsFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "SymbolsFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "SymbolsFunctionAt0At0": {
+    "role": "match",
+    "regex": "\\b(cyclic|numeric|alphabetic|symbolic|fixed)\\b"
+  },
+  "TransformFunctionsAt0": {
+    "role": "begin",
+    "regex": "\\b((?:matrix|scale)(?:3d|))(?=\\()"
+  },
+  "TransformFunctionsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "TransformFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(translate(3d)?)(?=\\()"
+  },
+  "TransformFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "TransformFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(translate[XY])(?=\\()"
+  },
+  "TransformFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "TransformFunctionsAt3": {
+    "role": "begin",
+    "regex": "\\b(rotate[XYZ]?|skew[XY])(?=\\()"
+  },
+  "TransformFunctionsAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt3At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt3At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "TransformFunctionsAt4": {
+    "role": "begin",
+    "regex": "\\b(skew)(?=\\()"
+  },
+  "TransformFunctionsAt4End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt4At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt4At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "TransformFunctionsAt5": {
+    "role": "begin",
+    "regex": "\\b(translateZ|perspective)(?=\\()"
+  },
+  "TransformFunctionsAt5End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt5At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt5At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "TransformFunctionsAt6": {
+    "role": "begin",
+    "regex": "\\b(rotate3d)(?=\\()"
+  },
+  "TransformFunctionsAt6End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt6At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt6At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "TransformFunctionsAt7": {
+    "role": "begin",
+    "regex": "\\b(scale[XYZ])(?=\\()"
+  },
+  "TransformFunctionsAt7End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TransformFunctionsAt7At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TransformFunctionsAt7At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "UnicodeRange": {
+    "role": "match",
+    "regex": "(?i)(u\\+)([0-9?a-f]{1,6}(?:(-)[0-9a-f]{1,6})?)"
+  },
+  "ColorValuesAt4": {
+    "role": "match",
+    "regex": "\\b(aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|orange|purple|red|silver|teal|white|yellow)\\b"
+  },
+  "ColorValuesAt5": {
+    "role": "match",
+    "regex": "\\b(aliceblue|antiquewhite|aquamarine|azure|beige|bisque|blanchedalmond|blueviolet|brown|burlywood|cadetblue|chartreuse|chocolate|coral|cornflowerblue|cornsilk|crimson|cyan|darkblue|darkcyan|darkgoldenrod|darkgray|darkgreen|darkgrey|darkkhaki|darkmagenta|darkolivegreen|darkorange|darkorchid|darkred|darksalmon|darkseagreen|darkslateblue|darkslategray|darkslategrey|darkturquoise|darkviolet|deeppink|deepskyblue|dimgray|dimgrey|dodgerblue|firebrick|floralwhite|forestgreen|gainsboro|ghostwhite|gold|goldenrod|greenyellow|grey|honeydew|hotpink|indianred|indigo|ivory|khaki|lavender|lavenderblush|lawngreen|lemonchiffon|lightblue|lightcoral|lightcyan|lightgoldenrodyellow|lightgray|lightgreen|lightgrey|lightpink|lightsalmon|lightseagreen|lightskyblue|lightslategray|lightslategrey|lightsteelblue|lightyellow|limegreen|linen|magenta|mediumaquamarine|mediumblue|mediumorchid|mediumpurple|mediumseagreen|mediumslateblue|mediumspringgreen|mediumturquoise|mediumvioletred|midnightblue|mintcream|mistyrose|moccasin|navajowhite|oldlace|olivedrab|orangered|orchid|palegoldenrod|palegreen|paleturquoise|palevioletred|papayawhip|peachpuff|peru|pink|plum|powderblue|rebeccapurple|rosybrown|royalblue|saddlebrown|salmon|sandybrown|seagreen|seashell|sienna|skyblue|slateblue|slategray|slategrey|snow|springgreen|steelblue|tan|thistle|tomato|turquoise|violet|wheat|whitesmoke|yellowgreen)\\b"
+  },
+  "ColorValuesAt6": {
+    "role": "match",
+    "regex": "\\b((?i)currentColor|transparent)\\b"
+  },
+  "ColorValuesAt7": {
+    "role": "match",
+    "regex": "(#)(\\h{3}|\\h{4}|\\h{6}|\\h{8})\\b"
+  },
+  "RelativeColorAt0": {
+    "role": "match",
+    "regex": "from"
+  },
+  "RelativeColorAt1": {
+    "role": "match",
+    "regex": "\\b[abchlsw]\\b"
+  },
+  "PropertyValueConstantsAt5": {
+    "role": "match",
+    "regex": "\\b(?:replace|add|accumulate)\\b"
+  },
+  "PropertyValueConstantsAt6": {
+    "role": "match",
+    "regex": "\\b(?:normal|alternate-reverse|alternate|reverse)\\b"
+  },
+  "PropertyValueConstantsAt7": {
+    "role": "match",
+    "regex": "\\b(?:forwards|backwards|both)\\b"
+  },
+  "PropertyValueConstantsAt8": {
+    "role": "match",
+    "regex": "\\binfinite\\b"
+  },
+  "PropertyValueConstantsAt9": {
+    "role": "match",
+    "regex": "\\b(?:running|paused)\\b"
+  },
+  "PropertyValueConstantsAt10": {
+    "role": "match",
+    "regex": "\\be(?:ntry|xit)(?:-crossing|)\\b"
+  },
+  "PropertyValueConstantsAt11": {
+    "role": "match",
+    "regex": "\\b(linear|ease-in-out|ease-in|ease-out|ease|step-start|step-end)\\b"
+  },
+  "PropertyValueConstantsAt12": {
+    "role": "match",
+    "regex": "\\b(absolute|active|add|all-petite-caps|all-small-caps|all-scroll|all|alphabetic|alpha|alternate-reverse|alternate|always|annotation|antialiased|at|autohiding-scrollbar|auto|avoid-column|avoid-page|avoid-region|avoid|background-color|background-image|background-position|background-size|background-repeat|background|backwards|balance|baseline|below|bevel|bicubic|bidi-override|blink|block-line-height|block-start|block-end|block|blur|bolder|bold|border-top-left-radius|border-top-right-radius|border-bottom-left-radius|border-bottom-right-radius|border-end-end-radius|border-end-start-radius|border-start-end-radius|border-start-start-radius|border-block-start-color|border-block-start-style|border-block-start-width|border-block-start|border-block-end-color|border-block-end-style|border-block-end-width|border-block-end|border-block-color|border-block-style|border-block-width|border-block|border-inline-start-color|border-inline-start-style|border-inline-start-width|border-inline-start|border-inline-end-color|border-inline-end-style|border-inline-end-width|border-inline-end|border-inline-color|border-inline-style|border-inline-width|border-inline|border-top-color|border-top-style|border-top-width|border-top|border-right-color|border-right-style|border-right-width|border-right|border-bottom-color|border-bottom-style|border-bottom-width|border-bottom|border-left-color|border-left-style|border-left-width|border-left|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-image|border-color|border-style|border-width|border-radius|border-collapse|border-spacing|border|both|bottom|box-shadow|box|break-all|break-word|break-spaces|brightness|butt(on)?|capitalize|central|center|char(acter-variant)?|cjk-ideographic|clip|clone|close-quote|closest-corner|closest-side|col-resize|collapse|color-stop|color-burn|color-dodge|color|column-count|column-gap|column-reverse|column-rule-color|column-rule-width|column-rule|column-width|columns?|common-ligatures|condensed|consider-shifts|contain|content-box|contents?|contextual|contrast|cover|crisp-edges|crispEdges|crop|crosshair|cross|darken|dashed|default|dense|device-width|diagonal-fractions|difference|disabled|discard|discretionary-ligatures|disregard-shifts|distribute-all-lines|distribute-letter|distribute-space|distribute|dotted|double|drop-shadow|[ensw]{1,4}-resize|ease-in-out|ease-in|ease-out|ease|element|ellipsis|embed|end|EndColorStr|evenodd|exclude-ruby|exclusion|expanded|extra-condensed|extra-expanded|farthest-corner|farthest-side|farthest|fill-box|fill-opacity|fill|filter|fit-content|fixed|flat|flex-basis|flex-end|flex-grow|flex-shrink|flex-start|flexbox|flex|flip|flood-color|font-size-adjust|font-size|font-stretch|font-weight|font|forwards|from-image|from|full-width|gap|geometricPrecision|glyphs|gradient|grayscale|grid-column-gap|grid-column|grid-row-gap|grid-row|grid-gap|grid-height|grid|groove|hand|hanging|hard-light|height|help|hidden|hide|historical-forms|historical-ligatures|horizontal-tb|horizontal|hue|ideographic|ideograph-alpha|ideograph-numeric|ideograph-parenthesis|ideograph-space|inactive|include-ruby|infinite|inherit|initial|inline-end|inline-size|inline-start|inline-table|inline-line-height|inline-flexbox|inline-flex|inline-box|inline-block|inline|inset|inside|inter-ideograph|inter-word|intersect|invert|isolate|isolation|italic|jis(04|78|83|90)|justify-all|justify|keep-all|larger?|last|layout|left|letter-spacing|lighten|lighter|lighting-color|linear-gradient|linearRGB|linear|line-edge|line-height|line-through|line|lining-nums|list-item|local|loose|lowercase|lr-tb|ltr|luminosity|luminance|manual|manipulation|margin-bottom|margin-box|margin-left|margin-right|margin-top|margin|marker(-offset|s)?|match-parent|mathematical|max-(content|height|lines|size|width)|medium|middle|min-(content|height|width)|miter|mixed|move|multiply|newspaper|no-change|no-clip|no-close-quote|no-open-quote|no-common-ligatures|no-discretionary-ligatures|no-historical-ligatures|no-contextual|no-drop|no-repeat|none|nonzero|normal|not-allowed|nowrap|oblique|offset-after|offset-before|offset-end|offset-start|offset|oldstyle-nums|opacity|open-quote|optimize(Legibility|Precision|Quality|Speed)|order|ordinal|ornaments|outline-color|outline-offset|outline-width|outline|outset|outside|overline|over-edge|overlay|padding(-(?:bottom|box|left|right|top|box))?|page|paint(ed)?|paused|pan-(x|left|right|y|up|down)|perspective-origin|petite-caps|pixelated|pointer|pinch-zoom|pretty|pre(-(?:line|wrap))?|preserve-3d|preserve-breaks|preserve-spaces|preserve|progid:DXImageTransform\\.Microsoft\\.(Alpha|Blur|dropshadow|gradient|Shadow)|progress|proportional-nums|proportional-width|radial-gradient|recto|region|relative|repeating-linear-gradient|repeating-radial-gradient|repeat-x|repeat-y|repeat|replaced|reset-size|reverse|revert-layer|revert|ridge|right|round|row-gap|row-resize|row-reverse|row|rtl|ruby|running|saturate|saturation|screen|scrollbar|scroll-position|scroll|separate|sepia|scale-down|semi-condensed|semi-expanded|shape-image-threshold|shape-margin|shape-outside|show|sideways-lr|sideways-rl|sideways|simplified|size|slashed-zero|slice|small-caps|smaller|small|smooth|snap|solid|soft-light|space-around|space-between|space|span|sRGB|stable|stacked-fractions|stack|startColorStr|start|static|step-end|step-start|sticky|stop-color|stop-opacity|stretch|strict|stroke-box|stroke-dasharray|stroke-dashoffset|stroke-miterlimit|stroke-opacity|stroke-width|stroke|styleset|style|stylistic|subgrid|subpixel-antialiased|subtract|super|swash|table-caption|table-cell|table-column-group|table-footer-group|table-header-group|table-row-group|table-column|table-row|table|tabular-nums|tb-rl|text((-(?:bottom|(decoration|emphasis)-color|indent|(over|under)-edge|shadow|size(-adjust)?|top))|field)?|thick|thin|titling-caps|titling-case|top|touch|to|traditional|transform-origin|transform-style|transform|ultra-condensed|ultra-expanded|under-edge|underline|unicase|unset|uppercase|upright|use-glyph-orientation|use-script|verso|vertical(-(?:align|ideographic|lr|rl|text))?|view-box|viewport-fill-opacity|viewport-fill|visibility|visibleFill|visiblePainted|visibleStroke|visible|wait|wavy|weight|whitespace|width|word-spacing|wrap-reverse|wrap|xx?-(large|small)|z-index|zero|zoom-in|zoom-out|zoom|arabic-indic|armenian|bengali|cambodian|circle|cjk-decimal|cjk-earthly-branch|cjk-heavenly-stem|decimal-leading-zero|decimal|devanagari|disclosure-closed|disclosure-open|disc|ethiopic-numeric|georgian|gujarati|gurmukhi|hebrew|hiragana-iroha|hiragana|japanese-formal|japanese-informal|kannada|katakana-iroha|katakana|khmer|korean-hangul-formal|korean-hanja-formal|korean-hanja-informal|lao|lower-alpha|lower-armenian|lower-greek|lower-latin|lower-roman|malayalam|mongolian|myanmar|oriya|persian|simp-chinese-formal|simp-chinese-informal|square|tamil|telugu|thai|tibetan|trad-chinese-formal|trad-chinese-informal|upper-alpha|upper-armenian|upper-latin|upper-roman)\\b"
+  },
+  "PropertyValueConstantsAt13": {
+    "role": "match",
+    "regex": "\\b(sans-serif|serif|monospace|fantasy|cursive)\\b(?=\\s*[\\n,;}])"
+  },
+  "LessMathAt0": {
+    "role": "match",
+    "regex": "[-*+/]"
+  },
+  "LessMathAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessMathAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Important": {
+    "role": "match",
+    "regex": "(!)\\s*important"
+  },
+  "LessTypeFunctionsAt1At0At2": {
+    "role": "match",
+    "regex": "\\b((?i:em|ex|ch|rem)|(?i:v(?:[hw]|min|max))|(?i:cm|mm|q|in|pt|pc|px|fr)|(?i:deg|grad|rad|turn)|(?i:m??s)|(?i:k??Hz)|(?i:dp(?:i|cm|px)))\\b"
+  },
+  "LessMiscFunctionsAt6At0At5": {
+    "role": "match",
+    "regex": "\\bto\\b"
+  },
+  "LessMiscFunctionsAt6At0At6": {
+    "role": "match",
+    "regex": "\\b(top|right|bottom|left|center)\\b"
+  },
+  "LessMiscFunctionsAt6At0At7": {
+    "role": "match",
+    "regex": "\\b(at|circle|ellipse)\\b"
+  },
+  "GradientFunctionsAt1At0At6": {
+    "role": "match",
+    "regex": "\\b(at|circle|ellipse)\\b"
+  },
+  "GradientFunctionsAt1At0At7": {
+    "role": "match",
+    "regex": "\\b(top|right|bottom|left|center|((?:farth|clos)est)-(corner|side))\\b"
+  },
+  "GradientFunctionsAt0At0At7": {
+    "role": "match",
+    "regex": "\\bto\\b"
+  },
+  "GradientFunctionsAt0At0At8": {
+    "role": "match",
+    "regex": "\\b(top|right|bottom|left)\\b"
+  },
+  "FilterFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(blur)(?=\\()"
+  },
+  "FilterFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FilterFunctionsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FilterFunctionsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "FilterFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(brightness|contrast|grayscale|invert|opacity|saturate|sepia)(?=\\()"
+  },
+  "FilterFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FilterFunctionsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FilterFunctionsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "FilterFunctionsAt3": {
+    "role": "begin",
+    "regex": "\\b(drop-shadow)(?=\\()"
+  },
+  "FilterFunctionsAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FilterFunctionsAt3At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FilterFunctionsAt3At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "FilterFunctionsAt4": {
+    "role": "begin",
+    "regex": "\\b(hue-rotate)(?=\\()"
+  },
+  "FilterFunctionsAt4End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FilterFunctionsAt4At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FilterFunctionsAt4At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessColorOperationFunctionsAt2At0At3": {
+    "role": "match",
+    "regex": "\\brelative\\b"
+  },
+  "SelectorsAt0": {
+    "role": "match",
+    "regex": "\\b([a-z](?:[-0-9_a-z·]|\\\\\\.|[À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}])*-(?:[-0-9_a-z·]|\\\\\\.|[À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}])*)\\b"
+  },
+  "SelectorsAt1": {
+    "role": "match",
+    "regex": "\\b(a|abbr|acronym|address|applet|area|article|aside|audio|b|base|basefont|bdi|bdo|big|blockquote|body|br|button|canvas|caption|circle|cite|clipPath|code|col|colgroup|content|data|dataList|dd|defs|del|details|dfn|dialog|dir|div|dl|dt|element|ellipse|em|embed|eventsource|fieldset|figcaption|figure|filter|footer|foreignObject|form|frame|frameset|g|glyph|glyphRef|h1|h2|h3|h4|h5|h6|head|header|hgroup|hr|html|i|iframe|image|img|input|ins|isindex|kbd|keygen|label|legend|li|line|linearGradient|link|main|map|mark|marker|mask|menu|meta|meter|nav|noframes|noscript|object|ol|optgroup|option|output|p|param|path|pattern|picture|polygon|polyline|pre|progress|q|radialGradient|rect|rp|ruby|rtc??|s|samp|script|section|select|shadow|small|source|span|stop|strike|strong|style|sub|summary|sup|svg|switch|symbol|table|tbody|td|template|textarea|textPath|tfoot|th|thead|time|title|tr|track|tref|tspan|tt|ul??|use|var|video|wbr|xmp)\\b"
+  },
+  "SelectorsAt2": {
+    "role": "begin",
+    "regex": "(\\.)"
+  },
+  "SelectorsAt2End": {
+    "role": "end",
+    "regex": "(?![-\\w[^\\x00-\\x{9F}]]|\\\\(\\h{1,6} ?|\\H)|(@(?=\\{)))"
+  },
+  "SelectorsAt3": {
+    "role": "begin",
+    "regex": "(#)"
+  },
+  "SelectorsAt3End": {
+    "role": "end",
+    "regex": "(?![-\\w[^\\x00-\\x{9F}]]|\\\\(\\h{1,6} ?|\\H)|(@(?=\\{)))"
+  },
+  "SelectorsAt4": {
+    "role": "begin",
+    "regex": "(&)"
+  },
+  "SelectorsAt4End": {
+    "role": "end",
+    "regex": "(?![-\\w[^\\x00-\\x{9F}]]|\\\\(\\h{1,6} ?|\\H)|(@(?=\\{)))"
+  },
+  "PseudoSelectorsAt0": {
+    "role": "begin",
+    "regex": "(:)(dir)(?=\\()"
+  },
+  "PseudoSelectorsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PseudoSelectorsAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PseudoSelectorsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PseudoSelectorsAt0At0At0": {
+    "role": "match",
+    "regex": "ltr|rtl"
+  },
+  "PseudoSelectorsAt1": {
+    "role": "begin",
+    "regex": "(:)(lang)(?=\\()"
+  },
+  "PseudoSelectorsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PseudoSelectorsAt1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PseudoSelectorsAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PseudoSelectorsAt2": {
+    "role": "begin",
+    "regex": "(:)(not)(?=\\()"
+  },
+  "PseudoSelectorsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PseudoSelectorsAt2At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PseudoSelectorsAt2At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PseudoSelectorsAt3": {
+    "role": "begin",
+    "regex": "(:)(nth(-last)?-(child|of-type))(?=\\()"
+  },
+  "PseudoSelectorsAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PseudoSelectorsAt3At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PseudoSelectorsAt3At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PseudoSelectorsAt3At0At0": {
+    "role": "match",
+    "regex": "\\b(even|odd)\\b"
+  },
+  "PseudoSelectorsAt3At0At1": {
+    "role": "match",
+    "regex": "([-+])?\\d+{0,1}(n)(\\s*([-+])\\s*\\d+)?|[-+]?\\s*\\d+"
+  },
+  "PseudoSelectorsAt4": {
+    "role": "begin",
+    "regex": "(:)(host-context|host|has|is|not|where)(?=\\()"
+  },
+  "PseudoSelectorsAt4End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PseudoSelectorsAt4At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PseudoSelectorsAt4At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PseudoSelectorsAt5": {
+    "role": "match",
+    "regex": "(:)(active|any-link|autofill|blank|buffering|checked|current|default|defined|disabled|empty|enabled|first-child|first-of-type|first|focus-visible|focus-within|focus|fullscreen|future|host|hover|in-range|indeterminate|invalid|last-child|last-of-type|left|local-link|link|modal|muted|only-child|only-of-type|optional|out-of-range|past|paused|picture-in-picture|placeholder-shown|playing|popover-open|read-only|read-write|required|right|root|scope|seeking|stalled|target-within|target|user-invalid|user-valid|valid|visited|volume-locked)\\b"
+  },
+  "PseudoSelectorsAt6": {
+    "role": "begin",
+    "regex": "(::?)(highlight|part|state)(?=\\s*(\\())"
+  },
+  "PseudoSelectorsAt6End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PseudoSelectorsAt6At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PseudoSelectorsAt6At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PseudoSelectorsAt6At0At0": {
+    "role": "match",
+    "regex": "--|-?(?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))(?:[-A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}\\d]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))*"
+  },
+  "PseudoSelectorsAt7": {
+    "role": "begin",
+    "regex": "(::?)slotted(?=\\s*(\\())"
+  },
+  "PseudoSelectorsAt7End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PseudoSelectorsAt7At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PseudoSelectorsAt7At0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PseudoSelectorsAt8": {
+    "role": "match",
+    "regex": "(::?)(after|backdrop|before|cue|file-selector-button|first-letter|first-line|grammar-error|marker|placeholder|selection|spelling-error|target-text|view-transition-group|view-transition-image-pair|view-transition-new|view-transition-old|view-transition)\\b"
+  },
+  "PseudoSelectorsAt9": {
+    "role": "match",
+    "regex": "(::?)(-\\w+-)(--|-?(?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))(?:[-A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}\\d]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))*)\\b"
+  },
+  "LessExtend": {
+    "role": "begin",
+    "regex": "(:)(extend)(?=\\()"
+  },
+  "LessExtendEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LessExtendAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LessExtendAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "LessExtendAt0At0": {
+    "role": "match",
+    "regex": "\\ball\\b"
+  },
+  "SelectorsAt7": {
+    "role": "match",
+    "regex": "(?!\\+_?:)(?:>{1,3}|[+~])(?![+;>}~])"
+  },
+  "SelectorsAt8": {
+    "role": "match",
+    "regex": "(>{1,3}|[+~]){2,}"
+  },
+  "SelectorsAt9": {
+    "role": "match",
+    "regex": "/deep/"
+  },
+  "SelectorsAt10": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "SelectorsAt10End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "SelectorsAt10At2": {
+    "role": "match",
+    "regex": "(-?(?:[A-Z_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)"
+  },
+  "SelectorsAt10At3": {
+    "role": "begin",
+    "regex": "\\s*([$*^|~]?=)\\s*"
+  },
+  "SelectorsAt10At3End": {
+    "role": "end",
+    "regex": "(?=([]\\s]))"
+  },
+  "SelectorsAt10At3At1": {
+    "role": "match",
+    "regex": "[^]\"'\\[\\s]"
+  },
+  "SelectorsAt10At3At3": {
+    "role": "match",
+    "regex": "(?:\\s+([Ii]))?"
+  },
+  "SelectorsAt10At3At4": {
+    "role": "match",
+    "regex": "]"
+  },
+  "ArbitraryRepetition": {
+    "role": "match",
+    "regex": "\\s*(,)"
+  },
+  "SelectorsAt12": {
+    "role": "match",
+    "regex": "\\*"
+  },
+  "LessVariableComparisonAt0At5": {
+    "role": "match",
+    "regex": ","
+  },
+  "LessMixinGuardsAt0At0At1": {
+    "role": "match",
+    "regex": "default((\\()(\\)))"
+  },
+  "LessNamespaceAccessorsAt1": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "LessNamespaceAccessorsAt1End": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "LessVariableAssignmentAt0": {
+    "role": "begin",
+    "regex": "(@)(-?(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)"
+  },
+  "LessVariableAssignmentAt0End": {
+    "role": "end",
+    "regex": "\\s*(;|(\\.{3})|(?=\\)))"
+  },
+  "LessVariableAssignmentAt0At0": {
+    "role": "match",
+    "regex": "(((\\+_?)?):)([\\t\\s]*)"
+  },
+  "PropertyListAt0": {
+    "role": "begin",
+    "regex": "(?=(?=[^;]*)\\{)"
+  },
+  "PropertyListAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "RuleListAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "RuleListAt0End": {
+    "role": "end",
+    "regex": "(?=\\s*})"
+  },
+  "RuleListAt0At0": {
+    "role": "match",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "AtCharset": {
+    "role": "begin",
+    "regex": "\\s*((@)charset)\\b\\s*"
+  },
+  "AtCharsetEnd": {
+    "role": "end",
+    "regex": "\\s*((?=;|$))"
+  },
+  "AtContainer": {
+    "role": "begin",
+    "regex": "(?=\\s*@container)"
+  },
+  "AtContainerEnd": {
+    "role": "end",
+    "regex": "\\s*(})"
+  },
+  "AtContainerAt0": {
+    "role": "begin",
+    "regex": "((@)container)"
+  },
+  "AtContainerAt0End": {
+    "role": "end",
+    "regex": "(?=\\{)"
+  },
+  "AtContainerAt0At0": {
+    "role": "begin",
+    "regex": "\\s*(?=[^;{])"
+  },
+  "AtContainerAt0At0End": {
+    "role": "end",
+    "regex": "\\s*(?=[;{])"
+  },
+  "AtContainerAt0At0At0": {
+    "role": "match",
+    "regex": "\\b(not|and|or)\\b"
+  },
+  "AtContainerAt0At0At1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "AtContainerAt0At0At1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "AtContainerAt0At0At1At0": {
+    "role": "match",
+    "regex": "\\b(aspect-ratio|block-size|height|inline-size|orientation|width)\\b"
+  },
+  "AtContainerAt0At0At1At1": {
+    "role": "match",
+    "regex": "(([<>])=?)|[/=]"
+  },
+  "AtContainerAt0At0At1At2": {
+    "role": "match",
+    "regex": ":"
+  },
+  "AtContainerAt0At0At1At3": {
+    "role": "match",
+    "regex": "portrait|landscape"
+  },
+  "AtContainerAt0At0At1At5": {
+    "role": "match",
+    "regex": "/"
+  },
+  "StyleFunction": {
+    "role": "begin",
+    "regex": "\\b(style)(?=\\()"
+  },
+  "StyleFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "StyleFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "StyleFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "AtCounterStyle": {
+    "role": "begin",
+    "regex": "\\s*((@)counter-style)\\b\\s+(?:(?i:\\b(decimal|none)\\b)|(-?(?:[A-Z_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*))\\s*(?=\\{|$)"
+  },
+  "AtCounterStyleEnd": {
+    "role": "end",
+    "regex": "\\s*(})"
+  },
+  "AtCustomMedia": {
+    "role": "begin",
+    "regex": "(?=\\s*@custom-media\\b)"
+  },
+  "AtCustomMediaEnd": {
+    "role": "end",
+    "regex": "\\s*(?=;)"
+  },
+  "AtCustomMediaAt0": {
+    "role": "match",
+    "regex": "\\s*;"
+  },
+  "AtCustomMediaAt1": {
+    "role": "match",
+    "regex": "\\s*((@)custom-media)(?=.*?)"
+  },
+  "MediaQueryList": {
+    "role": "begin",
+    "regex": "\\s*(?=[^;{])"
+  },
+  "MediaQueryListEnd": {
+    "role": "end",
+    "regex": "\\s*(?=[;{])"
+  },
+  "MediaQuery": {
+    "role": "begin",
+    "regex": "\\s*(only|not)?\\s*(all|aural|braille|embossed|handheld|print|projection|screen|tty|tv)?"
+  },
+  "MediaQueryEnd": {
+    "role": "end",
+    "regex": "\\s*(?:(,)|(?=[;{]))"
+  },
+  "MediaQueryAt2": {
+    "role": "begin",
+    "regex": "\\s*(and)?\\s*(\\()\\s*"
+  },
+  "MediaQueryAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "MediaQueryAt2At0": {
+    "role": "begin",
+    "regex": "(--|-?(?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))(?:[-A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}\\d]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))*)\\s*(?=[):])"
+  },
+  "MediaQueryAt2At0End": {
+    "role": "end",
+    "regex": "(((\\+_?)?):)|(?=\\))"
+  },
+  "MediaQueryAt2At1": {
+    "role": "match",
+    "regex": "\\b(portrait|landscape|progressive|interlace)"
+  },
+  "MediaQueryAt2At2": {
+    "role": "match",
+    "regex": "\\s*(\\d+)(/)(\\d+)"
+  },
+  "AtFontFace": {
+    "role": "begin",
+    "regex": "\\s*((@)font-face)\\s*(?=\\{|$)"
+  },
+  "AtFontFaceEnd": {
+    "role": "end",
+    "regex": "\\s*(})"
+  },
+  "AtMedia": {
+    "role": "begin",
+    "regex": "(?=\\s*@media\\b)"
+  },
+  "AtMediaEnd": {
+    "role": "end",
+    "regex": "\\s*(})"
+  },
+  "AtMediaAt0": {
+    "role": "begin",
+    "regex": "\\s*((@)media)"
+  },
+  "AtMediaAt0End": {
+    "role": "end",
+    "regex": "\\s*(?=\\{)"
+  },
+  "AtMediaAt1": {
+    "role": "begin",
+    "regex": "\\s*(\\{)"
+  },
+  "AtMediaAt1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "AtImport": {
+    "role": "begin",
+    "regex": "\\s*((@)import)\\b\\s*"
+  },
+  "AtImportEnd": {
+    "role": "end",
+    "regex": ";"
+  },
+  "AtImportAt2": {
+    "role": "begin",
+    "regex": "(?<=([\"'])|([\"']\\)))\\s*"
+  },
+  "AtImportAt2End": {
+    "role": "end",
+    "regex": "\\s*(?=;)"
+  },
+  "AtImportAt3": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "AtImportAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "AtImportAt3At0": {
+    "role": "match",
+    "regex": "reference|inline|less|css|once|multiple|optional"
+  },
+  "AtKeyframes": {
+    "role": "begin",
+    "regex": "\\s*((@)keyframes)(?=.*?\\{)"
+  },
+  "AtKeyframesEnd": {
+    "role": "end",
+    "regex": "\\s*(})"
+  },
+  "AtKeyframesAt0": {
+    "role": "begin",
+    "regex": "\\s*(\\{)"
+  },
+  "AtKeyframesAt0End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "AtKeyframesAt0At0": {
+    "role": "match",
+    "regex": "\\s*(?:(from|to)|((?:\\.[0-9]+|[0-9]+(?:\\.[0-9]*)?)(%)))\\s*,?\\s*"
+  },
+  "LessNamespaceAccessorsAt2": {
+    "role": "match",
+    "regex": "(;)|(?=[)}])"
+  },
+  "AtNamespace": {
+    "role": "begin",
+    "regex": "\\s*((@)namespace)\\s+"
+  },
+  "AtNamespaceEnd": {
+    "role": "end",
+    "regex": ";"
+  },
+  "AtNamespaceAt2": {
+    "role": "match",
+    "regex": "(-?(?:[A-Z_a-z[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x7F]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)"
+  },
+  "AtPage": {
+    "role": "match",
+    "regex": "\\s*((@)page)\\s*(?:(:)(first|left|right))?\\s*(?=\\{|$)"
+  },
+  "AtSupports": {
+    "role": "begin",
+    "regex": "(?=\\s*@supports\\b)"
+  },
+  "AtSupportsEnd": {
+    "role": "end",
+    "regex": "(?=\\s*)(})"
+  },
+  "AtSupportsAt0": {
+    "role": "begin",
+    "regex": "\\s*((@)supports)"
+  },
+  "AtSupportsAt0End": {
+    "role": "end",
+    "regex": "\\s*(?=\\{)"
+  },
+  "AtSupportsOperators": {
+    "role": "match",
+    "regex": "\\b(?:and|or|not)\\b"
+  },
+  "AtSupportsParens": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "AtSupportsParensEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "RuleListBodyAt4": {
+    "role": "begin",
+    "regex": "(?=[-\\w]*?@\\{.*}[-\\w]*?\\s*:[^(;{]*(?=[);}]))"
+  },
+  "RuleListBodyAt4End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "RuleListBodyAt4At0": {
+    "role": "begin",
+    "regex": "(?=[^:\\s])"
+  },
+  "RuleListBodyAt4At0End": {
+    "role": "end",
+    "regex": "(?=(((\\+_?)?):)[\\t\\s]*)"
+  },
+  "RuleListBodyAt4At1": {
+    "role": "begin",
+    "regex": "(((\\+_?)?):)(?=[\\t\\s]*)"
+  },
+  "RuleListBodyAt4At1End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "RuleListBodyAt5": {
+    "role": "begin",
+    "regex": "(?=[-a-z])"
+  },
+  "RuleListBodyAt5End": {
+    "role": "end",
+    "regex": "$|(?![-a-z])"
+  },
+  "RuleListBodyAt5At1": {
+    "role": "begin",
+    "regex": "(-[-\\w]+?-)((?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))(?:[-A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}\\d]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))*)\\b"
+  },
+  "RuleListBodyAt5At1End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At1At0": {
+    "role": "begin",
+    "regex": "(((\\+_?)?):)(?=[\\t\\s]*)"
+  },
+  "RuleListBodyAt5At1At0End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "RuleListBodyAt5At1At0At1": {
+    "role": "match",
+    "regex": "[-\\w]+"
+  },
+  "RuleListBodyAt5At3": {
+    "role": "begin",
+    "regex": "\\b(border((-(bottom|top)-(left|right))|((-(start|end)){2}))?-radius|(border-image(?!-)))\\b"
+  },
+  "RuleListBodyAt5At3End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At3At0": {
+    "role": "begin",
+    "regex": "(((\\+_?)?):)(?=[\\t\\s]*)"
+  },
+  "RuleListBodyAt5At3At0End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "RuleListBodyAt5At4": {
+    "role": "match",
+    "regex": "\\b(var-)(-?(?:[-\\w[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[A-Z_a-z[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)(?=\\s)"
+  },
+  "RuleListBodyAt5At5": {
+    "role": "begin",
+    "regex": "\\bfont(-family)?(?!-)\\b"
+  },
+  "RuleListBodyAt5At5End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At5At0": {
+    "role": "match",
+    "regex": "(((\\+_?)?):)([\\t\\s]*)"
+  },
+  "RuleListBodyAt5At5At2": {
+    "role": "match",
+    "regex": "-?(?:[A-Z_a-z[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*(\\s+-?(?:[A-Z_a-z[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[-\\w[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*)*"
+  },
+  "RuleListBodyAt5At5At3": {
+    "role": "match",
+    "regex": ","
+  },
+  "RuleListBodyAt5At6": {
+    "role": "begin",
+    "regex": "\\banimation-timeline\\b"
+  },
+  "RuleListBodyAt5At6End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At6At0": {
+    "role": "begin",
+    "regex": "(((\\+_?)?):)(?=[\\t\\s]*)"
+  },
+  "RuleListBodyAt5At6At0End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "ScrollFunction": {
+    "role": "begin",
+    "regex": "\\b(scroll)(\\()"
+  },
+  "ScrollFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ScrollFunctionAt0": {
+    "role": "match",
+    "regex": "root|nearest|self"
+  },
+  "ScrollFunctionAt1": {
+    "role": "match",
+    "regex": "block|inline|[xy]"
+  },
+  "ViewFunction": {
+    "role": "begin",
+    "regex": "\\b(view)(?=\\()"
+  },
+  "ViewFunctionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ViewFunctionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ViewFunctionAt0End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "ViewFunctionAt0At0": {
+    "role": "match",
+    "regex": "block|inline|[xy]|auto"
+  },
+  "RuleListBodyAt5At7": {
+    "role": "begin",
+    "regex": "\\banimation(?:-name)?(?=(?:\\+_?)?:)\\b"
+  },
+  "RuleListBodyAt5At7End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At7At0": {
+    "role": "begin",
+    "regex": "(((\\+_?)?):)(?=[\\t\\s]*)"
+  },
+  "RuleListBodyAt5At7At0End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "RuleListBodyAt5At7At0At6": {
+    "role": "match",
+    "regex": "-?(?:[A-Z_a-z[^\\x00-\\x7F]]|(?:(:?\\\\[0-9a-f]{1,6}(\\r\\n|[\\t\\n\\f\\r\\s])?)|\\\\[^\\n\\f\\r0-9a-f]))(?:[-0-9A-Z_a-z[^\\x00-\\x7F]]|(?:(:?\\\\[0-9a-f]{1,6}(\\r\\n|[\\t\\n\\f\\r])?)|\\\\[^\\n\\f\\r0-9a-f]))*"
+  },
+  "RuleListBodyAt5At8": {
+    "role": "begin",
+    "regex": "\\b(transition(-(property|duration|delay|timing-function))?)\\b"
+  },
+  "RuleListBodyAt5At8End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At8At0": {
+    "role": "begin",
+    "regex": "(((\\+_?)?):)(?=[\\t\\s]*)"
+  },
+  "RuleListBodyAt5At8At0End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "RuleListBodyAt5At9": {
+    "role": "begin",
+    "regex": "\\b(?:backdrop-)?filter\\b"
+  },
+  "RuleListBodyAt5At9End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At9At0": {
+    "role": "match",
+    "regex": "(((\\+_?)?):)([\\t\\s]*)"
+  },
+  "RuleListBodyAt5At9At1": {
+    "role": "match",
+    "regex": "\\b(inherit|initial|unset|none)\\b"
+  },
+  "RuleListBodyAt5At10": {
+    "role": "begin",
+    "regex": "\\bwill-change\\b"
+  },
+  "RuleListBodyAt5At10End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At10At0": {
+    "role": "match",
+    "regex": "(((\\+_?)?):)([\\t\\s]*)"
+  },
+  "RuleListBodyAt5At10At1": {
+    "role": "match",
+    "regex": "unset|initial|inherit|will-change|auto|scroll-position|contents"
+  },
+  "RuleListBodyAt5At10At2": {
+    "role": "match",
+    "regex": "-?(?:[-\\w[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[A-Z_a-z[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*"
+  },
+  "RuleListBodyAt5At11": {
+    "role": "begin",
+    "regex": "\\bcounter-(increment|(re)?set)\\b"
+  },
+  "RuleListBodyAt5At11End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At11At0": {
+    "role": "match",
+    "regex": "(((\\+_?)?):)([\\t\\s]*)"
+  },
+  "RuleListBodyAt5At11At1": {
+    "role": "match",
+    "regex": "-?(?:[-\\w[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))(?:[A-Z_a-z[^\\x00-\\x{9F}]]|\\\\(?:\\h{1,6}[\\t\\n\\f\\s]?|[^\\n\\f\\h]))*"
+  },
+  "RuleListBodyAt5At11At3": {
+    "role": "match",
+    "regex": "unset|initial|inherit|auto"
+  },
+  "RuleListBodyAt5At12": {
+    "role": "begin",
+    "regex": "\\bcontainer(?:-name)?(?=\\s*?:)"
+  },
+  "RuleListBodyAt5At12End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "RuleListBodyAt5At12At0": {
+    "role": "begin",
+    "regex": "(((\\+_?)?):)(?=[\\t\\s]*)"
+  },
+  "RuleListBodyAt5At12At0End": {
+    "role": "end",
+    "regex": "(?=\\s*(;)|(?=[)}]))"
+  },
+  "RuleListBodyAt5At12At0At0": {
+    "role": "match",
+    "regex": "\\bdefault\\b"
+  },
+  "RuleListBodyAt5At12At0At3": {
+    "role": "match",
+    "regex": "--|-?(?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))(?:[-A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}\\d]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))*"
+  },
+  "RuleListBodyAt5At13": {
+    "role": "match",
+    "regex": "\\b(accent-height|align-content|align-items|align-self|alignment-baseline|all|animation-timing-function|animation-range-start|animation-range-end|animation-range|animation-play-state|animation-name|animation-iteration-count|animation-fill-mode|animation-duration|animation-direction|animation-delay|animation-composition|animation|appearance|ascent|aspect-ratio|azimuth|backface-visibility|background-size|background-repeat-y|background-repeat-x|background-repeat|background-position-y|background-position-x|background-position|background-origin|background-image|background-color|background-clip|background-blend-mode|background-attachment|background|baseline-shift|begin|bias|blend-mode|border-top-left-radius|border-top-right-radius|border-bottom-left-radius|border-bottom-right-radius|border-end-end-radius|border-end-start-radius|border-start-end-radius|border-start-start-radius|border-block-start-color|border-block-start-style|border-block-start-width|border-block-start|border-block-end-color|border-block-end-style|border-block-end-width|border-block-end|border-block-color|border-block-style|border-block-width|border-block|border-inline-start-color|border-inline-start-style|border-inline-start-width|border-inline-start|border-inline-end-color|border-inline-end-style|border-inline-end-width|border-inline-end|border-inline-color|border-inline-style|border-inline-width|border-inline|border-top-color|border-top-style|border-top-width|border-top|border-right-color|border-right-style|border-right-width|border-right|border-bottom-color|border-bottom-style|border-bottom-width|border-bottom|border-left-color|border-left-style|border-left-width|border-left|border-image-outset|border-image-repeat|border-image-slice|border-image-source|border-image-width|border-image|border-color|border-style|border-width|border-radius|border-collapse|border-spacing|border|bottom|box-(align|decoration-break|direction|flex|ordinal-group|orient|pack|shadow|sizing)|break-(after|before|inside)|caption-side|clear|clip-path|clip-rule|clip|color(-(interpolation(-filters)?|profile|rendering))?|columns|column-(break-before|count|fill|gap|(rule(-(color|style|width))?)|span|width)|container-name|container-type|container|contain-intrinsic-block-size|contain-intrinsic-inline-size|contain-intrinsic-height|contain-intrinsic-size|contain-intrinsic-width|contain|content|counter-(increment|reset)|cursor|[cdf][xy]|direction|display|divisor|dominant-baseline|dur|elevation|empty-cells|enable-background|end|fallback|fill(-(opacity|rule))?|filter|flex(-(align|basis|direction|flow|grow|item-align|line-pack|negative|order|pack|positive|preferred-size|shrink|wrap))?|float|flood-(color|opacity)|font-display|font-family|font-feature-settings|font-kerning|font-language-override|font-size(-adjust)?|font-smoothing|font-stretch|font-style|font-synthesis|font-variant(-(alternates|caps|east-asian|ligatures|numeric|position))?|font-weight|font|fr|((column|row)-)?gap|glyph-orientation-(horizontal|vertical)|grid-(area|gap)|grid-auto-(columns|flow|rows)|grid-(column|row)(-(end|gap|start))?|grid-template(-(areas|columns|rows))?|grid|height|hyphens|image-(orientation|rendering|resolution)|inset(-(block|inline))?(-(start|end))?|isolation|justify-content|justify-items|justify-self|kerning|left|letter-spacing|lighting-color|line-(box-contain|break|clamp|height)|list-style(-(image|position|type))?|(margin|padding)(-(bottom|left|right|top)|(-(block|inline)?(-(end|start))?))?|marker(-(end|mid|start))?|mask(-(clip||composite|image|origin|position|repeat|size|type))?|(m(?:ax|in))-(height|width)|mix-blend-mode|nbsp-mode|negative|object-(fit|position)|opacity|operator|order|orphans|outline(-(color|offset|style|width))?|overflow(-((inline|block)|scrolling|wrap|[xy]))?|overscroll-behavior(-(?:block|(inline|[xy])))?|pad(ding(-(bottom|left|right|top))?)?|page(-break-(after|before|inside))?|paint-order|pause(-(after|before))?|perspective(-origin(-([xy]))?)?|pitch(-range)?|place-content|place-self|pointer-events|position|prefix|quotes|range|resize|right|rotate|scale|scroll-behavior|shape-(image-threshold|margin|outside|rendering)|size|speak(-as)?|src|stop-(color|opacity)|stroke(-(dash(array|offset)|line(cap|join)|miterlimit|opacity|width))?|suffix|symbols|system|tab-size|table-layout|tap-highlight-color|text-align(-last)?|text-decoration(-(color|line|style))?|text-emphasis(-(color|position|style))?|text-(anchor|fill-color|height|indent|justify|orientation|overflow|rendering|size-adjust|shadow|transform|underline-position|wrap)|top|touch-action|transform(-origin(-([xy]))?)|transform(-style)?|transition(-(delay|duration|property|timing-function))?|translate|unicode-(bidi|range)|user-(drag|select)|vertical-align|visibility|white-space(-collapse)?|widows|width|will-change|word-(break|spacing|wrap)|writing-mode|z-index|zoom)\\b"
+  },
+  "RuleListBodyAt5At14": {
+    "role": "match",
+    "regex": "\\b(((contain-intrinsic|max|min)-)?(block|inline)?-size)\\b"
+  },
+  "SelectorAt0": {
+    "role": "begin",
+    "regex": "(?=[#\\&*+./>A-\\[a-z~]|(:{1,2}\\S)|@\\{)"
+  },
+  "SelectorAt0End": {
+    "role": "end",
+    "regex": "(?=@(?!\\{)|[;{])"
+  },
+  "RuleListBodyAt6": {
+    "role": "begin",
+    "regex": "\\b((?:\\+_?)?:)([\\t\\s]*)"
+  },
+  "RuleListBodyAt6End": {
+    "role": "end",
+    "regex": "\\s*(;)|(?=[)}])"
+  },
+  "AtSupportsAt1": {
+    "role": "begin",
+    "regex": "\\s*(\\{)"
+  },
+  "AtSupportsAt1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "AtKeyframesAt1": {
+    "role": "begin",
+    "regex": "\\s*(?=[^;{])"
+  },
+  "AtKeyframesAt1End": {
+    "role": "end",
+    "regex": "\\s*(?=\\{)"
+  },
+  "KeyframeName": {
+    "role": "begin",
+    "regex": "\\s*(-?(?:[_a-z[^\\x00-\\x7F]]|(?:(:?\\\\[0-9a-f]{1,6}(\\r\\n|[\\t\\n\\f\\r\\s])?)|\\\\[^\\n\\f\\r0-9a-f]))(?:[-0-9_a-z[^\\x00-\\x7F]]|(?:(:?\\\\[0-9a-f]{1,6}(\\r\\n|[\\t\\n\\f\\r])?)|\\\\[^\\n\\f\\r0-9a-f]))*)?"
+  },
+  "KeyframeNameEnd": {
+    "role": "end",
+    "regex": "\\s*(?:(,)|(?=[;{]))"
+  },
+  "AtContainerAt0At0At3": {
+    "role": "match",
+    "regex": "--|-?(?:[A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))(?:[-A-Z_a-z·À-ÖØ-öø-ͽͿ-῿‌‍‿⁀⁰-↏Ⰰ-⿯、-퟿豈-﷏ﷰ-�𐀀-\\x{EFFFF}\\d]|\\\\(?:\\N|\\H|\\h{1,6}[R\\s]))*"
+  },
+  "AtContainerAt1": {
+    "role": "begin",
+    "regex": "\\s*(\\{)"
+  },
+  "AtContainerAt1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "LessNamespaceAccessorsAt0At3": {
+    "role": "begin",
+    "regex": "\\s*(\\{)"
+  },
+  "LessNamespaceAccessorsAt0At3End": {
+    "role": "end",
+    "regex": "(?=})"
+  }
+}

@@ -11,7 +11,15 @@
 // The output is generated; do not edit it.
 import cmake from "@shikijs/langs@4.6.0/cmake";
 import { expand } from "./alternation.ts";
-import { arms, groupsCheck, ruleCodes, scopeFile, startTable, writeRust } from "./rule-grammar.ts";
+import {
+  arms,
+  groupsCheck,
+  ruleCodes,
+  scopeFile,
+  startTable,
+  writePatterns,
+  writeRust,
+} from "./rule-grammar.ts";
 
 type Node = {
   name?: string;
@@ -263,6 +271,7 @@ g += groupsCheck(
   "CMake",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
+await writePatterns("cmake", patternById);
 await writeRust(`${root_dir}src/cmake/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

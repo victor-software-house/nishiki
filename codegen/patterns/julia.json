@@ -1,0 +1,426 @@
+{
+  "Arrow": {
+    "role": "match",
+    "regex": "\\.?(?:<-->|->|-->|<--|[←→↔↚-↞↠↢↣↤↦↩-↬↮↶↷↺-↽⇀⇁⇄⇆⇇⇉⇋-⇐⇒⇔⇚-⇝⇠⇢⇴⇶-⇿⟵⟶⟷⟹-⟿⤀-⤇⤌-⤑⤔-⤘⤝-⤠⥄-⥈⥊⥋⥎⥐⥒⥓⥖⥗⥚⥛⥞⥟⥢⥤⥦-⥭⥰⥷⥺⧴⬰-⭄⭇-⭌￩￫]|=>)"
+  },
+  "Update": {
+    "role": "match",
+    "regex": ":=|\\+=|-=|\\*=|//=|/=|\\.//=|\\./=|\\.\\*=|\\\\=|\\.\\\\=|\\^=|\\.\\^=|%=|\\.%=|÷=|\\.÷=|\\|=|&=|\\.&=|⊻=|\\.⊻=|\\$=|<<=|>>=|>>>=|=(?!=)"
+  },
+  "Shift": {
+    "role": "match",
+    "regex": "<<|>>>?|\\.>>>?|\\.<<"
+  },
+  "TypeRelation": {
+    "role": "match",
+    "regex": "\\s*([:<>]:)\\s*((?:Union)?\\([^)]*\\)|[$_∇[:alpha:]][!.′⁺-ₜ[:word:]]*(?:\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*}|\".+?(?<!\\\\)\")?)(?:\\.\\.\\.)?(\\.?'*)"
+  },
+  "Relation": {
+    "role": "match",
+    "regex": "(\\.?((?<!<)<=|(?<!>)>=|[<>≤≥]|===?|≡|!=|≠|!==|[∈-∍∝∥∦∷∺∻∽∾≁-≎≐-≓≖-≟≢≣≦-⊋⊏-⊒⊜⊢⊣⊩⊬⊮⊰-⊷⋍⋐⋑⋕-⋭⋲-⋿⟂⟈⟉⟒⦷⧀⧁⧡⧣⧤⧥⩦⩧⩪-⩳⩵-⫙⫪⫫⫷-⫺]|<:|>:))"
+  },
+  "TernaryQuestion": {
+    "role": "match",
+    "regex": "(?<=\\s)\\?(?=\\s)"
+  },
+  "TernaryColon": {
+    "role": "match",
+    "regex": "(?<=\\s):(?=\\s)"
+  },
+  "Boolean": {
+    "role": "match",
+    "regex": "\\|\\||&&|(?<![!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]])!"
+  },
+  "RangeColon": {
+    "role": "match",
+    "regex": "(?<=[]!)}′⁺-ₜ∇[:word:]]):"
+  },
+  "Applies": {
+    "role": "match",
+    "regex": "\\|>"
+  },
+  "Bitwise": {
+    "role": "match",
+    "regex": "\\||\\.\\||&|\\.&|[~¬]|\\.~|⊻|\\.⊻"
+  },
+  "Arithmetic": {
+    "role": "match",
+    "regex": "\\.?(?:\\+\\+|--|[-*+|¦±−∓∔∨∪∸≏⊎⊔⊕⊖⊞⊟⊻⊽⋎⋓⟇⧺⧻⨈⨢-⨮⨹⨺⩁⩂⩅⩊⩌⩏⩐⩒⩔⩖⩗⩛⩝⩡⩢⩣]|//?|[%\\&\\\\^±·×÷·⅋↑↓⇵∓∗-∜∤∧∩≀⊍⊓⊗-⊛⊠⊡⊼⋄-⋇⋉-⋌⋏⋒⌿▷⟑⟕⟖⟗⟰⟱⤈-⤋⤒⤓⥉⥌⥍⥏⥑⥔⥕⥘⥙⥜⥝⥠⥡⥣⥥⥮⥯⦸⦼⦾⦿⧶⧷⨇⨝⨟⨰-⨸⨻⨼⨽⩀⩃⩄⩋⩍⩎⩑⩓⩕⩘⩚⩜⩞⩟⩠⫛￪￬])"
+  },
+  "Compose": {
+    "role": "match",
+    "regex": "∘"
+  },
+  "Isa": {
+    "role": "match",
+    "regex": "::|(?<=\\s)isa(?=\\s)"
+  },
+  "In": {
+    "role": "match",
+    "regex": "(?<=\\s)in(?=\\s)"
+  },
+  "Dots": {
+    "role": "match",
+    "regex": "\\.(?=[@_\\p{L}])|\\.\\.+|[…⁝⋮-⋱]"
+  },
+  "InterpolationOperator": {
+    "role": "match",
+    "regex": "\\$(?=.+)"
+  },
+  "TransposedVariable": {
+    "role": "match",
+    "regex": "([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(('|(\\.'))*\\.?')"
+  },
+  "TransposedMatrix": {
+    "role": "match",
+    "regex": "(])((?:\\.??')*\\.?')"
+  },
+  "TransposedParens": {
+    "role": "match",
+    "regex": "(\\))((?:\\.??')*\\.?')"
+  },
+  "Array": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "ArrayEnd": {
+    "role": "end",
+    "regex": "(])(\\.?'*)"
+  },
+  "ArrayBegin": {
+    "role": "match",
+    "regex": "\\bbegin\\b"
+  },
+  "ArrayEndWord": {
+    "role": "match",
+    "regex": "\\bend\\b"
+  },
+  "DocMacro": {
+    "role": "begin",
+    "regex": "(@doc)\\s((?:doc)?\"\"\")|(doc\"\"\")"
+  },
+  "DocMacroEnd": {
+    "role": "end",
+    "regex": "(\"\"\") ?(->)?"
+  },
+  "StringEscapedChar": {
+    "role": "match",
+    "regex": "\\\\(\\\\|[0-3]\\d{0,2}|[4-7]\\d?|x\\h{0,2}|u\\h{0,4}|U\\h{0,8}|.)"
+  },
+  "InterpolatedName": {
+    "role": "match",
+    "regex": "\\$[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}[^←-⇿\\P{So}][^$\\P{Sc}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}][^$\\P{Sc}]]*"
+  },
+  "Interpolation": {
+    "role": "begin",
+    "regex": "\\$(\\()"
+  },
+  "InterpolationEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Cxx": {
+    "role": "begin",
+    "regex": "(i?cxx)(\"\"\")"
+  },
+  "CxxEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "Py": {
+    "role": "begin",
+    "regex": "(py)(\"\"\")"
+  },
+  "PyEnd": {
+    "role": "end",
+    "regex": "([\\s\\w]*)(\"\"\")"
+  },
+  "Js": {
+    "role": "begin",
+    "regex": "(js)(\"\"\")"
+  },
+  "JsEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "RMacro": {
+    "role": "begin",
+    "regex": "(R)(\"\"\")"
+  },
+  "RMacroEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "RawTriple": {
+    "role": "begin",
+    "regex": "(raw)(\"\"\")"
+  },
+  "RawTripleEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "RawEscapedQuote": {
+    "role": "match",
+    "regex": "(\\\\\\\\)*\\\\\""
+  },
+  "RawEscapedBackslashes": {
+    "role": "match",
+    "regex": "(\\\\\\\\)+(?=\")"
+  },
+  "Raw": {
+    "role": "begin",
+    "regex": "(raw)(\")"
+  },
+  "RawEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "Sql": {
+    "role": "begin",
+    "regex": "(sql)(\"\"\")"
+  },
+  "SqlEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "VarTriple": {
+    "role": "begin",
+    "regex": "var\"\"\""
+  },
+  "VarTripleEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "Var": {
+    "role": "begin",
+    "regex": "var\""
+  },
+  "VarEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "Docstring": {
+    "role": "begin",
+    "regex": "^\\s?(doc)?(\"\"\")\\s?$"
+  },
+  "DocstringEnd": {
+    "role": "end",
+    "regex": "(\"\"\")"
+  },
+  "Char": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "CharEnd": {
+    "role": "end",
+    "regex": "'(?!')"
+  },
+  "Triple": {
+    "role": "begin",
+    "regex": "\"\"\""
+  },
+  "TripleEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "Quoted": {
+    "role": "begin",
+    "regex": "\"(?!\"\")"
+  },
+  "QuotedEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "RegexTriple": {
+    "role": "begin",
+    "regex": "r\"\"\""
+  },
+  "RegexTripleEnd": {
+    "role": "end",
+    "regex": "(\"\"\")([imsx]{0,4})?"
+  },
+  "Regex": {
+    "role": "begin",
+    "regex": "r\""
+  },
+  "RegexEnd": {
+    "role": "end",
+    "regex": "(\")([imsx]{0,4})?"
+  },
+  "MacroTriple": {
+    "role": "begin",
+    "regex": "(?<!\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)\"\"\""
+  },
+  "MacroTripleEnd": {
+    "role": "end",
+    "regex": "(\"\"\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?"
+  },
+  "Macro": {
+    "role": "begin",
+    "regex": "(?<!\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)\""
+  },
+  "MacroEnd": {
+    "role": "end",
+    "regex": "(?<![^\\\\]\\\\)(\")([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?"
+  },
+  "CommandTriple": {
+    "role": "begin",
+    "regex": "(?<!`)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?```"
+  },
+  "CommandTripleEnd": {
+    "role": "end",
+    "regex": "(```)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?"
+  },
+  "Command": {
+    "role": "begin",
+    "regex": "(?<!`)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?`"
+  },
+  "CommandEnd": {
+    "role": "end",
+    "regex": "(?<![^\\\\]\\\\)(`)([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)?"
+  },
+  "Parentheses": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParenthesesEnd": {
+    "role": "end",
+    "regex": "(\\))(\\.?'*)"
+  },
+  "Bracket": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "BracketEnd": {
+    "role": "end",
+    "regex": "(})(\\.?'*)"
+  },
+  "FunctionAssignment": {
+    "role": "match",
+    "regex": "([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*})?(?=\\([^#]*\\)(::\\S+)?(\\s*\\bwhere\\b\\s+.+?)?\\s*?=(?![=>]))"
+  },
+  "FunctionKeyword": {
+    "role": "match",
+    "regex": "\\b(function|macro)(?:\\s+(?:[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*(\\.))?([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*})?|\\s*)(?=\\()"
+  },
+  "FunctionCall": {
+    "role": "begin",
+    "regex": "([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\{(?:[^{}]|\\{(?:[^{}]|\\{[^{}]*})*})*})?\\.?(\\()"
+  },
+  "FunctionCallEnd": {
+    "role": "end",
+    "regex": "\\)(('|(\\.'))*\\.?')?"
+  },
+  "KeywordOther": {
+    "role": "match",
+    "regex": "\\b(?<![.:_])(?:function|mutable\\s+struct|struct|macro|quote|abstract\\s+type|primitive\\s+type|typegroup|module|baremodule|where)\\b"
+  },
+  "KeywordControl": {
+    "role": "match",
+    "regex": "\\b(?<![:_])(?:if|else|elseif|for|while|begin|let|do|try|catch|finally|return|break|continue)\\b"
+  },
+  "KeywordEnd": {
+    "role": "match",
+    "regex": "\\b(?<![:_])end\\b"
+  },
+  "StorageModifier": {
+    "role": "match",
+    "regex": "\\b(?<![:_])(?:global|local|const)\\b"
+  },
+  "Export": {
+    "role": "match",
+    "regex": "\\b(?<![:_])export\\b"
+  },
+  "Public": {
+    "role": "match",
+    "regex": "^public\\b"
+  },
+  "Import": {
+    "role": "match",
+    "regex": "\\b(?<![:_])import\\b"
+  },
+  "Using": {
+    "role": "match",
+    "regex": "\\b(?<![:_])using\\b"
+  },
+  "As": {
+    "role": "match",
+    "regex": "(?<=\\S\\s+)\\b(as)\\b(?=\\s+\\S)"
+  },
+  "MacroName": {
+    "role": "match",
+    "regex": "@(\\.|[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*|[[\\p{S}\\p{P}]&&[^@\\s]]+)"
+  },
+  "Number": {
+    "role": "match",
+    "regex": "((?<![!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]])\\b(?:0[Xx]\\h(?:_?\\h)*|0o[0-7](?:_?[0-7])*|0b[01](?:_?[01])*|(?:[0-9](?:_?[0-9])*\\.?(?!\\.)[0-9_]*|\\.[0-9](?:_?[0-9])*)(?:[Eef][-+]?[0-9](?:_?[0-9])*)?(?:(?:im|Inf(?:16|32|64)?|NaN(?:16|32|64)?|π|pi|ℯ)\\b)?|[0-9]+|Inf(?:16|32|64)?\\b|NaN(?:16|32|64)?\\b|π\\b|pi\\b|ℯ\\b))('*)"
+  },
+  "GlobalConstant": {
+    "role": "match",
+    "regex": "\\b(?:ARGS|C_NULL|DEPOT_PATH|ENDIAN_BOM|ENV|LOAD_PATH|PROGRAM_FILE|stdin|stdout|stderr|VERSION|devnull)\\b"
+  },
+  "LanguageConstant": {
+    "role": "match",
+    "regex": "\\b(?:true|false|nothing|missing)\\b"
+  },
+  "CommentBlock": {
+    "role": "begin",
+    "regex": "#="
+  },
+  "CommentBlockEnd": {
+    "role": "end",
+    "regex": "=#"
+  },
+  "Todo": {
+    "role": "match",
+    "regex": "\\bTODO\\b"
+  },
+  "Fixme": {
+    "role": "match",
+    "regex": "\\bFIXME\\b"
+  },
+  "Changed": {
+    "role": "match",
+    "regex": "\\bCHANGED\\b"
+  },
+  "Xxx": {
+    "role": "match",
+    "regex": "\\bXXX\\b"
+  },
+  "LineComment": {
+    "role": "begin",
+    "regex": "#"
+  },
+  "LineCommentEnd": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "TypeDecl": {
+    "role": "match",
+    "regex": "!:_(?:struct|mutable\\s+struct|abstract\\s+type|primitive\\s+type)\\s+([_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*)(\\s*(<:)\\s*[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*(?:\\{.*})?)?"
+  },
+  "Symbol": {
+    "role": "match",
+    "regex": "(?<![]!)}′⁺-ₜ∇[:word:]]):[_ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:alpha:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^←-⇿\\P{So}]][!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]]*(?![!_′-‷⁗ⁱ-⁾₁-₎℘℮⅀-⅄∂∅∆∇∎-∑∞-∢∫-∳∿⊤⊥⊾-⋃◸-◿♯⟀⟁⟘⟙⦛-⦴⨀-⨆⨉-⨖⨛⨜゛゜𝛁𝛛𝛻𝜕𝜵𝝏𝝯𝞉𝞩𝟃𝟎-𝟡[:word:]\\p{Lu}\\p{Ll}\\p{Lt}\\p{Lm}\\p{Lo}\\p{Nl}\\p{Sc}[^\\x01-¡\\P{Mn}][^\\x01-¡\\P{Mc}][^\\x01-¡\\D][^\\x01-¡\\P{Pc}][^\\x01-¡\\P{Sk}][^\\x01-¡\\P{Me}][^\\x01-¡\\P{No}][^←-⇿\\P{So}]])(?![\"`])"
+  },
+  "Comma": {
+    "role": "match",
+    "regex": ","
+  },
+  "Semicolon": {
+    "role": "match",
+    "regex": ";"
+  },
+  "ForBlock": {
+    "role": "begin",
+    "regex": "\\b(for)\\b"
+  },
+  "ForBlockEnd": {
+    "role": "end",
+    "regex": "(?<![,\\s])(\\s*\\n)"
+  },
+  "Outer": {
+    "role": "match",
+    "regex": "\\bouter\\b"
+  }
+}

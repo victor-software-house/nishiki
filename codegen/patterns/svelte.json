@@ -1,0 +1,626 @@
+{
+  "BodyJavaScript": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodyJavaScriptEnd": {
+    "role": "end",
+    "regex": "(?=</)"
+  },
+  "BodyTypeScriptLine": {
+    "role": "begin",
+    "regex": "(?<=>)(?=[^\\n]+</(s(?:cript|tyle))[>\\s])"
+  },
+  "BodyTypeScriptLineEnd": {
+    "role": "end",
+    "regex": "(?=</(s(?:cript|tyle))[>\\s])"
+  },
+  "BodyTypeScriptBlock": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodyTypeScriptBlockWhile": {
+    "role": "while",
+    "regex": "^(?!\\s*</(s(?:cript|tyle))[>\\s])"
+  },
+  "BodyCoffeeScript": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodyCoffeeScriptEnd": {
+    "role": "end",
+    "regex": "(?=</)"
+  },
+  "BodyCss": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodyCssEnd": {
+    "role": "end",
+    "regex": "(?=</)"
+  },
+  "BodyLess": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodyLessEnd": {
+    "role": "end",
+    "regex": "(?=</)"
+  },
+  "BodyPostCss": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodyPostCssEnd": {
+    "role": "end",
+    "regex": "(?=</)"
+  },
+  "BodySass": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodySassEnd": {
+    "role": "end",
+    "regex": "(?=</)"
+  },
+  "BodyScss": {
+    "role": "begin",
+    "regex": "(?<=>)(?!</)"
+  },
+  "BodyScssEnd": {
+    "role": "end",
+    "regex": "(?=</)"
+  },
+  "BodyTemplate": {
+    "role": "begin",
+    "regex": "(?<=>)\\s"
+  },
+  "BodyTemplateEnd": {
+    "role": "end",
+    "regex": "(?=</template)"
+  },
+  "Comments": {
+    "role": "begin",
+    "regex": "<!--"
+  },
+  "CommentsEnd": {
+    "role": "end",
+    "regex": "-->"
+  },
+  "CommentsAt0": {
+    "role": "begin",
+    "regex": "(@)(component)"
+  },
+  "CommentsAt0End": {
+    "role": "end",
+    "regex": "(?=-->)"
+  },
+  "CommentsAt0At0": {
+    "role": "match",
+    "regex": ".*?(?=-->)"
+  },
+  "CommentsAt1": {
+    "role": "match",
+    "regex": "\\G-?>|<!--(?!>)|<!-(?=-->)|--!>"
+  },
+  "NestedSpecialTagsKeywordsGroup2At0": {
+    "role": "match",
+    "regex": "if|else\\s+if|else"
+  },
+  "NestedSpecialTagsKeywordsGroup2At1": {
+    "role": "match",
+    "regex": "each|key"
+  },
+  "NestedSpecialTagsKeywordsGroup2At2": {
+    "role": "match",
+    "regex": "await|then|catch"
+  },
+  "NestedSpecialTagsKeywordsGroup2At3": {
+    "role": "match",
+    "regex": "snippet"
+  },
+  "NestedSpecialTagsKeywordsGroup2At4": {
+    "role": "match",
+    "regex": "html"
+  },
+  "NestedSpecialTagsKeywordsGroup2At5": {
+    "role": "match",
+    "regex": "render"
+  },
+  "NestedSpecialTagsKeywordsGroup2At6": {
+    "role": "match",
+    "regex": "debug"
+  },
+  "NestedSpecialTagsKeywordsGroup2At7": {
+    "role": "match",
+    "regex": "const"
+  },
+  "SpecialTagsKeywords": {
+    "role": "match",
+    "regex": "([#/:@])(else\\s+if|[a-z]*)"
+  },
+  "SpecialTagsVoid": {
+    "role": "begin",
+    "regex": "(\\{)\\s*([:@](else\\s+if|[a-z]*))"
+  },
+  "SpecialTagsVoidEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SpecialTagsModesAt0": {
+    "role": "begin",
+    "regex": "(?<=(if|key|then|catch|html|render).*?)\\G"
+  },
+  "SpecialTagsModesAt0End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt1": {
+    "role": "begin",
+    "regex": "(?<=snippet.*?)\\G"
+  },
+  "SpecialTagsModesAt1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt1At0": {
+    "role": "match",
+    "regex": "\\G\\s*([$_[:alpha:]][$_[:alnum:]]*)\\s*(?=<)"
+  },
+  "SpecialTagsModesAt1At1": {
+    "role": "begin",
+    "regex": "(?<=<)"
+  },
+  "SpecialTagsModesAt1At1End": {
+    "role": "end",
+    "regex": "(?=>)"
+  },
+  "SpecialTagsModesAt1At2": {
+    "role": "begin",
+    "regex": "(?<=>\\s*\\()"
+  },
+  "SpecialTagsModesAt1At2End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt1At3": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "SpecialTagsModesAt1At3End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt2": {
+    "role": "begin",
+    "regex": "(?<=const.*?)\\G"
+  },
+  "SpecialTagsModesAt2End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "DestructuringConstAt0": {
+    "role": "begin",
+    "regex": "(?=\\{)"
+  },
+  "DestructuringConstAt0End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "DestructuringConstAt1": {
+    "role": "begin",
+    "regex": "(?=\\[)"
+  },
+  "DestructuringConstAt1End": {
+    "role": "end",
+    "regex": "(?<=])"
+  },
+  "SpecialTagsModesAt2At1": {
+    "role": "begin",
+    "regex": "\\G\\s*([$_[:alpha:]][$_[:alnum:]]+)\\s*"
+  },
+  "SpecialTagsModesAt2At1End": {
+    "role": "end",
+    "regex": "(?=[:=])"
+  },
+  "SpecialTagsModesAt2At2": {
+    "role": "begin",
+    "regex": "(?=:)"
+  },
+  "SpecialTagsModesAt2At2End": {
+    "role": "end",
+    "regex": "(?==)"
+  },
+  "SpecialTagsModesAt2At3": {
+    "role": "begin",
+    "regex": "(?==)"
+  },
+  "SpecialTagsModesAt2At3End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt3": {
+    "role": "begin",
+    "regex": "(?<=each.*?)\\G"
+  },
+  "SpecialTagsModesAt3End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt3At0": {
+    "role": "begin",
+    "regex": "\\G\\s*?(?=\\S)"
+  },
+  "SpecialTagsModesAt3At0End": {
+    "role": "end",
+    "regex": "(?=(?:^\\s*|\\s+)(as)|\\s*([,}]))"
+  },
+  "SpecialTagsModesAt3At1": {
+    "role": "begin",
+    "regex": "(as)|(?=[,}])"
+  },
+  "SpecialTagsModesAt3At1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "DestructuringAt0": {
+    "role": "begin",
+    "regex": "(?=\\{)"
+  },
+  "DestructuringAt0End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "DestructuringAt1": {
+    "role": "begin",
+    "regex": "(?=\\[)"
+  },
+  "DestructuringAt1End": {
+    "role": "end",
+    "regex": "(?<=])"
+  },
+  "SpecialTagsModesAt3At1At1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "SpecialTagsModesAt3At1At1End": {
+    "role": "end",
+    "regex": "\\)|(?=})"
+  },
+  "SpecialTagsModesAt3At1At2": {
+    "role": "match",
+    "regex": "(\\s*([$_[:alpha:]][$_[:alnum:]]*)\\s*)"
+  },
+  "SpecialTagsModesAt3At1At3": {
+    "role": "match",
+    "regex": ","
+  },
+  "SpecialTagsModesAt4": {
+    "role": "begin",
+    "regex": "(?<=await.*?)\\G"
+  },
+  "SpecialTagsModesAt4End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt4At0": {
+    "role": "begin",
+    "regex": "\\G\\s*?(?=\\S)"
+  },
+  "SpecialTagsModesAt4At0End": {
+    "role": "end",
+    "regex": "\\s+(then)|(?=})"
+  },
+  "SpecialTagsModesAt4At1": {
+    "role": "begin",
+    "regex": "(?<=then\\b)"
+  },
+  "SpecialTagsModesAt4At1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt5": {
+    "role": "begin",
+    "regex": "(?<=debug.*?)\\G"
+  },
+  "SpecialTagsModesAt5End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "SpecialTagsModesAt5At0": {
+    "role": "match",
+    "regex": "[$_[:alpha:]][$_[:alnum:]]*"
+  },
+  "SpecialTagsModesAt5At1": {
+    "role": "match",
+    "regex": ","
+  },
+  "SpecialTagsBlockBegin": {
+    "role": "begin",
+    "regex": "(\\{)\\s*(#([a-z]*))"
+  },
+  "SpecialTagsBlockBeginEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "SpecialTagsBlockEnd": {
+    "role": "begin",
+    "regex": "(\\{)\\s*(/(?![*/])([a-z]*))"
+  },
+  "SpecialTagsBlockEndEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "TagsNameAt0": {
+    "role": "match",
+    "regex": "(svelte)(:)([a-z][-:\\w]*)"
+  },
+  "TagsNameAt1": {
+    "role": "match",
+    "regex": "slot"
+  },
+  "NestedTagsNameAt2Group1At0": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "NestedTagsNameAt2Group1At1": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "TagsNameAt2": {
+    "role": "match",
+    "regex": "(\\w+(?:\\.\\w+)+)|([A-Z]\\w*)"
+  },
+  "TagsNameAt3": {
+    "role": "match",
+    "regex": "[a-z][0-:\\w]*-[-0-:\\w]*"
+  },
+  "TagsNameAt4": {
+    "role": "match",
+    "regex": "[a-z][-0-:\\w]*"
+  },
+  "TagsStartNode": {
+    "role": "match",
+    "regex": "(<)([^/>\\s]*)"
+  },
+  "TagsLang": {
+    "role": "begin",
+    "regex": "<(script|style|template)"
+  },
+  "TagsEndNode": {
+    "role": "match",
+    "regex": "(</)(.*?)\\s*(>)|(/>)"
+  },
+  "TagsLangEnd": {
+    "role": "end",
+    "regex": "</\\1\\s*>|/>"
+  },
+  "TagsLangAt0": {
+    "role": "begin",
+    "regex": "\\G(?=\\s*[^>]*?(type|lang)\\s*=\\s*([\"']?)(?:text/)?(\\w+)\\2)"
+  },
+  "TagsLangAt0End": {
+    "role": "end",
+    "regex": "(?=</|/>)"
+  },
+  "TagsLangStartAttributes": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "TagsLangStartAttributesEnd": {
+    "role": "end",
+    "regex": "(?=/>)|>"
+  },
+  "GenericsDoubleQuoted": {
+    "role": "begin",
+    "regex": "(generics)(=)(\")"
+  },
+  "GenericsDoubleQuotedEnd": {
+    "role": "end",
+    "regex": "(\")"
+  },
+  "GenericsSingleQuoted": {
+    "role": "begin",
+    "regex": "(generics)(=)(')"
+  },
+  "GenericsSingleQuotedEnd": {
+    "role": "end",
+    "regex": "(')"
+  },
+  "AttributesCommentsAt0": {
+    "role": "match",
+    "regex": "//.*$"
+  },
+  "AttributesCommentsAt1": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "AttributesCommentsAt1End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "AttributesDirectivesKeywordsAt0": {
+    "role": "match",
+    "regex": "on|use|bind"
+  },
+  "AttributesDirectivesKeywordsAt1": {
+    "role": "match",
+    "regex": "transition|in|out|animate"
+  },
+  "AttributesDirectivesKeywordsAt2": {
+    "role": "match",
+    "regex": "let"
+  },
+  "AttributesDirectivesKeywordsAt3": {
+    "role": "match",
+    "regex": "class|style"
+  },
+  "AttributesDirectivesTypesAssignedAt0": {
+    "role": "match",
+    "regex": "(?<=(bind):)this$"
+  },
+  "AttributesDirectivesTypesAssignedAt1": {
+    "role": "match",
+    "regex": "(?<=(bind):).*$"
+  },
+  "AttributesDirectivesTypesAssignedAt2": {
+    "role": "match",
+    "regex": "(?<=(class):).*$"
+  },
+  "AttributesDirectivesTypesAssignedAt3": {
+    "role": "match",
+    "regex": "(?<=(style):).*$"
+  },
+  "AttributesDirectivesTypesAt0": {
+    "role": "match",
+    "regex": "(?<=(on):).*$"
+  },
+  "AttributesDirectivesTypesAt1": {
+    "role": "match",
+    "regex": "(?<=(bind):).*$"
+  },
+  "AttributesDirectivesTypesAt2": {
+    "role": "match",
+    "regex": "(?<=(use|transition|in|out|animate):).*$"
+  },
+  "AttributesDirectivesTypesAt3": {
+    "role": "match",
+    "regex": "(?<=(let|class|style):).*$"
+  },
+  "NestedAttributesDirectivesGroup5At0": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "NestedAttributesDirectivesGroup5At1": {
+    "role": "match",
+    "regex": "\\|"
+  },
+  "AttributesDirectives": {
+    "role": "begin",
+    "regex": "(?<!<)(on|use|bind|transition|in|out|animate|let|class|style)(:)(?:((?:--)?[$_[:alpha:]][-$_[:alnum:]]*(?=\\s*=))|((?:--)?[$_[:alpha:]][-$_[:alnum:]]*))((\\|\\w+)*)"
+  },
+  "AttributesDirectivesEnd": {
+    "role": "end",
+    "regex": "(?=\\s*+[^=\\s])"
+  },
+  "AttributesDirectivesAt0": {
+    "role": "begin",
+    "regex": "="
+  },
+  "AttributesDirectivesAt0End": {
+    "role": "end",
+    "regex": "(?<=[^=\\s])(?!\\s*=)|(?=/?>)"
+  },
+  "InterpolationAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "InterpolationAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InterpolationAt0At0": {
+    "role": "begin",
+    "regex": "\\G\\s*(?=\\{)"
+  },
+  "InterpolationAt0At0End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "AttributesValueAt1": {
+    "role": "match",
+    "regex": "([\"'])([.0-9_]+[%\\w]{0,4})(\\1)|([.0-9_]+[%\\w]{0,4})(?=\\s|/?>)"
+  },
+  "AttributesValueAt2": {
+    "role": "match",
+    "regex": "([^\"'/<=>`\\s]|/(?!>))+"
+  },
+  "AttributesValueAt3": {
+    "role": "begin",
+    "regex": "([\"'])"
+  },
+  "AttributesValueAt3End": {
+    "role": "end",
+    "regex": "\\1"
+  },
+  "NestedAttributesKeyvalueGroup0At0": {
+    "role": "match",
+    "regex": "--.*"
+  },
+  "NestedAttributesKeyvalueGroup0At1": {
+    "role": "match",
+    "regex": ".*"
+  },
+  "AttributesKeyvalue": {
+    "role": "begin",
+    "regex": "((?:--)?[$_[:alpha:]][-$_[:alnum:]]*)"
+  },
+  "AttributesKeyvalueEnd": {
+    "role": "end",
+    "regex": "(?=\\s*+[^=\\s])"
+  },
+  "AttributesKeyvalueAt0": {
+    "role": "begin",
+    "regex": "="
+  },
+  "AttributesKeyvalueAt0End": {
+    "role": "end",
+    "regex": "(?<=[^=\\s])(?!\\s*=)|(?=/?>)"
+  },
+  "AttributesAttach": {
+    "role": "begin",
+    "regex": "(?<![:=])\\s*(\\{@attach\\s)"
+  },
+  "AttributesAttachEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "AttributesInterpolated": {
+    "role": "begin",
+    "regex": "(?<![:=])\\s*(\\{)"
+  },
+  "AttributesInterpolatedEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "TagsVoid": {
+    "role": "begin",
+    "regex": "(<)(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)(?=\\s|/?>)"
+  },
+  "TagsVoidEnd": {
+    "role": "end",
+    "regex": "/?>"
+  },
+  "TagsGeneralEnd": {
+    "role": "begin",
+    "regex": "(</)([^/>\\s]*)"
+  },
+  "TagsGeneralEndEnd": {
+    "role": "end",
+    "regex": "(>)"
+  },
+  "TagsGeneralStart": {
+    "role": "begin",
+    "regex": "(<)([^/>\\s]*)"
+  },
+  "TagsGeneralStartEnd": {
+    "role": "end",
+    "regex": "(/?>)"
+  },
+  "TagsStartAttributes": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "TagsStartAttributesEnd": {
+    "role": "end",
+    "regex": "(?=/?>)"
+  },
+  "ScopeAt4": {
+    "role": "begin",
+    "regex": "(?<=[>}])"
+  },
+  "ScopeAt4End": {
+    "role": "end",
+    "regex": "(?=[<{])"
+  }
+}

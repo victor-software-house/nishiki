@@ -14,6 +14,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -443,6 +444,8 @@ g += groupsCheck(
   "Ruby",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("ruby", patternList);
 
 await writeRust(`${root_dir}src/ruby/grammar.rs`, g);
 

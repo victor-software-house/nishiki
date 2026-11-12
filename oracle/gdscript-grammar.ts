@@ -19,6 +19,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -355,6 +356,8 @@ g += groupsCheck(
   "Gdscript",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+
+await writePatterns("gdscript", patternList);
 
 await writeRust(`${root_dir}src/gdscript/grammar.rs`, g);
 

@@ -14,6 +14,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -349,6 +350,8 @@ g += groupsCheck(
   "Go",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("go", patternList);
 
 await writeRust(`${root_dir}src/go/grammar.rs`, g);
 

@@ -1014,40 +1014,62 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     /// Where the scan of a [`BlankRuns::Skip`] grammar goes on after no
     /// pattern matched at `i`.
     ///
-    /// It is the end of the character at `i`.
-    /// For a `\s` character above ASCII, it is the end of the run of that
-    /// one character, as the scan passes a run of spaces and tabs.
-    /// A run of no-break spaces then costs work in step with its length.
+    /// It is the end of the character at `i`, except at a wide space, a `\s`
+    /// character above ASCII.
+    /// There it is the end of a run, as the scan passes a run of spaces and
+    /// tabs:
+    ///
+    /// - a run of that one character;
+    /// - with `mixed`, a run of spaces, tabs and wide spaces
+    ///   ([`Tabled::MIXED_BLANK_RUNS`](super::Tabled::MIXED_BLANK_RUNS)).
+    ///
+    /// A run of wide spaces then costs work in step with its length.
     ///
     /// [`BlankRuns::Skip`]: super::BlankRuns::Skip
     #[cfg(feature = "_rule-tables")]
     #[inline]
-    pub(crate) fn pass_char(&self, i: usize) -> usize {
+    pub(crate) fn pass_char(&self, i: usize, mixed: bool) -> usize {
         match self.s.get(i) {
             Some(&b) if b < 0x80 => i + 1,
-            Some(&b) if starts_wide_space(b) => self.pass_wide_space(i),
+            Some(&b) if starts_wide_space(b) => self.pass_wide_space(i, mixed),
             _ => self.char_end(i),
         }
     }
 
-    /// [`Lexer::pass_char`] at a byte that may start a `\s` character above
-    /// ASCII.
+    /// [`Lexer::pass_char`] at a byte that may start a wide space.
     ///
     /// Kept out of line: the scan's loop holds its call only.
     #[cfg(feature = "_rule-tables")]
     #[inline(never)]
-    fn pass_wide_space(&self, i: usize) -> usize {
+    fn pass_wide_space(&self, i: usize, mixed: bool) -> usize {
         let end = self.char_end(i);
-        if !self.char_at(i).is_some_and(|(c, _)| is_space(c)) {
+        if !self.is_wide_space(i) {
             return end;
         }
-        let space = &self.s[i..end];
         let mut run_end = end;
-        while self.s.get(run_end..run_end + space.len()) == Some(space) {
-            run_end += space.len();
+        if mixed {
+            loop {
+                run_end = match self.s.get(run_end) {
+                    Some(b' ' | b'\t') => run_end + 1,
+                    Some(_) if self.is_wide_space(run_end) => self.char_end(run_end),
+                    _ => break,
+                };
+            }
+        } else {
+            let space = &self.s[i..end];
+            while self.s.get(run_end..run_end + space.len()) == Some(space) {
+                run_end += space.len();
+            }
         }
         self.spend(run_end - i);
         run_end
+    }
+
+    /// Whether the character at `i` is a wide space.
+    #[cfg(feature = "_rule-tables")]
+    fn is_wide_space(&self, i: usize) -> bool {
+        self.s.get(i).is_some_and(|&b| starts_wide_space(b))
+            && self.char_at(i).is_some_and(|(c, _)| is_space(c))
     }
 
     /// The end of the character at `i`, which is a whole UTF-8 sequence.
@@ -2512,6 +2534,34 @@ mod tests {
             anchored_at_root: false,
         };
         Lexer::new(parts, text, ROOT, scratch)
+    }
+
+    /// A mixed pass goes over spaces, tabs and other wide spaces, and stops at
+    /// a vertical tab.
+    /// Without it, the pass stops at the first character that differs.
+    #[cfg(feature = "_rule-tables")]
+    #[test]
+    fn a_mixed_pass_goes_over_every_blank_but_a_plain_one_over_one_character() {
+        let (mut arena, limits, mut tokens) = (Arena::new(None), Limits::default(), Vec::new());
+        let (mut report, mut scratch) = (LineReport::default(), Scratch::<Brackets>::default());
+        let parts = Parts {
+            arena: &mut arena,
+            limits: &limits,
+            out: &mut tokens,
+            report: &mut report,
+        };
+        let line = "\u{a0}\u{a0} \t\u{3000}\u{b}x";
+        let text = Text {
+            bytes: line.as_bytes(),
+            start: 0,
+            anchored: false,
+            anchored_at_root: false,
+        };
+        let lexer = Lexer::new(parts, text, ROOT, &mut scratch);
+        let vertical_tab = line.find('\u{b}');
+        assert_eq!(Some(lexer.pass_char(0, true)), vertical_tab);
+        assert_eq!(lexer.pass_char(0, false), 4);
+        assert_eq!(lexer.pass_char(line.len() - 1, true), line.len());
     }
 
     #[cfg(feature = "_rule-tables")]

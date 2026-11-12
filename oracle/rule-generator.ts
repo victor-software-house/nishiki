@@ -28,6 +28,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -854,6 +855,7 @@ pub(crate) struct Nested {
   const wordLists = cfg.words(read);
 
   if (write) {
+    await writePatterns(cfg.dir, patternList);
     await writeRust(`${root_dir}src/${cfg.dir}/grammar.rs`, g);
     await writeRust(
       `${root_dir}src/${cfg.dir}/scope.rs`,

@@ -1088,6 +1088,7 @@ impl Rule {
 
 impl rules::Tabled for CommonLisp {
     const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
+    const MIXED_BLANK_RUNS: bool = rules::blank_runs::COMMON_LISP;
 
     fn pattern_start(pattern: Pattern) -> rules::Start {
         pattern.start()

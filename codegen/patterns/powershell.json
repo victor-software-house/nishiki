@@ -1,0 +1,386 @@
+{
+  "BlockComment": {
+    "role": "begin",
+    "regex": "<#"
+  },
+  "BlockCommentEnd": {
+    "role": "end",
+    "regex": "#>"
+  },
+  "CommentEmbeddedDocsAt0": {
+    "role": "match",
+    "regex": "(?:^|\\G)(?i:\\s*(\\.)(COMPONENT|DESCRIPTION|EXAMPLE|FUNCTIONALITY|INPUTS|LINK|NOTES|OUTPUTS|ROLE|SYNOPSIS))\\s*$"
+  },
+  "CommentEmbeddedDocsAt1": {
+    "role": "match",
+    "regex": "(?:^|\\G)(?i:\\s*(\\.)(EXTERNALHELP|FORWARDHELP(?:CATEGORY|TARGETNAME)|PARAMETER|REMOTEHELPRUNSPACE))\\s+(.+?)\\s*$"
+  },
+  "RootAt1": {
+    "role": "match",
+    "regex": "[2-6]>&1|>>?|<<|[<>]|>\\||[1-6]>|[1-6]>>"
+  },
+  "CommandsAt0": {
+    "role": "match",
+    "regex": "(?:([-:\\\\_\\p{L}\\d])*\\\\)?\\b(?i:Add|Approve|Assert|Backup|Block|Build|Checkpoint|Clear|Close|Compare|Complete|Compress|Confirm|Connect|Convert|ConvertFrom|ConvertTo|Copy|Debug|Deny|Deploy|Disable|Disconnect|Dismount|Edit|Enable|Enter|Exit|Expand|Export|Find|Format|Get|Grant|Group|Hide|Import|Initialize|Install|Invoke|Join|Limit|Lock|Measure|Merge|Mount|Move|New|Open|Optimize|Out|Ping|Pop|Protect|Publish|Push|Read|Receive|Redo|Register|Remove|Rename|Repair|Request|Reset|Resize|Resolve|Restart|Restore|Resume|Revoke|Save|Search|Select|Send|Set|Show|Skip|Split|Start|Step|Stop|Submit|Suspend|Switch|Sync|Test|Trace|Unblock|Undo|Uninstall|Unlock|Unprotect|Unpublish|Unregister|Update|Use|Wait|Watch|Write)-.+?(?:\\.(?i:exe|cmd|bat|ps1))?\\b"
+  },
+  "CommandsAt1": {
+    "role": "match",
+    "regex": "(?<!\\w)(?i:foreach-object)(?!\\w)"
+  },
+  "CommandsAt2": {
+    "role": "match",
+    "regex": "(?<!\\w)(?i:where-object)(?!\\w)"
+  },
+  "CommandsAt3": {
+    "role": "match",
+    "regex": "(?<!\\w)(?i:sort-object)(?!\\w)"
+  },
+  "CommandsAt4": {
+    "role": "match",
+    "regex": "(?<!\\w)(?i:tee-object)(?!\\w)"
+  },
+  "CommentLine": {
+    "role": "begin",
+    "regex": "(?<![-\\\\`])(#)#*"
+  },
+  "CommentLineEnd": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "RequiresDirective": {
+    "role": "begin",
+    "regex": "(?<=#)(?i:(requires))\\s"
+  },
+  "RequiresDirectiveEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "RequiresDirectiveAt0": {
+    "role": "match",
+    "regex": "-(?i:Modules|PSSnapin|RunAsAdministrator|ShellId|Version|Assembly|PSEdition)"
+  },
+  "RequiresDirectiveAt1": {
+    "role": "match",
+    "regex": "(?<!-)\\b\\p{L}+|\\d+(?:\\.\\d+)*"
+  },
+  "Hashtable": {
+    "role": "begin",
+    "regex": "(@)(\\{)"
+  },
+  "HashtableEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "HashtableAt0": {
+    "role": "match",
+    "regex": "\\b([\"']?)(\\w+)([\"']?)\\s+{0,1}(=)\\s+{0,1}"
+  },
+  "Scriptblock": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "ScriptblockEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "VariableAt0": {
+    "role": "match",
+    "regex": "(\\$)(?i:(False|Null|True))\\b"
+  },
+  "VariableAt1": {
+    "role": "match",
+    "regex": "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))((?:\\.[_\\p{L}\\d]+)*\\b)?\\b"
+  },
+  "VariableAt2": {
+    "role": "match",
+    "regex": "(\\$)([$?^]|(?i:_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This)\\b)((?:\\.[_\\p{L}\\d]+)*\\b)?"
+  },
+  "VariableAt3": {
+    "role": "match",
+    "regex": "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|InformationPreference|LogCommandHealthEvent|LogCommandLifecycleEvent|LogEngineHealthEvent|LogEngineLifecycleEvent|LogProviderHealthEvent|LogProviderLifecycleEvent|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|PSCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoLoadingPreference|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|ProgressPreference|VerbosePreference|WarningPreference|WhatIfPreference))((?:\\.[_\\p{L}\\d]+)*\\b)?\\b"
+  },
+  "VariableAt4": {
+    "role": "match",
+    "regex": "(?i:([$@])(global|local|private|script|using|workflow):([_\\p{L}\\d]+))((?:\\.[_\\p{L}\\d]+)*\\b)?"
+  },
+  "VariableAt5": {
+    "role": "match",
+    "regex": "(?i:(\\$)(\\{)(global|local|private|script|using|workflow):([^}]*[^`}])(}))((?:\\.[_\\p{L}\\d]+)*\\b)?"
+  },
+  "VariableAt6": {
+    "role": "match",
+    "regex": "(?i:([$@])([_\\p{L}\\d]+:)?([_\\p{L}\\d]+))((?:\\.[_\\p{L}\\d]+)*\\b)?"
+  },
+  "VariableAt7": {
+    "role": "match",
+    "regex": "(?i:(\\$)(\\{)([_\\p{L}\\d]+:)?([^}]*[^`}])(}))((?:\\.[_\\p{L}\\d]+)*\\b)?"
+  },
+  "Subexpression": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "SubexpressionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Function": {
+    "role": "begin",
+    "regex": "^\\s*+(?i)(function|filter|configuration|workflow)\\s+(?:(global|local|script|private):)?([-._\\p{L}\\d]+)"
+  },
+  "FunctionEnd": {
+    "role": "end",
+    "regex": "(?=[({])"
+  },
+  "Attribute": {
+    "role": "begin",
+    "regex": "(\\[)\\s*\\b(?i)(cmdletbinding|alias|outputtype|parameter|validatenotnull|validatenotnullorempty|validatecount|validateset|allownull|allowemptycollection|allowemptystring|validatescript|validaterange|validatepattern|validatelength|supportswildcards)\\b"
+  },
+  "AttributeEnd": {
+    "role": "end",
+    "regex": "(])"
+  },
+  "AttributeAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "AttributeAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "UsingDirective": {
+    "role": "match",
+    "regex": "(?<!\\w)(?i:(using))\\s+(?i:(namespace|module))\\s+(?i:((?:\\w+\\.?)+))"
+  },
+  "Type": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "TypeEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "TypeAt0": {
+    "role": "match",
+    "regex": "(?!\\d+|\\.)[.\\p{L}\\p{N}]+"
+  },
+  "DoubleQuotedString": {
+    "role": "begin",
+    "regex": "[\"“”„]"
+  },
+  "DoubleQuotedStringEnd": {
+    "role": "end",
+    "regex": "[\"“”„]"
+  },
+  "DoubleQuotedStringAt0": {
+    "role": "match",
+    "regex": "(?i)\\b[-%+.0-9A-Z_]+@[-.0-9A-Z]+\\.[A-Z]{2,64}\\b"
+  },
+  "VariableNoPropertyAt0": {
+    "role": "match",
+    "regex": "(\\$)(?i:(False|Null|True))\\b"
+  },
+  "VariableNoPropertyAt1": {
+    "role": "match",
+    "regex": "(\\$)(?i:(Error|ExecutionContext|Host|Home|PID|PsHome|PsVersionTable|ShellID))\\b"
+  },
+  "VariableNoPropertyAt2": {
+    "role": "match",
+    "regex": "(\\$)([$?^]|(?i:_|Args|ConsoleFileName|Event|EventArgs|EventSubscriber|ForEach|Input|LastExitCode|Matches|MyInvocation|NestedPromptLevel|Profile|PSBoundParameters|PsCmdlet|PsCulture|PSDebugContext|PSItem|PSCommandPath|PSScriptRoot|PsUICulture|Pwd|Sender|SourceArgs|SourceEventArgs|StackTrace|Switch|This)\\b)"
+  },
+  "VariableNoPropertyAt3": {
+    "role": "match",
+    "regex": "(\\$)(?i:(ConfirmPreference|DebugPreference|ErrorActionPreference|ErrorView|FormatEnumerationLimit|InformationPreference|LogCommandHealthEvent|LogCommandLifecycleEvent|LogEngineHealthEvent|LogEngineLifecycleEvent|LogProviderHealthEvent|LogProviderLifecycleEvent|MaximumAliasCount|MaximumDriveCount|MaximumErrorCount|MaximumFunctionCount|MaximumHistoryCount|MaximumVariableCount|OFS|OutputEncoding|PSCulture|PSDebugContext|PSDefaultParameterValues|PSEmailServer|PSItem|PSModuleAutoLoadingPreference|PSModuleAutoloadingPreference|PSSenderInfo|PSSessionApplicationName|PSSessionConfigurationName|PSSessionOption|ProgressPreference|VerbosePreference|WarningPreference|WhatIfPreference))\\b"
+  },
+  "VariableNoPropertyAt4": {
+    "role": "match",
+    "regex": "(?i:(\\$)(global|local|private|script|using|workflow):([_\\p{L}\\d]+))"
+  },
+  "VariableNoPropertyAt5": {
+    "role": "match",
+    "regex": "(?i:(\\$)(\\{)(global|local|private|script|using|workflow):([^}]*[^`}])(}))"
+  },
+  "VariableNoPropertyAt6": {
+    "role": "match",
+    "regex": "(?i:(\\$)([_\\p{L}\\d]+:)?([_\\p{L}\\d]+))"
+  },
+  "VariableNoPropertyAt7": {
+    "role": "match",
+    "regex": "(?i:(\\$)(\\{)([_\\p{L}\\d]+:)?([^}]*[^`}])(}))"
+  },
+  "DoubleQuotedStringEscapesAt0": {
+    "role": "match",
+    "regex": "`[\"$'0`abefnrtv‘-„]"
+  },
+  "UnicodeEscapeAt0": {
+    "role": "match",
+    "regex": "`u\\{(?:(?:10)?(\\h){1,4}|0?\\g<1>{1,5})}"
+  },
+  "UnicodeEscapeAt1": {
+    "role": "match",
+    "regex": "`u(?:\\{\\h{0,6}.)?"
+  },
+  "DoubleQuotedStringAt3": {
+    "role": "match",
+    "regex": "[\"“”„]{2}"
+  },
+  "Interpolation": {
+    "role": "begin",
+    "regex": "(((\\$)))((\\())"
+  },
+  "InterpolationEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "SingleQuoted": {
+    "role": "begin",
+    "regex": "['‘-‛]"
+  },
+  "SingleQuotedEnd": {
+    "role": "end",
+    "regex": "['‘-‛]"
+  },
+  "SingleQuotedAt0": {
+    "role": "match",
+    "regex": "['‘-‛]{2}"
+  },
+  "HereDouble": {
+    "role": "begin",
+    "regex": "(@[\"“”„])\\s*$"
+  },
+  "HereDoubleEnd": {
+    "role": "end",
+    "regex": "^[\"“”„]@"
+  },
+  "HereSingle": {
+    "role": "begin",
+    "regex": "(@['‘-‛])\\s*$"
+  },
+  "HereSingleEnd": {
+    "role": "end",
+    "regex": "^['‘-‛]@"
+  },
+  "NumericConstantAt0": {
+    "role": "match",
+    "regex": "(?<!\\w)([-+]?0[Xx][_\\h]+(?:[LUlu]|UL|Ul|uL|ul|LU|Lu|lU|lu)?)((?i:[gkmpt]b)?)\\b"
+  },
+  "NumericConstantAt1": {
+    "role": "match",
+    "regex": "(?<!\\w)([-+]?[0-9_]+{0,1}\\.[0-9_]+(?:[Ee][0-9]+)?[DFMdfm]?)((?i:[gkmpt]b)?)\\b"
+  },
+  "NumericConstantAt2": {
+    "role": "match",
+    "regex": "(?<!\\w)([-+]?0[Bb][01_]+(?:[LUlu]|UL|Ul|uL|ul|LU|Lu|lU|lu)?)((?i:[gkmpt]b)?)\\b"
+  },
+  "NumericConstantAt3": {
+    "role": "match",
+    "regex": "(?<!\\w)([-+]?[0-9_]+[Ee][0-9_]?+[DFMdfm]?)((?i:[gkmpt]b)?)\\b"
+  },
+  "NumericConstantAt4": {
+    "role": "match",
+    "regex": "(?<!\\w)([-+]?[0-9_]+\\.[Ee][0-9_]?+[DFMdfm]?)((?i:[gkmpt]b)?)\\b"
+  },
+  "NumericConstantAt5": {
+    "role": "match",
+    "regex": "(?<!\\w)([-+]?[0-9_]+\\.?[DFMdfm])((?i:[gkmpt]b)?)\\b"
+  },
+  "NumericConstantAt6": {
+    "role": "match",
+    "regex": "(?<!\\w)([-+]?[0-9_]+\\.?(?:[LUlu]|UL|Ul|uL|ul|LU|Lu|lU|lu)?)((?i:[gkmpt]b)?)\\b"
+  },
+  "ArrayExpression": {
+    "role": "begin",
+    "regex": "(@)(\\()"
+  },
+  "ArrayExpressionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ComplexSubexpression": {
+    "role": "begin",
+    "regex": "((\\$))(\\()"
+  },
+  "ComplexSubexpressionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "RootAt20": {
+    "role": "match",
+    "regex": "\\b((([-.0-9A-Z_a-z]+)\\.(?i:exe|com|cmd|bat)))\\b"
+  },
+  "RootAt21": {
+    "role": "match",
+    "regex": "(?<![-.\\w])((?i:begin|break|catch|clean|continue|data|default|define|do|dynamicparam|else|elseif|end|exit|finally|for|from|if|in|inlinescript|parallel|param|process|return|sequence|switch|throw|trap|try|until|var|while)|[%?])(?!\\w)"
+  },
+  "RootAt22": {
+    "role": "match",
+    "regex": "(?<![-\\w]|[^)]\\.)((?i:(foreach|where)(?!-object))|[%?])(?!\\w)"
+  },
+  "StopParsing": {
+    "role": "begin",
+    "regex": "(?<!\\w)(--%)(?!\\w)"
+  },
+  "StopParsingEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "StopParsingAt0": {
+    "role": "match",
+    "regex": ".+"
+  },
+  "RootAt24": {
+    "role": "match",
+    "regex": "(?<!\\w)((?i:hidden|static))(?!\\w)"
+  },
+  "RootAt25": {
+    "role": "match",
+    "regex": "(?<![-\\w])((?i:class)|[%?])\\s+([-_\\p{L}\\d]?{1,})\\b"
+  },
+  "RootAt26": {
+    "role": "match",
+    "regex": "(?<!\\w)-(?i:is(?:not)?|as)\\b"
+  },
+  "RootAt27": {
+    "role": "match",
+    "regex": "(?<!\\w)-(?i:[ci]?(?:eq|ne|[gl][et]|(?:not)?(?:like|match|contains|in)|replace))(?!\\p{L})"
+  },
+  "RootAt28": {
+    "role": "match",
+    "regex": "(?<!\\w)-(?i:join|split)(?!\\p{L})|!"
+  },
+  "RootAt29": {
+    "role": "match",
+    "regex": "(?<!\\w)-(?i:and|or|not|xor)(?!\\p{L})|!"
+  },
+  "RootAt30": {
+    "role": "match",
+    "regex": "(?<!\\w)-(?i:band|bor|bnot|bxor|shl|shr)(?!\\p{L})"
+  },
+  "RootAt31": {
+    "role": "match",
+    "regex": "(?<!\\w)-(?i:f)(?!\\p{L})"
+  },
+  "RootAt32": {
+    "role": "match",
+    "regex": "[-%*+/]?=|[-%*+/]"
+  },
+  "RootAt33": {
+    "role": "match",
+    "regex": "\\|{2}|&{2}|;"
+  },
+  "RootAt34": {
+    "role": "match",
+    "regex": "&|(?<!\\w)\\.(?= )|[,`|]"
+  },
+  "RootAt35": {
+    "role": "match",
+    "regex": "(?<!\\s|^)\\.\\.(?=-?\\d|[$(])"
+  },
+  "DoubleQuotedStringAt5": {
+    "role": "match",
+    "regex": "`\\s*$"
+  },
+  "AttributeAt0At1": {
+    "role": "match",
+    "regex": "(?i)\\b(mandatory|valuefrompipeline|valuefrompipelinebypropertyname|valuefromremainingarguments|position|parametersetname|defaultparametersetname|supportsshouldprocess|supportspaging|positionalbinding|helpuri|confirmimpact|helpmessage)\\b\\s+{0,1}(=)?"
+  }
+}

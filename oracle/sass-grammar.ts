@@ -16,6 +16,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -295,6 +296,8 @@ g += groupsCheck(
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("Sass", "SASS");
+
+await writePatterns("sass", patternList);
 
 await writeRust(`${root_dir}src/sass/grammar.rs`, g);
 

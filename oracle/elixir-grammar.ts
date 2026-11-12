@@ -25,6 +25,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -376,6 +377,8 @@ g += groupsCheck(
   "Elixir",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+
+await writePatterns("elixir", patternList);
 
 await writeRust(`${root_dir}src/elixir/grammar.rs`, g);
 

@@ -10,6 +10,8 @@
 //! frames that carry a rule from line to line are here, once.
 
 #[cfg(feature = "_rule-tables")]
+pub(crate) mod blank_runs;
+#[cfg(feature = "_rule-tables")]
 mod chars;
 #[cfg(feature = "lang-proto")]
 pub(crate) mod generated;
@@ -1395,6 +1397,21 @@ pub(crate) trait Tabled: Grammar {
     /// words ([`Place::InWord`](tables::Place::InWord)).
     /// It compiles that step out where no pattern needs it.
     const WORDS_AT_START: bool;
+
+    /// Whether every pattern treats a wide space as a space.
+    ///
+    /// A wide space is a `\s` character above ASCII, such as the no-break
+    /// space.
+    /// Then a run of spaces, tabs and wide spaces looks to every pattern like a
+    /// run of spaces and tabs.
+    /// So the scan of a [`BlankRuns::Skip`] grammar passes it in one step
+    /// ([`Lexer::pass_char`]).
+    /// `codegen/src/blank_runs.rs` decides it per grammar, and writes it to
+    /// `src/rules/blank_runs.rs`.
+    ///
+    /// A halting scan passes only runs of one wide space.
+    /// The halt comes from another grammar, which the analysis has not read.
+    const MIXED_BLANK_RUNS: bool = false;
 
     /// The bytes `pattern` can start at.
     fn pattern_start(pattern: Self::Pattern) -> Start;

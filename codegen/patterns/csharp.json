@@ -1,0 +1,2430 @@
+{
+  "Preprocessor": {
+    "role": "begin",
+    "regex": "^\\s*(#)\\s*"
+  },
+  "PreprocessorEnd": {
+    "role": "end",
+    "regex": "(?<=$)"
+  },
+  "PreprocessorCommentAt0": {
+    "role": "match",
+    "regex": "(//).*(?=$)"
+  },
+  "PreprocessorCommentAt1": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "PreprocessorCommentAt1End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "PreprocessorDefineOrUndef": {
+    "role": "match",
+    "regex": "\\b(?:(define)|(undef))\\b\\s*\\b([_[:alpha:]][_[:alnum:]]*)\\b"
+  },
+  "PreprocessorIfOrElif": {
+    "role": "begin",
+    "regex": "\\b(?:(if)|(elif))\\b"
+  },
+  "PreprocessorIfOrElifEnd": {
+    "role": "end",
+    "regex": "(?=$)"
+  },
+  "PreprocessorExpressionAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PreprocessorExpressionAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "PreprocessorExpressionAt1": {
+    "role": "match",
+    "regex": "\\b(?:(true)|(false)|([_[:alpha:]][_[:alnum:]]*))\\b"
+  },
+  "PreprocessorExpressionAt2": {
+    "role": "match",
+    "regex": "([!=]=)|(!|&&|\\|\\|)"
+  },
+  "PreprocessorElseOrEndif": {
+    "role": "match",
+    "regex": "\\b(?:(else)|(endif))\\b"
+  },
+  "PreprocessorWarningOrError": {
+    "role": "match",
+    "regex": "\\b(?:(warning)|(error))\\b\\s*(.*)(?=$)"
+  },
+  "PreprocessorRegion": {
+    "role": "match",
+    "regex": "\\b(region)\\b\\s*(.*)(?=$)"
+  },
+  "PreprocessorEndregion": {
+    "role": "match",
+    "regex": "\\b(endregion)\\b"
+  },
+  "PreprocessorLoad": {
+    "role": "begin",
+    "regex": "\\b(load)\\b"
+  },
+  "PreprocessorLoadEnd": {
+    "role": "end",
+    "regex": "(?=$)"
+  },
+  "PreprocessorLoadAt0": {
+    "role": "match",
+    "regex": "\"[^\"]*\""
+  },
+  "PreprocessorR": {
+    "role": "begin",
+    "regex": "\\b(r)\\b"
+  },
+  "PreprocessorREnd": {
+    "role": "end",
+    "regex": "(?=$)"
+  },
+  "PreprocessorRAt0": {
+    "role": "match",
+    "regex": "\"[^\"]*\""
+  },
+  "PreprocessorLine": {
+    "role": "begin",
+    "regex": "\\b(line)\\b"
+  },
+  "PreprocessorLineEnd": {
+    "role": "end",
+    "regex": "(?=$)"
+  },
+  "PreprocessorLineAt0": {
+    "role": "match",
+    "regex": "\\b(default|hidden)"
+  },
+  "PreprocessorLineAt1": {
+    "role": "match",
+    "regex": "[0-9]+"
+  },
+  "PreprocessorLineAt2": {
+    "role": "match",
+    "regex": "\"[^\"]*\""
+  },
+  "NestedPatternAndPunctuationCommaAt0": {
+    "role": "match",
+    "regex": "[0-9]+"
+  },
+  "PunctuationComma": {
+    "role": "match",
+    "regex": ","
+  },
+  "PreprocessorPragmaWarning": {
+    "role": "match",
+    "regex": "\\b(pragma)\\b\\s*\\b(warning)\\b\\s*\\b(?:(disable)|(restore))\\b(\\s*[0-9]+(?:\\s*,\\s*[0-9]+)?)?"
+  },
+  "PreprocessorPragmaChecksum": {
+    "role": "match",
+    "regex": "\\b(pragma)\\b\\s*\\b(checksum)\\b\\s*(\"[^\"]*\")\\s*(\"[^\"]*\")\\s*(\"[^\"]*\")"
+  },
+  "PreprocessorAppDirective": {
+    "role": "begin",
+    "regex": "\\s*(:)\\s*"
+  },
+  "PreprocessorAppDirectiveEnd": {
+    "role": "end",
+    "regex": "(?=$)"
+  },
+  "PreprocessorAppDirectivePackageNameAt0": {
+    "role": "match",
+    "regex": "(\\.)([_[:alpha:]][_[:alnum:]]*)"
+  },
+  "PreprocessorAppDirectivePackageNameAt1": {
+    "role": "match",
+    "regex": "[_[:alpha:]][_[:alnum:]]*"
+  },
+  "PreprocessorAppDirectivePackage": {
+    "role": "match",
+    "regex": "\\b(package)\\b\\s*([_[:alpha:]][._[:alnum:]]*)?(@)?(.*)?\\s*"
+  },
+  "PreprocessorAppDirectiveProperty": {
+    "role": "match",
+    "regex": "\\b(property)\\b\\s*([_[:alpha:]][_[:alnum:]]*)?(=)?(.*)?\\s*"
+  },
+  "PreprocessorAppDirectiveExclude": {
+    "role": "match",
+    "regex": "\\b(exclude)\\b\\s*(.*)?\\s*"
+  },
+  "PreprocessorAppDirectiveInclude": {
+    "role": "match",
+    "regex": "\\b(include)\\b\\s*(.*)?\\s*"
+  },
+  "PreprocessorAppDirectiveProject": {
+    "role": "match",
+    "regex": "\\b(project)\\b\\s*(.*)?\\s*"
+  },
+  "PreprocessorAppDirectiveRef": {
+    "role": "match",
+    "regex": "\\b(ref)\\b\\s*(.*)?\\s*"
+  },
+  "PreprocessorAppDirectiveSdk": {
+    "role": "match",
+    "regex": "\\b(sdk)\\b\\s*([_[:alpha:]][._[:alnum:]]*)?(@)?(.*)?\\s*"
+  },
+  "PreprocessorAppDirectiveGeneric": {
+    "role": "match",
+    "regex": "\\b(.*)?\\s*"
+  },
+  "CommentAt0": {
+    "role": "begin",
+    "regex": "(^\\s+)?(///)(?!/)"
+  },
+  "CommentAt0While": {
+    "role": "while",
+    "regex": "^(\\s*)(///)(?!/)"
+  },
+  "XmlComment": {
+    "role": "begin",
+    "regex": "<!--"
+  },
+  "XmlCommentEnd": {
+    "role": "end",
+    "regex": "-->"
+  },
+  "XmlCharacterEntityAt0": {
+    "role": "match",
+    "regex": "(&)([:_[:alpha:]][-.:_[:alnum:]]*|#\\d+|#x\\h+)(;)"
+  },
+  "XmlCharacterEntityAt1": {
+    "role": "match",
+    "regex": "&"
+  },
+  "XmlCdata": {
+    "role": "begin",
+    "regex": "<!\\[CDATA\\["
+  },
+  "XmlCdataEnd": {
+    "role": "end",
+    "regex": "]]>"
+  },
+  "XmlTag": {
+    "role": "begin",
+    "regex": "(</?)((?:([-_[:alnum:]]+)(:))?([-_[:alnum:]]+))"
+  },
+  "XmlTagEnd": {
+    "role": "end",
+    "regex": "(/?>)"
+  },
+  "XmlAttributeAt0": {
+    "role": "match",
+    "regex": "(?:^|\\s+)((?:([-_[:alnum:]]+)(:))?([-_[:alnum:]]+))(=)"
+  },
+  "XmlStringAt0": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "XmlStringAt0End": {
+    "role": "end",
+    "regex": "'"
+  },
+  "XmlStringAt1": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "XmlStringAt1End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CommentAt1": {
+    "role": "begin",
+    "regex": "(^\\s+)?(/\\*\\*)(?!/)"
+  },
+  "CommentAt1End": {
+    "role": "end",
+    "regex": "(^\\s+)?(\\*/)"
+  },
+  "CommentAt1At0": {
+    "role": "begin",
+    "regex": "\\G(?=(?~\\*/)$)"
+  },
+  "CommentAt1At0While": {
+    "role": "while",
+    "regex": "^(\\s*+)(\\*(?!/))?(?=(?~\\*/)$)"
+  },
+  "CommentAt2": {
+    "role": "begin",
+    "regex": "(^\\s+)?(//).*$"
+  },
+  "CommentAt2While": {
+    "role": "while",
+    "regex": "^(\\s*)(//).*$"
+  },
+  "CommentAt3": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "CommentAt3End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "ExternAliasDirective": {
+    "role": "begin",
+    "regex": "\\b(extern)\\s+(alias)\\b"
+  },
+  "ExternAliasDirectiveEnd": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "ExternAliasDirectiveAt0": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "UsingDirectiveAt0": {
+    "role": "begin",
+    "regex": "\\b(?:(global)\\s+)?(using)\\s+(static)\\b\\s*(?:(unsafe)\\b\\s*)?"
+  },
+  "UsingDirectiveAt0End": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "RefModifier": {
+    "role": "match",
+    "regex": "\\bref\\b"
+  },
+  "ReadonlyModifier": {
+    "role": "match",
+    "regex": "\\breadonly\\b"
+  },
+  "TupleType": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TupleTypeEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TypeBuiltinBool": {
+    "role": "match",
+    "regex": "\\b(bool)\\b"
+  },
+  "TypeBuiltinSbyte": {
+    "role": "match",
+    "regex": "\\b(sbyte)\\b"
+  },
+  "TypeBuiltinByte": {
+    "role": "match",
+    "regex": "\\b(byte)\\b"
+  },
+  "TypeBuiltinUshort": {
+    "role": "match",
+    "regex": "\\b(ushort)\\b"
+  },
+  "TypeBuiltinShort": {
+    "role": "match",
+    "regex": "\\b(short)\\b"
+  },
+  "TypeBuiltinNuint": {
+    "role": "match",
+    "regex": "\\b(nuint)\\b"
+  },
+  "TypeBuiltinNint": {
+    "role": "match",
+    "regex": "\\b(nint)\\b"
+  },
+  "TypeBuiltinUint": {
+    "role": "match",
+    "regex": "\\b(uint)\\b"
+  },
+  "TypeBuiltinInt": {
+    "role": "match",
+    "regex": "\\b(int)\\b"
+  },
+  "TypeBuiltinUlong": {
+    "role": "match",
+    "regex": "\\b(ulong)\\b"
+  },
+  "TypeBuiltinLong": {
+    "role": "match",
+    "regex": "\\b(long)\\b"
+  },
+  "TypeBuiltinFloat": {
+    "role": "match",
+    "regex": "\\b(float)\\b"
+  },
+  "TypeBuiltinDouble": {
+    "role": "match",
+    "regex": "\\b(double)\\b"
+  },
+  "TypeBuiltinDecimal": {
+    "role": "match",
+    "regex": "\\b(decimal)\\b"
+  },
+  "TypeBuiltinChar": {
+    "role": "match",
+    "regex": "\\b(char)\\b"
+  },
+  "TypeBuiltinString": {
+    "role": "match",
+    "regex": "\\b(string)\\b"
+  },
+  "TypeBuiltinObject": {
+    "role": "match",
+    "regex": "\\b(object)\\b"
+  },
+  "TypeBuiltinVoid": {
+    "role": "match",
+    "regex": "\\b(void)\\b"
+  },
+  "TypeBuiltinDynamic": {
+    "role": "match",
+    "regex": "\\b(dynamic)\\b"
+  },
+  "TypeNameAt0": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(::)"
+  },
+  "TypeNameAt1": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\.)"
+  },
+  "TypeNameAt2": {
+    "role": "match",
+    "regex": "(\\.)\\s*(@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "TypeNameAt3": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "TypeArguments": {
+    "role": "begin",
+    "regex": "<"
+  },
+  "TypeArgumentsEnd": {
+    "role": "end",
+    "regex": ">"
+  },
+  "TypeArraySuffix": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "TypeArraySuffixEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "TypeNullableSuffix": {
+    "role": "match",
+    "regex": "\\?"
+  },
+  "TypePointerSuffix": {
+    "role": "match",
+    "regex": "\\*"
+  },
+  "TupleElement": {
+    "role": "match",
+    "regex": "(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)(?:(?<tuple_name>\\g<identifier>)\\b)?"
+  },
+  "UsingDirectiveAt1": {
+    "role": "begin",
+    "regex": "\\b(?:(global)\\s+)?(using)\\b\\s*(?:(unsafe)\\b\\s*)?(@?[_[:alpha:]][_[:alnum:]]*)\\s*(=)"
+  },
+  "UsingDirectiveAt1End": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "UsingDirectiveAt2": {
+    "role": "begin",
+    "regex": "\\b(?:(global)\\s+)?(using)\\b\\s*+(?!\\(|var\\b)"
+  },
+  "UsingDirectiveAt2End": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "UsingDirectiveAt2At1": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "PunctuationAccessor": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "OperatorAssignment": {
+    "role": "match",
+    "regex": "(?<![!=])(=)(?!=)"
+  },
+  "AttributeSection": {
+    "role": "begin",
+    "regex": "(\\[)(assembly|module|field|event|method|param|property|return|typevar|type)?(:)?"
+  },
+  "AttributeSectionEnd": {
+    "role": "end",
+    "regex": "(])"
+  },
+  "AttributeArguments": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "AttributeArgumentsEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "AttributeNamedArgument": {
+    "role": "begin",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?==)"
+  },
+  "AttributeNamedArgumentEnd": {
+    "role": "end",
+    "regex": "(?=([),]))"
+  },
+  "ExpressionOperatorExpressionChecked": {
+    "role": "begin",
+    "regex": "\\b(checked)\\s*(\\()"
+  },
+  "ExpressionOperatorExpressionUnchecked": {
+    "role": "begin",
+    "regex": "\\b(unchecked)\\s*(\\()"
+  },
+  "ExpressionOperatorExpressionNameof": {
+    "role": "begin",
+    "regex": "\\b(nameof)\\s*(\\()"
+  },
+  "ExpressionOperatorExpressionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TypeOperatorExpressionDefault": {
+    "role": "begin",
+    "regex": "\\b(default)\\s*(\\()"
+  },
+  "TypeOperatorExpressionSizeof": {
+    "role": "begin",
+    "regex": "\\b(sizeof)\\s*(\\()"
+  },
+  "TypeOperatorExpressionTypeof": {
+    "role": "begin",
+    "regex": "\\b(typeof)\\s*(\\()"
+  },
+  "TypeOperatorExpressionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "DefaultLiteralExpression": {
+    "role": "match",
+    "regex": "\\b(default)\\b"
+  },
+  "ThrowExpression": {
+    "role": "match",
+    "regex": "\\b(throw)\\b"
+  },
+  "RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolation": {
+    "role": "begin",
+    "regex": "\\$+\"\"\"\"\"+"
+  },
+  "RawInterpolatedStringFiveOrMoreQuoteOneOrMoreInterpolationEnd": {
+    "role": "end",
+    "regex": "\"\"\"\"\"+"
+  },
+  "RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolation": {
+    "role": "begin",
+    "regex": "\\$\\$\\$+\"\"\"+"
+  },
+  "RawInterpolatedStringThreeOrMoreQuoteThreeOrMoreInterpolationEnd": {
+    "role": "end",
+    "regex": "\"\"\"+"
+  },
+  "RawInterpolatedStringQuadrupleQuoteDoubleInterpolation": {
+    "role": "begin",
+    "regex": "\\$\\$\"\"\"\""
+  },
+  "RawInterpolatedStringQuadrupleQuoteDoubleInterpolationEnd": {
+    "role": "end",
+    "regex": "\"\"\"\""
+  },
+  "DoubleRawInterpolation": {
+    "role": "begin",
+    "regex": "(?<=[^{][^{]|^)(\\{*)(\\{\\{)(?!\\{)"
+  },
+  "DoubleRawInterpolationEnd": {
+    "role": "end",
+    "regex": "}}"
+  },
+  "RawInterpolatedStringQuadrupleQuoteSingleInterpolation": {
+    "role": "begin",
+    "regex": "\\$\"\"\"\""
+  },
+  "RawInterpolatedStringQuadrupleQuoteSingleInterpolationEnd": {
+    "role": "end",
+    "regex": "\"\"\"\""
+  },
+  "RawInterpolation": {
+    "role": "begin",
+    "regex": "(?<=[^{]|^)(\\{*)(\\{)(?!\\{)"
+  },
+  "RawInterpolationEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "RawInterpolatedStringTripleQuoteDoubleInterpolation": {
+    "role": "begin",
+    "regex": "\\$\\$\"\"\""
+  },
+  "RawInterpolatedStringTripleQuoteDoubleInterpolationEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "RawInterpolatedStringTripleQuoteSingleInterpolation": {
+    "role": "begin",
+    "regex": "\\$\"\"\""
+  },
+  "RawInterpolatedStringTripleQuoteSingleInterpolationEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "InterpolatedString": {
+    "role": "begin",
+    "regex": "\\$\""
+  },
+  "InterpolatedStringEnd": {
+    "role": "end",
+    "regex": "(\")|([^\\n\\\\{])$"
+  },
+  "StringCharacterEscape": {
+    "role": "match",
+    "regex": "\\\\(x\\h{1,4}|U\\h{8}|u\\h{4}|.)"
+  },
+  "Interpolation": {
+    "role": "begin",
+    "regex": "(?<=[^{]|^)((?:\\{\\{)*)(\\{)(?!\\{)"
+  },
+  "InterpolationEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "VerbatimInterpolatedString": {
+    "role": "begin",
+    "regex": "(?:\\$@|@\\$)\""
+  },
+  "VerbatimInterpolatedStringEnd": {
+    "role": "end",
+    "regex": "\"(?=[^\"])"
+  },
+  "VerbatimStringCharacterEscape": {
+    "role": "match",
+    "regex": "\"\""
+  },
+  "LanguageVariableAt0Base": {
+    "role": "match",
+    "regex": "\\b(base)\\b"
+  },
+  "LanguageVariableAt0This": {
+    "role": "match",
+    "regex": "\\b(this)\\b"
+  },
+  "LanguageVariableAt1Value": {
+    "role": "match",
+    "regex": "\\b(value)\\b"
+  },
+  "SwitchStatementOrExpression": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(switch)\\b"
+  },
+  "SwitchStatementOrExpressionEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=})"
+  },
+  "SwitchStatementOrExpressionAt1": {
+    "role": "begin",
+    "regex": "(?=\\()"
+  },
+  "SwitchStatementOrExpressionAt1End": {
+    "role": "end",
+    "regex": "(?<=})|(?=})"
+  },
+  "SwitchStatementAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "SwitchStatementAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "WithExpression": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(with)\\b\\s*(?=\\{|//|/\\*|$)"
+  },
+  "WithExpressionEnd": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InitializerExpression": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "InitializerExpressionEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ConditionalOperatorAt0": {
+    "role": "match",
+    "regex": "\\?(?!\\?|\\s*[.\\[])"
+  },
+  "ConditionalOperatorAt1": {
+    "role": "match",
+    "regex": ":"
+  },
+  "AssignmentOperatorsAt0": {
+    "role": "match",
+    "regex": "(?:[-%*+/]|\\?\\?)="
+  },
+  "AssignmentOperatorsAt1": {
+    "role": "match",
+    "regex": "(?:[\\&^]|<<|>>>?|\\|)="
+  },
+  "AssignmentOperatorsAt2": {
+    "role": "match",
+    "regex": "="
+  },
+  "AssignmentExpression": {
+    "role": "begin",
+    "regex": "(?:[-%*+/]|\\?\\?|[\\&^]|<<|>>>?|\\|)?=(?![=>])"
+  },
+  "AssignmentExpressionEnd": {
+    "role": "end",
+    "regex": "(?=[]),;}])"
+  },
+  "ExpressionOperatorsAt0": {
+    "role": "match",
+    "regex": "<<|>>>?"
+  },
+  "ExpressionOperatorsAt1": {
+    "role": "match",
+    "regex": "[!=]="
+  },
+  "ExpressionOperatorsAt2": {
+    "role": "match",
+    "regex": "<=|>=|[<>]"
+  },
+  "ExpressionOperatorsAt3": {
+    "role": "match",
+    "regex": "!|&&|\\|\\|"
+  },
+  "ExpressionOperatorsAt4": {
+    "role": "match",
+    "regex": "[\\&^|~]"
+  },
+  "ExpressionOperatorsAt5": {
+    "role": "match",
+    "regex": "--"
+  },
+  "ExpressionOperatorsAt6": {
+    "role": "match",
+    "regex": "\\+\\+"
+  },
+  "ExpressionOperatorsAt7": {
+    "role": "match",
+    "regex": "\\+|-(?!>)|[%*/]"
+  },
+  "ExpressionOperatorsAt8": {
+    "role": "match",
+    "regex": "\\?\\?"
+  },
+  "ExpressionOperatorsAt9": {
+    "role": "match",
+    "regex": "\\.\\."
+  },
+  "AwaitExpression": {
+    "role": "match",
+    "regex": "(?<!\\.\\s*)\\b(await)\\b"
+  },
+  "QueryExpression": {
+    "role": "begin",
+    "regex": "\\b(from)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)?\\s+(\\g<identifier>)\\b\\s*\\b(in)\\b\\s*"
+  },
+  "QueryExpressionEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "LetClause": {
+    "role": "begin",
+    "regex": "\\b(let)\\b\\s*(@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*(=)\\s*"
+  },
+  "LetClauseEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "WhereClause": {
+    "role": "begin",
+    "regex": "\\b(where)\\b\\s*"
+  },
+  "WhereClauseEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "JoinClause": {
+    "role": "begin",
+    "regex": "\\b(join)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)?\\s+(\\g<identifier>)\\b\\s*\\b(in)\\b\\s*"
+  },
+  "JoinClauseEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "JoinOn": {
+    "role": "match",
+    "regex": "\\b(on)\\b\\s*"
+  },
+  "JoinEquals": {
+    "role": "match",
+    "regex": "\\b(equals)\\b\\s*"
+  },
+  "JoinInto": {
+    "role": "match",
+    "regex": "\\b(into)\\b\\s*(@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*"
+  },
+  "OrderbyClause": {
+    "role": "begin",
+    "regex": "\\b(orderby)\\b\\s*"
+  },
+  "OrderbyClauseEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "OrderingDirectionAscending": {
+    "role": "match",
+    "regex": "\\b(ascending)\\b"
+  },
+  "OrderingDirectionDescending": {
+    "role": "match",
+    "regex": "\\b(descending)\\b"
+  },
+  "SelectClause": {
+    "role": "begin",
+    "regex": "\\b(select)\\b\\s*"
+  },
+  "SelectClauseEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "GroupClause": {
+    "role": "begin",
+    "regex": "\\b(group)\\b\\s*"
+  },
+  "GroupClauseEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "GroupBy": {
+    "role": "match",
+    "regex": "\\b(by)\\b\\s*"
+  },
+  "GroupInto": {
+    "role": "match",
+    "regex": "\\b(into)\\b\\s*(@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*"
+  },
+  "AsExpression": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(as)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?(?!\\?))?(?:\\s*\\[\\s*(?:,\\s*)*](?:\\s*\\?(?!\\?))?)*)?"
+  },
+  "IsExpression": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(is)\\b"
+  },
+  "IsExpressionEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=)"
+  },
+  "CombinatorPatternAnd": {
+    "role": "match",
+    "regex": "\\b(and)\\b"
+  },
+  "CombinatorPatternOr": {
+    "role": "match",
+    "regex": "\\b(or)\\b"
+  },
+  "CombinatorPatternNot": {
+    "role": "match",
+    "regex": "\\b(not)\\b"
+  },
+  "DiscardPattern": {
+    "role": "match",
+    "regex": "_(?![_[:alnum:]])"
+  },
+  "BooleanLiteralAt0": {
+    "role": "match",
+    "regex": "(?<!\\.)\\btrue\\b"
+  },
+  "BooleanLiteralAt1": {
+    "role": "match",
+    "regex": "(?<!\\.)\\bfalse\\b"
+  },
+  "NullLiteral": {
+    "role": "match",
+    "regex": "(?<!\\.)\\bnull\\b"
+  },
+  "NestedBeginAt0": {
+    "role": "begin",
+    "regex": "(?=.)"
+  },
+  "NestedBeginAt0End": {
+    "role": "end",
+    "regex": "$"
+  },
+  "NestedPatternAt0": {
+    "role": "match",
+    "regex": "(?<=\\h)_(?=\\h)"
+  },
+  "NestedBeginAt0At0": {
+    "role": "match",
+    "regex": "\\G((?=[.0-9])(?!0[BXbx]))([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)?((?<=[0-9])|\\.(?=[0-9]))([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)?((?<!_)([Ee])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*))?([DFMdfm](?!\\w))?$"
+  },
+  "NestedBeginAt0At1": {
+    "role": "match",
+    "regex": "\\G(0[Bb])([01_](?:[01_]|((?<=\\h)_(?=\\h)))*)((?:(?:(?:(?:(?:[Uu]|[Uu]l)|[Uu]L)|l[Uu]?)|L[Uu]?)|[DFMdfm])(?!\\w))?$"
+  },
+  "NestedBeginAt0At2": {
+    "role": "match",
+    "regex": "\\G(0[Xx])(\\h(?:\\h|((?<=\\h)_(?=\\h)))*)((?:(?:(?:(?:(?:[Uu]|[Uu]l)|[Uu]L)|l[Uu]?)|L[Uu]?)|[DFMdfm])(?!\\w))?$"
+  },
+  "NestedBeginAt0At3": {
+    "role": "match",
+    "regex": "\\G((?=[.0-9])(?!0[BXbx]))([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)((?<!_)([Ee])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*))?((?:(?:(?:(?:(?:[Uu]|[Uu]l)|[Uu]L)|l[Uu]?)|L[Uu]?)|[DFMdfm])(?!\\w))?$"
+  },
+  "NestedBeginAt0At4": {
+    "role": "match",
+    "regex": "(?:[0-9A-Z_a-z]|(?<=[Ee])[-+]|\\.\\d)+"
+  },
+  "NumericLiteral": {
+    "role": "match",
+    "regex": "(?<!\\w)\\.?\\d(?:[0-9A-Z_a-z]|(?<=[Ee])[-+]|\\.\\d)*"
+  },
+  "CharLiteral": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "CharLiteralEnd": {
+    "role": "end",
+    "regex": "(')|([^\\n\\\\])$"
+  },
+  "CharCharacterEscape": {
+    "role": "match",
+    "regex": "\\\\(x\\h{1,4}|u\\h{4}|.)"
+  },
+  "StringLiteral": {
+    "role": "begin",
+    "regex": "(?<!@)\""
+  },
+  "StringLiteralEnd": {
+    "role": "end",
+    "regex": "(\")|([^\\n\\\\])$"
+  },
+  "RawStringLiteralMore": {
+    "role": "begin",
+    "regex": "\"\"\"\"\"+"
+  },
+  "RawStringLiteralMoreEnd": {
+    "role": "end",
+    "regex": "\"\"\"\"\"+"
+  },
+  "RawStringLiteralQuadruple": {
+    "role": "begin",
+    "regex": "\"\"\"\""
+  },
+  "RawStringLiteralQuadrupleEnd": {
+    "role": "end",
+    "regex": "\"\"\"\""
+  },
+  "RawStringLiteralTriple": {
+    "role": "begin",
+    "regex": "\"\"\""
+  },
+  "RawStringLiteralTripleEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "VerbatimStringLiteral": {
+    "role": "begin",
+    "regex": "@\""
+  },
+  "VerbatimStringLiteralEnd": {
+    "role": "end",
+    "regex": "\"(?=[^\"])"
+  },
+  "CastedConstantPattern": {
+    "role": "begin",
+    "regex": "(\\()([.:@_\\s[:alnum:]]+)(\\))(?=[-!+~\\s]*@?[\"'(_[:alnum:]]+)"
+  },
+  "CastedConstantPatternEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "CastedConstantPatternAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CastedConstantPatternAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CastedConstantPatternAt3": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(::)"
+  },
+  "CastedConstantPatternAt4": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\.)"
+  },
+  "CastedConstantPatternAt5": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "RelationalPattern": {
+    "role": "begin",
+    "regex": "<=?|>=?"
+  },
+  "RelationalPatternEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "NestedPattern7At0Async": {
+    "role": "match",
+    "regex": "async"
+  },
+  "NestedPattern7At0Static": {
+    "role": "match",
+    "regex": "static"
+  },
+  "ExplicitAnonymousFunctionParameterRef": {
+    "role": "match",
+    "regex": "\\b(ref)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args><(?:[^<>]|\\g<type_args>)*>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)*\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*\\b(\\g<identifier>)\\b"
+  },
+  "ExplicitAnonymousFunctionParameterParams": {
+    "role": "match",
+    "regex": "\\b(params)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args><(?:[^<>]|\\g<type_args>)*>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)*\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*\\b(\\g<identifier>)\\b"
+  },
+  "ExplicitAnonymousFunctionParameterOut": {
+    "role": "match",
+    "regex": "\\b(out)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args><(?:[^<>]|\\g<type_args>)*>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)*\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*\\b(\\g<identifier>)\\b"
+  },
+  "ExplicitAnonymousFunctionParameterIn": {
+    "role": "match",
+    "regex": "\\b(in)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args><(?:[^<>]|\\g<type_args>)*>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)*\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*\\b(\\g<identifier>)\\b"
+  },
+  "ExplicitAnonymousFunctionParameter": {
+    "role": "match",
+    "regex": "(?:\\b((?!))\\b\\s*)?(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args><(?:[^<>]|\\g<type_args>)*>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)*\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*\\b(\\g<identifier>)\\b"
+  },
+  "ImplicitAnonymousFunctionParameter": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*\\b"
+  },
+  "DefaultArgument": {
+    "role": "begin",
+    "regex": "="
+  },
+  "DefaultArgumentEnd": {
+    "role": "end",
+    "regex": "(?=[),])"
+  },
+  "AnonymousMethodExpressionAt0": {
+    "role": "begin",
+    "regex": "((?:\\b(?:async|static)\\b\\s*)*)(?:(@?[_[:alpha:]][_[:alnum:]]*)\\b|(\\()(?<tuple>(?:[^()]|\\(\\g<tuple>\\))*)(\\)))\\s*(=>)"
+  },
+  "AnonymousMethodExpressionAt0End": {
+    "role": "end",
+    "regex": "(?=[),;}])"
+  },
+  "AnonymousMethodExpressionAt0At1": {
+    "role": "begin",
+    "regex": "(?=\\{)"
+  },
+  "AnonymousMethodExpressionAt0At1End": {
+    "role": "end",
+    "regex": "(?=[),;}])"
+  },
+  "Block": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "BlockEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "WhileStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(while)\\b\\s*(?=\\()"
+  },
+  "WhileStatementEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "WhileStatementAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "WhileStatementAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "AnonymousMethodExpressionAt1": {
+    "role": "begin",
+    "regex": "((?:\\b(?:async|static)\\b\\s*)*)\\b(delegate)\\b\\s*"
+  },
+  "AnonymousMethodExpressionAt1End": {
+    "role": "end",
+    "regex": "(?<=})|(?=[),;}])"
+  },
+  "AnonymousMethodExpressionAt1At1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "AnonymousMethodExpressionAt1At1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ObjectCreationExpressionWithParameters": {
+    "role": "begin",
+    "regex": "(new)(?:\\s+(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*))?\\s*(?=\\()"
+  },
+  "ObjectCreationExpressionWithParametersEnd": {
+    "role": "end",
+    "regex": "(?<=\\))"
+  },
+  "ArgumentList": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ArgumentListEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "NamedArgument": {
+    "role": "begin",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+  },
+  "NamedArgumentEnd": {
+    "role": "end",
+    "regex": "(?=([]),]))"
+  },
+  "ArgumentAt0Ref": {
+    "role": "match",
+    "regex": "\\b(ref)\\b"
+  },
+  "ArgumentAt0In": {
+    "role": "match",
+    "regex": "\\b(in)\\b"
+  },
+  "ArgumentAt1": {
+    "role": "begin",
+    "regex": "\\b(out)\\b"
+  },
+  "ArgumentAt1End": {
+    "role": "end",
+    "regex": "(?=[]),])"
+  },
+  "DeclarationExpressionLocal": {
+    "role": "match",
+    "regex": "(?:\\b(var)\\b|(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*))\\s+(\\g<identifier>)\\b\\s*(?=[]),])"
+  },
+  "ObjectCreationExpressionWithNoParameters": {
+    "role": "match",
+    "regex": "(new)\\s+(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*(?=\\{|//|/\\*|$)"
+  },
+  "ArrayCreationExpressionNew": {
+    "role": "begin",
+    "regex": "\\b(new)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\*\\s*)*(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)?\\s*(?=\\[)"
+  },
+  "ArrayCreationExpressionStackalloc": {
+    "role": "begin",
+    "regex": "\\b(stackalloc)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\*\\s*)*(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)?\\s*(?=\\[)"
+  },
+  "ArrayCreationExpressionEnd": {
+    "role": "end",
+    "regex": "(?<=])"
+  },
+  "BracketedArgumentList": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "BracketedArgumentListEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "AnonymousObjectCreationExpression": {
+    "role": "begin",
+    "regex": "\\b(new)\\b\\s*(?=\\{|//|/\\*|$)"
+  },
+  "AnonymousObjectCreationExpressionEnd": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InvocationExpression": {
+    "role": "begin",
+    "regex": "(?:(?:(\\?)\\s*)?(\\.)\\s*|(->)\\s*)?(@?[_[:alpha:]][_[:alnum:]]*)\\s*(<(?<type_args>[^()<>]|\\((?:[^()<>]|<[^()<>]*>|\\([^()<>]*\\))*\\)|<\\g<type_args>*>)*>\\s*)?(?=\\()"
+  },
+  "InvocationExpressionEnd": {
+    "role": "end",
+    "regex": "(?<=\\))"
+  },
+  "MemberAccessExpressionAt0": {
+    "role": "match",
+    "regex": "(?:(?:(\\?)\\s*)?(\\.)\\s*|(->)\\s*)(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?![(_[:alnum:]]|(\\?)?\\[|<)"
+  },
+  "MemberAccessExpressionAt1": {
+    "role": "match",
+    "regex": "(\\.)?\\s*(@?[_[:alpha:]][_[:alnum:]]*)(?<type_params>\\s*<([^<>]|\\g<type_params>)+>\\s*)(?=(\\s*\\?)?\\s*\\.\\s*@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "MemberAccessExpressionAt2": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)(?=\\s*(?:(?:\\?\\s*)?\\.|->)\\s*@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "ElementAccessExpression": {
+    "role": "begin",
+    "regex": "(?:(?:(\\?)\\s*)?(\\.)\\s*|(->)\\s*)?(?:(@?[_[:alpha:]][_[:alnum:]]*)\\s*)?(?:(\\?)\\s*)?(?=\\[)"
+  },
+  "ElementAccessExpressionEnd": {
+    "role": "end",
+    "regex": "(?<=])(?!\\s*\\[)"
+  },
+  "CastExpression": {
+    "role": "match",
+    "regex": "(\\()\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*(\\))(?=\\s*-*!*@?[(_[:alnum:]])"
+  },
+  "TupleLiteral": {
+    "role": "begin",
+    "regex": "(\\()(?=.*[,:])"
+  },
+  "TupleLiteralEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TupleLiteralElement": {
+    "role": "begin",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?=:)"
+  },
+  "TupleLiteralElementEnd": {
+    "role": "end",
+    "regex": "(:)"
+  },
+  "ParenthesizedExpression": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParenthesizedExpressionEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TupleDeconstructionElementList": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TupleDeconstructionElementListEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "DeclarationExpressionTuple": {
+    "role": "match",
+    "regex": "(?:\\b(var)\\b|(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*))\\s+(\\g<identifier>)\\b\\s*(?=[),])"
+  },
+  "TupleDeconstructionElementListAt4": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*(?=[),])"
+  },
+  "TupleDeconstructionAssignment": {
+    "role": "match",
+    "regex": "(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\))\\s*(?!=[=>])(?==)"
+  },
+  "Identifier": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "DoStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(do)\\b"
+  },
+  "DoStatementEnd": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "ForStatement": {
+    "role": "begin",
+    "regex": "\\b(for)\\b"
+  },
+  "ForStatementEnd": {
+    "role": "end",
+    "regex": "(?<=\\))|(?=[;}])"
+  },
+  "ForStatementAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ForStatementAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ForStatementAt0At0": {
+    "role": "begin",
+    "regex": "(?=[^);])"
+  },
+  "ForStatementAt0At0End": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "LocalVariableDeclaration": {
+    "role": "begin",
+    "regex": "(?:(?:\\b(ref)\\s+(?:\\b(readonly)\\s+)?)?\\b(var)\\b|(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\*\\s*)*(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*))\\s+(\\g<identifier>)\\s*(?!=>)(?=[),;=])"
+  },
+  "LocalVariableDeclarationEnd": {
+    "role": "end",
+    "regex": "(?=[);}])"
+  },
+  "LocalVariableDeclarationAt0": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "VariableInitializer": {
+    "role": "begin",
+    "regex": "(?<![!=])(=)(?![=>])"
+  },
+  "VariableInitializerEnd": {
+    "role": "end",
+    "regex": "(?=[]),;}])"
+  },
+  "TupleDeclarationDeconstructionElementList": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TupleDeclarationDeconstructionElementListEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TupleDeclarationDeconstructionElementListAt4": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\b\\s*(?=[),])"
+  },
+  "LocalTupleVarDeconstruction": {
+    "role": "begin",
+    "regex": "\\b(var)\\b\\s*(?<tuple>\\((?:[^()]|\\g<tuple>)+\\))\\s*(?=[);=])"
+  },
+  "LocalTupleVarDeconstructionEnd": {
+    "role": "end",
+    "regex": "(?=[);])"
+  },
+  "ForStatementAt0At1": {
+    "role": "begin",
+    "regex": "(?=;)"
+  },
+  "ForStatementAt0At1End": {
+    "role": "end",
+    "regex": "(?=\\))"
+  },
+  "PunctuationSemicolon": {
+    "role": "match",
+    "regex": ";"
+  },
+  "ForeachStatement": {
+    "role": "begin",
+    "regex": "\\b(foreach)\\b"
+  },
+  "ForeachStatementEnd": {
+    "role": "end",
+    "regex": "(?<=\\))|(?=[;}])"
+  },
+  "ForeachStatementAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ForeachStatementAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ForeachStatementAt1At1": {
+    "role": "match",
+    "regex": "(?:(?:\\b(ref)\\s+)?\\b(var)\\b|(?<type_name>(?:ref\\s+)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*))\\s+(\\g<identifier>)\\s+\\b(in)\\b"
+  },
+  "ForeachStatementAt1At2": {
+    "role": "match",
+    "regex": "(?:\\b(var)\\b\\s*)?(?<tuple>\\((?:[^()]|\\g<tuple>)+\\))\\s+\\b(in)\\b"
+  },
+  "IfStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(if)\\b\\s*(?=\\()"
+  },
+  "IfStatementEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "IfStatementAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "IfStatementAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ElsePart": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(else)\\b"
+  },
+  "ElsePartEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "GotoStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(goto)\\b"
+  },
+  "GotoStatementEnd": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "GotoStatementAt0": {
+    "role": "begin",
+    "regex": "\\b(case)\\b"
+  },
+  "GotoStatementAt0End": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "GotoStatementAt1": {
+    "role": "match",
+    "regex": "\\b(default)\\b"
+  },
+  "GotoStatementAt2": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "ReturnStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(return)\\b"
+  },
+  "ReturnStatementEnd": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "BreakOrContinueStatementBreak": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(break)\\b"
+  },
+  "BreakOrContinueStatementContinue": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(continue)\\b"
+  },
+  "ThrowStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(throw)\\b"
+  },
+  "ThrowStatementEnd": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "YieldReturnStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(yield)\\b\\s*\\b(return)\\b"
+  },
+  "YieldReturnStatementEnd": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "YieldBreakStatement": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(yield)\\b\\s*\\b(break)\\b"
+  },
+  "AwaitStatement": {
+    "role": "begin",
+    "regex": "(?<!\\.\\s*)\\b(await)\\b"
+  },
+  "AwaitStatementEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=[;}])"
+  },
+  "UsingStatement": {
+    "role": "begin",
+    "regex": "\\b(using)\\b"
+  },
+  "UsingStatementEnd": {
+    "role": "end",
+    "regex": "(?<=\\))|(?=[;}])"
+  },
+  "UsingStatementAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "UsingStatementAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TryBlock": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(try)\\b"
+  },
+  "TryBlockEnd": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "CatchClause": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(catch)\\b"
+  },
+  "CatchClauseEnd": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "CatchClauseAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CatchClauseAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CatchClauseAt0At0": {
+    "role": "match",
+    "regex": "(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*(?:(\\g<identifier>)\\b)?"
+  },
+  "WhenClause": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(when)\\b\\s*(\\()"
+  },
+  "WhenClauseEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FinallyClause": {
+    "role": "begin",
+    "regex": "(?<!\\.)\\b(finally)\\b"
+  },
+  "FinallyClauseEnd": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "ContextControlStatementChecked": {
+    "role": "match",
+    "regex": "\\b(checked)\\b(?!\\s*[(@_[:alpha:]])"
+  },
+  "ContextControlStatementUnchecked": {
+    "role": "match",
+    "regex": "\\b(unchecked)\\b(?!\\s*[(@_[:alpha:]])"
+  },
+  "ContextControlStatementUnsafe": {
+    "role": "match",
+    "regex": "\\b(unsafe)\\b(?!\\s*[(@_[:alpha:]])"
+  },
+  "FixedStatement": {
+    "role": "begin",
+    "regex": "\\b(fixed)\\b"
+  },
+  "FixedStatementEnd": {
+    "role": "end",
+    "regex": "(?<=\\))|(?=[;}])"
+  },
+  "FixedStatementAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FixedStatementAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LockStatement": {
+    "role": "begin",
+    "regex": "\\b(lock)\\b"
+  },
+  "LockStatementEnd": {
+    "role": "end",
+    "regex": "(?<=\\))|(?=[;}])"
+  },
+  "LockStatementAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "LockStatementAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LabeledStatement": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+  },
+  "LocalConstantDeclaration": {
+    "role": "begin",
+    "regex": "\\b(?<const_keyword>const)\\b\\s*(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)\\s*(?=[,;=])"
+  },
+  "LocalConstantDeclarationEnd": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "LocalConstantDeclarationAt0": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "StorageModifierNew": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(new)\\b"
+  },
+  "StorageModifierPublic": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(public)\\b"
+  },
+  "StorageModifierProtected": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(protected)\\b"
+  },
+  "StorageModifierInternal": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(internal)\\b"
+  },
+  "StorageModifierPrivate": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(private)\\b"
+  },
+  "StorageModifierAbstract": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(abstract)\\b"
+  },
+  "StorageModifierVirtual": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(virtual)\\b"
+  },
+  "StorageModifierOverride": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(override)\\b"
+  },
+  "StorageModifierSealed": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(sealed)\\b"
+  },
+  "StorageModifierStatic": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(static)\\b"
+  },
+  "StorageModifierPartial": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(partial)\\b"
+  },
+  "StorageModifierReadonly": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(readonly)\\b"
+  },
+  "StorageModifierVolatile": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(volatile)\\b"
+  },
+  "StorageModifierConst": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(const)\\b"
+  },
+  "StorageModifierExtern": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(extern)\\b"
+  },
+  "StorageModifierAsync": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(async)\\b"
+  },
+  "StorageModifierUnsafe": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(unsafe)\\b"
+  },
+  "StorageModifierRef": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(ref)\\b"
+  },
+  "StorageModifierRequired": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(required)\\b"
+  },
+  "StorageModifierFile": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(file)\\b"
+  },
+  "TypeParameterList": {
+    "role": "begin",
+    "regex": "<"
+  },
+  "TypeParameterListEnd": {
+    "role": "end",
+    "regex": ">"
+  },
+  "TypeParameterListAt0In": {
+    "role": "match",
+    "regex": "\\b(in)\\b"
+  },
+  "TypeParameterListAt0Out": {
+    "role": "match",
+    "regex": "\\b(out)\\b"
+  },
+  "TypeParameterListAt1": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\b"
+  },
+  "LocalFunctionDeclaration": {
+    "role": "begin",
+    "regex": "\\b((?:(?:async|unsafe|static|extern)\\s+)*)(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?)?(?:\\s*\\[\\s*(?:,\\s*)*](?:\\s*\\?)?)*)\\s+(\\g<identifier>)\\s*(<[^<>]+>)?\\s*(?=\\()"
+  },
+  "LocalFunctionDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "ParenthesizedParameterList": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "ParenthesizedParameterListEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "ParameterRef": {
+    "role": "match",
+    "regex": "\\b(ref)\\b\\s+(?<type_name>(?:ref\\s+)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)"
+  },
+  "ParameterParams": {
+    "role": "match",
+    "regex": "\\b(params)\\b\\s+(?<type_name>(?:ref\\s+)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)"
+  },
+  "ParameterOut": {
+    "role": "match",
+    "regex": "\\b(out)\\b\\s+(?<type_name>(?:ref\\s+)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)"
+  },
+  "ParameterIn": {
+    "role": "match",
+    "regex": "\\b(in)\\b\\s+(?<type_name>(?:ref\\s+)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)"
+  },
+  "ParameterThis": {
+    "role": "match",
+    "regex": "\\b(this)\\b\\s+(?<type_name>(?:ref\\s+)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)"
+  },
+  "Parameter": {
+    "role": "match",
+    "regex": "(?:\\b((?!))\\b\\s+)?(?<type_name>(?:ref\\s+)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)"
+  },
+  "GenericConstraints": {
+    "role": "begin",
+    "regex": "(where)\\s+(@?[_[:alpha:]][_[:alnum:]]*)\\s*(:)"
+  },
+  "GenericConstraintsEnd": {
+    "role": "end",
+    "regex": "(?=\\{|where|;|=>)"
+  },
+  "GenericConstraintsAt0": {
+    "role": "match",
+    "regex": "\\bclass\\b"
+  },
+  "GenericConstraintsAt1": {
+    "role": "match",
+    "regex": "\\bstruct\\b"
+  },
+  "GenericConstraintsAt2": {
+    "role": "match",
+    "regex": "\\bdefault\\b"
+  },
+  "GenericConstraintsAt3": {
+    "role": "match",
+    "regex": "\\bnotnull\\b"
+  },
+  "GenericConstraintsAt4": {
+    "role": "match",
+    "regex": "\\bunmanaged\\b"
+  },
+  "GenericConstraintsAt5": {
+    "role": "match",
+    "regex": "(new)\\s*(\\()\\s*(\\))"
+  },
+  "ExpressionBody": {
+    "role": "begin",
+    "regex": "=>"
+  },
+  "ExpressionBodyEnd": {
+    "role": "end",
+    "regex": "(?=[),;}])"
+  },
+  "LocalTupleDeclarationDeconstruction": {
+    "role": "match",
+    "regex": "(?<tuple>\\((?:[^()]|\\g<tuple>)+\\))\\s*(?!=[=>])(?==)"
+  },
+  "AnonymousMethodExpressionAt0At2": {
+    "role": "begin",
+    "regex": "\\b(ref)\\b|(?=\\S)"
+  },
+  "AnonymousMethodExpressionAt0At2End": {
+    "role": "end",
+    "regex": "(?=[),;}])"
+  },
+  "VarPattern": {
+    "role": "begin",
+    "regex": "\\b(var)\\b"
+  },
+  "VarPatternEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "DesignationPatternAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "DesignationPatternAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "SimpleDesignationPatternAt1": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "TypePattern": {
+    "role": "begin",
+    "regex": "(?=@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "TypePatternEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "TypePatternAt0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "TypePatternAt0End": {
+    "role": "end",
+    "regex": "(?!\\G[@_[:alpha:]])(?=[]\\&(),:;=@^_{|}[:alpha:]]|(?:\\s|^)\\?|!=|\\b(and|or|when)\\b)"
+  },
+  "TypeSubpatternAt1": {
+    "role": "begin",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(::)"
+  },
+  "TypeSubpatternAt1End": {
+    "role": "end",
+    "regex": "(?<=[_[:alnum:]])|(?=[]\\&(),.:-=?\\[^{|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "TypeSubpatternAt1At1": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "TypeSubpatternAt2": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "TypeSubpatternAt3": {
+    "role": "begin",
+    "regex": "\\."
+  },
+  "TypeSubpatternAt3End": {
+    "role": "end",
+    "regex": "(?<=[_[:alnum:]])|(?=[]\\&(),:-=?\\[^{|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "TypeSubpatternAt3At1": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "TypeSubpatternAt6": {
+    "role": "match",
+    "regex": "(?<!\\s)\\?"
+  },
+  "TypePatternAt1": {
+    "role": "begin",
+    "regex": "(?=[(@_{[:alpha:]])"
+  },
+  "TypePatternAt1End": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "PositionalPattern": {
+    "role": "begin",
+    "regex": "(?=\\()"
+  },
+  "PositionalPatternEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "PositionalPatternAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "PositionalPatternAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "NestedPatternAndPunctuationAccessorAt0": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "SubpatternAt0": {
+    "role": "match",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*(?:\\s*\\.\\s*@?[_[:alpha:]][_[:alnum:]]*)*)\\s*(:)"
+  },
+  "PropertyPattern": {
+    "role": "begin",
+    "regex": "(?=\\{)"
+  },
+  "PropertyPatternEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "PropertyPatternAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "PropertyPatternAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ListPattern": {
+    "role": "begin",
+    "regex": "(?=\\[)"
+  },
+  "ListPatternEnd": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "ListPatternAt0": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "ListPatternAt0End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "SlicePattern": {
+    "role": "match",
+    "regex": "\\.\\."
+  },
+  "ListPatternAt1": {
+    "role": "begin",
+    "regex": "(?<=])"
+  },
+  "ListPatternAt1End": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "PropertyPatternAt1": {
+    "role": "begin",
+    "regex": "(?<=})"
+  },
+  "PropertyPatternAt1End": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "PositionalPatternAt1": {
+    "role": "begin",
+    "regex": "(?<=\\))"
+  },
+  "PositionalPatternAt1End": {
+    "role": "end",
+    "regex": "(?=[]\\&),:;=?^|}]|!=|\\b(and|or|when)\\b)"
+  },
+  "SwitchStatementAt2": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "SwitchStatementAt2End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SwitchLabelCase": {
+    "role": "begin",
+    "regex": "\\b(case)\\b"
+  },
+  "SwitchLabelDefault": {
+    "role": "begin",
+    "regex": "\\b(default)\\b"
+  },
+  "SwitchLabelEnd": {
+    "role": "end",
+    "regex": "(:)|(?=})"
+  },
+  "SwitchLabelAt0": {
+    "role": "begin",
+    "regex": "\\b(when)\\b"
+  },
+  "SwitchLabelAt0End": {
+    "role": "end",
+    "regex": "(?=[:}])"
+  },
+  "SwitchLabelAt1": {
+    "role": "begin",
+    "regex": "(?!\\s)"
+  },
+  "SwitchLabelAt1End": {
+    "role": "end",
+    "regex": "(?=\\bwhen\\b|[:}])"
+  },
+  "SwitchStatementOrExpressionAt2": {
+    "role": "begin",
+    "regex": "(?=\\{)"
+  },
+  "SwitchStatementOrExpressionAt2End": {
+    "role": "end",
+    "regex": "(?<=})|(?=})"
+  },
+  "SwitchExpression": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "SwitchExpressionEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SwitchExpressionAt1": {
+    "role": "begin",
+    "regex": "=>"
+  },
+  "SwitchExpressionAt1End": {
+    "role": "end",
+    "regex": "(?=[,}])"
+  },
+  "SwitchExpressionAt2": {
+    "role": "begin",
+    "regex": "\\b(when)\\b"
+  },
+  "SwitchExpressionAt2End": {
+    "role": "end",
+    "regex": "(?==>|[,}])"
+  },
+  "SwitchExpressionAt3": {
+    "role": "begin",
+    "regex": "(?!\\s)"
+  },
+  "SwitchExpressionAt3End": {
+    "role": "end",
+    "regex": "(?=\\bwhen\\b|=>|[,}])"
+  },
+  "NamespaceDeclaration": {
+    "role": "begin",
+    "regex": "\\b(namespace)\\s+"
+  },
+  "NamespaceDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "NamespaceDeclarationAt1": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "NamespaceDeclarationAt3": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "NamespaceDeclarationAt3End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ClassDeclaration": {
+    "role": "begin",
+    "regex": "(?=(\\brecord\\b\\s+)?\\bclass\\b)"
+  },
+  "ClassDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "ClassDeclarationAt0": {
+    "role": "begin",
+    "regex": "(\\b(record)\\b\\s+)?\\b(class)\\b\\s+(@?[_[:alpha:]][_[:alnum:]]*)\\s*"
+  },
+  "ClassDeclarationAt0End": {
+    "role": "end",
+    "regex": "(?=\\{)|(?=;)"
+  },
+  "BaseTypes": {
+    "role": "begin",
+    "regex": ":"
+  },
+  "BaseTypesEnd": {
+    "role": "end",
+    "regex": "(?=\\{|where|;)"
+  },
+  "BaseClassConstructorCall": {
+    "role": "begin",
+    "regex": "(?:(@?[_[:alpha:]][_[:alnum:]]*)\\s*(\\.))*(@?[_[:alpha:]][_[:alnum:]]*)\\s*(<(?<type_args>[^()<>]|\\((?:[^()<>]|<[^()<>]*>|\\([^()<>]*\\))*\\)|<\\g<type_args>*>)*>\\s*)?(?=\\()"
+  },
+  "BaseClassConstructorCallEnd": {
+    "role": "end",
+    "regex": "(?<=\\))"
+  },
+  "ClassDeclarationAt1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "ClassDeclarationAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "DelegateDeclaration": {
+    "role": "begin",
+    "regex": "\\b(delegate)\\b\\s+(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)\\s*(<([^<>]+)>)?\\s*(?=\\()"
+  },
+  "DelegateDeclarationEnd": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "EnumDeclaration": {
+    "role": "begin",
+    "regex": "(?=\\benum\\b)"
+  },
+  "EnumDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "EnumDeclarationAt0": {
+    "role": "begin",
+    "regex": "(?=enum)"
+  },
+  "EnumDeclarationAt0End": {
+    "role": "end",
+    "regex": "(?=\\{)|(?=;)"
+  },
+  "EnumDeclarationAt0At1": {
+    "role": "match",
+    "regex": "(enum)\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "EnumDeclarationAt0At2": {
+    "role": "begin",
+    "regex": ":"
+  },
+  "EnumDeclarationAt0At2End": {
+    "role": "end",
+    "regex": "(?=\\{)"
+  },
+  "EnumDeclarationAt1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "EnumDeclarationAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "EnumDeclarationAt1At4": {
+    "role": "begin",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "EnumDeclarationAt1At4End": {
+    "role": "end",
+    "regex": "(?=([,}]))"
+  },
+  "InterfaceDeclaration": {
+    "role": "begin",
+    "regex": "(?=\\binterface\\b)"
+  },
+  "InterfaceDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "InterfaceDeclarationAt0": {
+    "role": "begin",
+    "regex": "(interface)\\b\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "InterfaceDeclarationAt0End": {
+    "role": "end",
+    "regex": "(?=\\{)|(?=;)"
+  },
+  "InterfaceDeclarationAt1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "InterfaceDeclarationAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "PropertyDeclaration": {
+    "role": "begin",
+    "regex": "(?![[:word:]\\s]*\\b(?:class|interface|struct|union|enum|event)\\b)(?<return_type>(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+)(?<interface_name>\\g<type_name>\\s*\\.\\s*)?(?<property_name>\\g<identifier>)\\s*(?=\\{|=>|//|/\\*|$)"
+  },
+  "PropertyDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "PropertyAccessors": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "PropertyAccessorsEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "PropertyAccessorsAt2Private": {
+    "role": "match",
+    "regex": "\\b(private)\\b"
+  },
+  "PropertyAccessorsAt2Protected": {
+    "role": "match",
+    "regex": "\\b(protected)\\b"
+  },
+  "PropertyAccessorsAt2Internal": {
+    "role": "match",
+    "regex": "\\b(internal)\\b"
+  },
+  "PropertyAccessorsAt3": {
+    "role": "begin",
+    "regex": "(?:\\b(readonly)\\s+)?\\b(get)\\b\\s*(?=[;{]|=>|//|/\\*|$)"
+  },
+  "PropertyAccessorsAt3End": {
+    "role": "end",
+    "regex": "(?<=[;}])|(?=})"
+  },
+  "AccessorGetterAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "AccessorGetterAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "AccessorGetterExpression": {
+    "role": "begin",
+    "regex": "=>"
+  },
+  "AccessorGetterExpressionEnd": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "PropertyAccessorsAt4Set": {
+    "role": "begin",
+    "regex": "\\b(set)\\b\\s*(?=[;{]|=>|//|/\\*|$)"
+  },
+  "PropertyAccessorsAt4Init": {
+    "role": "begin",
+    "regex": "\\b(init)\\b\\s*(?=[;{]|=>|//|/\\*|$)"
+  },
+  "PropertyAccessorsAt4End": {
+    "role": "end",
+    "regex": "(?<=[;}])|(?=})"
+  },
+  "AccessorSetterAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "AccessorSetterAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "AccessorSetterAt1": {
+    "role": "begin",
+    "regex": "=>"
+  },
+  "AccessorSetterAt1End": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "StructDeclaration": {
+    "role": "begin",
+    "regex": "(?=(\\brecord\\b\\s+)?\\bstruct\\b)"
+  },
+  "StructDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "StructDeclarationAt0": {
+    "role": "begin",
+    "regex": "(\\b(record)\\b\\s+)?(struct)\\b\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "StructDeclarationAt0End": {
+    "role": "end",
+    "regex": "(?=\\{)|(?=;)"
+  },
+  "StructDeclarationAt1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "StructDeclarationAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "UnionDeclaration": {
+    "role": "begin",
+    "regex": "(?=\\bunion\\b)"
+  },
+  "UnionDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "UnionDeclarationAt0": {
+    "role": "begin",
+    "regex": "(union)\\b\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "UnionDeclarationAt0End": {
+    "role": "end",
+    "regex": "(?=\\{)|(?=;)"
+  },
+  "ParenthesizedTypeList": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "ParenthesizedTypeListEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "UnionDeclarationAt1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "UnionDeclarationAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "RecordDeclaration": {
+    "role": "begin",
+    "regex": "(?=\\brecord\\b)"
+  },
+  "RecordDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "RecordDeclarationAt0": {
+    "role": "begin",
+    "regex": "(record)\\b\\s+(@?[_[:alpha:]][_[:alnum:]]*)"
+  },
+  "RecordDeclarationAt0End": {
+    "role": "end",
+    "regex": "(?=\\{)|(?=;)"
+  },
+  "RecordDeclarationAt1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "RecordDeclarationAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ConstructorDeclaration": {
+    "role": "begin",
+    "regex": "(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?=\\(|$)"
+  },
+  "ConstructorDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "ConstructorDeclarationAt0": {
+    "role": "begin",
+    "regex": "(:)"
+  },
+  "ConstructorDeclarationAt0End": {
+    "role": "end",
+    "regex": "(?=\\{|=>)"
+  },
+  "ConstructorInitializerBase": {
+    "role": "begin",
+    "regex": "\\b(base)\\b\\s*(?=\\()"
+  },
+  "ConstructorInitializerThis": {
+    "role": "begin",
+    "regex": "\\b(this)\\b\\s*(?=\\()"
+  },
+  "ConstructorInitializerEnd": {
+    "role": "end",
+    "regex": "(?<=\\))"
+  },
+  "FixedSizeBufferDeclaration": {
+    "role": "begin",
+    "regex": "\\b(fixed)\\b\\s+(?<type_name>(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*)\\s+(\\g<identifier>)\\s*(?=\\[)"
+  },
+  "FixedSizeBufferDeclarationEnd": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "FieldDeclaration": {
+    "role": "begin",
+    "regex": "(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+(\\g<identifier>)\\s*(?!=[=>])(?=[,;=]|$)"
+  },
+  "FieldDeclarationEnd": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "FieldDeclarationAt0": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "EventDeclaration": {
+    "role": "begin",
+    "regex": "\\b(event)\\b\\s*(?<return_type>(?<type_name>(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+)(?<interface_name>\\g<type_name>\\s*\\.\\s*)?(\\g<identifier>)\\s*(?=[,;={]|//|/\\*|$)"
+  },
+  "EventDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "EventAccessors": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "EventAccessorsEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "EventAccessorsAt2Add": {
+    "role": "begin",
+    "regex": "\\b(add)\\b\\s*(?=[;{]|=>|//|/\\*|$)"
+  },
+  "EventAccessorsAt2Remove": {
+    "role": "begin",
+    "regex": "\\b(remove)\\b\\s*(?=[;{]|=>|//|/\\*|$)"
+  },
+  "EventAccessorsAt2End": {
+    "role": "end",
+    "regex": "(?<=[;}])|(?=})"
+  },
+  "EventDeclarationAt2": {
+    "role": "match",
+    "regex": "@?[_[:alpha:]][_[:alnum:]]*"
+  },
+  "EventDeclarationAt4": {
+    "role": "begin",
+    "regex": "="
+  },
+  "EventDeclarationAt4End": {
+    "role": "end",
+    "regex": "(?<=,)|(?=;)"
+  },
+  "IndexerDeclaration": {
+    "role": "begin",
+    "regex": "(?<return_type>(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+)(?<interface_name>\\g<type_name>\\s*\\.\\s*)?(?<indexer_name>this)\\s*(?=\\[)"
+  },
+  "IndexerDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "BracketedParameterList": {
+    "role": "begin",
+    "regex": "(?=(\\[))"
+  },
+  "BracketedParameterListEnd": {
+    "role": "end",
+    "regex": "(?=(]))"
+  },
+  "BracketedParameterListAt0": {
+    "role": "begin",
+    "regex": "(?<=\\[)"
+  },
+  "BracketedParameterListAt0End": {
+    "role": "end",
+    "regex": "(?=])"
+  },
+  "DestructorDeclaration": {
+    "role": "begin",
+    "regex": "(~)(@?[_[:alpha:]][_[:alnum:]]*)\\s*(?=\\()"
+  },
+  "DestructorDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "OperatorDeclaration": {
+    "role": "begin",
+    "regex": "(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*\\b(?<operator_keyword>operator)\\b\\s*(?<operator>[-!%\\&*+/<=>^|~]+|true|false)\\s*(?=\\()"
+  },
+  "OperatorDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "NestedPatternAndPatternAt0": {
+    "role": "match",
+    "regex": "\\b(explicit)\\b"
+  },
+  "NestedPatternAndPatternAt1": {
+    "role": "match",
+    "regex": "\\b(implicit)\\b"
+  },
+  "ConversionOperatorDeclaration": {
+    "role": "begin",
+    "regex": "\\b(?<explicit_or_implicit_keyword>(?:ex|im)plicit)\\s*\\b(?<operator_keyword>operator)\\s*(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s*(?=\\()"
+  },
+  "ConversionOperatorDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  },
+  "MethodDeclaration": {
+    "role": "begin",
+    "regex": "(?<return_type>(?<type_name>(?:ref\\s+(?:readonly\\s+)?)?(?:(?:(?<identifier>@?[_[:alpha:]][_[:alnum:]]*)\\s*::\\s*)?(?<name_and_type_args>\\g<identifier>\\s*(?<type_args>\\s*<(?:[^<>]|\\g<type_args>)+>\\s*)?)(?:\\s*\\.\\s*\\g<name_and_type_args>)*|(?<tuple>\\s*\\((?:[^()]|\\g<tuple>)+\\)))(?:\\s*\\?\\s*)?(?:\\s*\\[(?:\\s*,\\s*)*]\\s*\\??\\s*)*)\\s+)(?<interface_name>\\g<type_name>\\s*\\.\\s*)?(\\g<identifier>)\\s*(<([^<>]+)>)?\\s*(?=\\()"
+  },
+  "MethodDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=})|(?=;)"
+  }
+}

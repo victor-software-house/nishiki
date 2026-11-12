@@ -37,6 +37,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -819,6 +820,8 @@ const groupsOf = (p: Pattern): number[] => {
 g += startTable(patternList, "quote");
 g += groupsCheck("Astro", patternList.flatMap(groupsOf));
 g += ruleCodes("Astro", "ASTRO");
+
+await writePatterns("astro", patternList);
 
 await writeRust(`${root_dir}src/astro/grammar.rs`, g);
 

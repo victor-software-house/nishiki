@@ -1,0 +1,1870 @@
+{
+  "RootAt0": {
+    "role": "match",
+    "regex": "(?<=\\\\(?:[@\\w]|[@\\w]{2}|[@\\w]{3}|[@\\w]{4}|[@\\w]{5}|[@\\w]{6}))\\s"
+  },
+  "SongsEnvAt0": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{songs}\\{.*})"
+  },
+  "SongsEnvAt0End": {
+    "role": "end",
+    "regex": "(\\\\end\\{songs}(?:\\s*\\n)?)"
+  },
+  "MacroWithArgsTokenizer": {
+    "role": "match",
+    "regex": "\\s*((\\\\)\\p{Alphabetic}+)(\\{)(\\\\?\\p{Alphabetic}+\\*?)(})(?:(\\[)([^]]*)(])){0,2}(?:(\\{)([^{}]*)(}))?"
+  },
+  "EmbeddedCodeEnvAt0": {
+    "role": "begin",
+    "regex": "(?:^\\s*)?\\\\begin\\{(lstlisting|minted|pyglist)}(?=[\\[{])"
+  },
+  "EmbeddedCodeEnvAt0End": {
+    "role": "end",
+    "regex": "\\\\end\\{\\1}"
+  },
+  "MultilineOptionalArgNoHighlight": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=}))\\s*\\["
+  },
+  "MultilineOptionalArgNoHighlightEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "EmbeddedCodeEnvAt0At2": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(bash)(})"
+  },
+  "EmbeddedCodeEnvAt0At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At4": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(css)(})"
+  },
+  "EmbeddedCodeEnvAt0At4End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At6": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(h(?:s|askell))(})"
+  },
+  "EmbeddedCodeEnvAt0At6End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At7": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(html)(})"
+  },
+  "EmbeddedCodeEnvAt0At7End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At8": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(java)(})"
+  },
+  "EmbeddedCodeEnvAt0At8End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At9": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(j(?:l|ulia))(})"
+  },
+  "EmbeddedCodeEnvAt0At9End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At10": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(j(?:s|avascript))(})"
+  },
+  "EmbeddedCodeEnvAt0At10End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At11": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(lua)(})"
+  },
+  "EmbeddedCodeEnvAt0At11End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At12": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(py|python|sage)(})"
+  },
+  "EmbeddedCodeEnvAt0At12End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At13": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(r(?:b|uby))(})"
+  },
+  "EmbeddedCodeEnvAt0At13End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At14": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(rust)(})"
+  },
+  "EmbeddedCodeEnvAt0At14End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At15": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(t(?:s|ypescript))(})"
+  },
+  "EmbeddedCodeEnvAt0At15End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At16": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(xml)(})"
+  },
+  "EmbeddedCodeEnvAt0At16End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At17": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)(yaml)(})"
+  },
+  "EmbeddedCodeEnvAt0At17End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:minted|lstlisting|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt0At18": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(?:(\\{)([A-Za-z]*)(}))?"
+  },
+  "EmbeddedCodeEnvAt0At18End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:lstlisting|minted|pyglist)})"
+  },
+  "EmbeddedCodeEnvAt1": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{asy(?:|code)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt1End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{asy(?:|code)\\*?}"
+  },
+  "EmbeddedCodeEnvAt1At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt1At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt2": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{cppcode\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt2End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{cppcode\\*?}"
+  },
+  "EmbeddedCodeEnvAt2At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt2At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt3": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{dot(?:2tex|code)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt3End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{dot(?:2tex|code)\\*?}"
+  },
+  "EmbeddedCodeEnvAt3At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt3At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt4": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{gnuplot\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt4End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{gnuplot\\*?}"
+  },
+  "EmbeddedCodeEnvAt4At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt4At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt5": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{hscode\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt5End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{hscode\\*?}"
+  },
+  "EmbeddedCodeEnvAt5At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt5At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt5At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt5At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{hscode\\*?})"
+  },
+  "EmbeddedCodeEnvAt6": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{java(?:code|verbatim|block|concode|console|converbatim)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt6End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{java(?:code|verbatim|block|concode|console|converbatim)\\*?}"
+  },
+  "EmbeddedCodeEnvAt6At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt6At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt6At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt6At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{java(?:code|verbatim|block|concode|console|converbatim)\\*?})"
+  },
+  "EmbeddedCodeEnvAt7": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{jl(?:code|verbatim|block|concode|console|converbatim)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt7End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{jl(?:code|verbatim|block|concode|console|converbatim)\\*?}"
+  },
+  "EmbeddedCodeEnvAt7At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt7At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt7At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt7At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{jl(?:code|verbatim|block|concode|console|converbatim)\\*?})"
+  },
+  "EmbeddedCodeEnvAt8": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{julia(?:code|verbatim|block|concode|console|converbatim)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt8End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{julia(?:code|verbatim|block|concode|console|converbatim)\\*?}"
+  },
+  "EmbeddedCodeEnvAt8At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt8At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt8At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt8At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{julia(?:code|verbatim|block|concode|console|converbatim)\\*?})"
+  },
+  "EmbeddedCodeEnvAt9": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{lua(?:code|draw)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt9End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{lua(?:code|draw)\\*?}"
+  },
+  "EmbeddedCodeEnvAt9At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt9At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt9At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt9At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{lua(?:code|draw)\\*?})"
+  },
+  "EmbeddedCodeEnvAt10": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{py(?:code|verbatim|block|concode|console|converbatim)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt10End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{py(?:code|verbatim|block|concode|console|converbatim)\\*?}"
+  },
+  "EmbeddedCodeEnvAt10At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt10At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt10At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt10At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{py(?:code|verbatim|block|concode|console|converbatim)\\*?})"
+  },
+  "EmbeddedCodeEnvAt11": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{pylab(?:code|verbatim|block|concode|console|converbatim)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt11End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{pylab(?:code|verbatim|block|concode|console|converbatim)\\*?}"
+  },
+  "EmbeddedCodeEnvAt11At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt11At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt11At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt11At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{pylab(?:code|verbatim|block|concode|console|converbatim)\\*?})"
+  },
+  "EmbeddedCodeEnvAt12": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{(?:sageblock|sagesilent|sageverbatim|sageexample|sagecommandline|pythonq??|pythonrepl)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt12End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{(?:sageblock|sagesilent|sageverbatim|sageexample|sagecommandline|pythonq??|pythonrepl)\\*?}"
+  },
+  "EmbeddedCodeEnvAt12At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt12At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt12At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt12At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:sageblock|sagesilent|sageverbatim|sageexample|sagecommandline|pythonq??|pythonrepl)\\*?})"
+  },
+  "EmbeddedCodeEnvAt13": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{scalacode\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt13End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{scalacode\\*?}"
+  },
+  "EmbeddedCodeEnvAt13At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt13At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt13At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt13At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{scalacode\\*?})"
+  },
+  "EmbeddedCodeEnvAt14": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{sympy(?:code|verbatim|block|concode|console|converbatim)\\*?}(?:\\[[-0-9A-Z_a-z]*])?(?=[\\[{]|\\s*$)"
+  },
+  "EmbeddedCodeEnvAt14End": {
+    "role": "end",
+    "regex": "\\s*\\\\end\\{sympy(?:code|verbatim|block|concode|console|converbatim)\\*?}"
+  },
+  "EmbeddedCodeEnvAt14At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)"
+  },
+  "EmbeddedCodeEnvAt14At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "EmbeddedCodeEnvAt14At2": {
+    "role": "begin",
+    "regex": "^(?=\\s*)"
+  },
+  "EmbeddedCodeEnvAt14At2End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{sympy(?:code|verbatim|block|concode|console|converbatim)\\*?})"
+  },
+  "EmbeddedCodeEnvAt15": {
+    "role": "begin",
+    "regex": "\\s*\\\\begin\\{((?:[A-Za-z]*code|lstlisting|minted|pyglist)\\*?)}(?:\\[.*])?(?:\\{.*})?"
+  },
+  "EmbeddedCodeEnvAt15End": {
+    "role": "end",
+    "regex": "\\\\end\\{\\1}(?:\\s*\\n)?"
+  },
+  "EmbeddedCodeEnvAt16": {
+    "role": "begin",
+    "regex": "((?:^\\s*)?\\\\begin\\{((?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?))})(?:\\[[^]]*]){0,2}(?=\\{)"
+  },
+  "EmbeddedCodeEnvAt16End": {
+    "role": "end",
+    "regex": "(\\\\end\\{\\2})"
+  },
+  "EmbeddedCodeEnvAt16At0": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:asy(?:|mptote))"
+  },
+  "EmbeddedCodeEnvAt16At0End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At0At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At0At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "TexBraces": {
+    "role": "begin",
+    "regex": "(?<!\\\\)\\{"
+  },
+  "TexBracesEnd": {
+    "role": "end",
+    "regex": "(?<!\\\\)}"
+  },
+  "EmbeddedCodeEnvAt16At1": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:bash)"
+  },
+  "EmbeddedCodeEnvAt16At1End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At1At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At1At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At1At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At1At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At2": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:c(?:|pp))"
+  },
+  "EmbeddedCodeEnvAt16At2End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At2At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At2At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At3": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:css)"
+  },
+  "EmbeddedCodeEnvAt16At3End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At3At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At3At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At3At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At3At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At4": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:gnuplot)"
+  },
+  "EmbeddedCodeEnvAt16At4End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At4At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At4At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At5": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:h(?:s|askell))"
+  },
+  "EmbeddedCodeEnvAt16At5End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At5At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At5At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At5At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At5At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At6": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:html)"
+  },
+  "EmbeddedCodeEnvAt16At6End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At6At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At6At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At6At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At6At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At7": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:java)"
+  },
+  "EmbeddedCodeEnvAt16At7End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At7At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At7At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At7At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At7At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At8": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:j(?:l|ulia))"
+  },
+  "EmbeddedCodeEnvAt16At8End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At8At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At8At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At8At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At8At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At9": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:j(?:s|avascript))"
+  },
+  "EmbeddedCodeEnvAt16At9End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At9At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At9At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At9At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At9At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At10": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:lua)"
+  },
+  "EmbeddedCodeEnvAt16At10End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At10At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At10At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At10At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At10At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At11": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:py|python|sage)"
+  },
+  "EmbeddedCodeEnvAt16At11End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At11At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At11At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At11At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At11At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At12": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:r(?:b|uby))"
+  },
+  "EmbeddedCodeEnvAt16At12End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At12At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At12At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At12At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At12At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At13": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:rust)"
+  },
+  "EmbeddedCodeEnvAt16At13End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At13At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At13At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At13At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At13At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At14": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:t(?:s|ypescript))"
+  },
+  "EmbeddedCodeEnvAt16At14End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At14At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At14At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At14At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At14At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At15": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:xml)"
+  },
+  "EmbeddedCodeEnvAt16At15End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At15At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At15At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At15At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At15At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At16": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:yaml)"
+  },
+  "EmbeddedCodeEnvAt16At16End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At16At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At16At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At16At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At16At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At17": {
+    "role": "begin",
+    "regex": "\\G(\\{)(?:__|[a-z\\s]*)(?i:tikz(?:|picture))"
+  },
+  "EmbeddedCodeEnvAt16At17End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At17At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At17At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At17At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At17At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At18": {
+    "role": "begin",
+    "regex": "\\G(\\{)"
+  },
+  "EmbeddedCodeEnvAt16At18End": {
+    "role": "end",
+    "regex": "(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt16At18At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "EmbeddedCodeEnvAt16At18At0End": {
+    "role": "end",
+    "regex": "(})\\s*$"
+  },
+  "EmbeddedCodeEnvAt16At18At1": {
+    "role": "begin",
+    "regex": "^(\\s*)"
+  },
+  "EmbeddedCodeEnvAt16At18At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{(?:RobExt)?(?:CacheMeCode|PlaceholderPathFromCode\\*?|PlaceholderFromCode\\*?|SetPlaceholderCode\\*?)})"
+  },
+  "EmbeddedCodeEnvAt17": {
+    "role": "begin",
+    "regex": "(?:^\\s*)?\\\\begin\\{(terminal\\*?)}(?=[\\[{])"
+  },
+  "EmbeddedCodeEnvAt17End": {
+    "role": "end",
+    "regex": "\\\\end\\{\\1}"
+  },
+  "EmbeddedCodeEnvAt17At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)([A-Za-z]*)(})"
+  },
+  "EmbeddedCodeEnvAt17At1End": {
+    "role": "end",
+    "regex": "^\\s*(?=\\\\end\\{terminal\\*?})"
+  },
+  "VerbatimEnvAt0": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{((?:fboxv|boxedv|[Vv]|spv)erbatim\\*?)})"
+  },
+  "VerbatimEnvAt0End": {
+    "role": "end",
+    "regex": "(\\\\end\\{\\2})"
+  },
+  "VerbatimEnvAt1": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{VerbatimOut}\\{[^}]*})"
+  },
+  "VerbatimEnvAt1End": {
+    "role": "end",
+    "regex": "(\\\\end\\{VerbatimOut})"
+  },
+  "VerbatimEnvAt2": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{alltt})"
+  },
+  "VerbatimEnvAt2End": {
+    "role": "end",
+    "regex": "(\\\\end\\{alltt})"
+  },
+  "VerbatimEnvAt2At0": {
+    "role": "match",
+    "regex": "(\\\\)[A-Za-z]+"
+  },
+  "VerbatimEnvAt3": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{([Cc]omment)})"
+  },
+  "VerbatimEnvAt3End": {
+    "role": "end",
+    "regex": "(\\\\end\\{\\2})"
+  },
+  "DocumentEnvAt0": {
+    "role": "match",
+    "regex": "(\\s*\\\\begin\\{document})"
+  },
+  "DocumentEnvAt1": {
+    "role": "match",
+    "regex": "(\\s*\\\\end\\{document})"
+  },
+  "AllBalancedEnvAt0": {
+    "role": "begin",
+    "regex": "\\s*((\\\\)begin)(\\{)((?:\\+?array|equation|(?:IEEE|sub)?eqnarray|multline|align|aligned|alignat|alignedat|flalign|flaligned|flalignat|split|gather|gathered|(?:[+dr]|dr)?cases|(?:display)?math|\\+?[A-Za-z]*matrix|[BVbpv]?NiceMatrix|[BVbpv]?NiceArray|(?:arg)?m(?:ini|axi))[!*]?)(})(\\s*\\n)?"
+  },
+  "AllBalancedEnvAt0End": {
+    "role": "end",
+    "regex": "\\s*((\\\\)end)(\\{)(\\4)(})(?:\\s*\\n)?"
+  },
+  "AllBalancedEnvAt0At0": {
+    "role": "match",
+    "regex": "(?<!\\\\)&"
+  },
+  "AllBalancedEnvAt0At1": {
+    "role": "match",
+    "regex": "\\\\\\\\"
+  },
+  "LabelMacro": {
+    "role": "begin",
+    "regex": "((\\\\)z?label)((?:\\[[^\\[]*?])*)(\\{)"
+  },
+  "LabelMacroEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "OptionalArgBracketAt0": {
+    "role": "match",
+    "regex": "(\\[)([^\\[]*?)(])"
+  },
+  "LabelMacroAt0": {
+    "role": "match",
+    "regex": "[!*,-/:^_\\p{Alphabetic}\\p{N}]+"
+  },
+  "TexMathContentAt0": {
+    "role": "begin",
+    "regex": "((\\\\)(?:text|mbox))(\\{)"
+  },
+  "TexMathContentAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TexIffalseBlock": {
+    "role": "begin",
+    "regex": "(?<=^\\s*)((\\\\)iffalse)(?!\\s*[{}]\\s*\\\\fi\\b)"
+  },
+  "TexIffalseBlockEnd": {
+    "role": "end",
+    "regex": "((\\\\)(?:else|fi))\\b"
+  },
+  "TexComment": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=%)"
+  },
+  "TexCommentEnd": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "TexCommentAt0": {
+    "role": "begin",
+    "regex": "%:?"
+  },
+  "TexCommentAt0End": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "TexCommentAt1": {
+    "role": "begin",
+    "regex": "^(%!TEX) (\\S*) ="
+  },
+  "TexCommentAt1End": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "TexConditionals": {
+    "role": "begin",
+    "regex": "(?<=^\\s*)\\\\if(?!f\\b)[a-z]*"
+  },
+  "TexConditionalsEnd": {
+    "role": "end",
+    "regex": "(?<=^\\s*)\\\\fi"
+  },
+  "TexMacroControl": {
+    "role": "match",
+    "regex": "(\\\\)(backmatter|csname|else|endcsname|fi|frontmatter|mainmatter|unless|if(case|cat|csname|defined|dim|eof|false|fontchar|hbox|hmode|inner|mmode|num|odd|true|vbox|vmode|void|x)?)(?![@-Za-z])"
+  },
+  "TexCatcode": {
+    "role": "match",
+    "regex": "((\\\\)catcode)`\\\\?.(=)(\\d+)"
+  },
+  "TexRootAt4": {
+    "role": "match",
+    "regex": "[]\\[]"
+  },
+  "TexDollarMath": {
+    "role": "begin",
+    "regex": "(\\$\\$?)"
+  },
+  "TexDollarMathEnd": {
+    "role": "end",
+    "regex": "(\\1)"
+  },
+  "TexDollarMathAt0": {
+    "role": "match",
+    "regex": "\\\\\\$"
+  },
+  "TexRootAt6": {
+    "role": "match",
+    "regex": "\\\\\\\\"
+  },
+  "TexIfnextchar": {
+    "role": "match",
+    "regex": "\\\\@ifnextchar[(\\[{]"
+  },
+  "TexMacroGeneralAt0": {
+    "role": "match",
+    "regex": "(\\\\)_*[@\\p{Alphabetic}]+(?:_[@\\p{Alphabetic}]+)*:[DFNTVcefnopvwx]*"
+  },
+  "TexMacroGeneralAt1": {
+    "role": "match",
+    "regex": "(\\.)[@\\p{Alphabetic}]+(?:_[@\\p{Alphabetic}]+)*:[DFNTVcefnopvwx]*"
+  },
+  "TexMacroGeneralAt2": {
+    "role": "match",
+    "regex": "(\\\\)(?:[,;]|[@\\p{Alphabetic}]+)"
+  },
+  "TexMacroGeneralAt3": {
+    "role": "match",
+    "regex": "(\\\\)[^@-Za-z]"
+  },
+  "TexMathContentAt1": {
+    "role": "match",
+    "regex": "\\\\[{}]"
+  },
+  "TexMathContentAt2": {
+    "role": "match",
+    "regex": "\\\\(left|right|((bigg??|Bigg??)[lr]?))([]().<>\\[|]|\\\\[{|}]|\\\\[lr]?[Vv]ert|\\\\[lr]angle)"
+  },
+  "TexMathContentAt3": {
+    "role": "match",
+    "regex": "(\\\\)(s(s(earrow|warrow|lash)|h(ort(downarrow|uparrow|parallel|leftarrow|rightarrow|mid)|arp)|tar|i(gma|m(eq)?)|u(cc(sim|n(sim|approx)|curlyeq|eq|approx)?|pset(neq(q)?|plus(eq)?|eq(q)?)?|rd|m|bset(neq(q)?|plus(eq)?|eq(q)?)?)|p(hericalangle|adesuit)|e(tminus|arrow)|q(su(pset(eq)?|bset(eq)?)|c([au]p)|uare)|warrow|m(ile|all(s(etminus|mile)|frown)))|h(slash|ook((?:lef|righ)tarrow)|eartsuit|bar)|R(sh|ightarrow|e|bag)|Gam(e|ma)|n(s(hort(parallel|mid)|im|u(cc(eq)?|pseteq(q)?|bseteq))|Rightarrow|n([ew]arrow)|cong|triangle(left(eq(slant)?)?|right(eq(slant)?)?)|i(plus)?|u|p(lus|arallel|rec(eq)?)|e(q|arrow|g|xists)|v([Dd]ash)|warrow|le(ss|q(slant|q)?|ft((?:|right)arrow))|a(tural|bla)|VDash|rightarrow|g(tr|eq(slant|q)?)|mid|Left((?:|right)arrow))|c(hi|irc(eq|le(d(circ|S|dash|ast)|arrow(left|right)))?|o(ng|prod|lon|mplement)|dot([ps])?|u(p|r(vearrow(left|right)|ly(eq(succ|prec)|vee((?:down|up)arrow)?|wedge((?:down|up)arrow)?)))|enterdot|lubsuit|ap)|Xi|Maps(to(char)?|from(char)?)|B(ox|umpeq|bbk)|t(h(ick(sim|approx)|e(ta|refore))|imes|op|wohead((?:lef|righ)tarrow)|a(u|lloblong)|riangle(down|q|left(eq(slant)?)?|right(eq(slant)?)?)?)|i(n(t(er(cal|leave))?|plus|fty)?|ota|math)|S(igma|u([bp]set))|zeta|o(slash|times|int|dot|plus|vee|wedge|lessthan|greaterthan|m(inus|ega)|b(slash|long|ar))|d(i(v(ideontimes)?|a(g(down|up)|mond(suit)?)|gamma)|o(t(plus|eq(dot)?)|ublebarwedge|wn(harpoon(left|right)|downarrows|arrow))|d(ots|agger)|elta|a(sh(v|leftarrow|rightarrow)|leth|gger))|Y(down|up|left|right)|C([au]p)|u(n([lr]hd)|p(silon|harpoon(left|right)|downarrow|uparrows|lus|arrow)|lcorner|rcorner)|jmath|Theta|Im|p(si|hi|i(tchfork)?|erp|ar(tial|allel)|r(ime|o(d|pto)|ec(sim|n(sim|approx)|curlyeq|eq|approx)?)|m)|e(t([ah])|psilon|q(slant(less|gtr)|circ|uiv)|ll|xists|mptyset)|Omega|D(iamond|ownarrow|elta)|v(d(ots|ash)|ee(bar)?|Dash|ar(s(igma|u(psetneq(q)?|bsetneq(q)?))|nothing|curly(vee|wedge)|t(heta|imes|riangle(left|right)?)|o(slash|circle|times|dot|plus|vee|wedge|lessthan|ast|greaterthan|minus|b(slash|ar))|p(hi|i|ropto)|epsilon|kappa|rho|bigcirc))|kappa|Up(silon|downarrow|arrow)|Join|f(orall|lat|a(t(s(emi|lash)|bslash)|llingdotseq)|rown)|P((?:s|h?)i)|w(p|edge|r)|l(hd|n(sim|eq(q)?|approx)|ceil|times|ightning|o(ng(left((?:|right)arrow)|rightarrow|maps(to|from))|zenge|oparrow(left|right))|dot([ps])|e(ss(sim|dot|eq(q?gtr)|approx|gtr)|q(slant|q)?|ft(slice|harpoon(down|up)|threetimes|leftarrows|arrow(t(ail|riangle))?|right(squigarrow|harpoons|arrow(s|triangle|eq)?))|adsto)|vertneqq|floor|l(c(orner|eil)|floor|l|bracket)?|a(ngle|mbda)|rcorner|bag)|a(s(ymp|t)|ngle|pprox(eq)?|l(pha|eph)|rrownot|malg)|V(v??dash)|r(h([do])|ceil|times|i(singdotseq|ght(s(quigarrow|lice)|harpoon(down|up)|threetimes|left(harpoons|arrows)|arrow(t(ail|riangle))?|rightarrows))|floor|angle|r(ceil|parenthesis|floor|bracket)|bag)|g(n(sim|eq(q)?|approx)|tr(sim|dot|eq(q?less)|less|approx)|imel|eq(slant|q)?|vertneqq|amma|g(g)?)|Finv|xi|m(ho|i(nuso|d)|o(o|dels)|u(ltimap)?|p|e(asuredangle|rge)|aps(to|from(char)?))|b(i(n(dnasrepma|ampersand)|g(s(tar|qc([au]p))|nplus|c(irc|u(p|rly(vee|wedge))|ap)|triangle(down|up)|interleave|o(times|dot|plus)|uplus|parallel|vee|wedge|box))|o(t|wtie|x(slash|circle|times|dot|plus|empty|ast|minus|b(slash|ox|ar)))|u(llet|mpeq)|e(cause|t(h|ween|a))|lack(square|triangle(down|left|right)?|lozenge)|a(ck(s(im(eq)?|lash)|prime|epsilon)|r(o|wedge))|bslash)|L(sh|ong(left((?:|right)arrow)|rightarrow|maps(to|from))|eft((?:|right)arrow)|leftarrow|ambda|bag)|ge|le|Arrownot)(?![@-Za-z])"
+  },
+  "TexMathContentAt4": {
+    "role": "match",
+    "regex": "(\\\\)(sum|prod|coprod|int|oint|bigcap|bigcup|bigsqcup|bigvee|bigwedge|bigodot|bigotimes|bogoplus|biguplus)\\b"
+  },
+  "TexMathContentAt5": {
+    "role": "match",
+    "regex": "(\\\\)(arccos|arcsin|arctan|arg|cosh??|coth??|csc|deg|det|dim|exp|gcd|hom|inf|ker|lg|lim|liminf|limsup|ln|log|max|min|pr|sec|sinh??|sup|tanh??)\\b"
+  },
+  "TexMathContentAt6": {
+    "role": "begin",
+    "regex": "((\\\\)Sexpr(\\{))"
+  },
+  "TexMathContentAt6End": {
+    "role": "end",
+    "regex": "(((})))"
+  },
+  "TexMathContentAt6At0": {
+    "role": "begin",
+    "regex": "\\G(?!})"
+  },
+  "TexMathContentAt6At0End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "TexMathContentAt7": {
+    "role": "match",
+    "regex": "(\\\\)(?!begin\\{|verb)([A-Za-z]+)"
+  },
+  "TexMathContentAt8": {
+    "role": "match",
+    "regex": "(?<!\\\\)\\{"
+  },
+  "TexMathContentAt9": {
+    "role": "match",
+    "regex": "(?<!\\\\)}"
+  },
+  "TexMathContentAt10": {
+    "role": "match",
+    "regex": "(?<!\\\\)\\("
+  },
+  "TexMathContentAt11": {
+    "role": "match",
+    "regex": "(?<!\\\\)\\)"
+  },
+  "TexMathContentAt12": {
+    "role": "match",
+    "regex": "(([0-9]*\\.[0-9]+)|[0-9]+)"
+  },
+  "TexMathContentAt13": {
+    "role": "match",
+    "regex": "[-*+/]|(?<!\\^)\\^(?!\\^)|(?<!_)_(?!_)"
+  },
+  "AllBalancedEnvAt1": {
+    "role": "begin",
+    "regex": "\\s*(\\\\begin\\{empheq}(?:\\[.*])?)"
+  },
+  "AllBalancedEnvAt1End": {
+    "role": "end",
+    "regex": "\\s*(\\\\end\\{empheq})"
+  },
+  "AllBalancedEnvAt1At0": {
+    "role": "match",
+    "regex": "(?<!\\\\)&"
+  },
+  "AllBalancedEnvAt1At1": {
+    "role": "match",
+    "regex": "\\\\\\\\"
+  },
+  "AllBalancedEnvAt2": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{(tabular[*xy]?|xltabular|longtable|(?:long)?tabu|(?:long|tall)?tblr|NiceTabular[*X]?|booktabs)}(\\s*\\n)?)"
+  },
+  "AllBalancedEnvAt2End": {
+    "role": "end",
+    "regex": "(\\s*\\\\end\\{(\\2)}(?:\\s*\\n)?)"
+  },
+  "AllBalancedEnvAt2At0": {
+    "role": "match",
+    "regex": "(?<!\\\\)&"
+  },
+  "AllBalancedEnvAt2At1": {
+    "role": "match",
+    "regex": "\\\\\\\\"
+  },
+  "AllBalancedEnvAt3": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{(itemize|enumerate|description|list)})"
+  },
+  "AllBalancedEnvAt3End": {
+    "role": "end",
+    "regex": "(\\\\end\\{\\2}(?:\\s*\\n)?)"
+  },
+  "AllBalancedEnvAt4": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{tikzpicture})"
+  },
+  "AllBalancedEnvAt4End": {
+    "role": "end",
+    "regex": "(\\\\end\\{tikzpicture}(?:\\s*\\n)?)"
+  },
+  "AllBalancedEnvAt5": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{frame})"
+  },
+  "AllBalancedEnvAt5End": {
+    "role": "end",
+    "regex": "(\\\\end\\{frame})"
+  },
+  "AllBalancedEnvAt6": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{(mpost\\*?)})"
+  },
+  "AllBalancedEnvAt6End": {
+    "role": "end",
+    "regex": "(\\\\end\\{\\2}(?:\\s*\\n)?)"
+  },
+  "AllBalancedEnvAt8": {
+    "role": "begin",
+    "regex": "(\\s*\\\\begin\\{(\\p{Alphabetic}+\\*?)})"
+  },
+  "AllBalancedEnvAt8End": {
+    "role": "end",
+    "regex": "(\\\\end\\{\\2}(?:\\s*\\n)?)"
+  },
+  "DocumentclassUsepackageMacro": {
+    "role": "begin",
+    "regex": "((\\\\)(?:usepackage|documentclass))\\b(?=[\\[{])"
+  },
+  "DocumentclassUsepackageMacroEnd": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "MultilineOptionalArg": {
+    "role": "begin",
+    "regex": "\\G\\["
+  },
+  "MultilineOptionalArgEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "DocumentclassUsepackageMacroAt1": {
+    "role": "begin",
+    "regex": "((?:\\G|(?<=]))\\{)"
+  },
+  "DocumentclassUsepackageMacroAt1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "InputMacro": {
+    "role": "begin",
+    "regex": "((\\\\)in(?:clude|put))(\\{)"
+  },
+  "InputMacroEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SectionsMacro": {
+    "role": "begin",
+    "regex": "((\\\\)((?:sub){0,2}section|(?:sub)?paragraph|chapter|part|addpart|addchap|addsec|minisec|frametitle)\\*?)((?:\\[[^\\[]*?]){0,2})(\\{)"
+  },
+  "SectionsMacroEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Braces": {
+    "role": "begin",
+    "regex": "(?<!\\\\)\\{"
+  },
+  "BracesEnd": {
+    "role": "end",
+    "regex": "(?<!\\\\)}"
+  },
+  "TextFontMacroAt0": {
+    "role": "begin",
+    "regex": "((\\\\)emph)(\\{)"
+  },
+  "TextFontMacroAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TextFontMacroAt1": {
+    "role": "begin",
+    "regex": "((\\\\)textit)(\\{)"
+  },
+  "TextFontMacroAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TextFontMacroAt2": {
+    "role": "begin",
+    "regex": "((\\\\)textbf)(\\{)"
+  },
+  "TextFontMacroAt2End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TextFontMacroAt3": {
+    "role": "begin",
+    "regex": "((\\\\)texttt)(\\{)"
+  },
+  "TextFontMacroAt3End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "CitationMacro": {
+    "role": "begin",
+    "regex": "((\\\\)(?:[Aa]uto|foot|full|footfull|no|ref|short|[Tt]ext|[Pp]aren|[Ss]mart|[FPfp]vol|vol)?[Cc]ite(?:al)?(?:[pst]|author|year(?:par)?|title|url|date)?[ANP]*\\*?)((?:(?:\\([^)]*\\)){0,2}(?:\\[[^]]*]){0,2}\\{[-.:_\\p{Alphabetic}\\p{N}]*})*)(<[^]<>]*>)?((?:\\[[^]]*])*)(\\{)"
+  },
+  "CitationMacroEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "AutocitesArgAt0": {
+    "role": "match",
+    "regex": "((?:\\([^)]*\\)){0,2})((?:\\[[^]]*]){0,2})(\\{)([-.:_\\p{Alphabetic}\\p{N}]+)(})(.*)"
+  },
+  "OptionalArgParenthesisNoHighlightAt0": {
+    "role": "match",
+    "regex": "(\\()[^(]*?(\\))"
+  },
+  "OptionalArgBracketNoHighlightAt0": {
+    "role": "match",
+    "regex": "(\\[)[^\\[]*?(])"
+  },
+  "OptionalArgAngleNoHighlightAt0": {
+    "role": "match",
+    "regex": "(<)[^<]*?(>)"
+  },
+  "CitationMacroAt0": {
+    "role": "match",
+    "regex": "((%).*)$"
+  },
+  "CitationMacroAt1": {
+    "role": "match",
+    "regex": "[-.:\\p{Alphabetic}\\p{N}]+"
+  },
+  "ReferencesMacroAt0": {
+    "role": "begin",
+    "regex": "((\\\\)\\w*[Rr]ef\\*?)(?:\\[[^]]*])?(\\{)"
+  },
+  "ReferencesMacroAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ReferencesMacroAt0At0": {
+    "role": "match",
+    "regex": "[!*,-/:^_\\p{Alphabetic}\\p{N}]+"
+  },
+  "ReferencesMacroAt1": {
+    "role": "match",
+    "regex": "((\\\\)\\w*[Rr]efrange\\*?)(?:\\[[^]]*])?(\\{)([!*,-/:^_\\p{Alphabetic}\\p{N}]+)(})(\\{)([!*,-/:^_\\p{Alphabetic}\\p{N}]+)(})"
+  },
+  "ReferencesMacroAt2": {
+    "role": "begin",
+    "regex": "((\\\\)bibentry)(\\{)"
+  },
+  "ReferencesMacroAt2End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ReferencesMacroAt2At0": {
+    "role": "match",
+    "regex": "[.:\\p{Alphabetic}\\p{N}]+"
+  },
+  "AllOtherMacroAt0": {
+    "role": "match",
+    "regex": "\\\\(?:newline|pagebreak|clearpage|linebreak|pause)\\b"
+  },
+  "AllOtherMacroAt1": {
+    "role": "begin",
+    "regex": "((\\\\)marginpar)((?:\\[[^\\[]*?])*)(\\{)"
+  },
+  "AllOtherMacroAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "AllOtherMacroAt2": {
+    "role": "begin",
+    "regex": "((\\\\)footnote)((?:\\[[^\\[]*?])*)(\\{)"
+  },
+  "AllOtherMacroAt2End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "AllOtherMacroAt3": {
+    "role": "match",
+    "regex": "(\\\\)item\\b"
+  },
+  "AllOtherMacroAt4": {
+    "role": "match",
+    "regex": "(\\\\)(text(s(terling|ixoldstyle|urd|e(ction|venoldstyle|rvicemark))|yen|n(ineoldstyle|umero|aira)|c(ircledP|o(py(left|right)|lonmonetary)|urrency|e(nt(oldstyle)?|lsius))|t(hree(superior|oldstyle|quarters(emdash)?)|i(ldelow|mes)|w(o(superior|oldstyle)|elveudash)|rademark)|interrobang(down)?|zerooldstyle|o(hm|ne(superior|half|oldstyle|quarter)|penbullet|rd((?:femin|mascul)ine))|d(i(scount|ed|v(orced)?)|o(ng|wnarrow|llar(oldstyle)?)|egree|agger(dbl)?|blhyphen(char)?)|uparrow|p(ilcrow|e(so|r(t((?:|ent)housand)|iodcentered))|aragraph|m)|e(stimated|ightoldstyle|uro)|quotes(traight((?:dbl|)base)|ingle)|f(iveoldstyle|ouroldstyle|lorin|ractionsolidus)|won|l(not|ira|e(ftarrow|af)|quill|angle|brackdbl)|a(s(cii(caron|dieresis|acute|grave|macron|breve)|teriskcentered)|cutedbl)|r(ightarrow|e(cipe|ferencemark|gistered)|quill|angle|brackdbl)|g(uarani|ravedbl)|m(ho|inus|u(sicalnote)?|arried)|b(igcircle|orn|ullet|lank|a(ht|rdbl)|rokenbar)))\\b"
+  },
+  "AllOtherMacroAt5": {
+    "role": "match",
+    "regex": "(\\\\)(?:[cgl]_+[@_\\p{Alphabetic}]+_[a-z]+|[qs]_[@_\\p{Alphabetic}]+[@\\p{Alphabetic}])"
+  },
+  "HyperrefMacroAt0": {
+    "role": "begin",
+    "regex": "\\s*((\\\\)h(?:ref|yperref|yperimage))(?=[\\[{])"
+  },
+  "HyperrefMacroAt0End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "HyperrefMacroAt0At1": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(\\{)([^}]*)(})(?:\\{[^}]*}){2}?(\\{)"
+  },
+  "HyperrefMacroAt0At1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "HyperrefMacroAt0At2": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=]))(?:(\\{)[^}]*(}))?(\\{)"
+  },
+  "HyperrefMacroAt0At2End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "HyperrefMacroAt1": {
+    "role": "match",
+    "regex": "\\s*((\\\\)(?:url|path))(\\{)([^}]*)(})"
+  },
+  "NewcommandMacro": {
+    "role": "begin",
+    "regex": "((\\\\)(?:newcommand|renewcommand|(?:re)?newrobustcmd|DeclareRobustCommand)\\*?)(\\{)?((\\\\)[@\\p{Alphabetic}]+\\*?)(})?(?:(\\[)[^]]*(])){0,2}(\\{)"
+  },
+  "NewcommandMacroEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "UnbalancedEnvAt0": {
+    "role": "match",
+    "regex": "(\\s*\\\\(?:begin|end)\\{(\\p{Alphabetic}+\\*?)})"
+  },
+  "VerbMacroAt0": {
+    "role": "begin",
+    "regex": "((\\\\)(?:[Vv]|spv)erb\\*?)\\s*((\\\\)scantokens)(\\{)"
+  },
+  "VerbMacroAt0End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "VerbMacroAt1": {
+    "role": "match",
+    "regex": "((\\\\)(?:[Vv]|spv)erb\\*?)\\s*((?<=\\s)\\S|[^A-Za-z])(.*?)(\\3|$)"
+  },
+  "InlineCodeMacroAt0": {
+    "role": "begin",
+    "regex": "((\\\\)addplot)\\+?(\\[[^\\[]*])*\\s*(gnuplot)\\s*(\\[[^\\[]*])*\\s*(\\{)"
+  },
+  "InlineCodeMacroAt0End": {
+    "role": "end",
+    "regex": "\\s*(};)"
+  },
+  "InlineCodeMacroAt0At0": {
+    "role": "begin",
+    "regex": "%"
+  },
+  "InlineCodeMacroAt0At0End": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "InlineCodeMacroAt1": {
+    "role": "match",
+    "regex": "((\\\\)mint(?:|inline))((?:\\[[^\\[]*?])?)(\\{)[A-Za-z]*(})(?:([^A-Za-{])(.*?)(\\6)|(\\{)(.*?)(}))"
+  },
+  "InlineCodeMacroAt2": {
+    "role": "match",
+    "regex": "((\\\\)[a-z]+inline)((?:\\[[^\\[]*?])?)(?:([^A-Za-{])(.*?)(\\4)|(\\{)(.*?)(}))"
+  },
+  "InlineCodeMacroAt3": {
+    "role": "match",
+    "regex": "((\\\\)(?:(?:py|pycon|pylab|pylabcon|sympy|sympycon)[cv]?|pyq|pycq|pyif))((?:\\[[^\\[]*?])?)(?:([^](),;A-\\[a-{}\\s])(.*?)(\\4)|(\\{)(.*?)(}))"
+  },
+  "InlineCodeMacroAt4": {
+    "role": "match",
+    "regex": "((\\\\)j(?:l|ulia)[cv]?)((?:\\[[^\\[]*?])?)(?:([^A-Za-{])(.*?)(\\4)|(\\{)(.*?)(}))"
+  },
+  "InlineCodeMacroAt5": {
+    "role": "begin",
+    "regex": "((\\\\)(?:directlua|luadirect|luaexec))(\\{)"
+  },
+  "InlineCodeMacroAt5End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt6": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:asy(?:|mptote))\\b|\\{)"
+  },
+  "InlineCodeMacroAt6End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt7": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:bash)\\b|\\{)"
+  },
+  "InlineCodeMacroAt7End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt7At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt7At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt8": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:c(?:|pp))\\b|\\{)"
+  },
+  "InlineCodeMacroAt8End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt9": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:css)\\b|\\{)"
+  },
+  "InlineCodeMacroAt9End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt9At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt9At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt10": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:gnuplot)\\b|\\{)"
+  },
+  "InlineCodeMacroAt10End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt11": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:h(?:s|askell))\\b|\\{)"
+  },
+  "InlineCodeMacroAt11End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt11At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt11At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt12": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:html)\\b|\\{)"
+  },
+  "InlineCodeMacroAt12End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt12At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt12At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt13": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:java)\\b|\\{)"
+  },
+  "InlineCodeMacroAt13End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt13At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt13At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt14": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:j(?:l|ulia))\\b|\\{)"
+  },
+  "InlineCodeMacroAt14End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt14At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt14At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt15": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:j(?:s|avascript))\\b|\\{)"
+  },
+  "InlineCodeMacroAt15End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt15At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt15At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt16": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:lua)\\b|\\{)"
+  },
+  "InlineCodeMacroAt16End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt16At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt16At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt17": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:py|python|sage)\\b|\\{)"
+  },
+  "InlineCodeMacroAt17End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt17At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt17At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt18": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:r(?:b|uby))\\b|\\{)"
+  },
+  "InlineCodeMacroAt18End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt18At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt18At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt19": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:rust)\\b|\\{)"
+  },
+  "InlineCodeMacroAt19End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt19At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt19At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt20": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:t(?:s|ypescript))\\b|\\{)"
+  },
+  "InlineCodeMacroAt20End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt20At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt20At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt21": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:xml)\\b|\\{)"
+  },
+  "InlineCodeMacroAt21End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt21At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt21At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt22": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:yaml)\\b|\\{)"
+  },
+  "InlineCodeMacroAt22End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt22At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt22At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt23": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=\\[(?i:tikz(?:|picture))\\b|\\{)"
+  },
+  "InlineCodeMacroAt23End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt23At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt23At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt24": {
+    "role": "begin",
+    "regex": "((\\\\)cacheMeCode)(?=[\\[{])"
+  },
+  "InlineCodeMacroAt24End": {
+    "role": "end",
+    "regex": "(?<=})"
+  },
+  "InlineCodeMacroAt24At1": {
+    "role": "begin",
+    "regex": "(?<=])(\\{)"
+  },
+  "InlineCodeMacroAt24At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "InlineCodeMacroAt25": {
+    "role": "begin",
+    "regex": "((\\\\)sys_get_shell:nnN(?:TF)?\\s?)(\\{)"
+  },
+  "InlineCodeMacroAt25End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "DisplayMathAt0": {
+    "role": "begin",
+    "regex": "\\\\\\["
+  },
+  "DisplayMathAt0End": {
+    "role": "end",
+    "regex": "\\\\]"
+  },
+  "DisplayMathAt1": {
+    "role": "begin",
+    "regex": "\\$\\$"
+  },
+  "DisplayMathAt1End": {
+    "role": "end",
+    "regex": "\\$\\$"
+  },
+  "DisplayMathAt1At0": {
+    "role": "match",
+    "regex": "\\\\\\$"
+  },
+  "InlineMathAt0": {
+    "role": "begin",
+    "regex": "\\\\\\("
+  },
+  "InlineMathAt0End": {
+    "role": "end",
+    "regex": "\\\\\\)"
+  },
+  "InlineMathAt1": {
+    "role": "begin",
+    "regex": "\\$(?!\\$)"
+  },
+  "InlineMathAt1End": {
+    "role": "end",
+    "regex": "(?<!\\$)\\$"
+  },
+  "InlineMathAt1At0": {
+    "role": "match",
+    "regex": "\\\\\\$"
+  },
+  "ColumnSpecials": {
+    "role": "match",
+    "regex": "[<>](\\{)\\$(})"
+  },
+  "SongsChordsAt0": {
+    "role": "begin",
+    "regex": "\\\\\\["
+  },
+  "SongsChordsAt0End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "SongsChordsAt1": {
+    "role": "match",
+    "regex": "\\^"
+  },
+  "SongsEnvAt1": {
+    "role": "begin",
+    "regex": "\\s*((\\\\)beginsong)(?=\\{)"
+  },
+  "SongsEnvAt1End": {
+    "role": "end",
+    "regex": "((\\\\)endsong)(?:\\s*\\n)?"
+  },
+  "MultilineArgNoHighlight": {
+    "role": "begin",
+    "regex": "\\G\\{"
+  },
+  "MultilineArgNoHighlightEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SongsEnvAt1At2": {
+    "role": "begin",
+    "regex": "(?:\\G|(?<=[]}]))\\s*"
+  },
+  "SongsEnvAt1At2End": {
+    "role": "end",
+    "regex": "\\s*(?=\\\\endsong)"
+  }
+}

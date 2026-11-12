@@ -1,0 +1,162 @@
+{
+  "CommentsAt0": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "CommentsAt0End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "CommentsAt1": {
+    "role": "begin",
+    "regex": "//"
+  },
+  "CommentsAt1End": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "Syntax": {
+    "role": "match",
+    "regex": "\\s*(syntax)\\s*(=)\\s*(\"proto[23]\")\\s*(;)"
+  },
+  "Package": {
+    "role": "match",
+    "regex": "\\s*(package)\\s+([.\\w]+)\\s*(;)"
+  },
+  "Import": {
+    "role": "match",
+    "regex": "\\s*(import)\\s+(weak|public)?\\s*(\"[^\"]+\")\\s*(;)"
+  },
+  "OptionStmt": {
+    "role": "begin",
+    "regex": "(option)\\s+(\\w+|\\(\\w+(\\.\\w+)*\\))(\\.\\w+)*\\s*(=)"
+  },
+  "OptionStmtEnd": {
+    "role": "end",
+    "regex": "(;)"
+  },
+  "Constants": {
+    "role": "match",
+    "regex": "\\b(true|false|max|[A-Z_]+)\\b"
+  },
+  "Number": {
+    "role": "match",
+    "regex": "\\b((0([Xx])\\h*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))(([Ee])([-+])?[0-9]+)?)\\b"
+  },
+  "String": {
+    "role": "match",
+    "regex": "([\"'])(?:\\\\.|[^\\\\])*?\\1"
+  },
+  "SubMsgOption": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "SubMsgOptionEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Kv": {
+    "role": "begin",
+    "regex": "(\\w+)\\s*(:)"
+  },
+  "KvEnd": {
+    "role": "end",
+    "regex": "(;)|,|(?=[/A-Z_a-z}])"
+  },
+  "Message": {
+    "role": "begin",
+    "regex": "(message|extend)(\\s+)([A-Z_a-z][.0-9A-Z_a-z]*)(\\s*)(\\{)?"
+  },
+  "MessageEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Reserved": {
+    "role": "begin",
+    "regex": "(reserved)\\s+"
+  },
+  "ReservedEnd": {
+    "role": "end",
+    "regex": "(;)"
+  },
+  "ReservedAt0": {
+    "role": "match",
+    "regex": "(\\d+)(\\s+(to)\\s+(\\d+))?"
+  },
+  "Enum": {
+    "role": "begin",
+    "regex": "(enum)(\\s+)([A-Za-z][0-9A-Z_a-z]*)(\\s*)(\\{)?"
+  },
+  "EnumEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "EnumAt3": {
+    "role": "begin",
+    "regex": "([A-Za-z][0-9A-Z_a-z]*)\\s*(=)\\s*(-?0[Xx]\\h+|-?[0-9]+)"
+  },
+  "EnumAt3End": {
+    "role": "end",
+    "regex": "(;)"
+  },
+  "FieldOptions": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "FieldOptionsEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "OptionName": {
+    "role": "match",
+    "regex": "(\\w+|\\(\\w+(\\.\\w+)*\\))(\\.\\w+)*"
+  },
+  "Service": {
+    "role": "begin",
+    "regex": "(service)\\s+([A-Za-z][.0-9A-Z_a-z]*)\\s*\\{?"
+  },
+  "ServiceEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Method": {
+    "role": "begin",
+    "regex": "(rpc)\\s+([A-Za-z][0-9A-Z_a-z]*)"
+  },
+  "MethodEnd": {
+    "role": "end",
+    "regex": "}|(;)"
+  },
+  "RpcKeywords": {
+    "role": "match",
+    "regex": "\\b(stream|returns)\\b"
+  },
+  "Ident": {
+    "role": "match",
+    "regex": "\\.?[A-Za-z][.0-9A-Z_a-z]*"
+  },
+  "Oneof": {
+    "role": "begin",
+    "regex": "(oneof)\\s+([A-Za-z][0-9A-Z_a-z]*)\\s*\\{?"
+  },
+  "OneofEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Field": {
+    "role": "begin",
+    "regex": "\\s*(optional|repeated|required)?\\s*(\\.?[.\\w]+)\\s+(\\w+)\\s*(=)\\s*(0[Xx]\\h+|[0-9]+)"
+  },
+  "FieldEnd": {
+    "role": "end",
+    "regex": "(;)"
+  },
+  "Mapfield": {
+    "role": "begin",
+    "regex": "\\s*(map)\\s*(<)\\s*(\\.?[.\\w]+)\\s*,\\s*(\\.?[.\\w]+)\\s*(>)\\s+(\\w+)\\s*(=)\\s*(\\d+)"
+  },
+  "MapfieldEnd": {
+    "role": "end",
+    "regex": "(;)"
+  }
+}

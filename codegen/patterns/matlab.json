@@ -1,0 +1,510 @@
+{
+  "ClassdefAt0": {
+    "role": "begin",
+    "regex": "^(\\s*)(classdef)\\b\\s*(.*)"
+  },
+  "ClassdefAt0End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "ClassdefAt0Capture3At0": {
+    "role": "match",
+    "regex": "(\\([^)]*\\))?\\s*(([A-Za-z][0-9A-Z_a-z]*)(?:\\s*(<)\\s*([^%]*))?)\\s*($|(?=(%|...)).*)"
+  },
+  "ClassdefAt0Capture3At0Capture1At0": {
+    "role": "match",
+    "regex": "[A-Za-z][0-9A-Z_a-z]*"
+  },
+  "ClassdefAt0Capture3At0Capture1At1": {
+    "role": "begin",
+    "regex": "=\\s*"
+  },
+  "ClassdefAt0Capture3At0Capture1At1End": {
+    "role": "end",
+    "regex": ",|(?=\\))"
+  },
+  "ClassdefAt0Capture3At0Capture1At1At0": {
+    "role": "match",
+    "regex": "true|false"
+  },
+  "StringAt0": {
+    "role": "match",
+    "regex": "^\\s*((!).*$\\n?)"
+  },
+  "StringAt1": {
+    "role": "begin",
+    "regex": "((?<=([\\&(*-/:->\\[\\\\^{|~\\s]))|^)'"
+  },
+  "StringAt1End": {
+    "role": "end",
+    "regex": "'(?=([\\&(-/:->\\[-^{-~\\s]))"
+  },
+  "StringAt1At0": {
+    "role": "match",
+    "regex": "''"
+  },
+  "StringAt1At1": {
+    "role": "match",
+    "regex": "'(?=.)"
+  },
+  "StringAt1At2": {
+    "role": "match",
+    "regex": "((%([-+0]?\\d{0,3}(\\.\\d{1,3})?)([EGc-gs]|(([bt])?([Xoux]))))|%%|\\\\([\\\\bfnrt]))"
+  },
+  "StringAt2": {
+    "role": "begin",
+    "regex": "((?<=([\\&(*-/:->\\[\\\\^{|~\\s]))|^)\""
+  },
+  "StringAt2End": {
+    "role": "end",
+    "regex": "\"(?=([\\&(-/:->\\[-^{-~\\s]))"
+  },
+  "StringAt2At0": {
+    "role": "match",
+    "regex": "\"\""
+  },
+  "StringAt2At1": {
+    "role": "match",
+    "regex": "\"(?=.)"
+  },
+  "ClassdefAt0Capture3At0Capture5At0": {
+    "role": "match",
+    "regex": "[A-Za-z][0-9A-Z_a-z]*(\\.[A-Za-z][0-9A-Z_a-z]*)*"
+  },
+  "ClassdefAt0Capture3At0Capture5At1": {
+    "role": "match",
+    "regex": "&"
+  },
+  "CommandDual": {
+    "role": "match",
+    "regex": "^\\s*(([A-HJ-MO-Zbcdfghklmoq-z]\\w*|an??|a([0-9A-Z_a-mo-z]\\w*|n[0-9A-Z_a-rt-z]\\w*|ns\\w+)|ep??|e([0-9A-Z_a-oq-z]\\w*|p[0-9A-Z_a-rt-z]\\w*|ps\\w+)|in|i([0-9A-Z_a-mo-z]\\w*|n[0-9A-Z_a-eg-z]\\w*|nf\\w+)|In??|I([0-9A-Z_a-mo-z]\\w*|n[0-9A-Z_a-eg-z]\\w*|nf\\w+)|j\\w+|Na??|N([0-9A-Z_b-z]\\w*|a[0-9A-MO-Z_a-z]\\w*|aN\\w+)|na??|narg??|nargi|nargou??|n([0-9A-Z_b-z]\\w*|a([0-9A-Z_a-mopqs-z]\\w*|n\\w+|r([0-9A-Z_a-fh-z]\\w*|g([0-9A-Z_a-hj-nq-z]\\w*|i([0-9A-Z_a-mo-z]\\w*|n\\w+)|o([0-9A-Z_a-tv-z]\\w*|u([A-Za-su-z]\\w*|t\\w+))))))|p|p[0-9A-Z_a-hj-z]\\w*|pi\\w+)\\s+((([^\"%-/:->@\\\\^{|~\\s]|(?=')|(?=\"))|(\\.\\^|\\.\\*|\\./|\\.\\\\|\\.'|\\.\\(|&&|==|\\|\\||&(?=[^\\&])|\\|(?=[^|])|~=|<=|>=|~(?!=)|<(?!=)|>(?!=)|[-*+/:@\\\\^])(\\S|\\s*(?=%)|\\s+$|\\s+([]\\&)*,/:->@\\\\^|}]|(\\.(?:[^.\\d]|\\.[^.]))))|(\\.[^'(*/A-Z\\\\^a-z\\s]))([^%]|'[^']*'|\"[^\"]*\")*|(\\.(?=\\s)|\\.[A-Za-z]|(?=\\{))([^\"%'(=]|==|'[^']*'|\"[^\"]*\"|\\(|\\([^%)]*\\)|\\[|\\[[^]%]*]|\\{|\\{[^%}]*})*(\\.\\.\\.[^%]*)?((?=%)|$)))(%.*)?$"
+  },
+  "LineContinuation": {
+    "role": "match",
+    "regex": "(\\.\\.\\.)(.*)$"
+  },
+  "CommentsAt0": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=%%\\s)"
+  },
+  "CommentsAt0End": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "CommentsAt0At0": {
+    "role": "begin",
+    "regex": "%%"
+  },
+  "CommentsAt0At0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentsAt0At0At0": {
+    "role": "begin",
+    "regex": "\\G[^\\n\\S]*(?![\\n\\s])"
+  },
+  "CommentsAt0At0At0End": {
+    "role": "end",
+    "regex": "(?=\\n)"
+  },
+  "CommentBlock": {
+    "role": "begin",
+    "regex": "^(\\s*)%\\{[^\\n\\S]*+\\n"
+  },
+  "CommentBlockEnd": {
+    "role": "end",
+    "regex": "^\\s*%}[^\\n\\S]*+(?:\\n|$)"
+  },
+  "CommentBlockAt1": {
+    "role": "match",
+    "regex": "^[^\\n]*\\n"
+  },
+  "CommentsAt2": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=%)"
+  },
+  "CommentsAt2End": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "CommentsAt2At0": {
+    "role": "begin",
+    "regex": "%"
+  },
+  "CommentsAt2At0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "ConjugateTranspose": {
+    "role": "match",
+    "regex": "((?<=\\S)|(?<=])|(?<=\\))|(?<=}))'"
+  },
+  "Transpose": {
+    "role": "match",
+    "regex": "\\.'"
+  },
+  "Constants": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(eps|false|Inf|inf|intmax|intmin|namelengthmax|NaN|nan|on|off|realmax|realmin|true|pi)\\b"
+  },
+  "Variables": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(nargin|nargout|varargin|varargout)\\b"
+  },
+  "Numbers": {
+    "role": "match",
+    "regex": "(?<=[(*-\\-/:=\\[\\\\{\\s]|^)\\d*\\.?\\d+([Ee][-+]?\\d)?([0-9&&[^.]])*([ij])?\\b"
+  },
+  "Operators": {
+    "role": "match",
+    "regex": "(?<=\\s)(==|~=|>=??|<=??|&&??|[:|]|\\|\\||[-*+]|\\.\\*|/|\\./|\\\\|\\.\\\\|\\^|\\.\\^)(?=\\s)"
+  },
+  "ClassdefAt0At0": {
+    "role": "begin",
+    "regex": "^(\\s*)(properties)\\b([^%]*)\\s*(\\([^)]*\\))?\\s*($|(?=%))"
+  },
+  "ClassdefAt0At0End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "ClassdefAt0At0Capture3At0": {
+    "role": "match",
+    "regex": "[A-Za-z][0-9A-Z_a-z]*"
+  },
+  "ClassdefAt0At0Capture3At1": {
+    "role": "begin",
+    "regex": "=\\s*"
+  },
+  "ClassdefAt0At0Capture3At1End": {
+    "role": "end",
+    "regex": ",|(?=\\))"
+  },
+  "ClassdefAt0At0Capture3At1At0": {
+    "role": "match",
+    "regex": "true|false"
+  },
+  "ClassdefAt0At0Capture3At1At1": {
+    "role": "match",
+    "regex": "p(?:ublic|rotected|rivate)"
+  },
+  "Validators": {
+    "role": "begin",
+    "regex": "\\s*;?\\s*([A-Za-z][.0-9?A-Z_a-z]*)"
+  },
+  "ValidatorsEnd": {
+    "role": "end",
+    "regex": "([\\n%;=].*)"
+  },
+  "ValidatorsEndCapture1At0": {
+    "role": "match",
+    "regex": "(%.*)"
+  },
+  "ValidatorsEndCapture1At1": {
+    "role": "match",
+    "regex": "(=[^;]*)"
+  },
+  "ValidatorsEndCapture1At2": {
+    "role": "match",
+    "regex": "([\\n;]\\s*[A-Za-z].*)"
+  },
+  "ValidatorsAt1": {
+    "role": "match",
+    "regex": "\\s*(\\([^)]*\\))"
+  },
+  "ValidatorsAt2": {
+    "role": "match",
+    "regex": "([A-Za-z][.0-9A-Z_a-z]*)"
+  },
+  "BracedValidatorList": {
+    "role": "begin",
+    "regex": "\\s*(\\{)\\s*"
+  },
+  "BracedValidatorListEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "ValidatorStringsAt0At0": {
+    "role": "begin",
+    "regex": "((?<=([\\&(*-/:->\\[\\\\^{|~\\s]))|^)'"
+  },
+  "ValidatorStringsAt0At0End": {
+    "role": "end",
+    "regex": "'(?=([\\&(-/:->\\[-^{-~\\s]))"
+  },
+  "ValidatorStringsAt0At0At0": {
+    "role": "match",
+    "regex": "''"
+  },
+  "ValidatorStringsAt0At0At1": {
+    "role": "match",
+    "regex": "'(?=.)"
+  },
+  "ValidatorStringsAt0At0At2": {
+    "role": "match",
+    "regex": "([^']+)"
+  },
+  "ValidatorStringsAt0At1": {
+    "role": "begin",
+    "regex": "((?<=([\\&(*-/:->\\[\\\\^{|~\\s]))|^)\""
+  },
+  "ValidatorStringsAt0At1End": {
+    "role": "end",
+    "regex": "\"(?=([\\&(-/:->\\[-^{-~\\s]))"
+  },
+  "ValidatorStringsAt0At1At0": {
+    "role": "match",
+    "regex": "\"\""
+  },
+  "ValidatorStringsAt0At1At1": {
+    "role": "match",
+    "regex": "\"(?=.)"
+  },
+  "ValidatorStringsAt0At1At2": {
+    "role": "match",
+    "regex": "[^\"]+"
+  },
+  "BracedValidatorListAt3": {
+    "role": "match",
+    "regex": "([^\"'.{}]+)"
+  },
+  "BracedValidatorListAt4": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "ClassdefAt0At1": {
+    "role": "begin",
+    "regex": "^(\\s*)(methods)\\b([^%]*)\\s*(\\([^)]*\\))?\\s*($|(?=%))"
+  },
+  "ClassdefAt0At1End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "ClassdefAt0At1Capture3At0": {
+    "role": "match",
+    "regex": "[A-Za-z][0-9A-Z_a-z]*"
+  },
+  "ClassdefAt0At1Capture3At1": {
+    "role": "begin",
+    "regex": "=\\s*"
+  },
+  "ClassdefAt0At1Capture3At1End": {
+    "role": "end",
+    "regex": ",|(?=\\))"
+  },
+  "ClassdefAt0At1Capture3At1At0": {
+    "role": "match",
+    "regex": "true|false"
+  },
+  "ClassdefAt0At1Capture3At1At1": {
+    "role": "match",
+    "regex": "p(?:ublic|rotected|rivate)"
+  },
+  "ClassdefAt0At2": {
+    "role": "begin",
+    "regex": "^(\\s*)(events)\\b([^%]*)\\s*(\\([^)]*\\))?\\s*($|(?=%))"
+  },
+  "ClassdefAt0At2End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "ClassdefAt0At2Capture3At0": {
+    "role": "match",
+    "regex": "[A-Za-z][0-9A-Z_a-z]*"
+  },
+  "ClassdefAt0At2Capture3At1": {
+    "role": "begin",
+    "regex": "=\\s*"
+  },
+  "ClassdefAt0At2Capture3At1End": {
+    "role": "end",
+    "regex": ",|(?=\\))"
+  },
+  "ClassdefAt0At2Capture3At1At0": {
+    "role": "match",
+    "regex": "true|false"
+  },
+  "ClassdefAt0At2Capture3At1At1": {
+    "role": "match",
+    "regex": "p(?:ublic|rotected|rivate)"
+  },
+  "ClassdefAt0At3": {
+    "role": "begin",
+    "regex": "^(\\s*)(enumeration)\\b([^%]*)\\s*($|(?=%))"
+  },
+  "ClassdefAt0At3End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "FunctionAt0": {
+    "role": "begin",
+    "regex": "^(\\s*)(function)\\s+(?:(?:(\\[)([^]]*)(])|([A-Za-z][0-9A-Z_a-z]*))\\s*=\\s*)?([A-Za-z][0-9A-Z_a-z]*(\\.[A-Za-z][0-9A-Z_a-z]*)*)\\s*"
+  },
+  "FunctionAt0End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b(\\s*\\n)?"
+  },
+  "FunctionAt0Capture4At0": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "FunctionAt0At0": {
+    "role": "begin",
+    "regex": "\\G\\("
+  },
+  "FunctionAt0At0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FunctionAt0At0At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "FunctionAt0At1": {
+    "role": "begin",
+    "regex": "^(\\s*)(arguments)\\b([^%]*)\\s*(\\([^)]*\\))?\\s*($|(?=%))"
+  },
+  "FunctionAt0At1End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "FunctionAt0At1Capture3At0": {
+    "role": "match",
+    "regex": "[A-Za-z][0-9A-Z_a-z]*"
+  },
+  "BlocksAt0": {
+    "role": "begin",
+    "regex": "\\s*(?:^|[,;\\s])(for)\\b"
+  },
+  "BlocksAt0End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "BlocksAt1": {
+    "role": "begin",
+    "regex": "\\s*(?:^|[,;\\s])(if)\\b"
+  },
+  "BlocksAt1End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "BlocksAt1At0": {
+    "role": "match",
+    "regex": "(\\s*)(?:^|[,;\\s])(elseif)\\b(.*)$\\n?"
+  },
+  "BlocksAt1At1": {
+    "role": "match",
+    "regex": "(\\s*)(?:^|[,;\\s])(else)\\b(.*)?$\\n?"
+  },
+  "BlocksAt2": {
+    "role": "begin",
+    "regex": "\\s*(?:^|[,;\\s])(parfor)\\b"
+  },
+  "BlocksAt2End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "BlocksAt2At0": {
+    "role": "begin",
+    "regex": "\\G(?!$)"
+  },
+  "BlocksAt2At0End": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "BlocksAt3": {
+    "role": "begin",
+    "regex": "\\s*(?:^|[,;\\s])(spmd)\\b"
+  },
+  "BlocksAt3End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "BlocksAt3At0": {
+    "role": "begin",
+    "regex": "\\G(?!$)"
+  },
+  "BlocksAt3At0End": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "BlocksAt4": {
+    "role": "begin",
+    "regex": "\\s*(?:^|[,;\\s])(switch)\\b"
+  },
+  "BlocksAt4End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "BlocksAt4At0": {
+    "role": "match",
+    "regex": "(\\s*)(?:^|[,;\\s])(case)\\b(.*)$\\n?"
+  },
+  "BlocksAt4At1": {
+    "role": "match",
+    "regex": "(\\s*)(?:^|[,;\\s])(otherwise)\\b(.*)?$\\n?"
+  },
+  "BlocksAt5": {
+    "role": "begin",
+    "regex": "\\s*(?:^|[,;\\s])(try)\\b"
+  },
+  "BlocksAt5End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "BlocksAt5At0": {
+    "role": "match",
+    "regex": "(\\s*)(?:^|[,;\\s])(catch)\\b(.*)?$\\n?"
+  },
+  "BlocksAt6": {
+    "role": "begin",
+    "regex": "\\s*(?:^|[,;\\s])(while)\\b"
+  },
+  "BlocksAt6End": {
+    "role": "end",
+    "regex": "\\s*(?:^|[,;\\s])(end)\\b"
+  },
+  "ControlStatements": {
+    "role": "match",
+    "regex": "\\s*(?:^|[,;\\s])(break|continue|return)\\b"
+  },
+  "GlobalPersistent": {
+    "role": "match",
+    "regex": "^\\s*(global|persistent)\\b"
+  },
+  "Parens": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParensEnd": {
+    "role": "end",
+    "regex": "(\\)|(?<!\\.\\.\\.).\\n)"
+  },
+  "EndInParens": {
+    "role": "match",
+    "regex": "\\bend\\b"
+  },
+  "SquareBrackets": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "SquareBracketsEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "IndexingCurlyBrackets": {
+    "role": "begin",
+    "regex": "([A-Za-z][.0-9A-Z_a-z]*\\s*)\\{"
+  },
+  "IndexingCurlyBracketsEnd": {
+    "role": "end",
+    "regex": "(}|(?<!\\.\\.\\.).\\n)"
+  },
+  "CurlyBrackets": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "CurlyBracketsEnd": {
+    "role": "end",
+    "regex": "}"
+  }
+}

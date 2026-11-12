@@ -15,6 +15,7 @@ use crate::rules;
 
 impl rules::Tabled for Coffee<SVELTE> {
     const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
+    const MIXED_BLANK_RUNS: bool = rules::blank_runs::COFFEE;
 
     fn pattern_start(pattern: Pattern) -> rules::Start {
         pattern.start()

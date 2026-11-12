@@ -24,6 +24,7 @@ import {
   startTable,
   takesOneBlank,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -405,6 +406,7 @@ g += groupsCheck(
   "CommonLisp",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+await writePatterns("common_lisp", patternList);
 await writeRust(`${root_dir}src/common_lisp/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word.replaceAll("\\", "\\\\")}"`;

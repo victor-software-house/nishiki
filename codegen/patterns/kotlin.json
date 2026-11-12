@@ -1,0 +1,254 @@
+{
+  "Import": {
+    "role": "begin",
+    "regex": "\\b(import)\\b\\s*"
+  },
+  "ImportEnd": {
+    "role": "end",
+    "regex": ";|$"
+  },
+  "CommentLine": {
+    "role": "begin",
+    "regex": "//"
+  },
+  "CommentLineEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "CommentBlock": {
+    "role": "begin",
+    "regex": "/\\*(?!\\*)"
+  },
+  "CommentBlockEnd": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "CommentJavadocAt0": {
+    "role": "begin",
+    "regex": "/\\*\\*"
+  },
+  "CommentJavadocAt0End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "CommentJavadocAt0At0": {
+    "role": "match",
+    "regex": "@(return|constructor|receiver|sample|see|author|since|suppress)\\b"
+  },
+  "CommentJavadocAt0At1": {
+    "role": "match",
+    "regex": "(@p(?:aram|roperty))\\s+(\\S+)"
+  },
+  "CommentJavadocAt0At2": {
+    "role": "match",
+    "regex": "(@param)\\[(\\S+)]"
+  },
+  "CommentJavadocAt0At3": {
+    "role": "match",
+    "regex": "(@(?:exception|throws))\\s+(\\S+)"
+  },
+  "CommentJavadocAt0At4": {
+    "role": "match",
+    "regex": "\\{(@link)\\s+(\\S+)?#([$\\w]+\\s*\\([^()]*\\)).*}"
+  },
+  "HardKeywords": {
+    "role": "match",
+    "regex": "\\b(as|typeof|is|in)\\b"
+  },
+  "ImportAt2": {
+    "role": "match",
+    "regex": "\\*"
+  },
+  "Package": {
+    "role": "begin",
+    "regex": "\\b(package)\\b\\s*"
+  },
+  "PackageEnd": {
+    "role": "end",
+    "regex": ";|$"
+  },
+  "PrefixModifiers": {
+    "role": "match",
+    "regex": "\\b(abstract|final|enum|open|annotation|sealed|data|override|final|lateinit|private|protected|public|internal|inner|companion|noinline|crossinline|vararg|reified|tailrec|operator|infix|inline|external|const|suspend|value)\\b"
+  },
+  "PostfixModifiers": {
+    "role": "match",
+    "regex": "\\b(where|by|get|set)\\b"
+  },
+  "SoftKeywords": {
+    "role": "match",
+    "regex": "\\b(init|catch|finally|field)\\b"
+  },
+  "ControlKeywords": {
+    "role": "match",
+    "regex": "\\b(if|else|while|do|when|try|throw|break|continue|return|for)\\b"
+  },
+  "AnnotationSimple": {
+    "role": "match",
+    "regex": "(?<!\\w)@[.\\w]+\\b(?!:)"
+  },
+  "AnnotationSiteList": {
+    "role": "begin",
+    "regex": "(?<!\\w)(@\\w+):\\s*\\["
+  },
+  "AnnotationSiteListEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "UnescapedAnnotation": {
+    "role": "match",
+    "regex": "\\b[.\\w]+\\b"
+  },
+  "AnnotationSite": {
+    "role": "begin",
+    "regex": "(?<!\\w)(@\\w+):\\s*(?!\\[)"
+  },
+  "AnnotationSiteEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "ClassDeclaration": {
+    "role": "match",
+    "regex": "\\b(class|(?:fun\\s+)?interface)\\s+(\\b\\w+\\b|`[^`]+`)\\s*(?<GROUP><([^<>]|\\g<GROUP>)+>)?"
+  },
+  "Object": {
+    "role": "match",
+    "regex": "\\b(object)(?:\\s+(\\b\\w+\\b|`[^`]+`))?"
+  },
+  "TypeAlias": {
+    "role": "match",
+    "regex": "\\b(typealias)\\s+(\\b\\w+\\b|`[^`]+`)\\s*(?<GROUP><([^<>]|\\g<GROUP>)+>)?"
+  },
+  "Function": {
+    "role": "match",
+    "regex": "\\b(fun)\\b\\s*(?<GROUP><([^<>]|\\g<GROUP>)+>)?\\s*(?:(?:(\\w+)\\.)?(\\b\\w+\\b|`[^`]+`))?"
+  },
+  "VariableDeclaration": {
+    "role": "match",
+    "regex": "\\b(va[lr])\\b\\s*(?<GROUP><([^<>]|\\g<GROUP>)+>)?"
+  },
+  "TypeAnnotation": {
+    "role": "match",
+    "regex": "(?<![:?]):\\s*([?\\w\\s]|->|(?<GROUP>[(<]([^\"'()<>]|\\g<GROUP>)+[)>]))+"
+  },
+  "FunctionCall": {
+    "role": "match",
+    "regex": "\\??\\.?(\\b\\w+\\b|`[^`]+`)\\s*(?<GROUP><([^<>]|\\g<GROUP>)+>)?\\s*(?=[({])"
+  },
+  "MethodReference": {
+    "role": "match",
+    "regex": "\\??::(\\b\\w+\\b|`[^`]+`)"
+  },
+  "Key": {
+    "role": "match",
+    "regex": "\\b(\\w=)\\s*(=)"
+  },
+  "String": {
+    "role": "begin",
+    "regex": "(?<!\")\"(?!\")"
+  },
+  "StringEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "StringAt0": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "StringEscapeSimple": {
+    "role": "match",
+    "regex": "(?<!\\\\)\\$\\w+\\b"
+  },
+  "StringEscapeBracketed": {
+    "role": "begin",
+    "regex": "(?<!\\\\)(\\$\\{)"
+  },
+  "StringEscapeBracketedEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "StringEmpty": {
+    "role": "match",
+    "regex": "(?<!\")\"\"(?!\")"
+  },
+  "StringMultiline": {
+    "role": "begin",
+    "regex": "\"\"\""
+  },
+  "StringMultilineEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "StringMultilineAt0": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "Character": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "CharacterEnd": {
+    "role": "end",
+    "regex": "'"
+  },
+  "CharacterAt0": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "LambdaArrow": {
+    "role": "match",
+    "regex": "->"
+  },
+  "OperatorsAt0": {
+    "role": "match",
+    "regex": "(===?|!==?|<=|>=|[<>])"
+  },
+  "OperatorsAt1": {
+    "role": "match",
+    "regex": "([-%*+/]=)"
+  },
+  "OperatorsAt2": {
+    "role": "match",
+    "regex": "(=)"
+  },
+  "OperatorsAt3": {
+    "role": "match",
+    "regex": "([-%*+/])"
+  },
+  "OperatorsAt4": {
+    "role": "match",
+    "regex": "(!|&&|\\|\\|)"
+  },
+  "OperatorsAt5": {
+    "role": "match",
+    "regex": "(--|\\+\\+)"
+  },
+  "OperatorsAt6": {
+    "role": "match",
+    "regex": "(\\.\\.)"
+  },
+  "SelfReference": {
+    "role": "match",
+    "regex": "\\b(this|super)(@\\w+)?\\b"
+  },
+  "DecimalLiteral": {
+    "role": "match",
+    "regex": "\\b\\d[_\\d]*(\\.[_\\d]+)?(([Ee])\\d+)?([Uu])?([FLf])?\\b"
+  },
+  "HexLiteral": {
+    "role": "match",
+    "regex": "0([Xx])\\h[_\\h]*([Uu])?"
+  },
+  "BinaryLiteral": {
+    "role": "match",
+    "regex": "0([Bb])[01][01_]*"
+  },
+  "BooleanLiteral": {
+    "role": "match",
+    "regex": "\\b(true|false)\\b"
+  },
+  "NullLiteral": {
+    "role": "match",
+    "regex": "\\bnull\\b"
+  }
+}

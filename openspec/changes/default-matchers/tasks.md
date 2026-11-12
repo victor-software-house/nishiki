@@ -44,11 +44,33 @@
   It reads on to the run's end only to keep the failure.
   It follows up fix 2's cost ([`field-pattern-fixes`][field-pattern-fixes], section 3.4).
   → verify: `m36` costs fewer instructions per try than at `30390626`, with 0 differences and both field lines uncut
+- [x] 1.5 The scan passes a mixed run of `\s` characters that starts with a wide space in one step, where the grammar allows it.
+  An analysis per grammar decides where it does.
+  It extends the blank-run analysis to runs that start with a wide space.
+  - [#6][pr-6] passed such a run whole.
+    A space-only pattern such as `[ \t]+$` then lost its try at a later space.
+  - [#11][pr-11] passes a run of one repeated wide space only.
+    So the Protocol Buffers limit line, `"\u{a0} "` repeated 4,000 times, ends at the work limit.
+
+  → verify: on a box, against the base:
+  - the no-break-space line stays at 32,008 steps and the U+3000 line at 48,008;
+  - the `"\u{a0} "` line ends under the work limit, in steps linear in its length;
+  - the Shiki differential over three seeds shows no new difference;
+  - every Callgrind lexing row reads at most 1.000, or the pull request explains it.
+  - 2026-11-12: on a box, against [`51988b24`][pr-11-head].
+    `codegen/src/blank_runs.rs` lets eight grammars pass mixed runs.
+    The `"\u{a0} "` line takes 48,008 steps at 4,000 repeats, where the base took 144,032,007.
+    The Shiki differential matches the base over three seeds.
+    [#17][pr-17] has every row.
 
 The first language moves to default matchers in [rule-table-codegen][rule-table-codegen] task 1.1.
 
 [base]: https://github.com/victor-software-house/nishiki-archive/commit/851351f064d86c429f4652af2c59af138dcf6ba2
 [default-matchers-note]: ../../research/2026-11-10-default-matchers.md
 [field-pattern-fixes]: ../field-pattern-fixes/design.md
+[pr-6]: https://github.com/victor-software-house/nishiki/pull/6
+[pr-11]: https://github.com/victor-software-house/nishiki/pull/11
+[pr-11-head]: https://github.com/victor-software-house/nishiki/commit/51988b24e0f4affadc1b26acc29c87d1c9712edc
+[pr-17]: https://github.com/victor-software-house/nishiki/pull/17
 [research]: research.md
 [rule-table-codegen]: ../rule-table-codegen/tasks.md

@@ -11074,6 +11074,7 @@ impl Rule {
 
 impl rules::Tabled for Php {
     const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
+    const MIXED_BLANK_RUNS: bool = rules::blank_runs::PHP;
 
     fn pattern_start(pattern: Pattern) -> rules::Start {
         pattern.start()

@@ -23,6 +23,21 @@ export async function writeRust(path: string, text: string): Promise<void> {
   await $`rustfmt ${toolchain} ${path}`;
 }
 
+/** Writes `codegen/patterns/<dir>.json`: each pattern's role and regular
+ * expression, keyed by its id, for the grammar of `src/<dir>/`.
+ * codegen/ reads it and decides what the grammar's tables hold.
+ * This script only writes the data. */
+export async function writePatterns(
+  dir: string,
+  patterns: { id: string; regex: string; act: { role: string } }[],
+): Promise<void> {
+  const byId = Object.fromEntries(
+    patterns.map((p) => [p.id, { role: p.act.role, regex: p.regex }]),
+  );
+  const root = new URL("..", import.meta.url).pathname;
+  await Bun.write(`${root}codegen/patterns/${dir}.json`, `${JSON.stringify(byId, null, 2)}\n`);
+}
+
 // First bytes. For each pattern, the bytes a match can start at, so that the
 // engine tries it only where one stands. The analysis reads the regular
 // expression, over-approximating: a byte it leaves out cannot start a match.
@@ -1023,6 +1038,7 @@ impl Rule {
 
 impl rules::Tabled for ${engine} {
     const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
+    const MIXED_BLANK_RUNS: bool = rules::blank_runs::${tag};
 
     fn pattern_start(pattern: Pattern) -> rules::Start {
         pattern.start()

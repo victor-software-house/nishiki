@@ -1,0 +1,838 @@
+{
+  "RootAt0": {
+    "role": "begin",
+    "regex": "\\b(package)\\b\\s*"
+  },
+  "RootAt0End": {
+    "role": "end",
+    "regex": "\\s*(;)"
+  },
+  "CommentsAt0": {
+    "role": "match",
+    "regex": "/\\*\\*/"
+  },
+  "CommentsInlineAt0": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "CommentsInlineAt0End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "CommentsInlineAt1": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=//)"
+  },
+  "CommentsInlineAt1End": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "CommentsInlineAt1At0": {
+    "role": "begin",
+    "regex": "//"
+  },
+  "CommentsInlineAt1At0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "RootAt0At1": {
+    "role": "match",
+    "regex": "(?<=\\.)\\s*\\.|\\.(?=\\s*;)"
+  },
+  "RootAt0At2": {
+    "role": "match",
+    "regex": "(?<!_)_(?=\\s*([.;]))|\\b\\d+|-+"
+  },
+  "RootAt0At3": {
+    "role": "match",
+    "regex": "[A-Z]+"
+  },
+  "RootAt0At4": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)(abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|native|new|non-sealed|package|permits|private|protected|public|return|sealed|short|static|strictfp|super|switch|syncronized|this|throws??|transient|try|void|volatile|while|yield|true|false|null)\\b"
+  },
+  "RootAt0At5": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "RootAt1": {
+    "role": "begin",
+    "regex": "\\b(import)\\b\\s*\\b(static)?\\b\\s"
+  },
+  "RootAt1End": {
+    "role": "end",
+    "regex": "\\s*(;)"
+  },
+  "RootAt1At1": {
+    "role": "match",
+    "regex": "(?<=\\.)\\s*\\.|\\.(?=\\s*;)"
+  },
+  "RootAt1At2": {
+    "role": "match",
+    "regex": "(?<!\\.)\\s*\\*"
+  },
+  "RootAt1At3": {
+    "role": "match",
+    "regex": "(?<!_)_(?=\\s*([.;]))|\\b\\d+|-+"
+  },
+  "RootAt1At4": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)(abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|native|new|non-sealed|package|permits|private|protected|public|return|sealed|short|static|strictfp|super|switch|syncronized|this|throws??|transient|try|void|volatile|while|yield|true|false|null)\\b"
+  },
+  "RootAt1At5": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "RootAt1At6": {
+    "role": "match",
+    "regex": "\\*"
+  },
+  "CommentsJavadocAt0": {
+    "role": "begin",
+    "regex": "^\\s*(/\\*\\*)(?!/)"
+  },
+  "CommentsJavadocAt0End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "CommentsJavadocAt0At0": {
+    "role": "match",
+    "regex": "@(author|deprecated|return|see|serial|since|version)\\b"
+  },
+  "CommentsJavadocAt0At1": {
+    "role": "match",
+    "regex": "(@param)\\s+(\\S+)"
+  },
+  "CommentsJavadocAt0At2": {
+    "role": "match",
+    "regex": "(@(?:exception|throws))\\s+(\\S+)"
+  },
+  "CommentsJavadocAt0At3": {
+    "role": "match",
+    "regex": "\\{(@link)\\s+(\\S+)?#([$\\w]+\\s*\\([^()]*\\)).*?}"
+  },
+  "AnnotationsAt0": {
+    "role": "begin",
+    "regex": "((@)\\s*([^(\\s]+))(\\()"
+  },
+  "AnnotationsAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "AnnotationsAt0At0": {
+    "role": "match",
+    "regex": "(\\w*)\\s*(=)"
+  },
+  "AnnotationsAt1": {
+    "role": "match",
+    "regex": "(@)(interface)\\s+(\\w*)|((@)\\s*(\\w+))"
+  },
+  "Enums": {
+    "role": "begin",
+    "regex": "^\\s*([\\w\\s]*)(enum)\\s+(\\w+)"
+  },
+  "EnumsEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "EnumsAt0": {
+    "role": "begin",
+    "regex": "\\b(extends)\\b"
+  },
+  "EnumsAt0End": {
+    "role": "end",
+    "regex": "(?=\\{|\\bimplements\\b)"
+  },
+  "Generics": {
+    "role": "begin",
+    "regex": "<"
+  },
+  "GenericsEnd": {
+    "role": "end",
+    "regex": ">"
+  },
+  "GenericsAt0": {
+    "role": "match",
+    "regex": "\\bextends\\b"
+  },
+  "GenericsAt1": {
+    "role": "match",
+    "regex": "\\bsuper\\b"
+  },
+  "GenericsAt2": {
+    "role": "match",
+    "regex": "(?<!\\.)([$A-Z_a-z][$0-9A-Z_a-z]*)(?=\\s*<)"
+  },
+  "PrimitiveArraysAt0": {
+    "role": "begin",
+    "regex": "\\b(void|boolean|byte|char|short|int|float|long|double)\\b\\s*(?=\\[)"
+  },
+  "PrimitiveArraysAt0End": {
+    "role": "end",
+    "regex": "(?!\\s*\\[)"
+  },
+  "ParensAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParensAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Class": {
+    "role": "begin",
+    "regex": "(?=\\w?[-\\w\\s]*\\b(?:class|(?<!@)interface|enum)\\s+[$\\w]+)"
+  },
+  "ClassEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "StorageModifiers": {
+    "role": "match",
+    "regex": "\\b(public|private|protected|static|final|native|synchronized|abstract|threadsafe|transient|volatile|default|strictfp|sealed|non-sealed)\\b"
+  },
+  "ClassAt3": {
+    "role": "match",
+    "regex": "(class|(?<!@)interface|enum)\\s+([$\\w]+)"
+  },
+  "ClassAt4": {
+    "role": "begin",
+    "regex": "extends"
+  },
+  "ClassAt4End": {
+    "role": "end",
+    "regex": "(?=\\{|implements|permits)"
+  },
+  "ObjectTypesInheritedAt1": {
+    "role": "match",
+    "regex": "\\b(?:[A-Z]\\w*\\s*(\\.)\\s*)*[A-Z]\\w*\\b"
+  },
+  "ObjectTypesInheritedAt2": {
+    "role": "match",
+    "regex": ","
+  },
+  "ClassAt5": {
+    "role": "begin",
+    "regex": "(implements)\\s"
+  },
+  "ClassAt5End": {
+    "role": "end",
+    "regex": "(?=\\s*extends|permits|\\{)"
+  },
+  "ClassAt6": {
+    "role": "begin",
+    "regex": "(permits)\\s"
+  },
+  "ClassAt6End": {
+    "role": "end",
+    "regex": "(?=\\s*extends|implements|\\{)"
+  },
+  "ClassAt7": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "ClassAt7End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "AnonymousBlockAndInstanceInitializer": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "AnonymousBlockAndInstanceInitializerEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Record": {
+    "role": "begin",
+    "regex": "(?=\\w?[\\w\\s]*\\brecord\\s+[$\\w]+)"
+  },
+  "RecordEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "RecordAt3": {
+    "role": "begin",
+    "regex": "(record)\\s+([$\\w]+)(<[$\\w]+>)?(\\()"
+  },
+  "RecordAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TryCatchFinallyAt0": {
+    "role": "begin",
+    "regex": "\\btry\\b"
+  },
+  "TryCatchFinallyAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TryCatchFinallyAt0At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TryCatchFinallyAt0At0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TryCatchFinallyAt1": {
+    "role": "begin",
+    "regex": "\\b(catch)\\b"
+  },
+  "TryCatchFinallyAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TryCatchFinallyAt1At1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TryCatchFinallyAt1At1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TryCatchFinallyAt1At1At2": {
+    "role": "begin",
+    "regex": "[$A-Z_a-z][$.0-9A-Z_a-z]*"
+  },
+  "TryCatchFinallyAt1At1At2End": {
+    "role": "end",
+    "regex": "(\\|)|(?=\\))"
+  },
+  "TryCatchFinallyAt1At1At2At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "TryCatchFinallyAt1At2": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "TryCatchFinallyAt1At2End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "TryCatchFinallyAt2": {
+    "role": "begin",
+    "regex": "\\bfinally\\b"
+  },
+  "TryCatchFinallyAt2End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TryCatchFinallyAt2At0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "TryCatchFinallyAt2At0End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "AssertionsAt0": {
+    "role": "begin",
+    "regex": "\\b(assert)\\s"
+  },
+  "AssertionsAt0End": {
+    "role": "end",
+    "regex": "$"
+  },
+  "AssertionsAt0At0": {
+    "role": "match",
+    "regex": ":"
+  },
+  "ParensAt1": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "ParensAt1End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "ParensAt2": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "ParensAt2End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ConstantsAndSpecialVarsAt0": {
+    "role": "match",
+    "regex": "\\b(true|false|null)\\b"
+  },
+  "ConstantsAndSpecialVarsAt1": {
+    "role": "match",
+    "regex": "\\bthis\\b"
+  },
+  "ConstantsAndSpecialVarsAt2": {
+    "role": "match",
+    "regex": "\\bsuper\\b"
+  },
+  "NumbersAt0": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)0([Xx])((?<!\\.)\\h([_\\h]*\\h)?[Ll]?(?!\\.)|(\\h([_\\h]*\\h)?\\.?|(\\h([_\\h]*\\h)?)?\\.\\h([_\\h]*\\h)?)[Pp][-+]?[0-9]([0-9_]*[0-9])?[DFdf]?)\\b(?!\\$)"
+  },
+  "NumbersAt1": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)0([Bb])[01]([01_]*[01])?[Ll]?\\b(?!\\$)"
+  },
+  "NumbersAt2": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)0[0-7]([0-7_]*[0-7])?[Ll]?\\b(?!\\$)"
+  },
+  "NumbersAt3": {
+    "role": "match",
+    "regex": "(?<!\\$)(\\b[0-9]([0-9_]*[0-9])?\\.\\B(?!\\.)|\\b[0-9]([0-9_]*[0-9])?\\.([Ee][-+]?[0-9]([0-9_]*[0-9])?)[DFdf]?\\b|\\b[0-9]([0-9_]*[0-9])?\\.([Ee][-+]?[0-9]([0-9_]*[0-9])?)?[DFdf]\\b|\\b[0-9]([0-9_]*[0-9])?\\.([0-9]([0-9_]*[0-9])?)([Ee][-+]?[0-9]([0-9_]*[0-9])?)?[DFdf]?\\b|(?<!\\.)\\B\\.[0-9]([0-9_]*[0-9])?([Ee][-+]?[0-9]([0-9_]*[0-9])?)?[DFdf]?\\b|\\b[0-9]([0-9_]*[0-9])?([Ee][-+]?[0-9]([0-9_]*[0-9])?)[DFdf]?\\b|\\b[0-9]([0-9_]*[0-9])?([Ee][-+]?[0-9]([0-9_]*[0-9])?)?[DFdf]\\b|\\b(0|[1-9]([0-9_]*[0-9])?)(?!\\.)[Ll]?\\b)(?!\\$)"
+  },
+  "AnonymousClassesAndNew": {
+    "role": "begin",
+    "regex": "\\bnew\\b"
+  },
+  "AnonymousClassesAndNewEnd": {
+    "role": "end",
+    "regex": "(?=[])-.:;?}]|/(?![*/])|[!%\\&=^|])"
+  },
+  "FunctionCall": {
+    "role": "begin",
+    "regex": "([$A-Z_a-z][$\\w]*)\\s*(\\()"
+  },
+  "FunctionCallEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LambdaExpressionAt0": {
+    "role": "match",
+    "regex": "->"
+  },
+  "KeywordsAt0": {
+    "role": "match",
+    "regex": "\\bthrow\\b"
+  },
+  "KeywordsAt1": {
+    "role": "match",
+    "regex": "[:?]"
+  },
+  "KeywordsAt2": {
+    "role": "match",
+    "regex": "\\b(return|yield|break|case|continue|default|do|while|for|switch|if|else)\\b"
+  },
+  "KeywordsAt3": {
+    "role": "match",
+    "regex": "\\b(instanceof)\\b"
+  },
+  "KeywordsAt4": {
+    "role": "match",
+    "regex": "(<<|>>>?|[\\^~])"
+  },
+  "KeywordsAt5": {
+    "role": "match",
+    "regex": "(([\\&^|]|<<|>>>?)=)"
+  },
+  "KeywordsAt6": {
+    "role": "match",
+    "regex": "(===?|!=|<=|>=|<>|[<>])"
+  },
+  "KeywordsAt7": {
+    "role": "match",
+    "regex": "([-%*+/]=)"
+  },
+  "KeywordsAt8": {
+    "role": "match",
+    "regex": "(=)"
+  },
+  "KeywordsAt9": {
+    "role": "match",
+    "regex": "(--|\\+\\+)"
+  },
+  "KeywordsAt10": {
+    "role": "match",
+    "regex": "([-%*+/])"
+  },
+  "KeywordsAt11": {
+    "role": "match",
+    "regex": "(!|&&|\\|\\|)"
+  },
+  "KeywordsAt12": {
+    "role": "match",
+    "regex": "([\\&|])"
+  },
+  "KeywordsAt13": {
+    "role": "match",
+    "regex": "\\b(const|goto)\\b"
+  },
+  "MethodCall": {
+    "role": "begin",
+    "regex": "(\\.)\\s*([$A-Z_a-z][$\\w]*)\\s*(\\()"
+  },
+  "MethodCallEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Variables": {
+    "role": "begin",
+    "regex": "(?=\\b((void|boolean|byte|char|short|int|float|long|double)|(?>(\\w+\\.)*[A-Z_]+\\w*))\\b\\s*(<[],.<>?\\[\\w\\s]*>)?\\s*((\\[])*)?\\s+[$A-Z_a-z][$\\w]*([]$,\\[\\w][],\\[\\w\\s]*)?\\s*([:;=]))"
+  },
+  "VariablesEnd": {
+    "role": "end",
+    "regex": "(?=[:;=])"
+  },
+  "VariablesAt0": {
+    "role": "match",
+    "regex": "([$A-Z_a-z][$\\w]*)(?=\\s*(\\[])*\\s*([,:;=]))"
+  },
+  "PrimitiveTypes": {
+    "role": "match",
+    "regex": "\\b(void|boolean|byte|char|short|int|float|long|double)\\b"
+  },
+  "ObjectTypesAt1": {
+    "role": "begin",
+    "regex": "\\b((?:[A-Z_a-z]\\w*\\s*\\.\\s*)*)([A-Z_]\\w*)\\s*(?=\\[)"
+  },
+  "ObjectTypesAt1End": {
+    "role": "end",
+    "regex": "(?!\\s*\\[)"
+  },
+  "ObjectTypesAt2": {
+    "role": "match",
+    "regex": "\\b((?:[A-Z_a-z]\\w*\\s*\\.\\s*)*[A-Z_]\\w*)\\s*(?=<)"
+  },
+  "ObjectTypesAt3": {
+    "role": "match",
+    "regex": "\\b((?:[A-Z_a-z]\\w*\\s*\\.\\s*)*[A-Z_]\\w*)\\b((?=\\s*[\\n$A-Z_a-z])|(?=\\s*\\.\\.\\.))"
+  },
+  "VariablesLocal": {
+    "role": "begin",
+    "regex": "(?=\\b(var)\\b\\s+[$A-Z_a-z][$\\w]*\\s*([:;=]))"
+  },
+  "VariablesLocalEnd": {
+    "role": "end",
+    "regex": "(?=[:;=])"
+  },
+  "VariablesLocalAt0": {
+    "role": "match",
+    "regex": "\\bvar\\b"
+  },
+  "VariablesLocalAt1": {
+    "role": "match",
+    "regex": "([$A-Z_a-z][$\\w]*)(?=\\s*(\\[])*\\s*([:;=]))"
+  },
+  "Objects": {
+    "role": "match",
+    "regex": "(?<![$\\w])[$A-Z_a-z][$\\w]*(?=\\s*\\.\\s*[$\\w]+)"
+  },
+  "PropertiesAt0": {
+    "role": "match",
+    "regex": "(\\.)\\s*(new)"
+  },
+  "PropertiesAt1": {
+    "role": "match",
+    "regex": "(\\.)\\s*([$A-Z_a-z][$\\w]*)(?=\\s*\\.\\s*[$A-Z_a-z][$\\w]*)"
+  },
+  "PropertiesAt2": {
+    "role": "match",
+    "regex": "(\\.)\\s*([$A-Z_a-z][$\\w]*)"
+  },
+  "PropertiesAt3": {
+    "role": "match",
+    "regex": "(\\.)\\s*([0-9][$\\w]*)"
+  },
+  "StringsAt0": {
+    "role": "begin",
+    "regex": "\"\"\""
+  },
+  "StringsAt0End": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "StringsAt0At0": {
+    "role": "match",
+    "regex": "(\\\\\"\"\")(?!\")|(\\\\.)"
+  },
+  "StringsAt1": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringsAt1End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "StringsAt1At0": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "StringsAt2": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "StringsAt2End": {
+    "role": "end",
+    "regex": "'"
+  },
+  "StringsAt2At0": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "CodeAt23": {
+    "role": "match",
+    "regex": ","
+  },
+  "CodeAt24": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "CodeAt25": {
+    "role": "match",
+    "regex": ";"
+  },
+  "AnonymousClassesAndNewAt3": {
+    "role": "begin",
+    "regex": "(?<=\\))"
+  },
+  "AnonymousClassesAndNewAt3End": {
+    "role": "end",
+    "regex": "(?=[])-.:;?}]|/(?![*/])|[!%\\&=^|])"
+  },
+  "AnonymousClassesAndNewAt3At1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "AnonymousClassesAndNewAt3At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "StaticInitializerAt1": {
+    "role": "match",
+    "regex": "static"
+  },
+  "ClassFieldsAndMethodsAt0": {
+    "role": "begin",
+    "regex": "(?==)"
+  },
+  "ClassFieldsAndMethodsAt0End": {
+    "role": "end",
+    "regex": "(?=;)"
+  },
+  "Methods": {
+    "role": "begin",
+    "regex": "(?!new)(?=[<\\w].*\\s+)(?=([^/=]|/(?!/))+\\()"
+  },
+  "MethodsEnd": {
+    "role": "end",
+    "regex": "(})|(?=;)"
+  },
+  "MethodsAt1": {
+    "role": "begin",
+    "regex": "(\\w+)\\s*(\\()"
+  },
+  "MethodsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ParametersAt0": {
+    "role": "match",
+    "regex": "\\bfinal\\b"
+  },
+  "ParametersAt4": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "ParametersAt5": {
+    "role": "match",
+    "regex": ","
+  },
+  "ParametersAt6": {
+    "role": "match",
+    "regex": "\\.\\.\\."
+  },
+  "MethodsAt3": {
+    "role": "begin",
+    "regex": "(?=\\w.*\\s+\\w+\\s*\\()"
+  },
+  "MethodsAt3End": {
+    "role": "end",
+    "regex": "(?=\\s+\\w+\\s*\\()"
+  },
+  "Throws": {
+    "role": "begin",
+    "regex": "throws"
+  },
+  "ThrowsEnd": {
+    "role": "end",
+    "regex": "(?=[;{])"
+  },
+  "ThrowsAt0": {
+    "role": "match",
+    "regex": ","
+  },
+  "ThrowsAt1": {
+    "role": "match",
+    "regex": "[$A-Z_a-z][$.0-9A-Z_a-z]*"
+  },
+  "MethodsAt5": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "MethodsAt5End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "MemberVariables": {
+    "role": "begin",
+    "regex": "(?=private|protected|public|native|synchronized|abstract|threadsafe|transient|static|final)"
+  },
+  "MemberVariablesEnd": {
+    "role": "end",
+    "regex": "(?=[;=])"
+  },
+  "AnonymousClassesAndNewAt4": {
+    "role": "begin",
+    "regex": "(?<=])"
+  },
+  "AnonymousClassesAndNewAt4End": {
+    "role": "end",
+    "regex": "(?=[])-.:;?}]|/(?![*/])|[!%\\&=^|])"
+  },
+  "AnonymousClassesAndNewAt4At1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "AnonymousClassesAndNewAt4At1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "TryCatchFinallyAt0At1": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "TryCatchFinallyAt0At1End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "RecordAt4": {
+    "role": "begin",
+    "regex": "(implements)\\s"
+  },
+  "RecordAt4End": {
+    "role": "end",
+    "regex": "(?=\\s*\\{)"
+  },
+  "RecordBody": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "RecordBodyEnd": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "RecordConstructor": {
+    "role": "begin",
+    "regex": "(?!new)(?=[<\\w].*\\s+)(?=([^(/=]|/(?!/))+(?=\\{))"
+  },
+  "RecordConstructorEnd": {
+    "role": "end",
+    "regex": "(})|(?=;)"
+  },
+  "RecordConstructorAt1": {
+    "role": "begin",
+    "regex": "(\\w+)"
+  },
+  "RecordConstructorAt1End": {
+    "role": "end",
+    "regex": "(?=\\s*\\{)"
+  },
+  "RecordConstructorAt3": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "RecordConstructorAt3End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "GenericsAt4": {
+    "role": "match",
+    "regex": "[$A-Z_a-z][$0-9A-Z_a-z]*"
+  },
+  "GenericsAt5": {
+    "role": "match",
+    "regex": "\\?"
+  },
+  "GenericsAt6": {
+    "role": "match",
+    "regex": "&"
+  },
+  "GenericsAt7": {
+    "role": "match",
+    "regex": ","
+  },
+  "GenericsAt8": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "EnumsAt1": {
+    "role": "begin",
+    "regex": "\\b(implements)\\b"
+  },
+  "EnumsAt1End": {
+    "role": "end",
+    "regex": "(?=\\{|\\bextends\\b)"
+  },
+  "EnumsAt2": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "EnumsAt2End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "EnumsAt2At0": {
+    "role": "begin",
+    "regex": "(?<=\\{)"
+  },
+  "EnumsAt2At0End": {
+    "role": "end",
+    "regex": "(?=[;}])"
+  },
+  "EnumsAt2At0At2": {
+    "role": "begin",
+    "regex": "\\b(\\w+)\\b"
+  },
+  "EnumsAt2At0At2End": {
+    "role": "end",
+    "regex": "(,)|(?=[;}])"
+  },
+  "EnumsAt2At0At2At2": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "EnumsAt2At0At2At2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "EnumsAt2At0At2At3": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "EnumsAt2At0At2At3End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Module": {
+    "role": "begin",
+    "regex": "((open)\\s)?(module)\\s+(\\w+)"
+  },
+  "ModuleEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "ModuleAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "ModuleAt0End": {
+    "role": "end",
+    "regex": "(?=})"
+  },
+  "ModuleAt0At2": {
+    "role": "match",
+    "regex": "\\b(requires|transitive|exports|opens|to|uses|provides|with)\\b"
+  }
+}

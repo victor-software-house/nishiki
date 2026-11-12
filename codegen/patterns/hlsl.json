@@ -1,0 +1,214 @@
+{
+  "BlockComment": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "BlockCommentEnd": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "LineComment": {
+    "role": "begin",
+    "regex": "//"
+  },
+  "LineCommentEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "Float": {
+    "role": "match",
+    "regex": "\\b[0-9]+\\.[0-9]*([Ff])?\\b"
+  },
+  "Fraction": {
+    "role": "match",
+    "regex": "(\\.([0-9]+)([Ff])?)\\b"
+  },
+  "Integer": {
+    "role": "match",
+    "regex": "\\b([0-9]+([Ff])?)\\b"
+  },
+  "Hex": {
+    "role": "match",
+    "regex": "\\b(0([Xx])\\h+)\\b"
+  },
+  "Bool": {
+    "role": "match",
+    "regex": "\\b(false|true)\\b"
+  },
+  "Preprocessor": {
+    "role": "match",
+    "regex": "^\\s*#\\s*(define|elif|else|endif|ifdef|ifndef|if|undef|include|line|error|pragma)"
+  },
+  "Control": {
+    "role": "match",
+    "regex": "\\b(break|case|continue|default|discard|do|else|for|if|return|switch|while)\\b"
+  },
+  "Compile": {
+    "role": "match",
+    "regex": "\\b(compile)\\b"
+  },
+  "Typedef": {
+    "role": "match",
+    "regex": "\\b(typedef)\\b"
+  },
+  "BasicType": {
+    "role": "match",
+    "regex": "\\b(bool([1-4](x[1-4])?)?|double([1-4](x[1-4])?)?|dword|float([1-4](x[1-4])?)?|half([1-4](x[1-4])?)?|int([1-4](x[1-4])?)?|matrix|min10float([1-4](x[1-4])?)?|min12int([1-4](x[1-4])?)?|min16float([1-4](x[1-4])?)?|min16int([1-4](x[1-4])?)?|min16uint([1-4](x[1-4])?)?|unsigned|uint([1-4](x[1-4])?)?|vector|void)\\b"
+  },
+  "Function": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)(?=\\s*\\()"
+  },
+  "Semantic": {
+    "role": "match",
+    "regex": "(?<=:\\s?)(?i:BINORMAL[0-9]*|BLENDINDICES[0-9]*|BLENDWEIGHT[0-9]*|COLOR[0-9]*|NORMAL[0-9]*|POSITIONT?|PSIZE[0-9]*|TANGENT[0-9]*|TEXCOORD[0-9]*|FOG|TESSFACTOR[0-9]*|VFACE|VPOS|DEPTH[0-9]*)\\b"
+  },
+  "SemanticSm4": {
+    "role": "match",
+    "regex": "(?<=:\\s?)(?i:SV_(?:ClipDistance[0-9]*|CullDistance[0-9]*|Coverage|Depth|DepthGreaterEqual[0-9]*|DepthLessEqual[0-9]*|InstanceID|IsFrontFace|Position|RenderTargetArrayIndex|SampleIndex|StencilRef|Target[0-7]?|VertexID|ViewportArrayIndex))\\b"
+  },
+  "SemanticSm5": {
+    "role": "match",
+    "regex": "(?<=:\\s?)(?i:SV_(?:DispatchThreadID|DomainLocation|GroupID|GroupIndex|GroupThreadID|GSInstanceID|InsideTessFactor|OutputControlPointID|TessFactor))\\b"
+  },
+  "SemanticSm51": {
+    "role": "match",
+    "regex": "(?<=:\\s?)(?i:SV_(?:InnerCoverage|StencilRef))\\b"
+  },
+  "Modifier": {
+    "role": "match",
+    "regex": "\\b(column_major|const|export|extern|globallycoherent|groupshared|inline|inout|in|out|precise|row_major|shared|static|uniform|volatile)\\b"
+  },
+  "FloatModifier": {
+    "role": "match",
+    "regex": "\\b([su]norm)\\b"
+  },
+  "PostfixModifier": {
+    "role": "match",
+    "regex": "\\b(packoffset|register)\\b"
+  },
+  "Interpolation": {
+    "role": "match",
+    "regex": "\\b(centroid|linear|nointerpolation|noperspective|sample)\\b"
+  },
+  "GeometryModifier": {
+    "role": "match",
+    "regex": "\\b(lineadj|line|point|triangle|triangleadj)\\b"
+  },
+  "StringType": {
+    "role": "match",
+    "regex": "\\b(string)\\b"
+  },
+  "ObjectType": {
+    "role": "match",
+    "regex": "\\b(AppendStructuredBuffer|Buffer|ByteAddressBuffer|ConstantBuffer|ConsumeStructuredBuffer|InputPatch|OutputPatch)\\b"
+  },
+  "RasterizerOrderedType": {
+    "role": "match",
+    "regex": "\\b(RasterizerOrdered(?:Buffer|ByteAddressBuffer|StructuredBuffer|Texture1D|Texture1DArray|Texture2D|Texture2DArray|Texture3D))\\b"
+  },
+  "RwType": {
+    "role": "match",
+    "regex": "\\b(RW(?:Buffer|ByteAddressBuffer|StructuredBuffer|Texture1D|Texture1DArray|Texture2D|Texture2DArray|Texture3D))\\b"
+  },
+  "StreamType": {
+    "role": "match",
+    "regex": "\\b((?:Line|Point|Triangle)Stream)\\b"
+  },
+  "LegacySampler": {
+    "role": "match",
+    "regex": "\\b(sampler(?:|1D|2D|3D|CUBE|_state))\\b"
+  },
+  "Sampler": {
+    "role": "match",
+    "regex": "\\b(Sampler(?:|Comparison)State)\\b"
+  },
+  "LegacyTexture": {
+    "role": "match",
+    "regex": "\\b(texture(?:2D|CUBE))\\b"
+  },
+  "Texture": {
+    "role": "match",
+    "regex": "\\b(Texture(?:1D|1DArray|2D|2DArray|2DMS|2DMSArray|3D|Cube|CubeArray))\\b"
+  },
+  "Structured": {
+    "role": "match",
+    "regex": "\\b(cbuffer|class|interface|namespace|struct|tbuffer)\\b"
+  },
+  "FxConstant": {
+    "role": "match",
+    "regex": "\\b(FALSE|TRUE|NULL)\\b"
+  },
+  "FxStateType": {
+    "role": "match",
+    "regex": "\\b((?:Blend|DepthStencil|Rasterizer)State)\\b"
+  },
+  "Technique": {
+    "role": "match",
+    "regex": "\\b(technique|Technique|technique10|technique11|pass)\\b"
+  },
+  "BlendStateKey": {
+    "role": "match",
+    "regex": "\\b(AlphaToCoverageEnable|BlendEnable|SrcBlend|DestBlend|BlendOp|SrcBlendAlpha|DestBlendAlpha|BlendOpAlpha|RenderTargetWriteMask)\\b"
+  },
+  "DepthStencilStateKey": {
+    "role": "match",
+    "regex": "\\b(DepthEnable|DepthWriteMask|DepthFunc|StencilEnable|StencilReadMask|StencilWriteMask|FrontFaceStencilFail|FrontFaceStencilZFail|FrontFaceStencilPass|FrontFaceStencilFunc|BackFaceStencilFail|BackFaceStencilZFail|BackFaceStencilPass|BackFaceStencilFunc)\\b"
+  },
+  "RasterizerStateKey": {
+    "role": "match",
+    "regex": "\\b(FillMode|CullMode|FrontCounterClockwise|DepthBias|DepthBiasClamp|SlopeScaleDepthBias|ZClipEnable|ScissorEnable|MultiSampleEnable|AntiAliasedLineEnable)\\b"
+  },
+  "SamplerStateKey": {
+    "role": "match",
+    "regex": "\\b(Filter|AddressU|AddressV|AddressW|MipLODBias|MaxAnisotropy|ComparisonFunc|BorderColor|MinLOD|MaxLOD)\\b"
+  },
+  "Blend": {
+    "role": "match",
+    "regex": "\\b(?i:ZERO|ONE|SRC_COLOR|INV_SRC_COLOR|SRC_ALPHA|INV_SRC_ALPHA|DEST_ALPHA|INV_DEST_ALPHA|DEST_COLOR|INV_DEST_COLOR|SRC_ALPHA_SAT|BLEND_FACTOR|INV_BLEND_FACTOR|SRC1_COLOR|INV_SRC1_COLOR|SRC1_ALPHA|INV_SRC1_ALPHA)\\b"
+  },
+  "BlendOp": {
+    "role": "match",
+    "regex": "\\b(?i:ADD|SUBTRACT|REV_SUBTRACT|MIN|MAX)\\b"
+  },
+  "DepthWriteMask": {
+    "role": "match",
+    "regex": "\\b(?i:ALL)\\b"
+  },
+  "ComparisonFunc": {
+    "role": "match",
+    "regex": "\\b(?i:NEVER|LESS|EQUAL|LESS_EQUAL|GREATER|NOT_EQUAL|GREATER_EQUAL|ALWAYS)\\b"
+  },
+  "StencilOp": {
+    "role": "match",
+    "regex": "\\b(?i:KEEP|REPLACE|INCR_SAT|DECR_SAT|INVERT|INCR|DECR)\\b"
+  },
+  "FillMode": {
+    "role": "match",
+    "regex": "\\b(?i:WIREFRAME|SOLID)\\b"
+  },
+  "CullMode": {
+    "role": "match",
+    "regex": "\\b(?i:NONE|FRONT|BACK)\\b"
+  },
+  "Filter": {
+    "role": "match",
+    "regex": "\\b(?i:MIN_MAG_MIP_POINT|MIN_MAG_POINT_MIP_LINEAR|MIN_POINT_MAG_LINEAR_MIP_POINT|MIN_POINT_MAG_MIP_LINEAR|MIN_LINEAR_MAG_MIP_POINT|MIN_LINEAR_MAG_POINT_MIP_LINEAR|MIN_MAG_LINEAR_MIP_POINT|MIN_MAG_MIP_LINEAR|ANISOTROPIC|COMPARISON_MIN_MAG_MIP_POINT|COMPARISON_MIN_MAG_POINT_MIP_LINEAR|COMPARISON_MIN_POINT_MAG_LINEAR_MIP_POINT|COMPARISON_MIN_POINT_MAG_MIP_LINEAR|COMPARISON_MIN_LINEAR_MAG_MIP_POINT|COMPARISON_MIN_LINEAR_MAG_POINT_MIP_LINEAR|COMPARISON_MIN_MAG_LINEAR_MIP_POINT|COMPARISON_MIN_MAG_MIP_LINEAR|COMPARISON_ANISOTROPIC|TEXT_1BIT)\\b"
+  },
+  "AddressMode": {
+    "role": "match",
+    "regex": "\\b(?i:WRAP|MIRROR|CLAMP|BORDER|MIRROR_ONCE)\\b"
+  },
+  "String": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "StringAt0": {
+    "role": "match",
+    "regex": "\\\\."
+  }
+}

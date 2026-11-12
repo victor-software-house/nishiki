@@ -1,0 +1,150 @@
+{
+  "Raw": {
+    "role": "begin",
+    "regex": "(\\{%)\\s*(raw)\\s*(%})"
+  },
+  "RawEnd": {
+    "role": "end",
+    "regex": "(\\{%)\\s*(endraw)\\s*(%})"
+  },
+  "Comments": {
+    "role": "begin",
+    "regex": "\\{#-?"
+  },
+  "CommentsEnd": {
+    "role": "end",
+    "regex": "-?#}"
+  },
+  "Output": {
+    "role": "begin",
+    "regex": "\\{\\{-?"
+  },
+  "OutputEnd": {
+    "role": "end",
+    "regex": "-?}}"
+  },
+  "Block": {
+    "role": "match",
+    "regex": "\\s*\\b(block)\\s+([A-Z_a-z][0-9A-Z_a-z]*)\\b"
+  },
+  "Filter": {
+    "role": "match",
+    "regex": "\\s*\\b(filter)\\s+([A-Z_a-z][0-9A-Z_a-z]*)\\b"
+  },
+  "Is": {
+    "role": "match",
+    "regex": "\\s*\\b(is)\\s+([A-Z_a-z][0-9A-Z_a-z]*)\\b"
+  },
+  "TagName": {
+    "role": "match",
+    "regex": "(?<=\\{%-?)\\s*\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b(?!\\s*[,=])"
+  },
+  "Keywords": {
+    "role": "match",
+    "regex": "\\b(and|else|if|in|import|not|or|recursive|with(out)?\\s+context)\\b"
+  },
+  "Constants": {
+    "role": "match",
+    "regex": "\\b(true|false|none)\\b"
+  },
+  "Builtins": {
+    "role": "match",
+    "regex": "\\b(loop|super|self|varargs|kwargs)\\b"
+  },
+  "Name": {
+    "role": "match",
+    "regex": "[A-Z_a-z][0-9A-Z_a-z]*"
+  },
+  "Arithmetic": {
+    "role": "match",
+    "regex": "([-+]|\\*\\*?|//|[%/])"
+  },
+  "FilterCall": {
+    "role": "match",
+    "regex": "(\\|)([A-Z_a-z][0-9A-Z_a-z]*)"
+  },
+  "Member": {
+    "role": "match",
+    "regex": "(\\.)([A-Z_a-z][0-9A-Z_a-z]*)"
+  },
+  "Brackets": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "BracketsEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "Parens": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParensEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Braces": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "BracesEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Punctuation": {
+    "role": "match",
+    "regex": "([,.:|])"
+  },
+  "Comparison": {
+    "role": "match",
+    "regex": "(==|<=|=>|[<>]|!=)"
+  },
+  "Assignment": {
+    "role": "match",
+    "regex": "="
+  },
+  "DoubleString": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "DoubleStringEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "SimpleEscapes": {
+    "role": "match",
+    "regex": "(\\\\\\n)|(\\\\\\\\)|(\\\\\")|(\\\\')|(\\\\a)|(\\\\b)|(\\\\f)|(\\\\n)|(\\\\r)|(\\\\t)|(\\\\v)"
+  },
+  "EscapedChar": {
+    "role": "match",
+    "regex": "\\\\x[0-9A-F]{2}"
+  },
+  "EscapedUnicodeChar": {
+    "role": "match",
+    "regex": "(\\\\U\\h{8})|(\\\\u\\h{4})|(\\\\N\\{[ A-Za-z]+})"
+  },
+  "SingleString": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "SingleStringEnd": {
+    "role": "end",
+    "regex": "'"
+  },
+  "Regex": {
+    "role": "begin",
+    "regex": "@/"
+  },
+  "RegexEnd": {
+    "role": "end",
+    "regex": "/"
+  },
+  "Statement": {
+    "role": "begin",
+    "regex": "\\{%-?"
+  },
+  "StatementEnd": {
+    "role": "end",
+    "regex": "-?%}"
+  }
+}

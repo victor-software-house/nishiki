@@ -30,6 +30,7 @@ import {
   startTable,
   takesOneBlank,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -356,6 +357,7 @@ g += groupsCheck(
   "ShaderLab",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
+await writePatterns("shaderlab", patternById);
 await writeRust(`${root_dir}src/shaderlab/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

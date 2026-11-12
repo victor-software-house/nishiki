@@ -20,6 +20,7 @@ import {
   startTable,
   takesOneBlank,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -343,6 +344,7 @@ g += groupsCheck(
   "Hlsl",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
+await writePatterns("hlsl", patternById);
 await writeRust(`${root_dir}src/hlsl/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

@@ -16,6 +16,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -309,6 +310,8 @@ g += groupsCheck(
   "PowerShell",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("powershell", patternList);
 
 await writeRust(`${root_dir}src/powershell/grammar.rs`, g);
 

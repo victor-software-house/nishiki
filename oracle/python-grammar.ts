@@ -14,6 +14,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -341,6 +342,8 @@ g += groupsCheck("Python", [
   ...patternList.flatMap((p) => [...p.captures.map(([n]) => n)]),
   ...ruleList.flatMap((r) => (r.backref === null ? [] : [r.backref])),
 ]);
+
+await writePatterns("python", patternList);
 
 await writeRust(`${root_dir}src/python/grammar.rs`, g);
 

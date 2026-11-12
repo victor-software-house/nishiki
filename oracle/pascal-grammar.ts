@@ -20,6 +20,7 @@ import {
   startTable,
   takesOneBlank,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -276,6 +277,7 @@ g += groupsCheck(
   "Pascal",
   patternById.flatMap((p) => p.captures.map(([n]) => n)),
 );
+await writePatterns("pascal", patternById);
 await writeRust(`${root_dir}src/pascal/grammar.rs`, g);
 
 const bytes = (word: string) => `b"${word}"`;

@@ -35,6 +35,7 @@ import {
   startOf,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -600,6 +601,8 @@ pub(crate) const FUNCTIONS: &str = ${JSON.stringify(text)};
 /// Where each word of [\`FUNCTIONS\`] ends.
 pub(crate) static FUNCTION_ENDS: [u16; ${ends.length}] = [${ends.join(", ")}];
 `;
+
+await writePatterns("perl", patternList);
 
 await writeRust(`${root_dir}src/perl/grammar.rs`, g);
 await writeRust(`${root_dir}src/perl/words.rs`, w);
