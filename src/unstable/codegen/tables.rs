@@ -16,6 +16,36 @@ pub struct RuleTables {
     pub key_spellings: &'static [(&'static str, &'static str)],
     /// What a capture's own pattern list becomes.
     pub capture_lists: CaptureLists,
+    /// A name for each inline pattern whose derived id the language replaces,
+    /// such as `("RootAt0", "Shebang")`.
+    /// The patterns inside it take their ids from the name.
+    pub pattern_names: &'static [(&'static str, &'static str)],
+    /// What a pattern named after its first group, `$1`, becomes.
+    pub split: Split,
+    /// The id of a list entry's one inline pattern.
+    pub lone_pattern: LonePattern,
+}
+
+/// How a match whose scope name holds `$1` becomes one pattern for each
+/// alternative of its first group.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Split {
+    /// The alternative stays in its group: `\b(extends|super)\b` gives
+    /// `\b(extends)\b`.
+    KeepsGroup,
+    /// The alternative takes the group's place: `\b(extends|super)\b` gives
+    /// `\bextends\b`.
+    DropsGroup,
+}
+
+/// The id of the one pattern of a list entry that has no expression of its
+/// own and holds one inline pattern.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum LonePattern {
+    /// It takes its place in the entry's list, such as `StringAt0`.
+    OwnId,
+    /// It takes the entry's id, such as `String`.
+    ListId,
 }
 
 /// What a capture's own pattern list becomes.

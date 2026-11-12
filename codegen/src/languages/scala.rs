@@ -1,6 +1,6 @@
 //! Scala's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, RuleTables};
+use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, RuleTables, Split};
 
 /// Scala's tables, from `tests/engine/grammars/scala.json`.
 pub(crate) const SCALA: RuleTables = RuleTables {
@@ -8,4 +8,7 @@ pub(crate) const SCALA: RuleTables = RuleTables {
     grammar: "scala",
     key_spellings: &[],
     capture_lists: CaptureLists::ByHand,
+    pattern_names: &[],
+    split: Split::KeepsGroup,
+    lone_pattern: LonePattern::OwnId,
 };
