@@ -2,7 +2,7 @@
 
 use nishiki::unstable::codegen::tables::{
     CaptureLists, CaptureNames, External, Identity, Injection, LonePattern, Reentry, RuleTables,
-    Split,
+    Split, SplitIds,
 };
 
 /// CoffeeScript's tables, from `tests/engine/grammars/coffee.json`.
@@ -130,6 +130,7 @@ pub(crate) const COFFEE: RuleTables = RuleTables {
         ("RegexCharacterClassAt3", "BackslashEscape"),
     ],
     split: Split::KeepsGroup,
+    split_ids: SplitIds::Positions,
     capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,

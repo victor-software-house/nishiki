@@ -22,6 +22,8 @@ pub struct RuleTables {
     pub pattern_names: &'static [(&'static str, &'static str)],
     /// What a pattern named after a group, such as `$1`, becomes.
     pub split: Split,
+    /// The id each pattern of a split takes.
+    pub split_ids: SplitIds,
     /// What a match becomes when only a capture's name holds a group's text.
     pub capture_names: CaptureNames,
     /// The id of a list entry's one inline pattern.
@@ -190,6 +192,26 @@ pub enum Split {
     /// The alternative takes the group's place: `\b(extends|super)\b` gives
     /// `\bextends\b`.
     DropsGroup,
+}
+
+/// The id each pattern of a split takes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum SplitIds {
+    /// Its position.
+    ///
+    /// - In a list, each pattern takes the next place, such as `RootAt3` and
+    ///   `RootAt4`.
+    /// - A repository entry's patterns take the entry's id, `At` and their
+    ///   position, such as `FontFeaturesAt2`.
+    Positions,
+    /// The split pattern's id, then the letters that start its alternative,
+    /// the first in upper case.
+    ///
+    /// - In a list, `class` at place 13 of `Keywords` gives
+    ///   `KeywordsAt13Class`, and the split takes one place.
+    /// - A repository entry `declarations-type-enum` gives
+    ///   `DeclarationsTypeEnumEnum`.
+    Words,
 }
 
 /// What a match becomes when only a capture's scope name holds a group's
