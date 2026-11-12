@@ -113,6 +113,20 @@ The [research note][note] holds the numbers each task starts from.
     `d` is `variable.ruby`.
     `%w` gives the same, with `string.quoted.other.ruby`.
   - 2026-11-12: Ruby's `win` corpus at seed 2 shows it with `%W`, in document 76 (task 4.3).
+  - 2026-11-12: the begin capture held the line feed, which lies outside the line's text.
+    So the literal carried an empty delimiter, and its end never matched.
+    An empty delimiter now closes the literal at the next line feed, as Elixir's sigils do.
+  - 2026-11-12: two tests hold documents 296 and 76 with Shiki's scopes.
+    On a box, both fail before the fix and pass after it.
+  - 2026-11-12: Ruby's `win` corpus, on a box, 300 documents per seed.
+    Before, seed 1 had two documents that differ, 296 and 59.
+    Seed 2 had document 76 (task 4.3).
+    After, seeds 2 and 3 have none, and documents 296 and 76 match.
+  - 2026-11-12: seed 1's one document that differs is task 5.2's document 59, by 2 bytes.
+    So this task's verify clause passes once task 5.2 lands.
+  - 2026-11-12: Identity changes no fixture.
+    Callgrind against the base, one build per side, reads Ruby at 1.0001 for lexing.
+    No gated row reads over 1.0012.
 - [ ] 5.2 After a here document that runs on past a blank line, the next line's command name gets Shiki's shell scopes.
   → verify: the research note's document 59 matches, and no Ruby `win` document differs at any seed
   - 2026-11-12: at [98bb9820][base], Ruby's `win` corpus at seed 1 shows it, at line 12, column 1, in `sh = <<~'SH'`.

@@ -881,6 +881,8 @@ languages! {
     /// - `__END__` is a constant, and the text after it is Ruby, as in Shiki.
     ///   The grammar's rule for the data after `__END__` comes after the rule for constants,
     ///   so it never matches.
+    /// - A percent literal such as `%w` at the end of a line takes the line feed as its delimiter.
+    ///   It holds the next line, and that line's line feed closes it.
     Ruby {
         feature: "lang-ruby",
         names: ["ruby", "rb"],
