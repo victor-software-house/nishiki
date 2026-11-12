@@ -45,11 +45,13 @@ on:
       - .github/workflows/tables.yml
       - oracle/alternation.ts
       - oracle/*-grammar.ts
+      - oracle/rule-generator.ts
       - oracle/rule-grammar.test.ts
       - src/*/grammar.rs
       - src/*/scope.rs
       - src/cpp/types.rs
       - src/swift/dispatch.rs
+      - codegen/patterns/**
       - codegen/starts/**
       - mise-tasks/check/rule-grammars.sh
       - oracle/engine-grammars.ts
