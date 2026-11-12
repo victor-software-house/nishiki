@@ -101,6 +101,7 @@ pub(crate) use tables::{Place, table_scan};
 #[cfg(feature = "_rule-tables")]
 pub(crate) use tables::{PlaceSet, Tables};
 
+#[cfg(feature = "_embedding")]
 use crate::Language;
 use crate::arena::{Arena, ROOT};
 use crate::language::{Context, Halt, Line, Stopped};
@@ -202,6 +203,7 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     const WHILES: bool = false;
     /// What the scan does with the rest of a space and tab run where no
     /// pattern matched at its first byte ([`BlankRuns`]).
+    #[cfg(any(nishiki_unstable, feature = "_rule-tables"))]
     const BLANK_RUNS: BlankRuns = BlankRuns::Skip;
     /// Whether `pattern` takes exactly one blank and then requires a character
     /// that is not a blank.
@@ -347,6 +349,7 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     /// Whether the deep halt holds with the rules open now: no open rule shuts
     /// it out.
     /// Read only where [`Grammar::DEPTH_HALTS`] holds.
+    #[cfg(any(nishiki_unstable, feature = "_rule-tables"))]
     fn deep_halts_open(_lexer: &Lexer<'_, Self>) -> bool {
         false
     }
@@ -355,6 +358,7 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     /// again, as `TextMate` does for a group whose patterns include another
     /// grammar ([`Grammar::defers_nested`]).
     /// Only a grammar that embeds languages (`Embeds`) sets it.
+    #[cfg(feature = "_embedding")]
     const DEFERS_NESTED: bool = false;
     /// The language that lexes the `nested` capture groups again, if one
     /// does.
@@ -363,6 +367,7 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     /// Where the line hands control back, `Embeds::lex_nested` lexes it in
     /// place of the placeholder.
     /// It is read only where [`Grammar::DEFERS_NESTED`] is set.
+    #[cfg(feature = "_embedding")]
     fn defers_nested(_nested: Self::Nested) -> Option<Language> {
         None
     }
@@ -385,10 +390,12 @@ pub trait Grammar: Sized + Copy + Debug + 'static {
     /// Whether the scan asks [`Grammar::next_place`] where to go on after a
     /// place where no pattern matched.
     /// Off, it goes on at the next character.
+    #[cfg(any(nishiki_unstable, feature = "_rule-tables"))]
     const SKIPS_PLACES: bool = false;
     /// Where the scan goes on after no pattern matched at `p`, which holds a
     /// byte of the text, when [`Grammar::SKIPS_PLACES`] is on.
     /// The grammar skips only places where it is certain no pattern matches.
+    #[cfg(any(nishiki_unstable, feature = "_rule-tables"))]
     fn next_place(lexer: &Lexer<'_, Self>, p: usize) -> usize {
         lexer.char_end(p)
     }
@@ -1163,6 +1170,7 @@ fn hand_over<G: Embeds>(
         }
         match found {
             Stop::Line => break (resumed, None),
+            #[cfg(feature = "_halting-embedding")]
             Stop::Halted(stopped) => break (resumed, Some(stopped)),
             Stop::Embedding(found) => (next, embedding) = (resumed, found),
         }
@@ -1439,6 +1447,7 @@ pub(crate) trait Tabled: Grammar {
 
 /// What the scan does with the rest of a space and tab run where no
 /// pattern matched at the run's first blank.
+#[cfg(any(nishiki_unstable, feature = "_rule-tables"))]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[cfg_attr(
     not(nishiki_unstable),
@@ -1510,6 +1519,7 @@ pub(crate) enum Stop {
     /// At the end of the line.
     Line,
     /// Where and why the line stopped for the grammar that embeds it.
+    #[cfg(feature = "_halting-embedding")]
     Halted(Stopped),
     /// Where the innermost rule hands the text to the language it embeds.
     Embedding(Embedding),
