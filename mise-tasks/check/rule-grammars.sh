@@ -7,7 +7,8 @@
 # Its tests in oracle/rule-grammar.test.ts run first.
 # Each generator regenerates its language's tables under src/ in place.
 # It formats them as `mise run format` does.
-# The check fails when a file under src/ then differs from the committed one.
+# Each also writes its patterns to codegen/patterns/<language>.json.
+# The check fails when a file under src/ or codegen/patterns/ then differs from the committed one.
 # The generators and their output cannot drift apart.
 # Bun fetches Shiki from npm.
 # The check is therefore not part of the offline verify.
@@ -21,10 +22,10 @@ for generator in oracle/*-grammar.ts; do
   esac
   bun "$generator" >/dev/null
 done
-changed=$(git status --porcelain -- src)
+changed=$(git status --porcelain -- src codegen/patterns)
 if [ -n "$changed" ]; then
   echo "$changed" >&2
-  echo "src/ differs from what the oracle/<language>-grammar.ts generators write;" \
-    "run each with bun" >&2
+  echo "src/ or codegen/patterns/ differs from what" \
+    "the oracle/<language>-grammar.ts generators write; run each with bun" >&2
   exit 1
 fi

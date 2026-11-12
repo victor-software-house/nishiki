@@ -44,6 +44,7 @@ import {
   startTable,
   takesOneBlank,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -518,6 +519,8 @@ g += groupsCheck(
   "Haml",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+
+await writePatterns("haml", patternList);
 
 await writeRust(`${root_dir}src/haml/grammar.rs`, g);
 // A dropped rule's scopes are emitted by no pattern, so the table leaves them

@@ -1,0 +1,522 @@
+{
+  "RootAt0": {
+    "role": "begin",
+    "regex": "\\b(fn)\\b(?!.*->)"
+  },
+  "RootAt0End": {
+    "role": "end",
+    "regex": "$"
+  },
+  "CoreSyntaxAt0": {
+    "role": "begin",
+    "regex": "^\\s*(defmodule)\\b"
+  },
+  "CoreSyntaxAt0End": {
+    "role": "end",
+    "regex": "\\b(do)\\b"
+  },
+  "CoreSyntaxAt0At0": {
+    "role": "match",
+    "regex": "\\b[A-Z]\\w*(?=\\.)"
+  },
+  "CoreSyntaxAt0At1": {
+    "role": "match",
+    "regex": "\\b[A-Z]\\w*\\b"
+  },
+  "CoreSyntaxAt1": {
+    "role": "begin",
+    "regex": "^\\s*(defprotocol)\\b"
+  },
+  "CoreSyntaxAt1End": {
+    "role": "end",
+    "regex": "\\b(do)\\b"
+  },
+  "CoreSyntaxAt1At0": {
+    "role": "match",
+    "regex": "\\b[A-Z]\\w*\\b"
+  },
+  "CoreSyntaxAt2": {
+    "role": "begin",
+    "regex": "^\\s*(defimpl)\\b"
+  },
+  "CoreSyntaxAt2End": {
+    "role": "end",
+    "regex": "\\b(do)\\b"
+  },
+  "CoreSyntaxAt2At0": {
+    "role": "match",
+    "regex": "\\b[A-Z]\\w*\\b"
+  },
+  "CoreSyntaxAt3": {
+    "role": "begin",
+    "regex": "^\\s*(def(?:|macro|delegate|guard))\\s+((?>[A-Z_a-z]\\w*(?>\\.|::))?(?>[A-Z_a-z]\\w*(?>[!?]|=(?!>))?|===?|>[=>]?|<=>|<[<=]?|[%\\&/`|]|\\*\\*?|=?~|[-+]@?|\\[]=?))((\\()|\\s*)"
+  },
+  "CoreSyntaxAt3End": {
+    "role": "end",
+    "regex": "\\b(do:)|\\b(do)\\b|(?=\\s+(def(?:|n|macro|delegate|guard))\\b)"
+  },
+  "RootAt1": {
+    "role": "match",
+    "regex": "([A-Z]\\w+)\\s*(\\.)\\s*([_a-z]\\w*[!?]?)"
+  },
+  "RootAt2": {
+    "role": "match",
+    "regex": "(:\\w+)\\s*(\\.)\\s*(_?\\w*[!?]?)"
+  },
+  "RootAt3": {
+    "role": "match",
+    "regex": "(\\|>)\\s*([_a-z]\\w*[!?]?)"
+  },
+  "RootAt4": {
+    "role": "match",
+    "regex": "\\b[_a-z]\\w*[!?]?(?=\\s*\\.?\\s*\\()"
+  },
+  "RootAt5": {
+    "role": "begin",
+    "regex": "\\b(fn)\\b(?=.*->)"
+  },
+  "RootAt5End": {
+    "role": "end",
+    "regex": "(?>(->)|(when)|(\\)))"
+  },
+  "RootAt7": {
+    "role": "begin",
+    "regex": "^(?=.*->)((?![^\"']*([\"'])[^\"']*->)|(?=.*->[^\"']*([\"'])[^\"']*->))((?!.*\\([^)]*->)|(?=[^()]*->)|(?=\\s*\\(.*\\).*->))((?!.*\\b(fn)\\b)|(?=.*->.*\\bfn\\b))"
+  },
+  "RootAt7End": {
+    "role": "end",
+    "regex": "(?>(->)|(when)|(\\)))"
+  },
+  "CoreSyntaxAt3At1": {
+    "role": "begin",
+    "regex": "\\s(\\\\\\\\)"
+  },
+  "CoreSyntaxAt3At1End": {
+    "role": "end",
+    "regex": "[),]|$"
+  },
+  "CoreSyntaxAt3At2": {
+    "role": "match",
+    "regex": "\\b(is_atom|is_binary|is_bitstring|is_boolean|is_float|is_function|is_integer|is_list|is_map|is_nil|is_number|is_pid|is_port|is_record|is_reference|is_tuple|is_exception|abs|bit_size|byte_size|div|elem|hd|length|map_size|node|rem|round|tl|trunc|tuple_size)\\b"
+  },
+  "CoreSyntaxAt4": {
+    "role": "begin",
+    "regex": "^\\s*(def(?:|n|macro|guard)p)\\s+((?>[A-Z_a-z]\\w*(?>\\.|::))?(?>[A-Z_a-z]\\w*(?>[!?]|=(?!>))?|===?|>[=>]?|<=>|<[<=]?|[%\\&/`|]|\\*\\*?|=?~|[-+]@?|\\[]=?))((\\()|\\s*)"
+  },
+  "CoreSyntaxAt4End": {
+    "role": "end",
+    "regex": "\\b(do:)|\\b(do)\\b|(?=\\s+(def(?:p|macrop|guardp))\\b)"
+  },
+  "CoreSyntaxAt4At1": {
+    "role": "begin",
+    "regex": "\\s(\\\\\\\\)"
+  },
+  "CoreSyntaxAt4At1End": {
+    "role": "end",
+    "regex": "[),]|$"
+  },
+  "CoreSyntaxAt4At2": {
+    "role": "match",
+    "regex": "\\b(is_atom|is_binary|is_bitstring|is_boolean|is_float|is_function|is_integer|is_list|is_map|is_nil|is_number|is_pid|is_port|is_record|is_reference|is_tuple|is_exception|abs|bit_size|byte_size|div|elem|hd|length|map_size|node|rem|round|tl|trunc|tuple_size)\\b"
+  },
+  "CoreSyntaxAt5": {
+    "role": "begin",
+    "regex": "\\s*~L\"\"\""
+  },
+  "CoreSyntaxAt5End": {
+    "role": "end",
+    "regex": "\\s*\"\"\""
+  },
+  "CoreSyntaxAt6": {
+    "role": "begin",
+    "regex": "\\s*~H\"\"\""
+  },
+  "CoreSyntaxAt6End": {
+    "role": "end",
+    "regex": "\\s*\"\"\""
+  },
+  "CoreSyntaxAt7": {
+    "role": "begin",
+    "regex": "@(module|type)?doc (~[a-z])?\"\"\""
+  },
+  "CoreSyntaxAt7End": {
+    "role": "end",
+    "regex": "\\s*\"\"\""
+  },
+  "InterpolatedElixir": {
+    "role": "begin",
+    "regex": "#\\{"
+  },
+  "InterpolatedElixirEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "NestCurlyAndSelfAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "NestCurlyAndSelfAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "EscapedChar": {
+    "role": "match",
+    "regex": "\\\\(x[A-Fa-f\\d]{1,2}|.)"
+  },
+  "CoreSyntaxAt8": {
+    "role": "begin",
+    "regex": "@(module|type)?doc ~[A-Z]\"\"\""
+  },
+  "CoreSyntaxAt8End": {
+    "role": "end",
+    "regex": "\\s*\"\"\""
+  },
+  "CoreSyntaxAt9": {
+    "role": "begin",
+    "regex": "@(module|type)?doc (~[a-z])?'''"
+  },
+  "CoreSyntaxAt9End": {
+    "role": "end",
+    "regex": "\\s*'''"
+  },
+  "CoreSyntaxAt10": {
+    "role": "begin",
+    "regex": "@(module|type)?doc ~[A-Z]'''"
+  },
+  "CoreSyntaxAt10End": {
+    "role": "end",
+    "regex": "\\s*'''"
+  },
+  "CoreSyntaxAt11": {
+    "role": "match",
+    "regex": "@(module|type)?doc false"
+  },
+  "CoreSyntaxAt12": {
+    "role": "begin",
+    "regex": "@(module|type)?doc \""
+  },
+  "CoreSyntaxAt12End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CoreSyntaxAt13": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(do|end|case|bc|lc|for|if|cond|unless|try|receive|fn|defmodule|defp?|defprotocol|defimpl|defrecord|defstruct|defnp?|defmacrop?|defguardp?|defdelegate|defexception|defoverridable|exit|after|rescue|catch|else|raise|reraise|throw|import|require|alias|use|quote|unquote|super|with)\\b(?![!:?])"
+  },
+  "CoreSyntaxAt14": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(and|not|or|when|xor|in)\\b"
+  },
+  "CoreSyntaxAt15": {
+    "role": "match",
+    "regex": "\\b[A-Z]\\w*\\b"
+  },
+  "CoreSyntaxAt16": {
+    "role": "match",
+    "regex": "\\b(nil|true|false)\\b(?![!?])"
+  },
+  "CoreSyntaxAt17": {
+    "role": "match",
+    "regex": "\\b(__(CALLER|ENV|MODULE|DIR|STACKTRACE)__)\\b(?![!?])"
+  },
+  "CoreSyntaxAt18": {
+    "role": "match",
+    "regex": "(@)[A-Z_a-z]\\w*"
+  },
+  "CoreSyntaxAt19": {
+    "role": "match",
+    "regex": "(&)\\d+"
+  },
+  "CoreSyntaxAt20": {
+    "role": "match",
+    "regex": "&(?!&)"
+  },
+  "CoreSyntaxAt21": {
+    "role": "match",
+    "regex": "\\^[_a-z]\\w*"
+  },
+  "CoreSyntaxAt22": {
+    "role": "match",
+    "regex": "\\b0x\\h(?>_?\\h)*\\b"
+  },
+  "CoreSyntaxAt23": {
+    "role": "match",
+    "regex": "\\b\\d(?>_?\\d)*(\\.(?![^\\s\\d])(?>_?\\d)+)([Ee][-+]?\\d(?>_?\\d)*)?\\b"
+  },
+  "CoreSyntaxAt24": {
+    "role": "match",
+    "regex": "\\b\\d(?>_?\\d)*\\b"
+  },
+  "CoreSyntaxAt25": {
+    "role": "match",
+    "regex": "\\b0b[01](?>_?[01])*\\b"
+  },
+  "CoreSyntaxAt26": {
+    "role": "match",
+    "regex": "\\b0o[0-7](?>_?[0-7])*\\b"
+  },
+  "CoreSyntaxAt27": {
+    "role": "begin",
+    "regex": ":'"
+  },
+  "CoreSyntaxAt27End": {
+    "role": "end",
+    "regex": "'"
+  },
+  "CoreSyntaxAt28": {
+    "role": "begin",
+    "regex": ":\""
+  },
+  "CoreSyntaxAt28End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CoreSyntaxAt29": {
+    "role": "begin",
+    "regex": "'''"
+  },
+  "CoreSyntaxAt29End": {
+    "role": "end",
+    "regex": "^\\s*'''"
+  },
+  "CoreSyntaxAt30": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "CoreSyntaxAt30End": {
+    "role": "end",
+    "regex": "'"
+  },
+  "CoreSyntaxAt31": {
+    "role": "begin",
+    "regex": "\"\"\""
+  },
+  "CoreSyntaxAt31End": {
+    "role": "end",
+    "regex": "^\\s*\"\"\""
+  },
+  "CoreSyntaxAt32": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "CoreSyntaxAt32End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CoreSyntaxAt33": {
+    "role": "begin",
+    "regex": "~[a-z]\"\"\""
+  },
+  "CoreSyntaxAt33End": {
+    "role": "end",
+    "regex": "^\\s*\"\"\""
+  },
+  "CoreSyntaxAt34": {
+    "role": "begin",
+    "regex": "~[a-z]\\{"
+  },
+  "CoreSyntaxAt34End": {
+    "role": "end",
+    "regex": "}[a-z]*"
+  },
+  "CoreSyntaxAt35": {
+    "role": "begin",
+    "regex": "~[a-z]\\["
+  },
+  "CoreSyntaxAt35End": {
+    "role": "end",
+    "regex": "][a-z]*"
+  },
+  "CoreSyntaxAt36": {
+    "role": "begin",
+    "regex": "~[a-z]<"
+  },
+  "CoreSyntaxAt36End": {
+    "role": "end",
+    "regex": ">[a-z]*"
+  },
+  "CoreSyntaxAt37": {
+    "role": "begin",
+    "regex": "~[a-z]\\("
+  },
+  "CoreSyntaxAt37End": {
+    "role": "end",
+    "regex": "\\)[a-z]*"
+  },
+  "CoreSyntaxAt38": {
+    "role": "begin",
+    "regex": "~[a-z](\\W)"
+  },
+  "CoreSyntaxAt38End": {
+    "role": "end",
+    "regex": "\\1[a-z]*"
+  },
+  "CoreSyntaxAt39": {
+    "role": "begin",
+    "regex": "~[A-Z]\"\"\""
+  },
+  "CoreSyntaxAt39End": {
+    "role": "end",
+    "regex": "^\\s*\"\"\""
+  },
+  "CoreSyntaxAt40": {
+    "role": "begin",
+    "regex": "~[A-Z]\\{"
+  },
+  "CoreSyntaxAt40End": {
+    "role": "end",
+    "regex": "}[a-z]*"
+  },
+  "CoreSyntaxAt41": {
+    "role": "begin",
+    "regex": "~[A-Z]\\["
+  },
+  "CoreSyntaxAt41End": {
+    "role": "end",
+    "regex": "][a-z]*"
+  },
+  "CoreSyntaxAt42": {
+    "role": "begin",
+    "regex": "~[A-Z]<"
+  },
+  "CoreSyntaxAt42End": {
+    "role": "end",
+    "regex": ">[a-z]*"
+  },
+  "CoreSyntaxAt43": {
+    "role": "begin",
+    "regex": "~[A-Z]\\("
+  },
+  "CoreSyntaxAt43End": {
+    "role": "end",
+    "regex": "\\)[a-z]*"
+  },
+  "CoreSyntaxAt44": {
+    "role": "begin",
+    "regex": "~[A-Z](\\W)"
+  },
+  "CoreSyntaxAt44End": {
+    "role": "end",
+    "regex": "\\1[a-z]*"
+  },
+  "CoreSyntaxAt45": {
+    "role": "match",
+    "regex": "(?<!:)(:)(?>[A-Z_a-z][@\\w]*(?>[!?]|=(?![=>]))?|<>|===?|!==?|<<>>|<<<|>>>|~~~|::|<-|\\|>|=>|=~|[/=]|\\\\\\\\|\\*\\*?|\\.\\.?\\.?|\\.\\.//|>=?|<=?|&&?&?|\\+\\+?|--?|\\|\\|?\\|?|[!@]|%?\\{}|%|\\[]|\\^(\\^\\^)?)"
+  },
+  "CoreSyntaxAt46": {
+    "role": "match",
+    "regex": "(?>[A-Z_a-z][@\\w]*[!?]?)(:)(?!:)"
+  },
+  "CoreSyntaxAt47": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=##)"
+  },
+  "CoreSyntaxAt47End": {
+    "role": "end",
+    "regex": "(?!#)"
+  },
+  "CoreSyntaxAt47At0": {
+    "role": "begin",
+    "regex": "##"
+  },
+  "CoreSyntaxAt47At0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CoreSyntaxAt48": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=#)"
+  },
+  "CoreSyntaxAt48End": {
+    "role": "end",
+    "regex": "(?!#)"
+  },
+  "CoreSyntaxAt48At0": {
+    "role": "begin",
+    "regex": "#"
+  },
+  "CoreSyntaxAt48At0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CoreSyntaxAt49": {
+    "role": "match",
+    "regex": "\\b_([^_]\\w+[!?]?)"
+  },
+  "CoreSyntaxAt50": {
+    "role": "match",
+    "regex": "\\b_\\b"
+  },
+  "CoreSyntaxAt51": {
+    "role": "match",
+    "regex": "(?<!\\w)\\?(\\\\(x\\h{1,2}(?!\\h)\\b|[^CMx])|[^\\\\\\s])"
+  },
+  "CoreSyntaxAt52": {
+    "role": "match",
+    "regex": "\\+\\+|--|<\\|>"
+  },
+  "CoreSyntaxAt53": {
+    "role": "match",
+    "regex": "\\|>|<~>|<>|<<<|>>>|~>>|<<~|~>|<~|<\\|>"
+  },
+  "CoreSyntaxAt54": {
+    "role": "match",
+    "regex": "&&&?"
+  },
+  "CoreSyntaxAt55": {
+    "role": "match",
+    "regex": "<-|\\\\\\\\"
+  },
+  "CoreSyntaxAt56": {
+    "role": "match",
+    "regex": "===?|!==?|<=?|>=?"
+  },
+  "CoreSyntaxAt57": {
+    "role": "match",
+    "regex": "(\\|\\|\\||&&&|\\^\\^\\^|<<<|>>>|~~~)"
+  },
+  "CoreSyntaxAt58": {
+    "role": "match",
+    "regex": "(?<=[\\t ])!+|\\bnot\\b|&&|\\band\\b|\\|\\||\\bor\\b|\\bxor\\b"
+  },
+  "CoreSyntaxAt59": {
+    "role": "match",
+    "regex": "([-*+/])"
+  },
+  "CoreSyntaxAt60": {
+    "role": "match",
+    "regex": "\\||\\+\\+|--|\\*\\*|\\\\\\\\|<-|<>|<<|>>|::|\\.\\.|//|\\|>|~|=>|&"
+  },
+  "CoreSyntaxAt61": {
+    "role": "match",
+    "regex": "="
+  },
+  "CoreSyntaxAt62": {
+    "role": "match",
+    "regex": ":"
+  },
+  "CoreSyntaxAt63": {
+    "role": "match",
+    "regex": ";"
+  },
+  "CoreSyntaxAt64": {
+    "role": "match",
+    "regex": ","
+  },
+  "CoreSyntaxAt65": {
+    "role": "match",
+    "regex": "\\."
+  },
+  "CoreSyntaxAt66": {
+    "role": "match",
+    "regex": "[{}]"
+  },
+  "CoreSyntaxAt67": {
+    "role": "match",
+    "regex": "[]\\[]"
+  },
+  "CoreSyntaxAt68": {
+    "role": "match",
+    "regex": "[()]"
+  }
+}

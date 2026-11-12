@@ -17,6 +17,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -342,6 +343,8 @@ g += groupsCheck(
   "Jinja",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+
+await writePatterns("jinja", patternList);
 
 await writeRust(`${root_dir}src/jinja/grammar.rs`, g);
 

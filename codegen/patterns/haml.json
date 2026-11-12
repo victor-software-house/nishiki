@@ -1,0 +1,402 @@
+{
+  "InterpolatedText": {
+    "role": "begin",
+    "regex": "^(\\s*)=="
+  },
+  "InterpolatedTextEnd": {
+    "role": "end",
+    "regex": "$\\n*"
+  },
+  "InterpolatedRubyAt0": {
+    "role": "match",
+    "regex": "#\\{(})"
+  },
+  "InterpolatedRubyAt1": {
+    "role": "begin",
+    "regex": "#\\{"
+  },
+  "InterpolatedRubyAt1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "NestCurlyAndSelf": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "NestCurlyAndSelfEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "VariablesAt0": {
+    "role": "match",
+    "regex": "(#@)[A-Z_a-z]\\w*"
+  },
+  "VariablesAt1": {
+    "role": "match",
+    "regex": "(#@@)[A-Z_a-z]\\w*"
+  },
+  "VariablesAt2": {
+    "role": "match",
+    "regex": "(#\\$)[A-Z_a-z]\\w*"
+  },
+  "RubyFilter": {
+    "role": "begin",
+    "regex": "^(\\s*):ruby"
+  },
+  "RubyFilterEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "RubyFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "RubyFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "Prolog": {
+    "role": "match",
+    "regex": "^(!!!)($|\\s.*)"
+  },
+  "JavascriptFilter": {
+    "role": "begin",
+    "regex": "^(\\s*):javascript"
+  },
+  "JavascriptFilterEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "JavascriptFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "JavascriptFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "Script": {
+    "role": "begin",
+    "regex": "^(\\s*)%script"
+  },
+  "ScriptEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "ScriptBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "ScriptBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "RubyFilterAlone": {
+    "role": "begin",
+    "regex": "^(\\s*):ruby$"
+  },
+  "RubyFilterAloneEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "RubyFilterAloneBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "RubyFilterAloneBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "ConditionalComment": {
+    "role": "match",
+    "regex": "^(\\s*)(/\\[[^]].*?$\\n?)"
+  },
+  "Comment": {
+    "role": "begin",
+    "regex": "^(\\s*)(-#|/|-\\s*/\\*+)"
+  },
+  "CommentEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|\\n)"
+  },
+  "Tag": {
+    "role": "begin",
+    "regex": "^\\s*(?:((%)([-:\\w]+))|(?=[#.]))"
+  },
+  "TagEnd": {
+    "role": "end",
+    "regex": "$|(?![#(.\\[{]|&amp;|[-=~]|!=|&=|/)"
+  },
+  "TagAt0": {
+    "role": "begin",
+    "regex": "=="
+  },
+  "TagAt0End": {
+    "role": "end",
+    "regex": "$\\n?"
+  },
+  "TagAt1": {
+    "role": "match",
+    "regex": "(\\.[-:\\w]+)"
+  },
+  "TagAt2": {
+    "role": "match",
+    "regex": "(#[-\\w]+)"
+  },
+  "TagAt3": {
+    "role": "begin",
+    "regex": "(?<!#)\\{(?=.*(,|(do)|[{|}]|(#.*)|\\R)\\s*)"
+  },
+  "TagAt3End": {
+    "role": "end",
+    "regex": "\\s*}(?!\\s*,)(?!\\s*\\|)(?!#\\{.*})"
+  },
+  "Continuation": {
+    "role": "match",
+    "regex": "(\\|)\\s*\\n"
+  },
+  "Rubyline": {
+    "role": "begin",
+    "regex": "(&amp|!)?([-=~])"
+  },
+  "RubylineEnd": {
+    "role": "end",
+    "regex": "((do|\\{)( \\|[*.]+\\|)?)$|$|^(?!.*\\|\\s*)$\\n?"
+  },
+  "RubylineAt0": {
+    "role": "match",
+    "regex": "\\s+((elseif|foreach|switch|declare|default|use))(?=[(\\s])"
+  },
+  "RubylineAt1": {
+    "role": "match",
+    "regex": "\\s+((?:requir|includ)e_once)(?=[(\\s])"
+  },
+  "RubylineAt2": {
+    "role": "match",
+    "regex": "\\s+(catch|try|throw|exception|finally|die)(?=[(\\s]|\\n*)"
+  },
+  "RubylineAt3": {
+    "role": "match",
+    "regex": "\\s+(function\\s*)((?=\\())"
+  },
+  "RubylineAt4": {
+    "role": "match",
+    "regex": "\\s+(use\\s*)((?=\\())"
+  },
+  "RubylineAt5": {
+    "role": "match",
+    "regex": "([,<|]|do|\\{)\\s*(#.*)?$\\n*"
+  },
+  "RubylineAt6": {
+    "role": "match",
+    "regex": "#.*$"
+  },
+  "TagAt4": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "TagAt4End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TagAt4At0": {
+    "role": "match",
+    "regex": "([-\\w]+)"
+  },
+  "TagAt4At1": {
+    "role": "match",
+    "regex": "="
+  },
+  "TagAt4At3": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "TagAt4At3End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "TagAt4At3At0": {
+    "role": "match",
+    "regex": "\\\\(x\\h{2}|[012][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)"
+  },
+  "TagAt5": {
+    "role": "begin",
+    "regex": "\\[(?=.+([],\\[|]|(#.*))\\s*)"
+  },
+  "TagAt5End": {
+    "role": "end",
+    "regex": "\\s*](?!.*(?!#\\[)])"
+  },
+  "InterpolatedRubyLine": {
+    "role": "begin",
+    "regex": "!?=="
+  },
+  "InterpolatedRubyLineEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "RubyEscapedChar": {
+    "role": "match",
+    "regex": "\\\\(?:[0-7]{1,3}|x[A-Fa-f\\d]{1,2}|.)"
+  },
+  "TagAt8": {
+    "role": "match",
+    "regex": "/"
+  },
+  "RubyOrOpalFilter": {
+    "role": "begin",
+    "regex": "^(\\s*):(ruby|opal)$"
+  },
+  "RubyOrOpalFilterEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "RubyOrOpalFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "RubyOrOpalFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "SassStyleFilter": {
+    "role": "begin",
+    "regex": "^(\\s*):(s(?:tyle|ass))$"
+  },
+  "SassStyleFilterEnd": {
+    "role": "end",
+    "regex": "^(?=\\1\\s+|$\\n*)"
+  },
+  "SassStyleFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "SassStyleFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?=\\1\\s+|$\\n*))"
+  },
+  "CoffeeFilter": {
+    "role": "begin",
+    "regex": "^(\\s*):coffee(script)?"
+  },
+  "CoffeeFilterEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "CoffeeFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "CoffeeFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "RubyFilterKeyword": {
+    "role": "begin",
+    "regex": "^(\\s*)(:ruby)"
+  },
+  "RubyFilterKeywordEnd": {
+    "role": "end",
+    "regex": "(?m:(?<=\\n)(?!\\1\\s+|$\\n*))"
+  },
+  "RubyFilterKeywordBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "RubyFilterKeywordBodyEnd": {
+    "role": "end",
+    "regex": "(?=(?m:(?<=\\n)(?!\\1\\s+|$\\n*)))"
+  },
+  "SassFilter": {
+    "role": "begin",
+    "regex": "^(\\s*)(:sass)"
+  },
+  "SassFilterEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "SassFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "SassFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "SassStylesFilter": {
+    "role": "begin",
+    "regex": "^(\\s*):(s(?:tyles|ass))$"
+  },
+  "SassStylesFilterEnd": {
+    "role": "end",
+    "regex": "^(?=\\1\\s+|$\\n*)"
+  },
+  "SassStylesFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "SassStylesFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?=\\1\\s+|$\\n*))"
+  },
+  "Escape": {
+    "role": "match",
+    "regex": "^\\s*(\\.)"
+  },
+  "RubyStart": {
+    "role": "begin",
+    "regex": "^\\s*(?=[-=~]|!=|&=)"
+  },
+  "RubyStartEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "MarkdownFilter": {
+    "role": "begin",
+    "regex": "^(\\s*)(:markdown)"
+  },
+  "MarkdownFilterEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "MarkdownFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "MarkdownFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "CssFilter": {
+    "role": "begin",
+    "regex": "^(\\s*)(:(css|styles?))$"
+  },
+  "CssFilterEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "CssFilterBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "CssFilterBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  },
+  "SassFilterAlone": {
+    "role": "begin",
+    "regex": "^(\\s*)(:sass)$"
+  },
+  "SassFilterAloneEnd": {
+    "role": "end",
+    "regex": "^(?!\\1\\s+|$\\n*)"
+  },
+  "SassFilterAloneBody": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "SassFilterAloneBodyEnd": {
+    "role": "end",
+    "regex": "(?=^(?!\\1\\s+|$\\n*))"
+  }
+}

@@ -15,6 +15,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -322,6 +323,8 @@ g += groupsCheck(
   "Scala",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("scala", patternList);
 
 await writeRust(`${root_dir}src/scala/grammar.rs`, g);
 

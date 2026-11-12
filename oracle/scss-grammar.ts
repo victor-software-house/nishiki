@@ -24,6 +24,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -399,6 +400,8 @@ g += groupsCheck(
   "Scss",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("scss", patternList);
 
 await writeRust(`${root_dir}src/scss/grammar.rs`, g);
 

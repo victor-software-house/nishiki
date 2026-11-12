@@ -10,6 +10,8 @@
 //! frames that carry a rule from line to line are here, once.
 
 #[cfg(feature = "_rule-tables")]
+pub(crate) mod blank_runs;
+#[cfg(feature = "_rule-tables")]
 mod chars;
 #[cfg(feature = "lang-proto")]
 pub(crate) mod generated;
@@ -1404,8 +1406,8 @@ pub(crate) trait Tabled: Grammar {
     /// run of spaces and tabs.
     /// So the scan of a [`BlankRuns::Skip`] grammar passes it in one step
     /// ([`Lexer::pass_char`]).
-    /// `oracle/rule-grammar.ts` decides it per grammar, in
-    /// `treatsWideSpacesAsSpaces`.
+    /// `codegen/src/blank_runs.rs` decides it per grammar, and writes it to
+    /// `src/rules/blank_runs.rs`.
     ///
     /// A halting scan passes only runs of one wide space.
     /// The halt comes from another grammar, which the analysis has not read.

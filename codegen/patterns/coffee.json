@@ -1,0 +1,594 @@
+{
+  "JsxTag": {
+    "role": "begin",
+    "regex": "(<)([-.\\w]+)"
+  },
+  "JsxTagEnd": {
+    "role": "end",
+    "regex": "(/?>)"
+  },
+  "JsxAttribute": {
+    "role": "match",
+    "regex": "(?:^|\\s+)([-.\\w]+)\\s*(=)"
+  },
+  "DoubleString": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "DoubleStringEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "DoubleEscape": {
+    "role": "match",
+    "regex": "(\\\\)(x\\h{2}|[012][0-7]{0,2}|3[0-6][0-7]|37[0-7]?|[4-7][0-7]?|.)"
+  },
+  "Interpolation": {
+    "role": "begin",
+    "regex": "#\\{"
+  },
+  "InterpolationEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "JsxEndTag": {
+    "role": "begin",
+    "regex": "(</)([-.\\w]+)"
+  },
+  "JsxEndTagEnd": {
+    "role": "end",
+    "regex": "(/?>)"
+  },
+  "NewInstance": {
+    "role": "match",
+    "regex": "(new)\\s+(?:(class)\\s+(\\w+(?:\\.\\w*)*)?|(\\w+(?:\\.\\w*)*))"
+  },
+  "SingleHeredoc": {
+    "role": "begin",
+    "regex": "'''"
+  },
+  "SingleHeredocEnd": {
+    "role": "end",
+    "regex": "'''"
+  },
+  "SingleHeredocEscape": {
+    "role": "match",
+    "regex": "(\\\\)."
+  },
+  "DoubleHeredoc": {
+    "role": "begin",
+    "regex": "\"\"\""
+  },
+  "DoubleHeredocEnd": {
+    "role": "end",
+    "regex": "\"\"\""
+  },
+  "DoubleHeredocEscape": {
+    "role": "match",
+    "regex": "(\\\\)."
+  },
+  "Script": {
+    "role": "match",
+    "regex": "(`)(.*)(`)"
+  },
+  "BlockComment": {
+    "role": "begin",
+    "regex": "(?<!#)###(?!#)"
+  },
+  "BlockCommentEnd": {
+    "role": "end",
+    "regex": "###"
+  },
+  "Annotation": {
+    "role": "match",
+    "regex": "(?<=^|\\s)@\\w*(?=\\s)"
+  },
+  "LineComment": {
+    "role": "begin",
+    "regex": "#"
+  },
+  "LineCommentEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "Heregex": {
+    "role": "begin",
+    "regex": "///"
+  },
+  "HeregexEnd": {
+    "role": "end",
+    "regex": "(///)[gimuy]*"
+  },
+  "Anchor": {
+    "role": "match",
+    "regex": "\\\\[Bb]|[$^]"
+  },
+  "BackReference": {
+    "role": "match",
+    "regex": "\\\\[1-9]\\d*"
+  },
+  "Quantifier": {
+    "role": "match",
+    "regex": "[*+?]|\\{(\\d+,\\d+|\\d+,|,\\d+|\\d+)}\\??"
+  },
+  "Or": {
+    "role": "match",
+    "regex": "\\|"
+  },
+  "Assertion": {
+    "role": "begin",
+    "regex": "(\\()((\\?=)|(\\?!))"
+  },
+  "AssertionEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "Group": {
+    "role": "begin",
+    "regex": "\\((\\?:)?"
+  },
+  "GroupEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CharacterSet": {
+    "role": "begin",
+    "regex": "(\\[)(\\^)?"
+  },
+  "CharacterSetEnd": {
+    "role": "end",
+    "regex": "(])"
+  },
+  "CharacterRange": {
+    "role": "match",
+    "regex": "(?:.|(\\\\(?:[0-7]{3}|x\\h{2}|u\\h{4}))|(\\\\c[A-Z])|(\\\\.))-(?:[^]\\\\]|(\\\\(?:[0-7]{3}|x\\h{2}|u\\h{4}))|(\\\\c[A-Z])|(\\\\.))"
+  },
+  "CharacterClass": {
+    "role": "match",
+    "regex": "\\\\[DSWdsw]|\\."
+  },
+  "NumericEscape": {
+    "role": "match",
+    "regex": "\\\\([0-7]{3}|x\\h{2}|u\\h{4})"
+  },
+  "ControlEscape": {
+    "role": "match",
+    "regex": "\\\\c[A-Z]"
+  },
+  "BackslashEscape": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "EmbeddedComment": {
+    "role": "match",
+    "regex": "(?<!\\\\)(#).*$\\n?"
+  },
+  "KeywordControl": {
+    "role": "match",
+    "regex": "\\b(?<![$.])(break|by|catch|continue|else|finally|for|in|of|if|return|switch|then|throw|try|unless|when|while|until|loop|do|export|import|default|from|as|yield|async|await|(?<=for)\\s+own)(?!\\s*:)\\b"
+  },
+  "Delete": {
+    "role": "match",
+    "regex": "\\b(?<![$.])(delete)(?!\\s*:)\\b"
+  },
+  "Instanceof": {
+    "role": "match",
+    "regex": "\\b(?<![$.])(instanceof)(?!\\s*:)\\b"
+  },
+  "New": {
+    "role": "match",
+    "regex": "\\b(?<![$.])(new)(?!\\s*:)\\b"
+  },
+  "Typeof": {
+    "role": "match",
+    "regex": "\\b(?<![$.])(typeof)(?!\\s*:)\\b"
+  },
+  "Reserved": {
+    "role": "match",
+    "regex": "\\b(?<![$.])(case|function|var|void|with|const|let|enum|native|__hasProp|__extends|__slice|__bind|__indexOf|implements|interface|package|private|protected|public|static)(?!\\s*:)\\b"
+  },
+  "FunctionAssignment": {
+    "role": "begin",
+    "regex": "(?<=\\s|^)((@)?[$A-Z_a-z][$\\w]*)\\s*([:=])\\s*(?=(\\([^()]*\\)\\s*)?[-=]>)"
+  },
+  "FunctionAssignmentEnd": {
+    "role": "end",
+    "regex": "[-=]>"
+  },
+  "Params": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParamsEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Param": {
+    "role": "match",
+    "regex": "([$A-Z_a-z][$\\w]*)(\\.\\.\\.)?"
+  },
+  "InstanceParam": {
+    "role": "match",
+    "regex": "(@(?:[$A-Z_a-z][$\\w]*)?)(\\.\\.\\.)?"
+  },
+  "QuotedFunctionAssignment": {
+    "role": "begin",
+    "regex": "(?<=\\s|^)(?:((')([^']*?)('))|((\")([^\"]*?)(\")))\\s*([:=])\\s*(?=(\\([^()]*\\)\\s*)?[-=]>)"
+  },
+  "QuotedFunctionAssignmentEnd": {
+    "role": "end",
+    "regex": "[-=]>"
+  },
+  "InlineFunction": {
+    "role": "begin",
+    "regex": "(?=(\\([^()]*\\)\\s*)?[-=]>)"
+  },
+  "InlineFunctionEnd": {
+    "role": "end",
+    "regex": "[-=]>"
+  },
+  "DestructuredObject": {
+    "role": "begin",
+    "regex": "(?<=\\s|^)(\\{)(?=[^\"#']+?}[]}\\s]*=)"
+  },
+  "DestructuredObjectEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "DestructuredArray": {
+    "role": "begin",
+    "regex": "(?<=\\s|^)(\\[)(?=[^\"#']+?][]}\\s]*=)"
+  },
+  "DestructuredArrayEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "True": {
+    "role": "match",
+    "regex": "\\b(?<!\\.|::)(true|on|yes)(?!\\s*[:=][^=])\\b"
+  },
+  "False": {
+    "role": "match",
+    "regex": "\\b(?<!\\.|::)(false|off|no)(?!\\s*[:=][^=])\\b"
+  },
+  "Null": {
+    "role": "match",
+    "regex": "\\b(?<!\\.|::)null(?!\\s*[:=][^=])\\b"
+  },
+  "Extends": {
+    "role": "match",
+    "regex": "\\b(?<!\\.|::)extends(?!\\s*[:=])\\b"
+  },
+  "Super": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(?<!\\$)(super)(?!\\s*[:=][^=]|\\$)\\b"
+  },
+  "This": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(?<!\\$)(this)(?!\\s*[:=][^=]|\\$)\\b"
+  },
+  "Arguments": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(?<!\\$)(arguments)(?!\\s*[:=][^=]|\\$)\\b"
+  },
+  "ClassExtends": {
+    "role": "match",
+    "regex": "(?<=\\s|^|[(\\[])(class)\\s+(extends)\\s+(@?[$.A-Z_a-z][.\\w]*)"
+  },
+  "Class": {
+    "role": "match",
+    "regex": "(?<=\\s|^|[(\\[])(class)\\b\\s+(@?[$A-Z_a-z][.\\w]*)?(?:\\s+(extends)\\s+(@?[$.A-Z_a-z][.\\w]*))?"
+  },
+  "Debugger": {
+    "role": "match",
+    "regex": "\\b(debugger|\\\\)\\b"
+  },
+  "SupportClass": {
+    "role": "match",
+    "regex": "\\b(Array|ArrayBuffer|Blob|Boolean|Date|document|Function|Int(8|16|32|64)Array|Math|Map|Number|Object|Proxy|RegExp|Set|String|WeakMap|window|Uint(8|16|32|64)Array|XMLHttpRequest)\\b"
+  },
+  "Console": {
+    "role": "match",
+    "regex": "\\b(console)\\b"
+  },
+  "ConsoleMethod": {
+    "role": "match",
+    "regex": "((?<=console\\.)(debug|warn|info|log|error|time|timeEnd|assert))\\b"
+  },
+  "ArrayMethod": {
+    "role": "match",
+    "regex": "((?<=\\.)(apply|call|concat|every|filter|forEach|from|hasOwnProperty|indexOf|isPrototypeOf|join|lastIndexOf|map|of|pop|propertyIsEnumerable|push|reduce(Right)?|reverse|shift|slice|some|sort|splice|to(Locale)?String|unshift|valueOf))\\b"
+  },
+  "ArrayStatic": {
+    "role": "match",
+    "regex": "((?<=Array\\.)(isArray))\\b"
+  },
+  "ObjectStatic": {
+    "role": "match",
+    "regex": "((?<=Object\\.)(create|definePropert(ies|y)|freeze|getOwnProperty(Descriptors?|Names)|getProperty(Descriptor|Names)|getPrototypeOf|is(Extensible|Frozen|Sealed)?|isnt|keys|preventExtensions|seal))\\b"
+  },
+  "MathStatic": {
+    "role": "match",
+    "regex": "((?<=Math\\.)(abs|acosh??|asinh??|atan2??|atanh|ceil|cosh??|exp|expm1|floor|hypot|log|log10|log1p|log2|max|min|pow|random|round|sign|sinh??|sqrt|tanh??|trunc))\\b"
+  },
+  "NumberStatic": {
+    "role": "match",
+    "regex": "((?<=Number\\.)(is(Finite|Integer|NaN)|toInteger))\\b"
+  },
+  "SupportVariable": {
+    "role": "match",
+    "regex": "(?<!\\.)\\b(module|exports|__filename|__dirname|global|process)(?!\\s*:)\\b"
+  },
+  "LanguageConstant": {
+    "role": "match",
+    "regex": "\\b(Infinity|NaN|undefined)\\b"
+  },
+  "WordAssignment": {
+    "role": "match",
+    "regex": "(?:([$A-Z_a-z][$\\w]*)?\\s+|(?<![$\\w]))(and=|or=)"
+  },
+  "CompoundAssignment": {
+    "role": "match",
+    "regex": "([$A-Z_a-z][$\\w]*)?\\s*((?:[-%*+]|&&|\\|\\||\\?|(?<!\\()/)=)"
+  },
+  "BitwiseAssignment": {
+    "role": "match",
+    "regex": "([$A-Z_a-z][$\\w]*)?\\s*((?:[\\&^]|<<|>>>??|\\|)=)"
+  },
+  "Shift": {
+    "role": "match",
+    "regex": "<<|>>>?"
+  },
+  "Comparison": {
+    "role": "match",
+    "regex": "!=|<=|>=|==|[<>]"
+  },
+  "Logical": {
+    "role": "match",
+    "regex": "&&|!|\\|\\|"
+  },
+  "Bitwise": {
+    "role": "match",
+    "regex": "[\\&^|~]"
+  },
+  "Assignment": {
+    "role": "match",
+    "regex": "([$A-Z_a-z][$\\w]*)?\\s*(=|:(?!:))(?![=>])"
+  },
+  "Decrement": {
+    "role": "match",
+    "regex": "--"
+  },
+  "Increment": {
+    "role": "match",
+    "regex": "\\+\\+"
+  },
+  "Splat": {
+    "role": "match",
+    "regex": "\\.\\.\\."
+  },
+  "Existential": {
+    "role": "match",
+    "regex": "\\?"
+  },
+  "Arithmetic": {
+    "role": "match",
+    "regex": "[-%*+/]"
+  },
+  "WordOperator": {
+    "role": "match",
+    "regex": "\\b(?<![$.])(?:(and|or|not)|(is(?:|nt)))(?!\\s*:)\\b"
+  },
+  "EventHandler": {
+    "role": "match",
+    "regex": "\\bon(Rowsinserted|Rowsdelete|Rowenter|Rowexit|Resize|Resizestart|Resizeend|Reset|Readystatechange|Mouseout|Mouseover|Mousedown|Mouseup|Mousemove|Before(cut|deactivate|unload|update|paste|print|editfocus|activate)|Blur|Scrolltop|Submit|Select|Selectstart|Selectionchange|Hover|Help|Change|Contextmenu|Controlselect|Cut|Cellchange|Clock|Close|Deactivate|Datasetchanged|Datasetcomplete|Dataavailable|Drop|Drag|Dragstart|Dragover|Dragdrop|Dragenter|Dragend|Dragleave|Dblclick|Unload|Paste|Propertychange|Error|Errorupdate|Keydown|Keyup|Keypress|Focus|Load|Activate|Afterupdate|Afterprint|Abort)\\b"
+  },
+  "SupportMethod": {
+    "role": "match",
+    "regex": "\\b(shift|showModelessDialog|showModalDialog|showHelp|scrollX??|scrollByPages|scrollByLines|scrollY|scrollTo|stop|strike|sizeToContent|sidebar|signText|sort|sup|sub|substr|substring|splice|split|send|set(Milliseconds|Seconds|Minutes|Hours|Month|Year|FullYear|Date|UTC(Milliseconds|Seconds|Minutes|Hours|Month|FullYear|Date)|Time|Hotkeys|Cursor|ZOptions|Active|Resizable|RequestHeader)|search|slice|savePreferences|small|home|handleEvent|navigate|char|charCodeAt|charAt|concat|contextual|confirm|compile|clear|captureEvents|call|createStyleSheet|createPopup|createEventObject|to(GMTString|UTCString|String|Source|UpperCase|LowerCase|LocaleString)|test|taint|taintEnabled|indexOf|italics|disableExternalCapture|dump|detachEvent|unshift|untaint|unwatch|updateCommands|join|javaEnabled|pop|push|plugins.refresh|paddings|parse|print|prompt|preference|enableExternalCapture|exec|execScript|valueOf|UTC|find|file|fileModifiedDate|fileSize|fileCreatedDate|fileUpdatedDate|fixed|fontsize|fontcolor|forward|fromCharCode|watch|link|load|lastIndexOf|anchor|attachEvent|atob|apply|alert|abort|routeEvents|resize|resizeBy|resizeTo|recalc|returnValue|replace|reverse|reload|releaseCapture|releaseEvents|go|get(Milliseconds|Seconds|Minutes|Hours|Month|Day|Year|FullYear|Time|Date|TimezoneOffset|UTC(Milliseconds|Seconds|Minutes|Hours|Day|Month|FullYear|Date)|Attention|Selection|ResponseHeader|AllResponseHeaders)|moveBy|moveBelow|moveTo|moveToAbsolute|moveAbove|mergeAttributes|match|margins|btoa|big|bold|borderWidths|blink|back)\\b"
+  },
+  "DomMethod": {
+    "role": "match",
+    "regex": "\\b(acceptNode|add|addEventListener|addTextTrack|adoptNode|after|animate|append|appendChild|appendData|before|blur|canPlayType|captureStream|caretPositionFromPoint|caretRangeFromPoint|checkValidity|clear|click|cloneContents|cloneNode|cloneRange|close|closest|collapse|compareBoundaryPoints|compareDocumentPosition|comparePoint|contains|convertPointFromNode|convertQuadFromNode|convertRectFromNode|createAttribute|createAttributeNS|createCaption|createCDATASection|createComment|createContextualFragment|createDocument|createDocumentFragment|createDocumentType|createElement|createElementNS|createEntityReference|createEvent|createExpression|createHTMLDocument|createNodeIterator|createNSResolver|createProcessingInstruction|createRange|createShadowRoot|createTBody|createTextNode|createTFoot|createTHead|createTreeWalker|delete|deleteCaption|deleteCell|deleteContents|deleteData|deleteRow|deleteTFoot|deleteTHead|detach|disconnect|dispatchEvent|elementFromPoint|elementsFromPoint|enableStyleSheetsForSet|entries|evaluate|execCommand|exitFullscreen|exitPointerLock|expand|extractContents|fastSeek|firstChild|focus|forEach|get|getAll|getAnimations|getAttribute|getAttributeNames|getAttributeNode|getAttributeNodeNS|getAttributeNS|getBoundingClientRect|getBoxQuads|getClientRects|getContext|getDestinationInsertionPoints|getElementById|getElementsByClassName|getElementsByName|getElementsByTagName|getElementsByTagNameNS|getItem|getNamedItem|getSelection|getStartDate|getVideoPlaybackQuality|has|hasAttribute|hasAttributeNS|hasAttributes|hasChildNodes|hasFeature|hasFocus|importNode|initEvent|insertAdjacentElement|insertAdjacentHTML|insertAdjacentText|insertBefore|insertCell|insertData|insertNode|insertRow|intersectsNode|isDefaultNamespace|isEqualNode|isPointInRange|isSameNode|item|keys??|lastChild|load|lookupNamespaceURI|lookupPrefix|matches|move|moveAttribute|moveAttributeNode|moveChild|moveNamedItem|namedItem|nextNode|nextSibling|normalize|observe|open|parentNode|pause|play|postMessage|prepend|preventDefault|previousNode|previousSibling|probablySupportsContext|queryCommandEnabled|queryCommandIndeterm|queryCommandState|queryCommandSupported|queryCommandValue|querySelector|querySelectorAll|registerContentHandler|registerElement|registerProtocolHandler|releaseCapture|releaseEvents|remove|removeAttribute|removeAttributeNode|removeAttributeNS|removeChild|removeEventListener|removeItem|replace|replaceChild|replaceData|replaceWith|reportValidity|requestFullscreen|requestPointerLock|reset|scroll|scrollBy|scrollIntoView|scrollTo|seekToNextFrame|select|selectNode|selectNodeContents|set|setAttribute|setAttributeNode|setAttributeNodeNS|setAttributeNS|setCapture|setCustomValidity|setEnd|setEndAfter|setEndBefore|setItem|setNamedItem|setRangeText|setSelectionRange|setSinkId|setStart|setStartAfter|setStartBefore|slice|splitText|stepDown|stepUp|stopImmediatePropagation|stopPropagation|submit|substringData|supports|surroundContents|takeRecords|terminate|toBlob|toDataURL|toggle|toString|values|write|writeln)\\b"
+  },
+  "MethodName": {
+    "role": "match",
+    "regex": "[$A-Z_a-z][$\\w]*"
+  },
+  "InvalidMethodName": {
+    "role": "match",
+    "regex": "\\d[$\\w]*"
+  },
+  "MethodCall": {
+    "role": "begin",
+    "regex": "(?:(\\.)|(::))\\s*([$\\w]+)\\s*(?=\\()"
+  },
+  "MethodCallEnd": {
+    "role": "end",
+    "regex": "(?<=\\))"
+  },
+  "ParenArguments": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParenArgumentsEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "BareMethodCall": {
+    "role": "begin",
+    "regex": "(?:(\\.)|(::))\\s*([$\\w]+)\\s*(?=\\s+(?!(?<![$\\w])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof)(?![$\\w]))(?=(@|@?[$\\w]+|[-=]>|-\\d|[\"'\\[{])))"
+  },
+  "BareMethodCallEnd": {
+    "role": "end",
+    "regex": "(?=\\s*(?<![$\\w])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof)(?![$\\w]))|(?=\\s*([]#)}]|$))"
+  },
+  "BareArguments": {
+    "role": "begin",
+    "regex": "(?=(@|@?[$\\w]+|[-=]>|-\\d|[\"'\\[{]))"
+  },
+  "BareArgumentsEnd": {
+    "role": "end",
+    "regex": "(?=\\s*(?<![$\\w])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof)(?![$\\w]))|(?=\\s*([]#)}]|$))"
+  },
+  "SupportFunction": {
+    "role": "match",
+    "regex": "\\b(isNaN|isFinite|eval|uneval|parseInt|parseFloat|decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|escape|unescape|require|set(Interval|Timeout)|clear(Interval|Timeout))\\b"
+  },
+  "FunctionName": {
+    "role": "match",
+    "regex": "[$A-Z_a-z][$\\w]*"
+  },
+  "InvalidFunctionName": {
+    "role": "match",
+    "regex": "\\d[$\\w]*"
+  },
+  "FunctionCall": {
+    "role": "begin",
+    "regex": "(@)?([$\\w]+)(?=\\()"
+  },
+  "FunctionCallEnd": {
+    "role": "end",
+    "regex": "(?<=\\))"
+  },
+  "BareFunctionCall": {
+    "role": "begin",
+    "regex": "(@)?([$\\w]+)\\s*(?=\\s+(?!(?<![$\\w])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof)(?![$\\w]))(?=(@?[$\\w]+|[-=]>|-\\d|[\"'\\[{])))"
+  },
+  "BareFunctionCallEnd": {
+    "role": "end",
+    "regex": "(?=\\s*(?<![$\\w])(of|in|then|is|isnt|and|or|for|else|when|if|unless|by|instanceof)(?![$\\w]))|(?=\\s*([]#)}]|$))"
+  },
+  "Hex": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)0([Xx])\\h+\\b(?!\\$)"
+  },
+  "Binary": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)0([Bb])[01]+\\b(?!\\$)"
+  },
+  "Octal": {
+    "role": "match",
+    "regex": "\\b(?<!\\$)0([Oo])?[0-7]+\\b(?!\\$)"
+  },
+  "Decimal": {
+    "role": "match",
+    "regex": "(?<!\\$)(?:\\b[0-9]+(\\.)[0-9]+[Ee][-+]?[0-9]+\\b|\\b[0-9]+(\\.)[Ee][-+]?[0-9]+\\b|\\B(\\.)[0-9]+[Ee][-+]?[0-9]+\\b|\\b[0-9]+[Ee][-+]?[0-9]+\\b|\\b[0-9]+(\\.)[0-9]+\\b|\\b[0-9]+(?=\\.{2,3})|\\b[0-9]+(\\.)\\B|\\B(\\.)[0-9]+\\b|\\b[0-9]+\\b(?!\\.))(?!\\$)"
+  },
+  "ConstantObject": {
+    "role": "match",
+    "regex": "[A-Z][$0-9A-Z_]*(?=\\s*\\??(\\.\\s*[$A-Z_a-z]\\w*|::))"
+  },
+  "VariableObject": {
+    "role": "match",
+    "regex": "[$A-Z_a-z][$\\w]*(?=\\s*\\??(\\.\\s*[$A-Z_a-z]\\w*|::))"
+  },
+  "ConstantObjectProperty": {
+    "role": "match",
+    "regex": "(?:(\\.)|(::))\\s*([A-Z][$0-9A-Z_]*\\b\\$*)(?=\\s*\\??(\\.\\s*[$A-Z_a-z]\\w*|::))"
+  },
+  "VariableObjectProperty": {
+    "role": "match",
+    "regex": "(?:(\\.)|(::))\\s*(\\$*[$A-Z_a-z][$\\w]*)(?=\\s*\\??(\\.\\s*[$A-Z_a-z]\\w*|::))"
+  },
+  "ConstantProperty": {
+    "role": "match",
+    "regex": "(?:(\\.)|(::))\\s*([A-Z][$0-9A-Z_]*\\b\\$*)"
+  },
+  "VariableProperty": {
+    "role": "match",
+    "regex": "(?:(\\.)|(::))\\s*(\\$*[$A-Z_a-z][$\\w]*)"
+  },
+  "InvalidProperty": {
+    "role": "match",
+    "regex": "(?:(\\.)|(::))\\s*([0-9][$\\w]*)"
+  },
+  "Prototype": {
+    "role": "match",
+    "regex": "::"
+  },
+  "InvalidIdentifier": {
+    "role": "match",
+    "regex": "(?<!\\$)\\b[0-9]+[$\\w]*"
+  },
+  "Terminator": {
+    "role": "match",
+    "regex": ";"
+  },
+  "Delimiter": {
+    "role": "match",
+    "regex": ","
+  },
+  "Brace": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "BraceEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Bracket": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "BracketEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "SliceExclusive": {
+    "role": "match",
+    "regex": "(?<!\\.)\\.{3}"
+  },
+  "SliceInclusive": {
+    "role": "match",
+    "regex": "(?<!\\.)\\.{2}"
+  },
+  "Paren": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParenEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "InstanceVariable": {
+    "role": "match",
+    "regex": "(@)([$A-Z_a-z]\\w*)?"
+  },
+  "SingleString": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "SingleStringEnd": {
+    "role": "end",
+    "regex": "'"
+  },
+  "SingleEscape": {
+    "role": "match",
+    "regex": "(\\\\)(x\\h{2}|[012][0-7]{0,2}|3[0-6][0-7]?|37[0-7]?|[4-7][0-7]?|.)"
+  },
+  "DestructuredArrayName": {
+    "role": "match",
+    "regex": "[$A-Z_a-z]\\w*"
+  },
+  "DestructuredObjectName": {
+    "role": "match",
+    "regex": "[$A-Z_a-z]\\w*"
+  },
+  "JsxExpression": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "JsxExpressionEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SvelteVariable": {
+    "role": "match",
+    "regex": "(?<![\"$'./_[:alnum:]])\\$(?=[_[:alpha:]][$_[:alnum:]]*)"
+  },
+  "SvelteProps": {
+    "role": "match",
+    "regex": "(?<![\"$'./_[:alnum:]])(\\$\\$)(?=props|restProps|slots)"
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "LineFeed": {
+    "role": "match",
+    "regex": "\\n"
+  },
+  "RoundBrackets": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "RoundBracketsEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Tabs": {
+    "role": "begin",
+    "regex": "^(?=\\t)"
+  },
+  "TabsEnd": {
+    "role": "end",
+    "regex": "(?=[^\\t])"
+  },
+  "TabsAt0": {
+    "role": "match",
+    "regex": "(\\t)(\\t)?"
+  },
+  "Spaces": {
+    "role": "begin",
+    "regex": "^(?= )"
+  },
+  "SpacesEnd": {
+    "role": "end",
+    "regex": "(?=[^ ])"
+  },
+  "SpacesAt0": {
+    "role": "match",
+    "regex": "(  )(  )?"
+  },
+  "FunctionHead": {
+    "role": "match",
+    "regex": "^\\s*((?i:function|sub))\\s*([A-Z_a-z]\\w*)\\s*(\\()([^)]*)(\\)).*\\n?"
+  },
+  "Comment": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=')"
+  },
+  "CommentEnd": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "CommentAt0": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "CommentAt0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "Control": {
+    "role": "match",
+    "regex": "(?i:\\b(If|Then|Else|ElseIf|Else If|End If|While|Wend|For|To|Each|Case|Select|End Select|Return|Continue|Do|Until|Loop|Next|With|Exit Do|Exit For|Exit Function|Exit Property|Exit Sub|IIf)\\b)"
+  },
+  "Operators": {
+    "role": "match",
+    "regex": "(?i:\\b(Mod|And|Not|Or|Xor|as)\\b)"
+  },
+  "DimName": {
+    "role": "match",
+    "regex": "(?i:(dim)\\s*\\b([7A-Z_a-z][0-9A-Z_a-z]*?)\\b\\s*(,?))"
+  },
+  "Storage": {
+    "role": "match",
+    "regex": "(?i:\\s*\\b(Call|Class|Const|Dim|Redim|Function|Sub|Private Sub|Public Sub|End Sub|End Function|End Class|End Property|Public Property|Private Property|Set|Let|Get|New|Randomize|Option Explicit|On Error Resume Next|On Error GoTo)\\b\\s*)"
+  },
+  "Modifiers": {
+    "role": "match",
+    "regex": "(?i:\\b(Private|Public|Default)\\b)"
+  },
+  "Constants": {
+    "role": "match",
+    "regex": "(?i:\\s*\\b(Empty|False|Nothing|Null|True)\\b)"
+  },
+  "String": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "StringAt0": {
+    "role": "match",
+    "regex": "\"\""
+  },
+  "DollarVariable": {
+    "role": "match",
+    "regex": "(\\$)[7A-Z_a-z][0-9A-Z_a-z]*?\\b\\s*"
+  },
+  "AspClasses": {
+    "role": "match",
+    "regex": "(?i:\\b(Application|ObjectContext|Request|Response|Server|Session)\\b)"
+  },
+  "AspCollections": {
+    "role": "match",
+    "regex": "(?i:\\b(Contents|StaticObjects|ClientCertificate|Cookies|Form|QueryString|ServerVariables)\\b)"
+  },
+  "AspConstants": {
+    "role": "match",
+    "regex": "(?i:\\b(TotalBytes|Buffer|CacheControl|Charset|ContentType|Expires|ExpiresAbsolute|IsClientConnected|PICS|Status|ScriptTimeout|CodePage|LCID|SessionID|Timeout)\\b)"
+  },
+  "AspFunctions": {
+    "role": "match",
+    "regex": "(?i:\\b(Lock|Unlock|SetAbort|SetComplete|BinaryRead|AddHeader|AppendToLog|BinaryWrite|Clear|End|Flush|Redirect|Write|CreateObject|HTMLEncode|MapPath|URLEncode|Abandon|Convert|Regex)\\b)"
+  },
+  "AspEvents": {
+    "role": "match",
+    "regex": "(?i:\\b(Application_OnEnd|Application_OnStart|OnTransactionAbort|OnTransactionCommit|Session_OnEnd|Session_OnStart)\\b)"
+  },
+  "AsType": {
+    "role": "match",
+    "regex": "(?i:(?<=as )\\b([7A-Z_a-z][0-9A-Z_a-z]*?)\\b)"
+  },
+  "Functions": {
+    "role": "match",
+    "regex": "(?i:\\b(Array|Add|Asc|Atn|CBool|CByte|CCur|CDate|CDbl|Chr|CInt|CLng|Conversions|Cos|CreateObject|CSng|CStr|Date|DateAdd|DateDiff|DatePart|DateSerial|DateValue|Day|Derived|Math|Escape|Eval|Exists|Exp|Filter|FormatCurrency|FormatDateTime|FormatNumber|FormatPercent|GetLocale|GetObject|GetRef|Hex|Hour|InputBox|InStr|InStrRev|Int|Fix|IsArray|IsDate|IsEmpty|IsNull|IsNumeric|IsObject|Items??|Join|Keys|LBound|LCase|Left|Len|LoadPicture|Log|LTrim|RTrim|Trim|Maths|Mid|Minute|Month|MonthName|MsgBox|Now|Oct|Remove|RemoveAll|Replace|RGB|Right|Rnd|Round|ScriptEngine|ScriptEngineBuildVersion|ScriptEngineMajorVersion|ScriptEngineMinorVersion|Second|SetLocale|Sgn|Sin|Space|Split|Sqr|StrComp|String|StrReverse|Tan|Timer??|TimeSerial|TimeValue|TypeName|UBound|UCase|Unescape|VarType|Weekday|WeekdayName|Year)\\b)"
+  },
+  "Numbers": {
+    "role": "match",
+    "regex": "-?\\b((0([Xx])\\h*)|(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))(([Ee])([-+])?[0-9]+)?)([Ll]|UL|ul|[FUfu])?\\b"
+  },
+  "VbConstants": {
+    "role": "match",
+    "regex": "(?i:\\b(vbtrue|vbfalse|vbcr|vbcrlf|vbformfeed|vblf|vbnewline|vbnullchar|vbnullstring|int32|vbtab|vbverticaltab|vbbinarycompare|vbtextcomparevbsunday|vbmonday|vbtuesday|vbwednesday|vbthursday|vbfriday|vbsaturday|vbusesystemdayofweek|vbfirstjan1|vbfirstfourdays|vbfirstfullweek|vbgeneraldate|vblongdate|vbshortdate|vblongtime|vbshorttime|vbobjecterror|vbEmpty|vbNull|vbInteger|vbLong|vbSingle|vbDouble|vbCurrency|vbDate|vbString|vbObject|vbError|vbBoolean|vbVariant|vbDataObject|vbDecimal|vbByte|vbArray)\\b)"
+  },
+  "FunctionCall": {
+    "role": "match",
+    "regex": "(?i:\\b([7A-Z_a-z][0-9A-Z_a-z]*?)\\b(?=\\(\\)?))"
+  },
+  "Variable": {
+    "role": "match",
+    "regex": "(?i:((?<=([-\\&(+,/<=>\\\\]))\\s*\\b([7A-Z_a-z][0-9A-Z_a-z]*?)\\b(?!([(.]))|\\b([7A-Z_a-z][0-9A-Z_a-z]*?)\\b(?=\\s*([-\\&()+/<=>\\\\]))))"
+  },
+  "JsOperators": {
+    "role": "match",
+    "regex": "[!$%\\&*]|--?|\\+\\+|[+~]|===?|=|!==??|<=|>=|<<=|>>=|>>>=|<>|[!<>]|&&|\\|\\||\\?:|\\*=|/=|%=|\\+=|-=|&=|\\^=|\\b(in|instanceof|new|delete|typeof|void)\\b"
+  }
+}

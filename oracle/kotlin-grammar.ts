@@ -14,6 +14,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -312,6 +313,8 @@ g += groupsCheck(
   "Kotlin",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("kotlin", patternList);
 
 await writeRust(`${root_dir}src/kotlin/grammar.rs`, g);
 

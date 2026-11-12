@@ -1,0 +1,422 @@
+{
+  "ExtendsStatement": {
+    "role": "match",
+    "regex": "(extends)\\s+([A-Z_a-z]\\w*\\.[A-Z_a-z]\\w*)?"
+  },
+  "GetterSetterGodot4At0": {
+    "role": "match",
+    "regex": "(get)\\s*(:)"
+  },
+  "GetterSetterGodot4At1": {
+    "role": "match",
+    "regex": "(set)\\s*(\\()\\s*([A-Z_a-z]\\w*)\\s*(\\))\\s*(:)"
+  },
+  "BuiltinGetNodeShorthandQuoted": {
+    "role": "begin",
+    "regex": "(?:([$%])|([\\&@^]))([\"'])"
+  },
+  "BuiltinGetNodeShorthandQuotedEnd": {
+    "role": "end",
+    "regex": "(\\3)"
+  },
+  "BuiltinGetNodeShorthandQuotedAt0": {
+    "role": "match",
+    "regex": "%"
+  },
+  "BuiltinGetNodeShorthandBare": {
+    "role": "match",
+    "regex": "(?<!/\\s*)(\\$\\s*|%|\\$%\\s*)(/\\s*)?([A-Z_a-z]\\w*)\\b(?!\\s*/)"
+  },
+  "BuiltinGetNodeShorthandBareMulti": {
+    "role": "begin",
+    "regex": "(\\$\\s*|%|\\$%\\s*)(/\\s*)?([A-Z_a-z]\\w*)"
+  },
+  "BuiltinGetNodeShorthandBareMultiEnd": {
+    "role": "end",
+    "regex": "(?!\\s*/\\s*%?\\s*[A-Z_a-z]\\w*)"
+  },
+  "BuiltinGetNodeShorthandBareMultiAt0": {
+    "role": "match",
+    "regex": "(/)\\s*(%)?\\s*([A-Z_a-z]\\w*)\\s*"
+  },
+  "NodepathObject": {
+    "role": "begin",
+    "regex": "(NodePath)\\s*\\("
+  },
+  "NodepathObjectEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "NodepathObjectAt0": {
+    "role": "begin",
+    "regex": "([\"'])"
+  },
+  "NodepathObjectAt0End": {
+    "role": "end",
+    "regex": "\\1"
+  },
+  "NodepathObjectAt0At0": {
+    "role": "match",
+    "regex": "%"
+  },
+  "NodepathFunction": {
+    "role": "begin",
+    "regex": "(get_node_or_null|has_node|has_node_and_resource|find_node|get_node)\\s*(\\()"
+  },
+  "NodepathFunctionEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "NodepathFunctionAt0": {
+    "role": "begin",
+    "regex": "([\"'])"
+  },
+  "NodepathFunctionAt0End": {
+    "role": "end",
+    "regex": "\\1"
+  },
+  "NodepathFunctionAt0At0": {
+    "role": "match",
+    "regex": "%"
+  },
+  "Strings": {
+    "role": "begin",
+    "regex": "(r)?(\"\"\"|'''|[\"'])"
+  },
+  "StringsEnd": {
+    "role": "end",
+    "regex": "\\2"
+  },
+  "StringsAt0": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "StringPercentPlaceholders": {
+    "role": "match",
+    "regex": "(%(\\([\\w\\s]*\\))?[- #+0]*(\\d+|\\*)?(\\.(\\d+|\\*))?([Lhl])?[%EFGXa-giorsux])"
+  },
+  "StringBracketPlaceholdersAt0": {
+    "role": "match",
+    "regex": "(\\{\\{|}}|\\{\\w*(\\.[_[:alpha:]]\\w*|\\[[^]\"']+])*(![ars])?(:\\w?[<=>^]?[- +]?#?\\d*,?(\\.\\d+)?[%EFGXb-gnosx]?)?})"
+  },
+  "StringBracketPlaceholdersAt1": {
+    "role": "match",
+    "regex": "(\\{\\w*(\\.[_[:alpha:]]\\w*|\\[[^]\"']+])*(![ars])?(:)[^\\n\"'{}]*(?:\\{[^\\n\"'}]*?}[^\\n\"'{}]*)*})"
+  },
+  "BuiltinClasses": {
+    "role": "match",
+    "regex": "(?<![^.]\\.|:)\\b(Vector2i??|Vector3i??|Vector4i??|Color|Rect2i??|Array|Basis|Dictionary|Plane|Quat|RID|Rect3|Transform|Transform2D|Transform3D|AABB|String|Color|NodePath|PoolByteArray|PoolIntArray|PoolRealArray|PoolStringArray|PoolVector2Array|PoolVector3Array|PoolColorArray|bool|int|float|Signal|Callable|StringName|Quaternion|Projection|PackedByteArray|PackedInt32Array|PackedInt64Array|PackedFloat32Array|PackedFloat64Array|PackedStringArray|PackedVector2Array|PackedVector2iArray|PackedVector3Array|PackedVector3iArray|PackedVector4Array|PackedColorArray|JSON|UPNP|OS|IP|JSONRPC|XRVRS|Variant|void)\\b"
+  },
+  "ConstVars": {
+    "role": "match",
+    "regex": "\\b([A-Z_][0-9A-Z_]*)\\b"
+  },
+  "Keywords": {
+    "role": "match",
+    "regex": "\\b(?:class|class_name|is|onready|tool|static|export|as|enum|assert|breakpoint|sync|remote|master|puppet|slave|remotesync|mastersync|puppetsync|trait|namespace|super|self)\\b"
+  },
+  "WordlikeOperator": {
+    "role": "match",
+    "regex": "\\b(and|or|not)\\b"
+  },
+  "BooleanOperator": {
+    "role": "match",
+    "regex": "(&&|\\|\\|)"
+  },
+  "ArithmeticOperator": {
+    "role": "match",
+    "regex": "->|\\+=|-=|\\*\\*=|\\*=|\\^=|/=|%=|&=|~=|\\|=|\\*\\*|[-%*+/]"
+  },
+  "BitwiseOperator": {
+    "role": "match",
+    "regex": "[\\&|]|<<=|>>=|<<|>>|[\\^~]"
+  },
+  "CompareOperator": {
+    "role": "match",
+    "regex": "<=|>=|==|[<>]|!=?"
+  },
+  "LambdaDeclaration": {
+    "role": "begin",
+    "regex": "(func)\\s?(?=\\()"
+  },
+  "LambdaDeclarationEnd": {
+    "role": "end",
+    "regex": "(:|(?=[\\n\"#']))"
+  },
+  "Parameters": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "ParametersEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "AnnotatedParameter": {
+    "role": "begin",
+    "regex": "\\s*([A-Z_a-z]\\w*)\\s*(:)\\s*([A-Z_a-z]\\w*)?"
+  },
+  "AnnotatedParameterEnd": {
+    "role": "end",
+    "regex": "(,)|(?=\\))"
+  },
+  "AnnotatedParameterAt1": {
+    "role": "match",
+    "regex": "=(?!=)"
+  },
+  "ParametersAt1": {
+    "role": "match",
+    "regex": "([A-Z_a-z]\\w*)\\s*(?:(,)|(?=[\\n#)=]))"
+  },
+  "Comment": {
+    "role": "match",
+    "regex": "(##?).*$\\n?"
+  },
+  "LooseDefault": {
+    "role": "begin",
+    "regex": "(=)"
+  },
+  "LooseDefaultEnd": {
+    "role": "end",
+    "regex": "(,)|(?=\\))"
+  },
+  "LineContinuationAt0": {
+    "role": "match",
+    "regex": "(\\\\)\\s*(\\S.*$\\n?)"
+  },
+  "LineContinuationAt1": {
+    "role": "begin",
+    "regex": "(\\\\)\\s*$\\n?"
+  },
+  "LineContinuationAt1End": {
+    "role": "end",
+    "regex": "(?=^\\s*$)|(?!(\\s*[Rr]?('''|\"\"\"|[\"']))|\\G()$)"
+  },
+  "AnyVariable": {
+    "role": "match",
+    "regex": "\\b(?<![#$%@])([A-Z_a-z]\\w*)\\b(?!\\()"
+  },
+  "AnyProperty": {
+    "role": "match",
+    "regex": "\\b(\\.)\\s*(?<![#$%@])(?:([A-Z_][0-9A-Z_]*)|([A-Z_a-z]\\w*))\\b(?!\\()"
+  },
+  "ClassDeclaration": {
+    "role": "match",
+    "regex": "(?<=^class)\\s+([A-Z_a-z]\\w*)\\s*(?=:)"
+  },
+  "VariableDeclaration": {
+    "role": "begin",
+    "regex": "\\b(?:(var)|(const))\\b"
+  },
+  "VariableDeclarationEnd": {
+    "role": "end",
+    "regex": "$|;"
+  },
+  "VariableDeclarationAt0": {
+    "role": "match",
+    "regex": "(:)?\\s*([gs]et)\\s+=\\s+([A-Z_a-z]\\w*)"
+  },
+  "VariableDeclarationAt1": {
+    "role": "match",
+    "regex": ":=|=(?!=)"
+  },
+  "VariableDeclarationAt2": {
+    "role": "match",
+    "regex": "(:)\\s*([A-Z_a-z]\\w*)?"
+  },
+  "VariableDeclarationAt3": {
+    "role": "match",
+    "regex": "(setget)\\s+([A-Z_a-z]\\w*)(?:,\\s*([A-Z_a-z]\\w*))?"
+  },
+  "Letter": {
+    "role": "match",
+    "regex": "\\b(?:true|false|null)\\b"
+  },
+  "SignalDeclarationBare": {
+    "role": "match",
+    "regex": "\\s*(signal)\\s+([A-Z_a-z]\\w*)(?=[\\n\\s])"
+  },
+  "SignalDeclaration": {
+    "role": "begin",
+    "regex": "\\s*(signal)\\s+([A-Z_a-z]\\w*)\\s*(?=\\()"
+  },
+  "SignalDeclarationEnd": {
+    "role": "end",
+    "regex": "((?=[\\n\"#']))"
+  },
+  "FunctionDeclaration": {
+    "role": "begin",
+    "regex": "\\s*(func)\\s+([A-Z_a-z]\\w*)\\s*(?=\\()"
+  },
+  "FunctionDeclarationEnd": {
+    "role": "end",
+    "regex": "(:)|\\n"
+  },
+  "StatementKeywordAt0": {
+    "role": "match",
+    "regex": "\\b(?<!\\.)(continue|assert|break|elif|else|if|pass|return|while)\\b"
+  },
+  "StatementKeywordAt1": {
+    "role": "match",
+    "regex": "\\b(?<!\\.)(class)\\b"
+  },
+  "StatementKeywordAt2": {
+    "role": "match",
+    "regex": "(?:^|:)\\s*(case|match)(?=\\s*([-\"#'(+:\\[{\\w\\d]|$))\\b"
+  },
+  "AssignmentOperator": {
+    "role": "match",
+    "regex": "="
+  },
+  "InKeywordAt0": {
+    "role": "begin",
+    "regex": "\\b(for)\\b"
+  },
+  "InKeywordAt0End": {
+    "role": "end",
+    "regex": ":"
+  },
+  "InKeywordAt0At0": {
+    "role": "match",
+    "regex": "\\bin\\b"
+  },
+  "InKeywordAt1": {
+    "role": "match",
+    "regex": "\\bin\\b"
+  },
+  "ControlFlow": {
+    "role": "match",
+    "regex": "\\b(?:if|elif|else|while|break|continue|pass|return|when|yield|await)\\b"
+  },
+  "MatchKeyword": {
+    "role": "match",
+    "regex": "(?:^|:)\\s*(match)\\b"
+  },
+  "CurlyBraces": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "CurlyBracesEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SquareBraces": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "SquareBracesEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "RoundBraces": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "RoundBracesEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FunctionCall": {
+    "role": "begin",
+    "regex": "(?=\\b[A-Z_a-z]\\w*\\b\\s*\\()"
+  },
+  "FunctionCallEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "FunctionNameAt1": {
+    "role": "match",
+    "regex": "\\b(preload)\\b"
+  },
+  "FunctionNameAt2": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z]\\w*)\\b"
+  },
+  "FunctionArguments": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "FunctionArgumentsEnd": {
+    "role": "end",
+    "regex": "(?=\\))(?!\\)\\s*\\()"
+  },
+  "FunctionArgumentsAt0": {
+    "role": "match",
+    "regex": "(,)"
+  },
+  "FunctionArgumentsAt1": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z]\\w*)\\s*(=)(?!=)"
+  },
+  "FunctionArgumentsAt2": {
+    "role": "match",
+    "regex": "=(?!=)"
+  },
+  "FunctionArgumentsAt4": {
+    "role": "match",
+    "regex": "\\s*(\\))\\s*(\\()"
+  },
+  "Region": {
+    "role": "match",
+    "regex": "#(end)?region.*$\\n?"
+  },
+  "Func": {
+    "role": "match",
+    "regex": "\\bfunc\\b"
+  },
+  "NumbersAt0": {
+    "role": "match",
+    "regex": "0b[01_]+"
+  },
+  "NumbersAt1": {
+    "role": "match",
+    "regex": "0x[_\\h]+"
+  },
+  "NumbersAt2": {
+    "role": "match",
+    "regex": "\\.[0-9][0-9_]*([Ee][-+]?[0-9_]+)?"
+  },
+  "NumbersAt3": {
+    "role": "match",
+    "regex": "([0-9][0-9_]*)\\.[0-9_]*([Ee][-+]?[0-9_]+)?"
+  },
+  "NumbersAt4": {
+    "role": "match",
+    "regex": "([0-9][0-9_]*)?\\.[0-9_]*([Ee][-+]?[0-9_]+)"
+  },
+  "NumbersAt5": {
+    "role": "match",
+    "regex": "[0-9][0-9_]*[Ee][-+]?[0-9_]+"
+  },
+  "NumbersAt6": {
+    "role": "match",
+    "regex": "-?[0-9][0-9_]*"
+  },
+  "PascalCaseClass": {
+    "role": "match",
+    "regex": "\\b[A-Z]+(?:[a-z]+[0-9A-Z_a-z]*)+\\b"
+  },
+  "Annotations": {
+    "role": "match",
+    "regex": "(@)(abstract|export|export_category|export_color_no_alpha|export_custom|export_dir|export_enum|export_exp_easing|export_file|export_file_path|export_flags|export_flags_2d_navigation|export_flags_2d_physics|export_flags_2d_render|export_flags_3d_navigation|export_flags_3d_physics|export_flags_3d_render|export_flags_avoidance|export_global_dir|export_global_file|export_group|export_multiline|export_node_path|export_placeholder|export_range|export_storage|export_subgroup|export_tool_button|icon|onready|rpc|static_unload|tool|warning_ignore|warning_ignore_restore|warning_ignore_start)\\b"
+  },
+  "ClassName": {
+    "role": "match",
+    "regex": "(?<=class_name)\\s+([A-Z_a-z]\\w*(\\.([A-Z_a-z]\\w*))?)"
+  },
+  "ClassNew": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z]\\w*).(new)\\("
+  },
+  "ClassIs": {
+    "role": "match",
+    "regex": "\\s+(is)\\s+(not?)\\s+\\s+([A-Z_a-z]\\w*)"
+  },
+  "ClassEnum": {
+    "role": "match",
+    "regex": "\\b([A-Z][0-9A-Z_a-z]*)\\.([0-9A-Z_]+)"
+  },
+  "AnyMethod": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z]\\w*)\\b(?=\\s*\\()"
+  }
+}

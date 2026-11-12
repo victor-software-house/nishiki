@@ -19,6 +19,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -464,6 +465,8 @@ pub(crate) const UNIT_SCOPES: [S; ${units.length}] = [${unitScopes.map((u) => `S
     "Css",
     patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
   );
+
+  await writePatterns("css", patternList);
 
   await writeRust(`${root_dir}src/css/grammar.rs`, g);
 

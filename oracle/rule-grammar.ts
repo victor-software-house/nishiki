@@ -8,9 +8,6 @@
 
 import { $ } from "bun";
 
-import type { ClassesFacts } from "./facts.ts";
-import classesFacts from "./facts/classes.json";
-
 /** Writes a generated Rust file and formats it as `mise run format` does.
  * It uses the repository's `rustfmt.toml` and the formatting nightly that
  * `RUSTFMT_TOOLCHAIN` names in `mise.toml`.
@@ -24,6 +21,21 @@ export async function writeRust(path: string, text: string): Promise<void> {
   }
   await Bun.write(path, text);
   await $`rustfmt ${toolchain} ${path}`;
+}
+
+/** Writes `codegen/patterns/<dir>.json`: each pattern's role and regular
+ * expression, keyed by its id, for the grammar of `src/<dir>/`.
+ * codegen/ reads it and decides what the grammar's tables hold.
+ * This script only writes the data. */
+export async function writePatterns(
+  dir: string,
+  patterns: { id: string; regex: string; act: { role: string } }[],
+): Promise<void> {
+  const byId = Object.fromEntries(
+    patterns.map((p) => [p.id, { role: p.act.role, regex: p.regex }]),
+  );
+  const root = new URL("..", import.meta.url).pathname;
+  await Bun.write(`${root}codegen/patterns/${dir}.json`, `${JSON.stringify(byId, null, 2)}\n`);
 }
 
 // First bytes. For each pattern, the bytes a match can start at, so that the
@@ -942,378 +954,9 @@ const hex = (w: bigint) => {
   return `0x${digits.match(/.{4}/g)!.join("_")}`;
 };
 
-// Mixed blank runs. The scan of a grammar on `BlankRuns::Skip` passes a run of
-// spaces and tabs in one step. It can pass a run that also holds wide spaces,
-// the characters above ASCII that `\s` matches, when every pattern treats a
-// wide space as it treats a space. Then a pattern sees the run as a run of
-// spaces and tabs, where the skip holds.
-
-/** The wide spaces, as `oracle/facts/classes.json` records them for `\s`. */
-const WIDE_SPACES: number[] = (classesFacts as ClassesFacts).sets
-  .find((set) => set.key === "spaces")!
-  .ranges.flatMap((notation) => {
-    const [first, last = first] = notation.split("..").map((cp) => parseInt(cp, 16));
-    return Array.from({ length: last! - first! + 1 }, (_, i) => first! + i);
-  });
-
-/** The characters a pattern must treat alike: the space and the wide spaces. */
-const ALIKE = [0x20, ...WIDE_SPACES];
-
-/** The characters of a mixed run: those and the tab. */
-const RUN = [0x09, ...ALIKE];
-
-/** Which of the characters in `RUN` a character class matches, by code point;
- * `null` for a class the reader does not know. */
-type Members = (cp: number) => boolean | null;
-
-const none: Members = () => false;
-const all: Members = () => true;
-const isSpace: Members = (cp) => RUN.includes(cp);
-const not =
-  (members: Members): Members =>
-  (cp) => {
-    const v = members(cp);
-    return v === null ? null : !v;
-  };
-
-/** Thrown at syntax the reader does not know. */
-class Unread extends Error {}
-
-/** Reads a regular expression for `treatsWideSpacesAsSpaces`.
- * Each method returns whether the match may still be inside the run after the
- * part it read, given whether it was inside before. */
-class BlankRunReader {
-  pos = 0;
-  extended = false;
-  /** The capture groups so far, in order: whether each has closed, and
-   * whether it can hold a space or a wide space. */
-  groups: { name: string | null; closed: boolean; alike: boolean }[] = [];
-  /** Whether a named group stands in the pattern, which makes plain groups
-   * uncaptured and `\N` mean something else. */
-  named = false;
-  /** `end`: the pattern is a rule's end, whose `\N` repeats the begin's text. */
-  constructor(
-    readonly s: string,
-    readonly end: boolean,
-  ) {}
-
-  read(): void {
-    this.alternation(true, false);
-    if (this.pos !== this.s.length) throw new Unread(`stopped at ${this.pos}`);
-  }
-
-  peek(): string | undefined {
-    return this.s[this.pos];
-  }
-
-  /** `strict` holds inside a lookbehind, whose atoms can read the run from
-   * anywhere in the match. */
-  alternation(inRun: boolean, strict: boolean): boolean {
-    let stays = this.sequence(inRun, strict);
-    while (this.peek() === "|") {
-      this.pos++;
-      stays = this.sequence(inRun, strict) || stays;
-    }
-    return stays;
-  }
-
-  sequence(inRun: boolean, strict: boolean): boolean {
-    let stays = inRun;
-    for (;;) {
-      this.skipExtended();
-      const c = this.peek();
-      if (c === undefined || c === "|" || c === ")") return stays;
-      stays = this.quantified(stays, strict);
-    }
-  }
-
-  skipExtended(): void {
-    while (this.extended) {
-      const c = this.peek();
-      if (c === " " || c === "\t" || c === "\n") this.pos++;
-      else if (c === "#") while (this.pos < this.s.length && this.peek() !== "\n") this.pos++;
-      else return;
-    }
-  }
-
-  quantified(inRun: boolean, strict: boolean): boolean {
-    const stays = this.atom(inRun, strict);
-    let optional = false;
-    for (;;) {
-      this.skipExtended();
-      const c = this.peek();
-      const bounds = c === "{" ? /^\{(\d*)(,?)(\d*)\}/.exec(this.s.slice(this.pos)) : null;
-      if (c === "*" || c === "?") optional = true;
-      else if (bounds !== null && (bounds[1] !== "" || bounds[3] !== "")) {
-        if (bounds[1] === "" || Number(bounds[1]) === 0) optional = true;
-      } else if (c !== "+") return optional ? inRun : stays;
-      this.pos += bounds?.[0].length ?? 1;
-      if (this.peek() === "?" || this.peek() === "+") this.pos++;
-    }
-  }
-
-  /** One character of the match that `members` decides. */
-  character(members: Members, inRun: boolean, strict: boolean): boolean {
-    if (ALIKE.some((cp) => members(cp) !== false))
-      for (const group of this.groups) if (!group.closed) group.alike = true;
-    if (!inRun && !strict) return false;
-    const alike = ALIKE.map(members);
-    if (alike.includes(null) || (alike.includes(true) && alike.includes(false)))
-      throw new Unread("a character that tells a wide space from a space");
-    return inRun && RUN.some((cp) => members(cp) === true);
-  }
-
-  atom(inRun: boolean, strict: boolean): boolean {
-    const c = this.peek()!;
-    if (c === "(") return this.group(inRun, strict);
-    if (c === "[") return this.character(this.characterClass(), inRun, strict);
-    if (c === "\\") return this.escape(inRun, strict);
-    const cp = this.s.codePointAt(this.pos)!;
-    this.pos += cp > 0xffff ? 2 : 1;
-    if (c === "^" || c === "$") return inRun;
-    if (c === ".") return this.character(all, inRun, strict);
-    return this.character((x) => x === cp, inRun, strict);
-  }
-
-  group(inRun: boolean, strict: boolean): boolean {
-    this.pos++;
-    const rest = this.s.slice(this.pos);
-    const outer = this.extended;
-    const flags = /^\?([imx]*)(?:-([imx]*))?(:|\))/.exec(rest);
-    let look: "ahead" | "behind" | null = null;
-    if (flags !== null) {
-      this.pos += flags[0].length;
-      if (flags[1]!.includes("x")) this.extended = true;
-      if (flags[2]?.includes("x")) this.extended = false;
-      if (flags[3] === ")") return inRun;
-    } else if (/^\?[=!]/.test(rest)) {
-      this.pos += 2;
-      look = "ahead";
-    } else if (/^\?<[=!]/.test(rest)) {
-      this.pos += 3;
-      look = "behind";
-    } else if (/^\?>/.test(rest)) this.pos += 2;
-    else if (/^\?<\w+>/.test(rest)) {
-      this.pos += /^\?<\w+>/.exec(rest)![0].length;
-      this.named = true;
-    } else if (/^\?#/.test(rest)) {
-      this.pos = this.s.indexOf(")", this.pos) + 1;
-      if (this.pos === 0) throw new Unread("an unclosed comment");
-      return inRun;
-    } else if (rest.startsWith("?")) throw new Unread(`the group ${rest.slice(0, 3)}`);
-    const name = /^\?<(\w+)>/.exec(rest)?.[1] ?? null;
-    const capture =
-      rest.startsWith("?") && name === null ? null : { name, closed: false, alike: false };
-    if (capture !== null) this.groups.push(capture);
-    const stays = this.alternation(inRun, strict || look === "behind");
-    if (this.peek() !== ")") throw new Unread("an unclosed group");
-    this.pos++;
-    this.extended = outer;
-    if (capture !== null) capture.closed = true;
-    return look === null ? stays : inRun;
-  }
-
-  escape(inRun: boolean, strict: boolean): boolean {
-    const e = this.s[this.pos + 1];
-    if (e === undefined) throw new Unread("a trailing backslash");
-    if ("bBAzZG".includes(e)) {
-      this.pos += 2;
-      return inRun;
-    }
-    if (/[1-9]/.test(e) || e === "k") return this.reference(inRun);
-    if (e === "g") return this.call(inRun, strict);
-    return this.character(this.escapedMembers(), inRun, strict);
-  }
-
-  /** A back reference, `\N` or `\k<name>`. It repeats text that holds no
-   * space and no wide space only when its group closed before it and
-   * matches neither.
-   * Then the repeated text reads the same in a run of spaces as in a mixed
-   * run. */
-  reference(inRun: boolean): boolean {
-    const reference = /^\\(?:(\d+)|k<(\w+)>)/.exec(this.s.slice(this.pos));
-    if (reference === null) throw new Unread("a back reference");
-    this.pos += reference[0].length;
-    const [, number, name] = reference;
-    const group =
-      name === undefined
-        ? this.named
-          ? undefined
-          : this.groups[Number(number) - 1]
-        : this.groups.find((g) => g.name === name);
-    if (this.end || group === undefined || !group.closed || group.alike)
-      throw new Unread("a back reference that can repeat a blank");
-    return inRun;
-  }
-
-  /** A call `\g<…>`, which runs a group's pattern again where it stands.
-   * It passes only once the match has left the run, outside a lookbehind. */
-  call(inRun: boolean, strict: boolean): boolean {
-    const call = /^\\g<\w+>/.exec(this.s.slice(this.pos));
-    if (call === null) throw new Unread("a call");
-    this.pos += call[0].length;
-    if (inRun || strict) throw new Unread("a call inside the run");
-    for (const group of this.groups) if (!group.closed) group.alike = true;
-    return false;
-  }
-
-  /** The members of the escape at `pos`, which it reads. */
-  escapedMembers(): Members {
-    const e = this.s[this.pos + 1]!;
-    this.pos += 2;
-    const simple: Record<string, Members> = {
-      s: isSpace,
-      S: not(isSpace),
-      w: none,
-      W: all,
-      d: none,
-      D: all,
-      h: none,
-      H: all,
-      N: all,
-      O: all,
-      t: (cp) => cp === 0x09,
-      n: none,
-      r: none,
-      f: none,
-      v: none,
-      e: none,
-      a: none,
-    };
-    if (e in simple) return simple[e]!;
-    if (e === "x" || e === "u" || e === "0") {
-      const cp = this.codePoint(e);
-      return (x) => x === cp;
-    }
-    if (e === "p" || e === "P") return this.property(e === "P");
-    if (/[A-Za-z]/.test(e)) throw new Unread(`the escape \\${e}`);
-    return (x) => x === e.codePointAt(0);
-  }
-
-  /** The code point of `\x`, `\u` or an octal `\0`, after the letter `e`. */
-  codePoint(e: string): number {
-    const digits =
-      e === "0"
-        ? /^[0-7]{0,2}/.exec(this.s.slice(this.pos))!
-        : /^(?:\{([0-9A-Fa-f]+)\}|[0-9A-Fa-f]{1,4})/.exec(this.s.slice(this.pos));
-    if (digits === null) throw new Unread(`\\${e} with no digits`);
-    this.pos += digits[0].length;
-    return e === "0" ? parseInt(digits[0] || "0", 8) : parseInt(digits[1] ?? digits[0], 16);
-  }
-
-  /** `\p{…}` or `\P{…}`, after the letter. Only properties that hold none of
-   * the characters in `RUN` are read. */
-  property(negated: boolean): Members {
-    const name = /^\{(\^?)(\w+)\}/.exec(this.s.slice(this.pos));
-    if (name === null) throw new Unread("a property");
-    this.pos += name[0].length;
-    if (
-      !/^(L[ultmo]?|Letter|Alpha|Alphabetic|Upper|Lower|Uppercase|Lowercase|N[dlo]?|Digit|M[cen]?|P[cdseifo]?|S[mcko]?|Word|XID_Start|XID_Continue|ID_Start|ID_Continue)$/.test(
-        name[2]!,
-      )
-    )
-      throw new Unread(`the property ${name[2]}`);
-    return negated !== (name[1] === "^") ? all : none;
-  }
-
-  characterClass(): Members {
-    this.pos++;
-    const negated = this.peek() === "^";
-    if (negated) this.pos++;
-    const members: Members[] = [];
-    let first = true;
-    while (this.peek() !== "]" || first) {
-      first = false;
-      if (this.pos >= this.s.length) throw new Unread("an unclosed class");
-      if (this.s.startsWith("&&", this.pos)) throw new Unread("a class intersection");
-      const posix = /^\[:(\^?)(\w+):\]/.exec(this.s.slice(this.pos));
-      if (posix !== null) {
-        this.pos += posix[0].length;
-        const name = posix[2]!;
-        let named: Members;
-        if (name === "space") named = isSpace;
-        else if (/^(alpha|alnum|digit|upper|lower|xdigit|punct|word|cntrl)$/.test(name))
-          named = none;
-        else throw new Unread(`the class [:${name}:]`);
-        members.push(posix[1] === "^" ? not(named) : named);
-        continue;
-      }
-      if (this.peek() === "[") {
-        members.push(this.characterClass());
-        continue;
-      }
-      const low = this.classCharacter();
-      if (typeof low !== "number") {
-        members.push(low);
-        continue;
-      }
-      if (this.peek() === "-" && this.s[this.pos + 1] !== "]") {
-        this.pos++;
-        const high = this.classCharacter();
-        if (typeof high !== "number") throw new Unread("a range that ends at a class");
-        members.push((x) => x >= low && x <= high);
-      } else members.push((x) => x === low);
-    }
-    this.pos++;
-    const any: Members = (cp) => {
-      const answers = members.map((m) => m(cp));
-      return answers.includes(true) ? true : answers.includes(null) ? null : false;
-    };
-    return negated ? not(any) : any;
-  }
-
-  /** One member of a class: a code point, or the members of an escape such
-   * as `\s` that stands for several. */
-  classCharacter(): number | Members {
-    const c = this.peek()!;
-    if (c !== "\\") {
-      const cp = this.s.codePointAt(this.pos)!;
-      this.pos += cp > 0xffff ? 2 : 1;
-      return cp;
-    }
-    const e = this.s[this.pos + 1];
-    if (e === undefined) throw new Unread("a trailing backslash");
-    const control: Record<string, number> = { t: 9, n: 10, v: 11, f: 12, r: 13, e: 27, a: 7 };
-    if (e in control) {
-      this.pos += 2;
-      return control[e]!;
-    }
-    if ("sSwWdDhHpP".includes(e)) return this.escapedMembers();
-    if (e === "x" || e === "u" || e === "0") {
-      this.pos += 2;
-      return this.codePoint(e);
-    }
-    if (/[A-Za-z0-9]/.test(e)) throw new Unread(`the escape \\${e} in a class`);
-    this.pos += 2;
-    return e.codePointAt(0)!;
-  }
-}
-
-/** Whether every match of `regex` that starts inside a run of spaces, tabs
- * and wide spaces treats each wide space of the run as a space.
- * The reader follows a match from such a start while it may still be inside
- * the run. Each character it can read there must match the space and every
- * wide space, or none of them.
- * A lookbehind can read back into the run from anywhere, so the same holds for
- * every character inside one.
- * A back reference passes only when it repeats a group of its own pattern
- * that holds no space and no wide space.
- * In an `end` pattern, `\N` repeats the begin's text, so it fails.
- * A call runs a group elsewhere, and the reader knows no other syntax, so each
- * of these fails the pattern too. */
-export function treatsWideSpacesAsSpaces(regex: string, end = false): boolean {
-  try {
-    new BlankRunReader(regex, end).read();
-    return true;
-  } catch (e) {
-    if (e instanceof Unread) return false;
-    throw e;
-  }
-}
-
 /** `Pattern::start`: the bytes each pattern can start at, and its anchors. */
 export function startTable(
-  patternById: { id: string; regex: string; act?: { role: string } }[],
+  patternById: { id: string; regex: string }[],
   backref: Backref = "quote",
 ): string {
   let starts = `
@@ -1324,12 +967,10 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
         match self {
 `;
   let wordsAtStart = false;
-  let mixedBlankRuns = true;
   starts += arms(
     patternById.map((p): [string, string] => {
       const { set, bol, any, wb, behind, atEnd, inWordFirst } = startOf(p.regex, backref);
       wordsAtStart ||= inWordFirst;
-      mixedBlankRuns &&= treatsWideSpacesAsSpaces(p.regex, p.act?.role === "end");
       const words = (any ? FULL() : set).map(hex).join(", ");
       // `^` keeps a match at the start of the line, a lookbehind that needs a
       // byte keeps it off there, and `\\b` or a lookbehind that fails after a
@@ -1354,10 +995,7 @@ ${tooLong}    pub(crate) fn start(self) -> Start {
   starts += `        }\n    }\n\n`;
   starts += `    /// Whether a pattern is tried inside a word at a scan's first position\n`;
   starts += `    /// though not past it ([\`rules::Tabled::WORDS_AT_START\`]).\n`;
-  starts += `    pub(crate) const WORDS_AT_START: bool = ${wordsAtStart};\n\n`;
-  starts += `    /// Whether every pattern treats a wide space as a space\n`;
-  starts += `    /// ([\`rules::Tabled::MIXED_BLANK_RUNS\`]).\n`;
-  starts += `    pub(crate) const MIXED_BLANK_RUNS: bool = ${mixedBlankRuns};\n}\n`;
+  starts += `    pub(crate) const WORDS_AT_START: bool = ${wordsAtStart};\n}\n`;
   return starts;
 }
 
@@ -1400,7 +1038,7 @@ impl Rule {
 
 impl rules::Tabled for ${engine} {
     const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
-    const MIXED_BLANK_RUNS: bool = Pattern::MIXED_BLANK_RUNS;
+    const MIXED_BLANK_RUNS: bool = rules::blank_runs::${tag};
 
     fn pattern_start(pattern: Pattern) -> rules::Start {
         pattern.start()

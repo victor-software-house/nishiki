@@ -13,9 +13,11 @@
 # Each src/<language>/grammar.rs listed here is generated from that
 # language's grammar and keeps the grammar's own words.
 # tests/engine/grammars/ holds Shiki's grammars as Shiki ships them.
+# codegen/patterns/ holds each rule grammar's patterns as its grammar spells them.
 # oracle/facts/ holds code points in hex, such as `AADB..AADD`.
 extend-exclude = [
   "*.lock",
+  "codegen/patterns/",
   "src/asm/grammar.rs",
   "src/asm/scope.rs",
   "src/asm/words.rs",

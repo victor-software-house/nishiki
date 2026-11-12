@@ -34,6 +34,7 @@ import {
   startOf,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -429,6 +430,8 @@ g += groupsCheck(
   "Julia",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+
+await writePatterns("julia", patternList);
 
 await writeRust(`${root_dir}src/julia/grammar.rs`, g);
 await writeRust(`${root_dir}src/julia/scope.rs`, scopeFile("julia-grammar.ts", "JULIA", scopes));

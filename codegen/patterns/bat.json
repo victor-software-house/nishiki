@@ -1,0 +1,502 @@
+{
+  "CommandsAt0": {
+    "role": "match",
+    "regex": "(?<=^|[@\\s])(?i:adprep|append|arp|assoc|at|atmadm|attrib|auditpol|autochk|autoconv|autofmt|bcdboot|bcdedit|bdehdcfg|bitsadmin|bootcfg|brea|cacls|cd|certreq|certutil|change|chcp|chdir|chglogon|chgport|chgusr|chkdsk|chkntfs|choice|cipher|clip|cls|clscluadmin|cluster|cmd|cmdkey|cmstp|color|comp|compact|convert|copy|cprofile|cscript|csvde|date|dcdiag|dcgpofix|dcpromo|defra|del|dfscmd|dfsdiag|dfsrmig|diantz|dir|dirquota|diskcomp|diskcopy|diskpart|diskperf|diskraid|diskshadow|dispdiag|doin|dnscmd|doskey|driverquery|dsacls|dsadd|dsamain|dsdbutil|dsget|dsmgmt|dsmod|dsmove|dsquery|dsrm|edit|endlocal|eraseesentutl|eventcreate|eventquery|eventtriggers|evntcmd|expand|extract|fc|filescrn|find|findstr|finger|flattemp|fonde|forfiles|format|freedisk|fsutil|ftp|ftype|fveupdate|getmac|gettype|gpfixup|gpresult|gpupdate|graftabl|hashgen|hep|helpctr|hostname|icacls|iisreset|inuse|ipconfig|ipxroute|irftp|ismserv|jetpack|klist|ksetup|ktmutil|ktpass|label|ldifd|ldp|lodctr|logman|logoff|lpq|lpr|macfile|makecab|manage-bde|mapadmin|md|mkdir|mklink|mmc|mode|more|mount|mountvol|move|mqbup|mqsvc|mqtgsvc|msdt|msg|msiexec|msinfo32|mstsc|nbtstat|net computer|net group|net localgroup|net print|net session|net share|net start|net stop|net user??|net view|net|netcfg|netdiag|netdom|netsh|netstat|nfsadmin|nfsshare|nfsstat|nlb|nlbmgr|nltest|nslookup|ntackup|ntcmdprompt|ntdsutil|ntfrsutl|openfiles|pagefileconfig|path|pathping|pause|pbadmin|pentnt|perfmon|ping|pnpunatten|pnputil|popd|powercfg|powershell|powershell_ise|print|prncnfg|prndrvr|prnjobs|prnmngr|prnport|prnqctl|prompt|pubprn|pushd|pushprinterconnections|pwlauncher|qappsrv|qprocess|query|quser|qwinsta|rasdial|rcp|rd|rdpsign|regentc|recover|redircmp|redirusr|reg|regini|regsvr32|relog|ren|rename|rendom|repadmin|repair-bde|replace|reset session|rxec|risetup|rmdir|robocopy|route|rpcinfo|rpcping|rsh|runas|rundll32|rwinsta|sc|schtasks|scp|scwcmd|secedit|serverceipoptin|servrmanagercmd|serverweroptin|setspn|setx|sfc|sftp|shadow|shift|showmount|shutdown|sort|ssh|ssh-add|ssh-agent|ssh-keygen|ssh-keyscan|start|storrept|subst|sxstrace|ysocmgr|systeminfo|takeown|tapicfg|taskkill|tasklist|tcmsetup|telnet|tftp|time|timeout|title|tlntadmn|tpmvscmgr|tacerpt|tracert|tree|tscon|tsdiscon|tsecimp|tskill|tsprof|type|typeperf|tzutil|uddiconfig|umount|unlodctr|ver|verifier|verif|vol|vssadmin|w32tm|waitfor|wbadmin|wdsutil|wecutil|wevtutil|where|whoami|winnt|winnt32|winpop|winrm|winrs|winsat|wlbs|wmic|wscript|wsl|xcopy)(?=$|\\s)"
+  },
+  "CommandsAt1": {
+    "role": "begin",
+    "regex": "(?i)(?<=^|[@\\s])(echo)(?:(?=$|[.:])|\\s+(?:(o(?:n|ff))(?=\\s*$))?)"
+  },
+  "CommandsAt1End": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "EscapedCharactersAt0": {
+    "role": "match",
+    "regex": "%%|\\^\\^!|\\^(?=.)|\\^\\n"
+  },
+  "VariablesAt0": {
+    "role": "match",
+    "regex": "(%)(?:(?i:~[adfnpstxz]*(?:\\$PATH:)?)?\\d|\\*)"
+  },
+  "VariableAt0": {
+    "role": "begin",
+    "regex": "%(?=[^%]+%)"
+  },
+  "VariableAt0End": {
+    "role": "end",
+    "regex": "(%)|\\n"
+  },
+  "VariableAt0At0": {
+    "role": "begin",
+    "regex": ":~"
+  },
+  "VariableAt0At0End": {
+    "role": "end",
+    "regex": "(?=[\\n%])"
+  },
+  "VariableSubstringAt0": {
+    "role": "match",
+    "regex": "([-+]?\\d+)(?:(,)([-+]?\\d+))?"
+  },
+  "VariableAt0At1": {
+    "role": "begin",
+    "regex": ":"
+  },
+  "VariableAt0At1End": {
+    "role": "end",
+    "regex": "(?=[\\n%])"
+  },
+  "VariableReplaceAt0": {
+    "role": "match",
+    "regex": "[^\\n!%=]+"
+  },
+  "VariableAt0At1At1": {
+    "role": "begin",
+    "regex": "="
+  },
+  "VariableAt0At1At1End": {
+    "role": "end",
+    "regex": "(?=[\\n%])"
+  },
+  "VariableDelayedExpansionAt0": {
+    "role": "begin",
+    "regex": "!(?=[^!]+!)"
+  },
+  "VariableDelayedExpansionAt0End": {
+    "role": "end",
+    "regex": "(!)|\\n"
+  },
+  "VariableDelayedExpansionAt0At0": {
+    "role": "begin",
+    "regex": ":~"
+  },
+  "VariableDelayedExpansionAt0At0End": {
+    "role": "end",
+    "regex": "(?=[\\n!])"
+  },
+  "VariableDelayedExpansionAt0At1": {
+    "role": "begin",
+    "regex": ":"
+  },
+  "VariableDelayedExpansionAt0At1End": {
+    "role": "end",
+    "regex": "(?=[\\n!])"
+  },
+  "VariableDelayedExpansionAt0At1At3": {
+    "role": "begin",
+    "regex": "="
+  },
+  "VariableDelayedExpansionAt0At1At3End": {
+    "role": "end",
+    "regex": "(?=[\\n!])"
+  },
+  "VariableDelayedExpansionAt0At1At3At1": {
+    "role": "match",
+    "regex": "[^!]+"
+  },
+  "VariableAt0At1At1At1": {
+    "role": "match",
+    "regex": "[^%]+"
+  },
+  "NumbersAt0": {
+    "role": "match",
+    "regex": "(?<=^|[=\\s])(0[Xx]\\h*|[-+]?\\d+)(?=$|[<>\\s])"
+  },
+  "StringsAt0": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringsAt0End": {
+    "role": "end",
+    "regex": "(\")|(\\n)"
+  },
+  "StringsAt0At0": {
+    "role": "match",
+    "regex": "%%"
+  },
+  "CommandsAt2": {
+    "role": "match",
+    "regex": "(?i)(?<=^|[@\\s])(setlocal)(?:\\s*$|\\s+((?:En|Dis)able(?:Extensions|DelayedExpansion))(?=\\s*$))"
+  },
+  "CommandSetAt0": {
+    "role": "begin",
+    "regex": "(?<=^|[@\\s])(?i:SET)(?=$|\\s)"
+  },
+  "CommandSetAt0End": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "ParensAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParensAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ParensAt0At0": {
+    "role": "match",
+    "regex": "[,;]"
+  },
+  "CommentsAt0": {
+    "role": "begin",
+    "regex": "(?:^|(&))\\s*(?=(:[ +,:;=]))"
+  },
+  "CommentsAt0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentsAt0At0": {
+    "role": "begin",
+    "regex": "(:[ +,:;=])"
+  },
+  "CommentsAt0At0End": {
+    "role": "end",
+    "regex": "(?=\\n)"
+  },
+  "CommentsAt1": {
+    "role": "begin",
+    "regex": "(?<=^|[@\\s])(?i)(REM)(\\.)"
+  },
+  "CommentsAt1End": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommentsAt2": {
+    "role": "begin",
+    "regex": "(?<=^|[@\\s])(?i:rem)\\b"
+  },
+  "CommentsAt2End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentsAt2At0": {
+    "role": "match",
+    "regex": "[<>|]"
+  },
+  "ConstantsAt0": {
+    "role": "match",
+    "regex": "\\b(?i:NUL)\\b"
+  },
+  "ControlsAt0": {
+    "role": "match",
+    "regex": "(?i)(?<=^|\\s)(?:call|exit(?=$|\\s)|goto(?=$|[:\\s]))"
+  },
+  "ControlsAt1": {
+    "role": "match",
+    "regex": "(?<=^|\\s)(?i)(if)\\s+(?:(not)\\s+)?(exist|defined|errorlevel|cmdextversion)(?=\\s)"
+  },
+  "ControlsAt2": {
+    "role": "match",
+    "regex": "(?<=^|\\s)(?i)(?:if|else)(?=$|\\s)"
+  },
+  "ControlsAt3": {
+    "role": "begin",
+    "regex": "(?<=^|[\\&(^\\s])(?i)for(?=\\s)"
+  },
+  "LabelsAt0": {
+    "role": "match",
+    "regex": "(?i)(?:^\\s*|(?<=call|goto)\\s*)(:)([^+,:;=\\s]\\S*)"
+  },
+  "OperatorsAt0": {
+    "role": "match",
+    "regex": "@(?=\\S)"
+  },
+  "OperatorsAt1": {
+    "role": "match",
+    "regex": "(?<=\\s)(?i:EQU|NEQ|LSS|LEQ|GTR|GEQ)(?=\\s)|=="
+  },
+  "OperatorsAt2": {
+    "role": "match",
+    "regex": "(?<=\\s)(?i)(NOT)(?=\\s)"
+  },
+  "OperatorsAt3": {
+    "role": "match",
+    "regex": "(?<!\\^)&&?|\\|\\|"
+  },
+  "OperatorsAt4": {
+    "role": "match",
+    "regex": "(?<!\\^)\\|"
+  },
+  "OperatorsAt5": {
+    "role": "match",
+    "regex": "<&?|>[\\&>]?"
+  },
+  "CommandSetStringsAt0": {
+    "role": "begin",
+    "regex": "(\")\\s*([^ ][^=]*)(=)"
+  },
+  "CommandSetStringsAt0End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CommandSetInsideAt6": {
+    "role": "begin",
+    "regex": "([^ ][^=]*)(=)"
+  },
+  "CommandSetInsideAt6End": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandSetInsideAt7": {
+    "role": "begin",
+    "regex": "\\s+/[Aa]\\s+"
+  },
+  "CommandSetInsideAt7End": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandSetInsideAt7At0": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "CommandSetInsideAt7At0End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CommandSetOperatorsAt0": {
+    "role": "match",
+    "regex": "([^ ]*)((?:[-*+/]|%%|[\\&^|]|<<|>>)=)"
+  },
+  "CommandSetOperatorsAt1": {
+    "role": "match",
+    "regex": "[-*+/]|%%|[\\&^|]|<<|>>|~"
+  },
+  "CommandSetOperatorsAt2": {
+    "role": "match",
+    "regex": "!"
+  },
+  "CommandSetOperatorsAt3": {
+    "role": "match",
+    "regex": "([^ =]*)(=)"
+  },
+  "CommandSetInsideArithmeticAt2": {
+    "role": "match",
+    "regex": ","
+  },
+  "CommandSetGroupAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CommandSetGroupAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CommandSetInsideAt8": {
+    "role": "begin",
+    "regex": "\\s+/[Pp]\\s+"
+  },
+  "CommandSetInsideAt8End": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandSetInsideAt8At1": {
+    "role": "begin",
+    "regex": "([^ ][^=]*)(=)"
+  },
+  "CommandSetInsideAt8At1End": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "RepeatParameterAt0": {
+    "role": "match",
+    "regex": "(%%)(?i:~[adfnpstxz]*(?:\\$PATH:)?)?[A-Za-z]"
+  },
+  "CommandsAt1InFor": {
+    "role": "begin",
+    "regex": "(?i)(?<=^|[@\\s])(echo)(?:(?=$|[.:])|\\s+(?:(o(?:n|ff))(?=\\s*$))?)"
+  },
+  "VariableAt0InFor": {
+    "role": "begin",
+    "regex": "%(?=[^%]+%)"
+  },
+  "VariableAt0At0InFor": {
+    "role": "begin",
+    "regex": ":~"
+  },
+  "VariableAt0At1InFor": {
+    "role": "begin",
+    "regex": ":"
+  },
+  "VariableAt0At1At1InFor": {
+    "role": "begin",
+    "regex": "="
+  },
+  "VariableDelayedExpansionAt0InFor": {
+    "role": "begin",
+    "regex": "!(?=[^!]+!)"
+  },
+  "VariableDelayedExpansionAt0At0InFor": {
+    "role": "begin",
+    "regex": ":~"
+  },
+  "VariableDelayedExpansionAt0At1InFor": {
+    "role": "begin",
+    "regex": ":"
+  },
+  "VariableDelayedExpansionAt0At1At3InFor": {
+    "role": "begin",
+    "regex": "="
+  },
+  "StringsAt0InFor": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "CommandSetAt0InFor": {
+    "role": "begin",
+    "regex": "(?<=^|[@\\s])(?i:SET)(?=$|\\s)"
+  },
+  "ParensAt0InFor": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CommentsAt0InFor": {
+    "role": "begin",
+    "regex": "(?:^|(&))\\s*(?=(:[ +,:;=]))"
+  },
+  "CommentsAt0At0InFor": {
+    "role": "begin",
+    "regex": "(:[ +,:;=])"
+  },
+  "CommentsAt1InFor": {
+    "role": "begin",
+    "regex": "(?<=^|[@\\s])(?i)(REM)(\\.)"
+  },
+  "CommentsAt2InFor": {
+    "role": "begin",
+    "regex": "(?<=^|[@\\s])(?i:rem)\\b"
+  },
+  "ControlsAt3At0InFor": {
+    "role": "begin",
+    "regex": "(?<=[\\^\\s])(?i)in(?=\\s)"
+  },
+  "CommandSetStringsAt0InFor": {
+    "role": "begin",
+    "regex": "(\")\\s*([^ ][^=]*)(=)"
+  },
+  "CommandSetInsideAt6InFor": {
+    "role": "begin",
+    "regex": "([^ ][^=]*)(=)"
+  },
+  "CommandSetInsideAt7InFor": {
+    "role": "begin",
+    "regex": "\\s+/[Aa]\\s+"
+  },
+  "CommandSetInsideAt7At0InFor": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "CommandSetGroupAt0InFor": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "CommandSetInsideAt8InFor": {
+    "role": "begin",
+    "regex": "\\s+/[Pp]\\s+"
+  },
+  "CommandSetInsideAt8At1InFor": {
+    "role": "begin",
+    "regex": "([^ ][^=]*)(=)"
+  },
+  "ControlsAt3EndInFor": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "VariableDelayedExpansionAt0EndInFor": {
+    "role": "end",
+    "regex": "(!)|\\n"
+  },
+  "VariableDelayedExpansionAt0At1EndInFor": {
+    "role": "end",
+    "regex": "(?=[\\n!])"
+  },
+  "VariableDelayedExpansionAt0At1At3EndInFor": {
+    "role": "end",
+    "regex": "(?=[\\n!])"
+  },
+  "VariableAt0EndInFor": {
+    "role": "end",
+    "regex": "(%)|\\n"
+  },
+  "VariableAt0At1EndInFor": {
+    "role": "end",
+    "regex": "(?=[\\n%])"
+  },
+  "VariableAt0At1At1EndInFor": {
+    "role": "end",
+    "regex": "(?=[\\n%])"
+  },
+  "VariableAt0At0EndInFor": {
+    "role": "end",
+    "regex": "(?=[\\n%])"
+  },
+  "VariableDelayedExpansionAt0At0EndInFor": {
+    "role": "end",
+    "regex": "(?=[\\n!])"
+  },
+  "StringsAt0EndInFor": {
+    "role": "end",
+    "regex": "(\")|(\\n)"
+  },
+  "ParensAt0EndInFor": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CommentsAt2EndInFor": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentsAt1EndInFor": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommentsAt0EndInFor": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentsAt0At0EndInFor": {
+    "role": "end",
+    "regex": "(?=\\n)"
+  },
+  "CommandSetAt0EndInFor": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandSetInsideAt8EndInFor": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandSetInsideAt8At1EndInFor": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandSetStringsAt0EndInFor": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CommandSetInsideAt7EndInFor": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandSetGroupAt0EndInFor": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CommandSetInsideAt7At0EndInFor": {
+    "role": "end",
+    "regex": "\""
+  },
+  "CommandSetInsideAt6EndInFor": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "CommandsAt1EndInFor": {
+    "role": "end",
+    "regex": "(?=$\\n|[\\&)<>|])"
+  },
+  "ControlsAt3At0EndInFor": {
+    "role": "end",
+    "regex": "(?<=[)^\\s])(?i)do(?=\\s)|\\n"
+  }
+}

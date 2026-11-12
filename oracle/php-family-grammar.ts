@@ -23,6 +23,7 @@ import {
   startOf,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -849,6 +850,7 @@ export async function generate(cfg: Family): Promise<void> {
     .join(captured ? groupVariant : "")
     .split(GROUP_ARM)
     .join(captured ? groupArm : "");
+  await writePatterns(cfg.dir, patternList);
   await writeRust(`${root_dir}src/${cfg.dir}/grammar.rs`, g);
   await dropShortExpects(`${root_dir}src/${cfg.dir}/grammar.rs`);
   await writeRust(`${root_dir}src/${cfg.dir}/words.rs`, w);

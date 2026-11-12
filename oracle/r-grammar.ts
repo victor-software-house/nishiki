@@ -26,6 +26,7 @@ import {
   startOf,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -358,6 +359,8 @@ g += groupsCheck(
   "R",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("r", patternList);
 
 await writeRust(`${root_dir}src/r/grammar.rs`, g);
 await writeRust(`${root_dir}src/r/scope.rs`, scopeFile("r-grammar.ts", "R", scopes));

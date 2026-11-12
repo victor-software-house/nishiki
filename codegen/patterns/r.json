@@ -1,0 +1,274 @@
+{
+  "BracketsAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "BracketsAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Roxygen": {
+    "role": "begin",
+    "regex": "^(\\s*#+')"
+  },
+  "RoxygenEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "MarkdownAt0": {
+    "role": "begin",
+    "regex": "(`{3,})\\s*(.*)"
+  },
+  "MarkdownAt0End": {
+    "role": "end",
+    "regex": "(\\1)"
+  },
+  "MarkdownAt0At0": {
+    "role": "match",
+    "regex": "^\\s*#+'"
+  },
+  "MarkdownAt1": {
+    "role": "match",
+    "regex": "(\\[)(?:(\\w+)(:{2,3}))?(\\w+)(\\(\\))?(])"
+  },
+  "MarkdownAt2": {
+    "role": "match",
+    "regex": "(\\s+|^)(__.+?__)\\b"
+  },
+  "MarkdownAt3": {
+    "role": "match",
+    "regex": "(\\s+|^)(_(?=[^_])(?:\\\\.|[^\\\\_])*?_)\\b"
+  },
+  "MarkdownAt4": {
+    "role": "match",
+    "regex": "(\\*\\*.+?\\*\\*)"
+  },
+  "MarkdownAt5": {
+    "role": "match",
+    "regex": "(\\*(?=[^*\\s])(?:\\\\.|[^*\\\\])*?\\*)"
+  },
+  "MarkdownAt6": {
+    "role": "match",
+    "regex": "(`(?:[^\\\\`]|\\\\.)*`)"
+  },
+  "MarkdownAt7": {
+    "role": "match",
+    "regex": "(<)([^>]*)(>)"
+  },
+  "RoxygenTokensAt0": {
+    "role": "match",
+    "regex": "@@"
+  },
+  "RoxygenTokensAt1": {
+    "role": "begin",
+    "regex": "(@(?:param|field|slot))\\s*"
+  },
+  "RoxygenTokensAt1End": {
+    "role": "end",
+    "regex": "\\s|$"
+  },
+  "RoxygenTokensAt1At0": {
+    "role": "match",
+    "regex": "([.\\w]+)"
+  },
+  "RoxygenTokensAt1At1": {
+    "role": "match",
+    "regex": ","
+  },
+  "RoxygenTokensAt2": {
+    "role": "match",
+    "regex": "@(?!@)\\w*"
+  },
+  "Latex": {
+    "role": "match",
+    "regex": "\\\\\\w+"
+  },
+  "RoxygenAt3": {
+    "role": "match",
+    "regex": "."
+  },
+  "Comment": {
+    "role": "match",
+    "regex": "#.*"
+  },
+  "BracketsAt1": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "BracketsAt1End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "BracketsAt1At0": {
+    "role": "match",
+    "regex": "([.\\w]+)\\s*(?==[^=])"
+  },
+  "BracketsAt2": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "BracketsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "RawStringsAt0": {
+    "role": "begin",
+    "regex": "[Rr]\"(-*)\\{"
+  },
+  "RawStringsAt0End": {
+    "role": "end",
+    "regex": "}\\1\""
+  },
+  "RawStringsAt1": {
+    "role": "begin",
+    "regex": "[Rr]'(-*)\\{"
+  },
+  "RawStringsAt1End": {
+    "role": "end",
+    "regex": "}\\1'"
+  },
+  "RawStringsAt2": {
+    "role": "begin",
+    "regex": "[Rr]\"(-*)\\["
+  },
+  "RawStringsAt2End": {
+    "role": "end",
+    "regex": "]\\1\""
+  },
+  "RawStringsAt3": {
+    "role": "begin",
+    "regex": "[Rr]'(-*)\\["
+  },
+  "RawStringsAt3End": {
+    "role": "end",
+    "regex": "]\\1'"
+  },
+  "RawStringsAt4": {
+    "role": "begin",
+    "regex": "[Rr]\"(-*)\\("
+  },
+  "RawStringsAt4End": {
+    "role": "end",
+    "regex": "\\)\\1\""
+  },
+  "RawStringsAt5": {
+    "role": "begin",
+    "regex": "[Rr]'(-*)\\("
+  },
+  "RawStringsAt5End": {
+    "role": "end",
+    "regex": "\\)\\1'"
+  },
+  "Qstring": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "QstringEnd": {
+    "role": "end",
+    "regex": "'"
+  },
+  "EscapeCode": {
+    "role": "match",
+    "regex": "\\\\[\"'\\\\`abefnrtv]"
+  },
+  "EscapeHex": {
+    "role": "match",
+    "regex": "\\\\x\\h+"
+  },
+  "EscapeOctal": {
+    "role": "match",
+    "regex": "\\\\\\d{1,3}"
+  },
+  "EscapeUnicode": {
+    "role": "match",
+    "regex": "\\\\[Uu](?:\\h+|\\{\\h+})"
+  },
+  "EscapeInvalid": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "Qqstring": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "QqstringEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "FunctionDefinition": {
+    "role": "begin",
+    "regex": "(function)\\s*(\\()"
+  },
+  "FunctionDefinitionEnd": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "FunctionDefinitionAt0": {
+    "role": "begin",
+    "regex": "([.\\w]+)"
+  },
+  "FunctionDefinitionAt0End": {
+    "role": "end",
+    "regex": "(?=[),])"
+  },
+  "KeywordsControl": {
+    "role": "match",
+    "regex": "(?:\\\\|function|if|else|in|break|next|repeat|for|while)\\b"
+  },
+  "KeywordsBuiltin": {
+    "role": "match",
+    "regex": "(?:setGroupGeneric|setRefClass|setGeneric|NextMethod|setMethod|UseMethod|tryCatch|setClass|warning|require|library|R6Class|return|switch|attach|detach|source|stop|try)(?=\\()"
+  },
+  "KeywordsConstant": {
+    "role": "match",
+    "regex": "(?:NA_character_|NA_integer_|NA_complex_|NA_real_|TRUE|FALSE|NULL|Inf|NaN|NA)\\b"
+  },
+  "NamespaceCall": {
+    "role": "match",
+    "regex": "(?<![.0-9A-Z_a-z])([.A-Z_a-z][.0-9A-Z_a-z]*)(:::?)"
+  },
+  "FunctionCall": {
+    "role": "match",
+    "regex": "([.\\w]+)(?=\\()"
+  },
+  "IdentifierSyntactic": {
+    "role": "match",
+    "regex": "[.\\p{L}\\p{Nl}][.\\p{L}\\p{Nl}\\p{Mn}\\p{Mc}\\d\\p{Pc}]*"
+  },
+  "IdentifierQuoted": {
+    "role": "begin",
+    "regex": "`"
+  },
+  "IdentifierQuotedEnd": {
+    "role": "end",
+    "regex": "`"
+  },
+  "IdentifierQuotedAt0": {
+    "role": "match",
+    "regex": "\\\\`"
+  },
+  "NumbersAt0": {
+    "role": "match",
+    "regex": "0[Xx]\\h+(?:p[-+]?\\d+)?[Li]?"
+  },
+  "NumbersAt1": {
+    "role": "match",
+    "regex": "(?:\\d+(?:\\.\\d*)?|\\.\\d+)(?:[Ee][-+]?\\d*)?[Li]?"
+  },
+  "Operators": {
+    "role": "match",
+    "regex": "%.*?%|:::?|:=|\\|>|=>|%%|>=|<=|==|!=|<<-|->>?|<-|\\|\\||&&|[-+=]|\\*\\*?|[!$\\&,/:<>?@^|~]"
+  },
+  "RoxygenExample": {
+    "role": "begin",
+    "regex": "^(\\s*#+')\\s*(?:(@examples)\\s*|(@examplesIf)\\s+(.*))$"
+  },
+  "RoxygenExampleEnd": {
+    "role": "end",
+    "regex": "^(?:\\s*(?=#+'\\s*@)|\\s*(?!#+'))"
+  },
+  "RoxygenExampleAt1": {
+    "role": "match",
+    "regex": "[]()\\[{}]"
+  }
+}

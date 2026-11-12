@@ -15,6 +15,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -299,6 +300,8 @@ g += groupsCheck(
   "Dart",
   patternList.flatMap((p) => [...p.captures.map(([n]) => n), ...p.nested.map(([n]) => n)]),
 );
+
+await writePatterns("dart", patternList);
 
 await writeRust(`${root_dir}src/dart/grammar.rs`, g);
 

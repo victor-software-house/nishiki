@@ -25,6 +25,7 @@ import {
   startOf,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -327,6 +328,8 @@ g += groupsCheck(
   "Mermaid",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+
+await writePatterns("mermaid", patternList);
 
 await writeRust(`${root_dir}src/mermaid/grammar.rs`, g);
 await writeRust(

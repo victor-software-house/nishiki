@@ -48,6 +48,7 @@ import {
   startTable,
   takesOneBlank,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -448,6 +449,7 @@ g += groupsCheck(
   "Asm",
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
+await writePatterns("asm", patternList);
 await writeRust(`${root_dir}src/asm/grammar.rs`, g);
 
 // Spellings with `ß` or a ligature.

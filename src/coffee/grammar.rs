@@ -3393,10 +3393,6 @@ impl Pattern {
     /// Whether a pattern is tried inside a word at a scan's first position
     /// though not past it ([`rules::Tabled::WORDS_AT_START`]).
     pub(crate) const WORDS_AT_START: bool = false;
-
-    /// Whether every pattern treats a wide space as a space
-    /// ([`rules::Tabled::MIXED_BLANK_RUNS`]).
-    pub(crate) const MIXED_BLANK_RUNS: bool = true;
 }
 
 const _: () = assert!(
@@ -3430,7 +3426,7 @@ impl Rule {
 
 impl rules::Tabled for Coffee {
     const WORDS_AT_START: bool = Pattern::WORDS_AT_START;
-    const MIXED_BLANK_RUNS: bool = Pattern::MIXED_BLANK_RUNS;
+    const MIXED_BLANK_RUNS: bool = rules::blank_runs::COFFEE;
 
     fn pattern_start(pattern: Pattern) -> rules::Start {
         pattern.start()

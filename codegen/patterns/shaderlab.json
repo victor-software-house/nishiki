@@ -1,0 +1,158 @@
+{
+  "LineComment": {
+    "role": "begin",
+    "regex": "//"
+  },
+  "LineCommentEnd": {
+    "role": "end",
+    "regex": "$"
+  },
+  "BasicType": {
+    "role": "match",
+    "regex": "\\b(?i:Range|Float|Int|Color|Vector|2D|3D|Cube|Any)\\b"
+  },
+  "Number": {
+    "role": "match",
+    "regex": "\\b([0-9]+\\.?[0-9]*)\\b"
+  },
+  "Structure": {
+    "role": "match",
+    "regex": "\\b(?i:Shader|Properties|SubShader|Pass|Category)\\b"
+  },
+  "PropertyName": {
+    "role": "match",
+    "regex": "\\b(?i:Name|Tags|Fallback|CustomEditor|Cull|ZWrite|ZTest|Offset|Blend|BlendOp|ColorMask|AlphaToMask|LOD|Lighting|Stencil|Ref|ReadMask|WriteMask|Comp|CompBack|CompFront|Fail|ZFail|UsePass|GrabPass|Dependency|Material|Diffuse|Ambient|Shininess|Specular|Emission|Fog|Mode|Density|SeparateSpecular|SetTexture|Combine|ConstantColor|Matrix|AlphaTest|ColorMaterial|BindChannels|Bind)\\b"
+  },
+  "PropertyValue": {
+    "role": "match",
+    "regex": "\\b(?i:Back|Front|On|Off|[ABGR]{1,3}|AmbientAndDiffuse|Emission)\\b"
+  },
+  "ComparisonFunction": {
+    "role": "match",
+    "regex": "\\b(?i:Less|Greater|LEqual|GEqual|Equal|NotEqual|Always|Never)\\b"
+  },
+  "StencilOperation": {
+    "role": "match",
+    "regex": "\\b(?i:Keep|Zero|Replace|IncrSat|DecrSat|Invert|IncrWrap|DecrWrap)\\b"
+  },
+  "TextureCombiners": {
+    "role": "match",
+    "regex": "\\b(?i:Previous|Primary|Texture|Constant|Lerp|Double|Quad|Alpha)\\b"
+  },
+  "Fog": {
+    "role": "match",
+    "regex": "\\b(?i:Global|Linear|Exp2?)\\b"
+  },
+  "BindChannels": {
+    "role": "match",
+    "regex": "\\b(?i:Vertex|Normal|Tangent|TexCoord0|TexCoord1)\\b"
+  },
+  "BlendOperations": {
+    "role": "match",
+    "regex": "\\b(?i:Add|Sub|RevSub|Min|Max|LogicalClear|LogicalSet|LogicalCopyInverted|LogicalCopy|LogicalNoop|LogicalInvert|LogicalAnd|LogicalNand|LogicalOr|LogicalNor|LogicalXor|LogicalEquiv|LogicalAndReverse|LogicalAndInverted|LogicalOrReverse|LogicalOrInverted)\\b"
+  },
+  "BlendFactors": {
+    "role": "match",
+    "regex": "\\b(?i:One|Zero|SrcColor|SrcAlpha|DstColor|DstAlpha|OneMinusSrcColor|OneMinusSrcAlpha|OneMinusDstColor|OneMinusDstAlpha)\\b"
+  },
+  "Reference": {
+    "role": "match",
+    "regex": "\\[([A-Z_a-z][0-9A-Z_a-z]*)](?!\\s*[A-Z_a-z][0-9A-Z_a-z]*\\s*\\(\")"
+  },
+  "Attribute": {
+    "role": "begin",
+    "regex": "(\\[)"
+  },
+  "AttributeEnd": {
+    "role": "end",
+    "regex": "(])"
+  },
+  "AttributeAt0": {
+    "role": "match",
+    "regex": "\\G([A-Za-z]+)\\b"
+  },
+  "Declaration": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\s*\\("
+  },
+  "CgBlock": {
+    "role": "begin",
+    "regex": "\\b(CG(?:PROGRAM|INCLUDE))\\b"
+  },
+  "CgBlockEnd": {
+    "role": "end",
+    "regex": "\\b(ENDCG)\\b"
+  },
+  "Fixed": {
+    "role": "match",
+    "regex": "\\b(fixed([1-4](x[1-4])?)?)\\b"
+  },
+  "Transformations": {
+    "role": "match",
+    "regex": "\\b(UNITY_MATRIX_MVP?|UNITY_MATRIX_M|UNITY_MATRIX_V|UNITY_MATRIX_P|UNITY_MATRIX_VP|UNITY_MATRIX_T_MV|UNITY_MATRIX_I_V|UNITY_MATRIX_IT_MV|_Object2World|_World2Object|unity_ObjectToWorld|unity_WorldToObject)\\b"
+  },
+  "Camera": {
+    "role": "match",
+    "regex": "\\b(_WorldSpaceCameraPos|_ProjectionParams|_ScreenParams|_ZBufferParams|unity_OrthoParams|unity_CameraProjection|unity_CameraInvProjection|unity_CameraWorldClipPlanes)\\b"
+  },
+  "Time": {
+    "role": "match",
+    "regex": "\\b((?:_|_Sin|_Cos|unity_Delta)Time)\\b"
+  },
+  "Lighting": {
+    "role": "match",
+    "regex": "\\b(_LightColor0|_WorldSpaceLightPos0|_LightMatrix0|unity_4LightPosX0|unity_4LightPosY0|unity_4LightPosZ0|unity_4LightAtten0|unity_LightColor|_LightColor|unity_LightPosition|unity_LightAtten|unity_SpotDirection)\\b"
+  },
+  "FogVariable": {
+    "role": "match",
+    "regex": "\\b(unity_AmbientSky|unity_AmbientEquator|unity_AmbientGround|UNITY_LIGHTMODEL_AMBIENT|unity_FogColor|unity_FogParams)\\b"
+  },
+  "Various": {
+    "role": "match",
+    "regex": "\\b(unity_LODFade)\\b"
+  },
+  "TargetPlatform": {
+    "role": "match",
+    "regex": "\\b(SHADER_API_(?:D3D9|D3D11|GLCORE|OPENGL|GLES3??|METAL|D3D11_9X|PSSL|XBOXONE|PSP2|WIIU|MOBILE|GLSL))\\b"
+  },
+  "TargetModel": {
+    "role": "match",
+    "regex": "\\b(SHADER_TARGET)\\b"
+  },
+  "UnityVersion": {
+    "role": "match",
+    "regex": "\\b(UNITY_VERSION)\\b"
+  },
+  "PlatformDifference": {
+    "role": "match",
+    "regex": "\\b(UNITY_(?:BRANCH|FLATTEN|NO_SCREENSPACE_SHADOWS|NO_LINEAR_COLORSPACE|NO_RGBM|NO_DXT5nm|FRAMEBUFFER_FETCH_AVAILABLE|USE_RGBA_FOR_POINT_SHADOWS|ATTEN_CHANNEL|HALF_TEXEL_OFFSET|UV_STARTS_AT_TOP|MIGHT_NOT_HAVE_DEPTH_Texture|NEAR_CLIP_VALUE|VPOS_TYPE|CAN_COMPILE_TESSELLATION|COMPILER_HLSL|COMPILER_HLSL2GLSL|COMPILER_CG|REVERSED_Z))\\b"
+  },
+  "Texture2D": {
+    "role": "match",
+    "regex": "\\b(UNITY_PASS_(?:FORWARDBASE|FORWARDADD|DEFERRED|SHADOWCASTER|PREPASSBASE|PREPASSFINAL))\\b"
+  },
+  "Structures": {
+    "role": "match",
+    "regex": "\\b(appdata_(?:base|tan|full|img))\\b"
+  },
+  "Surface": {
+    "role": "match",
+    "regex": "\\b(SurfaceOutputStandardSpecular|SurfaceOutputStandard|SurfaceOutput|Input)\\b"
+  },
+  "HlslBlock": {
+    "role": "begin",
+    "regex": "\\b(HLSL(?:PROGRAM|INCLUDE))\\b"
+  },
+  "HlslBlockEnd": {
+    "role": "end",
+    "regex": "\\b(ENDHLSL)\\b"
+  },
+  "String": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringEnd": {
+    "role": "end",
+    "regex": "\""
+  }
+}

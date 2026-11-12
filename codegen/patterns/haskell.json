@@ -1,0 +1,782 @@
+{
+  "LiquidHaskell": {
+    "role": "begin",
+    "regex": "\\{-@"
+  },
+  "LiquidHaskellEnd": {
+    "role": "end",
+    "regex": "@-}"
+  },
+  "Cpp": {
+    "role": "match",
+    "regex": "^(#).*$"
+  },
+  "Pragma": {
+    "role": "begin",
+    "regex": "\\{-#"
+  },
+  "PragmaEnd": {
+    "role": "end",
+    "regex": "#-}"
+  },
+  "PragmaAt0": {
+    "role": "begin",
+    "regex": "(?i)\\b(?<!')(LANGUAGE)\\b(?!')"
+  },
+  "PragmaAt0End": {
+    "role": "end",
+    "regex": "(?=#-})"
+  },
+  "PragmaAt0At0": {
+    "role": "match",
+    "regex": "(?:No)?(?:AutoDeriveTypeable|DatatypeContexts|DoRec|IncoherentInstances|MonadFailDesugaring|MonoPatBinds|NullaryTypeClasses|OverlappingInstances|PatternSignatures|RecordPuns|RelaxedPolyRec)"
+  },
+  "PragmaAt0At1": {
+    "role": "match",
+    "regex": "((?:No)?(?:AllowAmbiguousTypes|AlternativeLayoutRule|AlternativeLayoutRuleTransitional|Arrows|BangPatterns|BinaryLiterals|CApiFFI|CPP|CUSKs|ConstrainedClassMethods|ConstraintKinds|DataKinds|DefaultSignatures|DeriveAnyClass|DeriveDataTypeable|DeriveFoldable|DeriveFunctor|DeriveGeneric|DeriveLift|DeriveTraversable|DerivingStrategies|DerivingVia|DisambiguateRecordFields|DoAndIfThenElse|BlockArguments|DuplicateRecordFields|EmptyCase|EmptyDataDecls|EmptyDataDeriving|ExistentialQuantification|ExplicitForAll|ExplicitNamespaces|ExtendedDefaultRules|FlexibleContexts|FlexibleInstances|ForeignFunctionInterface|FunctionalDependencies|GADTSyntax|GADTs|GHCForeignImportPrim|Generali[sz]edNewtypeDeriving|ImplicitParams|ImplicitPrelude|ImportQualifiedPost|ImpredicativeTypes|TypeFamilyDependencies|InstanceSigs|ApplicativeDo|InterruptibleFFI|JavaScriptFFI|KindSignatures|LambdaCase|LiberalTypeSynonyms|MagicHash|MonadComprehensions|MonoLocalBinds|MonomorphismRestriction|MultiParamTypeClasses|MultiWayIf|NumericUnderscores|NPlusKPatterns|NamedFieldPuns|NamedWildCards|NegativeLiterals|HexFloatLiterals|NondecreasingIndentation|NumDecimals|OverloadedLabels|OverloadedLists|OverloadedStrings|PackageImports|ParallelArrays|ParallelListComp|PartialTypeSignatures|PatternGuards|PatternSynonyms|PolyKinds|PolymorphicComponents|QuantifiedConstraints|PostfixOperators|QuasiQuotes|Rank2Types|RankNTypes|RebindableSyntax|RecordWildCards|RecursiveDo|RelaxedLayout|RoleAnnotations|ScopedTypeVariables|StandaloneDeriving|StarIsType|StaticPointers|Strict|StrictData|TemplateHaskell|TemplateHaskellQuotes|StandaloneKindSignatures|TraditionalRecordSyntax|TransformListComp|TupleSections|TypeApplications|TypeInType|TypeFamilies|TypeOperators|TypeSynonymInstances|UnboxedTuples|UnboxedSums|UndecidableInstances|UndecidableSuperClasses|UnicodeSyntax|UnliftedFFITypes|UnliftedNewtypes|ViewPatterns))"
+  },
+  "Comma": {
+    "role": "match",
+    "regex": ","
+  },
+  "InlinePhase": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "InlinePhaseEnd": {
+    "role": "end",
+    "regex": "]"
+  },
+  "InlinePhaseAt0": {
+    "role": "match",
+    "regex": "~"
+  },
+  "IntegerLiterals": {
+    "role": "match",
+    "regex": "\\b(?<!')(?:([0-9][0-9_]*)|(0[Xx]_*\\h[_\\h]*)|(0[Oo]_*[0-7][0-7_]*)|(0[Bb]_*[01][01_]*))\\b(?!')"
+  },
+  "InlinePhaseAt2": {
+    "role": "match",
+    "regex": "\\w*"
+  },
+  "PragmaAt1": {
+    "role": "begin",
+    "regex": "(?i)\\b(?<!')(SPECIALI[SZ]E)(?:\\s*(\\[[^]\\[]*])?\\s*|\\s+)(instance)\\b(?!')"
+  },
+  "PragmaAt1End": {
+    "role": "end",
+    "regex": "(?=#-})"
+  },
+  "TypeSignatureAt1": {
+    "role": "match",
+    "regex": "(')?(\\()\\s*(\\))"
+  },
+  "TypeSignatureAt2": {
+    "role": "match",
+    "regex": "(\\()(#)\\s*(#)(\\))"
+  },
+  "TypeSignatureAt3": {
+    "role": "match",
+    "regex": "(')?(\\()\\s*,[,\\s]*(\\))"
+  },
+  "TypeSignatureAt4": {
+    "role": "match",
+    "regex": "(\\()(#)\\s*(#)(\\))"
+  },
+  "TypeSignatureAt5": {
+    "role": "match",
+    "regex": "(\\()(#)\\s*,[,\\s]*(#)(\\))"
+  },
+  "TypeSignatureAt6": {
+    "role": "match",
+    "regex": "(')?(\\[)\\s*(])"
+  },
+  "TypeSignatureAt8": {
+    "role": "match",
+    "regex": "(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"
+  },
+  "Forall": {
+    "role": "begin",
+    "regex": "\\b(?<!')(forall|∀)\\b(?!')"
+  },
+  "ForallEnd": {
+    "role": "end",
+    "regex": "(\\.)|(->|→)"
+  },
+  "TypeVariable": {
+    "role": "match",
+    "regex": "\\b(?<!')(?!(?:forall|deriving)\\b(?!'))[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"
+  },
+  "TypeSignatureAt10": {
+    "role": "match",
+    "regex": "=>|⇒"
+  },
+  "StringLiteral": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringLiteralEnd": {
+    "role": "end",
+    "regex": "\""
+  },
+  "StringLiteralAt0": {
+    "role": "match",
+    "regex": "\\\\(NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[\"\\&'\\\\abfnrtv])"
+  },
+  "StringLiteralAt1": {
+    "role": "match",
+    "regex": "\\\\(?:o[0-7]+|x\\h+|[0-9]+)"
+  },
+  "StringLiteralAt2": {
+    "role": "match",
+    "regex": "\\\\\\^[@-_]"
+  },
+  "StringLiteralAt3": {
+    "role": "begin",
+    "regex": "\\\\\\s"
+  },
+  "StringLiteralAt3End": {
+    "role": "end",
+    "regex": "\\\\"
+  },
+  "StringLiteralAt3At0": {
+    "role": "match",
+    "regex": "\\S+"
+  },
+  "TypeSignatureAt12": {
+    "role": "match",
+    "regex": "'[^']'"
+  },
+  "TypeApplicationAt0": {
+    "role": "begin",
+    "regex": "(?<=[]\",;\\[{}\\s])(@)(')?(\\()"
+  },
+  "TypeApplicationAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "TypeApplicationAt1": {
+    "role": "begin",
+    "regex": "(?<=[]\",;\\[{}\\s])(@)(')?(\\[)"
+  },
+  "TypeApplicationAt1End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "TypeApplicationAt2": {
+    "role": "begin",
+    "regex": "(?<=[]\",;\\[{}\\s])(@)(?=\")"
+  },
+  "TypeApplicationAt2End": {
+    "role": "end",
+    "regex": "(?<=\")"
+  },
+  "TypeApplicationAt3": {
+    "role": "begin",
+    "regex": "(?<=[]\",;\\[{}\\s])(@)(?=['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])"
+  },
+  "TypeApplicationAt3End": {
+    "role": "end",
+    "regex": "(?!['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])"
+  },
+  "ReservedSymbolAt0": {
+    "role": "match",
+    "regex": "(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:(\\.\\.)|(:)|(=)|(\\\\)|(\\|)|(<-|←)|(->|→)|(-<|↢)|(-<<|⤛)|(>-|⤚)|(>>-|⤜)|(∀))(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"
+  },
+  "ReservedSymbolAt1": {
+    "role": "match",
+    "regex": "(?<=[[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^#,;\\[`{]])(#+)(?![[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^]),;`}]])"
+  },
+  "ReservedSymbolAt2": {
+    "role": "match",
+    "regex": "(?<=[])_}\\p{Ll}\\p{Lu}\\p{Lt}\\d])(@)(?=[(\\[_{\\p{Ll}\\p{Lu}\\p{Lt}\\d])"
+  },
+  "ReservedSymbolAt3": {
+    "role": "match",
+    "regex": "(?<![[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^(,;\\[`{]])(?:(~)|(!)|(-)|(\\$)|(\\$\\$))(?=[(\\[_{\\p{Ll}\\p{Lu}\\p{Lt}\\d])"
+  },
+  "TypeOperatorAt0": {
+    "role": "match",
+    "regex": "(?:(?<!')('))?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)(?![#@]?-})(#+|[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+(?<!#))"
+  },
+  "TypeOperatorAt1": {
+    "role": "match",
+    "regex": "(')?(`)((?:[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(`)"
+  },
+  "TypeConstructorAt0": {
+    "role": "match",
+    "regex": "(')?((?:\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)\\b([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)"
+  },
+  "TypeConstructorAt1": {
+    "role": "match",
+    "regex": "(')?(\\()\\s*((?:[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))"
+  },
+  "TypeSignatureAt17": {
+    "role": "begin",
+    "regex": "(\\()(#)"
+  },
+  "TypeSignatureAt17End": {
+    "role": "end",
+    "regex": "(#)(\\))"
+  },
+  "TypeSignatureAt18": {
+    "role": "begin",
+    "regex": "(')?(\\()"
+  },
+  "TypeSignatureAt18End": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "TypeSignatureAt19": {
+    "role": "begin",
+    "regex": "(')?(\\[)"
+  },
+  "TypeSignatureAt19End": {
+    "role": "end",
+    "regex": "(])"
+  },
+  "PragmaAt2": {
+    "role": "begin",
+    "regex": "(?i)\\b(?<!')(SPECIALI[SZ]E)\\b(?!')(?:\\s+(INLINE)\\b(?!'))?\\s*(\\[[^]\\[]*])?\\s*"
+  },
+  "PragmaAt2End": {
+    "role": "end",
+    "regex": "(?=#-})"
+  },
+  "PragmaAt3": {
+    "role": "match",
+    "regex": "(?i)\\b(?<!')(LANGUAGE|OPTIONS_GHC|INCLUDE|MINIMAL|UNPACK|OVERLAPS|INCOHERENT|NOUNPACK|SOURCE|OVERLAPPING|OVERLAPPABLE|INLINE|NOINLINE|INLINE?ABLE|CONLIKE|LINE|COLUMN|RULES|COMPLETE)\\b(?!')"
+  },
+  "PragmaAt4": {
+    "role": "begin",
+    "regex": "(?i)\\b(DEPRECATED|WARNING)\\b"
+  },
+  "PragmaAt4End": {
+    "role": "end",
+    "regex": "(?=#-})"
+  },
+  "CommentsAt0": {
+    "role": "begin",
+    "regex": "^(\\s*)(--\\s[$|])"
+  },
+  "CommentsAt0End": {
+    "role": "end",
+    "regex": "(?=^(?!\\1--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])))"
+  },
+  "CommentsAt1": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(--\\s[*^])"
+  },
+  "CommentsAt1End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentsAt2": {
+    "role": "begin",
+    "regex": "\\{-\\s?[$*^|]"
+  },
+  "CommentsAt2End": {
+    "role": "end",
+    "regex": "-}"
+  },
+  "BlockComment": {
+    "role": "begin",
+    "regex": "\\{-"
+  },
+  "BlockCommentEnd": {
+    "role": "end",
+    "regex": "-}"
+  },
+  "CommentsAt3": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]))"
+  },
+  "CommentsAt3End": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "CommentsAt3At0": {
+    "role": "begin",
+    "regex": "--"
+  },
+  "CommentsAt3At0End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "FloatLiterals": {
+    "role": "match",
+    "regex": "\\b(?<!')(?:([0-9][0-9_]*\\.[0-9][0-9_]*(?:[Ee][-+]?[0-9][0-9_]*)?|[0-9][0-9_]*[Ee][-+]?[0-9][0-9_]*)|(0(?:[Xx]_*\\h[_\\h]*\\.\\h[_\\h]*(?:[Pp][-+]?[0-9][0-9_]*)?|[Xx]_*\\h[_\\h]*[Pp][-+]?[0-9][0-9_]*)))\\b(?!')"
+  },
+  "CharLiteral": {
+    "role": "match",
+    "regex": "(?<!['_\\p{Ll}\\p{Lu}\\p{Lt}\\d])(')(?:[ -\\[\\]-~]|(\\\\(?:NUL|SOH|STX|ETX|EOT|ENQ|ACK|BEL|BS|HT|LF|VT|FF|CR|SO|SI|DLE|DC1|DC2|DC3|DC4|NAK|SYN|ETB|CAN|EM|SUB|ESC|FS|GS|RS|US|SP|DEL|[\"\\&'\\\\abfnrtv]))|(\\\\o[0-7]+)|(\\\\x\\h+)|(\\\\\\^[@-_]))(')"
+  },
+  "RootAt5": {
+    "role": "match",
+    "regex": "(?<![#@])-}"
+  },
+  "RootAt6": {
+    "role": "match",
+    "regex": "(\\()\\s*(\\))"
+  },
+  "RootAt7": {
+    "role": "match",
+    "regex": "(\\()(#)\\s*(#)(\\))"
+  },
+  "RootAt8": {
+    "role": "match",
+    "regex": "(\\()\\s*,[,\\s]*(\\))"
+  },
+  "RootAt9": {
+    "role": "match",
+    "regex": "(\\()(#)\\s*,[,\\s]*(#)(\\))"
+  },
+  "RootAt10": {
+    "role": "match",
+    "regex": "(\\[)\\s*(])"
+  },
+  "RootAt11": {
+    "role": "begin",
+    "regex": "(\\b(?<!')(module)|^(signature))\\b((?!'))"
+  },
+  "RootAt11End": {
+    "role": "end",
+    "regex": "(?=\\b(?<!')where\\b(?!'))"
+  },
+  "ModuleName": {
+    "role": "match",
+    "regex": "(?<conid>[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*(\\.\\g<conid>)?)"
+  },
+  "ModuleExports": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ModuleExportsEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ModuleExportsAt1": {
+    "role": "match",
+    "regex": "\\b(?<!')(module)\\b(?!')"
+  },
+  "ExportConstructsAt1": {
+    "role": "begin",
+    "regex": "\\b(?<!')(pattern)\\b(?!')"
+  },
+  "ExportConstructsAt1End": {
+    "role": "end",
+    "regex": "([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))"
+  },
+  "ExportConstructsAt2": {
+    "role": "begin",
+    "regex": "\\b(?<!')(type)\\b(?!')"
+  },
+  "ExportConstructsAt2End": {
+    "role": "end",
+    "regex": "([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))"
+  },
+  "ExportConstructsAt3": {
+    "role": "match",
+    "regex": "(?<!')\\b[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"
+  },
+  "ExportConstructsAt4": {
+    "role": "match",
+    "regex": "(?<!')\\b[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*"
+  },
+  "RecordWildcard": {
+    "role": "match",
+    "regex": "(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(\\.\\.)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"
+  },
+  "PrefixOpAt0": {
+    "role": "match",
+    "regex": "(\\()\\s*(?!(?:--+|\\.\\.)\\))(#+|[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+(?<!#))\\s*(\\))"
+  },
+  "ModuleExportsAt4": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ModuleExportsAt4End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "RootAt11At3": {
+    "role": "match",
+    "regex": "[a-z]+"
+  },
+  "FfiImport": {
+    "role": "begin",
+    "regex": "^(\\s*)(foreign)\\s+((?:im|ex)port)\\s+"
+  },
+  "FfiEnd": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "FfiAt1": {
+    "role": "match",
+    "regex": "\\b(?<!')(ccall|cplusplus|dotnet|jvm|stdcall|prim|capi)\\s+"
+  },
+  "FfiAt2": {
+    "role": "begin",
+    "regex": "(?=\")|(?=\\b(?<!')([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)\\b(?!'))"
+  },
+  "FfiAt2End": {
+    "role": "end",
+    "regex": "(?=(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]))"
+  },
+  "FfiAt2At1": {
+    "role": "match",
+    "regex": "\\b(?<!')(safe|unsafe|interruptible)\\b(?!')\\s*(\"(?:\\\\\"|[^\"])*\")?\\s*(?:\\b(?<!'')([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)\\b(?!')|\\(\\s*(?!--+\\))([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*\\))"
+  },
+  "FfiAt2At2": {
+    "role": "match",
+    "regex": "\\b(?<!')(safe|unsafe|interruptible)\\b(?!')\\s*(\"(?:\\\\\"|[^\"])*\")?\\s*$"
+  },
+  "FfiAt2At3": {
+    "role": "match",
+    "regex": "\"(?:\\\\\"|[^\"])*\""
+  },
+  "FfiAt2At4": {
+    "role": "match",
+    "regex": "\\b(?<!'')([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)\\b(?!')|(\\()\\s*(?!--+\\))([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))"
+  },
+  "DoubleColon": {
+    "role": "match",
+    "regex": "\\s*(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])\\s*"
+  },
+  "FfiExport": {
+    "role": "begin",
+    "regex": "^(\\s*)(foreign)\\s+((?:im|ex)port)\\s+"
+  },
+  "RootAt13": {
+    "role": "begin",
+    "regex": "^(\\s*)(class)\\b((?!'))"
+  },
+  "RootAt13End": {
+    "role": "end",
+    "regex": "(?=(?<!')\\bwhere\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "WhereAt0": {
+    "role": "begin",
+    "regex": "(?<!')\\b(where)\\s*(\\{)(?!-)"
+  },
+  "WhereAt0End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "WhereAt0At1": {
+    "role": "match",
+    "regex": ";"
+  },
+  "WhereAt1": {
+    "role": "match",
+    "regex": "\\b(?<!')(where)\\b(?!')"
+  },
+  "RootAt14Data": {
+    "role": "begin",
+    "regex": "^(\\s*)(data|newtype)(?:\\s+(instance))?\\s+((?:(?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')(?:where|deriving)\\b(?!')|\\{-).)*)(?=\\b(?<!'')where\\b(?!''))"
+  },
+  "RootAt14End": {
+    "role": "end",
+    "regex": "(?=(?<!')\\bderiving\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RootAt14At1": {
+    "role": "begin",
+    "regex": "(?<!')\\b(where)\\s*(\\{)(?!-)"
+  },
+  "RootAt14At1End": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "GadtConstructorAt0": {
+    "role": "begin",
+    "regex": "^(\\s*)(?:\\b((?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)\\s*(\\)))"
+  },
+  "GadtConstructorAt0End": {
+    "role": "end",
+    "regex": "(?=\\b(?<!'')deriving\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "DerivingAt0": {
+    "role": "begin",
+    "regex": "^(\\s*)(deriving)\\s+(?:(via|stock|newtype|anyclass)\\s+)?"
+  },
+  "DerivingAt0End": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "DerivingAt0At1": {
+    "role": "match",
+    "regex": "(?<!')\\b(instance)\\b(?!')"
+  },
+  "DerivingAt0At2": {
+    "role": "match",
+    "regex": "(?<!')\\b(via|stock|newtype|anyclass)\\b(?!')"
+  },
+  "DerivingAt1": {
+    "role": "begin",
+    "regex": "(deriving)(?:\\s+(stock|newtype|anyclass))?\\s*(\\()"
+  },
+  "DerivingAt1End": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "DerivingAt2": {
+    "role": "match",
+    "regex": "(deriving)(?:\\s+(stock|newtype|anyclass))?\\s+([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(\\s+(via)\\s+(.*)$)?"
+  },
+  "DerivingAt3": {
+    "role": "match",
+    "regex": "(?<!')\\b(via)\\b(?!')"
+  },
+  "RecordDecl": {
+    "role": "begin",
+    "regex": "(\\{)(?!-)"
+  },
+  "RecordDeclEnd": {
+    "role": "end",
+    "regex": "(?<!-)(})"
+  },
+  "RecordDeclField": {
+    "role": "begin",
+    "regex": "([_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))"
+  },
+  "RecordDeclFieldEnd": {
+    "role": "end",
+    "regex": "(,)|(?=})"
+  },
+  "GadtConstructorAt1": {
+    "role": "begin",
+    "regex": "\\b((?<!')[\\p{Lu}\\p{Lt}][_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)\\s*(\\))"
+  },
+  "GadtConstructorAt1End": {
+    "role": "end",
+    "regex": "$"
+  },
+  "RootAt14At1At2": {
+    "role": "match",
+    "regex": ";"
+  },
+  "RootAt14At2": {
+    "role": "match",
+    "regex": "\\b(?<!')(where)\\b(?!')"
+  },
+  "RootAt14Newtype": {
+    "role": "begin",
+    "regex": "^(\\s*)(data|newtype)(?:\\s+(instance))?\\s+((?:(?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')(?:where|deriving)\\b(?!')|\\{-).)*)(?=\\b(?<!'')where\\b(?!''))"
+  },
+  "RoleAnnotationAt0": {
+    "role": "begin",
+    "regex": "^(\\s*)(type)\\s+(role)\\b(?!')"
+  },
+  "RoleAnnotationAt0End": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RoleAnnotationAt0At2": {
+    "role": "match",
+    "regex": "\\b(?<!')(nominal|representational|phantom)\\b(?!')"
+  },
+  "DataConstructor": {
+    "role": "match",
+    "regex": "\\b(?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*(?!['.\\w])"
+  },
+  "RootAt16": {
+    "role": "begin",
+    "regex": "^(\\s*)(pattern)\\s+(.*?)\\s+(::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"
+  },
+  "RootAt16End": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RootAt17": {
+    "role": "begin",
+    "regex": "^\\s*(pattern)\\b(?!')"
+  },
+  "RootAt17End": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RootAt18Data": {
+    "role": "begin",
+    "regex": "^(\\s*)(data|newtype)(?:\\s+(family|instance))?\\s+(((?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')(?:where|deriving)\\b(?!')|\\{-).)*)"
+  },
+  "RootAt18End": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "AdtConstructorAt1": {
+    "role": "begin",
+    "regex": "(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:(=)|(\\|))(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"
+  },
+  "AdtConstructorAt1End": {
+    "role": "end",
+    "regex": "(?:\\G|^)\\s*(?:(?<!')\\b(['._\\p{Ll}\\p{Lu}\\p{Lt}\\d]+)|('?(?<paren>\\((?:[^()]?|\\g<paren>)*\\)))|('?(?<brac>\\((?:[^]\\[]?|\\g<brac>)*])))\\s*(?:(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)|(`)([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(`))|(?<!')\\b([\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*(:[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*)\\s*(\\))"
+  },
+  "Context": {
+    "role": "match",
+    "regex": "(.*)(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(=>|⇒)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])"
+  },
+  "RootAt18Newtype": {
+    "role": "begin",
+    "regex": "^(\\s*)(data|newtype)(?:\\s+(family|instance))?\\s+(((?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')(?:where|deriving)\\b(?!')|\\{-).)*)"
+  },
+  "RootAt19": {
+    "role": "begin",
+    "regex": "^(\\s*)(type)\\s+(family)\\b(?!')(((?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\b(?<!')where\\b(?!')|\\{-).)*)"
+  },
+  "RootAt19End": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RootAt20": {
+    "role": "begin",
+    "regex": "^(\\s*)(type)(?:\\s+(instance))?\\s+(((?!(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:=|--+|::|∷)(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])|\\{-).)*)"
+  },
+  "RootAt20End": {
+    "role": "end",
+    "regex": "(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RootAt21": {
+    "role": "begin",
+    "regex": "^(\\s*)(instance)\\b((?!'))"
+  },
+  "RootAt21End": {
+    "role": "end",
+    "regex": "(?=\\b(?<!')(where)\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RootAt22": {
+    "role": "begin",
+    "regex": "^(\\s*)(import)\\b((?!'))"
+  },
+  "RootAt22End": {
+    "role": "end",
+    "regex": "(?=\\b(?<!')(where)\\b(?!'))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "RootAt22At2": {
+    "role": "match",
+    "regex": "(qualified|as|hiding)"
+  },
+  "LayoutHerald": {
+    "role": "begin",
+    "regex": "(?<!')\\b(?:(where|let|m?do)|(of))\\s*(\\{)(?!-)"
+  },
+  "LayoutHeraldEnd": {
+    "role": "end",
+    "regex": "(})"
+  },
+  "LayoutHeraldAt1": {
+    "role": "match",
+    "regex": ";"
+  },
+  "Keyword": {
+    "role": "match",
+    "regex": "\\b(?<!')(?:(where|let|in|default)|(m?do|if|then|else|case|of|proc|rec))\\b(?!')"
+  },
+  "InfixOpAt0": {
+    "role": "match",
+    "regex": "((?:(?<!'')('')?[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)(#+|[[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+(?<!#))"
+  },
+  "InfixOpAt1": {
+    "role": "match",
+    "regex": "(`)((?:[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\.)*)([_\\p{Ll}\\p{Lu}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)(`)"
+  },
+  "RootAt26": {
+    "role": "match",
+    "regex": "^\\s*(infix[lr]?)\\s+(.*)"
+  },
+  "OverloadedLabelAt0": {
+    "role": "match",
+    "regex": "(?<![[_\\p{Ll}\\p{Lu}\\p{Lt}\\d\\p{S}\\p{P}]&&[^(,;\\[`{]])(#)(?:(\"(?:\\\\\"|[^\"])*\")|['._\\p{Ll}\\p{Lu}\\p{Lt}\\d]+)"
+  },
+  "FunDecl": {
+    "role": "begin",
+    "regex": "^(\\s*)(?<fn>(?:[_\\p{Ll}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*#*|\\(\\s*(?!--+\\))[[\\p{S}\\p{P}]&&[^]\"'(),:;\\[_`{}]][[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]*\\s*\\))(?:\\s*,\\s*\\g<fn>)?)\\s*(?<![[\\p{S}\\p{P}]&&[^]\"'),;_`}]])(::|∷)(?![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])"
+  },
+  "FunDeclEnd": {
+    "role": "end",
+    "regex": "(?=(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])((<-|←)|(=)|(-<|↢)|(-<<|⤛))([]\"'(),;\\[_`{}[^\\p{S}\\p{P}]]))|(?=[;}])|^(?!\\1\\s+\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$))"
+  },
+  "Qualifier": {
+    "role": "match",
+    "regex": "\\b(?<!')[\\p{Lu}\\p{Lt}]['_\\p{Ll}\\p{Lu}\\p{Lt}\\d]*\\."
+  },
+  "StartTypeSignatureAt0": {
+    "role": "begin",
+    "regex": "^(\\s*)(::|∷)(?![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])\\s*"
+  },
+  "StartTypeSignatureAt0End": {
+    "role": "end",
+    "regex": "(?=#?\\)|[],]|(?<!')\\b(in|then|else|of)\\b(?!')|(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:([\\\\λ])|(<-|←)|(=)|(-<|↢)|(-<<|⤛))([]\"'(),;\\[_`{}[^\\p{S}\\p{P}]])|([#@])-}|(?=[;}])|^(?!\\1\\s*\\S|\\s*(?:$|\\{-[^@]|--+(?![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]).*$)))"
+  },
+  "StartTypeSignatureAt1": {
+    "role": "begin",
+    "regex": "(?<![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])(::|∷)(?![[\\p{S}\\p{P}]&&[^\"'(,;\\[_`{]])"
+  },
+  "StartTypeSignatureAt1End": {
+    "role": "end",
+    "regex": "(?=#?\\)|[],]|\\b(?<!')(in|then|else|of)\\b(?!')|([#@])-}|(?<![[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]])(?:([\\\\λ])|(<-|←)|(=)|(-<|↢)|(-<<|⤛))([]\"'(),;\\[_`{}[^\\p{S}\\p{P}]])|(?=[;}])|$)"
+  },
+  "RootAt36": {
+    "role": "begin",
+    "regex": "(\\()(#)\\s"
+  },
+  "RootAt36End": {
+    "role": "end",
+    "regex": "(#)(\\))"
+  },
+  "RootAt37": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "RootAt37End": {
+    "role": "end",
+    "regex": "(\\))"
+  },
+  "QuasiQuoteAt0": {
+    "role": "begin",
+    "regex": "(\\[)([dep])?(\\|\\|?)"
+  },
+  "QuasiQuoteAt0End": {
+    "role": "end",
+    "regex": "\\3]"
+  },
+  "QuasiQuoteAt1": {
+    "role": "begin",
+    "regex": "(\\[)(t)(\\|\\|?)"
+  },
+  "QuasiQuoteAt1End": {
+    "role": "end",
+    "regex": "\\3]"
+  },
+  "QuasiQuoteAt2": {
+    "role": "begin",
+    "regex": "(\\[)(?:(\\$\\$)|(\\$))?(['._[^\\s\\p{S}\\p{P}]]*)(\\|\\|?)"
+  },
+  "QuasiQuoteAt2End": {
+    "role": "end",
+    "regex": "\\5]"
+  },
+  "RootAt39": {
+    "role": "begin",
+    "regex": "(\\[)"
+  },
+  "RootAt39End": {
+    "role": "end",
+    "regex": "(])"
+  },
+  "Record": {
+    "role": "begin",
+    "regex": "(\\{)(?!-)"
+  },
+  "RecordEnd": {
+    "role": "end",
+    "regex": "(?<!-)(})"
+  },
+  "RecordFieldAt0": {
+    "role": "begin",
+    "regex": "([_\\p{Ll}\\p{Lu}]['._\\p{Ll}\\p{Lu}\\p{Lt}\\d]*)|(\\()\\s*([[\\p{S}\\p{P}]&&[^]\"'(),;\\[_`{}]]+)\\s*(\\))"
+  },
+  "RecordFieldAt0End": {
+    "role": "end",
+    "regex": "(,)|(?=})"
+  }
+}

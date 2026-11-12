@@ -16,6 +16,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -301,6 +302,8 @@ g += groupsCheck(
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("PostCss", "POSTCSS");
+
+await writePatterns("postcss", patternList);
 
 await writeRust(`${root_dir}src/postcss/grammar.rs`, g);
 

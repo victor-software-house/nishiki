@@ -14,6 +14,7 @@
 //! The matcher writer builds tokens with `quote` and lays them out with
 //! `prettyplease`.
 
+mod blank_runs;
 mod classes;
 mod error;
 mod facts;
@@ -90,6 +91,7 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     let mut stale = Vec::new();
     let mut files = words::files(&root)?;
     files.extend(matchers::files(&root)?);
+    files.push(blank_runs::file(&root)?);
     files.push(classes::file(&root)?);
     files.push(folds::file(&root)?);
     files.push(unicode::file(&root)?);

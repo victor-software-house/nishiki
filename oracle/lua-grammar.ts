@@ -23,6 +23,7 @@ import {
   scopeFile,
   startTable,
   tooLong,
+  writePatterns,
   writeRust,
 } from "./rule-grammar.ts";
 
@@ -317,6 +318,8 @@ g += groupsCheck(
   patternList.flatMap((p) => p.captures.map(([n]) => n)),
 );
 g += ruleCodes("Lua", "LUA");
+
+await writePatterns("lua", patternList);
 
 await writeRust(`${root_dir}src/lua/grammar.rs`, g);
 

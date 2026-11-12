@@ -1,0 +1,1006 @@
+{
+  "PackageNameAt0": {
+    "role": "begin",
+    "regex": "\\b(package)\\s+"
+  },
+  "PackageNameAt0End": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "PackageNameAt0At0": {
+    "role": "match",
+    "regex": "\\d\\w*"
+  },
+  "PackageNameAt0At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "ImportAt0": {
+    "role": "begin",
+    "regex": "\\b(import)\\s+"
+  },
+  "ImportAt0End": {
+    "role": "end",
+    "regex": "(?!\\G)"
+  },
+  "DelimitersAt0": {
+    "role": "match",
+    "regex": ","
+  },
+  "DelimitersAt1": {
+    "role": "match",
+    "regex": "\\.(?!\\.\\.)"
+  },
+  "DelimitersAt2": {
+    "role": "match",
+    "regex": ":(?!=)"
+  },
+  "Nested0At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "ImportsAt0": {
+    "role": "match",
+    "regex": "(\\s*[.\\w]+)?\\s*((\")([^\"]*)(\"))"
+  },
+  "ImportsAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ImportsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "CommentsAt0": {
+    "role": "begin",
+    "regex": "(/\\*)"
+  },
+  "CommentsAt0End": {
+    "role": "end",
+    "regex": "(\\*/)"
+  },
+  "CommentsAt1": {
+    "role": "begin",
+    "regex": "(//)"
+  },
+  "CommentsAt1End": {
+    "role": "end",
+    "regex": "\\n|$"
+  },
+  "SyntaxErrorsAt0": {
+    "role": "match",
+    "regex": "\\[](\\s+)"
+  },
+  "SyntaxErrorsAt1": {
+    "role": "match",
+    "regex": "\\b0[0-7]*[89]\\d*\\b"
+  },
+  "Nested1At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "Nested1At0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "LanguageConstants": {
+    "role": "match",
+    "regex": "\\b(?:(true|false)|(nil)|(iota))\\b"
+  },
+  "MapTypes": {
+    "role": "begin",
+    "regex": "\\b(map)\\b(\\[)"
+  },
+  "KeywordsAt0": {
+    "role": "match",
+    "regex": "\\b(break|case|continue|default|defer|else|fallthrough|for|go|goto|if|range|return|select|switch)\\b"
+  },
+  "KeywordsAt1": {
+    "role": "match",
+    "regex": "\\bchan\\b"
+  },
+  "KeywordsAt2": {
+    "role": "match",
+    "regex": "\\bconst\\b"
+  },
+  "KeywordsAt3": {
+    "role": "match",
+    "regex": "\\bvar\\b"
+  },
+  "KeywordsAt4": {
+    "role": "match",
+    "regex": "\\bfunc\\b"
+  },
+  "KeywordsAt5": {
+    "role": "match",
+    "regex": "\\binterface\\b"
+  },
+  "KeywordsAt6": {
+    "role": "match",
+    "regex": "\\bmap\\b"
+  },
+  "KeywordsAt7": {
+    "role": "match",
+    "regex": "\\bstruct\\b"
+  },
+  "KeywordsAt8": {
+    "role": "match",
+    "regex": "\\bimport\\b"
+  },
+  "KeywordsAt9": {
+    "role": "match",
+    "regex": "\\btype\\b"
+  },
+  "OperatorsAt0": {
+    "role": "match",
+    "regex": "(?<!\\w)[\\&*]+(?!\\d)(?=[]\\[\\w]|<-)"
+  },
+  "OperatorsAt1": {
+    "role": "match",
+    "regex": "<-"
+  },
+  "OperatorsAt2": {
+    "role": "match",
+    "regex": "--"
+  },
+  "OperatorsAt3": {
+    "role": "match",
+    "regex": "\\+\\+"
+  },
+  "OperatorsAt4": {
+    "role": "match",
+    "regex": "(==|!=|<=|>=|<(?!<)|>(?!>))"
+  },
+  "OperatorsAt5": {
+    "role": "match",
+    "regex": "(&&|\\|\\||!)"
+  },
+  "OperatorsAt6": {
+    "role": "match",
+    "regex": "((?:|[-%*+/:^|]|<<|>>|&\\^?)=)"
+  },
+  "OperatorsAt7": {
+    "role": "match",
+    "regex": "([-%*+/])"
+  },
+  "OperatorsAt8": {
+    "role": "match",
+    "regex": "(&(?!\\^)|[\\^|]|&\\^|<<|>>|~)"
+  },
+  "OperatorsAt9": {
+    "role": "match",
+    "regex": "\\.\\.\\."
+  },
+  "RunesAt0": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "RunesAt0End": {
+    "role": "end",
+    "regex": "'"
+  },
+  "RunesAt0At0": {
+    "role": "match",
+    "regex": "\\G(\\\\([0-7]{3}|[\"'\\\\abfnrtv]|x\\h{2}|u\\h{4}|U\\h{8})|.)(?=')"
+  },
+  "RunesAt0At1": {
+    "role": "match",
+    "regex": "[^']+"
+  },
+  "StorageTypesAt0": {
+    "role": "match",
+    "regex": "\\bbool\\b"
+  },
+  "StorageTypesAt1": {
+    "role": "match",
+    "regex": "\\bbyte\\b"
+  },
+  "StorageTypesAt2": {
+    "role": "match",
+    "regex": "\\berror\\b"
+  },
+  "StorageTypesAt3": {
+    "role": "match",
+    "regex": "\\b(complex(64|128)|float(32|64)|u?int(8|16|32|64)?)\\b"
+  },
+  "StorageTypesAt4": {
+    "role": "match",
+    "regex": "\\brune\\b"
+  },
+  "StorageTypesAt5": {
+    "role": "match",
+    "regex": "\\bstring\\b"
+  },
+  "StorageTypesAt6": {
+    "role": "match",
+    "regex": "\\buintptr\\b"
+  },
+  "StorageTypesAt7": {
+    "role": "match",
+    "regex": "\\bany\\b"
+  },
+  "StorageTypesAt8": {
+    "role": "match",
+    "regex": "\\bcomparable\\b"
+  },
+  "RawStringLiterals": {
+    "role": "begin",
+    "regex": "`"
+  },
+  "RawStringLiteralsEnd": {
+    "role": "end",
+    "regex": "`"
+  },
+  "StringPlaceholderAt0": {
+    "role": "match",
+    "regex": "%(\\[\\d+])?([- #+0]{0,2}((\\d+|\\*)?(\\.?(\\d+|\\*|(\\[\\d+])\\*?)?(\\[\\d+])?)?))?[%EFGTUXb-gopqstvwx]"
+  },
+  "StringLiteralsAt0": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringLiteralsAt0End": {
+    "role": "end",
+    "regex": "\""
+  },
+  "StringEscapedCharAt0": {
+    "role": "match",
+    "regex": "\\\\([0-7]{3}|[\"'\\\\abfnrtv]|x\\h{2}|u\\h{4}|U\\h{8})"
+  },
+  "StringEscapedCharAt1": {
+    "role": "match",
+    "regex": "\\\\[^\"'0-7Uabfnrtuvx]"
+  },
+  "Nested4At0": {
+    "role": "begin",
+    "regex": "(?=.)"
+  },
+  "Nested4At0End": {
+    "role": "end",
+    "regex": "\\n|$"
+  },
+  "Nested5At0": {
+    "role": "match",
+    "regex": "(?<=\\h)_(?=\\h)"
+  },
+  "Nested4At0At0": {
+    "role": "match",
+    "regex": "\\G(?:(?:(?:(?:(?:(?=[.0-9])(?!0[BOXbox])([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)((?<=[0-9])\\.|\\.(?=[0-9]))([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)?(?:(?<!_)([Ee])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*))?(i(?!\\w))?(?:\\n|$)|(?=[.0-9])(?!0[BOXbox])([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)(?<!_)([Ee])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*)(i(?!\\w))?(?:\\n|$))|((?<=[0-9])\\.|\\.(?=[0-9]))([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)(?:(?<!_)([Ee])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*))?(i(?!\\w))?(?:\\n|$))|(0[Xx])_?(\\h(?:\\h|((?<=\\h)_(?=\\h)))*)((?<=\\h)\\.|\\.(?=\\h))(\\h(?:\\h|((?<=\\h)_(?=\\h)))*)?(?<!_)([Pp])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*)(i(?!\\w))?(?:\\n|$))|(0[Xx])_?(\\h(?:\\h|((?<=\\h)_(?=\\h)))*)(?<!_)([Pp])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*)(i(?!\\w))?(?:\\n|$))|(0[Xx])((?<=\\h)\\.|\\.(?=\\h))(\\h(?:\\h|((?<=\\h)_(?=\\h)))*)(?<!_)([Pp])(\\+?)(-?)([0-9](?:[0-9]|(?<=\\h)_(?=\\h))*)(i(?!\\w))?(?:\\n|$))"
+  },
+  "Nested4At0At1": {
+    "role": "match",
+    "regex": "\\G(?:(?:(?:(?=[.0-9])(?!0[BOXbox])([0-9](?:[0-9]|((?<=\\h)_(?=\\h)))*)(i(?!\\w))?(?:\\n|$)|(0[Bb])_?([01](?:[01]|((?<=\\h)_(?=\\h)))*)(i(?!\\w))?(?:\\n|$))|(0[Oo]?)_?((?:[0-7]|((?<=\\h)_(?=\\h)))+)(i(?!\\w))?(?:\\n|$))|(0[Xx])_?(\\h(?:\\h|((?<=\\h)_(?=\\h)))*)(i(?!\\w))?(?:\\n|$))"
+  },
+  "Nested4At0At2": {
+    "role": "match",
+    "regex": "(?:[.0-9A-Z_a-z]|(?<=[EPep])[-+])+"
+  },
+  "NumericLiterals": {
+    "role": "match",
+    "regex": "(?<!\\w)\\.?\\d(?:[.0-9A-Z_a-z]|(?<=[EPep])[-+])*"
+  },
+  "Terminators": {
+    "role": "match",
+    "regex": ";"
+  },
+  "Nested3At1": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "Nested3At2": {
+    "role": "match",
+    "regex": "]"
+  },
+  "Nested3At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "MapTypesEnd": {
+    "role": "end",
+    "regex": "(])((?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}(?![]*\\[]+{0,1}\\b(?:func|struct|map)\\b)[]*\\[]+{0,1}[.\\w]+(?:\\[(?:[]*.\\[{}\\w]+(?:,\\s*[]*.\\[{}\\w]+)*)?])?)?"
+  },
+  "ParameterVariableTypesAt0": {
+    "role": "match",
+    "regex": "\\{"
+  },
+  "ParameterVariableTypesAt1": {
+    "role": "match",
+    "regex": "}"
+  },
+  "BracketsAt0": {
+    "role": "begin",
+    "regex": "\\{"
+  },
+  "BracketsAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "Nested7At0": {
+    "role": "match",
+    "regex": "\\d\\w*"
+  },
+  "Nested7At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "FunctionDeclaration": {
+    "role": "begin",
+    "regex": "^\\b(func)\\b\\s*(\\([^)]+\\)\\s*)?(?:(\\w+)(?=[(\\[]))?"
+  },
+  "FunctionDeclarationEnd": {
+    "role": "end",
+    "regex": "(?<=\\))\\s*((?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}(?![]*\\[]+{0,1}\\b(?:struct|interface)\\b)[-\\]*.\\[\\w]+)?\\s*(?=\\{)"
+  },
+  "FunctionDeclarationAt0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FunctionDeclarationAt0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "StructVariablesTypes": {
+    "role": "begin",
+    "regex": "\\b(struct)\\b\\s*(\\{)"
+  },
+  "StructVariablesTypesEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "BracketsAt1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "BracketsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Nested9At1": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "Nested9At1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "InterfaceVariablesTypes": {
+    "role": "begin",
+    "regex": "\\b(interface)\\b\\s*(\\{)"
+  },
+  "InterfaceVariablesTypesEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "BracketsAt2": {
+    "role": "begin",
+    "regex": "\\["
+  },
+  "BracketsAt2End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "FunctionsInline": {
+    "role": "match",
+    "regex": "\\b(func)\\b(\\([^/]*?\\)\\s+\\([^/]*?\\))\\s+(?=\\{)"
+  },
+  "Functions": {
+    "role": "begin",
+    "regex": "\\b(func)\\b(?=\\()"
+  },
+  "FunctionsEnd": {
+    "role": "end",
+    "regex": "(?<=\\))(\\s*(?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+)?(\\s*(?:[]*\\[]+{0,1}[*.\\w]+)?(?:\\[(?:[*.\\w]+{0,1}(?:\\[[^]]+{0,1}])?(?:,\\s+)?)+]|\\([^)]+{0,1}\\))?[*.\\w]+{0,1}\\s*(?=\\{)|\\s*(?:[]*\\[]+{0,1}(?!\\bfunc\\b)[*.\\w]+(?:\\[(?:[*.\\w]+{0,1}(?:\\[[^]]+{0,1}])?(?:,\\s+)?)+])?[*.\\w]+{0,1}|\\([^)]+{0,1}\\)))?"
+  },
+  "ParameterVariableTypesAt2": {
+    "role": "begin",
+    "regex": "([*.\\w]+)?(\\[)"
+  },
+  "ParameterVariableTypesAt2End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "Nested12At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "GenericParamTypesAt3": {
+    "role": "match",
+    "regex": "((?:\\b\\w+,\\s*)+{0,1}\\b\\w+)\\s+(?=(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[]*\\[]+{0,1}\\b(?:struct|interface)\\b\\s*\\{)"
+  },
+  "GenericParamTypesAt4": {
+    "role": "match",
+    "regex": "(?:(?<=\\()|^\\s*)((?:\\b\\w+,\\s*)+(?:/[*/].*)?)$"
+  },
+  "Nested13At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "GenericParamTypesAt5": {
+    "role": "match",
+    "regex": "((?:\\b\\w+,\\s*)+{0,1}\\b\\w+)\\s+((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}(?:[]*.\\[\\w]+{0,1}(?:\\bfunc\\b\\([^)]+{0,1}\\)(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}\\s*)+(?:[*.\\w]+|\\([^)]+{0,1}\\))?|(?:(?:[*.~\\w]+|\\[(?:[*.\\w]+{0,1}(?:\\[[^]]+{0,1}])?(?:,\\s+)?)+])[*.\\w]+{0,1})+))"
+  },
+  "GenericParamTypesAt6": {
+    "role": "begin",
+    "regex": "([*.\\w]+)?(\\[)"
+  },
+  "GenericParamTypesAt6End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "GenericParamTypesAt7": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "GenericParamTypesAt7End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FunctionParamTypesAt3": {
+    "role": "match",
+    "regex": "((?:\\b\\w+,\\s*)+{0,1}\\b\\w+)\\s+(?=(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[]*\\[]+{0,1}\\b(?:struct|interface)\\b\\s*\\{)"
+  },
+  "FunctionParamTypesAt4": {
+    "role": "match",
+    "regex": "(?:(?<=\\()|^\\s*)((?:\\b\\w+,\\s*)+(?:/[*/].*)?)$"
+  },
+  "FunctionParamTypesAt5": {
+    "role": "match",
+    "regex": "((?:\\b\\w+,\\s*)+{0,1}\\b\\w+)\\s+((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}(?:[]*.\\[\\w]+{0,1}(?:\\bfunc\\b\\([^)]+{0,1}\\)(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}\\s*)+(?:[]*.\\[\\w]+|\\([^)]+{0,1}\\))?|(?:[]*\\[]+{0,1}[*.\\w]+(?:\\[[^]]+])?[*.\\w]+{0,1})+))"
+  },
+  "FunctionParamTypesAt6": {
+    "role": "begin",
+    "regex": "([*.\\w]+)?(\\[)"
+  },
+  "FunctionParamTypesAt6End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "GenericParamTypesAt8": {
+    "role": "match",
+    "regex": "\\b([.\\w]+)"
+  },
+  "BuiltInFunctionsAt0": {
+    "role": "match",
+    "regex": "\\b(append|cap|close|complex|copy|delete|imag|len|panic|print|println|real|recover|min|max|clear)\\b(?=\\()"
+  },
+  "BuiltInFunctionsAt1": {
+    "role": "begin",
+    "regex": "\\b(new)\\b(\\()"
+  },
+  "BuiltInFunctionsAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Nested14At1": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "Nested14At2": {
+    "role": "match",
+    "regex": "]"
+  },
+  "Nested14At3": {
+    "role": "match",
+    "regex": "\\{"
+  },
+  "Nested14At4": {
+    "role": "match",
+    "regex": "}"
+  },
+  "Nested14At5": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "SupportFunctions": {
+    "role": "match",
+    "regex": "(?:((?<=\\.)\\b\\w+)|\\b(\\w+))(?<brackets>\\[(?:[^]\\[]|\\g<brackets>)*])?(?=\\()"
+  },
+  "ParameterVariableTypesAt3": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "ParameterVariableTypesAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FunctionParamTypesAt7": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "FunctionParamTypesAt7End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "FunctionParamTypesAt8": {
+    "role": "match",
+    "regex": "([.\\w]+)"
+  },
+  "BuiltInFunctionsAt2": {
+    "role": "begin",
+    "regex": "\\b(make)\\b(\\()((?:(?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+(?:\\([^)]+\\))?)?[]*\\[]+{0,1}(?:(?!\\bmap\\b)[.\\w]+)?(\\[(?:\\S+(?:,\\s*\\S+)*)?])?,?)?"
+  },
+  "BuiltInFunctionsAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "Nested16At1": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "Nested16At2": {
+    "role": "match",
+    "regex": "]"
+  },
+  "Nested16At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "AfterControlVariables": {
+    "role": "match",
+    "regex": "(?<=\\brange\\b|;|\\bif\\b|\\bfor\\b|[<>]|<=|>=|==|!=|\\w[-%*+/]|\\w[-%*+/]=|\\|\\||&&)\\s*((?![]\\[]+)[-\\]!%*+./:<=>\\[_[:alnum:]]+)\\s*(?=\\{)"
+  },
+  "OtherStructInterfaceExpressionsAt1": {
+    "role": "match",
+    "regex": "\\b(?!(?:struct|interface)\\b)([.\\w]+)(?<brackets>\\[(?:[^]\\[]|\\g<brackets>)*])?(?=\\{)"
+  },
+  "Nested17At1": {
+    "role": "match",
+    "regex": "\\("
+  },
+  "Nested17At2": {
+    "role": "match",
+    "regex": "\\)"
+  },
+  "Nested17At3": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "Nested17At4": {
+    "role": "match",
+    "regex": "]"
+  },
+  "Nested17At5": {
+    "role": "match",
+    "regex": "\\{"
+  },
+  "Nested17At6": {
+    "role": "match",
+    "regex": "}"
+  },
+  "Nested17At7": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "TypeAssertionInline": {
+    "role": "match",
+    "regex": "(?<=\\.\\()(?:\\b(type)\\b|((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[]*\\[]+{0,1}[.\\w]+(?:\\[(?:[]*.\\[{}\\w]+(?:,\\s*[]*.\\[{}\\w]+)*)?])?))(?=\\))"
+  },
+  "Nested18At0": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "Nested18At0End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "SingleTypeAt0": {
+    "role": "match",
+    "regex": "^\\s*\\b(type)\\b\\s*([*.\\w]+)\\s+(?!(?:=\\s*)?[]*\\[]+{0,1}\\b(?:struct|interface)\\b)([\\s\\S]+)"
+  },
+  "Nested19At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "SingleTypeAt1": {
+    "role": "begin",
+    "regex": "(?:^|\\s+)\\b(type)\\b\\s*([*.\\w]+)(?=\\[)"
+  },
+  "SingleTypeAt1End": {
+    "role": "end",
+    "regex": "(?<=])(\\s+(?:=\\s*)?(?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}(?![]*\\[]+{0,1}\\b(?:struct|interface|func)\\b)[-\\]*.\\[\\w]+(?:,\\s*[]*.\\[\\w]+)*)?"
+  },
+  "SingleTypeAt1At3": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "SingleTypeAt1At4": {
+    "role": "match",
+    "regex": "]"
+  },
+  "SingleTypeAt1At5": {
+    "role": "match",
+    "regex": "\\{"
+  },
+  "SingleTypeAt1At6": {
+    "role": "match",
+    "regex": "}"
+  },
+  "SingleTypeAt1At7": {
+    "role": "match",
+    "regex": "\\("
+  },
+  "SingleTypeAt1At8": {
+    "role": "match",
+    "regex": "\\)"
+  },
+  "SingleTypeAt1At9": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "MultiTypes": {
+    "role": "begin",
+    "regex": "\\b(type)\\b\\s*(\\()"
+  },
+  "MultiTypesEnd": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "MultiTypesAt4": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "StructInterfaceDeclaration": {
+    "role": "match",
+    "regex": "^\\s*\\b(type)\\b\\s*([.\\w]+)"
+  },
+  "DoubleParenthesesTypes": {
+    "role": "match",
+    "regex": "(?<!\\w)(\\([]*\\[]+{0,1}[.\\w]+(?:\\[(?:[]*.\\[{}\\w]+(?:,\\s*[]*.\\[{}\\w]+)*)?])?\\))(?=\\()"
+  },
+  "Nested20At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested21At2": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested22At2": {
+    "role": "match",
+    "regex": "\\btype\\b"
+  },
+  "SwitchTypes": {
+    "role": "begin",
+    "regex": "(?<=\\bswitch\\b)\\s*(\\w+\\s*:=)?\\s*([-\\]%\\&(-+./<>\\[|\\w]+)(\\.\\(\\btype\\b\\)\\s*)(\\{)"
+  },
+  "SwitchTypesEnd": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SwitchTypesAt0": {
+    "role": "match",
+    "regex": "^\\s*\\b(case)\\b\\s+([!*,.<=>\\w\\s]+)(:)(\\s*/[*/]\\s*.*)?$"
+  },
+  "SwitchTypesAt1": {
+    "role": "begin",
+    "regex": "\\bcase\\b"
+  },
+  "SwitchTypesAt1End": {
+    "role": "end",
+    "regex": ":"
+  },
+  "SwitchTypesAt1At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested24At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "GenericTypes": {
+    "role": "match",
+    "regex": "([*.\\w]+)(\\[[^]]+{0,1}])"
+  },
+  "Nested25At2": {
+    "role": "match",
+    "regex": "\\("
+  },
+  "Nested25At3": {
+    "role": "match",
+    "regex": "\\)"
+  },
+  "Nested25At4": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "Nested25At5": {
+    "role": "match",
+    "regex": "]"
+  },
+  "Nested25At6": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "ConstAssignmentAt0": {
+    "role": "match",
+    "regex": "(?<=\\bconst\\b)\\s*\\b([.\\w]+(?:,\\s*[.\\w]+)*)\\s*((?:(?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+(?:\\([^)]+\\))?)?(?![]*\\[]+{0,1}\\b(?:struct|func|map)\\b)(?:[]*.\\[\\w]+(?:,\\s*[]*.\\[\\w]+)*)?\\s*=?)?"
+  },
+  "ConstAssignmentAt1": {
+    "role": "begin",
+    "regex": "(?<=\\bconst\\b)\\s*(\\()"
+  },
+  "ConstAssignmentAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "ConstAssignmentAt1At0": {
+    "role": "match",
+    "regex": "^\\s*\\b([.\\w]+(?:,\\s*[.\\w]+)*)\\s*((?:(?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+(?:\\([^)]+\\))?)?(?![]*\\[]+{0,1}\\b(?:struct|func|map)\\b)(?:[]*.\\[\\w]+(?:,\\s*[]*.\\[\\w]+)*)?\\s*=?)?"
+  },
+  "Nested26At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "VarAssignmentAt0": {
+    "role": "match",
+    "regex": "(?<=\\bvar\\b)\\s*\\b([.\\w]+(?:,\\s*[.\\w]+)*)\\s*((?:(?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+(?:\\([^)]+\\))?)?(?![]*\\[]+{0,1}\\b(?:struct|func|map)\\b)(?:[]*.\\[\\w]+(?:,\\s*[]*.\\[\\w]+)*)?\\s*=?)?"
+  },
+  "VarAssignmentAt1": {
+    "role": "begin",
+    "regex": "(?<=\\bvar\\b)\\s*(\\()"
+  },
+  "VarAssignmentAt1End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "VarAssignmentAt1At0": {
+    "role": "match",
+    "regex": "^\\s*\\b([.\\w]+(?:,\\s*[.\\w]+)*)\\s*((?:(?:[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+(?:\\([^)]+\\))?)?(?![]*\\[]+{0,1}\\b(?:struct|func|map)\\b)(?:[]*.\\[\\w]+(?:,\\s*[]*.\\[\\w]+)*)?\\s*=?)?"
+  },
+  "Nested27At1": {
+    "role": "match",
+    "regex": "\\d\\w*"
+  },
+  "Nested27At2": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "VariableAssignmentAt0": {
+    "role": "match",
+    "regex": "\\b\\w+(?:,\\s*\\w+)*(?=\\s*:=)"
+  },
+  "Nested28At2": {
+    "role": "match",
+    "regex": "\\d\\w*"
+  },
+  "Nested28At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "VariableAssignmentAt1": {
+    "role": "match",
+    "regex": "\\b[*.\\w]+(?:,\\s*[*.\\w]+)*(?=\\s*=(?!=))"
+  },
+  "Nested29At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "LabelLoopVariables": {
+    "role": "match",
+    "regex": "^(\\s*\\w+:\\s*|\\s*\\b(?:break|goto|continue)\\b\\s+\\w+(?:\\s*/[*/]\\s*.*)?)$"
+  },
+  "Nested30At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "SliceIndexVariables": {
+    "role": "match",
+    "regex": "(?<=\\w\\[)((?:\\b[-%\\&*+./<>|\\w]+:|:\\b[-%\\&*+./<>|\\w]+)(?:\\b[-%\\&*+./<>|\\w]+)?(?::\\b[-%\\&*+./<>|\\w]+)?)(?=])"
+  },
+  "PropertyVariables": {
+    "role": "match",
+    "regex": "\\b([.\\w]+:(?!=))"
+  },
+  "Nested31At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "SwitchVariablesAt0": {
+    "role": "match",
+    "regex": "^\\s*\\b(case)\\b\\s+([\\s\\S]+:\\s*(?:/[*/].*)?)$"
+  },
+  "Nested32At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "SwitchVariablesAt1": {
+    "role": "begin",
+    "regex": "(?<=\\bswitch\\b)\\s*((?:[.\\w]+(?:\\s*[-!%\\&+,/:<=>|]+\\s*[.\\w]+)*\\s*[-!%\\&+,/:<=>|]+)?\\s*[-\\]%\\&(-+./<>\\[|\\w]+{0,1}\\s*(?:;\\s*[-\\]%\\&(-+./<>\\[|\\w]+\\s*)?)(\\{)"
+  },
+  "SwitchVariablesAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "SwitchVariablesAt1At0": {
+    "role": "begin",
+    "regex": "\\bcase\\b"
+  },
+  "SwitchVariablesAt1At0End": {
+    "role": "end",
+    "regex": ":"
+  },
+  "SwitchVariablesAt1At0At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "OtherVariables": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested33At0": {
+    "role": "match",
+    "regex": "\\binvalid\\b\\s+\\btype\\b"
+  },
+  "Nested33At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "HoverAt0": {
+    "role": "match",
+    "regex": "(?<=^\\bfield\\b)\\s+([*.\\w]+)\\s+([\\s\\S]+)"
+  },
+  "HoverAt1": {
+    "role": "match",
+    "regex": "(?<=^\\breturns\\b)\\s+([\\s\\S]+)"
+  },
+  "Nested18At3": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "BuiltInFunctionsAt1At5": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested10At1": {
+    "role": "match",
+    "regex": "\\d\\w*"
+  },
+  "Nested10At2": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "InterfaceVariablesTypesFieldAt2": {
+    "role": "begin",
+    "regex": "([*.\\w]+)?(\\[)"
+  },
+  "InterfaceVariablesTypesFieldAt2End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "InterfaceVariablesTypesFieldAt3": {
+    "role": "begin",
+    "regex": "\\("
+  },
+  "InterfaceVariablesTypesFieldAt3End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "InterfaceVariablesTypesFieldAt4": {
+    "role": "match",
+    "regex": "([.\\w]+)"
+  },
+  "Nested9At2": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "Nested9At3": {
+    "role": "match",
+    "regex": "]"
+  },
+  "Nested9At4": {
+    "role": "match",
+    "regex": "\\{"
+  },
+  "Nested9At5": {
+    "role": "match",
+    "regex": "}"
+  },
+  "Nested9At6": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested8At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "StructVariableTypesFieldsMultiAt0": {
+    "role": "begin",
+    "regex": "\\b(\\w+(?:,\\s*\\b\\w+)*(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}\\s*[]*\\[]+{0,1})\\b(struct)\\b\\s*(\\{)"
+  },
+  "StructVariableTypesFieldsMultiAt0End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "StructVariableTypesFieldsMultiAt1": {
+    "role": "begin",
+    "regex": "\\b(\\w+(?:,\\s*\\b\\w+)*(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}\\s*[]*\\[]+{0,1})\\b(interface)\\b\\s*(\\{)"
+  },
+  "StructVariableTypesFieldsMultiAt1End": {
+    "role": "end",
+    "regex": "}"
+  },
+  "StructVariableTypesFieldsMultiAt2": {
+    "role": "begin",
+    "regex": "\\b(\\w+(?:,\\s*\\b\\w+)*(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}\\s*[]*\\[]+{0,1})\\b(func)\\b\\s*(\\()"
+  },
+  "StructVariableTypesFieldsMultiAt2End": {
+    "role": "end",
+    "regex": "\\)"
+  },
+  "StructVariablesTypesFieldsAt1": {
+    "role": "match",
+    "regex": "(?<=\\{)\\s*((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[]*.\\[\\w]+)\\s*(?=})"
+  },
+  "StructVariablesTypesFieldsAt2": {
+    "role": "match",
+    "regex": "(?<=\\{)\\s*((?:\\w+,\\s*)+{0,1}\\w+\\s+)((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[]*.\\[\\w]+)\\s*(?=})"
+  },
+  "Nested34At0": {
+    "role": "match",
+    "regex": "((?:\\w+,\\s*)+{0,1}\\w+\\s+)?((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[^\"/`\\s]+;?)"
+  },
+  "StructVariablesTypesFieldsAt3": {
+    "role": "match",
+    "regex": "(?<=\\{)((?:\\s*(?:(?:\\w+,\\s*)+{0,1}\\w+\\s+)?(?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[^\"/`\\s]+;?)+)\\s*(?=})"
+  },
+  "StructVariablesTypesFieldsAt4": {
+    "role": "match",
+    "regex": "((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[*.\\w]+\\s*)(?:(?=[\"/`])|$)"
+  },
+  "StructVariablesTypesFieldsAt5": {
+    "role": "match",
+    "regex": "\\b(\\w+(?:\\s*,\\s*\\b\\w+)*)\\s*([^\"/`]+)"
+  },
+  "FunctionDeclarationAt1": {
+    "role": "begin",
+    "regex": "([*.\\w]+)?(\\[)"
+  },
+  "FunctionDeclarationAt1End": {
+    "role": "end",
+    "regex": "]"
+  },
+  "FunctionDeclarationAt2": {
+    "role": "match",
+    "regex": "(?<=\\))\\s*((?:\\s*[]*\\[]+{0,1}(?:<-\\s*)?\\bchan\\b(?:\\s*<-)?\\s*)+{0,1}[-\\]*.<>\\[\\w]+\\s*(?:/[*/].*)?)$"
+  },
+  "Nested6At1": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "MapTypesAt3": {
+    "role": "match",
+    "regex": "\\["
+  },
+  "MapTypesAt4": {
+    "role": "match",
+    "regex": "]"
+  },
+  "MapTypesAt5": {
+    "role": "match",
+    "regex": "\\{"
+  },
+  "MapTypesAt6": {
+    "role": "match",
+    "regex": "}"
+  },
+  "MapTypesAt7": {
+    "role": "match",
+    "regex": "\\("
+  },
+  "MapTypesAt8": {
+    "role": "match",
+    "regex": "\\)"
+  },
+  "MapTypesAt9": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested2At2": {
+    "role": "match",
+    "regex": "\\w+"
+  },
+  "Nested1At0At0": {
+    "role": "match",
+    "regex": "(\\w+\\s+)?([*.\\w]+(?:\\[(?:[*.\\w]+(?:,\\s+)?)+{0,1}])?)"
+  }
+}

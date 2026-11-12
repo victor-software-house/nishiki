@@ -1,0 +1,618 @@
+{
+  "RootAt0": {
+    "role": "begin",
+    "regex": "\\b(?:(local)\\s+)?(function)\\b(?![,:])"
+  },
+  "RootAt0End": {
+    "role": "end",
+    "regex": "(?<=[-\\]\"')\\[{}])"
+  },
+  "CommentAt0": {
+    "role": "begin",
+    "regex": "(^[\\t ]+)?(?=--)"
+  },
+  "CommentAt0End": {
+    "role": "end",
+    "regex": "(?!\\G)((?!^)[\\t ]+\\n)?"
+  },
+  "CommentAt0At0": {
+    "role": "begin",
+    "regex": "--\\[(=*)\\[@@@"
+  },
+  "CommentAt0At0End": {
+    "role": "end",
+    "regex": "(--)?]\\1]"
+  },
+  "RootAt1": {
+    "role": "match",
+    "regex": "(?<![.\\w\\d])0[Xx]\\h+(\\.\\h*)?([Ee]-?\\d*)?([Pp][-+]\\d+)?"
+  },
+  "RootAt2": {
+    "role": "match",
+    "regex": "(?<![.\\w\\d])0[Xx]\\.\\h+([Ee]-?\\d*)?([Pp][-+]\\d+)?"
+  },
+  "RootAt3": {
+    "role": "match",
+    "regex": "(?<![.\\w\\d])0[Xx]\\h+(?![.0-9EPep])"
+  },
+  "RootAt4": {
+    "role": "match",
+    "regex": "(?<![.\\w\\d])\\d+(\\.\\d*)?([Ee]-?\\d*)?"
+  },
+  "RootAt5": {
+    "role": "match",
+    "regex": "(?<![.\\w\\d])\\.\\d+([Ee]-?\\d*)?"
+  },
+  "RootAt6": {
+    "role": "match",
+    "regex": "(?<![.\\w\\d])\\d+(?![.0-9EPep])"
+  },
+  "StringAt0": {
+    "role": "begin",
+    "regex": "'"
+  },
+  "StringAt0End": {
+    "role": "end",
+    "regex": "'[\\t ]*|(?=\\n)"
+  },
+  "EscapedCharAt0": {
+    "role": "match",
+    "regex": "\\\\[\\n\"'\\\\abfnrtv]"
+  },
+  "EscapedCharAt1": {
+    "role": "match",
+    "regex": "\\\\z[\\t\\n ]*"
+  },
+  "EscapedCharAt2": {
+    "role": "match",
+    "regex": "\\\\\\d{1,3}"
+  },
+  "EscapedCharAt3": {
+    "role": "match",
+    "regex": "\\\\x\\h\\h"
+  },
+  "EscapedCharAt4": {
+    "role": "match",
+    "regex": "\\\\u\\{\\h+}"
+  },
+  "EscapedCharAt5": {
+    "role": "match",
+    "regex": "\\\\."
+  },
+  "StringAt1": {
+    "role": "begin",
+    "regex": "\""
+  },
+  "StringAt1End": {
+    "role": "end",
+    "regex": "\"[\\t ]*|(?=\\n)"
+  },
+  "StringAt2": {
+    "role": "begin",
+    "regex": "`"
+  },
+  "StringAt2End": {
+    "role": "end",
+    "regex": "`[\\t ]*|(?=\\n)"
+  },
+  "StringAt3": {
+    "role": "begin",
+    "regex": "(?<=\\.cdef)\\s*(\\[(=*)\\[)"
+  },
+  "StringAt3End": {
+    "role": "end",
+    "regex": "(]\\2])[\\t ]*"
+  },
+  "StringAt3At0": {
+    "role": "begin",
+    "regex": "\\G"
+  },
+  "StringAt3At0End": {
+    "role": "end",
+    "regex": "(?=]\\2])"
+  },
+  "StringAt4": {
+    "role": "begin",
+    "regex": "(?<!--)\\[(=*)\\["
+  },
+  "StringAt4End": {
+    "role": "end",
+    "regex": "]\\1][\\t ]*"
+  },
+  "RootAt8": {
+    "role": "match",
+    "regex": "\\A(#!).*$\\n?"
+  },
+  "CommentAt1": {
+    "role": "begin",
+    "regex": "/\\*"
+  },
+  "CommentAt1End": {
+    "role": "end",
+    "regex": "\\*/"
+  },
+  "EmmydocAt0": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@class"
+  },
+  "EmmydocAt0End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt0At0": {
+    "role": "match",
+    "regex": "\\b([*A-Z_a-z][-*.0-9A-Z_a-z]*)"
+  },
+  "EmmydocAt0At1": {
+    "role": "match",
+    "regex": "[,:]"
+  },
+  "EmmydocAt1": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@enum"
+  },
+  "EmmydocAt1End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt1At0": {
+    "role": "begin",
+    "regex": "\\b([*A-Z_a-z][-*.0-9A-Z_a-z]*)"
+  },
+  "EmmydocAt1At0End": {
+    "role": "end",
+    "regex": "(?=\\n)"
+  },
+  "EmmydocAt2": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@type"
+  },
+  "EmmydocAt2End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocTypeAt0": {
+    "role": "begin",
+    "regex": "\\bfun\\b"
+  },
+  "EmmydocTypeAt0End": {
+    "role": "end",
+    "regex": "(?=[#\\s])"
+  },
+  "EmmydocTypeAt0At0": {
+    "role": "match",
+    "regex": "[](),:<>?\\[][\\t ]*"
+  },
+  "EmmydocTypeAt0At1": {
+    "role": "match",
+    "regex": "([A-Z_a-z][-*.0-9A-Z_a-z]*)(?<!,)[\\t ]*(?=\\??:)"
+  },
+  "EmmydocTypeAt1": {
+    "role": "match",
+    "regex": "<[*A-Z_a-z][-*.0-9A-Z_a-z]*>"
+  },
+  "EmmydocTypeAt2": {
+    "role": "match",
+    "regex": "\\basync\\b"
+  },
+  "EmmydocTypeAt3": {
+    "role": "match",
+    "regex": "[,:?`{|}][\\t ]*"
+  },
+  "EmmydocTypeAt4": {
+    "role": "begin",
+    "regex": "(?=[\"'*.A-\\[_a-z])"
+  },
+  "EmmydocTypeAt4End": {
+    "role": "end",
+    "regex": "(?=[#),:?|}\\s])"
+  },
+  "EmmydocTypeAt4At0": {
+    "role": "match",
+    "regex": "([-\\]*,.0-9<>A-\\[_a-z]+)(?<!,)[\\t ]*"
+  },
+  "EmmydocTypeAt4At1": {
+    "role": "match",
+    "regex": "(\\.\\.\\.)[\\t ]*"
+  },
+  "EmmydocAt3": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@alias"
+  },
+  "EmmydocAt3End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt3At0": {
+    "role": "begin",
+    "regex": "\\b([*A-Z_a-z][-*.0-9A-Z_a-z]*)"
+  },
+  "EmmydocAt3At0End": {
+    "role": "end",
+    "regex": "(?=[\\n#])"
+  },
+  "EmmydocAt4": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*(@operator)\\s*(\\b[a-z]+)?"
+  },
+  "EmmydocAt4End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt5": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@cast"
+  },
+  "EmmydocAt5End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt5At0": {
+    "role": "begin",
+    "regex": "\\b([*A-Z_a-z][-*.0-9A-Z_a-z]*)"
+  },
+  "EmmydocAt5At0End": {
+    "role": "end",
+    "regex": "(?=\\n)"
+  },
+  "EmmydocAt5At0At1": {
+    "role": "match",
+    "regex": "([+-|])"
+  },
+  "EmmydocAt6": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@param"
+  },
+  "EmmydocAt6End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt6At0": {
+    "role": "begin",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b(\\??)"
+  },
+  "EmmydocAt6At0End": {
+    "role": "end",
+    "regex": "(?=[\\n#])"
+  },
+  "EmmydocAt7": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@return"
+  },
+  "EmmydocAt7End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt7At0": {
+    "role": "match",
+    "regex": "\\?"
+  },
+  "EmmydocAt8": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@field"
+  },
+  "EmmydocAt8End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt8At0": {
+    "role": "begin",
+    "regex": "(\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b|(\\[))(\\??)"
+  },
+  "EmmydocAt8At0End": {
+    "role": "end",
+    "regex": "(?=[\\n#])"
+  },
+  "EmmydocAt8At0At2": {
+    "role": "match",
+    "regex": "]"
+  },
+  "EmmydocAt9": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@generic"
+  },
+  "EmmydocAt9End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt9At0": {
+    "role": "begin",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b"
+  },
+  "EmmydocAt9At0End": {
+    "role": "end",
+    "regex": "(?=\\n)|(,)"
+  },
+  "EmmydocAt9At0At0": {
+    "role": "match",
+    "regex": ":"
+  },
+  "EmmydocAt10": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@vararg"
+  },
+  "EmmydocAt10End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt11": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@overload"
+  },
+  "EmmydocAt11End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt12": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@deprecated"
+  },
+  "EmmydocAt12End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt13": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@meta"
+  },
+  "EmmydocAt13End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt14": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@private"
+  },
+  "EmmydocAt14End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt15": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@protected"
+  },
+  "EmmydocAt15End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt16": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@package"
+  },
+  "EmmydocAt16End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt17": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@version"
+  },
+  "EmmydocAt17End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt17At0": {
+    "role": "match",
+    "regex": "\\b(5\\.1|5\\.2|5\\.3|5\\.4|JIT)\\b"
+  },
+  "EmmydocAt17At1": {
+    "role": "match",
+    "regex": "[,<>]"
+  },
+  "EmmydocAt18": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@see"
+  },
+  "EmmydocAt18End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt18At0": {
+    "role": "match",
+    "regex": "\\b([*A-Z_a-z][-*.0-9A-Z_a-z]*)"
+  },
+  "EmmydocAt18At1": {
+    "role": "match",
+    "regex": "#"
+  },
+  "EmmydocAt19": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@diagnostic"
+  },
+  "EmmydocAt19End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt19At0": {
+    "role": "begin",
+    "regex": "([-0-9A-Z_a-z]+)[\\t ]*(:)?"
+  },
+  "EmmydocAt19At0End": {
+    "role": "end",
+    "regex": "(?=\\n)"
+  },
+  "EmmydocAt19At0At0": {
+    "role": "match",
+    "regex": "\\b([*A-Z_a-z][-0-9A-Z_a-z]*)"
+  },
+  "EmmydocAt19At0At1": {
+    "role": "match",
+    "regex": ","
+  },
+  "EmmydocAt20": {
+    "role": "begin",
+    "regex": "(?<=---)[\\t ]*@module"
+  },
+  "EmmydocAt20End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "EmmydocAt21": {
+    "role": "match",
+    "regex": "(?<=---)[\\t ]*@(async|nodiscard)"
+  },
+  "EmmydocAt22": {
+    "role": "begin",
+    "regex": "(?<=---)\\|\\s*[+>]?"
+  },
+  "EmmydocAt22End": {
+    "role": "end",
+    "regex": "(?=[\\n#@])"
+  },
+  "LdocTag": {
+    "role": "match",
+    "regex": "\\G[\\t ]*(@)(alias|annotation|author|charset|class|classmod|comment|constructor|copyright|description|example|export|factory|field|file|fixme|function|include|lfunction|license|local|module|name|param|pragma|private|raise|release|return|script|section|see|set|static|submodule|summary|tfield|thread|tparam|treturn|todo|topic|type|usage|warning|within)\\b"
+  },
+  "RootAt10": {
+    "role": "match",
+    "regex": "\\b(goto)\\s+([A-Z_a-z][0-9A-Z_a-z]*)"
+  },
+  "RootAt11": {
+    "role": "match",
+    "regex": "(::)\\s*[A-Z_a-z][0-9A-Z_a-z]*\\s*(::)"
+  },
+  "RootAt12": {
+    "role": "match",
+    "regex": "<\\s*(c(?:onst|lose))\\s*>"
+  },
+  "RootAt13": {
+    "role": "match",
+    "regex": "<[*A-Z_a-z][-*.0-9A-Z_a-z]*>"
+  },
+  "RootAt14": {
+    "role": "match",
+    "regex": "\\b(break|do|else|for|if|elseif|goto|return|then|repeat|while|until|end|in)\\b"
+  },
+  "RootAt15": {
+    "role": "match",
+    "regex": "\\b(local)\\b"
+  },
+  "RootAt16": {
+    "role": "match",
+    "regex": "^\\s*(global)\\b(?!\\s*=)"
+  },
+  "RootAt17": {
+    "role": "match",
+    "regex": "\\b(function)\\b(?![,:])"
+  },
+  "RootAt18": {
+    "role": "match",
+    "regex": "(?<![^.]\\.|:)\\b(false|nil(?!:)|true|_ENV|_G|_VERSION|math\\.(pi|huge|maxinteger|mininteger)|utf8\\.charpattern|io\\.(std(?:in|out|err))|package\\.(config|cpath|loaded|loaders|path|preload|searchers))\\b|(?<!\\.)\\.{3}(?!\\.)"
+  },
+  "RootAt19": {
+    "role": "match",
+    "regex": "(?<![^.]\\.|:)\\b(self)\\b"
+  },
+  "RootAt20": {
+    "role": "match",
+    "regex": "(?<![^.]\\.|:)\\b(assert|collectgarbage|dofile|error|getfenv|getmetatable|ipairs|load|loadfile|loadstring|module|next|pairs|pcall|print|rawequal|rawget|rawlen|rawset|require|select|setfenv|setmetatable|tonumber|tostring|type|unpack|xpcall)\\b(?!\\s*=(?!=))"
+  },
+  "RootAt21": {
+    "role": "match",
+    "regex": "(?<![^.]\\.|:)\\b(async)\\b(?!\\s*=(?!=))"
+  },
+  "RootAt22": {
+    "role": "match",
+    "regex": "(?<![^.]\\.|:)\\b(coroutine\\.(create|isyieldable|close|resume|running|status|wrap|yield)|string\\.(byte|char|dump|find|format|gmatch|gsub|len|lower|match|pack|packsize|rep|reverse|sub|unpack|upper)|table\\.(concat|create|insert|maxn|move|pack|remove|sort|unpack)|math\\.(abs|acos|asin|atan2?|ceil|cosh?|deg|exp|floor|fmod|frexp|ldexp|log|log10|max|min|modf|pow|rad|random|randomseed|sinh?|sqrt|tanh?|tointeger|type)|io\\.(close|flush|input|lines|open|output|popen|read|tmpfile|type|write)|os\\.(clock|date|difftime|execute|exit|getenv|remove|rename|setlocale|time|tmpname)|package\\.(loadlib|seeall|searchpath)|debug\\.(debug|[gs]etfenv|[gs]ethook|getinfo|[gs]etlocal|[gs]etmetatable|getregistry|[gs]etupvalue|[gs]etuservalue|set[Cc]stacklimit|traceback|upvalueid|upvaluejoin)|bit32\\.(arshift|band|bnot|bor|btest|bxor|extract|replace|lrotate|lshift|rrotate|rshift)|utf8\\.(char|codes|codepoint|len|offset))\\b(?!\\s*=(?!=))"
+  },
+  "RootAt23": {
+    "role": "match",
+    "regex": "\\b(\\|\\||&&|!)\\b"
+  },
+  "RootAt24": {
+    "role": "match",
+    "regex": "\\b(and|or|not)\\b"
+  },
+  "RootAt25": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b(?=\\s*(?:[\"'({]|\\[\\[))"
+  },
+  "RootAt26": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b(?=\\s*\\??:)"
+  },
+  "RootAt27": {
+    "role": "match",
+    "regex": "(?<=[^.]\\.|:)\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b(?!\\s*=\\s*\\b(function)\\b)"
+  },
+  "RootAt28": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b(?!\\s*=\\s*\\b(function)\\b)"
+  },
+  "RootAt29": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b(?=\\s*=\\s*\\b(function)\\b)"
+  },
+  "RootAt30": {
+    "role": "match",
+    "regex": "[-#%*+/^]|==?|~=|!=|<=?|>=?|(?<!\\.)\\.{2}(?!\\.)"
+  },
+  "CommentAt0At1": {
+    "role": "begin",
+    "regex": "--\\[(=*)\\["
+  },
+  "CommentAt0At1End": {
+    "role": "end",
+    "regex": "(--)?]\\1]"
+  },
+  "CommentAt0At2": {
+    "role": "begin",
+    "regex": "----"
+  },
+  "CommentAt0At2End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentAt0At3": {
+    "role": "begin",
+    "regex": "---"
+  },
+  "CommentAt0At3End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "CommentAt0At4": {
+    "role": "begin",
+    "regex": "--"
+  },
+  "CommentAt0At4End": {
+    "role": "end",
+    "regex": "\\n"
+  },
+  "RootAt0At1": {
+    "role": "begin",
+    "regex": "(\\()"
+  },
+  "RootAt0At1End": {
+    "role": "end",
+    "regex": "(\\))|(?=[-\\]\"'\\[{}])|(?<!\\.)\\.(?!\\.)"
+  },
+  "RootAt0At1At1": {
+    "role": "match",
+    "regex": "(\\.{3})\\s*([A-Z_a-z][0-9A-Z_a-z]*)"
+  },
+  "RootAt0At1At2": {
+    "role": "match",
+    "regex": "[A-Z_a-z][0-9A-Z_a-z]*"
+  },
+  "RootAt0At1At3": {
+    "role": "match",
+    "regex": ","
+  },
+  "RootAt0At1At4": {
+    "role": "begin",
+    "regex": ":"
+  },
+  "RootAt0At1At4End": {
+    "role": "end",
+    "regex": "(?=[),])"
+  },
+  "RootAt0At2": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b\\s*(?=:)"
+  },
+  "RootAt0At3": {
+    "role": "match",
+    "regex": "\\b([A-Z_a-z][0-9A-Z_a-z]*)\\b"
+  }
+}
