@@ -6,6 +6,7 @@ use memchr::{memchr, memchr2, memchr3};
 use super::lexer::Lexer;
 use super::scope::S;
 use super::state::Rule;
+use crate::classes::digit_width;
 use crate::utf8;
 
 impl Lexer<'_> {
@@ -170,18 +171,30 @@ impl Lexer<'_> {
 
     /// `\n`, `\x41`, `\u{1F600}`.
     /// Otherwise, a backslash and then any character.
+    /// The hex digits are `[A-Fa-f\d]`, so a Unicode digit is one.
     fn escape(&mut self, q: usize) -> Option<usize> {
-        let hex = |b: u8| b.is_ascii_hexdigit();
         let (c1, c2) = (self.at(q + 1), self.at(q + 2));
-        if c1 == b'x' && (b'0'..=b'7').contains(&c2) && hex(self.at(q + 3)) {
+        let hex = |i: usize| match self.s.get(i) {
+            None => 0,
+            Some(&b) if b < 0x80 => usize::from(b.is_ascii_hexdigit()),
+            Some(_) => digit_width(self.s, i),
+        };
+        if c1 == b'x' && (b'0'..=b'7').contains(&c2) && hex(q + 3) > 0 {
+            let end = q + 3 + hex(q + 3);
             self.gap(q);
             self.tok(q + 1, &[S::Escape, S::EscBackslash]);
-            self.tok(q + 4, &[S::Escape, S::EscBit]);
-            return Some(q + 4);
+            self.tok(end, &[S::Escape, S::EscBit]);
+            return Some(end);
         }
         if c1 == b'u' && c2 == b'{' {
-            let digits_end = self.skip(q + 3, hex);
-            if (4..=6).contains(&(digits_end - q - 3)) && self.at(digits_end) == b'}' {
+            let mut digits_end = q + 3;
+            let mut digits = 0;
+            while digits < 7 && hex(digits_end) > 0 {
+                digits_end += hex(digits_end);
+                digits += 1;
+            }
+            self.spend(digits_end - q - 3);
+            if (4..=6).contains(&digits) && self.at(digits_end) == b'}' {
                 self.gap(q);
                 self.tok(q + 1, &[S::Escape, S::EscBackslash]);
                 self.tok(q + 2, &[S::Escape, S::EscUnicode]);

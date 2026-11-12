@@ -396,7 +396,8 @@ languages! {
     /// - `||` is two `|` operators.
     /// - `a!=b` reads `a!` as a macro.
     /// - A camel-case name such as `fooBar` gets no scope.
-    /// - Every non-ASCII byte counts as a word character.
+    /// - `\w` and `\d` read Unicode, as Shiki's engine does.
+    ///   An Arabic-Indic digit starts a number, and an emoji ends a name.
     Rust {
         feature: "lang-rust",
         names: ["rust", "rs"],

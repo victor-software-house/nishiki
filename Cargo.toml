@@ -498,7 +498,7 @@ lang-ruby = [
   "_classes",
   "_embedding",
 ]
-lang-rust = ["_hand-lexers", "_scope-table", "_classes", "_space", "_utf8"]
+lang-rust = ["_hand-lexers", "_scope-table", "_class-widths", "_space", "_utf8"]
 lang-sass = [
   "_hand-lexers",
   "_scope-table",
