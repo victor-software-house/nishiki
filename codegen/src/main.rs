@@ -10,6 +10,8 @@
 //! `oracle/engine-grammars.ts` writes, and the facts in `oracle/facts/`.
 //! They read each grammar through `nishiki::unstable`, the surface a caller has
 //! (openspec rust-codegen, design section 3).
+//! [`test_gates`] reads the `#[cfg]`s of `src/` and writes the builds of
+//! `check:test-gates`.
 //! The word writers write text.
 //! The matcher writer builds tokens with `quote` and lays them out with
 //! `prettyplease`.
@@ -24,6 +26,7 @@ mod header;
 mod matchers;
 mod numbers;
 mod source;
+mod test_gates;
 mod unicode;
 mod words;
 
@@ -95,6 +98,7 @@ fn run(mode: Mode) -> Result<Vec<&'static str>, Error> {
     files.push(classes::file(&root)?);
     files.push(folds::file(&root)?);
     files.push(unicode::file(&root)?);
+    files.push(test_gates::file(&root)?);
     for file in files {
         let path = root.join(file.path);
         let current = fs::read(&path).ok();

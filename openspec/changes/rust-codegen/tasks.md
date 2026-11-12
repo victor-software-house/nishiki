@@ -44,10 +44,10 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   → verify: on a box, with `-W dead_code`, no single-language or TextMate set reports a dead item that one language or engine owns.
   - 2026-11-12: [pull request #7][pr-7] gates Vue's and PHP's own code, and [pull request #8][pr-8] the language-specific items and test helpers.
   - 2026-11-12: [pull request #16][pr-16] gates the line context's fields, the keyed scope lists and the arena's inserts on their readers.
-- [ ] 1.6 `check:features` builds each test gate of two or more features, one line per gate.
-  Only `--all-features` compiles that test code now.
-  A narrower gate inside it then goes unbuilt.
-  The generator writes the lines, or a check compares them with the cfgs.
+- [x] 1.6 `check:test-gates` builds each test gate of two or more features, one line per gate.
+  Before it, only `--all-features` compiled that test code.
+  A narrower gate inside it then went unbuilt.
+  `codegen/src/test_gates.rs` reads the cfgs of `src/` and writes the lines.
   The gates found on 2026-11-12:
   - TypeScript's tests, with its four dialects;
   - Svelte's tests, with `lang-html` and `lang-markdown`;
@@ -55,9 +55,11 @@ Task 1.3's word tables create `codegen/`, ahead of [rule-table-codegen][rule-tab
   - 34 probe test gates in 31 files, each with its language and `json`;
   - CoffeeScript's probe tests, with `json` and `lang-svelte` or the TextMate engine.
 
-  → verify: `check:features` has a line for every test gate of two or more features, and fails when one lacks it.
+  → verify: `check:test-gates` has a line for every test gate of two or more features, and `codegen:check` fails when one lacks it.
   - 2026-11-12: a build of the four TypeScript dialects alone failed to resolve `start_embedded` in their tests.
     [Pull request #12][pr-12] gates those tests on the function's own gate.
+  - 2026-11-12: the generator writes 111 builds, which cover every gate above.
+    On a box, all 111 passed in 192 s.
 
 [design-gates]: design.md#63-feature-gates-and-dead-code
 [pr-12]: https://github.com/victor-software-house/nishiki/pull/12

@@ -51,6 +51,7 @@ depends = [
   "check:line-width",
   "lint",
   "check:features",
+  "check:test-gates",
   "check:size",
   "test",
   "test:doc",
