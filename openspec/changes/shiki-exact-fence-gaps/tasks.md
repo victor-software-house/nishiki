@@ -94,3 +94,32 @@ Design section 2 names the runs that found each case.
   - 2026-11-12: the matchers read `\s*` to its end and then need a name.
     Oniguruma gives the last space back when no name starts there, and U+00A0 and U+3000 are name characters.
     About 16 matchers in `src/php/` and `src/blade/` have that shape.
+
+## 7. Vue fences where a hand lexer's rule begins
+
+Shiki opens a `vue` fence mid-line where a rule's begin match ends, since `\G` holds there.
+Each hand lexer below needs the halt that task 6.6 of [gaps] gave TypeScript.
+
+Each verify is the same: a test holds the openers named with Shiki's scopes, and the mid-line sweep shows no document of that language differing.
+The sweep puts each of 20 openers before a `vue` fence in a fence of each language.
+
+- [ ] 7.1 JSON, JSONC and JSON Lines open a `vue` fence where Shiki opens one.
+  - 2026-11-12: the sweep shows it after `"`, `/*`, `[`, `{`, `r"` and `${`.
+- [ ] 7.2 YAML opens a `vue` fence where Shiki opens one.
+  - 2026-11-12: the sweep shows it after `"`, `'`, `(`, `{`, `#`, `--`, `%`, `;` and `x = <a>`.
+- [ ] 7.3 INI opens a `vue` fence where Shiki opens one.
+  - 2026-11-12: the sweep shows it after `"`, `'`, `#`, `;` and `r"`.
+- [ ] 7.4 Rust opens a `vue` fence where Shiki opens one.
+  - 2026-11-12: the sweep shows it after `"`, `'`, `/*` and `r"`.
+- [ ] 7.5 Vue opens a `vue` fence where Shiki opens one.
+  - 2026-11-12: the sweep shows it after `<a>`, `x = <a>`, `<!--` and `<<EOF`.
+  - 2026-11-12: so do Vue's `mdw` documents 16 at seed 1, 25 at seed 2, and 17 and 76 at seed 3.
+    In each, TypeScript or JavaScript in a `<script>` reaches a quote's `vue` fence line.
+- [ ] 7.6 SCSS opens a `vue` fence where Shiki opens one.
+  - 2026-11-12: the sweep shows it after `/*`, `{`, `//` and `${`.
+- [ ] 7.7 XML, HTML and Markdown open a `vue` fence after `<!--`, as Shiki does.
+  - 2026-11-12: the sweep shows it in each, and in XML after `<<EOF` too.
+- [ ] 7.8 Diff opens a `vue` fence after `#`, as Shiki does.
+  - 2026-11-12: the sweep shows it.
+
+[gaps]: ../shiki-exact-gaps/tasks.md

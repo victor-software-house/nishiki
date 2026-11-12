@@ -1503,9 +1503,9 @@ languages! {
     /// - A `vue` fence also opens where a line starts in any fence's body, Vue's included.
     ///   It sits on the scopes of the text there, such as a template string's.
     ///   Elsewhere it opens only where Markdown's own fences open.
-    /// - A `vue` fence opens only at the start of a line, or after a quote's or list's prefix.
-    ///   Shiki's injection also opens one where an inner rule's match ended, at its `\G`,
-    ///   such as after a JSX tag's `>`.
+    /// - In a TypeScript, JavaScript, JSX or TSX fence, a `vue` fence also opens mid-line.
+    ///   It opens where one of their rules begins, at its `\G`, such as after a JSX tag's `>`.
+    ///   In other languages it opens only at a line's start, or after a quote's or list's prefix.
     /// - In a Less block, a `)` or `}` at Less's root ends the Less.
     ///   Less's `(;)|(?=[)}])` matches there without advancing,
     ///   and vscode-textmate then pops the innermost rule, Vue's style block.
