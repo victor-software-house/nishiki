@@ -73,6 +73,9 @@ globa = "globa"
 # doc comments quote.
 includ = "includ"
 requir = "requir"
+# The repository key the java, kotlin, python and swift grammars misspell,
+# which their RuleTables values in codegen/src/languages/ respell.
+charecter = "charecter"
 # HLSL's level-of-detail state keys, such as `MaxLOD`, which the hlsl grammar
 # lists and oracle/inputs/hlsl-coverage.hlsl uses.
 lod = "lod"

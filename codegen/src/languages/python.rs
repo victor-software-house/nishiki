@@ -1,0 +1,11 @@
+//! Python's tables.
+
+use nishiki::unstable::codegen::tables::{CaptureLists, RuleTables};
+
+/// Python's tables, from `tests/engine/grammars/python.json`.
+pub(crate) const PYTHON: RuleTables = RuleTables {
+    language: "python",
+    grammar: "python",
+    key_spellings: &[("charecter", "character")],
+    capture_lists: CaptureLists::Rules,
+};

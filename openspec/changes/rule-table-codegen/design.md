@@ -189,6 +189,13 @@ The `codegen/` binary drives it, and `codegen/src/languages/` holds each languag
    - `flatten.rs` and `split.rs` build each language's pattern list from its grammar in `tests/engine/grammars/` and its `RuleTables` value.
    - codegen's check compares that list with `codegen/patterns/<language>.json`, byte for byte, for each of the 34 languages whose grammar is there.
    - Proof: no file changes, and the check passes for all 34.
+   - Five pull requests add the languages, each with the variants they need (lead, 2026-11-12):
+     1. the model and `flatten.rs`, for Go, Protocol Buffers, Python, Sass and Scala;
+     2. `split.rs` and the names a language gives its patterns, for Java, CSS, CoffeeScript, Dart, Julia, PowerShell, VB and Jinja;
+     3. includes that add nothing and embedded grammars, for Less, Swift, Asm, HAML, Elixir, Lua, GDScript and Common Lisp;
+     4. the scripts with logic of their own, for Ruby, Perl, SCSS, C++, C#, Bat and R;
+     5. `oracle/rule-generator.ts`'s five languages, and PHP.
+   - Each variant of a script is one arm of a typed enum in `RuleTables`, never a function per language.
 4. One slice per family: codegen writes the family's `grammar.rs`, `scope.rs` and `words.rs`.
    - The slice deletes the family's scripts, pattern files and start files.
      The blank-run analysis and `starts.rs` then read `unstable::codegen`'s own model for it.
