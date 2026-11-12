@@ -3,7 +3,7 @@
 ## 1. The first language
 
 - [ ] 1.1 Protocol Buffers moves to generated tables.
-  → verify: `codegen --compare` shows equal tokens outside the start sets the pull request lists.
+  → verify: design section 4's proof passes on Protocol Buffers' files.
   `mise run codegen -- --check` and the differential and hostile-line tests of the default-matchers design pass in CI.
   Identity shows no change.
   - Its grammar goes into `tests/engine/grammars/`, and `unstable::codegen` writes its tables with default matchers.
@@ -13,14 +13,24 @@
   It reads `oracle/licences.ts`, whose `testData` record lists those grammars ([PR 762][nishiki#762]).
   → verify: a test points the generator at a `testData` grammar and sees the refusal
 
-## 2. Families
+## 2. The slices
 
-- [ ] 2.1 One task per family, added as each starts.
-  → verify: the proof of design section 4 passes, and the family's scripts are deleted
+The slices of design section 5, in order.
+Each proves byte-identical output, as design section 4 says.
+
+- [ ] 2.1 `unstable::codegen` gains `starts.rs`, the first-byte analysis, and the blank-run analysis moves there from `codegen/`.
+  codegen's check compares the start sets with every `grammar.rs`.
+  → verify: no file changes, and the check lists each start set that differs
+- [ ] 2.2 The scripts take the start sets from codegen, if 2.1 lists any that differ.
+  → verify: the diff holds only the listed sets, with Callgrind rows, and Identity passes
+- [ ] 2.3 `flatten.rs` and `split.rs` build each pattern list, and codegen's check compares it with `codegen/patterns/`.
+  → verify: no file changes, and the check passes for the 34 languages whose grammar `tests/engine/grammars/` holds
+- [ ] 2.4 One task per family, added as each starts, in design section 5's order.
+  → verify: design section 4's proof passes on the family's files, and its scripts and pattern files are deleted
   - Objective-C's family keeps its `$base` slots.
     The writer emits `Pattern::Base`, each rule's base list and `BASE_SLOTS`, as `oracle/rule-generator.ts` does with `baseSlots`.
-- [ ] 2.2 The last family deletes the shared scripts and `check:rule-grammars`.
-  → verify: no `oracle/*-grammar.ts` remains
+- [ ] 2.5 The last slice deletes the shared scripts, `codegen/patterns/` and `check:rule-grammars`.
+  → verify: no `oracle/*-grammar.ts` remains, and no generated file changes
 
 [default-matchers]: ../default-matchers/design.md
 [nishiki#762]: https://github.com/victor-software-house/nishiki-archive/pull/762
