@@ -441,7 +441,7 @@ class RegexParser {
       }
       case "x":
       case "u": {
-        const m = /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{2,4}))/.exec(this.src.slice(this.pos));
+        const m = hexEscape(c, this.src.slice(this.pos));
         if (!m) return analysis(single(c.charCodeAt(0)));
         this.pos += m[0].length;
         const cp = parseInt((m[1] ?? m[2])!, 16);
@@ -516,7 +516,7 @@ class RegexParser {
         return 13;
       case "x":
       case "u": {
-        const m = /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{2,4}))/.exec(this.src.slice(this.pos));
+        const m = hexEscape(e, this.src.slice(this.pos));
         if (!m) return e.charCodeAt(0);
         this.pos += m[0].length;
         return parseInt((m[1] ?? m[2])!, 16);
@@ -580,6 +580,15 @@ class RegexParser {
     const set = into.exact ? union(complement(into.set), nonAscii()) : FULL();
     return { ...analysis(set), exact: into.exact };
   }
+}
+
+/** The digits of a `\x` or `\u` escape at the start of `rest`, after the letter.
+ * Unbraced, `\x` takes at most two digits, as Oniguruma's `\xHH` does.
+ * `\u` takes two to four. */
+function hexEscape(letter: string, rest: string): RegExpExecArray | null {
+  return letter === "x"
+    ? /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{1,2}))/.exec(rest)
+    : /^(?:\{([0-9A-Fa-f]+)\}|([0-9A-Fa-f]{2,4}))/.exec(rest);
 }
 
 /** The first bytes of the UTF-8 encodings of the code points `lo` to `hi`. */

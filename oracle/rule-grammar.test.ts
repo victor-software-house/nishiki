@@ -165,3 +165,10 @@ test("a run after a lookaround cannot move a match inside a word to the word's s
   expect(startOf("\\w*\\b-", "any").wb).toBe(true);
   expect(startOf("(?:\\w*)\\b-", "any").wb).toBe(true);
 });
+
+test("an unbraced \\x takes at most two hex digits, as Oniguruma's \\xHH does", () => {
+  const { set } = startOf("\\x41B");
+  const has = (b: number) => ((set[b >> 6]! >> BigInt(b & 63)) & 1n) !== 0n;
+  expect(has(0x41)).toBe(true);
+  expect(has(0xd0)).toBe(false);
+});
