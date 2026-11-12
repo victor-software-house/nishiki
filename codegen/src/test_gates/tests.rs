@@ -121,3 +121,20 @@ fn a_not_is_met_and_unstable_code_gets_no_build() {
     )]);
     assert_eq!(found, BTreeSet::from([set(&["json", "lang-a"])]));
 }
+
+/// An inner `#![cfg]` gates every item after it in its module.
+#[test]
+fn an_inner_gate_covers_the_rest_of_its_module() {
+    let found = sets_of(&[
+        ("src/lib.rs", &["mod a;"]),
+        (
+            "src/a.rs",
+            &[
+                r#"#![cfg(feature = "lang-a")]"#,
+                "fn first() {}",
+                r#"#[cfg(all(test, feature = "json"))] fn probe() {}"#,
+            ],
+        ),
+    ]);
+    assert_eq!(found, BTreeSet::from([set(&["json", "lang-a"])]));
+}

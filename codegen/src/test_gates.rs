@@ -331,21 +331,30 @@ impl Walk<'_> {
     /// outer attribute.
     /// The outer `#[cfg]`s that open a piece gate the rest of it, and every
     /// group inside it.
+    /// An inner `#![cfg]` gates every piece after it in `tokens`.
     /// A piece is an item, a statement or a field.
     /// Where commas part fields or arms, a piece runs on to the next split.
     fn tokens(&mut self, tokens: TokenStream, dir: &Path) -> Result<(), Error> {
         let trees = tokens.into_iter().collect::<Vec<_>>();
+        let outer = self.gates.len();
         let mut at = 0;
         while at < trees.len() {
             let mut pushed = 0;
+            let mut found = false;
             while let Some(attribute) = attribute_at(&trees, at) {
+                let inner = inner_attribute_at(&trees, at);
                 if let Some(gate) = gate(attribute) {
-                    self.gates.push(gate);
-                    pushed += 1;
+                    if inner {
+                        self.gates.insert(outer, gate);
+                    } else {
+                        self.gates.push(gate);
+                        pushed += 1;
+                    }
+                    found = true;
                 }
-                at += if inner_attribute_at(&trees, at) { 3 } else { 2 };
+                at += if inner { 3 } else { 2 };
             }
-            if pushed > 0 {
+            if found {
                 self.record();
             }
             let start = at;
@@ -376,6 +385,7 @@ impl Walk<'_> {
             }
             self.gates.truncate(self.gates.len() - pushed);
         }
+        self.gates.truncate(outer);
         Ok(())
     }
 
