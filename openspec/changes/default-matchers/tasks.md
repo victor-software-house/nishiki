@@ -44,7 +44,7 @@
   It reads on to the run's end only to keep the failure.
   It follows up fix 2's cost ([`field-pattern-fixes`][field-pattern-fixes], section 3.4).
   → verify: `m36` costs fewer instructions per try than at `30390626`, with 0 differences and both field lines uncut
-- [ ] 1.5 The scan passes a mixed run of `\s` characters that starts with a wide space in one step, where the grammar allows it.
+- [x] 1.5 The scan passes a mixed run of `\s` characters that starts with a wide space in one step, where the grammar allows it.
   An analysis per grammar decides where it does.
   It extends the blank-run analysis to runs that start with a wide space.
   - [#6][pr-6] passed such a run whole.
@@ -57,6 +57,19 @@
   - the `"\u{a0} "` line ends under the work limit, in steps linear in its length;
   - the Shiki differential over three seeds shows no new difference;
   - every Callgrind lexing row reads at most 1.000, or the pull request explains it.
+  - 2026-11-12: on a box, against [`51988b24`][pr-11-head], at one codegen unit, with valgrind 3.27.1.
+    - Eight grammars pass mixed runs: Dart, Go, Jinja, Kotlin, Nix, PowerShell, Protocol Buffers and Zig.
+    - The no-break-space line stays at 32,008 steps, and the U+3000 line at 48,008.
+    - The `"\u{a0} "` line at the top level takes 12,008, 24,008 and 48,008 steps at 1,000, 2,000 and 4,000 repeats.
+      The base took 9,008,007, 36,016,007 and 144,032,007.
+    - Inside a message the line stays a limit line.
+      The field pattern's one try is quadratic, as for spaces alone.
+      At 1,000 repeats it takes 3,025,016 steps, where the base took 2,023,517,513.
+    - The Shiki differential over seeds 1 to 3 shows the same documents differing on both sides.
+    - Every lexing row reads at most 1.000 except eleven, from 1.0001 to 1.0009.
+      None of them takes the new step.
+      In each, nishiki's own functions move by at most 191 instructions in total.
+      The rest sits in unnamed functions of the C library.
 
 The first language moves to default matchers in [rule-table-codegen][rule-table-codegen] task 1.1.
 
@@ -65,5 +78,6 @@ The first language moves to default matchers in [rule-table-codegen][rule-table-
 [field-pattern-fixes]: ../field-pattern-fixes/design.md
 [pr-6]: https://github.com/victor-software-house/nishiki/pull/6
 [pr-11]: https://github.com/victor-software-house/nishiki/pull/11
+[pr-11-head]: https://github.com/victor-software-house/nishiki/commit/51988b24e0f4affadc1b26acc29c87d1c9712edc
 [research]: research.md
 [rule-table-codegen]: ../rule-table-codegen/tasks.md
