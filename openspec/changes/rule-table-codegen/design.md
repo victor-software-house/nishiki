@@ -206,6 +206,11 @@ The `codegen/` binary drives it, and `codegen/src/languages/` holds each languag
    - CoffeeScript and HAML moved from the fourth to the fifth (2026-11-12).
      CoffeeScript's script drops an entry that holds only `source.js.regexp`, names capture-list rules after their key, and appends Svelte's injected patterns.
      HAML's script keys patterns by their JSON, drops a begin whose patterns are all missing, and takes a pattern from Ruby's grammar.
+   - A pattern that another grammar holds is read from that grammar, never copied as text (lead, 2026-11-12).
+     - A copy would go stale once task 2.5 deletes the scripts and `codegen/patterns/`.
+     - HAML's tables name Ruby's escape pattern by grammar and key, and codegen passes `ruby.json` to the walk.
+     - CoffeeScript's Svelte patterns follow the same rule.
+     - Lua's made-up begin exists in no grammar, so its tables hold it as text.
    - Each variant of a script is a field or an enum variant in `RuleTables`, never a function per language.
    - `Reentry::WithinWalk` exists only to match the scripts' output (lead, 2026-11-12).
      Under it, one guard covers the whole walk, and a second pass lists what the guard cut short.

@@ -1,6 +1,8 @@
 //! Protocol Buffers's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{
+    CaptureLists, Identity, LonePattern, Reentry, RuleTables, Split,
+};
 
 /// Protocol Buffers's tables, from `tests/engine/grammars/proto.json`.
 pub(crate) const PROTO: RuleTables = RuleTables {
@@ -11,6 +13,7 @@ pub(crate) const PROTO: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    identity: Identity::Id,
     reentry: Reentry::WithinRule,
     externals: &[],
 };

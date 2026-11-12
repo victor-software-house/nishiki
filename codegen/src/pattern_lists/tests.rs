@@ -2,7 +2,7 @@ use nishiki::Grammar;
 use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
-    Act, CaptureLists, External, LonePattern, Reentry, RuleTables, Split, Tables,
+    Act, CaptureLists, External, Identity, LonePattern, Reentry, RuleTables, Split, Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -15,6 +15,7 @@ const PLAIN: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    identity: Identity::Id,
     reentry: Reentry::WithinRule,
     externals: &[],
 };
@@ -31,7 +32,7 @@ enum Failure {
 /// The tables of the grammar `json`, read as `language` says.
 fn tables(json: &str, language: &RuleTables) -> Result<Tables, Failure> {
     let grammar = Grammar::from_json(json).map_err(|error| Failure::Grammar(error.to_string()))?;
-    flatten(unlinked(grammar), language).map_err(Failure::Generate)
+    flatten(unlinked(grammar), &[], language).map_err(Failure::Generate)
 }
 
 /// The ids of the patterns the rule `id` tries, in its order, or `None`
@@ -474,5 +475,155 @@ fn a_list_under_the_key_self_adds_its_patterns() {
     assert_eq!(
         tried(json, &PLAIN, "Root"),
         Ok(Some(vec!["$selfAt0".to_owned()]))
+    );
+}
+
+/// Under content identity, a pattern reached again with the same contents
+/// keeps its first id, though its new place names it otherwise.
+#[test]
+fn content_identity_keeps_the_first_id_of_equal_patterns() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [
+        {"match": "a"}, {"include": "#again"}],
+        "repository": {"again": {"match": "a"}}}"##;
+    let by_content = RuleTables {
+        identity: Identity::Content,
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &by_content),
+        Ok(expected(&[("RootAt0", Act::Match)]))
+    );
+    assert_eq!(
+        tried(json, &by_content, "Root"),
+        Ok(Some(vec!["RootAt0".to_owned(), "RootAt0".to_owned()]))
+    );
+}
+
+/// A begin whose own list holds only a missing grammar is dropped, with its
+/// end and rule, and stays dropped when reached again.
+#[test]
+fn a_begin_with_only_a_missing_grammar_is_dropped() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [
+        {"include": "#plain"}, {"match": "a"}, {"include": "#plain"}],
+        "repository": {"plain": {"begin": "b", "end": "e",
+            "patterns": [{"include": "text.plain"}]}}}"##;
+    let missing = RuleTables {
+        externals: &[("text.plain", External::Missing)],
+        identity: Identity::Content,
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &missing),
+        Ok(expected(&[("RootAt1", Act::Match)]))
+    );
+    assert_eq!(rule_ids(json, &missing), Ok(vec!["Root".to_owned()]));
+}
+
+/// A rule that embeds a grammar and whose end repeats a group of its begin
+/// lists one made-up begin, its body, which ends where the rule would.
+#[test]
+fn an_embedding_rule_with_a_backreference_lists_its_body() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "^(\\s*):ruby", "end": "^(?!\\1\\s+)",
+            "patterns": [{"include": "source.ruby"}]}]}"#;
+    let embeds = RuleTables {
+        externals: &[("source.ruby", External::Embeds)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &embeds),
+        Ok(expected(&[
+            ("RootAt0", Act::Begin),
+            ("RootAt0End", Act::End),
+            ("RootAt0Body", Act::Begin),
+            ("RootAt0BodyEnd", Act::End),
+        ]))
+    );
+    assert_eq!(
+        tried(json, &embeds, "RootAt0"),
+        Ok(Some(vec!["RootAt0Body".to_owned()]))
+    );
+    assert_eq!(tried(json, &embeds, "RootAt0Body"), Ok(Some(Vec::new())));
+}
+
+/// A rule that embeds a grammar in a body cannot list patterns of its own.
+#[test]
+fn an_embedding_body_beside_patterns_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "(a)", "end": "\\1",
+            "patterns": [{"match": "m"}, {"include": "source.ruby"}]}]}"#;
+    let embeds = RuleTables {
+        externals: &[("source.ruby", External::Embeds)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &embeds),
+        Err(Failure::Generate(GenerateError::EmbedsBesidePatterns {
+            id: "RootAt0".to_owned()
+        }))
+    );
+}
+
+/// A language that reads a match from another grammar's repository.
+const READS_RUBY: RuleTables = RuleTables {
+    externals: &[(
+        "source.ruby#escaped_char",
+        External::Pattern {
+            grammar: "ruby",
+            key: "escaped_char",
+        },
+    )],
+    ..PLAIN
+};
+
+/// The tables of the grammar `json`, read as [`READS_RUBY`] says, with
+/// `ruby` as the grammar `ruby`.
+fn with_ruby(json: &str, ruby: &str) -> Result<Tables, Failure> {
+    let load = |json| {
+        Grammar::from_json(json)
+            .map(unlinked)
+            .map_err(|error| Failure::Grammar(error.to_string()))
+    };
+    flatten(load(json)?, &[("ruby", load(ruby)?)], &READS_RUBY).map_err(Failure::Generate)
+}
+
+/// A match of another grammar takes that grammar's name and its key in
+/// Pascal case, and its place the first time the walk reaches it.
+#[test]
+fn an_external_pattern_takes_the_grammar_and_key_once() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"include": "source.ruby#escaped_char"}, {"match": "a"},
+        {"include": "source.ruby#escaped_char"}]}"#;
+    let ruby = r#"{"scopeName": "source.ruby", "patterns": [],
+        "repository": {"escaped_char": {"match": "\\\\."}}}"#;
+    let tables = with_ruby(json, ruby);
+    let patterns = tables.map(|tables| {
+        tables
+            .patterns
+            .into_iter()
+            .map(|pattern| (pattern.id, pattern.regex))
+            .collect::<Vec<_>>()
+    });
+    assert_eq!(
+        patterns,
+        Ok(vec![
+            ("RubyEscapedChar".to_owned(), "\\\\.".to_owned()),
+            ("RootAt1".to_owned(), "a".to_owned()),
+        ])
+    );
+}
+
+/// An external pattern whose entry is not a plain match is an error.
+#[test]
+fn an_external_pattern_that_is_no_match_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"include": "source.ruby#escaped_char"}]}"#;
+    let ruby = r#"{"scopeName": "source.ruby", "patterns": [],
+        "repository": {"escaped_char": {"begin": "b", "end": "e"}}}"#;
+    assert_eq!(
+        with_ruby(json, ruby).map(|tables| tables.patterns.len()),
+        Err(Failure::Generate(GenerateError::ExternalPattern {
+            include: "source.ruby#escaped_char".to_owned()
+        }))
     );
 }

@@ -1,7 +1,7 @@
 //! Julia's tables.
 
 use nishiki::unstable::codegen::tables::{
-    CaptureLists, External, LonePattern, Reentry, RuleTables, Split,
+    CaptureLists, External, Identity, LonePattern, Reentry, RuleTables, Split,
 };
 
 /// Julia's tables, from `tests/engine/grammars/julia.json`.
@@ -83,6 +83,7 @@ pub(crate) const JULIA: RuleTables = RuleTables {
     ],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::ListId,
+    identity: Identity::Id,
     reentry: Reentry::WithinRule,
     externals: &[
         ("source.python", External::AddsNothing),

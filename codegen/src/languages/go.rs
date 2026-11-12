@@ -1,6 +1,8 @@
 //! Go's tables.
 
-use nishiki::unstable::codegen::tables::{CaptureLists, LonePattern, Reentry, RuleTables, Split};
+use nishiki::unstable::codegen::tables::{
+    CaptureLists, Identity, LonePattern, Reentry, RuleTables, Split,
+};
 
 /// Go's tables, from `tests/engine/grammars/go.json`.
 pub(crate) const GO: RuleTables = RuleTables {
@@ -11,6 +13,7 @@ pub(crate) const GO: RuleTables = RuleTables {
     pattern_names: &[],
     split: Split::KeepsGroup,
     lone_pattern: LonePattern::OwnId,
+    identity: Identity::Id,
     reentry: Reentry::WithinRule,
     externals: &[],
 };
