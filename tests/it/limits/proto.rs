@@ -10,7 +10,7 @@
 //!   that takes a run and fails at each later start, and must end under the
 //!   work limit;
 //! - a limit line drives work that grows faster than the line, and must end at
-//!   the work limit. No Protobuf pattern does that, so Protobuf has none.
+//!   the work limit.
 //!
 //! Each line ends with tokens that cover it.
 
@@ -93,4 +93,17 @@ fn a_long_failing_field_ends_under_the_work_limit() {
         limits.iter().all(|&limit| limit == Limit::Depth),
         "reached {limits:?}"
     );
+}
+
+/// A limit line: no-break spaces, each followed by a space.
+/// The scan passes a run of one blank character in one step.
+/// Here every run is one character long, so the scan tries each no-break
+/// space.
+/// There each pattern that begins with `\s*` takes the rest of the line.
+/// So the work grows with the square of the line's length.
+#[test]
+fn no_break_spaces_between_spaces_end_at_the_work_limit() {
+    let line = format!("{}x", "\u{a0} ".repeat(4_000));
+    let limits = limits_in_a_message(&line);
+    assert!(limits.contains(&Limit::Work), "reached {limits:?}");
 }
