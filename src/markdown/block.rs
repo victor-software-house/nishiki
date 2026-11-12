@@ -308,6 +308,37 @@ pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> 
     })
 }
 
+/// Whether a `vue` fence may open past `from`, where a rule of the fence's
+/// language begins.
+/// The fence must be the line's last run of backticks or tildes, since its
+/// attributes hold neither.
+/// So the test reads only that run and what follows it.
+/// A rule's begin may end inside the run, so the run counts from `from + 1`
+/// at the earliest.
+#[cfg(feature = "lang-vue")]
+pub(crate) fn vue_fence_later(cx: &Cx<'_>, from: usize) -> bool {
+    let text = &cx.line[..cx.end.min(cx.line.len())];
+    let Some(rest) = text.get(from + 1..) else {
+        return false;
+    };
+    let Some(last) = memchr::memrchr2(b'`', b'~', rest) else {
+        return false;
+    };
+    let last = from + 1 + last;
+    let delim = text[last];
+    let run = text[from + 1..=last]
+        .iter()
+        .rev()
+        .take_while(|&&b| b == delim)
+        .count();
+    let start = last + 1 - run;
+    let cx = Cx {
+        anchor: Some(start),
+        ..*cx
+    };
+    vue_fence_open(&cx, start, &mut Captures::new()).is_some()
+}
+
 /// The fence that opens at `p` in text that Vue's `markdown-vue` injection
 /// reaches with its fence rule alone ([`rules::injects_vue_fence`]).
 /// Only a `vue` fence opens there.

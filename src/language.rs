@@ -2237,6 +2237,18 @@ pub(crate) trait Halt {
     fn root(&self) -> Option<&dyn RootStart> {
         None
     }
+
+    /// Whether the embedding grammar's `L:` injection that needs `\G` opens
+    /// at `p`, where one of the language's rules has begun.
+    ///
+    /// vscode-textmate sets `\G` at the end of each begin match.
+    /// Markdown's `vue` fence opens there at any depth.
+    /// The language stops at `p` and hands the line back.
+    #[cfg(feature = "lang-vue")]
+    fn anchored(&self, s: &[u8], p: usize) -> bool {
+        let _ = (s, p);
+        false
+    }
 }
 
 /// The root patterns of a document that embeds a language with `$base`
