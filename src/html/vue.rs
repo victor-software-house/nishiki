@@ -578,6 +578,10 @@ impl Lexer<'_> {
 
     /// The patterns of a component's root: a comment, a tag that its line
     /// closes with `/>`, or the `<` of a block.
+    ///
+    /// The tag's lookahead `[^>]+/>` needs a byte between its name and the
+    /// `/`, so a name that runs into `/>` gives its last byte back, as in
+    /// Shiki.
     #[cold]
     #[inline(never)]
     pub(super) fn vue_root_patterns(&self, p: usize) -> Option<Hit> {
@@ -604,17 +608,19 @@ impl Lexer<'_> {
             }
             return Some(Hit::new(Pattern::Vue(VuePattern::Comment), p, p + 4));
         }
-        let name_end = self.name_run(p + 1);
-        if name_end > p + 1 {
-            let window = self.s.get(name_end..self.lim).unwrap_or_default();
-            if let Some(gt) = memchr(b'>', window).map(|at| at + name_end)
-                && gt >= name_end + 2
+        let run_end = self.name_run(p + 1);
+        if run_end > p + 1 {
+            let window = self.s.get(run_end..self.lim).unwrap_or_default();
+            if let Some(gt) = memchr(b'>', window).map(|at| at + run_end)
                 && self.s[gt - 1] == b'/'
             {
-                return Some(
-                    Hit::new(Pattern::Vue(VuePattern::SelfClosing), p, name_end)
-                        .with([p + 1, name_end, 0, 0, 0], 0),
-                );
+                let name_end = run_end.min(gt - 2);
+                if name_end > p + 1 {
+                    return Some(
+                        Hit::new(Pattern::Vue(VuePattern::SelfClosing), p, name_end)
+                            .with([p + 1, name_end, 0, 0, 0], 0),
+                    );
+                }
             }
         }
         Some(Hit::new(Pattern::Vue(VuePattern::Block), p, p + 1))
