@@ -9,6 +9,8 @@
 //! reads, to `codegen/starts/`.
 //! Both list each start set in a `grammar.rs` that differs from the one
 //! [`starts`] computes.
+//! Each run fails when [`pattern_lists`] builds another pattern list than a
+//! script wrote to `codegen/patterns/`.
 //!
 //! The writers read the grammars in `tests/engine/grammars/`, which
 //! `oracle/engine-grammars.ts` writes, and the facts in `oracle/facts/`.
@@ -27,8 +29,10 @@ mod facts;
 mod fence_stops;
 mod folds;
 mod header;
+mod languages;
 mod matchers;
 mod numbers;
+mod pattern_lists;
 mod source;
 mod starts;
 mod test_gates;
@@ -110,6 +114,11 @@ fn run(mode: Mode) -> Result<Vec<String>, Error> {
     for line in &differing {
         println!("  {line}");
     }
+    println!(
+        "✔ pattern lists that match {}/: {}",
+        blank_runs::PATTERNS,
+        pattern_lists::check(&root)?.join(", ")
+    );
     files.push(classes::file(&root)?);
     files.push(folds::file(&root)?);
     files.push(unicode::file(&root)?);

@@ -25,6 +25,16 @@ Each proves byte-identical output, as design section 4 says.
   → verify: the diff holds only the listed sets, with Callgrind rows, and Identity passes
 - [ ] 2.3 `flatten.rs` and `split.rs` build each pattern list, and codegen's check compares it with `codegen/patterns/`.
   → verify: no file changes, and the check passes for the 34 languages whose grammar `tests/engine/grammars/` holds
+  - [ ] 2.3.1 The model in `tables.rs`, `flatten.rs`, and the check for Go, Protocol Buffers, Python, Sass and Scala.
+    → verify: the check passes for those five
+  - [ ] 2.3.2 `split.rs`, and the names a language gives its patterns: Java, CSS, CoffeeScript, Dart, Julia, PowerShell, VB and Jinja.
+    → verify: the check passes for those eight, and for the languages before them
+  - [ ] 2.3.3 Includes that add nothing, and embedded grammars: Less, Swift, Asm, HAML, Elixir, Lua, GDScript and Common Lisp.
+    → verify: the check passes for those eight, and for the languages before them
+  - [ ] 2.3.4 The scripts with logic of their own: Ruby, Perl, SCSS, C++, C#, Bat and R.
+    → verify: the check passes for those seven, and for the languages before them
+  - [ ] 2.3.5 `oracle/rule-generator.ts`'s five languages, and PHP.
+    → verify: the check passes for all 34
 - [ ] 2.4 One task per family, added as each starts, in design section 5's order, after task 1.1.
   → verify: section 4's proof passes on the family's files, whose scripts, pattern and start files are deleted
   - Objective-C's family keeps its `$base` slots.

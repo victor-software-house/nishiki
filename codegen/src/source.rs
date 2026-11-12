@@ -69,6 +69,11 @@ impl Source {
             .collect()
     }
 
+    /// The grammar's rules, as its JSON holds them.
+    pub(crate) fn grammar(self) -> &'static UnlinkedGrammar {
+        self.grammar
+    }
+
     /// The grammar's `scopeName`.
     pub(crate) fn scope(self) -> &'static str {
         &self.grammar.scope
