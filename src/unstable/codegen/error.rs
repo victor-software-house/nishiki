@@ -71,6 +71,23 @@ pub enum GenerateError {
         /// The rule's id.
         id: String,
     },
+    /// A pattern to merge is no match of plain words between `(?i)\b` and
+    /// `\b`, or a capture of it names a scope or lists patterns.
+    NotWords {
+        /// The pattern's id.
+        id: String,
+    },
+    /// A match of plain words follows the merged matches in `Root`, so the
+    /// merge would leave it out.
+    WordsFollow {
+        /// The match's id.
+        id: String,
+    },
+    /// A rule lists a merged match again, or after the merge's place.
+    MergedElsewhere {
+        /// The rule's id.
+        id: String,
+    },
 }
 
 impl fmt::Display for GenerateError {
@@ -120,6 +137,15 @@ impl fmt::Display for GenerateError {
                     f,
                     "{id}: the rule embeds a grammar in a body and lists patterns too"
                 )
+            }
+            GenerateError::NotWords { id } => {
+                write!(f, "{id}: the pattern to merge is no plain word match")
+            }
+            GenerateError::WordsFollow { id } => {
+                write!(f, "{id}: a plain word match follows the merged ones")
+            }
+            GenerateError::MergedElsewhere { id } => {
+                write!(f, "{id}: the rule lists a merged match outside the merge")
             }
         }
     }

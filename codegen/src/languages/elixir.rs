@@ -22,4 +22,5 @@ pub(crate) const ELIXIR: RuleTables = RuleTables {
     ],
     injected: None,
     added_rules: &[],
+    merged_words: None,
 };
