@@ -460,12 +460,11 @@ fn scan<G: Tabled + WideSpaceLookbehind, const HALTING: bool>(
                     lexer.skip(p, |b| b == byte)
                 }
                 Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
-                Some(_)
-                    if matches!(G::BLANK_RUNS, BlankRuns::Skip)
-                        && !G::LOOKS_BEHIND_AT_A_WIDE_SPACE =>
-                {
-                    lexer.pass_char(p, G::MIXED_BLANK_RUNS && !HALTING)
-                }
+                Some(_) if matches!(G::BLANK_RUNS, BlankRuns::Skip) => lexer.pass_char(
+                    p,
+                    G::MIXED_BLANK_RUNS && !HALTING,
+                    G::LOOKS_BEHIND_AT_A_WIDE_SPACE,
+                ),
                 Some(_) => lexer.char_end(p),
                 None => p + 1,
             };
