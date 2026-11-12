@@ -96,11 +96,12 @@ fn a_long_failing_field_ends_under_the_work_limit() {
 }
 
 /// A limit line: no-break spaces, each followed by a space.
-/// The scan passes a run of one blank character in one step.
-/// Here every run is one character long, so the scan tries each no-break
-/// space.
-/// There each pattern that begins with `\s*` takes the rest of the line.
-/// So the work grows with the square of the line's length.
+///
+/// The scan passes a run of one blank character in one step, but here each
+/// run is one character long.
+/// So the scan tries every no-break space.
+/// At each, a pattern that begins with `\s*` takes the rest of the line, and
+/// the work grows with the square of the line's length.
 #[test]
 fn no_break_spaces_between_spaces_end_at_the_work_limit() {
     let line = format!("{}x", "\u{a0} ".repeat(4_000));
