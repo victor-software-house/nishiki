@@ -33,6 +33,8 @@ pub struct RuleTables {
     /// What each include of another grammar adds, by the include, such as
     /// Lua's `source.c`.
     /// Any other include of another grammar is an error.
+    /// An include of a repository key the grammar lacks, such as Assembly's
+    /// `#string_escaped_char`, can take an entry too.
     pub externals: &'static [(&'static str, External)],
     /// The matches another grammar injects into this one, when the language
     /// takes them.
@@ -146,7 +148,8 @@ pub enum External {
     /// That begin is `\G`, its end is `(?=<the rule's end>)`, and its rule
     /// has no patterns.
     Embeds,
-    /// Nothing, from a grammar Shiki does not load.
+    /// Nothing, from a grammar Shiki does not load, or from a repository
+    /// key the grammar lacks.
     /// A rule whose own list holds the include is dropped when it lists no
     /// pattern and embeds no grammar, as vscode-textmate drops it.
     Missing,
