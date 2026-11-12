@@ -89,9 +89,15 @@ impl<'a> Walk<'a> {
         for &rule in list {
             let object: &'a UnlinkedRule = &grammar.rules[rule];
             let Some(include) = &object.include else {
-                let split = object.matched.as_deref().and_then(|matched| {
-                    split::alternatives(matched, &object.name, self.language.split)
-                });
+                let split = match object.matched.as_deref() {
+                    Some(matched) => split::alternatives(
+                        matched,
+                        &object.name,
+                        self.language.split,
+                        &self.inline_id(context, index),
+                    )?,
+                    None => None,
+                };
                 if let Some(regexes) = split {
                     for regex in regexes {
                         let id = self.inline_id(context, index);
@@ -167,7 +173,10 @@ impl<'a> Walk<'a> {
         if let [lone] = *object.patterns {
             let takes_id = match self.language.lone_pattern {
                 LonePattern::OwnId => false,
-                LonePattern::ListId => self.grammar.rules[lone].include.is_none(),
+                LonePattern::ListId => {
+                    let object = &self.grammar.rules[lone];
+                    object.include.is_none() && acts(object)
+                }
             };
             if takes_id {
                 return Ok(vec![self.register(lone, id)?]);

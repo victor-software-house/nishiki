@@ -19,6 +19,12 @@ pub enum GenerateError {
         /// The id the rule would take.
         id: String,
     },
+    /// A match named after its first group, `$1`, whose group the split
+    /// cannot read as words between `|`.
+    Split {
+        /// The id of the match.
+        id: String,
+    },
     /// Two rules with different expressions take one id.
     TwoRulesOneId {
         /// The id.
@@ -36,6 +42,12 @@ impl fmt::Display for GenerateError {
                 write!(
                     f,
                     "{id}: neither a match, a begin with an end, nor patterns"
+                )
+            }
+            GenerateError::Split { id } => {
+                write!(
+                    f,
+                    "{id}: $1 names a first group that is missing or not plain words"
                 )
             }
             GenerateError::TwoRulesOneId { id } => {
