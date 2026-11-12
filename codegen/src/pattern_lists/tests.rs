@@ -246,3 +246,44 @@ fn a_lone_pattern_takes_the_entry_id_under_list_id() {
     assert_eq!(ids(json, &PLAIN), Ok(expected(&[("WordAt0", Act::Match)])));
     assert_eq!(ids(json, &lone), Ok(expected(&[("Word", Act::Match)])));
 }
+
+/// A begin's end id that a repository entry also takes is an error.
+#[test]
+fn an_end_id_another_pattern_takes_is_an_error() {
+    let json = r##"{"scopeName": "source.demo",
+        "patterns": [{"include": "#foo-end"}, {"include": "#foo"}],
+        "repository": {"foo": {"begin": "b", "end": "e"}, "foo-end": {"match": "f"}}}"##;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Err(Failure::Generate(GenerateError::TwoRulesOneId {
+            id: "FooEnd".to_owned(),
+        }))
+    );
+}
+
+/// A match named after its first group fails when the group holds more than
+/// words between `|`.
+#[test]
+fn a_group_that_holds_a_group_does_not_split() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "\\b(foo(?:bar)?|baz)\\b", "name": "keyword.$1.demo"}]}"#;
+    assert_eq!(
+        ids(json, &PLAIN),
+        Err(Failure::Generate(GenerateError::Split {
+            id: "RootAt0".to_owned(),
+        }))
+    );
+}
+
+/// Under `LonePattern::ListId`, an entry whose one pattern is itself a list
+/// expands that list, whose own lone match takes the list's id.
+#[test]
+fn a_lone_list_still_adds_its_patterns() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#outer"}],
+        "repository": {"outer": {"patterns": [{"patterns": [{"match": "w"}]}]}}}"##;
+    let lone = RuleTables {
+        lone_pattern: LonePattern::ListId,
+        ..PLAIN
+    };
+    assert_eq!(ids(json, &lone), Ok(expected(&[("OuterAt0", Act::Match)])));
+}

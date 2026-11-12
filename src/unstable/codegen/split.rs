@@ -10,6 +10,7 @@
 //! The split ports `expandBackrefs` and the hand-written splits of the
 //! `oracle/<language>-grammar.ts` scripts.
 
+use super::error::GenerateError;
 use super::tables::Split;
 use crate::textmate::compile::Text;
 
@@ -18,22 +19,39 @@ use crate::textmate::compile::Text;
 ///
 /// The first group is the first `(` not followed by `?`, outside a character
 /// class.
-/// It ends at the next `)`, so its alternatives hold no group of their own.
-pub(super) fn alternatives(regex: &str, names: &[Text], split: Split) -> Option<Vec<String>> {
+/// It ends at the next `)`.
+///
+/// # Errors
+///
+/// [`GenerateError::Split`], naming `id`, when the expression has no such
+/// group, or when the group holds a `(`, a `\` or a `[`.
+/// The split reads the group as words between `|`, which such a group does
+/// not hold.
+pub(super) fn alternatives(
+    regex: &str,
+    names: &[Text],
+    split: Split,
+    id: &str,
+) -> Result<Option<Vec<String>>, GenerateError> {
     if !names.iter().any(|name| name.contains("$1")) {
-        return None;
+        return Ok(None);
     }
-    let (start, end) = first_group(regex)?;
+    let refused = || GenerateError::Split { id: id.to_owned() };
+    let (start, end) = first_group(regex).ok_or_else(refused)?;
+    let words = &regex[start + 1..end];
+    if words.contains(['(', '\\', '[']) {
+        return Err(refused());
+    }
     let (before, after) = (&regex[..start], &regex[end + 1..]);
-    Some(
-        regex[start + 1..end]
+    Ok(Some(
+        words
             .split('|')
             .map(|word| match split {
                 Split::KeepsGroup => format!("{before}({word}){after}"),
                 Split::DropsGroup => format!("{before}{word}{after}"),
             })
             .collect(),
-    )
+    ))
 }
 
 /// The byte offsets of the first group's `(` and of the next `)`.

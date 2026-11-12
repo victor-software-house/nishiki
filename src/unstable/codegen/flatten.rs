@@ -89,9 +89,15 @@ impl<'a> Walk<'a> {
         for &rule in list {
             let object: &'a UnlinkedRule = &grammar.rules[rule];
             let Some(include) = &object.include else {
-                let split = object.matched.as_deref().and_then(|matched| {
-                    split::alternatives(matched, &object.name, self.language.split)
-                });
+                let split = match object.matched.as_deref() {
+                    Some(matched) => split::alternatives(
+                        matched,
+                        &object.name,
+                        self.language.split,
+                        &self.inline_id(context, index),
+                    )?,
+                    None => None,
+                };
                 if let Some(regexes) = split {
                     for regex in regexes {
                         let id = self.inline_id(context, index);
@@ -167,7 +173,10 @@ impl<'a> Walk<'a> {
         if let [lone] = *object.patterns {
             let takes_id = match self.language.lone_pattern {
                 LonePattern::OwnId => false,
-                LonePattern::ListId => self.grammar.rules[lone].include.is_none(),
+                LonePattern::ListId => {
+                    let object = &self.grammar.rules[lone];
+                    object.include.is_none() && acts(object)
+                }
             };
             if takes_id {
                 return Ok(vec![self.register(lone, id)?]);
@@ -194,7 +203,7 @@ impl<'a> Walk<'a> {
             return Ok(known);
         }
         self.captures(self.grammar.rules[rule].captures.as_deref())?;
-        Ok(self.put(id.to_owned(), regex, Act::Match))
+        self.put(id.to_owned(), regex, Act::Match)
     }
 
     /// The index of the pattern of `rule`, named `id`, which it adds the first
@@ -224,14 +233,14 @@ impl<'a> Walk<'a> {
                 .as_deref()
                 .or(object.captures.as_deref()),
         )?;
-        let opened = self.put(id.to_owned(), begin.to_string(), Act::Begin);
+        let opened = self.put(id.to_owned(), begin.to_string(), Act::Begin)?;
         self.captures(
             object
                 .end_captures
                 .as_deref()
                 .or(object.captures.as_deref()),
         )?;
-        let closed = self.put(format!("{id}End"), end.to_string(), Act::End);
+        let closed = self.put(format!("{id}End"), end.to_string(), Act::End)?;
         let index = self.put_rule(id, Some(closed));
         self.tables.rules[index].patterns = self.rule_list(&object.patterns, id)?;
         Ok(opened)
@@ -241,16 +250,24 @@ impl<'a> Walk<'a> {
     ///
     /// A pattern a capture list reached while its id waited keeps its place,
     /// as a JavaScript `Map` keeps a key's first place.
-    fn put(&mut self, id: String, regex: String, act: Act) -> usize {
+    ///
+    /// # Errors
+    ///
+    /// [`GenerateError::TwoRulesOneId`] when the id names another expression
+    /// or act, such as a begin's end id `FooEnd` and a repository entry
+    /// `foo-end`.
+    fn put(&mut self, id: String, regex: String, act: Act) -> Result<usize, GenerateError> {
         let pattern = Pattern { id, regex, act };
         if let Some(&index) = self.patterns.get(&pattern.id) {
-            self.tables.patterns[index] = pattern;
-            return index;
+            if self.tables.patterns[index] != pattern {
+                return Err(GenerateError::TwoRulesOneId { id: pattern.id });
+            }
+            return Ok(index);
         }
         let index = self.tables.patterns.len();
         self.patterns.insert(pattern.id.clone(), index);
         self.tables.patterns.push(pattern);
-        index
+        Ok(index)
     }
 
     /// Writes an empty rule, and returns its index.
