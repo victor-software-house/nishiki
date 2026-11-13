@@ -2,7 +2,7 @@
 name = "nishiki-codegen"
 version = "0.0.0"
 edition = "2024"
-rust-version = "1.99.1"
+rust-version = "1.100.0"
 description = "Writes nishiki's generated Rust files from its grammars"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/victor-software-house/nishiki"

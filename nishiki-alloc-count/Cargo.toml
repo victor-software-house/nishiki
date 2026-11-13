@@ -2,7 +2,7 @@
 name = "nishiki-alloc-count"
 version = "0.0.0"
 edition = "2024"
-rust-version = "1.99.1"
+rust-version = "1.100.0"
 description = "Counts a thread's allocations and bytes, for nishiki's tests and benchmarks"
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/victor-software-house/nishiki"
