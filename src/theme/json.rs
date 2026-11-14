@@ -77,8 +77,7 @@ pub(super) fn source(json: &str) -> Result<ThemeSource, ThemeError> {
         .get("settings")
         .or_else(|| theme.get("tokenColors"))
         .and_then(Value::as_array)
-        .map(|entries| entries.iter().filter_map(rule).collect())
-        .unwrap_or_default();
+        .map_or_default(|entries| entries.iter().filter_map(rule).collect());
     Ok(ThemeSource {
         name: text(theme, "name"),
         color_scheme: match theme.get("type").and_then(Value::as_str) {

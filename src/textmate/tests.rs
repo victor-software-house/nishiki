@@ -1686,8 +1686,7 @@ fn an_injection_wins_a_tie_where_its_selector_matches() {
     let scopes = |end: usize| -> Vec<&str> {
         out.iter()
             .find(|t| t.end == end)
-            .map(|t| arena.scopes(t.stack.0).collect())
-            .unwrap_or_default()
+            .map_or_default(|t| arena.scopes(t.stack.0).collect())
     };
     assert_eq!(scopes(1), ["plain.test", "source.test"]);
     assert_eq!(

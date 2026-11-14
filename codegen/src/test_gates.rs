@@ -204,16 +204,13 @@ impl Features {
         let lists = features
             .iter()
             .map(|(name, list)| {
-                let list = list
-                    .as_array()
-                    .map(|entries| {
-                        entries
-                            .iter()
-                            .filter_map(Value::as_str)
-                            .map(str::to_owned)
-                            .collect()
-                    })
-                    .unwrap_or_default();
+                let list = list.as_array().map_or_default(|entries| {
+                    entries
+                        .iter()
+                        .filter_map(Value::as_str)
+                        .map(str::to_owned)
+                        .collect()
+                });
                 (name.clone(), list)
             })
             .collect();
@@ -296,7 +293,7 @@ fn sets(
         gates: Vec::new(),
         sets: BTreeSet::new(),
     };
-    let dir = lib.parent().map(Path::to_path_buf).unwrap_or_default();
+    let dir = lib.parent().map_or_default(Path::to_path_buf);
     walk.file(lib, &dir)?;
     Ok(walk.sets)
 }

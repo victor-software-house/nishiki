@@ -9,7 +9,9 @@
 # walks it, and through a link to the repository root, such as a benchmark
 # package's path dependency, it descends into the repository again until the
 # path is too long and fails with "unable to resolve symlink". The list goes
-# through a file so a git failure stops the task.
+# through a file so a git failure stops the task. With files as arguments,
+# the task reads those instead of the tracked ones, and .vale.ini still picks
+# which of them it checks.
 #
 # Vale exits non-zero only on an error-level alert, and this repository
 # fails on warnings too (the prose_fail_level answer). With --output=line
@@ -19,7 +21,11 @@ set -euo pipefail
 tracked=$(mktemp)
 alerts=$(mktemp)
 trap 'rm -f "$tracked" "$alerts"' EXIT
-git ls-files -z >"$tracked"
+if [ "$#" -gt 0 ]; then
+  printf '%s\0' "$@" >"$tracked"
+else
+  git ls-files -z >"$tracked"
+fi
 files=()
 while IFS= read -r -d '' file; do
   if [ -f "$file" ]; then files+=("$file"); fi

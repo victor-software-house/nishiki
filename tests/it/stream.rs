@@ -298,10 +298,6 @@ fn one_shot(language: Language, text: &str) -> Vec<Tokens> {
         .collect()
 }
 
-#[expect(
-    clippy::expect_used,
-    reason = "a test helper; a refused edit fails the test"
-)]
 /// The fixtures of `language` that differ after edits, as reports.
 /// Twelve random edits land on each fixture, lexed after some of them, so
 /// some edits merge before a lex.
@@ -530,10 +526,6 @@ fn a_deferred_lex_reports_the_last_line_changed() {
     );
 }
 
-#[expect(
-    clippy::expect_used,
-    reason = "a test helper; a missing theme fails the test"
-)]
 /// Every theme of the oracle, sorted by file name.
 #[cfg(feature = "json")]
 fn oracle_themes() -> Vec<Theme> {

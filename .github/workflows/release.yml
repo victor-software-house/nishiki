@@ -1,10 +1,9 @@
 name: Release
 
 # verctl's reusable release workflow, on every push to main and on demand.
-# It plans every version commit not yet fully released and publishes each at
-# that commit, whatever main's HEAD is now, then opens or updates the Version
-# PR on verctl/release/main. The operator merges the Version PR; merging it
-# publishes to crates.io.
+# It releases, from HEAD, each version HEAD holds whose release is incomplete,
+# then opens or updates the Version PR on verctl/release/main. The operator
+# merges the Version PR; merging it publishes to crates.io.
 on:
   push:
     branches: [main]
@@ -22,11 +21,11 @@ jobs:
       contents: write # tags, Releases, and verctl/release/main without the App
       pull-requests: write # the Version PR without the App
       id-token: write # crates.io trusted publishing
-    uses: victor-software-house/verctl/.github/workflows/release.yml@61f95f1cd5eba628938dd883f217289690f126e7 # v0.8.3
+    uses: victor-software-house/verctl/.github/workflows/release.yml@fd46e7e62a7020295fa967f00f21bdf274f5218c # v0.8.6-rc.3
     with:
       mise-version: 2026.11.6
       mise-env: ci,release
-      # A public repository: the plan, publish, docs and propose jobs run on
+      # A public repository: the plan, publish and propose jobs run on
       # GitHub-hosted runners, as its CI does.
       runner: '["ubuntu-26.04"]'
       crates-io-trusted-publishing: true

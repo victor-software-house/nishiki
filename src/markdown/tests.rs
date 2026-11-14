@@ -1143,8 +1143,7 @@ fn a_swift_fence_line_is_anchored_at_its_start() {
     let example = rows[7]
         .iter()
         .find(|(t, _)| t == "Example")
-        .map(|(_, scopes)| scopes.as_slice())
-        .unwrap_or_default();
+        .map_or_default(|(_, scopes)| scopes.as_slice());
     assert!(
         example
             .iter()

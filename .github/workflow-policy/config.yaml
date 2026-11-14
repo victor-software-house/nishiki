@@ -19,6 +19,11 @@ workflow_policy:
   # concurrency:
   #   endings: ["${{ github.ref }}"]
   exceptions:
+    - rule: pins
+      file: release.yml
+      reason: >-
+        verctl 0.8.6-rc.3 is a candidate, and the rule reads a release comment
+        only as vX.Y.Z; drop this when the rule takes a semver prerelease
     - rule: drafts
       file: callgrind.yml
       job: callgrind
