@@ -900,7 +900,11 @@ mod_module_files = "deny"
 # An item from another module comes in through `use`, and the code names it
 # by its last segment, or a function by its module: `fs::read`, never
 # `std::fs::read` inline. The default limit is two segments.
-absolute_paths = "deny"
+# nishiki allows it for now: 1,168 paths break the rule, and rewriting them
+# conflicts with the 30 pull requests open when the template brought it in
+# (operator, 2026-11-14). The rewrite to `use` imports, and the return to
+# "deny", follow once those pull requests land.
+absolute_paths = "allow"
 # A library logs through tracing or log; printing is the binary's choice.
 print_stdout = "deny"
 print_stderr = "deny"
