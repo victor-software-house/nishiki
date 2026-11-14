@@ -2,8 +2,8 @@ name: Release
 
 # verctl's reusable release workflow, on every push to main and on demand.
 # It releases, from HEAD, each version HEAD holds whose release is incomplete,
-# then opens or updates the Version PR on verctl/release/main. The operator merges the Version PR; merging it
-# publishes to crates.io.
+# then opens or updates the Version PR on verctl/release/main. The operator
+# merges the Version PR; merging it publishes to crates.io.
 on:
   push:
     branches: [main]
