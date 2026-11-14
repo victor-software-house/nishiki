@@ -30,10 +30,6 @@ pub(crate) struct Miss {
 /// Mismatches listed in a failure message; the rest are counted.
 const SHOWN: usize = 20;
 
-#[expect(
-    clippy::expect_used,
-    reason = "a test helper; a bad fixture fails the test"
-)]
 pub(crate) fn fixtures(language: &str) -> Vec<PathBuf> {
     let dir = Path::new(env!("CARGO_MANIFEST_DIR"))
         .join("oracle")
@@ -48,10 +44,6 @@ pub(crate) fn fixtures(language: &str) -> Vec<PathBuf> {
     paths
 }
 
-#[expect(
-    clippy::expect_used,
-    reason = "a test helper; a bad fixture fails the test"
-)]
 pub(crate) fn parse(path: &Path) -> Vec<Line> {
     let content = fs::read_to_string(path).expect("a readable fixture");
     let mut lines: Vec<Line> = Vec::new();
@@ -187,10 +179,6 @@ fn lexer(language: Language) -> impl FnMut(&str) -> Tokens {
 /// Shiki's colours for one fixture under one theme: the fixture's lines,
 /// each byte's `COLOUR:font style bits`, colours as nishiki prints them.
 #[cfg(feature = "json")]
-#[expect(
-    clippy::expect_used,
-    reason = "a test helper; a bad fixture fails the test"
-)]
 fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
     let content = fs::read_to_string(colours).expect("a readable colour fixture");
     let lines = parse(fixture);
@@ -227,10 +215,6 @@ fn parse_colours(colours: &Path, fixture: &Path) -> Vec<Line> {
 /// Checks nishiki's colours against Shiki's for every colour fixture of
 /// `language`, under each theme in `tests/oracle/themes/`.
 #[cfg(feature = "json")]
-#[expect(
-    clippy::expect_used,
-    reason = "a test helper; a bad fixture fails the test"
-)]
 /// The fixture and theme pairs of `language` whose colours differ from
 /// Shiki's, as reports.
 ///
@@ -300,10 +284,6 @@ fn colour_failures(language: Language) -> Vec<String> {
 }
 
 /// Runs `failures` for every language at once and fails with every report.
-#[expect(
-    clippy::expect_used,
-    reason = "a test helper; a panicking language fails the test"
-)]
 pub(crate) fn every_language(failures: fn(Language) -> Vec<String>) {
     let reports: Vec<String> = std::thread::scope(|scope| {
         let runs: Vec<_> = Language::ALL
