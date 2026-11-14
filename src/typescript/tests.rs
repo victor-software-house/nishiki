@@ -579,8 +579,7 @@ fn a_type_annotation_takes_the_blanks_before_a_brace() {
         .into_iter()
         .flatten()
         .find(|(token, _)| token.contains("this.x()"))
-        .map(|(_, stack)| stack)
-        .unwrap_or_default();
+        .map_or_default(|(_, stack)| stack);
     assert!(
         stack.iter().any(|s| s == "meta.objectliteral.ts"),
         "{stack:?}"

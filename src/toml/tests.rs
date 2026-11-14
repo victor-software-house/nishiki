@@ -261,8 +261,7 @@ fn escapes_are_valid_or_invalid_by_their_digits() {
             (
                 t.as_str(),
                 s.last()
-                    .map(String::as_str)
-                    .unwrap_or_default()
+                    .map_or_default(String::as_str)
                     .starts_with("constant"),
             )
         })
