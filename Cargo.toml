@@ -903,7 +903,8 @@ mod_module_files = "deny"
 # nishiki allows it for now: 1,168 paths break the rule, and rewriting them
 # conflicts with the 30 pull requests open when the template brought it in
 # (operator, 2026-11-14). The rewrite to `use` imports, and the return to
-# "deny", follow once those pull requests land.
+# "deny", follow once those pull requests land:
+# https://github.com/victor-software-house/nishiki/issues/86
 absolute_paths = "allow"
 # A library logs through tracing or log; printing is the binary's choice.
 print_stdout = "deny"
