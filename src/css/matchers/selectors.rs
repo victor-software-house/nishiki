@@ -124,10 +124,7 @@ impl<G: CssLike> Lexer<'_, G> {
             return false;
         }
         let plain = self.find(Find::Colon, p).unwrap_or(self.lim());
-        if plain > p && self.starts(plain, b":::") {
-            return false;
-        }
-        true
+        plain <= p || !self.starts(plain, b":::")
     }
 
     /// The begin of a selector, which is where one can start.

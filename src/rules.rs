@@ -1231,8 +1231,7 @@ fn lex_reading_parent_text<G: Embeds>(
     let language = embedding.language;
     let mut parent_text = scratch(cx.scratch)
         .parent_text()
-        .map(std::mem::take)
-        .unwrap_or_default();
+        .map_or_default(std::mem::take);
     parent_text.clear();
     parent_text.extend_from_slice(cx.arena.string(embedding.parent).as_bytes());
     let end = ParentTextEnd::<G> {

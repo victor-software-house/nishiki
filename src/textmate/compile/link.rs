@@ -684,12 +684,7 @@ impl<'a> Builder<'a> {
             if !seen.insert(id) {
                 continue;
             }
-            for entry in self
-                .rules
-                .get(id)
-                .map(|r| r.patterns.as_slice())
-                .unwrap_or_default()
-            {
+            for entry in self.rules.get(id).map_or_default(|r| r.patterns.as_slice()) {
                 match *entry {
                     Entry::HandOff(_) => return true,
                     Entry::Rule(rule) => stack.push(rule),
