@@ -14,7 +14,8 @@ pub enum GenerateError {
         /// The include, such as `source.css`.
         include: String,
     },
-    /// A rule has no `match`, no `begin` with an `end`, and no patterns.
+    /// A rule has no `match`, no `begin` with an `end` or a `while`, and no
+    /// patterns.
     NoAct {
         /// The id the rule would take.
         id: String,
@@ -108,7 +109,7 @@ impl fmt::Display for GenerateError {
             GenerateError::NoAct { id } => {
                 write!(
                     f,
-                    "{id}: neither a match, a begin with an end, nor patterns"
+                    "{id}: neither a match, a begin with an end or a while, nor patterns"
                 )
             }
             GenerateError::Split { id, regex } => {

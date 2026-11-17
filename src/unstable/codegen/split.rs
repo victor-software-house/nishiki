@@ -26,7 +26,7 @@ pub(super) struct Variant {
 
 /// The expression of each pattern that a match or begin `regex`, named with
 /// `names`, becomes, or `None` when no name holds a group's text.
-/// A begin passes its `end`.
+/// A begin passes its `end`, or its `while`.
 ///
 /// A name holds group `n`'s text as `$n` or as `${n:/downcase}`.
 /// Group `n` is the `n`th group that captures, as [`group`] counts them.
