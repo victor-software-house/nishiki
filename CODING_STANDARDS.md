@@ -417,8 +417,8 @@ A new file adds a module to it and builds no new binary.
   - its fence names;
   - its `Scratch` field.
 - A fence of a language that is off is plain text, as in Shiki when that grammar is not loaded.
-- `check:features` builds each language, each tier and the empty set alone.
-  - It denies every warning except dead code.
+- `check:features` runs clippy on each language, each tier and the empty set alone.
+  - It denies every warning except dead code, clippy's lints included.
     A language built without the ones that embed it leaves some embedding code unused, which no set avoids.
   - The empty set, `json` alone and `textmate` alone deny every warning, dead code included.
 - The code every lexer shares sits behind the private `_language` feature.

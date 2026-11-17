@@ -211,6 +211,19 @@ impl Steps {
     /// Ends the lexer's count: `state`, the state after the line, with what
     /// the lexer spent.
     #[inline]
+    #[cfg_attr(
+        not(any(
+            feature = "_embedding",
+            feature = "_textmate",
+            feature = "lang-html",
+            feature = "lang-markdown",
+            feature = "lang-xml"
+        )),
+        expect(
+            clippy::unused_self,
+            reason = "without an embedding language, `Finished` holds no count to read"
+        )
+    )]
     pub(crate) fn finish(self, state: u32) -> Finished {
         Finished {
             state,

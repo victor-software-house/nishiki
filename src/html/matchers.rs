@@ -95,12 +95,20 @@ impl Lexer<'_> {
     /// No end pattern: without the `lang-vue` feature no rule is Vue's, and
     /// a build without Vue keeps none of Vue's code.
     #[cfg(not(feature = "lang-vue"))]
+    #[expect(
+        clippy::unused_self,
+        reason = "it takes `self` as the Vue build's method does, so the call sites need no cfg"
+    )]
     fn vue_end_at(&self, _rule: Rule, _p: usize) -> Option<Hit> {
         None
     }
 
     /// No patterns: without the `lang-vue` feature no rule is Vue's.
     #[cfg(not(feature = "lang-vue"))]
+    #[expect(
+        clippy::unused_self,
+        reason = "it takes `self` as the Vue build's method does, so the call sites need no cfg"
+    )]
     fn vue_patterns_at(&self, _rule: Rule, _p: usize) -> Option<Hit> {
         None
     }

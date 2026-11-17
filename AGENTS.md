@@ -83,6 +83,7 @@ This guide and `openspec/` hold what they decided.
    - docs, as docs.rs builds them;
    - `cargo deny`;
    - `codegen:check`: every generated Rust file is what `codegen/` writes;
+   - `check:features`: clippy on each language, each tier and the empty set alone, with dead code allowed;
    - the size budgets: `check:size` builds the `size` example per tier in `[workspace.metadata.size]` and fails a tier past its budgets;
    - the repository checks.
 2. Three more workflows check a pull request against its base:
