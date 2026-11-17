@@ -18,17 +18,18 @@ use super::tables::Split;
 /// `names`, becomes, or `None` when no name holds a group's text.
 ///
 /// A name holds group `n`'s text as `$n` or as `${n:/downcase}`.
-/// Group `n` is the `n`th `(` not followed by `?`, outside a character
-/// class.
+/// Group `n` is the `n`th group that captures, as [`group`] counts them.
 /// It ends at the next `)`.
 ///
 /// # Errors
 ///
-/// [`GenerateError::Split`], naming `id` and `regex`, when the names hold
-/// several groups, when the expression has no such group, or when the group
-/// holds a `(`, a `\` or a `[`.
-/// The split reads the group as words between `|`, which such a group does
-/// not hold.
+/// [`GenerateError::Split`], naming `id` and `regex`, when:
+///
+/// - the names hold several groups, or the expression has no such group;
+/// - the group is named, or holds a `(`, a `\` or a `[`, since the split reads
+///   the group as words between `|`;
+/// - `split` is [`Split::DropsGroup`] and a later group captures, since
+///   dropping the group would change that group's number.
 pub(super) fn alternatives<'n>(
     regex: &str,
     names: impl IntoIterator<Item = &'n str>,
@@ -49,7 +50,10 @@ pub(super) fn alternatives<'n>(
     };
     let (start, end) = group(regex, number).ok_or_else(refused)?;
     let words = &regex[start + 1..end];
-    if words.contains(['(', '\\', '[']) {
+    if words.starts_with('?') || words.contains(['(', '\\', '[']) {
+        return Err(refused());
+    }
+    if split == Split::DropsGroup && group(regex, number + 1).is_some() {
         return Err(refused());
     }
     let (before, after) = (&regex[..start], &regex[end + 1..]);
@@ -68,7 +72,8 @@ pub(super) fn alternatives<'n>(
 /// its capture names, `names`, hold a group's text, or `None` when none
 /// does.
 ///
-/// The innermost optional group `(?:…)?` around the named group splits:
+/// The innermost group `(?:…)?` around the named group splits, whatever
+/// groups lie between them:
 ///
 /// - each of its alternatives gives one pattern, inside `(?:…)`;
 /// - a last pattern leaves the group out.
@@ -80,6 +85,8 @@ pub(super) fn alternatives<'n>(
 ///
 /// [`GenerateError::Split`], naming `id` and `regex`, when the names hold
 /// several groups, or when no optional group holds the named one.
+/// A group `(?:…)??` or `(?:…)?+` counts as none: the split reads only a
+/// plain `?`.
 pub(super) fn optional_alternatives<'n>(
     regex: &str,
     names: impl IntoIterator<Item = &'n str>,
@@ -100,11 +107,14 @@ pub(super) fn optional_alternatives<'n>(
     let (start, _) = group(regex, number).ok_or_else(refused)?;
     let (open, close) = spans(regex)
         .into_iter()
-        .filter(|&(open, close)| open < start && start < close)
-        .max_by_key(|&(open, _)| open)
         .filter(|&(open, close)| {
-            regex[open..].starts_with("(?:") && regex[close + 1..].starts_with('?')
+            open < start
+                && start < close
+                && regex[open..].starts_with("(?:")
+                && regex[close + 1..].starts_with('?')
+                && !regex[close + 2..].starts_with(['?', '+'])
         })
+        .max_by_key(|&(open, _)| open)
         .ok_or_else(refused)?;
     let (before, after) = (&regex[..open], &regex[close + 2..]);
     let mut out = top_level(&regex[open + 3..close])
@@ -177,16 +187,22 @@ fn top_level(body: &str) -> Vec<&str> {
 ///
 /// `$2` and `${2:/downcase}` each give 2.
 /// A `$` before no digit gives nothing.
+/// So does `$0`, the whole match, which no group holds.
 fn references(name: &str) -> impl Iterator<Item = usize> + '_ {
     name.match_indices('$').filter_map(|(at, _)| {
         let rest = &name[at + 1..];
         let rest = rest.strip_prefix('{').unwrap_or(rest);
         let digits = rest.bytes().take_while(u8::is_ascii_digit).count();
-        rest[..digits].parse().ok()
+        rest[..digits].parse().ok().filter(|&number| number > 0)
     })
 }
 
 /// The byte offsets of group `number`'s `(` and of the next `)`.
+///
+/// Groups are numbered as Shiki's Oniguruma numbers them.
+/// A `(` not followed by `?` captures, and so does a named group,
+/// `(?<name>…)` or `(?'name'…)`.
+/// A lookbehind, `(?<=…)` or `(?<!…)`, does not.
 ///
 /// A byte after a `\` is skipped, so an escaped `(`, such as the one in
 /// `\(\b(foo|bar)`, opens no group.
@@ -202,7 +218,7 @@ fn group(regex: &str, number: usize) -> Option<(usize, usize)> {
             b']' if in_class => in_class = false,
             _ if in_class => {}
             b'[' => in_class = true,
-            b'(' if bytes.get(index + 1) != Some(&b'?') => {
+            b'(' if captures(&bytes[index + 1..]) => {
                 count += 1;
                 if count == number {
                     let end = index + regex[index..].find(')')?;
@@ -214,4 +230,14 @@ fn group(regex: &str, number: usize) -> Option<(usize, usize)> {
         index += 1;
     }
     None
+}
+
+/// Whether a `(` before `after` opens a group that captures.
+const fn captures(after: &[u8]) -> bool {
+    match after {
+        [b'?', b'<', b'=' | b'!', ..] => false,
+        [b'?', b'<' | b'\'', ..] => true,
+        [b'?', ..] => false,
+        _ => true,
+    }
 }
