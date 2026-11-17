@@ -19,12 +19,13 @@ pub enum GenerateError {
         /// The id the rule would take.
         id: String,
     },
-    /// A match named after its first group, `$1`, whose group the split
-    /// cannot read as words between `|`.
+    /// A match or begin named after a group, such as `$1`, whose group the
+    /// split cannot read as words between `|`.
+    /// Names that hold several groups are refused too.
     Split {
-        /// The id of the match.
+        /// The id of the pattern.
         id: String,
-        /// The match's expression.
+        /// The pattern's expression.
         regex: String,
     },
     /// Two patterns with different expressions or acts take one id, or two
@@ -79,7 +80,7 @@ impl fmt::Display for GenerateError {
             GenerateError::Split { id, regex } => {
                 write!(
                     f,
-                    "{id}: $1 names a first group that is missing or not plain words in {regex}"
+                    "{id}: the scope names name no one group of plain words in {regex}"
                 )
             }
             GenerateError::IdTaken { id } => {

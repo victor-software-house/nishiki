@@ -11,8 +11,11 @@
 //!
 //! A language can name an inline pattern itself, in
 //! [`RuleTables::pattern_names`].
-//! A match named after its first group, `$1`, becomes one pattern for each
-//! alternative of the group, each with its own place in the list.
+//! A match or begin named after a group, such as `$1`, becomes one pattern
+//! for each alternative of the group.
+//! In a list, each takes its own place.
+//! A repository entry's patterns take the entry's id, `At` and their
+//! position, such as `FontFeaturesAt2`.
 //!
 //! A rule a begin opens takes the begin's id, and lists its own patterns.
 //! An entry with patterns and no expression adds its patterns in its place.
@@ -141,7 +144,7 @@ struct Walk<'a> {
 impl<'a> Walk<'a> {
     /// The patterns of `list`, whose patterns take ids from `context`.
     ///
-    /// A match named after its first group counts as one entry for each
+    /// A match or begin named after a group counts as one entry for each
     /// alternative.
     fn list(&mut self, list: &'a [RuleId], context: &str) -> Result<Vec<usize>, GenerateError> {
         let grammar = self.grammar;
@@ -153,19 +156,10 @@ impl<'a> Walk<'a> {
                 if self.drops(object) {
                     continue;
                 }
-                let split = match object.matched.as_deref() {
-                    Some(matched) => split::alternatives(
-                        matched,
-                        &object.name,
-                        self.language.split,
-                        &self.inline_id(context, index),
-                    )?,
-                    None => None,
-                };
-                if let Some(regexes) = split {
+                if let Some(regexes) = self.variants(rule, &self.inline_id(context, index))? {
                     for regex in regexes {
                         let id = self.inline_id(context, index);
-                        out.push(self.register_match(rule, &id, regex)?);
+                        out.extend(self.register(rule, &id, Some(regex))?);
                         index += 1;
                     }
                 } else {
@@ -353,7 +347,7 @@ impl<'a> Walk<'a> {
     fn expand(&mut self, rule: RuleId, id: &str) -> Result<Vec<usize>, GenerateError> {
         let object: &'a UnlinkedRule = &self.grammar.rules[rule];
         if acts(object) {
-            return Ok(self.register(rule, id)?.into_iter().collect());
+            return self.acting(rule, id);
         }
         if let [lone] = *object.patterns {
             let takes_id = match self.language.lone_pattern {
@@ -364,13 +358,46 @@ impl<'a> Walk<'a> {
                 }
             };
             if takes_id {
-                return Ok(self.register(lone, id)?.into_iter().collect());
+                return self.acting(lone, id);
             }
         }
         if object.has_patterns {
             return self.list(&object.patterns, id);
         }
         Err(GenerateError::NoAct { id: id.to_owned() })
+    }
+
+    /// The patterns of `rule`, a match or begin, named `id`.
+    ///
+    /// A rule named after a group gives one pattern for each alternative,
+    /// as a list of them would.
+    /// They take the ids `<id>At0`, `<id>At1` and so on.
+    fn acting(&mut self, rule: RuleId, id: &str) -> Result<Vec<usize>, GenerateError> {
+        let Some(regexes) = self.variants(rule, id)? else {
+            return Ok(self.register(rule, id, None)?.into_iter().collect());
+        };
+        let mut out = Vec::new();
+        for (index, regex) in regexes.into_iter().enumerate() {
+            let variant = self.inline_id(id, index);
+            out.extend(self.register(rule, &variant, Some(regex))?);
+        }
+        Ok(out)
+    }
+
+    /// The expression of each pattern that `rule` becomes when its name or
+    /// content name holds a group's text, or `None`.
+    ///
+    /// # Errors
+    ///
+    /// [`GenerateError::Split`], naming `id`, when the split cannot read the
+    /// group.
+    fn variants(&self, rule: RuleId, id: &str) -> Result<Option<Vec<String>>, GenerateError> {
+        let object = &self.grammar.rules[rule];
+        let Some(regex) = object.matched.as_deref().or(object.begin.as_deref()) else {
+            return Ok(None);
+        };
+        let names = object.name.iter().chain(object.content_name.iter());
+        split::alternatives(regex, names.map(|name| &**name), self.language.split, id)
     }
 
     /// The index of the match of `rule` with the expression `regex`, named
@@ -405,11 +432,21 @@ impl<'a> Walk<'a> {
     /// list a body.
     /// One whose own list holds an [`External::Missing`] include can be
     /// dropped.
-    fn register(&mut self, rule: RuleId, id: &str) -> Result<Option<usize>, GenerateError> {
+    ///
+    /// `variant`, when given, replaces the rule's match or begin, for one
+    /// alternative of a split.
+    /// The walk finds such a pattern again by its id only, since every
+    /// alternative has the rule's contents.
+    fn register(
+        &mut self,
+        rule: RuleId,
+        id: &str,
+        variant: Option<String>,
+    ) -> Result<Option<usize>, GenerateError> {
         let object: &'a UnlinkedRule = &self.grammar.rules[rule];
-        let content = match self.language.identity {
-            Identity::Id => None,
-            Identity::Content => {
+        let content = match (self.language.identity, &variant) {
+            (Identity::Id, _) | (Identity::Content, Some(_)) => None,
+            (Identity::Content, None) => {
                 let mut text = String::new();
                 shape(self.grammar, rule, &mut text);
                 if let Some(&known) = self.contents.get(&text) {
@@ -419,7 +456,8 @@ impl<'a> Walk<'a> {
             }
         };
         if let Some(matched) = &object.matched {
-            let index = self.register_match(rule, id, matched.to_string())?;
+            let regex = variant.unwrap_or_else(|| matched.to_string());
+            let index = self.register_match(rule, id, regex)?;
             if let Some(text) = content {
                 self.contents.insert(text, Some(index));
             }
@@ -428,7 +466,8 @@ impl<'a> Walk<'a> {
         let (Some(begin), Some(end)) = (&object.begin, &object.end) else {
             return Err(GenerateError::NoAct { id: id.to_owned() });
         };
-        if let Some(known) = self.known(id, begin, Act::Begin)? {
+        let begin = variant.unwrap_or_else(|| begin.to_string());
+        if let Some(known) = self.known(id, &begin, Act::Begin)? {
             return Ok(Some(known));
         }
         self.captures(
@@ -437,11 +476,11 @@ impl<'a> Walk<'a> {
                 .as_deref()
                 .or(object.captures.as_deref()),
         )?;
-        if let Some(known) = self.known(id, begin, Act::Begin)? {
+        if let Some(known) = self.known(id, &begin, Act::Begin)? {
             return Ok(Some(known));
         }
         let rules_before = self.tables.rules.len();
-        let opened = self.put(id.to_owned(), begin.to_string(), Act::Begin)?;
+        let opened = self.put(id.to_owned(), begin, Act::Begin)?;
         if let Some(text) = content {
             self.contents.insert(text, Some(opened));
         }
