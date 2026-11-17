@@ -1324,3 +1324,29 @@ fn an_alternative_without_a_word_is_an_error() {
         }))
     );
 }
+
+/// Under `CaptureNames::SplitsGroup`, a begin capture's name splits the
+/// group as the pattern's own name does.
+#[test]
+fn a_begin_capture_name_splits_the_group() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "\\b(enum|union)\\s+(\\w+)", "end": "}",
+            "beginCaptures": {"2": {"name": "entity.name.$1.demo"}}}]}"#;
+    let splits = RuleTables {
+        capture_names: CaptureNames::SplitsGroup,
+        ..PLAIN
+    };
+    assert_eq!(
+        regexes(json, &splits),
+        Ok(vec![
+            r"\b(enum)\s+(\w+)".to_owned(),
+            "}".to_owned(),
+            r"\b(union)\s+(\w+)".to_owned(),
+            "}".to_owned(),
+        ])
+    );
+    assert_eq!(
+        regexes(json, &PLAIN),
+        Ok(vec![r"\b(enum|union)\s+(\w+)".to_owned(), "}".to_owned()])
+    );
+}
