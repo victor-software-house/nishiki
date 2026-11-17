@@ -14,6 +14,16 @@
 use super::error::GenerateError;
 use super::tables::Split;
 
+/// One pattern of a split: its expression and the word it is named by.
+pub(super) struct Variant {
+    /// The pattern's expression.
+    pub(super) regex: String,
+    /// The ASCII letters that start the pattern's alternative, such as
+    /// `class` for `class(?!\s+func)`.
+    /// It is empty when the alternative starts with no letter.
+    pub(super) word: String,
+}
+
 /// The expression of each pattern that a match or begin `regex`, named with
 /// `names`, becomes, or `None` when no name holds a group's text.
 ///
@@ -35,7 +45,7 @@ pub(super) fn alternatives<'n>(
     names: impl IntoIterator<Item = &'n str>,
     split: Split,
     id: &str,
-) -> Result<Option<Vec<String>>, GenerateError> {
+) -> Result<Option<Vec<Variant>>, GenerateError> {
     let refused = || GenerateError::Split {
         id: id.to_owned(),
         regex: regex.to_owned(),
@@ -60,9 +70,12 @@ pub(super) fn alternatives<'n>(
     Ok(Some(
         top_level(words)
             .into_iter()
-            .map(|word| match split {
-                Split::KeepsGroup => format!("{before}({word}){after}"),
-                Split::DropsGroup => format!("{before}{word}{after}"),
+            .map(|alternative| Variant {
+                regex: match split {
+                    Split::KeepsGroup => format!("{before}({alternative}){after}"),
+                    Split::DropsGroup => format!("{before}{alternative}{after}"),
+                },
+                word: word(alternative),
             })
             .collect(),
     ))
@@ -91,7 +104,7 @@ pub(super) fn optional_alternatives<'n>(
     regex: &str,
     names: impl IntoIterator<Item = &'n str>,
     id: &str,
-) -> Result<Option<Vec<String>>, GenerateError> {
+) -> Result<Option<Vec<Variant>>, GenerateError> {
     let refused = || GenerateError::Split {
         id: id.to_owned(),
         regex: regex.to_owned(),
@@ -119,9 +132,15 @@ pub(super) fn optional_alternatives<'n>(
     let (before, after) = (&regex[..open], &regex[close + 2..]);
     let mut out = top_level(&regex[open + 3..close])
         .into_iter()
-        .map(|alternative| format!("{before}(?:{alternative}){after}"))
+        .map(|alternative| Variant {
+            regex: format!("{before}(?:{alternative}){after}"),
+            word: word(alternative),
+        })
         .collect::<Vec<_>>();
-    out.push(format!("{before}{after}"));
+    out.push(Variant {
+        regex: format!("{before}{after}"),
+        word: String::new(),
+    });
     Ok(Some(out))
 }
 
@@ -175,6 +194,14 @@ fn top_level(body: &str) -> Vec<&str> {
     }
     out.push(&body[from..]);
     out
+}
+
+/// The ASCII letters that start `alternative`.
+fn word(alternative: &str) -> String {
+    alternative
+        .chars()
+        .take_while(char::is_ascii_alphabetic)
+        .collect()
 }
 
 /// The number of each group whose text the scope name `name` holds.

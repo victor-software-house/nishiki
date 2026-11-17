@@ -16,8 +16,7 @@
 //!
 //! - a match or begin named after a group, such as `$1`, becomes one pattern
 //!   for each alternative of the group, each in its own place;
-//! - a repository entry's split patterns take the entry's id, `At` and their
-//!   position, such as `FontFeaturesAt2`;
+//! - their ids follow [`RuleTables::split_ids`];
 //! - [`RuleTables::capture_names`] sets what a match becomes when only a
 //!   capture's name holds a group's text.
 //!
@@ -62,10 +61,10 @@ use std::collections::{HashMap, HashSet};
 use std::fmt::Write as _;
 
 use super::error::GenerateError;
-use super::split;
+use super::split::{self, Variant};
 use super::tables::{
     Act, AddedRule, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern,
-    MergedWords, Pattern, Reentry, Rule, RuleTables, Tables,
+    MergedWords, Pattern, Reentry, Rule, RuleTables, SplitIds, Tables,
 };
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
@@ -184,11 +183,23 @@ impl<'a> Walk<'a> {
                 if self.drops(object) {
                     continue;
                 }
-                if let Some(regexes) = self.variants(rule, &self.inline_id(context, index))? {
-                    for regex in regexes {
-                        let id = self.inline_id(context, index);
-                        out.extend(self.register(rule, &id, Some(regex))?);
-                        index += 1;
+                if let Some(variants) = self.variants(rule, &self.inline_id(context, index))? {
+                    match self.language.split_ids {
+                        SplitIds::Positions => {
+                            for variant in variants {
+                                let id = self.inline_id(context, index);
+                                out.extend(self.register(rule, &id, Some(variant.regex))?);
+                                index += 1;
+                            }
+                        }
+                        SplitIds::Words => {
+                            let id = self.inline_id(context, index);
+                            for variant in variants {
+                                let named = worded(&id, &variant)?;
+                                out.extend(self.register(rule, &named, Some(variant.regex))?);
+                            }
+                            index += 1;
+                        }
                     }
                 } else {
                     let id = self.inline_id(context, index);
@@ -453,15 +464,18 @@ impl<'a> Walk<'a> {
     ///
     /// A rule named after a group gives one pattern for each alternative,
     /// as a list of them would.
-    /// They take the ids `<id>At0`, `<id>At1` and so on.
+    /// They take the ids [`RuleTables::split_ids`] says.
     fn acting(&mut self, rule: RuleId, id: &str) -> Result<Vec<usize>, GenerateError> {
-        let Some(regexes) = self.variants(rule, id)? else {
+        let Some(variants) = self.variants(rule, id)? else {
             return Ok(self.register(rule, id, None)?.into_iter().collect());
         };
         let mut out = Vec::new();
-        for (index, regex) in regexes.into_iter().enumerate() {
-            let variant = self.inline_id(id, index);
-            out.extend(self.register(rule, &variant, Some(regex))?);
+        for (index, variant) in variants.into_iter().enumerate() {
+            let named = match self.language.split_ids {
+                SplitIds::Positions => self.inline_id(id, index),
+                SplitIds::Words => worded(id, &variant)?,
+            };
+            out.extend(self.register(rule, &named, Some(variant.regex))?);
         }
         Ok(out)
     }
@@ -476,7 +490,7 @@ impl<'a> Walk<'a> {
     ///
     /// [`GenerateError::Split`], naming `id`, when the split cannot read the
     /// group.
-    fn variants(&self, rule: RuleId, id: &str) -> Result<Option<Vec<String>>, GenerateError> {
+    fn variants(&self, rule: RuleId, id: &str) -> Result<Option<Vec<Variant>>, GenerateError> {
         let object = &self.grammar.rules[rule];
         let Some(regex) = object.matched.as_deref().or(object.begin.as_deref()) else {
             return Ok(None);
@@ -945,6 +959,26 @@ fn one_backref(end: &str) -> bool {
     groups.sort_unstable();
     groups.dedup();
     groups.len() == 1
+}
+
+/// The id of a split's `variant` named by its word: `id`, then the word with
+/// its first letter in upper case.
+///
+/// # Errors
+///
+/// [`GenerateError::NoWord`] when the variant's alternative starts with no
+/// letter.
+fn worded(id: &str, variant: &Variant) -> Result<String, GenerateError> {
+    let mut letters = variant.word.chars();
+    let first = letters.next().ok_or_else(|| GenerateError::NoWord {
+        id: id.to_owned(),
+        regex: variant.regex.clone(),
+    })?;
+    Ok(format!(
+        "{id}{}{}",
+        first.to_ascii_uppercase(),
+        letters.as_str()
+    ))
 }
 
 /// The rule object of the repository entry `key`.

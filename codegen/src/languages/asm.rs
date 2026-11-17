@@ -2,7 +2,7 @@
 
 use nishiki::unstable::codegen::tables::{
     CaptureLists, CaptureNames, External, Identity, LonePattern, MergedWords, Reentry, RuleTables,
-    Split,
+    Split, SplitIds,
 };
 
 /// Assembly's tables, from `tests/engine/grammars/asm.json`.
@@ -20,6 +20,7 @@ pub(crate) const ASM: RuleTables = RuleTables {
     capture_lists: CaptureLists::Rules,
     pattern_names: &[],
     split: Split::KeepsGroup,
+    split_ids: SplitIds::Positions,
     capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,

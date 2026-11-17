@@ -2,6 +2,7 @@
 
 use nishiki::unstable::codegen::tables::{
     CaptureLists, CaptureNames, External, Identity, LonePattern, Reentry, RuleTables, Split,
+    SplitIds,
 };
 
 /// Julia's tables, from `tests/engine/grammars/julia.json`.
@@ -82,6 +83,7 @@ pub(crate) const JULIA: RuleTables = RuleTables {
         ("StringDollarSignInterpolateAt1", "Interpolation"),
     ],
     split: Split::KeepsGroup,
+    split_ids: SplitIds::Positions,
     capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::ListId,
     identity: Identity::Id,

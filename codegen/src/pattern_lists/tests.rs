@@ -3,7 +3,7 @@ use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
     Act, AddedRule, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern,
-    MergedWords, Reentry, RuleTables, Split, Tables,
+    MergedWords, Reentry, RuleTables, Split, SplitIds, Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -15,6 +15,7 @@ const PLAIN: RuleTables = RuleTables {
     capture_lists: CaptureLists::Rules,
     pattern_names: &[],
     split: Split::KeepsGroup,
+    split_ids: SplitIds::Positions,
     capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,
@@ -1262,5 +1263,64 @@ fn a_leading_zero_names_the_same_group() {
             ("RootAt0Body", Act::Begin),
             ("RootAt0BodyEnd", Act::End)
         ]))
+    );
+}
+
+/// Under `SplitIds::Words`, a split in a list takes one place.
+/// Each pattern adds its alternative's word to that place's id.
+#[test]
+fn a_split_in_a_list_is_named_by_its_words() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "\\b(class(?!\\s)|struct)\\b", "name": "keyword.$1.demo"},
+        {"match": "m"}]}"#;
+    let words = RuleTables {
+        split_ids: SplitIds::Words,
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &words),
+        Ok(expected(&[
+            ("RootAt0Class", Act::Match),
+            ("RootAt0Struct", Act::Match),
+            ("RootAt1", Act::Match),
+        ]))
+    );
+}
+
+/// Under `SplitIds::Words`, a repository entry's split patterns add each
+/// alternative's word to the entry's id.
+#[test]
+fn a_split_entry_is_named_by_its_words() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#type-enum"}],
+        "repository": {"type-enum": {"match": "\\b(enum|union)\\b", "name": "storage.$1.demo"}}}"##;
+    let words = RuleTables {
+        split_ids: SplitIds::Words,
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &words),
+        Ok(expected(&[
+            ("TypeEnumEnum", Act::Match),
+            ("TypeEnumUnion", Act::Match),
+        ]))
+    );
+}
+
+/// Under `SplitIds::Words`, an alternative that starts with no letter
+/// gives no id.
+#[test]
+fn an_alternative_without_a_word_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"match": "(a|_b)", "name": "keyword.$1.demo"}]}"#;
+    let words = RuleTables {
+        split_ids: SplitIds::Words,
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &words),
+        Err(Failure::Generate(GenerateError::NoWord {
+            id: "RootAt0".to_owned(),
+            regex: "(_b)".to_owned(),
+        }))
     );
 }

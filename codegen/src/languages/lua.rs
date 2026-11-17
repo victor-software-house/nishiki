@@ -2,6 +2,7 @@
 
 use nishiki::unstable::codegen::tables::{
     CaptureLists, CaptureNames, External, Identity, LonePattern, Reentry, RuleTables, Split,
+    SplitIds,
 };
 
 /// Lua's tables, from `tests/engine/grammars/lua.json`.
@@ -12,6 +13,7 @@ pub(crate) const LUA: RuleTables = RuleTables {
     capture_lists: CaptureLists::Rules,
     pattern_names: &[],
     split: Split::KeepsGroup,
+    split_ids: SplitIds::Positions,
     capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,
