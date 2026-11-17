@@ -16,4 +16,5 @@ pub(crate) const DART: RuleTables = RuleTables {
     identity: Identity::Id,
     reentry: Reentry::WithinRule,
     externals: &[],
+    injected: None,
 };

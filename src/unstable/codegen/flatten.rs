@@ -21,6 +21,9 @@
 //! A list being expanded, `Root` included, adds nothing when it is reached
 //! again.
 //!
+//! The matches another grammar injects, [`RuleTables::injected`], follow
+//! every other pattern.
+//!
 //! A pattern reached again keeps its first id, so an include repeats no
 //! pattern.
 //! [`RuleTables::identity`] sets whether the walk finds it again by its id
@@ -48,14 +51,15 @@ use std::fmt::Write as _;
 use super::error::GenerateError;
 use super::split;
 use super::tables::{
-    Act, CaptureLists, External, Identity, LonePattern, Pattern, Reentry, Rule, RuleTables, Tables,
+    Act, CaptureLists, External, Identity, Injection, LonePattern, Pattern, Reentry, Rule,
+    RuleTables, Tables,
 };
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
 /// The tables of `grammar`, read as `language` says.
 ///
-/// `others` holds each grammar that an [`External::Pattern`] of `language`
-/// names, by file name.
+/// `others` holds each grammar that an [`External::Pattern`] or the
+/// [`Injection`] of `language` names, by file name.
 ///
 /// # Errors
 ///
@@ -95,6 +99,9 @@ pub fn flatten(
             walk.list(&grammar.patterns, "Root")?
         }
     };
+    if let Some(injection) = language.injected {
+        walk.inject(injection)?;
+    }
     let index = walk.put_rule("Root", None)?;
     walk.tables.rules[index].patterns = root;
     Ok(walk.tables)
@@ -143,6 +150,9 @@ impl<'a> Walk<'a> {
         for &rule in list {
             let object: &'a UnlinkedRule = &grammar.rules[rule];
             let Some(include) = &object.include else {
+                if self.drops(object) {
+                    continue;
+                }
                 let split = match object.matched.as_deref() {
                     Some(matched) => split::alternatives(
                         matched,
@@ -177,7 +187,11 @@ impl<'a> Walk<'a> {
             }
             if let Some(external) = self.external(include) {
                 match external {
-                    External::AddsNothing | External::Embeds | External::Missing => {}
+                    External::AddsNothing
+                    | External::Embeds
+                    | External::Missing
+                    | External::DropsItsEntry
+                    | External::CaptureRule { .. } => {}
                     External::Begin { begin, end } => {
                         let id = self.inline_id(context, at);
                         out.push(self.made_begin(&id, begin, end)?);
@@ -238,12 +252,7 @@ impl<'a> Walk<'a> {
         let failed = || GenerateError::ExternalPattern {
             include: include.to_owned(),
         };
-        let other = self
-            .others
-            .iter()
-            .find(|&&(file, _)| file == name)
-            .map(|&(_, other)| other)
-            .ok_or_else(failed)?;
+        let other = self.other(name).ok_or_else(failed)?;
         let object = &other.rules[entry(&other.repository, key).ok_or_else(failed)?];
         let lists = object
             .captures
@@ -256,6 +265,55 @@ impl<'a> Walk<'a> {
         };
         let id = format!("{}{}", pascal(name, &[]), pascal(key, &[]));
         self.put(id, matched.to_string(), Act::Match)
+    }
+
+    /// The grammar of `others` named `name`.
+    fn other(&self, name: &str) -> Option<&'a UnlinkedGrammar> {
+        self.others
+            .iter()
+            .find(|&&(file, _)| file == name)
+            .map(|&(_, other)| other)
+    }
+
+    /// Adds each match that `injection` names, after every other pattern.
+    ///
+    /// # Errors
+    ///
+    /// [`GenerateError::Injection`] when `others` lacks the grammar, the
+    /// grammar has no injection under the selector, or the injection is not
+    /// one match for each id.
+    fn inject(&mut self, injection: Injection) -> Result<(), GenerateError> {
+        let failed = || GenerateError::Injection {
+            selector: injection.selector.to_owned(),
+        };
+        let other = self.other(injection.grammar).ok_or_else(failed)?;
+        let &(_, rule) = other
+            .injections
+            .iter()
+            .find(|(selector, _)| &**selector == injection.selector)
+            .ok_or_else(failed)?;
+        let patterns = &other.rules[rule].patterns;
+        if patterns.len() != injection.ids.len() {
+            return Err(failed());
+        }
+        for (&pattern, id) in patterns.iter().zip(injection.ids) {
+            let matched = other.rules[pattern].matched.as_deref().ok_or_else(failed)?;
+            self.put((*id).to_owned(), matched.to_owned(), Act::Match)?;
+        }
+        Ok(())
+    }
+
+    /// Whether the list entry `object` is left out of its list: its own
+    /// patterns are one [`External::DropsItsEntry`] include.
+    fn drops(&self, object: &UnlinkedRule) -> bool {
+        let [only] = *object.patterns else {
+            return false;
+        };
+        self.grammar.rules[only]
+            .include
+            .as_deref()
+            .and_then(|include| self.external(include))
+            == Some(External::DropsItsEntry)
     }
 
     /// The patterns of a rule's own list, `list`, whose patterns take ids
@@ -516,7 +574,7 @@ impl<'a> Walk<'a> {
     fn captures(&mut self, captures: Option<&[UnlinkedCapture]>) -> Result<(), GenerateError> {
         match self.language.capture_lists {
             CaptureLists::ByHand => Ok(()),
-            CaptureLists::Rules => {
+            CaptureLists::Rules | CaptureLists::NamedRules => {
                 let mut groups = captures
                     .unwrap_or_default()
                     .iter()
@@ -534,6 +592,11 @@ impl<'a> Walk<'a> {
 
     /// The rule of the pattern list of `capture`, which it adds the first
     /// time a list with its text is found.
+    ///
+    /// A list of one [`External::CaptureRule`] include becomes that rule,
+    /// with no patterns.
+    /// Under [`CaptureLists::NamedRules`], a list of one include of a
+    /// repository key takes the key's id.
     fn capture_list(&mut self, capture: RuleId) -> Result<(), GenerateError> {
         let list: &'a [RuleId] = &self.grammar.rules[capture].patterns;
         let mut text = String::new();
@@ -543,7 +606,23 @@ impl<'a> Walk<'a> {
         if self.capture_lists.contains_key(&text) {
             return Ok(());
         }
-        let id = format!("Nested{}", self.capture_lists.len());
+        let lone = match *list {
+            [only] => self.grammar.rules[only].include.as_deref(),
+            _ => None,
+        };
+        if let Some(External::CaptureRule { id }) = lone.and_then(|include| self.external(include))
+        {
+            self.capture_lists.insert(text, id.to_owned());
+            self.put_rule(id, None)?;
+            return Ok(());
+        }
+        let key = lone.and_then(|include| include.strip_prefix('#'));
+        let id = match (self.language.capture_lists, key) {
+            (CaptureLists::NamedRules, Some(key)) => pascal(key, self.language.key_spellings),
+            (CaptureLists::NamedRules | CaptureLists::Rules | CaptureLists::ByHand, _) => {
+                format!("Nested{}", self.capture_lists.len())
+            }
+        };
         self.capture_lists.insert(text, id.clone());
         let index = self.put_rule(&id, None)?;
         self.opened.push((index, list, id.clone()));

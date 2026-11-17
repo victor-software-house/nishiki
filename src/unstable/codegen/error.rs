@@ -41,6 +41,14 @@ pub enum GenerateError {
         /// The include, such as `source.ruby#escaped_char`.
         include: String,
     },
+    /// The other grammar does not inject what the language's
+    /// [`super::tables::Injection`] names.
+    /// That grammar was not passed, it injects nothing under the selector,
+    /// or it injects a number of patterns other than one match per id.
+    Injection {
+        /// The selector, such as `L:(source.ts, source.js, source.coffee)`.
+        selector: String,
+    },
     /// A begin whose own list holds only missing grammars has end captures
     /// that add rules.
     /// The walk drops only a begin, its end and its rule.
@@ -84,6 +92,12 @@ impl fmt::Display for GenerateError {
                 write!(
                     f,
                     "{include}: no match without capture lists in the grammars passed"
+                )
+            }
+            GenerateError::Injection { selector } => {
+                write!(
+                    f,
+                    "{selector}: the grammars passed inject no match for each id there"
                 )
             }
             GenerateError::DroppedBeginCaptures { id } => {

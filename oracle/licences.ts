@@ -386,6 +386,12 @@ export const allowed: Record<string, Allowed> = {
     licence: "MIT",
     file: "LICENSE.txt",
   },
+  svelte: {
+    bundled: "sveltejs/language-tools@2cfcc15b4c44dfc1128432e20ca663fe20bdd12e",
+    origin: "sveltejs/language-tools",
+    licence: "MIT",
+    file: "LICENSE",
+  },
   swift: {
     bundled: "jtbandes/swift-tmlanguage@2be007b6bc88e54a0edfd3c313ff31276edc923d",
     origin: "jtbandes/swift-tmlanguage",

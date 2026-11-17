@@ -123,8 +123,11 @@ for (const spec of tables) {
   linked.push({ name: ids[0], root, grammars: names, handOffs });
 }
 
-/** The grammars `codegen/` reads that no table links: word lists and matchers. */
-const codegenGrammars = ["c", "less", "proto", "sql"];
+/**
+ * The grammars `codegen/` reads that no table links: word lists, matchers and
+ * Svelte's injections into CoffeeScript.
+ */
+const codegenGrammars = ["c", "less", "proto", "sql", "svelte"];
 /**
  * The grammars of Markdown's fences that no table links, which
  * `codegen/src/fence_stops.rs` checks.

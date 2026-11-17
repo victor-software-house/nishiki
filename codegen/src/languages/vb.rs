@@ -42,4 +42,5 @@ pub(crate) const VB: RuleTables = RuleTables {
     identity: Identity::Id,
     reentry: Reentry::WithinWalk,
     externals: &[],
+    injected: None,
 };
