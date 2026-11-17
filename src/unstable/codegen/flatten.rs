@@ -771,12 +771,13 @@ const fn acts(object: &UnlinkedRule) -> bool {
 /// Whether the end `end` repeats exactly one group of its begin, such as
 /// `\1` in `^(?!\1\s+)`.
 ///
-/// A group's number is every digit after the `\`, so `\10` repeats group
-/// 10.
-/// vscode-textmate reads an end the same way, with `\\(\d+)`.
-/// It leaves `\k<name>` alone, so that form names a group of the end
-/// itself and repeats no group of the begin.
-/// An escaped backslash before a digit, as in `\\1`, repeats no group.
+/// It reads an end as vscode-textmate's `resolveBackReferences` does, with
+/// `/\\(\d+)/g`, as the tokenizer's `fill_backrefs` does too:
+///
+/// - a group's number is every digit after the `\`, so `\10` repeats group 10;
+/// - every `\` can start one, so `\\1` repeats group 1;
+/// - `\k<name>` is left alone, so it names a group of the end itself and
+///   repeats no group of the begin.
 fn one_backref(end: &str) -> bool {
     let bytes = end.as_bytes();
     let mut groups = Vec::new();
@@ -793,7 +794,7 @@ fn one_backref(end: &str) -> bool {
         if digits > 0 {
             groups.push(&end[index + 1..=index + digits]);
         }
-        index += 1 + digits.max(1);
+        index += 1 + digits;
     }
     groups.sort_unstable();
     groups.dedup();

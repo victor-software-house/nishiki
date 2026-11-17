@@ -838,10 +838,11 @@ fn an_injection_of_another_length_is_an_error() {
     );
 }
 
-/// An escaped backslash before a digit repeats no group, so an embedding
-/// rule whose end holds one lists no body.
+/// A backslash before a backslash and a digit still repeats a group, as in
+/// vscode-textmate, so an embedding rule whose end holds `\\1` lists a
+/// body.
 #[test]
-fn an_escaped_backslash_before_a_digit_is_no_backreference() {
+fn a_backslash_before_a_backreference_still_repeats_its_group() {
     let json = r#"{"scopeName": "source.demo", "patterns": [
         {"begin": "a", "end": "\\\\1", "patterns": [{"include": "source.ruby"}]}]}"#;
     let embeds = RuleTables {
@@ -852,7 +853,9 @@ fn an_escaped_backslash_before_a_digit_is_no_backreference() {
         ids(json, &embeds),
         Ok(expected(&[
             ("RootAt0", Act::Begin),
-            ("RootAt0End", Act::End)
+            ("RootAt0End", Act::End),
+            ("RootAt0Body", Act::Begin),
+            ("RootAt0BodyEnd", Act::End)
         ]))
     );
 }

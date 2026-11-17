@@ -1127,37 +1127,64 @@ fn opens_while(grammar: &Grammar, frame: &Frame) -> bool {
         .is_some_and(|rule| rule.matching == Matching::BeginWhile)
 }
 
-/// Writes `source` into `out` with `\1`..`\9` replaced by the escaped text
-/// of the groups, reusing `out`'s buffer.
+/// Writes `source` into `out` with each back-reference replaced by the
+/// escaped text of its group, reusing `out`'s buffer.
+///
+/// It reads references as vscode-textmate's `resolveBackReferences` does,
+/// with `/\\(\d+)/g`:
+///
+/// - a reference is a `\` and every digit after it, so `\10` names group 10 and
+///   `\0` the whole match;
+/// - every `\` can start one, so in `\\1` the second `\` and the `1` are a
+///   reference;
+/// - a group that took no part, or that the begin lacks, writes nothing.
+///
+/// The text is escaped as vscode-textmate's `escapeRegExpCharacters`
+/// escapes it: `-\{}*+?|^$.,[]()#` and every character JavaScript's `\s`
+/// matches.
 fn fill_backrefs(source: &str, text: &[u8], caps: &GroupSpans, out: &mut String) {
     out.clear();
-    let mut chars = source.chars();
-    while let Some(c) = chars.next() {
-        if c != '\\' {
-            out.push(c);
+    let mut rest = source;
+    while let Some(at) = rest.find('\\') {
+        out.push_str(&rest[..at]);
+        let after = &rest[at + 1..];
+        let digits = after.bytes().take_while(u8::is_ascii_digit).count();
+        if digits == 0 {
+            out.push('\\');
+            rest = after;
             continue;
         }
-        let Some(next) = chars.next() else {
-            out.push(c);
-            break;
-        };
-        if let Some(d) = next.to_digit(10).filter(|&d| d > 0) {
-            let group = usize::try_from(d)
-                .ok()
-                .and_then(|d| caps.get(d).copied().flatten())
-                .and_then(|(s, e)| text.get(s..e))
-                .unwrap_or_default();
-            for g in String::from_utf8_lossy(group).chars() {
-                if "-\\{}*+?|^$.,[]()# \t\n".contains(g) {
-                    out.push('\\');
-                }
-                out.push(g);
+        let group = after[..digits]
+            .parse::<usize>()
+            .ok()
+            .and_then(|d| caps.get(d).copied().flatten())
+            .and_then(|(s, e)| text.get(s..e))
+            .unwrap_or_default();
+        for g in String::from_utf8_lossy(group).chars() {
+            if "-\\{}*+?|^$.,[]()#".contains(g) || js_space(g) {
+                out.push('\\');
             }
-        } else {
-            out.push(c);
-            out.push(next);
+            out.push(g);
         }
+        rest = &after[digits..];
     }
+    out.push_str(rest);
+}
+
+/// Whether JavaScript's `\s` matches `c`: its white space and line
+/// terminators.
+const fn js_space(c: char) -> bool {
+    matches!(
+        c,
+        '\t' | '\n' | '\u{b}' | '\u{c}' | '\r' | ' ' | '\u{a0}' | '\u{1680}' | '\u{2000}'
+            ..='\u{200a}'
+                | '\u{2028}'
+                | '\u{2029}'
+                | '\u{202f}'
+                | '\u{205f}'
+                | '\u{3000}'
+                | '\u{feff}'
+    )
 }
 
 /// Writes what a `$` in a scope name stands for into `out`: `$1` the text of

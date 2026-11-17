@@ -174,8 +174,10 @@ pub(crate) struct Injection {
     pub(crate) rule: usize,
 }
 
-/// Whether `source` holds a back-reference `\1`..`\9`, which an `end` or
-/// `while` pattern fills in from the `begin` match.
+/// Whether `source` holds a back-reference, a `\` and a digit, which an
+/// `end` or `while` pattern fills in from the `begin` match.
+///
+/// Every `\` can start one, as vscode-textmate's `/\\(\d+)/` reads it.
 #[cfg_attr(
     not(any(test, feature = "json")),
     expect(
@@ -187,11 +189,8 @@ const fn has_backrefs(source: &str) -> bool {
     let bytes = source.as_bytes();
     let mut i = 0;
     while i + 1 < bytes.len() {
-        if bytes[i] == b'\\' {
-            if bytes[i + 1] >= b'1' && bytes[i + 1] <= b'9' {
-                return true;
-            }
-            i += 1;
+        if bytes[i] == b'\\' && bytes[i + 1].is_ascii_digit() {
+            return true;
         }
         i += 1;
     }
