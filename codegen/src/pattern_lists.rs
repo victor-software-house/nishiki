@@ -15,7 +15,7 @@ use std::fs;
 use std::path::Path;
 
 use nishiki::unstable::codegen::flatten::flatten;
-use nishiki::unstable::codegen::tables::Tables;
+use nishiki::unstable::codegen::tables::{External, Tables};
 
 use crate::blank_runs::PATTERNS;
 use crate::error::Error;
@@ -30,10 +30,23 @@ pub(crate) fn check(root: &Path) -> Result<Vec<&'static str>, Error> {
     let mut matched = Vec::new();
     for language in languages::ALL {
         let source = Source::load(root, language.grammar)?;
-        let tables = flatten(source.grammar(), &language).map_err(|source| Error::Generate {
-            language: language.language,
-            source,
-        })?;
+        let others = language
+            .externals
+            .iter()
+            .filter_map(|&(_, external)| match external {
+                External::Pattern { grammar, .. } => Some(grammar),
+                External::AddsNothing
+                | External::Begin { .. }
+                | External::Embeds
+                | External::Missing => None,
+            })
+            .map(|name| Ok((name, Source::load(root, name)?.grammar())))
+            .collect::<Result<Vec<_>, Error>>()?;
+        let tables =
+            flatten(source.grammar(), &others, &language).map_err(|source| Error::Generate {
+                language: language.language,
+                source,
+            })?;
         let path = root.join(format!("{PATTERNS}/{}.json", language.language));
         let written = fs::read_to_string(&path).map_err(|source| Error::Io {
             path: path.clone(),

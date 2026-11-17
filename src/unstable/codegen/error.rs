@@ -33,6 +33,20 @@ pub enum GenerateError {
         /// The id.
         id: String,
     },
+    /// An include read as [`super::tables::External::Pattern`] names no
+    /// match without capture lists.
+    /// Its grammar was not passed, its key is missing, or its entry is
+    /// something else.
+    ExternalPattern {
+        /// The include, such as `source.ruby#escaped_char`.
+        include: String,
+    },
+    /// A rule embeds another grammar in a body of its own, and lists
+    /// patterns too.
+    EmbedsBesidePatterns {
+        /// The rule's id.
+        id: String,
+    },
 }
 
 impl fmt::Display for GenerateError {
@@ -57,6 +71,18 @@ impl fmt::Display for GenerateError {
                 write!(
                     f,
                     "{id}: two patterns or rules with different contents take this id"
+                )
+            }
+            GenerateError::ExternalPattern { include } => {
+                write!(
+                    f,
+                    "{include}: no match without capture lists in the grammars passed"
+                )
+            }
+            GenerateError::EmbedsBesidePatterns { id } => {
+                write!(
+                    f,
+                    "{id}: the rule embeds a grammar in a body and lists patterns too"
                 )
             }
         }

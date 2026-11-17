@@ -8,6 +8,7 @@ mod dart;
 mod elixir;
 mod gdscript;
 mod go;
+mod haml;
 mod java;
 mod jinja;
 mod julia;
@@ -23,12 +24,13 @@ mod vb;
 use nishiki::unstable::codegen::tables::RuleTables;
 
 /// The languages whose tables codegen builds, by module name.
-pub(crate) const ALL: [RuleTables; 16] = [
+pub(crate) const ALL: [RuleTables; 17] = [
     common_lisp::COMMON_LISP,
     dart::DART,
     elixir::ELIXIR,
     gdscript::GDSCRIPT,
     go::GO,
+    haml::HAML,
     java::JAVA,
     jinja::JINJA,
     julia::JULIA,

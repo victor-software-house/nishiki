@@ -24,12 +24,26 @@ pub struct RuleTables {
     pub split: Split,
     /// The id of a list entry's one inline pattern.
     pub lone_pattern: LonePattern,
+    /// How the walk finds that it reaches a pattern again.
+    pub identity: Identity,
     /// Where a list that reaches itself again adds nothing.
     pub reentry: Reentry,
     /// What each include of another grammar adds, by the include, such as
     /// Lua's `source.c`.
     /// Any other include of another grammar is an error.
     pub externals: &'static [(&'static str, External)],
+}
+
+/// How the walk finds that it reaches a pattern again.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Identity {
+    /// By its id.
+    Id,
+    /// By its contents, before its id.
+    /// A pattern reached again with the same contents keeps its first id,
+    /// whatever id the new place would give it.
+    /// A rule the walk dropped stays dropped.
+    Content,
 }
 
 /// What an include of another grammar adds to its list.
@@ -46,6 +60,29 @@ pub enum External {
         /// The end's expression.
         end: &'static str,
     },
+    /// A match from the repository of another grammar, such as HAML's
+    /// `source.ruby#escaped_char`.
+    /// Its id is the grammar's name and the key in Pascal case, such as
+    /// `RubyEscapedChar`.
+    /// The caller passes that grammar to [`super::flatten::flatten`].
+    Pattern {
+        /// The grammar's file name without `.json`, such as `ruby`.
+        grammar: &'static str,
+        /// The repository key, such as `escaped_char`.
+        key: &'static str,
+    },
+    /// Nothing in the list.
+    /// The rule whose own list holds the include embeds the grammar.
+    ///
+    /// When the rule's end repeats one group of its begin, the rule lists
+    /// one begin, `<rule>Body`, and nothing else.
+    /// That begin is `\G`, its end is `(?=<the rule's end>)`, and its rule
+    /// has no patterns.
+    Embeds,
+    /// Nothing, from a grammar Shiki does not load.
+    /// A rule whose own list holds the include is dropped when it lists no
+    /// pattern and embeds no grammar, as vscode-textmate drops it.
+    Missing,
 }
 
 /// Where a list reached again while it is being expanded adds nothing.
