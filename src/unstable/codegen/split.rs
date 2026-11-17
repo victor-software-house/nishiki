@@ -19,15 +19,15 @@ use super::tables::Split;
 ///
 /// A name holds group `n`'s text as `$n` or as `${n:/downcase}`.
 /// Group `n` is the `n`th group that captures, as [`group`] counts them.
-/// It ends at the next `)`.
+/// Each of its alternatives at its own level gives one pattern, so
+/// `\b(class(?!\s+(?:func|var)\b)|struct)\b` gives two.
 ///
 /// # Errors
 ///
 /// [`GenerateError::Split`], naming `id` and `regex`, when:
 ///
 /// - the names hold several groups, or the expression has no such group;
-/// - the group is named, or holds a `(`, a `\` or a `[`, since the split reads
-///   the group as words between `|`;
+/// - the group is named, since its name would repeat in each pattern;
 /// - `split` is [`Split::DropsGroup`] and a later group captures, since
 ///   dropping the group would change that group's number.
 pub(super) fn alternatives<'n>(
@@ -50,7 +50,7 @@ pub(super) fn alternatives<'n>(
     };
     let (start, end) = group(regex, number).ok_or_else(refused)?;
     let words = &regex[start + 1..end];
-    if words.starts_with('?') || words.contains(['(', '\\', '[']) {
+    if words.starts_with('?') {
         return Err(refused());
     }
     if split == Split::DropsGroup && group(regex, number + 1).is_some() {
@@ -58,8 +58,8 @@ pub(super) fn alternatives<'n>(
     }
     let (before, after) = (&regex[..start], &regex[end + 1..]);
     Ok(Some(
-        words
-            .split('|')
+        top_level(words)
+            .into_iter()
             .map(|word| match split {
                 Split::KeepsGroup => format!("{before}({word}){after}"),
                 Split::DropsGroup => format!("{before}{word}{after}"),
@@ -133,14 +133,11 @@ fn spans(regex: &str) -> Vec<(usize, usize)> {
     let bytes = regex.as_bytes();
     let mut open = Vec::new();
     let mut out = Vec::new();
-    let mut in_class = false;
     let mut index = 0;
     while index < bytes.len() {
         match bytes[index] {
             b'\\' => index += 1,
-            b']' if in_class => in_class = false,
-            _ if in_class => {}
-            b'[' => in_class = true,
+            b'[' => index = class_end(bytes, index),
             b'(' => open.push(index),
             b')' => {
                 if let Some(start) = open.pop() {
@@ -160,15 +157,12 @@ fn top_level(body: &str) -> Vec<&str> {
     let bytes = body.as_bytes();
     let mut out = Vec::new();
     let mut depth = 0_usize;
-    let mut in_class = false;
     let mut from = 0;
     let mut index = 0;
     while index < bytes.len() {
         match bytes[index] {
             b'\\' => index += 1,
-            b']' if in_class => in_class = false,
-            _ if in_class => {}
-            b'[' => in_class = true,
+            b'[' => index = class_end(bytes, index),
             b'(' => depth += 1,
             b')' => depth = depth.saturating_sub(1),
             b'|' if depth == 0 => {
@@ -197,7 +191,7 @@ fn references(name: &str) -> impl Iterator<Item = usize> + '_ {
     })
 }
 
-/// The byte offsets of group `number`'s `(` and of the next `)`.
+/// The byte offsets of group `number`'s `(` and of its matching `)`.
 ///
 /// Groups are numbered as Shiki's Oniguruma numbers them.
 /// A `(` not followed by `?` captures, and so does a named group,
@@ -209,20 +203,16 @@ fn references(name: &str) -> impl Iterator<Item = usize> + '_ {
 /// So is a character class, so a `(` in `[(]` opens none either.
 fn group(regex: &str, number: usize) -> Option<(usize, usize)> {
     let bytes = regex.as_bytes();
-    let mut in_class = false;
     let mut count = 0;
     let mut index = 0;
     while index < bytes.len() {
         match bytes[index] {
             b'\\' => index += 1,
-            b']' if in_class => in_class = false,
-            _ if in_class => {}
-            b'[' => in_class = true,
+            b'[' => index = class_end(bytes, index),
             b'(' if captures(&bytes[index + 1..]) => {
                 count += 1;
                 if count == number {
-                    let end = index + regex[index..].find(')')?;
-                    return Some((index, end));
+                    return spans(regex).into_iter().find(|&(open, _)| open == index);
                 }
             }
             _ => {}
@@ -230,6 +220,34 @@ fn group(regex: &str, number: usize) -> Option<(usize, usize)> {
         index += 1;
     }
     None
+}
+
+/// The index of the `]` that closes the character class whose `[` is at
+/// `open`, or the length of `bytes` when none does.
+///
+/// A `]` first in the class, after any `^`, stands for itself.
+/// A class inside it, such as `[:alpha:]` in `[_[:alpha:]]`, closes before
+/// it.
+fn class_end(bytes: &[u8], open: usize) -> usize {
+    let mut index = open + 1;
+    if bytes.get(index) == Some(&b'^') {
+        index += 1;
+    }
+    if bytes.get(index) == Some(&b']') {
+        index += 1;
+    }
+    let mut depth = 0_usize;
+    while index < bytes.len() {
+        match bytes[index] {
+            b'\\' => index += 1,
+            b'[' => depth += 1,
+            b']' if depth == 0 => return index,
+            b']' => depth -= 1,
+            _ => {}
+        }
+        index += 1;
+    }
+    bytes.len()
 }
 
 /// Whether a `(` before `after` opens a group that captures.
