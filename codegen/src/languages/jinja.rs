@@ -1,7 +1,7 @@
 //! Jinja's tables.
 
 use nishiki::unstable::codegen::tables::{
-    CaptureLists, Identity, LonePattern, Reentry, RuleTables, Split,
+    CaptureLists, CaptureNames, Identity, LonePattern, Reentry, RuleTables, Split,
 };
 
 /// Jinja's tables, from `tests/engine/grammars/jinja.json`.
@@ -36,6 +36,7 @@ pub(crate) const JINJA: RuleTables = RuleTables {
         ("ExpressionAt19", "Regex"),
     ],
     split: Split::KeepsGroup,
+    capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,
     reentry: Reentry::WithinWalk,

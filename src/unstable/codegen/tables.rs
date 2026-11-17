@@ -22,6 +22,8 @@ pub struct RuleTables {
     pub pattern_names: &'static [(&'static str, &'static str)],
     /// What a pattern named after a group, such as `$1`, becomes.
     pub split: Split,
+    /// What a match becomes when only a capture's name holds a group's text.
+    pub capture_names: CaptureNames,
     /// The id of a list entry's one inline pattern.
     pub lone_pattern: LonePattern,
     /// How the walk finds that it reaches a pattern again.
@@ -137,6 +139,19 @@ pub enum Split {
     /// The alternative takes the group's place: `\b(extends|super)\b` gives
     /// `\bextends\b`.
     DropsGroup,
+}
+
+/// What a match becomes when only a capture's scope name holds a group's
+/// text, as `keyword.other.unit.${2:/downcase}.css` does.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CaptureNames {
+    /// It stays one pattern.
+    Kept,
+    /// The innermost optional group `(?:…)?` around the named group splits.
+    /// Each alternative gives one pattern, and a last one leaves the group
+    /// out.
+    /// The language's code names the group's text.
+    SplitsOptionalGroup,
 }
 
 /// The id of the one pattern of a list entry that has no expression of its

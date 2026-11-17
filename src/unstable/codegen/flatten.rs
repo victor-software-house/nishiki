@@ -16,6 +16,8 @@
 //! In a list, each takes its own place.
 //! A repository entry's patterns take the entry's id, `At` and their
 //! position, such as `FontFeaturesAt2`.
+//! [`RuleTables::capture_names`] sets what a match becomes when only a
+//! capture's name holds a group's text.
 //!
 //! A rule a begin opens takes the begin's id, and lists its own patterns.
 //! An entry with patterns and no expression adds its patterns in its place.
@@ -54,8 +56,8 @@ use std::fmt::Write as _;
 use super::error::GenerateError;
 use super::split;
 use super::tables::{
-    Act, CaptureLists, External, Identity, Injection, LonePattern, Pattern, Reentry, Rule,
-    RuleTables, Tables,
+    Act, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern, Pattern, Reentry,
+    Rule, RuleTables, Tables,
 };
 use crate::textmate::compile::{RuleId, Text, UnlinkedCapture, UnlinkedGrammar, UnlinkedRule};
 
@@ -387,6 +389,9 @@ impl<'a> Walk<'a> {
     /// The expression of each pattern that `rule` becomes when its name or
     /// content name holds a group's text, or `None`.
     ///
+    /// A match whose capture names alone hold one becomes what
+    /// [`RuleTables::capture_names`] says.
+    ///
     /// # Errors
     ///
     /// [`GenerateError::Split`], naming `id`, when the split cannot read the
@@ -397,7 +402,24 @@ impl<'a> Walk<'a> {
             return Ok(None);
         };
         let names = object.name.iter().chain(object.content_name.iter());
-        split::alternatives(regex, names.map(|name| &**name), self.language.split, id)
+        let split = split::alternatives(regex, names.map(|name| &**name), self.language.split, id)?;
+        match (
+            split,
+            self.language.capture_names,
+            object.matched.as_deref(),
+        ) {
+            (Some(split), _, _) => Ok(Some(split)),
+            (None, CaptureNames::SplitsOptionalGroup, Some(matched)) => {
+                let names = object
+                    .captures
+                    .as_deref()
+                    .unwrap_or_default()
+                    .iter()
+                    .flat_map(|capture| self.grammar.rules[capture.rule].name.iter());
+                split::optional_alternatives(matched, names.map(|name| &**name), id)
+            }
+            (None, CaptureNames::Kept | CaptureNames::SplitsOptionalGroup, _) => Ok(None),
+        }
     }
 
     /// The index of the match of `rule` with the expression `regex`, named

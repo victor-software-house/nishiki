@@ -1,7 +1,7 @@
 //! Visual Basic's tables.
 
 use nishiki::unstable::codegen::tables::{
-    CaptureLists, Identity, LonePattern, Reentry, RuleTables, Split,
+    CaptureLists, CaptureNames, Identity, LonePattern, Reentry, RuleTables, Split,
 };
 
 /// Visual Basic's tables, from `tests/engine/grammars/vb.json`.
@@ -38,6 +38,7 @@ pub(crate) const VB: RuleTables = RuleTables {
         ("RootAt25", "JsOperators"),
     ],
     split: Split::KeepsGroup,
+    capture_names: CaptureNames::Kept,
     lone_pattern: LonePattern::OwnId,
     identity: Identity::Id,
     reentry: Reentry::WithinWalk,
