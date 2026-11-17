@@ -619,6 +619,8 @@ impl<'a> Walk<'a> {
     /// A rule the begin's list reached was dropped before it, and its end
     /// captures added no rule.
     fn drop_begin(&mut self, opened: usize, rule: usize) {
+        debug_assert_eq!(self.tables.patterns.len(), opened + 2, "begin and end last");
+        debug_assert_eq!(self.tables.rules.len(), rule + 1, "the begin's rule last");
         self.tables.patterns.truncate(opened);
         self.tables.rules.truncate(rule);
         self.patterns.retain(|_, &mut index| index < opened);
@@ -769,17 +771,29 @@ const fn acts(object: &UnlinkedRule) -> bool {
 /// Whether the end `end` repeats exactly one group of its begin, such as
 /// `\1` in `^(?!\1\s+)`.
 ///
+/// A group's number is every digit after the `\`, so `\10` repeats group
+/// 10.
+/// vscode-textmate reads an end the same way, with `\\(\d+)`.
+/// It leaves `\k<name>` alone, so that form names a group of the end
+/// itself and repeats no group of the begin.
 /// An escaped backslash before a digit, as in `\\1`, repeats no group.
 fn one_backref(end: &str) -> bool {
+    let bytes = end.as_bytes();
     let mut groups = Vec::new();
-    let mut bytes = end.bytes();
-    while let Some(byte) = bytes.next() {
-        if byte == b'\\'
-            && let Some(escaped) = bytes.next()
-            && matches!(escaped, b'1'..=b'9')
-        {
-            groups.push(escaped);
+    let mut index = 0;
+    while index < bytes.len() {
+        if bytes[index] != b'\\' {
+            index += 1;
+            continue;
         }
+        let digits = end[index + 1..]
+            .bytes()
+            .take_while(u8::is_ascii_digit)
+            .count();
+        if digits > 0 {
+            groups.push(&end[index + 1..=index + digits]);
+        }
+        index += 1 + digits.max(1);
     }
     groups.sort_unstable();
     groups.dedup();
