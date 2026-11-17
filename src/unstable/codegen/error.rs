@@ -50,6 +50,14 @@ pub enum GenerateError {
         /// The selector, such as `L:(source.ts, source.js, source.coffee)`.
         selector: String,
     },
+    /// The grammars passed hold no list where an
+    /// [`super::tables::AddedRule`] points.
+    /// The grammar was not passed, it lacks the key, or a position along the
+    /// path is missing.
+    AddedRule {
+        /// The added rule's id, such as `VueStyleAttribute`.
+        id: String,
+    },
     /// A begin whose own list holds only missing grammars has end captures
     /// that add rules.
     /// The walk drops only a begin, its end and its rule.
@@ -100,6 +108,9 @@ impl fmt::Display for GenerateError {
                     f,
                     "{selector}: the grammars passed inject no match for each id there"
                 )
+            }
+            GenerateError::AddedRule { id } => {
+                write!(f, "{id}: the grammars passed hold no list at its path")
             }
             GenerateError::DroppedBeginCaptures { id } => {
                 write!(f, "{id}: the begin to drop has end captures that add rules")

@@ -143,4 +143,5 @@ pub(crate) const COFFEE: RuleTables = RuleTables {
         selector: "L:(source.ts, source.js, source.coffee)",
         ids: &["SvelteVariable", "SvelteProps"],
     }),
+    added_rules: &[],
 };

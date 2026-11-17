@@ -18,4 +18,5 @@ pub(crate) const GO: RuleTables = RuleTables {
     reentry: Reentry::WithinRule,
     externals: &[],
     injected: None,
+    added_rules: &[],
 };

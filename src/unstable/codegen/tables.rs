@@ -37,6 +37,29 @@ pub struct RuleTables {
     /// The matches another grammar injects into this one, when the language
     /// takes them.
     pub injected: Option<Injection>,
+    /// The rules whose patterns are a list in another grammar.
+    pub added_rules: &'static [AddedRule],
+}
+
+/// A rule whose patterns are a list in another grammar, such as CSS's rule
+/// for the string of Vue's `style` attribute.
+///
+/// The rule follows `Root`, and has no begin and no end.
+/// An include of the language's own scope with a key, such as
+/// `source.css#escapes`, adds the language's own entry.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct AddedRule {
+    /// The rule's id, such as `VueStyleAttribute`.
+    pub id: &'static str,
+    /// The grammar's file name without `.json`, such as `vue`.
+    pub grammar: &'static str,
+    /// The repository key where the path starts, such as
+    /// `vue-directives-style-attr`.
+    pub key: &'static str,
+    /// The position to follow in each rule's patterns, from the entry to the
+    /// rule whose list it is.
+    /// `&[0]` takes the entry's first pattern.
+    pub path: &'static [usize],
 }
 
 /// The matches another grammar injects into a language under one selector,

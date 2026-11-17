@@ -26,4 +26,5 @@ pub(crate) const POWERSHELL: RuleTables = RuleTables {
     reentry: Reentry::WithinRule,
     externals: &[],
     injected: None,
+    added_rules: &[],
 };

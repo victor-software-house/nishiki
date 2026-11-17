@@ -43,6 +43,7 @@ pub(crate) fn check(root: &Path) -> Result<Vec<&'static str>, Error> {
                 | External::CaptureRule { .. } => None,
             })
             .chain(language.injected.map(|injection| injection.grammar))
+            .chain(language.added_rules.iter().map(|added| added.grammar))
             .map(|name| Ok((name, Source::load(root, name)?.grammar())))
             .collect::<Result<Vec<_>, Error>>()?;
         let tables =

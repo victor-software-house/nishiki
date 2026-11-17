@@ -21,4 +21,5 @@ pub(crate) const ELIXIR: RuleTables = RuleTables {
         ("text.html.basic", External::AddsNothing),
     ],
     injected: None,
+    added_rules: &[],
 };
