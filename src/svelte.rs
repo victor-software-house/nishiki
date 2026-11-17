@@ -17,7 +17,7 @@
 //! The embedded language's state is the carried value of its rule's frame.
 //! Each embedding rule sets where it takes the line back
 //! (`engine::End`).
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

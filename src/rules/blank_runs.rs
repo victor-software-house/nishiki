@@ -3,147 +3,390 @@
 //! Whether each grammar's scan passes a run of spaces, tabs and wide
 //! spaces in one step ([`super::Tabled::MIXED_BLANK_RUNS`]).
 //! It holds where every pattern treats a wide space as a space.
+//!
+//! Each grammar's impl of [`super::WideSpaceLookbehind`] says whether its
+//! scan tries each wide space of a run.
 
 #[cfg(feature = "lang-asm")]
 pub(crate) const ASM: bool = true;
 
+#[cfg(feature = "lang-asm")]
+impl super::WideSpaceLookbehind for crate::asm::engine::Asm {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-astro")]
 pub(crate) const ASTRO: bool = false;
+
+#[cfg(feature = "lang-astro")]
+impl super::WideSpaceLookbehind for crate::astro::engine::Astro {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-bat")]
 pub(crate) const BAT: bool = false;
 
+#[cfg(feature = "lang-bat")]
+impl super::WideSpaceLookbehind for crate::bat::engine::Bat {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-blade")]
 pub(crate) const BLADE: bool = false;
+
+#[cfg(feature = "lang-blade")]
+impl super::WideSpaceLookbehind for crate::blade::engine::Blade {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-cmake")]
 pub(crate) const CMAKE: bool = false;
 
+#[cfg(feature = "lang-cmake")]
+impl super::WideSpaceLookbehind for crate::cmake::engine::CMake {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-coffee")]
 pub(crate) const COFFEE: bool = true;
+
+#[cfg(feature = "lang-coffee")]
+impl<const D: u8> super::WideSpaceLookbehind for crate::coffee::engine::Coffee<D> {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-common-lisp")]
 pub(crate) const COMMON_LISP: bool = false;
 
+#[cfg(feature = "lang-common-lisp")]
+impl super::WideSpaceLookbehind for crate::common_lisp::engine::CommonLisp {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-cpp")]
 pub(crate) const CPP: bool = false;
+
+#[cfg(feature = "lang-cpp")]
+impl super::WideSpaceLookbehind for crate::cpp::engine::Cpp {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-csharp")]
 pub(crate) const CSHARP: bool = false;
 
+#[cfg(feature = "lang-csharp")]
+impl super::WideSpaceLookbehind for crate::csharp::engine::CSharp {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-css")]
 pub(crate) const CSS: bool = false;
+
+#[cfg(feature = "lang-css")]
+impl super::WideSpaceLookbehind for crate::css::engine::Css {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-dart")]
 pub(crate) const DART: bool = true;
 
+#[cfg(feature = "lang-dart")]
+impl super::WideSpaceLookbehind for crate::dart::engine::Dart {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-elixir")]
 pub(crate) const ELIXIR: bool = false;
+
+#[cfg(feature = "lang-elixir")]
+impl super::WideSpaceLookbehind for crate::elixir::engine::Elixir {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-gdscript")]
 pub(crate) const GDSCRIPT: bool = false;
 
+#[cfg(feature = "lang-gdscript")]
+impl super::WideSpaceLookbehind for crate::gdscript::engine::Gdscript {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-go")]
 pub(crate) const GO: bool = true;
+
+#[cfg(feature = "lang-go")]
+impl super::WideSpaceLookbehind for crate::go::engine::Go {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-hack")]
 pub(crate) const HACK: bool = false;
 
+#[cfg(feature = "lang-hack")]
+impl super::WideSpaceLookbehind for crate::hack::engine::Hack {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-haml")]
 pub(crate) const HAML: bool = false;
+
+#[cfg(feature = "lang-haml")]
+impl super::WideSpaceLookbehind for crate::haml::engine::Haml {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-haskell")]
 pub(crate) const HASKELL: bool = false;
 
+#[cfg(feature = "lang-haskell")]
+impl super::WideSpaceLookbehind for crate::haskell::engine::Haskell {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-hlsl")]
 pub(crate) const HLSL: bool = true;
+
+#[cfg(feature = "lang-hlsl")]
+impl super::WideSpaceLookbehind for crate::hlsl::engine::Hlsl {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-java")]
 pub(crate) const JAVA: bool = false;
 
+#[cfg(feature = "lang-java")]
+impl super::WideSpaceLookbehind for crate::java::engine::Java {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-jinja")]
 pub(crate) const JINJA: bool = true;
+
+#[cfg(feature = "lang-jinja")]
+impl super::WideSpaceLookbehind for crate::jinja::engine::Jinja {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-julia")]
 pub(crate) const JULIA: bool = true;
 
+#[cfg(feature = "lang-julia")]
+impl super::WideSpaceLookbehind for crate::julia::engine::Julia {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-kotlin")]
 pub(crate) const KOTLIN: bool = true;
+
+#[cfg(feature = "lang-kotlin")]
+impl super::WideSpaceLookbehind for crate::kotlin::engine::Kotlin {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-latex")]
 pub(crate) const LATEX: bool = false;
 
+#[cfg(feature = "lang-latex")]
+impl super::WideSpaceLookbehind for crate::latex::engine::Latex {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-less")]
 pub(crate) const LESS: bool = false;
+
+#[cfg(feature = "lang-less")]
+impl super::WideSpaceLookbehind for crate::less::engine::Less {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-lua")]
 pub(crate) const LUA: bool = false;
 
+#[cfg(feature = "lang-lua")]
+impl super::WideSpaceLookbehind for crate::lua::engine::Lua {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-matlab")]
 pub(crate) const MATLAB: bool = false;
+
+#[cfg(feature = "lang-matlab")]
+impl super::WideSpaceLookbehind for crate::matlab::engine::Matlab {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-mermaid")]
 pub(crate) const MERMAID: bool = true;
 
+#[cfg(feature = "lang-mermaid")]
+impl super::WideSpaceLookbehind for crate::mermaid::engine::Mermaid {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-nix")]
 pub(crate) const NIX: bool = true;
+
+#[cfg(feature = "lang-nix")]
+impl super::WideSpaceLookbehind for crate::nix::engine::Nix {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-objective-c")]
 pub(crate) const OBJECTIVE_C: bool = false;
 
+#[cfg(feature = "lang-objective-c")]
+impl super::WideSpaceLookbehind for crate::objective_c::engine::ObjectiveC {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-objective-cpp")]
 pub(crate) const OBJECTIVE_CPP: bool = false;
+
+#[cfg(feature = "lang-objective-cpp")]
+impl super::WideSpaceLookbehind for crate::objective_cpp::engine::ObjectiveCpp {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-pascal")]
 pub(crate) const PASCAL: bool = false;
 
+#[cfg(feature = "lang-pascal")]
+impl super::WideSpaceLookbehind for crate::pascal::engine::Pascal {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-perl")]
 pub(crate) const PERL: bool = false;
+
+#[cfg(feature = "lang-perl")]
+impl super::WideSpaceLookbehind for crate::perl::engine::Perl {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-php")]
 pub(crate) const PHP: bool = false;
 
+#[cfg(feature = "lang-php")]
+impl super::WideSpaceLookbehind for crate::php::engine::Php {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-postcss")]
 pub(crate) const POSTCSS: bool = true;
+
+#[cfg(feature = "lang-postcss")]
+impl super::WideSpaceLookbehind for crate::postcss::engine::PostCss {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-powershell")]
 pub(crate) const POWERSHELL: bool = true;
 
+#[cfg(feature = "lang-powershell")]
+impl super::WideSpaceLookbehind for crate::powershell::engine::PowerShell {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-proto")]
 pub(crate) const PROTO: bool = true;
+
+#[cfg(feature = "lang-proto")]
+impl super::WideSpaceLookbehind for crate::proto::engine::Proto {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-python")]
 pub(crate) const PYTHON: bool = false;
 
+#[cfg(feature = "lang-python")]
+impl super::WideSpaceLookbehind for crate::python::engine::Python {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-r")]
 pub(crate) const R: bool = false;
+
+#[cfg(feature = "lang-r")]
+impl super::WideSpaceLookbehind for crate::r::engine::R {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-ruby")]
 pub(crate) const RUBY: bool = false;
 
+#[cfg(feature = "lang-ruby")]
+impl super::WideSpaceLookbehind for crate::ruby::engine::Ruby {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-sass")]
 pub(crate) const SASS: bool = false;
+
+#[cfg(feature = "lang-sass")]
+impl super::WideSpaceLookbehind for crate::sass::engine::Sass {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-scala")]
 pub(crate) const SCALA: bool = false;
 
+#[cfg(feature = "lang-scala")]
+impl super::WideSpaceLookbehind for crate::scala::engine::Scala {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-scss")]
 pub(crate) const SCSS: bool = false;
+
+#[cfg(feature = "lang-scss")]
+impl super::WideSpaceLookbehind for crate::scss::engine::Scss {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-shaderlab")]
 pub(crate) const SHADERLAB: bool = true;
 
+#[cfg(feature = "lang-shaderlab")]
+impl super::WideSpaceLookbehind for crate::shaderlab::engine::ShaderLab {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-svelte")]
 pub(crate) const SVELTE: bool = false;
+
+#[cfg(feature = "lang-svelte")]
+impl super::WideSpaceLookbehind for crate::svelte::engine::Svelte {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
 
 #[cfg(feature = "lang-swift")]
 pub(crate) const SWIFT: bool = false;
 
+#[cfg(feature = "lang-swift")]
+impl super::WideSpaceLookbehind for crate::swift::engine::Swift {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = true;
+}
+
 #[cfg(feature = "lang-tex")]
 pub(crate) const TEX: bool = false;
+
+#[cfg(feature = "lang-tex")]
+impl super::WideSpaceLookbehind for crate::tex::engine::Tex {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
 
 #[cfg(feature = "lang-vb")]
 pub(crate) const VB: bool = false;
 
+#[cfg(feature = "lang-vb")]
+impl super::WideSpaceLookbehind for crate::vb::engine::Vb {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}
+
 #[cfg(feature = "lang-zig")]
 pub(crate) const ZIG: bool = true;
+
+#[cfg(feature = "lang-zig")]
+impl super::WideSpaceLookbehind for crate::zig::engine::Zig {
+    const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
+}

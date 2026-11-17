@@ -9,7 +9,7 @@
 //! interned state.
 //! Shiki's Markdown grammar embeds Batch in `bat` and `batch` fences.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

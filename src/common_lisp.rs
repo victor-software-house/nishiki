@@ -12,7 +12,7 @@
 //! Strings and block comments are such rules, and block comments nest.
 //! Shiki's Markdown grammar has no Common Lisp fence.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

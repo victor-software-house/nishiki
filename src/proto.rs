@@ -12,7 +12,7 @@
 //! Messages, enums, services, block comments and option values are such rules.
 //! Shiki's Markdown grammar has no Protobuf fence.
 //! No language therefore embeds Protobuf yet.
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

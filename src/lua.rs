@@ -8,7 +8,7 @@
 //! The rules left open at the end of a line are frames of the highlighter's
 //! interned state: long strings and comments, and function heads.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

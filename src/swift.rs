@@ -9,7 +9,7 @@
 //! comments) are frames of the highlighter's interned state.
 
 mod dispatch;
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

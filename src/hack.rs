@@ -19,7 +19,7 @@
 //! of HTML's own match.
 //! Strings that start with a SQL keyword hand their text to the SQL lexer.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

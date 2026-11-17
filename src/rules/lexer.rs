@@ -1025,6 +1025,10 @@ impl<'a, G: Grammar> Lexer<'a, G> {
     ///
     /// A run of wide spaces then costs work in step with its length.
     ///
+    /// The scan of a grammar that looks behind at a wide space does not call
+    /// it, and tries each wide space
+    /// ([`WideSpaceLookbehind`](super::WideSpaceLookbehind)).
+    ///
     /// [`BlankRuns::Skip`]: super::BlankRuns::Skip
     #[cfg(feature = "_rule-tables")]
     #[inline]
@@ -3696,6 +3700,10 @@ mod tests {
             fn deep_halts_open(lexer: &Lexer<'_, Self>) -> bool {
                 lexer.x.is_none()
             }
+        }
+
+        impl<const DEEP: bool> crate::rules::WideSpaceLookbehind for Strings<DEEP> {
+            const LOOKS_BEHIND_AT_A_WIDE_SPACE: bool = false;
         }
 
         impl<const DEEP: bool> crate::rules::Tabled for Strings<DEEP> {

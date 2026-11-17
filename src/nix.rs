@@ -12,7 +12,7 @@
 //! Shiki's Markdown grammar has no Nix fence.
 //! No language therefore embeds Nix yet.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

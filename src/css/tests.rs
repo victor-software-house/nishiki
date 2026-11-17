@@ -344,3 +344,20 @@ fn neighbouring_escapes_keep_their_own_scopes() {
     );
     assert_eq!(leaf_in(&row, r"\x"), "constant.character.escape.css");
 }
+
+/// A selector can start at a wide space that follows another, where Shiki's
+/// lookbehind \s and the class [^\x00-\x7F] both hold.
+/// It opens and closes there without advancing, so it keeps the rest of the
+/// line.
+#[test]
+fn a_selector_opens_at_a_wide_space_after_another() {
+    for space in ["\u{a0}", "\u{3000}"] {
+        let row = lex(&format!("CSS{}", space.repeat(3)));
+        let expected = [
+            ("CSS".to_owned(), "meta.selector.css".to_owned()),
+            (space.to_owned(), "source.css".to_owned()),
+            (space.repeat(2), "meta.selector.css".to_owned()),
+        ];
+        assert_eq!(row, expected, "{space:?}");
+    }
+}

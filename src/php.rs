@@ -18,7 +18,7 @@
 //! HTML lexes the line, and halts where one of PHP's patterns starts and none
 //! of HTML's own match.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

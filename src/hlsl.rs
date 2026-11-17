@@ -11,7 +11,7 @@
 //! interned state.
 //! Block comments and strings are such rules.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

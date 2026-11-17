@@ -14,7 +14,7 @@
 //! Shiki's Markdown grammar has no Mermaid fence.
 //! No language therefore embeds Mermaid.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

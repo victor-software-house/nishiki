@@ -1,4 +1,4 @@
-//! Whether a pattern treats a wide space as a space.
+//! How a pattern reads a run of wide spaces.
 //!
 //! A wide space is a character above ASCII that `\s` matches.
 //!
@@ -7,12 +7,18 @@
 //! The scan can pass a run that also holds wide spaces when every pattern
 //! treats a wide space as it treats a space.
 //! Then each pattern reads the run as it reads a run of spaces and tabs.
+//!
+//! The scan passes a run of one repeated wide space in one step too.
+//! That fails for a pattern whose lookbehind can pass after a wide space and
+//! whose match can start at one.
+//! [`looks_behind_at_a_wide_space`] finds such a pattern.
 
 use std::collections::HashMap;
 use std::sync::LazyLock;
 
+use super::starts::{BackrefStart, start};
 use crate::classes::is_space;
-use crate::textmate::regex::ast::Node;
+use crate::textmate::regex::ast::{Anchor, Node};
 use crate::textmate::regex::parse::{Dialect, parse};
 
 /// The space and the wide spaces.
@@ -176,4 +182,63 @@ impl Walk<'_> {
             }
         }
     }
+}
+
+/// Whether `regex` has a lookbehind that can pass after a wide space, and a
+/// start that can be one.
+///
+/// Such a pattern can match at a later wide space of a run and not at its
+/// first, where another character stands behind.
+/// The scan then tries each wide space of the run.
+///
+/// - A lookbehind passes after a wide space when its body can read one, or when
+///   it is negative.
+/// - `\B` holds between two wide spaces, so it counts as such a lookbehind.
+/// - A start can be a wide space when the match can start at a byte that leads
+///   one ([`super::starts::start`]).
+/// - A pattern nishiki's parser refuses counts.
+#[must_use]
+pub fn looks_behind_at_a_wide_space(regex: &str) -> bool {
+    let Ok(parsed) = parse(regex, Dialect::Grammar) else {
+        return true;
+    };
+    let bytes = start(regex, BackrefStart::Any).bytes;
+    let starts_at_one = ALIKE.iter().filter(|&&c| c != ' ').any(|c| {
+        let mut utf8 = [0; 4];
+        let lead = c.encode_utf8(&mut utf8).as_bytes()[0];
+        (bytes[usize::from(lead / 64)] >> (lead % 64)) & 1 == 1
+    });
+    starts_at_one && looks_behind(&parsed.root, false)
+}
+
+/// Whether `node` holds a lookbehind that can pass after a wide space.
+/// `behind` holds inside a positive lookbehind's body.
+fn looks_behind(node: &Node, behind: bool) -> bool {
+    match node {
+        Node::Empty => false,
+        Node::Anchor(anchor) => matches!(anchor, Anchor::NotWordBoundary),
+        Node::Char(c) => behind && reads_a_wide_space(|x| x == *c),
+        Node::Any { .. } => behind,
+        Node::Class(class) => behind && reads_a_wide_space(|x| class.matches(x)),
+        Node::Sequence(items) | Node::Alternation(items) | Node::Folds(items) => {
+            items.iter().any(|item| looks_behind(item, behind))
+        }
+        Node::Repeat { node, .. } | Node::Group { node, .. } | Node::Atomic(node) => {
+            looks_behind(node, behind)
+        }
+        Node::Lookaround {
+            ahead,
+            negative,
+            node,
+        } => (!*ahead && *negative) || looks_behind(node, behind || !*ahead),
+        Node::BackReference(..)
+        | Node::NamedBackReference(..)
+        | Node::Subroutine(_)
+        | Node::NamedSubroutine(_) => behind,
+    }
+}
+
+/// Whether a character set, which `member` tests, holds a wide space.
+fn reads_a_wide_space(member: impl Fn(char) -> bool) -> bool {
+    ALIKE.iter().any(|&c| c != ' ' && member(c))
 }

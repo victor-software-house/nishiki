@@ -6,7 +6,7 @@
 #[cfg(any(nishiki_unstable, feature = "_blank-runs-to-last"))]
 use std::ops::ControlFlow;
 
-use super::{Act, BlankRuns, Lexer, RuleDefinition, Start, Tabled};
+use super::{Act, BlankRuns, Lexer, RuleDefinition, Start, Tabled, WideSpaceLookbehind};
 use crate::fnv::FnvMap;
 use crate::language::Halt;
 
@@ -264,7 +264,7 @@ fn set_bits(words: &[u64]) -> impl Iterator<Item = usize> + '_ {
 /// blank.
 /// It steps over a single blank by one byte, since that blank is the run's
 /// last and has been tried.
-pub(crate) fn table_scan<G: Tabled>(
+pub(crate) fn table_scan<G: Tabled + WideSpaceLookbehind>(
     lexer: &mut Lexer<'_, G>,
 ) -> Option<(usize, G::Pattern, usize)> {
     match lexer.root_halts() {
@@ -356,7 +356,7 @@ fn scan_tables<G: Tabled, const HALTING: bool>(
     clippy::too_many_lines,
     reason = "it keeps the shape measured above; the gates on its blank-run arms add the lines"
 )]
-fn scan<G: Tabled, const HALTING: bool>(
+fn scan<G: Tabled + WideSpaceLookbehind, const HALTING: bool>(
     lexer: &mut Lexer<'_, G>,
     end: &dyn Halt,
     after: Option<&dyn Halt>,
@@ -460,7 +460,10 @@ fn scan<G: Tabled, const HALTING: bool>(
                     lexer.skip(p, |b| b == byte)
                 }
                 Some(_) if G::SKIPS_PLACES => G::next_place(lexer, p),
-                Some(_) if matches!(G::BLANK_RUNS, BlankRuns::Skip) => {
+                Some(_)
+                    if matches!(G::BLANK_RUNS, BlankRuns::Skip)
+                        && !G::LOOKS_BEHIND_AT_A_WIDE_SPACE =>
+                {
                     lexer.pass_char(p, G::MIXED_BLANK_RUNS && !HALTING)
                 }
                 Some(_) => lexer.char_end(p),

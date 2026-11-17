@@ -13,7 +13,7 @@
 //! Shiki's Markdown grammar has no Haskell fence, so no language embeds
 //! Haskell.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

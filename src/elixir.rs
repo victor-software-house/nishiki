@@ -13,7 +13,7 @@
 //! Most lines hold no such sigil, and they are lexed without HTML
 //! (see [`rules::lex_on_demand`]).
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

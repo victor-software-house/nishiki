@@ -12,7 +12,7 @@
 //! Comments, strings, interpolations and property lists are such rules.
 //! Shiki's Markdown grammar has no PostCSS fence.
 //! Svelte embeds PostCSS for `<style lang="postcss">`, through [`lex_until`].
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

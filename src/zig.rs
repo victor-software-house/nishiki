@@ -11,7 +11,7 @@
 //! Only quoted strings and quoted names can be open there.
 //! Shiki's Markdown grammar has no Zig fence.
 //! No language therefore embeds Zig yet.
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

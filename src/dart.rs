@@ -9,7 +9,7 @@
 //! interned state.
 //! Comments, strings and interpolations are such rules.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

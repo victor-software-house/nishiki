@@ -10,7 +10,7 @@
 //! Strings, raw strings, brackets, roxygen comments and their `@examples`
 //! blocks are such rules.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

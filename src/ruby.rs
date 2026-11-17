@@ -8,7 +8,7 @@
 //! The rules left open at the end of a line (strings, heredocs, `=begin`
 //! comments, blocks) are frames of the highlighter's interned state.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

@@ -8,7 +8,7 @@
 //! The rules left open at the end of a line (comments, strings, interpolation,
 //! imports, XML literals) are frames of the highlighter's interned state.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod nested;

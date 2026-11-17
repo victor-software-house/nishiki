@@ -12,7 +12,7 @@
 //! Markdown embeds Objective-C in its `objc` fences.
 
 mod c_lang;
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod numbers;

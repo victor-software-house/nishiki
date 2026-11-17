@@ -16,7 +16,7 @@
 //! Vue's `<script lang="coffee">` and HAML's `:coffee` filter embed it through
 //! [`lex_until`].
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;

@@ -9,7 +9,7 @@
 //! interned state.
 //! Comments, strings, groups and script blocks are such rules.
 
-mod engine;
+pub(crate) mod engine;
 mod grammar;
 mod matchers;
 mod scope;
