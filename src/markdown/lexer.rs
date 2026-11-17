@@ -24,6 +24,8 @@ use super::state::{Container, Fence};
 use super::text::{Cx, LineFacts};
 use super::{block, inline};
 use crate::arena::{Arena, Frame as ArenaFrame, ROOT};
+#[cfg(feature = "lang-vue")]
+use crate::language::Halt;
 use crate::language::{Context, Line, Parts, StopReason, Stopped};
 use crate::limits::{Finished, Limit, Limits, LineReport, Steps};
 use crate::{Language, Stack, Token};
@@ -260,6 +262,10 @@ pub(crate) struct Scratch {
     /// [`lex_with_root`] writes it for.
     #[cfg(feature = "lang-objective-c")]
     definition: Option<Box<Definition>>,
+    /// Whether a fence's language stopped where a `vue` fence opens.
+    /// Only [`lex_to_vue_fence`] sets it, for the hand-back that follows.
+    #[cfg(feature = "lang-vue")]
+    vue_fence: bool,
 }
 
 /// How a line starts: as a line of a document, or as Markdown that another
@@ -1533,20 +1539,29 @@ impl<'a> Lexer<'a> {
     /// Takes the line back at `at`, where the fence's language stopped.
     /// The language reached `state` there.
     ///
-    /// A language stops for one of two reasons.
-    /// A `$base` slot of an Objective-C fence can take the line
-    /// ([`lex_with_root`]), which marks the scratch.
-    /// Otherwise the language popped the fence's body.
+    /// A language stops for one of three reasons, the first two of which mark
+    /// the scratch:
+    ///
+    /// - A `vue` fence opens where one of its rules began
+    ///   ([`lex_to_vue_fence`]).
+    /// - A `$base` slot of an Objective-C fence takes the line
+    ///   ([`lex_with_root`]).
+    /// - The language pops the fence's body.
     #[cold]
     #[inline(never)]
     #[cfg_attr(
-        not(feature = "lang-objective-c"),
+        not(any(feature = "lang-objective-c", feature = "lang-vue")),
         expect(
             unused_variables,
-            reason = "only an Objective-C fence's slot reads the state"
+            reason = "only an Objective-C fence's slot and a `vue` fence read the state"
         )
     )]
     fn hand_back(&mut self, at: usize, end: usize, state: u32) {
+        #[cfg(feature = "lang-vue")]
+        if std::mem::take(&mut self.scratch.markdown.vue_fence) {
+            self.open_vue_fence_at(at, state);
+            return;
+        }
         #[cfg(feature = "lang-objective-c")]
         if let Some(slot) = self.scratch.markdown.slot.take() {
             let definition = (slot.pattern == Pattern::LinkDefinition)
@@ -1649,6 +1664,35 @@ impl<'a> Lexer<'a> {
         }
         self.pos = self.limit;
     }
+
+    /// Resumes the line at `at`, where the fence's language stopped for a
+    /// `vue` fence ([`lex_to_vue_fence`]).
+    /// The language reached `state` there, and the body keeps it.
+    ///
+    /// vscode-textmate puts `\G` at `at`, the end of the rule's begin match.
+    /// So the fence opens there, over the language's scopes
+    /// ([`Self::vue_fence_ahead`]).
+    #[cfg(feature = "lang-vue")]
+    fn open_vue_fence_at(&mut self, at: usize, state: u32) {
+        let Some(&Frame {
+            rule: Rule::Open(container),
+            content,
+            carried,
+            state: kept,
+            ..
+        }) = self.frames.last()
+        else {
+            return;
+        };
+        let Some(lang) = embedded_language(Rule::Open(container)) else {
+            return;
+        };
+        self.keep_body_state(container, content, carried, kept, state);
+        self.last = at;
+        self.pos = at;
+        self.anchor = Some(at);
+        self.vue_fence_ahead(lang);
+    }
 }
 
 /// Lexes a fence's line in `lang` from `state`, and returns where the
@@ -1664,10 +1708,10 @@ impl<'a> Lexer<'a> {
 )]
 #[inline(always)]
 #[cfg_attr(
-    not(feature = "lang-objective-c"),
+    not(any(feature = "lang-objective-c", feature = "lang-vue")),
     expect(
         unused_variables,
-        reason = "only an Objective-C fence's slots read the facts"
+        reason = "only an Objective-C fence's slots and a `vue` fence read the facts"
     )
 )]
 fn lex_fence(
@@ -1684,7 +1728,119 @@ fn lex_fence(
     if matches!(lang, Language::ObjectiveC) {
         return lex_with_root(cx, line, state, facts);
     }
+    #[cfg(feature = "lang-vue")]
+    if halts_at_vue_fence(lang) {
+        return lex_halting_fence(cx, lang, line, state, facts);
+    }
     (lang.lex_embedded(cx, line, state), None)
+}
+
+/// Lexes a fence's line in a language of [`halts_at_vue_fence`].
+/// The line stops where a `vue` fence opens, if [`block::vue_fence_later`]
+/// finds one may.
+///
+/// Out of line, it keeps that test out of `step`.
+/// Inlined there, `step` ran 0.46% more of Markdown's instructions
+/// (Callgrind, 2026-11-12).
+#[cfg(feature = "lang-vue")]
+#[inline(never)]
+fn lex_halting_fence(
+    cx: &mut Context<'_>,
+    lang: Language,
+    line: Line<'_>,
+    state: u32,
+    facts: &LineFacts,
+) -> (Finished, Option<usize>) {
+    let window = Cx {
+        line: line.text.as_bytes(),
+        end: line.text.len(),
+        anchor: None,
+        facts,
+    };
+    if block::vue_fence_later(&window, line.start) {
+        return lex_to_vue_fence(cx, lang, line, state, facts);
+    }
+    (lang.lex_embedded(cx, line, state), None)
+}
+
+/// Whether `lang`'s lexer stops where a rule begins before a `vue` fence
+/// ([`Halt::anchored`]).
+/// Only fence lines in those languages pay for [`block::vue_fence_later`].
+/// On every fence line, that test cost Markdown 2% (Callgrind, 2026-11-12).
+/// Each of them is the body of a fence, which the injection reaches.
+#[cfg(feature = "lang-vue")]
+const fn halts_at_vue_fence(lang: Language) -> bool {
+    matches!(
+        lang,
+        Language::TypeScript | Language::JavaScript | Language::Jsx | Language::Tsx
+    )
+}
+
+/// The `vue` fence of Shiki's `markdown-vue` injection, as a halt of the
+/// fence's language.
+/// It holds only where a rule of the language has begun
+/// ([`Halt::anchored`]).
+#[cfg(feature = "lang-vue")]
+struct VueFence<'a> {
+    facts: &'a LineFacts,
+}
+
+#[cfg(feature = "lang-vue")]
+impl Halt for VueFence<'_> {
+    fn first(&self, _: &[u8], _: usize, _: usize) -> Option<usize> {
+        None
+    }
+
+    fn anchored(&self, s: &[u8], p: usize) -> bool {
+        let cx = Cx {
+            line: s,
+            end: s.len(),
+            anchor: Some(p),
+            facts: self.facts,
+        };
+        block::vue_fence_open(&cx, p, &mut Captures::new()).is_some()
+    }
+}
+
+/// Lexes a fence's line in `lang` up to where a `vue` fence opens, if one
+/// does.
+/// The scratch then marks the stop for [`Lexer::hand_back`].
+///
+/// It costs a call at each rule the language opens, so only a line that
+/// [`block::vue_fence_later`] passes takes it.
+#[cfg(feature = "lang-vue")]
+#[cold]
+#[inline(never)]
+fn lex_to_vue_fence(
+    cx: &mut Context<'_>,
+    lang: Language,
+    line: Line<'_>,
+    state: u32,
+    facts: &LineFacts,
+) -> (Finished, Option<usize>) {
+    let halt = VueFence { facts };
+    match lang.lex_until(cx, line, state, &halt, None) {
+        Some((
+            finished,
+            Some(Stopped {
+                at,
+                reason: StopReason::Halt,
+            }),
+        )) => {
+            cx.scratch.markdown.vue_fence = true;
+            (finished, Some(at))
+        }
+        #[cfg(feature = "_rule-engine")]
+        Some((
+            finished,
+            Some(Stopped {
+                at,
+                reason: StopReason::PopHost,
+            }),
+        )) => (finished, Some(at)),
+        Some((finished, None)) => (finished, None),
+        None => (lang.lex_embedded(cx, line, state), None),
+    }
 }
 
 /// Lexes a line of an Objective-C fence, whose `$base` slots try Markdown's

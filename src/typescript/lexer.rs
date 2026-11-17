@@ -582,6 +582,12 @@ impl<'a, const D: u8> Lexer<'a, D> {
         });
         self.anchor = self.pos;
         self.set_state(state);
+        #[cfg(feature = "lang-vue")]
+        if let Some(halts) = self.halts
+            && halts.end.anchored(self.bytes, self.pos)
+        {
+            self.halt = Some(self.pos);
+        }
         true
     }
 

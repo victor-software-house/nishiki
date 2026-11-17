@@ -318,6 +318,17 @@ The [research note][note] holds the numbers each task starts from.
 - [ ] 6.6 A `vue` fence opens in the middle of a line where an embedded language's begin rule leaves `\G`, as in Shiki.
   → verify: tests hold a JSX `>` and a template string's opening backtick before a `vue` fence, and a probe sweep of every other language either matches Shiki or names the task of each language that differs
   - 2026-11-12: Vue's `mdw` corpus shows it in documents 16 at seed 1, 25 at seed 2, and 17 and 76 at seed 3.
+  - 2026-11-12: a sweep puts 20 openers before a `vue` fence, in fences of 73 languages.
+    Shiki opens the fence on the opener's line in 455 of the 1460 documents.
+    In 378 of them nishiki differs on main, in 40 languages.
+  - 2026-11-12: TypeScript's lexer now stops where a push leaves `\G` before a `vue` fence.
+    Markdown opens the fence there, over the language's scopes.
+    The sweep's TypeScript, JavaScript, JSX and TSX documents went from 76 differing to none.
+  - 2026-11-12: the rule engine's 25 languages stay with this task.
+    The twelve languages with other hand lexers are tasks 7.1 to 7.8 of [fence-gaps].
+  - 2026-11-12: Vue's `mdw` documents above still differ.
+    In each, TypeScript or JavaScript in a Vue `<script>` reaches a quote's `vue` fence line.
+    Vue lexes that script, so they are task 7.5 of [fence-gaps].
 - [ ] 6.7 A whitespace-only line ends a `vue` fence that opened in a one-line `lang="md"` block, as in Shiki.
   → verify: a Shiki probe names the rule whose `while` fails there, and a test holds the case
   - 2026-11-12: Vue's `mdw` corpus shows it in documents 21 at seed 2, and 3, 83 and 94 at seed 3.
