@@ -62,4 +62,5 @@ pub(crate) const HAML: RuleTables = RuleTables {
     ],
     injected: None,
     added_rules: &[],
+    merged_words: None,
 };

@@ -144,4 +144,5 @@ pub(crate) const COFFEE: RuleTables = RuleTables {
         ids: &["SvelteVariable", "SvelteProps"],
     }),
     added_rules: &[],
+    merged_words: None,
 };

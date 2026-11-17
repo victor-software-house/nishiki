@@ -39,6 +39,31 @@ pub struct RuleTables {
     pub injected: Option<Injection>,
     /// The rules whose patterns are a list in another grammar.
     pub added_rules: &'static [AddedRule],
+    /// The matches at the start of `Root` that merge into one, when the
+    /// language merges them.
+    pub merged_words: Option<MergedWords>,
+}
+
+/// The entries at the start of `Root` whose matches merge into one, such as
+/// Assembly's registers and mnemonics.
+///
+/// Each such match is `(?i)\b(…)\b` over plain words, made of ASCII `\w`:
+///
+/// - it matches where the whole run of `\w` from a `\b` is one of its words;
+/// - at a run's start, the first of them that holds the run wins.
+///
+/// So one match of all their words, in their order, matches the same text,
+/// and the language's code names that text by the first match that lists
+/// the word.
+///
+/// The merged match follows every other pattern.
+/// `Root` tries it first.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct MergedWords {
+    /// The merged match's id, such as `Word`.
+    pub id: &'static str,
+    /// How many of `Root`'s first entries merge.
+    pub entries: usize,
 }
 
 /// A rule whose patterns are a list in another grammar, such as CSS's rule

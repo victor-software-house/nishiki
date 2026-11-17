@@ -28,4 +28,5 @@ pub(crate) const CSS: RuleTables = RuleTables {
         key: "vue-directives-style-attr",
         path: &[0],
     }],
+    merged_words: None,
 };

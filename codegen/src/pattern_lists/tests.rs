@@ -3,7 +3,7 @@ use nishiki::unstable::codegen::GenerateError;
 use nishiki::unstable::codegen::flatten::flatten;
 use nishiki::unstable::codegen::tables::{
     Act, AddedRule, CaptureLists, CaptureNames, External, Identity, Injection, LonePattern,
-    Reentry, RuleTables, Split, Tables,
+    MergedWords, Reentry, RuleTables, Split, Tables,
 };
 use nishiki::unstable::grammar::unlinked;
 
@@ -22,6 +22,7 @@ const PLAIN: RuleTables = RuleTables {
     externals: &[],
     injected: None,
     added_rules: &[],
+    merged_words: None,
 };
 
 /// Why a test grammar gave no tables.
@@ -1000,6 +1001,116 @@ fn an_added_rule_past_the_list_is_an_error() {
         with_host(json, HOST, &past).map(|tables| tables.patterns.len()),
         Err(Failure::Generate(GenerateError::AddedRule {
             id: "Style".to_owned()
+        }))
+    );
+}
+
+/// A language that merges the matches of `Root`'s first entry into `Word`.
+const MERGES_ONE: RuleTables = RuleTables {
+    merged_words: Some(MergedWords {
+        id: "Word",
+        entries: 1,
+    }),
+    ..PLAIN
+};
+
+/// The tables after a merge, as the merge tests compare them.
+#[derive(Debug, PartialEq, Eq)]
+struct Merged {
+    /// Each pattern's id and expression, in table order.
+    patterns: Vec<(String, String)>,
+    /// The ids of the patterns `Root` tries, in its order.
+    root: Vec<String>,
+}
+
+/// The tables of the grammar `json` read as `language` says, as
+/// [`Merged`] holds them.
+fn merged(json: &str, language: &RuleTables) -> Result<Merged, Failure> {
+    let tables = tables(json, language)?;
+    let root = tried(json, language, "Root")?.unwrap_or_default();
+    let patterns = tables
+        .patterns
+        .into_iter()
+        .map(|pattern| (pattern.id, pattern.regex))
+        .collect();
+    Ok(Merged { patterns, root })
+}
+
+/// The matches of `Root`'s first entries merge into one match of their
+/// words, in their order.
+/// It follows every other pattern, and `Root` tries it first.
+#[test]
+fn the_first_entries_matches_merge_into_one() {
+    let json = r##"{"scopeName": "source.demo",
+        "patterns": [{"include": "#a"}, {"include": "#b"}, {"match": "x+"}],
+        "repository": {
+            "a": {"patterns": [{"match": "(?i)\\b(ax|bx)\\b", "name": "r"}]},
+            "b": {"patterns": [{"match": "(?i)\\b(mov|add)\\b", "name": "m"},
+                {"match": "(?i)\\bnop\\b"}]}}}"##;
+    let merges = RuleTables {
+        merged_words: Some(MergedWords {
+            id: "Word",
+            entries: 2,
+        }),
+        ..PLAIN
+    };
+    assert_eq!(
+        merged(json, &merges),
+        Ok(Merged {
+            patterns: vec![
+                ("RootAt2".to_owned(), "x+".to_owned()),
+                (
+                    "Word".to_owned(),
+                    r"(?i)\b(?:(ax|bx)|(mov|add)|nop)\b".to_owned()
+                ),
+            ],
+            root: vec!["Word".to_owned(), "RootAt2".to_owned()],
+        })
+    );
+}
+
+/// A match to merge whose capture names a scope is an error, as the merged
+/// match keeps no capture.
+#[test]
+fn a_named_capture_does_not_merge() {
+    let json = r##"{"scopeName": "source.demo", "patterns": [{"include": "#a"}],
+        "repository": {"a": {"patterns": [{"match": "(?i)\\b(ax)\\b",
+            "captures": {"1": {"name": "r"}}}]}}}"##;
+    assert_eq!(
+        merged(json, &MERGES_ONE),
+        Err(Failure::Generate(GenerateError::NotWords {
+            id: "AAt0".to_owned()
+        }))
+    );
+}
+
+/// A match of plain words right after the merged ones is an error, since
+/// the merge would leave it out.
+#[test]
+fn a_word_match_after_the_merge_is_an_error() {
+    let json = r##"{"scopeName": "source.demo",
+        "patterns": [{"include": "#a"}, {"match": "(?i)\\b(cx)\\b"}],
+        "repository": {"a": {"patterns": [{"match": "(?i)\\b(ax)\\b"}]}}}"##;
+    assert_eq!(
+        merged(json, &MERGES_ONE),
+        Err(Failure::Generate(GenerateError::WordsFollow {
+            id: "RootAt1".to_owned()
+        }))
+    );
+}
+
+/// A rule that lists a merged match too is an error, since the match leaves
+/// the tables.
+#[test]
+fn a_merged_match_in_another_rule_is_an_error() {
+    let json = r##"{"scopeName": "source.demo",
+        "patterns": [{"include": "#a"}, {"begin": "<", "end": ">",
+            "patterns": [{"include": "#a"}]}],
+        "repository": {"a": {"patterns": [{"match": "(?i)\\b(ax)\\b"}]}}}"##;
+    assert_eq!(
+        merged(json, &MERGES_ONE),
+        Err(Failure::Generate(GenerateError::MergedElsewhere {
+            id: "RootAt1".to_owned()
         }))
     );
 }

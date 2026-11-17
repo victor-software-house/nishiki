@@ -25,4 +25,5 @@ pub(crate) const LUA: RuleTables = RuleTables {
     )],
     injected: None,
     added_rules: &[],
+    merged_words: None,
 };
