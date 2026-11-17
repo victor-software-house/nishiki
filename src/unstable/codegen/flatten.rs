@@ -501,12 +501,18 @@ impl<'a> Walk<'a> {
             .flatten()
             .flat_map(|list| list.iter())
             .flat_map(|capture| self.grammar.rules[capture.rule].name.iter());
+        let end = object.begin.as_ref().and(object.end.as_deref());
         let split = match self.language.capture_names {
-            CaptureNames::Kept | CaptureNames::SplitsOptionalGroup => {
-                split::alternatives(regex, names.map(|name| &**name), self.language.split, id)?
-            }
+            CaptureNames::Kept | CaptureNames::SplitsOptionalGroup => split::alternatives(
+                regex,
+                end,
+                names.map(|name| &**name),
+                self.language.split,
+                id,
+            )?,
             CaptureNames::SplitsGroup => split::alternatives(
                 regex,
+                end,
                 names.chain(captured).map(|name| &**name),
                 self.language.split,
                 id,
@@ -567,9 +573,9 @@ impl<'a> Walk<'a> {
     ///
     /// # Errors
     ///
-    /// - [`GenerateError::NotWords`] when one of the matches is not
-    ///   `(?i)\b(…)\b` over plain words, or a capture of it names a scope or
-    ///   lists patterns.
+    /// - [`GenerateError::NotWords`] when the entries add no match, or one of
+    ///   the matches is not `(?i)\b(…)\b` over plain words, or a capture of it
+    ///   names a scope or lists patterns.
     /// - [`GenerateError::WordsFollow`] when such a match follows them in
     ///   `Root`.
     /// - [`GenerateError::MergedElsewhere`] when a rule lists one of them
@@ -590,6 +596,9 @@ impl<'a> Walk<'a> {
         self.expanding.clear();
         self.expanding_top_level = true;
         let lead = self.list(entries, "Root")?;
+        if lead.is_empty() {
+            return Err(not_words(merged.id));
+        }
         let mut bodies = Vec::with_capacity(lead.len());
         for &index in &lead {
             let pattern = &self.tables.patterns[index];
@@ -924,12 +933,18 @@ const fn acts(object: &UnlinkedRule) -> bool {
 ///
 /// Plain words hold only ASCII `\w`, `|`, groups, `?`, classes of
 /// such characters, `-` in a class, and counts such as `{2}`.
+///
+/// Every `(` closes, and every `|` sits inside a group.
+/// A `|` outside one would leave a `\b` on one side only, so the
+/// merged `\b(?:…)\b` would match other text.
 fn words(pattern: &Pattern) -> Option<&str> {
     if pattern.act != Act::Match {
         return None;
     }
     let body = pattern.regex.strip_prefix(r"(?i)\b")?.strip_suffix(r"\b")?;
     let mut rest = body;
+    let mut depth = 0_usize;
+    let mut class = false;
     while let Some(c) = rest.chars().next() {
         if c == '{' {
             let digits = rest[1..].bytes().take_while(u8::is_ascii_digit).count();
@@ -937,13 +952,22 @@ fn words(pattern: &Pattern) -> Option<&str> {
                 return None;
             }
             rest = &rest[digits + 2..];
-        } else if c.is_ascii_alphanumeric() || "_|()?:[]-".contains(c) {
-            rest = &rest[1..];
-        } else {
+            continue;
+        }
+        if !(c.is_ascii_alphanumeric() || "_|()?:[]-".contains(c)) {
             return None;
         }
+        match (class, c) {
+            (true, ']') => class = false,
+            (false, '[') => class = true,
+            (false, '(') => depth += 1,
+            (false, ')') => depth = depth.checked_sub(1)?,
+            (false, '|') if depth == 0 => return None,
+            _ => {}
+        }
+        rest = &rest[1..];
     }
-    (!body.is_empty()).then_some(body)
+    (!body.is_empty() && depth == 0 && !class).then_some(body)
 }
 
 /// Whether the end `end` repeats exactly one group of its begin, such as
@@ -954,6 +978,8 @@ fn words(pattern: &Pattern) -> Option<&str> {
 ///
 /// - a group's number is every digit after the `\`, so `\10` repeats group 10,
 ///   and `\01` repeats group 1, as `\1` does;
+/// - a number too large for `usize` names no group a begin has, so such an end
+///   repeats no one group;
 /// - every `\` can start one, so `\\1` repeats group 1;
 /// - `\k<name>` is left alone, so it names a group of the end itself and
 ///   repeats no group of the begin.
@@ -971,7 +997,10 @@ fn one_backref(end: &str) -> bool {
             .take_while(u8::is_ascii_digit)
             .count();
         if digits > 0 {
-            groups.push(end[index + 1..=index + digits].parse::<usize>().ok());
+            let Ok(group) = end[index + 1..=index + digits].parse::<usize>() else {
+                return false;
+            };
+            groups.push(group);
         }
         index += 1 + digits;
     }
