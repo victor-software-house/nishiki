@@ -25,8 +25,8 @@ impl Lexer<'_> {
         let at = self.space_end(name);
         let arrow = at + usize::from(self.at(at) == b'?');
         if let Some(arrow_end) = self.lit(arrow, b"->") {
-            let member = self.space_end(arrow_end);
-            if let Some(end) = self.name(member) {
+            let member = self.after_spaces(arrow_end, false, Self::name);
+            if let Some((member, end)) = member {
                 self.capture(4, at, arrow_end);
                 self.capture(5, member, end);
                 return Some(end);
@@ -104,8 +104,7 @@ impl Lexer<'_> {
     /// `(?i)(::)\s*(NAME)\s*(\()`.
     pub(super) fn static_call(&mut self, p: usize) -> Option<usize> {
         let colons = self.lit(p, b"::")?;
-        let at = self.space_end(colons);
-        let name = self.name(at)?;
+        let (at, name) = self.after_spaces(colons, false, Self::name)?;
         let open = self.space_end(name);
         if self.at(open) != b'(' {
             return None;
@@ -218,8 +217,7 @@ impl Lexer<'_> {
     /// `(?i)(\??->)\s*(NAME)\s*(\()`.
     pub(super) fn method_call(&mut self, p: usize) -> Option<usize> {
         let arrow = self.arrow(p)?;
-        let at = self.space_end(arrow);
-        let name = self.name(at)?;
+        let (at, name) = self.after_spaces(arrow, false, Self::name)?;
         let open = self.space_end(name);
         if self.at(open) != b'(' {
             return None;
@@ -380,8 +378,7 @@ impl Lexer<'_> {
         if p != 0 {
             return None;
         }
-        let at = self.space_end(0);
-        let end = self.name(at)?;
+        let (at, end) = self.after_spaces(0, false, Self::name)?;
         let ends_with = |word: &[u8]| {
             end >= word.len() && self.text(end - word.len(), end).eq_ignore_ascii_case(word)
         };
@@ -401,8 +398,7 @@ impl Lexer<'_> {
         if p != 0 {
             return None;
         }
-        let at = self.space_end(0);
-        let end = self.name(at)?;
+        let (at, end) = self.after_spaces(0, false, Self::name)?;
         let colon = self.space_end(end);
         if self.at(colon) != b':' || self.at(colon + 1) == b':' {
             return None;

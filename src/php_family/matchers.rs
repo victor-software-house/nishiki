@@ -63,6 +63,40 @@ impl<G: PhpFamily> Lexer<'_, G> {
         case_fold::literal_end(self.text(0, self.lim()), p, word)
     }
 
+    /// `then` at the end of the `\s*` from `from`, or of the `\s+` when
+    /// `one_or_more`, for a part that a name can start: where `then` starts
+    /// and what it gives.
+    ///
+    /// A space past ASCII, such as U+00A0, is both `\s` and a name character.
+    /// When `then` refuses the end of the run, Oniguruma gives the run its
+    /// last space back, and `then` is tried at that space.
+    /// A `\s+` keeps one space.
+    /// No shorter run changes what follows: a name that starts earlier runs
+    /// through the same spaces.
+    #[cfg(any(feature = "lang-php", feature = "lang-blade"))]
+    pub(crate) fn after_spaces<R>(
+        &self,
+        from: usize,
+        one_or_more: bool,
+        mut then: impl FnMut(&Self, usize) -> Option<R>,
+    ) -> Option<(usize, R)> {
+        let at = self.space_end(from);
+        if one_or_more && at == from {
+            return None;
+        }
+        if let Some(found) = then(self, at) {
+            return Some((at, found));
+        }
+        if at == from || self.at(at - 1) < 0x80 {
+            return None;
+        }
+        let last = self.char_start_before(at);
+        if one_or_more && last == from {
+            return None;
+        }
+        then(self, last).map(|found| (last, found))
+    }
+
     /// `\?>`, where PHP's code ends.
     pub(crate) fn php_close(&self, p: usize) -> bool {
         self.starts(p, b"?>")

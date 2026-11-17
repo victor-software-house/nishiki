@@ -113,8 +113,7 @@ impl Lexer<'_> {
     /// `(?i)(::)\s*(NAME)\s*(\()`.
     pub(super) fn static_call(&mut self, p: usize) -> Option<usize> {
         let colons = self.lit(p, b"::")?;
-        let at = self.space_end(colons);
-        let name = self.bname(at)?;
+        let (at, name) = self.after_spaces(colons, false, Self::bname)?;
         let open = self.space_end(name);
         if self.at(open) != b'(' {
             return None;
@@ -395,11 +394,7 @@ impl Lexer<'_> {
     /// `(?i)(goto)\s+(NAME)`.
     pub(super) fn goto(&mut self, p: usize) -> Option<usize> {
         let word = self.ilit(p, b"goto")?;
-        let at = self.space_end(word);
-        if at == word {
-            return None;
-        }
-        let end = self.bname(at)?;
+        let (at, end) = self.after_spaces(word, true, Self::bname)?;
         self.capture(1, p, word);
         self.capture(2, at, end);
         Some(end)
@@ -410,8 +405,7 @@ impl Lexer<'_> {
         if p != 0 {
             return None;
         }
-        let at = self.space_end(0);
-        let end = self.bname(at)?;
+        let (at, end) = self.after_spaces(0, false, Self::bname)?;
         let colon = self.space_end(end);
         if self.at(colon) != b':' || colon >= self.lim() || self.at(colon + 1) == b':' {
             return None;
