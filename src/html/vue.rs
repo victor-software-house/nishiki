@@ -406,12 +406,24 @@ fn boundary(s: &[u8], i: usize) -> bool {
     word_before(s, i) != word_at(s, i)
 }
 
-/// The end of `[ \t…]*` from `i`: the blanks `\s` takes on a line.
+/// The length of the `\s` character at `i` of `s`, or 0 where none stands.
+/// `\s` is Oniguruma's Unicode white space, such as U+00A0, as
+/// [`crate::classes::is_space`] holds it.
+fn space_len(s: &[u8], i: usize) -> usize {
+    crate::utf8::char_at(s, i)
+        .filter(|&(c, _)| crate::classes::is_space(c))
+        .map_or(0, |(_, n)| n)
+}
+
+/// The end of `\s*` from `i`: the white space that stands on a line.
 pub(super) fn blanks_end(s: &[u8], mut i: usize) -> usize {
-    while s.get(i).is_some_and(|&b| crate::classes::is_ascii_space(b)) {
-        i += 1;
+    loop {
+        let n = space_len(s, i);
+        if n == 0 {
+            return i;
+        }
+        i += n;
     }
-    i
 }
 
 /// The value of a `lang` attribute at `i` of `s`, when `\blang\s*=\s*`
@@ -506,14 +518,13 @@ fn comment_end(s: &[u8], p: usize) -> bool {
     s.get(p..).is_some_and(|rest| rest.starts_with(b"-->"))
 }
 
-/// `</name` followed by `>` or white space at `p` of `s`.
+/// `</name[>\s]` at `p` of `s`.
 /// The end of the line counts as white space: Shiki's lines end in a line feed.
 fn end_tag(s: &[u8], p: usize, name: &[u8]) -> bool {
     let after = p + 2 + name.len();
     body_end(s, p)
         && s.get(p + 2..after) == Some(name)
-        && s.get(after)
-            .is_none_or(|&b| b == b'>' || crate::classes::is_ascii_space(b))
+        && (s.get(after).is_none_or(|&b| b == b'>') || space_len(s, after) > 0)
 }
 
 /// `</script[>\s]` at `p` of `s`.
@@ -561,7 +572,7 @@ pub(super) fn bare_end(s: &[u8], p: usize) -> bool {
     match s.get(p) {
         Some(&b'>') | None => true,
         Some(&b'/') => s.get(p + 1) == Some(&b'>'),
-        Some(&b) => crate::classes::is_ascii_space(b),
+        Some(_) => space_len(s, p) > 0,
     }
 }
 
@@ -589,7 +600,7 @@ impl Lexer<'_> {
             return None;
         }
         if self.starts(p, b"<!--") {
-            let at = self.skip_ascii_ws(p + 4);
+            let at = self.skip_ws(p + 4);
             if cfg!(feature = "lang-json") && self.at(at) == b'@' {
                 let mut end = at + 1;
                 while let Some((c, n)) = self.char_at(end) {
@@ -679,7 +690,7 @@ impl Lexer<'_> {
         if self.s.get(p + 2..name_end) != Some(name) {
             return None;
         }
-        let gt = self.skip_ascii_ws(name_end);
+        let gt = self.skip_ws(name_end);
         (self.at(gt) == b'>')
             .then(|| Hit::new(Pattern::End, p, gt).with([p + 2, name_end, 0, 0, 0], 0))
     }

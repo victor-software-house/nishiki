@@ -243,9 +243,21 @@ The [research note][note] holds the numbers each task starts from.
     `<a/>` has no letter to give back, and both read it as a block tag.
   - 2026-11-12: `a_vue_name_that_runs_into_its_slash_closes_the_tag` holds the two lines with Shiki's scopes.
     On a box, it fails on the base and passes with the fix.
-  - 2026-11-12: Vue's `win` corpus, on a box, 100 documents per seed.
-    Before, seed 2 had one, document 78, by 12 bytes.
-    After, none differs at any seed.
+  - 2026-11-12: Vue's `win` corpus, on a box, 300 documents at seeds 1 to 3.
+    With the fix, seed 3 had one, document 280, by 256 bytes, at `</style` and a U+00A0 before its `>`.
+    Shiki's end tag takes Oniguruma's `\s` after the name, which holds U+00A0.
+    nishiki took only ASCII white space there.
+  - 2026-11-12: Oniguruma 6.9.8's `\s` is its `Space` set, in `src/unicode_property_data.c`.
+    It is the `posix_space` set in `oracle/facts/unicode-sets.json`, which `crate::classes::is_space` holds.
+  - 2026-11-12: Vue's `\s` now matches that set at every place nishiki read it as ASCII:
+    - `[>\s]` after `</style`, `</script` and `</template`;
+    - `\s*` between `</name` and `>` in a block's end tag;
+    - `\s*` around the `=` of a block's `lang` lookahead;
+    - `(?=([>\s]|/>))` at the end of a directive's bare value;
+    - `\s*` between `<!--` and `@` in a comment's tag;
+    - `^(?!\s*</script[>\s])`, the `while` rule of a Vue body.
+  - 2026-11-12: four tests hold these cases with Shiki's scopes, at U+00A0 and U+3000.
+    They are `a_vue_end_tag_closes_with_unicode_white_space`, `a_vue_lang_attribute_takes_unicode_white_space_around_its_equals`, `a_bare_vue_directive_value_ends_at_unicode_white_space` and `a_vue_comment_tag_takes_unicode_white_space_before_its_at`.
 - [ ] 6.4 A `vue` fence opens inside other embedded languages where Shiki's `markdown-vue` injection opens it.
   → verify: a Shiki probe settles where `\G` sits after a quote's `>`, a test holds the case, and at every seed no document differs in Vue's `mdw` corpus
 - [ ] 6.5 On a line whose containers took all its text, such as `>` alone in a quote, the `while` rules of the languages embedded below run, as in Shiki.

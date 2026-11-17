@@ -499,3 +499,205 @@ fn a_vue_name_that_runs_into_its_slash_closes_the_tag() {
         assert_eq!(got, want);
     }
 }
+
+/// A token's text and its scopes.
+#[cfg(feature = "lang-vue")]
+type Token<'a> = (&'a str, Vec<&'a str>);
+
+/// Asserts the rows `want` names in the Vue document of `lines`.
+/// Each row lists its tokens.
+#[cfg(feature = "lang-vue")]
+fn assert_vue_rows(lines: &[&str], want: &[(usize, Vec<Token<'_>>)]) {
+    let rows = lex(Language::Vue, &lines.join("\n"));
+    for (row, tokens) in want {
+        let got: Vec<Token<'_>> = rows[*row]
+            .iter()
+            .map(|(text, scopes)| (text.as_str(), scopes.iter().map(String::as_str).collect()))
+            .collect();
+        assert_eq!(&got, tokens, "row {row}");
+    }
+}
+
+/// A Vue block's end tag closes with any white space of Oniguruma's `\s`
+/// after its name, such as U+00A0 or U+3000, as in Shiki.
+/// Each row is the text and scopes of Shiki 4.6.0's tokens.
+#[cfg(feature = "lang-vue")]
+#[test]
+fn a_vue_end_tag_closes_with_unicode_white_space() {
+    let vue = "text.html.vue";
+    let begin = "punctuation.definition.tag.begin.html.vue";
+    let end = "punctuation.definition.tag.end.html.vue";
+    let closing = |name: &'static str, tag: &'static str, space: &'static str| {
+        vec![
+            ("</", vec![vue, begin]),
+            (name, vec![vue, tag]),
+            (space, vec![vue]),
+            (">", vec![vue, end]),
+        ]
+    };
+    let opening = vec![
+        ("<", vec![vue, begin]),
+        ("i18n", vec![vue, "entity.name.tag.i18n.html.vue"]),
+        (">", vec![vue, "meta.tag-stuff", end]),
+    ];
+    assert_vue_rows(
+        &[
+            "<style>",
+            "a { }",
+            "</style\u{a0}>",
+            "<script>",
+            "let a",
+            "</script\u{3000}>",
+            "<i18n>",
+        ],
+        &[
+            (
+                2,
+                closing("style", "entity.name.tag.style.html.vue", "\u{a0}"),
+            ),
+            (
+                5,
+                closing("script", "entity.name.tag.script.html.vue", "\u{3000}"),
+            ),
+            (6, opening),
+        ],
+    );
+}
+
+/// A block's `lang` lookahead `\blang\s*=\s*` takes U+00A0 and U+3000 around
+/// the `=`, as in Shiki: the block reads SCSS.
+/// The row is the text and scopes of Shiki 4.6.0's tokens.
+#[cfg(all(feature = "lang-vue", feature = "lang-scss"))]
+#[test]
+fn a_vue_lang_attribute_takes_unicode_white_space_around_its_equals() {
+    let scss = ["text.html.vue", "source.css.scss"];
+    let variable = [&scss[..], &["meta.definition.variable.scss"]].concat();
+    assert_vue_rows(
+        &["<style lang\u{a0}=\u{3000}\"scss\">", "$a: 1;", "</style>"],
+        &[(
+            1,
+            vec![
+                ("$a", [&variable[..], &["variable.scss"]].concat()),
+                (
+                    ":",
+                    [&variable[..], &["punctuation.separator.key-value.scss"]].concat(),
+                ),
+                (" ", variable.clone()),
+                ("1", [&variable[..], &["constant.numeric.css"]].concat()),
+                (
+                    ";",
+                    [&scss[..], &["punctuation.terminator.rule.scss"]].concat(),
+                ),
+            ],
+        )],
+    );
+}
+
+/// A directive's value that no quote opened ends at `(?=([>\s]|/>))`, so at
+/// U+00A0 or U+3000, as in Shiki.
+/// What follows is an unrecognized attribute.
+/// Each row is the text and scopes of Shiki 4.6.0's tokens.
+#[cfg(all(feature = "lang-vue", feature = "lang-typescript"))]
+#[test]
+fn a_bare_vue_directive_value_ends_at_unicode_white_space() {
+    let tag = [
+        "text.html.vue",
+        "text.html.derivative",
+        "meta.tag.structure.Foo.start.html.vue",
+    ];
+    let directive = [&tag[..], &["meta.attribute.directive.vue"]].concat();
+    let row = |space: &'static str, rest: &'static str, attribute: &'static str| {
+        vec![
+            ("  ", tag[..2].to_vec()),
+            (
+                "<",
+                [&tag[..], &["punctuation.definition.tag.begin.html.vue"]].concat(),
+            ),
+            ("Foo", [&tag[..], &["entity.name.tag.html.vue"]].concat()),
+            (" ", tag.to_vec()),
+            (
+                ":",
+                [
+                    &directive[..],
+                    &["punctuation.attribute-shorthand.bind.html.vue"],
+                ]
+                .concat(),
+            ),
+            (
+                "x",
+                [&directive[..], &["entity.other.attribute-name.html.vue"]].concat(),
+            ),
+            (
+                "=",
+                [
+                    &directive[..],
+                    &["punctuation.separator.key-value.html.vue"],
+                ]
+                .concat(),
+            ),
+            (
+                "a",
+                [
+                    &directive[..],
+                    &["source.ts.embedded.html.vue", "variable.other.readwrite.ts"],
+                ]
+                .concat(),
+            ),
+            (
+                rest,
+                [&tag[..], &[attribute, "entity.other.attribute-name.html"]].concat(),
+            ),
+            (space, tag.to_vec()),
+            (
+                "/>",
+                [&tag[..], &["punctuation.definition.tag.end.html.vue"]].concat(),
+            ),
+        ]
+    };
+    assert_vue_rows(
+        &[
+            "<template>",
+            "  <Foo :x=a\u{a0}b />",
+            "  <Foo :x=a\u{3000}b />",
+            "</template>",
+        ],
+        &[
+            (
+                1,
+                row(" ", "\u{a0}b", "meta.attribute.unrecognized.\u{a0}b.html"),
+            ),
+            (
+                2,
+                row(
+                    " ",
+                    "\u{3000}b",
+                    "meta.attribute.unrecognized.\u{3000}b.html",
+                ),
+            ),
+        ],
+    );
+}
+
+/// A Vue comment's tag `(<!--)\s*(@)` takes U+3000 before its `@`, as in
+/// Shiki.
+/// The row is the text and scopes of Shiki 4.6.0's tokens.
+#[cfg(all(feature = "lang-vue", feature = "lang-json"))]
+#[test]
+fn a_vue_comment_tag_takes_unicode_white_space_before_its_at() {
+    let comment = ["text.html.vue", "comment.block.vue"];
+    let with = |scope: &'static str| [&comment[..], &[scope]].concat();
+    assert_vue_rows(
+        &["<!--\u{3000}@x -->"],
+        &[(
+            0,
+            vec![
+                ("<!--", with("punctuation.definition.comment.vue")),
+                ("\u{3000}", comment.to_vec()),
+                ("@", with("punctuation.definition.block.tag.comment.vue")),
+                ("x", with("storage.type.class.comment.vue")),
+                (" ", comment.to_vec()),
+                ("-->", with("punctuation.definition.comment.vue")),
+            ],
+        )],
+    );
+}
