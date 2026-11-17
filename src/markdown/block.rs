@@ -274,7 +274,8 @@ fn fence_run(cx: &Cx<'_>, p: usize) -> Option<(Fence, usize, usize)> {
 /// The opening of Vue's own fence, the rule that the `markdown-vue` grammar
 /// injects:
 /// `(^|\G)(\s*)(``{3,}|~{3,})\s*(?i:(vue)((\s+|[,:?{])[^``~]*)?$)`.
-/// A `vue` fence inside Vue's rules opens through it.
+/// A `vue` fence in a fence's body, or in a block that another language lexes,
+/// opens through it.
 ///
 /// Group 3 is the fence, 4 the language, 5 its attributes.
 #[cfg(feature = "lang-vue")]
@@ -305,6 +306,33 @@ pub(crate) fn vue_fence_open(cx: &Cx<'_>, p: usize, captures: &mut Captures) -> 
         fence,
         embed: Some(Embed::Lang(crate::Language::Vue)),
     })
+}
+
+/// The fence that opens at `p` in text that Vue's `markdown-vue` injection
+/// reaches with its fence rule alone ([`rules::injects_vue_fence`]).
+/// Only a `vue` fence opens there.
+///
+/// [`rules::injects_vue_fence`]: super::rules::injects_vue_fence
+#[cfg_attr(
+    not(feature = "lang-vue"),
+    expect(
+        unused_variables,
+        reason = "without Vue, no text takes the injection's fence"
+    )
+)]
+pub(crate) fn injected_fence_open(
+    cx: &Cx<'_>,
+    p: usize,
+    captures: &mut Captures,
+) -> Option<FenceOpen> {
+    #[cfg(feature = "lang-vue")]
+    {
+        vue_fence_open(cx, p, captures)
+    }
+    #[cfg(not(feature = "lang-vue"))]
+    {
+        None
+    }
 }
 
 /// `(^|\G)(\2|\s{0,3})(\3)\s*$`, which closes the fence with the opening

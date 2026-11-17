@@ -93,12 +93,13 @@ enum Starts {
 
 impl Starts {
     fn of(container: Container) -> Starts {
+        if rules::injects_vue_fence(container) {
+            return Starts::Anchored;
+        }
         match container {
             Container::Base | Container::Quote | Container::ListBullet | Container::ListOrdered => {
                 Starts::Block
             }
-            #[cfg(feature = "lang-vue")]
-            Container::Body(Language::Vue) => Starts::Anchored,
             Container::Body(language) => {
                 if language == Language::Markdown {
                     Starts::Block
@@ -744,8 +745,12 @@ impl<'a> Lexer<'a> {
             Pattern::Quote => block::quote(&cx, start, captures),
             Pattern::Bullet => block::bullet(&cx, start, captures),
             Pattern::Ordered => block::ordered(&cx, start, captures),
-            Pattern::Fence => {
-                let open = block::fence_open(&cx, start, captures)?;
+            Pattern::Fence | Pattern::VueFence => {
+                let open = if rule == Pattern::VueFence {
+                    block::injected_fence_open(&cx, start, captures)
+                } else {
+                    block::fence_open(&cx, start, captures)
+                }?;
                 let end = open.end;
                 rule = if open.embed.is_none() {
                     Pattern::FencePlain
@@ -883,6 +888,7 @@ impl<'a> Lexer<'a> {
             Pattern::Separator
             | Pattern::Heading
             | Pattern::Fence
+            | Pattern::VueFence
             | Pattern::LinkDefinition
             | Pattern::TablePipe
             | Pattern::TableSeparator
@@ -1315,22 +1321,39 @@ impl<'a> Lexer<'a> {
         self.emit(name_end + 1, end_stack);
     }
 
-    /// Whether a `vue` fence opens at the cursor inside a Vue body.
-    /// Vue then leaves the line to [`Self::find`], whose fence rule opens it.
+    /// Whether a fence run may start at `p`, where `^` or `\G` holds.
+    /// Only there can [`Self::vue_fence_ahead`] find a `vue` fence.
+    #[cfg(feature = "lang-vue")]
+    #[inline]
+    fn vue_fence_may_open(&self, p: usize) -> bool {
+        let cx = cx!(self);
+        cx.at_start(p) && matches!(cx.get(cx.skip_space(p)), Some(b'`' | b'~'))
+    }
+
+    /// Whether a `vue` fence opens at the cursor inside the body of a fence
+    /// in `lang`.
+    /// The body then leaves the line to [`Self::find`], whose fence rule opens
+    /// it.
     ///
     /// Vue's `markdown-vue` grammar adds its fence as an injection.
-    /// The injection applies in every rule of the document, Vue's own included.
+    /// The injection applies in every rule of the document.
+    /// That covers each embedded language's rules, Vue's own included.
     /// It wins over the rule's patterns that match at the same place.
     ///
     /// The new fence sits on the scopes of the innermost text.
     /// Inside a block that another language lexes, that language's scopes hold
-    /// it. So the body's content is set to them here.
-    /// The body has no content scope, so `check_whiles` sets it back to the
-    /// body's name on the next line.
+    /// it.
+    /// So the body's content is set to them here.
+    ///
+    /// A Vue body has no content scope.
+    /// So `check_whiles` sets it back to the body's name on the next line.
+    /// Any other body's `while` rule fails at every fence line.
+    /// So the new fence closes only with the body, and the body keeps no
+    /// content it was set to.
     #[cfg(feature = "lang-vue")]
     #[cold]
     #[inline(never)]
-    fn vue_fence_ahead(&mut self) -> bool {
+    fn vue_fence_ahead(&mut self, lang: Language) -> bool {
         let Some(body) = self.frames.len().checked_sub(1) else {
             return false;
         };
@@ -1339,8 +1362,14 @@ impl<'a> Lexer<'a> {
         if block::vue_fence_open(&cx, self.pos, &mut captures).is_none() {
             return false;
         }
-        self.frames[body].content =
-            crate::vue::innermost_stack(self.arena, self.frames[body].carried);
+        let state = self.frames[body].carried;
+        self.frames[body].content = match lang {
+            Language::Vue => crate::vue::innermost_stack(self.arena, state),
+            #[cfg(feature = "lang-html")]
+            Language::Html => crate::html::innermost_stack(self.arena, state),
+            _ if state == ROOT => self.frames[body].content,
+            _ => self.arena.frame(state).stack,
+        };
         true
     }
 
@@ -1392,7 +1421,10 @@ impl<'a> Lexer<'a> {
         #[cfg(feature = "lang-vue")]
         let vue = matches!(lang, Language::Vue);
         #[cfg(feature = "lang-vue")]
-        if vue && self.vue_fence_ahead() {
+        if rules::injects_vue_fence(container)
+            && self.vue_fence_may_open(start)
+            && self.vue_fence_ahead(lang)
+        {
             return;
         }
         let end = self.limit.min(self.line.len());
