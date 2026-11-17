@@ -404,7 +404,10 @@ impl<'a> Walk<'a> {
             .collect::<Vec<_>>();
         let embeds = own.contains(&External::Embeds);
         if !embeds && patterns.is_empty() && own.contains(&External::Missing) {
-            self.drop_from(opened, rules_before);
+            if rules_before != index {
+                return Err(GenerateError::DroppedBeginCaptures { id: id.to_owned() });
+            }
+            self.drop_begin(opened, index);
             return Ok(None);
         }
         if embeds && one_backref(end) {
@@ -420,21 +423,22 @@ impl<'a> Walk<'a> {
         Ok(Some(opened))
     }
 
-    /// Drops every pattern from the index `pattern` on, and every rule from
-    /// the index `rule` on, with what the walk keeps about them.
-    /// A dropped begin's contents then map to `None`.
-    fn drop_from(&mut self, pattern: usize, rule: usize) {
-        self.tables.patterns.truncate(pattern);
+    /// Drops the begin at the index `opened`, its end, and its rule at the
+    /// index `rule`, with what the walk keeps about them.
+    /// The dropped begin's contents then map to `None`.
+    ///
+    /// They are the last two patterns and the last rule written.
+    /// A rule the begin's list reached was dropped before it, and its end
+    /// captures added no rule.
+    fn drop_begin(&mut self, opened: usize, rule: usize) {
+        self.tables.patterns.truncate(opened);
         self.tables.rules.truncate(rule);
-        self.patterns.retain(|_, &mut index| index < pattern);
+        self.patterns.retain(|_, &mut index| index < opened);
         for known in self.contents.values_mut() {
-            if known.is_some_and(|index| index >= pattern) {
+            if *known == Some(opened) {
                 *known = None;
             }
         }
-        let rules = &self.tables.rules;
-        self.capture_lists
-            .retain(|_, id| rules.iter().any(|known| known.id == *id));
         self.opened.retain(|&(at, _, _)| at < rule);
     }
 
@@ -555,13 +559,19 @@ const fn acts(object: &UnlinkedRule) -> bool {
 
 /// Whether the end `end` repeats exactly one group of its begin, such as
 /// `\1` in `^(?!\1\s+)`.
+///
+/// An escaped backslash before a digit, as in `\\1`, repeats no group.
 fn one_backref(end: &str) -> bool {
-    let mut groups = end
-        .as_bytes()
-        .windows(2)
-        .filter(|pair| pair[0] == b'\\' && matches!(pair[1], b'1'..=b'9'))
-        .map(|pair| pair[1])
-        .collect::<Vec<_>>();
+    let mut groups = Vec::new();
+    let mut bytes = end.bytes();
+    while let Some(byte) = bytes.next() {
+        if byte == b'\\'
+            && let Some(escaped) = bytes.next()
+            && matches!(escaped, b'1'..=b'9')
+        {
+            groups.push(escaped);
+        }
+    }
     groups.sort_unstable();
     groups.dedup();
     groups.len() == 1

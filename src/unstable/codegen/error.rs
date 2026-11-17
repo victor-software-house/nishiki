@@ -41,6 +41,13 @@ pub enum GenerateError {
         /// The include, such as `source.ruby#escaped_char`.
         include: String,
     },
+    /// A begin whose own list holds only missing grammars has end captures
+    /// that add rules.
+    /// The walk drops only a begin, its end and its rule.
+    DroppedBeginCaptures {
+        /// The begin's id.
+        id: String,
+    },
     /// A rule embeds another grammar in a body of its own, and lists
     /// patterns too.
     EmbedsBesidePatterns {
@@ -78,6 +85,9 @@ impl fmt::Display for GenerateError {
                     f,
                     "{include}: no match without capture lists in the grammars passed"
                 )
+            }
+            GenerateError::DroppedBeginCaptures { id } => {
+                write!(f, "{id}: the begin to drop has end captures that add rules")
             }
             GenerateError::EmbedsBesidePatterns { id } => {
                 write!(

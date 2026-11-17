@@ -627,3 +627,41 @@ fn an_external_pattern_that_is_no_match_is_an_error() {
         }))
     );
 }
+
+/// An escaped backslash before a digit repeats no group, so an embedding
+/// rule whose end holds one lists no body.
+#[test]
+fn an_escaped_backslash_before_a_digit_is_no_backreference() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "a", "end": "\\\\1", "patterns": [{"include": "source.ruby"}]}]}"#;
+    let embeds = RuleTables {
+        externals: &[("source.ruby", External::Embeds)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &embeds),
+        Ok(expected(&[
+            ("RootAt0", Act::Begin),
+            ("RootAt0End", Act::End)
+        ]))
+    );
+}
+
+/// A begin to drop whose end captures add rules is an error, as the walk
+/// drops only the begin, its end and its rule.
+#[test]
+fn a_dropped_begin_with_end_capture_rules_is_an_error() {
+    let json = r#"{"scopeName": "source.demo", "patterns": [
+        {"begin": "b", "end": "(e)", "endCaptures": {"1": {"patterns": [{"match": "e"}]}},
+            "patterns": [{"include": "text.plain"}]}]}"#;
+    let missing = RuleTables {
+        externals: &[("text.plain", External::Missing)],
+        ..PLAIN
+    };
+    assert_eq!(
+        ids(json, &missing),
+        Err(Failure::Generate(GenerateError::DroppedBeginCaptures {
+            id: "RootAt0".to_owned()
+        }))
+    );
+}
