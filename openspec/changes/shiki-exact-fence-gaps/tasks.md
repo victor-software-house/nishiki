@@ -69,3 +69,28 @@ Design section 2 names the runs that found each case.
   → verify: a test holds the line with Shiki's scopes, and no YAML `mdw` document differs at any seed
   - 2026-11-12: seed 2's `mdw` corpus of YAML shows it in document 28, by 2 bytes.
     Shiki gives the key `entity.name.tag.yaml`, and nishiki leaves it out.
+
+## 6. Blade
+
+- [x] 6.1 Blade's PHP gives a typed parameter after U+00A0 Shiki's scopes.
+  → verify: a test holds the case with Shiki's scopes, and no ASCII-only stand-in for `\s` is left in `src/php/` or `src/blade/`
+  - 2026-11-12: the case is in `tests/oracle/blade/coverage.txt`, with each space inside a tag turned into U+00A0.
+    On a box, at lines 376 and 378, nishiki gives no `meta.function.parameter.typehinted.php storage.type.php`, and Shiki does.
+  - 2026-11-12: Blade's name class, `[_a-z\x7F-ÿ]`, holds U+0085 and U+00A0, which are `\s` too.
+    In `(NAME)\s+((&)?\s*(\.\.\.)?(\$+)NAME)`, Oniguruma gives back the type's last character for `\s+`.
+    nishiki read the name without giving any back.
+  - 2026-11-12: PHP gave back every trailing space past ASCII.
+    Shiki gives back one: `S` and two U+00A0 before `$j` make the type `S` and one U+00A0.
+  - 2026-11-12: both lexers read `^\s*(LABEL)`, a heredoc's or a nowdoc's closing line, with ASCII white space only.
+    Shiki closes the heredoc after U+00A0 or U+3000.
+  - 2026-11-12: four tests hold the cases with Shiki's scopes, two in each lexer.
+    They are `a_type_gives_back_its_last_unicode_space_for_the_variable` and `a_heredoc_label_after_unicode_white_space_closes_it`.
+  - 2026-11-12: the other ASCII-only white space in both lexers is the class `[-\t !,.?]` of a comment's text, which holds no `\s`.
+  - 2026-11-12: on a box, PHP's `win` corpora at seeds 1, 2 and 3, 300 documents each: none differs with the fix, nor at seed 1 on the base.
+- [ ] 6.2 In PHP and Blade, a `\s*` or `\s+` before a name gives the name its last space past ASCII, as Oniguruma does.
+  → verify: a test holds `^\s*(NAME)\s*(?=:)` after U+3000 with Shiki's scopes, and no document differs in PHP's `win` corpora with U+00A0 or U+3000 for each space
+  - 2026-11-12: those corpora, on a box, at seeds 1, 2 and 3: 13, 10 and 14 of 300 documents differ with task 6.1's fix, and seed 1's same 13 on the base.
+    Each is a line of spaces, `:` and `$value`, where Shiki gives the last space `entity.name.goto-label.php`.
+  - 2026-11-12: the matchers read `\s*` to its end and then need a name.
+    Oniguruma gives the last space back when no name starts there, and U+00A0 and U+3000 are name characters.
+    About 16 matchers in `src/php/` and `src/blade/` have that shape.

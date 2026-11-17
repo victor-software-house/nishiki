@@ -502,6 +502,10 @@ impl Lexer<'_> {
     }
 
     /// `(?i)(\\?(?:NAME\\)*)(NAME)\s+((&)?\s*(\.\.\.)?(\$+)NAME)`.
+    ///
+    /// U+0085 and U+00A0 are both name characters and `\s`.
+    /// A type that ends with one gives it back for `\s+`, as Oniguruma does
+    /// one character at a time.
     pub(super) fn typed_parameter(&mut self, p: usize) -> Option<usize> {
         let mut at = p + usize::from(self.at(p) == b'\\');
         while let Some(end) = self.bname(at)
@@ -509,11 +513,15 @@ impl Lexer<'_> {
         {
             at = end + 1;
         }
-        let ty = self.bname(at)?;
-        let from = self.space_end(ty);
-        if from == ty {
-            return None;
+        let mut ty = self.bname(at)?;
+        if self.space_at(ty) == 0 {
+            let last = self.char_start_before(ty);
+            if last <= at || self.space_at(last) == 0 {
+                return None;
+            }
+            ty = last;
         }
+        let from = self.space_end(ty);
         let variable = self.parameter_variable(from, true)?;
         self.capture(1, p, at);
         self.capture(2, at, ty);

@@ -97,6 +97,7 @@ cargo check --locked --tests --no-default-features --features lang-javascript,la
 cargo check --locked --tests --no-default-features --features lang-javascript,textmate
 cargo check --locked --tests --no-default-features --features lang-json,lang-less
 cargo check --locked --tests --no-default-features --features lang-json,lang-postcss
+cargo check --locked --tests --no-default-features --features lang-json,lang-vue
 cargo check --locked --tests --no-default-features --features lang-json,lang-xml
 cargo check --locked --tests --no-default-features --features lang-json,lang-yaml
 cargo check --locked --tests --no-default-features --features lang-jsx,lang-svelte,lang-tsx

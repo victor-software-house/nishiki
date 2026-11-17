@@ -152,6 +152,27 @@ fn a_php_section_spans_lines() {
     );
 }
 
+/// U+00A0 is both a name character and \s in Blade's copy of PHP, so a type
+/// that ends with one gives it back for the \s+ before the variable.
+#[test]
+fn a_type_gives_back_its_last_unicode_space_for_the_variable() {
+    let text = ["<?php", "function f(Q\u{a0}$h, S\u{a0}\u{a0}$j) {}"].join("\n");
+    assert_eq!(leaf(&text, 1, "Q"), "storage.type.php");
+    assert_eq!(
+        leaf(&text, 1, "\u{a0}"),
+        "meta.function.parameter.typehinted.php"
+    );
+    assert_eq!(leaf(&text, 1, "S\u{a0}"), "storage.type.php");
+}
+
+#[test]
+fn a_heredoc_label_after_unicode_white_space_closes_it() {
+    let text = ["<?php", "$q = <<<SQL", "SELECT 1", "\u{a0}SQL;", "$z;"].join("\n");
+    assert_eq!(leaf(&text, 3, "SQL"), "keyword.operator.heredoc.php");
+    assert_eq!(leaf(&text, 3, ";"), "punctuation.terminator.expression.php");
+    assert_eq!(leaf(&text, 4, "z"), "variable.other.php");
+}
+
 #[cfg(feature = "json")]
 mod probe {
     use std::fmt;

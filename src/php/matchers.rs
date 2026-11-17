@@ -20,9 +20,10 @@
 //! `0x80`.
 //!
 //! A space past ASCII, such as U+00A0, is both a name character and `\s`.
-//! Where a `\s` follows a name, the name gives such spaces back
-//! ([`Lexer::q_ends`]). A `\s*` before a name does not give them back for the
-//! name to start with.
+//! Where a `\s` follows a name, the name gives the last such space back
+//! ([`Lexer::q_ends`]).
+//! A `\s*` before a name does not give such spaces back for the name to start
+//! with.
 
 mod comments;
 mod declarations;
@@ -575,19 +576,17 @@ impl Lexer<'_> {
     /// The ends a run of name characters `from..end` can give a `\s` that
     /// follows it.
     /// First is its whole length.
-    /// Second is the start of the spaces past ASCII it ends with, if any.
+    /// Second is the start of its last character, when that is a space past
+    /// ASCII and not its only one.
+    ///
+    /// Oniguruma gives back one character at a time, so the longest shorter
+    /// name that a `\s` can follow ends before that last space.
+    /// `S` and two U+00A0 before `$j` give the type `S` and one U+00A0.
     fn q_ends(&self, from: usize, end: usize) -> [Option<usize>; 2] {
-        let mut trimmed = end;
-        while trimmed > from
-            && self.at(trimmed - 1) >= 0x80
-            && self.char_before(trimmed).is_some_and(is_space)
-        {
-            trimmed = self.char_start_before(trimmed);
-        }
-        [
-            Some(end),
-            (trimmed > from && trimmed < end).then_some(trimmed),
-        ]
+        let last = self.char_start_before(end);
+        let gives_back =
+            last > from && self.at(end - 1) >= 0x80 && self.char_before(end).is_some_and(is_space);
+        [Some(end), gives_back.then_some(last)]
     }
 
     /// `(?i)\b(word)\s+(NAME)`, with the word and the name as groups 1 and 2.
@@ -621,7 +620,7 @@ impl Lexer<'_> {
     /// ```
     ///
     /// `Q` is a qualified name.
-    /// A `Q` gives back only the spaces past ASCII it ends with
+    /// A `Q` gives back only the space past ASCII it ends with
     /// ([`Lexer::q_ends`]). No shorter `Q` changes what follows it: the next
     /// character would be a name character, which no part after a type starts
     /// with.

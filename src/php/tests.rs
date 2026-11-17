@@ -86,6 +86,50 @@ fn a_heredoc_named_for_a_language_hands_its_text_over_up_to_its_label() {
     assert_eq!(rows[2][0].0, "SQL");
 }
 
+/// U+00A0 is both a name character and \s, so a type gives back only its
+/// last one for the \s+ before the variable.
+#[test]
+fn a_type_gives_back_its_last_unicode_space_for_the_variable() {
+    let text = "function f(Q\u{a0}$h, S\u{a0}\u{a0}$j) {}";
+    assert_eq!(leaf(text, "Q"), "support.class.php");
+    assert_eq!(
+        leaf(text, "\u{a0}"),
+        "meta.function.parameter.typehinted.php"
+    );
+    assert_eq!(leaf(text, "S\u{a0}"), "support.class.php");
+}
+
+#[test]
+fn a_heredoc_label_after_unicode_white_space_closes_it() {
+    let lines = [
+        "$x = <<<EOT",
+        "hi",
+        "\u{a0}EOT;",
+        "$y = <<<'N'",
+        "no",
+        "\u{3000}N;",
+        "$q = <<<SQL",
+        "SELECT 1",
+        "\u{a0}SQL;",
+    ];
+    let rows = lex(&lines.join("\n"));
+    let labels = [
+        (2, "EOT", "heredoc"),
+        (5, "N", "nowdoc"),
+        (8, "SQL", "heredoc"),
+    ];
+    for (row, label, kind) in labels {
+        let closer = [
+            (label.to_owned(), format!("keyword.operator.{kind}.php")),
+            (
+                ";".to_owned(),
+                "punctuation.terminator.expression.php".to_owned(),
+            ),
+        ];
+        assert_eq!(rows[row][1..], closer, "row {row}");
+    }
+}
+
 #[cfg(feature = "json")]
 mod probe {
     use crate::php::engine::Php;
