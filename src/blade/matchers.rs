@@ -8,8 +8,8 @@
 //! Blade's names are read by character, never by PHP's byte test.
 //!
 //! U+0085 and U+00A0 are both name characters and `\s`.
-//! Where a name follows a `\s*` or a `\s+`, the run gives such a space back
-//! when no name starts after it ([`Lexer::after_spaces`]).
+//! Where a name follows a `\s*` or a `\s+`, the run gives back such spaces
+//! until a name starts ([`Lexer::after_spaces`]).
 
 use super::engine::Lexer;
 use super::grammar::{Pattern, table_patterns};

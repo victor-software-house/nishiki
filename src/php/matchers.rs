@@ -22,8 +22,8 @@
 //! A space past ASCII, such as U+00A0, is both a name character and `\s`.
 //! Where a `\s` follows a name, the name gives the last such space back
 //! ([`Lexer::q_ends`]).
-//! Where a name follows a `\s*` or a `\s+`, the run gives its last such space
-//! back when no name starts after it ([`Lexer::after_spaces`]).
+//! Where a name follows a `\s*` or a `\s+`, the run gives back such spaces
+//! until a name starts ([`Lexer::after_spaces`]).
 
 mod comments;
 mod declarations;

@@ -68,11 +68,11 @@ impl<G: PhpFamily> Lexer<'_, G> {
     /// and what it gives.
     ///
     /// A space past ASCII, such as U+00A0, is both `\s` and a name character.
-    /// When `then` refuses the end of the run, Oniguruma gives the run its
-    /// last space back, and `then` is tried at that space.
+    /// When `then` refuses the end of the run, Oniguruma gives the run back
+    /// one space at a time, and `then` is tried at each.
     /// A `\s+` keeps one space.
-    /// No shorter run changes what follows: a name that starts earlier runs
-    /// through the same spaces.
+    /// Only a space past ASCII is tried, since no name starts at an ASCII
+    /// space.
     #[cfg(any(feature = "lang-php", feature = "lang-blade"))]
     pub(crate) fn after_spaces<R>(
         &self,
@@ -80,21 +80,23 @@ impl<G: PhpFamily> Lexer<'_, G> {
         one_or_more: bool,
         mut then: impl FnMut(&Self, usize) -> Option<R>,
     ) -> Option<(usize, R)> {
-        let at = self.space_end(from);
+        let mut at = self.space_end(from);
         if one_or_more && at == from {
             return None;
         }
         if let Some(found) = then(self, at) {
             return Some((at, found));
         }
-        if at == from || self.at(at - 1) < 0x80 {
-            return None;
+        while let Some(last) = self.text(from, at).iter().rposition(|&b| b >= 0x80) {
+            at = self.char_start_before(from + last + 1);
+            if one_or_more && at == from {
+                return None;
+            }
+            if let Some(found) = then(self, at) {
+                return Some((at, found));
+            }
         }
-        let last = self.char_start_before(at);
-        if one_or_more && last == from {
-            return None;
-        }
-        then(self, last).map(|found| (last, found))
+        None
     }
 
     /// `\?>`, where PHP's code ends.
